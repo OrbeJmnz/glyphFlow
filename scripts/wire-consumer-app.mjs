@@ -21,8 +21,10 @@ if (!found) {
 }
 const isComponentSuffix = found === 'app.component.ts';
 const htmlFile = isComponentSuffix ? 'app.component.html' : 'app.html';
-const cssFile = isComponentSuffix ? 'app.component.css' : 'app.css';
 
+// Sin `styleUrl` a propósito: `ng new --minimal` no genera un .css por componente (reproducido
+// local: NG2008 "Could not find stylesheet file" si se referencia uno que no existe). No
+// necesitamos estilos para esta prueba, así que evitamos la suposición por completo.
 writeFileSync(
   join(appDir, 'src', 'app', found),
   `import { Component } from '@angular/core';
@@ -32,7 +34,6 @@ import { MaxIconComponent, bellIcon } from 'glyphflow';
   selector: 'app-root',
   imports: [MaxIconComponent],
   templateUrl: './${htmlFile}',
-  styleUrl: './${cssFile}',
 })
 export class App {
   protected readonly bellIcon = bellIcon;
