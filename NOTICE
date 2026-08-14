@@ -1,0 +1,22 @@
+glyphflow — Third-party attributions
+
+This project is MIT licensed (see LICENSE). It builds on top of the following
+third-party work:
+
+## Lucide
+https://lucide.dev — ISC License
+Icon path data (`shapes`) is sourced from the Lucide icon set.
+
+---
+
+Entries below are added as each dependency is actually vendored into the
+codebase (see the project plan) — not before.
+
+## morphicons (pending — added when the morph module vendors its core/)
+https://github.com/guillermolg00/morphicons — MIT License
+Mathematical core (2D Procrustes matching, arc-length resampling) will be
+adapted for the `glyphflow/morph` entry point.
+
+## bezier-js (pending — added when the geometry editor vendors it)
+https://github.com/Pomax/bezierjs — MIT License
+Bezier curve math used by the geometry/node editor.
