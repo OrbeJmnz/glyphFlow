@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit -p projects/glyphflow/tsconfig.lib.json && tsc --noEmit -p projects/playground/tsconfig.app.json",
     "bundle-check": "ng build glyphflow --configuration production && tsx scripts/bundle-size-check.ts",
     "pack-check": "ng build glyphflow --configuration production && tsx scripts/pack-check.ts",
-    "notice-check": "node scripts/notice-check.mjs"
+    "notice-check": "node scripts/notice-check.mjs",
+    "verify:clean": "node scripts/verify-clean.mjs"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
