@@ -81,7 +81,11 @@ jobs:
       - run: npx ng build glyphflow --configuration production
 
       - name: npm pack
-        run: npm pack --pack-destination "$RUNNER_TEMP/tarball" ./dist/glyphflow
+        # --pack-destination NO crea el directorio destino solo (verificado local: ENOENT si no
+        # existe) — falta el mkdir explícito, no es opcional.
+        run: |
+          mkdir -p "$RUNNER_TEMP/tarball"
+          npm pack --pack-destination "$RUNNER_TEMP/tarball" ./dist/glyphflow
 
       - uses: actions/upload-artifact@v4
         with:
