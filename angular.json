@@ -29,6 +29,13 @@
           "options": {
             "tsConfig": "projects/glyphflow/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/glyphflow/**/*.ts", "projects/glyphflow/**/*.html"],
+            "eslintConfig": "projects/glyphflow/eslint.config.js"
+          }
         }
       }
     },
@@ -90,6 +97,13 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/playground/**/*.ts", "projects/playground/**/*.html"],
+            "eslintConfig": "projects/playground/eslint.config.js"
+          }
         }
       }
     }

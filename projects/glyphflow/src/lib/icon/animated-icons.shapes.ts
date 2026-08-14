@@ -1,24 +1,17 @@
 import { IconShape } from './animated-icon.model';
 
-/**
- * Figuras de los iconos — data de **Lucide** (ISC), copiada tal cual del paquete.
- *
- * Archivo GENERADO y aburrido a propósito: aquí no hay decisiones, solo geometría. La coreografía
- * (que sí es criterio) vive en `animated-icons.registry.ts`. Separarlos evita que un archivo de
- * 900 líneas mezcle lo que se copia con lo que se piensa.
- *
- * El ORDEN importa: es el índice con el que la coreografía apunta cada figura, y también el orden
- * de pintado.
- */
-export const SHAPES: Record<string, IconShape[]> = {
-  bell: [
+// Cada figura es un export individual (tree-shakeable) — SHAPES se compone a partir de ellas
+// y existe solo como conveniencia para lookup dinámico (tooling, catálogo por name).
+
+export const bellShapes: IconShape[] = [
     { tag: 'path', d: 'M10.268 21a2 2 0 0 0 3.464 0' },
     {
       tag: 'path',
       d: 'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
     },
-  ],
-  'bell-ring': [
+  ];
+
+export const bellRingShapes: IconShape[] = [
     { tag: 'path', d: 'M10.268 21a2 2 0 0 0 3.464 0' },
     { tag: 'path', d: 'M22 8c0-2.3-.8-4.3-2-6' },
     {
@@ -26,50 +19,61 @@ export const SHAPES: Record<string, IconShape[]> = {
       d: 'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
     },
     { tag: 'path', d: 'M4 2C2.8 3.7 2 5.7 2 8' },
-  ],
-  check: [{ tag: 'path', d: 'M20 6 9 17l-5-5' }],
-  'circle-alert': [
+  ];
+
+export const checkShapes: IconShape[] = [{ tag: 'path', d: 'M20 6 9 17l-5-5' }];
+
+export const circleAlertShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'line', x1: 12, y1: 8, x2: 12, y2: 12 },
     { tag: 'line', x1: 12, y1: 16, x2: 12.01, y2: 16 },
-  ],
-  'circle-check': [
+  ];
+
+export const circleCheckShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'm9 12 2 2 4-4' },
-  ],
-  'circle-x': [
+  ];
+
+export const circleXShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'm15 9-6 6' },
     { tag: 'path', d: 'm9 9 6 6' },
-  ],
-  copy: [
+  ];
+
+export const copyShapes: IconShape[] = [
     { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
     { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
-  ],
-  calendar: [
+  ];
+
+export const calendarShapes: IconShape[] = [
     { tag: 'path', d: 'M8 2v4' },
     { tag: 'path', d: 'M16 2v4' },
     { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
     { tag: 'path', d: 'M3 10h18' },
-  ],
-  'chevron-right': [{ tag: 'path', d: 'm9 18 6-6-6-6' }],
-  'arrow-left': [
+  ];
+
+export const chevronRightShapes: IconShape[] = [{ tag: 'path', d: 'm9 18 6-6-6-6' }];
+
+export const arrowLeftShapes: IconShape[] = [
     { tag: 'path', d: 'm12 19-7-7 7-7' },
     { tag: 'path', d: 'M19 12H5' },
-  ],
-  download: [
+  ];
+
+export const downloadShapes: IconShape[] = [
     { tag: 'path', d: 'M12 15V3' },
     { tag: 'path', d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' },
     { tag: 'path', d: 'm7 10 5 5 5-5' },
-  ],
-  eye: [
+  ];
+
+export const eyeShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0',
     },
     { tag: 'circle', cx: 12, cy: 12, r: 3 },
-  ],
-  'eye-off': [
+  ];
+
+export const eyeOffShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49',
@@ -80,8 +84,9 @@ export const SHAPES: Record<string, IconShape[]> = {
       d: 'M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143',
     },
     { tag: 'path', d: 'm2 2 20 20' },
-  ],
-  'hat-glasses': [
+  ];
+
+export const hatGlassesShapes: IconShape[] = [
     { tag: 'path', d: 'M14 18a2 2 0 0 0-4 0' },
     {
       tag: 'path',
@@ -90,35 +95,42 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M2 11h20' },
     { tag: 'circle', cx: 17, cy: 18, r: 3 },
     { tag: 'circle', cx: 7, cy: 18, r: 3 },
-  ],
-  'heart-pulse': [
+  ];
+
+export const heartPulseShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
     },
     { tag: 'path', d: 'M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27' },
-  ],
-  images: [
+  ];
+
+export const imagesShapes: IconShape[] = [
     { tag: 'path', d: 'm22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16' },
     { tag: 'path', d: 'M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2' },
     { tag: 'circle', cx: 13, cy: 7, r: 1 },
     { tag: 'rect', x: 8, y: 2, width: 14, height: 14, rx: 2 },
-  ],
-  info: [
+  ];
+
+export const infoShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M12 16v-4' },
     { tag: 'path', d: 'M12 8h.01' },
-  ],
-  'loader-circle': [{ tag: 'path', d: 'M21 12a9 9 0 1 1-6.219-8.56' }],
-  lock: [
+  ];
+
+export const loaderCircleShapes: IconShape[] = [{ tag: 'path', d: 'M21 12a9 9 0 1 1-6.219-8.56' }];
+
+export const lockShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 11, width: 18, height: 11, rx: 2, ry: 2 },
     { tag: 'path', d: 'M7 11V7a5 5 0 0 1 10 0v4' },
-  ],
-  mail: [
+  ];
+
+export const mailShapes: IconShape[] = [
     { tag: 'path', d: 'm22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7' },
     { tag: 'rect', x: 2, y: 4, width: 20, height: 16, rx: 2 },
-  ],
-  'mouse-pointer-click': [
+  ];
+
+export const mousePointerClickShapes: IconShape[] = [
     { tag: 'path', d: 'M14 4.1 12 6' },
     { tag: 'path', d: 'm5.1 8-2.9-.8' },
     { tag: 'path', d: 'm6 12-1.9 2' },
@@ -127,74 +139,86 @@ export const SHAPES: Record<string, IconShape[]> = {
       tag: 'path',
       d: 'M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z',
     },
-  ],
-  pencil: [
+  ];
+
+export const pencilShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
     },
     { tag: 'path', d: 'm15 5 4 4' },
-  ],
-  plus: [
+  ];
+
+export const plusShapes: IconShape[] = [
     { tag: 'path', d: 'M5 12h14' },
     { tag: 'path', d: 'M12 5v14' },
-  ],
-  'refresh-cw': [
+  ];
+
+export const refreshCwShapes: IconShape[] = [
     { tag: 'path', d: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8' },
     { tag: 'path', d: 'M21 3v5h-5' },
     { tag: 'path', d: 'M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16' },
     { tag: 'path', d: 'M8 16H3v5' },
-  ],
-  save: [
+  ];
+
+export const saveShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
     },
     { tag: 'path', d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7' },
     { tag: 'path', d: 'M7 3v4a1 1 0 0 0 1 1h7' },
-  ],
-  search: [
+  ];
+
+export const searchShapes: IconShape[] = [
     { tag: 'path', d: 'm21 21-4.34-4.34' },
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
-  ],
-  'search-check': [
+  ];
+
+export const searchCheckShapes: IconShape[] = [
     { tag: 'path', d: 'm8 11 2 2 4-4' },
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
     { tag: 'path', d: 'm21 21-4.3-4.3' },
-  ],
-  'search-slash': [
+  ];
+
+export const searchSlashShapes: IconShape[] = [
     { tag: 'path', d: 'm13.5 8.5-5 5' },
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
     { tag: 'path', d: 'm21 21-4.3-4.3' },
-  ],
-  'search-x': [
+  ];
+
+export const searchXShapes: IconShape[] = [
     { tag: 'path', d: 'm13.5 8.5-5 5' },
     { tag: 'path', d: 'm8.5 8.5 5 5' },
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
     { tag: 'path', d: 'm21 21-4.3-4.3' },
-  ],
-  send: [
+  ];
+
+export const sendShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z',
     },
     { tag: 'path', d: 'm21.854 2.147-10.94 10.939' },
-  ],
-  settings: [
+  ];
+
+export const settingsShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915',
     },
     { tag: 'circle', cx: 12, cy: 12, r: 3 },
-  ],
-  'shield-check': [
+  ];
+
+export const shieldCheckShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
     },
     { tag: 'path', d: 'm9 12 2 2 4-4' },
-  ],
-  sparkles: [
+  ];
+
+export const sparklesShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z',
@@ -202,44 +226,52 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M20 2v4' },
     { tag: 'path', d: 'M22 4h-4' },
     { tag: 'circle', cx: 4, cy: 20, r: 2 },
-  ],
-  trash: [
+  ];
+
+export const trashShapes: IconShape[] = [
     { tag: 'path', d: 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6' },
     { tag: 'path', d: 'M3 6h18' },
     { tag: 'path', d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' },
-  ],
-  'trash-2': [
+  ];
+
+export const trash2Shapes: IconShape[] = [
     { tag: 'path', d: 'M10 11v6' },
     { tag: 'path', d: 'M14 11v6' },
     { tag: 'path', d: 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6' },
     { tag: 'path', d: 'M3 6h18' },
     { tag: 'path', d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' },
-  ],
-  'triangle-alert': [
+  ];
+
+export const triangleAlertShapes: IconShape[] = [
     { tag: 'path', d: 'm21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3' },
     { tag: 'path', d: 'M12 9v4' },
     { tag: 'path', d: 'M12 17h.01' },
-  ],
-  upload: [
+  ];
+
+export const uploadShapes: IconShape[] = [
     { tag: 'path', d: 'M12 3v12' },
     { tag: 'path', d: 'm17 8-5-5-5 5' },
     { tag: 'path', d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' },
-  ],
-  user: [
+  ];
+
+export const userShapes: IconShape[] = [
     { tag: 'path', d: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2' },
     { tag: 'circle', cx: 12, cy: 7, r: 4 },
-  ],
-  wrench: [
+  ];
+
+export const wrenchShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z',
     },
-  ],
-  x: [
+  ];
+
+export const xShapes: IconShape[] = [
     { tag: 'path', d: 'M18 6 6 18' },
     { tag: 'path', d: 'm6 6 12 12' },
-  ],
-  'file-text': [
+  ];
+
+export const fileTextShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
@@ -248,13 +280,15 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M10 9H8' },
     { tag: 'path', d: 'M16 13H8' },
     { tag: 'path', d: 'M16 17H8' },
-  ],
-  monitor: [
+  ];
+
+export const monitorShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
     { tag: 'line', x1: 8, y1: 21, x2: 16, y2: 21 },
     { tag: 'line', x1: 12, y1: 17, x2: 12, y2: 21 },
-  ],
-  package: [
+  ];
+
+export const packageShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z',
@@ -262,47 +296,55 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M12 22V12' },
     { tag: 'polyline', points: '3.29 7 12 12 20.71 7' },
     { tag: 'path', d: 'm7.5 4.27 9 5.15' },
-  ],
-  history: [
+  ];
+
+export const historyShapes: IconShape[] = [
     { tag: 'path', d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' },
     { tag: 'path', d: 'M3 3v5h5' },
     { tag: 'path', d: 'M12 7v5l4 2' },
-  ],
-  shirt: [
+  ];
+
+export const shirtShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z',
     },
-  ],
-  'folder-open': [
+  ];
+
+export const folderOpenShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'm6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2',
     },
-  ],
-  plane: [
+  ];
+
+export const planeShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z',
     },
-  ],
-  globe: [
+  ];
+
+export const globeShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20' },
     { tag: 'path', d: 'M2 12h20' },
-  ],
-  key: [
+  ];
+
+export const keyShapes: IconShape[] = [
     { tag: 'path', d: 'm15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4' },
     { tag: 'path', d: 'm21 2-9.6 9.6' },
     { tag: 'circle', cx: 7.5, cy: 15.5, r: 5.5 },
-  ],
-  users: [
+  ];
+
+export const usersShapes: IconShape[] = [
     { tag: 'path', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' },
     { tag: 'path', d: 'M16 3.128a4 4 0 0 1 0 7.744' },
     { tag: 'path', d: 'M22 21v-2a4 4 0 0 0-3-3.87' },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
-  ],
-  truck: [
+  ];
+
+export const truckShapes: IconShape[] = [
     { tag: 'path', d: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2' },
     { tag: 'path', d: 'M15 18H9' },
     {
@@ -311,73 +353,85 @@ export const SHAPES: Record<string, IconShape[]> = {
     },
     { tag: 'circle', cx: 17, cy: 18, r: 2 },
     { tag: 'circle', cx: 7, cy: 18, r: 2 },
-  ],
-  'map-pin': [
+  ];
+
+export const mapPinShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
     },
     { tag: 'circle', cx: 12, cy: 10, r: 3 },
-  ],
-  'external-link': [
+  ];
+
+export const externalLinkShapes: IconShape[] = [
     { tag: 'path', d: 'M15 3h6v6' },
     { tag: 'path', d: 'M10 14 21 3' },
     { tag: 'path', d: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6' },
-  ],
-  briefcase: [
+  ];
+
+export const briefcaseShapes: IconShape[] = [
     { tag: 'path', d: 'M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16' },
     { tag: 'rect', x: 2, y: 6, width: 20, height: 14, rx: 2 },
-  ],
-  'book-open': [
+  ];
+
+export const bookOpenShapes: IconShape[] = [
     { tag: 'path', d: 'M12 7v14' },
     {
       tag: 'path',
       d: 'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z',
     },
-  ],
-  smartphone: [
+  ];
+
+export const smartphoneShapes: IconShape[] = [
     { tag: 'rect', x: 5, y: 2, width: 14, height: 20, rx: 2, ry: 2 },
     { tag: 'path', d: 'M12 18h.01' },
-  ],
-  phone: [
+  ];
+
+export const phoneShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384',
     },
-  ],
-  receipt: [
+  ];
+
+export const receiptShapes: IconShape[] = [
     { tag: 'path', d: 'M12 17V7' },
     { tag: 'path', d: 'M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8' },
     {
       tag: 'path',
       d: 'M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z',
     },
-  ],
-  'rotate-ccw': [
+  ];
+
+export const rotateCcwShapes: IconShape[] = [
     { tag: 'path', d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' },
     { tag: 'path', d: 'M3 3v5h5' },
-  ],
-  'shopping-cart': [
+  ];
+
+export const shoppingCartShapes: IconShape[] = [
     { tag: 'circle', cx: 8, cy: 21, r: 1 },
     { tag: 'circle', cx: 19, cy: 21, r: 1 },
     {
       tag: 'path',
       d: 'M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12',
     },
-  ],
-  banknote: [
+  ];
+
+export const banknoteShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 6, width: 20, height: 12, rx: 2 },
     { tag: 'circle', cx: 12, cy: 12, r: 2 },
     { tag: 'path', d: 'M6 12h.01M18 12h.01' },
-  ],
-  crown: [
+  ];
+
+export const crownShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z',
     },
     { tag: 'path', d: 'M5 21h14' },
-  ],
-  sun: [
+  ];
+
+export const sunShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
     { tag: 'path', d: 'M12 2v2' },
     { tag: 'path', d: 'M12 20v2' },
@@ -387,39 +441,45 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M20 12h2' },
     { tag: 'path', d: 'm6.34 17.66-1.41 1.41' },
     { tag: 'path', d: 'm19.07 4.93-1.41 1.41' },
-  ],
-  moon: [
+  ];
+
+export const moonShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401',
     },
-  ],
-  zap: [
+  ];
+
+export const zapShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z',
     },
-  ],
-  clock: [
+  ];
+
+export const clockShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M12 6v6l4 2' },
-  ],
-  lightbulb: [
+  ];
+
+export const lightbulbShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5',
     },
     { tag: 'path', d: 'M9 18h6' },
     { tag: 'path', d: 'M10 22h4' },
-  ],
-  camera: [
+  ];
+
+export const cameraShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z',
     },
     { tag: 'circle', cx: 12, cy: 13, r: 3 },
-  ],
-  cake: [
+  ];
+
+export const cakeShapes: IconShape[] = [
     { tag: 'path', d: 'M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8' },
     { tag: 'path', d: 'M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1' },
     { tag: 'path', d: 'M2 21h20' },
@@ -429,89 +489,107 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M7 4h.01' },
     { tag: 'path', d: 'M12 4h.01' },
     { tag: 'path', d: 'M17 4h.01' },
-  ],
-  ban: [
+  ];
+
+export const banShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M4.929 4.929 19.07 19.071' },
-  ],
-  'at-sign': [
+  ];
+
+export const atSignShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
     { tag: 'path', d: 'M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8' },
-  ],
-  'log-out': [
+  ];
+
+export const logOutShapes: IconShape[] = [
     { tag: 'path', d: 'm16 17 5-5-5-5' },
     { tag: 'path', d: 'M21 12H9' },
     { tag: 'path', d: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' },
-  ],
-  funnel: [
+  ];
+
+export const funnelShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z',
     },
-  ],
-  star: [
+  ];
+
+export const starShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z',
     },
-  ],
-  activity: [
+  ];
+
+export const activityShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2',
     },
-  ],
-  'alarm-clock': [
+  ];
+
+export const alarmClockShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 13, r: 8 },
     { tag: 'path', d: 'M12 9v4l2 2' },
     { tag: 'path', d: 'M5 3 2 6' },
     { tag: 'path', d: 'm22 6-3-3' },
     { tag: 'path', d: 'M6.38 18.7 4 21' },
     { tag: 'path', d: 'M17.64 18.67 20 21' },
-  ],
-  'app-window': [
+  ];
+
+export const appWindowShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 4, width: 20, height: 16, rx: 2 },
     { tag: 'path', d: 'M10 4v4' },
     { tag: 'path', d: 'M2 8h20' },
     { tag: 'path', d: 'M6 4v4' },
-  ],
-  'badge-check': [
+  ];
+
+export const badgeCheckShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z',
     },
     { tag: 'path', d: 'm9 12 2 2 4-4' },
-  ],
-  'chevron-down': [{ tag: 'path', d: 'm6 9 6 6 6-6' }],
-  'chevron-left': [{ tag: 'path', d: 'm15 18-6-6 6-6' }],
-  'chevron-up': [{ tag: 'path', d: 'm18 15-6-6-6 6' }],
-  'chevrons-up-down': [
+  ];
+
+export const chevronDownShapes: IconShape[] = [{ tag: 'path', d: 'm6 9 6 6 6-6' }];
+
+export const chevronLeftShapes: IconShape[] = [{ tag: 'path', d: 'm15 18-6-6 6-6' }];
+
+export const chevronUpShapes: IconShape[] = [{ tag: 'path', d: 'm18 15-6-6-6 6' }];
+
+export const chevronsUpDownShapes: IconShape[] = [
     { tag: 'path', d: 'm7 15 5 5 5-5' },
     { tag: 'path', d: 'm7 9 5-5 5 5' },
-  ],
-  'circle-plus': [
+  ];
+
+export const circlePlusShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M8 12h8' },
     { tag: 'path', d: 'M12 8v8' },
-  ],
-  'circle-question-mark': [
+  ];
+
+export const circleQuestionMarkShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3' },
     { tag: 'path', d: 'M12 17h.01' },
-  ],
-  'clipboard-check': [
+  ];
+
+export const clipboardCheckShapes: IconShape[] = [
     { tag: 'rect', x: 8, y: 2, width: 8, height: 4, rx: 1, ry: 1 },
     { tag: 'path', d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2' },
     { tag: 'path', d: 'm9 14 2 2 4-4' },
-  ],
-  contact: [
+  ];
+
+export const contactShapes: IconShape[] = [
     { tag: 'path', d: 'M16 2v2' },
     { tag: 'path', d: 'M7 22v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2' },
     { tag: 'path', d: 'M8 2v2' },
     { tag: 'circle', cx: 12, cy: 11, r: 3 },
     { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
-  ],
-  cpu: [
+  ];
+
+export const cpuShapes: IconShape[] = [
     { tag: 'path', d: 'M12 20v2' },
     { tag: 'path', d: 'M12 2v2' },
     { tag: 'path', d: 'M17 20v2' },
@@ -526,30 +604,35 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M7 2v2' },
     { tag: 'rect', x: 4, y: 4, width: 16, height: 16, rx: 2 },
     { tag: 'rect', x: 8, y: 8, width: 8, height: 8, rx: 1 },
-  ],
-  'credit-card': [
+  ];
+
+export const creditCardShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 5, width: 20, height: 14, rx: 2 },
     { tag: 'line', x1: 2, y1: 10, x2: 22, y2: 10 },
-  ],
-  database: [
+  ];
+
+export const databaseShapes: IconShape[] = [
     { tag: 'ellipse', cx: 12, cy: 5, rx: 9, ry: 3 },
     { tag: 'path', d: 'M3 5V19A9 3 0 0 0 21 19V5' },
     { tag: 'path', d: 'M3 12A9 3 0 0 0 21 12' },
-  ],
-  ellipsis: [
+  ];
+
+export const ellipsisShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 1 },
     { tag: 'circle', cx: 19, cy: 12, r: 1 },
     { tag: 'circle', cx: 5, cy: 12, r: 1 },
-  ],
-  'file-check': [
+  ];
+
+export const fileCheckShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
     },
     { tag: 'path', d: 'M14 2v5a1 1 0 0 0 1 1h5' },
     { tag: 'path', d: 'm9 15 2 2 4-4' },
-  ],
-  'file-x': [
+  ];
+
+export const fileXShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
@@ -557,23 +640,26 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M14 2v5a1 1 0 0 0 1 1h5' },
     { tag: 'path', d: 'm14.5 12.5-5 5' },
     { tag: 'path', d: 'm9.5 12.5 5 5' },
-  ],
-  'git-fork': [
+  ];
+
+export const gitForkShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 18, r: 3 },
     { tag: 'circle', cx: 6, cy: 6, r: 3 },
     { tag: 'circle', cx: 18, cy: 6, r: 3 },
     { tag: 'path', d: 'M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9' },
     { tag: 'path', d: 'M12 12v3' },
-  ],
-  'graduation-cap': [
+  ];
+
+export const graduationCapShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z',
     },
     { tag: 'path', d: 'M22 10v6' },
     { tag: 'path', d: 'M6 12.5V16a6 3 0 0 0 12 0v-3.5' },
-  ],
-  'hard-drive': [
+  ];
+
+export const hardDriveShapes: IconShape[] = [
     { tag: 'path', d: 'M10 16h.01' },
     {
       tag: 'path',
@@ -581,22 +667,25 @@ export const SHAPES: Record<string, IconShape[]> = {
     },
     { tag: 'path', d: 'M21.946 12.013H2.054' },
     { tag: 'path', d: 'M6 16h.01' },
-  ],
-  'id-card': [
+  ];
+
+export const idCardShapes: IconShape[] = [
     { tag: 'path', d: 'M16 10h2' },
     { tag: 'path', d: 'M16 14h2' },
     { tag: 'path', d: 'M6.17 15a3 3 0 0 1 5.66 0' },
     { tag: 'circle', cx: 9, cy: 11, r: 2 },
     { tag: 'rect', x: 2, y: 5, width: 20, height: 14, rx: 2 },
-  ],
-  inbox: [
+  ];
+
+export const inboxShapes: IconShape[] = [
     { tag: 'polyline', points: '22 12 16 12 14 15 10 15 8 12 2 12' },
     {
       tag: 'path',
       d: 'M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z',
     },
-  ],
-  keyboard: [
+  ];
+
+export const keyboardShapes: IconShape[] = [
     { tag: 'path', d: 'M10 8h.01' },
     { tag: 'path', d: 'M12 12h.01' },
     { tag: 'path', d: 'M14 8h.01' },
@@ -606,8 +695,9 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M7 16h10' },
     { tag: 'path', d: 'M8 12h.01' },
     { tag: 'rect', x: 2, y: 4, width: 20, height: 16, rx: 2 },
-  ],
-  landmark: [
+  ];
+
+export const landmarkShapes: IconShape[] = [
     { tag: 'path', d: 'M10 18v-7' },
     {
       tag: 'path',
@@ -617,81 +707,94 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M18 18v-7' },
     { tag: 'path', d: 'M3 22h18' },
     { tag: 'path', d: 'M6 18v-7' },
-  ],
-  languages: [
+  ];
+
+export const languagesShapes: IconShape[] = [
     { tag: 'path', d: 'm5 8 6 6' },
     { tag: 'path', d: 'm4 14 6-6 2-3' },
     { tag: 'path', d: 'M2 5h12' },
     { tag: 'path', d: 'M7 2h1' },
     { tag: 'path', d: 'm22 22-5-10-5 10' },
     { tag: 'path', d: 'M14 18h6' },
-  ],
-  laptop: [
+  ];
+
+export const laptopShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z',
     },
     { tag: 'path', d: 'M20.054 15.987H3.946' },
-  ],
-  layers: [
+  ];
+
+export const layersShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z',
     },
     { tag: 'path', d: 'M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12' },
     { tag: 'path', d: 'M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17' },
-  ],
-  'layout-dashboard': [
+  ];
+
+export const layoutDashboardShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 7, height: 9, rx: 1 },
     { tag: 'rect', x: 14, y: 3, width: 7, height: 5, rx: 1 },
     { tag: 'rect', x: 14, y: 12, width: 7, height: 9, rx: 1 },
     { tag: 'rect', x: 3, y: 16, width: 7, height: 5, rx: 1 },
-  ],
-  'layout-grid': [
+  ];
+
+export const layoutGridShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 7, height: 7, rx: 1 },
     { tag: 'rect', x: 14, y: 3, width: 7, height: 7, rx: 1 },
     { tag: 'rect', x: 14, y: 14, width: 7, height: 7, rx: 1 },
     { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
-  ],
-  library: [
+  ];
+
+export const libraryShapes: IconShape[] = [
     { tag: 'path', d: 'm16 6 4 14' },
     { tag: 'path', d: 'M12 6v14' },
     { tag: 'path', d: 'M8 8v12' },
     { tag: 'path', d: 'M4 4v16' },
-  ],
-  link: [
+  ];
+
+export const linkShapes: IconShape[] = [
     { tag: 'path', d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71' },
     { tag: 'path', d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71' },
-  ],
-  'link-2': [
+  ];
+
+export const link2Shapes: IconShape[] = [
     { tag: 'path', d: 'M9 17H7A5 5 0 0 1 7 7h2' },
     { tag: 'path', d: 'M15 7h2a5 5 0 1 1 0 10h-2' },
     { tag: 'line', x1: 8, y1: 12, x2: 16, y2: 12 },
-  ],
-  list: [
+  ];
+
+export const listShapes: IconShape[] = [
     { tag: 'path', d: 'M3 5h.01' },
     { tag: 'path', d: 'M3 12h.01' },
     { tag: 'path', d: 'M3 19h.01' },
     { tag: 'path', d: 'M8 5h13' },
     { tag: 'path', d: 'M8 12h13' },
     { tag: 'path', d: 'M8 19h13' },
-  ],
-  'list-checks': [
+  ];
+
+export const listChecksShapes: IconShape[] = [
     { tag: 'path', d: 'M13 5h8' },
     { tag: 'path', d: 'M13 12h8' },
     { tag: 'path', d: 'M13 19h8' },
     { tag: 'path', d: 'm3 17 2 2 4-4' },
     { tag: 'path', d: 'm3 7 2 2 4-4' },
-  ],
-  minus: [{ tag: 'path', d: 'M5 12h14' }],
-  network: [
+  ];
+
+export const minusShapes: IconShape[] = [{ tag: 'path', d: 'M5 12h14' }];
+
+export const networkShapes: IconShape[] = [
     { tag: 'rect', x: 16, y: 16, width: 6, height: 6, rx: 1 },
     { tag: 'rect', x: 2, y: 16, width: 6, height: 6, rx: 1 },
     { tag: 'rect', x: 9, y: 2, width: 6, height: 6, rx: 1 },
     { tag: 'path', d: 'M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3' },
     { tag: 'path', d: 'M12 12V8' },
-  ],
-  palette: [
+  ];
+
+export const paletteShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z',
@@ -700,14 +803,16 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'circle', cx: 17.5, cy: 10.5, r: 0.5 },
     { tag: 'circle', cx: 6.5, cy: 12.5, r: 0.5 },
     { tag: 'circle', cx: 8.5, cy: 7.5, r: 0.5 },
-  ],
-  play: [
+  ];
+
+export const playShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
     },
-  ],
-  'qr-code': [
+  ];
+
+export const qrCodeShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 5, height: 5, rx: 1 },
     { tag: 'rect', x: 16, y: 3, width: 5, height: 5, rx: 1 },
     { tag: 'rect', x: 3, y: 16, width: 5, height: 5, rx: 1 },
@@ -720,8 +825,9 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M16 12h1' },
     { tag: 'path', d: 'M21 12v.01' },
     { tag: 'path', d: 'M12 21v-1' },
-  ],
-  'scroll-text': [
+  ];
+
+export const scrollTextShapes: IconShape[] = [
     { tag: 'path', d: 'M15 12h-5' },
     { tag: 'path', d: 'M15 8h-5' },
     { tag: 'path', d: 'M19 17V5a2 2 0 0 0-2-2H4' },
@@ -729,28 +835,32 @@ export const SHAPES: Record<string, IconShape[]> = {
       tag: 'path',
       d: 'M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3',
     },
-  ],
-  server: [
+  ];
+
+export const serverShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 2, width: 20, height: 8, rx: 2, ry: 2 },
     { tag: 'rect', x: 2, y: 14, width: 20, height: 8, rx: 2, ry: 2 },
     { tag: 'line', x1: 6, y1: 6, x2: 6.01, y2: 6 },
     { tag: 'line', x1: 6, y1: 18, x2: 6.01, y2: 18 },
-  ],
-  shield: [
+  ];
+
+export const shieldShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
     },
-  ],
-  'shield-alert': [
+  ];
+
+export const shieldAlertShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z',
     },
     { tag: 'path', d: 'M12 8v4' },
     { tag: 'path', d: 'M12 16h.01' },
-  ],
-  'shield-off': [
+  ];
+
+export const shieldOffShapes: IconShape[] = [
     { tag: 'path', d: 'm2 2 20 20' },
     {
       tag: 'path',
@@ -760,23 +870,26 @@ export const SHAPES: Record<string, IconShape[]> = {
       tag: 'path',
       d: 'M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264',
     },
-  ],
-  'shopping-bag': [
+  ];
+
+export const shoppingBagShapes: IconShape[] = [
     { tag: 'path', d: 'M16 10a4 4 0 0 1-8 0' },
     { tag: 'path', d: 'M3.103 6.034h17.794' },
     {
       tag: 'path',
       d: 'M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z',
     },
-  ],
-  tag: [
+  ];
+
+export const tagShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z',
     },
     { tag: 'circle', cx: 7.5, cy: 7.5, r: 0.5 },
-  ],
-  unlink: [
+  ];
+
+export const unlinkShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'm18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71',
@@ -789,8 +902,9 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'line', x1: 2, y1: 8, x2: 5, y2: 8 },
     { tag: 'line', x1: 16, y1: 19, x2: 16, y2: 22 },
     { tag: 'line', x1: 19, y1: 16, x2: 22, y2: 16 },
-  ],
-  warehouse: [
+  ];
+
+export const warehouseShapes: IconShape[] = [
     { tag: 'path', d: 'M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11' },
     {
       tag: 'path',
@@ -798,24 +912,28 @@ export const SHAPES: Record<string, IconShape[]> = {
     },
     { tag: 'path', d: 'M6 13h12' },
     { tag: 'path', d: 'M6 17h12' },
-  ],
-  workflow: [
+  ];
+
+export const workflowShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 8, height: 8, rx: 2 },
     { tag: 'path', d: 'M7 11v4a2 2 0 0 0 2 2h4' },
     { tag: 'rect', x: 13, y: 13, width: 8, height: 8, rx: 2 },
-  ],
-  'zoom-in': [
+  ];
+
+export const zoomInShapes: IconShape[] = [
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
     { tag: 'line', x1: 21, y1: 21, x2: 16.65, y2: 16.65 },
     { tag: 'line', x1: 11, y1: 8, x2: 11, y2: 14 },
     { tag: 'line', x1: 8, y1: 11, x2: 14, y2: 11 },
-  ],
-  'zoom-out': [
+  ];
+
+export const zoomOutShapes: IconShape[] = [
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
     { tag: 'line', x1: 21, y1: 21, x2: 16.65, y2: 16.65 },
     { tag: 'line', x1: 8, y1: 11, x2: 14, y2: 11 },
-  ],
-  cctv: [
+  ];
+
+export const cctvShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97',
@@ -827,18 +945,21 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15' },
     { tag: 'path', d: 'M2 21v-4' },
     { tag: 'path', d: 'M7 9h.01' },
-  ],
-  'arrow-right': [
+  ];
+
+export const arrowRightShapes: IconShape[] = [
     { tag: 'path', d: 'M5 12h14' },
     { tag: 'path', d: 'm12 5 7 7-7 7' },
-  ],
-  'chart-column': [
+  ];
+
+export const chartColumnShapes: IconShape[] = [
     { tag: 'path', d: 'M3 3v16a2 2 0 0 0 2 2h16' },
     { tag: 'path', d: 'M18 17V9' },
     { tag: 'path', d: 'M13 17V5' },
     { tag: 'path', d: 'M8 17v-3' },
-  ],
-  building: [
+  ];
+
+export const buildingShapes: IconShape[] = [
     { tag: 'path', d: 'M12 10h.01' },
     { tag: 'path', d: 'M12 14h.01' },
     { tag: 'path', d: 'M12 6h.01' },
@@ -850,15 +971,17 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M8 6h.01' },
     { tag: 'path', d: 'M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3' },
     { tag: 'rect', x: 4, y: 2, width: 16, height: 20, rx: 2 },
-  ],
-  'building-2': [
+  ];
+
+export const building2Shapes: IconShape[] = [
     { tag: 'path', d: 'M10 12h4' },
     { tag: 'path', d: 'M10 8h4' },
     { tag: 'path', d: 'M14 21v-3a2 2 0 0 0-4 0v3' },
     { tag: 'path', d: 'M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2' },
     { tag: 'path', d: 'M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16' },
-  ],
-  cable: [
+  ];
+
+export const cableShapes: IconShape[] = [
     { tag: 'path', d: 'M17 19a1 1 0 0 1-1-1v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2a1 1 0 0 1-1 1z' },
     { tag: 'path', d: 'M17 21v-2' },
     { tag: 'path', d: 'M19 14V6.5a1 1 0 0 0-7 0v11a1 1 0 0 1-7 0V10' },
@@ -866,47 +989,55 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M3 5V3' },
     { tag: 'path', d: 'M4 10a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2z' },
     { tag: 'path', d: 'M7 5V3' },
-  ],
-  circle: [{ tag: 'circle', cx: 12, cy: 12, r: 10 }],
-  command: [
+  ];
+
+export const circleShapes: IconShape[] = [{ tag: 'circle', cx: 12, cy: 12, r: 10 }];
+
+export const commandShapes: IconShape[] = [
     { tag: 'path', d: 'M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' },
-  ],
-  'square-pen': [
+  ];
+
+export const squarePenShapes: IconShape[] = [
     { tag: 'path', d: 'M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7' },
     {
       tag: 'path',
       d: 'M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z',
     },
-  ],
-  pen: [
+  ];
+
+export const penShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
     },
-  ],
-  'pen-line': [
+  ];
+
+export const penLineShapes: IconShape[] = [
     { tag: 'path', d: 'M13 21h8' },
     {
       tag: 'path',
       d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
     },
-  ],
-  file: [
+  ];
+
+export const fileShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
     },
     { tag: 'path', d: 'M14 2v5a1 1 0 0 0 1 1h5' },
-  ],
-  'file-check-corner': [
+  ];
+
+export const fileCheckCornerShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M10.5 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v6',
     },
     { tag: 'path', d: 'M14 2v5a1 1 0 0 0 1 1h5' },
     { tag: 'path', d: 'm14 20 2 2 4-4' },
-  ],
-  'file-spreadsheet': [
+  ];
+
+export const fileSpreadsheetShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
@@ -916,8 +1047,9 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M14 13h2' },
     { tag: 'path', d: 'M8 17h2' },
     { tag: 'path', d: 'M14 17h2' },
-  ],
-  'file-badge': [
+  ];
+
+export const fileBadgeShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M13 22h5a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.3',
@@ -928,58 +1060,66 @@ export const SHAPES: Record<string, IconShape[]> = {
       d: 'm7.69 16.479 1.29 4.88a.5.5 0 0 1-.698.591l-1.843-.849a1 1 0 0 0-.879.001l-1.846.85a.5.5 0 0 1-.692-.593l1.29-4.88',
     },
     { tag: 'circle', cx: 6, cy: 14, r: 3 },
-  ],
-  'file-exclamation-point': [
+  ];
+
+export const fileExclamationPointShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z',
     },
     { tag: 'path', d: 'M12 9v4' },
     { tag: 'path', d: 'M12 17h.01' },
-  ],
-  'square-centerline-dashed-horizontal': [
+  ];
+
+export const squareCenterlineDashedHorizontalShapes: IconShape[] = [
     { tag: 'path', d: 'M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3' },
     { tag: 'path', d: 'M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3' },
     { tag: 'path', d: 'M12 20v2' },
     { tag: 'path', d: 'M12 14v2' },
     { tag: 'path', d: 'M12 8v2' },
     { tag: 'path', d: 'M12 2v2' },
-  ],
-  'square-centerline-dashed-vertical': [
+  ];
+
+export const squareCenterlineDashedVerticalShapes: IconShape[] = [
     { tag: 'path', d: 'M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3' },
     { tag: 'path', d: 'M21 16v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3' },
     { tag: 'path', d: 'M4 12H2' },
     { tag: 'path', d: 'M10 12H8' },
     { tag: 'path', d: 'M16 12h-2' },
     { tag: 'path', d: 'M22 12h-2' },
-  ],
-  'grip-vertical': [
+  ];
+
+export const gripVerticalShapes: IconShape[] = [
     { tag: 'circle', cx: 9, cy: 12, r: 1 },
     { tag: 'circle', cx: 9, cy: 5, r: 1 },
     { tag: 'circle', cx: 9, cy: 19, r: 1 },
     { tag: 'circle', cx: 15, cy: 12, r: 1 },
     { tag: 'circle', cx: 15, cy: 5, r: 1 },
     { tag: 'circle', cx: 15, cy: 19, r: 1 },
-  ],
-  hash: [
+  ];
+
+export const hashShapes: IconShape[] = [
     { tag: 'line', x1: 4, y1: 9, x2: 20, y2: 9 },
     { tag: 'line', x1: 4, y1: 15, x2: 20, y2: 15 },
     { tag: 'line', x1: 10, y1: 3, x2: 8, y2: 21 },
     { tag: 'line', x1: 16, y1: 3, x2: 14, y2: 21 },
-  ],
-  house: [
+  ];
+
+export const houseShapes: IconShape[] = [
     { tag: 'path', d: 'M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8' },
     {
       tag: 'path',
       d: 'M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
     },
-  ],
-  image: [
+  ];
+
+export const imageShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2, ry: 2 },
     { tag: 'circle', cx: 9, cy: 9, r: 2 },
     { tag: 'path', d: 'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21' },
-  ],
-  'image-off': [
+  ];
+
+export const imageOffShapes: IconShape[] = [
     { tag: 'line', x1: 2, y1: 2, x2: 22, y2: 22 },
     { tag: 'path', d: 'M10.41 10.41a2 2 0 1 1-2.83-2.83' },
     { tag: 'line', x1: 13.5, y1: 13.5, x2: 6, y2: 21 },
@@ -989,18 +1129,22 @@ export const SHAPES: Record<string, IconShape[]> = {
       d: 'M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59',
     },
     { tag: 'path', d: 'M21 15V5a2 2 0 0 0-2-2H9' },
-  ],
-  'ellipsis-vertical': [
+  ];
+
+export const ellipsisVerticalShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 1 },
     { tag: 'circle', cx: 12, cy: 5, r: 1 },
     { tag: 'circle', cx: 12, cy: 19, r: 1 },
-  ],
-  mouse: [
+  ];
+
+export const mouseShapes: IconShape[] = [
     { tag: 'rect', x: 5, y: 2, width: 14, height: 20, rx: 7 },
     { tag: 'path', d: 'M12 6v4' },
-  ],
-  navigation: [{ tag: 'polygon', points: '3 11 22 2 13 21 11 13 3 11' }],
-  'package-search': [
+  ];
+
+export const navigationShapes: IconShape[] = [{ tag: 'polygon', points: '3 11 22 2 13 21 11 13 3 11' }];
+
+export const packageSearchShapes: IconShape[] = [
     { tag: 'path', d: 'M12 22V12' },
     { tag: 'path', d: 'M20.27 18.27 22 20' },
     {
@@ -1010,122 +1154,144 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M3.29 7 12 12l8.71-5' },
     { tag: 'path', d: 'm7.5 4.27 8.997 5.148' },
     { tag: 'circle', cx: 18.5, cy: 16.5, r: 2.5 },
-  ],
-  printer: [
+  ];
+
+export const printerShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2',
     },
     { tag: 'path', d: 'M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6' },
     { tag: 'rect', x: 6, y: 14, width: 12, height: 8, rx: 1 },
-  ],
-  'rotate-cw': [
+  ];
+
+export const rotateCwShapes: IconShape[] = [
     { tag: 'path', d: 'M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8' },
     { tag: 'path', d: 'M21 3v5h-5' },
-  ],
-  router: [
+  ];
+
+export const routerShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 14, width: 20, height: 8, rx: 2 },
     { tag: 'path', d: 'M6.01 18H6' },
     { tag: 'path', d: 'M10.01 18H10' },
     { tag: 'path', d: 'M15 10v4' },
     { tag: 'path', d: 'M17.84 7.17a4 4 0 0 0-5.66 0' },
     { tag: 'path', d: 'M20.66 4.34a8 8 0 0 0-11.31 0' },
-  ],
-  tablet: [
+  ];
+
+export const tabletShapes: IconShape[] = [
     { tag: 'rect', x: 4, y: 2, width: 16, height: 20, rx: 2, ry: 2 },
     { tag: 'line', x1: 12, y1: 18, x2: 12.01, y2: 18 },
-  ],
-  triangle: [
+  ];
+
+export const triangleShapes: IconShape[] = [
     { tag: 'path', d: 'M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z' },
-  ],
-  tv: [
+  ];
+
+export const tvShapes: IconShape[] = [
     { tag: 'path', d: 'm17 2-5 5-5-5' },
     { tag: 'rect', x: 2, y: 7, width: 20, height: 15, rx: 2 },
-  ],
-  'cloud-upload': [
+  ];
+
+export const cloudUploadShapes: IconShape[] = [
     { tag: 'path', d: 'M12 13v8' },
     { tag: 'path', d: 'M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242' },
     { tag: 'path', d: 'm8 17 4-4 4 4' },
-  ],
-  'user-check': [
+  ];
+
+export const userCheckShapes: IconShape[] = [
     { tag: 'path', d: 'm16 11 2 2 4-4' },
     { tag: 'path', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
-  ],
-  'user-minus': [
+  ];
+
+export const userMinusShapes: IconShape[] = [
     { tag: 'path', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
     { tag: 'line', x1: 22, y1: 11, x2: 16, y2: 11 },
-  ],
-  'user-plus': [
+  ];
+
+export const userPlusShapes: IconShape[] = [
     { tag: 'path', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
     { tag: 'line', x1: 19, y1: 8, x2: 19, y2: 14 },
     { tag: 'line', x1: 22, y1: 11, x2: 16, y2: 11 },
-  ],
-  'user-x': [
+  ];
+
+export const userXShapes: IconShape[] = [
     { tag: 'path', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
     { tag: 'line', x1: 17, y1: 8, x2: 22, y2: 13 },
     { tag: 'line', x1: 22, y1: 8, x2: 17, y2: 13 },
-  ],
-  wifi: [
+  ];
+
+export const wifiShapes: IconShape[] = [
     { tag: 'path', d: 'M12 20h.01' },
     { tag: 'path', d: 'M2 8.82a15 15 0 0 1 20 0' },
     { tag: 'path', d: 'M5 12.859a10 10 0 0 1 14 0' },
     { tag: 'path', d: 'M8.5 16.429a5 5 0 0 1 7 0' },
-  ],
-  type: [
+  ];
+
+export const typeShapes: IconShape[] = [
     { tag: 'path', d: 'M12 4v16' },
     { tag: 'path', d: 'M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2' },
     { tag: 'path', d: 'M9 20h6' },
-  ],
-  webhook: [
+  ];
+
+export const webhookShapes: IconShape[] = [
     { tag: 'path', d: 'M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2' },
     { tag: 'path', d: 'm6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06' },
     { tag: 'path', d: 'm12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8' },
-  ],
-  power: [
+  ];
+
+export const powerShapes: IconShape[] = [
     { tag: 'path', d: 'M12 2v10' },
     { tag: 'path', d: 'M18.4 6.6a9 9 0 1 1-12.77.04' },
-  ],
-  braces: [
+  ];
+
+export const bracesShapes: IconShape[] = [
     { tag: 'path', d: 'M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1' },
     { tag: 'path', d: 'M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1' },
-  ],
-  'panel-left': [
+  ];
+
+export const panelLeftShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
     { tag: 'path', d: 'M9 3v18' },
-  ],
-  'panel-left-close': [
+  ];
+
+export const panelLeftCloseShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
     { tag: 'path', d: 'M9 3v18' },
     { tag: 'path', d: 'm16 15-3-3 3-3' },
-  ],
-  'calendar-check': [
+  ];
+
+export const calendarCheckShapes: IconShape[] = [
     { tag: 'path', d: 'M8 2v4' },
     { tag: 'path', d: 'M16 2v4' },
     { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
     { tag: 'path', d: 'M3 10h18' },
     { tag: 'path', d: 'm9 16 2 2 4-4' },
-  ],
-  'calendar-clock': [
+  ];
+
+export const calendarClockShapes: IconShape[] = [
     { tag: 'path', d: 'M16 14v2.2l1.6 1' },
     { tag: 'path', d: 'M16 2v4' },
     { tag: 'path', d: 'M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5' },
     { tag: 'path', d: 'M3 10h5' },
     { tag: 'path', d: 'M8 2v4' },
     { tag: 'circle', cx: 16, cy: 16, r: 6 },
-  ],
-  map: [
+  ];
+
+export const mapShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z',
     },
     { tag: 'path', d: 'M15 5.764v15' },
     { tag: 'path', d: 'M9 3.236v15' },
-  ],
-  'user-cog': [
+  ];
+
+export const userCogShapes: IconShape[] = [
     { tag: 'path', d: 'M10 15H6a4 4 0 0 0-4 4v2' },
     { tag: 'path', d: 'm14.305 16.53.923-.382' },
     { tag: 'path', d: 'm15.228 13.852-.923-.383' },
@@ -1137,37 +1303,43 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'm20.772 16.148.924.383' },
     { tag: 'circle', cx: 18, cy: 15, r: 3 },
     { tag: 'circle', cx: 9, cy: 7, r: 4 },
-  ],
-  facebook: [
+  ];
+
+export const facebookShapes: IconShape[] = [
     { tag: 'path', d: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' },
-  ],
-  instagram: [
+  ];
+
+export const instagramShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 2, width: 20, height: 20, rx: 5, ry: 5 },
     { tag: 'path', d: 'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z' },
     { tag: 'line', x1: 17.5, y1: 6.5, x2: 17.51, y2: 6.5 },
-  ],
-  linkedin: [
+  ];
+
+export const linkedinShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z',
     },
     { tag: 'rect', x: 2, y: 9, width: 4, height: 12 },
     { tag: 'circle', cx: 4, cy: 4, r: 2 },
-  ],
-  twitter: [
+  ];
+
+export const twitterShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z',
     },
-  ],
-  'key-round': [
+  ];
+
+export const keyRoundShapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z',
     },
     { tag: 'circle', cx: 16.5, cy: 7.5, r: 0.5 },
-  ],
-  'calendar-days': [
+  ];
+
+export const calendarDaysShapes: IconShape[] = [
     { tag: 'path', d: 'M8 2v4' },
     { tag: 'path', d: 'M16 2v4' },
     { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
@@ -1178,15 +1350,205 @@ export const SHAPES: Record<string, IconShape[]> = {
     { tag: 'path', d: 'M8 18h.01' },
     { tag: 'path', d: 'M12 18h.01' },
     { tag: 'path', d: 'M16 18h.01' },
-  ],
-  infinity: [{ tag: 'path', d: 'M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8' }],
-  square: [{ tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 }],
-  'volume-2': [
+  ];
+
+export const infinityShapes: IconShape[] = [{ tag: 'path', d: 'M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8' }];
+
+export const squareShapes: IconShape[] = [{ tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 }];
+
+export const volume2Shapes: IconShape[] = [
     {
       tag: 'path',
       d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
     },
     { tag: 'path', d: 'M16 9a5 5 0 0 1 0 6' },
     { tag: 'path', d: 'M19.364 18.364a9 9 0 0 0 0-12.728' },
-  ],
+  ];
+
+export const SHAPES: Record<string, IconShape[]> = {
+  bell: bellShapes,
+  'bell-ring': bellRingShapes,
+  check: checkShapes,
+  'circle-alert': circleAlertShapes,
+  'circle-check': circleCheckShapes,
+  'circle-x': circleXShapes,
+  copy: copyShapes,
+  calendar: calendarShapes,
+  'chevron-right': chevronRightShapes,
+  'arrow-left': arrowLeftShapes,
+  download: downloadShapes,
+  eye: eyeShapes,
+  'eye-off': eyeOffShapes,
+  'hat-glasses': hatGlassesShapes,
+  'heart-pulse': heartPulseShapes,
+  images: imagesShapes,
+  info: infoShapes,
+  'loader-circle': loaderCircleShapes,
+  lock: lockShapes,
+  mail: mailShapes,
+  'mouse-pointer-click': mousePointerClickShapes,
+  pencil: pencilShapes,
+  plus: plusShapes,
+  'refresh-cw': refreshCwShapes,
+  save: saveShapes,
+  search: searchShapes,
+  'search-check': searchCheckShapes,
+  'search-slash': searchSlashShapes,
+  'search-x': searchXShapes,
+  send: sendShapes,
+  settings: settingsShapes,
+  'shield-check': shieldCheckShapes,
+  sparkles: sparklesShapes,
+  trash: trashShapes,
+  'trash-2': trash2Shapes,
+  'triangle-alert': triangleAlertShapes,
+  upload: uploadShapes,
+  user: userShapes,
+  wrench: wrenchShapes,
+  x: xShapes,
+  'file-text': fileTextShapes,
+  monitor: monitorShapes,
+  package: packageShapes,
+  history: historyShapes,
+  shirt: shirtShapes,
+  'folder-open': folderOpenShapes,
+  plane: planeShapes,
+  globe: globeShapes,
+  key: keyShapes,
+  users: usersShapes,
+  truck: truckShapes,
+  'map-pin': mapPinShapes,
+  'external-link': externalLinkShapes,
+  briefcase: briefcaseShapes,
+  'book-open': bookOpenShapes,
+  smartphone: smartphoneShapes,
+  phone: phoneShapes,
+  receipt: receiptShapes,
+  'rotate-ccw': rotateCcwShapes,
+  'shopping-cart': shoppingCartShapes,
+  banknote: banknoteShapes,
+  crown: crownShapes,
+  sun: sunShapes,
+  moon: moonShapes,
+  zap: zapShapes,
+  clock: clockShapes,
+  lightbulb: lightbulbShapes,
+  camera: cameraShapes,
+  cake: cakeShapes,
+  ban: banShapes,
+  'at-sign': atSignShapes,
+  'log-out': logOutShapes,
+  funnel: funnelShapes,
+  star: starShapes,
+  activity: activityShapes,
+  'alarm-clock': alarmClockShapes,
+  'app-window': appWindowShapes,
+  'badge-check': badgeCheckShapes,
+  'chevron-down': chevronDownShapes,
+  'chevron-left': chevronLeftShapes,
+  'chevron-up': chevronUpShapes,
+  'chevrons-up-down': chevronsUpDownShapes,
+  'circle-plus': circlePlusShapes,
+  'circle-question-mark': circleQuestionMarkShapes,
+  'clipboard-check': clipboardCheckShapes,
+  contact: contactShapes,
+  cpu: cpuShapes,
+  'credit-card': creditCardShapes,
+  database: databaseShapes,
+  ellipsis: ellipsisShapes,
+  'file-check': fileCheckShapes,
+  'file-x': fileXShapes,
+  'git-fork': gitForkShapes,
+  'graduation-cap': graduationCapShapes,
+  'hard-drive': hardDriveShapes,
+  'id-card': idCardShapes,
+  inbox: inboxShapes,
+  keyboard: keyboardShapes,
+  landmark: landmarkShapes,
+  languages: languagesShapes,
+  laptop: laptopShapes,
+  layers: layersShapes,
+  'layout-dashboard': layoutDashboardShapes,
+  'layout-grid': layoutGridShapes,
+  library: libraryShapes,
+  link: linkShapes,
+  'link-2': link2Shapes,
+  list: listShapes,
+  'list-checks': listChecksShapes,
+  minus: minusShapes,
+  network: networkShapes,
+  palette: paletteShapes,
+  play: playShapes,
+  'qr-code': qrCodeShapes,
+  'scroll-text': scrollTextShapes,
+  server: serverShapes,
+  shield: shieldShapes,
+  'shield-alert': shieldAlertShapes,
+  'shield-off': shieldOffShapes,
+  'shopping-bag': shoppingBagShapes,
+  tag: tagShapes,
+  unlink: unlinkShapes,
+  warehouse: warehouseShapes,
+  workflow: workflowShapes,
+  'zoom-in': zoomInShapes,
+  'zoom-out': zoomOutShapes,
+  cctv: cctvShapes,
+  'arrow-right': arrowRightShapes,
+  'chart-column': chartColumnShapes,
+  building: buildingShapes,
+  'building-2': building2Shapes,
+  cable: cableShapes,
+  circle: circleShapes,
+  command: commandShapes,
+  'square-pen': squarePenShapes,
+  pen: penShapes,
+  'pen-line': penLineShapes,
+  file: fileShapes,
+  'file-check-corner': fileCheckCornerShapes,
+  'file-spreadsheet': fileSpreadsheetShapes,
+  'file-badge': fileBadgeShapes,
+  'file-exclamation-point': fileExclamationPointShapes,
+  'square-centerline-dashed-horizontal': squareCenterlineDashedHorizontalShapes,
+  'square-centerline-dashed-vertical': squareCenterlineDashedVerticalShapes,
+  'grip-vertical': gripVerticalShapes,
+  hash: hashShapes,
+  house: houseShapes,
+  image: imageShapes,
+  'image-off': imageOffShapes,
+  'ellipsis-vertical': ellipsisVerticalShapes,
+  mouse: mouseShapes,
+  navigation: navigationShapes,
+  'package-search': packageSearchShapes,
+  printer: printerShapes,
+  'rotate-cw': rotateCwShapes,
+  router: routerShapes,
+  tablet: tabletShapes,
+  triangle: triangleShapes,
+  tv: tvShapes,
+  'cloud-upload': cloudUploadShapes,
+  'user-check': userCheckShapes,
+  'user-minus': userMinusShapes,
+  'user-plus': userPlusShapes,
+  'user-x': userXShapes,
+  wifi: wifiShapes,
+  type: typeShapes,
+  webhook: webhookShapes,
+  power: powerShapes,
+  braces: bracesShapes,
+  'panel-left': panelLeftShapes,
+  'panel-left-close': panelLeftCloseShapes,
+  'calendar-check': calendarCheckShapes,
+  'calendar-clock': calendarClockShapes,
+  map: mapShapes,
+  'user-cog': userCogShapes,
+  facebook: facebookShapes,
+  instagram: instagramShapes,
+  linkedin: linkedinShapes,
+  twitter: twitterShapes,
+  'key-round': keyRoundShapes,
+  'calendar-days': calendarDaysShapes,
+  infinity: infinityShapes,
+  square: squareShapes,
+  'volume-2': volume2Shapes,
 };
+

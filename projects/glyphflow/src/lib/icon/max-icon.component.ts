@@ -11,7 +11,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { ANIMATED_ICONS, resolveIconName } from './animated-icons.registry';
+import { resolveIconName } from './animated-icons.registry';
 import {
   AnimatedIconDef,
   AnimatedIconTrigger,
@@ -20,6 +20,7 @@ import {
   MotionTrack,
 } from './animated-icon.model';
 import { MAX_ICONS_CONFIG } from './max-icons.config';
+import { MAX_ICON_CATALOG } from './icon-catalog.provider';
 
 /**
  * Icono animado con coreografía por figura.
@@ -162,6 +163,7 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
   private readonly destroyRef = inject(DestroyRef);
   private readonly el = inject(ElementRef);
   private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
+  private readonly catalog = inject(MAX_ICON_CATALOG, { optional: true });
   private running: Animation[] = [];
   private observer?: IntersectionObserver;
   private unwireGroup?: () => void;
@@ -172,8 +174,14 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
     { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' },
   ];
 
+  /**
+   * `catalog` es opcional (`provideIconCatalog(...)`, ver icon-catalog.provider.ts): sin él,
+   * `name="bell"` se pinta vacío en silencio — mismo contrato que un nombre desconocido. El
+   * catálogo NUNCA se importa aquí de forma estática a propósito: eso volvería a arrastrar los
+   * ~184 iconos a cualquier consumidor, incluso uno que solo use `[iconDef]`.
+   */
   get def(): AnimatedIconDef | undefined {
-    return this.iconDef ?? ANIMATED_ICONS[resolveIconName(this.name)];
+    return this.iconDef ?? this.catalog?.[resolveIconName(this.name)];
   }
 
   get shapes(): IconShape[] {

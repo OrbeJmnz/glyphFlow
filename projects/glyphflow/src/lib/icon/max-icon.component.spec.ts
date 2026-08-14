@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MaxIconComponent } from './max-icon.component';
 import { ANIMATED_ICONS, ICON_ALIASES } from './animated-icons.registry';
+import { provideIconCatalog } from './icon-catalog.provider';
 
 /**
  * El contrato que importa: el registro y el template no se desincronizan. Si alguien agrega un
@@ -9,10 +10,16 @@ import { ANIMATED_ICONS, ICON_ALIASES } from './animated-icons.registry';
  *
  * No se prueba el movimiento en sí: jsdom no implementa Web Animations API. El componente lo
  * detecta y se queda estático, que también se verifica (no debe reventar).
+ *
+ * Los specs registran el catálogo completo vía `provideIconCatalog` a propósito, para probar
+ * `name="..."` — en producción ese registro es opt-in (ver icon-catalog.provider.ts).
  */
 describe('MaxIconComponent', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [MaxIconComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [MaxIconComponent],
+      providers: [provideIconCatalog(ANIMATED_ICONS)],
+    }).compileComponents();
   });
 
   function render(name: string) {
