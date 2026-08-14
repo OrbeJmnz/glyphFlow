@@ -107,10 +107,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Sin `cache:` a propósito — este job no corre `npm ci` sobre el repo (solo necesita `node`
+      # para ejecutar wire-consumer-app.mjs, que no tiene dependencias externas). `cache: false`
+      # (booleano) truena con "Caching for 'false' is not supported" — el input espera un string
+      # ('npm'/'yarn'/'pnpm') o que la clave no exista, nunca `false` literal.
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: false
 
       - uses: actions/download-artifact@v4
         with:
