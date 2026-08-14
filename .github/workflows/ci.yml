@@ -61,15 +61,9 @@ jobs:
       - name: npm pack + instalar en proyecto limpio + import real
         run: npm run pack-check
 
-  angular-compat:
-    name: Compat Angular ${{ matrix.angular-version }}
+  build-tarball:
+    name: Build tarball (toolchain real del workspace)
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # Rango real de peerDependencies (ver v0.1 del plan) — se amplía solo cuando esta matriz
-        # pasa en verde para la versión nueva, nunca antes.
-        angular-version: [20, 21, 22]
     steps:
       - uses: actions/checkout@v4
 
@@ -80,27 +74,59 @@ jobs:
 
       - run: npm ci
 
-      - name: Override a Angular ${{ matrix.angular-version }} (sin tocar el lockfile)
-        run: |
-          npm install --no-save \
-            @angular/core@${{ matrix.angular-version }} \
-            @angular/common@${{ matrix.angular-version }} \
-            @angular/compiler@${{ matrix.angular-version }} \
-            @angular/compiler-cli@${{ matrix.angular-version }} \
-            @angular/platform-browser@${{ matrix.angular-version }} \
-            @angular/platform-server@${{ matrix.angular-version }} \
-            @angular/build@${{ matrix.angular-version }} \
-            @angular/cli@${{ matrix.angular-version }} \
-            ng-packagr@${{ matrix.angular-version }}
+      # Se compila UNA sola vez con Angular 22 / TypeScript 6.0.2 (el toolchain real del
+      # workspace) — nunca se fuerza ni se pinea typescript para simular otras versiones de
+      # Angular. La compatibilidad real se prueba consumiendo ESTE mismo .tgz desde una app nueva
+      # de cada versión (ver job angular-compat), no recompilando la librería bajo otro toolchain.
+      - run: npx ng build glyphflow --configuration production
 
-      - name: Build contra Angular ${{ matrix.angular-version }}
-        run: npx ng build glyphflow --configuration production
+      - name: npm pack
+        run: npm pack --pack-destination "$RUNNER_TEMP/tarball" ./dist/glyphflow
 
-      - name: Unit tests contra Angular ${{ matrix.angular-version }}
-        run: npx ng test glyphflow --watch=false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: glyphflow-tarball
+          path: ${{ runner.temp }}/tarball/*.tgz
+          retention-days: 1
 
-      - name: SSR smoke test contra Angular ${{ matrix.angular-version }}
-        run: npm run test:ssr
+  angular-compat:
+    name: Compat Angular ${{ matrix.angular-version }} (app consumidora real)
+    needs: build-tarball
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Rango real de peerDependencies (ver v0.1 del plan) — se amplía solo cuando esta matriz
+        # pasa en verde para la versión nueva, nunca antes. Cada versión trae su PROPIO toolchain
+        # (Angular CLI + TypeScript que ESA versión declara soportar) — no se fuerza nada.
+        angular-version: [20, 21, 22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: glyphflow-tarball
+          path: ${{ runner.temp }}/tarball
+
+      - name: Scaffold una app Angular ${{ matrix.angular-version }} limpia (su propio CLI, su propio TypeScript)
+        working-directory: ${{ runner.temp }}
+        run: npx -p @angular/cli@${{ matrix.angular-version }} ng new consumer-app --minimal --ssr --skip-git --package-manager=npm --style=css
+
+      - name: Instalar el .tgz real (mismo artefacto para las 3 versiones)
+        working-directory: ${{ runner.temp }}/consumer-app
+        run: npm install "$RUNNER_TEMP"/tarball/*.tgz --legacy-peer-deps
+
+      - name: Import real en la app consumidora
+        run: node scripts/wire-consumer-app.mjs "${{ runner.temp }}/consumer-app"
+
+      - name: Build (incluye prerender SSR de la ruta / por default de Angular)
+        working-directory: ${{ runner.temp }}/consumer-app
+        run: npx ng build
 
   release:
     name: Release (changesets)
