@@ -19,6 +19,13 @@ jobs:
 
       - run: npm ci
 
+      # Primero glyphflow: playground importa 'glyphflow' vía path mapping a dist/glyphflow (que
+      # está en .gitignore) — sin este build, lint/typecheck/test de playground truenan con
+      # "Cannot find module 'glyphflow'" en un checkout limpio, aunque localmente "funcione" por
+      # dist/ ya construido de sesiones anteriores. Bug real encontrado por un readiness review.
+      - name: Build glyphflow (production, requisito para todo lo que sigue)
+        run: npx ng build glyphflow --configuration production
+
       - name: Lint
         run: npm run lint
 
@@ -31,26 +38,28 @@ jobs:
       - name: Unit tests (playground)
         run: npx ng test playground --watch=false
 
-      - name: Build (dev, catches issues prod hides)
+      - name: Build glyphflow (development, catches issues prod hides)
         run: npx ng build glyphflow --configuration development
-
-      - name: Build (prod, partial compilation mode)
-        run: npx ng build glyphflow --configuration production
 
       - name: Build playground
         run: npx ng build playground
 
+      # Los tres pasos siguientes llaman a `npm run ...`, no a `tsx` a secas: un `run:` de GitHub
+      # Actions no trae node_modules/.bin en el PATH por defecto (a diferencia de `npm run`, que sí
+      # lo resuelve solo) — invocar tsx directo tronaba con "command not found" (exit 127). Cada
+      # script además reconstruye glyphflow en modo production por su cuenta, así que no dependen
+      # del orden de los pasos de build de arriba.
       - name: SSR smoke test
-        run: tsx scripts/ssr-smoke-test.ts
+        run: npm run test:ssr
 
       - name: Bundle-size check (casos A/B — ver v0.1 del plan)
-        run: tsx scripts/bundle-size-check.ts
+        run: npm run bundle-check
 
       - name: NOTICE check
-        run: node scripts/notice-check.mjs
+        run: npm run notice-check
 
       - name: npm pack + instalar en proyecto limpio + import real
-        run: tsx scripts/pack-check.ts
+        run: npm run pack-check
 
   angular-compat:
     name: Compat Angular ${{ matrix.angular-version }}
@@ -91,7 +100,7 @@ jobs:
         run: npx ng test glyphflow --watch=false
 
       - name: SSR smoke test contra Angular ${{ matrix.angular-version }}
-        run: tsx scripts/ssr-smoke-test.ts
+        run: npm run test:ssr
 
   release:
     name: Release (changesets)

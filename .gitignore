@@ -43,6 +43,9 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Tarballs sueltos de npm pack (pack-check.ts los genera en un tmp dir, pero por si acaso)
+*.tgz
+
 # Documentación de planeación interna — no se publica
 /docs/planning/
 
