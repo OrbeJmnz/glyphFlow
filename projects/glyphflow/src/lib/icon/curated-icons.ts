@@ -1743,11 +1743,25 @@ export const calendarCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarC
   });
 
 /** Fecha con hora: el reloj late después de las anillas. */
+/**
+ * Calendario con reloj. Los dos pines brincan como en el resto de la familia, y ADEMÁS las
+ * manecillas dan un tic — girando desde el centro del reloj, no brincando como los pines: el gesto
+ * de cada figura corresponde a lo que la figura es. Es el único de los cuatro calendarios que
+ * marca tiempo, y la animación lo dice.
+ *
+ * Ojo con los índices: aquí los pines son 1 y 4, NO 0 y 1 como en sus hermanos — el 0 son las
+ * manecillas. La coreografía vieja animaba 0 y 1, así que movía las manecillas hacia arriba (se
+ * salían del reloj) y dejaba el pin izquierdo quieto.
+ *
+ * Las dos manecillas son UN solo `<path>` con un único subtrazo (`M16 14v2.2l1.6 1`), unidas en el
+ * vértice (16, 16.2): giran como cuerpo rígido por estructura, no hace falta coordinar dos tracks.
+ */
 export const calendarClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarClockShapes, {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500, { delay: 90 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500, { delay: 90 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 30, 0]), 620, { delay: 260, origin: '16px 16px' }),
         5: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.15, 1]), 500, { delay: 220, origin: '16px 16px' }),
       },
     },
