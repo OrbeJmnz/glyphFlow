@@ -11582,15 +11582,6 @@ export const rotate3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const rotateCcwClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" },
-    { tag: 'path', d: "M3 3v5h5" },
-    { tag: 'path', d: "M12 7v5l4 2" },
-  ],
-  {},
-);
-
 export const rotateCcwKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 7v6" },
@@ -17173,7 +17164,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'roller-coaster': rollerCoasterIcon,
   rose: roseIcon,
   'rotate-3d': rotate3dIcon,
-  'rotate-ccw-clock': rotateCcwClockIcon,
   'rotate-ccw-key': rotateCcwKeyIcon,
   'rotate-ccw-square': rotateCcwSquareIcon,
   'rotate-cw-fading-clock': rotateCwFadingClockIcon,

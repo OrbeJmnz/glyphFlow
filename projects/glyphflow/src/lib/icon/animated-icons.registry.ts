@@ -87,6 +87,10 @@ export const ICON_ALIASES: Record<string, string> = {
   home: 'house',
   'more-vertical': 'ellipsis-vertical',
   'upload-cloud': 'cloud-upload',
+  // Renombre puro verificado contra lucide-static@1.31.0: la geometría de `rotate-ccw-clock` es
+  // byte por byte la misma que tenía `history`, y Lucide sigue publicando `history.svg` como
+  // alias deprecado (no lo borró como sí hizo con los logos de marca).
+  history: 'rotate-ccw-clock',
 };
 
 /** Resuelve alias → nombre canónico del registro. */

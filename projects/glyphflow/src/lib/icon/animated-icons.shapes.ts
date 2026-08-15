@@ -298,7 +298,7 @@ export const packageShapes: IconShape[] = [
     { tag: 'path', d: 'm7.5 4.27 9 5.15' },
   ];
 
-export const historyShapes: IconShape[] = [
+export const rotateCcwClockShapes: IconShape[] = [
     { tag: 'path', d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' },
     { tag: 'path', d: 'M3 3v5h5' },
     { tag: 'path', d: 'M12 7v5l4 2' },
@@ -1387,7 +1387,7 @@ export const SHAPES: Record<string, IconShape[]> = {
   'file-text': fileTextShapes,
   monitor: monitorShapes,
   package: packageShapes,
-  history: historyShapes,
+  'rotate-ccw-clock': rotateCcwClockShapes,
   shirt: shirtShapes,
   'folder-open': folderOpenShapes,
   plane: planeShapes,
