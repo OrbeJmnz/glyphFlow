@@ -13,7 +13,8 @@
     "bundle-check": "ng build glyphflow --configuration production && tsx scripts/bundle-size-check.ts",
     "pack-check": "ng build glyphflow --configuration production && tsx scripts/pack-check.ts",
     "notice-check": "node scripts/notice-check.mjs",
-    "verify:clean": "node scripts/verify-clean.mjs"
+    "verify:clean": "node scripts/verify-clean.mjs",
+    "generate:icons": "tsx scripts/generate-lucide-icons.ts"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
@@ -39,6 +40,7 @@
     "angular-eslint": "22.1.0",
     "eslint": "^10.6.0",
     "jsdom": "^28.0.0",
+    "lucide-static": "1.31.0",
     "ng-packagr": "^22.1.0",
     "prettier": "^3.8.1",
     "tsx": "^4.23.12",

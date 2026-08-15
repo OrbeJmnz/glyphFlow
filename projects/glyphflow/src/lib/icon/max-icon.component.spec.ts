@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MaxIconComponent } from './max-icon.component';
 import { ANIMATED_ICONS, ICON_ALIASES } from './animated-icons.registry';
+import { CURATED_ICONS } from './curated-icons';
 import { provideIconCatalog } from './icon-catalog.provider';
 
 /**
@@ -67,7 +68,11 @@ describe('MaxIconComponent', () => {
 
   it('toda variante mueve algo (root, figuras o trazo automático)', () => {
     for (const [name, def] of Object.entries(ANIMATED_ICONS)) {
-      expect(def.animations['default'], `${name}: falta la variante default`).toBeDefined();
+      // `default` (coreografía con intención) solo es obligatoria en los curados a mano — los
+      // generados (solo geometría + draw automático) no la llevan a propósito, ver el plan.
+      if (CURATED_ICONS[name]) {
+        expect(def.animations['default'], `${name}: falta la variante default`).toBeDefined();
+      }
       expect(def.animations['draw'], `${name}: falta la variante draw`).toBeDefined();
       for (const [variant, chor] of Object.entries(def.animations)) {
         const mueve = !!chor.root || !!chor.autoDraw || Object.keys(chor.shapes ?? {}).length > 0;
