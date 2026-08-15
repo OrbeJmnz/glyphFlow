@@ -375,10 +375,10 @@ export const briefcaseShapes: IconShape[] = [
   ];
 
 export const bookOpenShapes: IconShape[] = [
-    { tag: 'path', d: 'M12 7v14' },
+    { tag: 'path', d: 'M12 5v16' },
     {
       tag: 'path',
-      d: 'M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z',
+      d: 'M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z',
     },
   ];
 
@@ -583,10 +583,10 @@ export const clipboardCheckShapes: IconShape[] = [
 
 export const contactShapes: IconShape[] = [
     { tag: 'path', d: 'M16 2v2' },
-    { tag: 'path', d: 'M7 22v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2' },
+    { tag: 'path', d: 'M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2' },
     { tag: 'path', d: 'M8 2v2' },
-    { tag: 'circle', cx: 12, cy: 11, r: 3 },
-    { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
   ];
 
 export const cpuShapes: IconShape[] = [
@@ -701,7 +701,7 @@ export const landmarkShapes: IconShape[] = [
     { tag: 'path', d: 'M10 18v-7' },
     {
       tag: 'path',
-      d: 'M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z',
+      d: 'M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z',
     },
     { tag: 'path', d: 'M14 18v-7' },
     { tag: 'path', d: 'M18 18v-7' },
