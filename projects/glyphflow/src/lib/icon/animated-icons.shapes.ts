@@ -108,7 +108,7 @@ export const heartPulseShapes: IconShape[] = [
 export const imagesShapes: IconShape[] = [
     { tag: 'path', d: 'm22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16' },
     { tag: 'path', d: 'M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2' },
-    { tag: 'circle', cx: 13, cy: 7, r: 1 },
+    { tag: 'circle', cx: 13, cy: 7, r: 1, fill: 'currentColor' },
     { tag: 'rect', x: 8, y: 2, width: 14, height: 14, rx: 2 },
   ];
 
@@ -799,10 +799,10 @@ export const paletteShapes: IconShape[] = [
       tag: 'path',
       d: 'M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z',
     },
-    { tag: 'circle', cx: 13.5, cy: 6.5, r: 0.5 },
-    { tag: 'circle', cx: 17.5, cy: 10.5, r: 0.5 },
-    { tag: 'circle', cx: 6.5, cy: 12.5, r: 0.5 },
-    { tag: 'circle', cx: 8.5, cy: 7.5, r: 0.5 },
+    { tag: 'circle', cx: 13.5, cy: 6.5, r: 0.5, fill: 'currentColor' },
+    { tag: 'circle', cx: 17.5, cy: 10.5, r: 0.5, fill: 'currentColor' },
+    { tag: 'circle', cx: 6.5, cy: 12.5, r: 0.5, fill: 'currentColor' },
+    { tag: 'circle', cx: 8.5, cy: 7.5, r: 0.5, fill: 'currentColor' },
   ];
 
 export const playShapes: IconShape[] = [
@@ -886,7 +886,7 @@ export const tagShapes: IconShape[] = [
       tag: 'path',
       d: 'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z',
     },
-    { tag: 'circle', cx: 7.5, cy: 7.5, r: 0.5 },
+    { tag: 'circle', cx: 7.5, cy: 7.5, r: 0.5, fill: 'currentColor' },
   ];
 
 export const unlinkShapes: IconShape[] = [
@@ -1314,7 +1314,7 @@ export const keyRoundShapes: IconShape[] = [
       tag: 'path',
       d: 'M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z',
     },
-    { tag: 'circle', cx: 16.5, cy: 7.5, r: 0.5 },
+    { tag: 'circle', cx: 16.5, cy: 7.5, r: 0.5, fill: 'currentColor' },
   ];
 
 export const calendarDaysShapes: IconShape[] = [
