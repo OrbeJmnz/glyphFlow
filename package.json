@@ -14,7 +14,8 @@
     "pack-check": "ng build glyphflow --configuration production && tsx scripts/pack-check.ts",
     "notice-check": "node scripts/notice-check.mjs",
     "verify:clean": "node scripts/verify-clean.mjs",
-    "generate:icons": "tsx scripts/generate-lucide-icons.ts"
+    "generate:icons": "tsx scripts/generate-lucide-icons.ts",
+    "lucide:diff": "tsx scripts/lucide-diff-report.mjs"
   },
   "private": true,
   "packageManager": "npm@10.9.8",

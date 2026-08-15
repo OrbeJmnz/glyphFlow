@@ -64,7 +64,13 @@ import { MAX_ICON_CATALOG } from './icon-catalog.provider';
       @for (shape of shapes; track $index) {
         @switch (shape.tag) {
           @case ('circle') {
-            <circle [attr.cx]="shape.cx" [attr.cy]="shape.cy" [attr.r]="shape.r" pathLength="1" />
+            <circle
+              [attr.cx]="shape.cx"
+              [attr.cy]="shape.cy"
+              [attr.r]="shape.r"
+              [attr.fill]="shape.fill ?? null"
+              pathLength="1"
+            />
           }
           @case ('rect') {
             <rect
@@ -74,6 +80,7 @@ import { MAX_ICON_CATALOG } from './icon-catalog.provider';
               [attr.height]="shape.height"
               [attr.rx]="shape.rx"
               [attr.ry]="shape.ry"
+              [attr.fill]="shape.fill ?? null"
               pathLength="1"
             />
           }
@@ -83,6 +90,7 @@ import { MAX_ICON_CATALOG } from './icon-catalog.provider';
               [attr.y1]="shape.y1"
               [attr.x2]="shape.x2"
               [attr.y2]="shape.y2"
+              [attr.fill]="shape.fill ?? null"
               pathLength="1"
             />
           }
@@ -92,17 +100,18 @@ import { MAX_ICON_CATALOG } from './icon-catalog.provider';
               [attr.cy]="shape.cy"
               [attr.rx]="shape.rx"
               [attr.ry]="shape.ry"
+              [attr.fill]="shape.fill ?? null"
               pathLength="1"
             />
           }
           @case ('polyline') {
-            <polyline [attr.points]="shape.points" pathLength="1" />
+            <polyline [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" pathLength="1" />
           }
           @case ('polygon') {
-            <polygon [attr.points]="shape.points" pathLength="1" />
+            <polygon [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" pathLength="1" />
           }
           @default {
-            <path [attr.d]="shape.d" pathLength="1" />
+            <path [attr.d]="shape.d" [attr.fill]="shape.fill ?? null" pathLength="1" />
           }
         }
       }

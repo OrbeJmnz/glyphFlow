@@ -41,6 +41,33 @@ function toConstBase(key: string): string {
   return key.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 }
 
+// Mismo set de 7 tags que soporta IconShape (confirmado contra el escaneo real del set completo,
+// ver docs/lucide-shape-distribution.md) y los atributos que cada uno necesita para pintarse. La
+// spec de Vitest tenía este mismo mapa SIN `ellipse` — validaba cero atributos para ese tag desde
+// que se agregó. Corregido aquí y también en la spec.
+const REQUIRED_ATTRS: Record<string, string[]> = {
+  path: ['d'],
+  circle: ['cx', 'cy', 'r'],
+  rect: ['x', 'y', 'width', 'height'],
+  line: ['x1', 'y1', 'x2', 'y2'],
+  ellipse: ['cx', 'cy', 'rx', 'ry'],
+  polyline: ['points'],
+  polygon: ['points'],
+};
+
+function validateNode(iconName: string, tag: string, attrs: Record<string, string>): string[] {
+  const errors: string[] = [];
+  const required = REQUIRED_ATTRS[tag];
+  if (!required) {
+    errors.push(`${iconName}: tag desconocido "${tag}" — IconShape no lo soporta.`);
+    return errors;
+  }
+  for (const attr of required) {
+    if (!(attr in attrs)) errors.push(`${iconName} (${tag}): le falta el atributo "${attr}".`);
+  }
+  return errors;
+}
+
 function shapeLiteral(tag: string, attrs: Record<string, string>): string {
   const parts = [`tag: '${tag}'`];
   for (const [k, v] of Object.entries(attrs)) {
@@ -57,6 +84,7 @@ const iconNodes = iconNodesJson as Record<string, [string, Record<string, string
 
 const skippedCurated: string[] = [];
 const entries: { name: string; constName: string; shapesLiteral: string }[] = [];
+const validationErrors: string[] = [];
 
 for (const [name, nodes] of Object.entries(iconNodes)) {
   if (onlyNames && !onlyNames.has(name)) continue;
@@ -64,9 +92,23 @@ for (const [name, nodes] of Object.entries(iconNodes)) {
     skippedCurated.push(name);
     continue;
   }
+  if (nodes.length === 0) {
+    validationErrors.push(`${name}: no tiene ninguna figura (array vacío).`);
+    continue;
+  }
+  for (const [tag, attrs] of nodes) validationErrors.push(...validateNode(name, tag, attrs));
+
   const constName = toConstBase(name) + 'Icon';
   const shapesLiteral = nodes.map(([tag, attrs]) => shapeLiteral(tag, attrs)).join(',\n    ');
   entries.push({ name, constName, shapesLiteral });
+}
+
+// Un solo icono inválido aborta TODO el generado — nunca se escribe un generated-icons.ts a
+// medias ni con datos rotos, ni se avisa solo por consola y se sigue de largo.
+if (validationErrors.length > 0) {
+  console.error(`✗ ${validationErrors.length} error(es) de validación — no se escribió nada:\n`);
+  for (const err of validationErrors) console.error(`  - ${err}`);
+  process.exit(1);
 }
 
 const individualExports = entries.map(

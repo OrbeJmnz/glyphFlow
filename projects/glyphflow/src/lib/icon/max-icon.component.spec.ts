@@ -95,11 +95,15 @@ describe('MaxIconComponent', () => {
   });
 
   it('las figuras traen los atributos que su tag necesita', () => {
+    // `ellipse` faltaba aquí desde siempre — `requeridos[shape.tag] ?? []` caía al array vacío y
+    // no validaba NINGÚN atributo para ese tag. Encontrado al generar el set completo de Lucide
+    // (15 iconos reales usan ellipse). El mismo mapa vive en generate-lucide-icons.ts.
     const requeridos: Record<string, string[]> = {
       path: ['d'],
       circle: ['cx', 'cy', 'r'],
       rect: ['x', 'y', 'width', 'height'],
       line: ['x1', 'y1', 'x2', 'y2'],
+      ellipse: ['cx', 'cy', 'rx', 'ry'],
       polyline: ['points'],
       polygon: ['points'],
     };

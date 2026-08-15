@@ -33,6 +33,14 @@ export interface IconShape {
   y2?: number;
   /** tag='polyline' | 'polygon' */
   points?: string;
+  /**
+   * Override puntual — el SVG raíz ya pinta `fill="none"` (todo es trazo por default). Un puñado
+   * de iconos de Lucide rompen esa regla a propósito (el agujero de `key-round`, el punto de
+   * `tag`): una figura sólida adentro de un icono que por lo demás es solo contorno. Encontrado
+   * generando el set completo (9 iconos), siempre con el mismo valor `"currentColor"` — nunca un
+   * color fijo, para que siga heredando del texto igual que el trazo.
+   */
+  fill?: string;
 }
 
 /**

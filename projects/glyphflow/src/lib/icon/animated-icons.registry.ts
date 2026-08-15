@@ -30,6 +30,34 @@ export const ANIMATED_ICONS: Record<string, AnimatedIconDef> = /* @__PURE__ */ O
  */
 export const ANIMATED_ICON_NAMES = /* @__PURE__ */ Object.keys(ANIMATED_ICONS);
 
+/** Metadata liviana por icono — la consume tooling (playground, filtros, futuro morph), nunca el
+ * motor de animación. `curated: true` = coreografía con intención en curated-icons.ts; `false` =
+ * solo geometría + draw automático en generated-icons.ts. `morphTargets` queda reservado para v2
+ * (morph) — sin poblar todavía, no se inventan relaciones sin base real.
+ */
+export interface IconMeta {
+  name: string;
+  source: 'lucide';
+  autoDraw: boolean;
+  curated: boolean;
+  morphTargets?: string[];
+}
+
+/**
+ * Dos marcas "puro" hacen falta aquí, no una — lección de la regresión que encontró
+ * `bundle-check` a escala completa (funcionaba con 22 iconos, se rompió con 1772): anotar SOLO la
+ * llamada exterior (`Object.fromEntries`) no basta si su argumento contiene una llamada sin
+ * anotar (`.map()`). esbuild no elimina una expresión si CUALQUIER sub-llamada dentro de ella
+ * podría tener efectos secundarios, sin importar que la exterior esté marcada pura — mismo patrón
+ * exacto que ya rompió `icon()` con sus helpers anidados (ver curated-icons.ts).
+ */
+export const ICON_META: Record<string, IconMeta> = /* @__PURE__ */ Object.fromEntries(
+  /* @__PURE__ */ ANIMATED_ICON_NAMES.map((name) => [
+    name,
+    { name, source: 'lucide' as const, autoDraw: true, curated: !!CURATED_ICONS[name] },
+  ]),
+);
+
 /**
  * Nombres VIEJOS de Lucide que la app sigue usando en sus templates. Lucide los renombró y
  * `lucide-angular` los resuelve por alias, pero este registro guarda el nombre nuevo — sin este
