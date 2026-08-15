@@ -57,3 +57,8 @@ Thumbs.db
 CLAUDE.md
 AGENTS.md
 .clinerules/
+
+# Memoria de Engram — `engram sync` la escribe aquí. Se lleva a mano (ver la carpeta
+# glyphflow-contexto), NO al repo público: lo que entra al historial de un repo público se queda
+# ahí para siempre aunque después se borre.
+.engram/
