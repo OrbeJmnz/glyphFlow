@@ -29,8 +29,24 @@ if (extra.length) console.log('  ' + extra.join(', '));
 
 // CHANGED: de los curados que SÍ tienen nombre vigente en Lucide, ¿la geometría actual coincide
 // con lo que quedó hand-copiado en curated-icons.ts? Nunca se autocorrige — solo se marca.
+//
+// Los valores se comparan NUMÉRICAMENTE cuando ambos lados son números: Lucide escribe `.5` donde
+// el curado tiene `0.5`, y el path `d` trae espaciado/notación distinta sin cambiar un solo punto.
+// Compararlos como strings marcaba `key-round` como "geometría cambiada" cuando el dibujo es
+// idéntico — un falso positivo que hace ruido justo donde se necesita señal.
+function normalizeValue(v) {
+  const s = String(v);
+  const n = Number(s);
+  return Number.isNaN(n) ? s.replace(/\s+/g, ' ').trim() : String(n);
+}
+
 function normalizeShape(tag, attrs) {
-  return JSON.stringify([tag, attrs], Object.keys(attrs).sort());
+  const norm = Object.fromEntries(
+    Object.entries(attrs)
+      .map(([k, v]) => [k, normalizeValue(v)])
+      .sort(([a], [b]) => a.localeCompare(b)),
+  );
+  return JSON.stringify([tag, norm]);
 }
 
 const changed = [];

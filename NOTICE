@@ -14,6 +14,20 @@ changes between versions (new icons, retouched paths, renames), and
 regenerating the catalog should be a deliberate act (manual version bump +
 review), never a side effect of an unrelated `npm install`.
 
+### Removed brand icons
+
+`facebook`, `instagram`, `linkedin` and `twitter` were carried over from an
+earlier hand-curated set and have been REMOVED from this catalog. They no
+longer exist in Lucide's canonical icon set, with indications of a deliberate
+removal over brand/trademark risk — they are corporate logos, not generic
+iconography. Lucide's ISC license covers Lucide's own drawing; it does not
+grant any third party's trademark rights over their logo.
+
+They are not reintroduced without explicit license verification. Consumers who
+need them can supply their own `AnimatedIconDef` via the `[iconDef]` input,
+which accepts any icon definition — nothing about them needs to live in this
+published package.
+
 ---
 
 Entries below are added as each dependency is actually vendored into the
