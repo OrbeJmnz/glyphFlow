@@ -46,10 +46,10 @@ export const copyShapes: IconShape[] = [
   ];
 
 export const calendarShapes: IconShape[] = [
-    { tag: 'path', d: 'M8 2v4' },
-    { tag: 'path', d: 'M16 2v4' },
-    { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
-    { tag: 'path', d: 'M3 10h18' },
+    { tag: 'path', d: 'M8 2v3' },
+    { tag: 'path', d: 'M16 2v3' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
   ];
 
 export const chevronRightShapes: IconShape[] = [{ tag: 'path', d: 'm9 18 6-6-6-6' }];
@@ -1266,11 +1266,11 @@ export const panelLeftCloseShapes: IconShape[] = [
   ];
 
 export const calendarCheckShapes: IconShape[] = [
-    { tag: 'path', d: 'M8 2v4' },
-    { tag: 'path', d: 'M16 2v4' },
-    { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
-    { tag: 'path', d: 'M3 10h18' },
-    { tag: 'path', d: 'm9 16 2 2 4-4' },
+    { tag: 'path', d: 'M8 2v3' },
+    { tag: 'path', d: 'M16 2v3' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
+    { tag: 'path', d: 'm9 15 2 2 4-4' },
   ];
 
 export const calendarClockShapes: IconShape[] = [
@@ -1318,16 +1318,16 @@ export const keyRoundShapes: IconShape[] = [
   ];
 
 export const calendarDaysShapes: IconShape[] = [
-    { tag: 'path', d: 'M8 2v4' },
-    { tag: 'path', d: 'M16 2v4' },
-    { tag: 'rect', x: 3, y: 4, width: 18, height: 18, rx: 2 },
-    { tag: 'path', d: 'M3 10h18' },
-    { tag: 'path', d: 'M8 14h.01' },
-    { tag: 'path', d: 'M12 14h.01' },
-    { tag: 'path', d: 'M16 14h.01' },
-    { tag: 'path', d: 'M8 18h.01' },
-    { tag: 'path', d: 'M12 18h.01' },
-    { tag: 'path', d: 'M16 18h.01' },
+    { tag: 'path', d: 'M8 2v3' },
+    { tag: 'path', d: 'M16 2v3' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
+    { tag: 'path', d: 'M8 13h.01' },
+    { tag: 'path', d: 'M12 13h.01' },
+    { tag: 'path', d: 'M16 13h.01' },
+    { tag: 'path', d: 'M8 17h.01' },
+    { tag: 'path', d: 'M12 17h.01' },
+    { tag: 'path', d: 'M16 17h.01' },
   ];
 
 export const infinityShapes: IconShape[] = [{ tag: 'path', d: 'M6 16c5 0 7-8 12-8a4 4 0 0 1 0 8c-5 0-7-8-12-8a4 4 0 1 0 0 8' }];
