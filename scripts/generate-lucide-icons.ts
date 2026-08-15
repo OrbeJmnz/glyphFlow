@@ -19,7 +19,7 @@
 //   lote.
 //
 // Uso:
-//   tsx scripts/generate-lucide-icons.ts                  # el set completo (~1600 no curados)
+//   tsx scripts/generate-lucide-icons.ts                  # el set completo (1587 no curados)
 //   tsx scripts/generate-lucide-icons.ts --only=bell,dot   # solo esos nombres (lote canario)
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

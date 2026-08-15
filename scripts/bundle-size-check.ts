@@ -15,11 +15,19 @@ const FESM = new URL('../dist/glyphflow/fesm2022/glyphflow.mjs', import.meta.url
 
 const CASES = [
   {
+    name: 'core — solo el componente, sin ningún icono',
+    entry: `import { MaxIconComponent } from '${FESM.replace(/\\/g, '/')}'; console.log(MaxIconComponent);`,
+    // El runtime compartido que paga TODO consumidor, use un icono o mil: el componente, su
+    // template y el motor de auto-draw. El presupuesto de v0.1 era <10KB gzip; se vigila aparte de
+    // los iconos porque una extensión del modelo (ej. el soporte de `fill`) cae aquí, no por icono.
+    maxGzipBytes: 10 * 1024,
+  },
+  {
     name: 'A — import individual (tree-shakeable)',
     entry: `import { bellIcon } from '${FESM.replace(/\\/g, '/')}'; console.log(bellIcon);`,
-    // Presupuesto: runtime compartido (track/rotateSeq/icon/...) + UN icono, medido en ~3.5KB
-    // gzip real. 5KB da margen sin dejar de detectar una regresión real (el registro completo son
-    // ~16.6KB — si esto se acerca a eso, algo volvió a arrastrar los 183 iconos que no se usan).
+    // Presupuesto: vocabulario de coreografía (track/rotateSeq/icon/...) + UN icono, medido en
+    // ~3.5KB gzip real. 5KB da margen sin dejar de detectar una regresión real (el catálogo
+    // completo son ~94KB — si esto se acerca, algo volvió a arrastrar los 1766 que no se usan).
     maxGzipBytes: 5 * 1024,
   },
   {

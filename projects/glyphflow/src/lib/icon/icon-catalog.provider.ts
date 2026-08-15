@@ -2,7 +2,7 @@ import { InjectionToken, Provider } from '@angular/core';
 import { AnimatedIconDef } from './animated-icon.model';
 
 /**
- * Registro consultado por `name="bell"`. A propósito NO se importa `ANIMATED_ICONS` (los 184
+ * Registro consultado por `name="bell"`. A propósito NO se importa `ANIMATED_ICONS` (los ~1767
  * iconos) de forma estática en `MaxIconComponent` — eso arrastraría el catálogo completo a
  * CUALQUIER app que use el componente, incluso una que solo consuma `[iconDef]="bellIcon"` con
  * imports individuales. Medido en la práctica: sin este desacople, el bundle no bajaba nada aunque

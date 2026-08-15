@@ -25,8 +25,8 @@ export const ANIMATED_ICONS: Record<string, AnimatedIconDef> = /* @__PURE__ */ O
  * bloque en esta posición confunde al escáner de Rollup con una anotación mal puesta) es
  * obligatoria: sin ella esbuild trata la llamada como si pudiera tener efectos secundarios y
  * jamás la elimina aunque nadie use `ANIMATED_ICON_NAMES` — y al referenciar `ANIMATED_ICONS`,
- * eso ancla el registro completo (los 184 iconos) en cualquier build que use uno solo. Verificado
- * con una reproducción mínima en esbuild directo.
+ * eso ancla el catálogo completo (los ~1767 iconos) en cualquier build que use uno solo.
+ * Verificado con una reproducción mínima en esbuild directo.
  */
 export const ANIMATED_ICON_NAMES = /* @__PURE__ */ Object.keys(ANIMATED_ICONS);
 

@@ -187,7 +187,7 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
    * `catalog` es opcional (`provideIconCatalog(...)`, ver icon-catalog.provider.ts): sin él,
    * `name="bell"` se pinta vacío en silencio — mismo contrato que un nombre desconocido. El
    * catálogo NUNCA se importa aquí de forma estática a propósito: eso volvería a arrastrar los
-   * ~184 iconos a cualquier consumidor, incluso uno que solo use `[iconDef]`.
+   * ~1767 iconos a cualquier consumidor, incluso uno que solo use `[iconDef]`.
    */
   get def(): AnimatedIconDef | undefined {
     return this.iconDef ?? this.catalog?.[resolveIconName(this.name)];

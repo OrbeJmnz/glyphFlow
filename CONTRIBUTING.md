@@ -13,10 +13,11 @@ Abre un issue. Para una coreografía nueva o un ajuste a una existente, el flujo
 
 El catálogo vive en dos archivos separados:
 
-- **`curated-icons.ts`** — los 184+ iconos con coreografía a mano, con intención. Se edita por PR
+- **`curated-icons.ts`** — los 180 iconos con coreografía a mano, con intención. Se edita por PR
   humano, icono por icono. **El generador offline nunca lee ni escribe este archivo.**
-- **`generated-icons.ts`** — el resto del set de Lucide (~1600), solo con la variante `draw`
-  automática. Lo escribe el script generador (`scripts/generate-lucide-icons.ts`, aún no existe).
+- **`generated-icons.ts`** — el resto del set de Lucide (1587), solo con la variante `draw`
+  automática. Lo escribe el script generador (`scripts/generate-lucide-icons.ts`, `npm run
+  generate:icons`).
   Nunca se edita a mano; si necesitas tocar la coreografía de un icono que está aquí, eso lo saca
   de este archivo y lo mueve a `curated-icons.ts`.
 
