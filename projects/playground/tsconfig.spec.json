@@ -8,7 +8,11 @@
     // publicado, no contra `dist/glyphflow`. Si divergieran, el test verde dejaría de significar
     // que la app desplegada funciona.
     "paths": {
-      "glyphflow": ["../../node_modules/glyphflow-published"]
+      "glyphflow": ["../../node_modules/glyphflow-published"],
+      // Los specs compilan el mismo árbol de componentes que la app: si el arnés de morph importa
+      // `glyphflow/morph`, aquí también tiene que resolver. Faltaba, y `ng test playground` tronó
+      // con TS2307 mientras app y build pasaban — los tres tsconfig se mantienen en sync o no.
+      "glyphflow/morph": ["../glyphflow/src/lib/morph/index"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]

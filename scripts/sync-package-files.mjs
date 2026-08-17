@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const ROOT = new URL('../', import.meta.url);
 const DEST = new URL('../projects/glyphflow/', import.meta.url);
-const ARCHIVOS = ['LICENSE', 'NOTICE', 'README.md'];
+const ARCHIVOS = ['LICENSE', 'NOTICE', 'README.md', 'LICENSE-morphicons'];
 
 const check = process.argv.includes('--check');
 const desincronizados = [];

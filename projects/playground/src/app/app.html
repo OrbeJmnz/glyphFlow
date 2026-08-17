@@ -7,6 +7,8 @@
   <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
 </header>
 
+<app-morph-bench />
+
 <main class="grid">
   @for (entry of entries; track entry.name; let i = $index) {
     <article class="card">

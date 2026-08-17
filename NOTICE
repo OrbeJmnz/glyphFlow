@@ -33,10 +33,23 @@ published package.
 Entries below are added as each dependency is actually vendored into the
 codebase (see the project plan) — not before.
 
-## morphicons (pending — added when the morph module vendors its core/)
+## morphicons
 https://github.com/guillermolg00/morphicons — MIT License
-Mathematical core (2D Procrustes matching, arc-length resampling) will be
-adapted for the `glyphflow/morph` entry point.
+Copyright (c) 2026 Guillermo
+
+The mathematical core of `glyphflow/morph` is vendored from morphicons
+`src/core/` at v1.7.0: `parse.ts`, `normalize.ts`, `resample.ts`, `plan.ts`,
+`interpolate.ts`, `serialize.ts`, `spring.ts` and `types.ts` (SVG path parsing,
+cubic normalization, arc-length resampling, closed-form 2D Procrustes matching,
+polar interpolation and the damped-spring solver).
+
+Vendored, not depended on: the upstream package ships framework bindings and a
+DOM layer that drive their own animation loop. glyphflow keeps the maths and
+replaces that layer with discrete WAAPI keyframes, so the core is copied in and
+carries its MIT notice in each file header. Upstream's `dom/`, `react/`, `vue/`,
+`svelte/` and `adapters/` are NOT included.
+
+The MIT permission notice reproduced in full: see LICENSE-morphicons.
 
 ## bezier-js (pending — added when the geometry editor vendors it)
 https://github.com/Pomax/bezierjs — MIT License

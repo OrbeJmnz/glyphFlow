@@ -1,0 +1,151 @@
+.bench {
+  max-width: 68rem;
+  margin: 0 auto 3.5rem;
+  padding: 1.75rem 1.5rem 2rem;
+  border: 1px solid #1d1d25;
+  border-radius: 1rem;
+  background: #0e0e14;
+}
+
+.bench-head h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.bench-head p {
+  margin: 0 0 1.25rem;
+  max-width: 44rem;
+  color: #8b8b96;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.pares,
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pares {
+  margin-bottom: 0.75rem;
+}
+
+.controles {
+  margin-bottom: 1.5rem;
+}
+
+button {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.5rem;
+  background: #15151c;
+  color: #a1a1ac;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+  color: #e7e7ea;
+  border-color: #3f3f4b;
+}
+
+button.activo {
+  background: #1e1e2a;
+  border-color: #4a4a5c;
+  color: #f2f2f5;
+}
+
+button.primario {
+  background: #e7e7ea;
+  border-color: #e7e7ea;
+  color: #0b0b0f;
+  font-weight: 500;
+}
+
+button.primario:hover {
+  background: #fff;
+  color: #0b0b0f;
+}
+
+/* Las 4 en una sola fila: el punto del arnés es comparar 15 contra 20 de un vistazo, y en cuanto
+   una variante se va a otro renglón deja de compararse — se ve por separado, que es distinto. */
+.lienzos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 60rem) {
+  .lienzos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.variante {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.75rem;
+  background: #101017;
+}
+
+.variante h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #cfcfd6;
+}
+
+/* La variante que ganó el benchmark queda marcada en el arnés: la decisión se lee donde se tomó. */
+.variante.elegida {
+  border-color: #3f3f4b;
+}
+
+.etiqueta {
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.35rem;
+  background: #23232f;
+  color: #a1a1ac;
+  font-size: 0.625rem;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.variante svg {
+  color: #e7e7ea;
+}
+
+.datos {
+  display: flex;
+  gap: 0.9rem;
+  margin: 0;
+  font-size: 0.6875rem;
+  color: #6c6c78;
+}
+
+.datos div {
+  text-align: center;
+}
+
+.datos dt {
+  margin-bottom: 0.15rem;
+}
+
+.datos dd {
+  margin: 0;
+  color: #a1a1ac;
+  font-variant-numeric: tabular-nums;
+}
+
+.solo {
+  font-size: 0.6875rem;
+  padding: 0.25rem 0.6rem;
+}

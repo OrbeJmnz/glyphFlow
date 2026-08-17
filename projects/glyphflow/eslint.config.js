@@ -3,6 +3,13 @@ const { defineConfig } = require('eslint/config');
 const rootConfig = require('../../eslint.config.js');
 
 module.exports = defineConfig([
+  // Código vendorizado de morphicons: se copia TAL CUAL. Pasarle nuestro linter obligaría a
+  // tocarlo, y cada toque es una divergencia del upstream que luego hay que arrastrar a mano.
+  //
+  // La ruta va desde la RAÍZ del workspace, no desde este archivo: en flat config los `ignores`
+  // se resuelven contra el CWD del proceso, y `ng lint` corre desde la raíz. Escrita relativa al
+  // config, el ignore no aplica y el lint truena sobre código de terceros (pasó).
+  { ignores: ['projects/glyphflow/src/lib/morph/core/**'] },
   ...rootConfig,
   {
     files: ['**/*.ts'],
