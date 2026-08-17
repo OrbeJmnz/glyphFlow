@@ -1,6 +1,6 @@
 import { AnimatedIconDef, IconChoreography, MotionTrack } from './animated-icon.model';
 import { CURATED_ICONS } from './curated-icons';
-import { shapeFingerprint, shapesFingerprint } from './shape-fingerprint';
+import { shapeFingerprint, shapesFingerprint, variantesPorFigura } from './curated-audit';
 import lockFile from './curated-choreography.lock.json';
 import iconNodes from 'lucide-static/icon-nodes.json';
 
@@ -26,18 +26,6 @@ const LUCIDE_NODES = iconNodes as unknown as Record<string, [string, Attrs][]>;
 const LOCK = lockFile.icons as unknown as Record<string, string[]>;
 const CURADOS = Object.entries(CURATED_ICONS) as [string, AnimatedIconDef][];
 
-/** Índice de figura → variantes que la animan. Vacío = esa figura no la mueve nadie. */
-function variantesPorFigura(def: AnimatedIconDef): Map<number, string[]> {
-  const mapa = new Map<number, string[]>();
-  for (const [variante, chor] of Object.entries(def.animations)) {
-    for (const index of Object.keys(chor.shapes ?? {})) {
-      const i = Number(index);
-      mapa.set(i, [...(mapa.get(i) ?? []), variante]);
-    }
-  }
-  return mapa;
-}
-
 /** Todos los tracks de un icono, etiquetados para que el mensaje de error diga dónde buscar. */
 function tracks(name: string, def: AnimatedIconDef): { donde: string; track: MotionTrack }[] {
   const out: { donde: string; track: MotionTrack }[] = [];
@@ -51,6 +39,48 @@ function tracks(name: string, def: AnimatedIconDef): { donde: string; track: Mot
 }
 
 describe('Barrido de sanidad — los 180 curados', () => {
+  /**
+   * PRIMERO y sin lock: esto se para sobre el estado ACTUAL del catálogo, no sobre un diff contra
+   * un archivo histórico. Si el lock se borrara mañana, este chequeo sigue teniendo la misma
+   * fuerza — y si algo aquí truena, lo de abajo ni vale la pena leerlo.
+   *
+   * `max-icon.component.spec.ts` prueba lo mismo sobre los 1767 (índice definido); esta versión es
+   * de los curados y además exige que el índice sea un entero en rango, que ningún bloque
+   * `shapes` quede vacío y que ninguna variante se quede sin UN SOLO índice válido — el caso en
+   * que la coreografía existe pero no mueve ninguna figura de este icono.
+   */
+  it('todo índice referenciado existe en las figuras de ESE icono', () => {
+    const problemas: string[] = [];
+    for (const [name, def] of CURADOS) {
+      for (const [variante, chor] of Object.entries(def.animations) as [string, IconChoreography][]) {
+        if (!chor.shapes) continue;
+        const indices = Object.keys(chor.shapes);
+        if (indices.length === 0) {
+          problemas.push(`${name}/${variante}: bloque \`shapes\` vacío — o anima algo o se borra`);
+          continue;
+        }
+        let validos = 0;
+        for (const raw of indices) {
+          const i = Number(raw);
+          if (!Number.isInteger(i) || i < 0 || i >= def.shapes.length) {
+            problemas.push(
+              `${name}/${variante}: el track apunta a la figura ${raw}, y el icono tiene ` +
+                `${def.shapes.length} (índices válidos 0-${def.shapes.length - 1})`,
+            );
+          } else {
+            validos++;
+          }
+        }
+        if (validos === 0) {
+          problemas.push(
+            `${name}/${variante}: ni un solo índice válido — la coreografía no mueve ninguna figura de este icono`,
+          );
+        }
+      }
+    }
+    expect(problemas).toEqual([]);
+  });
+
   it('el lock cubre exactamente los iconos curados', () => {
     const problemas: string[] = [];
     for (const [name] of CURADOS) {
@@ -191,17 +221,22 @@ describe('Barrido de sanidad — los 180 curados', () => {
   });
 
   it('ningún curado es un generado disfrazado', () => {
-    // Un `default` que solo trae `autoDraw: {}` vacío es EXACTAMENTE la variante `draw` que el
-    // generador da gratis: cero intención humana, no tiene por qué vivir en curated-icons.ts.
-    // Un autoDraw con parámetros afinados (`{ speed: 45 }`) sí es una decisión y se queda.
+    // "El draw automático" tiene UNA sola definición en todo el repo: la constante `DRAW` que
+    // `icon()` le cuelga a cada icono (choreography.ts) — la misma que recibe cada línea que
+    // emite el generador, porque escribe `icon(shapes, {})` y nada más. Por eso este test no
+    // re-describe qué es un draw vacío (eso sería una segunda definición que puede desviarse):
+    // compara el `default` contra la variante `draw` de ESE MISMO icono, ya materializada.
+    // Idénticos = el default no aporta intención y el icono pertenece a generated-icons.ts.
+    // Un `autoDraw` con parámetros afinados (`{ speed: 45 }`) difiere del draw y se queda.
     const problemas: string[] = [];
     for (const [name, def] of CURADOS) {
-      const def_ = def.animations['default'];
-      if (!def_) continue; // ya truena en max-icon.component.spec.ts
-      const soloDraw =
-        !def_.root && !Object.keys(def_.shapes ?? {}).length && !Object.keys(def_.autoDraw ?? {}).length;
-      if (soloDraw) {
-        problemas.push(`${name}: su default es el draw automático tal cual — o le escribes coreografía o se va a generated-icons.ts`);
+      const porDefecto = def.animations['default'];
+      const draw = def.animations['draw'];
+      if (!porDefecto || !draw) continue; // la ausencia ya truena en max-icon.component.spec.ts
+      if (JSON.stringify(porDefecto) === JSON.stringify(draw)) {
+        problemas.push(
+          `${name}: su default es idéntico a la variante draw — o le escribes coreografía o se va a generated-icons.ts`,
+        );
       }
     }
     expect(problemas).toEqual([]);

@@ -38,7 +38,10 @@ mínima, ver el plan del proyecto.
   (`curated-choreography.lock.json`) ancla cada coreografía a las figuras contra las que se
   escribió. Ese error no se calla regenerando de volada — primero revisa que cada índice de
   `shapes: { … }` siga apuntando a la figura que la coreografía asume (una figura de más recorre
-  TODOS los índices siguientes), y hasta entonces corre `npm run curated:lock` en el mismo PR.
+  TODOS los índices siguientes), y hasta entonces corre `npm run curated:lock` en el mismo PR. El
+  comando imprime el diff antes de escribir y marca con `⚠ LA ANIMA` las figuras que cambiaron y
+  tienen una coreografía apoyada en ellas — esas son las que hay que mirar. Con `-- --dry-run` ves
+  el diff sin tocar el archivo, y ese diff es lo que se revisa en el PR, no solo el JSON resultante.
   Existe por un caso real: `calendar-clock` quedó animando las manecillas del reloj creyendo que
   eran los pines, con los tests en verde.
 
