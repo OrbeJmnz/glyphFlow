@@ -1,8 +1,11 @@
 {
   "name": "glyphflow",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Lucide icons animated on native Web Animations API for Angular — zero animation-library dependencies.",
   "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/OrbeJmnz/glyphFlow.git" },
+  "homepage": "https://github.com/OrbeJmnz/glyphFlow#readme",
+  "bugs": { "url": "https://github.com/OrbeJmnz/glyphFlow/issues" },
   "peerDependencies": {
     "@angular/common": ">=20.0.0 <23.0.0",
     "@angular/core": ">=20.0.0 <23.0.0"

@@ -23,6 +23,13 @@ jobs:
       # está en .gitignore) — sin este build, lint/typecheck/test de playground truenan con
       # "Cannot find module 'glyphflow'" en un checkout limpio, aunque localmente "funcione" por
       # dist/ ya construido de sesiones anteriores. Bug real encontrado por un readiness review.
+      # LICENSE, NOTICE y el README real viven en la raíz del workspace; ng-packagr solo empaqueta
+      # lo que está DENTRO del paquete. Sin esta copia el tarball sale sin licencia y sin la
+      # atribución ISC de Lucide, cuyos paths sí van redistribuidos en el bundle. `--check` porque
+      # las copias están commiteadas: aquí solo se verifica que no se hayan quedado atrás.
+      - name: LICENSE/NOTICE/README en sync con la raíz
+        run: npm run sync:package-files:check
+
       - name: Build glyphflow (production, requisito para todo lo que sigue)
         run: npx ng build glyphflow --configuration production
 
@@ -149,6 +156,10 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      # Trusted publishing (OIDC): npm cambia el token de larga vida por un id-token efímero que
+      # el runner pide en tiempo de ejecución. Sin este permiso no existe el token y npm cae a
+      # buscar credenciales clásicas. Es un permiso POR JOB — ningún otro job lo lleva.
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -161,10 +172,21 @@ jobs:
 
       - run: npm ci
 
+      # Node 22 trae npm 10.9.x y el trusted publishing por OIDC aterrizó en npm 11.5.1: sin este
+      # paso, npm ni intenta pedir el id-token y falla pidiendo credenciales. Va DESPUÉS de
+      # `npm ci` a propósito — la instalación se hace con el npm que el lockfile espera, y solo el
+      # publish corre con el npm nuevo.
+      - name: npm >= 11.5.1 (requisito de trusted publishing)
+        run: |
+          npm install -g npm@latest
+          npm --version
+
+      # Sin NPM_TOKEN ni NODE_AUTH_TOKEN: la autenticación la resuelve el id-token de OIDC contra
+      # el trusted publisher configurado en npmjs.com para este paquete. Un token en el entorno
+      # tendría prioridad y anularía el mecanismo, así que su ausencia es parte del diseño.
       - name: Create Release PR or publish
         uses: changesets/action@v1
         with:
           publish: npm run build -- glyphflow --configuration production && npx changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

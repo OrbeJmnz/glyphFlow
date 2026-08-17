@@ -24,6 +24,7 @@ console.log('\n=== npm ci (desde cero, sin caché de node_modules) ===');
 run('npm', ['ci']);
 
 const steps = [
+  ['LICENSE/NOTICE/README en sync con la raíz', 'npm', ['run', 'sync:package-files']],
   ['Build glyphflow (production)', 'npx', ['ng', 'build', 'glyphflow', '--configuration', 'production']],
   ['Lint', 'npm', ['run', 'lint']],
   ['Typecheck', 'npm', ['run', 'typecheck']],
