@@ -153,6 +153,12 @@ jobs:
     needs: [ci, angular-compat]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    # Gate de aprobación: con "Required reviewers" configurado en Settings → Environments, el job
+    # se queda esperando revisión humana ANTES de correr el publish. Es el freno que impide que un
+    # merge a main publique solo — sin changesets pendientes, changesets/action ejecuta el publish
+    # en cada push. OJO: si el environment no existe, Actions lo crea al vuelo SIN reglas y el
+    # gate no frena nada; la protección vive en el environment, no en esta línea.
+    environment: npm-publish
     permissions:
       contents: write
       pull-requests: write
