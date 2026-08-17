@@ -16,7 +16,8 @@
     "verify:clean": "node scripts/verify-clean.mjs",
     "generate:icons": "tsx scripts/generate-lucide-icons.ts",
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
-    "curated:lock": "tsx scripts/curated-lock.mjs"
+    "curated:lock": "tsx scripts/curated-lock.mjs",
+    "curated:lock:check": "tsx scripts/curated-lock.mjs --check"
   },
   "private": true,
   "packageManager": "npm@10.9.8",

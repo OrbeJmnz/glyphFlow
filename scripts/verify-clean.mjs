@@ -27,6 +27,7 @@ const steps = [
   ['Build glyphflow (production)', 'npx', ['ng', 'build', 'glyphflow', '--configuration', 'production']],
   ['Lint', 'npm', ['run', 'lint']],
   ['Typecheck', 'npm', ['run', 'typecheck']],
+  ['Drift del lock de coreografía curada', 'npm', ['run', 'curated:lock:check']],
   ['Unit tests (glyphflow)', 'npx', ['ng', 'test', 'glyphflow', '--watch=false']],
   ['Unit tests (playground)', 'npx', ['ng', 'test', 'playground', '--watch=false']],
   ['Build glyphflow (development)', 'npx', ['ng', 'build', 'glyphflow', '--configuration', 'development']],

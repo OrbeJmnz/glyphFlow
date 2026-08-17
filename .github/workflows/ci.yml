@@ -32,6 +32,12 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      # Va ANTES de los tests a propósito: el barrido truena ante el mismo drift, pero con la
+      # huella cruda. Este paso escupe el diff anotado (qué figura se movió, qué coreografía se
+      # apoya en ella) para que el fallo se lea desde el log de Actions, sin clonar nada.
+      - name: Drift del lock de coreografía curada
+        run: npm run curated:lock:check
+
       - name: Unit tests (glyphflow)
         run: npx ng test glyphflow --watch=false
 

@@ -12,6 +12,11 @@
 //
 //   npm run curated:lock              # muestra el diff y escribe
 //   npm run curated:lock -- --dry-run # solo muestra el diff, no toca el archivo
+//   npm run curated:lock:check        # CI: no escribe y SALE EN ERROR si hay drift
+//
+// El barrido (`curated-icons.spec.ts`) ya truena ante el mismo drift, pero con la huella cruda:
+// `--check` existe para que el job de CI escupa el diff anotado — qué figura se movió y qué
+// coreografía se apoya en ella — sin que nadie tenga que clonar el repo para averiguarlo.
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 
@@ -24,7 +29,8 @@ const { shapesFingerprint, variantesPorFigura } = await import(
   '../projects/glyphflow/src/lib/icon/curated-audit.ts'
 );
 
-const dryRun = process.argv.includes('--dry-run');
+const check = process.argv.includes('--check');
+const dryRun = process.argv.includes('--dry-run') || check;
 const OUT = new URL('../projects/glyphflow/src/lib/icon/curated-choreography.lock.json', import.meta.url);
 
 const icons = {};
@@ -81,6 +87,24 @@ console.log(
   '\nUn `⚠ LA ANIMA` significa que hay una coreografía apoyada en esa figura: confirma que su\n' +
     'track sigue apuntando a lo que asume ANTES de aprobar este cambio.\n',
 );
+
+if (check) {
+  if (!previo) {
+    console.error('curated:lock --check: no hay lock en disco. Corre `npm run curated:lock`.');
+    process.exit(1);
+  }
+  if (lineas.length) {
+    console.error(
+      'curated:lock --check: el lock commiteado NO refleja la geometría de curated-icons.ts.\n' +
+        'El diff de arriba es la lista completa de lo que cambió. Revisa cada `⚠ LA ANIMA` — su\n' +
+        'coreografía puede haber quedado apuntando a otra figura — y recién entonces corre\n' +
+        '`npm run curated:lock` y commitea el lock en el mismo PR.',
+    );
+    process.exit(1);
+  }
+  console.log('curated:lock --check: sin drift.');
+  process.exit(0);
+}
 
 if (dryRun) {
   console.log('--dry-run: no se escribió nada.');

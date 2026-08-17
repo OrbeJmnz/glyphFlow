@@ -42,6 +42,8 @@ mínima, ver el plan del proyecto.
   comando imprime el diff antes de escribir y marca con `⚠ LA ANIMA` las figuras que cambiaron y
   tienen una coreografía apoyada en ellas — esas son las que hay que mirar. Con `-- --dry-run` ves
   el diff sin tocar el archivo, y ese diff es lo que se revisa en el PR, no solo el JSON resultante.
+  CI corre `npm run curated:lock:check`: si el lock commiteado no refleja la geometría actual, el
+  job falla imprimiendo ese mismo diff anotado en el log.
   Existe por un caso real: `calendar-clock` quedó animando las manecillas del reloj creyendo que
   eran los pines, con los tests en verde.
 
