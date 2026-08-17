@@ -3,7 +3,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    // Mismo alias que tsconfig.app.json: los tests del playground prueban contra el paquete
+    // publicado, no contra `dist/glyphflow`. Si divergieran, el test verde dejaría de significar
+    // que la app desplegada funciona.
+    "paths": {
+      "glyphflow": ["../../node_modules/glyphflow-published"]
+    }
   },
   "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
 }

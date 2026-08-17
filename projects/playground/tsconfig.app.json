@@ -3,7 +3,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": []
+    "types": [],
+    // El playground consume el paquete PUBLICADO, no `dist/glyphflow`. El mapeo de la raíz
+    // (`glyphflow` → ./dist/glyphflow) apunta al build local: sirve para desarrollar la librería,
+    // pero con él el playground jamás probaría lo que de verdad recibe un consumidor.
+    //
+    // Y no basta con borrar el mapeo: `workspaces` hace que `node_modules/glyphflow` sea un
+    // JUNCTION a projects/glyphflow (el CÓDIGO FUENTE, sin fesm2022 ni types), así que la
+    // resolución normal tampoco llega al paquete real. Por eso el alias: `glyphflow-published` es
+    // el tarball bajado del registro, con su integrity anclado en package-lock.json.
+    "paths": {
+      "glyphflow": ["../../node_modules/glyphflow-published"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

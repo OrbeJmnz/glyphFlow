@@ -1,5 +1,24 @@
-<main style="display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 4rem 1rem; font-family: system-ui, sans-serif;">
-  <h1>maxIcons playground</h1>
-  <p>Smoke test: consumiendo <code>MaxIconComponent</code> de la librería local del workspace.</p>
-  <max-icon [iconDef]="bellIcon" trigger="hover" style="width: 3rem; height: 3rem;" />
+<header class="head">
+  <h1>glyphflow</h1>
+  <p>
+    Los <strong>{{ total() }}</strong> iconos curados, con su coreografía a mano. Pasa el puntero
+    sobre una tarjeta o dale a repetir.
+  </p>
+  <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
+</header>
+
+<main class="grid">
+  @for (entry of entries; track entry.name; let i = $index) {
+    <article class="card">
+      <max-icon [iconDef]="entry.def" [size]="32" trigger="group" />
+      <span class="name">{{ entry.name }}</span>
+      <button type="button" class="repeat" (click)="repetir(i)" [attr.aria-label]="'Repetir ' + entry.name">
+        repetir
+      </button>
+    </article>
+  }
 </main>
+
+<footer class="foot">
+  Consumiendo <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
+</footer>

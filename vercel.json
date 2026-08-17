@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "ng build playground",
+  "outputDirectory": "dist/playground/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
