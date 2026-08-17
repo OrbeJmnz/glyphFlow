@@ -34,8 +34,13 @@ mínima, ver el plan del proyecto.
   tests, build dev+prod, SSR, bundle-size check, NOTICE check, pack-check). Verificar con
   `node_modules`/`dist` ya construidos de una sesión anterior dio falsos positivos reales en este
   proyecto — CI pasaba "local" y fallaba en GitHub Actions.
-- Si tocaste una coreografía existente en `curated-icons.ts`, confirma que no es un icono con
-  geometría de Lucide recién actualizada (ver la estrategia de actualización de Lucide en el plan).
+- Si tocaste la **geometría** de un icono curado, el barrido de sanidad va a trunar: el lock
+  (`curated-choreography.lock.json`) ancla cada coreografía a las figuras contra las que se
+  escribió. Ese error no se calla regenerando de volada — primero revisa que cada índice de
+  `shapes: { … }` siga apuntando a la figura que la coreografía asume (una figura de más recorre
+  TODOS los índices siguientes), y hasta entonces corre `npm run curated:lock` en el mismo PR.
+  Existe por un caso real: `calendar-clock` quedó animando las manecillas del reloj creyendo que
+  eran los pines, con los tests en verde.
 
 ## Qué NO se acepta
 

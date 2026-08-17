@@ -1,0 +1,965 @@
+{
+  "note": "GENERADO por `npm run curated:lock`. Huella de la geometría contra la que se escribió cada coreografía curada. Si el barrido truena, revisa los índices ANTES de regenerar.",
+  "lucide": "1.31.0",
+  "icons": {
+    "activity": [
+      "path:702a722aaf15"
+    ],
+    "alarm-clock": [
+      "circle:21e6f4665278",
+      "path:ed84d60bac8a",
+      "path:32deb4257291",
+      "path:cc4a1c0b785e",
+      "path:57525531a87c",
+      "path:02a4817a710a"
+    ],
+    "app-window": [
+      "rect:41e980132aa8",
+      "path:5ae684ea0215",
+      "path:6753d62ddc46",
+      "path:650208ef58ae"
+    ],
+    "arrow-left": [
+      "path:5d30e801012f",
+      "path:7b5bf2e114a1"
+    ],
+    "arrow-right": [
+      "path:52f6eb0c4372",
+      "path:b5ee62bc7d53"
+    ],
+    "at-sign": [
+      "circle:9d7fc8897980",
+      "path:fbcd70ad6f8d"
+    ],
+    "badge-check": [
+      "path:65bb74b0896e",
+      "path:a6c388c2ba21"
+    ],
+    "ban": [
+      "circle:1b306a76ecc0",
+      "path:0ee4d432c24b"
+    ],
+    "banknote": [
+      "rect:9741cff5b177",
+      "circle:9f7fcbaf7380",
+      "path:62e62aed2bb4"
+    ],
+    "bell": [
+      "path:0ceceb4b844f",
+      "path:30d6ab3c7529"
+    ],
+    "bell-ring": [
+      "path:0ceceb4b844f",
+      "path:00c905d5e408",
+      "path:30d6ab3c7529",
+      "path:1f733ce0fe0c"
+    ],
+    "book-open": [
+      "path:0f2f2f3e3f2b",
+      "path:06f2a9a5891e"
+    ],
+    "braces": [
+      "path:ae4b9d22556e",
+      "path:720192e9a2fc"
+    ],
+    "briefcase": [
+      "path:8cea74651b2b",
+      "rect:1d4195e3d919"
+    ],
+    "building": [
+      "path:d120e0ee3194",
+      "path:db602e4ae359",
+      "path:6033573d9658",
+      "path:62de4c52231b",
+      "path:b2ff20768c85",
+      "path:6ef634c18634",
+      "path:c653caa1e45c",
+      "path:dba2dc3d9507",
+      "path:9853b9ec9ebf",
+      "path:0953ad784432",
+      "rect:2428eb83eaf8"
+    ],
+    "building-2": [
+      "path:a13341c32f92",
+      "path:226253d872e7",
+      "path:a523387ec93a",
+      "path:635f65e2175c",
+      "path:2d10683f321e"
+    ],
+    "cable": [
+      "path:eadd965223b8",
+      "path:72f03b5f8965",
+      "path:5a50d1d5e1d4",
+      "path:edea0d163206",
+      "path:6e0c14da8b95",
+      "path:a2796d1212aa",
+      "path:76c1dade7917"
+    ],
+    "cake": [
+      "path:37dc2af6e8ae",
+      "path:034f4013c7af",
+      "path:ea23593c3905",
+      "path:bc2f0c21e83c",
+      "path:4abc796d0354",
+      "path:f20daf72eaa1",
+      "path:2f9f08e3ab95",
+      "path:2cdad0b7e023",
+      "path:b2b99830ea85"
+    ],
+    "calendar": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7"
+    ],
+    "calendar-check": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:c84b9b4bbf06"
+    ],
+    "calendar-clock": [
+      "path:d305925774aa",
+      "path:038b3cfb6f81",
+      "path:2cf54a6ebec7",
+      "path:000f198a9619",
+      "path:ccc0b43e5a8f",
+      "circle:d6022e837f75"
+    ],
+    "calendar-days": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:2d4d60789f92",
+      "path:5f6345eb0c67",
+      "path:afcd56bfb020",
+      "path:96d95f14efb3",
+      "path:172792977efc",
+      "path:b0462b73484b"
+    ],
+    "camera": [
+      "path:bcbbb4d6b10d",
+      "circle:28e6ff6b4978"
+    ],
+    "cctv": [
+      "path:994a1eb7e731",
+      "path:ce9f81c568d2",
+      "path:51c0904f6851",
+      "path:ad381e15efab",
+      "path:2ad56b84259b"
+    ],
+    "chart-column": [
+      "path:b617e3a8ba86",
+      "path:64d81c595f04",
+      "path:9969c6eada28",
+      "path:f3eb65f13b54"
+    ],
+    "check": [
+      "path:dbe2ed46e338"
+    ],
+    "chevron-down": [
+      "path:99707fdfad60"
+    ],
+    "chevron-left": [
+      "path:d88a2f95401a"
+    ],
+    "chevron-right": [
+      "path:ab327348df54"
+    ],
+    "chevron-up": [
+      "path:535ccddfcd04"
+    ],
+    "chevrons-up-down": [
+      "path:fe29b60dfd27",
+      "path:82e027c032cb"
+    ],
+    "circle": [
+      "circle:1b306a76ecc0"
+    ],
+    "circle-alert": [
+      "circle:1b306a76ecc0",
+      "line:00fd201d9463",
+      "line:405135e33c7b"
+    ],
+    "circle-check": [
+      "circle:1b306a76ecc0",
+      "path:a6c388c2ba21"
+    ],
+    "circle-plus": [
+      "circle:1b306a76ecc0",
+      "path:996d85dad073",
+      "path:3fbc681c0854"
+    ],
+    "circle-question-mark": [
+      "circle:1b306a76ecc0",
+      "path:fbaf6ad092cd",
+      "path:172792977efc"
+    ],
+    "circle-x": [
+      "circle:1b306a76ecc0",
+      "path:d9ee5f9557b1",
+      "path:029e593ffb58"
+    ],
+    "clipboard-check": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:d9ebb82c9e7d"
+    ],
+    "clock": [
+      "circle:1b306a76ecc0",
+      "path:21ece3eaabba"
+    ],
+    "cloud-upload": [
+      "path:0a74c744e5c5",
+      "path:ef8fcfc3c829",
+      "path:59881d74e4a8"
+    ],
+    "command": [
+      "path:cea8e6cbc81f"
+    ],
+    "contact": [
+      "path:028b3b686e81",
+      "path:6576cb1fa946",
+      "path:cdc0b5d15b8f",
+      "circle:34719e7a21bf",
+      "rect:d427f2bc2999"
+    ],
+    "copy": [
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "cpu": [
+      "path:5d1676a45389",
+      "path:c769d66c2029",
+      "path:cbd2be6df4e1",
+      "path:433e8bc7b956",
+      "path:8c917886fec0",
+      "path:c7d96c2da371",
+      "path:0dad82d62493",
+      "path:fe28ecd48f6e",
+      "path:228ac5a34a8e",
+      "path:c45f01600dc3",
+      "path:b43a9050ce28",
+      "path:eb37108064ea",
+      "rect:9e4dea64472c",
+      "rect:93f189d5066b"
+    ],
+    "credit-card": [
+      "rect:1e419776da19",
+      "line:a36ea600b35d"
+    ],
+    "crown": [
+      "path:77260e716c90",
+      "path:eeb36d422fd8"
+    ],
+    "database": [
+      "ellipse:22d490ea4115",
+      "path:785c9b18ccc6",
+      "path:990ff122724e"
+    ],
+    "download": [
+      "path:00163c9b524d",
+      "path:17b2f245dec9",
+      "path:2f8a5f6a8f76"
+    ],
+    "ellipsis": [
+      "circle:a07fcd427480",
+      "circle:881dc96f6bdf",
+      "circle:5aa3083c1598"
+    ],
+    "ellipsis-vertical": [
+      "circle:a07fcd427480",
+      "circle:8b98e27e7dcb",
+      "circle:7eb1bb9b7fd5"
+    ],
+    "external-link": [
+      "path:c78685b083c9",
+      "path:68486e0bf3ee",
+      "path:4f16354968d1"
+    ],
+    "eye": [
+      "path:9c1d3a3e4e81",
+      "circle:9e7fca1c7280"
+    ],
+    "eye-off": [
+      "path:441c689d9a6e",
+      "path:0bc70e49c9ff",
+      "path:341f39d1190e",
+      "path:378c27879c92"
+    ],
+    "file": [
+      "path:ed539cad8550",
+      "path:3212171d6006"
+    ],
+    "file-badge": [
+      "path:69d598665c87",
+      "path:3212171d6006",
+      "path:d81340ff8494",
+      "circle:9e159e69e60c"
+    ],
+    "file-check": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:c84b9b4bbf06"
+    ],
+    "file-check-corner": [
+      "path:174c79858c74",
+      "path:3212171d6006",
+      "path:a6d646e70a74"
+    ],
+    "file-exclamation-point": [
+      "path:ed539cad8550",
+      "path:34c460878309",
+      "path:172792977efc"
+    ],
+    "file-spreadsheet": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:8e53c4a7c4e2",
+      "path:1a1f20061e17",
+      "path:d1a3372b8193",
+      "path:d67ffba263e1"
+    ],
+    "file-text": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:8ed632c754e0",
+      "path:2888031645d5",
+      "path:656069828a3b"
+    ],
+    "file-x": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:c87e13d07cf4",
+      "path:6a381bd15bf0"
+    ],
+    "folder-open": [
+      "path:2545f338a126"
+    ],
+    "funnel": [
+      "path:e548f490c441"
+    ],
+    "git-fork": [
+      "circle:5d9311e2c27e",
+      "circle:5a150a8c86b8",
+      "circle:9bcf8b13a544",
+      "path:8824715c099c",
+      "path:ea0238c6e579"
+    ],
+    "globe": [
+      "circle:1b306a76ecc0",
+      "path:293e5d5ae2d7",
+      "path:ff0106821348"
+    ],
+    "graduation-cap": [
+      "path:184e1accc7b0",
+      "path:e598981a540a",
+      "path:a96148eaeaf9"
+    ],
+    "grip-vertical": [
+      "circle:4c61a838a64f",
+      "circle:d7846d1cb392",
+      "circle:9dc9efdd5f44",
+      "circle:21526043d2ab",
+      "circle:05934be1aa2c",
+      "circle:35fe5d1a4428"
+    ],
+    "hard-drive": [
+      "path:a02ed4c22ff8",
+      "path:2af13eb9138e",
+      "path:a126809d4b19",
+      "path:5160390d0e0e"
+    ],
+    "hash": [
+      "line:08168d789fd9",
+      "line:68165d384ee9",
+      "line:b412f7e5128f",
+      "line:4e45c1fcd117"
+    ],
+    "hat-glasses": [
+      "path:0d063a79b502",
+      "path:b83d2f047252",
+      "path:f8a1b5418dd7",
+      "circle:18055e6d7c50",
+      "circle:6342845e15c6"
+    ],
+    "heart-pulse": [
+      "path:91c0d03ce70d",
+      "path:4a4649a2a3bb"
+    ],
+    "house": [
+      "path:1477bac52fac",
+      "path:e0ea0fc31f97"
+    ],
+    "id-card": [
+      "path:b3f0aca9e204",
+      "path:70a13a252504",
+      "path:a17c606a1c05",
+      "circle:a486c7ac1bc6",
+      "rect:1e419776da19"
+    ],
+    "image": [
+      "rect:c77b46add5d7",
+      "circle:8fccc049aa43",
+      "path:a22cb33b509d"
+    ],
+    "image-off": [
+      "line:ed241e14c4ca",
+      "path:8ac9105a2611",
+      "line:50b766cf90ec",
+      "line:f74c05a166e2",
+      "path:656b63f22070",
+      "path:add1fa7d1389"
+    ],
+    "images": [
+      "path:18bdb29749de",
+      "path:4a94b3206df3",
+      "circle:347d5476f6c3",
+      "rect:222f9d3e6611"
+    ],
+    "inbox": [
+      "polyline:1dc687c209da",
+      "path:abb2585540a3"
+    ],
+    "infinity": [
+      "path:fd219cc1e319"
+    ],
+    "info": [
+      "circle:1b306a76ecc0",
+      "path:d189f96410b1",
+      "path:d9e04a33511a"
+    ],
+    "key": [
+      "path:87569408b7c7",
+      "path:b89e686bcafe",
+      "circle:e53a9dca7e76"
+    ],
+    "key-round": [
+      "path:395a5c655630",
+      "circle:e373d03b8ddf"
+    ],
+    "keyboard": [
+      "path:942415d9aec0",
+      "path:eead8e585bc8",
+      "path:bb8d17752ec1",
+      "path:806af9bccd4e",
+      "path:587e6c9173e4",
+      "path:1fa84cccf29a",
+      "path:78c43d8e004c",
+      "path:101f890beab1",
+      "rect:41e980132aa8"
+    ],
+    "landmark": [
+      "path:65e22a690ba0",
+      "path:74d471fa373f",
+      "path:99aa936581bd",
+      "path:8cff79b15493",
+      "path:f4f193b7c53c",
+      "path:10da967c7004"
+    ],
+    "languages": [
+      "path:13b38fc82684",
+      "path:dd5c5b2fc328",
+      "path:307e92516cc6",
+      "path:fa6447bb63db",
+      "path:b7807974642d",
+      "path:7eff37af4a9f"
+    ],
+    "laptop": [
+      "path:d518d9f7e3b4",
+      "path:d4802f74279a"
+    ],
+    "layers": [
+      "path:23e10d821f47",
+      "path:83ab0cd6476c",
+      "path:df7d55da89e5"
+    ],
+    "layout-dashboard": [
+      "rect:19b5dedd7b6c",
+      "rect:46370ed52e5b",
+      "rect:7714a51bc0a5",
+      "rect:d997cc2728ef"
+    ],
+    "layout-grid": [
+      "rect:dfba17afca9b",
+      "rect:5383063b55ca",
+      "rect:f247b0cf453f",
+      "rect:38f85033b683"
+    ],
+    "library": [
+      "path:2b68f6ad4a6b",
+      "path:4409acef811a",
+      "path:1689780c7923",
+      "path:1151e39017a8"
+    ],
+    "lightbulb": [
+      "path:3bf03a5a554e",
+      "path:b840bd9bbaa6",
+      "path:3c89566cbb0f"
+    ],
+    "link": [
+      "path:30211a98ba94",
+      "path:e02866cd8f82"
+    ],
+    "link-2": [
+      "path:33be29e5424e",
+      "path:7d4299dd2719",
+      "line:47622f9df753"
+    ],
+    "list": [
+      "path:07cd420c272e",
+      "path:a0f7d20080b3",
+      "path:e493d2810aa2",
+      "path:d181d0d8cd63",
+      "path:685878128ab6",
+      "path:f91c29cdf73b"
+    ],
+    "list-checks": [
+      "path:c4c320068d89",
+      "path:6794259018da",
+      "path:9c1c7409cb86",
+      "path:0985d66b04c7",
+      "path:dc894b2ea642"
+    ],
+    "loader-circle": [
+      "path:3f3f9a73a2b8"
+    ],
+    "lock": [
+      "rect:2e7ac1490503",
+      "path:fac77bd8ebb9"
+    ],
+    "log-out": [
+      "path:adcbdbb71db8",
+      "path:0b53922c0fea",
+      "path:113fe37e469f"
+    ],
+    "mail": [
+      "path:5e4902aa4f77",
+      "rect:41e980132aa8"
+    ],
+    "map": [
+      "path:cd5f635cd55b",
+      "path:8db1747bc374",
+      "path:5d142b14b658"
+    ],
+    "map-pin": [
+      "path:13d1b25d6e81",
+      "circle:34719e7a21bf"
+    ],
+    "minus": [
+      "path:52f6eb0c4372"
+    ],
+    "monitor": [
+      "rect:20419a9cd419",
+      "line:cdad239da492",
+      "line:87ababf5cbc5"
+    ],
+    "moon": [
+      "path:2dcf463a91e5"
+    ],
+    "mouse": [
+      "rect:c10883e34bad",
+      "path:a36f353a4824"
+    ],
+    "mouse-pointer-click": [
+      "path:14e67842eea2",
+      "path:530bcdf85e34",
+      "path:0090ee1933c4",
+      "path:c4dcf8fee0b6",
+      "path:7e27b58bc09c"
+    ],
+    "navigation": [
+      "polygon:67e43b02cce7"
+    ],
+    "network": [
+      "rect:95943699de38",
+      "rect:6b0327cee618",
+      "rect:28bc11606857",
+      "path:2ea1907ad709",
+      "path:71512c2b5c2a"
+    ],
+    "package": [
+      "path:c010c527f945",
+      "path:11495c3f06f5",
+      "polyline:5fff57339bcf",
+      "path:87191b38dbfa"
+    ],
+    "package-search": [
+      "path:11495c3f06f5",
+      "path:e1ec7f44463f",
+      "path:c568e1dbcfea",
+      "path:71354002671b",
+      "path:16327b572aba",
+      "circle:ceba0d60d9ce"
+    ],
+    "palette": [
+      "path:0e782faa2532",
+      "circle:79a328ed9613",
+      "circle:9e4473bada90",
+      "circle:edd9a61c0bd6",
+      "circle:447970e0543f"
+    ],
+    "panel-left": [
+      "rect:d427f2bc2999",
+      "path:4eda0d68cc05"
+    ],
+    "panel-left-close": [
+      "rect:d427f2bc2999",
+      "path:4eda0d68cc05",
+      "path:b5b92dc12291"
+    ],
+    "pen": [
+      "path:72015e06e6ed"
+    ],
+    "pen-line": [
+      "path:e071e24ae492",
+      "path:72015e06e6ed"
+    ],
+    "pencil": [
+      "path:72015e06e6ed",
+      "path:11f5f74cc7ba"
+    ],
+    "phone": [
+      "path:026dd4457fb2"
+    ],
+    "plane": [
+      "path:96fac3888dc3"
+    ],
+    "play": [
+      "path:af57b8299ff9"
+    ],
+    "plus": [
+      "path:52f6eb0c4372",
+      "path:0d2f2c183d2b"
+    ],
+    "power": [
+      "path:b9a3e20f0b80",
+      "path:9f5d543935d7"
+    ],
+    "printer": [
+      "path:1fc08bcd012a",
+      "path:14d7a1a956bc",
+      "rect:f9a377ad7ca6"
+    ],
+    "qr-code": [
+      "rect:ff7cc9738b97",
+      "rect:0d68f7dd6058",
+      "rect:0676377d20c8",
+      "path:528197d29127",
+      "path:fd7155cefa3d",
+      "path:93176b463c96",
+      "path:a0f7d20080b3",
+      "path:db6bc28ebc88",
+      "path:73dde046735f",
+      "path:8df832763c0b",
+      "path:b98f531c8f5a",
+      "path:8537ec69f6d8"
+    ],
+    "receipt": [
+      "path:df0359bda912",
+      "path:3cc9a81227a7",
+      "path:1d16cf4dd274"
+    ],
+    "refresh-cw": [
+      "path:3c223c96eef5",
+      "path:006e317a5f7c",
+      "path:9b0c90f32bff",
+      "path:c767734ed220"
+    ],
+    "rotate-ccw": [
+      "path:22fdb0beadaf",
+      "path:4e7e8329d413"
+    ],
+    "rotate-ccw-clock": [
+      "path:22fdb0beadaf",
+      "path:4e7e8329d413",
+      "path:8a0f6b48a4d6"
+    ],
+    "rotate-cw": [
+      "path:1120860c1ade",
+      "path:006e317a5f7c"
+    ],
+    "router": [
+      "rect:ef7e5b17c64d",
+      "path:5f5f6f49bf3b",
+      "path:85792f2f532f",
+      "path:188948920379",
+      "path:5f1d066580f3",
+      "path:5b2034583903"
+    ],
+    "save": [
+      "path:f8b6ba920a86",
+      "path:552bca96f30b",
+      "path:3e0eea9df583"
+    ],
+    "scroll-text": [
+      "path:2578e480ba2c",
+      "path:0828ffeba61c",
+      "path:36f4f9e10f64",
+      "path:a49d652186f6"
+    ],
+    "search": [
+      "path:a7389ab93e96",
+      "circle:6c5bffb15d7d"
+    ],
+    "search-check": [
+      "path:65b31d4aa0bf",
+      "circle:6c5bffb15d7d",
+      "path:530dc70d3efc"
+    ],
+    "search-slash": [
+      "path:2344d83c767b",
+      "circle:6c5bffb15d7d",
+      "path:530dc70d3efc"
+    ],
+    "search-x": [
+      "path:2344d83c767b",
+      "path:78abe99b5b1e",
+      "circle:6c5bffb15d7d",
+      "path:530dc70d3efc"
+    ],
+    "send": [
+      "path:f35158134324",
+      "path:f2de9a14c2f2"
+    ],
+    "server": [
+      "rect:47a64a8badfc",
+      "rect:87c9e61e752e",
+      "line:fda6308d04d7",
+      "line:b2b188774dac"
+    ],
+    "settings": [
+      "path:1038a31022b7",
+      "circle:9e7fca1c7280"
+    ],
+    "shield": [
+      "path:f05a301203fa"
+    ],
+    "shield-alert": [
+      "path:f05a301203fa",
+      "path:43bc6e680454",
+      "path:04796774ada1"
+    ],
+    "shield-check": [
+      "path:f05a301203fa",
+      "path:a6c388c2ba21"
+    ],
+    "shield-off": [
+      "path:378c27879c92",
+      "path:f597e154eb69",
+      "path:52a8839e5abe"
+    ],
+    "shirt": [
+      "path:445f0480f61d"
+    ],
+    "shopping-bag": [
+      "path:eaf0b690f6c9",
+      "path:a50c3775bbec",
+      "path:24ee4134e8bc"
+    ],
+    "shopping-cart": [
+      "circle:b3265249e4cd",
+      "circle:914a2ca99839",
+      "path:896e4786bf77"
+    ],
+    "smartphone": [
+      "rect:7ce4e1ad28f9",
+      "path:d38b9216eb2e"
+    ],
+    "sparkles": [
+      "path:8b5d172dc737",
+      "path:e73b73ef417e",
+      "path:7b65e402edb4",
+      "circle:cbff1aab195b"
+    ],
+    "square": [
+      "rect:d427f2bc2999"
+    ],
+    "square-centerline-dashed-horizontal": [
+      "path:524992e37fee",
+      "path:841279ec285f",
+      "path:5d1676a45389",
+      "path:67cf382f378a",
+      "path:49bc77da0254",
+      "path:c769d66c2029"
+    ],
+    "square-centerline-dashed-vertical": [
+      "path:d48b48b8d9b9",
+      "path:c00e9d584ab3",
+      "path:c56924709115",
+      "path:2ce46c472342",
+      "path:49ad69c8c601",
+      "path:2d9df39f8f99"
+    ],
+    "square-pen": [
+      "path:c7672d7328a4",
+      "path:7cbb20d205bb"
+    ],
+    "star": [
+      "path:28aacd06c27e"
+    ],
+    "sun": [
+      "circle:9d7fc8897980",
+      "path:c769d66c2029",
+      "path:5d1676a45389",
+      "path:0911493ba313",
+      "path:f4b1b5c7cd66",
+      "path:8c917886fec0",
+      "path:fe28ecd48f6e",
+      "path:fbbbd4b5d56a",
+      "path:6e2af8913bcb"
+    ],
+    "tablet": [
+      "rect:99b68d40977b",
+      "line:aa3100dbd289"
+    ],
+    "tag": [
+      "path:453b6d169cfe",
+      "circle:0e09129bad7a"
+    ],
+    "trash": [
+      "path:fcbffd502b93",
+      "path:8d73c9199add",
+      "path:62965d1ecf4f"
+    ],
+    "trash-2": [
+      "path:1dbb9a3e1c55",
+      "path:072b40ea7562",
+      "path:fcbffd502b93",
+      "path:8d73c9199add",
+      "path:62965d1ecf4f"
+    ],
+    "triangle": [
+      "path:5a7537d1787c"
+    ],
+    "triangle-alert": [
+      "path:f83b0782b505",
+      "path:34c460878309",
+      "path:172792977efc"
+    ],
+    "truck": [
+      "path:3d560e079839",
+      "path:8074601b25ac",
+      "path:8dbe592ef03a",
+      "circle:17055cda7b50",
+      "circle:644285f116c6"
+    ],
+    "tv": [
+      "path:090fac32bac5",
+      "rect:7a7abeb39c53"
+    ],
+    "type": [
+      "path:f6343ac7e775",
+      "path:437188b7f88a",
+      "path:cfbadd6c6cea"
+    ],
+    "unlink": [
+      "path:5a25a512d8d9",
+      "path:4dfebde6dbe4",
+      "line:3006805be831",
+      "line:5fb4bdbb40a8",
+      "line:b6261fb2d0cf",
+      "line:7cfb36d67d0f"
+    ],
+    "upload": [
+      "path:235a575cf535",
+      "path:e1da6bb8d7c4",
+      "path:17b2f245dec9"
+    ],
+    "user": [
+      "path:1b78480ba63f",
+      "circle:4ef7282f8cbd"
+    ],
+    "user-check": [
+      "path:797f2985275c",
+      "path:e39057abea04",
+      "circle:f8b18bb1bcbf"
+    ],
+    "user-cog": [
+      "path:b868fa604e2c",
+      "path:d757d429092b",
+      "path:b0100f3cbbe0",
+      "path:09b5fe82029e",
+      "path:296551430b4b",
+      "path:f61daa1619cf",
+      "path:8d2d668dd861",
+      "path:201a020a3182",
+      "path:9aa256082e71",
+      "circle:35f44cf39ef5",
+      "circle:f8b18bb1bcbf"
+    ],
+    "user-minus": [
+      "path:e39057abea04",
+      "circle:f8b18bb1bcbf",
+      "line:778a5e6b09a1"
+    ],
+    "user-plus": [
+      "path:e39057abea04",
+      "circle:f8b18bb1bcbf",
+      "line:a57f21fb6f1b",
+      "line:778a5e6b09a1"
+    ],
+    "user-x": [
+      "path:e39057abea04",
+      "circle:f8b18bb1bcbf",
+      "line:e12425128e70",
+      "line:96ae84965ce6"
+    ],
+    "users": [
+      "path:e39057abea04",
+      "path:a93f64f47cd5",
+      "path:1cfc05e96f50",
+      "circle:f8b18bb1bcbf"
+    ],
+    "volume-2": [
+      "path:bf678970bfa2",
+      "path:3bccea75a640",
+      "path:d6e3935c6ce6"
+    ],
+    "warehouse": [
+      "path:c81ca35840df",
+      "path:a32445519e0a",
+      "path:695fd7e2ae95",
+      "path:80e6860ed483"
+    ],
+    "webhook": [
+      "path:eaafaaff0e43",
+      "path:ef92365e7130",
+      "path:23f90fc03f1f"
+    ],
+    "wifi": [
+      "path:b220a3996c02",
+      "path:a53db445f74a",
+      "path:ae287740f718",
+      "path:cbe116798cb6"
+    ],
+    "workflow": [
+      "rect:b24e1fb43530",
+      "path:8d82c27f633b",
+      "rect:67a07012fe74"
+    ],
+    "wrench": [
+      "path:8eacea6c8744"
+    ],
+    "x": [
+      "path:c6016d65b42e",
+      "path:1c2eecfd7987"
+    ],
+    "zap": [
+      "path:c27920ba4bf3"
+    ],
+    "zoom-in": [
+      "circle:6c5bffb15d7d",
+      "line:661df8b4cc37",
+      "line:812d623bd105",
+      "line:aa7aab7b35dd"
+    ],
+    "zoom-out": [
+      "circle:6c5bffb15d7d",
+      "line:661df8b4cc37",
+      "line:aa7aab7b35dd"
+    ]
+  }
+}
