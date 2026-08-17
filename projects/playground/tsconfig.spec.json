@@ -1,19 +1,12 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "extends": "../../tsconfig.json",
+  // Mismos `paths` que la app, por herencia real (tsconfig.paths.json) y no por copia: los specs
+  // compilan el mismo árbol de componentes, y si los dos configs divergen el build pasa mientras
+  // `ng test` truena con TS2307. Ya pasó.
+  "extends": ["../../tsconfig.json", "./tsconfig.paths.json"],
   "compilerOptions": {
-    "types": ["vitest/globals"],
-    // Mismo alias que tsconfig.app.json: los tests del playground prueban contra el paquete
-    // publicado, no contra `dist/glyphflow`. Si divergieran, el test verde dejaría de significar
-    // que la app desplegada funciona.
-    "paths": {
-      "glyphflow": ["../../node_modules/glyphflow-published"],
-      // Los specs compilan el mismo árbol de componentes que la app: si el arnés de morph importa
-      // `glyphflow/morph`, aquí también tiene que resolver. Faltaba, y `ng test playground` tronó
-      // con TS2307 mientras app y build pasaban — los tres tsconfig se mantienen en sync o no.
-      "glyphflow/morph": ["../glyphflow/src/lib/morph/index"]
-    }
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
 }

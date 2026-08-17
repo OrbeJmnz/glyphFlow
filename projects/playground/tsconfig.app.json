@@ -1,25 +1,11 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "extends": "../../tsconfig.json",
+  // Array de `extends`: el último gana. Los `paths` viven en tsconfig.paths.json, compartidos con
+  // tsconfig.spec.json — no se duplican aquí.
+  "extends": ["../../tsconfig.json", "./tsconfig.paths.json"],
   "compilerOptions": {
-    "types": [],
-    // El playground consume el paquete PUBLICADO, no `dist/glyphflow`. El mapeo de la raíz
-    // (`glyphflow` → ./dist/glyphflow) apunta al build local: sirve para desarrollar la librería,
-    // pero con él el playground jamás probaría lo que de verdad recibe un consumidor.
-    //
-    // Y no basta con borrar el mapeo: `workspaces` hace que `node_modules/glyphflow` sea un
-    // JUNCTION a projects/glyphflow (el CÓDIGO FUENTE, sin fesm2022 ni types), así que la
-    // resolución normal tampoco llega al paquete real. Por eso el alias: `glyphflow-published` es
-    // el tarball bajado del registro, con su integrity anclado en package-lock.json.
-    "paths": {
-      "glyphflow": ["../../node_modules/glyphflow-published"],
-      // EXCEPCIÓN TEMPORAL, solo para el benchmark de morph: `glyphflow/morph` no existe en
-      // ningún paquete publicado todavía, así que el arnés apunta al código local. Es lo único
-      // del playground que rompe la regla de consumir solo lo publicado, y se borra en cuanto
-      // morph salga en una versión: entonces vuelve a resolverse por el alias de arriba.
-      "glyphflow/morph": ["../glyphflow/src/lib/morph/index"]
-    }
+    "types": []
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

@@ -1,0 +1,26 @@
+/* Los `paths` del playground, en UN solo lugar.
+ *
+ * `tsconfig.app.json` y `tsconfig.spec.json` lo heredan vía `extends` en array (TS 5.0+; aquí
+ * corre 6.0), donde el último gana: primero la config de la raíz, después esta, que reemplaza sus
+ * `paths` enteros. `paths` NUNCA se fusiona entre configs — el hijo pisa al padre completo, y por
+ * eso el mapeo de la raíz (`glyphflow` → ./dist/glyphflow) desaparece aquí en vez de sumarse.
+ *
+ * Las rutas relativas de `paths` se resuelven contra el archivo que las DECLARA, no contra el que
+ * hereda: por eso viven en projects/playground/, junto a los dos configs que las usan.
+ *
+ * Duplicar esto costó caro una vez: el alias de morph quedó solo en tsconfig.app.json y
+ * `ng test playground` tronó con TS2307 mientras el build pasaba tranquilo.
+ */
+{
+  "compilerOptions": {
+    "paths": {
+      // El playground consume el paquete PUBLICADO, no dist/. Con `workspaces`,
+      // node_modules/glyphflow es un junction al código fuente, así que ni el mapeo de la raíz ni
+      // la resolución normal llegan al paquete real: de ahí el alias.
+      "glyphflow": ["../../node_modules/glyphflow-published"],
+      // EXCEPCIÓN TEMPORAL, solo para el benchmark de morph: `glyphflow/morph` no existe en
+      // ningún paquete publicado todavía. Se borra en cuanto morph salga en una versión.
+      "glyphflow/morph": ["../glyphflow/src/lib/morph/index"]
+    }
+  }
+}
