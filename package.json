@@ -18,8 +18,6 @@
     "notice-check": "node scripts/notice-check.mjs",
     "verify:clean": "node scripts/verify-clean.mjs",
     "generate:icons": "tsx scripts/generate-lucide-icons.ts",
-    "gen:springs": "tsx scripts/gen-spring-easings.ts",
-    "gen:springs:check": "tsx scripts/gen-spring-easings.ts --check",
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",

@@ -1,9 +1,4 @@
 import { AnimatedIconDef, IconChoreography, IconShape, MotionTrack } from './animated-icon.model';
-import { SPRING_BOUNCY, SPRING_SMOOTH, SPRING_SNAPPY } from './spring-easings';
-
-// Se re-exportan para que `curated-icons.ts` siga teniendo UN solo lugar de donde importar
-// vocabulario de movimiento. Que los valores vengan de un archivo generado es detalle de cocina.
-export { SPRING_BOUNCY, SPRING_SMOOTH, SPRING_SNAPPY };
 
 /**
  * Vocabulario de movimiento compartido — lo usan tanto `curated-icons.ts` (180 coreografías a
@@ -15,25 +10,9 @@ export { SPRING_BOUNCY, SPRING_SMOOTH, SPRING_SNAPPY };
  * coreografía, hay un bloque. El desfase es lo que se siente vivo.
  */
 
-/**
- * Para keyframes que YA oscilan a mano (la campana: `rotateSeq([0, 20, -10, 10, -5, 3, 0])`).
- * Ahí los keyframes son el resorte, y encimarles un easing con sobrepaso oscila doble y se ve mal.
- * Este default NO se cambia por un preset: no es que le falte física, es que ya la trae.
- */
 export const EASE = 'ease-in-out';
-
-/**
- * El resorte de la casa para ir de A a B. Ahora sí es un resorte.
- *
- * Antes era `cubic-bezier(0.16, 1, 0.3, 1)` — un expo-out honesto, pero críticamente amortiguado
- * por definición: NO rebotaba. La premisa que lo justificaba ("WAAPI no tiene springs") dejó de
- * ser cierta con `linear()`, que admite puntos de control fuera de [0,1]. Ver spring-easings.ts.
- *
- * Se conserva el NOMBRE en vez de renombrar los ~40 call sites de `curated-icons.ts` porque el
- * nombre nunca fue el problema: cada uno de esos sitios ya era una decisión correcta de "aquí va
- * un resorte", tomada icono por icono. Lo único que estaba mal era el valor.
- */
-export const SPRING_OUT = SPRING_SNAPPY;
+/** Spring sobreamortiguado (ζ≈1): sin rebote, un expo-out es fiel y WAAPI no tiene springs. */
+export const SPRING_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 export const rotateSeq = (deg: number[]): Keyframe[] => deg.map((d) => ({ transform: `rotate(${d}deg)` }));
 export const scaleSeq = (s: number[]): Keyframe[] => s.map((v) => ({ transform: `scale(${v})` }));
@@ -88,16 +67,8 @@ export const icon = (shapes: IconShape[], animations: Record<string, IconChoreog
   animations: { draw: DRAW, ...animations },
 });
 
-/**
- * Estado que se sostiene mientras dure el hover y se devuelve al salir (no un tic de ida y vuelta).
- *
- * `SPRING_SNAPPY` explícito, no `SPRING_OUT`, y no es cosmético: al salir el puntero esto se
- * reproduce en REVERSA (`reverseOnLeave`), y reversa significa recorrer la curva del easing hacia
- * atrás — el sobrepaso aparece a media vuelta, cuando la figura ya va de regreso. Con `snappy`
- * (pico 1.0265) eso es un 2.6% y no se ve. Con `bouncy` (1.2435) la figura se abomba de salida y
- * se ve al revés de como debería. Por eso el preset queda fijo aquí y no se hereda de un default.
- */
+/** Estado que se sostiene mientras dure el hover y se devuelve al salir (no un tic de ida y vuelta). */
 export const held = (keyframes: Keyframe[], duration: number, o: TrackOpts = {}): IconChoreography => ({
-  root: /* @__PURE__ */ track(keyframes, duration, { easing: SPRING_SNAPPY, fill: 'forwards', ...o }),
+  root: /* @__PURE__ */ track(keyframes, duration, { easing: SPRING_OUT, fill: 'forwards', ...o }),
   reverseOnLeave: true,
 });
