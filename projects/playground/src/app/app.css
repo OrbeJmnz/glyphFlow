@@ -66,11 +66,22 @@
   border: 1px solid #1d1d25;
   border-radius: 0.75rem;
   background: #101017;
-  transition: border-color 0.15s ease;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .card:hover {
   border-color: #33333f;
+}
+
+.card:focus-visible {
+  outline: 2px solid #6c6c96;
+  outline-offset: 2px;
+}
+
+.card.inspeccionado {
+  border-color: #6c6c96;
+  background: #14141d;
 }
 
 .name {

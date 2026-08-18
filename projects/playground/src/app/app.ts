@@ -1,6 +1,7 @@
 import { Component, ViewChildren, QueryList, signal } from '@angular/core';
 import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
 import { MorphBench } from './morph-bench';
+import { MotionInspectorPanel } from './motion-inspector-panel';
 
 interface CuratedEntry {
   name: string;
@@ -19,7 +20,7 @@ interface CuratedEntry {
  */
 @Component({
   selector: 'app-root',
-  imports: [MaxIconComponent, MorphBench],
+  imports: [MaxIconComponent, MorphBench, MotionInspectorPanel],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -31,6 +32,8 @@ export class App {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   protected readonly total = signal(this.entries.length);
+  /** Icono bajo inspección en el Motion Inspector. `null` = panel cerrado. */
+  protected readonly inspeccionado = signal<CuratedEntry | null>(null);
 
   /** Repite la coreografía de UNA tarjeta. El índice del @for casa con el orden del QueryList. */
   protected repetir(index: number): void {
@@ -39,5 +42,9 @@ export class App {
 
   protected repetirTodo(): void {
     for (const icon of this.icons) icon.play();
+  }
+
+  protected inspeccionar(entry: CuratedEntry): void {
+    this.inspeccionado.set(entry);
   }
 }

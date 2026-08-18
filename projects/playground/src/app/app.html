@@ -2,19 +2,40 @@
   <h1>glyphflow</h1>
   <p>
     Los <strong>{{ total() }}</strong> iconos curados, con su coreografía a mano. Pasa el puntero
-    sobre una tarjeta o dale a repetir.
+    sobre una tarjeta para animarla, dale click para inspeccionar su motion, o dale a repetir.
   </p>
   <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
 </header>
+
+@if (inspeccionado(); as sel) {
+  <app-motion-inspector-panel
+    [nombre]="sel.name"
+    [def]="sel.def"
+    (cerrar)="inspeccionado.set(null)"
+  />
+}
 
 <app-morph-bench />
 
 <main class="grid">
   @for (entry of entries; track entry.name; let i = $index) {
-    <article class="card">
+    <article
+      class="card"
+      [class.inspeccionado]="inspeccionado()?.name === entry.name"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="'Inspeccionar ' + entry.name"
+      (click)="inspeccionar(entry)"
+      (keydown.enter)="inspeccionar(entry)"
+    >
       <max-icon [iconDef]="entry.def" [size]="32" trigger="group" />
       <span class="name">{{ entry.name }}</span>
-      <button type="button" class="repeat" (click)="repetir(i)" [attr.aria-label]="'Repetir ' + entry.name">
+      <button
+        type="button"
+        class="repeat"
+        (click)="$event.stopPropagation(); repetir(i)"
+        [attr.aria-label]="'Repetir ' + entry.name"
+      >
         repetir
       </button>
     </article>

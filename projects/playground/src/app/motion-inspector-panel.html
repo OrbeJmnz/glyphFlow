@@ -1,0 +1,60 @@
+<section class="inspector" aria-label="Motion Inspector">
+  <header class="inspector-head">
+    <max-icon [iconDef]="def()" [size]="28" />
+    <h2>{{ nombre() }}</h2>
+    <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar Motion Inspector">
+      ✕
+    </button>
+  </header>
+
+  <div class="variantes">
+    @for (v of reporte().variantes; track v.variante) {
+      <article class="variante">
+        <h3>{{ v.variante }}</h3>
+        <dl>
+          <div>
+            <dt>duración</dt>
+            <dd>{{ duracion(v) }}</dd>
+          </div>
+          <div>
+            <dt>rotación máx.</dt>
+            <dd>{{ v.rotacionMaximaDeg }}°</dd>
+          </div>
+          <div>
+            <dt>tracks solapados</dt>
+            <dd>
+              @if (v.tracksSolapados.length) {
+                @for (o of v.tracksSolapados; track o.a + o.b) {
+                  <span class="par">{{ o.a }} ↔ {{ o.b }}</span>
+                }
+              } @else {
+                ninguno
+              }
+            </dd>
+          </div>
+          <div>
+            <dt>reverseOnLeave</dt>
+            <dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd>
+          </div>
+        </dl>
+
+        <div class="costo">
+          @for (p of v.propiedadesAnimadas; track p) {
+            <span class="prop" [class.caro]="p === 'd'">{{ p }}</span>
+          }
+          @if (v.autoDraw) {
+            <span class="prop">autoDraw</span>
+          }
+          @if (v.animaD) {
+            <span class="aviso">⚠ anima <code>d</code> — redibuja el path, no compositor-only</span>
+          }
+        </div>
+      </article>
+    }
+  </div>
+
+  <p class="nota">
+    <code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no es
+    un dato de esta coreografía, es un contrato del motor que aplica a cualquier icono.
+  </p>
+</section>
