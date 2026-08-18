@@ -190,9 +190,15 @@ jobs:
       # Sin NPM_TOKEN ni NODE_AUTH_TOKEN: la autenticación la resuelve el id-token de OIDC contra
       # el trusted publisher configurado en npmjs.com para este paquete. Un token en el entorno
       # tendría prioridad y anularía el mecanismo, así que su ausencia es parte del diseño.
+      # `changeset publish` publicaría desde la carpeta del paquete en el workspace
+      # (projects/glyphflow), que tiene el CÓDIGO FUENTE: .ts, specs, tsconfigs, y ningún
+      # fesm2022/ ni types/ — los genera ng-packagr al construir. Sería una versión rota en el
+      # registro, y los números de npm no se reescriben. Por eso se publica dist/ explícitamente,
+      # igual que el publish manual de la 1.0.0. `changeset tag` conserva los tags de git que
+      # `changeset publish` habría creado (y la action los detecta por su salida "New tag:").
       - name: Create Release PR or publish
         uses: changesets/action@v1
         with:
-          publish: npm run build -- glyphflow --configuration production && npx changeset publish
+          publish: npm run build:lib && npm publish dist/glyphflow --access public && npx changeset tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
