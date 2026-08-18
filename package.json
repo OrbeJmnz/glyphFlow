@@ -21,7 +21,7 @@
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",
-    "release": "npm run build:lib && npm publish ./dist/glyphflow --access public && npx changeset git-tag"
+    "release": "npm run build:lib && node scripts/release.mjs"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
