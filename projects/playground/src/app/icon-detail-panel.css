@@ -1,0 +1,255 @@
+.detalle {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem 1.25rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.75rem;
+  background: #15151c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.detalle-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.detalle-head max-icon {
+  color: #e7e7ea;
+  flex: none;
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.titulo h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f2f2f5;
+}
+
+.const {
+  font-size: 0.6875rem;
+  color: #6c6c78;
+}
+
+.const code {
+  color: #a1a1ac;
+}
+
+.reproducir {
+  margin-left: auto;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #3f3f4b;
+  border-radius: 0.4rem;
+  background: #1e1e2a;
+  color: #e7e7ea;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.reproducir:hover {
+  border-color: #6c6c96;
+}
+
+.cerrar {
+  border: 1px solid #2a2a33;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: #8b8b96;
+  width: 1.75rem;
+  height: 1.75rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.cerrar:hover {
+  color: #e7e7ea;
+  border-color: #3f3f4b;
+}
+
+.variantes-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.pill {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid #2a2a33;
+  border-radius: 999px;
+  background: #101017;
+  color: #8b8b96;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.pill:hover {
+  border-color: #3f3f4b;
+  color: #cfcfd6;
+}
+
+.pill.activa {
+  border-color: #6c6c96;
+  background: #1e1e2a;
+  color: #f2f2f5;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) minmax(20rem, 1.4fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 55rem) {
+  .columnas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bloque-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.9rem 0 0.4rem;
+}
+
+.bloque-titulo:first-child {
+  margin-top: 0;
+}
+
+.bloque-titulo h3,
+.col-inspector > h3 {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #cfcfd6;
+}
+
+.copiar {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: #8b8b96;
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.copiar:hover {
+  border-color: #3f3f4b;
+  color: #cfcfd6;
+}
+
+.codigo {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.5rem;
+  background: #0b0b0f;
+  color: #a1a1ac;
+  font-family: ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+textarea.codigo.json {
+  width: 100%;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.variantes-inspector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.6rem;
+}
+
+.variante {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.6rem;
+  background: #101017;
+}
+
+.variante.activa {
+  border-color: #6c6c96;
+}
+
+.variante h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #cfcfd6;
+}
+
+.variante dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2rem 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.6875rem;
+}
+
+.variante dt {
+  color: #6c6c78;
+}
+
+.variante dd {
+  margin: 0;
+  color: #a1a1ac;
+  font-variant-numeric: tabular-nums;
+}
+
+.par {
+  display: inline-block;
+  margin-right: 0.3rem;
+}
+
+.costo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.prop {
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.3rem;
+  background: #1e2a1e;
+  color: #8fd18f;
+  font-size: 0.625rem;
+  font-family: ui-monospace, monospace;
+}
+
+.prop.caro {
+  background: #2a1e1e;
+  color: #e08b8b;
+}
+
+.aviso {
+  color: #e0b28b;
+  font-size: 0.625rem;
+}
+
+.nota {
+  margin: 0.9rem 0 0;
+  color: #6c6c78;
+  font-size: 0.6875rem;
+}
+
+.nota code {
+  color: #a1a1ac;
+}

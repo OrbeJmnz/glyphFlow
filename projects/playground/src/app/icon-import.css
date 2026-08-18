@@ -1,0 +1,88 @@
+.import {
+  max-width: 68rem;
+  margin: 0 auto 1.5rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.75rem;
+  background: #101017;
+  overflow: hidden;
+}
+
+.import-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: none;
+  background: transparent;
+  color: #a1a1ac;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.import-toggle:hover {
+  color: #e7e7ea;
+}
+
+.import-body {
+  padding: 0 1rem 1rem;
+}
+
+.import-nota {
+  margin: 0 0 0.6rem;
+  color: #8b8b96;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.import-nota code {
+  color: #a1a1ac;
+}
+
+.ejemplo {
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: #8b8b96;
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.ejemplo:hover {
+  border-color: #3f3f4b;
+  color: #cfcfd6;
+}
+
+.entrada {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.5rem;
+  background: #0b0b0f;
+  color: #a1a1ac;
+  font-family: ui-monospace, monospace;
+  font-size: 0.6875rem;
+  resize: vertical;
+}
+
+.error {
+  margin: 0.6rem 0 0;
+  color: #e08b8b;
+  font-size: 0.75rem;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.6rem 0 0;
+  color: #8b8b96;
+  font-size: 0.75rem;
+}
+
+.preview max-icon {
+  color: #e7e7ea;
+}

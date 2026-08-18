@@ -1,7 +1,8 @@
 import { Component, ViewChildren, QueryList, signal } from '@angular/core';
 import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
 import { MorphBench } from './morph-bench';
-import { MotionInspectorPanel } from './motion-inspector-panel';
+import { IconDetailPanel } from './icon-detail-panel';
+import { IconImport } from './icon-import';
 
 interface CuratedEntry {
   name: string;
@@ -20,7 +21,7 @@ interface CuratedEntry {
  */
 @Component({
   selector: 'app-root',
-  imports: [MaxIconComponent, MorphBench, MotionInspectorPanel],
+  imports: [MaxIconComponent, MorphBench, IconDetailPanel, IconImport],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

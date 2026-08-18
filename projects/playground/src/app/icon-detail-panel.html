@@ -1,0 +1,94 @@
+<section class="detalle" aria-label="Detalle del icono">
+  <header class="detalle-head">
+    <max-icon #preview [iconDef]="def()" [animation]="varianteActiva()" [size]="32" trigger="manual" />
+    <div class="titulo">
+      <h2>{{ nombre() }}</h2>
+      <span class="const"><code>{{ constName() }}</code> · {{ varianteActiva() }}</span>
+    </div>
+    <button type="button" class="reproducir" (click)="reproducir()">▶ reproducir</button>
+    <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">✕</button>
+  </header>
+
+  <nav class="variantes-nav" aria-label="Variantes de la coreografía">
+    @for (v of variantes(); track v) {
+      <button
+        type="button"
+        class="pill"
+        [class.activa]="v === varianteActiva()"
+        (click)="elegirVariante(v)"
+      >
+        {{ v }}
+      </button>
+    }
+  </nav>
+
+  <div class="columnas">
+    <div class="col-snippet">
+      <div class="bloque-titulo">
+        <h3>Snippet</h3>
+        <button type="button" class="copiar" (click)="copiarSnippet()">
+          {{ copiado() === 'snippet' ? '✓ copiado' : 'copiar' }}
+        </button>
+      </div>
+      <pre class="codigo">{{ snippet() }}</pre>
+
+      <div class="bloque-titulo">
+        <h3>Exportar JSON</h3>
+        <button type="button" class="copiar" (click)="copiarJson()">
+          {{ copiado() === 'json' ? '✓ copiado' : 'copiar' }}
+        </button>
+      </div>
+      <textarea
+        #cajaJson
+        class="codigo json"
+        readonly
+        rows="6"
+        (click)="seleccionarJson()"
+        [value]="exportJson()"
+      ></textarea>
+    </div>
+
+    <div class="col-inspector">
+      <h3>Motion Inspector — todas las variantes</h3>
+      <div class="variantes-inspector">
+        @for (v of reporte().variantes; track v.variante) {
+          <article class="variante" [class.activa]="v.variante === varianteActiva()">
+            <h4>{{ v.variante }}</h4>
+            <dl>
+              <div><dt>duración</dt><dd>{{ duracion(v) }}</dd></div>
+              <div><dt>rotación máx.</dt><dd>{{ v.rotacionMaximaDeg }}°</dd></div>
+              <div>
+                <dt>tracks solapados</dt>
+                <dd>
+                  @if (v.tracksSolapados.length) {
+                    @for (o of v.tracksSolapados; track o.a + o.b) {
+                      <span class="par">{{ o.a }} ↔ {{ o.b }}</span>
+                    }
+                  } @else {
+                    ninguno
+                  }
+                </dd>
+              </div>
+              <div><dt>reverseOnLeave</dt><dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd></div>
+            </dl>
+            <div class="costo">
+              @for (p of v.propiedadesAnimadas; track p) {
+                <span class="prop" [class.caro]="p === 'd'">{{ p }}</span>
+              }
+              @if (v.autoDraw) {
+                <span class="prop">autoDraw</span>
+              }
+              @if (v.animaD) {
+                <span class="aviso">⚠ anima <code>d</code> — redibuja el path</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+      <p class="nota">
+        <code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no
+        es un dato de esta coreografía, es un contrato del motor.
+      </p>
+    </div>
+  </div>
+</section>

@@ -2,18 +2,20 @@
   <h1>glyphflow</h1>
   <p>
     Los <strong>{{ total() }}</strong> iconos curados, con su coreografía a mano. Pasa el puntero
-    sobre una tarjeta para animarla, dale click para inspeccionar su motion, o dale a repetir.
+    sobre una tarjeta para animarla, dale click para ver su detalle (variantes, snippet, JSON), o dale a repetir.
   </p>
   <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
 </header>
 
 @if (inspeccionado(); as sel) {
-  <app-motion-inspector-panel
+  <app-icon-detail-panel
     [nombre]="sel.name"
     [def]="sel.def"
     (cerrar)="inspeccionado.set(null)"
   />
 }
+
+<app-icon-import />
 
 <app-morph-bench />
 
