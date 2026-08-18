@@ -15,8 +15,15 @@ export {
   RESOLUCION_DEFAULT,
   COLA_DEFAULT,
 } from './morph-keyframes';
-export type { MorphKeyframes, MorphKeyframesOpts, RunMorphOpts } from './morph-keyframes';
+export type {
+  MorphKeyframes,
+  MorphKeyframesOpts,
+  RunMorphOpts,
+  SpringPreset,
+  SpringConfig,
+} from './morph-keyframes';
 export { MaxIconMorphComponent } from './max-icon-morph.component';
 export type { MorphIcon } from './max-icon-morph.component';
-export { SPRING_PRESETS } from './core/spring';
-export type { SpringPreset } from './core/spring';
+// `SPRING_PRESETS` sale de nuestra capa, NO del core vendorizado: el catálogo de upstream trae
+// nombres que aquí no cumplen lo que prometen (ver el comentario junto a la constante).
+export { SPRING_PRESETS } from './morph-keyframes';

@@ -26,6 +26,9 @@ mecanismo. Acepta cualquier icono del catálogo tal cual.
   el cambio de estado: quedarse quieto dejaría al usuario mirando el icono equivocado.
 - **Accesibilidad y tamaño idénticos a `<max-icon>`**, y honra el mismo
   `provideMaxIcons({ durationScale })`.
+- **Timing**: un solo preset de resorte, `smooth` (críticamente amortiguado). La API funcional
+  también acepta un `{ k, c }` propio para quien quiera afinarlo. Los presets con rebote llegarán
+  cuando el motor sepa dibujar el sobrepaso — no se publican nombres que todavía no cumplen.
 - **No le cuesta nada a quien no lo use**: entry point aparte, en su propio chunk. Importar un icono
   suelto sigue costando 3.57KB gzip.
 

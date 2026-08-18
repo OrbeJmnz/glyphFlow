@@ -3,7 +3,7 @@ import { buildPlan, type MorphPlan } from './core/plan';
 import { allocOutputs, interpPolar } from './core/interpolate';
 import { serialize, cubicsToPathD } from './core/serialize';
 import { iconToCubics } from './core/normalize';
-import { Spring, SPRING_PRESETS, type SpringPreset } from './core/spring';
+import { Spring, SPRING_PRESETS as PRESETS_UPSTREAM } from './core/spring';
 import type { IconInput, Sampled } from './core/types';
 
 /**
@@ -49,6 +49,36 @@ export const RESOLUCION_DEFAULT = 64;
  */
 export const COLA_DEFAULT: 'completa' | 'corta' | 'recorte' = 'corta';
 
+/**
+ * Presets de resorte que esta versión ofrece: **uno**.
+ *
+ * El upstream trae tres (uno crítico y dos subamortiguados), pero los que rebotan **no rebotan
+ * aquí**: las poses se muestrean en t ∈ [0,1] y el sobrepaso vive en t > 1, así que hoy solo
+ * alargarían el reloj con el icono ya quieto en el destino. Exportar sus nombres sería vender un
+ * rebote que el motor no entrega, así que la superficie pública se acota a `smooth` hasta que el
+ * sobrepaso se dibuje. Volver a abrirla después es aditivo.
+ *
+ * Los valores salen del catálogo vendorizado, no se re-declaran: si upstream afina `smooth`, esto
+ * lo hereda.
+ */
+export const SPRING_PRESETS = { smooth: PRESETS_UPSTREAM.smooth } as const;
+
+export type SpringPreset = keyof typeof SPRING_PRESETS;
+
+/**
+ * Resorte a la medida: rigidez y amortiguamiento crudos, sin pasar por un nombre.
+ *
+ * Queda abierto a propósito — quien sepa lo que hace puede pedir un subamortiguado y obtendrá lo
+ * que la física da hoy (más duración, sin rebote dibujado). Lo que no existe es la ETIQUETA que se
+ * lo prometa.
+ */
+export interface SpringConfig {
+  /** Rigidez. */
+  k: number;
+  /** Amortiguamiento. ζ = c / (2·√k): 1 es crítico, menos rebota. */
+  c: number;
+}
+
 export interface MorphKeyframesOpts {
   /** Cuántas poses discretas se le entregan a WAAPI. Default: `PASOS_DEFAULT`. */
   pasos?: number;
@@ -58,8 +88,11 @@ export interface MorphKeyframesOpts {
    * advertencia de `RESOLUCION_DEFAULT` antes de moverla. Default: `RESOLUCION_DEFAULT`.
    */
   resolucion?: number;
-  /** Preset del spring: solo decide duración y reparto temporal de los keyframes. */
-  spring?: SpringPreset;
+  /**
+   * Resorte: solo decide duración y reparto temporal de los keyframes, nunca la geometría.
+   * Un preset por nombre (`'smooth'`) o un `{ k, c }` propio.
+   */
+  spring?: SpringPreset | SpringConfig;
   /**
    * Qué hacer con la cola asintótica del spring. EXPERIMENTAL — se está eligiendo el default.
    *
@@ -69,9 +102,9 @@ export interface MorphKeyframesOpts {
    * y el tramo veloz al final — el morph aterriza de golpe.
    *
    * - `corta` (default): afloja el criterio a |1−x| < 0.01 **y |v| < 0.2**. La condición de
-   *   velocidad NO es decorativa: sin ella, un preset que rebota cumple |1−x| < 0.01 mientras
-   *   PASA subiendo por el destino, y el corte se come el rebote entero (medido: `bouncy` cortaba
-   *   a los 121ms de 925, con el resorte cruzando a v=7.53 rumbo a 1.24).
+   *   velocidad NO es decorativa: sin ella, un resorte subamortiguado cumple |1−x| < 0.01 mientras
+   *   PASA subiendo por el destino, y el corte se come el rebote entero (medido con ζ = 0.40:
+   *   cortaba a los 121ms de 925, cruzando a v=7.53 rumbo a x=1.24).
    * - `completa`: el criterio estricto del core, |1−x| < 0.001 y |v| < 0.02. Deja una cola
    *   asintótica imperceptible que se lleva la mitad de la duración.
    * - `recorte`: integra completo y tira desde el ÚLTIMO instante en que |1−x| ≥ 0.01. Equivale a
@@ -109,10 +142,10 @@ export interface MorphKeyframes {
  * Un solo barrido: de aquí salen la duración y los offsets.
  */
 function curvaDelSpring(
-  preset: SpringPreset,
+  resorte: SpringPreset | SpringConfig,
   cola: 'completa' | 'corta' | 'recorte',
 ): { tiempos: number[]; progreso: number[] } {
-  const { k, c } = SPRING_PRESETS[preset];
+  const { k, c } = typeof resorte === 'string' ? SPRING_PRESETS[resorte] : resorte;
   const spring = new Spring();
   spring.config(k, c);
   spring.start();

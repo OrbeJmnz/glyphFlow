@@ -66,11 +66,20 @@ describe('morphKeyframes', () => {
     // La versión ingenua de `corta` (solo |1−x| < 0.01, sin la condición de velocidad) cortaba
     // `bouncy` a los 121ms de 925 — el resorte cumplía el criterio mientras PASABA subiendo por el
     // destino a v=7.53, rumbo a 1.24. Este test clava que la duración conserve el rebote.
-    for (const spring of ['snappy', 'bouncy'] as const) {
+    // Por `{ k, c }` crudo, no por nombre: la superficie pública ya no exporta etiquetas para los
+    // subamortiguados (ver SPRING_PRESETS). Estos son los dos del catálogo de upstream: ζ = 0.73 y
+    // ζ = 0.40. El guard sigue vivo aunque los nombres no salgan publicados.
+    for (const spring of [
+      { k: 420, c: 30 },
+      { k: 300, c: 14 },
+    ] as const) {
       const completa = morphKeyframes(bell, bellRing, { spring, cola: 'completa' }).duracion;
       const corta = morphKeyframes(bell, bellRing, { spring, cola: 'corta' }).duracion;
       const recorte = morphKeyframes(bell, bellRing, { spring, cola: 'recorte' }).duracion;
-      expect(corta / completa, `${spring}: la cola corta decapitó el rebote`).toBeGreaterThan(0.6);
+      expect(
+        corta / completa,
+        `resorte k=${spring.k} c=${spring.c}: la cola corta decapitó el rebote`,
+      ).toBeGreaterThan(0.6);
       expect(corta).toBeLessThanOrEqual(completa);
       // `corta` y `recorte` son criterios distintos que hoy caen casi en el mismo instante.
       expect(Math.abs(corta - recorte) / completa).toBeLessThan(0.05);
