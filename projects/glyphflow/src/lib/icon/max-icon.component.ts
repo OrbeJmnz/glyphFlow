@@ -23,6 +23,58 @@ import { MAX_ICONS_CONFIG } from './max-icons.config';
 import { MAX_ICON_CATALOG } from './icon-catalog.provider';
 
 /**
+ * A dónde se degrada un `linear()` cuando el navegador no lo entiende. Es exactamente el
+ * `cubic-bezier` que `SPRING_OUT` era antes de volverse un resorte real: se pierde el rebote, no
+ * el icono.
+ */
+const EASING_FALLBACK = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+/** Cache de la detección. `undefined` = todavía no se preguntó. */
+let soportaLinear: boolean | undefined;
+
+/**
+ * Un `easing` que el navegador no puede parsear NO degrada en silencio: `element.animate()` tira
+ * `TypeError` y se lleva el render. Por eso los presets `linear()` pasan siempre por aquí.
+ *
+ * `linear()` es Chrome 113+, Safari 17.4+ y Firefox 129+, y el rango de peers admite Angular 20,
+ * que soporta navegadores anteriores a eso. La detección corre UNA vez por documento (un `div`
+ * desechable), no por animación.
+ */
+function easingSeguro(easing: string | undefined): string | undefined {
+  if (!easing?.startsWith('linear(')) return easing;
+  if (soportaLinear === undefined) {
+    try {
+      document.createElement('div').animate(null, { duration: 1, easing: 'linear(0, 1)' });
+      soportaLinear = true;
+    } catch {
+      soportaLinear = false;
+    }
+  }
+  return soportaLinear ? easing : EASING_FALLBACK;
+}
+
+/**
+ * Reescribe una lista de keyframes para que arranque en el estado ACTUAL de la figura en vez de en
+ * su pose base — la mitad del relevo (ver `MaxIconComponent.run`).
+ *
+ * Cómo: se tira el keyframe 0 y los demás CONSERVAN su offset original (`(i+1)/n`). Al no haber
+ * keyframe en el offset 0, WAAPI construye uno implícito con el valor subyacente del elemento, que
+ * es justo lo que `commitStyles()` acaba de escribir en el style inline. El primer tramo dura lo
+ * mismo que duraba, así que el ritmo de la coreografía no se deforma.
+ *
+ * Devuelve `null` cuando no es seguro y hay que cortar en seco:
+ * - **offsets a mano** (3 tracks curados los traen): reescribirlos cambiaría la coreografía.
+ * - **menos de 3 keyframes**: tirar uno deja una curva sin forma. Aquí caen los trazos
+ *   (`strokeDraw`), que además no necesitan relevo: arrancan invisibles, no hay pose que entregar.
+ */
+function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
+  if (keyframes.length < 3) return null;
+  if (keyframes.some((k) => k.offset !== undefined && k.offset !== null)) return null;
+  const n = keyframes.length - 1;
+  return keyframes.slice(1).map((k, i) => ({ ...k, offset: (i + 1) / n }));
+}
+
+/**
  * Icono animado con coreografía por figura.
  *
  * Dibuja su propio SVG (en vez de delegar en `lucide-angular`) porque animar path-por-path exige
@@ -173,7 +225,22 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
   private readonly el = inject(ElementRef);
   private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
   private readonly catalog = inject(MAX_ICON_CATALOG, { optional: true });
-  private running: Animation[] = [];
+  /**
+   * Tracks de `root`/`shapes`: UNA animación viva por elemento, así que no crece. Antes era un
+   * array `running` compartido con el trazo, que nunca se podaba: las animaciones de `autoDraw` se
+   * autocancelaban al terminar pero seguían dentro, y `cancel()`/`reverse()` recorrían objetos
+   * muertos con sus clausuras `onfinish` todavía retenidas.
+   *
+   * Las terminadas SÍ se conservan a propósito: `held()` deja su pose con `fill: 'forwards'` y
+   * `reverse()` necesita esa animación para regresarla al salir el puntero.
+   */
+  private readonly vivasTrack = new Map<SVGElement, Animation>();
+  /**
+   * Trazo automático, en canal aparte. Dos razones: se poda al terminar (es desechable, nadie lo
+   * reversa) y `autoDraw` puede convivir con `root`/`shapes` sobre la MISMA figura — el modelo lo
+   * documenta como válido. Con un solo mapa por elemento, el trazo le pisaría el track en silencio.
+   */
+  private vivasDraw: Animation[] = [];
   private observer?: IntersectionObserver;
   private unwireGroup?: () => void;
 
@@ -299,19 +366,32 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
     const chor = this.def?.animations[variant ?? this.animation];
     if (!chor) return;
 
-    this.cancel();
     const root = this.svgRoot?.nativeElement;
     if (!root?.animate) return; // SSR / navegador sin WAAPI: se queda estático, no truena.
 
-    if (chor.root) this.running.push(this.run(root, chor.root, true));
-
     const children = Array.from(root.children) as SVGElement[];
+
+    // El trazo anterior no se releva, se tira: arranca invisible, no hay pose que entregar.
+    this.detenerDraw();
+
+    // Las figuras que animaba la variante anterior y esta ya NO toca se cortan en seco a propósito
+    // — no hay animación nueva a la que entregarles la pose, y su lugar es la base. El relevo suave
+    // aplica solo donde de verdad hay relevo, figura por figura (ver `run`).
+    const alcance = new Set<SVGElement>();
+    if (chor.root) alcance.add(root);
+    for (const index of Object.keys(chor.shapes ?? {})) {
+      const el = children[Number(index)];
+      if (el) alcance.add(el);
+    }
+    for (const el of [...this.vivasTrack.keys()]) if (!alcance.has(el)) this.detenerTrack(el);
+
+    if (chor.root) this.run(root, chor.root, true);
     for (const [index, track] of Object.entries(chor.shapes ?? {})) {
       const el = children[Number(index)];
-      if (el) this.running.push(this.run(el, track, false));
+      if (el) this.run(el, track, false);
     }
 
-    if (chor.autoDraw) this.running.push(...this.runAutoDraw(children, chor.autoDraw));
+    if (chor.autoDraw) this.vivasDraw = this.runAutoDraw(children, chor.autoDraw);
   }
 
   /**
@@ -339,7 +419,7 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
       const anim = el.animate(MaxIconComponent.DRAW_KEYFRAMES, {
         duration,
         delay: start + Number(this.delay || 0),
-        easing,
+        easing: easingSeguro(easing),
         fill: 'backwards',
         ...(this.loop ? { iterations: Infinity } : {}),
       });
@@ -348,7 +428,15 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
       // ahí con `playState: 'finished'`, y el ícono se dibuja y desaparece solo. Cancelar al
       // terminar libera el efecto por completo y el elemento cae a su estilo base (visible,
       // sin dasharray), que en el caso normal es IDÉNTICO al último keyframe — cero flicker.
-      if (!this.loop) anim.onfinish = () => anim.cancel();
+      if (!this.loop) {
+        anim.onfinish = () => {
+          anim.onfinish = null;
+          anim.cancel();
+          // Podar aquí es la mitad del arreglo: antes se autocancelaba pero seguía en la lista, y
+          // el siguiente hover recorría animaciones muertas con sus clausuras aún colgando.
+          this.vivasDraw = this.vivasDraw.filter((a) => a !== anim);
+        };
+      }
       anims.push(anim);
       start += duration * (1 - overlap);
     }
@@ -365,15 +453,37 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  /** Regresa a la pose inicial animando, no de golpe (animaciones de estado). */
+  /**
+   * Regresa a la pose inicial animando, no de golpe (animaciones de estado).
+   *
+   * Solo los tracks. El trazo se quedaba fuera antes por accidente y ahora por diseño: reversar un
+   * `autoDraw` lo DESdibuja, que no es lo que nadie pidió al sacar el puntero.
+   */
   reverse(): void {
-    for (const anim of this.running) anim.reverse();
+    for (const anim of this.vivasTrack.values()) anim.reverse();
   }
 
   /** Corta y devuelve las figuras a su pose original. */
   cancel(): void {
-    for (const anim of this.running) anim.cancel();
-    this.running = [];
+    for (const el of [...this.vivasTrack.keys()]) this.detenerTrack(el);
+    this.detenerDraw();
+  }
+
+  private detenerTrack(el: SVGElement): void {
+    const anim = this.vivasTrack.get(el);
+    if (!anim) return;
+    anim.onfinish = null;
+    anim.cancel();
+    this.vivasTrack.delete(el);
+    this.limpiarInline(el);
+  }
+
+  private detenerDraw(): void {
+    for (const anim of this.vivasDraw) {
+      anim.onfinish = null;
+      anim.cancel();
+    }
+    this.vivasDraw = [];
   }
 
   private get choreography() {
@@ -387,6 +497,24 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
     );
   }
 
+  /**
+   * Corre un track sobre una figura, RELEVANDO la animación que ya traía en vez de cortarla.
+   *
+   * El problema que resuelve: `Animation.cancel()` retira el efecto de golpe, así que la figura
+   * salta a su pose base en un solo frame. Con hover repetido eso es un teletransporte por cada
+   * entrada del puntero. (No es layout thrashing — el `transform` vive en el compositor y no toca
+   * layout — es discontinuidad visual, y se siente peor justo porque es instantánea.)
+   *
+   * El relevo, en tres pasos:
+   *   1. `commitStyles()` escribe en el style inline la pose EXACTA del frame actual;
+   *   2. `cancel()` ya no salta, porque el inline sostiene esa pose;
+   *   3. los keyframes nuevos entran sin el offset 0 (`conRelevo`), así que WAAPI toma ese inline
+   *      como keyframe implícito y la figura CONTINÚA desde donde iba.
+   *
+   * Solo aplica a tracks de un tiro (`fill: 'none'`). Los de estado (`held()`, `fill: 'forwards'`)
+   * se quedan como estaban: sostienen una pose, un re-disparo va al mismo destino y no hay salto
+   * que evitar — y ahí el inline sí estorbaría, porque `reverse()` los devuelve después.
+   */
   private run(el: SVGElement, track: MotionTrack, isRoot: boolean): Animation {
     if (track.origin) {
       el.style.transformOrigin = track.origin;
@@ -402,10 +530,60 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
       fill: 'none',
       ...track.options,
       duration: scaledDuration,
+      easing: easingSeguro(track.options.easing),
       ...(this.loop ? { iterations: Infinity } : {}),
       ...(this.delay ? { delay: (track.options.delay ?? 0) + Number(this.delay) } : {}),
     };
-    return el.animate(track.keyframes, options);
+
+    const sostiene = options.fill === 'forwards' || options.fill === 'both';
+    const previa = this.vivasTrack.get(el);
+    let keyframes = track.keyframes;
+
+    if (previa && !sostiene && previa.playState === 'running') {
+      const relevo = conRelevo(keyframes);
+      // El orden importa: congelar ANTES de cancelar, o no queda pose que congelar.
+      if (relevo && this.congelar(previa)) keyframes = relevo;
+    }
+    if (previa) {
+      previa.onfinish = null; // suelta la clausura ANTES de cancelar
+      previa.cancel();
+    }
+
+    const anim = el.animate(keyframes, options);
+    // Un track de un tiro deja de aplicar al terminar, así que el inline que dejó `commitStyles`
+    // quedaría como pose final y la figura se estacionaría a media coreografía. Se limpia al
+    // cerrar. Los de estado NO: ahí la pose retenida es el punto.
+    if (!sostiene && !this.loop) {
+      anim.onfinish = () => {
+        anim.onfinish = null;
+        anim.cancel();
+        this.limpiarInline(el);
+      };
+    }
+    this.vivasTrack.set(el, anim);
+    return anim;
+  }
+
+  /**
+   * Escribe la pose del frame actual en el style inline. `commitStyles()` lanza si el elemento ya
+   * no está renderizado (destrucción a media animación — pasa al navegar con el icono animándose),
+   * así que un fallo aquí solo significa "sin relevo": se corta en seco, como antes.
+   */
+  private congelar(anim: Animation): boolean {
+    try {
+      anim.commitStyles();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /** Limpia lo que pudo escribir `commitStyles`. `transformOrigin`/`transformBox` NO se tocan. */
+  private limpiarInline(el: SVGElement): void {
+    el.style.transform = '';
+    el.style.opacity = '';
+    el.style.strokeDasharray = '';
+    el.style.strokeDashoffset = '';
   }
 
   private observeViewport(): void {

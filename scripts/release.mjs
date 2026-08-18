@@ -77,4 +77,22 @@ if (dryRun) {
 
 // ── 5. El tag que `changeset publish` habría creado ──────────────────────────────────────────
 execFileSync('npx', ['changeset', 'git-tag'], { cwd: ROOT, stdio: 'inherit', shell: true });
+
+// Y se empuja AQUI. `changesets/action` solo empuja tags cuando reconoce la salida de
+// `changeset publish` (busca lineas "New tag:"); este script imprime la de `changeset git-tag`,
+// que es otra, asi que la action no se entera: en la 1.1.0 el tag se creo en el runner y murio
+// con el, y hubo que crearlo a mano despues. Empujarlo nosotros quita esa dependencia.
+const tag = `${manifest.name}@${manifest.version}`;
+try {
+  execFileSync('git', ['push', 'origin', tag], { cwd: ROOT, stdio: 'inherit', shell: true });
+  console.log(`\ntag ${tag} empujado.`);
+} catch {
+  // Que el tag no suba NO invalida un publish que ya ocurrio: el paquete esta en el registro y
+  // eso no se deshace. Se avisa fuerte y se sale en verde, porque fallar aqui haria pensar que
+  // la publicacion no paso.
+  console.error(
+    `\nAVISO: el paquete se publico, pero no se pudo empujar el tag ${tag}.` +
+      `\nCrealo a mano: git tag -a "${tag}" <sha> -m "${tag}" && git push origin "${tag}"`,
+  );
+}
 console.log('\nrelease OK.');
