@@ -49,7 +49,33 @@ if (typeof MaxIconComponent !== 'function') throw new Error('MaxIconComponent no
 if (typeof provideIconCatalog !== 'function') throw new Error('provideIconCatalog no resolvió');
 if (Object.keys(ANIMATED_ICONS).length < 100) throw new Error('ANIMATED_ICONS no trae el catálogo completo');
 if (resolveIconName('alert-triangle') !== 'triangle-alert') throw new Error('resolveIconName no resolvió el alias');
+
+// ── Entry point secundario: glyphflow/morph ──────────────────────────────────────────────────
+import { MaxIconMorphComponent, runMorph, morphKeyframes, PASOS_DEFAULT } from 'glyphflow/morph';
+if (typeof MaxIconMorphComponent !== 'function') throw new Error('MaxIconMorphComponent no resolvió desde glyphflow/morph');
+if (typeof runMorph !== 'function' || typeof morphKeyframes !== 'function') throw new Error('la API de morph no resolvió');
+if (morphKeyframes(bellIcon.shapes.map(({ tag, ...a }) => [tag, a]), bellIcon.shapes.map(({ tag, ...a }) => [tag, a])).keyframes.length !== PASOS_DEFAULT) {
+  throw new Error('morphKeyframes no produjo los keyframes esperados desde el paquete instalado');
+}
+
+// EL punto: que el token de DI sea el MISMO objeto en los dos entry points. Si el bundle de morph
+// hubiera duplicado el primario (lo que pasa al importarlo por ruta relativa en vez de por nombre
+// de paquete), MAX_ICONS_CONFIG sería otra instancia de InjectionToken y el provideMaxIcons del
+// consumidor no llegaría NUNCA al componente de morph — en silencio, sin error.
+import { Injector, runInInjectionContext } from '@angular/core';
+import { provideMaxIcons } from 'glyphflow';
+const injector = Injector.create({ providers: [provideMaxIcons({ durationScale: 3 })] });
+const instancia = runInInjectionContext(injector, () => new MaxIconMorphComponent());
+if (instancia.config?.durationScale !== 3) {
+  throw new Error(
+    'TOKEN DUPLICADO: <max-icon-morph> no recibió el provideMaxIcons del consumidor (leyó ' +
+      JSON.stringify(instancia.config) + '). El entry point secundario debe importar el primario ' +
+      'por NOMBRE DE PAQUETE, no por ruta relativa.',
+  );
+}
+
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');
+console.log('Token compartido OK — provideMaxIcons llega a <max-icon-morph> a través de los dos entry points.');
 `,
     'utf8',
   );

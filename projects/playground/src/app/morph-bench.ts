@@ -14,9 +14,11 @@ import {
 import {
   morphKeyframes,
   runMorph,
+  MaxIconMorphComponent,
   PASOS_DEFAULT,
   RESOLUCION_DEFAULT,
   type MorphKeyframes,
+  type MorphIcon,
 } from 'glyphflow/morph';
 
 /**
@@ -103,6 +105,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
+  imports: [MaxIconMorphComponent],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })
@@ -122,6 +125,22 @@ export class MorphBench {
   protected readonly resoluciones = [64, 32] as const;
 
   private readonly animaciones = new Map<string, Animation>();
+
+  /**
+   * Demo del envoltorio: el binding ES el estado, sin `trigger` ni `from`/`to`.
+   * Tres iconos, no dos, para poder cambiar de destino a media transición (A→B→C).
+   */
+  private readonly DEMO: MorphIcon[] = [bellIcon, bellRingIcon, starIcon, heartIcon];
+  private readonly NOMBRES = ['bell', 'bell-ring', 'star', 'heart'];
+  protected readonly demoIndice = signal(0);
+  protected readonly iconoDemo = computed<MorphIcon>(() => this.DEMO[this.demoIndice()]);
+  protected readonly nombreDemo = computed(
+    () => this.NOMBRES[(this.demoIndice() + 1) % this.NOMBRES.length],
+  );
+
+  protected siguienteDemo(): void {
+    this.demoIndice.update((i) => (i + 1) % this.DEMO.length);
+  }
 
   protected readonly variantes = computed(() => {
     const modo = this.modo();

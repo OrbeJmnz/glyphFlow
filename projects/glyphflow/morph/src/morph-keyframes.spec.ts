@@ -1,6 +1,19 @@
-import { morphKeyframes, canonicalD, PASOS_DEFAULT, RESOLUCION_DEFAULT } from './morph-keyframes';
-import { bellIcon, bellRingIcon, circleIcon, squareIcon } from '../icon/curated-icons';
-import { AnimatedIconDef, IconShape } from '../icon/animated-icon.model';
+import {
+  morphKeyframes,
+  runMorph,
+  canonicalD,
+  PASOS_DEFAULT,
+  RESOLUCION_DEFAULT,
+} from './morph-keyframes';
+import {
+  bellIcon,
+  bellRingIcon,
+  circleIcon,
+  squareIcon,
+  starIcon,
+  type AnimatedIconDef,
+  type IconShape,
+} from 'glyphflow';
 
 /**
  * El movimiento en sí no se prueba aquí (jsdom no implementa Web Animations API, igual que en
@@ -20,6 +33,7 @@ function aIconNode(def: AnimatedIconDef): [string, Record<string, string | numbe
 
 const bell = aIconNode(bellIcon);
 const bellRing = aIconNode(bellRingIcon);
+const star = aIconNode(starIcon);
 
 describe('morphKeyframes', () => {
   it('entrega tantos keyframes como pasos, con offsets crecientes de 0 a 1', () => {
@@ -112,6 +126,111 @@ describe('ida y vuelta en una sola iteración', () => {
     const ida = morphKeyframes(bell, bellRing, { pasos: 10 });
     const completo = morphKeyframes(bell, bellRing, { pasos: 10, idaYVuelta: true });
     expect(completo.duracion).toBeCloseTo(ida.duracion * 2, 5);
+  });
+});
+
+describe('runMorph — lo que le entrega a WAAPI', () => {
+  /** jsdom no trae Web Animations API: se finge lo mínimo para leer las options que se le pasan. */
+  function pathFalso() {
+    const llamadas: { keyframes: Keyframe[]; options: KeyframeAnimationOptions }[] = [];
+    const animaciones: { cancelada: boolean }[] = [];
+    const el = {
+      animate: (keyframes: Keyframe[], options: KeyframeAnimationOptions) => {
+        llamadas.push({ keyframes, options });
+        const propia = { cancelada: false };
+        animaciones.push(propia);
+        return {
+          playbackRate: 1,
+          finished: new Promise<void>(() => undefined), // nunca resuelve: aquí no interesa aterrizar
+          cancel: () => {
+            propia.cancelada = true;
+          },
+        } as unknown as Animation;
+      },
+      setAttribute: () => undefined,
+    };
+    return {
+      el: el as unknown as SVGPathElement,
+      llamadas,
+      animaciones,
+      get capturado() {
+        return llamadas[llamadas.length - 1] ?? {};
+      },
+    };
+  }
+
+  /** Caja envolvente de una pose, para comparar formas sin depender del número de vértices. */
+  function bbox(d: string): [number, number, number, number] {
+    const n = (d.replace(/^path\("|"\)$/g, '').match(/-?\d+(\.\d+)?/g) ?? []).map(Number);
+    const xs: number[] = [];
+    const ys: number[] = [];
+    for (let i = 0; i + 1 < n.length; i += 2) {
+      xs.push(n[i]);
+      ys.push(n[i + 1]);
+    }
+    return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  }
+
+  const separacion = (a: string, b: string): number => {
+    const A = bbox(a);
+    const B = bbox(b);
+    return Math.max(...A.map((v, i) => Math.abs(v - B[i])));
+  };
+
+  it('durationScale multiplica el reloj y deja los offsets intactos', () => {
+    const base = pathFalso();
+    runMorph(base.el, bell, bellRing, {});
+    const escalado = pathFalso();
+    runMorph(escalado.el, bell, bellRing, { durationScale: 2 });
+
+    expect(escalado.capturado.options?.duration).toBe(
+      (base.capturado.options?.duration as number) * 2,
+    );
+    // Los offsets son fracciones normalizadas: la forma del resorte no se toca, solo el tiempo.
+    const offsetsBase = base.capturado.keyframes?.map((k) => k['offset']);
+    const offsetsEscalados = escalado.capturado.keyframes?.map((k) => k['offset']);
+    expect(offsetsEscalados).toEqual(offsetsBase);
+  });
+
+  it('al interrumpir arranca desde la pose EN PANTALLA, no desde el icono canónico', () => {
+    // Sin esto, el morph nuevo empieza en el icono completo del origen y se traga de golpe todo lo
+    // que le faltaba al anterior: medido en navegador, 3.72 unidades sobre un lienzo de 24.
+    const primero = morphKeyframes(bell, bellRing, { pasos: 20 });
+    const intermedio = (primero.keyframes[9]['d'] as string).slice(6, -2); // ~47% del camino
+
+    const { el, llamadas, animaciones } = pathFalso();
+    const original = globalThis.getComputedStyle;
+    try {
+      runMorph(el, bell, bellRing, {});
+      // A partir de aquí el elemento "muestra" la pose intermedia.
+      globalThis.getComputedStyle = (() => ({ d: `path("${intermedio}")` })) as never;
+      runMorph(el, bellRing, star, {});
+    } finally {
+      globalThis.getComputedStyle = original;
+    }
+
+    const arranqueTrasInterrumpir = llamadas[1].keyframes[0]['d'] as string;
+    const arranqueSinInterrumpir = morphKeyframes(bellRing, star, { pasos: 20 }).keyframes[0][
+      'd'
+    ] as string;
+
+    // Arranca en la pose que se veía…
+    expect(separacion(arranqueTrasInterrumpir, `path("${intermedio}")`)).toBeLessThan(0.6);
+    // …y NO en el icono canónico de origen, que es de donde vendría el salto.
+    expect(separacion(arranqueTrasInterrumpir, arranqueSinInterrumpir)).toBeGreaterThan(0.6);
+
+    // Y la vieja se soltó: no quedan dos animaciones encimadas sobre el mismo elemento.
+    expect(animaciones[0].cancelada).toBe(true);
+    expect(animaciones[1].cancelada).toBe(false);
+  });
+
+  it('sin loop entrega una sola iteración hacia adelante', () => {
+    // Ojo: `capturado` es un getter — desestructurarlo lo evalúa cuando todavía no hay llamadas.
+    const falso = pathFalso();
+    runMorph(falso.el, bell, bellRing, {});
+    expect(falso.capturado.options?.iterations).toBe(1);
+    expect(falso.capturado.options?.direction).toBe('normal');
+    expect(falso.capturado.options?.easing).toBe('linear');
   });
 });
 

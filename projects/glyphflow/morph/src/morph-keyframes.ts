@@ -242,13 +242,38 @@ export function canonicalD(icono: IconInput): string {
   return cubicsToPathD(iconToCubics(icono));
 }
 
+interface MorphEnCurso {
+  marca: object;
+  animation: Animation;
+}
+
 /**
- * Marca de qué morph es dueño cada elemento. Existe por una carrera que un `.catch()` NO cubre:
- * si el morph viejo alcanza a TERMINAR bien justo cuando arranca uno nuevo, su `finished` resuelve
- * (no rechaza) y escribiría el `d` del destino VIEJO sobre un elemento que ya está a media
- * transición nueva. `WeakMap` para no retener elementos removidos del DOM.
+ * Quién es dueño de cada elemento, y con qué animación. Cubre dos cosas que un `.catch()` no:
+ *
+ * 1. Si el morph viejo alcanza a TERMINAR bien justo cuando arranca uno nuevo, su `finished`
+ *    resuelve (no rechaza) y escribiría el `d` del destino VIEJO sobre un elemento que ya está a
+ *    media transición nueva. La marca lo frena.
+ * 2. Al interrumpir, hay que soltar la animación vieja — y se hace por aquí, con la referencia que
+ *    este mismo mapa guarda, no con una cancelación paralela que pueda desincronizarse.
+ *
+ * `WeakMap` para no retener elementos removidos del DOM.
  */
-const duenoDelElemento = new WeakMap<Element, object>();
+const duenoDelElemento = new WeakMap<Element, MorphEnCurso>();
+
+/**
+ * La pose que el elemento muestra AHORA, ya interpolada por el navegador.
+ *
+ * Se lee del estilo computado porque ahí vive el valor animado; el atributo `d` sigue teniendo la
+ * pose vieja. Hay que leerla ANTES de cancelar la animación: al cancelar, el valor animado
+ * desaparece y el computado cae de vuelta al atributo. Mismo orden que el aterrizaje, misma razón.
+ */
+function poseActual(el: SVGPathElement): string | null {
+  if (typeof getComputedStyle !== 'function') return null;
+  const d = getComputedStyle(el).d;
+  if (!d || d === 'none') return null;
+  const m = /^path\(["']?(.*?)["']?\)$/.exec(d.trim());
+  return m?.[1] ? m[1] : null;
+}
 
 export interface RunMorphOpts extends MorphKeyframesOpts {
   fill?: FillMode;
@@ -256,6 +281,12 @@ export interface RunMorphOpts extends MorphKeyframesOpts {
   loop?: boolean;
   iterations?: number;
   direction?: PlaybackDirection;
+  /**
+   * Multiplicador de la duración final (el `durationScale` global de `provideMaxIcons`). Se aplica
+   * al reloj y NADA más: los offsets son fracciones normalizadas de la duración, así que la forma
+   * del resorte se conserva intacta — solo se estira o encoge el tiempo.
+   */
+  durationScale?: number;
   /** `d` exacto al que aterrizar. Por default, el canónico del destino. */
   dFinal?: string;
 }
@@ -275,9 +306,26 @@ export function runMorph(
   destino: IconInput,
   opts: RunMorphOpts = {},
 ): { animation: Animation; medidas: MorphKeyframes } {
-  const medidas = morphKeyframes(origen, destino, opts);
+  /*
+   * INTERRUPCIÓN: si este elemento ya venía morpheando, el punto de partida NO es el icono que nos
+   * pasaron — es la forma a medio camino que se está viendo. Arrancar desde el icono completo
+   * significa tragarse de golpe todo lo que faltaba: medido, 3.72 unidades sobre un lienzo de 24,
+   * el 15% en un frame.
+   *
+   * El core lo soporta de fábrica: `buildPlan` acepta formas intermedias, e `IconInput` acepta un
+   * `d` suelto, así que la pose actual vuelve a entrar sin maquinaria nueva.
+   */
+  const enCurso = duenoDelElemento.get(el);
+  let origenEfectivo = origen;
+  if (enCurso) {
+    const pose = poseActual(el); // leer PRIMERO…
+    if (pose) origenEfectivo = pose;
+    enCurso.animation.cancel(); // …y recién entonces soltar la vieja
+  }
+
+  const medidas = morphKeyframes(origenEfectivo, destino, opts);
   const animation = el.animate(medidas.keyframes, {
-    duration: medidas.duracion,
+    duration: medidas.duracion * (opts.durationScale ?? 1),
     // `linear`: la no-linealidad ya vive en los offsets de los keyframes. Un easing encima
     // deformaría dos veces la misma curva.
     easing: 'linear',
@@ -290,7 +338,7 @@ export function runMorph(
   });
 
   const marca = {};
-  duenoDelElemento.set(el, marca);
+  duenoDelElemento.set(el, { marca, animation });
 
   /**
    * Dónde aterriza esto, que NO siempre es el destino:
@@ -298,9 +346,13 @@ export function runMorph(
    * - reproducido en reversa (`reverse()` al soltar el hover) también termina en el origen —
    *   `finished` resuelve igual, así que sin mirar `playbackRate` se escribiría el destino sobre
    *   una figura que quedó en la pose de origen.
+   *
+   * "Origen" aquí es el EFECTIVO, no el que nos pasaron: si esto nació de una interrupción, la
+   * animación vuelve a la pose intermedia de la que arrancó, no al icono completo del llamador.
+   * Escribir ese icono sería reintroducir el salto justo al final.
    */
   const poseFinal = (): string => {
-    if (opts.idaYVuelta || animation.playbackRate < 0) return canonicalD(origen);
+    if (opts.idaYVuelta || animation.playbackRate < 0) return canonicalD(origenEfectivo);
     return opts.dFinal ?? canonicalD(destino);
   };
 
@@ -309,7 +361,7 @@ export function runMorph(
       // Otro morph tomó el elemento mientras este terminaba: no es nuestro, no se escribe. Pero sí
       // se cancela lo propio — con `fill: forwards` esta animación seguiría viva en el stack,
       // tapada por la nueva y sin dueño, y `getAnimations()` la arrastraría para siempre.
-      if (duenoDelElemento.get(el) !== marca) {
+      if (duenoDelElemento.get(el)?.marca !== marca) {
         animation.cancel();
         return;
       }

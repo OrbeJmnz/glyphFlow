@@ -71,6 +71,40 @@ button.primario:hover {
   color: #0b0b0f;
 }
 
+.envoltorio {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.75rem;
+  background: #101017;
+}
+
+.envoltorio-txt {
+  flex: 1;
+}
+
+.envoltorio h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #cfcfd6;
+}
+
+.envoltorio p {
+  margin: 0;
+  max-width: 42rem;
+  color: #8b8b96;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.envoltorio max-icon-morph {
+  color: #e7e7ea;
+}
+
 /* Las 4 en una sola fila: el punto del arnés es comparar 15 contra 20 de un vistazo, y en cuanto
    una variante se va a otro renglón deja de compararse — se ve por separado, que es distinto. */
 .lienzos {

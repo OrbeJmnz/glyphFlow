@@ -20,7 +20,7 @@
       "glyphflow": ["../../node_modules/glyphflow-published"],
       // EXCEPCIÓN TEMPORAL, solo para el benchmark de morph: `glyphflow/morph` no existe en
       // ningún paquete publicado todavía. Se borra en cuanto morph salga en una versión.
-      "glyphflow/morph": ["../glyphflow/src/lib/morph/index"]
+      "glyphflow/morph": ["../glyphflow/morph/src/public-api"]
     }
   }
 }

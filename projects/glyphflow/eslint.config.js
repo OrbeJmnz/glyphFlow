@@ -9,7 +9,7 @@ module.exports = defineConfig([
   // La ruta va desde la RAÍZ del workspace, no desde este archivo: en flat config los `ignores`
   // se resuelven contra el CWD del proceso, y `ng lint` corre desde la raíz. Escrita relativa al
   // config, el ignore no aplica y el lint truena sobre código de terceros (pasó).
-  { ignores: ['projects/glyphflow/src/lib/morph/core/**'] },
+  { ignores: ['projects/glyphflow/morph/src/core/**'] },
   ...rootConfig,
   {
     files: ['**/*.ts'],

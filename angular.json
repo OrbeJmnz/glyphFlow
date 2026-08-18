@@ -28,7 +28,8 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/glyphflow/tsconfig.spec.json"
+            "tsConfig": "projects/glyphflow/tsconfig.spec.json",
+            "include": ["**/*.spec.ts", "../morph/**/*.spec.ts"]
           }
         },
         "lint": {

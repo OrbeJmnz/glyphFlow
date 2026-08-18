@@ -17,7 +17,23 @@ function run(cmd, args, opts = {}) {
 console.log('=== verify:clean — borrando node_modules/ y dist/ ===');
 for (const dir of ['node_modules', 'dist']) {
   const p = join(ROOT, dir);
-  if (existsSync(p)) rmSync(p, { recursive: true, force: true });
+  if (!existsSync(p)) continue;
+  try {
+    rmSync(p, { recursive: true, force: true });
+  } catch (err) {
+    // Windows no borra un ejecutable en uso: un `ng serve` vivo mantiene abierto esbuild.exe y
+    // esto truena con EPERM antes de la PRIMERA verificación. El error crudo no dice nada de un
+    // dev server, así que se traduce — ya costó dos corridas completas.
+    if (err.code === 'EPERM' || err.code === 'EBUSY') {
+      console.error(
+        `\nNo se pudo borrar ${dir}/: hay un proceso usándolo (${err.code}).\n` +
+          `Casi siempre es un \`ng serve\` vivo — bájalo y vuelve a correr verify:clean.\n` +
+          `Ruta bloqueada: ${err.path ?? '(desconocida)'}\n`,
+      );
+      process.exit(1);
+    }
+    throw err;
+  }
 }
 
 console.log('\n=== npm ci (desde cero, sin caché de node_modules) ===');

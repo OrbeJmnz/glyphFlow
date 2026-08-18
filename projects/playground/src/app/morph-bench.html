@@ -53,6 +53,20 @@
     }
   </header>
 
+  <div class="envoltorio">
+    <div class="envoltorio-txt">
+      <h3>&lt;max-icon-morph&gt;</h3>
+      <p>
+        El envoltorio delgado. Un solo <code>[icon]</code>: cambiarlo dispara el morph desde el
+        valor anterior. El primer render se pinta estático — no hay desde dónde transicionar.
+      </p>
+    </div>
+    <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
+    <max-icon-morph [icon]="iconoDemo()" [size]="72" label="Demo de morph" />
+    <max-icon-morph class="decorativo" [icon]="iconoDemo()" [size]="72" />
+    <button type="button" (click)="siguienteDemo()">siguiente: {{ nombreDemo() }}</button>
+  </div>
+
   <div class="lienzos" #lienzos>
     @for (m of tabla(); track m.id) {
       <article
