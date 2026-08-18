@@ -253,3 +253,12 @@ textarea.codigo.json {
 .nota code {
   color: #a1a1ac;
 }
+
+.scrubber-bloque {
+  display: block;
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.6rem;
+  background: #101017;
+}

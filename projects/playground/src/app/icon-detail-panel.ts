@@ -13,6 +13,7 @@ import {
 import { AnimatedIconDef, MaxIconComponent } from 'glyphflow';
 import { analizarIcono, VariantReport } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
+import { IconScrubber } from './icon-scrubber';
 
 /**
  * Panel de detalle por icono: nombre, selector de variante (mapea a `animation=`), preview en
@@ -24,7 +25,7 @@ import { nombreDeConst } from './icon-name';
  */
 @Component({
   selector: 'app-icon-detail-panel',
-  imports: [MaxIconComponent],
+  imports: [MaxIconComponent, IconScrubber],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-detail-panel.html',
   styleUrl: './icon-detail-panel.css',

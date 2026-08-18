@@ -1,0 +1,66 @@
+<div class="scrubber">
+  <svg
+    #svgRoot
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="def().viewBox ?? '0 0 24 24'"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    @for (shape of shapes(); track $index) {
+      @switch (shape.tag) {
+        @case ('circle') {
+          <circle [attr.cx]="shape.cx" [attr.cy]="shape.cy" [attr.r]="shape.r" [attr.fill]="shape.fill ?? null" />
+        }
+        @case ('rect') {
+          <rect
+            [attr.x]="shape.x"
+            [attr.y]="shape.y"
+            [attr.width]="shape.width"
+            [attr.height]="shape.height"
+            [attr.rx]="shape.rx"
+            [attr.ry]="shape.ry"
+            [attr.fill]="shape.fill ?? null"
+          />
+        }
+        @case ('line') {
+          <line [attr.x1]="shape.x1" [attr.y1]="shape.y1" [attr.x2]="shape.x2" [attr.y2]="shape.y2" [attr.fill]="shape.fill ?? null" />
+        }
+        @case ('ellipse') {
+          <ellipse [attr.cx]="shape.cx" [attr.cy]="shape.cy" [attr.rx]="shape.rx" [attr.ry]="shape.ry" [attr.fill]="shape.fill ?? null" />
+        }
+        @case ('polyline') {
+          <polyline [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" />
+        }
+        @case ('polygon') {
+          <polygon [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" />
+        }
+        @default {
+          <path [attr.d]="shape.d" [attr.fill]="shape.fill ?? null" />
+        }
+      }
+    }
+  </svg>
+
+  @if (duracionMs(); as dur) {
+    <div class="control">
+      <input
+        type="range"
+        min="0"
+        max="1000"
+        [value]="progreso() * 1000"
+        (input)="mover($any($event.target).value)"
+        aria-label="Progreso de la coreografía"
+      />
+      <span class="tiempo">{{ tiempoActualMs() }} / {{ dur }} ms</span>
+    </div>
+  } @else {
+    <p class="sin-scrub">
+      Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente
+      en vivo con <code>getTotalLength()</code> (autoDraw).
+    </p>
+  }
+</div>

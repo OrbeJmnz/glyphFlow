@@ -9,6 +9,8 @@
     <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">✕</button>
   </header>
 
+  <app-icon-scrubber [def]="def()" [variante]="varianteActiva()" class="scrubber-bloque" />
+
   <nav class="variantes-nav" aria-label="Variantes de la coreografía">
     @for (v of variantes(); track v) {
       <button
