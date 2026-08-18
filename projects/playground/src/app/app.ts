@@ -3,6 +3,7 @@ import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
 import { MorphBench } from './morph-bench';
 import { IconDetailPanel } from './icon-detail-panel';
 import { IconImport } from './icon-import';
+import { MorphPicker } from './morph-picker';
 
 interface CuratedEntry {
   name: string;
@@ -21,7 +22,7 @@ interface CuratedEntry {
  */
 @Component({
   selector: 'app-root',
-  imports: [MaxIconComponent, MorphBench, IconDetailPanel, IconImport],
+  imports: [MaxIconComponent, MorphBench, IconDetailPanel, IconImport, MorphPicker],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -1,0 +1,70 @@
+<section class="picker">
+  <header class="picker-head">
+    <h2>Morph libre — elige tu secuencia</h2>
+    <p class="expectativa">
+      ⚠ Solo los 4 pares del benchmark están validados a fondo. Combinaciones arbitrarias entre
+      iconos muy distintos <strong>pueden verse mal</strong> — es un límite real de la interpolación
+      de formas, no un bug: el core empareja subpaths por cercanía, y si dos iconos no tienen nada
+      en común, no hay correspondencia buena que encontrar.
+    </p>
+  </header>
+
+  <div class="cuerpo">
+    <div class="col-buscar">
+      <input
+        type="search"
+        class="buscar"
+        placeholder="filtrar entre los 180 curados…"
+        [value]="filtro()"
+        (input)="filtro.set($any($event.target).value)"
+        aria-label="Filtrar iconos"
+      />
+      <div class="resultados">
+        @for (item of resultados(); track item.nombre) {
+          <button type="button" class="opcion" (click)="agregar(item)" [attr.title]="item.nombre">
+            {{ item.nombre }}
+          </button>
+        } @empty {
+          <p class="vacio">Sin resultados para «{{ filtro() }}».</p>
+        }
+      </div>
+    </div>
+
+    <div class="col-secuencia">
+      <div class="lienzo">
+        @if (iconoActual(); as icono) {
+          <max-icon-morph [icon]="icono" [size]="96" label="Previsualización del morph" />
+        } @else {
+          <p class="vacio-lienzo">Elige al menos 2 iconos para armar una secuencia.</p>
+        }
+      </div>
+
+      @if (secuencia().length) {
+        <ol class="cadena">
+          @for (item of secuencia(); track $index) {
+            <li [class.activo]="$index === indiceActual()">
+              <span>{{ item.nombre }}</span>
+              <button type="button" (click)="quitar($index)" [attr.aria-label]="'Quitar ' + item.nombre">✕</button>
+            </li>
+          }
+        </ol>
+
+        @if (pares().length) {
+          <p class="pares">{{ pares().join(' · ') }}</p>
+        }
+
+        <div class="acciones">
+          <button
+            type="button"
+            class="primario"
+            [disabled]="secuencia().length < 2 || corriendo()"
+            (click)="reproducir()"
+          >
+            {{ corriendo() ? 'corriendo…' : '▶ reproducir secuencia' }}
+          </button>
+          <button type="button" (click)="limpiar()">limpiar</button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, signal, computed } from '@angular/core';
 import {
   AnimatedIconDef,
-  IconShape,
   bellIcon,
   bellRingIcon,
   circleIcon,
@@ -20,6 +19,7 @@ import {
   type MorphKeyframes,
   type MorphIcon,
 } from 'glyphflow/morph';
+import { aIconNode } from './icon-node';
 
 /**
  * Arnés del benchmark de morph. NO es producto: existe para decidir números mirando las cosas
@@ -82,18 +82,6 @@ const VARIANTES_COLA: Variante[] = [
   { id: 'recorte', titulo: 'Recorte al 99%', nota: 'física intacta', pasos: PASOS_DEFAULT, cola: 'recorte', direccion: 'alternate' },
   { id: 'reinicio', titulo: 'Sin reversa', nota: 'reinicia desde el origen', pasos: PASOS_DEFAULT, cola: 'completa', direccion: 'normal' },
 ];
-
-/** `IconShape[]` → data estilo Lucide (`[tag, attrs][]`), que es lo que come el core. */
-function aIconNode(def: AnimatedIconDef): [string, Record<string, string | number>][] {
-  return def.shapes.map((s: IconShape) => {
-    const { tag, ...attrs } = s as IconShape & Record<string, unknown>;
-    const limpio: Record<string, string | number> = {};
-    for (const [k, v] of Object.entries(attrs)) {
-      if (v !== undefined) limpio[k] = v as string | number;
-    }
-    return [tag, limpio];
-  });
-}
 
 interface Medida extends Variante {
   bytes: number;

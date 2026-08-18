@@ -1,0 +1,187 @@
+.picker {
+  max-width: 68rem;
+  margin: 0 auto 1.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  border: 1px solid #1d1d25;
+  border-radius: 1rem;
+  background: #0e0e14;
+}
+
+.picker-head h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f2f2f5;
+}
+
+.expectativa {
+  margin: 0 0 1.25rem;
+  max-width: 52rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 2px solid #6a5a3f;
+  background: #16130d;
+  color: #b39b73;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.expectativa strong {
+  color: #e0b28b;
+}
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(18rem, 1.3fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 52rem) {
+  .cuerpo {
+    grid-template-columns: 1fr;
+  }
+}
+
+.buscar {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.45rem 0.7rem;
+  margin-bottom: 0.6rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.5rem;
+  background: #101017;
+  color: #e7e7ea;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.buscar:focus {
+  outline: none;
+  border-color: #4a4a5c;
+}
+
+.resultados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-height: 14rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.opcion {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.35rem;
+  background: #101017;
+  color: #8b8b96;
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.opcion:hover {
+  border-color: #4a4a5c;
+  color: #e7e7ea;
+}
+
+.vacio,
+.vacio-lienzo {
+  margin: 0;
+  color: #6c6c78;
+  font-size: 0.75rem;
+}
+
+.lienzo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid #1d1d25;
+  border-radius: 0.75rem;
+  background: #101017;
+  color: #e7e7ea;
+}
+
+.cadena {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+
+.cadena li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.3rem 0.2rem 0.55rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.35rem;
+  background: #101017;
+  color: #a1a1ac;
+  font-size: 0.6875rem;
+}
+
+.cadena li.activo {
+  border-color: #6c6c96;
+  background: #1e1e2a;
+  color: #f2f2f5;
+}
+
+.cadena li button {
+  border: none;
+  background: transparent;
+  color: #6c6c78;
+  cursor: pointer;
+  font-size: 0.625rem;
+  padding: 0 0.15rem;
+}
+
+.cadena li button:hover {
+  color: #e08b8b;
+}
+
+.pares {
+  margin: 0 0 0.75rem;
+  color: #6c6c78;
+  font-size: 0.6875rem;
+}
+
+.acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.acciones button {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #2a2a33;
+  border-radius: 0.5rem;
+  background: #15151c;
+  color: #a1a1ac;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.acciones button:hover:not(:disabled) {
+  color: #e7e7ea;
+  border-color: #3f3f4b;
+}
+
+.acciones .primario {
+  background: #e7e7ea;
+  border-color: #e7e7ea;
+  color: #0b0b0f;
+  font-weight: 500;
+}
+
+.acciones .primario:hover:not(:disabled) {
+  background: #fff;
+}
+
+.acciones button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
