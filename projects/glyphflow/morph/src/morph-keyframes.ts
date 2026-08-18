@@ -125,6 +125,19 @@ export interface MorphKeyframesOpts {
    * verdad es el PESO del arreglo (2·pasos−1 keyframes).
    */
   idaYVuelta?: boolean;
+  /**
+   * Dibuja el SOBREPASO del resorte: las poses más allá del destino, cuando el preset rebota.
+   *
+   * Sin esto, un resorte subamortiguado solo alarga el reloj — el icono llega al destino y se
+   * queda quieto mientras la física termina de oscilar en el papel. Con esto, el rebote se ve.
+   *
+   * `interpPolar` extrapola para t > 1 (lo dice su encabezado), pero extrapola la SIMILARIDAD:
+   * rebotar = seguir escalando/moviendo más allá del destino. Medido en `bell→bell-ring`, la pose
+   * se sale del viewBox 24×24 pasando t≈1.12 y el SVG la recorta. Por eso el muestreo se topa en
+   * el t más grande que todavía cabe (`limiteSeguro`), y ese tope depende del PAR — no hay un
+   * número universal. Con `smooth` (ζ≈1, sin rebote) esta opción no cambia absolutamente nada.
+   */
+  sobrepaso?: boolean;
 }
 
 export interface MorphKeyframes {
@@ -186,10 +199,86 @@ function curvaDelSpring(
  * Momento (0-1, normalizado sobre la duración total) en que el spring alcanza `objetivo`.
  * Interpola linealmente entre las dos muestras que lo cruzan.
  */
+/**
+ * Extremos de una pose serializada, para saber si todavía cabe en el lienzo.
+ * Se lee del `d` ya generado en vez de recorrer los Float64Array: es la MISMA cadena que va a
+ * pintar el navegador, así que no hay forma de que la medición y lo dibujado se separen.
+ */
+/**
+ * Lado del lienzo contra el que se mide si una pose extrapolada todavía cabe.
+ *
+ * Constante, no derivado: `IconInput` (el tipo que come el core) es `IconNode | string` y NO
+ * carga el `viewBox` — ese vive en `AnimatedIconDef`, que nunca llega hasta aquí. 24 es el lado
+ * de Lucide y el default de la librería, así que es correcto para todo el catálogo. Si algún día
+ * entra geometría con otro lienzo, esto tiene que pasar a ser un parámetro; fingir que se deduce
+ * sería peor que dejarlo escrito.
+ */
+const LADO_VIEWBOX = 24;
+
+/**
+ * Mitad del `stroke-width` por default (2). El trazo se pinta centrado en el path, así que se
+ * come esta distancia hacia afuera — es lo que hay que descontar del lienzo para que no lo corten.
+ */
+const MARGEN_TRAZO = 1;
+
+function extremos(d: string): { min: number; max: number } {
+  const n = d.match(/-?\d+(\.\d+)?/g);
+  if (!n) return { min: 0, max: 0 };
+  let min = Infinity;
+  let max = -Infinity;
+  for (const v of n) {
+    const x = Number(v);
+    if (x < min) min = x;
+    if (x > max) max = x;
+  }
+  return { min, max };
+}
+
+/**
+ * Hasta dónde se puede extrapolar sin que la figura se salga del lienzo.
+ *
+ * El sobrepaso extrapola la similaridad, así que rebotar = seguir creciendo. Pasado cierto punto
+ * la pose desborda el viewBox y el SVG la recorta — se vería un icono mordido, no un rebote. Este
+ * tope se BUSCA por bisección sobre la geometría real del par, porque depende del par: `bell` crece
+ * hacia afuera y desborda pronto; un par que encoge aguantaría mucho más.
+ */
+function limiteSeguro(
+  plan: MorphPlan,
+  out: Float64Array[],
+  cerrados: boolean[],
+  lado: number,
+  tMaximo: number,
+): number {
+  const cabe = (t: number): boolean => {
+    interpPolar(plan, t, out);
+    const { min, max } = extremos(serialize(out, cerrados));
+    // El margen NO es una tolerancia generosa: es el grosor del trazo. Un `stroke-width` de 2
+    // (el default) se pinta centrado en el path, así que sobresale 1 unidad hacia afuera. Un path
+    // en x=24 con ese trazo llega hasta 25 y el viewBox lo recorta. Por eso el límite útil es
+    // [1, lado-1], no [0, lado] — medirlo contra la caja completa dejaba pasar poses que SÍ se
+    // recortaban (visto: pico en [-0.31, 24.31] aprobado por una tolerancia de ±0.5).
+    return min >= MARGEN_TRAZO && max <= lado - MARGEN_TRAZO;
+  };
+  if (cabe(tMaximo)) return tMaximo;
+
+  let seguro = 1;
+  let excesivo = tMaximo;
+  for (let i = 0; i < 12; i++) {
+    const medio = (seguro + excesivo) / 2;
+    if (cabe(medio)) seguro = medio;
+    else excesivo = medio;
+  }
+  return seguro;
+}
+
 function offsetPara(objetivo: number, tiempos: number[], progreso: number[]): number {
   const total = tiempos[tiempos.length - 1];
   if (objetivo <= 0) return 0;
-  if (objetivo >= 1) return 1;
+  // Sin atajo para objetivo >= 1: con sobrepaso, el resorte CRUZA el destino mucho antes del
+  // final, y devolver 1 de un saque ponía el último keyframe del tramo principal al final del
+  // reloj — dejando los offsets del rebote por detrás, en desorden. WAAPI exige offsets no
+  // decrecientes. Con `smooth` no cambia nada: nunca llega a 1 exacto (máximo 0.999), así que
+  // igual cae en el `return 1` de abajo.
   for (let i = 1; i < progreso.length; i++) {
     if (progreso[i] < objetivo) continue;
     const p0 = progreso[i - 1];
@@ -235,21 +324,62 @@ export function morphKeyframes(
     offsetsDeTramo.push(offsetPara(t, tiempos, progreso));
   }
 
+  /*
+   * SOBREPASO: las poses más allá del destino, cuando el resorte rebota.
+   *
+   * Se AÑADEN al final en vez de reemplazar el muestreo de [0,1], y eso es a propósito: con
+   * `smooth` (ζ≈1, sin rebote) no entra ni una pose nueva, así que el comportamiento por default
+   * queda byte por byte igual que antes. El rebote solo existe si la física lo produce.
+   *
+   * Los offsets salen del reloj REAL del resorte (`tiempos[i]/total`), no de un reparto inventado:
+   * el rebote ocupa exactamente el tramo de tiempo en que la física estuvo del otro lado del 1.
+   */
+  const xMaximo = Math.max(...progreso);
+  if (opts.sobrepaso && xMaximo > 1.001) {
+    const tope = limiteSeguro(plan, out, cerrados, LADO_VIEWBOX, xMaximo);
+    const totalTiempo = tiempos[tiempos.length - 1];
+    const primerCruce = progreso.findIndex((x) => x >= 1);
+
+    if (primerCruce > 0 && tope > 1.001) {
+      // Una muestra por cada `salto` de progreso recorrido, para que el rebote tenga la MISMA
+      // densidad espacial que el tramo principal en vez de un puñado de poses sueltas.
+      const salto = 1 / (pasos - 1);
+      let ultimoTomado = 1;
+      for (let i = primerCruce; i < progreso.length; i++) {
+        const x = Math.min(progreso[i], tope);
+        if (Math.abs(x - ultimoTomado) < salto) continue;
+        interpPolar(plan, x, out);
+        poses.push(`path("${serialize(out, cerrados)}")`);
+        offsetsDeTramo.push(tiempos[i] / totalTiempo);
+        ultimoTomado = x;
+      }
+      // El destino exacto cierra la secuencia: el rebote termina AHÍ, no en la última muestra que
+      // haya caído. Sin esto la figura se queda con el residuo del último punto medido.
+      interpPolar(plan, 1, out);
+      poses.push(`path("${serialize(out, cerrados)}")`);
+      offsetsDeTramo.push(1);
+    }
+  }
+
   const duracionDeTramo = tiempos[tiempos.length - 1] * 1000;
   const keyframes: Keyframe[] = [];
 
+  // `poses.length`, NO `pasos`: con sobrepaso el tramo trae poses de más (el rebote). Iterar
+  // sobre `pasos` las dejaba calculadas y fuera del arreglo final, en silencio.
+  const total = poses.length;
+
   if (opts.idaYVuelta) {
     // Tramo de ida en la primera mitad del reloj…
-    for (let i = 0; i < pasos; i++) {
+    for (let i = 0; i < total; i++) {
       keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] / 2 });
     }
     // …y de vuelta en la segunda, con SU PROPIA curva de resorte, no la de ida en espejo. Se
     // arranca en i=1 para no repetir la pose del centro (el destino), que ya quedó en offset 0.5.
-    for (let i = 1; i < pasos; i++) {
-      keyframes.push({ d: poses[pasos - 1 - i], offset: 0.5 + offsetsDeTramo[i] / 2 });
+    for (let i = 1; i < total; i++) {
+      keyframes.push({ d: poses[total - 1 - i], offset: 0.5 + offsetsDeTramo[i] / 2 });
     }
   } else {
-    for (let i = 0; i < pasos; i++) {
+    for (let i = 0; i < total; i++) {
       keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] });
     }
   }

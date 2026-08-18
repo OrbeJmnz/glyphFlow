@@ -243,6 +243,75 @@ describe('runMorph — lo que le entrega a WAAPI', () => {
   });
 });
 
+describe('sobrepaso — dibujar el rebote', () => {
+  /** ζ = 0.73 y ζ = 0.40: los dos subamortiguados del catálogo vendorizado, por `{k,c}` crudo
+   *  porque la superficie pública no exporta sus nombres. */
+  const REBOTA_POCO = { k: 420, c: 30 };
+  const REBOTA_MUCHO = { k: 300, c: 14 };
+
+  const extremos = (kf: Keyframe[]): [number, number] => {
+    let min = Infinity;
+    let max = -Infinity;
+    for (const k of kf) {
+      for (const v of (k['d'] as string).match(/-?\d+(\.\d+)?/g) ?? []) {
+        const n = Number(v);
+        if (n < min) min = n;
+        if (n > max) max = n;
+      }
+    }
+    return [min, max];
+  };
+
+  it('con un resorte que NO rebota no cambia absolutamente nada', () => {
+    // La garantía que hace segura la opción: activarla no puede alterar el default de la librería.
+    const sin = morphKeyframes(bell, bellRing, {});
+    const con = morphKeyframes(bell, bellRing, { sobrepaso: true });
+    expect(con.keyframes).toEqual(sin.keyframes);
+    expect(con.duracion).toBe(sin.duracion);
+  });
+
+  it('con un resorte que rebota agrega poses más allá del destino', () => {
+    const sin = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
+    const con = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: true });
+    expect(con.keyframes.length).toBeGreaterThan(sin.keyframes.length);
+    // Y esas poses son GEOMÉTRICAMENTE más grandes: el rebote se pasa del destino, no solo dura más.
+    expect(extremos(con.keyframes)[1]).toBeGreaterThan(extremos(sin.keyframes)[1]);
+  });
+
+  it('el rebote no se sale del lienzo — el trazo entero cabe en el viewBox', () => {
+    // Extrapolar la similaridad hace crecer la figura; sin tope, ζ=0.40 llegaba a [-2.03, 26.03]
+    // sobre un lienzo de 24 y el SVG la recortaba. El límite descuenta el grosor del trazo (1
+    // unidad hacia afuera con stroke-width 2), no solo el borde de la caja.
+    for (const spring of [REBOTA_POCO, REBOTA_MUCHO]) {
+      const { keyframes } = morphKeyframes(bell, bellRing, { spring, sobrepaso: true });
+      const [min, max] = extremos(keyframes);
+      expect(min - 1, `el trazo se sale por la izquierda con k=${spring.k}`).toBeGreaterThanOrEqual(-0.01);
+      expect(max + 1, `el trazo se sale por la derecha con k=${spring.k}`).toBeLessThanOrEqual(24.01);
+    }
+  });
+
+  it('los offsets siguen creciendo — WAAPI los rechaza si no', () => {
+    // El bug que esto clava: `offsetPara` devolvía 1 de un saque para objetivo >= 1, así que el
+    // último keyframe del tramo principal caía al final del reloj y el rebote quedaba por detrás.
+    for (const spring of [REBOTA_POCO, REBOTA_MUCHO]) {
+      const { keyframes } = morphKeyframes(bell, bellRing, { spring, sobrepaso: true });
+      const offsets = keyframes.map((k) => k['offset'] as number);
+      for (let i = 1; i < offsets.length; i++) {
+        expect(offsets[i], `offset ${i} retrocede con k=${spring.k}`).toBeGreaterThanOrEqual(offsets[i - 1]);
+      }
+      expect(offsets[offsets.length - 1]).toBe(1);
+    }
+  });
+
+  it('termina en el destino exacto, no en la última muestra del rebote', () => {
+    const soloIda = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
+    const conRebote = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: true });
+    expect(conRebote.keyframes[conRebote.keyframes.length - 1]['d']).toBe(
+      soloIda.keyframes[soloIda.keyframes.length - 1]['d'],
+    );
+  });
+});
+
 describe('canonicalD — el `d` de aterrizaje', () => {
   it('devuelve curvas, no la polilínea de vuelo', () => {
     const d = canonicalD(bell);

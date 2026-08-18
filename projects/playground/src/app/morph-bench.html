@@ -30,6 +30,9 @@
       <button type="button" [class.activo]="modo() === 'vuelta'" (click)="elegirModo('vuelta')">
         comparar la vuelta
       </button>
+      <button type="button" [class.activo]="modo() === 'sobrepaso'" (click)="elegirModo('sobrepaso')">
+        comparar el rebote
+      </button>
       <span class="separador"></span>
       @for (r of resoluciones; track r) {
         <button type="button" [class.activo]="resolucion() === r" (click)="elegirResolucion(r)">
@@ -42,6 +45,15 @@
       <p class="aviso">
         La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje.
         «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.
+      </p>
+    }
+    @if (modo() === 'sobrepaso') {
+      <p class="aviso">
+        Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Antes eso solo
+        alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se
+        dibujan — <em>ζ=0.73 sin dibujarlo</em> contra <em>ζ=0.73 con rebote</em> es la comparación
+        que importa. El de ζ=0.40 va topado: extrapolar más lo sacaría del lienzo y el SVG lo
+        recortaría.
       </p>
     }
     @if (modo() === 'vuelta') {

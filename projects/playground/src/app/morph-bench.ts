@@ -60,6 +60,10 @@ interface Variante {
   direccion: 'alternate' | 'normal';
   /** Ida y vuelta en una sola iteración, con resorte propio en cada tramo. */
   idaYVuelta?: boolean;
+  /** Resorte crudo `{k, c}` — los subamortiguados no tienen nombre público a propósito. */
+  spring?: { k: number; c: number };
+  /** Dibuja las poses más allá del destino cuando el resorte rebota. */
+  sobrepaso?: boolean;
 }
 
 const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
@@ -74,6 +78,18 @@ const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
 const VARIANTES_VUELTA: Variante[] = [
   { id: 'v-alternate', titulo: 'reverse()', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'alternate' },
   { id: 'v-ida-vuelta', titulo: 'Ida y vuelta', nota: 'resorte por tramo', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', idaYVuelta: true },
+];
+
+/**
+ * El sobrepaso: ζ = 0.73 y ζ = 0.40 son los dos subamortiguados del catálogo vendorizado. Se
+ * pasan como `{k, c}` crudos porque la superficie pública no exporta sus nombres — el motor no
+ * dibujaba su rebote y prometer `bouncy` habría sido vender lo que no entrega.
+ */
+const VARIANTES_SOBREPASO: Variante[] = [
+  { id: 's-smooth', titulo: 'smooth', nota: 'ζ=1.00, no rebota', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', sobrepaso: true },
+  { id: 's-073-sin', titulo: 'ζ=0.73 sin dibujarlo', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 420, c: 30 } },
+  { id: 's-073-con', titulo: 'ζ=0.73 con rebote', nota: 'nuevo', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 420, c: 30 }, sobrepaso: true },
+  { id: 's-040-con', titulo: 'ζ=0.40 con rebote', nota: 'topado al viewBox', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 300, c: 14 }, sobrepaso: true },
 ];
 
 const VARIANTES_COLA: Variante[] = [
@@ -102,7 +118,7 @@ export class MorphBench {
 
   protected readonly pares = PARES;
   protected readonly parActivo = signal(PARES[0]);
-  protected readonly modo = signal<'pasos' | 'cola' | 'vuelta'>('pasos');
+  protected readonly modo = signal<'pasos' | 'cola' | 'vuelta' | 'sobrepaso'>('pasos');
   protected readonly loop = signal(false);
   /**
    * La otra perilla del peso: puntos por subpath. Arranca en el default real de la librería, no
@@ -134,6 +150,7 @@ export class MorphBench {
     const modo = this.modo();
     if (modo === 'pasos') return VARIANTES_PASOS;
     if (modo === 'cola') return VARIANTES_COLA;
+    if (modo === 'sobrepaso') return VARIANTES_SOBREPASO;
     return VARIANTES_VUELTA;
   });
 
@@ -149,6 +166,8 @@ export class MorphBench {
         resolucion,
         cola: v.cola,
         idaYVuelta: v.idaYVuelta,
+        spring: v.spring,
+        sobrepaso: v.sobrepaso,
       });
     }
     return salida;
@@ -178,7 +197,7 @@ export class MorphBench {
     this.parActivo.set(par);
   }
 
-  protected elegirModo(modo: 'pasos' | 'cola' | 'vuelta'): void {
+  protected elegirModo(modo: 'pasos' | 'cola' | 'vuelta' | 'sobrepaso'): void {
     this.cancelar();
     this.modo.set(modo);
   }
@@ -231,6 +250,8 @@ export class MorphBench {
       resolucion: this.resolucion(),
       cola: v.cola,
       idaYVuelta: v.idaYVuelta,
+      spring: v.spring,
+      sobrepaso: v.sobrepaso,
       loop: this.loop(),
       direction: this.loop() ? v.direccion : 'normal',
     });
