@@ -79,6 +79,19 @@ export interface MorphKeyframesOpts {
    *   conserva porque son criterios distintos y podrían separarse con presets futuros.
    */
   cola?: 'completa' | 'corta' | 'recorte';
+  /**
+   * Construye ida Y vuelta en UNA sola iteración, con resorte propio en cada tramo.
+   *
+   * Existe porque `alternate` (y `reverse()`) recorren los offsets en espejo: la cola lenta queda
+   * al principio del regreso y el tramo veloz al final, así que aterriza de golpe. Con dos tramos
+   * propios, los dos salen despacio y llegan despacio.
+   *
+   * Casi gratis, medido: el plan de Procrustes se reusa entero y las poses de vuelta son **byte a
+   * byte** las de ida invertidas, así que no se recalcula geometría. Lo único que se duplica es
+   * integrar el resorte: 0.0075 ms, un 0.2% de construir una dirección. Lo que sí se duplica de
+   * verdad es el PESO del arreglo (2·pasos−1 keyframes).
+   */
+  idaYVuelta?: boolean;
 }
 
 export interface MorphKeyframes {
@@ -175,20 +188,46 @@ export function morphKeyframes(
 
   const { tiempos, progreso } = curvaDelSpring(opts.spring ?? 'smooth', opts.cola ?? COLA_DEFAULT);
 
-  const keyframes: Keyframe[] = [];
+  // Las poses: se calculan UNA vez. La vuelta son estas mismas al revés — un morph es simétrico,
+  // así que reusarlas no es una optimización sucia, es la misma trayectoria leída de derecha a
+  // izquierda (verificado byte a byte).
+  const poses: string[] = [];
+  const offsetsDeTramo: number[] = [];
   for (let i = 0; i < pasos; i++) {
     const t = i / (pasos - 1);
     interpPolar(plan, t, out);
-    keyframes.push({
-      d: `path("${serialize(out, cerrados)}")`,
-      // El offset lo dicta el spring: con progreso no lineal, keyframes repartidos uniformemente
-      // en el tiempo darían movimiento uniforme — justo lo que un spring no es.
-      offset: offsetPara(t, tiempos, progreso),
-    });
+    poses.push(`path("${serialize(out, cerrados)}")`);
+    // El offset lo dicta el spring: con progreso no lineal, keyframes repartidos uniformemente
+    // en el tiempo darían movimiento uniforme — justo lo que un spring no es.
+    offsetsDeTramo.push(offsetPara(t, tiempos, progreso));
+  }
+
+  const duracionDeTramo = tiempos[tiempos.length - 1] * 1000;
+  const keyframes: Keyframe[] = [];
+
+  if (opts.idaYVuelta) {
+    // Tramo de ida en la primera mitad del reloj…
+    for (let i = 0; i < pasos; i++) {
+      keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] / 2 });
+    }
+    // …y de vuelta en la segunda, con SU PROPIA curva de resorte, no la de ida en espejo. Se
+    // arranca en i=1 para no repetir la pose del centro (el destino), que ya quedó en offset 0.5.
+    for (let i = 1; i < pasos; i++) {
+      keyframes.push({ d: poses[pasos - 1 - i], offset: 0.5 + offsetsDeTramo[i] / 2 });
+    }
+  } else {
+    for (let i = 0; i < pasos; i++) {
+      keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] });
+    }
   }
 
   const bytes = new TextEncoder().encode(JSON.stringify(keyframes)).length;
-  return { keyframes, duracion: tiempos[tiempos.length - 1] * 1000, bytes, plan };
+  return {
+    keyframes,
+    duracion: opts.idaYVuelta ? duracionDeTramo * 2 : duracionDeTramo,
+    bytes,
+    plan,
+  };
 }
 
 /**
@@ -252,7 +291,18 @@ export function runMorph(
 
   const marca = {};
   duenoDelElemento.set(el, marca);
-  const dFinal = opts.dFinal ?? canonicalD(destino);
+
+  /**
+   * Dónde aterriza esto, que NO siempre es el destino:
+   * - `idaYVuelta` termina donde empezó, en el origen.
+   * - reproducido en reversa (`reverse()` al soltar el hover) también termina en el origen —
+   *   `finished` resuelve igual, así que sin mirar `playbackRate` se escribiría el destino sobre
+   *   una figura que quedó en la pose de origen.
+   */
+  const poseFinal = (): string => {
+    if (opts.idaYVuelta || animation.playbackRate < 0) return canonicalD(origen);
+    return opts.dFinal ?? canonicalD(destino);
+  };
 
   animation.finished
     .then(() => {
@@ -266,7 +316,7 @@ export function runMorph(
       // El atributo PRIMERO y el `cancel()` después, en este orden: mientras el `fill: forwards`
       // siga aplicado tapa el cambio, y al soltarlo abajo ya está el `d` bueno. Al revés se ve un
       // parpadeo con la pose original entre el cancel y la escritura.
-      el.setAttribute('d', dFinal);
+      el.setAttribute('d', poseFinal());
       animation.cancel();
       duenoDelElemento.delete(el);
     })

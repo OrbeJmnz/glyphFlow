@@ -56,6 +56,8 @@ interface Variante {
   cola: Cola;
   /** `alternate` regresa por la trayectoria; `normal` reinicia desde el origen. */
   direccion: 'alternate' | 'normal';
+  /** Ida y vuelta en una sola iteración, con resorte propio en cada tramo. */
+  idaYVuelta?: boolean;
 }
 
 const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
@@ -66,6 +68,11 @@ const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
   cola: 'completa',
   direccion: 'alternate',
 }));
+
+const VARIANTES_VUELTA: Variante[] = [
+  { id: 'v-alternate', titulo: 'reverse()', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'alternate' },
+  { id: 'v-ida-vuelta', titulo: 'Ida y vuelta', nota: 'resorte por tramo', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', idaYVuelta: true },
+];
 
 const VARIANTES_COLA: Variante[] = [
   { id: 'completa', titulo: 'Cola completa', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'completa', direccion: 'alternate' },
@@ -104,7 +111,7 @@ export class MorphBench {
 
   protected readonly pares = PARES;
   protected readonly parActivo = signal(PARES[0]);
-  protected readonly modo = signal<'pasos' | 'cola'>('pasos');
+  protected readonly modo = signal<'pasos' | 'cola' | 'vuelta'>('pasos');
   protected readonly loop = signal(false);
   /**
    * La otra perilla del peso: puntos por subpath. Arranca en el default real de la librería, no
@@ -116,9 +123,12 @@ export class MorphBench {
 
   private readonly animaciones = new Map<string, Animation>();
 
-  protected readonly variantes = computed(() =>
-    this.modo() === 'pasos' ? VARIANTES_PASOS : VARIANTES_COLA,
-  );
+  protected readonly variantes = computed(() => {
+    const modo = this.modo();
+    if (modo === 'pasos') return VARIANTES_PASOS;
+    if (modo === 'cola') return VARIANTES_COLA;
+    return VARIANTES_VUELTA;
+  });
 
   private readonly calculo = computed<Record<string, MorphKeyframes>>(() => {
     const par = this.parActivo();
@@ -127,7 +137,12 @@ export class MorphBench {
     const b = aIconNode(par.destino);
     const salida: Record<string, MorphKeyframes> = {};
     for (const v of this.variantes()) {
-      salida[v.id] = morphKeyframes(a, b, { pasos: v.pasos, resolucion, cola: v.cola });
+      salida[v.id] = morphKeyframes(a, b, {
+        pasos: v.pasos,
+        resolucion,
+        cola: v.cola,
+        idaYVuelta: v.idaYVuelta,
+      });
     }
     return salida;
   });
@@ -156,9 +171,34 @@ export class MorphBench {
     this.parActivo.set(par);
   }
 
-  protected elegirModo(modo: 'pasos' | 'cola'): void {
+  protected elegirModo(modo: 'pasos' | 'cola' | 'vuelta'): void {
     this.cancelar();
     this.modo.set(modo);
+  }
+
+  /**
+   * Hover real: entrar dispara el morph, salir lo devuelve. Es el patrón de producción
+   * (`reverseOnLeave`), y el único lugar donde se siente el problema de la vuelta.
+   */
+  protected entrar(v: Variante): void {
+    const anim = this.animaciones.get(v.id);
+    // Reversa de la reversa: si va de regreso y todavía no llega, se le da vuelta otra vez en vez
+    // de arrancar un morph nuevo — así retoma desde donde está, sin saltos.
+    if (anim && anim.playState === 'running' && anim.playbackRate < 0) {
+      anim.reverse();
+      return;
+    }
+    this.reproducir(v);
+  }
+
+  protected salir(v: Variante): void {
+    const anim = this.animaciones.get(v.id);
+    // `idaYVuelta` ya regresa solo: darle reverse a media ida lo mandaría al inicio por un camino
+    // que ya trae de vuelta, encimando dos regresos.
+    if (!anim || anim.playState !== 'running' || this.variantes().find((x) => x.id === v.id)?.idaYVuelta) {
+      return;
+    }
+    if (anim.playbackRate > 0) anim.reverse();
   }
 
   protected elegirResolucion(r: number): void {
@@ -183,6 +223,7 @@ export class MorphBench {
       pasos: v.pasos,
       resolucion: this.resolucion(),
       cola: v.cola,
+      idaYVuelta: v.idaYVuelta,
       loop: this.loop(),
       direction: this.loop() ? v.direccion : 'normal',
     });

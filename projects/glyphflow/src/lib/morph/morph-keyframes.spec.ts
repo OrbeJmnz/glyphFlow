@@ -77,6 +77,44 @@ describe('morphKeyframes', () => {
   });
 });
 
+describe('ida y vuelta en una sola iteración', () => {
+  it('reusa las poses de ida: la vuelta son las mismas al revés, sin recalcular geometría', () => {
+    const solaIda = morphKeyframes(bell, bellRing, { pasos: 10 });
+    const completo = morphKeyframes(bell, bellRing, { pasos: 10, idaYVuelta: true });
+
+    expect(completo.keyframes.length).toBe(10 * 2 - 1);
+    // La pose del centro es el destino; la última es de nuevo el origen (vuelve a casa).
+    expect(completo.keyframes[9]['d']).toBe(solaIda.keyframes[9]['d']);
+    expect(completo.keyframes[completo.keyframes.length - 1]['d']).toBe(solaIda.keyframes[0]['d']);
+    // Espejo exacto: la pose k de la vuelta es la pose (n−1−k) de la ida.
+    for (let i = 1; i < 10; i++) {
+      expect(completo.keyframes[9 + i]['d']).toBe(solaIda.keyframes[9 - i]['d']);
+    }
+  });
+
+  it('cada tramo trae su propio resorte, no el de ida en espejo', () => {
+    const completo = morphKeyframes(bell, bellRing, { pasos: 10, idaYVuelta: true });
+    const offs = completo.keyframes.map((k) => k['offset'] as number);
+
+    expect(offs[0]).toBe(0);
+    expect(offs[9]).toBeCloseTo(0.5, 5);
+    expect(offs[offs.length - 1]).toBe(1);
+    for (let i = 1; i < offs.length; i++) expect(offs[i]).toBeGreaterThan(offs[i - 1]);
+
+    // La firma de que NO es un espejo: el primer salto de cada tramo es el mismo (los dos arrancan
+    // igual de lento). Con `alternate` el segundo tramo empezaría con el salto MÁS GRANDE.
+    const primerSaltoIda = offs[1] - offs[0];
+    const primerSaltoVuelta = offs[10] - offs[9];
+    expect(primerSaltoVuelta).toBeCloseTo(primerSaltoIda, 5);
+  });
+
+  it('dura el doble que una sola dirección', () => {
+    const ida = morphKeyframes(bell, bellRing, { pasos: 10 });
+    const completo = morphKeyframes(bell, bellRing, { pasos: 10, idaYVuelta: true });
+    expect(completo.duracion).toBeCloseTo(ida.duracion * 2, 5);
+  });
+});
+
 describe('canonicalD — el `d` de aterrizaje', () => {
   it('devuelve curvas, no la polilínea de vuelo', () => {
     const d = canonicalD(bell);

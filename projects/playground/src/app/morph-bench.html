@@ -27,6 +27,9 @@
       <button type="button" [class.activo]="modo() === 'cola'" (click)="elegirModo('cola')">
         comparar cola del spring
       </button>
+      <button type="button" [class.activo]="modo() === 'vuelta'" (click)="elegirModo('vuelta')">
+        comparar la vuelta
+      </button>
       <span class="separador"></span>
       @for (r of resoluciones; track r) {
         <button type="button" [class.activo]="resolucion() === r" (click)="elegirResolucion(r)">
@@ -41,11 +44,24 @@
         «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.
       </p>
     }
+    @if (modo() === 'vuelta') {
+      <p class="aviso">
+        <strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>).
+        <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe;
+        <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques.
+      </p>
+    }
   </header>
 
   <div class="lienzos" #lienzos>
     @for (m of tabla(); track m.id) {
-      <article class="variante" [attr.data-id]="m.id" [class.elegida]="m.nota === 'default'">
+      <article
+        class="variante"
+        [attr.data-id]="m.id"
+        [class.elegida]="m.nota === 'default'"
+        (mouseenter)="entrar(m)"
+        (mouseleave)="salir(m)"
+      >
         <h3>
           {{ m.titulo }}
           @if (m.nota) {
