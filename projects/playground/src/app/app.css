@@ -4,7 +4,12 @@
   padding: 2.5rem 1.5rem 4rem;
   background: #0b0b0f;
   color: #e7e7ea;
-  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
 }
 
 .head {
@@ -35,7 +40,9 @@
   color: #a1a1ac;
   font: inherit;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .repeat-all {
@@ -67,7 +74,9 @@
   border-radius: 0.75rem;
   background: #101017;
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .card:hover {
@@ -106,4 +115,121 @@
 
 .foot code {
   color: #a1a1ac;
+}
+
+/* ── Barra de controles: velocidad global + filtro por insignia ─────────────── */
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.grupo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.grupo-tit {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6c6c78;
+}
+
+.chip {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #2a2a33;
+  border-radius: 999px;
+  background: #15151c;
+  color: #a1a1ac;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.chip:hover {
+  color: #e7e7ea;
+  border-color: #3f3f4b;
+}
+
+.chip.activo {
+  border-color: #6c6c96;
+  background: #1c1c2a;
+  color: #e7e7ea;
+}
+
+.chip em {
+  font-style: normal;
+  color: #6c6c78;
+}
+
+.chip.activo em {
+  color: #a1a1ac;
+}
+
+.head .aviso {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  font-size: 0.8125rem;
+  color: #8b8b96;
+}
+
+.enlace {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #9c9cc8;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Insignias del grid ─────────────────────────────────────────────────────── */
+
+.card {
+  position: relative;
+}
+
+.insignias {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  max-width: calc(100% - 0.8rem);
+}
+
+.insignia {
+  padding: 0.05rem 0.35rem;
+  border: 1px solid #2a2a33;
+  border-radius: 999px;
+  background: #15151c;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: #8b8b96;
+  cursor: help;
+}
+
+/* La única que celebra algo: hay más animación de la que se ve en la tarjeta. */
+.insignia[data-ins='extras'] {
+  border-color: #4d4d7a;
+  background: #1c1c2a;
+  color: #b9b9e0;
+}
+
+/* Advertencia suave, no error: el icono funciona, solo que nadie le puso coreografía propia. */
+.insignia[data-ins='solo-draw'] {
+  border-color: #3a3226;
+  background: #1a1712;
+  color: #9c8a6b;
 }
