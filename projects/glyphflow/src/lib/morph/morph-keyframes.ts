@@ -1,7 +1,8 @@
 import { resampleIcon } from './core/resample';
 import { buildPlan, type MorphPlan } from './core/plan';
 import { allocOutputs, interpPolar } from './core/interpolate';
-import { serialize } from './core/serialize';
+import { serialize, cubicsToPathD } from './core/serialize';
+import { iconToCubics } from './core/normalize';
 import { Spring, SPRING_PRESETS, type SpringPreset } from './core/spring';
 import type { IconInput, Sampled } from './core/types';
 
@@ -38,6 +39,16 @@ export const PASOS_DEFAULT = 20;
  */
 export const RESOLUCION_DEFAULT = 64;
 
+/**
+ * Qué se hace con la cola asintótica del resorte. Ver `MorphKeyframesOpts.cola`.
+ *
+ * `corta` en vez de `completa` porque la cola estricta se lleva el 51% de la duración en
+ * movimiento que nadie ve, y al reproducir en reversa (soltar el hover) queda al principio: el
+ * morph aterriza de golpe. Medido en `bell→bell-ring`: 737ms → 521ms, y el último tramo entre
+ * keyframes baja de 51% a 31% de la duración.
+ */
+export const COLA_DEFAULT: 'completa' | 'corta' | 'recorte' = 'corta';
+
 export interface MorphKeyframesOpts {
   /** Cuántas poses discretas se le entregan a WAAPI. Default: `PASOS_DEFAULT`. */
   pasos?: number;
@@ -49,6 +60,25 @@ export interface MorphKeyframesOpts {
   resolucion?: number;
   /** Preset del spring: solo decide duración y reparto temporal de los keyframes. */
   spring?: SpringPreset;
+  /**
+   * Qué hacer con la cola asintótica del spring. EXPERIMENTAL — se está eligiendo el default.
+   *
+   * Un spring nunca "llega": se acerca a 1 para siempre. Con el criterio estricto, el último tramo
+   * entre keyframes se come la mitad de la duración en movimiento imperceptible, y al reproducir
+   * en reversa (`reverse()` al soltar el hover, o `alternate` en loop) esa cola queda al principio
+   * y el tramo veloz al final — el morph aterriza de golpe.
+   *
+   * - `corta` (default): afloja el criterio a |1−x| < 0.01 **y |v| < 0.2**. La condición de
+   *   velocidad NO es decorativa: sin ella, un preset que rebota cumple |1−x| < 0.01 mientras
+   *   PASA subiendo por el destino, y el corte se come el rebote entero (medido: `bouncy` cortaba
+   *   a los 121ms de 925, con el resorte cruzando a v=7.53 rumbo a 1.24).
+   * - `completa`: el criterio estricto del core, |1−x| < 0.001 y |v| < 0.02. Deja una cola
+   *   asintótica imperceptible que se lleva la mitad de la duración.
+   * - `recorte`: integra completo y tira desde el ÚLTIMO instante en que |1−x| ≥ 0.01. Equivale a
+   *   `corta` dentro de unos pocos ms en los tres presets (517/308/633 contra 521/317/637); se
+   *   conserva porque son criterios distintos y podrían separarse con presets futuros.
+   */
+  cola?: 'completa' | 'corta' | 'recorte';
 }
 
 export interface MorphKeyframes {
@@ -65,7 +95,10 @@ export interface MorphKeyframes {
  * Integra el spring hasta que asienta y devuelve su curva de progreso muestreada en el tiempo.
  * Un solo barrido: de aquí salen la duración y los offsets.
  */
-function curvaDelSpring(preset: SpringPreset): { tiempos: number[]; progreso: number[] } {
+function curvaDelSpring(
+  preset: SpringPreset,
+  cola: 'completa' | 'corta' | 'recorte',
+): { tiempos: number[]; progreso: number[] } {
   const { k, c } = SPRING_PRESETS[preset];
   const spring = new Spring();
   spring.config(k, c);
@@ -82,7 +115,23 @@ function curvaDelSpring(preset: SpringPreset): { tiempos: number[]; progreso: nu
     t += dt;
     tiempos.push(t);
     progreso.push(spring.x);
-    if (asentado) break;
+    // `corta`: cerca del destino Y ya casi quieto. Las dos condiciones, no una — ver el comentario
+    // de `cola` en las opciones: sin la de velocidad, un resorte que rebota se corta a sí mismo el
+    // rebote al pasar por el destino a toda velocidad.
+    if (cola === 'corta' ? Math.abs(1 - spring.x) < 0.01 && Math.abs(spring.v) < 0.2 : asentado) {
+      break;
+    }
+  }
+
+  if (cola === 'recorte') {
+    // Desde el ÚLTIMO instante fuera de la banda del 1%, no el primero: con sobrepaso, el primero
+    // cae subiendo y decapitaría el rebote igual que la versión ingenua de `corta`.
+    let hasta = progreso.length - 1;
+    while (hasta > 0 && Math.abs(1 - progreso[hasta]) < 0.01) hasta--;
+    if (hasta > 0 && hasta < progreso.length - 1) {
+      tiempos.length = hasta + 1;
+      progreso.length = hasta + 1;
+    }
   }
   return { tiempos, progreso };
 }
@@ -124,7 +173,7 @@ export function morphKeyframes(
   const out = allocOutputs(plan);
   const cerrados = a.map((s) => s.closed);
 
-  const { tiempos, progreso } = curvaDelSpring(opts.spring ?? 'smooth');
+  const { tiempos, progreso } = curvaDelSpring(opts.spring ?? 'smooth', opts.cola ?? COLA_DEFAULT);
 
   const keyframes: Keyframe[] = [];
   for (let i = 0; i < pasos; i++) {
@@ -142,12 +191,50 @@ export function morphKeyframes(
   return { keyframes, duracion: tiempos[tiempos.length - 1] * 1000, bytes, plan };
 }
 
-/** Lanza el morph sobre un `<path>`. Sin loop: se entrega a WAAPI y el navegador se encarga. */
+/**
+ * `d` canónico de un icono: cúbicas exactas, no la polilínea de vuelo.
+ *
+ * No es el string literal de Lucide y no puede serlo: el morph pinta UN `<path>` mientras el icono
+ * tiene N figuras (y algunas ni siquiera son paths — `circle`, `rect`). Esto las baja todas a
+ * cúbicas y las concatena, que es la forma canónica más fiel que existe para un solo elemento.
+ * Un llamador que tenga el string exacto puede pasarlo por `dFinal` y gana él.
+ */
+export function canonicalD(icono: IconInput): string {
+  return cubicsToPathD(iconToCubics(icono));
+}
+
+/**
+ * Marca de qué morph es dueño cada elemento. Existe por una carrera que un `.catch()` NO cubre:
+ * si el morph viejo alcanza a TERMINAR bien justo cuando arranca uno nuevo, su `finished` resuelve
+ * (no rechaza) y escribiría el `d` del destino VIEJO sobre un elemento que ya está a media
+ * transición nueva. `WeakMap` para no retener elementos removidos del DOM.
+ */
+const duenoDelElemento = new WeakMap<Element, object>();
+
+export interface RunMorphOpts extends MorphKeyframesOpts {
+  fill?: FillMode;
+  /** Repite indefinidamente, ida y vuelta. Modo comparador; ver la nota de `direction`. */
+  loop?: boolean;
+  iterations?: number;
+  direction?: PlaybackDirection;
+  /** `d` exacto al que aterrizar. Por default, el canónico del destino. */
+  dFinal?: string;
+}
+
+/**
+ * Lanza el morph sobre un `<path>`. Sin loop de animación: se entrega a WAAPI y el navegador se
+ * encarga; el spring ya hizo su trabajo al construir los keyframes.
+ *
+ * **Aterrizaje exacto**: en vuelo las poses son polilíneas (obligatorio — WAAPI solo interpola
+ * entre `d` con la MISMA estructura de comandos; mezclar arcos con líneas degrada a salto
+ * discreto, verificado en navegador). Al asentar se escribe el `d` canónico del destino, así el
+ * DOM en reposo vuelve a ser curvas y no 252 segmentos rectos.
+ */
 export function runMorph(
   el: SVGPathElement,
   origen: IconInput,
   destino: IconInput,
-  opts: MorphKeyframesOpts & { fill?: FillMode },
+  opts: RunMorphOpts = {},
 ): { animation: Animation; medidas: MorphKeyframes } {
   const medidas = morphKeyframes(origen, destino, opts);
   const animation = el.animate(medidas.keyframes, {
@@ -156,6 +243,38 @@ export function runMorph(
     // deformaría dos veces la misma curva.
     easing: 'linear',
     fill: opts.fill ?? 'forwards',
+    iterations: opts.iterations ?? (opts.loop ? Infinity : 1),
+    // `alternate` para que la vuelta recorra la trayectoria en vez de saltar al inicio. OJO: con
+    // los offsets del spring, la vuelta los recorre en espejo — la cola lenta queda al principio y
+    // el tramo rápido al final, así que aterriza de golpe. Es timing, no dirección.
+    direction: opts.direction ?? (opts.loop ? 'alternate' : 'normal'),
   });
+
+  const marca = {};
+  duenoDelElemento.set(el, marca);
+  const dFinal = opts.dFinal ?? canonicalD(destino);
+
+  animation.finished
+    .then(() => {
+      // Otro morph tomó el elemento mientras este terminaba: no es nuestro, no se escribe. Pero sí
+      // se cancela lo propio — con `fill: forwards` esta animación seguiría viva en el stack,
+      // tapada por la nueva y sin dueño, y `getAnimations()` la arrastraría para siempre.
+      if (duenoDelElemento.get(el) !== marca) {
+        animation.cancel();
+        return;
+      }
+      // El atributo PRIMERO y el `cancel()` después, en este orden: mientras el `fill: forwards`
+      // siga aplicado tapa el cambio, y al soltarlo abajo ya está el `d` bueno. Al revés se ve un
+      // parpadeo con la pose original entre el cancel y la escritura.
+      el.setAttribute('d', dFinal);
+      animation.cancel();
+      duenoDelElemento.delete(el);
+    })
+    .catch(() => {
+      // `cancel()` rechaza `finished` con AbortError. Interrumpir un morph es normal (el puntero
+      // se movió, cambió el estado), no un error: se ignora en silencio. Sin este catch sería una
+      // promesa rechazada sin manejar en la consola de cualquier consumidor.
+    });
+
   return { animation, medidas };
 }

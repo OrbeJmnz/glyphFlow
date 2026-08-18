@@ -1,18 +1,14 @@
 <section class="bench">
   <header class="bench-head">
-    <h2>Benchmark de morph — ¿cuántos pasos?</h2>
+    <h2>Benchmark de morph</h2>
     <p>
-      Un par a la vez, las 4 variantes lado a lado. El spring solo decide el timing: cero loop de
+      Un par a la vez, 4 variantes lado a lado. El spring solo decide el timing: cero loop de
       animación, los keyframes se calculan una vez y los interpola el navegador.
     </p>
 
     <nav class="pares">
       @for (par of pares; track par.id) {
-        <button
-          type="button"
-          [class.activo]="par.id === parActivo().id"
-          (click)="elegirPar(par)"
-        >
+        <button type="button" [class.activo]="par.id === parActivo().id" (click)="elegirPar(par)">
           {{ par.id }}
         </button>
       }
@@ -20,37 +16,53 @@
 
     <div class="controles">
       <button type="button" class="primario" (click)="reproducirTodas()">Reproducir las 4</button>
+      <button type="button" [class.activo]="loop()" (click)="alternarLoop()">
+        Loop {{ loop() ? 'on' : 'off' }}
+      </button>
+      <button type="button" (click)="cancelar()">Reset</button>
+      <span class="separador"></span>
+      <button type="button" [class.activo]="modo() === 'pasos'" (click)="elegirModo('pasos')">
+        comparar pasos
+      </button>
+      <button type="button" [class.activo]="modo() === 'cola'" (click)="elegirModo('cola')">
+        comparar cola del spring
+      </button>
+      <span class="separador"></span>
       @for (r of resoluciones; track r) {
         <button type="button" [class.activo]="resolucion() === r" (click)="elegirResolucion(r)">
           res {{ r }}
         </button>
       }
-      <button type="button" [class.activo]="loop()" (click)="alternarLoop()">
-        Loop {{ loop() ? 'on' : 'off' }}
-      </button>
-      <button type="button" (click)="cancelar()">Reset</button>
     </div>
+
+    @if (modo() === 'cola') {
+      <p class="aviso">
+        La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje.
+        «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.
+      </p>
+    }
   </header>
 
   <div class="lienzos" #lienzos>
-    @for (m of tabla(); track m.pasos) {
-      <article class="variante" [attr.data-pasos]="m.pasos" [class.elegida]="m.pasos === pasosDefault">
+    @for (m of tabla(); track m.id) {
+      <article class="variante" [attr.data-id]="m.id" [class.elegida]="m.nota === 'default'">
         <h3>
-          {{ m.pasos }} pasos
-          @if (m.pasos === pasosDefault) {
-            <span class="etiqueta">default</span>
+          {{ m.titulo }}
+          @if (m.nota) {
+            <span class="etiqueta">{{ m.nota }}</span>
           }
         </h3>
         <svg viewBox="0 0 24 24" width="120" height="120" fill="none" stroke="currentColor"
              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path [attr.d]="dInicial(m.pasos)" />
+          <path [attr.d]="dInicial(m.id)" />
         </svg>
         <dl class="datos">
           <div><dt>keyframes</dt><dd>{{ m.keyframes }}</dd></div>
           <div><dt>peso</dt><dd>{{ (m.bytes / 1024).toFixed(1) }} KB</dd></div>
           <div><dt>duración</dt><dd>{{ m.duracion }} ms</dd></div>
+          <div><dt>último tramo</dt><dd>{{ m.colaPct }}%</dd></div>
         </dl>
-        <button type="button" class="solo" (click)="reproducir(m.pasos)">Reproducir solo este</button>
+        <button type="button" class="solo" (click)="reproducir(m)">Reproducir solo este</button>
       </article>
     }
   </div>
