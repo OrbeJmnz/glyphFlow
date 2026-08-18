@@ -18,8 +18,17 @@
       // node_modules/glyphflow es un junction al código fuente, así que ni el mapeo de la raíz ni
       // la resolución normal llegan al paquete real: de ahí el alias.
       "glyphflow": ["../../node_modules/glyphflow-published"],
-      // EXCEPCIÓN TEMPORAL, solo para el benchmark de morph: `glyphflow/morph` no existe en
-      // ningún paquete publicado todavía. Se borra en cuanto morph salga en una versión.
+      // Morph SÍ está publicado (1.1.0), pero aquí sigue resolviendo al código local, y no por
+      // pereza: el chunk publicado de morph importa `glyphflow` por NOMBRE DE PAQUETE — la regla
+      // que evita que se duplique el InjectionToken. En un consumidor real eso resuelve al
+      // paquete; en este workspace `node_modules/glyphflow` es un junction al código fuente, así
+      // que no resuelve. El builder de la app aplica estos `paths` a todo y compila igual (probado
+      // escondiendo la carpeta fuente), pero el runner de tests NO los aplica dentro de
+      // dependencias y truena con "Failed to resolve import glyphflow".
+      //
+      // La salida de verdad es instalar el paquete publicado en un node_modules propio del
+      // playground (projects/playground/package.json + install anidado), que es como se ve un
+      // consumidor de a de veras. Eso toca CI y Vercel, así que es su propio slice.
       "glyphflow/morph": ["../glyphflow/morph/src/public-api"]
     }
   }
