@@ -1,4 +1,5 @@
 import { fmt, type Punto, type Segmento, type SubPath } from './path-model';
+import { dividirSegmento } from './path-split';
 
 /**
  * Editar nodos de un `d` sin que se mueva nada más.
@@ -326,4 +327,58 @@ export function moverManija(
 
   // Lineas y arcos no tienen controles: no hay nada que mover.
   return subs;
+}
+
+// ── Agregar y quitar nodos ────────────────────────────────────────────────────
+
+/**
+ * Parte el tramo por t y deja un nodo nuevo ahí. La curva no se mueve: el tramo original se
+ * reemplaza por dos que juntos describen lo mismo.
+ */
+export function insertarNodo(subs: SubPath[], ref: RefNodo, t = 0.5): SubPath[] {
+  const original = subs[ref.sub]?.segmentos[ref.seg];
+  if (!original) return subs;
+  const partes = dividirSegmento(original, t);
+  if (!partes) return subs;
+
+  const copia = subs.map((s) => ({ ...s, segmentos: [...s.segmentos] }));
+  copia[ref.sub].segmentos.splice(ref.seg, 1, partes[0], partes[1]);
+  return recalcular(copia);
+}
+
+/**
+ * Quita el nodo en el que termina un tramo. Lo que desaparece es ese tramo; el siguiente pasa a
+ * arrancar donde arrancaba el borrado.
+ *
+ * Con comandos relativos hay que compensar igual que al mover: los números del siguiente se miden
+ * desde un punto que acaba de cambiar. Sin eso, borrar un nodo arrastra el resto de la figura.
+ */
+export function quitarNodo(subs: SubPath[], ref: RefNodo): SubPath[] {
+  const sub = subs[ref.sub];
+  const seg = sub?.segmentos[ref.seg];
+  if (!seg) return subs;
+
+  const L = seg.letra.toUpperCase();
+  // El `M` es el ancla del subpath y el `Z` no tiene punto propio: ninguno de los dos se borra por
+  // aquí. Quitar el arranque sería borrar el subpath entero, que es otra operación.
+  if (L === 'M' || L === 'Z') return subs;
+  // Un subpath necesita al menos un tramo dibujable para seguir siendo algo.
+  if (sub.segmentos.filter((s) => !'MZ'.includes(s.letra.toUpperCase())).length <= 1) return subs;
+
+  const copia = subs.map((s) => ({ ...s, segmentos: [...s.segmentos] }));
+  const segs = copia[ref.sub].segmentos;
+  const siguiente = segs[ref.seg + 1];
+
+  if (siguiente && siguiente.letra.toUpperCase() !== 'Z') {
+    // El siguiente pasa a salir de donde EMPEZABA el tramo borrado, o sea su arranque retrocede
+    // por el desplazamiento que el borrado aportaba. `compensar` espera "tu arranque se movió
+    // ESTO", así que el delta va en NEGATIVO: pasarlo en positivo movía la figura al doble, en la
+    // dirección contraria.
+    const dx = seg.inicio[0] - seg.fin[0];
+    const dy = seg.inicio[1] - seg.fin[1];
+    segs[ref.seg + 1] = compensar(siguiente, dx, dy);
+  }
+
+  segs.splice(ref.seg, 1);
+  return recalcular(copia);
 }

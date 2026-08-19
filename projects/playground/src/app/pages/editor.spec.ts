@@ -115,6 +115,75 @@ describe('Editor', () => {
     expect(html.querySelector('.salida code')!.textContent).not.toBe(original);
   });
 
+  it('seleccionar un nodo sin arrastrarlo NO mete un paso al historial', async () => {
+    // La cicatriz: al soltar se redondeaban decimales SIEMPRE. Un simple click cambiaba los
+    // decimales de una edición anterior, el historial lo contaba como cambio, y el siguiente
+    // Ctrl+Z deshacía ese redondeo en vez de la operación que el usuario quería deshacer.
+    const { fixture, html } = await montar();
+    const svg = html.querySelector('svg')!;
+    const r = { left: 0, top: 0, width: 480, height: 480 };
+    svg.getBoundingClientRect = () =>
+      ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
+
+    const nodo = html.querySelectorAll('.nodo')[1] as SVGCircleElement;
+    nodo.setPointerCapture = () => undefined;
+    const punto = (x: number, y: number) => ({
+      clientX: (x / 24) * r.width,
+      clientY: (y / 24) * r.height,
+      bubbles: true,
+      pointerId: 1,
+    });
+    const x0 = Number(nodo.getAttribute('cx'));
+    const y0 = Number(nodo.getAttribute('cy'));
+
+    // Tres clicks sin mover: ni uno debe registrarse.
+    for (let i = 0; i < 3; i++) {
+      nodo.dispatchEvent(new PointerEvent('pointerdown', punto(x0, y0)));
+      svg.dispatchEvent(new PointerEvent('pointerup', punto(x0, y0)));
+      await fixture.whenStable();
+    }
+    expect(html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0].disabled).toBe(true);
+  });
+
+  it('agregar y borrar nodo son UN paso cada uno, y solo con nodo elegido', async () => {
+    const { fixture, html } = await montar();
+    const svg = html.querySelector('svg')!;
+    const r = { left: 0, top: 0, width: 480, height: 480 };
+    svg.getBoundingClientRect = () =>
+      ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
+
+    // Sin nodo elegido no hay botones, solo la pista.
+    expect(html.querySelector('.nodo-acciones .chip')).toBeNull();
+    expect(html.querySelector('.pista-nodo')).not.toBeNull();
+
+    const antes = html.querySelectorAll('.nodo').length;
+    const dAntes = html.querySelector('.salida code')!.textContent;
+
+    const nodo = html.querySelectorAll('.nodo')[2] as SVGCircleElement;
+    nodo.setPointerCapture = () => undefined;
+    const p = {
+      clientX: (Number(nodo.getAttribute('cx')) / 24) * r.width,
+      clientY: (Number(nodo.getAttribute('cy')) / 24) * r.height,
+      bubbles: true,
+      pointerId: 1,
+    };
+    nodo.dispatchEvent(new PointerEvent('pointerdown', p));
+    svg.dispatchEvent(new PointerEvent('pointerup', p));
+    await fixture.whenStable();
+
+    const botones = html.querySelectorAll<HTMLButtonElement>('.nodo-acciones .chip');
+    expect(botones.length).toBe(2);
+
+    botones[0].click();
+    await fixture.whenStable();
+    expect(html.querySelectorAll('.nodo').length).toBe(antes + 1);
+
+    html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0].click();
+    await fixture.whenStable();
+    expect(html.querySelectorAll('.nodo').length).toBe(antes);
+    expect(html.querySelector('.salida code')!.textContent).toBe(dAntes);
+  });
+
   it('los botones de historial arrancan apagados', async () => {
     const { html } = await montar();
     const botones = html.querySelectorAll<HTMLButtonElement>('.deshacer .chip');

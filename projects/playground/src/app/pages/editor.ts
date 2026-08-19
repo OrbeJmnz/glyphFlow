@@ -6,8 +6,10 @@ import {
   limpiar,
   manijasDe,
   moverManija,
+  insertarNodo,
   moverNodo,
   nodosDe,
+  quitarNodo,
   type Manija,
   type Nodo,
 } from '../geometria/path-edit';
@@ -121,8 +123,52 @@ export class Editor {
     this.sincronizarPila();
   }
 
+  /**
+   * Aplica una operación atómica al trazo activo, dejándola como UN paso de deshacer.
+   * Si la operación se niega — devuelve el mismo objeto — no se registra nada.
+   */
+  private aplicar(op: (subs: SubPath[]) => SubPath[]): void {
+    const i = this.indiceActivo();
+    const antes = this.modelos();
+    const nuevo = op(antes[i]);
+    if (nuevo === antes[i]) return;
+    this.historial.registrar(antes);
+    this.modelos.set(antes.map((m, k) => (k === i ? nuevo : m)));
+    this.tocado.set(true);
+    this.sincronizarPila();
+  }
+
+  /** Parte por la mitad el tramo que termina en el nodo elegido. */
+  protected agregarNodo(): void {
+    const n = this.activo();
+    if (!n) return;
+    this.aplicar((subs) => insertarNodo(subs, n));
+  }
+
+  protected borrarNodo(): void {
+    const n = this.activo();
+    if (!n) return;
+    this.aplicar((subs) => quitarNodo(subs, n));
+    this.activo.set(null);
+  }
+
   /** Ctrl+Z / Ctrl+Shift+Z, y Ctrl+Y para quien venga de Windows. */
   protected atajo(ev: KeyboardEvent): void {
+    // Borrar y agregar no llevan modificador, pero solo aplican con un nodo seleccionado — y nunca
+    // mientras se escribe en el buscador.
+    const enCampo = (ev.target as HTMLElement | null)?.tagName === 'INPUT';
+    if (!ev.ctrlKey && !ev.metaKey && !enCampo && this.activo()) {
+      if (ev.key === 'Delete' || ev.key === 'Backspace') {
+        ev.preventDefault();
+        this.borrarNodo();
+        return;
+      }
+      if (ev.key === '+' || ev.key === '=') {
+        ev.preventDefault();
+        this.agregarNodo();
+        return;
+      }
+    }
     if (!(ev.ctrlKey || ev.metaKey)) return;
     const k = ev.key.toLowerCase();
     if (k === 'z' && !ev.shiftKey) {
@@ -161,8 +207,8 @@ export class Editor {
   // ── Arrastre ────────────────────────────────────────────────────────────────
 
   private arrastrando:
-    | { tipo: 'nodo'; ref: Nodo; ultimo: [number, number] }
-    | { tipo: 'manija'; ref: Manija; ultimo: [number, number] }
+    | { tipo: 'nodo'; ref: Nodo; ultimo: [number, number]; movio: boolean }
+    | { tipo: 'manija'; ref: Manija; ultimo: [number, number]; movio: boolean }
     | null = null;
   protected readonly activo = signal<Nodo | null>(null);
   protected readonly manijaActiva = signal<Manija | null>(null);
@@ -186,7 +232,7 @@ export class Editor {
     // Se abre el gesto ANTES de mover: el arrastre entero cuenta como un paso de deshacer, no uno
     // por píxel recorrido.
     this.historial.abrir(this.modelos());
-    this.arrastrando = { tipo: 'nodo', ref: nodo, ultimo: this.aViewBox(ev) };
+    this.arrastrando = { tipo: 'nodo', ref: nodo, ultimo: this.aViewBox(ev), movio: false };
     this.activo.set(nodo);
     this.manijaActiva.set(null);
   }
@@ -196,7 +242,7 @@ export class Editor {
     ev.stopPropagation();
     (ev.target as Element).setPointerCapture(ev.pointerId);
     this.historial.abrir(this.modelos());
-    this.arrastrando = { tipo: 'manija', ref: manija, ultimo: this.aViewBox(ev) };
+    this.arrastrando = { tipo: 'manija', ref: manija, ultimo: this.aViewBox(ev), movio: false };
     this.manijaActiva.set(manija);
     this.activo.set(null);
   }
@@ -220,19 +266,27 @@ export class Editor {
       return copia;
     });
     this.arrastrando.ultimo = [x, y];
+    this.arrastrando.movio = true;
     this.tocado.set(true);
   }
 
   protected terminar(): void {
     if (!this.arrastrando) return;
-    // Al soltar se recortan decimales: durante el arrastre importa la precisión, al guardar no.
-    const i = this.indiceActivo();
-    this.modelos.update((todos) => {
-      const copia = [...todos];
-      copia[i] = limpiar(copia[i]);
-      return copia;
-    });
+    const movio = this.arrastrando.movio;
     this.arrastrando = null;
+
+    // Solo se redondea si de verdad hubo arrastre. Redondear en cada click parecía inofensivo y no
+    // lo era: un simple SELECCIONAR cambiaba los decimales de una edición anterior, el historial lo
+    // veía como cambio y metía un paso — así que el siguiente Ctrl+Z deshacía ese redondeo en vez
+    // de la operación que el usuario quería deshacer.
+    if (movio) {
+      const i = this.indiceActivo();
+      this.modelos.update((todos) => {
+        const copia = [...todos];
+        copia[i] = limpiar(copia[i]);
+        return copia;
+      });
+    }
     this.historial.cerrar(this.modelos());
     this.sincronizarPila();
   }

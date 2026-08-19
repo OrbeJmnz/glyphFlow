@@ -159,6 +159,19 @@
       }
     </div>
 
+    <div class="nodo-acciones" role="group" aria-label="Nodo seleccionado">
+      @if (activo(); as n) {
+        <button type="button" class="chip" (click)="agregarNodo()" title="tecla +">
+          + nodo aquí
+        </button>
+        <button type="button" class="chip" (click)="borrarNodo()" title="tecla Supr">
+          − borrar nodo
+        </button>
+      } @else {
+        <span class="pista-nodo">Toca un nodo para agregar o borrar.</span>
+      }
+    </div>
+
     <div class="deshacer" role="group" aria-label="Historial">
       <button
         type="button"
