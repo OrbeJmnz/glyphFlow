@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
 import { Taller } from '../../core/taller';
+import { Boton } from '../../shared/ui/boton';
 
 /**
  * El otro lado del "Exportar JSON" del panel de detalle: pega el JSON de vuelta y se previsualiza
@@ -9,7 +10,7 @@ import { Taller } from '../../core/taller';
  */
 @Component({
   selector: 'app-icon-import',
-  imports: [MaxIconComponent],
+  imports: [MaxIconComponent, Boton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-import.html',
   styleUrl: './icon-import.css',

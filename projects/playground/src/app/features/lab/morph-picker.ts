@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from 
 import { AnimatedIconDef, CURATED_ICONS } from 'glyphflow';
 import { MaxIconMorphComponent, morphKeyframes } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
+import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
+import { Boton } from '../../shared/ui/boton';
 
 interface Elegido {
   nombre: string;
@@ -20,7 +22,7 @@ interface Elegido {
  */
 @Component({
   selector: 'app-morph-picker',
-  imports: [MaxIconMorphComponent],
+  imports: [MaxIconMorphComponent, CampoBusqueda, Boton],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './morph-picker.html',
   styleUrl: './morph-picker.css',

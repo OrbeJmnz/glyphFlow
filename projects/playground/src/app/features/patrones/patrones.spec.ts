@@ -14,7 +14,7 @@ describe('Patrones', () => {
   }
 
   function boton(html: HTMLElement, i: number): HTMLButtonElement {
-    return html.querySelectorAll<HTMLButtonElement>('.demo .boton')[i];
+    return html.querySelectorAll<HTMLButtonElement>('.demo button.ui-boton')[i];
   }
 
   it('pinta los cuatro patrones, cada uno con su snippet', () => {
@@ -39,7 +39,7 @@ describe('Patrones', () => {
     boton(html, 0).click();
     await fixture.whenStable();
     expect(escrito).toBe('npm i glyphflow');
-    expect(html.querySelector('.boton.hecho')).not.toBeNull();
+    expect(html.querySelector('button.ui-boton.hecho')).not.toBeNull();
   });
 
   it('si el portapapeles falla, el botón NO se pone en «copiado»', async () => {
@@ -52,8 +52,8 @@ describe('Patrones', () => {
     boton(html, 0).click();
     await fixture.whenStable();
     // La trampa que esto cierra: confirmar con una palomita algo que nunca pasó.
-    expect(html.querySelector('.boton.hecho')).toBeNull();
-    expect(html.querySelector('.demo .boton')?.textContent?.trim()).toBe('Copiar');
+    expect(html.querySelector('button.ui-boton.hecho')).toBeNull();
+    expect(html.querySelector('.demo button.ui-boton')?.textContent?.trim()).toBe('Copiar');
   });
 
   it('el tema cambia solo su panel, no el resto de la página', async () => {
@@ -84,7 +84,7 @@ describe('Patrones', () => {
     vi.useFakeTimers();
     try {
       const { fixture, html } = montar();
-      const btn = html.querySelectorAll<HTMLButtonElement>('.demo .boton')[2];
+      const btn = html.querySelectorAll<HTMLButtonElement>('.demo button.ui-boton')[2];
       expect(btn.textContent?.trim()).toBe('Enviar');
 
       btn.click();

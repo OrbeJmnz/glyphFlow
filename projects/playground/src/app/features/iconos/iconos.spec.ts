@@ -49,8 +49,10 @@ describe('Iconos', () => {
     const html = fixture.nativeElement as HTMLElement;
     const total = html.querySelectorAll('.card').length;
 
-    // El grupo de filtros, no el primer chip de la barra: ese es «Repetir todo».
-    const filtro = html.querySelector<HTMLButtonElement>('.barra .grupo .chip');
+    // El grupo de filtros, no el primer botón de la barra: ese es «Repetir todo». Se apunta al
+    // componente `app-grupo` y no a una clase, porque el componente es el contrato y la clase es
+    // un detalle de su estilo.
+    const filtro = html.querySelector<HTMLButtonElement>('.barra app-grupo button');
     expect(filtro).toBeTruthy();
     filtro!.click();
     await fixture.whenStable();

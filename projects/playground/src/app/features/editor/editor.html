@@ -137,23 +137,15 @@
   </section>
 
   <aside class="panel">
-    <label class="buscador">
-      <input
-        type="search"
-        placeholder="buscar entre los curados…"
-        [value]="filtro()"
-        (input)="filtro.set($any($event.target).value)"
-      />
-    </label>
+    <app-campo-busqueda
+      [(texto)]="filtro"
+      marcador="buscar entre los curados…"
+      etiqueta="Buscar icono para editar"
+    />
 
     <div class="lista">
       @for (c of candidatos(); track c.nombre) {
-        <button
-          type="button"
-          class="chip"
-          [class.activo]="c.nombre === elegido().nombre"
-          (click)="elegir(c)"
-        >
+        <button type="button" app-chip [activo]="c.nombre === elegido().nombre" (click)="elegir(c)">
           {{ c.nombre }}
         </button>
       }
@@ -161,10 +153,8 @@
 
     <div class="nodo-acciones" role="group" aria-label="Nodo seleccionado">
       @if (activo(); as n) {
-        <button type="button" class="chip" (click)="agregarNodo()" title="tecla +">
-          + nodo aquí
-        </button>
-        <button type="button" class="chip" (click)="borrarNodo()" title="tecla Supr">
+        <button type="button" app-chip (click)="agregarNodo()" title="tecla +">+ nodo aquí</button>
+        <button type="button" app-chip (click)="borrarNodo()" title="tecla Supr">
           − borrar nodo
         </button>
       } @else {
@@ -207,7 +197,7 @@
       <pre><code>{{ editado() }}</code></pre>
     </div>
 
-    <button type="button" class="btn-coreografiar" (click)="coreografiar()">
+    <button type="button" app-boton variante="primario" (click)="coreografiar()">
       Coreografiar esta forma →
     </button>
     <p class="pista-nodo">

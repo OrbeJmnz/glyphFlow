@@ -192,20 +192,10 @@
   cursor: grabbing;
 }
 
-/* Historial: los dos botones juntos, apagados cuando no hay a dónde ir. */
+/* Historial: los dos botones juntos. El apagado al no haber a dónde ir lo pone `.chip:disabled`. */
 .deshacer {
   display: flex;
   gap: 4px;
-}
-
-.deshacer .chip:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.deshacer .chip:disabled:hover {
-  background: transparent;
-  color: rgba(202, 202, 202, 0.7);
 }
 
 /* Acciones del nodo seleccionado. Ocupan sitio siempre para que el panel no salte al elegir uno. */

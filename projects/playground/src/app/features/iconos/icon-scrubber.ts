@@ -10,6 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { AnimatedIconDef, IconShape, MotionTrack } from 'glyphflow';
+import { Deslizador } from '../../shared/ui/deslizador';
 
 /**
  * Scrubber manual (t = 0 → 1) sobre la coreografía de una variante. NO es una capacidad nueva del
@@ -24,6 +25,7 @@ import { AnimatedIconDef, IconShape, MotionTrack } from 'glyphflow';
  */
 @Component({
   selector: 'app-icon-scrubber',
+  imports: [Deslizador],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-scrubber.html',
   styleUrl: './icon-scrubber.css',
@@ -53,8 +55,9 @@ export class IconScrubber implements OnDestroy {
     });
   }
 
-  protected mover(valorTexto: string): void {
-    const t = Number(valorTexto) / 1000;
+  protected mover(valor: number): void {
+    // El deslizador emite número; antes llegaba la cadena cruda del `<input>` y había que convertir.
+    const t = valor / 1000;
     this.progreso.set(t);
     const dur = this.duracionMs();
     if (dur === null) return;

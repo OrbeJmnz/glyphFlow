@@ -15,10 +15,12 @@ module.exports = defineConfig([
           style: 'camelCase',
         },
       ],
+      // `attribute` además de `element`: las primitivas de `shared/ui` (chip, botón) usan selector
+      // de atributo a propósito, para que el host SEA el <button>/<a> y no un envoltorio.
       '@angular-eslint/component-selector': [
         'error',
         {
-          type: 'element',
+          type: ['element', 'attribute'],
           prefix: 'app',
           style: 'kebab-case',
         },

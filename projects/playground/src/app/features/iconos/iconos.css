@@ -51,46 +51,11 @@
   margin-top: 32px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  height: 40px;
-  padding: 0 18px;
-  border: 1px solid var(--gf-borde);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--gf-texto-medio);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    background 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.btn:hover {
-  color: var(--gf-texto);
-  border-color: var(--gf-borde-vivo);
-}
-
-/* La acción principal invierte el contraste, como en la referencia. */
-.btn.primario {
-  border-color: transparent;
-  background: #fff;
-  color: #121212;
+/* El comando se lee como comando: es lo único que esa acción necesita encima de la primitiva. */
+.mono {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
 }
 
-.btn.primario:hover {
-  background: #e4e4e4;
-  color: #121212;
-}
-
-/* Las cuatro cifras que resumen el proyecto: números medidos, no adjetivos. */
 .cifras {
   display: flex;
   flex-wrap: wrap;
@@ -130,15 +95,6 @@
   padding: 3px;
 }
 
-.grupo {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-}
-
 .aviso {
   font-size: 13px;
   color: var(--gf-texto-tenue);
@@ -176,22 +132,18 @@
   background: var(--gf-panel-alto);
 }
 
-/* El botón de repetir vive dentro de la tarjeta: discreto hasta que la tarjeta recibe el puntero. */
-.repeat {
-  padding: 3px 10px;
-  border: 1px solid var(--gf-borde);
-  border-radius: 999px;
-  background: transparent;
+/*
+ * El «repetir» de cada tarjeta se atenúa en reposo y se enciende al pasar por la tarjeta: con 180
+ * tarjetas, 180 botones a contraste pleno compiten con los iconos, que son lo que se viene a ver.
+ * La regla vive aquí y no en la primitiva porque la relación es de la TARJETA — el botón no sabe
+ * que está dentro de una.
+ */
+.card .ui-boton {
   color: var(--gf-texto-apagado);
-  font: inherit;
-  font-size: 11px;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
+  border-color: var(--gf-borde-suave);
 }
 
-.card:hover .repeat {
+.card:hover .ui-boton {
   color: var(--gf-texto-medio);
   border-color: var(--gf-borde-vivo);
 }

@@ -6,10 +6,24 @@
 /* ── Barra superior ─────────────────────────────────────────────────────────── */
 
 /*
- * No es sticky, igual que la referencia: con 180 iconos animándose debajo, una barra fija encima
- * compite por atención todo el scroll.
+ * Sticky. El fondo va OPACO y no translúcido: detrás pasan 180 iconos animándose, y un blur los
+ * convierte en ruido de colores debajo del nav. El `z-index` lo pone por encima del panel de
+ * detalle, que es lo único que puede quedar a su altura.
  */
 .shell-head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--gf-fondo);
+  border-bottom: 1px solid var(--gf-borde-suave);
+}
+
+/*
+ * La barra va de borde a borde para que el fondo tape TODO al hacer scroll; el contenido, en
+ * cambio, sigue alineado al ancho del sitio. Sin este contenedor interno, o el fondo deja franjas
+ * a los lados en pantallas anchas, o el logo se despega del resto de la página.
+ */
+.shell-interior {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -36,20 +50,6 @@
   align-items: center;
   gap: 2px;
   margin-right: auto;
-}
-
-/* Las pastillas del nav son el mismo `.chip` global: un solo control, dos usos. */
-.nav .chip {
-  text-decoration: none;
-}
-
-.velocidad {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
 }
 
 .shell-aviso {

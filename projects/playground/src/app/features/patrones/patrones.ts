@@ -12,6 +12,7 @@ import {
   type AnimatedIconDef,
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { Boton } from '../../shared/ui/boton';
 
 /**
  * Patrones reales, no una vitrina de iconos sueltos.
@@ -25,7 +26,7 @@ import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
  */
 @Component({
   selector: 'app-patrones',
-  imports: [MaxIconComponent, MaxIconMorphComponent],
+  imports: [MaxIconComponent, MaxIconMorphComponent, Boton],
   templateUrl: './patrones.html',
   styleUrl: './patrones.css',
 })

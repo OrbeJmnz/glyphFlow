@@ -15,7 +15,9 @@
         Pega el JSON que copiaste de "Exportar JSON" en el panel de detalle. Se previsualiza con el
         mismo <code>[iconDef]</code> que usa el resto del playground.
       </p>
-      <button type="button" class="ejemplo" (click)="cargarEjemplo()">cargar ejemplo (bell)</button>
+      <button type="button" app-boton compacto (click)="cargarEjemplo()">
+        cargar ejemplo (bell)
+      </button>
       <textarea
         class="entrada"
         rows="8"

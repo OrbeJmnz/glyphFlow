@@ -38,7 +38,7 @@
     <div class="col-snippet">
       <div class="bloque-titulo">
         <h3>Snippet</h3>
-        <button type="button" class="copiar" (click)="copiarSnippet()">
+        <button type="button" app-boton compacto (click)="copiarSnippet()">
           {{ copiado() === 'snippet' ? '✓ copiado' : 'copiar' }}
         </button>
       </div>
@@ -46,7 +46,7 @@
 
       <div class="bloque-titulo">
         <h3>Exportar JSON</h3>
-        <button type="button" class="copiar" (click)="copiarJson()">
+        <button type="button" app-boton compacto (click)="copiarJson()">
           {{ copiado() === 'json' ? '✓ copiado' : 'copiar' }}
         </button>
       </div>

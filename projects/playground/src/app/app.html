@@ -1,39 +1,41 @@
 <header class="shell-head">
-  <a class="marca" routerLink="/" aria-label="glyphflow, ir al inicio">
-    <app-logo [alto]="28" />
-  </a>
+  <div class="shell-interior">
+    <a class="marca" routerLink="/" aria-label="glyphflow, ir al inicio">
+      <app-logo [alto]="28" />
+    </a>
 
-  <nav class="nav" aria-label="Secciones">
-    <a
-      class="chip"
-      routerLink="/"
-      routerLinkActive="activo"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Iconos</a
-    >
-    <a class="chip" routerLink="/patrones" routerLinkActive="activo">Patrones</a>
-    <a class="chip" routerLink="/editor" routerLinkActive="activo">Editor</a>
-    <a class="chip" routerLink="/lab" routerLinkActive="activo">Lab</a>
-    <a class="chip" routerLink="/docs" routerLinkActive="activo">Docs</a>
-  </nav>
-
-  <!--
-    Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
-    así que el control pertenece al chrome, no a una página.
-  -->
-  <div class="velocidad" role="group" aria-label="Velocidad global de las animaciones">
-    @for (p of presets; track p.valor) {
-      <button
-        type="button"
-        class="chip"
-        [class.activo]="escala() === p.valor"
-        [attr.aria-pressed]="escala() === p.valor"
-        [title]="p.nota"
-        (click)="escala.set(p.valor)"
+    <nav class="nav" aria-label="Secciones">
+      <a
+        app-chip
+        routerLink="/"
+        routerLinkActive="activo"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Iconos</a
       >
-        {{ p.etiqueta }}
-      </button>
-    }
+      <a app-chip routerLink="/patrones" routerLinkActive="activo">Patrones</a>
+      <a app-chip routerLink="/editor" routerLinkActive="activo">Editor</a>
+      <a app-chip routerLink="/lab" routerLinkActive="activo">Lab</a>
+      <a app-chip routerLink="/docs" routerLinkActive="activo">Docs</a>
+    </nav>
+
+    <!--
+      Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
+      así que el control pertenece al chrome, no a una página.
+    -->
+    <app-grupo titulo="velocidad" etiqueta="Velocidad global de las animaciones" class="velocidad">
+      @for (p of presets; track p.valor) {
+        <button
+          type="button"
+          app-chip
+          [activo]="escala() === p.valor"
+          [attr.aria-pressed]="escala() === p.valor"
+          [title]="p.nota"
+          (click)="escala.set(p.valor)"
+        >
+          {{ p.etiqueta }}
+        </button>
+      }
+    </app-grupo>
   </div>
 </header>
 

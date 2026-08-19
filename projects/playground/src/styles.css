@@ -52,7 +52,13 @@ code {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
 }
 
-/* ── Primitivas compartidas ─────────────────────────────────────────────────── */
+/* ── Primitivas compartidas ───────────────────────────────────────────────────
+ *
+ * Los estilos de `shared/ui/` viven aquí, en el CSS global, y no en cada componente. La razón es
+ * la encapsulación emulada de Angular: estas primitivas se usan DENTRO de plantillas de features,
+ * y un estilo encapsulado en el componente de la primitiva no alcanzaría a los elementos que el
+ * consumidor pinta a su alrededor. Un solo lugar, una sola fuente de verdad.
+ */
 
 .chip {
   display: inline-flex;
@@ -74,14 +80,42 @@ code {
     background 0.15s ease;
 }
 
-.chip:hover {
+.chip:hover:not(:disabled) {
   color: var(--gf-texto);
   background: rgba(255, 255, 255, 0.04);
+}
+
+/* Deshabilitada. `:not(:disabled)` arriba en vez de resetear el hover después: si se deja que el
+ * hover pinte y luego se despinta, cualquier propiedad nueva del hover hay que acordarse de
+ * anularla aquí también. */
+.chip:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .chip.activo {
   background: var(--gf-acento-fondo);
   color: var(--gf-texto);
+}
+
+/*
+ * La píldora con contorno permanente. La de reposo transparente sirve para carriles donde el fondo
+ * del grupo ya agrupa visualmente (la nav, la velocidad); suelta sobre la página, sin borde, no se
+ * lee como control hasta que la tocas.
+ */
+.chip.es-contorno {
+  border-color: var(--gf-borde);
+  background: var(--gf-panel-alto);
+}
+
+.chip.es-contorno:hover {
+  border-color: var(--gf-borde-fuerte);
+  color: var(--gf-texto);
+}
+
+.chip.es-contorno.activo {
+  border-color: var(--gf-acento);
+  background: var(--gf-acento-fondo);
 }
 
 .chip em {
@@ -129,4 +163,116 @@ code {
 :focus-visible {
   outline: 2px solid var(--gf-acento);
   outline-offset: 2px;
+}
+
+/* ── Botón de acción ─────────────────────────────────────────────────────────── */
+
+.ui-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-medio);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.ui-boton:hover:not(:disabled) {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.ui-boton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* Invierte el contraste. Una por pantalla: si hay dos, ninguna es la principal. */
+.ui-boton.es-primario {
+  border-color: transparent;
+  background: #fff;
+  color: #121212;
+}
+
+.ui-boton.es-primario:hover:not(:disabled) {
+  background: var(--gf-acento-claro);
+  color: #121212;
+}
+
+.ui-boton.es-fantasma {
+  border-color: transparent;
+}
+
+.ui-boton.es-fantasma:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ui-boton.es-compacto {
+  height: 28px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+/* ── Grupo de controles ──────────────────────────────────────────────────────── */
+
+.ui-grupo {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+.ui-grupo .grupo-tit {
+  padding: 0 6px 0 10px;
+}
+
+/* ── Campo de búsqueda ───────────────────────────────────────────────────────── */
+
+.ui-campo-envoltorio {
+  display: block;
+}
+
+.ui-campo {
+  width: 100%;
+  box-sizing: border-box;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: var(--gf-fondo);
+  color: var(--gf-texto);
+  font: inherit;
+  font-size: 13px;
+}
+
+.ui-campo::placeholder {
+  color: var(--gf-texto-apagado);
+}
+
+/* ── Deslizador ──────────────────────────────────────────────────────────────── */
+
+.ui-deslizador-envoltorio {
+  display: block;
+}
+
+.ui-deslizador {
+  width: 100%;
+  /* `accent-color` pinta el carril y el pulgar sin re-implementar el control por navegador. */
+  accent-color: var(--gf-acento-claro);
+  cursor: pointer;
 }

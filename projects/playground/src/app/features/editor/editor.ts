@@ -16,6 +16,9 @@ import {
 } from './geometria/path-edit';
 import { crearHistorial } from './geometria/historial';
 import { Taller } from '../../core/taller';
+import { Boton } from '../../shared/ui/boton';
+import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
+import { Chip } from '../../shared/ui/chip';
 
 const LADO = 24;
 
@@ -33,6 +36,7 @@ interface Curado {
  */
 @Component({
   selector: 'app-editor',
+  imports: [Boton, CampoBusqueda, Chip],
   templateUrl: './editor.html',
   styleUrl: './editor.css',
   // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de

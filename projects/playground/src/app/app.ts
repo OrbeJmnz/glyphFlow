@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 import { Logo } from './shared/marca/logo';
+import { Chip } from './shared/ui/chip';
+import { Grupo } from './shared/ui/grupo';
 
 /**
  * Shell del playground: navegación, control global de velocidad y el outlet. Nada de contenido.
@@ -12,7 +14,7 @@ import { Logo } from './shared/marca/logo';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, Logo],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Logo, Chip, Grupo],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -11,13 +11,10 @@
 
   <div class="cuerpo">
     <div class="col-buscar">
-      <input
-        type="search"
-        class="buscar"
-        placeholder="filtrar entre los 180 curados…"
-        [value]="filtro()"
-        (input)="filtro.set($any($event.target).value)"
-        aria-label="Filtrar iconos"
+      <app-campo-busqueda
+        [(texto)]="filtro"
+        marcador="filtrar entre los 180 curados…"
+        etiqueta="Filtrar iconos"
       />
       <div class="resultados">
         @for (item of resultados(); track item.nombre) {
@@ -68,7 +65,7 @@
           >
             {{ corriendo() ? 'corriendo…' : '▶ reproducir secuencia' }}
           </button>
-          <button type="button" (click)="limpiar()">limpiar</button>
+          <button type="button" app-boton compacto (click)="limpiar()">limpiar</button>
         </div>
       }
     </div>

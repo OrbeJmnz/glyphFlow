@@ -11,7 +11,7 @@
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
   <article class="patron">
     <div class="demo">
-      <button type="button" class="boton" [class.hecho]="copiado()" (click)="copiar()">
+      <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
         <max-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
         {{ copiado() ? 'Copiado' : 'Copiar' }}
       </button>
@@ -44,7 +44,8 @@ async copiar() &#123;
     <div class="demo" [class.claro]="claro()">
       <button
         type="button"
-        class="boton icono-solo"
+        app-boton
+        class="icono-solo"
         (click)="alternarTema()"
         [attr.aria-label]="claro() ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'"
       >
@@ -82,7 +83,7 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
     <div class="demo">
       <button
         type="button"
-        class="boton"
+        app-boton
         [class.hecho]="estadoEnvio() === 'enviado'"
         [disabled]="estadoEnvio() !== 'reposo'"
         (click)="enviar()"
@@ -129,7 +130,8 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
     <div class="demo">
       <button
         type="button"
-        class="boton me-gusta"
+        app-boton
+        class="me-gusta"
         [class.activo]="meGusta()"
         [attr.aria-pressed]="meGusta()"
         (click)="alternarMeGusta()"

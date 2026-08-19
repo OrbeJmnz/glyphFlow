@@ -22,6 +22,8 @@ import {
   type SpringPreset,
 } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
+import { Boton } from '../../shared/ui/boton';
+import { Chip } from '../../shared/ui/chip';
 
 /**
  * Arnés del benchmark de morph. NO es producto: existe para decidir números mirando las cosas
@@ -187,7 +189,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
-  imports: [MaxIconMorphComponent],
+  imports: [MaxIconMorphComponent, Boton, Chip],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })

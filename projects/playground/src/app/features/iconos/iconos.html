@@ -27,10 +27,15 @@
   </p>
 
   <div class="acciones">
-    <a class="btn primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
-      npm i glyphflow
-    </a>
-    <a class="btn" routerLink="/docs">Empezar</a>
+    <a
+      app-boton
+      variante="primario"
+      class="mono"
+      href="https://www.npmjs.com/package/glyphflow"
+      rel="noopener"
+      >npm i glyphflow</a
+    >
+    <a app-boton routerLink="/docs">Empezar</a>
   </div>
 
   <dl class="cifras">
@@ -54,22 +59,22 @@
 </section>
 
 <div class="barra">
-  <button type="button" class="chip" (click)="repetirTodo()">Repetir todo</button>
+  <button type="button" app-boton compacto (click)="repetirTodo()">Repetir todo</button>
 
   @if (conteos.length) {
-    <span class="grupo" role="group" aria-label="Filtrar por insignia">
+    <app-grupo etiqueta="Filtrar por insignia">
       @for (c of conteos; track c.clave) {
         <button
           type="button"
-          class="chip"
-          [class.activo]="filtro() === c.clave"
+          app-chip
+          [activo]="filtro() === c.clave"
           [attr.aria-pressed]="filtro() === c.clave"
           (click)="alternarFiltro(c.clave)"
         >
           {{ c.etiqueta }} <em>{{ c.n }}</em>
         </button>
       }
-    </span>
+    </app-grupo>
   }
 
   @if (filtro()) {
@@ -108,7 +113,8 @@
       <span class="name">{{ entry.name }}</span>
       <button
         type="button"
-        class="repeat"
+        app-boton
+        compacto
         (click)="$event.stopPropagation(); repetir(i)"
         [attr.aria-label]="'Repetir ' + entry.name"
       >

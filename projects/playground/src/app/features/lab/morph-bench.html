@@ -8,38 +8,72 @@
 
     <nav class="pares">
       @for (par of pares; track par.id) {
-        <button type="button" [class.activo]="par.id === parActivo().id" (click)="elegirPar(par)">
+        <button
+          type="button"
+          app-chip
+          variante="contorno"
+          [activo]="par.id === parActivo().id"
+          (click)="elegirPar(par)"
+        >
           {{ par.id }}
         </button>
       }
     </nav>
 
     <div class="controles">
-      <button type="button" class="primario" (click)="reproducirTodas()">Reproducir las 4</button>
-      <button type="button" [class.activo]="loop()" (click)="alternarLoop()">
+      <button type="button" app-boton variante="primario" (click)="reproducirTodas()">
+        Reproducir las 4
+      </button>
+      <button type="button" app-chip variante="contorno" [activo]="loop()" (click)="alternarLoop()">
         Loop {{ loop() ? 'on' : 'off' }}
       </button>
-      <button type="button" (click)="cancelar()">Reset</button>
+      <button type="button" app-chip variante="contorno" (click)="cancelar()">Reset</button>
       <span class="separador"></span>
-      <button type="button" [class.activo]="modo() === 'pasos'" (click)="elegirModo('pasos')">
+      <button
+        type="button"
+        app-chip
+        variante="contorno"
+        [activo]="modo() === 'pasos'"
+        (click)="elegirModo('pasos')"
+      >
         comparar pasos
       </button>
-      <button type="button" [class.activo]="modo() === 'cola'" (click)="elegirModo('cola')">
+      <button
+        type="button"
+        app-chip
+        variante="contorno"
+        [activo]="modo() === 'cola'"
+        (click)="elegirModo('cola')"
+      >
         comparar cola del spring
       </button>
-      <button type="button" [class.activo]="modo() === 'vuelta'" (click)="elegirModo('vuelta')">
+      <button
+        type="button"
+        app-chip
+        variante="contorno"
+        [activo]="modo() === 'vuelta'"
+        (click)="elegirModo('vuelta')"
+      >
         comparar la vuelta
       </button>
       <button
         type="button"
-        [class.activo]="modo() === 'sobrepaso'"
+        app-chip
+        variante="contorno"
+        [activo]="modo() === 'sobrepaso'"
         (click)="elegirModo('sobrepaso')"
       >
         comparar el rebote
       </button>
       <span class="separador"></span>
       @for (r of resoluciones; track r) {
-        <button type="button" [class.activo]="resolucion() === r" (click)="elegirResolucion(r)">
+        <button
+          type="button"
+          app-chip
+          variante="contorno"
+          [activo]="resolucion() === r"
+          (click)="elegirResolucion(r)"
+        >
           res {{ r }}
         </button>
       }
@@ -83,7 +117,8 @@
         @for (r of resortes; track r) {
           <button
             type="button"
-            class="chip"
+            app-chip
+            variante="contorno"
             [class.activo]="resorte() === r"
             [attr.aria-pressed]="resorte() === r"
             (click)="resorte.set(r)"
@@ -100,7 +135,9 @@
     <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
     <max-icon-morph [icon]="iconoDemo()" [spring]="resorte()" [size]="72" label="Demo de morph" />
     <max-icon-morph class="decorativo" [icon]="iconoDemo()" [spring]="resorte()" [size]="72" />
-    <button type="button" (click)="siguienteDemo()">siguiente: {{ nombreDemo() }}</button>
+    <button type="button" app-boton compacto (click)="siguienteDemo()">
+      siguiente: {{ nombreDemo() }}
+    </button>
   </div>
 
   <div class="lienzos" #lienzos>
@@ -149,7 +186,9 @@
             <dd>{{ m.colaPct }}%</dd>
           </div>
         </dl>
-        <button type="button" class="solo" (click)="reproducir(m)">Reproducir solo este</button>
+        <button type="button" app-boton variante="fantasma" compacto (click)="reproducir(m)">
+          Reproducir solo este
+        </button>
       </article>
     }
   </div>

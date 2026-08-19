@@ -195,7 +195,7 @@ describe('Editor', () => {
   it('el buscador acota la lista', async () => {
     const { fixture, html } = await montar();
     const antes = html.querySelectorAll('.lista .chip').length;
-    const input = html.querySelector<HTMLInputElement>('.buscador input')!;
+    const input = html.querySelector<HTMLInputElement>('app-campo-busqueda input')!;
     input.value = 'bell';
     input.dispatchEvent(new Event('input'));
     await fixture.whenStable();

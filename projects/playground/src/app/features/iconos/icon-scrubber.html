@@ -64,13 +64,13 @@
 
   @if (duracionMs(); as dur) {
     <div class="control">
-      <input
-        type="range"
-        min="0"
-        max="1000"
-        [value]="progreso() * 1000"
-        (input)="mover($any($event.target).value)"
-        aria-label="Progreso de la coreografía"
+      <app-deslizador
+        [min]="0"
+        [max]="1000"
+        [valor]="progreso() * 1000"
+        (valorChange)="mover($event)"
+        etiqueta="Progreso de la coreografía"
+        [textoValor]="tiempoActualMs() + ' de ' + dur + ' milisegundos'"
       />
       <span class="tiempo">{{ tiempoActualMs() }} / {{ dur }} ms</span>
     </div>

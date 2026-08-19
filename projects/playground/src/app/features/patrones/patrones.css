@@ -77,7 +77,8 @@
   color: #16161c;
 }
 
-.demo.claro .boton {
+/* Dentro de la demo clara el botón se invierte; el resto lo pone la primitiva. */
+.demo.claro .ui-boton {
   border-color: #d5d5de;
   background: #fff;
   color: #16161c;
@@ -88,45 +89,29 @@
   font-weight: 600;
 }
 
-.boton {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.55rem;
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto-medio);
-  font: inherit;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease,
-    background 0.15s ease;
-}
-
-.boton:hover:not(:disabled) {
-  color: var(--gf-texto);
-  border-color: var(--gf-borde-vivo);
-}
-
-.boton:disabled {
-  cursor: default;
-  opacity: 0.85;
-}
-
-.boton.icono-solo {
+/*
+ * De la forma del botón no queda nada aquí: la trae `.ui-boton` de la primitiva. Solo se conservan
+ * los estados, que SÍ son de esta página — son justo lo que cada patrón viene a demostrar.
+ */
+.ui-boton.icono-solo {
   padding: 0.5rem;
 }
 
+/*
+ * La primitiva atenúa a 0.5 lo deshabilitado. Aquí no sirve: «Enviando…» deshabilita el botón y el
+ * texto es justo lo que hay que poder leer durante la espera.
+ */
+.ui-boton:disabled {
+  opacity: 0.85;
+}
+
 /* Confirmación: el color acompaña al icono, no lo sustituye. */
-.boton.hecho {
+.ui-boton.hecho {
   border-color: #3d6b4a;
   color: #8fd6a4;
 }
 
-.boton.me-gusta.activo {
+.ui-boton.me-gusta.activo {
   border-color: #6b3d4a;
   color: #e08a9e;
 }

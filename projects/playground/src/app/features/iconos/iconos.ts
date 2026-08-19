@@ -1,6 +1,9 @@
 import { Component, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
 import { RouterLink } from '@angular/router';
+import { Boton } from '../../shared/ui/boton';
+import { Chip } from '../../shared/ui/chip';
+import { Grupo } from '../../shared/ui/grupo';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 
@@ -23,7 +26,7 @@ interface CuratedEntry {
  */
 @Component({
   selector: 'app-iconos',
-  imports: [MaxIconComponent, IconDetailPanel, RouterLink],
+  imports: [MaxIconComponent, IconDetailPanel, RouterLink, Boton, Chip, Grupo],
   templateUrl: './iconos.html',
   styleUrl: './iconos.css',
 })

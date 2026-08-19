@@ -70,7 +70,8 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     const html = fixture.nativeElement as HTMLElement;
 
     const nombre = html.querySelector('.lista .chip.activo')!.textContent!.trim();
-    html.querySelector<HTMLButtonElement>('.btn-coreografiar')!.click();
+    // Por la clase, no por el atributo: `[app-boton]` casa aunque el componente no esté importado.
+    html.querySelector<HTMLButtonElement>('.panel button.ui-boton')!.click();
     await fixture.whenStable();
 
     // Y de paso se verifica lo que el botón promete: además de mandar la pieza, lleva al Lab.

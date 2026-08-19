@@ -38,22 +38,6 @@
   color: var(--gf-texto-medio);
 }
 
-.ejemplo {
-  margin-bottom: 0.6rem;
-  padding: 0.25rem 0.65rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.35rem;
-  background: transparent;
-  color: var(--gf-texto-tenue);
-  font-size: 0.6875rem;
-  cursor: pointer;
-}
-
-.ejemplo:hover {
-  border-color: var(--gf-borde-vivo);
-  color: var(--gf-texto-medio);
-}
-
 .entrada {
   display: block;
   width: 100%;
