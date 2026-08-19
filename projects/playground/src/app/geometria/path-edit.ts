@@ -194,3 +194,136 @@ function escribir(seg: Segmento): string {
   if (seg.letra.toUpperCase() === 'Z') return seg.letra;
   return seg.letra + seg.numeros.map(fmt).join(' ');
 }
+
+// ── Manijas de bézier ─────────────────────────────────────────────────────────
+
+/**
+ * Los puntos de control de un tramo curvo.
+ *
+ * A diferencia de un nodo, mover una manija NO desplaza lo que sigue: los controles no cambian
+ * dónde termina el tramo, solo cómo llega. Por eso aquí no hay compensación de ningún tipo.
+ *
+ * Los arcos quedan fuera a propósito: un `a` no tiene puntos de control, tiene radios y flags.
+ * Darle manijas exigiría convertirlo a cubics, y eso reescribe el tramo entero — con 500 arcos en
+ * el catálogo, sería cambiar la geometría de casi todo por tocar un punto. Se editan por sus nodos.
+ */
+export interface Manija extends RefNodo {
+  /** 0 = control de salida del tramo; 1 = control de entrada al punto final. */
+  cual: 0 | 1;
+  punto: Punto;
+  /** El extremo al que pertenece: la manija se dibuja unida a él. */
+  ancla: Punto;
+}
+
+/** El primer control de un `S` es el REFLEJO del segundo control del tramo anterior. */
+function reflejoDe(previo: Segmento | undefined, inicio: Punto): Punto {
+  if (!previo) return inicio;
+  const L = previo.letra.toUpperCase();
+  if (L !== 'C' && L !== 'S') return inicio;
+  const n = previo.numeros;
+  const rel = esRelativo(previo.letra);
+  // El segundo control del previo, en absolutas: penúltimo par de sus números.
+  const cx = n[n.length - 4];
+  const cy = n[n.length - 3];
+  const abs: Punto = rel ? [previo.inicio[0] + cx, previo.inicio[1] + cy] : [cx, cy];
+  return [2 * inicio[0] - abs[0], 2 * inicio[1] - abs[1]];
+}
+
+/** Un punto de los números de un tramo, pasado a absolutas. */
+function aAbsoluto(seg: Segmento, i: number): Punto {
+  const rel = esRelativo(seg.letra);
+  const x = seg.numeros[i];
+  const y = seg.numeros[i + 1];
+  return rel ? [seg.inicio[0] + x, seg.inicio[1] + y] : [x, y];
+}
+
+export function manijasDe(subs: SubPath[]): Manija[] {
+  const salida: Manija[] = [];
+  subs.forEach((sub, i) => {
+    sub.segmentos.forEach((seg, j) => {
+      const L = seg.letra.toUpperCase();
+      if (L === 'C') {
+        salida.push({ sub: i, seg: j, cual: 0, punto: aAbsoluto(seg, 0), ancla: seg.inicio });
+        salida.push({ sub: i, seg: j, cual: 1, punto: aAbsoluto(seg, 2), ancla: seg.fin });
+      } else if (L === 'S') {
+        // El de entrada existe aunque no esté escrito: se calcula por reflejo para poder mostrarlo.
+        salida.push({
+          sub: i,
+          seg: j,
+          cual: 0,
+          punto: reflejoDe(sub.segmentos[j - 1], seg.inicio),
+          ancla: seg.inicio,
+        });
+        salida.push({ sub: i, seg: j, cual: 1, punto: aAbsoluto(seg, 0), ancla: seg.fin });
+      }
+    });
+  });
+  return salida;
+}
+
+/**
+ * Mueve un punto de control.
+ *
+ * Si se toca el control ESCONDIDO de un `S`, el tramo asciende a `C`: ese punto solo existía como
+ * reflejo del anterior, y en cuanto deja de ser el reflejo hay que escribirlo. Es la misma regla
+ * que con `h` → `l`: cuando el comando ya no alcanza para decir lo que hay, se sube de nivel.
+ */
+export function moverManija(
+  subs: SubPath[],
+  m: RefNodo & { cual: 0 | 1 },
+  dx: number,
+  dy: number,
+): SubPath[] {
+  if (dx === 0 && dy === 0) return subs;
+  const copia = subs.map((s) => ({ ...s, segmentos: [...s.segmentos] }));
+  const seg = copia[m.sub]?.segmentos[m.seg];
+  if (!seg) return subs;
+
+  const L = seg.letra.toUpperCase();
+  const rel = esRelativo(seg.letra);
+
+  if (L === 'C') {
+    const nums = [...seg.numeros];
+    const i = m.cual === 0 ? 0 : 2;
+    nums[i] += dx;
+    nums[i + 1] += dy;
+    copia[m.sub].segmentos[m.seg] = { ...seg, numeros: nums, sucio: true };
+    return recalcular(copia);
+  }
+
+  if (L === 'S') {
+    if (m.cual === 1) {
+      const nums = [...seg.numeros];
+      nums[0] += dx;
+      nums[1] += dy;
+      copia[m.sub].segmentos[m.seg] = { ...seg, numeros: nums, sucio: true };
+      return recalcular(copia);
+    }
+    // Asciende a cubic: se materializa el reflejo, ya movido.
+    const previo = copia[m.sub].segmentos[m.seg - 1];
+    const [rx, ry] = reflejoDe(previo, seg.inicio);
+    const c1: Punto = [rx + dx, ry + dy];
+    const c2 = aAbsoluto(seg, 0);
+    const fin = seg.fin;
+    const nums = rel
+      ? [
+          c1[0] - seg.inicio[0],
+          c1[1] - seg.inicio[1],
+          c2[0] - seg.inicio[0],
+          c2[1] - seg.inicio[1],
+          fin[0] - seg.inicio[0],
+          fin[1] - seg.inicio[1],
+        ]
+      : [c1[0], c1[1], c2[0], c2[1], fin[0], fin[1]];
+    copia[m.sub].segmentos[m.seg] = {
+      ...seg,
+      letra: rel ? 'c' : 'C',
+      numeros: nums,
+      sucio: true,
+    };
+    return recalcular(copia);
+  }
+
+  // Lineas y arcos no tienen controles: no hay nada que mover.
+  return subs;
+}

@@ -1,7 +1,16 @@
 import { Component, ElementRef, ViewChild, computed, signal } from '@angular/core';
 import { CURATED_ICONS, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from '../geometria/path-model';
-import { dDeSubpath, limpiar, moverNodo, nodosDe, type Nodo } from '../geometria/path-edit';
+import {
+  dDeSubpath,
+  limpiar,
+  manijasDe,
+  moverManija,
+  moverNodo,
+  nodosDe,
+  type Manija,
+  type Nodo,
+} from '../geometria/path-edit';
 import { crearHistorial } from '../geometria/historial';
 
 const LADO = 24;
@@ -69,6 +78,11 @@ export class Editor {
   protected readonly nodos = computed<Nodo[]>(() => {
     const m = this.modelos()[this.indiceActivo()];
     return m ? nodosDe(m) : [];
+  });
+
+  protected readonly manijas = computed<Manija[]>(() => {
+    const m = this.modelos()[this.indiceActivo()];
+    return m ? manijasDe(m) : [];
   });
 
   protected readonly dPorPath = computed<string[]>(() =>
@@ -146,8 +160,12 @@ export class Editor {
 
   // ── Arrastre ────────────────────────────────────────────────────────────────
 
-  private arrastrando: { nodo: Nodo; ultimo: [number, number] } | null = null;
+  private arrastrando:
+    | { tipo: 'nodo'; ref: Nodo; ultimo: [number, number] }
+    | { tipo: 'manija'; ref: Manija; ultimo: [number, number] }
+    | null = null;
   protected readonly activo = signal<Nodo | null>(null);
+  protected readonly manijaActiva = signal<Manija | null>(null);
 
   /**
    * De coordenadas de pantalla a unidades del viewBox. Se usa el rect real del `<svg>` en vez de
@@ -168,8 +186,19 @@ export class Editor {
     // Se abre el gesto ANTES de mover: el arrastre entero cuenta como un paso de deshacer, no uno
     // por píxel recorrido.
     this.historial.abrir(this.modelos());
-    this.arrastrando = { nodo, ultimo: this.aViewBox(ev) };
+    this.arrastrando = { tipo: 'nodo', ref: nodo, ultimo: this.aViewBox(ev) };
     this.activo.set(nodo);
+    this.manijaActiva.set(null);
+  }
+
+  protected empezarManija(ev: PointerEvent, manija: Manija): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+    (ev.target as Element).setPointerCapture(ev.pointerId);
+    this.historial.abrir(this.modelos());
+    this.arrastrando = { tipo: 'manija', ref: manija, ultimo: this.aViewBox(ev) };
+    this.manijaActiva.set(manija);
+    this.activo.set(null);
   }
 
   protected mover(ev: PointerEvent): void {
@@ -181,9 +210,13 @@ export class Editor {
     if (dx === 0 && dy === 0) return;
 
     const i = this.indiceActivo();
+    const gesto = this.arrastrando;
     this.modelos.update((todos) => {
       const copia = [...todos];
-      copia[i] = moverNodo(copia[i], this.arrastrando!.nodo, dx, dy);
+      copia[i] =
+        gesto.tipo === 'nodo'
+          ? moverNodo(copia[i], gesto.ref, dx, dy)
+          : moverManija(copia[i], gesto.ref, dx, dy);
       return copia;
     });
     this.arrastrando.ultimo = [x, y];

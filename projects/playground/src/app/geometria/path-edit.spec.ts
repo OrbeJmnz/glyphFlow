@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { CURATED_ICONS } from 'glyphflow';
 import { parseD, serializeD } from './path-model';
-import { moverNodo, nodosDe, limpiar, recalcular } from './path-edit';
+import { moverNodo, nodosDe, limpiar, recalcular, manijasDe, moverManija } from './path-edit';
 
 const TODOS_LOS_D: { icono: string; d: string }[] = Object.entries(CURATED_ICONS).flatMap(
   ([nombre, def]) =>
@@ -131,6 +131,94 @@ describe('moverNodo', () => {
           cerca(despues[i][0], antes[i][0]) && cerca(despues[i][1], antes[i][1]),
           `${icono} nodo ${i}`,
         ).toBe(true);
+      }
+    }
+  });
+});
+
+describe('manijasDe / moverManija', () => {
+  it('un cubic expone sus DOS controles, cada uno unido a su extremo', () => {
+    const [m0, m1] = manijasDe(parseD('M0 0C1 2 3 4 5 6'));
+    expect(m0.punto).toEqual([1, 2]);
+    expect(m0.ancla).toEqual([0, 0]);
+    expect(m1.punto).toEqual([3, 4]);
+    expect(m1.ancla).toEqual([5, 6]);
+  });
+
+  it('en un cubic relativo los controles salen en absolutas', () => {
+    const [m0, m1] = manijasDe(parseD('M10 10c1 2 3 4 5 6'));
+    expect(m0.punto).toEqual([11, 12]);
+    expect(m1.punto).toEqual([13, 14]);
+  });
+
+  it('las líneas y los arcos no traen manijas', () => {
+    expect(manijasDe(parseD('M0 0h5v5L2 2z'))).toEqual([]);
+    // El arco tiene radios y flags, no puntos de control: se edita por sus nodos.
+    expect(manijasDe(parseD('M4 8a8 8 0 0 1 16 0'))).toEqual([]);
+  });
+
+  it('mover una manija NO desplaza el punto final del tramo', () => {
+    // La diferencia con un nodo: un control cambia CÓMO llega la curva, no a dónde.
+    const subs = parseD('M0 0C1 2 3 4 5 6L9 9');
+    const antes = nodosDe(subs).map((n) => n.punto);
+    const movido = moverManija(subs, { sub: 0, seg: 1, cual: 0 }, 2, -1);
+    expect(nodosDe(movido).map((n) => n.punto)).toEqual(antes);
+    expect(manijasDe(movido)[0].punto).toEqual([3, 1]);
+  });
+
+  it('el `S` esconde su primer control: se muestra por reflejo del anterior', () => {
+    // Tras `C…3 4 5 6`, el reflejo de (3,4) sobre (5,6) es (7,8).
+    const manijas = manijasDe(parseD('M0 0C1 2 3 4 5 6S9 9 10 10'));
+    const entradaDelS = manijas.find((m) => m.seg === 2 && m.cual === 0)!;
+    expect(entradaDelS.punto).toEqual([7, 8]);
+  });
+
+  it('tocar el control escondido de un `S` lo asciende a `C`', () => {
+    // Ese punto solo existía como reflejo; en cuanto deja de serlo, hay que escribirlo.
+    const subs = parseD('M0 0C1 2 3 4 5 6S9 9 10 10');
+    const movido = moverManija(subs, { sub: 0, seg: 2, cual: 0 }, 1, 1);
+    const seg = movido[0].segmentos[2];
+    expect(seg.letra).toBe('C');
+    expect(seg.numeros).toEqual([8, 9, 9, 9, 10, 10]);
+    // Y el final del tramo sigue exactamente donde estaba.
+    expect(nodosDe(movido).at(-1)!.punto).toEqual([10, 10]);
+  });
+
+  it('el segundo control de un `S` se mueve sin ascender nada', () => {
+    const subs = parseD('M0 0C1 2 3 4 5 6S9 9 10 10');
+    const movido = moverManija(subs, { sub: 0, seg: 2, cual: 1 }, -2, 3);
+    expect(movido[0].segmentos[2].letra).toBe('S');
+    expect(movido[0].segmentos[2].numeros).toEqual([7, 12, 10, 10]);
+  });
+
+  it('mover y devolver una manija deja el `d` geométricamente igual', () => {
+    for (const { icono, d } of TODOS_LOS_D.slice(0, 120)) {
+      const subs = parseD(d);
+      for (const m of manijasDe(subs)) {
+        const ida = moverManija(subs, m, 1.5, -2);
+        const vuelta = moverManija(ida, m, -1.5, 2);
+        const antes = manijasDe(subs).map((x) => x.punto);
+        const despues = manijasDe(vuelta).map((x) => x.punto);
+        for (let k = 0; k < antes.length; k++) {
+          expect(cerca(despues[k][0], antes[k][0]), `${icono} manija ${k} x`).toBe(true);
+          expect(cerca(despues[k][1], antes[k][1]), `${icono} manija ${k} y`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('ninguna manija del catálogo mueve un nodo al arrastrarla', () => {
+    for (const { icono, d } of TODOS_LOS_D.slice(0, 120)) {
+      const subs = parseD(d);
+      const antes = nodosDe(subs).map((n) => n.punto);
+      for (const m of manijasDe(subs)) {
+        const despues = nodosDe(moverManija(subs, m, 2, 2)).map((n) => n.punto);
+        for (let k = 0; k < antes.length; k++) {
+          expect(
+            cerca(despues[k][0], antes[k][0]) && cerca(despues[k][1], antes[k][1]),
+            `${icono}: mover una manija movió el nodo ${k}`,
+          ).toBe(true);
+        }
       }
     }
   });

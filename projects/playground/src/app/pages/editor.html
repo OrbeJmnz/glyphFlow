@@ -82,6 +82,36 @@
         }
       </g>
 
+      <!--
+        Manijas de bézier: cuadrito unido por una línea al extremo al que pertenecen. Van ANTES de
+        los nodos para que, cuando se encimen, el nodo gane el click — mover el punto es la acción
+        más común y la que el usuario espera al apuntar ahí.
+      -->
+      <g class="manijas">
+        @for (m of manijas(); track m.sub + ':' + m.seg + ':' + m.cual) {
+          <line
+            class="varilla"
+            [attr.x1]="m.ancla[0]"
+            [attr.y1]="m.ancla[1]"
+            [attr.x2]="m.punto[0]"
+            [attr.y2]="m.punto[1]"
+          />
+          <rect
+            class="manija"
+            [class.activa]="
+              manijaActiva()?.sub === m.sub &&
+              manijaActiva()?.seg === m.seg &&
+              manijaActiva()?.cual === m.cual
+            "
+            [attr.x]="m.punto[0] - 0.42"
+            [attr.y]="m.punto[1] - 0.42"
+            width="0.84"
+            height="0.84"
+            (pointerdown)="empezarManija($event, m)"
+          />
+        }
+      </g>
+
       <!-- Los nodos van al final para quedar por encima del trazo y poder agarrarse. -->
       <g class="nodos">
         @for (n of nodos(); track n.sub + ':' + n.seg) {

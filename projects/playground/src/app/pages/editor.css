@@ -168,6 +168,30 @@
   overflow-wrap: anywhere;
 }
 
+/* La varilla solo orienta: no se puede agarrar, para no robarle el click a nada. */
+.varilla {
+  stroke: var(--gf-texto-apagado);
+  stroke-width: 0.08;
+  pointer-events: none;
+}
+
+.manija {
+  fill: var(--gf-fondo);
+  stroke: var(--gf-texto-apagado);
+  stroke-width: 0.14;
+  cursor: grab;
+}
+
+.manija:hover {
+  stroke: var(--gf-acento-claro);
+}
+
+.manija.activa {
+  fill: var(--gf-acento-claro);
+  stroke: var(--gf-acento-claro);
+  cursor: grabbing;
+}
+
 /* Historial: los dos botones juntos, apagados cuando no hay a dónde ir. */
 .deshacer {
   display: flex;
