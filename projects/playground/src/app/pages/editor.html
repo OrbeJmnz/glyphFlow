@@ -1,0 +1,145 @@
+<header class="head">
+  <h1>Editor de nodos</h1>
+  <p>
+    Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe
+    tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.
+  </p>
+</header>
+
+<div class="marco">
+  <section class="taller">
+    <svg
+      #lienzo
+      class="lienzo"
+      [attr.viewBox]="'0 0 ' + lado + ' ' + lado"
+      (pointermove)="mover($event)"
+      (pointerup)="terminar()"
+      (pointercancel)="terminar()"
+    >
+      <!-- Rejilla de 24: sin referencia, arrastrar un nodo es adivinar. -->
+      <g class="rejilla">
+        @for (i of [4, 8, 12, 16, 20]; track i) {
+          <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
+          <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
+        }
+      </g>
+
+      <!-- Las figuras que no son `path` se pintan de contexto, atenuadas: no se editan. -->
+      <g class="contexto" fill="none" stroke="currentColor" stroke-width="2">
+        @for (f of otrasFiguras(); track $index) {
+          @switch (f.tag) {
+            @case ('circle') {
+              <circle [attr.cx]="f.cx" [attr.cy]="f.cy" [attr.r]="f.r" />
+            }
+            @case ('rect') {
+              <rect
+                [attr.x]="f.x"
+                [attr.y]="f.y"
+                [attr.width]="f.width"
+                [attr.height]="f.height"
+                [attr.rx]="f.rx"
+                [attr.ry]="f.ry"
+              />
+            }
+            @case ('line') {
+              <line [attr.x1]="f.x1" [attr.y1]="f.y1" [attr.x2]="f.x2" [attr.y2]="f.y2" />
+            }
+            @case ('polyline') {
+              <polyline [attr.points]="f.points" />
+            }
+            @case ('polygon') {
+              <polygon [attr.points]="f.points" />
+            }
+            @case ('ellipse') {
+              <ellipse [attr.cx]="f.cx" [attr.cy]="f.cy" [attr.rx]="f.rx" [attr.ry]="f.ry" />
+            }
+          }
+        }
+      </g>
+
+      <!--
+        Dos capas del MISMO `d`: el trazo real de 2 unidades atenuado, para ver el icono como se
+        va a ver, y encima una linea de pelo con la geometria exacta. Con solo el trazo real, a
+        este tamano los nodos quedan enterrados bajo 40px de tinta y no se puede apuntar.
+      -->
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        @for (d of dPorPath(); track $index) {
+          <path
+            class="tinta"
+            stroke-width="2"
+            [attr.d]="d"
+            [class.inactivo]="$index !== indiceActivo()"
+            (pointerdown)="indiceActivo.set($index)"
+          />
+        }
+        @for (d of dPorPath(); track $index) {
+          <path
+            class="hilo"
+            stroke-width="0.12"
+            [attr.d]="d"
+            [class.inactivo]="$index !== indiceActivo()"
+          />
+        }
+      </g>
+
+      <!-- Los nodos van al final para quedar por encima del trazo y poder agarrarse. -->
+      <g class="nodos">
+        @for (n of nodos(); track n.sub + ':' + n.seg) {
+          @if (n.movible) {
+            <circle
+              class="nodo"
+              [class.activo]="activo()?.sub === n.sub && activo()?.seg === n.seg"
+              [attr.cx]="n.punto[0]"
+              [attr.cy]="n.punto[1]"
+              r="0.55"
+              (pointerdown)="empezar($event, n)"
+            />
+          }
+        }
+      </g>
+    </svg>
+
+    @if (dPorPath().length > 1) {
+      <p class="pista">
+        Este icono tiene {{ dPorPath().length }} trazos. Da click en uno para editar sus nodos.
+      </p>
+    }
+  </section>
+
+  <aside class="panel">
+    <label class="buscador">
+      <input
+        type="search"
+        placeholder="buscar entre los curados…"
+        [value]="filtro()"
+        (input)="filtro.set($any($event.target).value)"
+      />
+    </label>
+
+    <div class="lista">
+      @for (c of candidatos(); track c.nombre) {
+        <button
+          type="button"
+          class="chip"
+          [class.activo]="c.nombre === elegido().nombre"
+          (click)="elegir(c)"
+        >
+          {{ c.nombre }}
+        </button>
+      }
+    </div>
+
+    <div class="salida">
+      <div class="salida-cab">
+        <span class="grupo-tit">resultado</span>
+        <span class="acciones-txt">
+          @if (tocado()) {
+            <button type="button" class="enlace" (click)="restablecer()">restablecer</button>
+          }
+          <button type="button" class="enlace" (click)="copiar()">copiar</button>
+        </span>
+      </div>
+      <pre><code>{{ editado() }}</code></pre>
+    </div>
+  </aside>
+</div>

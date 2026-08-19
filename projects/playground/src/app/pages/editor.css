@@ -1,0 +1,169 @@
+:host {
+  display: block;
+}
+
+.head {
+  max-width: var(--gf-ancho);
+  margin: 48px auto 32px;
+  text-align: center;
+}
+
+.head h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.head p {
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--gf-texto-tenue);
+}
+
+.marco {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22rem;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 56rem) {
+  .marco {
+    grid-template-columns: 1fr;
+  }
+}
+
+.taller {
+  padding: 16px;
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+.lienzo {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  color: var(--gf-texto);
+  /* Sin esto, arrastrar en un móvil hace scroll en vez de mover el nodo. */
+  touch-action: none;
+}
+
+.rejilla line {
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 0.06;
+}
+
+.contexto {
+  opacity: 0.28;
+}
+
+/* El trazo real: se ve el icono, pero sin competir con los nodos. */
+.tinta {
+  opacity: 0.22;
+  cursor: pointer;
+}
+
+/* La geometria exacta, para poder apuntar. */
+.hilo {
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.tinta.inactivo {
+  opacity: 0.08;
+}
+
+.hilo.inactivo {
+  opacity: 0.3;
+}
+
+.nodo {
+  fill: var(--gf-fondo);
+  stroke: var(--gf-texto-medio);
+  stroke-width: 0.18;
+  cursor: grab;
+}
+
+.nodo:hover {
+  stroke: var(--gf-texto);
+  r: 0.7;
+}
+
+.nodo.activo {
+  fill: var(--gf-texto);
+  stroke: var(--gf-texto);
+  cursor: grabbing;
+}
+
+.pista {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--gf-texto-apagado);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+.buscador input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: var(--gf-fondo);
+  color: var(--gf-texto);
+  font: inherit;
+  font-size: 13px;
+}
+
+.lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 11rem;
+  overflow-y: auto;
+}
+
+.salida-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.acciones-txt {
+  display: inline-flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.salida pre {
+  margin: 0;
+  padding: 12px;
+  border-radius: var(--gf-radio-chico);
+  background: var(--gf-fondo);
+  max-height: 14rem;
+  overflow: auto;
+}
+
+.salida code {
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--gf-texto-medio);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

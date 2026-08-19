@@ -25,6 +25,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/patrones').then((m) => m.Patrones),
   },
   {
+    path: 'editor',
+    title: 'Editor de nodos — glyphflow',
+    loadComponent: () => import('./pages/editor').then((m) => m.Editor),
+  },
+  {
     path: 'lab',
     title: 'Lab — glyphflow',
     loadComponent: () => import('./pages/lab').then((m) => m.Lab),
