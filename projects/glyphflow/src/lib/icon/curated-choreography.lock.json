@@ -548,6 +548,58 @@
       "path:13d1b25d6e81",
       "circle:34719e7a21bf"
     ],
+    "map-pin-check": [
+      "path:e2f19c8ae385",
+      "circle:34719e7a21bf",
+      "path:e95697668638"
+    ],
+    "map-pin-check-inside": [
+      "path:13d1b25d6e81",
+      "path:f09077e0d6b9"
+    ],
+    "map-pin-house": [
+      "path:244d7c52d66e",
+      "path:a6442455fd79",
+      "path:34b775da75f8",
+      "circle:5fa9a248feb6"
+    ],
+    "map-pin-minus": [
+      "path:ca7c9f38ded5",
+      "circle:34719e7a21bf",
+      "path:ae5fda1de746"
+    ],
+    "map-pin-minus-inside": [
+      "path:13d1b25d6e81",
+      "path:4132fc33c16c"
+    ],
+    "map-pin-plus": [
+      "path:78b58e5496f7",
+      "circle:34719e7a21bf",
+      "path:ae5fda1de746",
+      "path:58b56a2bd8f6"
+    ],
+    "map-pin-plus-inside": [
+      "path:13d1b25d6e81",
+      "path:7ffca20334b1",
+      "path:4132fc33c16c"
+    ],
+    "map-pin-search": [
+      "path:87594f7e2bc1",
+      "path:05c05ca3f4ca",
+      "circle:34719e7a21bf",
+      "circle:19df0cd8a262"
+    ],
+    "map-pin-x": [
+      "path:6dd0730f4d3c",
+      "circle:34719e7a21bf",
+      "path:6e3f974d0c40",
+      "path:9e431f14a7f2"
+    ],
+    "map-pin-x-inside": [
+      "path:13d1b25d6e81",
+      "path:97f5daa0eb26",
+      "path:e2f5084122f0"
+    ],
     "minus": [
       "path:52f6eb0c4372"
     ],

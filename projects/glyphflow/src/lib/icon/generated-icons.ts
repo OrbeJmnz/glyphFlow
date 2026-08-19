@@ -8807,50 +8807,6 @@ export const mapMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const mapPinCheckInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" },
-    { tag: 'path', d: "m9 10 2 2 4-4" },
-  ],
-  {},
-);
-
-export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.43 12.935c.357-.967.57-1.955.57-2.935a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32.197 32.197 0 0 0 .813-.728" },
-    { tag: 'circle', cx: 12, cy: 10, r: 3 },
-    { tag: 'path', d: "m16 18 2 2 4-4" },
-  ],
-  {},
-);
-
-export const mapPinHouseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z" },
-    { tag: 'path', d: "M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2" },
-    { tag: 'path', d: "M18 22v-3" },
-    { tag: 'circle', cx: 10, cy: 10, r: 3 },
-  ],
-  {},
-);
-
-export const mapPinMinusInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" },
-    { tag: 'path', d: "M9 10h6" },
-  ],
-  {},
-);
-
-export const mapPinMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M18.977 14C19.6 12.701 20 11.343 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738" },
-    { tag: 'circle', cx: 12, cy: 10, r: 3 },
-    { tag: 'path', d: "M16 18h6" },
-  ],
-  {},
-);
-
 export const mapPinOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12.75 7.09a3 3 0 0 1 2.16 2.16" },
@@ -8867,54 +8823,6 @@ export const mapPinPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17.97 9.304A8 8 0 0 0 2 10c0 4.69 4.887 9.562 7.022 11.468" },
     { tag: 'path', d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" },
     { tag: 'circle', cx: 10, cy: 10, r: 3 },
-  ],
-  {},
-);
-
-export const mapPinPlusInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" },
-    { tag: 'path', d: "M12 7v6" },
-    { tag: 'path', d: "M9 10h6" },
-  ],
-  {},
-);
-
-export const mapPinPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738" },
-    { tag: 'circle', cx: 12, cy: 10, r: 3 },
-    { tag: 'path', d: "M16 18h6" },
-    { tag: 'path', d: "M19 15v6" },
-  ],
-  {},
-);
-
-export const mapPinSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M 12.248 21.969 a 1 1 0 0 1 -0.849 -0.17 C 9.539 20.193 4 14.993 4 10 a 8 8 0 0 1 16 0 C 20 10.42 19.961 10.841 19.888 11.262" },
-    { tag: 'path', d: "m22 22-1.88-1.88" },
-    { tag: 'circle', cx: 12, cy: 10, r: 3 },
-    { tag: 'circle', cx: 18, cy: 18, r: 3 },
-  ],
-  {},
-);
-
-export const mapPinXInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" },
-    { tag: 'path', d: "m14.5 7.5-5 5" },
-    { tag: 'path', d: "m9.5 7.5 5 5" },
-  ],
-  {},
-);
-
-export const mapPinXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.752 11.901A7.78 7.78 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 19 19 0 0 0 .09-.077" },
-    { tag: 'circle', cx: 12, cy: 10, r: 3 },
-    { tag: 'path', d: "m21.5 15.5-5 5" },
-    { tag: 'path', d: "m21.5 20.5-5-5" },
   ],
   {},
 );
@@ -16858,18 +16766,8 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   mailbox: mailboxIcon,
   mails: mailsIcon,
   'map-minus': mapMinusIcon,
-  'map-pin-check-inside': mapPinCheckInsideIcon,
-  'map-pin-check': mapPinCheckIcon,
-  'map-pin-house': mapPinHouseIcon,
-  'map-pin-minus-inside': mapPinMinusInsideIcon,
-  'map-pin-minus': mapPinMinusIcon,
   'map-pin-off': mapPinOffIcon,
   'map-pin-pen': mapPinPenIcon,
-  'map-pin-plus-inside': mapPinPlusInsideIcon,
-  'map-pin-plus': mapPinPlusIcon,
-  'map-pin-search': mapPinSearchIcon,
-  'map-pin-x-inside': mapPinXInsideIcon,
-  'map-pin-x': mapPinXIcon,
   'map-pinned': mapPinnedIcon,
   'map-plus': mapPlusIcon,
   'mars-stroke': marsStrokeIcon,

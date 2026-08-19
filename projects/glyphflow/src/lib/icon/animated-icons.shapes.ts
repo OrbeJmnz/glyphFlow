@@ -363,6 +363,98 @@ export const mapPinShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 10, r: 3 },
   ];
 
+export const mapPinCheckShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M19.43 12.935c.357-.967.57-1.955.57-2.935a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32.197 32.197 0 0 0 .813-.728',
+    },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'path', d: 'm16 18 2 2 4-4' },
+  ];
+
+export const mapPinCheckInsideShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+    },
+    { tag: 'path', d: 'm9 10 2 2 4-4' },
+  ];
+
+export const mapPinHouseShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z',
+    },
+    { tag: 'path', d: 'M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2' },
+    { tag: 'path', d: 'M18 22v-3' },
+    { tag: 'circle', cx: 10, cy: 10, r: 3 },
+  ];
+
+export const mapPinMinusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M18.977 14C19.6 12.701 20 11.343 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738',
+    },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'path', d: 'M16 18h6' },
+  ];
+
+export const mapPinMinusInsideShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+    },
+    { tag: 'path', d: 'M9 10h6' },
+  ];
+
+export const mapPinPlusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738',
+    },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'path', d: 'M16 18h6' },
+    { tag: 'path', d: 'M19 15v6' },
+  ];
+
+export const mapPinPlusInsideShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+    },
+    { tag: 'path', d: 'M12 7v6' },
+    { tag: 'path', d: 'M9 10h6' },
+  ];
+
+export const mapPinSearchShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M 12.248 21.969 a 1 1 0 0 1 -0.849 -0.17 C 9.539 20.193 4 14.993 4 10 a 8 8 0 0 1 16 0 C 20 10.42 19.961 10.841 19.888 11.262',
+    },
+    { tag: 'path', d: 'm22 22-1.88-1.88' },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'circle', cx: 18, cy: 18, r: 3 },
+  ];
+
+export const mapPinXShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M19.752 11.901A7.78 7.78 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 19 19 0 0 0 .09-.077',
+    },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'path', d: 'm21.5 15.5-5 5' },
+    { tag: 'path', d: 'm21.5 20.5-5-5' },
+  ];
+
+export const mapPinXInsideShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0',
+    },
+    { tag: 'path', d: 'm14.5 7.5-5 5' },
+    { tag: 'path', d: 'm9.5 7.5 5 5' },
+  ];
+
 export const externalLinkShapes: IconShape[] = [
     { tag: 'path', d: 'M15 3h6v6' },
     { tag: 'path', d: 'M10 14 21 3' },
