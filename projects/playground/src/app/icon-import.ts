@@ -17,7 +17,9 @@ export class IconImport {
   protected readonly entrada = signal('');
   protected readonly abierto = signal(false);
 
-  protected readonly resultado = computed<{ def: AnimatedIconDef; nombre: string } | { error: string } | null>(() => {
+  protected readonly resultado = computed<
+    { def: AnimatedIconDef; nombre: string } | { error: string } | null
+  >(() => {
     const texto = this.entrada().trim();
     if (!texto) return null;
     let json: unknown;
@@ -34,7 +36,11 @@ export class IconImport {
     }
     return {
       nombre: typeof obj['icono'] === 'string' ? obj['icono'] : '(sin nombre)',
-      def: { viewBox: obj['viewBox'] as string | undefined, shapes: obj['shapes'], animations: obj['animations'] } as AnimatedIconDef,
+      def: {
+        viewBox: obj['viewBox'] as string | undefined,
+        shapes: obj['shapes'],
+        animations: obj['animations'],
+      } as AnimatedIconDef,
     };
   });
 
@@ -45,7 +51,16 @@ export class IconImport {
   /** Ejemplo real, no inventado: el JSON que el panel de detalle exportaría para `bell`. */
   protected cargarEjemplo(): void {
     this.entrada.set(
-      JSON.stringify({ icono: 'bell', viewBox: bellIcon.viewBox, shapes: bellIcon.shapes, animations: bellIcon.animations }, null, 2),
+      JSON.stringify(
+        {
+          icono: 'bell',
+          viewBox: bellIcon.viewBox,
+          shapes: bellIcon.shapes,
+          animations: bellIcon.animations,
+        },
+        null,
+        2,
+      ),
     );
   }
 }

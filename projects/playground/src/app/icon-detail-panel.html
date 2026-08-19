@@ -1,12 +1,22 @@
 <section class="detalle" aria-label="Detalle del icono">
   <header class="detalle-head">
-    <max-icon #preview [iconDef]="def()" [animation]="varianteActiva()" [size]="32" trigger="manual" />
+    <max-icon
+      #preview
+      [iconDef]="def()"
+      [animation]="varianteActiva()"
+      [size]="32"
+      trigger="manual"
+    />
     <div class="titulo">
       <h2>{{ nombre() }}</h2>
-      <span class="const"><code>{{ constName() }}</code> · {{ varianteActiva() }}</span>
+      <span class="const"
+        ><code>{{ constName() }}</code> · {{ varianteActiva() }}</span
+      >
     </div>
     <button type="button" class="reproducir" (click)="reproducir()">▶ reproducir</button>
-    <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">✕</button>
+    <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">
+      ✕
+    </button>
   </header>
 
   <app-icon-scrubber [def]="def()" [variante]="varianteActiva()" class="scrubber-bloque" />
@@ -57,8 +67,14 @@
           <article class="variante" [class.activa]="v.variante === varianteActiva()">
             <h4>{{ v.variante }}</h4>
             <dl>
-              <div><dt>duración</dt><dd>{{ duracion(v) }}</dd></div>
-              <div><dt>rotación máx.</dt><dd>{{ v.rotacionMaximaDeg }}°</dd></div>
+              <div>
+                <dt>duración</dt>
+                <dd>{{ duracion(v) }}</dd>
+              </div>
+              <div>
+                <dt>rotación máx.</dt>
+                <dd>{{ v.rotacionMaximaDeg }}°</dd>
+              </div>
               <div>
                 <dt>tracks solapados</dt>
                 <dd>
@@ -71,7 +87,10 @@
                   }
                 </dd>
               </div>
-              <div><dt>reverseOnLeave</dt><dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd></div>
+              <div>
+                <dt>reverseOnLeave</dt>
+                <dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd>
+              </div>
             </dl>
             <div class="costo">
               @for (p of v.propiedadesAnimadas; track p) {

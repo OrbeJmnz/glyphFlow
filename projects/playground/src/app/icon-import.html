@@ -6,14 +6,14 @@
   @if (abierto()) {
     <div class="import-body">
       <p class="import-nota">
-        Pega el JSON que copiaste de "Exportar JSON" en el panel de detalle. Se previsualiza con
-        el mismo <code>[iconDef]</code> que usa el resto del playground.
+        Pega el JSON que copiaste de "Exportar JSON" en el panel de detalle. Se previsualiza con el
+        mismo <code>[iconDef]</code> que usa el resto del playground.
       </p>
       <button type="button" class="ejemplo" (click)="cargarEjemplo()">cargar ejemplo (bell)</button>
       <textarea
         class="entrada"
         rows="8"
-        placeholder="{ &quot;icono&quot;: ..., &quot;shapes&quot;: [...], &quot;animations&quot;: {...} }"
+        placeholder='{ "icono": ..., "shapes": [...], "animations": {...} }'
         [value]="entrada()"
         (input)="entrada.set($any($event.target).value)"
       ></textarea>

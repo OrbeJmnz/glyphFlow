@@ -45,7 +45,10 @@ button {
   font: inherit;
   font-size: 0.8125rem;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 button:hover {

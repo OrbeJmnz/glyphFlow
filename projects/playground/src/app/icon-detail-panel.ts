@@ -38,7 +38,9 @@ export class IconDetailPanel {
   readonly def = input.required<AnimatedIconDef>();
   readonly cerrar = output<void>();
 
-  protected readonly variantes: Signal<string[]> = computed(() => Object.keys(this.def().animations));
+  protected readonly variantes: Signal<string[]> = computed(() =>
+    Object.keys(this.def().animations),
+  );
   protected readonly varianteActiva = signal('default');
   protected readonly copiado = signal<'snippet' | 'json' | null>(null);
 
@@ -59,13 +61,19 @@ export class IconDetailPanel {
     const variante = this.varianteActiva();
     const attrVariante = variante === 'default' ? '' : ` animation="${variante}"`;
     return (
-      `import { ${constName} } from 'glyphflow';\n\n` + `<max-icon [iconDef]="${constName}"${attrVariante} />`
+      `import { ${constName} } from 'glyphflow';\n\n` +
+      `<max-icon [iconDef]="${constName}"${attrVariante} />`
     );
   });
 
   protected readonly exportJson = computed(() =>
     JSON.stringify(
-      { icono: this.nombre(), viewBox: this.def().viewBox, shapes: this.def().shapes, animations: this.def().animations },
+      {
+        icono: this.nombre(),
+        viewBox: this.def().viewBox,
+        shapes: this.def().shapes,
+        animations: this.def().animations,
+      },
       null,
       2,
     ),

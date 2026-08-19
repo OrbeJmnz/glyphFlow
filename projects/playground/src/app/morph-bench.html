@@ -30,7 +30,11 @@
       <button type="button" [class.activo]="modo() === 'vuelta'" (click)="elegirModo('vuelta')">
         comparar la vuelta
       </button>
-      <button type="button" [class.activo]="modo() === 'sobrepaso'" (click)="elegirModo('sobrepaso')">
+      <button
+        type="button"
+        [class.activo]="modo() === 'sobrepaso'"
+        (click)="elegirModo('sobrepaso')"
+      >
         comparar el rebote
       </button>
       <span class="separador"></span>
@@ -58,9 +62,10 @@
     }
     @if (modo() === 'vuelta') {
       <p class="aviso">
-        <strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>).
-        <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe;
-        <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques.
+        <strong>Pasa el puntero por encima y sácalo</strong> — es el caso real
+        (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza
+        de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la
+        saques.
       </p>
     }
   </header>
@@ -94,15 +99,36 @@
             <span class="etiqueta">{{ m.nota }}</span>
           }
         </h3>
-        <svg viewBox="0 0 24 24" width="120" height="120" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          width="120"
+          height="120"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
           <path [attr.d]="dInicial(m.id)" />
         </svg>
         <dl class="datos">
-          <div><dt>keyframes</dt><dd>{{ m.keyframes }}</dd></div>
-          <div><dt>peso</dt><dd>{{ (m.bytes / 1024).toFixed(1) }} KB</dd></div>
-          <div><dt>duración</dt><dd>{{ m.duracion }} ms</dd></div>
-          <div><dt>último tramo</dt><dd>{{ m.colaPct }}%</dd></div>
+          <div>
+            <dt>keyframes</dt>
+            <dd>{{ m.keyframes }}</dd>
+          </div>
+          <div>
+            <dt>peso</dt>
+            <dd>{{ (m.bytes / 1024).toFixed(1) }} KB</dd>
+          </div>
+          <div>
+            <dt>duración</dt>
+            <dd>{{ m.duracion }} ms</dd>
+          </div>
+          <div>
+            <dt>último tramo</dt>
+            <dd>{{ m.colaPct }}%</dd>
+          </div>
         </dl>
         <button type="button" class="solo" (click)="reproducir(m)">Reproducir solo este</button>
       </article>

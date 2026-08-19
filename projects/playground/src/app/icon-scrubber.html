@@ -13,7 +13,12 @@
     @for (shape of shapes(); track $index) {
       @switch (shape.tag) {
         @case ('circle') {
-          <circle [attr.cx]="shape.cx" [attr.cy]="shape.cy" [attr.r]="shape.r" [attr.fill]="shape.fill ?? null" />
+          <circle
+            [attr.cx]="shape.cx"
+            [attr.cy]="shape.cy"
+            [attr.r]="shape.r"
+            [attr.fill]="shape.fill ?? null"
+          />
         }
         @case ('rect') {
           <rect
@@ -27,10 +32,22 @@
           />
         }
         @case ('line') {
-          <line [attr.x1]="shape.x1" [attr.y1]="shape.y1" [attr.x2]="shape.x2" [attr.y2]="shape.y2" [attr.fill]="shape.fill ?? null" />
+          <line
+            [attr.x1]="shape.x1"
+            [attr.y1]="shape.y1"
+            [attr.x2]="shape.x2"
+            [attr.y2]="shape.y2"
+            [attr.fill]="shape.fill ?? null"
+          />
         }
         @case ('ellipse') {
-          <ellipse [attr.cx]="shape.cx" [attr.cy]="shape.cy" [attr.rx]="shape.rx" [attr.ry]="shape.ry" [attr.fill]="shape.fill ?? null" />
+          <ellipse
+            [attr.cx]="shape.cx"
+            [attr.cy]="shape.cy"
+            [attr.rx]="shape.rx"
+            [attr.ry]="shape.ry"
+            [attr.fill]="shape.fill ?? null"
+          />
         }
         @case ('polyline') {
           <polyline [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" />
@@ -59,8 +76,8 @@
     </div>
   } @else {
     <p class="sin-scrub">
-      Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente
-      en vivo con <code>getTotalLength()</code> (autoDraw).
+      Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente en
+      vivo con <code>getTotalLength()</code> (autoDraw).
     </p>
   }
 </div>

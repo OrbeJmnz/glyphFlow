@@ -44,7 +44,13 @@
           @for (item of secuencia(); track $index) {
             <li [class.activo]="$index === indiceActual()">
               <span>{{ item.nombre }}</span>
-              <button type="button" (click)="quitar($index)" [attr.aria-label]="'Quitar ' + item.nombre">✕</button>
+              <button
+                type="button"
+                (click)="quitar($index)"
+                [attr.aria-label]="'Quitar ' + item.nombre"
+              >
+                ✕
+              </button>
             </li>
           }
         </ol>

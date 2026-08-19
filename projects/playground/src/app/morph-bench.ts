@@ -76,8 +76,23 @@ const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
 }));
 
 const VARIANTES_VUELTA: Variante[] = [
-  { id: 'v-alternate', titulo: 'reverse()', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'alternate' },
-  { id: 'v-ida-vuelta', titulo: 'Ida y vuelta', nota: 'resorte por tramo', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', idaYVuelta: true },
+  {
+    id: 'v-alternate',
+    titulo: 'reverse()',
+    nota: 'hoy',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'alternate',
+  },
+  {
+    id: 'v-ida-vuelta',
+    titulo: 'Ida y vuelta',
+    nota: 'resorte por tramo',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'normal',
+    idaYVuelta: true,
+  },
 ];
 
 /**
@@ -86,17 +101,79 @@ const VARIANTES_VUELTA: Variante[] = [
  * dibujaba su rebote y prometer `bouncy` habría sido vender lo que no entrega.
  */
 const VARIANTES_SOBREPASO: Variante[] = [
-  { id: 's-smooth', titulo: 'smooth', nota: 'ζ=1.00, no rebota', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', sobrepaso: true },
-  { id: 's-073-sin', titulo: 'ζ=0.73 sin dibujarlo', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 420, c: 30 } },
-  { id: 's-073-con', titulo: 'ζ=0.73 con rebote', nota: 'nuevo', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 420, c: 30 }, sobrepaso: true },
-  { id: 's-040-con', titulo: 'ζ=0.40 con rebote', nota: 'topado al viewBox', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'normal', spring: { k: 300, c: 14 }, sobrepaso: true },
+  {
+    id: 's-smooth',
+    titulo: 'smooth',
+    nota: 'ζ=1.00, no rebota',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'normal',
+    sobrepaso: true,
+  },
+  {
+    id: 's-073-sin',
+    titulo: 'ζ=0.73 sin dibujarlo',
+    nota: 'hoy',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'normal',
+    spring: { k: 420, c: 30 },
+  },
+  {
+    id: 's-073-con',
+    titulo: 'ζ=0.73 con rebote',
+    nota: 'nuevo',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'normal',
+    spring: { k: 420, c: 30 },
+    sobrepaso: true,
+  },
+  {
+    id: 's-040-con',
+    titulo: 'ζ=0.40 con rebote',
+    nota: 'topado al viewBox',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'normal',
+    spring: { k: 300, c: 14 },
+    sobrepaso: true,
+  },
 ];
 
 const VARIANTES_COLA: Variante[] = [
-  { id: 'completa', titulo: 'Cola completa', nota: 'hoy', pasos: PASOS_DEFAULT, cola: 'completa', direccion: 'alternate' },
-  { id: 'corta', titulo: 'Cola corta', nota: '|1−x| < 0.01', pasos: PASOS_DEFAULT, cola: 'corta', direccion: 'alternate' },
-  { id: 'recorte', titulo: 'Recorte al 99%', nota: 'física intacta', pasos: PASOS_DEFAULT, cola: 'recorte', direccion: 'alternate' },
-  { id: 'reinicio', titulo: 'Sin reversa', nota: 'reinicia desde el origen', pasos: PASOS_DEFAULT, cola: 'completa', direccion: 'normal' },
+  {
+    id: 'completa',
+    titulo: 'Cola completa',
+    nota: 'hoy',
+    pasos: PASOS_DEFAULT,
+    cola: 'completa',
+    direccion: 'alternate',
+  },
+  {
+    id: 'corta',
+    titulo: 'Cola corta',
+    nota: '|1−x| < 0.01',
+    pasos: PASOS_DEFAULT,
+    cola: 'corta',
+    direccion: 'alternate',
+  },
+  {
+    id: 'recorte',
+    titulo: 'Recorte al 99%',
+    nota: 'física intacta',
+    pasos: PASOS_DEFAULT,
+    cola: 'recorte',
+    direccion: 'alternate',
+  },
+  {
+    id: 'reinicio',
+    titulo: 'Sin reversa',
+    nota: 'reinicia desde el origen',
+    pasos: PASOS_DEFAULT,
+    cola: 'completa',
+    direccion: 'normal',
+  },
 ];
 
 interface Medida extends Variante {
@@ -221,7 +298,11 @@ export class MorphBench {
     const anim = this.animaciones.get(v.id);
     // `idaYVuelta` ya regresa solo: darle reverse a media ida lo mandaría al inicio por un camino
     // que ya trae de vuelta, encimando dos regresos.
-    if (!anim || anim.playState !== 'running' || this.variantes().find((x) => x.id === v.id)?.idaYVuelta) {
+    if (
+      !anim ||
+      anim.playState !== 'running' ||
+      this.variantes().find((x) => x.id === v.id)?.idaYVuelta
+    ) {
       return;
     }
     if (anim.playbackRate > 0) anim.reverse();
@@ -237,7 +318,9 @@ export class MorphBench {
    * Si el arnés replicara esa lógica dejaría de probar lo que de verdad se va a publicar.
    */
   protected reproducir(v: Variante): void {
-    const path = this.lienzos.nativeElement.querySelector<SVGPathElement>(`[data-id="${v.id}"] path`);
+    const path = this.lienzos.nativeElement.querySelector<SVGPathElement>(
+      `[data-id="${v.id}"] path`,
+    );
     if (!path) return;
 
     // Cancelar la anterior es del llamador, no de la capa: `runMorph` no puede saber si quieres

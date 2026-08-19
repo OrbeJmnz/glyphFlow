@@ -117,6 +117,8 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
 export function analizarIcono(nombre: string, def: AnimatedIconDef): MotionReport {
   return {
     icono: nombre,
-    variantes: Object.entries(def.animations).map(([variante, chor]) => analizarVariante(variante, chor)),
+    variantes: Object.entries(def.animations).map(([variante, chor]) =>
+      analizarVariante(variante, chor),
+    ),
   };
 }
