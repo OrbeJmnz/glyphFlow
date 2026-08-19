@@ -681,6 +681,20 @@
       "circle:edd9a61c0bd6",
       "circle:447970e0543f"
     ],
+    "panel-bottom": [
+      "rect:d427f2bc2999",
+      "path:23130bc9b30b"
+    ],
+    "panel-bottom-close": [
+      "rect:d427f2bc2999",
+      "path:23130bc9b30b",
+      "path:d9887eee03d8"
+    ],
+    "panel-bottom-open": [
+      "rect:d427f2bc2999",
+      "path:23130bc9b30b",
+      "path:54c15cd0c660"
+    ],
     "panel-left": [
       "rect:d427f2bc2999",
       "path:4eda0d68cc05"
@@ -689,6 +703,39 @@
       "rect:d427f2bc2999",
       "path:4eda0d68cc05",
       "path:b5b92dc12291"
+    ],
+    "panel-left-open": [
+      "rect:d427f2bc2999",
+      "path:4eda0d68cc05",
+      "path:5b29aceef3ee"
+    ],
+    "panel-right": [
+      "rect:d427f2bc2999",
+      "path:12138fb1c45d"
+    ],
+    "panel-right-close": [
+      "rect:d427f2bc2999",
+      "path:12138fb1c45d",
+      "path:d51f35b98663"
+    ],
+    "panel-right-open": [
+      "rect:d427f2bc2999",
+      "path:12138fb1c45d",
+      "path:03074edb63b4"
+    ],
+    "panel-top": [
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7"
+    ],
+    "panel-top-close": [
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:c37397c6283d"
+    ],
+    "panel-top-open": [
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:fe4d12b9ba05"
     ],
     "pen": [
       "path:72015e06e6ed"

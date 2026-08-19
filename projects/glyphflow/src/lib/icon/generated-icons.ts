@@ -10126,15 +10126,6 @@ export const pandaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const panelBottomCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 15h18" },
-    { tag: 'path', d: "m15 8-3 3-3-3" },
-  ],
-  {},
-);
-
 export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -10146,23 +10137,6 @@ export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const panelBottomOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 15h18" },
-    { tag: 'path', d: "m9 10 3-3 3 3" },
-  ],
-  {},
-);
-
-export const panelBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 15h18" },
-  ],
-  {},
-);
-
 export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -10170,15 +10144,6 @@ export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M9 19v2" },
     { tag: 'path', d: "M9 3v2" },
     { tag: 'path', d: "M9 9v1" },
-  ],
-  {},
-);
-
-export const panelLeftOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M9 3v18" },
-    { tag: 'path', d: "m14 9 3 3-3 3" },
   ],
   {},
 );
@@ -10198,15 +10163,6 @@ export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const panelRightCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M15 3v18" },
-    { tag: 'path', d: "m8 9 3 3-3 3" },
-  ],
-  {},
-);
-
 export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -10214,23 +10170,6 @@ export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 19v2" },
     { tag: 'path', d: "M15 3v2" },
     { tag: 'path', d: "M15 9v1" },
-  ],
-  {},
-);
-
-export const panelRightOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M15 3v18" },
-    { tag: 'path', d: "m10 15-3-3 3-3" },
-  ],
-  {},
-);
-
-export const panelRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M15 3v18" },
   ],
   {},
 );
@@ -10250,15 +10189,6 @@ export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const panelTopCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 9h18" },
-    { tag: 'path', d: "m9 16 3-3 3 3" },
-  ],
-  {},
-);
-
 export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -10266,23 +10196,6 @@ export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M19 9h2" },
     { tag: 'path', d: "M3 9h2" },
     { tag: 'path', d: "M9 9h1" },
-  ],
-  {},
-);
-
-export const panelTopOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 9h18" },
-    { tag: 'path', d: "m15 14-3 3-3-3" },
-  ],
-  {},
-);
-
-export const panelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M3 9h18" },
   ],
   {},
 );
@@ -16851,22 +16764,12 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'paintbrush-vertical': paintbrushVerticalIcon,
   paintbrush: paintbrushIcon,
   panda: pandaIcon,
-  'panel-bottom-close': panelBottomCloseIcon,
   'panel-bottom-dashed': panelBottomDashedIcon,
-  'panel-bottom-open': panelBottomOpenIcon,
-  'panel-bottom': panelBottomIcon,
   'panel-left-dashed': panelLeftDashedIcon,
-  'panel-left-open': panelLeftOpenIcon,
   'panel-left-right-dashed': panelLeftRightDashedIcon,
-  'panel-right-close': panelRightCloseIcon,
   'panel-right-dashed': panelRightDashedIcon,
-  'panel-right-open': panelRightOpenIcon,
-  'panel-right': panelRightIcon,
   'panel-top-bottom-dashed': panelTopBottomDashedIcon,
-  'panel-top-close': panelTopCloseIcon,
   'panel-top-dashed': panelTopDashedIcon,
-  'panel-top-open': panelTopOpenIcon,
-  'panel-top': panelTopIcon,
   'panels-left-bottom': panelsLeftBottomIcon,
   'panels-right-bottom': panelsRightBottomIcon,
   'panels-top-left': panelsTopLeftIcon,

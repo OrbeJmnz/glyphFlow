@@ -1403,6 +1403,119 @@ export const panelLeftCloseShapes: IconShape[] = [
     { tag: 'path', d: 'm16 15-3-3 3-3' },
   ];
 
+export const panelLeftOpenShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M9 3v18' },
+    { tag: 'path', d: 'm14 9 3 3-3 3' },
+  ];
+
+export const panelRightShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M15 3v18' },
+  ];
+
+export const panelRightCloseShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M15 3v18' },
+    { tag: 'path', d: 'm8 9 3 3-3 3' },
+  ];
+
+export const panelRightOpenShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M15 3v18' },
+    { tag: 'path', d: 'm10 15-3-3 3-3' },
+  ];
+
+export const panelTopShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
+  ];
+
+export const panelTopCloseShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
+    { tag: 'path', d: 'm9 16 3-3 3 3' },
+  ];
+
+export const panelTopOpenShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 9h18' },
+    { tag: 'path', d: 'm15 14-3 3-3-3' },
+  ];
+
+export const panelBottomShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 15h18' },
+  ];
+
+export const panelBottomCloseShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 15h18' },
+    { tag: 'path', d: 'm15 8-3 3-3-3' },
+  ];
+
+export const panelBottomOpenShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M3 15h18' },
+    { tag: 'path', d: 'm9 10 3-3 3 3' },
+  ];
+
+export const panelLeftDashedShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M9 14v1' },
+    { tag: 'path', d: 'M9 19v2' },
+    { tag: 'path', d: 'M9 3v2' },
+    { tag: 'path', d: 'M9 9v1' },
+  ];
+
+export const panelRightDashedShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M15 14v1' },
+    { tag: 'path', d: 'M15 19v2' },
+    { tag: 'path', d: 'M15 3v2' },
+    { tag: 'path', d: 'M15 9v1' },
+  ];
+
+export const panelTopDashedShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M14 9h1' },
+    { tag: 'path', d: 'M19 9h2' },
+    { tag: 'path', d: 'M3 9h2' },
+    { tag: 'path', d: 'M9 9h1' },
+  ];
+
+export const panelBottomDashedShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: 'M14 15h1' },
+    { tag: 'path', d: 'M19 15h2' },
+    { tag: 'path', d: 'M3 15h2' },
+    { tag: 'path', d: 'M9 15h1' },
+  ];
+
+export const panelTopBottomDashedShapes: IconShape[] = [
+    { tag: 'path', d: 'M14 15h1' },
+    { tag: 'path', d: 'M14 9h1' },
+    { tag: 'path', d: 'M19 15h2' },
+    { tag: 'path', d: 'M19 9h2' },
+    { tag: 'path', d: 'M3 15h2' },
+    { tag: 'path', d: 'M3 9h2' },
+    { tag: 'path', d: 'M9 15h1' },
+    { tag: 'path', d: 'M9 9h1' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ];
+
+export const panelLeftRightDashedShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 10V9' },
+    { tag: 'path', d: 'M15 15v-1' },
+    { tag: 'path', d: 'M15 21v-2' },
+    { tag: 'path', d: 'M15 5V3' },
+    { tag: 'path', d: 'M9 10V9' },
+    { tag: 'path', d: 'M9 15v-1' },
+    { tag: 'path', d: 'M9 21v-2' },
+    { tag: 'path', d: 'M9 5V3' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ];
+
 export const calendarCheckShapes: IconShape[] = [
     { tag: 'path', d: 'M8 2v3' },
     { tag: 'path', d: 'M16 2v3' },
