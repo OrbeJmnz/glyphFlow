@@ -158,17 +158,59 @@ export const eyeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeOffShapes, {
 export const hatGlassesIcon: AnimatedIconDef = /* @__PURE__ */ icon(hatGlassesShapes, {
     default: {
       shapes: {
+        // Sombrero: el ala (1) y la línea horizontal (2) son UNA pieza, mismo movimiento.
         1: /* @__PURE__ */ track(
           [
-            { transform: 'translateY(0) rotate(0deg)' },
-            { transform: 'translateY(-1.5px) rotate(-8deg)' },
+            { transform: 'translateY(-3px) rotate(-10deg)' },
+            { transform: 'translateY(0.8px) rotate(4deg)' },
+            { transform: 'translateY(-0.4px) rotate(-2deg)' },
             { transform: 'translateY(0) rotate(0deg)' },
           ],
-          650,
+          600,
           { origin: '12px 11px' },
         ),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 180 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 260 }),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(-3px) rotate(-10deg)' },
+            { transform: 'translateY(0.8px) rotate(4deg)' },
+            { transform: 'translateY(-0.4px) rotate(-2deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          600,
+          { origin: '12px 11px' },
+        ),
+        // Lentes: el puente (0) y los dos aros (3, 4) son un armazón rígido, mismo movimiento,
+        // pivotando desde el centro del armazón — no cada aro por su lado.
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(-3px) rotate(-14deg)' },
+            { transform: 'translateY(0.8px) rotate(5deg)' },
+            { transform: 'translateY(-0.4px) rotate(-2deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          550,
+          { delay: 180, origin: '12px 18px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(-3px) rotate(-14deg)' },
+            { transform: 'translateY(0.8px) rotate(5deg)' },
+            { transform: 'translateY(-0.4px) rotate(-2deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          550,
+          { delay: 180, origin: '12px 18px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(-3px) rotate(-14deg)' },
+            { transform: 'translateY(0.8px) rotate(5deg)' },
+            { transform: 'translateY(-0.4px) rotate(-2deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          550,
+          { delay: 180, origin: '12px 18px' },
+        ),
       },
     },
   });
@@ -600,7 +642,17 @@ export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
 /** Pin que cae y se clava. */
 export const mapPinIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-4, 0, -1.5, 0]), 650, { easing: SPRING_OUT }),
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -12, 8, -5, 3, 0]), 650, {
+        origin: '12px 21.8px',
+      }),
+    },
+    /** Ubicando: el punto adentro late, el pin no se mueve. */
+    locate: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.35, 1, 1.3, 1]), 700, {
+          origin: '12px 10px',
+        }),
+      },
     },
   });
 
@@ -709,7 +761,15 @@ export const crownIcon: AnimatedIconDef = /* @__PURE__ */ icon(crownShapes, {
 /** Sol: los rayos brotan uno por uno mientras el astro gira despacio. */
 export const sunIcon: AnimatedIconDef = /* @__PURE__ */ icon(sunShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 45]), 900, { origin: 'center' }),
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'rotate(0deg)', offset: 0 },
+          { transform: 'rotate(45deg)', offset: 0.5625 },
+          { transform: 'rotate(405deg)', offset: 1 },
+        ],
+        2400,
+        { origin: 'center', easing: 'linear' },
+      ),
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 0 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 45 }),
@@ -719,6 +779,104 @@ export const sunIcon: AnimatedIconDef = /* @__PURE__ */ icon(sunShapes, {
         6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 225 }),
         7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 270 }),
         8: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 315 }),
+      },
+    },
+    /** Destello: los rayos titilan en ola, el sol no gira. */
+    shine: {
+      shapes: {
+        // Late durante TODA la ola (780ms = último rayo a los 280ms + sus 500ms), no solo al
+        // principio — si no, se queda quieto mientras los rayos siguen titilando.
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1, 1.08, 1]), 780, {
+          origin: '12px 12px',
+        }),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 0 },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 40 },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 80 },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 120 },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 160 },
+        ),
+        6: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 200 },
+        ),
+        7: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 240 },
+        ),
+        8: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+            { transform: 'scale(1.3)', opacity: '0.6' },
+            { transform: 'scale(1)', opacity: '1' },
+          ],
+          500,
+          { delay: 280 },
+        ),
       },
     },
   });
@@ -1066,6 +1224,39 @@ export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 550),
       },
     },
+    /** Las tres capas se acoplan a medio camino — la de arriba también baja, no se queda fija. */
+    merge: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(2.5px)' },
+            { transform: 'translateY(2.5px)' },
+            { transform: 'translateY(0)' },
+          ],
+          1000,
+        ),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(-2.5px)' },
+            { transform: 'translateY(-2.5px)' },
+            { transform: 'translateY(0)' },
+          ],
+          1000,
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(-7.5px)' },
+            { transform: 'translateY(-7.5px)' },
+            { transform: 'translateY(0)' },
+          ],
+          1000,
+          { delay: 60 },
+        ),
+      },
+    },
   });
 
 /** Tablero armándose, tarjeta por tarjeta. */
@@ -1315,11 +1506,25 @@ export const starIcon: AnimatedIconDef = /* @__PURE__ */ icon(starShapes, {
       root: /* @__PURE__ */ track(
         [
           { transform: 'rotate(0deg) scale(1)' },
-          { transform: 'rotate(36deg) scale(1.2)' },
-          { transform: 'rotate(0deg) scale(1)' },
+          { transform: 'rotate(360deg) scale(1.25)' },
+          { transform: 'rotate(360deg) scale(1)' },
         ],
-        600,
+        1050,
         { easing: SPRING_OUT, origin: 'center' },
+      ),
+    },
+    /** Chispazo: pulso doble sin girar, como un "me encanta" rápido. */
+    twinkle: {
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'scale(1) rotate(0deg)' },
+          { transform: 'scale(1.3) rotate(-8deg)' },
+          { transform: 'scale(0.95) rotate(4deg)' },
+          { transform: 'scale(1.15) rotate(-2deg)' },
+          { transform: 'scale(1) rotate(0deg)' },
+        ],
+        550,
+        { origin: 'center' },
       ),
     },
   });
@@ -1673,7 +1878,194 @@ export const userCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCogShapes, 
     default: {
       shapes: {
         10: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 450),
-        9: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.15, 1]), 500, { delay: 150, origin: '18px 15px' }),
+        // El engrane es el círculo Y los 8 dientes que lo rodean (índices 1-8) — deben girar
+        // juntos como una sola pieza, no el círculo solo.
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        6: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        7: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        8: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+        9: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.15) rotate(360deg)' },
+            { transform: 'scale(1) rotate(720deg)' },
+          ],
+          650,
+          { delay: 150, origin: '18px 15px' },
+        ),
+      },
+    },
+    /** Ajuste fino: el engrane da vueltas cortas de matraca, en vez del giro completo. */
+    tune: {
+      shapes: {
+        10: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 450),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        6: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        7: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        8: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        9: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
       },
     },
   });
