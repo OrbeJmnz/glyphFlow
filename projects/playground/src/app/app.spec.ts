@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
 import { routes } from './app.routes';
-import { escalaDuracion } from './duration-scale';
+import { escalaDuracion } from './core/duration-scale';
 
 describe('App (shell)', () => {
   beforeEach(async () => {

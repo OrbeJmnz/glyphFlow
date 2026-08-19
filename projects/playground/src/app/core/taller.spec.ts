@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { CURATED_ICONS, type AnimatedIconDef } from 'glyphflow';
 import { Taller } from './taller';
-import { IconImport } from './icon-import';
-import { Editor } from './pages/editor';
+import { IconImport } from '../features/lab/icon-import';
+import { Editor } from '../features/editor/editor';
 
 /**
  * El círculo que el proyecto promete desde v4.1: editar la forma y coreografiar ESA forma, sin

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MaxIconComponent, workflowIcon, type AnimatedIconDef } from 'glyphflow';
-import { escalaDuracion, PRESETS_ESCALA } from './duration-scale';
+import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 
 /**
  * Shell del playground: navegación, control global de velocidad y el outlet. Nada de contenido.

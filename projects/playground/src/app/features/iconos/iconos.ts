@@ -1,8 +1,8 @@
 import { Component, ViewChildren, QueryList, signal, computed } from '@angular/core';
 import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
 import { RouterLink } from '@angular/router';
-import { IconDetailPanel } from '../icon-detail-panel';
-import { insigniasDe, type ClaveInsignia, type Insignia } from '../icon-badges';
+import { IconDetailPanel } from './icon-detail-panel';
+import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 
 interface CuratedEntry {
   name: string;

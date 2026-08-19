@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IconImport } from '../icon-import';
-import { MorphPicker } from '../morph-picker';
-import { MorphBench } from '../morph-bench';
+import { IconImport } from './icon-import';
+import { MorphPicker } from './morph-picker';
+import { MorphBench } from './morph-bench';
 
 /**
  * Las herramientas de autoría, juntas y fuera del showcase.

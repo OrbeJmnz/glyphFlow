@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
-import { Taller } from './taller';
+import { Taller } from '../../core/taller';
 
 /**
  * El otro lado del "Exportar JSON" del panel de detalle: pega el JSON de vuelta y se previsualiza

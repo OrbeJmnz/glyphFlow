@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CURATED_ICONS, type AnimatedIconDef, type IconShape } from 'glyphflow';
-import { parseD, type SubPath } from '../geometria/path-model';
+import { parseD, type SubPath } from './geometria/path-model';
 import {
   dDeSubpath,
   limpiar,
@@ -13,9 +13,9 @@ import {
   quitarNodo,
   type Manija,
   type Nodo,
-} from '../geometria/path-edit';
-import { crearHistorial } from '../geometria/historial';
-import { Taller } from '../taller';
+} from './geometria/path-edit';
+import { crearHistorial } from './geometria/historial';
+import { Taller } from '../../core/taller';
 
 const LADO = 24;
 

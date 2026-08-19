@@ -1,7 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
-import { provideEscalaEnVivo } from './duration-scale';
+import { provideEscalaEnVivo } from './core/duration-scale';
 
 export const appConfig: ApplicationConfig = {
   providers: [
