@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.head {
+  max-width: 68rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.head h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.head p {
+  margin: 0 auto;
+  max-width: 40rem;
+  color: var(--gf-texto-medio);
+  line-height: 1.6;
+}

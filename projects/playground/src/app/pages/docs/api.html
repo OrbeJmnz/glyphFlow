@@ -1,0 +1,133 @@
+<h1>API</h1>
+<p class="bajada">
+  Toda la superficie pública, en dos entry points. Esta página se pinta desde la misma lista que un
+  test compara contra los exports reales del paquete — si documentara algo que ya no existe, el test
+  falla.
+</p>
+
+<h2>&lt;max-icon&gt;</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Tipo</th>
+        <th>Default</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (i of inputsIcono; track i.nombre) {
+        <tr>
+          <td>
+            <code>{{ i.nombre }}</code>
+          </td>
+          <td>
+            <code>{{ i.tipo }}</code>
+          </td>
+          <td>
+            <code>{{ i.porDefecto }}</code>
+          </td>
+          <td>{{ i.nota }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<p>
+  Método público: <code>play(variante?)</code> — reproduce una variante; sin argumento, la del input
+  <code>animation</code>. Es lo que necesitas con <code>trigger="manual"</code>.
+</p>
+
+<h2>&lt;max-icon-morph&gt;</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Tipo</th>
+        <th>Default</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (i of inputsMorph; track i.nombre) {
+        <tr>
+          <td>
+            <code>{{ i.nombre }}</code>
+          </td>
+          <td>
+            <code>{{ i.tipo }}</code>
+          </td>
+          <td>
+            <code>{{ i.porDefecto }}</code>
+          </td>
+          <td>{{ i.nota }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@for (e of entradas; track e) {
+  <h2>
+    Exports de <code>{{ e }}</code>
+  </h2>
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Símbolo</th>
+          <th>Qué es</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of valoresDe(e); track s.nombre) {
+          <tr>
+            <td>
+              <code>{{ s.nombre }}</code>
+            </td>
+            <td>{{ s.clase }}</td>
+            <td>{{ s.resumen }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tipos</h3>
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of tiposDe(e); track t.nombre) {
+          <tr>
+            <td>
+              <code>{{ t.nombre }}</code>
+            </td>
+            <td>{{ t.resumen }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+
+<h2>Los iconos</h2>
+<p>
+  Además de lo anterior, <code>glyphflow</code> exporta un <code>const</code> por icono con sufijo
+  <code>Icon</code> — <code>bellIcon</code>, <code>trash2Icon</code>, <code>circleCheckIcon</code>.
+  Esos son la ruta tree-shakeable, y por eso no se listan uno por uno: son ~1767 y el catálogo
+  navegable está en <a href="/">la página de iconos</a>.
+</p>
+<p class="nota ojo">
+  El nombre del <code>const</code> es el del icono en camelCase más <code>Icon</code>:
+  <code>trash-2</code> → <code>trash2Icon</code>, <code>circle-check</code> →
+  <code>circleCheckIcon</code>. El panel de detalle de cada icono te da el snippet ya armado.
+</p>

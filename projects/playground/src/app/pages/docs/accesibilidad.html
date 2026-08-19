@@ -1,0 +1,88 @@
+<h1>Accesibilidad</h1>
+<p class="bajada">
+  Dos decisiones, las dos tomadas para que no tengas que combinar banderas: un icono es decorativo o
+  semántico, y el movimiento reducido significa cosas distintas en un icono que en un morph.
+</p>
+
+<h2>Una regla, no una matriz</h2>
+<p>
+  No hay que coordinar <code>aria-hidden</code> con <code>aria-label</code>. Solo pones
+  <code>label</code>, o no lo pones:
+</p>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Lo que escribes</th>
+        <th>Lo que sale al DOM</th>
+        <th>Cuándo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>sin <code>label</code></td>
+        <td><code>aria-hidden="true"</code></td>
+        <td>El icono acompaña a un texto que ya dice lo mismo.</td>
+      </tr>
+      <tr>
+        <td><code>label="Guardar"</code></td>
+        <td><code>aria-hidden="false"</code> + <code>aria-label="Guardar"</code></td>
+        <td>El icono <em>es</em> el contenido: un botón sin texto.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<pre><code>&lt;!-- Decorativo: el botón ya dice "Guardar" --&gt;
+&lt;button&gt;&lt;max-icon [iconDef]="save" /&gt; Guardar&lt;/button&gt;
+
+&lt;!-- Semántico: no hay texto, el icono carga el significado --&gt;
+&lt;button&gt;&lt;max-icon [iconDef]="save" label="Guardar" /&gt;&lt;/button&gt;</code></pre>
+<p>
+  <code>decorative</code> viene en <code>true</code> por default y casi nunca hay que tocarlo: es el
+  <code>label</code> el que decide. Aplica igual a <code>&lt;max-icon&gt;</code> y a
+  <code>&lt;max-icon-morph&gt;</code>.
+</p>
+
+<h2><code>prefers-reduced-motion</code></h2>
+<p>
+  Ambos componentes lo respetan por default (<code>respectReducedMotion = true</code>). Pero
+  respetar <strong>no significa lo mismo</strong> en los dos, y esa diferencia es deliberada, no un
+  descuido de herencia:
+</p>
+
+<h3>En <code>&lt;max-icon&gt;</code>: se queda quieto</h3>
+<p>
+  La coreografía es un adorno sobre un icono que <em>ya es el correcto</em>. Quitar el movimiento no
+  quita información: la campana sigue siendo una campana.
+</p>
+
+<h3>En <code>&lt;max-icon-morph&gt;</code>: salta al icono nuevo</h3>
+<p>
+  Aquí quedarse quieto dejaría al usuario mirando el icono <strong>equivocado</strong>. El destino
+  no es adorno, es estado: si el botón pasó de "reproducir" a "pausa", tiene que verse "pausa".
+</p>
+<p class="nota">
+  Se respeta el movimiento reducido <strong>quitando el movimiento, no el cambio de estado</strong>.
+  El morph se salta la transición y pinta el destino de una.
+</p>
+<p>
+  Si necesitas ignorar la preferencia del sistema — un caso raro, y la carga de justificarlo es tuya
+  — el override existe: <code>[respectReducedMotion]="false"</code>.
+</p>
+
+<h2>Lo que el componente no decide por ti</h2>
+<ul>
+  <li>
+    <strong>El color.</strong> El SVG usa <code>stroke="currentColor"</code>, así que hereda el
+    color del texto. El contraste contra el fondo lo controlas tú.
+  </li>
+  <li>
+    <strong>El área de toque.</strong> <code>size</code> es el tamaño del dibujo. Un botón de icono
+    necesita su propio padding para llegar a los 24×24 CSS px de objetivo mínimo.
+  </li>
+  <li>
+    <strong>El foco.</strong> El icono no es interactivo: no recibe foco ni teclado. Si va dentro de
+    algo clickeable, ese algo debe ser un <code>&lt;button&gt;</code> o un <code>&lt;a&gt;</code>
+    real.
+  </li>
+</ul>

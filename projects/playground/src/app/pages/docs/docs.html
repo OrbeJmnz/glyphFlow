@@ -1,0 +1,14 @@
+<div class="docs-marco">
+  <nav class="indice" aria-label="Documentación">
+    @for (s of secciones; track s.ruta) {
+      <a [routerLink]="s.ruta" routerLinkActive="activo">
+        <strong>{{ s.titulo }}</strong>
+        <span>{{ s.nota }}</span>
+      </a>
+    }
+  </nav>
+
+  <article class="docs-pagina">
+    <router-outlet />
+  </article>
+</div>

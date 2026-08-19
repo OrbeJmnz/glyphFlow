@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+
+.docs-marco {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 48rem) {
+  .docs-marco {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.indice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-self: start;
+  position: sticky;
+  top: 5.5rem;
+}
+
+@media (max-width: 48rem) {
+  .indice {
+    position: static;
+  }
+}
+
+.indice a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+  color: var(--gf-texto-tenue);
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.indice a strong {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.indice a span {
+  font-size: 0.75rem;
+  color: var(--gf-texto-apagado);
+}
+
+.indice a:hover {
+  color: var(--gf-texto);
+  background: var(--gf-panel);
+}
+
+.indice a.activo {
+  color: var(--gf-texto);
+  background: var(--gf-panel);
+  border-left-color: var(--gf-acento);
+}
+
+.docs-pagina {
+  min-width: 0;
+}

@@ -1,0 +1,69 @@
+<h1>SSR</h1>
+<p class="bajada">
+  glyphflow renderiza en servidor sin <code>window</code> ni <code>document</code> reales. El icono
+  llega pintado en el HTML; la animación arranca cuando el navegador hidrata.
+</p>
+
+<h2>Qué pasa en cada lado</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Momento</th>
+        <th>Qué se ve</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Render de servidor</td>
+        <td>
+          El <code>&lt;svg&gt;</code> completo, con su geometría y su <code>aria-hidden</code>. Sin
+          animación: no hay WAAPI en Node.
+        </td>
+      </tr>
+      <tr>
+        <td>Después de hidratar</td>
+        <td>El mismo SVG, ya vivo. El <code>trigger</code> empieza a funcionar.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  No hay parpadeo ni salto de layout: el SVG que pinta el servidor es el mismo nodo que el cliente
+  anima. No se reemplaza, se le agregan animaciones encima.
+</p>
+
+<h2>No necesitas configurar nada</h2>
+<p>
+  Ni <code>afterNextRender</code>, ni un guard de <code>isPlatformBrowser</code>, ni importar el
+  componente de forma diferida. Funciona con la config de SSR que ya tengas.
+</p>
+
+<h2>Cómo se verifica</h2>
+<p>
+  Con un smoke test que corre en <strong>Node genuino</strong>, no en jsdom — y eso es el punto:
+  jsdom define <code>window</code>, así que un test ahí no probaría nada. El script arranca fallando
+  a propósito si detecta <code>window</code>:
+</p>
+<pre><code>if (typeof window !== 'undefined') &#123;
+  throw new Error('Este smoke test debe correr sin `window` global — si existe, no prueba nada.');
+&#125;</code></pre>
+<p>
+  Luego renderiza con <code>renderApplication</code> de <code>&#64;angular/platform-server</code> y
+  exige dos cosas del HTML resultante: que haya un <code>&lt;svg&gt;</code>, y que traiga el
+  <code>aria-hidden="true"</code> del icono decorativo. Corre en CI en cada commit (<code
+    >npm run test:ssr</code
+  >).
+</p>
+<p class="nota">
+  La segunda comprobación no es de adorno. Un render que "no truena" pero devuelve HTML vacío pasa
+  cualquier prueba que solo mire si hubo excepción — por eso el test afirma sobre el contenido, no
+  sobre la ausencia de error.
+</p>
+
+<h2>Morph en servidor</h2>
+<p>
+  <code>&lt;max-icon-morph&gt;</code> cae por el mismo camino que el primer render del cliente:
+  pinta el icono estático. Morphear "desde nada" no existe, y en el servidor tampoco hay un valor
+  anterior del cual salir. Se ve el icono correcto; la transición espera al navegador.
+</p>

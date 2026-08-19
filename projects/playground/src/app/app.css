@@ -1,235 +1,92 @@
 :host {
   display: block;
   min-height: 100dvh;
-  padding: 2.5rem 1.5rem 4rem;
-  background: #0b0b0f;
-  color: #e7e7ea;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    sans-serif;
 }
 
-.head {
-  max-width: 68rem;
-  margin: 0 auto 2.5rem;
-  text-align: center;
-}
+/* ── Barra superior ─────────────────────────────────────────────────────────── */
 
-.head h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.head p {
-  margin: 0 auto 1.25rem;
-  max-width: 34rem;
-  color: #a1a1ac;
-  line-height: 1.6;
-}
-
-.repeat-all,
-.repeat {
-  border: 1px solid #2a2a33;
-  border-radius: 0.5rem;
-  background: #15151c;
-  color: #a1a1ac;
-  font: inherit;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.repeat-all {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-}
-
-.repeat-all:hover,
-.repeat:hover {
-  color: #e7e7ea;
-  border-color: #3f3f4b;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
-  gap: 0.75rem;
-  max-width: 68rem;
-  margin: 0 auto;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 1.25rem 0.5rem 0.9rem;
-  border: 1px solid #1d1d25;
-  border-radius: 0.75rem;
-  background: #101017;
-  cursor: pointer;
-  transition:
-    border-color 0.15s ease,
-    background 0.15s ease;
-}
-
-.card:hover {
-  border-color: #33333f;
-}
-
-.card:focus-visible {
-  outline: 2px solid #6c6c96;
-  outline-offset: 2px;
-}
-
-.card.inspeccionado {
-  border-color: #6c6c96;
-  background: #14141d;
-}
-
-.name {
-  font-size: 0.75rem;
-  color: #8b8b96;
-  text-align: center;
-  overflow-wrap: anywhere;
-  line-height: 1.3;
-}
-
-.repeat {
-  padding: 0.2rem 0.6rem;
-  font-size: 0.6875rem;
-}
-
-.foot {
-  margin: 3rem auto 0;
-  text-align: center;
-  font-size: 0.8125rem;
-  color: #6c6c78;
-}
-
-.foot code {
-  color: #a1a1ac;
-}
-
-/* ── Barra de controles: velocidad global + filtro por insignia ─────────────── */
-
-.barra {
+.shell-head {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem 1.25rem;
+  gap: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--gf-borde-suave);
+  /* Opaco, no translúcido: detrás pasan 180 iconos animándose y un blur los convierte en ruido. */
+  background: var(--gf-fondo);
 }
 
-.grupo {
+.marca {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gf-texto);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 0.25rem;
+  margin-right: auto;
+}
+
+.nav a {
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.5rem;
+  color: var(--gf-texto-tenue);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.nav a:hover {
+  color: var(--gf-texto);
+  background: var(--gf-panel-alto);
+}
+
+.nav a.activo {
+  color: var(--gf-texto);
+  background: var(--gf-acento-fondo);
+}
+
+.velocidad {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
 }
 
-.grupo-tit {
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6c6c78;
-}
-
-.chip {
-  padding: 0.3rem 0.6rem;
-  border: 1px solid #2a2a33;
-  border-radius: 999px;
-  background: #15151c;
-  color: #a1a1ac;
-  font: inherit;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease,
-    background 0.15s ease;
-}
-
-.chip:hover {
-  color: #e7e7ea;
-  border-color: #3f3f4b;
-}
-
-.chip.activo {
-  border-color: #6c6c96;
-  background: #1c1c2a;
-  color: #e7e7ea;
-}
-
-.chip em {
-  font-style: normal;
-  color: #6c6c78;
-}
-
-.chip.activo em {
-  color: #a1a1ac;
-}
-
-.head .aviso {
+.shell-aviso {
+  max-width: var(--gf-ancho);
   margin: 0.9rem auto 0;
-  max-width: 34rem;
+  padding: 0 1.5rem;
   font-size: 0.8125rem;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
+  text-align: center;
 }
 
-.enlace {
-  border: 0;
-  padding: 0;
-  background: none;
+.shell-cuerpo {
+  display: block;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+.shell-foot {
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid var(--gf-borde-suave);
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--gf-texto-apagado);
+}
+
+.shell-foot code {
+  color: var(--gf-texto-medio);
+}
+
+.shell-foot a {
+  margin-left: 0.5rem;
   color: #9c9cc8;
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-/* ── Insignias del grid ─────────────────────────────────────────────────────── */
-
-.card {
-  position: relative;
-}
-
-.insignias {
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.25rem;
-  max-width: calc(100% - 0.8rem);
-}
-
-.insignia {
-  padding: 0.05rem 0.35rem;
-  border: 1px solid #2a2a33;
-  border-radius: 999px;
-  background: #15151c;
-  font-size: 0.625rem;
-  line-height: 1.5;
-  color: #8b8b96;
-  cursor: help;
-}
-
-/* La única que celebra algo: hay más animación de la que se ve en la tarjeta. */
-.insignia[data-ins='extras'] {
-  border-color: #4d4d7a;
-  background: #1c1c2a;
-  color: #b9b9e0;
-}
-
-/* Advertencia suave, no error: el icono funciona, solo que nadie le puso coreografía propia. */
-.insignia[data-ins='solo-draw'] {
-  border-color: #3a3226;
-  background: #1a1712;
-  color: #9c8a6b;
 }

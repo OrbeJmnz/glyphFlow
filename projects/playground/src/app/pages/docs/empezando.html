@@ -1,0 +1,155 @@
+<h1>Empezando</h1>
+<p class="bajada">
+  Iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación en
+  runtime — ni <code>&#64;angular/animations</code>, ni Motion, ni GSAP.
+</p>
+
+<h2>Instalar</h2>
+<pre><code>npm i glyphflow</code></pre>
+<p>
+  Angular <strong>20, 21 o 22</strong> (<code>peerDependencies: &gt;=20.0.0 &lt;23.0.0</code>). La
+  única dependencia real es <code>tslib</code>. Licencia MIT.
+</p>
+
+<h2>Tu primer icono</h2>
+<p>
+  El componente es standalone: se importa donde se usa, sin módulo intermedio. El icono se pasa como
+  <strong>valor</strong>, con un import nombrado.
+</p>
+<pre><code>import &#123; Component &#125; from '&#64;angular/core';
+import &#123; MaxIconComponent, bellIcon &#125; from 'glyphflow';
+
+&#64;Component(&#123;
+  selector: 'app-aviso',
+  imports: [MaxIconComponent],
+  template: '&lt;max-icon [iconDef]="bell" [size]="24" label="Notificaciones" /&gt;',
+&#125;)
+export class Aviso &#123;
+  protected readonly bell = bellIcon;
+&#125;</code></pre>
+<p>
+  El selector es <code>max-icon</code>, no <code>glyphflow-icon</code>: el prefijo no se ata al
+  nombre del paquete, mismo patrón que <code>mat-button</code> o <code>p-button</code>.
+</p>
+
+<h2>Por qué <code>[iconDef]</code> y no <code>name=</code></h2>
+<p>
+  Porque es la ruta que de verdad hace tree-shaking. Los números salen del presupuesto que corre en
+  CI en cada commit, no de una promesa:
+</p>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Qué importas</th>
+        <th>Bundle (gzip)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Solo el componente, sin ningún icono</td>
+        <td>3.74 KB</td>
+      </tr>
+      <tr>
+        <td>Componente + 1 icono por import nombrado</td>
+        <td>4.09 KB</td>
+      </tr>
+      <tr>
+        <td><code>name=</code> con el registro completo</td>
+        <td>94.48 KB</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  Un icono cuesta ese icono. Buscar por nombre en tiempo de ejecución obliga al bundler a conservar
+  los 1767, porque no puede saber cuál vas a pedir.
+</p>
+
+<h2>Si aun así quieres <code>name=</code></h2>
+<p>
+  Existe, y es opt-in a propósito: sin registrar el catálogo, <code>name="bell"</code> no pinta nada
+  y <strong>no truena</strong> — mismo contrato que un nombre desconocido.
+</p>
+<pre><code>import &#123; provideIconCatalog, ANIMATED_ICONS &#125; from 'glyphflow';
+
+bootstrapApplication(App, &#123;
+  providers: [provideIconCatalog(ANIMATED_ICONS)],
+&#125;);</code></pre>
+<p class="nota ojo">
+  Ese <code>provideIconCatalog(ANIMATED_ICONS)</code> es justo lo que trae los 94 KB. Úsalo cuando
+  el nombre del icono sea un dato (viene de una API, de una config), no cuando lo escribes tú en la
+  plantilla.
+</p>
+
+<h2>Cuándo se anima</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th><code>trigger</code></th>
+        <th>Qué hace</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>group</code></td>
+        <td>
+          Dibuja al montarse y se anima con el hover del contenedor <code>.group</code> más cercano
+          — el mismo que gobierna <code>group-hover:</code> de Tailwind. Si no hay ninguno, escucha
+          al propio icono.
+        </td>
+      </tr>
+      <tr>
+        <td><code>hover</code></td>
+        <td>Al entrar el puntero.</td>
+      </tr>
+      <tr>
+        <td><code>tap</code></td>
+        <td>Al hacer click.</td>
+      </tr>
+      <tr>
+        <td><code>view</code></td>
+        <td>
+          Al entrar al viewport. Con <code>viewOnce</code> decides si una vez o cada reentrada.
+        </td>
+      </tr>
+      <tr>
+        <td><code>auto</code></td>
+        <td>En cuanto monta.</td>
+      </tr>
+      <tr>
+        <td><code>manual</code></td>
+        <td>Nunca solo: lo disparas tú llamando <code>play()</code> sobre la instancia.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Velocidad global</h2>
+<p>
+  Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph
+  por igual. <code>1</code> es sin cambio; sin proveer nada, el comportamiento queda intacto.
+</p>
+<pre><code>import &#123; provideMaxIcons &#125; from 'glyphflow';
+
+providers: [provideMaxIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
+<p>
+  Los chips de <em>velocidad</em> de la barra superior de este sitio son exactamente eso, movidos en
+  vivo. Aplican desde la siguiente reproducción: lo que ya está corriendo conserva la duración que
+  el navegador ya recibió.
+</p>
+
+<h2>Morph entre dos iconos</h2>
+<p>
+  Vive en un entry point aparte, <code>glyphflow/morph</code>, para que quien solo quiera iconos
+  animados no pague la matemática de interpolación de formas.
+</p>
+<pre><code>import &#123; MaxIconMorphComponent &#125; from 'glyphflow/morph';
+
+// El binding ES el estado: cambiar [icon] dispara la transición desde el valor anterior.
+// &lt;max-icon-morph [icon]="actual()" [size]="32" label="Estado" /&gt;</code></pre>
+<p class="nota">
+  El primer valor se pinta estático — morphear "desde nada" no existe. Ahí cae también el SSR y
+  cualquier navegador sin WAAPI: se ve el icono, no se anima.
+</p>

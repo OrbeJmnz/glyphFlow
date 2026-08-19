@@ -1,0 +1,152 @@
+:host {
+  display: block;
+}
+
+.head {
+  max-width: 68rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.head h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.head p {
+  margin: 0 auto 1.25rem;
+  max-width: 34rem;
+  color: var(--gf-texto-medio);
+  line-height: 1.6;
+}
+
+.head .aviso {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  font-size: 0.8125rem;
+  color: var(--gf-texto-tenue);
+}
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.grupo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.repeat-all,
+.repeat {
+  border: 1px solid var(--gf-borde);
+  border-radius: 0.5rem;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-medio);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.repeat-all {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.repeat-all:hover,
+.repeat:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.repeat {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.6875rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.75rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.25rem 0.5rem 0.9rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.75rem;
+  background: var(--gf-panel);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.card:hover {
+  border-color: #33333f;
+}
+
+.card.inspeccionado {
+  border-color: var(--gf-acento);
+  background: #14141d;
+}
+
+.name {
+  font-size: 0.75rem;
+  color: var(--gf-texto-tenue);
+  text-align: center;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+
+/* ── Insignias ──────────────────────────────────────────────────────────────── */
+
+.insignias {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  max-width: calc(100% - 0.8rem);
+}
+
+.insignia {
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  color: var(--gf-texto-tenue);
+  cursor: help;
+}
+
+/* La única que celebra algo: hay más animación de la que se ve en la tarjeta. */
+.insignia[data-ins='extras'] {
+  border-color: #4d4d7a;
+  background: var(--gf-acento-fondo);
+  color: var(--gf-acento-claro);
+}
+
+/* Advertencia suave, no error: el icono funciona, solo que nadie le puso coreografía propia. */
+.insignia[data-ins='solo-draw'] {
+  border-color: #3a3226;
+  background: #1a1712;
+  color: #9c8a6b;
+}

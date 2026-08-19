@@ -1,107 +1,47 @@
-<header class="head">
-  <h1>glyphflow</h1>
-  <p>
-    Los <strong>{{ total }}</strong> iconos curados, con su coreografía a mano. Pasa el puntero
-    sobre una tarjeta para animarla, dale click para ver su detalle (variantes, snippet, JSON), o
-    dale a repetir.
-  </p>
+<header class="shell-head">
+  <a class="marca" routerLink="/">glyphflow</a>
 
-  <div class="barra">
-    <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
+  <nav class="nav" aria-label="Secciones">
+    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }">
+      Iconos
+    </a>
+    <a routerLink="/lab" routerLinkActive="activo">Lab</a>
+    <a routerLink="/docs" routerLinkActive="activo">Docs</a>
+  </nav>
 
-    <!-- `provideMaxIcons({ durationScale })`, movido en vivo. Aplica también al morph. -->
-    <span class="grupo" role="group" aria-label="Velocidad global">
-      <span class="grupo-tit">velocidad</span>
-      @for (p of presets; track p.valor) {
-        <button
-          type="button"
-          class="chip"
-          [class.activo]="escala() === p.valor"
-          [attr.aria-pressed]="escala() === p.valor"
-          [title]="p.nota"
-          (click)="escala.set(p.valor)"
-        >
-          {{ p.etiqueta }}
-        </button>
-      }
-    </span>
-
-    @if (conteos.length) {
-      <span class="grupo" role="group" aria-label="Filtrar por insignia">
-        <span class="grupo-tit">solo</span>
-        @for (c of conteos; track c.clave) {
-          <button
-            type="button"
-            class="chip"
-            [class.activo]="filtro() === c.clave"
-            [attr.aria-pressed]="filtro() === c.clave"
-            (click)="alternarFiltro(c.clave)"
-          >
-            {{ c.etiqueta }} <em>{{ c.n }}</em>
-          </button>
-        }
-      </span>
-    }
-  </div>
-
-  @if (escala() !== 1) {
-    <p class="aviso">
-      Escala <strong>{{ escala() }}×</strong> — aplica desde la siguiente reproducción; lo que ya
-      está corriendo se queda con la suya.
-    </p>
-  }
-  @if (filtro()) {
-    <p class="aviso">
-      Mostrando {{ entries().length }} de {{ total }}.
-      <button type="button" class="enlace" (click)="filtro.set(null)">quitar el filtro</button>
-    </p>
-  }
-</header>
-
-@if (inspeccionado(); as sel) {
-  <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="inspeccionado.set(null)" />
-}
-
-<app-icon-import />
-
-<app-morph-picker />
-
-<app-morph-bench />
-
-<main class="grid">
-  @for (entry of entries(); track entry.name; let i = $index) {
-    <article
-      class="card"
-      [class.inspeccionado]="inspeccionado()?.name === entry.name"
-      role="button"
-      tabindex="0"
-      [attr.aria-label]="'Inspeccionar ' + entry.name"
-      (click)="inspeccionar(entry)"
-      (keydown.enter)="inspeccionar(entry)"
-    >
-      @if (entry.insignias.length) {
-        <span class="insignias">
-          @for (ins of entry.insignias; track ins.clave) {
-            <span class="insignia" [attr.data-ins]="ins.clave" [title]="ins.titulo">
-              {{ ins.etiqueta }}
-            </span>
-          }
-        </span>
-      }
-      <max-icon [iconDef]="entry.def" [size]="32" trigger="group" />
-      <span class="name">{{ entry.name }}</span>
+  <!--
+    Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
+    así que el control pertenece al chrome, no a una página.
+  -->
+  <div class="velocidad" role="group" aria-label="Velocidad global de las animaciones">
+    <span class="grupo-tit">velocidad</span>
+    @for (p of presets; track p.valor) {
       <button
         type="button"
-        class="repeat"
-        (click)="$event.stopPropagation(); repetir(i)"
-        [attr.aria-label]="'Repetir ' + entry.name"
+        class="chip"
+        [class.activo]="escala() === p.valor"
+        [attr.aria-pressed]="escala() === p.valor"
+        [title]="p.nota"
+        (click)="escala.set(p.valor)"
       >
-        repetir
+        {{ p.etiqueta }}
       </button>
-    </article>
-  }
+    }
+  </div>
+</header>
+
+@if (escala() !== 1) {
+  <p class="shell-aviso">
+    Velocidad <strong>{{ escala() }}×</strong> — aplica desde la siguiente reproducción; lo que ya
+    está corriendo conserva la suya.
+  </p>
+}
+
+<main class="shell-cuerpo">
+  <router-outlet />
 </main>
 
-<footer class="foot">
-  Consumiendo <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
+<footer class="shell-foot">
+  Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
+  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">Código en GitHub</a>
 </footer>

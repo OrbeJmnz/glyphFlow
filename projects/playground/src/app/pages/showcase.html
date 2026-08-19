@@ -1,0 +1,74 @@
+<header class="head">
+  <h1>Los {{ total }} iconos curados</h1>
+  <p>
+    Cada uno con su coreografía a mano, corriendo sobre Web Animations API nativa. Pasa el puntero
+    sobre una tarjeta para animarla, dale click para ver su detalle (variantes, snippet, JSON), o
+    dale a repetir.
+  </p>
+
+  <div class="barra">
+    <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
+
+    @if (conteos.length) {
+      <span class="grupo" role="group" aria-label="Filtrar por insignia">
+        <span class="grupo-tit">solo</span>
+        @for (c of conteos; track c.clave) {
+          <button
+            type="button"
+            class="chip"
+            [class.activo]="filtro() === c.clave"
+            [attr.aria-pressed]="filtro() === c.clave"
+            (click)="alternarFiltro(c.clave)"
+          >
+            {{ c.etiqueta }} <em>{{ c.n }}</em>
+          </button>
+        }
+      </span>
+    }
+  </div>
+
+  @if (filtro()) {
+    <p class="aviso">
+      Mostrando {{ entries().length }} de {{ total }}.
+      <button type="button" class="enlace" (click)="filtro.set(null)">quitar el filtro</button>
+    </p>
+  }
+</header>
+
+@if (inspeccionado(); as sel) {
+  <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="inspeccionado.set(null)" />
+}
+
+<div class="grid">
+  @for (entry of entries(); track entry.name; let i = $index) {
+    <article
+      class="card"
+      [class.inspeccionado]="inspeccionado()?.name === entry.name"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="'Inspeccionar ' + entry.name"
+      (click)="inspeccionar(entry)"
+      (keydown.enter)="inspeccionar(entry)"
+    >
+      @if (entry.insignias.length) {
+        <span class="insignias">
+          @for (ins of entry.insignias; track ins.clave) {
+            <span class="insignia" [attr.data-ins]="ins.clave" [title]="ins.titulo">
+              {{ ins.etiqueta }}
+            </span>
+          }
+        </span>
+      }
+      <max-icon [iconDef]="entry.def" [size]="32" trigger="group" />
+      <span class="name">{{ entry.name }}</span>
+      <button
+        type="button"
+        class="repeat"
+        (click)="$event.stopPropagation(); repetir(i)"
+        [attr.aria-label]="'Repetir ' + entry.name"
+      >
+        repetir
+      </button>
+    </article>
+  }
+</div>

@@ -1,1 +1,103 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+ * Tokens y primitivas compartidas del playground.
+ *
+ * Vive en el CSS global (no en un componente) porque con encapsulación emulada un estilo del shell
+ * no alcanza a sus hijos: cada página tendría que re-declarar el mismo chip. Aquí solo va lo que de
+ * verdad se repite entre páginas — lo específico se queda en el CSS de su componente.
+ */
+
+:root {
+  --gf-fondo: #0b0b0f;
+  --gf-panel: #101017;
+  --gf-panel-alto: #15151c;
+  --gf-borde: #2a2a33;
+  --gf-borde-suave: #1d1d25;
+  --gf-borde-vivo: #3f3f4b;
+  --gf-texto: #e7e7ea;
+  --gf-texto-medio: #a1a1ac;
+  --gf-texto-tenue: #8b8b96;
+  --gf-texto-apagado: #6c6c78;
+  --gf-acento: #6c6c96;
+  --gf-acento-claro: #b9b9e0;
+  --gf-acento-fondo: #1c1c2a;
+  --gf-ancho: 68rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--gf-fondo);
+  color: var(--gf-texto);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+
+code {
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+}
+
+/* ── Primitivas compartidas ─────────────────────────────────────────────────── */
+
+.chip {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-medio);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.chip:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.chip.activo {
+  border-color: var(--gf-acento);
+  background: var(--gf-acento-fondo);
+  color: var(--gf-texto);
+}
+
+.chip em {
+  font-style: normal;
+  color: var(--gf-texto-apagado);
+}
+
+.chip.activo em {
+  color: var(--gf-texto-medio);
+}
+
+.grupo-tit {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gf-texto-apagado);
+}
+
+.enlace {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #9c9cc8;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gf-acento);
+  outline-offset: 2px;
+}

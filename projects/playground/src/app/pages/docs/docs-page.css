@@ -1,0 +1,125 @@
+/*
+ * Tipografía compartida por las 4 páginas de docs. Un solo archivo referenciado desde los cuatro
+ * `styleUrl` — cada componente lo encapsula por su cuenta, pero la fuente de verdad es una.
+ */
+
+:host {
+  display: block;
+  max-width: 44rem;
+  line-height: 1.7;
+  color: var(--gf-texto-medio);
+}
+
+h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gf-texto);
+}
+
+.bajada {
+  margin: 0 0 2.25rem;
+  font-size: 1.0625rem;
+  color: var(--gf-texto-tenue);
+}
+
+h2 {
+  margin: 2.5rem 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+h3 {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  margin: 0 0 1rem;
+  padding-left: 1.1rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+strong {
+  color: var(--gf-texto);
+  font-weight: 600;
+}
+
+code {
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  background: var(--gf-panel-alto);
+  font-size: 0.875em;
+  color: var(--gf-acento-claro);
+}
+
+pre {
+  margin: 0 0 1.25rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  background: var(--gf-panel);
+  overflow-x: auto;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  color: var(--gf-texto-medio);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Nota al margen: el porqué contraintuitivo, no un adorno. */
+.nota {
+  margin: 0 0 1.25rem;
+  padding: 0.8rem 1rem;
+  border-left: 2px solid var(--gf-acento);
+  border-radius: 0 0.4rem 0.4rem 0;
+  background: var(--gf-panel);
+  font-size: 0.9375rem;
+}
+
+.nota.ojo {
+  border-left-color: #9c8a6b;
+}
+
+table {
+  width: 100%;
+  margin: 0 0 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th,
+td {
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--gf-borde-suave);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--gf-texto);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+td code {
+  white-space: nowrap;
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+}
