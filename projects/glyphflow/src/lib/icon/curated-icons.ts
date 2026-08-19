@@ -295,6 +295,12 @@ export const pencilIcon: AnimatedIconDef = /* @__PURE__ */ icon(pencilShapes, {
         700,
       ),
     },
+    /** Escribiendo: gira desde la punta, fija, simulando el trazo de la mano. */
+    write: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 6, -8, 5, -6, 3, 0]), 950, {
+        origin: '2.3px 21.5px',
+      }),
+    },
   });
 
 /** Agregar: golpe seco. `turn` es la otra lectura, la de "+ que se vuelve ✕". */
@@ -316,7 +322,16 @@ export const refreshCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(refreshCwShap
 /** Guardar: se hunde como un botón físico. */
 export const saveIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 420, { easing: SPRING_OUT, origin: 'center' }),
+      // El bounce sale de ADENTRO (la etiqueta) más grande y elástico; el cuerpo solo se asienta
+      // un poco, no es él quien rebota.
+      root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.95, 1]), 420, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 0.9, 1]), 600, {
+          delay: 80,
+          easing: SPRING_BOUNCY,
+          origin: '12px 17px',
+        }),
+      },
     },
   });
 
@@ -1454,6 +1469,14 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
         { easing: SPRING_OUT, origin: 'center' },
       ),
     },
+    /** Avanza: se desplaza a la derecha y regresa, elástico. */
+    next: {
+      root: /* @__PURE__ */ track(
+        [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
+        450,
+        { easing: SPRING_BOUNCY, origin: 'center' },
+      ),
+    },
   });
 
 /** Escaneo: las esquinas primero, luego los módulos. */
@@ -1475,10 +1498,16 @@ export const qrCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(qrCodeShapes, {
 /** Pergamino desenrollándose. */
 export const scrollTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(scrollTextShapes, {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scaleY(0.85)' }, { transform: 'scaleY(1)' }], 500, {
+      // Arranca más chico (enrollado) y se estira a su tamaño. Ya estirado, las dos líneas de
+      // texto se dibujan una tras otra, simulando que se escriben.
+      root: /* @__PURE__ */ track([{ transform: 'scaleY(0.6)' }, { transform: 'scaleY(1)' }], 500, {
         easing: SPRING_OUT,
         origin: 'top center',
       }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 500 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 650 }),
+      },
     },
   });
 
@@ -1719,6 +1748,12 @@ export const penIcon: AnimatedIconDef = /* @__PURE__ */ icon(penShapes, {
         700,
       ),
     },
+    /** Escribiendo: gira desde la punta, fija, simulando el trazo de la mano. */
+    write: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 6, -8, 5, -6, 3, 0]), 950, {
+        origin: '2.3px 21.5px',
+      }),
+    },
   });
 
 /** La pluma escribe y el renglón aparece detrás de ella. */
@@ -1734,6 +1769,15 @@ export const penLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(penLineShapes, 
           600,
         ),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 200 }),
+      },
+    },
+    /** Escribiendo: la pluma (1) gira desde su punta; el renglón (0) se dibuja al parejo. */
+    write: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 6, -8, 5, -6, 3, 0]), 950, {
+          origin: '2.3px 21.5px',
+        }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 700, { delay: 150 }),
       },
     },
   });
@@ -1878,7 +1922,13 @@ export const packageSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageSe
 
 /** Imprimiendo: la hoja sale. */
 export const printerIcon: AnimatedIconDef = /* @__PURE__ */ icon(printerShapes, {
-    default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2.5, 0]), 550, { easing: SPRING_OUT }) } },
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2.5, 0]), 550, { easing: SPRING_OUT }),
+        // La hoja que entra por arriba también se mueve, no solo la que sale.
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 export const rotateCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(rotateCwShapes, {
@@ -1888,9 +1938,35 @@ export const rotateCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(rotateCwShapes
 /** Router: la señal sale del aparato hacia afuera. */
 export const routerIcon: AnimatedIconDef = /* @__PURE__ */ icon(routerShapes, {
     default: {
+      // El router entra desde abajo; los dos indicadores parpadean desfasados entre sí.
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'translateY(6px)', opacity: '0.4' },
+          { transform: 'translateY(0)', opacity: '1' },
+        ],
+        450,
+        { easing: SPRING_OUT },
+      ),
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 220 }),
+        1: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 500),
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 650, { delay: 150 }),
+        // Los arcos de señal aparecen subiendo desde abajo, no con el pop-in de `burst`.
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(4px)', opacity: '0' },
+            { transform: 'translateY(0)', opacity: '1' },
+          ],
+          380,
+          { delay: 100 },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(4px)', opacity: '0' },
+            { transform: 'translateY(0)', opacity: '1' },
+          ],
+          380,
+          { delay: 220 },
+        ),
       },
     },
   });
