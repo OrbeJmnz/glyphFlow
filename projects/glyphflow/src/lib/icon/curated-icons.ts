@@ -499,8 +499,10 @@ export const sparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(sparklesShapes
 /** Borrar: la tapa se levanta girando desde su extremo izquierdo. */
 export const trashIcon: AnimatedIconDef = /* @__PURE__ */ icon(trashShapes, {
     default: {
+      // Replica la animación de trash-2 (tapa: línea + agarradera), sin los elementos que la
+      // diferencian (trash no tiene las líneas de contenido cayendo). El bote (0) se queda quieto.
       shapes: {
-        0: /* @__PURE__ */ track(
+        1: /* @__PURE__ */ track(
           [
             { transform: 'translateY(0) rotate(0deg)' },
             { transform: 'translateY(-1.5px) rotate(-12deg)' },
