@@ -1,5 +1,5 @@
 import { AnimatedIconDef } from './animated-icon.model';
-import { EASE, SPRING_OUT, SPRING_BOUNCY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
+import { EASE, SPRING_OUT, SPRING_BOUNCY, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
@@ -567,9 +567,20 @@ export const triangleAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(triangleA
 /** Subir: asta y punta van hacia arriba; la bandeja se queda. */
 export const uploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(uploadShapes, {
     default: {
+      // Solo la flecha se mueve (asta + punta); la bandeja se queda estática.
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 550),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 550),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 550),
+      },
+    },
+    /** El asta se acorta en longitud (scaleY) desde arriba, donde toca la punta; la punta no se mueve. */
+    retract: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.6)' }, { transform: 'scaleY(1)' }],
+          320,
+          { origin: '12px 3px' },
+        ),
       },
     },
   });
@@ -707,13 +718,22 @@ export const usersIcon: AnimatedIconDef = /* @__PURE__ */ icon(usersShapes, {
   });
 
 /** Camión que avanza CON las llantas girando. Sin las llantas, patina. */
+// Se resiste hacia la izquierda, sale disparado a la derecha y desaparece, y reaparece desde la
+// izquierda para retomar su lugar — sin las llantas girando.
+const SHOOT_OFF_KEYFRAMES: Keyframe[] = [
+  { transform: 'translateX(0)', opacity: '1', offset: 0 },
+  { transform: 'translateX(-3px)', opacity: '1', offset: 0.18 },
+  { transform: 'translateX(-3px)', opacity: '1', offset: 0.3 },
+  { transform: 'translateX(26px)', opacity: '1', offset: 0.46 },
+  { transform: 'translateX(26px)', opacity: '0', offset: 0.5 },
+  { transform: 'translateX(-26px)', opacity: '0', offset: 0.54 },
+  { transform: 'translateX(-26px)', opacity: '1', offset: 0.62 },
+  { transform: 'translateX(0)', opacity: '1', offset: 1 },
+];
+
 export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.5, 0]), 900),
-      shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: 'linear', origin: '7px 18px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: 'linear', origin: '17px 18px' }),
-      },
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
     },
   });
 
@@ -779,7 +799,9 @@ export const bookOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookOpenShapes
 /** Vibración de celular: corta y nerviosa, no un mecidito. */
 export const smartphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(smartphoneShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 3, -2, 2, 0]), 450),
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 7, -5, 5, -2, 0]), 600, {
+        easing: SPRING_SMOOTH,
+      }),
     },
   });
 
@@ -808,11 +830,7 @@ export const rotateCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(rotateCcwShap
 /** Carrito rodando con las ruedas girando. */
 export const shoppingCartIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingCartShapes, {
     default: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.5, 0]), 800),
-      shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 800, { easing: 'linear', origin: '8px 21px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 800, { easing: 'linear', origin: '19px 21px' }),
-      },
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
     },
   });
 
@@ -1342,11 +1360,48 @@ export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
 /** Tablero armándose, tarjeta por tarjeta. */
 export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutDashboardShapes, {
     default: {
+      // Los cuadros crecen y se achican alternado, pivotando desde su esquina EXTERIOR (la que
+      // toca el marco de 18x18) para que el cuadrado que forman entre los 4 no se deforme —
+      // solo respira el hueco interior, el contorno exterior se queda fijo.
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 80 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 160 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 240 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '3px 3px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 80,
+          origin: '21px 3px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 160,
+          origin: '21px 21px',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 240,
+          origin: '3px 21px',
+        }),
+      },
+    },
+    /** Los grandes se encogen al tamaño de los chicos y viceversa; luego regresan. */
+    swap: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '3px 3px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '21px 21px' },
+        ),
+        1: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '21px 3px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '3px 21px' },
+        ),
       },
     },
   });
@@ -1354,11 +1409,22 @@ export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutD
 /** Igual que el tablero pero en diagonal. */
 export const layoutGridIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutGridShapes, {
     default: {
+      // Mismo criterio que layout-dashboard: pivote en la esquina exterior, el cuadrado que
+      // forman los 4 no se deforma.
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 70 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 140 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 210 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '3px 3px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 70,
+          origin: '21px 3px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 140,
+          origin: '21px 21px',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 210,
+          origin: '3px 21px',
+        }),
       },
     },
   });
@@ -1972,7 +2038,11 @@ export const routerIcon: AnimatedIconDef = /* @__PURE__ */ icon(routerShapes, {
   });
 
 export const tabletIcon: AnimatedIconDef = /* @__PURE__ */ icon(tabletShapes, {
-    default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 3, -2, 2, 0]), 450) },
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 7, -5, 5, -2, 0]), 600, {
+        easing: SPRING_SMOOTH,
+      }),
+    },
   });
 
 export const triangleIcon: AnimatedIconDef = /* @__PURE__ */ icon(triangleShapes, {
@@ -2294,9 +2364,19 @@ export const bracesIcon: AnimatedIconDef = /* @__PURE__ */ icon(bracesShapes, {
     },
   });
 
-/** Panel: el divisor se desliza. */
+/** Panel: el divisor se desliza a la izquierda — "left" es el nombre, no solo la etiqueta. */
+// Se mueve a la izquierda y se sostiene ahí la mayor parte del tiempo, en vez de un vaivén
+// parejo que se lee ambiguo. panel-left-close usa el mismo divisor: su flecha "<" ya apunta
+// y empuja hacia la izquierda, así que ambos van en la MISMA dirección.
+const PANEL_DIVIDER_LEFT: Keyframe[] = [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-2px)', offset: 0.35 },
+  { transform: 'translateX(-2px)', offset: 0.75 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
 export const panelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftShapes, {
-    default: { shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 500) } },
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550) } },
   });
 
 /** Cerrar panel: la flecha empuja hacia la izquierda y se sostiene. */
@@ -2305,6 +2385,7 @@ export const panelLeftCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLef
     // de la flecha, sin un root vacío de relleno.
     default: {
       shapes: {
+        1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
