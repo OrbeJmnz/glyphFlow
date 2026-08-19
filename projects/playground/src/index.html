@@ -13,6 +13,22 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <!--
+      Vista previa al compartir el enlace. Va en PNG y no en SVG a propósito: los scrapers de redes
+      no renderizan SVG, así que un `og:image` en SVG se ve como enlace pelado. El 1200w es el
+      tamaño que piden las tarjetas grandes.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="glyphflow — iconos de Lucide animados para Angular" />
+    <meta
+      property="og:description"
+      content="Animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real, morph entre formas."
+    />
+    <meta property="og:image" content="/images/glyphflow-logo-1200w.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="406" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
       Outfit, la tipografía del sitio. `preconnect` a los dos orígenes porque los archivos .woff2
       viven en gstatic, no en googleapis: sin el segundo, el navegador descubre ese host hasta que
       ya bajó el CSS y la fuente entra tarde.

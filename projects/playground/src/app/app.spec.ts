@@ -23,7 +23,10 @@ describe('App (shell)', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    expect(html.querySelector('.marca')?.textContent).toContain('glyphflow');
+    // La marca ya no es texto sino el logotipo. Lo que se verifica es su nombre ACCESIBLE — que es
+    // lo que oye un lector de pantalla — y no que el `<img>` exista, que no probaría nada.
+    expect(html.querySelector('.marca img')?.getAttribute('alt')).toBe('glyphflow');
+    expect(html.querySelector('.marca')?.getAttribute('aria-label')).toContain('glyphflow');
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
     expect(rutas).toEqual(['Iconos', 'Patrones', 'Editor', 'Lab', 'Docs']);
   });

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MaxIconComponent, workflowIcon, type AnimatedIconDef } from 'glyphflow';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
+import { Logo } from './shared/marca/logo';
 
 /**
  * Shell del playground: navegación, control global de velocidad y el outlet. Nada de contenido.
@@ -12,13 +12,11 @@ import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MaxIconComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Logo],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  /** El glifo de la marca. `trigger="group"` lo cuelga del hover del header entero. */
-  protected readonly glifo: AnimatedIconDef = workflowIcon;
   protected readonly presets = PRESETS_ESCALA;
   protected readonly escala = escalaDuracion;
 }

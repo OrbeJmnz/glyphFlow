@@ -14,13 +14,23 @@
   text-align: center;
 }
 
-.hero h1 {
-  margin: 0;
-  font-size: 46px;
-  font-weight: 500;
-  line-height: 52px;
-  letter-spacing: -0.01em;
-  color: var(--gf-texto);
+/* El logotipo a 480 de los 780 nativos: deja margen para pantallas densas sin escalar hacia arriba. */
+.marca-hero img {
+  display: block;
+  width: min(480px, 100%);
+  height: auto;
+  margin: 0 auto;
+  /*
+   * El GIF trae fondo OPACO (medido: rgb(14,14,15)) contra una página de rgb(18,18,18), y esos
+   * cuatro puntos de diferencia se ven como un recuadro alrededor del logotipo. `lighten` compara
+   * y se queda con lo más claro: el fondo del GIF pierde contra la página y desaparece, mientras
+   * el arte — que es blanco y degradado brillante — sobrevive.
+   *
+   * OJO para el tema claro: esto NO va a funcionar sobre fondo claro, donde `lighten` blanquearía
+   * el logotipo entero. Ahí hará falta un GIF con transparencia real, o encerrarlo en un panel
+   * oscuro a propósito. Es límite del asset, no del CSS.
+   */
+  mix-blend-mode: lighten;
 }
 
 .hero .bajada {
@@ -30,13 +40,6 @@
   font-weight: 400;
   line-height: 25px;
   color: var(--gf-texto-tenue);
-}
-
-@media (max-width: 40rem) {
-  .hero h1 {
-    font-size: 34px;
-    line-height: 40px;
-  }
 }
 
 .acciones {

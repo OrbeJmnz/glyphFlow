@@ -1,5 +1,26 @@
 <section class="hero">
-  <h1>glyphflow — iconos que se mueven</h1>
+  <!--
+    El logotipo animado ocupa el lugar del titular, pero el `<h1>` NO desaparece: se esconde solo a
+    la vista. Reemplazar el h1 por una imagen sin texto es la forma clásica de perder el SEO de la
+    portada y de dejar mudo al lector de pantalla.
+
+    Y el GIF respeta el movimiento reducido. No es un adorno de la regla: la librería trae
+    `respectReducedMotion = true` por default y le dedica una página de docs — arrancar 75 cuadros
+    solos sería el sitio contradiciendo lo que documenta. Un GIF no se puede pausar por CSS, así que
+    con esa preferencia se sirve el logotipo quieto.
+  -->
+  <h1 class="visualmente-oculto">glyphflow — iconos que se mueven</h1>
+  <picture class="marca-hero">
+    <source media="(prefers-reduced-motion: reduce)" srcset="/images/glyphflow-logo.svg" />
+    <img
+      src="/images/glyphflow-anim-preview.gif"
+      width="780"
+      height="264"
+      alt=""
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
   <p class="bajada">
     Los iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación,
     tree-shaking real y morph entre formas. Para Angular.

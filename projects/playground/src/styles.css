@@ -110,6 +110,22 @@ code {
   cursor: pointer;
 }
 
+/*
+ * Esconde a la vista SIN esconder del lector de pantalla. `display:none` o `visibility:hidden`
+ * harían lo contrario: sacarlo también del árbol de accesibilidad, que es justo lo que no se busca.
+ */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
 :focus-visible {
   outline: 2px solid var(--gf-acento);
   outline-offset: 2px;
