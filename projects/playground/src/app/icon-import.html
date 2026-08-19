@@ -5,6 +5,12 @@
 
   @if (abierto()) {
     <div class="import-body">
+      @if (desdeEditor(); as nombre) {
+        <p class="import-nota desde-editor">
+          Llegó <strong>{{ nombre }}</strong> desde el editor de geometría, con su coreografía
+          original. Se previsualiza abajo.
+        </p>
+      }
       <p class="import-nota">
         Pega el JSON que copiaste de "Exportar JSON" en el panel de detalle. Se previsualiza con el
         mismo <code>[iconDef]</code> que usa el resto del playground.

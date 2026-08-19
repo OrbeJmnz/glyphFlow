@@ -65,8 +65,9 @@ describe('Editor', () => {
     otro.click();
     await fixture.whenStable();
     expect(html.querySelector('.salida code')!.textContent).not.toBe(primero);
-    // Y el botón de restablecer no aparece: el icono nuevo está limpio.
-    expect(html.querySelector('.salida-cab .enlace')?.textContent?.trim()).toBe('copiar');
+    // Y el botón de restablecer no aparece: el icono nuevo está limpio, así que el primer enlace
+    // de la cabecera es ya el de copiar.
+    expect(html.querySelector('.salida-cab .enlace')?.textContent?.trim()).toBe('copiar d');
   });
 
   it('un arrastre entero es UN paso de deshacer, no uno por píxel', async () => {

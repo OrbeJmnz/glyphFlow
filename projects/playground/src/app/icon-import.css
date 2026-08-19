@@ -86,3 +86,10 @@
 .preview max-icon {
   color: var(--gf-texto);
 }
+
+/* Marca de dónde vino: pegado a mano y llegado del editor no son lo mismo. */
+.desde-editor {
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--gf-acento);
+  color: var(--gf-texto-medio);
+}

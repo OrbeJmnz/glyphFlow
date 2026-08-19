@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild, computed, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { CURATED_ICONS, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from '../geometria/path-model';
 import {
@@ -14,6 +15,7 @@ import {
   type Nodo,
 } from '../geometria/path-edit';
 import { crearHistorial } from '../geometria/historial';
+import { Taller } from '../taller';
 
 const LADO = 24;
 
@@ -92,6 +94,39 @@ export class Editor {
   );
 
   protected readonly editado = computed(() => this.dPorPath().join('\n'));
+
+  /**
+   * El icono editado, listo para coreografiar: la geometría nueva con la coreografía ORIGINAL.
+   *
+   * Los `d` editados se reponen EN SU SITIO dentro del arreglo de figuras, no al final. Los tracks
+   * de la coreografía apuntan a `shapes[i]` por índice, así que reordenar aquí rompería en
+   * silencio justo la animación que se quiere conservar.
+   */
+  protected readonly defEditado = computed<AnimatedIconDef>(() => {
+    const ds = this.dPorPath();
+    let k = 0;
+    const shapes = this.elegido().def.shapes.map((f) =>
+      f.tag === 'path' && typeof (f as { d?: unknown }).d === 'string'
+        ? ({ ...f, d: ds[k++] } as IconShape)
+        : f,
+    );
+    return { ...this.elegido().def, shapes };
+  });
+
+  /** El mismo formato que acepta el importador del Lab: no hay una ruta privilegiada. */
+  protected readonly json = computed(() =>
+    JSON.stringify(
+      {
+        icono: this.elegido().nombre,
+        viewBox: this.elegido().def.viewBox,
+        shapes: this.defEditado().shapes,
+        animations: this.elegido().def.animations,
+      },
+      null,
+      2,
+    ),
+  );
+
   protected readonly tocado = signal(false);
 
   /**
@@ -289,6 +324,23 @@ export class Editor {
     }
     this.historial.cerrar(this.modelos());
     this.sincronizarPila();
+  }
+
+  private readonly taller = inject(Taller);
+  private readonly router = inject(Router);
+
+  /** Manda la forma editada al Lab y navega: el traspaso que evita copiar y pegar a mano. */
+  protected coreografiar(): void {
+    this.taller.enviar(this.elegido().nombre, this.defEditado());
+    void this.router.navigate(['/lab']);
+  }
+
+  protected async copiarJson(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.json());
+    } catch {
+      /* sin permiso: no se finge que copió */
+    }
   }
 
   protected async copiar(): Promise<void> {

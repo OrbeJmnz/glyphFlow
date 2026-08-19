@@ -200,10 +200,19 @@
           @if (tocado()) {
             <button type="button" class="enlace" (click)="restablecer()">restablecer</button>
           }
-          <button type="button" class="enlace" (click)="copiar()">copiar</button>
+          <button type="button" class="enlace" (click)="copiar()">copiar d</button>
+          <button type="button" class="enlace" (click)="copiarJson()">copiar JSON</button>
         </span>
       </div>
       <pre><code>{{ editado() }}</code></pre>
     </div>
+
+    <button type="button" class="btn-coreografiar" (click)="coreografiar()">
+      Coreografiar esta forma →
+    </button>
+    <p class="pista-nodo">
+      Se lleva la geometría editada al Lab <strong>con la coreografía original</strong>: los tracks
+      apuntan a las mismas figuras, así que la animación que ya existía corre sobre la forma nueva.
+    </p>
   </aside>
 </div>

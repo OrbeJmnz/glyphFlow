@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
+import { Taller } from './taller';
 
 /**
  * El otro lado del "Exportar JSON" del panel de detalle: pega el JSON de vuelta y se previsualiza
@@ -16,6 +17,31 @@ import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
 export class IconImport {
   protected readonly entrada = signal('');
   protected readonly abierto = signal(false);
+  /** De dónde vino lo que está cargado, cuando no lo pegó el usuario. */
+  protected readonly desdeEditor = signal<string | null>(null);
+
+  constructor() {
+    // Si el editor de geometría mandó una forma, entra por ESTA misma puerta: se rellena el JSON y
+    // se abre el panel. No hay una ruta privilegiada para el traspaso — si el importador público
+    // no alcanzara para recibirlo, sería señal de que a la API le falta algo, no de que haga falta
+    // un atajo interno.
+    const pieza = inject(Taller).recoger();
+    if (!pieza) return;
+    this.desdeEditor.set(pieza.nombre);
+    this.abierto.set(true);
+    this.entrada.set(
+      JSON.stringify(
+        {
+          icono: pieza.nombre,
+          viewBox: pieza.def.viewBox,
+          shapes: pieza.def.shapes,
+          animations: pieza.def.animations,
+        },
+        null,
+        2,
+      ),
+    );
+  }
 
   protected readonly resultado = computed<
     { def: AnimatedIconDef; nombre: string } | { error: string } | null
