@@ -1592,6 +1592,22 @@ export const layoutPanelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutP
         }),
       },
     },
+    /** El sidebar es el protagonista: late dos veces, las tarjetas se quedan quietas. */
+    focus: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(1.18)' },
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(1.18)' },
+            { transform: 'scaleX(1)' },
+          ],
+          700,
+          { origin: '3px 12px' },
+        ),
+      },
+    },
   });
 
 /** Header + 2 tarjetas: crecen/achican alternado, el header respira en alto (no ancho). */
@@ -1613,6 +1629,22 @@ export const layoutPanelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutPa
         }),
       },
     },
+    /** El header es el protagonista: late dos veces, las tarjetas se quedan quietas. */
+    focus: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleY(1)' },
+            { transform: 'scaleY(1.22)' },
+            { transform: 'scaleY(1)' },
+            { transform: 'scaleY(1.22)' },
+            { transform: 'scaleY(1)' },
+          ],
+          700,
+          { origin: '12px 3px' },
+        ),
+      },
+    },
   });
 
 /** Lista: las 2 miniaturas crecen/achican alternado, los renglones se dibujan de arriba a abajo. */
@@ -1628,6 +1660,21 @@ export const layoutListIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutListSh
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 460 }),
+      },
+    },
+    /** Leyendo: los renglones se iluminan uno a uno, en orden, como si se recorrieran. */
+    read: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, { delay: 0 }),
+        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 140,
+        }),
+        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 280,
+        }),
+        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 420,
+        }),
       },
     },
   });
@@ -1651,6 +1698,21 @@ export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTe
         }),
       },
     },
+    /** Las dos tarjetas intercambian ancho (la angosta se hace ancha y viceversa), luego regresan. */
+    select: {
+      shapes: {
+        1: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(1)' }],
+          900,
+          { origin: '3px 21px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1)' }],
+          900,
+          { delay: 60, origin: '21px 21px' },
+        ),
+      },
+    },
   });
 
 /** Freeform: sin cuadrado que mantener — cada bloque late desde su propio centro. */
@@ -1666,6 +1728,38 @@ export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutFr
           delay: 180,
           origin: '7.5px 17.5px',
         }),
+      },
+    },
+    /** Suelto de verdad: cada bloque se ladea y escala a su propio ritmo, sin sincronía. */
+    shuffle: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'rotate(0deg) scale(1)' },
+            { transform: 'rotate(-6deg) scale(1.08)' },
+            { transform: 'rotate(0deg) scale(1)' },
+          ],
+          520,
+          { origin: '6.5px 6.5px' },
+        ),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'rotate(0deg) scale(1)' },
+            { transform: 'rotate(5deg) scale(0.9)' },
+            { transform: 'rotate(0deg) scale(1)' },
+          ],
+          520,
+          { delay: 110, origin: '17.5px 7.5px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'rotate(0deg) scale(1)' },
+            { transform: 'rotate(-4deg) scale(1.1)' },
+            { transform: 'rotate(0deg) scale(1)' },
+          ],
+          520,
+          { delay: 220, origin: '7.5px 17.5px' },
+        ),
       },
     },
   });
