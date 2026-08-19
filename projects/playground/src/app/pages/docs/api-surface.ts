@@ -121,7 +121,8 @@ export const API_VALORES: SimboloApi[] = [
     nombre: 'SPRING_PRESETS',
     entrada: 'glyphflow/morph',
     clase: 'constante',
-    resumen: 'Hoy solo `smooth`. Los subamortiguados no tienen nombre público a propósito.',
+    resumen:
+      'smooth (ζ=1.00), snappy (ζ=0.73) y bouncy (ζ=0.40). Los dos últimos rebotan de verdad.',
   },
   {
     nombre: 'PASOS_DEFAULT',
@@ -202,5 +203,9 @@ export const API_TIPOS: { nombre: string; entrada: Entrada; resumen: string }[] 
     entrada: 'glyphflow/morph',
     resumen: 'Resorte crudo: rigidez y amortiguamiento.',
   },
-  { nombre: 'SpringPreset', entrada: 'glyphflow/morph', resumen: 'Los nombres de SPRING_PRESETS.' },
+  {
+    nombre: 'SpringPreset',
+    entrada: 'glyphflow/morph',
+    resumen: "Los nombres de SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'.",
+  },
 ];

@@ -99,5 +99,11 @@ export class Api {
       porDefecto: 'true',
       nota: 'Aquí SALTA al destino en vez de quedarse quieto.',
     },
+    {
+      nombre: 'spring',
+      tipo: 'SpringPreset | SpringConfig',
+      porDefecto: "'smooth'",
+      nota: 'smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría.',
+    },
   ];
 }

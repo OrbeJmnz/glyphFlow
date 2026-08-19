@@ -153,3 +153,9 @@ providers: [provideMaxIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
   El primer valor se pinta estático — morphear "desde nada" no existe. Ahí cae también el SSR y
   cualquier navegador sin WAAPI: se ve el icono, no se anima.
 </p>
+<p>
+  Con qué se siente la transición lo decide <code>[spring]</code>: <code>smooth</code> (default, sin
+  rebote), <code>snappy</code> (rápido, sobrepaso sutil) o <code>bouncy</code> (se pasa del destino
+  y regresa). El resorte no toca la geometría — solo la duración y cómo se reparten los keyframes en
+  el tiempo. También acepta un <code>&#123; k, c &#125;</code> propio si quieres afinarlo tú.
+</p>

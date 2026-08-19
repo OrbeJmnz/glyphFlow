@@ -50,18 +50,18 @@ export const RESOLUCION_DEFAULT = 64;
 export const COLA_DEFAULT: 'completa' | 'corta' | 'recorte' = 'corta';
 
 /**
- * Presets de resorte que esta versión ofrece: **uno**.
+ * Presets de resorte: los tres del catálogo vendorizado.
  *
- * El upstream trae tres (uno crítico y dos subamortiguados), pero los que rebotan **no rebotan
- * aquí**: las poses se muestrean en t ∈ [0,1] y el sobrepaso vive en t > 1, así que hoy solo
- * alargarían el reloj con el icono ya quieto en el destino. Exportar sus nombres sería vender un
- * rebote que el motor no entrega, así que la superficie pública se acota a `smooth` hasta que el
- * sobrepaso se dibuje. Volver a abrirla después es aditivo.
+ * Estuvieron acotados a `smooth` a propósito: los subamortiguados NO rebotaban aquí, porque las
+ * poses se muestreaban en t ∈ [0,1] y el sobrepaso vive en t > 1 — `snappy` y `bouncy` solo
+ * habrían alargado el reloj con el icono ya quieto, y exportar esos nombres era vender un rebote
+ * que el motor no entregaba. Ahora `sobrepaso` dibuja las poses de t > 1 (topadas al lienzo por
+ * bisección), así que la etiqueta cumple y la superficie se reabre — aditivo, como decía el plan.
  *
- * Los valores salen del catálogo vendorizado, no se re-declaran: si upstream afina `smooth`, esto
- * lo hereda.
+ * Los valores salen del catálogo vendorizado, no se re-declaran: si upstream afina uno, esto lo
+ * hereda. ζ = c / (2·√k): `smooth` 1.00, `snappy` 0.73, `bouncy` 0.40.
  */
-export const SPRING_PRESETS = { smooth: PRESETS_UPSTREAM.smooth } as const;
+export const SPRING_PRESETS = PRESETS_UPSTREAM;
 
 export type SpringPreset = keyof typeof SPRING_PRESETS;
 
@@ -136,6 +136,11 @@ export interface MorphKeyframesOpts {
    * se sale del viewBox 24×24 pasando t≈1.12 y el SVG la recorta. Por eso el muestreo se topa en
    * el t más grande que todavía cabe (`limiteSeguro`), y ese tope depende del PAR — no hay un
    * número universal. Con `smooth` (ζ≈1, sin rebote) esta opción no cambia absolutamente nada.
+   *
+   * **Default `true`.** Con el resorte por default los keyframes salen byte por byte idénticos
+   * (hay test que lo clava), así que prenderlo no le cuesta nada al camino normal; y quien pide un
+   * subamortiguado quiere el rebote, no un reloj más largo. `false` es la salida para quien
+   * prefiera la trayectoria truncada.
    */
   sobrepaso?: boolean;
 }
@@ -335,7 +340,7 @@ export function morphKeyframes(
    * el rebote ocupa exactamente el tramo de tiempo en que la física estuvo del otro lado del 1.
    */
   const xMaximo = Math.max(...progreso);
-  if (opts.sobrepaso && xMaximo > 1.001) {
+  if ((opts.sobrepaso ?? true) && xMaximo > 1.001) {
     const tope = limiteSeguro(plan, out, cerrados, LADO_VIEWBOX, xMaximo);
     const totalTiempo = tiempos[tiempos.length - 1];
     const primerCruce = progreso.findIndex((x) => x >= 1);

@@ -24,6 +24,6 @@ export type {
 } from './morph-keyframes';
 export { MaxIconMorphComponent } from './max-icon-morph.component';
 export type { MorphIcon } from './max-icon-morph.component';
-// `SPRING_PRESETS` sale de nuestra capa, NO del core vendorizado: el catálogo de upstream trae
-// nombres que aquí no cumplen lo que prometen (ver el comentario junto a la constante).
+// `SPRING_PRESETS` se reexporta desde nuestra capa, no desde el core vendorizado: si algún día
+// vuelve a haber un preset de upstream que aquí no cumpla, se acota en un solo lugar.
 export { SPRING_PRESETS } from './morph-keyframes';

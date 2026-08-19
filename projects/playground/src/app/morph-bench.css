@@ -208,3 +208,11 @@ button.primario:hover {
   font-size: 0.6875rem;
   padding: 0.25rem 0.6rem;
 }
+
+/* Nota corta bajo los chips del envoltorio: por qué vale la pena tocarlos. */
+.aviso-chico {
+  margin: 0.6rem 0 0;
+  max-width: 30rem;
+  font-size: 0.8125rem;
+  color: var(--gf-texto-tenue);
+}

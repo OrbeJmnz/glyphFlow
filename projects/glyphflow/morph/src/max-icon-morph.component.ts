@@ -14,6 +14,7 @@ import {
 // copia duplicada es OTRO token, y el `provideMaxIcons` del consumidor no llegaría nunca.
 import { IconShape, MAX_ICONS_CONFIG } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
+import type { SpringConfig, SpringPreset } from './morph-keyframes';
 import type { IconInput } from './core/types';
 
 /**
@@ -117,6 +118,15 @@ export class MaxIconMorphComponent implements OnChanges {
    * Se respeta el movimiento reducido quitando el movimiento, no el cambio de estado.
    */
   @Input() respectReducedMotion = true;
+  /**
+   * Con qué resorte transiciona. Un preset por nombre (`'smooth'`, `'snappy'`, `'bouncy'`) o un
+   * `{ k, c }` propio. El resorte NO toca la geometría: decide la duración y cómo se reparten los
+   * keyframes en el tiempo.
+   *
+   * Los subamortiguados rebotan de verdad — el componente deja el sobrepaso prendido, que es el
+   * default del motor. Si `bouncy` no dibujara el rebote, el nombre estaría mintiendo.
+   */
+  @Input() spring?: SpringPreset | SpringConfig;
 
   /** El mismo `provideMaxIcons({ durationScale })` que escala las coreografías de `<max-icon>`. */
   private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
@@ -149,6 +159,7 @@ export class MaxIconMorphComponent implements OnChanges {
 
     runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
       durationScale: this.config?.durationScale ?? 1,
+      ...(this.spring ? { spring: this.spring } : {}),
     });
   }
 

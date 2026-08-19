@@ -16,8 +16,10 @@ import {
   MaxIconMorphComponent,
   PASOS_DEFAULT,
   RESOLUCION_DEFAULT,
+  SPRING_PRESETS,
   type MorphKeyframes,
   type MorphIcon,
+  type SpringPreset,
 } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 
@@ -60,8 +62,8 @@ interface Variante {
   direccion: 'alternate' | 'normal';
   /** Ida y vuelta en una sola iteración, con resorte propio en cada tramo. */
   idaYVuelta?: boolean;
-  /** Resorte crudo `{k, c}` — los subamortiguados no tienen nombre público a propósito. */
-  spring?: { k: number; c: number };
+  /** Preset por nombre o `{k, c}` crudo: el motor acepta los dos. */
+  spring?: SpringPreset | { k: number; c: number };
   /** Dibuja las poses más allá del destino cuando el resorte rebota. */
   sobrepaso?: boolean;
 }
@@ -96,9 +98,9 @@ const VARIANTES_VUELTA: Variante[] = [
 ];
 
 /**
- * El sobrepaso: ζ = 0.73 y ζ = 0.40 son los dos subamortiguados del catálogo vendorizado. Se
- * pasan como `{k, c}` crudos porque la superficie pública no exporta sus nombres — el motor no
- * dibujaba su rebote y prometer `bouncy` habría sido vender lo que no entrega.
+ * El sobrepaso, ahora con los nombres públicos: `snappy` (ζ=0.73) y `bouncy` (ζ=0.40). Estuvieron
+ * fuera de la superficie mientras el motor no dibujaba su rebote; al dibujarlo, la etiqueta pasó a
+ * cumplir y volvieron. La variante «sin dibujarlo» se queda como control: es `sobrepaso: false`.
  */
 const VARIANTES_SOBREPASO: Variante[] = [
   {
@@ -108,36 +110,35 @@ const VARIANTES_SOBREPASO: Variante[] = [
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
-    sobrepaso: true,
+    spring: 'smooth',
   },
   {
     id: 's-073-sin',
-    titulo: 'ζ=0.73 sin dibujarlo',
-    nota: 'hoy',
+    titulo: 'snappy sin dibujarlo',
+    nota: 'sobrepaso: false',
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
-    spring: { k: 420, c: 30 },
+    spring: 'snappy',
+    sobrepaso: false,
   },
   {
     id: 's-073-con',
-    titulo: 'ζ=0.73 con rebote',
-    nota: 'nuevo',
+    titulo: 'snappy',
+    nota: 'ζ=0.73, default',
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
-    spring: { k: 420, c: 30 },
-    sobrepaso: true,
+    spring: 'snappy',
   },
   {
     id: 's-040-con',
-    titulo: 'ζ=0.40 con rebote',
-    nota: 'topado al viewBox',
+    titulo: 'bouncy',
+    nota: 'ζ=0.40, topado al viewBox',
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
-    spring: { k: 300, c: 14 },
-    sobrepaso: true,
+    spring: 'bouncy',
   },
 ];
 
@@ -218,6 +219,13 @@ export class MorphBench {
   protected readonly nombreDemo = computed(
     () => this.NOMBRES[(this.demoIndice() + 1) % this.NOMBRES.length],
   );
+
+  /**
+   * Los tres presets, por su nombre público. Volvieron a la superficie cuando el sobrepaso empezó
+   * a dibujarse: antes `bouncy` habría sido una etiqueta sin rebote detrás.
+   */
+  protected readonly resortes = Object.keys(SPRING_PRESETS) as SpringPreset[];
+  protected readonly resorte = signal<SpringPreset>('smooth');
 
   protected siguienteDemo(): void {
     this.demoIndice.update((i) => (i + 1) % this.DEMO.length);

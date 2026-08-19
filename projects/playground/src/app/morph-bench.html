@@ -53,11 +53,12 @@
     }
     @if (modo() === 'sobrepaso') {
       <p class="aviso">
-        Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Antes eso solo
+        Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Eso antes solo
         alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se
-        dibujan — <em>ζ=0.73 sin dibujarlo</em> contra <em>ζ=0.73 con rebote</em> es la comparación
-        que importa. El de ζ=0.40 va topado: extrapolar más lo sacaría del lienzo y el SVG lo
-        recortaría.
+        dibujan por default — la comparación que importa es <em>snappy sin dibujarlo</em> (<code
+          >sobrepaso: false</code
+        >) contra <em>snappy</em>. <code>bouncy</code> va topado: extrapolar más lo sacaría del
+        lienzo y el SVG lo recortaría.
       </p>
     }
     @if (modo() === 'vuelta') {
@@ -77,10 +78,28 @@
         El envoltorio delgado. Un solo <code>[icon]</code>: cambiarlo dispara el morph desde el
         valor anterior. El primer render se pinta estático — no hay desde dónde transicionar.
       </p>
+      <div class="grupo" role="group" aria-label="Resorte del envoltorio">
+        <span class="grupo-tit">resorte</span>
+        @for (r of resortes; track r) {
+          <button
+            type="button"
+            class="chip"
+            [class.activo]="resorte() === r"
+            [attr.aria-pressed]="resorte() === r"
+            (click)="resorte.set(r)"
+          >
+            {{ r }}
+          </button>
+        }
+      </div>
+      <p class="aviso-chico">
+        Los subamortiguados <strong>se pasan del destino y regresan</strong>. Dale a «siguiente» con
+        <code>bouncy</code> y mira el sobrepaso: eso es lo que antes no se dibujaba.
+      </p>
     </div>
     <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
-    <max-icon-morph [icon]="iconoDemo()" [size]="72" label="Demo de morph" />
-    <max-icon-morph class="decorativo" [icon]="iconoDemo()" [size]="72" />
+    <max-icon-morph [icon]="iconoDemo()" [spring]="resorte()" [size]="72" label="Demo de morph" />
+    <max-icon-morph class="decorativo" [icon]="iconoDemo()" [spring]="resorte()" [size]="72" />
     <button type="button" (click)="siguienteDemo()">siguiente: {{ nombreDemo() }}</button>
   </div>
 

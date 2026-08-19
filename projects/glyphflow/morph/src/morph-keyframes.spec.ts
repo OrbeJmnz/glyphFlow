@@ -4,6 +4,8 @@ import {
   canonicalD,
   PASOS_DEFAULT,
   RESOLUCION_DEFAULT,
+  SPRING_PRESETS,
+  type SpringPreset,
 } from './morph-keyframes';
 import {
   bellIcon,
@@ -26,7 +28,8 @@ function aIconNode(def: AnimatedIconDef): [string, Record<string, string | numbe
   return def.shapes.map((s: IconShape) => {
     const { tag, ...attrs } = s as IconShape & Record<string, unknown>;
     const limpio: Record<string, string | number> = {};
-    for (const [k, v] of Object.entries(attrs)) if (v !== undefined) limpio[k] = v as string | number;
+    for (const [k, v] of Object.entries(attrs))
+      if (v !== undefined) limpio[k] = v as string | number;
     return [tag, limpio];
   });
 }
@@ -66,19 +69,13 @@ describe('morphKeyframes', () => {
     // La versión ingenua de `corta` (solo |1−x| < 0.01, sin la condición de velocidad) cortaba
     // `bouncy` a los 121ms de 925 — el resorte cumplía el criterio mientras PASABA subiendo por el
     // destino a v=7.53, rumbo a 1.24. Este test clava que la duración conserve el rebote.
-    // Por `{ k, c }` crudo, no por nombre: la superficie pública ya no exporta etiquetas para los
-    // subamortiguados (ver SPRING_PRESETS). Estos son los dos del catálogo de upstream: ζ = 0.73 y
-    // ζ = 0.40. El guard sigue vivo aunque los nombres no salgan publicados.
-    for (const spring of [
-      { k: 420, c: 30 },
-      { k: 300, c: 14 },
-    ] as const) {
+    for (const spring of ['snappy', 'bouncy'] as const) {
       const completa = morphKeyframes(bell, bellRing, { spring, cola: 'completa' }).duracion;
       const corta = morphKeyframes(bell, bellRing, { spring, cola: 'corta' }).duracion;
       const recorte = morphKeyframes(bell, bellRing, { spring, cola: 'recorte' }).duracion;
       expect(
         corta / completa,
-        `resorte k=${spring.k} c=${spring.c}: la cola corta decapitó el rebote`,
+        `resorte ${spring}: la cola corta decapitó el rebote`,
       ).toBeGreaterThan(0.6);
       expect(corta).toBeLessThanOrEqual(completa);
       // `corta` y `recorte` son criterios distintos que hoy caen casi en el mismo instante.
@@ -244,10 +241,9 @@ describe('runMorph — lo que le entrega a WAAPI', () => {
 });
 
 describe('sobrepaso — dibujar el rebote', () => {
-  /** ζ = 0.73 y ζ = 0.40: los dos subamortiguados del catálogo vendorizado, por `{k,c}` crudo
-   *  porque la superficie pública no exporta sus nombres. */
-  const REBOTA_POCO = { k: 420, c: 30 };
-  const REBOTA_MUCHO = { k: 300, c: 14 };
+  /** Los dos subamortiguados, ahora sí por su nombre público: ζ = 0.73 y ζ = 0.40. */
+  const REBOTA_POCO = SPRING_PRESETS.snappy;
+  const REBOTA_MUCHO = SPRING_PRESETS.bouncy;
 
   const extremos = (kf: Keyframe[]): [number, number] => {
     let min = Infinity;
@@ -262,20 +258,35 @@ describe('sobrepaso — dibujar el rebote', () => {
     return [min, max];
   };
 
-  it('con un resorte que NO rebota no cambia absolutamente nada', () => {
-    // La garantía que hace segura la opción: activarla no puede alterar el default de la librería.
-    const sin = morphKeyframes(bell, bellRing, {});
-    const con = morphKeyframes(bell, bellRing, { sobrepaso: true });
-    expect(con.keyframes).toEqual(sin.keyframes);
-    expect(con.duracion).toBe(sin.duracion);
+  it('con un resorte que NO rebota, prenderlo o apagarlo da lo mismo', () => {
+    // Esta es la garantía que permite que el default sea `true`: en el camino normal (`smooth`,
+    // ζ=1) la opción no puede alterar un solo byte de lo que ya producía la librería.
+    const apagado = morphKeyframes(bell, bellRing, { sobrepaso: false });
+    const prendido = morphKeyframes(bell, bellRing, { sobrepaso: true });
+    expect(morphKeyframes(bell, bellRing, {}).keyframes).toEqual(apagado.keyframes);
+    expect(prendido.keyframes).toEqual(apagado.keyframes);
+    expect(prendido.duracion).toBe(apagado.duracion);
   });
 
-  it('con un resorte que rebota agrega poses más allá del destino', () => {
-    const sin = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
-    const con = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: true });
-    expect(con.keyframes.length).toBeGreaterThan(sin.keyframes.length);
+  it('con un resorte que rebota, el default YA dibuja el rebote', () => {
+    // El default importa más que la opción: quien pide `bouncy` quiere el rebote, no un reloj más
+    // largo. Si esto se rompe, la etiqueta vuelve a mentir.
+    const apagado = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: false });
+    const porDefecto = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
+    expect(porDefecto.keyframes.length).toBeGreaterThan(apagado.keyframes.length);
     // Y esas poses son GEOMÉTRICAMENTE más grandes: el rebote se pasa del destino, no solo dura más.
-    expect(extremos(con.keyframes)[1]).toBeGreaterThan(extremos(sin.keyframes)[1]);
+    expect(extremos(porDefecto.keyframes)[1]).toBeGreaterThan(extremos(apagado.keyframes)[1]);
+  });
+
+  it('los tres presets tienen nombre público y solo el crítico no rebota', () => {
+    expect(Object.keys(SPRING_PRESETS).sort()).toEqual(['bouncy', 'smooth', 'snappy']);
+    const poses = (spring: SpringPreset) =>
+      morphKeyframes(bell, bellRing, { spring }).keyframes.length;
+    const base = morphKeyframes(bell, bellRing, { spring: 'smooth', sobrepaso: false }).keyframes
+      .length;
+    expect(poses('smooth')).toBe(base);
+    expect(poses('snappy')).toBeGreaterThan(base);
+    expect(poses('bouncy')).toBeGreaterThan(base);
   });
 
   it('el rebote no se sale del lienzo — el trazo entero cabe en el viewBox', () => {
@@ -283,10 +294,14 @@ describe('sobrepaso — dibujar el rebote', () => {
     // sobre un lienzo de 24 y el SVG la recortaba. El límite descuenta el grosor del trazo (1
     // unidad hacia afuera con stroke-width 2), no solo el borde de la caja.
     for (const spring of [REBOTA_POCO, REBOTA_MUCHO]) {
-      const { keyframes } = morphKeyframes(bell, bellRing, { spring, sobrepaso: true });
+      const { keyframes } = morphKeyframes(bell, bellRing, { spring });
       const [min, max] = extremos(keyframes);
-      expect(min - 1, `el trazo se sale por la izquierda con k=${spring.k}`).toBeGreaterThanOrEqual(-0.01);
-      expect(max + 1, `el trazo se sale por la derecha con k=${spring.k}`).toBeLessThanOrEqual(24.01);
+      expect(min - 1, `el trazo se sale por la izquierda con k=${spring.k}`).toBeGreaterThanOrEqual(
+        -0.01,
+      );
+      expect(max + 1, `el trazo se sale por la derecha con k=${spring.k}`).toBeLessThanOrEqual(
+        24.01,
+      );
     }
   });
 
@@ -294,18 +309,20 @@ describe('sobrepaso — dibujar el rebote', () => {
     // El bug que esto clava: `offsetPara` devolvía 1 de un saque para objetivo >= 1, así que el
     // último keyframe del tramo principal caía al final del reloj y el rebote quedaba por detrás.
     for (const spring of [REBOTA_POCO, REBOTA_MUCHO]) {
-      const { keyframes } = morphKeyframes(bell, bellRing, { spring, sobrepaso: true });
+      const { keyframes } = morphKeyframes(bell, bellRing, { spring });
       const offsets = keyframes.map((k) => k['offset'] as number);
       for (let i = 1; i < offsets.length; i++) {
-        expect(offsets[i], `offset ${i} retrocede con k=${spring.k}`).toBeGreaterThanOrEqual(offsets[i - 1]);
+        expect(offsets[i], `offset ${i} retrocede con k=${spring.k}`).toBeGreaterThanOrEqual(
+          offsets[i - 1],
+        );
       }
       expect(offsets[offsets.length - 1]).toBe(1);
     }
   });
 
   it('termina en el destino exacto, no en la última muestra del rebote', () => {
-    const soloIda = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
-    const conRebote = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: true });
+    const soloIda = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO, sobrepaso: false });
+    const conRebote = morphKeyframes(bell, bellRing, { spring: REBOTA_MUCHO });
     expect(conRebote.keyframes[conRebote.keyframes.length - 1]['d']).toBe(
       soloIda.keyframes[soloIda.keyframes.length - 1]['d'],
     );
@@ -316,7 +333,9 @@ describe('canonicalD — el `d` de aterrizaje', () => {
   it('devuelve curvas, no la polilínea de vuelo', () => {
     const d = canonicalD(bell);
     expect(d).toContain('C');
-    expect(d.length).toBeLessThan((morphKeyframes(bell, bellRing).keyframes[0]['d'] as string).length);
+    expect(d.length).toBeLessThan(
+      (morphKeyframes(bell, bellRing).keyframes[0]['d'] as string).length,
+    );
   });
 
   it('convierte figuras que no son path (circle, rect) a datos de path', () => {
