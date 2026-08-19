@@ -8164,54 +8164,6 @@ export const layersPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 7, height: 7, x: 3, y: 3, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 14, y: 4, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 4, y: 14, rx: 1 },
-  ],
-  {},
-);
-
-export const layoutListIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 7, height: 7, x: 3, y: 3, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 3, y: 14, rx: 1 },
-    { tag: 'path', d: "M14 4h7" },
-    { tag: 'path', d: "M14 9h7" },
-    { tag: 'path', d: "M14 15h7" },
-    { tag: 'path', d: "M14 20h7" },
-  ],
-  {},
-);
-
-export const layoutPanelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 7, height: 18, x: 3, y: 3, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 14, y: 3, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 14, y: 14, rx: 1 },
-  ],
-  {},
-);
-
-export const layoutPanelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 7, x: 3, y: 3, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 3, y: 14, rx: 1 },
-    { tag: 'rect', width: 7, height: 7, x: 14, y: 14, rx: 1 },
-  ],
-  {},
-);
-
-export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 7, x: 3, y: 3, rx: 1 },
-    { tag: 'rect', width: 9, height: 7, x: 3, y: 14, rx: 1 },
-    { tag: 'rect', width: 5, height: 7, x: 16, y: 14, rx: 1 },
-  ],
-  {},
-);
-
 export const leafIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" },
@@ -16702,11 +16654,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'layers-arrow-up': layersArrowUpIcon,
   'layers-minus': layersMinusIcon,
   'layers-plus': layersPlusIcon,
-  'layout-freeform': layoutFreeformIcon,
-  'layout-list': layoutListIcon,
-  'layout-panel-left': layoutPanelLeftIcon,
-  'layout-panel-top': layoutPanelTopIcon,
-  'layout-template': layoutTemplateIcon,
   leaf: leafIcon,
   'leafy-green': leafyGreenIcon,
   lectern: lecternIcon,

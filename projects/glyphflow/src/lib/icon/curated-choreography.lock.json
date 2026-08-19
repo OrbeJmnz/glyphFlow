@@ -482,11 +482,39 @@
       "rect:7714a51bc0a5",
       "rect:d997cc2728ef"
     ],
+    "layout-freeform": [
+      "rect:dfba17afca9b",
+      "rect:58830e1a52ca",
+      "rect:04e06d08bb14"
+    ],
     "layout-grid": [
       "rect:dfba17afca9b",
       "rect:5383063b55ca",
       "rect:f247b0cf453f",
       "rect:38f85033b683"
+    ],
+    "layout-list": [
+      "rect:dfba17afca9b",
+      "rect:38f85033b683",
+      "path:4d97ef59da94",
+      "path:9e71101212a3",
+      "path:ac877b234210",
+      "path:77bf79d3705e"
+    ],
+    "layout-panel-left": [
+      "rect:6995d46527a2",
+      "rect:5383063b55ca",
+      "rect:f247b0cf453f"
+    ],
+    "layout-panel-top": [
+      "rect:fc2c076567e7",
+      "rect:38f85033b683",
+      "rect:f247b0cf453f"
+    ],
+    "layout-template": [
+      "rect:fc2c076567e7",
+      "rect:683a6c95645e",
+      "rect:f23ed0775883"
     ],
     "library": [
       "path:2b68f6ad4a6b",

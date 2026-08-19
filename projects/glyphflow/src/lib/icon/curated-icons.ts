@@ -1,6 +1,6 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { EASE, SPRING_OUT, SPRING_BOUNCY, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
-import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
+import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutListShapes, layoutTemplateShapes, layoutFreeformShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
  * Catálogo CURADO — coreografía con intención, a mano, icono por icono. El generador offline
@@ -1573,6 +1573,103 @@ export const layoutGridIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutGridSh
     },
   });
 
+/** Sidebar + 2 tarjetas: crecen/achican alternado, el panel lateral respira en ancho (no alto). */
+export const layoutPanelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutPanelLeftShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.12)' }, { transform: 'scaleX(1)' }],
+          420,
+          { origin: '3px 12px' },
+        ),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 80,
+          origin: '21px 3px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 160,
+          origin: '21px 21px',
+        }),
+      },
+    },
+  });
+
+/** Header + 2 tarjetas: crecen/achican alternado, el header respira en alto (no ancho). */
+export const layoutPanelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutPanelTopShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.15)' }, { transform: 'scaleY(1)' }],
+          420,
+          { origin: '12px 3px' },
+        ),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 80,
+          origin: '3px 21px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 160,
+          origin: '21px 21px',
+        }),
+      },
+    },
+  });
+
+/** Lista: las 2 miniaturas crecen/achican alternado, los renglones se dibujan de arriba a abajo. */
+export const layoutListIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutListShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '3px 3px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 100,
+          origin: '3px 21px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 460 }),
+      },
+    },
+  });
+
+/** Header + 2 tarjetas asimétricas: los 3 crecen/achican alternado. */
+export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTemplateShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.15)' }, { transform: 'scaleY(1)' }],
+          420,
+          { origin: '12px 3px' },
+        ),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 80,
+          origin: '3px 21px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 160,
+          origin: '21px 21px',
+        }),
+      },
+    },
+  });
+
+/** Freeform: sin cuadrado que mantener — cada bloque late desde su propio centro. */
+export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutFreeformShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '6.5px 6.5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 90,
+          origin: '17.5px 7.5px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 180,
+          origin: '7.5px 17.5px',
+        }),
+      },
+    },
+  });
+
 /** Libros que se acomodan. */
 export const libraryIcon: AnimatedIconDef = /* @__PURE__ */ icon(libraryShapes, {
     default: {
@@ -2783,6 +2880,11 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   layers: layersIcon,
   'layout-dashboard': layoutDashboardIcon,
   'layout-grid': layoutGridIcon,
+  'layout-panel-left': layoutPanelLeftIcon,
+  'layout-panel-top': layoutPanelTopIcon,
+  'layout-list': layoutListIcon,
+  'layout-template': layoutTemplateIcon,
+  'layout-freeform': layoutFreeformIcon,
   library: libraryIcon,
   link: linkIcon,
   'link-2': link2Icon,

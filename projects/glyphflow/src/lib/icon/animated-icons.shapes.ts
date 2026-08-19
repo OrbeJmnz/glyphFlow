@@ -841,6 +841,39 @@ export const layoutGridShapes: IconShape[] = [
     { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
   ];
 
+export const layoutPanelLeftShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 7, height: 18, rx: 1 },
+    { tag: 'rect', x: 14, y: 3, width: 7, height: 7, rx: 1 },
+    { tag: 'rect', x: 14, y: 14, width: 7, height: 7, rx: 1 },
+  ];
+
+export const layoutPanelTopShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 7, rx: 1 },
+    { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
+    { tag: 'rect', x: 14, y: 14, width: 7, height: 7, rx: 1 },
+  ];
+
+export const layoutListShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 7, height: 7, rx: 1 },
+    { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
+    { tag: 'path', d: 'M14 4h7' },
+    { tag: 'path', d: 'M14 9h7' },
+    { tag: 'path', d: 'M14 15h7' },
+    { tag: 'path', d: 'M14 20h7' },
+  ];
+
+export const layoutTemplateShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 7, rx: 1 },
+    { tag: 'rect', x: 3, y: 14, width: 9, height: 7, rx: 1 },
+    { tag: 'rect', x: 16, y: 14, width: 5, height: 7, rx: 1 },
+  ];
+
+export const layoutFreeformShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 3, width: 7, height: 7, rx: 1 },
+    { tag: 'rect', x: 14, y: 4, width: 7, height: 7, rx: 1 },
+    { tag: 'rect', x: 4, y: 14, width: 7, height: 7, rx: 1 },
+  ];
+
 export const libraryShapes: IconShape[] = [
     { tag: 'path', d: 'm16 6 4 14' },
     { tag: 'path', d: 'M12 6v14' },
