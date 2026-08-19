@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "code-review-graph": {
+      "source": "aradotso/trending-skills",
+      "sourceType": "github",
+      "skillPath": "skills/code-review-graph/SKILL.md",
+      "computedHash": "2ef5ff05a35e0769608daf223242803e4a908fca110ff967595a0471cb38daf5"
+    }
+  }
+}
