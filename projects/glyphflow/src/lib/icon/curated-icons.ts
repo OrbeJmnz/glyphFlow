@@ -1,5 +1,5 @@
 import { AnimatedIconDef } from './animated-icon.model';
-import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
+import { EASE, SPRING_OUT, SPRING_BOUNCY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
@@ -341,6 +341,28 @@ export const searchIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchShapes, {
 /** Encontrado: primero la lupa, luego la palomita. El orden cuenta la historia. */
 export const searchCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchCheckShapes, {
     default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -5, 3, 0]), 700, {
+        delay: 380,
+        origin: 'bottom right',
+      }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 380 }),
+      },
+    },
+    /** Traza + el mismo "busca alrededor" que hace `search:find`. */
+    reveal: {
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'translate(0, 0)' },
+          { transform: 'translate(-15%, 0)' },
+          { transform: 'translate(0, -15%)' },
+          { transform: 'translate(0, 0)' },
+        ],
+        1000,
+        { delay: 760 },
+      ),
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
@@ -352,6 +374,28 @@ export const searchCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchCheck
 /** Búsqueda desactivada: la diagonal cae al final. */
 export const searchSlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchSlashShapes, {
     default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -5, 3, 0]), 700, {
+        delay: 380,
+        origin: 'bottom right',
+      }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 380 }),
+      },
+    },
+    /** Traza + el mismo "busca alrededor" que hace `search:find`. */
+    reveal: {
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'translate(0, 0)' },
+          { transform: 'translate(-15%, 0)' },
+          { transform: 'translate(0, -15%)' },
+          { transform: 'translate(0, 0)' },
+        ],
+        1000,
+        { delay: 700 },
+      ),
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
@@ -364,6 +408,25 @@ export const searchSlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchSlash
 export const searchXIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchXShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -5, 3, 0]), 700, { delay: 380, origin: 'bottom right' }),
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 380 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 480 }),
+      },
+    },
+    /** Traza + el mismo "busca alrededor" que hace `search:find` (en vez del shake de default). */
+    reveal: {
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'translate(0, 0)' },
+          { transform: 'translate(-15%, 0)' },
+          { transform: 'translate(0, -15%)' },
+          { transform: 'translate(0, 0)' },
+        ],
+        1000,
+        { delay: 740 },
+      ),
       shapes: {
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 200 }),
@@ -894,12 +957,14 @@ export const zapIcon: AnimatedIconDef = /* @__PURE__ */ icon(zapShapes, {
       root: /* @__PURE__ */ track(
         [
           { opacity: '1', transform: 'scale(1)' },
-          { opacity: '0.25', transform: 'scale(0.94)' },
-          { opacity: '1', transform: 'scale(1.12)' },
-          { opacity: '0.6', transform: 'scale(1)' },
+          { opacity: '0.2', transform: 'scale(0.92)' },
+          { opacity: '1', transform: 'scale(1.15)' },
+          { opacity: '0.15', transform: 'scale(0.95)' },
+          { opacity: '0.9', transform: 'scale(1.08)' },
+          { opacity: '0.3', transform: 'scale(0.97)' },
           { opacity: '1', transform: 'scale(1)' },
         ],
-        550,
+        650,
         { origin: 'center' },
       ),
     },
@@ -1483,19 +1548,50 @@ export const workflowIcon: AnimatedIconDef = /* @__PURE__ */ icon(workflowShapes
 /** Acercar: la lente late y el signo aparece. */
 export const zoomInIcon: AnimatedIconDef = /* @__PURE__ */ icon(zoomInShapes, {
     default: {
+      // El aumento afecta a TODO el icono (root), no solo a la lupa.
+      root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.12, 1]), 450, { origin: '11px 11px' }),
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.1, 1]), 450, { origin: '11px 11px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 180 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 220 }),
+        // El "+" se achica hasta casi desaparecer (se lee como "-" un instante) y rebota
+        // elástico de vuelta.
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleY(1)' },
+            { transform: 'scaleY(0.1)' },
+            { transform: 'scaleY(1.3)' },
+            { transform: 'scaleY(0.9)' },
+            { transform: 'scaleY(1)' },
+          ],
+          550,
+          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(1.15)' },
+            { transform: 'scaleX(0.95)' },
+            { transform: 'scaleX(1)' },
+          ],
+          550,
+          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+        ),
       },
     },
   });
 
 export const zoomOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(zoomOutShapes, {
     default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 450, { origin: '11px 11px' }),
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 450, { origin: '11px 11px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 180 }),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(1.3)' },
+            { transform: 'scaleX(0.9)' },
+            { transform: 'scaleX(1)' },
+          ],
+          550,
+          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+        ),
       },
     },
   });
@@ -2084,7 +2180,23 @@ export const wifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiShapes, {
 
 export const typeIcon: AnimatedIconDef = /* @__PURE__ */ icon(typeShapes, { default: { autoDraw: { speed: 60 } } });
 
-export const webhookIcon: AnimatedIconDef = /* @__PURE__ */ icon(webhookShapes, { default: { autoDraw: { speed: 55 } } });
+// Se pasa de `autoDraw` (mide en runtime, sin delay fijo) a `strokeDraw` explícito por shape:
+// para que el giro final arranque justo cuando termina de dibujarse necesitamos un timing
+// determinista, no uno medido — mismo patrón que `workflow`/`search-x`.
+export const webhookIcon: AnimatedIconDef = /* @__PURE__ */ icon(webhookShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350, { delay: 220 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350, { delay: 440 }),
+      },
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 500, {
+        delay: 790,
+        easing: 'linear',
+        origin: 'center',
+      }),
+    },
+  });
 
 /** Encender: el arco se traza y el botón prende. */
 export const powerIcon: AnimatedIconDef = /* @__PURE__ */ icon(powerShapes, {
