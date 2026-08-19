@@ -129,6 +129,27 @@
       }
     </div>
 
+    <div class="deshacer" role="group" aria-label="Historial">
+      <button
+        type="button"
+        class="chip"
+        [disabled]="!pila().deshacer"
+        (click)="deshacer()"
+        title="Ctrl+Z"
+      >
+        ↶ deshacer
+      </button>
+      <button
+        type="button"
+        class="chip"
+        [disabled]="!pila().rehacer"
+        (click)="rehacer()"
+        title="Ctrl+Shift+Z"
+      >
+        ↷ rehacer
+      </button>
+    </div>
+
     <div class="salida">
       <div class="salida-cab">
         <span class="grupo-tit">resultado</span>

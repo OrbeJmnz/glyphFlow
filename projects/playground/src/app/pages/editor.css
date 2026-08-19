@@ -167,3 +167,19 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* Historial: los dos botones juntos, apagados cuando no hay a dónde ir. */
+.deshacer {
+  display: flex;
+  gap: 4px;
+}
+
+.deshacer .chip:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.deshacer .chip:disabled:hover {
+  background: transparent;
+  color: rgba(202, 202, 202, 0.7);
+}

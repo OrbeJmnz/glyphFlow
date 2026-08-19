@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, computed, signal } from '@angular/cor
 import { CURATED_ICONS, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from '../geometria/path-model';
 import { dDeSubpath, limpiar, moverNodo, nodosDe, type Nodo } from '../geometria/path-edit';
+import { crearHistorial } from '../geometria/historial';
 
 const LADO = 24;
 
@@ -21,6 +22,9 @@ interface Curado {
   selector: 'app-editor',
   templateUrl: './editor.html',
   styleUrl: './editor.css',
+  // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de
+  // ese elemento. Colgarlo de un `div` además obligaba a hacerlo focusable para nada.
+  host: { '(window:keydown)': 'atajo($event)' },
 })
 export class Editor {
   @ViewChild('lienzo', { static: true }) private lienzo!: ElementRef<SVGSVGElement>;
@@ -74,6 +78,48 @@ export class Editor {
   protected readonly editado = computed(() => this.dPorPath().join('\n'));
   protected readonly tocado = signal(false);
 
+  /**
+   * El historial guarda el modelo COMPLETO, no un diff. Cada entrada es una lista de objetos ya
+   * inmutables — `moverNodo` nunca muta — así que la copia es de referencias, no de geometría.
+   */
+  private readonly historial = crearHistorial<SubPath[][]>();
+  /** Señal espejo del estado de la pila: un objeto plano no dispara los `computed` al mutar. */
+  protected readonly pila = signal({ deshacer: false, rehacer: false });
+
+  private sincronizarPila(): void {
+    this.pila.set({
+      deshacer: this.historial.puedeDeshacer(),
+      rehacer: this.historial.puedeRehacer(),
+    });
+  }
+
+  protected deshacer(): void {
+    const previo = this.historial.deshacer(this.modelos());
+    if (!previo) return;
+    this.modelos.set(previo);
+    this.sincronizarPila();
+  }
+
+  protected rehacer(): void {
+    const siguiente = this.historial.rehacer(this.modelos());
+    if (!siguiente) return;
+    this.modelos.set(siguiente);
+    this.sincronizarPila();
+  }
+
+  /** Ctrl+Z / Ctrl+Shift+Z, y Ctrl+Y para quien venga de Windows. */
+  protected atajo(ev: KeyboardEvent): void {
+    if (!(ev.ctrlKey || ev.metaKey)) return;
+    const k = ev.key.toLowerCase();
+    if (k === 'z' && !ev.shiftKey) {
+      ev.preventDefault();
+      this.deshacer();
+    } else if ((k === 'z' && ev.shiftKey) || k === 'y') {
+      ev.preventDefault();
+      this.rehacer();
+    }
+  }
+
   constructor() {
     this.cargar();
   }
@@ -89,6 +135,9 @@ export class Editor {
     this.indiceActivo.set(0);
     this.tocado.set(false);
     this.arrastrando = null;
+    // El historial del icono anterior no aplica al nuevo.
+    this.historial.limpiar();
+    this.sincronizarPila();
   }
 
   protected restablecer(): void {
@@ -116,6 +165,9 @@ export class Editor {
     // `setPointerCapture`: si el puntero sale del círculo a media arrastrada — y sale siempre, es
     // de 5px — los eventos siguen llegando a este elemento en vez de perderse.
     (ev.target as Element).setPointerCapture(ev.pointerId);
+    // Se abre el gesto ANTES de mover: el arrastre entero cuenta como un paso de deshacer, no uno
+    // por píxel recorrido.
+    this.historial.abrir(this.modelos());
     this.arrastrando = { nodo, ultimo: this.aViewBox(ev) };
     this.activo.set(nodo);
   }
@@ -148,6 +200,8 @@ export class Editor {
       return copia;
     });
     this.arrastrando = null;
+    this.historial.cerrar(this.modelos());
+    this.sincronizarPila();
   }
 
   protected async copiar(): Promise<void> {
