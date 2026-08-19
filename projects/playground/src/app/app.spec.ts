@@ -25,7 +25,7 @@ describe('App (shell)', () => {
     const html = fixture.nativeElement as HTMLElement;
     expect(html.querySelector('.marca')?.textContent).toContain('glyphflow');
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
-    expect(rutas).toEqual(['Iconos', 'Lab', 'Docs']);
+    expect(rutas).toEqual(['Iconos', 'Patrones', 'Lab', 'Docs']);
   });
 
   it('los chips de velocidad mueven la escala global', async () => {

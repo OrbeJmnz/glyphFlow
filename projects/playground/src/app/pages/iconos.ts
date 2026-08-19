@@ -21,12 +21,12 @@ interface CuratedEntry {
  * registro completo de 1767 iconos a una demo que solo enseña 180.
  */
 @Component({
-  selector: 'app-showcase',
+  selector: 'app-iconos',
   imports: [MaxIconComponent, IconDetailPanel],
-  templateUrl: './showcase.html',
-  styleUrl: './showcase.css',
+  templateUrl: './iconos.html',
+  styleUrl: './iconos.css',
 })
-export class Showcase {
+export class Iconos {
   @ViewChildren(MaxIconComponent) private icons!: QueryList<MaxIconComponent>;
 
   private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)

@@ -1,0 +1,159 @@
+<header class="head">
+  <h1>Patrones</h1>
+  <p>
+    La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve: controles que de verdad
+    hacen lo que dicen — el de copiar copia, el de tema cambia colores, el de enviar tiene sus tres
+    estados. El código de cada uno está al lado.
+  </p>
+</header>
+
+<div class="patrones">
+  <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
+  <article class="patron">
+    <div class="demo">
+      <button type="button" class="boton" [class.hecho]="copiado()" (click)="copiar()">
+        <max-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
+        {{ copiado() ? 'Copiado' : 'Copiar' }}
+      </button>
+    </div>
+    <div class="texto">
+      <h2>Copiar al portapapeles</h2>
+      <p>
+        El caso donde el morph gana claro: <code>copy</code> → <code>check</code> confirma sin mover
+        el layout ni meter un toast. El botón de arriba copia de verdad — pruébalo y pega.
+      </p>
+      <p class="detalle">
+        Si el <code>writeText</code> falla (sin permiso, sin foco, sitio en http) el estado no
+        cambia: el icono se queda en <code>copy</code> en vez de mentir con una palomita.
+      </p>
+      <pre><code>protected readonly copiado = signal(false);
+protected readonly icono = computed(() =&gt; (this.copiado() ? checkIcon : copyIcon));
+
+async copiar() &#123;
+  try &#123; await navigator.clipboard.writeText(texto); &#125; catch &#123; return; &#125;
+  this.copiado.set(true);
+  setTimeout(() =&gt; this.copiado.set(false), 1600);
+&#125;
+
+&lt;max-icon-morph [icon]="icono()" [size]="18" spring="bouncy" /&gt;</code></pre>
+    </div>
+  </article>
+
+  <!-- ── Tema ───────────────────────────────────────────────────────────────── -->
+  <article class="patron">
+    <div class="demo" [class.claro]="claro()">
+      <button
+        type="button"
+        class="boton icono-solo"
+        (click)="alternarTema()"
+        [attr.aria-label]="claro() ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'"
+      >
+        <max-icon-morph
+          [icon]="iconoTema()"
+          [size]="20"
+          [label]="claro() ? 'Tema claro' : 'Tema oscuro'"
+        />
+      </button>
+      <span class="muestra">Aa</span>
+    </div>
+    <div class="texto">
+      <h2>Cambio de tema</h2>
+      <p>
+        <code>moon</code> ↔ <code>sun</code>. El icono hereda el color del texto
+        (<code>stroke="currentColor"</code>), así que el tema no necesita tocarlo: cambia el color
+        del contenedor y el icono va detrás.
+      </p>
+      <p class="detalle">
+        Aquí el tema aplica solo a <strong>este panel</strong>, no al sitio entero — el playground
+        no tiene modo claro. En una app real la clase va en <code>&lt;html&gt;</code> y el
+        <code>label</code> cambia con el estado, como arriba.
+      </p>
+      <pre><code>protected readonly claro = signal(false);
+protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon));
+
+&lt;button [attr.aria-label]="claro() ? 'Tema oscuro' : 'Tema claro'"&gt;
+  &lt;max-icon-morph [icon]="icono()" [size]="20" /&gt;
+&lt;/button&gt;</code></pre>
+    </div>
+  </article>
+
+  <!-- ── Enviar ─────────────────────────────────────────────────────────────── -->
+  <article class="patron">
+    <div class="demo">
+      <button
+        type="button"
+        class="boton"
+        [class.hecho]="estadoEnvio() === 'enviado'"
+        [disabled]="estadoEnvio() !== 'reposo'"
+        (click)="enviar()"
+      >
+        @if (estadoEnvio() === 'enviando') {
+          <max-icon [iconDef]="spinner" [size]="18" trigger="auto" [loop]="true" />
+        } @else {
+          <max-icon-morph [icon]="iconoEnvio()" [size]="18" />
+        }
+        @switch (estadoEnvio()) {
+          @case ('enviando') {
+            Enviando…
+          }
+          @case ('enviado') {
+            Enviado
+          }
+          @default {
+            Enviar
+          }
+        }
+      </button>
+    </div>
+    <div class="texto">
+      <h2>Acción con tres estados</h2>
+      <p>
+        Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por
+        morph; el spinner es un <code>&lt;max-icon&gt;</code> curado en <code>loop</code>.
+      </p>
+      <p class="detalle">
+        Mezclarlos no es descuido: un morph tiene <strong>principio y fin</strong>, y "cargando" no
+        sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que
+        cicle, que es exactamente lo que el motor de coreografía ya hace.
+      </p>
+      <pre><code>&#64;if (estado() === 'enviando') &#123;
+  &lt;max-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
+&#125; &#64;else &#123;
+  &lt;max-icon-morph [icon]="estado() === 'enviado' ? circleCheckIcon : sendIcon" /&gt;
+&#125;</code></pre>
+    </div>
+  </article>
+
+  <!-- ── Me gusta ───────────────────────────────────────────────────────────── -->
+  <article class="patron">
+    <div class="demo">
+      <button
+        type="button"
+        class="boton me-gusta"
+        [class.activo]="meGusta()"
+        [attr.aria-pressed]="meGusta()"
+        (click)="alternarMeGusta()"
+      >
+        <max-icon [iconDef]="corazon" [size]="18" trigger="tap" />
+        {{ votos() }}
+      </button>
+    </div>
+    <div class="texto">
+      <h2>Reacción</h2>
+      <p>
+        Aquí no hay morph: la forma no cambia, solo el gesto.
+        <code>trigger="tap"</code> reproduce la coreografía curada del corazón en cada click, y el
+        color lo pone el botón.
+      </p>
+      <p class="detalle">
+        La regla para elegir motor: si el icono <strong>cambia de forma</strong>, morph; si el mismo
+        icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación
+        de dos figuras idénticas.
+      </p>
+      <pre><code>&lt;button [attr.aria-pressed]="meGusta()" (click)="alternar()"&gt;
+  &lt;max-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
+  &#123;&#123; votos() &#125;&#125;
+&lt;/button&gt;</code></pre>
+    </div>
+  </article>
+</div>

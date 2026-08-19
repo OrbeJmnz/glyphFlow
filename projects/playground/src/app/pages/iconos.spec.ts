@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { CURATED_ICONS } from 'glyphflow';
-import { Showcase } from './showcase';
+import { Iconos } from './iconos';
 
-describe('Showcase', () => {
+describe('Iconos', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [Showcase] }).compileComponents();
+    await TestBed.configureTestingModule({ imports: [Iconos] }).compileComponents();
   });
 
   it('pinta una tarjeta por icono curado del paquete publicado', async () => {
-    const fixture = TestBed.createComponent(Showcase);
+    const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
     expect(html.querySelectorAll('.card').length).toBe(Object.keys(CURATED_ICONS).length);
   });
 
   it('el filtro por insignia recorta la lista y se puede quitar', async () => {
-    const fixture = TestBed.createComponent(Showcase);
+    const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
     const total = html.querySelectorAll('.card').length;

@@ -17,7 +17,12 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     title: 'glyphflow — 180 iconos animados',
-    loadComponent: () => import('./pages/showcase').then((m) => m.Showcase),
+    loadComponent: () => import('./pages/iconos').then((m) => m.Iconos),
+  },
+  {
+    path: 'patrones',
+    title: 'Patrones — glyphflow',
+    loadComponent: () => import('./pages/patrones').then((m) => m.Patrones),
   },
   {
     path: 'lab',
