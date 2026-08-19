@@ -1,6 +1,8 @@
 <header class="shell-head">
   <div class="shell-interior">
     <a class="marca" routerLink="/" aria-label="glyphflow, ir al inicio">
+      <!-- El glifo es el propio motor animándose: `trigger="group"` lo cuelga del hover de este <a>. -->
+      <max-icon [iconDef]="glifo" [size]="22" trigger="group" />
       <app-logo [alto]="28" />
     </a>
 
@@ -19,24 +21,55 @@
     </nav>
 
     <!--
-      Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
-      así que el control pertenece al chrome, no a una página.
+      Los controles de la derecha van juntos en un contenedor para que se envuelvan COMO UNIDAD en
+      pantallas angostas. Sueltos, `acciones` caía sola a la segunda fila y pegada a la izquierda.
     -->
-    <app-grupo titulo="velocidad" etiqueta="Velocidad global de las animaciones" class="velocidad">
-      @for (p of presets; track p.valor) {
+    <div class="controles">
+      <!--
+        Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
+        así que el control pertenece al chrome, no a una página.
+      -->
+      <app-grupo
+        titulo="velocidad"
+        etiqueta="Velocidad global de las animaciones"
+        class="velocidad"
+      >
+        @for (p of presets; track p.valor) {
+          <button
+            type="button"
+            app-chip
+            [activo]="escala() === p.valor"
+            [attr.aria-pressed]="escala() === p.valor"
+            [title]="p.nota"
+            (click)="escala.set(p.valor)"
+          >
+            {{ p.etiqueta }}
+          </button>
+        }
+      </app-grupo>
+
+      <div class="acciones">
+        <app-boton-github />
+
         <button
           type="button"
-          app-chip
-          [activo]="escala() === p.valor"
-          [attr.aria-pressed]="escala() === p.valor"
-          [title]="p.nota"
-          (click)="escala.set(p.valor)"
+          app-boton
+          class="tema"
+          [attr.aria-label]="etiquetaTema()"
+          [attr.aria-pressed]="tema() === 'claro'"
+          (click)="alternarTema()"
         >
-          {{ p.etiqueta }}
+          <max-icon-morph [icon]="iconoTema()" [size]="16" spring="bouncy" />
         </button>
-      }
-    </app-grupo>
+      </div>
+    </div>
   </div>
+
+  <!--
+    Progreso de scroll. `aria-hidden`: duplica lo que la barra de scroll del navegador ya dice, y
+    anunciarlo otra vez sería ruido para quien no lo necesita.
+  -->
+  <div class="shell-progreso" aria-hidden="true"></div>
 </header>
 
 @if (escala() !== 1) {

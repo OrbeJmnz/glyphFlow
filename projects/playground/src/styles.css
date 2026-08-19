@@ -109,7 +109,7 @@ code {
 }
 
 .chip.es-contorno:hover {
-  border-color: var(--gf-borde-fuerte);
+  border-color: var(--gf-borde-vivo);
   color: var(--gf-texto);
 }
 
@@ -236,9 +236,26 @@ code {
   background: rgba(255, 255, 255, 0.04);
 }
 
-
 .ui-grupo .grupo-tit {
   padding: 0 6px 0 10px;
+}
+
+/*
+ * En el header y en pantalla angosta, el rótulo «VELOCIDAD» se cae: son ~78px que hacen que la fila
+ * no quepa y la página termine con scroll horizontal. Los `0.5× 1× 1.5× 2×` se explican solos, y el
+ * `aria-label` del grupo sigue ahí, así que quien navega con lector no pierde nada.
+ *
+ * Va en el CSS global y no en `app.css` porque `.grupo-tit` se pinta DENTRO del componente `Grupo`:
+ * con encapsulación emulada, una regla desde la plantilla que lo usa no lo alcanza.
+ */
+@media (max-width: 640px) {
+  .shell-head .grupo-tit {
+    display: none;
+  }
+
+  .shell-head .ui-grupo .grupo-tit + * {
+    margin-left: 4px;
+  }
 }
 
 /* ── Campo de búsqueda ───────────────────────────────────────────────────────── */

@@ -1,11 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { vi } from 'vitest';
 import { App } from './app';
 import { routes } from './app.routes';
 import { escalaDuracion } from './core/duration-scale';
+import { estrellas } from './core/github';
+import { tema } from './core/tema';
 
 describe('App (shell)', () => {
   beforeEach(async () => {
+    // El shell pide las estrellas al montar. Sin esto cada test de aquí saldría a api.github.com:
+    // lento, dependiente de la red y quemando la cuota por IP.
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, json: async () => ({}) }));
+    sessionStorage.clear();
+    estrellas.set(null);
+    tema.set('oscuro');
+
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [provideRouter([])],
@@ -13,7 +23,10 @@ describe('App (shell)', () => {
     escalaDuracion.set(1);
   });
 
-  afterEach(() => escalaDuracion.set(1));
+  afterEach(() => {
+    escalaDuracion.set(1);
+    vi.unstubAllGlobals();
+  });
 
   it('monta', () => {
     expect(TestBed.createComponent(App).componentInstance).toBeTruthy();
@@ -29,6 +42,27 @@ describe('App (shell)', () => {
     expect(html.querySelector('.marca')?.getAttribute('aria-label')).toContain('glyphflow');
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
     expect(rutas).toEqual(['Iconos', 'Patrones', 'Editor', 'Lab', 'Docs']);
+    // El glifo junto al logotipo: el sitio animando su propio producto en el header.
+    expect(html.querySelector('.marca max-icon')).not.toBeNull();
+    // El botón del repo está cableado (lo suyo se prueba en su propia spec).
+    expect(html.querySelector('app-boton-github a.gh')).not.toBeNull();
+  });
+
+  it('el botón de tema dice a dónde lleva, no dónde estás', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+    const boton = html.querySelector<HTMLButtonElement>('button.tema')!;
+
+    expect(boton.getAttribute('aria-label')).toBe('Cambiar a tema claro');
+    expect(boton.getAttribute('aria-pressed')).toBe('false');
+
+    boton.click();
+    fixture.detectChanges();
+
+    expect(tema()).toBe('claro');
+    expect(boton.getAttribute('aria-label')).toBe('Cambiar a tema oscuro');
+    expect(boton.getAttribute('aria-pressed')).toBe('true');
   });
 
   it('los chips de velocidad mueven la escala global', async () => {
