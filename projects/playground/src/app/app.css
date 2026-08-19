@@ -15,7 +15,7 @@
   top: 0;
   z-index: 20;
   background: var(--gf-fondo);
-  border-bottom: 1px solid var(--gf-borde-suave);
+  border-bottom: 1px solid var(--gf-borde);
 }
 
 /*
@@ -27,10 +27,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1.25rem;
+  gap: 0.75rem 1.5rem;
   max-width: var(--gf-ancho);
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 18px 24px;
 }
 
 .marca {
@@ -69,10 +69,17 @@
   margin-left: auto;
 }
 
+/*
+ * El borde separa este cluster del de velocidad: son dos decisiones distintas (qué tan rápido se
+ * mueve todo vs. acciones sobre el repo/tema), y sin la costura se leían como una sola fila de
+ * botones sueltos.
+ */
 .acciones {
   display: flex;
   align-items: center;
   gap: 6px;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--gf-borde-suave);
 }
 
 /*

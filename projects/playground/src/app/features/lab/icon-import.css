@@ -54,7 +54,7 @@
 
 .error {
   margin: 0.6rem 0 0;
-  color: #e08b8b;
+  color: var(--gf-rojo);
   font-size: 0.75rem;
 }
 

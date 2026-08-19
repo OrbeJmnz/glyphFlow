@@ -6,6 +6,16 @@
  * verdad se repite entre páginas — lo específico se queda en el CSS de su componente.
  */
 
+/*
+ * ── Tema ──────────────────────────────────────────────────────────────────────
+ *
+ * `:root` lleva el OSCURO, que es la identidad del sitio, y `[data-tema='claro']` lo sobreescribe.
+ * El atributo lo pone `core/tema.ts` en <html> desde la primera carga, así que no hay parpadeo.
+ *
+ * Todo color con significado tiene su par: los que se eligieron para fondo oscuro (el ámbar de las
+ * notas, el verde de confirmación) no contrastan sobre blanco, y reasignarlos al mismo valor sería
+ * dejar avisos ilegibles. Un tema claro no es invertir la escala de grises.
+ */
 :root {
   /* Paleta: fondo casi negro y panel un escalón arriba, sin bordes que compitan. */
   --gf-fondo: #121212;
@@ -18,14 +28,125 @@
   --gf-texto-medio: #cacaca;
   --gf-texto-tenue: #767676;
   --gf-texto-apagado: #5c5c5c;
+  --gf-texto-suave: rgba(202, 202, 202, 0.7);
   --gf-acento: rgba(255, 255, 255, 0.4);
   --gf-acento-claro: #e4e4e4;
   --gf-acento-fondo: rgba(255, 255, 255, 0.08);
+
+  /*
+   * Velos: el relleno sutil de hover y de carriles. Son los `rgba(255,255,255,.0x)` que estaban
+   * repartidos por seis archivos — y son justo lo que un tema claro no puede heredar, porque blanco
+   * sobre blanco no se ve. En claro pasan a negro con la misma alfa.
+   */
+  --gf-velo: rgba(255, 255, 255, 0.04);
+  --gf-velo-fuerte: rgba(255, 255, 255, 0.06);
+  --gf-sombra: rgba(0, 0, 0, 0.35);
+
+  /* La acción principal invierte el contraste contra el fondo, sea cual sea. */
+  --gf-invertido-fondo: #ffffff;
+  --gf-invertido-texto: #121212;
+
+  --gf-enlace: #9c9cc8;
+
+  /* Colores con significado. */
+  --gf-rojo: #e08b8b;
+  --gf-ambar: #e0b28b;
+  --gf-ambar-tenue: #b39b73;
+  --gf-ambar-apagado: #9c8a6b;
+  --gf-verde: #8fd6a4;
+  --gf-rosa: #e08a9e;
+
+  --gf-verde-borde: #3d6b4a;
+  --gf-rosa-borde: #6b3d4a;
+  --gf-ambar-borde: #3a3226;
+  --gf-ambar-fondo: #1a1712;
+  --gf-acento-borde: #4d4d7a;
+  --gf-verde-fondo: #1e2a1e;
+  --gf-rojo-fondo: #2a1e1e;
+  --gf-acento-panel: #23232f;
+  /* El amarillo de «estrella» de GitHub. Sobre blanco el #facc15 cae a 1.75:1 y casi no se ve,
+     así que en claro baja a un ámbar con cuerpo — el mismo gesto, legible. */
+  --gf-estrella: #facc15;
+  --gf-destello: #fef08a;
 
   /* Radios: 24px en tarjetas y píldora completa en controles. */
   --gf-radio: 24px;
   --gf-radio-chico: 12px;
   --gf-ancho: 1240px;
+}
+
+:root[data-tema='claro'] {
+  --gf-fondo: #ffffff;
+  --gf-panel: #f7f7f9;
+  --gf-panel-alto: #f0f0f3;
+  --gf-borde: rgba(22, 22, 28, 0.12);
+  --gf-borde-suave: rgba(22, 22, 28, 0.07);
+  --gf-borde-vivo: rgba(22, 22, 28, 0.24);
+  --gf-texto: #16161c;
+  --gf-texto-medio: #45454f;
+  --gf-texto-tenue: #6b6b76;
+  --gf-texto-apagado: #8a8a95;
+  --gf-texto-suave: rgba(22, 22, 28, 0.62);
+  --gf-acento: rgba(22, 22, 28, 0.38);
+  --gf-acento-claro: #2f2f38;
+  --gf-acento-fondo: rgba(22, 22, 28, 0.07);
+
+  --gf-velo: rgba(22, 22, 28, 0.04);
+  --gf-velo-fuerte: rgba(22, 22, 28, 0.07);
+  --gf-sombra: rgba(22, 22, 28, 0.14);
+
+  --gf-invertido-fondo: #16161c;
+  --gf-invertido-texto: #ffffff;
+
+  --gf-enlace: #4a4aa8;
+
+  /*
+   * Los mismos avisos, re-elegidos para blanco. Bajan de luminosidad y suben de saturación: el rojo
+   * de arriba se lee bien sobre el fondo oscuro, pero sobre blanco cae a 2.3:1 — por debajo del
+   * mínimo legible. Reasignarlo al mismo valor sería dejar los errores sin poder leerse.
+   */
+  --gf-rojo: #b23b3b;
+  --gf-ambar: #8a5615;
+  --gf-ambar-tenue: #7a622c;
+  --gf-ambar-apagado: #6d5a2c;
+  --gf-verde: #1d7a41;
+  --gf-rosa: #b03a58;
+
+  --gf-verde-borde: #9ccbaf;
+  --gf-rosa-borde: #d9a3b2;
+  --gf-ambar-borde: #ddc9a0;
+  --gf-ambar-fondo: #fbf5e8;
+  --gf-acento-borde: #b4b4e0;
+  --gf-verde-fondo: #eef7f1;
+  --gf-rojo-fondo: #fdeeee;
+  --gf-acento-panel: #eeeef5;
+  --gf-estrella: #c98a00;
+  --gf-destello: #e0a92b;
+}
+
+/*
+ * ── Transición de tema ────────────────────────────────────────────────────────
+ *
+ * Por default el navegador cruza las dos fotos con un fundido y las mezcla en `plus-lighter`. Aquí
+ * estorba: el recorte circular necesita que la foto nueva se vea ENTERA y opaca dentro del círculo,
+ * o el borde del círculo sale lavado. Se apagan las dos cosas y el único movimiento lo pone el
+ * `clip-path` de `core/tema.ts`.
+ *
+ * La foto nueva va encima; la vieja se queda quieta debajo, haciendo de fondo mientras el círculo
+ * crece.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
 }
 
 html {
@@ -69,7 +190,7 @@ code {
   border: 1px solid transparent;
   border-radius: 999px;
   background: transparent;
-  color: rgba(202, 202, 202, 0.7);
+  color: var(--gf-texto-suave);
   font: inherit;
   font-size: 13px;
   font-weight: 500;
@@ -82,7 +203,7 @@ code {
 
 .chip:hover:not(:disabled) {
   color: var(--gf-texto);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--gf-velo);
 }
 
 /* Deshabilitada. `:not(:disabled)` arriba en vez de resetear el hover después: si se deja que el
@@ -138,7 +259,7 @@ code {
   border: 0;
   padding: 0;
   background: none;
-  color: #9c9cc8;
+  color: var(--gf-enlace);
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
@@ -202,13 +323,13 @@ code {
 /* Invierte el contraste. Una por pantalla: si hay dos, ninguna es la principal. */
 .ui-boton.es-primario {
   border-color: transparent;
-  background: #fff;
-  color: #121212;
+  background: var(--gf-invertido-fondo);
+  color: var(--gf-invertido-texto);
 }
 
 .ui-boton.es-primario:hover:not(:disabled) {
   background: var(--gf-acento-claro);
-  color: #121212;
+  color: var(--gf-invertido-texto);
 }
 
 .ui-boton.es-fantasma {
@@ -216,7 +337,7 @@ code {
 }
 
 .ui-boton.es-fantasma:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--gf-velo-fuerte);
 }
 
 .ui-boton.es-compacto {
@@ -233,7 +354,7 @@ code {
   gap: 2px;
   padding: 3px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--gf-velo);
 }
 
 .ui-grupo .grupo-tit {

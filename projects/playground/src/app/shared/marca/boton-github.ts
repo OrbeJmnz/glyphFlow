@@ -102,9 +102,9 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
       gap: 10px;
       height: 36px;
       padding: 0 18px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--gf-borde);
       border-radius: 40px;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--gf-velo);
       color: var(--gf-texto);
       font: inherit;
       font-size: 13px;
@@ -119,7 +119,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 
     .gh:hover,
     .gh:focus-visible {
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--gf-velo-fuerte);
       transform: scale(1.02);
     }
 
@@ -149,7 +149,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
     }
 
     .capa-estrella {
-      color: #facc15;
+      color: var(--gf-estrella);
       transform: translateY(15px) scale(0.8);
       opacity: 0;
     }
@@ -172,7 +172,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
       top: -6px;
       right: -5px;
       display: grid;
-      color: #fef08a;
+      color: var(--gf-destello);
       transform: translateY(10px) rotate(-45deg) scale(0);
       opacity: 0;
       transition:
@@ -188,7 +188,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 
     .conteo {
       padding-left: 10px;
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 1px solid var(--gf-borde);
       color: var(--gf-texto-medio);
       /* Tabular: el ancho no baila cuando el conteo pasa de 99 a 100. */
       font-variant-numeric: tabular-nums;

@@ -11,22 +11,22 @@
   margin: 0 0 0.4rem;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #f2f2f5;
+  color: var(--gf-texto);
 }
 
 .expectativa {
   margin: 0 0 1.25rem;
   max-width: 52rem;
   padding: 0.6rem 0.85rem;
-  border-left: 2px solid #6a5a3f;
-  background: #16130d;
-  color: #b39b73;
+  border-left: 2px solid var(--gf-ambar-tenue);
+  background: var(--gf-ambar-fondo);
+  color: var(--gf-ambar-tenue);
   font-size: 0.8125rem;
   line-height: 1.55;
 }
 
 .expectativa strong {
-  color: #e0b28b;
+  color: var(--gf-ambar);
 }
 
 .cuerpo {
@@ -127,7 +127,7 @@
 .cadena li.activo {
   border-color: var(--gf-acento);
   background: var(--gf-panel-alto);
-  color: #f2f2f5;
+  color: var(--gf-texto);
 }
 
 .cadena li button {
@@ -140,7 +140,7 @@
 }
 
 .cadena li button:hover {
-  color: #e08b8b;
+  color: var(--gf-rojo);
 }
 
 .pares {
@@ -178,7 +178,7 @@
 }
 
 .acciones .primario:hover:not(:disabled) {
-  background: #fff;
+  background: var(--gf-invertido-fondo);
 }
 
 .acciones button:disabled {

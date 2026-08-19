@@ -25,12 +25,34 @@
    * cuatro puntos de diferencia se ven como un recuadro alrededor del logotipo. `lighten` compara
    * y se queda con lo más claro: el fondo del GIF pierde contra la página y desaparece, mientras
    * el arte — que es blanco y degradado brillante — sobrevive.
-   *
-   * OJO para el tema claro: esto NO va a funcionar sobre fondo claro, donde `lighten` blanquearía
-   * el logotipo entero. Ahí hará falta un GIF con transparencia real, o encerrarlo en un panel
-   * oscuro a propósito. Es límite del asset, no del CSS.
    */
   mix-blend-mode: lighten;
+}
+
+/*
+ * En claro, `lighten` haría lo contrario: contra blanco gana el blanco en todos lados y el logotipo
+ * DESAPARECE entero. No hay truco de mezcla que salve un asset con fondo opaco sobre fondo claro.
+ *
+ * Así que en vez de disimular, se asume: el logotipo se sienta en una tarjeta oscura, del color
+ * exacto del fondo del GIF, y no queda costura porque el panel y el asset son el mismo color. Es
+ * además tratamiento de marca normal — un logotipo sobre su propio campo — en lugar de un parche.
+ */
+/*
+ * `:host-context` y NO `:root[data-tema='claro']`. Con encapsulación emulada, un selector que
+ * ARRANCA en `:root` recibe el atributo de scope pegado al principio — queda
+ * `[_ngcontent-xxx]:root`, que exigiría que <html> llevara el atributo del componente. Nunca casa,
+ * y no hay error: la regla simplemente no existe. `:host-context` es la forma que Angular compila
+ * bien para reaccionar a un ancestro.
+ */
+:host-context([data-tema='claro']) .marca-hero {
+  display: inline-block;
+  padding: 4px 28px;
+  border-radius: var(--gf-radio);
+  background: rgb(14, 14, 15);
+}
+
+:host-context([data-tema='claro']) .marca-hero img {
+  mix-blend-mode: normal;
 }
 
 .hero .bajada {
@@ -54,6 +76,17 @@
 /* El comando se lee como comando: es lo único que esa acción necesita encima de la primitiva. */
 .mono {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+}
+
+/* Decorativos: cada `<max-icon>` ya se anuncia `aria-hidden` solo (decorative=true sin label). */
+.demo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  margin-top: 40px;
+  color: var(--gf-texto-medio);
 }
 
 .cifras {
@@ -81,6 +114,17 @@
   margin: 2px 0 0;
   font-size: 13px;
   color: var(--gf-texto-tenue);
+}
+
+/* Las dos cifras que de verdad venden la librería (curados a mano, peso por icono) suben un
+   escalón sobre el catálogo completo y el conteo de dependencias — datos de contexto, no el titular. */
+.cifras > .destaca {
+  background: var(--gf-panel-alto);
+}
+
+.cifras > .destaca dt {
+  font-size: 26px;
+  font-weight: 600;
 }
 
 /* ── Barra de filtros ───────────────────────────────────────────────────────── */
@@ -112,8 +156,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
-  padding: 20px 8px 14px;
+  gap: 0.5rem;
+  padding: 16px 8px 12px;
   border: 1px solid transparent;
   border-radius: var(--gf-radio);
   background: var(--gf-panel);
@@ -170,11 +214,11 @@
 }
 
 .insignia {
-  padding: 0.05rem 0.35rem;
+  padding: 0.1rem 0.4rem;
   border: 1px solid var(--gf-borde);
   border-radius: 999px;
   background: var(--gf-panel-alto);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   line-height: 1.5;
   color: var(--gf-texto-tenue);
   cursor: help;
@@ -182,14 +226,14 @@
 
 /* La única que celebra algo: hay más animación de la que se ve en la tarjeta. */
 .insignia[data-ins='extras'] {
-  border-color: #4d4d7a;
+  border-color: var(--gf-acento-borde);
   background: var(--gf-acento-fondo);
   color: var(--gf-acento-claro);
 }
 
 /* Advertencia suave, no error: el icono funciona, solo que nadie le puso coreografía propia. */
 .insignia[data-ins='solo-draw'] {
-  border-color: #3a3226;
-  background: #1a1712;
-  color: #9c8a6b;
+  border-color: var(--gf-ambar-borde);
+  background: var(--gf-ambar-fondo);
+  color: var(--gf-ambar-apagado);
 }

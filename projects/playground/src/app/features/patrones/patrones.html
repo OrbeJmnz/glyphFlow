@@ -41,7 +41,7 @@ async copiar() &#123;
 
   <!-- ── Tema ───────────────────────────────────────────────────────────────── -->
   <article class="patron">
-    <div class="demo" [class.claro]="claro()">
+    <div class="demo demo-tema" [class.claro]="claro()">
       <button
         type="button"
         app-boton
@@ -65,9 +65,10 @@ async copiar() &#123;
         del contenedor y el icono va detrás.
       </p>
       <p class="detalle">
-        Aquí el tema aplica solo a <strong>este panel</strong>, no al sitio entero — el playground
-        no tiene modo claro. En una app real la clase va en <code>&lt;html&gt;</code> y el
-        <code>label</code> cambia con el estado, como arriba.
+        Aquí el tema aplica solo a <strong>este panel</strong>, para que se vea el patrón aislado.
+        El de verdad está en el header, con el mismo morph: escribe <code>data-tema</code> en
+        <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que
+        crece desde el propio botón.
       </p>
       <pre><code>protected readonly claro = signal(false);
 protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon));

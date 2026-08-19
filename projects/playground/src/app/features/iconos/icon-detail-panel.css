@@ -7,7 +7,7 @@
   border: 1px solid var(--gf-borde);
   border-radius: 0.75rem;
   background: var(--gf-panel-alto);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 24px var(--gf-sombra);
   max-height: 85vh;
   overflow-y: auto;
 }
@@ -34,7 +34,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #f2f2f5;
+  color: var(--gf-texto);
 }
 
 .const {
@@ -102,7 +102,7 @@
 .pill.activa {
   border-color: var(--gf-acento);
   background: var(--gf-panel-alto);
-  color: #f2f2f5;
+  color: var(--gf-texto);
 }
 
 .columnas {
@@ -213,19 +213,19 @@ textarea.codigo.json {
 .prop {
   padding: 0.1rem 0.4rem;
   border-radius: 0.3rem;
-  background: #1e2a1e;
-  color: #8fd18f;
+  background: var(--gf-verde-fondo);
+  color: var(--gf-verde);
   font-size: 0.625rem;
   font-family: ui-monospace, monospace;
 }
 
 .prop.caro {
-  background: #2a1e1e;
-  color: #e08b8b;
+  background: var(--gf-rojo-fondo);
+  color: var(--gf-rojo);
 }
 
 .aviso {
-  color: #e0b28b;
+  color: var(--gf-ambar);
   font-size: 0.625rem;
 }
 

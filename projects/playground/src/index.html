@@ -9,6 +9,12 @@
       name="description"
       content="Iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real, morph entre formas."
     />
+    <!--
+      Una sola etiqueta, sin `media`: la barra del navegador en Android tiene que seguir al tema
+      ELEGIDO, y un par con `media="(prefers-color-scheme: …)"` seguiría al del sistema. Quien
+      arranca con el sistema en claro y pone el sitio en oscuro se quedaría con la barra blanca
+      sobre una página negra. `core/tema.ts` reescribe este `content` en cada cambio.
+    -->
     <meta name="theme-color" content="#121212" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 

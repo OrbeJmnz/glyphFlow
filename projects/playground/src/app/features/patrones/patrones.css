@@ -71,16 +71,33 @@
   }
 }
 
-/* El único tema claro del sitio, y vive dentro de su propia demo a propósito. */
-.demo.claro {
+/*
+ * Los dos estados de ESTA demo van con colores fijos, no con los tokens del sitio.
+ *
+ * Con tokens, en tema claro el panel «claro» quedaba blanco sobre página blanca y la demo dejaba
+ * de demostrar nada: la gracia es ver el contraste del cambio, y para eso los dos lados tienen que
+ * seguir siendo oscuro y claro sin importar en qué tema esté el sitio alrededor.
+ */
+.demo-tema:not(.claro) {
+  background: #16161c;
+  color: #f4f4f7;
+}
+
+.demo-tema.claro {
   background: #f4f4f7;
   color: #16161c;
 }
 
-/* Dentro de la demo clara el botón se invierte; el resto lo pone la primitiva. */
-.demo.claro .ui-boton {
+/* El botón se invierte contra el panel, no contra la página. */
+.demo-tema:not(.claro) .ui-boton {
+  border-color: #34343f;
+  background: #1f1f27;
+  color: #f4f4f7;
+}
+
+.demo-tema.claro .ui-boton {
   border-color: #d5d5de;
-  background: #fff;
+  background: #ffffff;
   color: #16161c;
 }
 
@@ -107,13 +124,13 @@
 
 /* Confirmación: el color acompaña al icono, no lo sustituye. */
 .ui-boton.hecho {
-  border-color: #3d6b4a;
-  color: #8fd6a4;
+  border-color: var(--gf-verde-borde);
+  color: var(--gf-verde);
 }
 
 .ui-boton.me-gusta.activo {
-  border-color: #6b3d4a;
-  color: #e08a9e;
+  border-color: var(--gf-rosa-borde);
+  color: var(--gf-rosa);
 }
 
 .texto h2 {

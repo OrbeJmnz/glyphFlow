@@ -43,7 +43,6 @@ export class App {
   /** El glifo de la marca, junto al logotipo. Se dibuja al montar y repite al pasar por el enlace. */
   protected readonly glifo: AnimatedIconDef = workflowIcon;
   protected readonly tema = tema;
-  protected readonly alternarTema = alternarTema;
   /** El sol se ofrece cuando estás en oscuro: el icono dice A DÓNDE vas, no dónde estás. */
   protected readonly iconoTema = computed<MorphIcon>(() =>
     tema() === 'oscuro' ? sunIcon : moonIcon,
@@ -51,6 +50,16 @@ export class App {
   protected readonly etiquetaTema = computed(() =>
     tema() === 'oscuro' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro',
   );
+
+  /**
+   * El círculo sale del CENTRO del botón y no del punto del clic: con teclado, `Enter` dispara un
+   * click con coordenadas 0,0, así que usar las del evento abriría el tema desde la esquina
+   * superior izquierda para quien no usa ratón.
+   */
+  protected cambiarTema(ev: Event): void {
+    const caja = (ev.currentTarget as HTMLElement).getBoundingClientRect();
+    alternarTema({ x: caja.left + caja.width / 2, y: caja.top + caja.height / 2 });
+  }
 
   constructor() {
     conectarTema();

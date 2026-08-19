@@ -54,7 +54,7 @@
 }
 
 .rejilla line {
-  stroke: rgba(255, 255, 255, 0.06);
+  stroke: var(--gf-velo-fuerte);
   stroke-width: 0.06;
 }
 
@@ -216,8 +216,8 @@
   height: 36px;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: #fff;
-  color: #121212;
+  background: var(--gf-invertido-fondo);
+  color: var(--gf-invertido-texto);
   font: inherit;
   font-size: 13px;
   font-weight: 500;

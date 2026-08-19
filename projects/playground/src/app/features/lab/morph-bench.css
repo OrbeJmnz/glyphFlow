@@ -37,7 +37,7 @@
 }
 
 button button.primario:hover {
-  background: #fff;
+  background: var(--gf-invertido-fondo);
   color: var(--gf-fondo);
 }
 
@@ -116,7 +116,7 @@ button button.primario:hover {
   margin-left: 0.4rem;
   padding: 0.05rem 0.4rem;
   border-radius: 0.35rem;
-  background: #23232f;
+  background: var(--gf-acento-panel);
   color: var(--gf-texto-medio);
   font-size: 0.625rem;
   font-weight: 400;

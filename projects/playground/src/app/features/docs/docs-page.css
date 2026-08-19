@@ -92,7 +92,7 @@ pre code {
 }
 
 .nota.ojo {
-  border-left-color: #9c8a6b;
+  border-left-color: var(--gf-ambar-apagado);
 }
 
 table {
