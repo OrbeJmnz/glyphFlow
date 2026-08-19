@@ -1,6 +1,6 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { EASE, SPRING_OUT, SPRING_BOUNCY, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
-import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
+import { activityShapes, alarmClockShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
  * Catálogo CURADO — coreografía con intención, a mano, icono por icono. El generador offline
@@ -2315,15 +2315,48 @@ export const userCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCogShapes, 
   });
 
 /** Wifi conectando: del punto hacia afuera, arco por arco. */
+// Cada arco SUBE desde abajo (translateY + fade), no truena en su lugar como `burst()` — así se
+// lee la dirección sin ambigüedad. Del punto hacia afuera: punto, arco interior, medio, exterior.
+const WIFI_RISE = /* @__PURE__ */ [
+  { transform: 'translateY(3px)', opacity: '0' },
+  { transform: 'translateY(0)', opacity: '1' },
+];
+
 export const wifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiShapes, {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 130 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 260 }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 390 }),
+        0: /* @__PURE__ */ track(WIFI_RISE, 320),
+        3: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
+        2: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 260 }),
+        1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 390 }),
       },
     },
+  });
+
+/** Señal fuerte: como wifi, sin el arco más exterior. */
+export const wifiHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiHighShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(WIFI_RISE, 320),
+        2: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
+        1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 260 }),
+      },
+    },
+  });
+
+/** Señal débil: solo el arco interior. */
+export const wifiLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiLowShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(WIFI_RISE, 320),
+        1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
+      },
+    },
+  });
+
+/** Sin señal: solo el punto. */
+export const wifiZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiZeroShapes, {
+    default: { shapes: { 0: /* @__PURE__ */ track(WIFI_RISE, 320) } },
   });
 
 export const typeIcon: AnimatedIconDef = /* @__PURE__ */ icon(typeShapes, { default: { autoDraw: { speed: 60 } } });
@@ -2661,6 +2694,9 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'user-x': userXIcon,
   'user-cog': userCogIcon,
   wifi: wifiIcon,
+  'wifi-high': wifiHighIcon,
+  'wifi-low': wifiLowIcon,
+  'wifi-zero': wifiZeroIcon,
   type: typeIcon,
   webhook: webhookIcon,
   power: powerIcon,

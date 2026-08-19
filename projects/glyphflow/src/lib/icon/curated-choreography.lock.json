@@ -935,6 +935,18 @@
       "path:ae287740f718",
       "path:cbe116798cb6"
     ],
+    "wifi-high": [
+      "path:b220a3996c02",
+      "path:ae287740f718",
+      "path:cbe116798cb6"
+    ],
+    "wifi-low": [
+      "path:b220a3996c02",
+      "path:cbe116798cb6"
+    ],
+    "wifi-zero": [
+      "path:b220a3996c02"
+    ],
     "workflow": [
       "rect:b24e1fb43530",
       "path:8d82c27f633b",

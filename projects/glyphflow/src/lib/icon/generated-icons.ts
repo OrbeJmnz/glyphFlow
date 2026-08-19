@@ -15757,23 +15757,6 @@ export const wifiCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const wifiHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 20h.01" },
-    { tag: 'path', d: "M5 12.859a10 10 0 0 1 14 0" },
-    { tag: 'path', d: "M8.5 16.429a5 5 0 0 1 7 0" },
-  ],
-  {},
-);
-
-export const wifiLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 20h.01" },
-    { tag: 'path', d: "M8.5 16.429a5 5 0 0 1 7 0" },
-  ],
-  {},
-);
-
 export const wifiOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 20h.01" },
@@ -15806,13 +15789,6 @@ export const wifiSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M21.965 22.105v-4" },
     { tag: 'path', d: "M5 12.86a10 10 0 0 1 3-2.032" },
     { tag: 'path', d: "M8.5 16.429h.01" },
-  ],
-  {},
-);
-
-export const wifiZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 20h.01" },
   ],
   {},
 );
@@ -17570,12 +17546,9 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   wheat: wheatIcon,
   'whole-word': wholeWordIcon,
   'wifi-cog': wifiCogIcon,
-  'wifi-high': wifiHighIcon,
-  'wifi-low': wifiLowIcon,
   'wifi-off': wifiOffIcon,
   'wifi-pen': wifiPenIcon,
   'wifi-sync': wifiSyncIcon,
-  'wifi-zero': wifiZeroIcon,
   'wind-arrow-down': windArrowDownIcon,
   wind: windIcon,
   'wine-off': wineOffIcon,
