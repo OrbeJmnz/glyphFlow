@@ -1,11 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Playground</title>
+    <title>glyphflow — iconos de Lucide animados para Angular</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real, morph entre formas."
+    />
+    <meta name="theme-color" content="#121212" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!--
+      Outfit, la tipografía del sitio. `preconnect` a los dos orígenes porque los archivos .woff2
+      viven en gstatic, no en googleapis: sin el segundo, el navegador descubre ese host hasta que
+      ya bajó el CSS y la fuente entra tarde.
+      Solo los pesos que se usan (300/400/500/600) — pedir el rango completo baja peso muerto.
+      `display=swap`: el texto se ve con la fuente del sistema mientras Outfit llega, en vez de
+      quedarse invisible.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <app-root></app-root>

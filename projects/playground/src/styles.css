@@ -7,20 +7,25 @@
  */
 
 :root {
-  --gf-fondo: #0b0b0f;
-  --gf-panel: #101017;
-  --gf-panel-alto: #15151c;
-  --gf-borde: #2a2a33;
-  --gf-borde-suave: #1d1d25;
-  --gf-borde-vivo: #3f3f4b;
-  --gf-texto: #e7e7ea;
-  --gf-texto-medio: #a1a1ac;
-  --gf-texto-tenue: #8b8b96;
-  --gf-texto-apagado: #6c6c78;
-  --gf-acento: #6c6c96;
-  --gf-acento-claro: #b9b9e0;
-  --gf-acento-fondo: #1c1c2a;
-  --gf-ancho: 68rem;
+  /* Paleta: fondo casi negro y panel un escalón arriba, sin bordes que compitan. */
+  --gf-fondo: #121212;
+  --gf-panel: #181818;
+  --gf-panel-alto: #1f1f1f;
+  --gf-borde: rgba(255, 255, 255, 0.08);
+  --gf-borde-suave: rgba(255, 255, 255, 0.05);
+  --gf-borde-vivo: rgba(255, 255, 255, 0.16);
+  --gf-texto: #ffffff;
+  --gf-texto-medio: #cacaca;
+  --gf-texto-tenue: #767676;
+  --gf-texto-apagado: #5c5c5c;
+  --gf-acento: rgba(255, 255, 255, 0.4);
+  --gf-acento-claro: #e4e4e4;
+  --gf-acento-fondo: rgba(255, 255, 255, 0.08);
+
+  /* Radios: 24px en tarjetas y píldora completa en controles. */
+  --gf-radio: 24px;
+  --gf-radio-chico: 12px;
+  --gf-ancho: 1240px;
 }
 
 html {
@@ -31,12 +36,16 @@ body {
   margin: 0;
   background: var(--gf-fondo);
   color: var(--gf-texto);
+  /* Outfit se carga desde index.html; la pila de respaldo cubre el rato del `swap`. */
   font-family:
+    'Outfit',
     ui-sans-serif,
     system-ui,
     -apple-system,
     'Segoe UI',
     sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
 }
 
 code {
@@ -46,13 +55,18 @@ code {
 /* ── Primitivas compartidas ─────────────────────────────────────────────────── */
 
 .chip {
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--gf-borde);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto-medio);
+  background: transparent;
+  color: rgba(202, 202, 202, 0.7);
   font: inherit;
-  font-size: 0.75rem;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   transition:
     color 0.15s ease,
@@ -62,11 +76,10 @@ code {
 
 .chip:hover {
   color: var(--gf-texto);
-  border-color: var(--gf-borde-vivo);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .chip.activo {
-  border-color: var(--gf-acento);
   background: var(--gf-acento-fondo);
   color: var(--gf-texto);
 }

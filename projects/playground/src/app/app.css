@@ -5,80 +5,80 @@
 
 /* ── Barra superior ─────────────────────────────────────────────────────────── */
 
+/*
+ * No es sticky, igual que la referencia: con 180 iconos animándose debajo, una barra fija encima
+ * compite por atención todo el scroll.
+ */
 .shell-head {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1.5rem;
-  padding: 0.85rem 1.5rem;
-  border-bottom: 1px solid var(--gf-borde-suave);
-  /* Opaco, no translúcido: detrás pasan 180 iconos animándose y un blur los convierte en ruido. */
-  background: var(--gf-fondo);
+  gap: 0.75rem 1.25rem;
+  max-width: var(--gf-ancho);
+  margin: 0 auto;
+  padding: 16px 24px;
 }
 
 .marca {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 5px 0;
   color: var(--gf-texto);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   text-decoration: none;
 }
 
 .nav {
   display: flex;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 2px;
   margin-right: auto;
 }
 
-.nav a {
-  padding: 0.35rem 0.7rem;
-  border-radius: 0.5rem;
-  color: var(--gf-texto-tenue);
-  font-size: 0.875rem;
+/* Las pastillas del nav son el mismo `.chip` global: un solo control, dos usos. */
+.nav .chip {
   text-decoration: none;
-  transition:
-    color 0.15s ease,
-    background 0.15s ease;
-}
-
-.nav a:hover {
-  color: var(--gf-texto);
-  background: var(--gf-panel-alto);
-}
-
-.nav a.activo {
-  color: var(--gf-texto);
-  background: var(--gf-acento-fondo);
 }
 
 .velocidad {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .shell-aviso {
   max-width: var(--gf-ancho);
-  margin: 0.9rem auto 0;
-  padding: 0 1.5rem;
-  font-size: 0.8125rem;
+  margin: 0 auto;
+  padding: 0 24px;
+  font-size: 13px;
   color: var(--gf-texto-tenue);
   text-align: center;
 }
 
 .shell-cuerpo {
   display: block;
-  padding: 2.5rem 1.5rem 3rem;
+  max-width: var(--gf-ancho);
+  margin: 0 auto;
+  padding: 0 24px 96px;
 }
 
 .shell-foot {
-  padding: 2rem 1.5rem 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: var(--gf-ancho);
+  margin: 0 auto;
+  padding: 32px 24px 48px;
   border-top: 1px solid var(--gf-borde-suave);
-  text-align: center;
-  font-size: 0.8125rem;
+  font-size: 13px;
   color: var(--gf-texto-apagado);
 }
 
@@ -87,6 +87,10 @@
 }
 
 .shell-foot a {
-  margin-left: 0.5rem;
-  color: #9c9cc8;
+  color: var(--gf-texto-medio);
+  text-decoration: none;
+}
+
+.shell-foot a:hover {
+  color: var(--gf-texto);
 }

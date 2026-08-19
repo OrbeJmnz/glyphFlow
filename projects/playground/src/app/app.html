@@ -1,13 +1,21 @@
 <header class="shell-head">
-  <a class="marca" routerLink="/">glyphflow</a>
+  <a class="marca" routerLink="/">
+    <!-- El glifo de la marca: el propio motor, animándose al pasar el puntero por el header. -->
+    <max-icon [iconDef]="glifo" [size]="18" trigger="group" />
+    <span>glyphflow</span>
+  </a>
 
   <nav class="nav" aria-label="Secciones">
-    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }">
-      Iconos
-    </a>
-    <a routerLink="/patrones" routerLinkActive="activo">Patrones</a>
-    <a routerLink="/lab" routerLinkActive="activo">Lab</a>
-    <a routerLink="/docs" routerLinkActive="activo">Docs</a>
+    <a
+      class="chip"
+      routerLink="/"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Iconos</a
+    >
+    <a class="chip" routerLink="/patrones" routerLinkActive="activo">Patrones</a>
+    <a class="chip" routerLink="/lab" routerLinkActive="activo">Lab</a>
+    <a class="chip" routerLink="/docs" routerLinkActive="activo">Docs</a>
   </nav>
 
   <!--
@@ -15,7 +23,6 @@
     así que el control pertenece al chrome, no a una página.
   -->
   <div class="velocidad" role="group" aria-label="Velocidad global de las animaciones">
-    <span class="grupo-tit">velocidad</span>
     @for (p of presets; track p.valor) {
       <button
         type="button"
@@ -43,6 +50,8 @@
 </main>
 
 <footer class="shell-foot">
-  Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
-  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">Código en GitHub</a>
+  <span>
+    Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
+  </span>
+  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">GitHub</a>
 </footer>

@@ -2,9 +2,9 @@
   max-width: 68rem;
   margin: 0 auto 3.5rem;
   padding: 1.75rem 1.5rem 2rem;
-  border: 1px solid #1d1d25;
+  border: 1px solid var(--gf-borde-suave);
   border-radius: 1rem;
-  background: #0e0e14;
+  background: var(--gf-fondo);
 }
 
 .bench-head h2 {
@@ -16,7 +16,7 @@
 .bench-head p {
   margin: 0 0 1.25rem;
   max-width: 44rem;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -38,10 +38,10 @@
 
 button {
   padding: 0.4rem 0.85rem;
-  border: 1px solid #2a2a33;
+  border: 1px solid var(--gf-borde);
   border-radius: 0.5rem;
-  background: #15151c;
-  color: #a1a1ac;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-medio);
   font: inherit;
   font-size: 0.8125rem;
   cursor: pointer;
@@ -52,26 +52,26 @@ button {
 }
 
 button:hover {
-  color: #e7e7ea;
-  border-color: #3f3f4b;
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
 }
 
 button.activo {
-  background: #1e1e2a;
-  border-color: #4a4a5c;
+  background: var(--gf-panel-alto);
+  border-color: var(--gf-borde-vivo);
   color: #f2f2f5;
 }
 
 button.primario {
-  background: #e7e7ea;
-  border-color: #e7e7ea;
-  color: #0b0b0f;
+  background: var(--gf-texto);
+  border-color: var(--gf-texto);
+  color: var(--gf-fondo);
   font-weight: 500;
 }
 
 button.primario:hover {
   background: #fff;
-  color: #0b0b0f;
+  color: var(--gf-fondo);
 }
 
 .envoltorio {
@@ -80,9 +80,9 @@ button.primario:hover {
   gap: 1.25rem;
   margin: 0 0 1.25rem;
   padding: 1rem 1.25rem;
-  border: 1px solid #1d1d25;
+  border: 1px solid var(--gf-borde-suave);
   border-radius: 0.75rem;
-  background: #101017;
+  background: var(--gf-panel);
 }
 
 .envoltorio-txt {
@@ -93,19 +93,19 @@ button.primario:hover {
   margin: 0 0 0.3rem;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: #cfcfd6;
+  color: var(--gf-texto-medio);
 }
 
 .envoltorio p {
   margin: 0;
   max-width: 42rem;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
 
 .envoltorio max-icon-morph {
-  color: #e7e7ea;
+  color: var(--gf-texto);
 }
 
 /* Las 4 en una sola fila: el punto del arnés es comparar 15 contra 20 de un vistazo, y en cuanto
@@ -128,21 +128,21 @@ button.primario:hover {
   align-items: center;
   gap: 0.75rem;
   padding: 1.25rem 1rem;
-  border: 1px solid #1d1d25;
+  border: 1px solid var(--gf-borde-suave);
   border-radius: 0.75rem;
-  background: #101017;
+  background: var(--gf-panel);
 }
 
 .variante h3 {
   margin: 0;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: #cfcfd6;
+  color: var(--gf-texto-medio);
 }
 
 /* La variante que ganó el benchmark queda marcada en el arnés: la decisión se lee donde se tomó. */
 .variante.elegida {
-  border-color: #3f3f4b;
+  border-color: var(--gf-borde-vivo);
 }
 
 .etiqueta {
@@ -150,35 +150,35 @@ button.primario:hover {
   padding: 0.05rem 0.4rem;
   border-radius: 0.35rem;
   background: #23232f;
-  color: #a1a1ac;
+  color: var(--gf-texto-medio);
   font-size: 0.625rem;
   font-weight: 400;
   vertical-align: middle;
 }
 
 .variante svg {
-  color: #e7e7ea;
+  color: var(--gf-texto);
 }
 
 .separador {
   width: 1px;
   align-self: stretch;
   margin: 0 0.35rem;
-  background: #2a2a33;
+  background: var(--gf-borde);
 }
 
 .aviso {
   margin: 1rem 0 0;
   padding: 0.6rem 0.85rem;
-  border-left: 2px solid #3f3f4b;
-  color: #8b8b96;
+  border-left: 2px solid var(--gf-borde-vivo);
+  color: var(--gf-texto-tenue);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
 
 .aviso strong,
 .aviso em {
-  color: #cfcfd6;
+  color: var(--gf-texto-medio);
   font-style: normal;
 }
 
@@ -187,7 +187,7 @@ button.primario:hover {
   gap: 0.75rem;
   margin: 0;
   font-size: 0.6875rem;
-  color: #6c6c78;
+  color: var(--gf-texto-apagado);
 }
 
 .datos div {
@@ -200,7 +200,7 @@ button.primario:hover {
 
 .datos dd {
   margin: 0;
-  color: #a1a1ac;
+  color: var(--gf-texto-medio);
   font-variant-numeric: tabular-nums;
 }
 

@@ -1,9 +1,9 @@
 .import {
   max-width: 68rem;
   margin: 0 auto 1.5rem;
-  border: 1px solid #1d1d25;
+  border: 1px solid var(--gf-borde-suave);
   border-radius: 0.75rem;
-  background: #101017;
+  background: var(--gf-panel);
   overflow: hidden;
 }
 
@@ -13,14 +13,14 @@
   padding: 0.7rem 1rem;
   border: none;
   background: transparent;
-  color: #a1a1ac;
+  color: var(--gf-texto-medio);
   font-size: 0.8125rem;
   text-align: left;
   cursor: pointer;
 }
 
 .import-toggle:hover {
-  color: #e7e7ea;
+  color: var(--gf-texto);
 }
 
 .import-body {
@@ -29,29 +29,29 @@
 
 .import-nota {
   margin: 0 0 0.6rem;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.75rem;
   line-height: 1.5;
 }
 
 .import-nota code {
-  color: #a1a1ac;
+  color: var(--gf-texto-medio);
 }
 
 .ejemplo {
   margin-bottom: 0.6rem;
   padding: 0.25rem 0.65rem;
-  border: 1px solid #2a2a33;
+  border: 1px solid var(--gf-borde);
   border-radius: 0.35rem;
   background: transparent;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.6875rem;
   cursor: pointer;
 }
 
 .ejemplo:hover {
-  border-color: #3f3f4b;
-  color: #cfcfd6;
+  border-color: var(--gf-borde-vivo);
+  color: var(--gf-texto-medio);
 }
 
 .entrada {
@@ -59,10 +59,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0.6rem 0.7rem;
-  border: 1px solid #1d1d25;
+  border: 1px solid var(--gf-borde-suave);
   border-radius: 0.5rem;
-  background: #0b0b0f;
-  color: #a1a1ac;
+  background: var(--gf-fondo);
+  color: var(--gf-texto-medio);
   font-family: ui-monospace, monospace;
   font-size: 0.6875rem;
   resize: vertical;
@@ -79,10 +79,10 @@
   align-items: center;
   gap: 0.6rem;
   margin: 0.6rem 0 0;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.75rem;
 }
 
 .preview max-icon {
-  color: #e7e7ea;
+  color: var(--gf-texto);
 }

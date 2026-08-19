@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MaxIconComponent, workflowIcon, type AnimatedIconDef } from 'glyphflow';
 import { escalaDuracion, PRESETS_ESCALA } from './duration-scale';
 
 /**
@@ -11,11 +12,13 @@ import { escalaDuracion, PRESETS_ESCALA } from './duration-scale';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MaxIconComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
+  /** El glifo de la marca. `trigger="group"` lo cuelga del hover del header entero. */
+  protected readonly glifo: AnimatedIconDef = workflowIcon;
   protected readonly presets = PRESETS_ESCALA;
   protected readonly escala = escalaDuracion;
 }

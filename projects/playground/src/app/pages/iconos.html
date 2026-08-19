@@ -1,39 +1,63 @@
-<header class="head">
-  <h1>Los {{ total }} iconos curados</h1>
-  <p>
-    Cada uno con su coreografía a mano, corriendo sobre Web Animations API nativa. Pasa el puntero
-    sobre una tarjeta para animarla, dale click para ver su detalle (variantes, snippet, JSON), o
-    dale a repetir.
+<section class="hero">
+  <h1>glyphflow — iconos que se mueven</h1>
+  <p class="bajada">
+    Los iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación,
+    tree-shaking real y morph entre formas. Para Angular.
   </p>
 
-  <div class="barra">
-    <button type="button" class="repeat-all" (click)="repetirTodo()">Repetir todo</button>
-
-    @if (conteos.length) {
-      <span class="grupo" role="group" aria-label="Filtrar por insignia">
-        <span class="grupo-tit">solo</span>
-        @for (c of conteos; track c.clave) {
-          <button
-            type="button"
-            class="chip"
-            [class.activo]="filtro() === c.clave"
-            [attr.aria-pressed]="filtro() === c.clave"
-            (click)="alternarFiltro(c.clave)"
-          >
-            {{ c.etiqueta }} <em>{{ c.n }}</em>
-          </button>
-        }
-      </span>
-    }
+  <div class="acciones">
+    <a class="btn primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
+      npm i glyphflow
+    </a>
+    <a class="btn" routerLink="/docs">Empezar</a>
   </div>
 
-  @if (filtro()) {
-    <p class="aviso">
-      Mostrando {{ entries().length }} de {{ total }}.
-      <button type="button" class="enlace" (click)="filtro.set(null)">quitar el filtro</button>
-    </p>
+  <dl class="cifras">
+    <div>
+      <dt>{{ total }}</dt>
+      <dd>curados a mano</dd>
+    </div>
+    <div>
+      <dt>1 767</dt>
+      <dd>en el catálogo</dd>
+    </div>
+    <div>
+      <dt>4.09 KB</dt>
+      <dd>un icono, gzip</dd>
+    </div>
+    <div>
+      <dt>0</dt>
+      <dd>deps de animación</dd>
+    </div>
+  </dl>
+</section>
+
+<div class="barra">
+  <button type="button" class="chip" (click)="repetirTodo()">Repetir todo</button>
+
+  @if (conteos.length) {
+    <span class="grupo" role="group" aria-label="Filtrar por insignia">
+      @for (c of conteos; track c.clave) {
+        <button
+          type="button"
+          class="chip"
+          [class.activo]="filtro() === c.clave"
+          [attr.aria-pressed]="filtro() === c.clave"
+          (click)="alternarFiltro(c.clave)"
+        >
+          {{ c.etiqueta }} <em>{{ c.n }}</em>
+        </button>
+      }
+    </span>
   }
-</header>
+
+  @if (filtro()) {
+    <span class="aviso">
+      {{ entries().length }} de {{ total }}.
+      <button type="button" class="enlace" (click)="filtro.set(null)">quitar filtro</button>
+    </span>
+  }
+</div>
 
 @if (inspeccionado(); as sel) {
   <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="inspeccionado.set(null)" />

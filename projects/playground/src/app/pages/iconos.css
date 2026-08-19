@@ -2,81 +2,149 @@
   display: block;
 }
 
-.head {
-  max-width: 68rem;
-  margin: 0 auto 2.5rem;
+/* ── Hero ───────────────────────────────────────────────────────────────────── */
+
+/*
+ * El ritmo vertical está medido, no estimado: 48px de aire arriba, 12px entre el título y la
+ * bajada, 32px hasta las acciones. Es lo que hace que se sienta como la referencia aunque el
+ * contenido sea otro.
+ */
+.hero {
+  padding: 48px 0 0;
   text-align: center;
 }
 
-.head h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.hero h1 {
+  margin: 0;
+  font-size: 46px;
+  font-weight: 500;
+  line-height: 52px;
+  letter-spacing: -0.01em;
+  color: var(--gf-texto);
 }
 
-.head p {
-  margin: 0 auto 1.25rem;
-  max-width: 34rem;
-  color: var(--gf-texto-medio);
-  line-height: 1.6;
-}
-
-.head .aviso {
-  margin: 0.9rem auto 0;
-  max-width: 34rem;
-  font-size: 0.8125rem;
+.hero .bajada {
+  max-width: 530px;
+  margin: 12px auto 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25px;
   color: var(--gf-texto-tenue);
 }
+
+@media (max-width: 40rem) {
+  .hero h1 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-medio);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+/* La acción principal invierte el contraste, como en la referencia. */
+.btn.primario {
+  border-color: transparent;
+  background: #fff;
+  color: #121212;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+}
+
+.btn.primario:hover {
+  background: #e4e4e4;
+  color: #121212;
+}
+
+/* Las cuatro cifras que resumen el proyecto: números medidos, no adjetivos. */
+.cifras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 40px 0 0;
+}
+
+.cifras > div {
+  min-width: 130px;
+  padding: 16px 20px;
+  border-radius: var(--gf-radio-chico);
+  background: var(--gf-panel);
+}
+
+.cifras dt {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gf-texto);
+}
+
+.cifras dd {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--gf-texto-tenue);
+}
+
+/* ── Barra de filtros ───────────────────────────────────────────────────────── */
 
 .barra {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem 1.25rem;
+  gap: 4px 10px;
+  margin: 64px 0 24px;
+  padding: 3px;
 }
 
 .grupo {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.repeat-all,
-.repeat {
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.5rem;
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto-medio);
-  font: inherit;
-  cursor: pointer;
-  transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.repeat-all {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-}
-
-.repeat-all:hover,
-.repeat:hover {
-  color: var(--gf-texto);
-  border-color: var(--gf-borde-vivo);
-}
-
-.repeat {
-  padding: 0.2rem 0.6rem;
-  font-size: 0.6875rem;
+.aviso {
+  font-size: 13px;
+  color: var(--gf-texto-tenue);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
-  gap: 0.75rem;
-  max-width: 68rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
   margin: 0 auto;
 }
 
@@ -86,9 +154,9 @@
   flex-direction: column;
   align-items: center;
   gap: 0.6rem;
-  padding: 1.25rem 0.5rem 0.9rem;
-  border: 1px solid var(--gf-borde-suave);
-  border-radius: 0.75rem;
+  padding: 20px 8px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--gf-radio);
   background: var(--gf-panel);
   cursor: pointer;
   transition:
@@ -97,12 +165,32 @@
 }
 
 .card:hover {
-  border-color: #33333f;
+  background: var(--gf-panel-alto);
 }
 
 .card.inspeccionado {
-  border-color: var(--gf-acento);
-  background: #14141d;
+  border-color: var(--gf-borde-vivo);
+  background: var(--gf-panel-alto);
+}
+
+/* El botón de repetir vive dentro de la tarjeta: discreto hasta que la tarjeta recibe el puntero. */
+.repeat {
+  padding: 3px 10px;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-apagado);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.card:hover .repeat {
+  color: var(--gf-texto-medio);
+  border-color: var(--gf-borde-vivo);
 }
 
 .name {

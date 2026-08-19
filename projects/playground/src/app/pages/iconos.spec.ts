@@ -1,10 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { CURATED_ICONS } from 'glyphflow';
 import { Iconos } from './iconos';
 
 describe('Iconos', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [Iconos] }).compileComponents();
+    // La portada trae el hero, y su botón «Empezar» es un routerLink.
+    await TestBed.configureTestingModule({
+      imports: [Iconos],
+      providers: [provideRouter([])],
+    }).compileComponents();
   });
 
   it('pinta una tarjeta por icono curado del paquete publicado', async () => {
@@ -20,7 +25,8 @@ describe('Iconos', () => {
     const html = fixture.nativeElement as HTMLElement;
     const total = html.querySelectorAll('.card').length;
 
-    const filtro = html.querySelector<HTMLButtonElement>('.barra .chip');
+    // El grupo de filtros, no el primer chip de la barra: ese es «Repetir todo».
+    const filtro = html.querySelector<HTMLButtonElement>('.barra .grupo .chip');
     expect(filtro).toBeTruthy();
     filtro!.click();
     await fixture.whenStable();

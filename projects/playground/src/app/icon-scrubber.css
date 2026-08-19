@@ -8,7 +8,7 @@
   width: 2.5rem;
   height: 2.5rem;
   flex: none;
-  color: #e7e7ea;
+  color: var(--gf-texto);
 }
 
 .control {
@@ -21,12 +21,12 @@
 
 .control input[type='range'] {
   flex: 1;
-  accent-color: #6c6c96;
+  accent-color: var(--gf-acento);
 }
 
 .tiempo {
   flex: none;
-  color: #8b8b96;
+  color: var(--gf-texto-tenue);
   font-size: 0.6875rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -34,11 +34,11 @@
 
 .sin-scrub {
   margin: 0;
-  color: #6c6c78;
+  color: var(--gf-texto-apagado);
   font-size: 0.75rem;
   line-height: 1.5;
 }
 
 .sin-scrub code {
-  color: #a1a1ac;
+  color: var(--gf-texto-medio);
 }
