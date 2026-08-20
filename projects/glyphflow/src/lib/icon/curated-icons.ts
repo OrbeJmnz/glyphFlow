@@ -40,6 +40,9 @@ export const bellRingIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellRingShapes
 
 const BELL_SHAKE_ROOT = /* @__PURE__ */ rotateSeq([0, 18, -12, 9, -5, 0]);
 const BELL_CLAPPER = /* @__PURE__ */ moveXSeq([0, -4, 3, -2, 1, 0]);
+// Mismo repique que el `bell` base (sin -ring), como prefijo largo antes de mostrar la insignia.
+const BELL_RING_ROOT = /* @__PURE__ */ rotateSeq([0, 20, -10, 10, -5, 3, 0]);
+const BELL_RING_CLAPPER = /* @__PURE__ */ moveXSeq([0, -6, 5, -5, 4, -3, 2, 0]);
 
 export const bellCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellCheckShapes, {
     default: {
@@ -47,6 +50,13 @@ export const bellCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellCheckShap
       shapes: {
         0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 550 }),
+      },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(BELL_RING_ROOT, 900, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_RING_CLAPPER, 1100),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 850 }),
       },
     },
   });
@@ -59,6 +69,13 @@ export const bellDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellDotShapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 550 }),
       },
     },
+    ring: {
+      root: /* @__PURE__ */ track(BELL_RING_ROOT, 900, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_RING_CLAPPER, 1100),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 850 }),
+      },
+    },
   });
 
 export const bellMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellMinusShapes, {
@@ -67,6 +84,13 @@ export const bellMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellMinusShap
       shapes: {
         0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
+      },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(BELL_RING_ROOT, 900, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_RING_CLAPPER, 1100),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }),
       },
     },
   });
@@ -90,6 +114,14 @@ export const bellPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellPlusShapes
         0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
+      },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(BELL_RING_ROOT, 900, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_RING_CLAPPER, 1100),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }),
       },
     },
   });
@@ -366,10 +398,16 @@ export const heartPulseIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartPulseSh
   });
 
 const HEART_BEAT = /* @__PURE__ */ scaleSeq([1, 1.1, 1]);
+// Palpitar real: 4 pulsaciones que se van apagando, como un corazón calmándose.
+const HEART_QUAD_PULSE = /* @__PURE__ */ scaleSeq([1, 1.16, 1, 1.16, 1, 1.1, 1, 1.06, 1]);
 
 export const heartCrackIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartCrackShapes, {
     default: {
       root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 260 }) },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 260 }) },
     },
   });
@@ -379,11 +417,18 @@ export const heartHandshakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartHan
     default: {
       root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
     },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
+    },
   });
 
 export const heartMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartMinusShapes, {
     default: {
       root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }) },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }) },
     },
   });
@@ -407,11 +452,25 @@ export const heartPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartPlusShap
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
       },
     },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+      },
+    },
   });
 
 export const heartXIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartXShapes, {
     default: {
       root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
