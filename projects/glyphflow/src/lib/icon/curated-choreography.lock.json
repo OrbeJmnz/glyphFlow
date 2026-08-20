@@ -685,8 +685,159 @@
       "path:c87e13d07cf4",
       "path:6a381bd15bf0"
     ],
+    "folder-archive": [
+      "circle:34fe5b874328",
+      "path:869318e6bdfe",
+      "path:b4d61915b847",
+      "path:882ed22aaea5"
+    ],
+    "folder-bookmark": [
+      "path:d9c490e740b1",
+      "path:db3d727f5070"
+    ],
+    "folder-check": [
+      "path:bb3d401f7070",
+      "path:da6083f96114"
+    ],
+    "folder-clock": [
+      "path:d305925774aa",
+      "path:0dc39f9dd1e2",
+      "circle:d6022e837f75"
+    ],
+    "folder-closed": [
+      "path:bb3d401f7070",
+      "path:2d52e4009055"
+    ],
+    "folder-code": [
+      "path:ae4c14ad302a",
+      "path:32e7ce6573dc",
+      "path:db3d727f5070"
+    ],
+    "folder-cog": [
+      "path:77107f356e5b",
+      "path:b0ba452434c2",
+      "path:0caf53d706ba",
+      "path:aaf66353f530",
+      "path:9b1669994dd5",
+      "path:07b683399bd9",
+      "path:088bd6cd66db",
+      "path:ee521173383f",
+      "path:7a33e1d50839",
+      "circle:19df0cd8a262"
+    ],
+    "folder-dot": [
+      "path:e17ab953bd42",
+      "circle:2ae702914b78"
+    ],
+    "folder-down": [
+      "path:bb3d401f7070",
+      "path:15c91f9f8941",
+      "path:62d2002c827c"
+    ],
+    "folder-git": [
+      "circle:27e6fdd84878",
+      "path:bb3d401f7070",
+      "path:1b1f21991f17",
+      "path:6c92e2137645"
+    ],
+    "folder-git-2": [
+      "path:832826c21ec7",
+      "path:b6d2823af6b1",
+      "circle:61f73e7863fa",
+      "circle:5b0cfa13f290"
+    ],
+    "folder-heart": [
+      "path:ddb3f3ddbe2b",
+      "path:eea47168a56c"
+    ],
+    "folder-input": [
+      "path:011ec39b329a",
+      "path:82da36f8d1bc",
+      "path:ca150abe105d"
+    ],
+    "folder-kanban": [
+      "path:e17ab953bd42",
+      "path:b1fa9046038e",
+      "path:11c919538d41",
+      "path:47b9e8ab4dba"
+    ],
+    "folder-key": [
+      "path:76975e7e9a65",
+      "path:77d6224e217f",
+      "path:6605487e6ea8",
+      "circle:a5e25ea7c041"
+    ],
+    "folder-lock": [
+      "rect:b21f98211215",
+      "path:fee085de7a57",
+      "path:dda889912b14"
+    ],
+    "folder-minus": [
+      "path:0994442e8a1d",
+      "path:bb3d401f7070"
+    ],
     "folder-open": [
       "path:2545f338a126"
+    ],
+    "folder-open-dot": [
+      "path:c2de0bc6d597",
+      "circle:566837058281"
+    ],
+    "folder-output": [
+      "path:f366174eef9d",
+      "path:82da36f8d1bc",
+      "path:8e732ec42384"
+    ],
+    "folder-pen": [
+      "path:6af6847e5695",
+      "path:33f34f976132"
+    ],
+    "folder-plus": [
+      "path:15c91f9f8941",
+      "path:0994442e8a1d",
+      "path:bb3d401f7070"
+    ],
+    "folder-root": [
+      "path:e17ab953bd42",
+      "circle:27e6fdd84878",
+      "path:85c75dad4ffd"
+    ],
+    "folder-search": [
+      "path:e801574fe8d2",
+      "path:445d29b99ada",
+      "circle:ba95d88c6839"
+    ],
+    "folder-search-2": [
+      "circle:019af5c74e71",
+      "path:bb3d401f7070",
+      "path:d11ec1991aeb"
+    ],
+    "folder-symlink": [
+      "path:d5556c6da6f0",
+      "path:d806bbd3e60f"
+    ],
+    "folder-sync": [
+      "path:5c251e5e14f0",
+      "path:9b5fbdd948fd",
+      "path:031dab04bb1f",
+      "path:807cdff76b2c",
+      "path:9bf6cc4931ab"
+    ],
+    "folder-tree": [
+      "path:b52e22e45630",
+      "path:2c6d10b2bdfb",
+      "path:cc98a9194f2e",
+      "path:035e446b32f0"
+    ],
+    "folder-up": [
+      "path:bb3d401f7070",
+      "path:15c91f9f8941",
+      "path:c6953e89d781"
+    ],
+    "folder-x": [
+      "path:bb3d401f7070",
+      "path:aea8e2bb27f5",
+      "path:da182c2afc02"
     ],
     "funnel": [
       "path:e548f490c441"

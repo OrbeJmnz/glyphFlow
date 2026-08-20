@@ -466,6 +466,207 @@ export const folderOpenShapes: IconShape[] = [
     },
   ];
 
+const FOLDER_BODY = 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z';
+const FOLDER_BODY_LEFT = 'M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z';
+
+export const folderArchiveShapes: IconShape[] = [
+    { tag: 'circle', cx: 15, cy: 19, r: 2 },
+    { tag: 'path', d: 'M20.9 19.8A2 2 0 0 0 22 18V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h5.1' },
+    { tag: 'path', d: 'M15 11v-1' },
+    { tag: 'path', d: 'M15 17v-2' },
+  ];
+
+export const folderBookmarkShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 6v8l3-3 3 3V6' },
+    {
+      tag: 'path',
+      d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z',
+    },
+  ];
+
+export const folderCheckShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'm9 13 2 2 4-4' },
+  ];
+
+export const folderClockShapes: IconShape[] = [
+    { tag: 'path', d: 'M16 14v2.2l1.6 1' },
+    { tag: 'path', d: 'M7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2' },
+    { tag: 'circle', cx: 16, cy: 16, r: 6 },
+  ];
+
+export const folderClosedShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'M2 10h20' },
+  ];
+
+export const folderCodeShapes: IconShape[] = [
+    { tag: 'path', d: 'M10 10.5 8 13l2 2.5' },
+    { tag: 'path', d: 'm14 10.5 2 2.5-2 2.5' },
+    {
+      tag: 'path',
+      d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z',
+    },
+  ];
+
+export const folderCogShapes: IconShape[] = [
+    { tag: 'path', d: 'M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.98a2 2 0 0 1 1.69.9l.66 1.2A2 2 0 0 0 12 6h8a2 2 0 0 1 2 2v3.3' },
+    { tag: 'path', d: 'm14.305 19.53.923-.382' },
+    { tag: 'path', d: 'm15.228 16.852-.923-.383' },
+    { tag: 'path', d: 'm16.852 15.228-.383-.923' },
+    { tag: 'path', d: 'm16.852 20.772-.383.924' },
+    { tag: 'path', d: 'm19.148 15.228.383-.923' },
+    { tag: 'path', d: 'm19.53 21.696-.382-.924' },
+    { tag: 'path', d: 'm20.772 16.852.924-.383' },
+    { tag: 'path', d: 'm20.772 19.148.924.383' },
+    { tag: 'circle', cx: 18, cy: 18, r: 3 },
+  ];
+
+export const folderDotShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY_LEFT },
+    { tag: 'circle', cx: 12, cy: 13, r: 1 },
+  ];
+
+export const folderDownShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'M12 10v6' },
+    { tag: 'path', d: 'm15 13-3 3-3-3' },
+  ];
+
+export const folderGit2Shapes: IconShape[] = [
+    { tag: 'path', d: 'M18 19a5 5 0 0 1-5-5v8' },
+    { tag: 'path', d: 'M9 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v5' },
+    { tag: 'circle', cx: 13, cy: 12, r: 2 },
+    { tag: 'circle', cx: 20, cy: 19, r: 2 },
+  ];
+
+export const folderGitShapes: IconShape[] = [
+    { tag: 'circle', cx: 12, cy: 13, r: 2 },
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'M14 13h3' },
+    { tag: 'path', d: 'M7 13h3' },
+  ];
+
+export const folderHeartShapes: IconShape[] = [
+    { tag: 'path', d: 'M10.638 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v3.417' },
+    {
+      tag: 'path',
+      d: 'M14.62 18.8A2.25 2.25 0 1 1 18 15.836a2.25 2.25 0 1 1 3.38 2.966l-2.626 2.856a.998.998 0 0 1-1.507 0z',
+    },
+  ];
+
+export const folderInputShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 9V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1' },
+    { tag: 'path', d: 'M2 13h10' },
+    { tag: 'path', d: 'm9 16 3-3-3-3' },
+  ];
+
+export const folderKanbanShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY_LEFT },
+    { tag: 'path', d: 'M8 10v4' },
+    { tag: 'path', d: 'M12 10v2' },
+    { tag: 'path', d: 'M16 10v6' },
+  ];
+
+export const folderKeyShapes: IconShape[] = [
+    { tag: 'path', d: 'M13 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v1.36' },
+    { tag: 'path', d: 'M19 12v6' },
+    { tag: 'path', d: 'M19 14h2' },
+    { tag: 'circle', cx: 19, cy: 20, r: 2 },
+  ];
+
+export const folderLockShapes: IconShape[] = [
+    { tag: 'rect', width: 8, height: 5, x: 14, y: 17, rx: 1 },
+    { tag: 'path', d: 'M10 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v2.5' },
+    { tag: 'path', d: 'M20 17v-2a2 2 0 1 0-4 0v2' },
+  ];
+
+export const folderMinusShapes: IconShape[] = [
+    { tag: 'path', d: 'M9 13h6' },
+    { tag: 'path', d: FOLDER_BODY },
+  ];
+
+export const folderOpenDotShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'm6 14 1.45-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2',
+    },
+    { tag: 'circle', cx: 14, cy: 15, r: 1 },
+  ];
+
+export const folderOutputShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 7.5V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-1.5' },
+    { tag: 'path', d: 'M2 13h10' },
+    { tag: 'path', d: 'm5 10-3 3 3 3' },
+  ];
+
+export const folderPenShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 11.5V5a2 2 0 0 1 2-2h3.9c.7 0 1.3.3 1.7.9l.8 1.2c.4.6 1 .9 1.7.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9.5' },
+    {
+      tag: 'path',
+      d: 'M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
+    },
+  ];
+
+export const folderPlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 10v6' },
+    { tag: 'path', d: 'M9 13h6' },
+    { tag: 'path', d: FOLDER_BODY },
+  ];
+
+export const folderRootShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY_LEFT },
+    { tag: 'circle', cx: 12, cy: 13, r: 2 },
+    { tag: 'path', d: 'M12 15v5' },
+  ];
+
+export const folderSearch2Shapes: IconShape[] = [
+    { tag: 'circle', cx: 11.5, cy: 12.5, r: 2.5 },
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'M13.3 14.3 15 16' },
+  ];
+
+export const folderSearchShapes: IconShape[] = [
+    { tag: 'path', d: 'M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1' },
+    { tag: 'path', d: 'm21 21-1.9-1.9' },
+    { tag: 'circle', cx: 17, cy: 17, r: 3 },
+  ];
+
+export const folderSymlinkShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 9.35V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h7' },
+    { tag: 'path', d: 'm8 16 3-3-3-3' },
+  ];
+
+export const folderSyncShapes: IconShape[] = [
+    { tag: 'path', d: 'M9 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v.5' },
+    { tag: 'path', d: 'M12 10v4h4' },
+    { tag: 'path', d: 'm12 14 1.535-1.605a5 5 0 0 1 8 1.5' },
+    { tag: 'path', d: 'M22 22v-4h-4' },
+    { tag: 'path', d: 'm22 18-1.535 1.605a5 5 0 0 1-8-1.5' },
+  ];
+
+export const folderTreeShapes: IconShape[] = [
+    { tag: 'path', d: 'M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z' },
+    {
+      tag: 'path',
+      d: 'M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.92-.6H13a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z',
+    },
+    { tag: 'path', d: 'M3 5a2 2 0 0 0 2 2h3' },
+    { tag: 'path', d: 'M3 3v13a2 2 0 0 0 2 2h3' },
+  ];
+
+export const folderUpShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'M12 10v6' },
+    { tag: 'path', d: 'm9 13 3-3 3 3' },
+  ];
+
+export const folderXShapes: IconShape[] = [
+    { tag: 'path', d: FOLDER_BODY },
+    { tag: 'path', d: 'm9.5 10.5 5 5' },
+    { tag: 'path', d: 'm14.5 10.5-5 5' },
+  ];
+
 export const planeShapes: IconShape[] = [
     {
       tag: 'path',
