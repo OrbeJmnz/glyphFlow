@@ -6731,7 +6731,5369 @@ export const tally5Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally5Shapes, {
     },
   });
 
+
+// ─── Portado de ng-animated-icons (MIT © 2025 Ajit Panigrahi) ──────────────────────────────────
+// github.com/ajitzero/animated-icons — su coreografía vive en CSS (@keyframes / transition); aquí
+// quedó reinterpretada sobre WAAPI en un port de UNA sola vez. De aquí en adelante estos iconos se
+// mantienen a mano, igual que el resto del archivo: no hay script que los regenere.
+//
+// Los marcados REVISAR se mapearon por POSICIÓN — su catálogo está clavado a una versión anterior
+// de Lucide, así que el `d` ya no casa y el índice de figura es una inferencia, no una medición.
+
+export const airplayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1" },
+    { tag: 'path', d: "m12 15 5 6H7Z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 400, { easing: 'cubic-bezier(0, 0, 0.3, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const alignHorizontalSpaceAroundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 6, height: 10, x: 9, y: 7, rx: 2 },
+    { tag: 'path', d: "M4 22V2" },
+    { tag: 'path', d: "M20 22V2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.85)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleY(1)' }, { transform: 'translateX(2px) scaleY(0.9)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleY(1)' }, { transform: 'translateX(-2px) scaleY(0.9)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const alignVerticalSpaceAroundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 10, height: 6, x: 7, y: 9, rx: 2 },
+    { tag: 'path', d: "M22 20H2" },
+    { tag: 'path', d: "M22 4H2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.8)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleX(1)' }, { transform: 'translateY(-2px) scaleX(0.9)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleX(1)' }, { transform: 'translateY(2px) scaleX(0.9)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const anvilIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 10H6a4 4 0 0 1-4-4 1 1 0 0 1 1-1h4" },
+    { tag: 'path', d: "M7 5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1 7 7 0 0 1-7 7H8a1 1 0 0 1-1-1z" },
+    { tag: 'path', d: "M9 12v5" },
+    { tag: 'path', d: "M15 12v5" },
+    { tag: 'path', d: "M5 20a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3 1 1 0 0 1-1 1H6a1 1 0 0 1-1-1" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(-50px)' }, { transform: 'translateY(0)' }], 200, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' }),
+    },
+  },
+);
+
+export const archiveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 20, height: 5, x: 2, y: 3, rx: 1 },
+    { tag: 'path', d: "M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" },
+    { tag: 'path', d: "M10 12h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigDownDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-6.939 6.939a1.207 1.207 0 0 1-1.708 0l-6.94-6.94a.707.707 0 0 1 .5-1.206H8a1 1 0 0 0 1-1V9a1 1 0 0 1 1-1z" },
+    { tag: 'path', d: "M9 4h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-7.086 7.086a1 1 0 0 1-1.414 0l-7.086-7.086a.707.707 0 0 1 .5-1.207H8a1 1 0 0 0 1-1z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigLeftDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 9a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707l6.94 6.94a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h2a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z" },
+    { tag: 'path', d: "M20 9v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigRightDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 9a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707l-6.94 6.94a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" },
+    { tag: 'path', d: "M4 9v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.207 19.793a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigUpDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1z" },
+    { tag: 'path', d: "M9 20h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowBigUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 19a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-6a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-7.086-7.086a1 1 0 0 0-1.414 0l-7.086 7.086a.707.707 0 0 0 .5 1.207H8a1 1 0 0 1 1 1z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDown01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'rect', x: 15, y: 4, width: 4, height: 6, ry: 2 },
+    { tag: 'path', d: "M17 20v-6h-2" },
+    { tag: 'path', d: "M15 20h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDown10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'path', d: "M17 10V4h-2" },
+    { tag: 'path', d: "M15 10h4" },
+    { tag: 'rect', x: 15, y: 14, width: 4, height: 6, ry: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'path', d: "M20 8h-5" },
+    { tag: 'path', d: "M15 10V6.5a2.5 2.5 0 0 1 5 0V10" },
+    { tag: 'path', d: "M15 14h5l-5 6h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowDownZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M15 4h5l-5 6h5" },
+    { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
+    { tag: 'path', d: "M20 18h-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 3 4 7l4 4" },
+    { tag: 'path', d: "M4 7h16" },
+    { tag: 'path', d: "m16 21 4-4-4-4" },
+    { tag: 'path', d: "M20 17H4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const arrowRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 3 4 4-4 4" },
+    { tag: 'path', d: "M20 7H4" },
+    { tag: 'path', d: "m8 21-4-4 4-4" },
+    { tag: 'path', d: "M4 17h16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 500),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 500),
+      },
+    },
+  },
+);
+
+export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'rect', x: 15, y: 4, width: 4, height: 6, ry: 2 },
+    { tag: 'path', d: "M17 20v-6h-2" },
+    { tag: 'path', d: "M15 20h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M17 10V4h-2" },
+    { tag: 'path', d: "M15 10h4" },
+    { tag: 'rect', x: 15, y: 14, width: 4, height: 6, ry: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M20 8h-5" },
+    { tag: 'path', d: "M15 10V6.5a2.5 2.5 0 0 1 5 0V10" },
+    { tag: 'path', d: "M15 14h5l-5 6h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M15 4h5l-5 6h5" },
+    { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
+    { tag: 'path', d: "M20 18h-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const awardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" },
+    { tag: 'circle', cx: 12, cy: 8, r: 6 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(20deg) scale(1.2)', offset: 0.3 }, { transform: 'rotate(-20deg) scale(1.2)', offset: 0.6 }, { transform: 'rotate(0deg) scale(1)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const axeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 12-8.381 8.38a1 1 0 0 1-3.001-3L11 9" },
+    { tag: 'path', d: "M15 15.5a.5.5 0 0 0 .5.5A6.5 6.5 0 0 0 22 9.5a.5.5 0 0 0-.5-.5h-1.672a2 2 0 0 1-1.414-.586l-5.062-5.062a1.205 1.205 0 0 0-1.704 0L9.352 5.648a1.205 1.205 0 0 0 0 1.704l5.062 5.062A2 2 0 0 1 15 13.828z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const axis3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.5 10.5 15 9" },
+    { tag: 'path', d: "M4 4v15a1 1 0 0 0 1 1h15" },
+    { tag: 'path', d: "M4.293 19.707 6 18" },
+    { tag: 'path', d: "m9 15 1.5-1.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 300, { easing: EASE, delay: 600 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 300, { easing: EASE, delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 300, { easing: EASE, delay: 400 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryChargingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m11 7-3 5h4l-3 5" },
+    { tag: 'path', d: "M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935" },
+    { tag: 'path', d: "M22 14v-4" },
+    { tag: 'path', d: "M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.1 }, { opacity: 1 }], 500),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryFullIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10v4" },
+    { tag: 'path', d: "M14 10v4" },
+    { tag: 'path', d: "M22 14v-4" },
+    { tag: 'path', d: "M6 10v4" },
+    { tag: 'rect', x: 2, y: 6, width: 16, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 400 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 800 }),
+        4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 1200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 14v-4" },
+    { tag: 'path', d: "M6 14v-4" },
+    { tag: 'rect', x: 2, y: 6, width: 16, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 400 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryMediumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 14v-4" },
+    { tag: 'path', d: "M22 14v-4" },
+    { tag: 'path', d: "M6 14v-4" },
+    { tag: 'rect', x: 2, y: 6, width: 16, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 400 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease', delay: 800 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryWarningIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 17h.01" },
+    { tag: 'path', d: "M10 7v6" },
+    { tag: 'path', d: "M14 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M22 14v-4" },
+    { tag: 'path', d: "M6 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 500),
+        1: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 500),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const batteryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M 22 14 L 22 10" },
+    { tag: 'rect', x: 2, y: 6, width: 16, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 500),
+        1: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 500),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const beanOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 9c-.64.64-1.521.954-2.402 1.165A6 6 0 0 0 8 22a13.96 13.96 0 0 0 9.9-4.1" },
+    { tag: 'path', d: "M10.75 5.093A6 6 0 0 1 22 8c0 2.411-.61 4.68-1.683 6.66" },
+    { tag: 'path', d: "M5.341 10.62a4 4 0 0 0 6.487 1.208M10.62 5.341a4.015 4.015 0 0 1 2.039 2.04" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const beerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 13v5" },
+    { tag: 'path', d: "M17 11.47V8" },
+    { tag: 'path', d: "M17 11h1a3 3 0 0 1 2.745 4.211" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3" },
+    { tag: 'path', d: "M7.536 7.535C6.766 7.649 6.154 8 5.5 8a2.5 2.5 0 0 1-1.768-4.268" },
+    { tag: 'path', d: "M8.727 3.204C9.306 2.767 9.885 2 11 2c1.56 0 2 1.5 3 1.5s1.72-.5 2.5-.5a1 1 0 1 1 0 5c-.78 0-1.5-.5-2.5-.5a3.149 3.149 0 0 0-.842.12" },
+    { tag: 'path', d: "M9 14.6V18" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const betweenHorizontalEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 13, height: 7, x: 3, y: 3, rx: 1 },
+    { tag: 'path', d: "m22 15-3-3 3-3" },
+    { tag: 'rect', width: 13, height: 7, x: 3, y: 14, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const betweenHorizontalStartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 13, height: 7, x: 8, y: 3, rx: 1 },
+    { tag: 'path', d: "m2 9 3 3-3 3" },
+    { tag: 'rect', width: 13, height: 7, x: 8, y: 14, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const betweenVerticalEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 7, height: 13, x: 3, y: 3, rx: 1 },
+    { tag: 'path', d: "m9 22 3-3 3 3" },
+    { tag: 'rect', width: 7, height: 13, x: 14, y: 3, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const betweenVerticalStartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 7, height: 13, x: 3, y: 8, rx: 1 },
+    { tag: 'path', d: "m15 2-3 3-3-3" },
+    { tag: 'rect', width: 7, height: 13, x: 14, y: 8, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1px)' }], 150, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const binaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 14, y: 14, width: 4, height: 6, rx: 2 },
+    { tag: 'rect', x: 6, y: 4, width: 4, height: 6, rx: 2 },
+    { tag: 'path', d: "M6 20h4" },
+    { tag: 'path', d: "M14 10h4" },
+    { tag: 'path', d: "M6 14h2v6" },
+    { tag: 'path', d: "M14 4h2v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-8px)' }], 200, { fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(8px)' }], 200, { fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const blendIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 9, cy: 9, r: 7 },
+    { tag: 'circle', cx: 15, cy: 15, r: 7 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const blocksIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2" },
+    { tag: 'rect', x: 14, y: 2, width: 8, height: 8, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const bluetoothOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 17-5 5V12l-5 5" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M14.5 9.5 17 7l-5-5v4.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const boltIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" },
+    { tag: 'circle', cx: 12, cy: 12, r: 4 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ rotate: '0deg' }, { rotate: '180deg' }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const boneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-8deg)', offset: 0.2 }, { transform: 'rotate(8deg)', offset: 0.4 }, { transform: 'rotate(-6deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
+  },
+);
+
+export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "m8 13 4-7 4 7" },
+    { tag: 'path', d: "M9.1 11h5.7" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookAudioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6v7" },
+    { tag: 'path', d: "M16 8v3" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M8 8v3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "m9 9.5 2 2 4-4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const bookDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17h1.5" },
+    { tag: 'path', d: "M12 22h1.5" },
+    { tag: 'path', d: "M12 2h1.5" },
+    { tag: 'path', d: "M17.5 22H19a1 1 0 0 0 1-1" },
+    { tag: 'path', d: "M17.5 2H19a1 1 0 0 1 1 1v1.5" },
+    { tag: 'path', d: "M20 14v3h-2.5" },
+    { tag: 'path', d: "M20 8.5V10" },
+    { tag: 'path', d: "M4 10V8.5" },
+    { tag: 'path', d: "M4 19.5V14" },
+    { tag: 'path', d: "M4 4.5A2.5 2.5 0 0 1 6.5 2H8" },
+    { tag: 'path', d: "M8 22H6.5a1 1 0 0 1 0-5H8" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "m9 10 3 3 3-3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookHeadphonesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M8 12v-2a4 4 0 0 1 8 0v2" },
+    { tag: 'circle', cx: 15, cy: 12, r: 1 },
+    { tag: 'circle', cx: 9, cy: 12, r: 1 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const bookHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M8.62 9.8A2.25 2.25 0 1 1 12 6.836a2.25 2.25 0 1 1 3.38 2.966l-2.626 2.856a.998.998 0 0 1-1.507 0z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookImageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m20 13.7-2.1-2.1a2 2 0 0 0-2.8 0L9.7 17" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'circle', cx: 10, cy: 8, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const bookKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 2H6.5A2.5 2.5 0 0 0 4 4.5v15" },
+    { tag: 'path', d: "M17 2v6" },
+    { tag: 'path', d: "M17 4h2" },
+    { tag: 'path', d: "M20 15.2V21a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'circle', cx: 17, cy: 10, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 6V4a2 2 0 1 0-4 0v2" },
+    { tag: 'path', d: "M20 15v6a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H10" },
+    { tag: 'rect', x: 12, y: 6, width: 8, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookMarkedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 2v8l3-3 3 3V2" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M9 10h6" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const bookOpenCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 5v16" },
+    { tag: 'path', d: "m16 12 2 2 4-4" },
+    { tag: 'path', d: "M22 6V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2h4.001A2 2 0 0022 17v-1.344" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const bookOpenTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 5v16" },
+    { tag: 'path', d: "M16 13h2" },
+    { tag: 'path', d: "M16 9h2" },
+    { tag: 'path', d: "M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" },
+    { tag: 'path', d: "M6 13h2" },
+    { tag: 'path', d: "M6 9h2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(1.05)', offset: 0.2 }, { transform: 'scale(1)', offset: 1 }], 800, { easing: 'ease' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        5: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const bookPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 7v6" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M9 10h6" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M8 11h8" },
+    { tag: 'path', d: "M8 7h6" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 8, opacity: 0.5 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 8, opacity: 0.5 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const bookTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 13h4" },
+    { tag: 'path', d: "M12 6v7" },
+    { tag: 'path', d: "M16 8V6H8v2" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookUp2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'path', d: "M18 2h1a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2" },
+    { tag: 'path', d: "m9 10 3-3 3 3" },
+    { tag: 'path', d: "m9 5 3-3 3 3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "m9 10 3-3 3 3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 13a3 3 0 1 0-6 0" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'circle', cx: 12, cy: 8, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14.5 7-5 5" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+    { tag: 'path', d: "m9.5 7 5 5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bookIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const botOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.67 8H18a2 2 0 0 1 2 2v4.33" },
+    { tag: 'path', d: "M2 14h2" },
+    { tag: 'path', d: "M20 14h2" },
+    { tag: 'path', d: "M22 22 2 2" },
+    { tag: 'path', d: "M8 8H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 1.414-.586" },
+    { tag: 'path', d: "M9 13v2" },
+    { tag: 'path', d: "M9.67 4H12v2.33" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const brainCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.852 14.772-.383.923" },
+    { tag: 'path', d: "m10.852 9.228-.383-.923" },
+    { tag: 'path', d: "m13.148 14.772.382.924" },
+    { tag: 'path', d: "m13.531 8.305-.383.923" },
+    { tag: 'path', d: "m14.772 10.852.923-.383" },
+    { tag: 'path', d: "m14.772 13.148.923.383" },
+    { tag: 'path', d: "M17.598 6.5A3 3 0 1 0 12 5a3 3 0 0 0-5.63-1.446 3 3 0 0 0-.368 1.571 4 4 0 0 0-2.525 5.771" },
+    { tag: 'path', d: "M17.998 5.125a4 4 0 0 1 2.525 5.771" },
+    { tag: 'path', d: "M19.505 10.294a4 4 0 0 1-1.5 7.706" },
+    { tag: 'path', d: "M4.032 17.483A4 4 0 0 0 11.464 20c.18-.311.892-.311 1.072 0a4 4 0 0 0 7.432-2.516" },
+    { tag: 'path', d: "M4.5 10.291A4 4 0 0 0 6 18" },
+    { tag: 'path', d: "M6.002 5.125a3 3 0 0 0 .4 1.375" },
+    { tag: 'path', d: "m9.228 10.852-.923-.383" },
+    { tag: 'path', d: "m9.228 13.148-.923.383" },
+    { tag: 'circle', cx: 12, cy: 12, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        14: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const briefcaseBusinessIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" },
+    { tag: 'path', d: "M22 13a18.15 18.15 0 0 1-20 0" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 6, rx: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(12deg)', offset: 0.25 }, { transform: 'rotate(-10deg)', offset: 0.55 }, { transform: 'rotate(3deg)', offset: 0.85 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
+    },
+  },
+);
+
+export const briefcaseMedicalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 11v4" },
+    { tag: 'path', d: "M14 13h-4" },
+    { tag: 'path', d: "M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" },
+    { tag: 'path', d: "M18 6v14" },
+    { tag: 'path', d: "M6 6v14" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 6, rx: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(12deg)', offset: 0.25 }, { transform: 'rotate(-10deg)', offset: 0.55 }, { transform: 'rotate(3deg)', offset: 0.85 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const brushCleaningIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 22-1-4" },
+    { tag: 'path', d: "M19 14a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v1a1 1 0 0 0 1 1" },
+    { tag: 'path', d: "M19 14H5l-1.973 6.767A1 1 0 0 0 4 22h16a1 1 0 0 0 .973-1.233z" },
+    { tag: 'path', d: "m8 22 1-4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.25 }, { transform: 'rotate(10deg)', offset: 0.5 }, { transform: 'rotate(0deg)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const brushIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m11 10 3 3" },
+    { tag: 'path', d: "M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z" },
+    { tag: 'path', d: "M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-6deg)', offset: 0.33 }, { transform: 'rotate(6deg)', offset: 0.66 }, { transform: 'rotate(0deg)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const bugOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 20v-8" },
+    { tag: 'path', d: "M12.656 7H14a4 4 0 0 1 4 4v1.344" },
+    { tag: 'path', d: "M14.12 3.88 16 2" },
+    { tag: 'path', d: "M17.123 17.123A6 6 0 0 1 6 14v-3a4 4 0 0 1 1.72-3.287" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M21 5a4 4 0 0 1-3.55 3.97" },
+    { tag: 'path', d: "M22 13h-3.344" },
+    { tag: 'path', d: "M3 21a4 4 0 0 1 3.81-4" },
+    { tag: 'path', d: "M3 5a4 4 0 0 0 3.55 3.97" },
+    { tag: 'path', d: "M6 13H2" },
+    { tag: 'path', d: "m8 2 1.88 1.88" },
+    { tag: 'path', d: "M9.712 4.06A3 3 0 0 1 15 6v1.13" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const cameraOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14.564 14.558a3 3 0 1 1-4.122-4.121" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20 20H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 .819-.175" },
+    { tag: 'path', d: "M9.695 4.024A2 2 0 0 1 10.004 4h3.993a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v7.344" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const candyOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10v7.9" },
+    { tag: 'path', d: "M11.802 6.145a5 5 0 0 1 6.053 6.053" },
+    { tag: 'path', d: "M14 6.1v2.243" },
+    { tag: 'path', d: "m15.5 15.571-.964.964a5 5 0 0 1-7.071 0 5 5 0 0 1 0-7.07l.964-.965" },
+    { tag: 'path', d: "M16 7V3a1 1 0 0 1 1.707-.707 2.5 2.5 0 0 0 2.152.717 1 1 0 0 1 1.131 1.131 2.5 2.5 0 0 0 .717 2.152A1 1 0 0 1 21 8h-4" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8 17v4a1 1 0 0 1-1.707.707 2.5 2.5 0 0 0-2.152-.717 1 1 0 0 1-1.131-1.131 2.5 2.5 0 0 0-.717-2.152A1 1 0 0 1 3 16h4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const captionsOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.5 5H19a2 2 0 0 1 2 2v8.5" },
+    { tag: 'path', d: "M17 11h-.5" },
+    { tag: 'path', d: "M19 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M7 11h4" },
+    { tag: 'path', d: "M7 15h2.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const castIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" },
+    { tag: 'path', d: "M2 12a9 9 0 0 1 8 8" },
+    { tag: 'path', d: "M2 16a5 5 0 0 1 4 4" },
+    { tag: 'line', x1: 2, x2: 2.01, y1: 20, y2: 20 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
+  },
+);
+
+export const chartBarDecreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M7 11h8" },
+    { tag: 'path', d: "M7 16h3" },
+    { tag: 'path', d: "M7 6h12" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const chartBarIncreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M7 11h8" },
+    { tag: 'path', d: "M7 16h12" },
+    { tag: 'path', d: "M7 6h3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const chartBarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M7 16h8" },
+    { tag: 'path', d: "M7 11h12" },
+    { tag: 'path', d: "M7 6h3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const chartColumnDecreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 17V9" },
+    { tag: 'path', d: "M18 17v-3" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M8 17V5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 100 }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const chartColumnIncreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 17V9" },
+    { tag: 'path', d: "M18 17V5" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M8 17v-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 100 }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.5 }, { strokeDashoffset: 12, opacity: 0, offset: 0.51 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const chartGanttIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 6h8" },
+    { tag: 'path', d: "M12 16h6" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M8 11h7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "m19 9-5 5-4-4-3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 17, opacity: 1, offset: 0 }, { strokeDashoffset: 17, opacity: 0, offset: 0.15 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartNoAxesColumnDecreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 21V3" },
+    { tag: 'path', d: "M12 21V9" },
+    { tag: 'path', d: "M19 21v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartNoAxesColumnIncreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 21v-6" },
+    { tag: 'path', d: "M12 21V9" },
+    { tag: 'path', d: "M19 21V3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartNoAxesColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 21v-6" },
+    { tag: 'path', d: "M12 21V3" },
+    { tag: 'path', d: "M19 21V9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartNoAxesCombinedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 16v5" },
+    { tag: 'path', d: "M16 14.639V21" },
+    { tag: 'path', d: "M20 10.656V21" },
+    { tag: 'path', d: "m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15" },
+    { tag: 'path', d: "M4 18.463V21" },
+    { tag: 'path', d: "M8 14.656V21" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 500, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 500, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 500, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 500, { easing: 'ease', delay: 300 }),
+        4: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 500, { easing: 'ease', delay: 400 }),
+        5: /* @__PURE__ */ track([{ strokeDashoffset: 28, opacity: 0, offset: 0 }, { strokeDashoffset: 28, opacity: 0, offset: 0.15 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 900, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const chartNoAxesGanttIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 5h12" },
+    { tag: 'path', d: "M4 12h10" },
+    { tag: 'path', d: "M12 19h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const chartPieIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" },
+    { tag: 'path', d: "M21.21 15.89A10 10 0 1 1 8 2.83" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1.1px, -1.1px)' }], 600, { easing: 'cubic-bezier(0.25, 0.1, 0.25, 1.5)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chartScatterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 7.5, cy: 7.5, r: 0.5, fill: "currentColor" },
+    { tag: 'circle', cx: 18.5, cy: 5.5, r: 0.5, fill: "currentColor" },
+    { tag: 'circle', cx: 11.5, cy: 11.5, r: 0.5, fill: "currentColor" },
+    { tag: 'circle', cx: 7.5, cy: 16.5, r: 0.5, fill: "currentColor" },
+    { tag: 'circle', cx: 17.5, cy: 14.5, r: 0.5, fill: "currentColor" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 300, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const chartSplineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M7 16c.5-2 1.5-7 4-7 2 0 2 3 4 3 2.5 0 4.5-5 5-7" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 24, opacity: 1, offset: 0 }, { strokeDashoffset: 24, opacity: 0, offset: 0.15 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const checkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 6 7 17l-5-5" },
+    { tag: 'path', d: "m22 10-7.5 7.5L13 16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 24, opacity: 0, offset: 0 }, { strokeDashoffset: 24, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 24, opacity: 0, offset: 0 }, { strokeDashoffset: 24, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const cherryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z" },
+    { tag: 'path', d: "M12 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z" },
+    { tag: 'path', d: "M7 14c3.22-2.91 4.29-8.75 5-12 1.66 2.38 4.94 9 5 12" },
+    { tag: 'path', d: "M22 9c-4.29 0-7.14-2.33-10-7 5.71 0 10 4.67 10 7Z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-12deg)' }, { transform: 'rotate(7deg)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0deg)' }], 800, { easing: EASE, origin: 'top center' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-12deg)' }, { transform: 'rotate(7deg)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0deg)' }], 800, { easing: EASE, origin: 'top center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-12deg)' }, { transform: 'rotate(7deg)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0deg)' }], 800, { easing: EASE, origin: 'top center' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-12deg)' }, { transform: 'rotate(7deg)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0deg)' }], 800, { easing: EASE, origin: 'top center' }),
+      },
+    },
+  },
+);
+
+export const chevronsDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m7 20 5-5 5 5" },
+    { tag: 'path', d: "m7 4 5 5 5-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m7 6 5 5 5-5" },
+    { tag: 'path', d: "m7 13 5 5 5-5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 7-5 5 5 5" },
+    { tag: 'path', d: "m15 7 5 5-5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m11 17-5-5 5-5" },
+    { tag: 'path', d: "m18 17-5-5 5-5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m20 17-5-5 5-5" },
+    { tag: 'path', d: "m4 17 5-5-5-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m6 17 5-5-5-5" },
+    { tag: 'path', d: "m13 17 5-5-5-5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chevronsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 11-5-5-5 5" },
+    { tag: 'path', d: "m17 18-5-5-5 5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const cigaretteOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13" },
+    { tag: 'path', d: "M18 8c0-2.5-2-2.5-2-5" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-.5.866" },
+    { tag: 'path', d: "M22 8c0-2.5-2-2.5-2-5" },
+    { tag: 'path', d: "M7 12v4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const circleArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 8v8" },
+    { tag: 'path', d: "m8 12 4 4 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const circleArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m12 8-4 4 4 4" },
+    { tag: 'path', d: "M16 12H8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const circleArrowOutDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 12a10 10 0 1 1 10 10" },
+    { tag: 'path', d: "m2 22 10-10" },
+    { tag: 'path', d: "M8 22H2v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const circleArrowOutDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22a10 10 0 1 1 10-10" },
+    { tag: 'path', d: "M22 22 12 12" },
+    { tag: 'path', d: "M22 16v6h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const circleArrowOutUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 8V2h6" },
+    { tag: 'path', d: "m2 2 10 10" },
+    { tag: 'path', d: "M12 2A10 10 0 1 1 2 12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const circleArrowOutUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 12A10 10 0 1 1 12 2" },
+    { tag: 'path', d: "M22 2 12 12" },
+    { tag: 'path', d: "M16 2h6v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const circleArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m12 16 4-4-4-4" },
+    { tag: 'path', d: "M8 12h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const circleArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m16 12-4-4-4 4" },
+    { tag: 'path', d: "M12 16V8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const circleCheckBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21.801 10A10 10 0 1 1 17 3.335" },
+    { tag: 'path', d: "m9 11 3 3L22 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 17, opacity: 0, offset: 0 }, { strokeDashoffset: 17, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleChevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m16 10-4 4-4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const circleChevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m14 16-4-4 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const circleChevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m10 8 4 4-4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const circleChevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m8 14 4-4 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const circleOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8.35 2.69A10 10 0 0 1 21.3 15.65" },
+    { tag: 'path', d: "M19.08 19.08A10 10 0 1 1 4.92 4.92" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const circleParkingOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.656 7H13a3 3 0 0 1 2.984 3.307" },
+    { tag: 'path', d: "M13 13H9" },
+    { tag: 'path', d: "M19.071 19.071A1 1 0 0 1 4.93 4.93" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8.357 2.687a10 10 0 0 1 12.956 12.956" },
+    { tag: 'path', d: "M9 17V9" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const clapperboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12.296 3.464 3.02 3.956" },
+    { tag: 'path', d: "M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z" },
+    { tag: 'path', d: "M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" },
+    { tag: 'path', d: "m6.18 5.276 3.1 3.899" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.3 }, { transform: 'rotate(16deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 400, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.3 }, { transform: 'rotate(16deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 400, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.3 }, { transform: 'rotate(16deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 400, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(-10deg)' }, { transform: 'rotate(-10deg)' }, { transform: 'rotate(0deg)' }], 800, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const clipboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 8, height: 4, x: 8, y: 2, rx: 1, ry: 1 },
+    { tag: 'path', d: "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const cloudDownloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13v8l-4-4" },
+    { tag: 'path', d: "m12 21 4-4" },
+    { tag: 'path', d: "M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const cloudMoonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 16a3 3 0 0 1 0 6H7a5 5 0 1 1 4.9-6z" },
+    { tag: 'path', d: "M18.376 14.512a6 6 0 0 0 3.461-4.127c.148-.625-.659-.97-1.248-.714a4 4 0 0 1-5.259-5.26c.255-.589-.09-1.395-.716-1.248a6 6 0 0 0-4.594 5.36" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 1400, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 1400, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const cloudOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.94 5.274A7 7 0 0 1 15.71 10h1.79a4.5 4.5 0 0 1 4.222 6.057" },
+    { tag: 'path', d: "M18.796 18.81A4.5 4.5 0 0 1 17.5 19H9A7 7 0 0 1 5.79 5.78" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const cogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 10.27 7 3.34" },
+    { tag: 'path', d: "m11 13.73-4 6.93" },
+    { tag: 'path', d: "M12 22v-2" },
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M14 12h8" },
+    { tag: 'path', d: "m17 20.66-1-1.73" },
+    { tag: 'path', d: "m17 3.34-1 1.73" },
+    { tag: 'path', d: "M2 12h2" },
+    { tag: 'path', d: "m20.66 17-1.73-1" },
+    { tag: 'path', d: "m20.66 7-1.73 1" },
+    { tag: 'path', d: "m3.34 17 1.73-1" },
+    { tag: 'path', d: "m3.34 7 1.73 1" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+    { tag: 'circle', cx: 12, cy: 12, r: 8 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 500, { easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const compassIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1000, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const contrastIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 18a6 6 0 0 0 0-12v12z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-180deg)' }], 300, { easing: 'ease', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const cropIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 2v14a2 2 0 0 0 2 2h14" },
+    { tag: 'path', d: "M18 22V8a2 2 0 0 0-2-2H2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, -1px)' }], 300, { easing: 'ease', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'ease', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const diamondPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 8v8" },
+    { tag: 'path', d: "M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L13.7 2.71a2.41 2.41 0 0 0-3.41 0z" },
+    { tag: 'path', d: "M8 12h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const dice1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M12 12h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const dice2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M15 9h.01" },
+    { tag: 'path', d: "M9 15h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const dice3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M16 8h.01" },
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M8 16h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const dice4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M16 8h.01" },
+    { tag: 'path', d: "M8 8h.01" },
+    { tag: 'path', d: "M8 16h.01" },
+    { tag: 'path', d: "M16 16h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const dice5Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M16 8h.01" },
+    { tag: 'path', d: "M8 8h.01" },
+    { tag: 'path', d: "M8 16h.01" },
+    { tag: 'path', d: "M16 16h.01" },
+    { tag: 'path', d: "M12 12h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const dice6Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+    { tag: 'path', d: "M16 8h.01" },
+    { tag: 'path', d: "M16 12h.01" },
+    { tag: 'path', d: "M16 16h.01" },
+    { tag: 'path', d: "M8 8h.01" },
+    { tag: 'path', d: "M8 12h.01" },
+    { tag: 'path', d: "M8 16h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) rotate(0deg)' }, { transform: 'translateX(-20%) rotate(45deg)' }, { transform: 'translateX(0) rotate(90deg)' }, { transform: 'translateX(-20%) rotate(135deg)' }, { transform: 'translateX(0) rotate(180deg)' }], 1000, { easing: EASE }),
+    },
+  },
+);
+
+export const diffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 3v14" },
+    { tag: 'path', d: "M5 10h14" },
+    { tag: 'path', d: "M5 21h14" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 500 }),
+      },
+    },
+  },
+);
+
+export const dnaOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 2c-1.35 1.5-2.092 3-2.5 4.5L14 8" },
+    { tag: 'path', d: "m17 6-2.891-2.891" },
+    { tag: 'path', d: "M2 15c3.333-3 6.667-3 10-3" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "m20 9 .891.891" },
+    { tag: 'path', d: "M22 9c-1.5 1.35-3 2.092-4.5 2.5l-1-1" },
+    { tag: 'path', d: "M3.109 14.109 4 15" },
+    { tag: 'path', d: "m6.5 12.5 1 1" },
+    { tag: 'path', d: "m7 18 2.891 2.891" },
+    { tag: 'path', d: "M9 22c1.35-1.5 2.092-3 2.5-4.5L10 16" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const dropletOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18.715 13.186C18.29 11.858 17.384 10.607 16 9.5c-2-1.6-3.5-4-4-6.5a10.7 10.7 0 0 1-.884 2.586" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8.795 8.797A11 11 0 0 1 8 9.5C6 11.1 5 13 5 15a7 7 0 0 0 13.222 3.208" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const drumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 2 8 8" },
+    { tag: 'path', d: "m22 2-8 8" },
+    { tag: 'ellipse', cx: 12, cy: 9, rx: 10, ry: 5 },
+    { tag: 'path', d: "M7 13.4v7.9" },
+    { tag: 'path', d: "M12 14v8" },
+    { tag: 'path', d: "M17 13.4v7.9" },
+    { tag: 'path', d: "M2 9v8a10 5 0 0 0 20 0V9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-10deg)' }, { transform: 'rotate(0deg)' }], 200, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(10deg)' }, { transform: 'rotate(0deg)' }], 200, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const earOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 18.5a3.5 3.5 0 1 0 7 0c0-1.57.92-2.52 2.04-3.46" },
+    { tag: 'path', d: "M6 8.5c0-.75.13-1.47.36-2.14" },
+    { tag: 'path', d: "M8.8 3.15A6.5 6.5 0 0 1 19 8.5c0 1.63-.44 2.81-1.09 3.76" },
+    { tag: 'path', d: "M12.5 6A2.5 2.5 0 0 1 15 8.5M10 13a2 2 0 0 0 1.82-1.18" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const eclipseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 2a7 7 0 1 0 10 10" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 1000, { easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const eggOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20 14.347V14c0-6-4-12-8-12-1.078 0-2.157.436-3.157 1.19" },
+    { tag: 'path', d: "M6.206 6.21C4.871 8.4 4 11.2 4 14a8 8 0 0 0 14.568 4.568" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileChartColumnIncreasingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 18v-2" },
+    { tag: 'path', d: "M12 18v-4" },
+    { tag: 'path', d: "M16 18v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        4: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileChartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 18v-1" },
+    { tag: 'path', d: "M12 18v-6" },
+    { tag: 'path', d: "M16 18v-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        4: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileChartLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m16 13-3.5 3.5-2-2L8 17" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 12, opacity: 0, offset: 0 }, { strokeDashoffset: 12, opacity: 0, offset: 0.15 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M12 18v-6" },
+    { tag: 'path', d: "m9 15 3 3 3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M9 15h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const filePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const filePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M9 15h6" },
+    { tag: 'path', d: "M12 18v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M12 17h.01" },
+    { tag: 'path', d: "M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+      },
+    },
+  },
+);
+
+export const fileSlidersIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 12h8" },
+    { tag: 'path', d: "M10 11v2" },
+    { tag: 'path', d: "M8 17h8" },
+    { tag: 'path', d: "M14 16v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(4px)' }], 400, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-4px)' }], 400, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileTerminalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m8 16 2-2-2-2" },
+    { tag: 'path', d: "M12 18h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const fileUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M12 12v6" },
+    { tag: 'path', d: "m15 15-3-3-3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const fishOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 12.47v.03m0-.5v.47m-.475 5.056A6.744 6.744 0 0 1 15 18c-3.56 0-7.56-2.53-8.5-6 .348-1.28 1.114-2.433 2.121-3.38m3.444-2.088A8.802 8.802 0 0 1 15 6c3.56 0 6.06 2.54 7 6-.309 1.14-.786 2.177-1.413 3.058" },
+    { tag: 'path', d: "M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33m7.48-4.372A9.77 9.77 0 0 1 16 6.07m0 11.86a9.77 9.77 0 0 1-1.728-3.618" },
+    { tag: 'path', d: "m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98M8.53 3h5.27a2 2 0 0 1 1.98 1.67l.23 1.4M2 2l20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const flagOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M4 22V4" },
+    { tag: 'path', d: "M7.656 2H8c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10.347" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const flashlightOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.652 6H18" },
+    { tag: 'path', d: "M12 13v1" },
+    { tag: 'path', d: "M16 16v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-8a4 4 0 0 0-.8-2.4l-.6-.8A3 3 0 0 1 6 7V6" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M7.649 2H17a1 1 0 0 1 1 1v4a3 3 0 0 1-.6 1.8l-.6.8a4 4 0 0 0-.55 1.007" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const flaskConicalOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 2v2.343" },
+    { tag: 'path', d: "M14 2v6.343" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20 20a2 2 0 0 1-2 2H6a2 2 0 0 1-1.755-2.96l5.227-9.563" },
+    { tag: 'path', d: "M6.453 15H15" },
+    { tag: 'path', d: "M8.5 2h7" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const frameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 22, x2: 2, y1: 6, y2: 6 },
+    { tag: 'line', x1: 22, x2: 2, y1: 18, y2: 18 },
+    { tag: 'line', x1: 6, x2: 6, y1: 2, y2: 22 },
+    { tag: 'line', x1: 18, x2: 18, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-4px)' }], 170, { easing: EASE, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-4px)' }], 170, { easing: EASE, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-4px)' }], 170, { easing: EASE, fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-4px)' }], 170, { easing: EASE, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const funnelXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.531 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14v6a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341l.427-.473" },
+    { tag: 'path', d: "m16.5 3.5 5 5" },
+    { tag: 'path', d: "m21.5 3.5-5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 7.5, offset: 0 }, { opacity: 1, strokeDashoffset: 7.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 7.5, offset: 0 }, { opacity: 1, strokeDashoffset: 7.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const galleryHorizontalEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 7v10" },
+    { tag: 'path', d: "M6 5v14" },
+    { tag: 'rect', width: 12, height: 18, x: 10, y: 3, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(3px)', offset: 0 }, { opacity: 0, transform: 'translateX(3px)', offset: 0.6 }, { opacity: 1, transform: 'translateX(0)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 600),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(3px)', offset: 0 }, { opacity: 0, transform: 'translateX(3px)', offset: 0.4 }, { opacity: 1, transform: 'translateX(0)', offset: 0.6 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 600),
+      },
+    },
+  },
+);
+
+export const galleryHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 3v18" },
+    { tag: 'rect', width: 12, height: 18, x: 6, y: 3, rx: 2 },
+    { tag: 'path', d: "M22 3v18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateX(4px)' }, { opacity: 1, transform: 'scale(1) translateX(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateX(-4px)' }, { opacity: 1, transform: 'scale(1) translateX(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
+      },
+    },
+  },
+);
+
+export const galleryVerticalEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 2h10" },
+    { tag: 'path', d: "M5 6h14" },
+    { tag: 'rect', width: 18, height: 12, x: 3, y: 10, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(3px)', offset: 0 }, { opacity: 0, transform: 'translateY(3px)', offset: 0.6 }, { opacity: 1, transform: 'translateY(0)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 600),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(3px)', offset: 0 }, { opacity: 0, transform: 'translateY(3px)', offset: 0.4 }, { opacity: 1, transform: 'translateY(0)', offset: 0.6 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 600),
+      },
+    },
+  },
+);
+
+export const galleryVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 2h18" },
+    { tag: 'rect', width: 18, height: 12, x: 3, y: 6, rx: 2 },
+    { tag: 'path', d: "M3 22h18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateY(4px)' }, { opacity: 1, transform: 'scale(1) translateY(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateY(-4px)' }, { opacity: 1, transform: 'scale(1) translateY(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
+      },
+    },
+  },
+);
+
+export const gaugeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 14 4-4" },
+    { tag: 'path', d: "M3.34 19a10 10 0 1 1 17.32 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(72deg)' }], 600, { easing: 'cubic-bezier(0.16, 1.4, 0.3, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const gavelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381" },
+    { tag: 'path', d: "m16 16 6-6" },
+    { tag: 'path', d: "m21.5 10.5-8-8" },
+    { tag: 'path', d: "m8 8 6-6" },
+    { tag: 'path', d: "m8.5 7.5 8 8" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const gripHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 9, r: 1 },
+    { tag: 'circle', cx: 19, cy: 9, r: 1 },
+    { tag: 'circle', cx: 5, cy: 9, r: 1 },
+    { tag: 'circle', cx: 12, cy: 15, r: 1 },
+    { tag: 'circle', cx: 19, cy: 15, r: 1 },
+    { tag: 'circle', cx: 5, cy: 15, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.3 }, { opacity: 1 }], 800, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const gripIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 5, r: 1 },
+    { tag: 'circle', cx: 19, cy: 5, r: 1 },
+    { tag: 'circle', cx: 5, cy: 5, r: 1 },
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+    { tag: 'circle', cx: 19, cy: 12, r: 1 },
+    { tag: 'circle', cx: 5, cy: 12, r: 1 },
+    { tag: 'circle', cx: 12, cy: 19, r: 1 },
+    { tag: 'circle', cx: 19, cy: 19, r: 1 },
+    { tag: 'circle', cx: 5, cy: 19, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.3 }, { opacity: 1 }], 800, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const hammerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" },
+    { tag: 'path', d: "m18 15 4-4" },
+    { tag: 'path', d: "m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const handCoinsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" },
+    { tag: 'path', d: "m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" },
+    { tag: 'path', d: "m2 16 6 6" },
+    { tag: 'circle', cx: 16, cy: 9, r: 2.9 },
+    { tag: 'circle', cx: 6, cy: 5, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0)', opacity: 1 }, { transform: 'translateY(-10px)', opacity: 1 }, { transform: 'translateY(0)', opacity: 1 }], 600, { easing: 'ease-in' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0)', opacity: 1 }, { transform: 'translateY(-10px)', opacity: 1 }, { transform: 'translateY(0)', opacity: 1 }], 600, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const handHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" },
+    { tag: 'path', d: "m14.45 13.39 5.05-4.694C20.196 8 21 6.85 21 5.75a2.75 2.75 0 0 0-4.797-1.837.276.276 0 0 1-.406 0A2.75 2.75 0 0 0 11 5.75c0 1.2.802 2.248 1.5 2.946L16 11.95" },
+    { tag: 'path', d: "m2 15 6 6" },
+    { tag: 'path', d: "m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a1 1 0 0 0-2.75-2.91" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px) scale(1)' }, { transform: 'translateY(-2px) scale(1.1)' }], 300, { easing: 'ease', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const hardDriveDownloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v8" },
+    { tag: 'path', d: "m16 6-4 4-4-4" },
+    { tag: 'rect', width: 20, height: 8, x: 2, y: 14, rx: 2 },
+    { tag: 'path', d: "M6 18h.01" },
+    { tag: 'path', d: "M10 18h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const hardDriveUploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 6-4-4-4 4" },
+    { tag: 'path', d: "M12 2v8" },
+    { tag: 'rect', width: 20, height: 8, x: 2, y: 14, rx: 2 },
+    { tag: 'path', d: "M6 18h.01" },
+    { tag: 'path', d: "M10 18h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const headphoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 14h-1.343" },
+    { tag: 'path', d: "M9.128 3.47A9 9 0 0 1 21 12v3.343" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20.414 20.414A2 2 0 0 1 19 21h-1a2 2 0 0 1-2-2v-3" },
+    { tag: 'path', d: "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 2.636-6.364" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const heartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(1.1)' }, { transform: 'scale(1)' }, { transform: 'scale(1.1)' }, { transform: 'scale(1)' }, { transform: 'scale(1.1)' }, { transform: 'scale(1)' }], 1200, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const hopOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.82 16.12c1.69.6 3.91.79 5.18.85.28.01.53-.09.7-.27" },
+    { tag: 'path', d: "M11.14 20.57c.52.24 2.44 1.12 4.08 1.37.46.06.86-.25.9-.71.12-1.52-.3-3.43-.5-4.28" },
+    { tag: 'path', d: "M16.13 21.05c1.65.63 3.68.84 4.87.91a.9.9 0 0 0 .7-.26" },
+    { tag: 'path', d: "M17.99 5.52a20.83 20.83 0 0 1 3.15 4.5.8.8 0 0 1-.68 1.13c-1.17.1-2.5.02-3.9-.25" },
+    { tag: 'path', d: "M20.57 11.14c.24.52 1.12 2.44 1.37 4.08.04.3-.08.59-.31.75" },
+    { tag: 'path', d: "M4.93 4.93a10 10 0 0 0-.67 13.4c.35.43.96.4 1.17-.12.69-1.71 1.07-5.07 1.07-6.71 1.34.45 3.1.9 4.88.62a.85.85 0 0 0 .48-.24" },
+    { tag: 'path', d: "M5.52 17.99c1.05.95 2.91 2.42 4.5 3.15a.8.8 0 0 0 1.13-.68c.2-2.34-.33-5.3-1.57-8.28" },
+    { tag: 'path', d: "M8.35 2.68a10 10 0 0 1 9.98 1.58c.43.35.4.96-.12 1.17-1.5.6-4.3.98-6.07 1.05" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const houseWifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9.5 13.866a4 4 0 0 1 5 .01" },
+    { tag: 'path', d: "M12 17h.01" },
+    { tag: 'path', d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" },
+    { tag: 'path', d: "M7 10.754a8 8 0 0 1 10 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const kanbanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 3v14" },
+    { tag: 'path', d: "M12 3v8" },
+    { tag: 'path', d: "M19 3v18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const keySquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.4 2.7a2.5 2.5 0 0 1 3.4 0l5.5 5.5a2.5 2.5 0 0 1 0 3.4l-3.7 3.7a2.5 2.5 0 0 1-3.4 0L8.7 9.8a2.5 2.5 0 0 1 0-3.4z" },
+    { tag: 'path', d: "m14 7 3 3" },
+    { tag: 'path', d: "m9.4 10.6-6.814 6.814A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) scale(1)', offset: 0 }, { transform: 'rotate(15deg) scale(1.05)', offset: 0.3 }, { transform: 'rotate(-15deg) scale(1)', offset: 0.7 }, { transform: 'rotate(0deg) scale(1)', offset: 1 }], 600, { origin: 'center' }),
+    },
+  },
+);
+
+export const keyboardOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M 20 4 A2 2 0 0 1 22 6" },
+    { tag: 'path', d: "M 22 6 L 22 16.41" },
+    { tag: 'path', d: "M 7 16 L 16 16" },
+    { tag: 'path', d: "M 9.69 4 L 20 4" },
+    { tag: 'path', d: "M14 8h.01" },
+    { tag: 'path', d: "M18 8h.01" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" },
+    { tag: 'path', d: "M6 8h.01" },
+    { tag: 'path', d: "M8 12h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const lightbulbOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16.8 11.2c.8-.9 1.2-2 1.2-3.2a6 6 0 0 0-9.3-5" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M6.3 6.3a4.67 4.67 0 0 0 1.2 5.2c.7.7 1.3 1.5 1.5 2.5" },
+    { tag: 'path', d: "M9 18h6" },
+    { tag: 'path', d: "M10 22h4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const link2OffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 17H7A5 5 0 0 1 7 7" },
+    { tag: 'path', d: "M15 7h2a5 5 0 0 1 4 8" },
+    { tag: 'line', x1: 8, x2: 12, y1: 12, y2: 12 },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const listCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M16 12H3" },
+    { tag: 'path', d: "M11 19H3" },
+    { tag: 'path', d: "m15 18 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const listTodoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 5h8" },
+    { tag: 'path', d: "M13 12h8" },
+    { tag: 'path', d: "M13 19h8" },
+    { tag: 'path', d: "m3 17 2 2 4-4" },
+    { tag: 'rect', x: 3, y: 4, width: 6, height: 6, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const locateOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 19v3" },
+    { tag: 'path', d: "M12 2v3" },
+    { tag: 'path', d: "M18.89 13.24a7 7 0 0 0-8.13-8.13" },
+    { tag: 'path', d: "M19 12h3" },
+    { tag: 'path', d: "M2 12h3" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M7.05 7.05a7 7 0 0 0 9.9 9.9" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const mailCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" },
+    { tag: 'path', d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" },
+    { tag: 'path', d: "m16 19 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const mapPinOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.75 7.09a3 3 0 0 1 2.16 2.16" },
+    { tag: 'path', d: "M17.072 17.072c-1.634 2.17-3.527 3.912-4.471 4.727a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 1.432-4.568" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8.475 2.818A8 8 0 0 1 20 10c0 1.183-.31 2.377-.81 3.533" },
+    { tag: 'path', d: "M9.13 9.13a3 3 0 0 0 3.74 3.74" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const maximize2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 3h6v6" },
+    { tag: 'path', d: "m21 3-7 7" },
+    { tag: 'path', d: "m3 21 7-7" },
+    { tag: 'path', d: "M9 21H3v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, -2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, 2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, -2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, 2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const maximizeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 3H5a2 2 0 0 0-2 2v3" },
+    { tag: 'path', d: "M21 8V5a2 2 0 0 0-2-2h-3" },
+    { tag: 'path', d: "M3 16v3a2 2 0 0 0 2 2h3" },
+    { tag: 'path', d: "M16 21h3a2 2 0 0 0 2-2v-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, -2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, -2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, 2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, 2px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const megaphoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.636 6A13 13 0 0 0 19.4 3.2 1 1 0 0 1 21 4v11.344" },
+    { tag: 'path', d: "M14.378 14.357A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" },
+    { tag: 'path', d: "M8 8v6" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageCircleMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+    { tag: 'path', d: "M8 12h.01" },
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M16 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500),
+        2: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500, { delay: 100 }),
+        3: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500, { delay: 200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageCircleOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M4.93 4.929a10 10 0 0 0-1.938 11.412 2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 0 0 11.302-1.989" },
+    { tag: 'path', d: "M8.35 2.69A10 10 0 0 1 21.3 15.65" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageCircleQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+    { tag: 'path', d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" },
+    { tag: 'path', d: "M12 17h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageCircleWarningIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+    { tag: 'path', d: "M12 8v4" },
+    { tag: 'path', d: "M12 16h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageCircleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.05) rotate(-7deg)', offset: 0.2 }, { transform: 'scale(1.05) rotate(7deg)', offset: 0.4 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageSquareMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" },
+    { tag: 'path', d: "M12 11h.01" },
+    { tag: 'path', d: "M16 11h.01" },
+    { tag: 'path', d: "M8 11h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500),
+        2: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500, { delay: 100 }),
+        3: /* @__PURE__ */ track([{ opacity: 1, offset: 0 }, { opacity: 0, offset: 0.1 }, { opacity: 0, offset: 0.2 }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.6 }, { opacity: 0, offset: 0.7 }, { opacity: 1, offset: 0.8 }, { opacity: 1, offset: 0.9 }, { opacity: 1, offset: 1 }], 1500, { delay: 200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageSquareOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 19H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.7.7 0 0 1 2 21.286V5a2 2 0 0 1 1.184-1.826" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8.656 3H20a2 2 0 0 1 2 2v11.344" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const messageSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.05) rotate(-7deg)', offset: 0.2 }, { transform: 'scale(1.05) rotate(7deg)', offset: 0.4 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const micOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 19v3" },
+    { tag: 'path', d: "M15 9.34V5a3 3 0 0 0-5.68-1.33" },
+    { tag: 'path', d: "M16.95 16.95A7 7 0 0 1 5 12v-2" },
+    { tag: 'path', d: "M18.89 13.23A7 7 0 0 0 19 12v-2" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M9 9v3a3 3 0 0 0 5.12 2.12" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const milkOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 2h8" },
+    { tag: 'path', d: "M9 2v1.343M15 2v2.789a4 4 0 0 0 .672 2.219l.656.984a4 4 0 0 1 .672 2.22v1.131M7.8 7.8l-.128.192A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3" },
+    { tag: 'path', d: "M7 15a6.47 6.47 0 0 1 5 0 6.472 6.472 0 0 0 3.435.435" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const minimize2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 10 7-7" },
+    { tag: 'path', d: "M20 10h-6V4" },
+    { tag: 'path', d: "m3 21 7-7" },
+    { tag: 'path', d: "M4 14h6v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const minimizeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 3v3a2 2 0 0 1-2 2H3" },
+    { tag: 'path', d: "M21 8h-3a2 2 0 0 1-2-2V3" },
+    { tag: 'path', d: "M3 16h3a2 2 0 0 1 2 2v3" },
+    { tag: 'path', d: "M16 21v-3a2 2 0 0 1 2-2h3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const monitorCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 10 2 2 4-4" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const monitorCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "m14.305 7.53.923-.382" },
+    { tag: 'path', d: "m15.228 4.852-.923-.383" },
+    { tag: 'path', d: "m16.852 3.228-.383-.924" },
+    { tag: 'path', d: "m16.852 8.772-.383.923" },
+    { tag: 'path', d: "m19.148 3.228.383-.924" },
+    { tag: 'path', d: "m19.53 9.696-.382-.924" },
+    { tag: 'path', d: "m20.772 4.852.924-.383" },
+    { tag: 'path', d: "m20.772 7.148.924.383" },
+    { tag: 'path', d: "M22 13v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'circle', cx: 18, cy: 6, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        9: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        10: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        11: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const monitorDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'path', d: "m15 10-3 3-3-3" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const monitorOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M17 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 1.184-1.826" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'path', d: "M8.656 3H20a2 2 0 0 1 2 2v10a2 2 0 0 1-.293 1.042" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const monitorUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 10 3-3 3 3" },
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const moveDiagonal2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 13v6h-6" },
+    { tag: 'path', d: "M5 11V5h6" },
+    { tag: 'path', d: "m5 5 14 14" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)', offset: 0 }, { transform: 'translate(-3px, -3px)', offset: 0.25 }, { transform: 'translate(0, 0)', offset: 0.45 }, { transform: 'translate(0, 0)', offset: 0.55 }, { transform: 'translate(3px, 3px)', offset: 0.75 }, { transform: 'translate(0, 0)', offset: 1 }], 1000),
+    },
+  },
+);
+
+export const moveDiagonalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 19H5v-6" },
+    { tag: 'path', d: "M13 5h6v6" },
+    { tag: 'path', d: "M19 5 5 19" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)', offset: 0 }, { transform: 'translate(3px, -3px)', offset: 0.25 }, { transform: 'translate(0, 0)', offset: 0.45 }, { transform: 'translate(0, 0)', offset: 0.55 }, { transform: 'translate(-3px, 3px)', offset: 0.75 }, { transform: 'translate(0, 0)', offset: 1 }], 1000),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 19H5V13" },
+    { tag: 'path', d: "M19 5L5 19" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, 3px)' }, { transform: 'translate(0, 0)' }], 500),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 13V19H13" },
+    { tag: 'path', d: "M5 5L19 19" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(3px, 3px)' }, { transform: 'translate(0, 0)' }], 500),
+    },
+  },
+);
+
+export const moveDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 18L12 22L16 18" },
+    { tag: 'path', d: "M12 2V22" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0)' }, { transform: 'translateY(3px)' }, { transform: 'translateY(0)' }], 500),
+    },
+  },
+);
+
+export const moveHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 8 4 4-4 4" },
+    { tag: 'path', d: "M2 12h20" },
+    { tag: 'path', d: "m6 8-4 4 4 4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-3px)', offset: 0.25 }, { transform: 'translateX(0)', offset: 0.45 }, { transform: 'translateX(0)', offset: 0.55 }, { transform: 'translateX(3px)', offset: 0.75 }, { transform: 'translateX(0)', offset: 1 }], 1000),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 8L2 12L6 16" },
+    { tag: 'path', d: "M2 12H22" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 500),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 8L22 12L18 16" },
+    { tag: 'path', d: "M2 12H22" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 11V5H11" },
+    { tag: 'path', d: "M5 5L19 19" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, -3px)' }, { transform: 'translate(0, 0)' }], 500),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const moveUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 5H19V11" },
+    { tag: 'path', d: "M19 5L5 19" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(3px, -3px)' }, { transform: 'translate(0, 0)' }], 500),
+    },
+  },
+);
+
+export const moveUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 6L12 2L16 6" },
+    { tag: 'path', d: "M12 2V22" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0)' }, { transform: 'translateY(-3px)' }, { transform: 'translateY(0)' }], 500),
+    },
+  },
+);
+
+export const moveVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v20" },
+    { tag: 'path', d: "m8 18 4 4 4-4" },
+    { tag: 'path', d: "m8 6 4-4 4 4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-3px)', offset: 0.25 }, { transform: 'translateY(0)', offset: 0.45 }, { transform: 'translateY(0)', offset: 0.55 }, { transform: 'translateY(3px)', offset: 0.75 }, { transform: 'translateY(0)', offset: 1 }], 1000),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const navigation2OffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9.31 9.31 5 21l7-4 7 4-1.17-3.17" },
+    { tag: 'path', d: "M14.53 8.88 12 2l-1.17 3.17" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const navigationOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8.43 8.43 3 11l8 2 2 8 2.57-5.43" },
+    { tag: 'path', d: "M17.39 11.73 22 2l-9.73 4.61" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const nfcIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 8.32a7.43 7.43 0 0 1 0 7.36" },
+    { tag: 'path', d: "M9.46 6.21a11.76 11.76 0 0 1 0 11.58" },
+    { tag: 'path', d: "M12.91 4.1a15.91 15.91 0 0 1 .01 15.8" },
+    { tag: 'path', d: "M16.37 2a20.16 20.16 0 0 1 0 20" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 550 }),
+      },
+    },
+  },
+);
+
+export const notebookPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" },
+    { tag: 'path', d: "M2 6h4" },
+    { tag: 'path', d: "M2 10h4" },
+    { tag: 'path', d: "M2 14h4" },
+    { tag: 'path', d: "M2 18h4" },
+    { tag: 'path', d: "M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const nutOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 4V2" },
+    { tag: 'path', d: "M5 10v4a7.004 7.004 0 0 0 5.277 6.787c.412.104.802.292 1.102.592L12 22l.621-.621c.3-.3.69-.488 1.102-.592a7.01 7.01 0 0 0 4.125-2.939" },
+    { tag: 'path', d: "M19 10v3.343" },
+    { tag: 'path', d: "M12 12c-1.349-.573-1.905-1.005-2.5-2-.546.902-1.048 1.353-2.5 2-1.018-.644-1.46-1.08-2-2-1.028.71-1.69.918-3 1 1.081-1.048 1.757-2.03 2-3 .194-.776.84-1.551 1.79-2.21m11.654 5.997c.887-.457 1.28-.891 1.556-1.787 1.032.916 1.683 1.157 3 1-1.297-1.036-1.758-2.03-2-3-.5-2-4-4-8-4-.74 0-1.461.068-2.15.192" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const octagonAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 16h.01" },
+    { tag: 'path', d: "M12 8v4" },
+    { tag: 'path', d: "M15.312 2a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586l-4.688-4.688A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const orbitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20.341 6.484A10 10 0 0 1 10.266 21.85" },
+    { tag: 'path', d: "M3.659 17.516A10 10 0 0 1 13.74 2.152" },
+    { tag: 'circle', cx: 12, cy: 12, r: 3 },
+    { tag: 'circle', cx: 19, cy: 5, r: 2 },
+    { tag: 'circle', cx: 5, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-1080deg)' }], 3000, { easing: EASE }),
+    },
+  },
+);
+
+export const paintbrushIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14.622 17.897-10.68-2.913" },
+    { tag: 'path', d: "M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z" },
+    { tag: 'path', d: "M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-6deg)', offset: 0.33 }, { transform: 'rotate(6deg)', offset: 0.66 }, { transform: 'rotate(0deg)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const paperclipIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 87, offset: 0 }, { strokeDashoffset: 87, offset: 0.15 }, { strokeDashoffset: 174, offset: 1 }], 600, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const penOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10 10-6.157 6.162a2 2 0 0 0-.5.833l-1.322 4.36a.5.5 0 0 0 .622.624l4.358-1.323a2 2 0 0 0 .83-.5L14 13.982" },
+    { tag: 'path', d: "m12.829 7.172 4.359-4.346a1 1 0 1 1 3.986 3.986l-4.353 4.353" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const pencilLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 21h8" },
+    { tag: 'path', d: "m15 5 4 4" },
+    { tag: 'path', d: "M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const pencilOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10 10-6.157 6.162a2 2 0 0 0-.5.833l-1.322 4.36a.5.5 0 0 0 .622.624l4.358-1.323a2 2 0 0 0 .83-.5L14 13.982" },
+    { tag: 'path', d: "m12.829 7.172 4.359-4.346a1 1 0 1 1 3.986 3.986l-4.353 4.353" },
+    { tag: 'path', d: "m15 5 4 4" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const phoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.1 13.9a14 14 0 0 0 3.732 2.668 1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2 18 18 0 0 1-12.728-5.272" },
+    { tag: 'path', d: "M22 2 2 22" },
+    { tag: 'path', d: "M4.76 13.582A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 .244.473" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const pickaxeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999" },
+    { tag: 'path', d: "M15.973 4.027A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024" },
+    { tag: 'path', d: "M16.001 11.999a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069" },
+    { tag: 'path', d: "M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const pinOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v5" },
+    { tag: 'path', d: "M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const pointerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 4.5V4a2 2 0 0 0-2.41-1.957" },
+    { tag: 'path', d: "M13.9 8.4a2 2 0 0 0-1.26-1.295" },
+    { tag: 'path', d: "M21.7 16.2A8 8 0 0 0 22 14v-3a2 2 0 1 0-4 0v-1a2 2 0 0 0-3.63-1.158" },
+    { tag: 'path', d: "m7 15-1.8-1.8a2 2 0 0 0-2.79 2.86L6 19.7a7.74 7.74 0 0 0 6 2.3h2a8 8 0 0 0 5.657-2.343" },
+    { tag: 'path', d: "M6 6v8" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const powerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18.36 6.64A9 9 0 0 1 20.77 15" },
+    { tag: 'path', d: "M6.16 6.16a9 9 0 1 0 12.68 12.68" },
+    { tag: 'path', d: "M12 2v4" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const printerCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.5 22H7a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v.5" },
+    { tag: 'path', d: "m16 19 2 2 4-4" },
+    { tag: 'path', d: "M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const rabbitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 16a3 3 0 0 1 2.24 5" },
+    { tag: 'path', d: "M18 12h.01" },
+    { tag: 'path', d: "M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3" },
+    { tag: 'path', d: "M20 8.54V4a2 2 0 1 0-4 0v3" },
+    { tag: 'path', d: "M7.612 12.524a3 3 0 1 0-1.6 4.3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0) scale(1)' }], 800, { easing: EASE }),
+    },
+  },
+);
+
+export const radarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19.07 4.93A10 10 0 0 0 6.99 3.34" },
+    { tag: 'path', d: "M4 6h.01" },
+    { tag: 'path', d: "M2.29 9.62A10 10 0 1 0 21.31 8.35" },
+    { tag: 'path', d: "M16.24 7.76A6 6 0 1 0 8.23 16.67" },
+    { tag: 'path', d: "M12 18h.01" },
+    { tag: 'path', d: "M17.99 11.66A6 6 0 0 1 15.77 16.67" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+    { tag: 'path', d: "m13.41 10.59 5.66-5.66" },
+  ],
+  {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(720deg)' }], 2000, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+export const radioTowerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4.9 16.1C1 12.2 1 5.8 4.9 1.9" },
+    { tag: 'path', d: "M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" },
+    { tag: 'circle', cx: 12, cy: 9, r: 2 },
+    { tag: 'path', d: "M16.2 4.8c2 2 2.26 5.11.8 7.47" },
+    { tag: 'path', d: "M19.1 1.9a9.96 9.96 0 0 1 0 14.1" },
+    { tag: 'path', d: "M9.5 18h5" },
+    { tag: 'path', d: "m8 22 4-11 4 11" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 150 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const radioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16.247 7.761a6 6 0 0 1 0 8.478" },
+    { tag: 'path', d: "M19.075 4.933a10 10 0 0 1 0 14.134" },
+    { tag: 'path', d: "M4.925 19.067a10 10 0 0 1 0-14.134" },
+    { tag: 'path', d: "M7.753 16.239a6 6 0 0 1 0-8.478" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 150 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const rainbowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 17a10 10 0 0 0-20 0" },
+    { tag: 'path', d: "M6 17a6 6 0 0 1 12 0" },
+    { tag: 'path', d: "M10 17a2 2 0 0 1 4 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 32, offset: 0 }, { strokeDashoffset: 32, offset: 0.15 }, { strokeDashoffset: 64, offset: 1 }], 800, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 19, offset: 0 }, { strokeDashoffset: 19, offset: 0.15 }, { strokeDashoffset: 38, offset: 1 }], 800, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 7 }, { strokeDashoffset: 14 }], 800, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const refreshCcwDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" },
+    { tag: 'path', d: "M3 3v5h5" },
+    { tag: 'path', d: "M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" },
+    { tag: 'path', d: "M16 16h5v5" },
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const refreshCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" },
+    { tag: 'path', d: "M3 3v5h5" },
+    { tag: 'path', d: "M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" },
+    { tag: 'path', d: "M16 16h5v5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const refreshCwOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 8L18.74 5.74A9.75 9.75 0 0 0 12 3C11 3 10.03 3.16 9.13 3.47" },
+    { tag: 'path', d: "M8 16H3v5" },
+    { tag: 'path', d: "M3 12C3 9.51 4 7.26 5.64 5.64" },
+    { tag: 'path', d: "m3 16 2.26 2.26A9.75 9.75 0 0 0 12 21c2.49 0 4.74-1 6.36-2.64" },
+    { tag: 'path', d: "M21 12c0 1-.16 1.97-.47 2.87" },
+    { tag: 'path', d: "M21 3v5h-5" },
+    { tag: 'path', d: "M22 22 2 2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const rockingChairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15 13 3.708 7.416" },
+    { tag: 'path', d: "M3 19a15 15 0 0 0 18 0" },
+    { tag: 'path', d: "m3 2 3.21 9.633A2 2 0 0 0 8.109 13H18" },
+    { tag: 'path', d: "m9 13-3.708 7.416" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 2400, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const rotateCcwKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 7v6" },
+    { tag: 'path', d: "M12 9h2" },
+    { tag: 'path', d: "M3 12a9 9 0 1 0 9-9 9.74 9.74 0 0 0-6.74 2.74L3 8" },
+    { tag: 'path', d: "M3 3v5h5" },
+    { tag: 'circle', cx: 12, cy: 15, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-25deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-25deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-25deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const routeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 6, cy: 19, r: 3 },
+    { tag: 'path', d: "M9 19h8.5c.4 0 .9-.1 1.3-.2" },
+    { tag: 'path', d: "M5.2 5.2A3.5 3.53 0 0 0 6.5 12H12" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M21 15.3a3.5 3.5 0 0 0-3.3-3.3" },
+    { tag: 'path', d: "M15 5h-4.3" },
+    { tag: 'circle', cx: 18, cy: 5, r: 3 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const routeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 6, cy: 19, r: 3 },
+    { tag: 'path', d: "M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" },
+    { tag: 'circle', cx: 18, cy: 5, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 0 }, { opacity: 1 }], 400, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 50, offset: 0 }, { strokeDashoffset: 50, offset: 0.15 }, { strokeDashoffset: 50, offset: 0.5 }, { strokeDashoffset: 0, offset: 1 }], 800),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 0 }, { opacity: 1 }], 400, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const rssIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 11a9 9 0 0 1 9 9" },
+    { tag: 'path', d: "M4 4a16 16 0 0 1 16 16" },
+    { tag: 'circle', cx: 5, cy: 19, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
+  },
+);
+
+export const scanTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M7 8h8" },
+    { tag: 'path', d: "M7 12h10" },
+    { tag: 'path', d: "M7 16h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        5: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        6: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const scissorsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 6, cy: 6, r: 3 },
+    { tag: 'path', d: "M8.12 8.12 12 12" },
+    { tag: 'path', d: "M20 4 8.12 15.88" },
+    { tag: 'circle', cx: 6, cy: 18, r: 3 },
+    { tag: 'path', d: "M14.8 14.8 20 20" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const shieldQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
+    { tag: 'path', d: "M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" },
+    { tag: 'path', d: "M12 17h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+      },
+    },
+  },
+);
+
+export const shipWheelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 8 },
+    { tag: 'path', d: "M12 2v7.5" },
+    { tag: 'path', d: "m19 5-5.23 5.23" },
+    { tag: 'path', d: "M22 12h-7.5" },
+    { tag: 'path', d: "m19 19-5.23-5.23" },
+    { tag: 'path', d: "M12 14.5V22" },
+    { tag: 'path', d: "M10.23 13.77 5 19" },
+    { tag: 'path', d: "M9.5 12H2" },
+    { tag: 'path', d: "M10.23 10.23 5 5" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2.5 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 750, { easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const shipIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 10.189V14" },
+    { tag: 'path', d: "M12 2v3" },
+    { tag: 'path', d: "M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6" },
+    { tag: 'path', d: "M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76" },
+    { tag: 'path', d: "M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 30, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(-3deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(-3deg)' }], 2400, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(-3deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(-3deg)' }], 2400, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(-3deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(-3deg)' }], 2400, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(-3deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(-3deg)' }], 2400, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const shovelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21.56 4.56a1.5 1.5 0 0 1 0 2.122l-.47.47a3 3 0 0 1-4.212-.03 3 3 0 0 1 0-4.243l.44-.44a1.5 1.5 0 0 1 2.121 0z" },
+    { tag: 'path', d: "M3 22a1 1 0 0 1-1-1v-3.586a1 1 0 0 1 .293-.707l3.355-3.355a1.205 1.205 0 0 1 1.704 0l3.296 3.296a1.205 1.205 0 0 1 0 1.704l-3.355 3.355a1 1 0 0 1-.707.293z" },
+    { tag: 'path', d: "m9 15 7.879-7.878" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)', offset: 0 }, { transform: 'translate(2px, -2px)', offset: 0.6 }, { transform: 'translate(-5px, 5px)', offset: 0.8 }, { transform: 'translate(0, 0)', offset: 1 }], 500, { easing: 'ease-out' }),
+    },
+  },
+);
+
+export const shrinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15 15 6 6m-6-6v4.8m0-4.8h4.8" },
+    { tag: 'path', d: "M9 19.8V15m0 0H4.2M9 15l-6 6" },
+    { tag: 'path', d: "M15 4.2V9m0 0h4.8M15 9l6-6" },
+    { tag: 'path', d: "M9 4.2V9m0 0H4.2M9 9 3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, -1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1px, 1px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const signatureIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284" },
+    { tag: 'path', d: "M3 21h18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 53, offset: 0 }, { strokeDashoffset: 53, offset: 0.15 }, { strokeDashoffset: 106, offset: 1 }], 600, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const smartphoneNfcIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 7, height: 12, x: 2, y: 6, rx: 1 },
+    { tag: 'path', d: "M13 8.32a7.43 7.43 0 0 1 0 7.36" },
+    { tag: 'path', d: "M16.46 6.21a11.76 11.76 0 0 1 0 11.58" },
+    { tag: 'path', d: "M19.91 4.1a15.91 15.91 0 0 1 .01 15.8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+      },
+    },
+  },
+);
+
+export const snowflakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10 20-1.25-2.5L6 18" },
+    { tag: 'path', d: "M10 4 8.75 6.5 6 6" },
+    { tag: 'path', d: "m14 20 1.25-2.5L18 18" },
+    { tag: 'path', d: "m14 4 1.25 2.5L18 6" },
+    { tag: 'path', d: "m17 21-3-6h-4" },
+    { tag: 'path', d: "m17 3-3 6 1.5 3" },
+    { tag: 'path', d: "M2 12h6.5L10 9" },
+    { tag: 'path', d: "m20 10-1.5 2 1.5 2" },
+    { tag: 'path', d: "M22 12h-6.5L14 15" },
+    { tag: 'path', d: "m4 10 1.5 2L4 14" },
+    { tag: 'path', d: "m7 21 3-6-1.5-3" },
+    { tag: 'path', d: "m7 3 3 6h4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 400, { easing: EASE }),
+    },
+  },
+);
+
+export const sparkleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9)', offset: 0.33 }, { transform: 'scale(1.2)', offset: 0.66 }, { transform: 'scale(1)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const speechIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8.8 20v-4.1l1.9.2a2.3 2.3 0 0 0 2.164-2.1V8.3A5.37 5.37 0 0 0 2 8.25c0 2.8.656 3.054 1 4.55a5.77 5.77 0 0 1 .029 2.758L2 20" },
+    { tag: 'path', d: "M19.8 17.8a7.5 7.5 0 0 0 .003-10.603" },
+    { tag: 'path', d: "M17 15a3.5 3.5 0 0 0-.025-4.975" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
+  },
+);
+
+export const spellCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m6 16 6-12 6 12" },
+    { tag: 'path', d: "M8 12h8" },
+    { tag: 'path', d: "m16 20 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const squareArrowOutDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 21h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6" },
+    { tag: 'path', d: "m3 21 9-9" },
+    { tag: 'path', d: "M9 21H3v-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const squareArrowOutDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6" },
+    { tag: 'path', d: "m21 21-9-9" },
+    { tag: 'path', d: "M21 15v6h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const squareArrowOutUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6" },
+    { tag: 'path', d: "m3 3 9 9" },
+    { tag: 'path', d: "M3 9V3h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const squareArrowOutUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" },
+    { tag: 'path', d: "m21 3-9 9" },
+    { tag: 'path', d: "M15 3h6v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+  },
+);
+
+export const squareChartGanttIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "M9 8h7" },
+    { tag: 'path', d: "M8 12h6" },
+    { tag: 'path', d: "M11 16h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 10, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const squareCheckBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" },
+    { tag: 'path', d: "m9 11 3 3L22 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 17, opacity: 0, offset: 0 }, { strokeDashoffset: 17, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const squareCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "m9 12 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const squareChevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "m16 10-4 4-4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const squareChevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "m14 16-4-4 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const squareChevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "m10 8 4 4-4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const squareChevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "m8 14 4-4 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+      },
+    },
+  },
+);
+
+export const squareDashedKanbanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 7v7" },
+    { tag: 'path', d: "M12 7v4" },
+    { tag: 'path', d: "M16 7v9" },
+    { tag: 'path', d: "M5 3a2 2 0 0 0-2 2" },
+    { tag: 'path', d: "M9 3h1" },
+    { tag: 'path', d: "M14 3h1" },
+    { tag: 'path', d: "M19 3a2 2 0 0 1 2 2" },
+    { tag: 'path', d: "M21 9v1" },
+    { tag: 'path', d: "M21 14v1" },
+    { tag: 'path', d: "M21 19a2 2 0 0 1-2 2" },
+    { tag: 'path', d: "M14 21h1" },
+    { tag: 'path', d: "M9 21h1" },
+    { tag: 'path', d: "M5 21a2 2 0 0 1-2-2" },
+    { tag: 'path', d: "M3 14v1" },
+    { tag: 'path', d: "M3 9v1" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const squareKanbanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "M8 7v7" },
+    { tag: 'path', d: "M12 7v4" },
+    { tag: 'path', d: "M16 7v9" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
+  },
+);
+
+export const squareParkingOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3.6 3.6A2 2 0 0 1 5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-.59 1.41" },
+    { tag: 'path', d: "M3 8.7V19a2 2 0 0 0 2 2h10.3" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M13 13a3 3 0 1 0 0-6H9v2" },
+    { tag: 'path', d: "M9 17v-2.3" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const squarePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+    { tag: 'path', d: "M8 12h8" },
+    { tag: 'path', d: "M12 8v8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const squareScissorsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 17-2.18-2.18" },
+    { tag: 'path', d: "M9.56 14.44 17 7" },
+    { tag: 'path', d: "M9.56 9.56 12 12" },
+    { tag: 'circle', cx: 8.5, cy: 15.5, r: 1.5 },
+    { tag: 'circle', cx: 8.5, cy: 8.5, r: 1.5 },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(-20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(0)' }], 800, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const squareStackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 10c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" },
+    { tag: 'path', d: "M10 16c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" },
+    { tag: 'rect', width: 8, height: 8, x: 14, y: 14, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1)' }], 400, { easing: 'ease', delay: 300 }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1)' }], 400, { easing: 'ease', delay: 150 }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1)' }], 400, { easing: 'ease' }),
+      },
+    },
+  },
+);
+
+export const squareTerminalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m7 11 2-2-2-2" },
+    { tag: 'path', d: "M11 13h4" },
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const swordIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m11 19-6-6" },
+    { tag: 'path', d: "m5 21-2-2" },
+    { tag: 'path', d: "m8 16-4 4" },
+    { tag: 'path', d: "M9.5 17.5 21 6V3h-3L6.5 14.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(25deg)', offset: 0.3 }, { transform: 'rotate(-5deg)', offset: 0.5 }, { transform: 'rotate(0deg)', offset: 0.7 }], 1000, { easing: 'ease' }),
+    },
+  },
+);
+
+export const telescopeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44" },
+    { tag: 'path', d: "m13.56 11.747 4.332-.924" },
+    { tag: 'path', d: "m16 21-3.105-6.21" },
+    { tag: 'path', d: "M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z" },
+    { tag: 'path', d: "m6.158 8.633 1.114 4.456" },
+    { tag: 'path', d: "m8 21 3.105-6.21" },
+    { tag: 'circle', cx: 12, cy: 13, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-15deg)' }], 300, { easing: EASE, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-15deg)' }], 300, { easing: EASE, fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-15deg)' }], 300, { easing: EASE, fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-15deg)' }], 300, { easing: EASE, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const terminalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 19h8" },
+    { tag: 'path', d: "m4 17 6-6-6-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const textAlignCenterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M17 12H7" },
+    { tag: 'path', d: "M19 19H5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(3px)', offset: 0.2 }, { transform: 'translateX(-3px)', offset: 0.4 }, { transform: 'translateX(2px)', offset: 0.6 }, { transform: 'translateX(0)', offset: 1 }], 1000, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const textCursorInputIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 20h-1a2 2 0 0 1-2-2 2 2 0 0 1-2 2H6" },
+    { tag: 'path', d: "M13 8h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7" },
+    { tag: 'path', d: "M5 16H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1" },
+    { tag: 'path', d: "M6 4h1a2 2 0 0 1 2 2 2 2 0 0 1 2-2h1" },
+    { tag: 'path', d: "M9 6v12" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+        3: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+        4: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const textCursorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 22h-1a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1" },
+    { tag: 'path', d: "M7 22h1a4 4 0 0 0 4-4" },
+    { tag: 'path', d: "M7 2h1a4 4 0 0 1 4 4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 800, { easing: 'linear' }),
+    },
+  },
+);
+
+export const textSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M10 12H3" },
+    { tag: 'path', d: "M10 19H3" },
+    { tag: 'circle', cx: 17, cy: 15, r: 3 },
+    { tag: 'path', d: "m21 19-1.9-1.9" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.25 }, { transform: 'scaleX(0.7)', offset: 0.5 }, { transform: 'scaleX(1)', offset: 1 }], 1000, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.8)', offset: 0.5 }, { transform: 'scaleX(1)', offset: 1 }], 1000, { easing: EASE, delay: 50 }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0) translateY(0)', offset: 0 }, { transform: 'translateX(0) translateY(-4px)', offset: 0.25 }, { transform: 'translateX(-3px) translateY(0)', offset: 0.5 }, { transform: 'translateX(0) translateY(0)', offset: 1 }], 1000, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0) translateY(0)', offset: 0 }, { transform: 'translateX(0) translateY(-4px)', offset: 0.25 }, { transform: 'translateX(-3px) translateY(0)', offset: 0.5 }, { transform: 'translateX(0) translateY(0)', offset: 1 }], 1000, { easing: EASE }),
+      },
+    },
+  },
+);
+
+export const thermometerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 400, { easing: EASE }),
+    },
+  },
+);
+
+export const thumbsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z" },
+    { tag: 'path', d: "M17 14V2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px) rotate(0deg)' }, { transform: 'translate(-1px, 2px) rotate(-12deg)' }], 300, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const thumbsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" },
+    { tag: 'path', d: "M7 10v12" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px) rotate(0deg)' }, { transform: 'translate(-1px, -2px) rotate(-12deg)' }], 300, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const timerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 2h4" },
+    { tag: 'path', d: "M4.6 11a8 8 0 0 0 1.7 8.7 8 8 0 0 0 8.7 1.7" },
+    { tag: 'path', d: "M7.4 7.4a8 8 0 0 1 10.3 1 8 8 0 0 1 .9 10.2" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M12 12v-2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const timerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 10, x2: 14, y1: 2, y2: 2 },
+    { tag: 'line', x1: 12, x2: 15, y1: 14, y2: 11 },
+    { tag: 'circle', cx: 12, cy: 14, r: 8 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1) translateY(0)' }, { transform: 'scale(0.9) translateY(0.5px)' }, { transform: 'scale(1) translateY(0)' }], 300, { easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(300deg)' }], 600, { easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const toggleLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 9, cy: 12, r: 3 },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 5, rx: 7 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(6px)' }], 500, { easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const toggleRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 15, cy: 12, r: 3 },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 5, rx: 7 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-6px)' }], 500, { easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const tornadoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 4H3" },
+    { tag: 'path', d: "M18 8H6" },
+    { tag: 'path', d: "M19 12H9" },
+    { tag: 'path', d: "M16 16h-6" },
+    { tag: 'path', d: "M11 20H9" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(0)' }], 3000, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(0)' }], 3000, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(0)' }], 3000, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(-2px)' }, { transform: 'translateX(0)' }], 3000, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const touchpadOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 20v-6" },
+    { tag: 'path', d: "M19.656 14H22" },
+    { tag: 'path', d: "M2 14h12" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" },
+    { tag: 'path', d: "M9.656 4H20a2 2 0 0 1 2 2v10.344" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const umbrellaOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13v7a2 2 0 0 0 4 0" },
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M18.656 13h2.336a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-12.07-7.51" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M5.961 5.957a10.28 10.28 0 0 0-3.922 5.769A1 1 0 0 0 3 13h10" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const unplugIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m19 5 3-3" },
+    { tag: 'path', d: "m2 22 3-3" },
+    { tag: 'path', d: "M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z" },
+    { tag: 'path', d: "M7.5 13.5 10 11" },
+    { tag: 'path', d: "M10.5 16.5 13 14" },
+    { tag: 'path', d: "m12 6 6 6 2.3-2.3a2.4 2.4 0 0 0 0-3.4l-2.6-2.6a2.4 2.4 0 0 0-3.4 0Z" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 300, { easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 300, { easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const userPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.5 15H7a4 4 0 0 0-4 4v2" },
+    { tag: 'path', d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" },
+    { tag: 'circle', cx: 10, cy: 7, r: 4 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const vibrateOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 8 2 2-2 2 2 2-2 2" },
+    { tag: 'path', d: "m22 8-2 2 2 2-2 2 2 2" },
+    { tag: 'path', d: "M8 8v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2" },
+    { tag: 'path', d: "M16 10.34V6c0-.55-.45-1-1-1h-4.34" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const vibrateIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 8 2 2-2 2 2 2-2 2" },
+    { tag: 'path', d: "m22 8-2 2 2 2-2 2 2 2" },
+    { tag: 'rect', width: 8, height: 14, x: 8, y: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 400, { easing: 'ease', origin: 'center' }),
+      },
+    },
+  },
+);
+
+export const videoOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.66 6H14a2 2 0 0 1 2 2v2.5l5.248-3.062A.5.5 0 0 1 22 7.87v8.196" },
+    { tag: 'path', d: "M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const voteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 12 2 2 4-4" },
+    { tag: 'path', d: "M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z" },
+    { tag: 'path', d: "M22 19H2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const webhookOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 17h-5c-1.09-.02-1.94.92-2.5 1.9A3 3 0 1 1 2.57 15" },
+    { tag: 'path', d: "M9 3.4a4 4 0 0 1 6.52.66" },
+    { tag: 'path', d: "m6 17 3.1-5.8a2.5 2.5 0 0 0 .057-2.05" },
+    { tag: 'path', d: "M20.3 20.3a4 4 0 0 1-2.3.7" },
+    { tag: 'path', d: "M18.6 13a4 4 0 0 1 3.357 3.414" },
+    { tag: 'path', d: "m12 6 .6 1" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const wheatOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2 22 10-10" },
+    { tag: 'path', d: "m16 8-1.17 1.17" },
+    { tag: 'path', d: "M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" },
+    { tag: 'path', d: "m8 8-.53.53a3.5 3.5 0 0 0 0 4.94L9 15l1.53-1.53c.55-.55.88-1.25.98-1.97" },
+    { tag: 'path', d: "M10.91 5.26c.15-.26.34-.51.56-.73L13 3l1.53 1.53a3.5 3.5 0 0 1 .28 4.62" },
+    { tag: 'path', d: "M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" },
+    { tag: 'path', d: "M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" },
+    { tag: 'path', d: "m16 16-.53.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.49 3.49 0 0 1 1.97-.98" },
+    { tag: 'path', d: "M18.74 13.09c.26-.15.51-.34.73-.56L21 11l-1.53-1.53a3.5 3.5 0 0 0-4.62-.28" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const wifiOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 20h.01" },
+    { tag: 'path', d: "M8.5 16.429a5 5 0 0 1 7 0" },
+    { tag: 'path', d: "M5 12.859a10 10 0 0 1 5.17-2.69" },
+    { tag: 'path', d: "M19 12.859a10 10 0 0 0-2.007-1.523" },
+    { tag: 'path', d: "M2 8.82a15 15 0 0 1 4.177-2.643" },
+    { tag: 'path', d: "M22 8.82a15 15 0 0 0-11.288-3.764" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+export const wifiPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 8.82a15 15 0 0 1 20 0" },
+    { tag: 'path', d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" },
+    { tag: 'path', d: "M5 12.859a10 10 0 0 1 10.5-2.222" },
+    { tag: 'path', d: "M8.5 16.429a5 5 0 0 1 3-1.406" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
+  },
+);
+
+export const wineOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 22h8" },
+    { tag: 'path', d: "M7 10h3m7 0h-1.343" },
+    { tag: 'path', d: "M12 15v7" },
+    { tag: 'path', d: "M7.307 7.307A12.33 12.33 0 0 0 7 10a5 5 0 0 0 7.391 4.391M8.638 2.981C8.75 2.668 8.872 2.34 9 2h6c1.5 4 2 6 2 8 0 .407-.05.809-.145 1.198" },
+    { tag: 'line', x1: 2, x2: 22, y1: 2, y2: 22 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
+// REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+export const zapOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.768 5.111 13.44 2.44a1.5 1.5 0 012.474 1.561l-1.633 4.625" },
+    { tag: 'path', d: "m18.889 13.232.672-.672A1.5 1.5 0 0018.5 10h-2.844" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "m7.94 7.94-3.5 3.499A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l5.5-5.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
+  'airplay': airplayIcon,
+  'align-horizontal-space-around': alignHorizontalSpaceAroundIcon,
+  'align-vertical-space-around': alignVerticalSpaceAroundIcon,
+  'anvil': anvilIcon,
+  'archive': archiveIcon,
+  'arrow-big-down-dash': arrowBigDownDashIcon,
+  'arrow-big-down': arrowBigDownIcon,
+  'arrow-big-left-dash': arrowBigLeftDashIcon,
+  'arrow-big-left': arrowBigLeftIcon,
+  'arrow-big-right-dash': arrowBigRightDashIcon,
+  'arrow-big-right': arrowBigRightIcon,
+  'arrow-big-up-dash': arrowBigUpDashIcon,
+  'arrow-big-up': arrowBigUpIcon,
+  'arrow-down-0-1': arrowDown01Icon,
+  'arrow-down-1-0': arrowDown10Icon,
+  'arrow-down-a-z': arrowDownAZIcon,
+  'arrow-down-z-a': arrowDownZAIcon,
+  'arrow-left-right': arrowLeftRightIcon,
+  'arrow-right-left': arrowRightLeftIcon,
+  'arrow-up-0-1': arrowUp01Icon,
+  'arrow-up-1-0': arrowUp10Icon,
+  'arrow-up-a-z': arrowUpAZIcon,
+  'arrow-up-z-a': arrowUpZAIcon,
+  'award': awardIcon,
+  'axe': axeIcon,
+  'axis-3d': axis3dIcon,
+  'battery-charging': batteryChargingIcon,
+  'battery-full': batteryFullIcon,
+  'battery-low': batteryLowIcon,
+  'battery-medium': batteryMediumIcon,
+  'battery-warning': batteryWarningIcon,
+  'battery': batteryIcon,
+  'bean-off': beanOffIcon,
+  'beer-off': beerOffIcon,
+  'between-horizontal-end': betweenHorizontalEndIcon,
+  'between-horizontal-start': betweenHorizontalStartIcon,
+  'between-vertical-end': betweenVerticalEndIcon,
+  'between-vertical-start': betweenVerticalStartIcon,
+  'binary': binaryIcon,
+  'blend': blendIcon,
+  'blocks': blocksIcon,
+  'bluetooth-off': bluetoothOffIcon,
+  'bolt': boltIcon,
+  'bone': boneIcon,
+  'book-a': bookAIcon,
+  'book-audio': bookAudioIcon,
+  'book-check': bookCheckIcon,
+  'book-dashed': bookDashedIcon,
+  'book-down': bookDownIcon,
+  'book-headphones': bookHeadphonesIcon,
+  'book-heart': bookHeartIcon,
+  'book-image': bookImageIcon,
+  'book-key': bookKeyIcon,
+  'book-lock': bookLockIcon,
+  'book-marked': bookMarkedIcon,
+  'book-minus': bookMinusIcon,
+  'book-open-check': bookOpenCheckIcon,
+  'book-open-text': bookOpenTextIcon,
+  'book-plus': bookPlusIcon,
+  'book-text': bookTextIcon,
+  'book-type': bookTypeIcon,
+  'book-up-2': bookUp2Icon,
+  'book-up': bookUpIcon,
+  'book-user': bookUserIcon,
+  'book-x': bookXIcon,
+  'book': bookIcon,
+  'bot-off': botOffIcon,
+  'brain-cog': brainCogIcon,
+  'briefcase-business': briefcaseBusinessIcon,
+  'briefcase-medical': briefcaseMedicalIcon,
+  'brush-cleaning': brushCleaningIcon,
+  'brush': brushIcon,
+  'bug-off': bugOffIcon,
+  'camera-off': cameraOffIcon,
+  'candy-off': candyOffIcon,
+  'captions-off': captionsOffIcon,
+  'cast': castIcon,
+  'chart-bar-decreasing': chartBarDecreasingIcon,
+  'chart-bar-increasing': chartBarIncreasingIcon,
+  'chart-bar': chartBarIcon,
+  'chart-column-decreasing': chartColumnDecreasingIcon,
+  'chart-column-increasing': chartColumnIncreasingIcon,
+  'chart-gantt': chartGanttIcon,
+  'chart-line': chartLineIcon,
+  'chart-no-axes-column-decreasing': chartNoAxesColumnDecreasingIcon,
+  'chart-no-axes-column-increasing': chartNoAxesColumnIncreasingIcon,
+  'chart-no-axes-column': chartNoAxesColumnIcon,
+  'chart-no-axes-combined': chartNoAxesCombinedIcon,
+  'chart-no-axes-gantt': chartNoAxesGanttIcon,
+  'chart-pie': chartPieIcon,
+  'chart-scatter': chartScatterIcon,
+  'chart-spline': chartSplineIcon,
+  'check-check': checkCheckIcon,
+  'cherry': cherryIcon,
+  'chevrons-down-up': chevronsDownUpIcon,
+  'chevrons-down': chevronsDownIcon,
+  'chevrons-left-right': chevronsLeftRightIcon,
+  'chevrons-left': chevronsLeftIcon,
+  'chevrons-right-left': chevronsRightLeftIcon,
+  'chevrons-right': chevronsRightIcon,
+  'chevrons-up': chevronsUpIcon,
+  'cigarette-off': cigaretteOffIcon,
+  'circle-arrow-down': circleArrowDownIcon,
+  'circle-arrow-left': circleArrowLeftIcon,
+  'circle-arrow-out-down-left': circleArrowOutDownLeftIcon,
+  'circle-arrow-out-down-right': circleArrowOutDownRightIcon,
+  'circle-arrow-out-up-left': circleArrowOutUpLeftIcon,
+  'circle-arrow-out-up-right': circleArrowOutUpRightIcon,
+  'circle-arrow-right': circleArrowRightIcon,
+  'circle-arrow-up': circleArrowUpIcon,
+  'circle-check-big': circleCheckBigIcon,
+  'circle-chevron-down': circleChevronDownIcon,
+  'circle-chevron-left': circleChevronLeftIcon,
+  'circle-chevron-right': circleChevronRightIcon,
+  'circle-chevron-up': circleChevronUpIcon,
+  'circle-off': circleOffIcon,
+  'circle-parking-off': circleParkingOffIcon,
+  'clapperboard': clapperboardIcon,
+  'clipboard': clipboardIcon,
+  'cloud-download': cloudDownloadIcon,
+  'cloud-moon': cloudMoonIcon,
+  'cloud-off': cloudOffIcon,
+  'cog': cogIcon,
+  'compass': compassIcon,
+  'contrast': contrastIcon,
+  'crop': cropIcon,
+  'diamond-plus': diamondPlusIcon,
+  'dice-1': dice1Icon,
+  'dice-2': dice2Icon,
+  'dice-3': dice3Icon,
+  'dice-4': dice4Icon,
+  'dice-5': dice5Icon,
+  'dice-6': dice6Icon,
+  'diff': diffIcon,
+  'dna-off': dnaOffIcon,
+  'droplet-off': dropletOffIcon,
+  'drum': drumIcon,
+  'ear-off': earOffIcon,
+  'eclipse': eclipseIcon,
+  'egg-off': eggOffIcon,
+  'file-chart-column-increasing': fileChartColumnIncreasingIcon,
+  'file-chart-column': fileChartColumnIcon,
+  'file-chart-line': fileChartLineIcon,
+  'file-down': fileDownIcon,
+  'file-minus': fileMinusIcon,
+  'file-pen': filePenIcon,
+  'file-plus': filePlusIcon,
+  'file-question-mark': fileQuestionMarkIcon,
+  'file-sliders': fileSlidersIcon,
+  'file-terminal': fileTerminalIcon,
+  'file-up': fileUpIcon,
+  'fish-off': fishOffIcon,
+  'flag-off': flagOffIcon,
+  'flashlight-off': flashlightOffIcon,
+  'flask-conical-off': flaskConicalOffIcon,
+  'frame': frameIcon,
+  'funnel-x': funnelXIcon,
+  'gallery-horizontal-end': galleryHorizontalEndIcon,
+  'gallery-horizontal': galleryHorizontalIcon,
+  'gallery-vertical-end': galleryVerticalEndIcon,
+  'gallery-vertical': galleryVerticalIcon,
+  'gauge': gaugeIcon,
+  'gavel': gavelIcon,
+  'grip-horizontal': gripHorizontalIcon,
+  'grip': gripIcon,
+  'hammer': hammerIcon,
+  'hand-coins': handCoinsIcon,
+  'hand-heart': handHeartIcon,
+  'hard-drive-download': hardDriveDownloadIcon,
+  'hard-drive-upload': hardDriveUploadIcon,
+  'headphone-off': headphoneOffIcon,
+  'heart': heartIcon,
+  'hop-off': hopOffIcon,
+  'house-wifi': houseWifiIcon,
+  'kanban': kanbanIcon,
+  'key-square': keySquareIcon,
+  'keyboard-off': keyboardOffIcon,
+  'lightbulb-off': lightbulbOffIcon,
+  'link-2-off': link2OffIcon,
+  'list-check': listCheckIcon,
+  'list-todo': listTodoIcon,
+  'locate-off': locateOffIcon,
+  'mail-check': mailCheckIcon,
+  'map-pin-off': mapPinOffIcon,
+  'maximize-2': maximize2Icon,
+  'maximize': maximizeIcon,
+  'megaphone-off': megaphoneOffIcon,
+  'message-circle-more': messageCircleMoreIcon,
+  'message-circle-off': messageCircleOffIcon,
+  'message-circle-question-mark': messageCircleQuestionMarkIcon,
+  'message-circle-warning': messageCircleWarningIcon,
+  'message-circle': messageCircleIcon,
+  'message-square-more': messageSquareMoreIcon,
+  'message-square-off': messageSquareOffIcon,
+  'message-square': messageSquareIcon,
+  'mic-off': micOffIcon,
+  'milk-off': milkOffIcon,
+  'minimize-2': minimize2Icon,
+  'minimize': minimizeIcon,
+  'monitor-check': monitorCheckIcon,
+  'monitor-cog': monitorCogIcon,
+  'monitor-down': monitorDownIcon,
+  'monitor-off': monitorOffIcon,
+  'monitor-up': monitorUpIcon,
+  'move-diagonal-2': moveDiagonal2Icon,
+  'move-diagonal': moveDiagonalIcon,
+  'move-down-left': moveDownLeftIcon,
+  'move-down-right': moveDownRightIcon,
+  'move-down': moveDownIcon,
+  'move-horizontal': moveHorizontalIcon,
+  'move-left': moveLeftIcon,
+  'move-right': moveRightIcon,
+  'move-up-left': moveUpLeftIcon,
+  'move-up-right': moveUpRightIcon,
+  'move-up': moveUpIcon,
+  'move-vertical': moveVerticalIcon,
+  'navigation-2-off': navigation2OffIcon,
+  'navigation-off': navigationOffIcon,
+  'nfc': nfcIcon,
+  'notebook-pen': notebookPenIcon,
+  'nut-off': nutOffIcon,
+  'octagon-alert': octagonAlertIcon,
+  'orbit': orbitIcon,
+  'paintbrush': paintbrushIcon,
+  'paperclip': paperclipIcon,
+  'pen-off': penOffIcon,
+  'pencil-line': pencilLineIcon,
+  'pencil-off': pencilOffIcon,
+  'phone-off': phoneOffIcon,
+  'pickaxe': pickaxeIcon,
+  'pin-off': pinOffIcon,
+  'pointer-off': pointerOffIcon,
+  'power-off': powerOffIcon,
+  'printer-check': printerCheckIcon,
+  'rabbit': rabbitIcon,
+  'radar': radarIcon,
+  'radio-tower': radioTowerIcon,
+  'radio': radioIcon,
+  'rainbow': rainbowIcon,
+  'refresh-ccw-dot': refreshCcwDotIcon,
+  'refresh-ccw': refreshCcwIcon,
+  'refresh-cw-off': refreshCwOffIcon,
+  'rocking-chair': rockingChairIcon,
+  'rotate-ccw-key': rotateCcwKeyIcon,
+  'route-off': routeOffIcon,
+  'route': routeIcon,
+  'rss': rssIcon,
+  'scan-text': scanTextIcon,
+  'scissors': scissorsIcon,
+  'shield-question-mark': shieldQuestionMarkIcon,
+  'ship-wheel': shipWheelIcon,
+  'ship': shipIcon,
+  'shovel': shovelIcon,
+  'shrink': shrinkIcon,
+  'signature': signatureIcon,
+  'smartphone-nfc': smartphoneNfcIcon,
+  'snowflake': snowflakeIcon,
+  'sparkle': sparkleIcon,
+  'speech': speechIcon,
+  'spell-check': spellCheckIcon,
+  'square-arrow-out-down-left': squareArrowOutDownLeftIcon,
+  'square-arrow-out-down-right': squareArrowOutDownRightIcon,
+  'square-arrow-out-up-left': squareArrowOutUpLeftIcon,
+  'square-arrow-out-up-right': squareArrowOutUpRightIcon,
+  'square-chart-gantt': squareChartGanttIcon,
+  'square-check-big': squareCheckBigIcon,
+  'square-check': squareCheckIcon,
+  'square-chevron-down': squareChevronDownIcon,
+  'square-chevron-left': squareChevronLeftIcon,
+  'square-chevron-right': squareChevronRightIcon,
+  'square-chevron-up': squareChevronUpIcon,
+  'square-dashed-kanban': squareDashedKanbanIcon,
+  'square-kanban': squareKanbanIcon,
+  'square-parking-off': squareParkingOffIcon,
+  'square-plus': squarePlusIcon,
+  'square-scissors': squareScissorsIcon,
+  'square-stack': squareStackIcon,
+  'square-terminal': squareTerminalIcon,
+  'sword': swordIcon,
+  'telescope': telescopeIcon,
+  'terminal': terminalIcon,
+  'text-align-center': textAlignCenterIcon,
+  'text-cursor-input': textCursorInputIcon,
+  'text-cursor': textCursorIcon,
+  'text-search': textSearchIcon,
+  'thermometer': thermometerIcon,
+  'thumbs-down': thumbsDownIcon,
+  'thumbs-up': thumbsUpIcon,
+  'timer-off': timerOffIcon,
+  'timer': timerIcon,
+  'toggle-left': toggleLeftIcon,
+  'toggle-right': toggleRightIcon,
+  'tornado': tornadoIcon,
+  'touchpad-off': touchpadOffIcon,
+  'umbrella-off': umbrellaOffIcon,
+  'unplug': unplugIcon,
+  'user-pen': userPenIcon,
+  'vibrate-off': vibrateOffIcon,
+  'vibrate': vibrateIcon,
+  'video-off': videoOffIcon,
+  'vote': voteIcon,
+  'webhook-off': webhookOffIcon,
+  'wheat-off': wheatOffIcon,
+  'wifi-off': wifiOffIcon,
+  'wifi-pen': wifiPenIcon,
+  'wine-off': wineOffIcon,
+  'zap-off': zapOffIcon,
   bell: bellIcon,
   'bell-ring': bellRingIcon,
   'bell-check': bellCheckIcon,
