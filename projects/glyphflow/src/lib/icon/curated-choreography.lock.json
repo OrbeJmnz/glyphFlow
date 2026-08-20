@@ -223,12 +223,48 @@
       "rect:d427f2bc2999",
       "path:ec3d9996cae7"
     ],
+    "calendar-1": [
+      "path:d47415005bbc",
+      "path:038b3cfb6f81",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f",
+      "rect:d427f2bc2999"
+    ],
+    "calendar-arrow-down": [
+      "path:4a7049f1b375",
+      "path:038b3cfb6f81",
+      "path:9d832cbaa40a",
+      "path:6c812615ba48",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-arrow-up": [
+      "path:fad45161e41a",
+      "path:038b3cfb6f81",
+      "path:fa16c8c82e33",
+      "path:96676401ab2a",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
     "calendar-check": [
       "path:ccc0b43e5a8f",
       "path:038b3cfb6f81",
       "rect:d427f2bc2999",
       "path:ec3d9996cae7",
       "path:c84b9b4bbf06"
+    ],
+    "calendar-check-2": [
+      "path:96ec152e63a8",
+      "path:f0e7ca6c8c73",
+      "path:9f930c359d0f",
+      "path:1c8ed915ec84",
+      "path:578165d49aaa",
+      "path:47c4d1eacbe9",
+      "path:a3dc324db9d5",
+      "path:038b3cfb6f81",
+      "path:ec3d9996cae7",
+      "path:36087fb4d38b",
+      "path:ccc0b43e5a8f"
     ],
     "calendar-clock": [
       "path:d305925774aa",
@@ -237,6 +273,21 @@
       "path:000f198a9619",
       "path:ccc0b43e5a8f",
       "circle:d6022e837f75"
+    ],
+    "calendar-cog": [
+      "path:0caf53d706ba",
+      "path:d9162f43f6f6",
+      "path:038b3cfb6f81",
+      "path:fd3e350553b9",
+      "path:9b1669994dd5",
+      "path:07b683399bd9",
+      "path:088bd6cd66db",
+      "path:47360f782a14",
+      "path:bbe55490a748",
+      "path:adddff9904ff",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f",
+      "circle:19df0cd8a262"
     ],
     "calendar-days": [
       "path:ccc0b43e5a8f",
@@ -249,6 +300,101 @@
       "path:96d95f14efb3",
       "path:172792977efc",
       "path:b0462b73484b"
+    ],
+    "calendar-fold": [
+      "path:038b3cfb6f81",
+      "path:affa075387ec",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-heart": [
+      "path:949ed986da95",
+      "path:7270ea30053e",
+      "path:038b3cfb6f81",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-minus": [
+      "path:ae5fda1de746",
+      "path:038b3cfb6f81",
+      "path:a15a06577136",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-minus-2": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:6b69d8eac2b2"
+    ],
+    "calendar-off": [
+      "path:038b3cfb6f81",
+      "path:378c27879c92",
+      "path:588ab542995d",
+      "path:067fce0bf4f0",
+      "path:2f3cd146be34",
+      "path:11fa128b2a63"
+    ],
+    "calendar-plus": [
+      "path:ae5fda1de746",
+      "path:038b3cfb6f81",
+      "path:58b56a2bd8f6",
+      "path:6ed3643dee36",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-plus-2": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:6b69d8eac2b2",
+      "path:fe74b460e1c4"
+    ],
+    "calendar-range": [
+      "rect:d427f2bc2999",
+      "path:038b3cfb6f81",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f",
+      "path:5133803afaf6",
+      "path:073d5476485f",
+      "path:119e3fa75fab",
+      "path:f1d69d929a29"
+    ],
+    "calendar-search": [
+      "path:038b3cfb6f81",
+      "path:be46903d3cc4",
+      "path:ededb8ea4488",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f",
+      "circle:636064617fd1"
+    ],
+    "calendar-sync": [
+      "path:d8bde78a8881",
+      "path:be833185430d",
+      "path:038b3cfb6f81",
+      "path:d4bd3d203f27",
+      "path:5e382ae85a5b",
+      "path:1f1c27642017",
+      "path:087fd131f6f0",
+      "path:ccc0b43e5a8f"
+    ],
+    "calendar-x": [
+      "path:ccc0b43e5a8f",
+      "path:038b3cfb6f81",
+      "rect:d427f2bc2999",
+      "path:ec3d9996cae7",
+      "path:082a3f255194",
+      "path:186f20bcea96"
+    ],
+    "calendar-x-2": [
+      "path:038b3cfb6f81",
+      "path:714d91f8201c",
+      "path:8d7fd7c77da4",
+      "path:abdfbd5e4819",
+      "path:ec3d9996cae7",
+      "path:ccc0b43e5a8f"
     ],
     "camera": [
       "path:bcbbb4d6b10d",
@@ -317,6 +463,72 @@
       "rect:81290d010436",
       "path:4d695fa3b6d8",
       "path:d9ebb82c9e7d"
+    ],
+    "clipboard-clock": [
+      "path:d305925774aa",
+      "path:030d7fab4909",
+      "path:98b67fb3727c",
+      "circle:d6022e837f75",
+      "rect:4205045326f0"
+    ],
+    "clipboard-copy": [
+      "rect:81290d010436",
+      "path:4f88c579c4c0",
+      "path:a3772578e035",
+      "path:f4f3b02d88b1",
+      "path:952bd6dd3217"
+    ],
+    "clipboard-list": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:a52d52509891",
+      "path:cee5137d08df",
+      "path:56db478e018a",
+      "path:a84a55b76b79"
+    ],
+    "clipboard-minus": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:8cd22d2ff66c"
+    ],
+    "clipboard-paste": [
+      "path:dcfad7c99fb8",
+      "path:c122e990d6b4",
+      "path:13a6d6e7d006",
+      "path:bb8c8e52e539",
+      "rect:4205045326f0"
+    ],
+    "clipboard-pen": [
+      "path:a9772eeade35",
+      "path:64b21495a94f",
+      "path:7dd0bd8cfe5b",
+      "rect:4205045326f0"
+    ],
+    "clipboard-pen-line": [
+      "rect:4205045326f0",
+      "path:009484a872ce",
+      "path:63b85aa8b8e7",
+      "path:dc2ce0a795d5",
+      "path:d5fd94726b90"
+    ],
+    "clipboard-plus": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:8cd22d2ff66c",
+      "path:398d343b9ae7"
+    ],
+    "clipboard-type": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:af2a62be9caa",
+      "path:e3c75f7bfb51",
+      "path:273b96808ab3"
+    ],
+    "clipboard-x": [
+      "rect:81290d010436",
+      "path:4d695fa3b6d8",
+      "path:cfd0be5ebc8b",
+      "path:7990316241ff"
     ],
     "clock": [
       "circle:1b306a76ecc0",
