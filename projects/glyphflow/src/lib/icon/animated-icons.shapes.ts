@@ -1296,6 +1296,112 @@ export const badgeCheckShapes: IconShape[] = [
     { tag: 'path', d: 'm9 12 2 2 4-4' },
   ];
 
+const BADGE_BODY = 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z';
+
+export const badgeAlertShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'line', x1: 12, y1: 8, x2: 12, y2: 12 },
+    { tag: 'line', x1: 12, y1: 16, x2: 12.01, y2: 16 },
+  ];
+
+export const badgeCentShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M12 7v10' },
+    { tag: 'path', d: 'M15.4 10a4 4 0 1 0 0 4' },
+  ];
+
+export const badgeDollarSignShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8' },
+    { tag: 'path', d: 'M12 18V6' },
+  ];
+
+export const badgeEuroShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M7 12h5' },
+    { tag: 'path', d: 'M15 9.4a4 4 0 1 0 0 5.2' },
+  ];
+
+export const badgeIndianRupeeShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M8 8h8' },
+    { tag: 'path', d: 'M8 12h8' },
+    { tag: 'path', d: 'm13 17-5-1h1a4 4 0 0 0 0-8' },
+  ];
+
+export const badgeInfoShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'line', x1: 12, y1: 16, x2: 12, y2: 12 },
+    { tag: 'line', x1: 12, y1: 8, x2: 12.01, y2: 8 },
+  ];
+
+export const badgeJapaneseYenShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'm9 8 3 3v7' },
+    { tag: 'path', d: 'm12 11 3-3' },
+    { tag: 'path', d: 'M9 12h6' },
+    { tag: 'path', d: 'M9 16h6' },
+  ];
+
+export const badgeMinusShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'line', x1: 8, y1: 12, x2: 16, y2: 12 },
+  ];
+
+export const badgePercentShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'm15 9-6 6' },
+    { tag: 'path', d: 'M9 9h.01' },
+    { tag: 'path', d: 'M15 15h.01' },
+  ];
+
+export const badgePlusShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'line', x1: 12, y1: 8, x2: 12, y2: 16 },
+    { tag: 'line', x1: 8, y1: 12, x2: 16, y2: 12 },
+  ];
+
+export const badgePoundSterlingShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M8 12h4' },
+    { tag: 'path', d: 'M10 16V9.5a2.5 2.5 0 0 1 5 0' },
+    { tag: 'path', d: 'M8 16h7' },
+  ];
+
+export const badgeQuestionMarkShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3' },
+    { tag: 'line', x1: 12, y1: 17, x2: 12.01, y2: 17 },
+  ];
+
+export const badgeRussianRubleShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M9 16h5' },
+    { tag: 'path', d: 'M9 12h5a2 2 0 1 0 0-4h-3v9' },
+  ];
+
+export const badgeSwissFrancShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'path', d: 'M11 17V8h4' },
+    { tag: 'path', d: 'M11 12h3' },
+    { tag: 'path', d: 'M9 16h4' },
+  ];
+
+export const badgeTurkishLiraShapes: IconShape[] = [
+    { tag: 'path', d: 'M11 7v10a5 5 0 0 0 5-5' },
+    { tag: 'path', d: 'm15 8-6 3' },
+    {
+      tag: 'path',
+      d: 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76',
+    },
+  ];
+
+export const badgeXShapes: IconShape[] = [
+    { tag: 'path', d: BADGE_BODY },
+    { tag: 'line', x1: 15, y1: 9, x2: 9, y2: 15 },
+    { tag: 'line', x1: 9, y1: 9, x2: 15, y2: 15 },
+  ];
+
 export const chevronDownShapes: IconShape[] = [{ tag: 'path', d: 'm6 9 6 6 6-6' }];
 
 export const chevronLeftShapes: IconShape[] = [{ tag: 'path', d: 'm15 18-6-6 6-6' }];
@@ -2282,6 +2388,58 @@ export const ellipsisVerticalShapes: IconShape[] = [
 export const mouseShapes: IconShape[] = [
     { tag: 'rect', x: 5, y: 2, width: 14, height: 20, rx: 7 },
     { tag: 'path', d: 'M12 6v4' },
+  ];
+
+export const mouseLeftShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 7.318V10' },
+    { tag: 'path', d: 'M5 10v5a7 7 0 0 0 14 0V9c0-3.527-2.608-6.515-6-7' },
+    { tag: 'circle', cx: 7, cy: 4, r: 2 },
+  ];
+
+export const mouseOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 6v.343' },
+    { tag: 'path', d: 'M18.218 18.218A7 7 0 0 1 5 15V9a7 7 0 0 1 .782-3.218' },
+    { tag: 'path', d: 'M19 13.343V9A7 7 0 0 0 8.56 2.902' },
+    { tag: 'path', d: 'M22 22 2 2' },
+  ];
+
+export const mouseRightShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 7.318V10' },
+    { tag: 'path', d: 'M19 10v5a7 7 0 0 1-14 0V9c0-3.527 2.608-6.515 6-7' },
+    { tag: 'circle', cx: 17, cy: 4, r: 2 },
+  ];
+
+export const mousePointerShapes: IconShape[] = [
+    { tag: 'path', d: 'M12.586 12.586 19 19' },
+    {
+      tag: 'path',
+      d: 'M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z',
+    },
+  ];
+
+export const mousePointer2Shapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z',
+    },
+  ];
+
+export const mousePointer2OffShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'm15.55 8.45 5.138 2.087a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063L8.45 15.551',
+    },
+    { tag: 'path', d: 'M22 2 2 22' },
+    { tag: 'path', d: 'm6.816 11.528-2.779-6.84a.495.495 0 0 1 .651-.651l6.84 2.779' },
+  ];
+
+export const mousePointerBanShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2.034 2.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.944L8.204 7.545a1 1 0 0 0-.66.66l-1.066 3.443a.5.5 0 0 1-.944.033z',
+    },
+    { tag: 'circle', cx: 16, cy: 16, r: 6 },
+    { tag: 'path', d: 'm11.8 11.8 8.4 8.4' },
   ];
 
 export const navigationShapes: IconShape[] = [{ tag: 'polygon', points: '3 11 22 2 13 21 11 13 3 11' }];

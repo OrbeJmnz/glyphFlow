@@ -88,9 +88,94 @@
       "circle:9d7fc8897980",
       "path:fbcd70ad6f8d"
     ],
+    "badge-alert": [
+      "path:65bb74b0896e",
+      "line:00fd201d9463",
+      "line:405135e33c7b"
+    ],
+    "badge-cent": [
+      "path:65bb74b0896e",
+      "path:2bbf5596f0d0",
+      "path:2dfd307cf056"
+    ],
     "badge-check": [
       "path:65bb74b0896e",
       "path:a6c388c2ba21"
+    ],
+    "badge-dollar-sign": [
+      "path:65bb74b0896e",
+      "path:f60a9ece547b",
+      "path:bf8203c7dfd8"
+    ],
+    "badge-euro": [
+      "path:65bb74b0896e",
+      "path:ef033f1af12c",
+      "path:5c0425039900"
+    ],
+    "badge-indian-rupee": [
+      "path:65bb74b0896e",
+      "path:5969ad3f99a6",
+      "path:996d85dad073",
+      "path:147c7590cc6f"
+    ],
+    "badge-info": [
+      "path:65bb74b0896e",
+      "line:e90406a8399b",
+      "line:5b3d30cd94fc"
+    ],
+    "badge-japanese-yen": [
+      "path:65bb74b0896e",
+      "path:ba8d338315f8",
+      "path:8061b58966ae",
+      "path:687b29d9e865",
+      "path:b3caa8f59d15"
+    ],
+    "badge-minus": [
+      "path:65bb74b0896e",
+      "line:47622f9df753"
+    ],
+    "badge-percent": [
+      "path:65bb74b0896e",
+      "path:d9ee5f9557b1",
+      "path:b10a06368ff2",
+      "path:2176c0460811"
+    ],
+    "badge-plus": [
+      "path:65bb74b0896e",
+      "line:fcfd19d19863",
+      "line:47622f9df753"
+    ],
+    "badge-pound-sterling": [
+      "path:65bb74b0896e",
+      "path:8d6d72f6cc73",
+      "path:f147c082f9f1",
+      "path:d833b1cf804b"
+    ],
+    "badge-question-mark": [
+      "path:65bb74b0896e",
+      "path:fbaf6ad092cd",
+      "line:37fd07fb3df4"
+    ],
+    "badge-russian-ruble": [
+      "path:65bb74b0896e",
+      "path:b0caa43c9a15",
+      "path:3edee8ec0a57"
+    ],
+    "badge-swiss-franc": [
+      "path:65bb74b0896e",
+      "path:c90382bb0b54",
+      "path:a0b507bf6131",
+      "path:b1caa5cf9b15"
+    ],
+    "badge-turkish-lira": [
+      "path:edb465099af1",
+      "path:62abb4f5ab2c",
+      "path:eebe66ca3f6a"
+    ],
+    "badge-x": [
+      "path:65bb74b0896e",
+      "line:d80838721362",
+      "line:6b323e8a31fa"
     ],
     "ban": [
       "circle:1b306a76ecc0",
@@ -1254,12 +1339,45 @@
       "rect:c10883e34bad",
       "path:a36f353a4824"
     ],
+    "mouse-left": [
+      "path:78da7358ee13",
+      "path:45ef742ac5f4",
+      "circle:bfd6ea0063b7"
+    ],
+    "mouse-off": [
+      "path:fa2dfa78b8a4",
+      "path:18d2c27d9c49",
+      "path:7ed647ed2129",
+      "path:20d6939fac75"
+    ],
+    "mouse-pointer": [
+      "path:768178cbde21",
+      "path:9f5cb4c29c6a"
+    ],
+    "mouse-pointer-2": [
+      "path:da722a416759"
+    ],
+    "mouse-pointer-2-off": [
+      "path:55a49b1b2b12",
+      "path:afcae63f9ad1",
+      "path:4959c8acd92a"
+    ],
+    "mouse-pointer-ban": [
+      "path:f75f9d7e0470",
+      "circle:d6022e837f75",
+      "path:07249543b8e9"
+    ],
     "mouse-pointer-click": [
       "path:14e67842eea2",
       "path:530bcdf85e34",
       "path:0090ee1933c4",
       "path:c4dcf8fee0b6",
       "path:7e27b58bc09c"
+    ],
+    "mouse-right": [
+      "path:78da7358ee13",
+      "path:77a7376fc011",
+      "circle:aa1dfd5d9bd8"
     ],
     "navigation": [
       "polygon:67e43b02cce7"

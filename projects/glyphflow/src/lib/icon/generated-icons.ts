@@ -898,155 +898,6 @@ export const backpackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const badgeAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'line', x1: 12, x2: 12, y1: 8, y2: 12 },
-    { tag: 'line', x1: 12, x2: 12.01, y1: 16, y2: 16 },
-  ],
-  {},
-);
-
-export const badgeCentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M12 7v10" },
-    { tag: 'path', d: "M15.4 10a4 4 0 1 0 0 4" },
-  ],
-  {},
-);
-
-export const badgeDollarSignIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" },
-    { tag: 'path', d: "M12 18V6" },
-  ],
-  {},
-);
-
-export const badgeEuroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M7 12h5" },
-    { tag: 'path', d: "M15 9.4a4 4 0 1 0 0 5.2" },
-  ],
-  {},
-);
-
-export const badgeIndianRupeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M8 8h8" },
-    { tag: 'path', d: "M8 12h8" },
-    { tag: 'path', d: "m13 17-5-1h1a4 4 0 0 0 0-8" },
-  ],
-  {},
-);
-
-export const badgeInfoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'line', x1: 12, x2: 12, y1: 16, y2: 12 },
-    { tag: 'line', x1: 12, x2: 12.01, y1: 8, y2: 8 },
-  ],
-  {},
-);
-
-export const badgeJapaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "m9 8 3 3v7" },
-    { tag: 'path', d: "m12 11 3-3" },
-    { tag: 'path', d: "M9 12h6" },
-    { tag: 'path', d: "M9 16h6" },
-  ],
-  {},
-);
-
-export const badgeMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'line', x1: 8, x2: 16, y1: 12, y2: 12 },
-  ],
-  {},
-);
-
-export const badgePercentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "m15 9-6 6" },
-    { tag: 'path', d: "M9 9h.01" },
-    { tag: 'path', d: "M15 15h.01" },
-  ],
-  {},
-);
-
-export const badgePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'line', x1: 12, x2: 12, y1: 8, y2: 16 },
-    { tag: 'line', x1: 8, x2: 16, y1: 12, y2: 12 },
-  ],
-  {},
-);
-
-export const badgePoundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M8 12h4" },
-    { tag: 'path', d: "M10 16V9.5a2.5 2.5 0 0 1 5 0" },
-    { tag: 'path', d: "M8 16h7" },
-  ],
-  {},
-);
-
-export const badgeQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" },
-    { tag: 'line', x1: 12, x2: 12.01, y1: 17, y2: 17 },
-  ],
-  {},
-);
-
-export const badgeRussianRubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M9 16h5" },
-    { tag: 'path', d: "M9 12h5a2 2 0 1 0 0-4h-3v9" },
-  ],
-  {},
-);
-
-export const badgeSwissFrancIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'path', d: "M11 17V8h4" },
-    { tag: 'path', d: "M11 12h3" },
-    { tag: 'path', d: "M9 16h4" },
-  ],
-  {},
-);
-
-export const badgeTurkishLiraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 7v10a5 5 0 0 0 5-5" },
-    { tag: 'path', d: "m15 8-6 3" },
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76" },
-  ],
-  {},
-);
-
-export const badgeXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-    { tag: 'line', x1: 15, x2: 9, y1: 9, y2: 15 },
-    { tag: 'line', x1: 9, x2: 15, y1: 9, y2: 15 },
-  ],
-  {},
-);
-
 export const badgeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
@@ -8537,67 +8388,6 @@ export const mountainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const mouseLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 7.318V10" },
-    { tag: 'path', d: "M5 10v5a7 7 0 0 0 14 0V9c0-3.527-2.608-6.515-6-7" },
-    { tag: 'circle', cx: 7, cy: 4, r: 2 },
-  ],
-  {},
-);
-
-export const mouseOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 6v.343" },
-    { tag: 'path', d: "M18.218 18.218A7 7 0 0 1 5 15V9a7 7 0 0 1 .782-3.218" },
-    { tag: 'path', d: "M19 13.343V9A7 7 0 0 0 8.56 2.902" },
-    { tag: 'path', d: "M22 22 2 2" },
-  ],
-  {},
-);
-
-export const mousePointer2OffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15.55 8.45 5.138 2.087a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063L8.45 15.551" },
-    { tag: 'path', d: "M22 2 2 22" },
-    { tag: 'path', d: "m6.816 11.528-2.779-6.84a.495.495 0 0 1 .651-.651l6.84 2.779" },
-  ],
-  {},
-);
-
-export const mousePointer2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z" },
-  ],
-  {},
-);
-
-export const mousePointerBanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2.034 2.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.944L8.204 7.545a1 1 0 0 0-.66.66l-1.066 3.443a.5.5 0 0 1-.944.033z" },
-    { tag: 'circle', cx: 16, cy: 16, r: 6 },
-    { tag: 'path', d: "m11.8 11.8 8.4 8.4" },
-  ],
-  {},
-);
-
-export const mousePointerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12.586 12.586 19 19" },
-    { tag: 'path', d: "M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z" },
-  ],
-  {},
-);
-
-export const mouseRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 7.318V10" },
-    { tag: 'path', d: "M19 10v5a7 7 0 0 1-14 0V9c0-3.527 2.608-6.515 6-7" },
-    { tag: 'circle', cx: 17, cy: 4, r: 2 },
-  ],
-  {},
-);
-
 export const move3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M5 3v16h16" },
@@ -14114,22 +13904,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'axis-3d': axis3dIcon,
   baby: babyIcon,
   backpack: backpackIcon,
-  'badge-alert': badgeAlertIcon,
-  'badge-cent': badgeCentIcon,
-  'badge-dollar-sign': badgeDollarSignIcon,
-  'badge-euro': badgeEuroIcon,
-  'badge-indian-rupee': badgeIndianRupeeIcon,
-  'badge-info': badgeInfoIcon,
-  'badge-japanese-yen': badgeJapaneseYenIcon,
-  'badge-minus': badgeMinusIcon,
-  'badge-percent': badgePercentIcon,
-  'badge-plus': badgePlusIcon,
-  'badge-pound-sterling': badgePoundSterlingIcon,
-  'badge-question-mark': badgeQuestionMarkIcon,
-  'badge-russian-ruble': badgeRussianRubleIcon,
-  'badge-swiss-franc': badgeSwissFrancIcon,
-  'badge-turkish-lira': badgeTurkishLiraIcon,
-  'badge-x': badgeXIcon,
   badge: badgeIcon,
   'baggage-claim': baggageClaimIcon,
   balloon: balloonIcon,
@@ -14866,13 +14640,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   motorbike: motorbikeIcon,
   'mountain-snow': mountainSnowIcon,
   mountain: mountainIcon,
-  'mouse-left': mouseLeftIcon,
-  'mouse-off': mouseOffIcon,
-  'mouse-pointer-2-off': mousePointer2OffIcon,
-  'mouse-pointer-2': mousePointer2Icon,
-  'mouse-pointer-ban': mousePointerBanIcon,
-  'mouse-pointer': mousePointerIcon,
-  'mouse-right': mouseRightIcon,
   'move-3d': move3dIcon,
   'move-diagonal-2': moveDiagonal2Icon,
   'move-diagonal': moveDiagonalIcon,
