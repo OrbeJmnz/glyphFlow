@@ -26,15 +26,26 @@
   box-shadow: -12px 0 32px var(--gf-sombra);
 }
 
-/* A este ancho el drawer de 480px es la pantalla entera: toma todo, tapa el header incluido —
-   volver no pide encontrar el hueco angosto de cuadrícula que quedó detrás. El margen vertical de
-   arriba es cosa de escritorio: en la toma completa de pantalla no hay "insetado" que valga. */
+/*
+ * A este ancho no hay grid al lado que compartir — un drawer de 480px YA es la pantalla entera.
+ * Pero pantalla entera no es lo mismo que TAPAR entera: ancla abajo, sin `top` fijo, así que la
+ * caja crece con su contenido (hasta el tope) en vez de estirarse siempre a la altura completa —
+ * el header queda visible arriba, y con contenido corto (como este mismo icono) el hueco es aún
+ * mayor. `max-height` es la única cuerda: sin `top`, `bottom: 0` solo fija el borde de abajo.
+ */
 @media (max-width: 640px) {
   .detalle {
-    top: 0;
+    top: auto;
+    bottom: 0;
+    left: 0;
     z-index: 25;
-    width: 100vw;
+    width: 100%;
+    max-height: 80vh;
     margin: 0;
+    border-left: none;
+    border-top: 1px solid var(--gf-borde);
+    border-radius: 1.25rem 1.25rem 0 0;
+    box-shadow: 0 -12px 32px var(--gf-sombra);
   }
 }
 

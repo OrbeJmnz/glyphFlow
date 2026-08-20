@@ -335,6 +335,10 @@ code {
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
+  /* La altura es fija (32px): sin esto, un carril angosto envuelve el TEXTO dentro de la píldora
+     en vez de bajar la píldora entera a otra línea — "con variante extra" partido en 3 renglones
+     adentro de un chip de una sola fila, en vez de simplemente envolver como unidad. */
+  white-space: nowrap;
   cursor: pointer;
   transition:
     color 0.15s ease,
@@ -615,8 +619,12 @@ code {
 
 /* ── Grupo de controles ──────────────────────────────────────────────────────── */
 
+/* `flex-wrap`: el carril de velocidad nunca lo necesita (4 píldoras de ancho fijo caben siempre
+   en una fila), pero el de filtros sí — sin esto, en móvil el grupo entero se sale del viewport
+   con scroll horizontal en vez de bajar los chips que no caben a otra línea. */
 .ui-grupo {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 2px;
   padding: 3px;

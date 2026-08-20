@@ -1,6 +1,15 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MaxIconComponent, moonIcon, sunIcon, workflowIcon, type AnimatedIconDef } from 'glyphflow';
+import {
+  MaxIconComponent,
+  menuIcon,
+  moonIcon,
+  sunIcon,
+  workflowIcon,
+  xIcon,
+  zapIcon,
+  type AnimatedIconDef,
+} from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
@@ -38,6 +47,11 @@ import { Grupo } from './shared/ui/grupo';
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
+  host: {
+    // Con el menú móvil abierto, Escape lo cierra desde cualquier punto de la página — no solo con
+    // el foco puesto en el propio disparador.
+    '(document:keydown.escape)': 'cerrarMenu()',
+  },
 })
 export class App {
   protected readonly presets = PRESETS_ESCALA;
@@ -49,6 +63,25 @@ export class App {
       PRESETS_ESCALA.findIndex((p) => p.valor === escalaDuracion()),
     ),
   );
+  protected readonly iconoVelocidad: AnimatedIconDef = zapIcon;
+
+  /**
+   * En móvil el header solo enseña el disparador del menú y el tema — nav, velocidad y GitHub se
+   * mudan al panel lateral. En escritorio este estado nunca se lee: el disparador está oculto por
+   * CSS y el panel no tiene dónde engancharse.
+   */
+  protected readonly menuAbierto = signal(false);
+
+  protected alternarMenu(): void {
+    this.menuAbierto.update((v) => !v);
+  }
+
+  protected cerrarMenu(): void {
+    this.menuAbierto.set(false);
+  }
+
+  /** El disparador hace morph entre hamburguesa y X — dice lo que hace, no solo lo que es. */
+  protected readonly iconoMenu = computed<MorphIcon>(() => (this.menuAbierto() ? xIcon : menuIcon));
 
   /** El glifo de la marca, junto al logotipo. Se dibuja al montar y repite al pasar por el enlace. */
   protected readonly glifo: AnimatedIconDef = workflowIcon;
@@ -78,5 +111,13 @@ export class App {
     // Sin `await` ni bloqueo: si nunca responde, el botón se queda diciendo «GitHub» y el sitio ya
     // está usable desde el primer cuadro.
     void cargarEstrellas();
+
+    // El menú móvil SÍ es modal (tiene backdrop, a diferencia del drawer de detalle de icono):
+    // con el fondo bloqueado, arrastrar detrás del blur no mueve la página que ya no se ve.
+    // Guardia de SSR: `test:ssr` renderiza sin `document`.
+    effect(() => {
+      if (typeof document === 'undefined') return;
+      document.body.style.overflow = this.menuAbierto() ? 'hidden' : '';
+    });
   }
 }

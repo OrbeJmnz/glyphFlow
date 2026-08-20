@@ -131,8 +131,17 @@ function repartir(letra: string, cuerpo: string): { args: number[]; crudo: strin
   };
 
   while (i < cuerpo.length) {
+    const antesDeSeparadores = i;
     saltarSeparadores();
-    if (i >= cuerpo.length) break;
+    if (i >= cuerpo.length) {
+      // Solo quedaban separadores. Viajan con el ULTIMO juego o se pierden: el `while` corta aquí
+      // y el rescate de abajo no llega a correr porque `i` ya está al final. Sin esto, un cuerpo
+      // como ` 12.248 21.969 ` se re-escribía sin su espacio de cola y el siguiente comando se le
+      // pegaba — `21.969a` en vez de `21.969 a`. Sigue siendo SVG válido, pero rompe la promesa
+      // del editor de re-escribir tal cual lo que nadie tocó.
+      if (juegos.length) juegos[juegos.length - 1].crudo += cuerpo.slice(antesDeSeparadores);
+      break;
+    }
     const args: number[] = [];
     let roto = false;
 

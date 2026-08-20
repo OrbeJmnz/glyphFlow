@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
  * Todo va por `loadComponent`. Lo que eso compra, medido en `ng build playground`: quien entra a
  * `/docs/empezando` no baja el chunk del showcase (23KB) ni el del lab (44KB).
  *
- * Lo que NO compra, y hay que decirlo: el catálogo de los 180 curados sigue en el chunk inicial.
+ * Lo que NO compra, y hay que decirlo: el catálogo de curados sigue en el chunk inicial.
  * `CURATED_ICONS` lo importan DOS rutas diferidas (showcase y el picker del lab), y esbuild sube a
  * la entrada lo que comparten varios chunks en vez de emitir un chunk común. Por eso `main` creció
  * de 261KB a 306KB al meter el router: el router se suma, y el catálogo no se fue.
@@ -16,7 +16,10 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    title: 'glyphflow — 180 iconos animados',
+    // Sin el conteo: el titulo fino lo pone el propio componente, que ya tiene el catalogo
+    // cargado. Derivarlo AQUI costaba 460KB — el router es eager y `import('glyphflow')` subia el
+    // registro entero (1767 iconos) al chunk inicial. Medido: 354KB -> 813KB.
+    title: 'glyphflow — iconos de Lucide animados para Angular',
     loadComponent: () => import('./features/iconos/iconos').then((m) => m.Iconos),
   },
   {

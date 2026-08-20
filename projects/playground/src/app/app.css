@@ -228,6 +228,24 @@
 }
 
 /*
+ * El disparador del menú y el panel mismo solo existen para móvil (ver la media query de abajo)
+ * — en escritorio nav/velocidad/GitHub ya están siempre visibles en el header.
+ */
+.menu-disparador,
+.menu-movil {
+  display: none;
+}
+
+/* Reset de <button>: la capa de descarte no se ve, solo intercepta el toque. */
+.menu-fondo {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+
+/*
  * Cuadrado de 36px: sin texto al lado, el padding de píldora deja el icono nadando, y los 36px son
  * los del botón de GitHub — van pegados, así que una diferencia de altura entre los dos se lee como
  * descuido antes que como jerarquía.
@@ -265,72 +283,200 @@
 }
 
 /*
- * En móvil el header es STICKY, así que cada fila que se agrega se la queda para siempre: con las
- * acciones en su propio renglón el chrome llegaba a 217px de 780, más de un cuarto de la pantalla.
- *
- * `display: contents` disuelve el contenedor y deja a sus dos hijos como items directos de la fila.
- * Eso permite reordenarlos por separado y subir las acciones junto a la marca, que a este ancho
- * tiene medio renglón vacío a la derecha. Una fila menos, sin quitar ni un control.
+ * En móvil el header es STICKY, así que cada control que se deja visible se lo queda para
+ * siempre. En vez de repartir nav/velocidad/GitHub en más renglones, se esconden detrás de un
+ * menú: el header se queda en UNA fila (disparador, marca, tema) y el resto vive en el panel
+ * lateral de abajo.
  */
 @media (max-width: 640px) {
-  /*
-   * El respiro de 32px que le dio aire a los controles en escritorio aquí es al revés: son 64px
-   * menos de carril, y con eso el quinto enlace del nav se salía de la pantalla. Medido: 382 de
-   * scroll contra 375 de ventana.
-   */
   .shell-interior {
     padding: 12px 16px;
   }
 
-  /*
-   * Los cinco enlaces pedían 350px contra 343 disponibles — se partían en dos renglones y el header
-   * sticky se comía 203px de 780. Se aprieta la sangría horizontal, NO la altura: los 32px de alto
-   * son el área táctil y esa no se toca.
-   *
-   * El `wrap` se queda de última red por si un idioma trae nombres más largos.
-   */
-  .nav {
-    flex-wrap: wrap;
-    gap: 4px;
+  .menu-disparador {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid var(--gf-borde);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--gf-texto-tenue);
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.1s ease;
   }
 
-  .nav .chip {
-    padding: 0 11px;
+  .menu-disparador:hover,
+  .menu-disparador[aria-expanded='true'] {
+    color: var(--gf-texto);
+    border-color: var(--gf-borde-vivo);
+  }
+
+  .menu-disparador:active {
+    transform: scale(0.94);
+  }
+
+  .marca {
+    order: 2;
+  }
+
+  /* El nav de arriba, la velocidad y el GitHub del header se mudan al panel — quedan fuera del
+     árbol de accesibilidad en vez de vivos-pero-invisibles duplicando el tab order. */
+  .nav {
+    display: none;
   }
 
   .controles {
     display: contents;
   }
 
-  .marca {
-    order: 1;
-  }
-
-  /* Los dos botones suben junto a la marca; el de GitHub empuja para que el par quede a la
-     derecha del renglón. */
-  app-boton-github {
-    order: 2;
-    margin-left: auto;
+  .controles .velocidad,
+  .controles app-boton-github {
+    display: none;
   }
 
   .tema {
-    order: 2;
+    order: 3;
+    margin-left: auto;
   }
 
-  /* Sin separadores: aquí los controles ya no comparten renglón, así que la raya no separaría
-     nada — quedaría flotando al inicio de una fila. */
+  /* Sin separadores: con un solo control visible en `.controles`, la raya no tendría qué
+     separar. */
   .controles > * + *::before {
     content: none;
   }
 
-  /* El nav ocupa su renglón completo: a este ancho los cinco enlaces no comparten con nadie. */
-  .nav {
-    order: 3;
-    width: 100%;
+  /*
+   * Fondo oscuro con blur: además de marcar que hay un panel modal encima, atenúa la cuadrícula
+   * de iconos animados detrás para que no compita por atención con el menú.
+   */
+  .menu-fondo {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgb(0 0 0 / 55%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
-  .velocidad {
-    order: 4;
+  .menu-movil {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 31;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    width: min(300px, 85vw);
+    padding: 20px 1.25rem 1.5rem;
+    overflow-y: auto;
+    background: var(--gf-panel-alto);
+    box-shadow: 12px 0 32px var(--gf-sombra);
+    translate: -100% 0;
+    transition: translate 0.32s var(--gf-resorte);
+  }
+
+  .menu-movil.abierto {
+    translate: 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-movil {
+      transition: none;
+    }
+  }
+
+  .menu-cabecera {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-cabecera span {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gf-texto-apagado);
+  }
+
+  .menu-cerrar {
+    flex: none;
+    border: 1px solid var(--gf-borde);
+    border-radius: 0.4rem;
+    background: transparent;
+    color: var(--gf-texto-tenue);
+    width: 1.75rem;
+    height: 1.75rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.1s ease;
+  }
+
+  .menu-cerrar:hover {
+    color: var(--gf-texto);
+    border-color: var(--gf-borde-vivo);
+  }
+
+  .menu-cerrar:active {
+    transform: scale(0.9);
+  }
+
+  .menu-nav {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .menu-nav a {
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    color: var(--gf-texto-medio);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .menu-nav a:hover {
+    color: var(--gf-texto);
+    background: var(--gf-velo);
+  }
+
+  .menu-nav a.activo {
+    color: var(--gf-texto);
+    background: var(--gf-velo-activo);
+  }
+
+  .menu-github {
+    align-self: flex-start;
+  }
+
+  /*
+   * Empujada al fondo del panel con `margin-top: auto` — es el control de menos uso de los tres,
+   * y la raya de arriba (no una caja propia) es lo único que la distingue del resto.
+   */
+  .menu-velocidad {
+    flex: none;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gf-borde-suave);
   }
 }
 

@@ -69,7 +69,10 @@ describe('App (shell)', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    const chips = [...html.querySelectorAll<HTMLButtonElement>('.velocidad .chip')];
+    // Acotado al HEADER: el control de velocidad se repite en el menú móvil, así que `.velocidad`
+    // a secas ahora casa con los dos juegos y devolvía ocho píldoras. Se pide el del chrome, que es
+    // el que esta prueba dice comprobar.
+    const chips = [...html.querySelectorAll<HTMLButtonElement>('.shell-head .velocidad .chip')];
     expect(chips.map((c) => c.textContent?.trim())).toEqual(['0.5×', '1×', '1.5×', '2×']);
 
     chips[3].click();

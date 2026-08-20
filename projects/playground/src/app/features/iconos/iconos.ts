@@ -1,4 +1,13 @@
-import { Component, ViewChildren, QueryList, signal, computed, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ViewChildren,
+  QueryList,
+  signal,
+  computed,
+  inject,
+  OnDestroy,
+} from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {
   MaxIconComponent,
   CURATED_ICONS,
@@ -15,11 +24,13 @@ import { RouterLink } from '@angular/router';
 import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
+import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
+import { CIFRAS } from '../../core/cifras';
 import { conTransicion } from '../../core/transicion';
 import { tema } from '../../core/tema';
 
@@ -52,6 +63,7 @@ interface CuratedEntry {
     Boton,
     CampoBusqueda,
     Chip,
+    Contador,
     Grupo,
     NombreTransicion,
     Tooltip,
@@ -72,6 +84,18 @@ export class Iconos implements OnDestroy {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   protected readonly total = this.todos.length;
+
+  /**
+   * El conteo del título sale del catálogo, y se pone DESDE AQUÍ y no desde la ruta.
+   *
+   * Estaba fijo en «180» y la 1.2.0 lo dejó en 405 sin que nadie se enterara. Derivarlo en el
+   * router costaba 460KB —es eager, y `import('glyphflow')` ahí subía el registro entero al chunk
+   * inicial (medido: 354KB → 813KB)—. Este componente ya importa `CURATED_ICONS`, así que el dato
+   * es gratis. Corre después del `title` de la ruta, que queda como respaldo sin número.
+   */
+  private readonly titulo = inject(Title).setTitle(
+    `glyphflow — ${this.todos.length} iconos animados`,
+  );
 
   /**
    * Media docena para la fila animada del hero — la primera prueba de "esto se mueve" antes de
@@ -99,6 +123,9 @@ export class Iconos implements OnDestroy {
 
   /** El destello de la nota. Sale del propio catálogo: el sitio no dibuja iconos que no vende. */
   protected readonly destello: AnimatedIconDef = CURATED_ICONS['sparkles'];
+
+  /** El resto de las cifras del hero — mismos números que repite el menú móvil. */
+  protected readonly cifras = CIFRAS;
 
   /**
    * La secuencia del showcase de morph: cuatro FORMAS, no cuatro iconos de UI.

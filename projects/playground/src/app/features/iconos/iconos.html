@@ -63,21 +63,23 @@
 
   <dl class="cifras">
     <div class="destaca">
-      <dt>{{ total }}</dt>
+      <dt><app-contador [valor]="total" /></dt>
       <dd>curados a mano</dd>
     </div>
     <div>
-      <dt>1 767</dt>
+      <dt><app-contador [valor]="cifras.catalogo" /></dt>
       <dd>en el catálogo</dd>
     </div>
     <!-- El degradado va SOLO en esta. Es la cifra que decide si alguien instala la librería, y en
          cuanto hay dos números pintados ninguno destaca. -->
     <div class="destaca">
-      <dt class="degradado-texto">4.09 KB</dt>
+      <dt class="degradado-texto">
+        <app-contador [valor]="cifras.pesoIconoKb" [decimales]="2" sufijo=" KB" />
+      </dt>
       <dd>un icono, gzip</dd>
     </div>
     <div>
-      <dt>0</dt>
+      <dt><app-contador [valor]="cifras.depsAnimacion" /></dt>
       <dd>deps de animación</dd>
     </div>
   </dl>

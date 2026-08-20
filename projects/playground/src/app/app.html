@@ -1,5 +1,20 @@
 <header class="shell-head">
   <div class="shell-interior">
+    <!--
+      Solo pinta en móvil: en escritorio nav/velocidad/GitHub ya están siempre visibles y no hay
+      panel que abrir. El icono hace morph a X — dice lo que el botón hace, no solo lo que es.
+    -->
+    <button
+      type="button"
+      class="menu-disparador"
+      [attr.aria-expanded]="menuAbierto()"
+      aria-controls="menu-movil"
+      aria-label="Menú"
+      (click)="alternarMenu()"
+    >
+      <max-icon-morph [icon]="iconoMenu()" [size]="18" spring="snappy" />
+    </button>
+
     <a class="marca" routerLink="/" aria-label="glyphflow, ir al inicio">
       <!-- El glifo es el propio motor animándose: `trigger="group"` lo cuelga del hover de este <a>. -->
       <max-icon [iconDef]="glifo" [size]="24" trigger="group" />
@@ -78,6 +93,71 @@
   -->
   <div class="shell-progreso" aria-hidden="true"></div>
 </header>
+
+<!--
+  Menú móvil: panel lateral izquierdo + fondo oscuro con blur. Nav, velocidad, cifras y GitHub
+  viven AQUÍ y no en el header — sus copias de arriba están ocultas por CSS a este ancho.
+
+  El fondo es un <button> y no un <div>: una capa de descarte tiene que poder cerrarse sin ratón,
+  y un div con `(click)` no recibe foco ni responde a Enter. Aparte de esto, Escape cierra desde
+  donde sea (ver el listener del componente).
+-->
+@if (menuAbierto()) {
+  <button
+    type="button"
+    class="menu-fondo"
+    aria-label="Cerrar el menú"
+    (click)="cerrarMenu()"
+  ></button>
+}
+
+<aside class="menu-movil" [class.abierto]="menuAbierto()" id="menu-movil" aria-label="Menú">
+  <div class="menu-cabecera">
+    <span>Menú</span>
+    <button type="button" class="menu-cerrar" aria-label="Cerrar menú" (click)="cerrarMenu()">
+      ✕
+    </button>
+  </div>
+
+  <nav class="menu-nav" aria-label="Secciones">
+    <a
+      routerLink="/"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="cerrarMenu()"
+      >Iconos</a
+    >
+    <a routerLink="/patrones" routerLinkActive="activo" (click)="cerrarMenu()">Patrones</a>
+    <a routerLink="/editor" routerLinkActive="activo" (click)="cerrarMenu()">Editor</a>
+    <a routerLink="/lab" routerLinkActive="activo" (click)="cerrarMenu()">Lab</a>
+    <a routerLink="/docs" routerLinkActive="activo" (click)="cerrarMenu()">Docs</a>
+  </nav>
+
+  <app-boton-github class="menu-github" />
+
+  <!-- Empuja la velocidad al fondo del panel — separada del resto, es la de menos uso de las
+       tres. La raya de arriba es lo único que la distingue del resto, no una caja aparte. -->
+  <app-grupo
+    titulo="velocidad"
+    etiqueta="Velocidad global de las animaciones"
+    class="velocidad menu-velocidad"
+  >
+    <span class="carril" [style.--i]="indiceEscala()">
+      @for (p of presets; track p.valor) {
+        <button
+          type="button"
+          app-chip
+          [activo]="escala() === p.valor"
+          [attr.aria-pressed]="escala() === p.valor"
+          [title]="p.nota"
+          (click)="escala.set(p.valor)"
+        >
+          {{ p.etiqueta }}
+        </button>
+      }
+    </span>
+  </app-grupo>
+</aside>
 
 @if (escala() !== 1) {
   <p class="shell-aviso">
