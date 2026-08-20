@@ -562,14 +562,6 @@ export const arrowDownFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17 7 7 17" },
-    { tag: 'path', d: "M17 17H7V7" },
-  ],
-  {},
-);
-
 export const arrowDownNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m3 16 4 4 4-4" },
@@ -577,14 +569,6 @@ export const arrowDownNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 4h4" },
     { tag: 'path', d: "M11 8h7" },
     { tag: 'path', d: "M11 12h10" },
-  ],
-  {},
-);
-
-export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m7 7 10 10" },
-    { tag: 'path', d: "M17 7v10H7" },
   ],
   {},
 );
@@ -635,14 +619,6 @@ export const arrowDownZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 4h5l-5 6h5" },
     { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
     { tag: 'path', d: "M20 18h-5" },
-  ],
-  {},
-);
-
-export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 5v14" },
-    { tag: 'path', d: "m19 12-7 7-7-7" },
   ],
   {},
 );
@@ -764,14 +740,6 @@ export const arrowUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 17V7h10" },
-    { tag: 'path', d: "M17 17 7 7" },
-  ],
-  {},
-);
-
 export const arrowUpNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m3 8 4-4 4 4" },
@@ -779,14 +747,6 @@ export const arrowUpNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 12h4" },
     { tag: 'path', d: "M11 16h7" },
     { tag: 'path', d: "M11 20h10" },
-  ],
-  {},
-);
-
-export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 7h10v10" },
-    { tag: 'path', d: "M7 17 17 7" },
   ],
   {},
 );
@@ -818,14 +778,6 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 4h5l-5 6h5" },
     { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
     { tag: 'path', d: "M20 18h-5" },
-  ],
-  {},
-);
-
-export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m5 12 7-7 7 7" },
-    { tag: 'path', d: "M12 19V5" },
   ],
   {},
 );
@@ -14170,109 +14122,6 @@ export const userPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const userRoundArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m19 16-3 3" },
-    { tag: 'path', d: "M2 21a8 8 0 0 1 12.664-6.5" },
-    { tag: 'path', d: "M22 19h-6l3 3" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-  ],
-  {},
-);
-
-export const userRoundCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 21a8 8 0 0 1 13.292-6" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'path', d: "m16 19 2 2 4-4" },
-  ],
-  {},
-);
-
-export const userRoundCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m14.305 19.53.923-.382" },
-    { tag: 'path', d: "m15.228 16.852-.923-.383" },
-    { tag: 'path', d: "m16.852 15.228-.383-.923" },
-    { tag: 'path', d: "m16.852 20.772-.383.924" },
-    { tag: 'path', d: "m19.148 15.228.383-.923" },
-    { tag: 'path', d: "m19.53 21.696-.382-.924" },
-    { tag: 'path', d: "M2 21a8 8 0 0 1 10.434-7.62" },
-    { tag: 'path', d: "m20.772 16.852.924-.383" },
-    { tag: 'path', d: "m20.772 19.148.924.383" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'circle', cx: 18, cy: 18, r: 3 },
-  ],
-  {},
-);
-
-export const userRoundKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19 11v6" },
-    { tag: 'path', d: "M19 13h2" },
-    { tag: 'path', d: "M2 21a8 8 0 0 1 12.868-6.349" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'circle', cx: 19, cy: 19, r: 2 },
-  ],
-  {},
-);
-
-export const userRoundMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 21a8 8 0 0 1 13.292-6" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'path', d: "M22 19h-6" },
-  ],
-  {},
-);
-
-export const userRoundPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 21a8 8 0 0 1 10.821-7.487" },
-    { tag: 'path', d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-  ],
-  {},
-);
-
-export const userRoundPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 21a8 8 0 0 1 13.292-6" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'path', d: "M19 16v6" },
-    { tag: 'path', d: "M22 19h-6" },
-  ],
-  {},
-);
-
-export const userRoundSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'path', d: "M2 21a8 8 0 0 1 10.434-7.62" },
-    { tag: 'circle', cx: 18, cy: 18, r: 3 },
-    { tag: 'path', d: "m22 22-1.9-1.9" },
-  ],
-  {},
-);
-
-export const userRoundXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 21a8 8 0 0 1 11.873-7" },
-    { tag: 'circle', cx: 10, cy: 8, r: 5 },
-    { tag: 'path', d: "m17 17 5 5" },
-    { tag: 'path', d: "m22 17-5 5" },
-  ],
-  {},
-);
-
-export const userRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 8, r: 5 },
-    { tag: 'path', d: "M20 21a8 8 0 0 0-16 0" },
-  ],
-  {},
-);
-
 export const userSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 10, cy: 7, r: 4 },
@@ -15066,15 +14915,12 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'arrow-down-1-0': arrowDown10Icon,
   'arrow-down-a-z': arrowDownAZIcon,
   'arrow-down-from-line': arrowDownFromLineIcon,
-  'arrow-down-left': arrowDownLeftIcon,
   'arrow-down-narrow-wide': arrowDownNarrowWideIcon,
-  'arrow-down-right': arrowDownRightIcon,
   'arrow-down-to-dot': arrowDownToDotIcon,
   'arrow-down-to-line': arrowDownToLineIcon,
   'arrow-down-up': arrowDownUpIcon,
   'arrow-down-wide-narrow': arrowDownWideNarrowIcon,
   'arrow-down-z-a': arrowDownZAIcon,
-  'arrow-down': arrowDownIcon,
   'arrow-left-from-line': arrowLeftFromLineIcon,
   'arrow-left-right': arrowLeftRightIcon,
   'arrow-left-to-line': arrowLeftToLineIcon,
@@ -15087,13 +14933,10 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'arrow-up-down': arrowUpDownIcon,
   'arrow-up-from-dot': arrowUpFromDotIcon,
   'arrow-up-from-line': arrowUpFromLineIcon,
-  'arrow-up-left': arrowUpLeftIcon,
   'arrow-up-narrow-wide': arrowUpNarrowWideIcon,
-  'arrow-up-right': arrowUpRightIcon,
   'arrow-up-to-line': arrowUpToLineIcon,
   'arrow-up-wide-narrow': arrowUpWideNarrowIcon,
   'arrow-up-z-a': arrowUpZAIcon,
-  'arrow-up': arrowUpIcon,
   'arrows-up-from-line': arrowsUpFromLineIcon,
   asterisk: asteriskIcon,
   astroid: astroidIcon,
@@ -16410,16 +16253,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'user-key': userKeyIcon,
   'user-lock': userLockIcon,
   'user-pen': userPenIcon,
-  'user-round-arrow-left': userRoundArrowLeftIcon,
-  'user-round-check': userRoundCheckIcon,
-  'user-round-cog': userRoundCogIcon,
-  'user-round-key': userRoundKeyIcon,
-  'user-round-minus': userRoundMinusIcon,
-  'user-round-pen': userRoundPenIcon,
-  'user-round-plus': userRoundPlusIcon,
-  'user-round-search': userRoundSearchIcon,
-  'user-round-x': userRoundXIcon,
-  'user-round': userRoundIcon,
   'user-search': userSearchIcon,
   'user-shield': userShieldIcon,
   'user-star': userStarIcon,

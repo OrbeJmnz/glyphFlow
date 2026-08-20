@@ -52,6 +52,18 @@
       "path:6753d62ddc46",
       "path:650208ef58ae"
     ],
+    "arrow-down": [
+      "path:0d2f2c183d2b",
+      "path:7052273fd7ed"
+    ],
+    "arrow-down-left": [
+      "path:dafb614b4335",
+      "path:e9b06b112333"
+    ],
+    "arrow-down-right": [
+      "path:e4ddcb3d7a96",
+      "path:4ef084ae0d1c"
+    ],
     "arrow-left": [
       "path:5d30e801012f",
       "path:7b5bf2e114a1"
@@ -59,6 +71,18 @@
     "arrow-right": [
       "path:52f6eb0c4372",
       "path:b5ee62bc7d53"
+    ],
+    "arrow-up": [
+      "path:81768faea7de",
+      "path:d3f47f6184e9"
+    ],
+    "arrow-up-left": [
+      "path:5e4a8da2f5e7",
+      "path:53886d3be6da"
+    ],
+    "arrow-up-right": [
+      "path:ec6f03cff324",
+      "path:1eaacee71c30"
     ],
     "at-sign": [
       "circle:9d7fc8897980",
@@ -1455,6 +1479,69 @@
       "circle:f8b18bb1bcbf",
       "line:a57f21fb6f1b",
       "line:778a5e6b09a1"
+    ],
+    "user-round": [
+      "circle:abae28e5dd12",
+      "path:fc7b0d0730de"
+    ],
+    "user-round-arrow-left": [
+      "path:29710e133bfc",
+      "path:2f2f827f682c",
+      "path:5ed29ff08f16",
+      "circle:9431be6ba814"
+    ],
+    "user-round-check": [
+      "path:e671a66c86fa",
+      "circle:9431be6ba814",
+      "path:a3dc324db9d5"
+    ],
+    "user-round-cog": [
+      "path:b0ba452434c2",
+      "path:0caf53d706ba",
+      "path:aaf66353f530",
+      "path:9b1669994dd5",
+      "path:07b683399bd9",
+      "path:088bd6cd66db",
+      "path:205e37be2c10",
+      "path:ee521173383f",
+      "path:7a33e1d50839",
+      "circle:9431be6ba814",
+      "circle:19df0cd8a262"
+    ],
+    "user-round-key": [
+      "path:8d7a3c47a6fb",
+      "path:5a548dff8bc2",
+      "path:5fb6b2e0ae2a",
+      "circle:9431be6ba814",
+      "circle:f89b9c537f8b"
+    ],
+    "user-round-minus": [
+      "path:e671a66c86fa",
+      "circle:9431be6ba814",
+      "path:5badf604346b"
+    ],
+    "user-round-pen": [
+      "path:a5e7a601ac22",
+      "path:d640f02e8934",
+      "circle:9431be6ba814"
+    ],
+    "user-round-plus": [
+      "path:e671a66c86fa",
+      "circle:9431be6ba814",
+      "path:b3390ff243a1",
+      "path:5badf604346b"
+    ],
+    "user-round-search": [
+      "circle:9431be6ba814",
+      "path:205e37be2c10",
+      "circle:19df0cd8a262",
+      "path:f7f0af9f1c44"
+    ],
+    "user-round-x": [
+      "path:3d3f7a86278c",
+      "circle:9431be6ba814",
+      "path:03193dcbbcf8",
+      "path:02e02e027d76"
     ],
     "user-x": [
       "path:e39057abea04",
