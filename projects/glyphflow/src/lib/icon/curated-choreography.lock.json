@@ -690,6 +690,13 @@
       "path:23130bc9b30b",
       "path:d9887eee03d8"
     ],
+    "panel-bottom-dashed": [
+      "rect:d427f2bc2999",
+      "path:b28784954010",
+      "path:c4ec2e296cf1",
+      "path:1825881e82cb",
+      "path:ad131ee19e85"
+    ],
     "panel-bottom-open": [
       "rect:d427f2bc2999",
       "path:23130bc9b30b",
@@ -704,10 +711,28 @@
       "path:4eda0d68cc05",
       "path:b5b92dc12291"
     ],
+    "panel-left-dashed": [
+      "rect:d427f2bc2999",
+      "path:1dcd0144ff2b",
+      "path:3d9a533245e8",
+      "path:5ff5c279ed7b",
+      "path:aeac35ce6c28"
+    ],
     "panel-left-open": [
       "rect:d427f2bc2999",
       "path:4eda0d68cc05",
       "path:5b29aceef3ee"
+    ],
+    "panel-left-right-dashed": [
+      "path:1d399e9110c9",
+      "path:a1bef3c96834",
+      "path:acc731d54811",
+      "path:4e430527372e",
+      "path:41f25670cb06",
+      "path:aa3e64222524",
+      "path:9c3ed58eabaa",
+      "path:d998079cbddb",
+      "rect:d427f2bc2999"
     ],
     "panel-right": [
       "rect:d427f2bc2999",
@@ -718,6 +743,13 @@
       "path:12138fb1c45d",
       "path:d51f35b98663"
     ],
+    "panel-right-dashed": [
+      "rect:d427f2bc2999",
+      "path:e24d723dde7f",
+      "path:effca41f9570",
+      "path:59df05a6dc2b",
+      "path:7ab474415cd8"
+    ],
     "panel-right-open": [
       "rect:d427f2bc2999",
       "path:12138fb1c45d",
@@ -727,10 +759,28 @@
       "rect:d427f2bc2999",
       "path:ec3d9996cae7"
     ],
+    "panel-top-bottom-dashed": [
+      "path:b28784954010",
+      "path:987106a014a3",
+      "path:c4ec2e296cf1",
+      "path:6a24c12a3c7b",
+      "path:1825881e82cb",
+      "path:0a7fd457f0f0",
+      "path:ad131ee19e85",
+      "path:a2ceb52c7037",
+      "rect:d427f2bc2999"
+    ],
     "panel-top-close": [
       "rect:d427f2bc2999",
       "path:ec3d9996cae7",
       "path:c37397c6283d"
+    ],
+    "panel-top-dashed": [
+      "rect:d427f2bc2999",
+      "path:987106a014a3",
+      "path:6a24c12a3c7b",
+      "path:0a7fd457f0f0",
+      "path:a2ceb52c7037"
     ],
     "panel-top-open": [
       "rect:d427f2bc2999",

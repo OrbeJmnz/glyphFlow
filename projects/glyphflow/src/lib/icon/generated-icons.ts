@@ -10126,80 +10126,6 @@ export const pandaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M14 15h1" },
-    { tag: 'path', d: "M19 15h2" },
-    { tag: 'path', d: "M3 15h2" },
-    { tag: 'path', d: "M9 15h1" },
-  ],
-  {},
-);
-
-export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M9 14v1" },
-    { tag: 'path', d: "M9 19v2" },
-    { tag: 'path', d: "M9 3v2" },
-    { tag: 'path', d: "M9 9v1" },
-  ],
-  {},
-);
-
-export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 10V9" },
-    { tag: 'path', d: "M15 15v-1" },
-    { tag: 'path', d: "M15 21v-2" },
-    { tag: 'path', d: "M15 5V3" },
-    { tag: 'path', d: "M9 10V9" },
-    { tag: 'path', d: "M9 15v-1" },
-    { tag: 'path', d: "M9 21v-2" },
-    { tag: 'path', d: "M9 5V3" },
-    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
-  ],
-  {},
-);
-
-export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M15 14v1" },
-    { tag: 'path', d: "M15 19v2" },
-    { tag: 'path', d: "M15 3v2" },
-    { tag: 'path', d: "M15 9v1" },
-  ],
-  {},
-);
-
-export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M14 15h1" },
-    { tag: 'path', d: "M14 9h1" },
-    { tag: 'path', d: "M19 15h2" },
-    { tag: 'path', d: "M19 9h2" },
-    { tag: 'path', d: "M3 15h2" },
-    { tag: 'path', d: "M3 9h2" },
-    { tag: 'path', d: "M9 15h1" },
-    { tag: 'path', d: "M9 9h1" },
-    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
-  ],
-  {},
-);
-
-export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
-    { tag: 'path', d: "M14 9h1" },
-    { tag: 'path', d: "M19 9h2" },
-    { tag: 'path', d: "M3 9h2" },
-    { tag: 'path', d: "M9 9h1" },
-  ],
-  {},
-);
-
 export const panelsLeftBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -16764,12 +16690,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'paintbrush-vertical': paintbrushVerticalIcon,
   paintbrush: paintbrushIcon,
   panda: pandaIcon,
-  'panel-bottom-dashed': panelBottomDashedIcon,
-  'panel-left-dashed': panelLeftDashedIcon,
-  'panel-left-right-dashed': panelLeftRightDashedIcon,
-  'panel-right-dashed': panelRightDashedIcon,
-  'panel-top-bottom-dashed': panelTopBottomDashedIcon,
-  'panel-top-dashed': panelTopDashedIcon,
   'panels-left-bottom': panelsLeftBottomIcon,
   'panels-right-bottom': panelsRightBottomIcon,
   'panels-top-left': panelsTopLeftIcon,

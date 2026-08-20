@@ -2870,6 +2870,89 @@ export const panelBottomOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBo
     },
   });
 
+// Los "dashed" son marcador de resize-handle, no un divisor activo: cada raya invita a jalar
+// con un nudge chico e ida-vuelta (no el sostenido de open/close), escalonado entre rayas.
+
+/** Marca de resize a la izquierda: las 4 rayas invitan a jalar hacia la izquierda. */
+export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftDashedShapes, {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 70 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 140 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
+/** Marca de resize a la derecha: las 4 rayas invitan a jalar hacia la derecha. */
+export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRightDashedShapes, {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 70 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 140 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
+/** Marca de resize arriba: las 4 rayas invitan a jalar hacia arriba. */
+export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopDashedShapes, {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 70 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 140 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
+/** Marca de resize abajo: las 4 rayas invitan a jalar hacia abajo. */
+export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBottomDashedShapes, {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 70 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 140 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
+/** Marca de resize arriba y abajo: cada par se separa hacia afuera. */
+export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopBottomDashedShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 70 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 70 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 140 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 140 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 210 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
+/** Marca de resize izquierda y derecha: cada par se separa hacia afuera. */
+export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftRightDashedShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 70 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 70 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 140 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 140 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 210 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 210 }),
+      },
+    },
+  });
+
 /** Fecha confirmada: las anillas rebotan y la palomita se dibuja. */
 export const calendarCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarCheckShapes, {
     default: {
@@ -3171,6 +3254,12 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'panel-bottom': panelBottomIcon,
   'panel-bottom-close': panelBottomCloseIcon,
   'panel-bottom-open': panelBottomOpenIcon,
+  'panel-left-dashed': panelLeftDashedIcon,
+  'panel-right-dashed': panelRightDashedIcon,
+  'panel-top-dashed': panelTopDashedIcon,
+  'panel-bottom-dashed': panelBottomDashedIcon,
+  'panel-top-bottom-dashed': panelTopBottomDashedIcon,
+  'panel-left-right-dashed': panelLeftRightDashedIcon,
   'calendar-check': calendarCheckIcon,
   'calendar-clock': calendarClockIcon,
   'calendar-days': calendarDaysIcon,
