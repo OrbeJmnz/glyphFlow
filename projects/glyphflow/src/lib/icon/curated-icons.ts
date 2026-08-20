@@ -104,10 +104,23 @@ export const copyIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyShapes, {
   });
 
 /** Copiado y confirmado: la misma separación de copy y la palomita se dibuja de insignia. */
+// Se despega de verdad, más lejos y con rebote elástico, en vez del handshake chico.
+const COPY_PEEL = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(3px, -3px)' },
+  { transform: 'translate(0, 0)' },
+];
+
 export const copyCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyCheckShapes, {
     default: {
       shapes: {
         1: /* @__PURE__ */ track(COPY_HANDSHAKE, 600),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 350 }),
+      },
+    },
+    peel: {
+      shapes: {
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 350 }),
       },
     },
@@ -118,6 +131,12 @@ export const copyMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyMinusShap
     default: {
       shapes: {
         1: /* @__PURE__ */ track(COPY_HANDSHAKE, 600),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
+      },
+    },
+    peel: {
+      shapes: {
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
     },
@@ -132,6 +151,13 @@ export const copyPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyPlusShapes
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
     },
+    peel: {
+      shapes: {
+        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
+      },
+    },
   });
 
 /** Copia inválida: se separa y una sola diagonal la tacha. */
@@ -142,6 +168,12 @@ export const copySlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(copySlashShap
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { delay: 350 }),
       },
     },
+    peel: {
+      shapes: {
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { delay: 350 }),
+      },
+    },
   });
 
 /** Cancelar copia: se separa y la equis se dibuja de insignia. */
@@ -149,6 +181,13 @@ export const copyXIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyXShapes, {
     default: {
       shapes: {
         2: /* @__PURE__ */ track(COPY_HANDSHAKE, 600),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 430 }),
+      },
+    },
+    peel: {
+      shapes: {
+        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 430 }),
       },
@@ -382,6 +421,9 @@ export const saveIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveShapes, {
     },
   });
 
+const SAVE_POP_ROOT = /* @__PURE__ */ scaleSeq([1, 0.85, 1.06, 1]);
+const SAVE_POP_BADGE = /* @__PURE__ */ scaleSeq([1, 1.55, 0.8, 1]);
+
 /** Guardado y confirmado: la etiqueta rebota y la palomita se dibuja de insignia. */
 export const saveCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveCheckShapes, {
     default: {
@@ -392,6 +434,13 @@ export const saveCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveCheckShap
           easing: SPRING_BOUNCY,
           origin: '12px 17px',
         }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
+      },
+    },
+    pop: {
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
@@ -410,6 +459,17 @@ export const saveOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveOffShapes, 
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 460 }),
       },
     },
+    quick: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 120),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 90, { delay: 30 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 90, { delay: 70 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 120, { delay: 110 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 120, { delay: 160 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 90, { delay: 200 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 230, easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Guardar y editar: la etiqueta rebota y la pluma se dibuja de insignia. */
@@ -422,6 +482,13 @@ export const savePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePenShapes, 
           easing: SPRING_BOUNCY,
           origin: '12px 17px',
         }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
+      },
+    },
+    pop: {
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
@@ -441,6 +508,14 @@ export const savePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePlusShapes
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
       },
     },
+    pop: {
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
+      },
+    },
   });
 
 /** Guardar todo: las dos hojas se asientan una tras otra, la de atrás primero. */
@@ -451,6 +526,19 @@ export const saveAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveAllShapes, 
         3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.95, 1]), 420, {
           delay: 140,
           easing: SPRING_OUT,
+          origin: '12px 12px',
+        }),
+      },
+    },
+    stack: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.78, 1.05, 1]), 460, {
+          easing: SPRING_BOUNCY,
+          origin: '13px 14px',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1.08, 1]), 500, {
+          delay: 160,
+          easing: SPRING_BOUNCY,
           origin: '12px 12px',
         }),
       },
@@ -769,12 +857,19 @@ export const packageIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageShapes, 
 const PACKAGE_BOUNCE = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2.5, 0]), 550, {
   easing: SPRING_OUT,
 });
+const PACKAGE_DROP = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -6, 1, 0]), 480, {
+  easing: SPRING_BOUNCY,
+});
 
 /** Paquete confirmado: el mismo bounce de package y la palomita se dibuja de insignia. */
 export const packageCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageCheckShapes, {
     default: {
       root: PACKAGE_BOUNCE,
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 400 }) },
+    },
+    drop: {
+      root: PACKAGE_DROP,
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 330 }) },
     },
   });
 
@@ -783,6 +878,10 @@ export const packageMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageMin
     default: {
       root: PACKAGE_BOUNCE,
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }) },
+    },
+    drop: {
+      root: PACKAGE_DROP,
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 330 }) },
     },
   });
 
@@ -801,6 +900,21 @@ export const packageOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageOpen
         }),
       },
     },
+    wide: {
+      root: PACKAGE_DROP,
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
+          delay: 60,
+          easing: SPRING_BOUNCY,
+          origin: '12px 8px',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
+          delay: 140,
+          easing: SPRING_BOUNCY,
+          origin: '12px 8px',
+        }),
+      },
+    },
   });
 
 /** Agregar paquete: bounce y el "+" se dibuja de insignia, en dos trazos. */
@@ -812,6 +926,13 @@ export const packagePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(packagePlus
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }),
       },
     },
+    drop: {
+      root: PACKAGE_DROP,
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 330 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 330 }),
+      },
+    },
   });
 
 /** Cancelar paquete: bounce y la equis se dibuja de insignia. */
@@ -821,6 +942,13 @@ export const packageXIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageXShapes
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 480 }),
+      },
+    },
+    drop: {
+      root: PACKAGE_DROP,
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 330 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 410 }),
       },
     },
   });
@@ -1841,10 +1969,17 @@ export const alarmClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClockSh
   });
 
 /** Alarma confirmada: el mismo temblor de alarm-clock y la palomita se dibuja al final. */
+// Sonando de verdad: sacudida más grande y rápida que el temblor de despertar.
+const CLOCK_RING = /* @__PURE__ */ rotateSeq([0, -15, 12, -10, 8, -4, 0]);
+
 export const alarmClockCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClockCheckShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -8, 7, -5, 3, 0]), 600, { origin: 'center' }),
       shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 400 }) },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(CLOCK_RING, 350, { origin: 'center' }),
+      shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 250 }) },
     },
   });
 
@@ -1853,6 +1988,10 @@ export const alarmClockMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmCl
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -8, 7, -5, 3, 0]), 600, { origin: 'center' }),
       shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }) },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(CLOCK_RING, 350, { origin: 'center' }),
+      shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 250 }) },
     },
   });
 
@@ -1877,6 +2016,13 @@ export const alarmClockPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClo
       shapes: {
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }),
         6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 400 }),
+      },
+    },
+    ring: {
+      root: /* @__PURE__ */ track(CLOCK_RING, 350, { origin: 'center' }),
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 250 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 250 }),
       },
     },
   });
@@ -2576,6 +2722,20 @@ export const serverCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCogShap
         9: /* @__PURE__ */ track(SERVER_BLINK, 550, { delay: 380 }),
       },
     },
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 720]), 650, { easing: SPRING_OUT, origin: '12px 12px' }),
+        8: /* @__PURE__ */ track(SERVER_BLINK, 550, { delay: 250 }),
+        9: /* @__PURE__ */ track(SERVER_BLINK, 550, { delay: 430 }),
+      },
+    },
   });
 
 /** Servidor caído: los indicadores parpadean y el rayo pega al final. */
@@ -2585,6 +2745,14 @@ export const serverCrashIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCrash
         2: /* @__PURE__ */ track(SERVER_BLINK, 400),
         3: /* @__PURE__ */ track(SERVER_BLINK, 400, { delay: 150 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 350 }),
+      },
+    },
+    shock: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 2, -1, 0]), 300, { easing: SPRING_BOUNCY }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250),
+        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250, { delay: 90 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 220, easing: SPRING_BOUNCY }),
       },
     },
   });
@@ -2601,6 +2769,16 @@ export const serverOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverOffShap
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 480 }),
       },
     },
+    quick: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { delay: 60 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 100, { delay: 120 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { delay: 170 }),
+        4: /* @__PURE__ */ track(SERVER_BLINK, 200, { delay: 240 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 190, { delay: 290, easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Agregar servidor: los indicadores parpadean y el "+" se dibuja de insignia. */
@@ -2611,6 +2789,22 @@ export const serverPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverPlusSh
         5: /* @__PURE__ */ track(SERVER_BLINK, 550, { delay: 180 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+      },
+    },
+    alert: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 350),
+        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 350, { delay: 120 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 0.9, 1]), 400, {
+          delay: 240,
+          easing: SPRING_BOUNCY,
+          origin: '18px 8px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 0.9, 1]), 400, {
+          delay: 240,
+          easing: SPRING_BOUNCY,
+          origin: '18px 8px',
+        }),
       },
     },
   });
@@ -2754,17 +2948,24 @@ const STAR_SPIN = /* @__PURE__ */ [
   { transform: 'rotate(360deg) scale(1)' },
 ];
 
+const STAR_TWINKLE = /* @__PURE__ */ scaleSeq([1, 1.35, 0.88, 1.12, 1]);
+
 /** Favorito confirmado: el mismo giro de star y la palomita se dibuja de insignia. */
 export const starCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(starCheckShapes, {
     default: {
       root: /* @__PURE__ */ track(STAR_SPIN, 1050, { easing: SPRING_OUT, origin: 'center' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 850 }) },
     },
+    twinkle: {
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 450 }) },
+    },
   });
 
 /** Media estrella: mismo giro que star, sin insignia. */
 export const starHalfIcon: AnimatedIconDef = /* @__PURE__ */ icon(starHalfShapes, {
     default: { root: /* @__PURE__ */ track(STAR_SPIN, 1050, { easing: SPRING_OUT, origin: 'center' }) },
+    twinkle: { root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }) },
   });
 
 /** Quitar de favoritos: gira y el "-" se dibuja de insignia. */
@@ -2772,6 +2973,10 @@ export const starMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(starMinusShap
     default: {
       root: /* @__PURE__ */ track(STAR_SPIN, 1050, { easing: SPRING_OUT, origin: 'center' }),
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }) },
+    },
+    twinkle: {
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }) },
     },
   });
 
@@ -2782,6 +2987,13 @@ export const starOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(starOffShapes, 
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 200 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 460 }),
+      },
+    },
+    quick: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180, { delay: 110 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180, { delay: 250, easing: SPRING_OUT }),
       },
     },
   });
@@ -2795,6 +3007,13 @@ export const starPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(starPlusShapes
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }),
       },
     },
+    twinkle: {
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
+      },
+    },
   });
 
 /** Cancelar favorito: gira y la equis se dibuja de insignia. */
@@ -2804,6 +3023,13 @@ export const starXIcon: AnimatedIconDef = /* @__PURE__ */ icon(starXShapes, {
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 930 }),
+      },
+    },
+    twinkle: {
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 530 }),
       },
     },
   });
