@@ -42,27 +42,16 @@
 }
 
 /*
- * En claro, `lighten` haría lo contrario: contra blanco gana el blanco en todos lados y el logotipo
- * DESAPARECE entero. No hay truco de mezcla que salve un asset con fondo opaco sobre fondo claro.
+ * En claro se sirve OTRO asset, no el mismo con un truco encima: el arte es distinto (oscuro sobre
+ * claro) y además pesa 50 KB contra 425 del oscuro.
  *
- * Así que en vez de disimular, se asume: el logotipo se sienta en una tarjeta oscura, del color
- * exacto del fondo del GIF, y no queda costura porque el panel y el asset son el mismo color. Es
- * además tratamiento de marca normal — un logotipo sobre su propio campo — en lugar de un parche.
+ * Y por eso se cae el `mix-blend-mode`. `lighten` sería aquí PEOR que no hacer nada: contra un
+ * fondo claro gana el claro en todos lados y el logotipo desaparecería entero.
+ *
+ * La costura se resuelve en el otro extremo: `--gf-fondo` en claro vale rgb(253,252,253), el mismo
+ * color que el fondo del asset. Se probó dejarlo contra blanco puro y el rectángulo del GIF SÍ se
+ * notaba — dos puntos de diferencia bastan cuando el borde es recto.
  */
-/*
- * `:host-context` y NO `:root[data-tema='claro']`. Con encapsulación emulada, un selector que
- * ARRANCA en `:root` recibe el atributo de scope pegado al principio — queda
- * `[_ngcontent-xxx]:root`, que exigiría que <html> llevara el atributo del componente. Nunca casa,
- * y no hay error: la regla simplemente no existe. `:host-context` es la forma que Angular compila
- * bien para reaccionar a un ancestro.
- */
-:host-context([data-tema='claro']) .marca-hero {
-  display: inline-block;
-  padding: 4px 28px;
-  border-radius: var(--gf-radio);
-  background: rgb(14, 14, 15);
-}
-
 :host-context([data-tema='claro']) .marca-hero img {
   mix-blend-mode: normal;
 }

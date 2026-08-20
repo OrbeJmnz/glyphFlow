@@ -10,10 +10,15 @@
     con esa preferencia se sirve el logotipo quieto.
   -->
   <h1 class="visualmente-oculto">glyphflow — iconos que se mueven</h1>
+  <!--
+    Las dos fuentes van por SEÑAL y no por `<source media>`: el tema del sitio lo manda
+    `data-tema`, y una media query no puede leer un atributo. Con `prefers-color-scheme` se
+    ignoraría la elección manual, que es justo lo que el toggle existe para respetar.
+  -->
   <picture class="marca-hero">
-    <source media="(prefers-reduced-motion: reduce)" srcset="/images/glyphflow-logo.svg" />
+    <source media="(prefers-reduced-motion: reduce)" [srcset]="logoQuieto()" />
     <img
-      src="/images/glyphflow-anim-preview.gif"
+      [src]="logoAnimado()"
       width="780"
       height="264"
       alt=""

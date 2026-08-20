@@ -21,6 +21,7 @@ import { Tooltip } from '../../shared/ui/tooltip';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { conTransicion } from '../../core/transicion';
+import { tema } from '../../core/tema';
 
 interface CuratedEntry {
   name: string;
@@ -80,6 +81,21 @@ export class Iconos implements OnDestroy {
   protected readonly demo: CuratedEntry[] = ['sparkles', 'bell', 'settings', 'star', 'zap', 'send']
     .map((name) => this.todos.find((e) => e.name === name))
     .filter((e): e is CuratedEntry => !!e);
+
+  /**
+   * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
+   * mismo con otro color: el claro pesa 50 KB contra 425 del oscuro.
+   */
+  protected readonly logoAnimado = computed(() =>
+    tema() === 'claro'
+      ? '/images/glyphflow-anim-preview-light.gif'
+      : '/images/glyphflow-anim-preview.gif',
+  );
+
+  /** Con movimiento reducido se sirve quieto — y también tiene que seguir al tema. */
+  protected readonly logoQuieto = computed(() =>
+    tema() === 'claro' ? '/images/glyphflow-logo-light.svg' : '/images/glyphflow-logo.svg',
+  );
 
   /** El destello de la nota. Sale del propio catálogo: el sitio no dibuja iconos que no vende. */
   protected readonly destello: AnimatedIconDef = CURATED_ICONS['sparkles'];

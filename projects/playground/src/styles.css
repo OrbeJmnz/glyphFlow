@@ -141,7 +141,14 @@
 }
 
 :root[data-tema='claro'] {
-  --gf-fondo: #ffffff;
+  /*
+   * No es blanco puro, y el motivo es medible: el GIF del hero trae fondo opaco rgb(253,252,253) y
+   * contra #ffffff se dibujaba su rectángulo — poco, pero se veía. Igualar la página al asset borra
+   * la costura sin taparla con una tarjeta y sin pedirle transparencia al archivo.
+   *
+   * El costo es cero: el texto sobre este fondo queda en 17.9:1 contra los 18.0 del blanco puro.
+   */
+  --gf-fondo: #fdfcfd;
   --gf-panel: #f7f7f9;
   --gf-panel-alto: #f0f0f3;
   --gf-borde: rgba(22, 22, 28, 0.12);
