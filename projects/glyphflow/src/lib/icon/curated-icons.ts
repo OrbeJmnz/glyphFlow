@@ -1,6 +1,6 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { EASE, SPRING_OUT, SPRING_BOUNCY, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
-import { activityShapes, alarmClockShapes, alarmClockCheckShapes, alarmClockMinusShapes, alarmClockOffShapes, alarmClockPlusShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, arrowUpShapes, arrowDownShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowDownLeftShapes, arrowDownRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, copyCheckShapes, copyMinusShapes, copyPlusShapes, copySlashShapes, copyXShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, globeCheckShapes, globeLockShapes, globeOffShapes, globeXShapes, bookmarkShapes, bookmarkCheckShapes, bookmarkMinusShapes, bookmarkOffShapes, bookmarkPlusShapes, bookmarkXShapes, stickyNoteShapes, stickyNoteCheckShapes, stickyNoteMinusShapes, stickyNoteOffShapes, stickyNotePlusShapes, stickyNoteXShapes, ticketShapes, ticketCheckShapes, ticketMinusShapes, ticketPercentShapes, ticketPlusShapes, ticketSlashShapes, ticketXShapes, grid2x2Shapes, grid2x2CheckShapes, grid2x2PlusShapes, grid2x2XShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutListShapes, layoutTemplateShapes, layoutFreeformShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, packageCheckShapes, packageMinusShapes, packageOpenShapes, packagePlusShapes, packageXShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, panelLeftOpenShapes, panelRightShapes, panelRightCloseShapes, panelRightOpenShapes, panelTopShapes, panelTopCloseShapes, panelTopOpenShapes, panelBottomShapes, panelBottomCloseShapes, panelBottomOpenShapes, panelLeftDashedShapes, panelRightDashedShapes, panelTopDashedShapes, panelBottomDashedShapes, panelTopBottomDashedShapes, panelLeftRightDashedShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, saveAllShapes, saveCheckShapes, saveOffShapes, savePenShapes, savePlusShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, serverCogShapes, serverCrashShapes, serverOffShapes, serverPlusShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, starCheckShapes, starHalfShapes, starMinusShapes, starOffShapes, starPlusShapes, starXShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, signalShapes, signalHighShapes, signalMediumShapes, signalLowShapes, signalZeroShapes, volumeShapes, volume1Shapes, volumeOffShapes, volumeXShapes, tally1Shapes, tally2Shapes, tally3Shapes, tally4Shapes, tally5Shapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, userRoundShapes, userRoundArrowLeftShapes, userRoundCheckShapes, userRoundCogShapes, userRoundKeyShapes, userRoundMinusShapes, userRoundPenShapes, userRoundPlusShapes, userRoundSearchShapes, userRoundXShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
+import { activityShapes, alarmClockShapes, alarmClockCheckShapes, alarmClockMinusShapes, alarmClockOffShapes, alarmClockPlusShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, arrowUpShapes, arrowDownShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowDownLeftShapes, arrowDownRightShapes, atSignShapes, badgeCheckShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bellCheckShapes, bellDotShapes, bellMinusShapes, bellOffShapes, bellPlusShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, copyCheckShapes, copyMinusShapes, copyPlusShapes, copySlashShapes, copyXShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, funnelShapes, gitForkShapes, globeShapes, globeCheckShapes, globeLockShapes, globeOffShapes, globeXShapes, bookmarkShapes, bookmarkCheckShapes, bookmarkMinusShapes, bookmarkOffShapes, bookmarkPlusShapes, bookmarkXShapes, stickyNoteShapes, stickyNoteCheckShapes, stickyNoteMinusShapes, stickyNoteOffShapes, stickyNotePlusShapes, stickyNoteXShapes, ticketShapes, ticketCheckShapes, ticketMinusShapes, ticketPercentShapes, ticketPlusShapes, ticketSlashShapes, ticketXShapes, grid2x2Shapes, grid2x2CheckShapes, grid2x2PlusShapes, grid2x2XShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, heartCrackShapes, heartHandshakeShapes, heartMinusShapes, heartOffShapes, heartPlusShapes, heartXShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, imageDownShapes, imageMinusShapes, imagePlayShapes, imagePlusShapes, imageUpShapes, imageUpscaleShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutListShapes, layoutTemplateShapes, layoutFreeformShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, packageCheckShapes, packageMinusShapes, packageOpenShapes, packagePlusShapes, packageXShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, panelLeftOpenShapes, panelRightShapes, panelRightCloseShapes, panelRightOpenShapes, panelTopShapes, panelTopCloseShapes, panelTopOpenShapes, panelBottomShapes, panelBottomCloseShapes, panelBottomOpenShapes, panelLeftDashedShapes, panelRightDashedShapes, panelTopDashedShapes, panelBottomDashedShapes, panelTopBottomDashedShapes, panelLeftRightDashedShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, saveAllShapes, saveCheckShapes, saveOffShapes, savePenShapes, savePlusShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, serverCogShapes, serverCrashShapes, serverOffShapes, serverPlusShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shieldBanShapes, shieldCogShapes, shieldHalfShapes, shieldKeyholeShapes, shieldLockShapes, shieldMinusShapes, shieldPlusShapes, shieldUserShapes, shieldXShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, starCheckShapes, starHalfShapes, starMinusShapes, starOffShapes, starPlusShapes, starXShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, signalShapes, signalHighShapes, signalMediumShapes, signalLowShapes, signalZeroShapes, volumeShapes, volume1Shapes, volumeOffShapes, volumeXShapes, tally1Shapes, tally2Shapes, tally3Shapes, tally4Shapes, tally5Shapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, userRoundShapes, userRoundArrowLeftShapes, userRoundCheckShapes, userRoundCogShapes, userRoundKeyShapes, userRoundMinusShapes, userRoundPenShapes, userRoundPlusShapes, userRoundSearchShapes, userRoundXShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
  * Catálogo CURADO — coreografía con intención, a mano, icono por icono. El generador offline
@@ -34,6 +34,62 @@ export const bellRingIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellRingShapes
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -5, 4, -3, 2, 0]), 1050),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 650, { delay: 140 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 650, { delay: 140 }),
+      },
+    },
+  });
+
+const BELL_SHAKE_ROOT = /* @__PURE__ */ rotateSeq([0, 18, -12, 9, -5, 0]);
+const BELL_CLAPPER = /* @__PURE__ */ moveXSeq([0, -4, 3, -2, 1, 0]);
+
+export const bellCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellCheckShapes, {
+    default: {
+      root: /* @__PURE__ */ track(BELL_SHAKE_ROOT, 700, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 550 }),
+      },
+    },
+  });
+
+export const bellDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellDotShapes, {
+    default: {
+      root: /* @__PURE__ */ track(BELL_SHAKE_ROOT, 700, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 550 }),
+      },
+    },
+  });
+
+export const bellMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellMinusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(BELL_SHAKE_ROOT, 700, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
+      },
+    },
+  });
+
+/** Silenciada: se fragmenta y la diagonal cruza al final — sin repique, ya no suena. */
+export const bellOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellOffShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 360 }),
+      },
+    },
+  });
+
+export const bellPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellPlusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(BELL_SHAKE_ROOT, 700, { origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(BELL_CLAPPER, 750),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 550 }),
       },
     },
   });
@@ -306,6 +362,60 @@ export const heartPulseIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartPulseSh
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.12, 1, 1.08, 1]), 900, { origin: 'center' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 700, { delay: 150 }) },
+    },
+  });
+
+const HEART_BEAT = /* @__PURE__ */ scaleSeq([1, 1.1, 1]);
+
+export const heartCrackIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartCrackShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 260 }) },
+    },
+  });
+
+/** Un solo trazo — no hay insignia que dibujar aparte, todo el gesto es la figura completa. */
+export const heartHandshakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartHandshakeShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+    },
+  });
+
+export const heartMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartMinusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }) },
+    },
+  });
+
+/** Ya no es favorito: se fragmenta y la diagonal cruza al final — sin latido. */
+export const heartOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartOffShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 160 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 380 }),
+      },
+    },
+  });
+
+export const heartPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartPlusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+      },
+    },
+  });
+
+export const heartXIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartXShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
+      },
     },
   });
 
@@ -2831,6 +2941,102 @@ export const shieldOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldOffShap
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 220 }) } },
   });
 
+const SHIELD_POP = /* @__PURE__ */ scaleSeq([1, 1.08, 1]);
+const SHIELD_GEAR_SPIN = /* @__PURE__ */ [
+  { transform: 'scale(1) rotate(0deg)' },
+  { transform: 'scale(1.15) rotate(360deg)' },
+  { transform: 'scale(1) rotate(720deg)' },
+];
+
+export const shieldBanIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldBanShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { delay: 260 }) },
+    },
+  });
+
+/** Igual criterio que `server-cog`/`user-round-cog`: el engrane gira, el escudo se queda quieto. */
+export const shieldCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldCogShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        7: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        8: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+        9: /* @__PURE__ */ track(SHIELD_GEAR_SPIN, 650, { delay: 150, origin: '12px 12px' }),
+      },
+    },
+  });
+
+export const shieldHalfIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldHalfShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 260 }) },
+    },
+  });
+
+export const shieldKeyholeIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldKeyholeShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 260 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { delay: 460 }),
+      },
+    },
+  });
+
+export const shieldLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldLockShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 460 }),
+      },
+    },
+  });
+
+export const shieldMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldMinusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }) },
+    },
+  });
+
+export const shieldPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldPlusShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
+      },
+    },
+  });
+
+/** Escudo con persona: el escudo late, la cabeza aparece de golpe y los hombros se dibujan. */
+export const shieldUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldUserShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 260 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 460 }),
+      },
+    },
+  });
+
+export const shieldXIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldXShapes, {
+    default: {
+      root: /* @__PURE__ */ track(SHIELD_POP, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
+      },
+    },
+  });
+
 /** Bolsa colgando que se mece desde las asas. */
 export const shoppingBagIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingBagShapes, {
     default: {
@@ -3263,6 +3469,79 @@ export const imageIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageShapes, {
 /** Sin imagen: el tajo cae al final. */
 export const imageOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageOffShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 220 }) } },
+  });
+
+export const imageDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageDownShapes, {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 220 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+      },
+    },
+  });
+
+export const imageMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageMinusShapes, {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { delay: 220 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+      },
+    },
+  });
+
+/** El triángulo de play aparece de golpe, como una insignia — no es una línea que se dibuje. */
+export const imagePlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(imagePlayShapes, {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 380 }),
+      },
+    },
+  });
+
+export const imagePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(imagePlusShapes, {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { delay: 220 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+      },
+    },
+  });
+
+export const imageUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageUpShapes, {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
+      },
+    },
+  });
+
+const IMAGE_UPSCALE_FRAME = /* @__PURE__ */ [
+  { transform: 'scale(0.8)', opacity: '0' },
+  { transform: 'scale(1)', opacity: '1' },
+];
+
+/** El recorte se asienta y las 4 esquinas del marco se dibujan a la vez; luego, las flechas. */
+export const imageUpscaleIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageUpscaleShapes, {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track(IMAGE_UPSCALE_FRAME, 380, { easing: SPRING_OUT, origin: '8px 16px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 320 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 320 }),
+      },
+    },
   });
 
 /** Menú de tres puntos, de arriba hacia abajo (índices 1, 0, 2). */
@@ -4415,6 +4694,11 @@ export const tally5Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally5Shapes, {
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   bell: bellIcon,
   'bell-ring': bellRingIcon,
+  'bell-check': bellCheckIcon,
+  'bell-dot': bellDotIcon,
+  'bell-minus': bellMinusIcon,
+  'bell-off': bellOffIcon,
+  'bell-plus': bellPlusIcon,
   check: checkIcon,
   'circle-alert': circleAlertIcon,
   'circle-check': circleCheckIcon,
@@ -4433,6 +4717,12 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'eye-off': eyeOffIcon,
   'hat-glasses': hatGlassesIcon,
   'heart-pulse': heartPulseIcon,
+  'heart-crack': heartCrackIcon,
+  'heart-handshake': heartHandshakeIcon,
+  'heart-minus': heartMinusIcon,
+  'heart-off': heartOffIcon,
+  'heart-plus': heartPlusIcon,
+  'heart-x': heartXIcon,
   images: imagesIcon,
   info: infoIcon,
   'loader-circle': loaderCircleIcon,
@@ -4455,6 +4745,15 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   send: sendIcon,
   settings: settingsIcon,
   'shield-check': shieldCheckIcon,
+  'shield-ban': shieldBanIcon,
+  'shield-cog': shieldCogIcon,
+  'shield-half': shieldHalfIcon,
+  'shield-keyhole': shieldKeyholeIcon,
+  'shield-lock': shieldLockIcon,
+  'shield-minus': shieldMinusIcon,
+  'shield-plus': shieldPlusIcon,
+  'shield-user': shieldUserIcon,
+  'shield-x': shieldXIcon,
   sparkles: sparklesIcon,
   trash: trashIcon,
   'trash-2': trash2Icon,
@@ -4633,6 +4932,12 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   house: houseIcon,
   image: imageIcon,
   'image-off': imageOffIcon,
+  'image-down': imageDownIcon,
+  'image-minus': imageMinusIcon,
+  'image-play': imagePlayIcon,
+  'image-plus': imagePlusIcon,
+  'image-up': imageUpIcon,
+  'image-upscale': imageUpscaleIcon,
   'ellipsis-vertical': ellipsisVerticalIcon,
   mouse: mouseIcon,
   navigation: navigationIcon,

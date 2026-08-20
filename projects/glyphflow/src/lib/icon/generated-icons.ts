@@ -1356,25 +1356,6 @@ export const beerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const bellCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.268 21a2 2 0 0 0 3.464 0" },
-    { tag: 'path', d: "m15 8 2 2 4-4" },
-    { tag: 'path', d: "M16.8607 4.4824A6 6 0 0 0 6 8C6 12.499 4.589 13.956 3.262 15.326" },
-    { tag: 'path', d: "M3.262 15.326A1 1 0 0 0 4 17H20A1 1 0 0 0 20.74 15.327C20.209 14.779 19.665 14.218 19.203 13.454" },
-  ],
-  {},
-);
-
-export const bellDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.268 21a2 2 0 0 0 3.464 0" },
-    { tag: 'path', d: "M11.68 2.009A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673c-.824-.85-1.678-1.731-2.21-3.348" },
-    { tag: 'circle', cx: 18, cy: 5, r: 3 },
-  ],
-  {},
-);
-
 export const bellElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18.518 17.347A7 7 0 0 1 14 19" },
@@ -1383,35 +1364,6 @@ export const bellElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 20, cy: 16, r: 2 },
     { tag: 'circle', cx: 9, cy: 9, r: 7 },
     { tag: 'rect', x: 4, y: 16, width: 10, height: 6, rx: 2 },
-  ],
-  {},
-);
-
-export const bellMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.268 21a2 2 0 0 0 3.464 0" },
-    { tag: 'path', d: "M15 8h6" },
-    { tag: 'path', d: "M16.243 3.757A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673A9.4 9.4 0 0 1 18.667 12" },
-  ],
-  {},
-);
-
-export const bellOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.268 21a2 2 0 0 0 3.464 0" },
-    { tag: 'path', d: "M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742" },
-    { tag: 'path', d: "m2 2 20 20" },
-    { tag: 'path', d: "M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05" },
-  ],
-  {},
-);
-
-export const bellPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.268 21a2 2 0 0 0 3.464 0" },
-    { tag: 'path', d: "M15 8h6" },
-    { tag: 'path', d: "M18 5v6" },
-    { tag: 'path', d: "M20.002 14.464a9 9 0 0 0 .738.863A1 1 0 0 1 20 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 8.75-5.332" },
   ],
   {},
 );
@@ -7289,56 +7241,6 @@ export const headsetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const heartCrackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12.409 5.824c-.702.792-1.15 1.496-1.415 2.166l2.153 2.156a.5.5 0 0 1 0 .707l-2.293 2.293a.5.5 0 0 0 0 .707L12 15" },
-    { tag: 'path', d: "M13.508 20.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.677.6.6 0 0 0 .818.001A5.5 5.5 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5z" },
-  ],
-  {},
-);
-
-export const heartHandshakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762" },
-  ],
-  {},
-);
-
-export const heartMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m14.876 18.99-1.368 1.323a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.244 1.572" },
-    { tag: 'path', d: "M15 15h6" },
-  ],
-  {},
-);
-
-export const heartOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.5 4.893a5.5 5.5 0 0 1 1.091.931.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 1.872-1.002 3.356-2.187 4.655" },
-    { tag: 'path', d: "m16.967 16.967-3.459 3.346a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 2.747-4.761" },
-    { tag: 'path', d: "m2 2 20 20" },
-  ],
-  {},
-);
-
-export const heartPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49" },
-    { tag: 'path', d: "M15 15h6" },
-    { tag: 'path', d: "M18 12v6" },
-  ],
-  {},
-);
-
-export const heartXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15.5 12.5 5 5" },
-    { tag: 'path', d: "m20.5 12.5-5 5" },
-    { tag: 'path', d: "M21.955 8.774a5.5 5.5 0 0 0-9.546-2.95.6.6 0 0 1-.818 0A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.508 5.332a2 2 0 0 0 2.57.352" },
-  ],
-  {},
-);
-
 export const heartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" },
@@ -7520,71 +7422,6 @@ export const idCardLanyardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M16.899 22A5 5 0 0 0 7.1 22" },
     { tag: 'path', d: "m9 2 3 6" },
     { tag: 'circle', cx: 12, cy: 15, r: 3 },
-  ],
-  {},
-);
-
-export const imageDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" },
-    { tag: 'path', d: "m14 19 3 3v-5.5" },
-    { tag: 'path', d: "m17 22 3-3" },
-    { tag: 'circle', cx: 9, cy: 9, r: 2 },
-  ],
-  {},
-);
-
-export const imageMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7" },
-    { tag: 'line', x1: 16, x2: 22, y1: 5, y2: 5 },
-    { tag: 'circle', cx: 9, cy: 9, r: 2 },
-    { tag: 'path', d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" },
-  ],
-  {},
-);
-
-export const imagePlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z" },
-    { tag: 'path', d: "M21 12.17V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6" },
-    { tag: 'path', d: "m6 21 5-5" },
-    { tag: 'circle', cx: 9, cy: 9, r: 2 },
-  ],
-  {},
-);
-
-export const imagePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 5h6" },
-    { tag: 'path', d: "M19 2v6" },
-    { tag: 'path', d: "M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5" },
-    { tag: 'path', d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" },
-    { tag: 'circle', cx: 9, cy: 9, r: 2 },
-  ],
-  {},
-);
-
-export const imageUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" },
-    { tag: 'path', d: "m14 19.5 3-3 3 3" },
-    { tag: 'path', d: "M17 22v-5.5" },
-    { tag: 'circle', cx: 9, cy: 9, r: 2 },
-  ],
-  {},
-);
-
-export const imageUpscaleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 3h5v5" },
-    { tag: 'path', d: "M17 21h2a2 2 0 0 0 2-2" },
-    { tag: 'path', d: "M21 12v3" },
-    { tag: 'path', d: "m21 3-5 5" },
-    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2" },
-    { tag: 'path', d: "m5 21 4.144-4.144a1.21 1.21 0 0 1 1.712 0L13 19" },
-    { tag: 'path', d: "M9 3h3" },
-    { tag: 'rect', x: 3, y: 11, width: 10, height: 10, rx: 1 },
   ],
   {},
 );
@@ -11528,14 +11365,6 @@ export const shelvingUnitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const shieldBanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "m4.243 5.21 14.39 12.472" },
-  ],
-  {},
-);
-
 export const shieldCogCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 22c-3.806-1.45-7-3.966-7-9V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v4" },
@@ -11552,22 +11381,6 @@ export const shieldCogCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const shieldCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m10.929 14.467-.383.924" },
-    { tag: 'path', d: "M10.929 8.923 10.546 8" },
-    { tag: 'path', d: "M13.225 8.923 13.608 8" },
-    { tag: 'path', d: "m13.607 15.391-.382-.924" },
-    { tag: 'path', d: "m14.849 10.547.923-.383" },
-    { tag: 'path', d: "m14.849 12.843.923.383" },
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "m9.305 10.547-.923-.383" },
-    { tag: 'path', d: "m9.305 12.843-.923.383" },
-    { tag: 'circle', cx: 12.077, cy: 11.695, r: 3 },
-  ],
-  {},
-);
-
 export const shieldEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
@@ -11578,72 +11391,11 @@ export const shieldEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const shieldHalfIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "M12 22V2" },
-  ],
-  {},
-);
-
-export const shieldKeyholeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 13v3" },
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 011-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 011.52 0C14.51 3.81 17 5 19 5a1 1 0 011 1z" },
-    { tag: 'circle', cx: 12, cy: 11, r: 2 },
-  ],
-  {},
-);
-
-export const shieldLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 9.807V6a1 1 0 00-1-1c-2 0-4.49-1.19-6.24-2.72a1.17 1.17 0 00-1.52 0C9.5 3.8 7 5 5 5a1 1 0 00-1 1v7c0 3.88 2.107 6.254 5 7.796" },
-    { tag: 'path', d: "M19 17v-2a2 2 0 00-4 0v2" },
-    { tag: 'rect', x: 13, y: 17, width: 8, height: 5, rx: 1 },
-  ],
-  {},
-);
-
-export const shieldMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "M9 12h6" },
-  ],
-  {},
-);
-
-export const shieldPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "M9 12h6" },
-    { tag: 'path', d: "M12 9v6" },
-  ],
-  {},
-);
-
 export const shieldQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
     { tag: 'path', d: "M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" },
     { tag: 'path', d: "M12 17h.01" },
-  ],
-  {},
-);
-
-export const shieldUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "M6.376 18.91a6 6 0 0 1 11.249.003" },
-    { tag: 'circle', cx: 12, cy: 11, r: 4 },
-  ],
-  {},
-);
-
-export const shieldXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
-    { tag: 'path', d: "m14.5 9.5-5 5" },
-    { tag: 'path', d: "m9.5 9.5 5 5" },
   ],
   {},
 );
@@ -14995,12 +14747,7 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   beef: beefIcon,
   'beer-off': beerOffIcon,
   beer: beerIcon,
-  'bell-check': bellCheckIcon,
-  'bell-dot': bellDotIcon,
   'bell-electric': bellElectricIcon,
-  'bell-minus': bellMinusIcon,
-  'bell-off': bellOffIcon,
-  'bell-plus': bellPlusIcon,
   'between-horizontal-end': betweenHorizontalEndIcon,
   'between-horizontal-start': betweenHorizontalStartIcon,
   'between-vertical-end': betweenVerticalEndIcon,
@@ -15576,12 +15323,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'headphone-off': headphoneOffIcon,
   headphones: headphonesIcon,
   headset: headsetIcon,
-  'heart-crack': heartCrackIcon,
-  'heart-handshake': heartHandshakeIcon,
-  'heart-minus': heartMinusIcon,
-  'heart-off': heartOffIcon,
-  'heart-plus': heartPlusIcon,
-  'heart-x': heartXIcon,
   heart: heartIcon,
   heater: heaterIcon,
   helicopter: helicopterIcon,
@@ -15599,12 +15340,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'ice-cream-bowl': iceCreamBowlIcon,
   'ice-cream-cone': iceCreamConeIcon,
   'id-card-lanyard': idCardLanyardIcon,
-  'image-down': imageDownIcon,
-  'image-minus': imageMinusIcon,
-  'image-play': imagePlayIcon,
-  'image-plus': imagePlusIcon,
-  'image-up': imageUpIcon,
-  'image-upscale': imageUpscaleIcon,
   import: importIcon,
   'indian-rupee': indianRupeeIcon,
   'inspection-panel': inspectionPanelIcon,
@@ -16000,18 +15735,9 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   sheet: sheetIcon,
   shell: shellIcon,
   'shelving-unit': shelvingUnitIcon,
-  'shield-ban': shieldBanIcon,
   'shield-cog-corner': shieldCogCornerIcon,
-  'shield-cog': shieldCogIcon,
   'shield-ellipsis': shieldEllipsisIcon,
-  'shield-half': shieldHalfIcon,
-  'shield-keyhole': shieldKeyholeIcon,
-  'shield-lock': shieldLockIcon,
-  'shield-minus': shieldMinusIcon,
-  'shield-plus': shieldPlusIcon,
   'shield-question-mark': shieldQuestionMarkIcon,
-  'shield-user': shieldUserIcon,
-  'shield-x': shieldXIcon,
   'ship-wheel': shipWheelIcon,
   ship: shipIcon,
   'shopping-basket': shoppingBasketIcon,

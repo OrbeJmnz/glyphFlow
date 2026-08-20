@@ -105,6 +105,34 @@
       "path:0ceceb4b844f",
       "path:30d6ab3c7529"
     ],
+    "bell-check": [
+      "path:0ceceb4b844f",
+      "path:7e4f52e65eef",
+      "path:63232c70e2ee",
+      "path:379eb775efef"
+    ],
+    "bell-dot": [
+      "path:0ceceb4b844f",
+      "path:b5eade2bf6e0",
+      "circle:913aa1a226ca"
+    ],
+    "bell-minus": [
+      "path:0ceceb4b844f",
+      "path:6a01579dd4b0",
+      "path:c5c0f9b64b8c"
+    ],
+    "bell-off": [
+      "path:0ceceb4b844f",
+      "path:6d42b099756a",
+      "path:378c27879c92",
+      "path:5c0390148add"
+    ],
+    "bell-plus": [
+      "path:0ceceb4b844f",
+      "path:6a01579dd4b0",
+      "path:97790a1bd8ca",
+      "path:67426584d30c"
+    ],
     "bell-ring": [
       "path:0ceceb4b844f",
       "path:00c905d5e408",
@@ -538,9 +566,35 @@
       "circle:18055e6d7c50",
       "circle:6342845e15c6"
     ],
+    "heart-crack": [
+      "path:70d232b4ee26",
+      "path:a36954c5a65e"
+    ],
+    "heart-handshake": [
+      "path:2faceba0a070"
+    ],
+    "heart-minus": [
+      "path:fc82600d4371",
+      "path:39ae8109ce1b"
+    ],
+    "heart-off": [
+      "path:079061351137",
+      "path:31dabc471266",
+      "path:378c27879c92"
+    ],
+    "heart-plus": [
+      "path:1e0e95619135",
+      "path:39ae8109ce1b",
+      "path:808b08cf9c97"
+    ],
     "heart-pulse": [
       "path:91c0d03ce70d",
       "path:4a4649a2a3bb"
+    ],
+    "heart-x": [
+      "path:e060b758c95c",
+      "path:4e220319824d",
+      "path:cadf1f7385c6"
     ],
     "house": [
       "path:1477bac52fac",
@@ -558,6 +612,18 @@
       "circle:8fccc049aa43",
       "path:a22cb33b509d"
     ],
+    "image-down": [
+      "path:18941b3c5aec",
+      "path:21835f1f1dbf",
+      "path:16443caee8f0",
+      "circle:8fccc049aa43"
+    ],
+    "image-minus": [
+      "path:c87cc5873ffe",
+      "line:7248a50f87b3",
+      "circle:8fccc049aa43",
+      "path:a22cb33b509d"
+    ],
     "image-off": [
       "line:ed241e14c4ca",
       "path:8ac9105a2611",
@@ -565,6 +631,35 @@
       "line:f74c05a166e2",
       "path:656b63f22070",
       "path:add1fa7d1389"
+    ],
+    "image-play": [
+      "path:eaa33a7d0d5f",
+      "path:4f20d6ac74e2",
+      "path:79e334df3897",
+      "circle:8fccc049aa43"
+    ],
+    "image-plus": [
+      "path:02df10fb102a",
+      "path:06e3cd556126",
+      "path:d65d6a356f3c",
+      "path:a22cb33b509d",
+      "circle:8fccc049aa43"
+    ],
+    "image-up": [
+      "path:18941b3c5aec",
+      "path:98823de23c42",
+      "path:d77c2e903b64",
+      "circle:8fccc049aa43"
+    ],
+    "image-upscale": [
+      "path:a6a91ab920f6",
+      "path:e5ab6798628c",
+      "path:fda7ab3021b4",
+      "path:05dd1d50c9ba",
+      "path:54dbad950b71",
+      "path:3a3d9047505d",
+      "path:f70eb5145430",
+      "rect:1f33c458fd98"
     ],
     "images": [
       "path:18bdb29749de",
@@ -1179,14 +1274,63 @@
       "path:43bc6e680454",
       "path:04796774ada1"
     ],
+    "shield-ban": [
+      "path:f05a301203fa",
+      "path:391b1767f628"
+    ],
     "shield-check": [
       "path:f05a301203fa",
       "path:a6c388c2ba21"
+    ],
+    "shield-cog": [
+      "path:f8269d7afbbc",
+      "path:4fee771c2e4a",
+      "path:a0c62feedbc8",
+      "path:26a3e3313cb7",
+      "path:94f891055fd6",
+      "path:c6532d532a77",
+      "path:f05a301203fa",
+      "path:dbfe2cb32a77",
+      "path:ff1bc62b53e7",
+      "circle:64fa288ba9c0"
+    ],
+    "shield-half": [
+      "path:f05a301203fa",
+      "path:364f97aaaec5"
+    ],
+    "shield-keyhole": [
+      "path:0574bf65e0c4",
+      "path:91f4ab622c94",
+      "circle:ec1500462dbe"
+    ],
+    "shield-lock": [
+      "path:6cf0ee814abf",
+      "path:305a767c3c4d",
+      "rect:6436aea6df28"
+    ],
+    "shield-minus": [
+      "path:f05a301203fa",
+      "path:687b29d9e865"
     ],
     "shield-off": [
       "path:378c27879c92",
       "path:f597e154eb69",
       "path:52a8839e5abe"
+    ],
+    "shield-plus": [
+      "path:f05a301203fa",
+      "path:687b29d9e865",
+      "path:36c463ad8509"
+    ],
+    "shield-user": [
+      "path:f05a301203fa",
+      "path:9a2362c8fc98",
+      "circle:ee15036c27be"
+    ],
+    "shield-x": [
+      "path:f05a301203fa",
+      "path:934cdf06fec1",
+      "path:35b602571a01"
     ],
     "shirt": [
       "path:445f0480f61d"
