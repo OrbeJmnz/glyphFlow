@@ -45,6 +45,38 @@ export const copyShapes: IconShape[] = [
     { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
   ];
 
+export const copyCheckShapes: IconShape[] = [
+    { tag: 'path', d: 'm12 15 2 2 4-4' },
+    { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
+  ];
+
+export const copyMinusShapes: IconShape[] = [
+    { tag: 'line', x1: 12, y1: 15, x2: 18, y2: 15 },
+    { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
+  ];
+
+export const copyPlusShapes: IconShape[] = [
+    { tag: 'line', x1: 15, y1: 12, x2: 15, y2: 18 },
+    { tag: 'line', x1: 12, y1: 15, x2: 18, y2: 15 },
+    { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
+  ];
+
+export const copySlashShapes: IconShape[] = [
+    { tag: 'line', x1: 12, y1: 18, x2: 18, y2: 12 },
+    { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
+  ];
+
+export const copyXShapes: IconShape[] = [
+    { tag: 'line', x1: 12, y1: 12, x2: 18, y2: 18 },
+    { tag: 'line', x1: 12, y1: 18, x2: 18, y2: 12 },
+    { tag: 'rect', x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' },
+  ];
+
 export const calendarShapes: IconShape[] = [
     { tag: 'path', d: 'M8 2v3' },
     { tag: 'path', d: 'M16 2v3' },
@@ -167,6 +199,60 @@ export const saveShapes: IconShape[] = [
       d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
     },
     { tag: 'path', d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7' },
+    { tag: 'path', d: 'M7 3v4a1 1 0 0 0 1 1h7' },
+  ];
+
+export const saveAllShapes: IconShape[] = [
+    { tag: 'path', d: 'M10 2v3a1 1 0 0 0 1 1h5' },
+    { tag: 'path', d: 'M18 18v-6a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6' },
+    { tag: 'path', d: 'M18 22H4a2 2 0 0 1-2-2V6' },
+    {
+      tag: 'path',
+      d: 'M8 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9.172a2 2 0 0 1 1.414.586l2.828 2.828A2 2 0 0 1 22 6.828V16a2 2 0 0 1-2.01 2z',
+    },
+  ];
+
+export const saveCheckShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M12.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10.2a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4v4.35',
+    },
+    { tag: 'path', d: 'm16 19 2 2 4-4' },
+    { tag: 'path', d: 'M17 15.13V14a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7' },
+    { tag: 'path', d: 'M7 3v4a1 1 0 0 0 1 1h7' },
+  ];
+
+export const saveOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M13 13H8a1 1 0 0 0-1 1v7' },
+    { tag: 'path', d: 'M14 8h1' },
+    { tag: 'path', d: 'M17 21v-4' },
+    { tag: 'path', d: 'm2 2 20 20' },
+    { tag: 'path', d: 'M20.41 20.41A2 2 0 0 1 19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 .59-1.41' },
+    { tag: 'path', d: 'M29.5 11.5s5 5 4 5' },
+    { tag: 'path', d: 'M9 3h6.2a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V15' },
+  ];
+
+export const savePenShapes: IconShape[] = [
+    { tag: 'path', d: 'M13.33 13H8a1 1 0 00-1 1v7' },
+    {
+      tag: 'path',
+      d: 'M14.363 17.634a2 2 0 00-.506.854l-.837 2.87a.5.5 0 00.62.62l2.87-.837a2 2 0 00.854-.506l4.013-4.009a1 1 0 10-3.004-3.004z',
+    },
+    { tag: 'path', d: 'M7 3v4a1 1 0 001 1h7' },
+    {
+      tag: 'path',
+      d: 'M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h10.2a2 2 0 011.4.6l3.8 3.8a2 2 0 01.6 1.4v.3',
+    },
+  ];
+
+export const savePlusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M12.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10.2a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V12',
+    },
+    { tag: 'path', d: 'M16 13H8a1 1 0 0 0-1 1v7' },
+    { tag: 'path', d: 'M19 22v-6' },
+    { tag: 'path', d: 'M22 19h-6' },
     { tag: 'path', d: 'M7 3v4a1 1 0 0 0 1 1h7' },
   ];
 
@@ -296,6 +382,68 @@ export const packageShapes: IconShape[] = [
     { tag: 'path', d: 'M12 22V12' },
     { tag: 'polyline', points: '3.29 7 12 12 20.71 7' },
     { tag: 'path', d: 'm7.5 4.27 9 5.15' },
+  ];
+
+export const packageCheckShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 22V12' },
+    { tag: 'path', d: 'm16 17 2 2 4-4' },
+    {
+      tag: 'path',
+      d: 'M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753',
+    },
+    { tag: 'path', d: 'M3.29 7 12 12l8.71-5' },
+    { tag: 'path', d: 'm7.5 4.27 8.997 5.148' },
+  ];
+
+export const packageMinusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 22V12' },
+    { tag: 'path', d: 'M16 17h6' },
+    {
+      tag: 'path',
+      d: 'M21 13V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.675-.955',
+    },
+    { tag: 'path', d: 'M3.29 7 12 12l8.71-5' },
+    { tag: 'path', d: 'm7.5 4.27 8.997 5.148' },
+  ];
+
+export const packageOpenShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 22v-9' },
+    {
+      tag: 'path',
+      d: 'M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z',
+    },
+    {
+      tag: 'path',
+      d: 'M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13',
+    },
+    {
+      tag: 'path',
+      d: 'M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z',
+    },
+  ];
+
+export const packagePlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 22V12' },
+    { tag: 'path', d: 'M16 17h6' },
+    { tag: 'path', d: 'M19 14v6' },
+    {
+      tag: 'path',
+      d: 'M21 10.535V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.675-.955',
+    },
+    { tag: 'path', d: 'M3.29 7 12 12l8.71-5' },
+    { tag: 'path', d: 'm7.5 4.27 8.997 5.148' },
+  ];
+
+export const packageXShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 22V12' },
+    { tag: 'path', d: 'm16.5 14.5 5 5' },
+    { tag: 'path', d: 'm16.5 19.5 5-5' },
+    {
+      tag: 'path',
+      d: 'M21 10.5V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.13-.074',
+    },
+    { tag: 'path', d: 'M3.29 7 12 12l8.71-5' },
+    { tag: 'path', d: 'm7.5 4.27 8.997 5.148' },
   ];
 
 export const rotateCcwClockShapes: IconShape[] = [
@@ -826,6 +974,59 @@ export const starShapes: IconShape[] = [
     },
   ];
 
+export const starCheckShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'm19.06 12.501 2.78-2.707a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014',
+    },
+    { tag: 'path', d: 'm15 18 2 2 4-4' },
+  ];
+
+export const starHalfShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M12 18.338a2.1 2.1 0 0 0-.987.244L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16l2.309-4.679A.53.53 0 0 1 12 2',
+    },
+  ];
+
+export const starMinusShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 18h6' },
+    {
+      tag: 'path',
+      d: 'M17.688 14a2.1 2.1 0 0 1 .416-.568l3.736-3.638a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014',
+    },
+  ];
+
+export const starOffShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'm10.344 4.688 1.181-2.393a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.237 3.152',
+    },
+    {
+      tag: 'path',
+      d: 'm17.945 17.945.43 2.505a.53.53 0 0 1-.771.56l-4.618-2.428a2.12 2.12 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a8 8 0 0 0 .4-.099',
+    },
+    { tag: 'path', d: 'm2 2 20 20' },
+  ];
+
+export const starPlusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M11.013 18.582 6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16l2.309-4.679a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904L20 11.5',
+    },
+    { tag: 'path', d: 'M15 18h6' },
+    { tag: 'path', d: 'M18 15v6' },
+  ];
+
+export const starXShapes: IconShape[] = [
+    { tag: 'path', d: 'm15.5 15.5 5 5' },
+    {
+      tag: 'path',
+      d: 'm20.063 11.525 1.777-1.731a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428a2.1 2.1 0 0 1 .987-.243 2 2 0 0 1 .132.004',
+    },
+    { tag: 'path', d: 'm20.5 15.5-5 5' },
+  ];
+
 export const activityShapes: IconShape[] = [
     {
       tag: 'path',
@@ -840,6 +1041,43 @@ export const alarmClockShapes: IconShape[] = [
     { tag: 'path', d: 'm22 6-3-3' },
     { tag: 'path', d: 'M6.38 18.7 4 21' },
     { tag: 'path', d: 'M17.64 18.67 20 21' },
+  ];
+
+export const alarmClockCheckShapes: IconShape[] = [
+    { tag: 'circle', cx: 12, cy: 13, r: 8 },
+    { tag: 'path', d: 'M5 3 2 6' },
+    { tag: 'path', d: 'm22 6-3-3' },
+    { tag: 'path', d: 'M6.38 18.7 4 21' },
+    { tag: 'path', d: 'M17.64 18.67 20 21' },
+    { tag: 'path', d: 'm9 13 2 2 4-4' },
+  ];
+
+export const alarmClockMinusShapes: IconShape[] = [
+    { tag: 'circle', cx: 12, cy: 13, r: 8 },
+    { tag: 'path', d: 'M5 3 2 6' },
+    { tag: 'path', d: 'm22 6-3-3' },
+    { tag: 'path', d: 'M6.38 18.7 4 21' },
+    { tag: 'path', d: 'M17.64 18.67 20 21' },
+    { tag: 'path', d: 'M9 13h6' },
+  ];
+
+export const alarmClockOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M6.87 6.87a8 8 0 1 0 11.26 11.26' },
+    { tag: 'path', d: 'M19.9 14.25a8 8 0 0 0-9.15-9.15' },
+    { tag: 'path', d: 'm22 6-3-3' },
+    { tag: 'path', d: 'M6.26 18.67 4 21' },
+    { tag: 'path', d: 'm2 2 20 20' },
+    { tag: 'path', d: 'M4 4 2 6' },
+  ];
+
+export const alarmClockPlusShapes: IconShape[] = [
+    { tag: 'circle', cx: 12, cy: 13, r: 8 },
+    { tag: 'path', d: 'M5 3 2 6' },
+    { tag: 'path', d: 'm22 6-3-3' },
+    { tag: 'path', d: 'M6.38 18.7 4 21' },
+    { tag: 'path', d: 'M17.64 18.67 20 21' },
+    { tag: 'path', d: 'M12 10v6' },
+    { tag: 'path', d: 'M9 13h6' },
   ];
 
 export const appWindowShapes: IconShape[] = [
@@ -1180,6 +1418,47 @@ export const serverShapes: IconShape[] = [
     { tag: 'rect', x: 2, y: 14, width: 20, height: 8, rx: 2, ry: 2 },
     { tag: 'line', x1: 6, y1: 6, x2: 6.01, y2: 6 },
     { tag: 'line', x1: 6, y1: 18, x2: 6.01, y2: 18 },
+  ];
+
+export const serverCogShapes: IconShape[] = [
+    { tag: 'path', d: 'm10.852 14.772-.383.923' },
+    { tag: 'path', d: 'M13.148 14.772a3 3 0 1 0-2.296-5.544l-.383-.923' },
+    { tag: 'path', d: 'm13.148 9.228.383-.923' },
+    { tag: 'path', d: 'm13.53 15.696-.382-.924a3 3 0 1 1-2.296-5.544' },
+    { tag: 'path', d: 'm14.772 10.852.923-.383' },
+    { tag: 'path', d: 'm14.772 13.148.923.383' },
+    { tag: 'path', d: 'M4.5 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-.5' },
+    { tag: 'path', d: 'M4.5 14H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-.5' },
+    { tag: 'path', d: 'M6 18h.01' },
+    { tag: 'path', d: 'M6 6h.01' },
+    { tag: 'path', d: 'm9.228 10.852-.923-.383' },
+    { tag: 'path', d: 'm9.228 13.148-.923.383' },
+  ];
+
+export const serverCrashShapes: IconShape[] = [
+    { tag: 'path', d: 'M6 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2' },
+    { tag: 'path', d: 'M6 14H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2' },
+    { tag: 'path', d: 'M6 6h.01' },
+    { tag: 'path', d: 'M6 18h.01' },
+    { tag: 'path', d: 'm13 6-4 6h6l-4 6' },
+  ];
+
+export const serverOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M7 2h13a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-5' },
+    { tag: 'path', d: 'M10 10 2.5 2.5C2 2 2 2.5 2 5v3a2 2 0 0 0 2 2h6z' },
+    { tag: 'path', d: 'M22 17v-1a2 2 0 0 0-2-2h-1' },
+    { tag: 'path', d: 'M4 14a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16.5l1-.5.5.5-8-8H4z' },
+    { tag: 'path', d: 'M6 18h.01' },
+    { tag: 'path', d: 'm2 2 20 20' },
+  ];
+
+export const serverPlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12.5 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2' },
+    { tag: 'path', d: 'M16 12h6' },
+    { tag: 'path', d: 'M19 9v6' },
+    { tag: 'path', d: 'M22 18v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h8.5' },
+    { tag: 'path', d: 'M6 18h.01' },
+    { tag: 'path', d: 'M6 6h.01' },
   ];
 
 export const shieldShapes: IconShape[] = [

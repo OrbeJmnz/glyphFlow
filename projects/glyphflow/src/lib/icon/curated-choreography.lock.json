@@ -13,6 +13,39 @@
       "path:57525531a87c",
       "path:02a4817a710a"
     ],
+    "alarm-clock-check": [
+      "circle:21e6f4665278",
+      "path:32deb4257291",
+      "path:cc4a1c0b785e",
+      "path:57525531a87c",
+      "path:02a4817a710a",
+      "path:da6083f96114"
+    ],
+    "alarm-clock-minus": [
+      "circle:21e6f4665278",
+      "path:32deb4257291",
+      "path:cc4a1c0b785e",
+      "path:57525531a87c",
+      "path:02a4817a710a",
+      "path:0994442e8a1d"
+    ],
+    "alarm-clock-off": [
+      "path:c40641638bdd",
+      "path:1743f75b242a",
+      "path:cc4a1c0b785e",
+      "path:7ae3c0fc6ead",
+      "path:378c27879c92",
+      "path:13b4956bc58f"
+    ],
+    "alarm-clock-plus": [
+      "circle:21e6f4665278",
+      "path:32deb4257291",
+      "path:cc4a1c0b785e",
+      "path:57525531a87c",
+      "path:02a4817a710a",
+      "path:15c91f9f8941",
+      "path:0994442e8a1d"
+    ],
     "app-window": [
       "rect:41e980132aa8",
       "path:5ae684ea0215",
@@ -253,6 +286,33 @@
       "rect:d427f2bc2999"
     ],
     "copy": [
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "copy-check": [
+      "path:2531416db609",
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "copy-minus": [
+      "line:212085a60af1",
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "copy-plus": [
+      "line:2232f352630f",
+      "line:212085a60af1",
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "copy-slash": [
+      "line:1a3f5118dbfc",
+      "rect:ea0fade9a490",
+      "path:b3ffab0552a2"
+    ],
+    "copy-x": [
+      "line:bcd9e3186b7e",
+      "line:1a3f5118dbfc",
       "rect:ea0fade9a490",
       "path:b3ffab0552a2"
     ],
@@ -735,6 +795,34 @@
       "polyline:5fff57339bcf",
       "path:87191b38dbfa"
     ],
+    "package-check": [
+      "path:11495c3f06f5",
+      "path:ec073cef1cee",
+      "path:caa1e86ea41f",
+      "path:71354002671b",
+      "path:16327b572aba"
+    ],
+    "package-minus": [
+      "path:11495c3f06f5",
+      "path:6710bac883eb",
+      "path:dface441d918",
+      "path:71354002671b",
+      "path:16327b572aba"
+    ],
+    "package-open": [
+      "path:74de82ce244b",
+      "path:715f28dea58a",
+      "path:6118193585b9",
+      "path:160b6c3af0e9"
+    ],
+    "package-plus": [
+      "path:11495c3f06f5",
+      "path:6710bac883eb",
+      "path:da28915cea68",
+      "path:1cef88bdb2dc",
+      "path:71354002671b",
+      "path:16327b572aba"
+    ],
     "package-search": [
       "path:11495c3f06f5",
       "path:e1ec7f44463f",
@@ -742,6 +830,14 @@
       "path:71354002671b",
       "path:16327b572aba",
       "circle:ceba0d60d9ce"
+    ],
+    "package-x": [
+      "path:11495c3f06f5",
+      "path:79475505c11b",
+      "path:73af8bf3c6da",
+      "path:be610484b5b5",
+      "path:71354002671b",
+      "path:16327b572aba"
     ],
     "palette": [
       "path:0e782faa2532",
@@ -940,6 +1036,40 @@
       "path:552bca96f30b",
       "path:3e0eea9df583"
     ],
+    "save-all": [
+      "path:2caa32933d08",
+      "path:becac1861c0a",
+      "path:bd18ddfa12ad",
+      "path:e85a021a29f6"
+    ],
+    "save-check": [
+      "path:df39c5169cdb",
+      "path:a3dc324db9d5",
+      "path:827c278abfe0",
+      "path:3e0eea9df583"
+    ],
+    "save-off": [
+      "path:6050165cbb9a",
+      "path:bc28be5b385b",
+      "path:70f038398f65",
+      "path:378c27879c92",
+      "path:426efe4f41ea",
+      "path:0abccff4ea4a",
+      "path:17b75b8d93ff"
+    ],
+    "save-pen": [
+      "path:7a2058f67ca9",
+      "path:494af4e0fdfb",
+      "path:4e587cdd5166",
+      "path:de0e42c8b5d9"
+    ],
+    "save-plus": [
+      "path:7eaedd4bf138",
+      "path:551405f15077",
+      "path:f07e5dd66cbf",
+      "path:5badf604346b",
+      "path:3e0eea9df583"
+    ],
     "scroll-text": [
       "path:2578e480ba2c",
       "path:0828ffeba61c",
@@ -975,6 +1105,43 @@
       "rect:87c9e61e752e",
       "line:fda6308d04d7",
       "line:b2b188774dac"
+    ],
+    "server-cog": [
+      "path:f77fbcc31da5",
+      "path:51de3e78bb04",
+      "path:e17c47c029e0",
+      "path:e41f5c16fe12",
+      "path:4992ed4188dd",
+      "path:925f0eabcb65",
+      "path:5e038412192d",
+      "path:f1d9a889e362",
+      "path:b0f90fc38000",
+      "path:24cfe5def973",
+      "path:aff49ef4dc91",
+      "path:b05cd93eccb4"
+    ],
+    "server-crash": [
+      "path:a898724ebc61",
+      "path:9d91c3610275",
+      "path:24cfe5def973",
+      "path:b0f90fc38000",
+      "path:9cbdf51d113f"
+    ],
+    "server-off": [
+      "path:1d0a26ef4594",
+      "path:e9ed0dbcbac1",
+      "path:5c4bb9c6f353",
+      "path:306f33cc7b2e",
+      "path:b0f90fc38000",
+      "path:378c27879c92"
+    ],
+    "server-plus": [
+      "path:d3505250df73",
+      "path:90f8372f370b",
+      "path:e60bec78b04f",
+      "path:7f9fba2c213e",
+      "path:b0f90fc38000",
+      "path:24cfe5def973"
     ],
     "settings": [
       "path:1038a31022b7",
@@ -1070,6 +1237,32 @@
     ],
     "star": [
       "path:28aacd06c27e"
+    ],
+    "star-check": [
+      "path:48022424ae49",
+      "path:44c34e9d8f5c"
+    ],
+    "star-half": [
+      "path:68b334430762"
+    ],
+    "star-minus": [
+      "path:fd2573022afb",
+      "path:20688ca77bdc"
+    ],
+    "star-off": [
+      "path:7b02a27e8d08",
+      "path:005f34e681a3",
+      "path:378c27879c92"
+    ],
+    "star-plus": [
+      "path:1661e694f8be",
+      "path:fd2573022afb",
+      "path:c699c0ba3bb7"
+    ],
+    "star-x": [
+      "path:f16dd1e1571e",
+      "path:04c881633359",
+      "path:1d9d4418d502"
     ],
     "sticky-note": [
       "path:1db87d1bc649",
