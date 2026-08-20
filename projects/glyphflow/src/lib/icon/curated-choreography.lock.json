@@ -941,6 +941,31 @@
       "circle:914a2ca99839",
       "path:896e4786bf77"
     ],
+    "signal": [
+      "path:31530d108664",
+      "path:ae2e61abab28",
+      "path:206df7439b5b",
+      "path:4221970f7a92",
+      "path:e15e9d1eaaa7"
+    ],
+    "signal-high": [
+      "path:31530d108664",
+      "path:ae2e61abab28",
+      "path:206df7439b5b",
+      "path:4221970f7a92"
+    ],
+    "signal-low": [
+      "path:31530d108664",
+      "path:ae2e61abab28"
+    ],
+    "signal-medium": [
+      "path:31530d108664",
+      "path:ae2e61abab28",
+      "path:206df7439b5b"
+    ],
+    "signal-zero": [
+      "path:31530d108664"
+    ],
     "smartphone": [
       "rect:7ce4e1ad28f9",
       "path:d38b9216eb2e"
@@ -995,6 +1020,31 @@
     "tag": [
       "path:453b6d169cfe",
       "circle:0e09129bad7a"
+    ],
+    "tally-1": [
+      "path:1151e39017a8"
+    ],
+    "tally-2": [
+      "path:1151e39017a8",
+      "path:1f2e2d150a79"
+    ],
+    "tally-3": [
+      "path:1151e39017a8",
+      "path:1f2e2d150a79",
+      "path:7574ec79bd45"
+    ],
+    "tally-4": [
+      "path:1151e39017a8",
+      "path:1f2e2d150a79",
+      "path:7574ec79bd45",
+      "path:f2579d8ccc94"
+    ],
+    "tally-5": [
+      "path:1151e39017a8",
+      "path:1f2e2d150a79",
+      "path:7574ec79bd45",
+      "path:f2579d8ccc94",
+      "path:d365b312773b"
     ],
     "trash": [
       "path:fcbffd502b93",
@@ -1090,10 +1140,29 @@
       "path:1cfc05e96f50",
       "circle:f8b18bb1bcbf"
     ],
+    "volume": [
+      "path:bf678970bfa2"
+    ],
+    "volume-1": [
+      "path:bf678970bfa2",
+      "path:3bccea75a640"
+    ],
     "volume-2": [
       "path:bf678970bfa2",
       "path:3bccea75a640",
       "path:d6e3935c6ce6"
+    ],
+    "volume-off": [
+      "path:6d5043adc7aa",
+      "path:82f667a0ca34",
+      "path:378c27879c92",
+      "path:5be33ad9c418",
+      "path:7aa3d3de2571"
+    ],
+    "volume-x": [
+      "path:bf678970bfa2",
+      "line:ef3f10c294c7",
+      "line:3bf49366cb61"
     ],
     "warehouse": [
       "path:c81ca35840df",

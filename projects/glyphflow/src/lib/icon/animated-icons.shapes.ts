@@ -1597,6 +1597,97 @@ export const volume2Shapes: IconShape[] = [
     { tag: 'path', d: 'M19.364 18.364a9 9 0 0 0 0-12.728' },
   ];
 
+export const volumeShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
+    },
+  ];
+
+export const volume1Shapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
+    },
+    { tag: 'path', d: 'M16 9a5 5 0 0 1 0 6' },
+  ];
+
+export const volumeOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M16 9a5 5 0 0 1 .95 2.293' },
+    { tag: 'path', d: 'M19.364 5.636a9 9 0 0 1 1.889 9.96' },
+    { tag: 'path', d: 'm2 2 20 20' },
+    {
+      tag: 'path',
+      d: 'm7 7-.587.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298V11',
+    },
+    { tag: 'path', d: 'M9.828 4.172A.686.686 0 0 1 11 4.657v.686' },
+  ];
+
+export const volumeXShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z',
+    },
+    { tag: 'line', x1: 22, x2: 16, y1: 9, y2: 15 },
+    { tag: 'line', x1: 16, x2: 22, y1: 9, y2: 15 },
+  ];
+
+export const signalShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 20h.01' },
+    { tag: 'path', d: 'M7 20v-4' },
+    { tag: 'path', d: 'M12 20v-8' },
+    { tag: 'path', d: 'M17 20V8' },
+    { tag: 'path', d: 'M22 4v16' },
+  ];
+
+export const signalHighShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 20h.01' },
+    { tag: 'path', d: 'M7 20v-4' },
+    { tag: 'path', d: 'M12 20v-8' },
+    { tag: 'path', d: 'M17 20V8' },
+  ];
+
+export const signalMediumShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 20h.01' },
+    { tag: 'path', d: 'M7 20v-4' },
+    { tag: 'path', d: 'M12 20v-8' },
+  ];
+
+export const signalLowShapes: IconShape[] = [
+    { tag: 'path', d: 'M2 20h.01' },
+    { tag: 'path', d: 'M7 20v-4' },
+  ];
+
+export const signalZeroShapes: IconShape[] = [{ tag: 'path', d: 'M2 20h.01' }];
+
+export const tally1Shapes: IconShape[] = [{ tag: 'path', d: 'M4 4v16' }];
+
+export const tally2Shapes: IconShape[] = [
+    { tag: 'path', d: 'M4 4v16' },
+    { tag: 'path', d: 'M9 4v16' },
+  ];
+
+export const tally3Shapes: IconShape[] = [
+    { tag: 'path', d: 'M4 4v16' },
+    { tag: 'path', d: 'M9 4v16' },
+    { tag: 'path', d: 'M14 4v16' },
+  ];
+
+export const tally4Shapes: IconShape[] = [
+    { tag: 'path', d: 'M4 4v16' },
+    { tag: 'path', d: 'M9 4v16' },
+    { tag: 'path', d: 'M14 4v16' },
+    { tag: 'path', d: 'M19 4v16' },
+  ];
+
+export const tally5Shapes: IconShape[] = [
+    { tag: 'path', d: 'M4 4v16' },
+    { tag: 'path', d: 'M9 4v16' },
+    { tag: 'path', d: 'M14 4v16' },
+    { tag: 'path', d: 'M19 4v16' },
+    { tag: 'path', d: 'M22 6 2 18' },
+  ];
+
 export const SHAPES: Record<string, IconShape[]> = {
   bell: bellShapes,
   'bell-ring': bellRingShapes,
