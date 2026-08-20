@@ -58,6 +58,32 @@
       "path:0f2f2f3e3f2b",
       "path:06f2a9a5891e"
     ],
+    "bookmark": [
+      "path:4995e5a36abd"
+    ],
+    "bookmark-check": [
+      "path:4995e5a36abd",
+      "path:f09077e0d6b9"
+    ],
+    "bookmark-minus": [
+      "path:1966b7e38d09",
+      "path:4995e5a36abd"
+    ],
+    "bookmark-off": [
+      "path:0ed0efe8d5d1",
+      "path:378c27879c92",
+      "path:434057740205"
+    ],
+    "bookmark-plus": [
+      "path:7ffca20334b1",
+      "path:1966b7e38d09",
+      "path:4995e5a36abd"
+    ],
+    "bookmark-x": [
+      "path:97f5daa0eb26",
+      "path:4995e5a36abd",
+      "path:e2f5084122f0"
+    ],
     "braces": [
       "path:ae4b9d22556e",
       "path:720192e9a2fc"
@@ -353,10 +379,53 @@
       "path:293e5d5ae2d7",
       "path:ff0106821348"
     ],
+    "globe-check": [
+      "path:5e87a960b3f4",
+      "path:9d6626ef2777"
+    ],
+    "globe-lock": [
+      "path:1322bb48435e",
+      "path:323a2b759539",
+      "path:56367a74fdb4",
+      "rect:c5a5de398963"
+    ],
+    "globe-off": [
+      "path:cbd82aea6f0c",
+      "path:e9d679389d11",
+      "path:62ee0bd97a46",
+      "path:7b6fd283503d",
+      "path:2d3e1ac6af52",
+      "path:78fdf4f90d46",
+      "path:378c27879c92"
+    ],
+    "globe-x": [
+      "path:3001bc43b3bd",
+      "path:9d6626ef2777",
+      "path:05dd1d50c9ba"
+    ],
     "graduation-cap": [
       "path:184e1accc7b0",
       "path:e598981a540a",
       "path:a96148eaeaf9"
+    ],
+    "grid-2x2": [
+      "path:2d5a671aff35",
+      "path:37a4b83e4a72",
+      "rect:d427f2bc2999"
+    ],
+    "grid-2x2-check": [
+      "path:a34bd2000afd",
+      "path:a3dc324db9d5"
+    ],
+    "grid-2x2-plus": [
+      "path:a34bd2000afd",
+      "path:301825d2885f",
+      "path:f07e5dd66cbf"
+    ],
+    "grid-2x2-x": [
+      "path:a34bd2000afd",
+      "path:f51e81bdfbd1",
+      "path:03551472cf2b"
     ],
     "grip-vertical": [
       "circle:4c61a838a64f",
@@ -1002,6 +1071,38 @@
     "star": [
       "path:28aacd06c27e"
     ],
+    "sticky-note": [
+      "path:1db87d1bc649",
+      "path:aa6c1625c361"
+    ],
+    "sticky-note-check": [
+      "path:71749676c64d",
+      "path:aa6c1625c361",
+      "path:aff674f3cffe"
+    ],
+    "sticky-note-minus": [
+      "path:aa6c1625c361",
+      "path:7c3eef125201",
+      "path:2ea17d7848b4"
+    ],
+    "sticky-note-off": [
+      "path:aa6c1625c361",
+      "path:378c27879c92",
+      "path:c17747961322",
+      "path:03f63e475334"
+    ],
+    "sticky-note-plus": [
+      "path:aa6c1625c361",
+      "path:c699c0ba3bb7",
+      "path:bc1231bfe34a",
+      "path:2ea17d7848b4"
+    ],
+    "sticky-note-x": [
+      "path:aa6c1625c361",
+      "path:f51e81bdfbd1",
+      "path:8904c5a64906",
+      "path:e939bb6e3d5c"
+    ],
     "sun": [
       "circle:9d7fc8897980",
       "path:c769d66c2029",
@@ -1045,6 +1146,40 @@
       "path:7574ec79bd45",
       "path:f2579d8ccc94",
       "path:d365b312773b"
+    ],
+    "ticket": [
+      "path:d7bbe1f24780",
+      "path:3a78a51613a1",
+      "path:14b8a76b5cd9",
+      "path:412dcc6de287"
+    ],
+    "ticket-check": [
+      "path:d7bbe1f24780",
+      "path:a6c388c2ba21"
+    ],
+    "ticket-minus": [
+      "path:d7bbe1f24780",
+      "path:687b29d9e865"
+    ],
+    "ticket-percent": [
+      "path:68eb5d76010e",
+      "path:b10a06368ff2",
+      "path:d9ee5f9557b1",
+      "path:2176c0460811"
+    ],
+    "ticket-plus": [
+      "path:d7bbe1f24780",
+      "path:687b29d9e865",
+      "path:36c463ad8509"
+    ],
+    "ticket-slash": [
+      "path:d7bbe1f24780",
+      "path:b73051969af7"
+    ],
+    "ticket-x": [
+      "path:d7bbe1f24780",
+      "path:b73051969af7",
+      "path:35b602571a01"
     ],
     "trash": [
       "path:fcbffd502b93",

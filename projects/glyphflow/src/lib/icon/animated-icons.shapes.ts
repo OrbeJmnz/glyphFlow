@@ -331,6 +331,219 @@ export const globeShapes: IconShape[] = [
     { tag: 'path', d: 'M2 12h20' },
   ];
 
+export const globeCheckShapes: IconShape[] = [
+    { tag: 'path', d: 'm15 6 2 2 4-4' },
+    { tag: 'path', d: 'M2 12h20A10 10 0 1 1 12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 4-10' },
+  ];
+
+export const globeLockShapes: IconShape[] = [
+    { tag: 'path', d: 'M15.686 15A14.5 14.5 0 0 1 12 22a14.5 14.5 0 0 1 0-20 10 10 0 1 0 9.542 13' },
+    { tag: 'path', d: 'M2 12h8.5' },
+    { tag: 'path', d: 'M20 6V4a2 2 0 1 0-4 0v2' },
+    { tag: 'rect', x: 14, y: 6, width: 8, height: 5, rx: 1 },
+  ];
+
+export const globeOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M10.114 4.462A14.5 14.5 0 0 1 12 2a10 10 0 0 1 9.313 13.643' },
+    { tag: 'path', d: 'M15.557 15.556A14.5 14.5 0 0 1 12 22 10 10 0 0 1 4.929 4.929' },
+    { tag: 'path', d: 'M15.892 10.234A14.5 14.5 0 0 0 12 2a10 10 0 0 0-3.643.687' },
+    { tag: 'path', d: 'M17.656 12H22' },
+    { tag: 'path', d: 'M19.071 19.071A10 10 0 0 1 12 22 14.5 14.5 0 0 1 8.44 8.45' },
+    { tag: 'path', d: 'M2 12h10' },
+    { tag: 'path', d: 'm2 2 20 20' },
+  ];
+
+export const globeXShapes: IconShape[] = [
+    { tag: 'path', d: 'm16 3 5 5' },
+    { tag: 'path', d: 'M2 12h20A10 10 0 1 1 12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 4-10' },
+    { tag: 'path', d: 'm21 3-5 5' },
+  ];
+
+export const bookmarkShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z',
+    },
+  ];
+
+export const bookmarkCheckShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z',
+    },
+    { tag: 'path', d: 'm9 10 2 2 4-4' },
+  ];
+
+export const bookmarkMinusShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 10H9' },
+    {
+      tag: 'path',
+      d: 'M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z',
+    },
+  ];
+
+export const bookmarkOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M19 19v1a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5' },
+    { tag: 'path', d: 'm2 2 20 20' },
+    { tag: 'path', d: 'M8.656 3H17a2 2 0 0 1 2 2v8.344' },
+  ];
+
+export const bookmarkPlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 7v6' },
+    { tag: 'path', d: 'M15 10H9' },
+    {
+      tag: 'path',
+      d: 'M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z',
+    },
+  ];
+
+export const bookmarkXShapes: IconShape[] = [
+    { tag: 'path', d: 'm14.5 7.5-5 5' },
+    {
+      tag: 'path',
+      d: 'M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z',
+    },
+    { tag: 'path', d: 'm9.5 7.5 5 5' },
+  ];
+
+export const stickyNoteShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M21 9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z',
+    },
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+  ];
+
+export const stickyNoteCheckShapes: IconShape[] = [
+    { tag: 'path', d: 'm15 19 2 2 4-4' },
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+    {
+      tag: 'path',
+      d: 'M21 13V9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6.5',
+    },
+  ];
+
+export const stickyNoteMinusShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+    {
+      tag: 'path',
+      d: 'M21 14V9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.35',
+    },
+    { tag: 'path', d: 'M21 18h-6' },
+  ];
+
+export const stickyNoteOffShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+    { tag: 'path', d: 'm2 2 20 20' },
+    { tag: 'path', d: 'M3.586 3.586A2 2 0 0 0 3 5v14a2 2 0 0 0 2 2h14a2 2 0 0 0 1.414-.586' },
+    { tag: 'path', d: 'M8.656 3H15a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 21 9v6.344' },
+  ];
+
+export const stickyNotePlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+    { tag: 'path', d: 'M18 15v6' },
+    {
+      tag: 'path',
+      d: 'M21 12.356V9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7.355',
+    },
+    { tag: 'path', d: 'M21 18h-6' },
+  ];
+
+export const stickyNoteXShapes: IconShape[] = [
+    { tag: 'path', d: 'M15 3v5a1 1 0 0 0 1 1h5' },
+    { tag: 'path', d: 'm16 16 5 5' },
+    {
+      tag: 'path',
+      d: 'M21 12V9a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7',
+    },
+    { tag: 'path', d: 'm21 16-5 5' },
+  ];
+
+export const ticketShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'M13 5v2' },
+    { tag: 'path', d: 'M13 17v2' },
+    { tag: 'path', d: 'M13 11v2' },
+  ];
+
+export const ticketCheckShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'm9 12 2 2 4-4' },
+  ];
+
+export const ticketMinusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'M9 12h6' },
+  ];
+
+export const ticketPercentShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'M9 9h.01' },
+    { tag: 'path', d: 'm15 9-6 6' },
+    { tag: 'path', d: 'M15 15h.01' },
+  ];
+
+export const ticketPlusShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'M9 12h6' },
+    { tag: 'path', d: 'M12 9v6' },
+  ];
+
+export const ticketSlashShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'm9.5 14.5 5-5' },
+  ];
+
+export const ticketXShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z',
+    },
+    { tag: 'path', d: 'm9.5 14.5 5-5' },
+    { tag: 'path', d: 'm9.5 9.5 5 5' },
+  ];
+
+export const grid2x2Shapes: IconShape[] = [
+    { tag: 'path', d: 'M12 3v18' },
+    { tag: 'path', d: 'M3 12h18' },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ];
+
+export const grid2x2CheckShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3' },
+    { tag: 'path', d: 'm16 19 2 2 4-4' },
+  ];
+
+export const grid2x2PlusShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3' },
+    { tag: 'path', d: 'M16 19h6' },
+    { tag: 'path', d: 'M19 22v-6' },
+  ];
+
+export const grid2x2XShapes: IconShape[] = [
+    { tag: 'path', d: 'M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3' },
+    { tag: 'path', d: 'm16 16 5 5' },
+    { tag: 'path', d: 'm16 21 5-5' },
+  ];
+
 export const keyShapes: IconShape[] = [
     { tag: 'path', d: 'm15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4' },
     { tag: 'path', d: 'm21 2-9.6 9.6' },
