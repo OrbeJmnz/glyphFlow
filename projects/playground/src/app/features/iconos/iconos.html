@@ -27,19 +27,37 @@
   </p>
 
   <div class="acciones">
-    <a
-      app-boton
-      variante="primario"
-      class="mono"
-      href="https://www.npmjs.com/package/glyphflow"
-      rel="noopener"
-      >npm i glyphflow</a
-    >
+    <a app-boton variante="primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
+      <span class="mono degradado-comando">npm i glyphflow</span>
+    </a>
     <a app-boton routerLink="/docs">Empezar</a>
   </div>
 
+  <!--
+    La muestra: seis coreografías a tamaño grande antes de que el visitante llegue al catálogo.
+
+    Llevan nombre, aunque cada icono ya tenga su tarjeta abajo. Sin él la fila es decoración —
+    con él es una muestra: se puede ver el movimiento Y saber qué pedirle a la librería, que es la
+    única razón por la que alguien mira un catálogo de iconos.
+  -->
+  <ul class="demo">
+    @for (d of demo; track d.name) {
+      <li>
+        <max-icon [iconDef]="d.def" [size]="48" trigger="group" />
+        <span>{{ d.name }}</span>
+      </li>
+    }
+  </ul>
+
+  <!-- El degradado de la marca entra aquí como acento, no como decoración: marca la frase que
+       resume la tesis del proyecto. -->
+  <p class="nota">
+    <max-icon [iconDef]="destello" [size]="16" trigger="view" />
+    Iconos que se mueven. Sin dependencias.
+  </p>
+
   <dl class="cifras">
-    <div>
+    <div class="destaca">
       <dt>{{ total }}</dt>
       <dd>curados a mano</dd>
     </div>
@@ -47,8 +65,10 @@
       <dt>1 767</dt>
       <dd>en el catálogo</dd>
     </div>
-    <div>
-      <dt>4.09 KB</dt>
+    <!-- El degradado va SOLO en esta. Es la cifra que decide si alguien instala la librería, y en
+         cuanto hay dos números pintados ninguno destaca. -->
+    <div class="destaca">
+      <dt class="degradado-texto">4.09 KB</dt>
       <dd>un icono, gzip</dd>
     </div>
     <div>
@@ -58,30 +78,103 @@
   </dl>
 </section>
 
+<!-- ── Showcase de morph ──────────────────────────────────────────────────────── -->
+
+<!--
+  El morph enseñado con formas, no con iconos de UI: lo que hay que ver aquí es el CONTORNO viajando
+  de una figura a otra. Las cuatro posiciones avanzan a la vez, corridas una de otra, así que la
+  fila se lee como una onda en vez de como cuatro cosas parpadeando por su cuenta.
+-->
+<section class="showcase">
+  <div class="showcase-texto">
+    <h2>Morph entre formas</h2>
+    <p>
+      Transiciones fluidas entre contornos. Los keyframes se calculan una vez y los interpola el
+      navegador — cero loop de animación.
+    </p>
+    <a app-boton routerLink="/editor">Probar en el editor</a>
+  </div>
+
+  <div class="showcase-visual">
+    <div class="secuencia" aria-hidden="true">
+      @for (hueco of [0, 1, 2, 3]; track hueco) {
+        @if (hueco > 0) {
+          <span class="flecha">→</span>
+        }
+        <span class="forma" [attr.data-paso]="hueco">
+          <max-icon-morph [icon]="formaEn(hueco)" [size]="52" spring="snappy" />
+        </span>
+      }
+    </div>
+
+    <!--
+      Botones de verdad y no puntitos decorativos: mueven la secuencia, así que tienen que poder
+      pulsarse con teclado y anunciarse. `aria-pressed` dice cuál está puesto.
+    -->
+    <div class="pasos" role="group" aria-label="Paso de la secuencia">
+      @for (f of formas; track $index) {
+        <button
+          type="button"
+          class="punto"
+          [class.activo]="paso() === $index"
+          [attr.aria-pressed]="paso() === $index"
+          [attr.aria-label]="'Ir al paso ' + ($index + 1)"
+          (click)="irAlPaso($index)"
+        ></button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── Los tres argumentos ────────────────────────────────────────────────────── -->
+
+<ul class="argumentos">
+  @for (a of argumentos; track a.titulo) {
+    <li>
+      <max-icon [iconDef]="a.icono" [size]="22" trigger="view" />
+      <div>
+        <h3>{{ a.titulo }}</h3>
+        <p>{{ a.texto }}</p>
+      </div>
+    </li>
+  }
+</ul>
+
 <div class="barra">
   <button type="button" app-boton compacto (click)="repetirTodo()">Repetir todo</button>
 
-  @if (conteos.length) {
-    <app-grupo etiqueta="Filtrar por insignia">
-      @for (c of conteos; track c.clave) {
-        <button
-          type="button"
-          app-chip
-          [activo]="filtro() === c.clave"
-          [attr.aria-pressed]="filtro() === c.clave"
-          (click)="alternarFiltro(c.clave)"
-        >
-          {{ c.etiqueta }} <em>{{ c.n }}</em>
-        </button>
-      }
-    </app-grupo>
-  }
+  <app-campo-busqueda
+    [(texto)]="busqueda"
+    marcador="Buscar por nombre…"
+    etiqueta="Buscar icono por nombre"
+    class="busqueda"
+  />
 
-  @if (filtro()) {
-    <span class="aviso">
-      {{ entries().length }} de {{ total }}.
-      <button type="button" class="enlace" (click)="filtro.set(null)">quitar filtro</button>
-    </span>
+  <app-grupo etiqueta="Filtrar por insignia">
+    <button
+      type="button"
+      app-chip
+      [activo]="filtro() === null"
+      [attr.aria-pressed]="filtro() === null"
+      (click)="elegirFiltro(null)"
+    >
+      Todos <em>{{ total }}</em>
+    </button>
+    @for (c of conteos; track c.clave) {
+      <button
+        type="button"
+        app-chip
+        [activo]="filtro() === c.clave"
+        [attr.aria-pressed]="filtro() === c.clave"
+        (click)="elegirFiltro(c.clave)"
+      >
+        {{ c.etiqueta }} <em>{{ c.n }}</em>
+      </button>
+    }
+  </app-grupo>
+
+  @if (filtro() || busqueda()) {
+    <span class="aviso">{{ entries().length }} de {{ total }}.</span>
   }
 </div>
 
@@ -89,37 +182,25 @@
   <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="inspeccionado.set(null)" />
 }
 
-<div class="grid">
-  @for (entry of entries(); track entry.name; let i = $index) {
+<div class="grid" [class.con-panel]="inspeccionado()">
+  @for (entry of entries(); track entry.name) {
     <article
       class="card"
       [class.inspeccionado]="inspeccionado()?.name === entry.name"
+      [appNombreTransicion]="'gf-' + entry.name"
       role="button"
       tabindex="0"
       [attr.aria-label]="'Inspeccionar ' + entry.name"
       (click)="inspeccionar(entry)"
       (keydown.enter)="inspeccionar(entry)"
     >
-      @if (entry.insignias.length) {
-        <span class="insignias">
-          @for (ins of entry.insignias; track ins.clave) {
-            <span class="insignia" [attr.data-ins]="ins.clave" [title]="ins.titulo">
-              {{ ins.etiqueta }}
-            </span>
-          }
-        </span>
-      }
-      <max-icon [iconDef]="entry.def" [size]="32" trigger="group" />
-      <span class="name">{{ entry.name }}</span>
-      <button
-        type="button"
-        app-boton
-        compacto
-        (click)="$event.stopPropagation(); repetir(i)"
-        [attr.aria-label]="'Repetir ' + entry.name"
-      >
-        repetir
-      </button>
+      <span class="cuenta" [title]="entry.numAnimaciones + ' animaciones'">{{
+        entry.numAnimaciones
+      }}</span>
+
+      <app-tooltip [texto]="entry.name">
+        <max-icon [iconDef]="entry.def" [size]="36" trigger="group" />
+      </app-tooltip>
     </article>
   }
 </div>

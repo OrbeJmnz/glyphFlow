@@ -26,7 +26,7 @@
         Si el <code>writeText</code> falla (sin permiso, sin foco, sitio en http) el estado no
         cambia: el icono se queda en <code>copy</code> en vez de mentir con una palomita.
       </p>
-      <pre><code>protected readonly copiado = signal(false);
+      <pre><code class="degradado-texto-sutil">protected readonly copiado = signal(false);
 protected readonly icono = computed(() =&gt; (this.copiado() ? checkIcon : copyIcon));
 
 async copiar() &#123;
@@ -70,7 +70,7 @@ async copiar() &#123;
         <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que
         crece desde el propio botón.
       </p>
-      <pre><code>protected readonly claro = signal(false);
+      <pre><code class="degradado-texto-sutil">protected readonly claro = signal(false);
 protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon));
 
 &lt;button [attr.aria-label]="claro() ? 'Tema oscuro' : 'Tema claro'"&gt;
@@ -118,7 +118,7 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
         sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que
         cicle, que es exactamente lo que el motor de coreografía ya hace.
       </p>
-      <pre><code>&#64;if (estado() === 'enviando') &#123;
+      <pre><code class="degradado-texto-sutil">&#64;if (estado() === 'enviando') &#123;
   &lt;max-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
 &#125; &#64;else &#123;
   &lt;max-icon-morph [icon]="estado() === 'enviado' ? circleCheckIcon : sendIcon" /&gt;
@@ -153,7 +153,7 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
         icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación
         de dos figuras idénticas.
       </p>
-      <pre><code>&lt;button [attr.aria-pressed]="meGusta()" (click)="alternar()"&gt;
+      <pre><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="meGusta()" (click)="alternar()"&gt;
   &lt;max-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
   &#123;&#123; votos() &#125;&#125;
 &lt;/button&gt;</code></pre>

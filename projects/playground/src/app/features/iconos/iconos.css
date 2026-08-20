@@ -14,6 +14,18 @@
   text-align: center;
 }
 
+/*
+ * SIN resplandor de marca detrás del logotipo, y no por gusto: se probó y no se puede.
+ *
+ * El GIF se pinta con `mix-blend-mode: lighten` para que su fondo opaco desaparezca contra la
+ * página. Eso significa que gana lo más claro de los dos, así que CUALQUIER cosa detrás del arte
+ * —un resplandor incluido— vence al negro del asset y se dibuja el rectángulo entero del GIF.
+ * Medido: con el resplandor puesto sale una mancha con los bordes rectos de la imagen.
+ *
+ * No es límite del CSS: es que el asset no tiene transparencia. Con un GIF/WebM con alfa se cae
+ * el `mix-blend-mode`, entra el resplandor y de paso se resuelve la tarjeta del tema claro.
+ */
+
 /* El logotipo a 480 de los 780 nativos: deja margen para pantallas densas sin escalar hacia arriba. */
 .marca-hero img {
   display: block;
@@ -78,15 +90,92 @@
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
 }
 
-/* Decorativos: cada `<max-icon>` ya se anuncia `aria-hidden` solo (decorative=true sin label). */
+/*
+ * El comando en degradado con shimmer — mismo mecanismo que la utilidad global
+ * `.degradado-texto`, repetido aquí y no reusado: el botón trae `.ui-boton.es-primario` (fondo
+ * sólido) desde la primitiva compartida, y esa regla EMPATA en especificidad con `.degradado-texto`
+ * (dos clases contra una) — el mismo bug que ya pasó con `.cifras dt`. Un selector propio del
+ * componente, con el sufijo de encapsulación de Angular sumado, gana sin pelear con `:not()` ni
+ * tocar la primitiva global.
+ *
+ * Va en un `<span>` interno y NO en el `<a>` del botón: `background-clip: text` clipa TODO el
+ * fondo del elemento a la forma del texto, y el `<a>` necesita su fondo sólido de píldora intacto
+ * alrededor. Clipando solo el span, el pill se queda opaco y el texto es lo único en degradado.
+ */
+.degradado-comando {
+  color: var(--gf-marca-2);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .degradado-comando {
+    background-image: linear-gradient(
+      100deg,
+      var(--gf-marca-1),
+      var(--gf-marca-2),
+      var(--gf-marca-3),
+      var(--gf-marca-4),
+      var(--gf-marca-3),
+      var(--gf-marca-2),
+      var(--gf-marca-1)
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gf-degradado-corre 7s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .degradado-comando {
+    animation: none;
+  }
+}
+
+/* Lista y no un montón de divs: son seis cosas del mismo tipo, y así se anuncian como «lista de 6». */
 .demo {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
+  gap: 12px 40px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gf-texto);
+}
+
+.demo li {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 22px;
-  margin-top: 40px;
-  color: var(--gf-texto-medio);
+  gap: 10px;
+  min-width: 88px;
+}
+
+.demo span {
+  font-size: 12px;
+  color: var(--gf-texto-tenue);
+}
+
+/*
+ * La nota que cierra el hero. El destello toma el cian de la marca — un solo color y no el degradado
+ * entero, porque el trazo de un icono se pinta con `currentColor` y un degradado ahí necesitaría
+ * meterse dentro del SVG del componente, que es justo lo que el consumidor no debería tener que
+ * hacer para usar la librería.
+ */
+.nota {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 28px 0 0;
+  font-size: 13px;
+  color: var(--gf-texto-tenue);
+}
+
+.nota max-icon {
+  color: var(--gf-marca-1);
 }
 
 .cifras {
@@ -104,10 +193,19 @@
   background: var(--gf-panel);
 }
 
+/*
+ * El `:not()` no es adorno: `.degradado-texto` pinta el número con el degradado clipado al texto, y
+ * para que se vea el `color` tiene que quedar transparente. Esta regla le ganaba —la encapsulación
+ * emulada le suma dos selectores de atributo y la utilidad es una sola clase— así que el degradado
+ * estaba dibujado y el blanco encima. Quitar el `:not` lo vuelve a apagar, sin ningún error.
+ */
+.cifras dt:not(.degradado-texto) {
+  color: var(--gf-texto);
+}
+
 .cifras dt {
   font-size: 20px;
   font-weight: 500;
-  color: var(--gf-texto);
 }
 
 .cifras dd {
@@ -127,6 +225,152 @@
   font-weight: 600;
 }
 
+/* ── Showcase de morph ──────────────────────────────────────────────────────── */
+
+.showcase {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 72px 0 0;
+  padding: 32px 36px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+.showcase-texto {
+  flex: 1 1 260px;
+  max-width: 380px;
+}
+
+.showcase-texto h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+.showcase-texto p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--gf-texto-tenue);
+}
+
+.showcase-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.secuencia {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/*
+ * Cada posición toma un color de la rampa de la marca — el mismo cian→violeta del logotipo y de la
+ * barra de progreso. Va por posición y no por figura a propósito: así el degradado se queda quieto
+ * de izquierda a derecha mientras las formas lo atraviesan.
+ */
+.forma[data-paso='0'] {
+  color: var(--gf-marca-1);
+}
+.forma[data-paso='1'] {
+  color: var(--gf-marca-2);
+}
+.forma[data-paso='2'] {
+  color: var(--gf-marca-3);
+}
+.forma[data-paso='3'] {
+  color: var(--gf-marca-4);
+}
+
+.flecha {
+  font-size: 15px;
+  color: var(--gf-texto-apagado);
+}
+
+.pasos {
+  display: flex;
+  gap: 8px;
+}
+
+/* Barritas y no círculos: leen como progreso, que es lo que son. */
+.punto {
+  width: 26px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--gf-borde-vivo);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    width 0.25s var(--gf-resorte);
+}
+
+.punto:hover {
+  background: var(--gf-texto-apagado);
+}
+
+.punto.activo {
+  width: 34px;
+  background: var(--gf-marca-1);
+}
+
+@media (max-width: 640px) {
+  .showcase {
+    padding: 24px 20px;
+  }
+
+  .secuencia {
+    gap: 8px;
+  }
+}
+
+/* ── Los tres argumentos ────────────────────────────────────────────────────── */
+
+.argumentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px 40px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.argumentos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* El icono no se encoge cuando el texto envuelve a dos renglones. */
+.argumentos max-icon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--gf-marca-2);
+}
+
+.argumentos h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+.argumentos p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--gf-texto-tenue);
+}
+
 /* ── Barra de filtros ───────────────────────────────────────────────────────── */
 
 .barra {
@@ -139,6 +383,12 @@
   padding: 3px;
 }
 
+/* Ancho propio: `.ui-campo` es 100% de SU contenedor, y en una fila flex sin esto el envoltorio
+   se encoge a cero — el input quedaría invisible, no roto pero sin caja. */
+.busqueda {
+  flex: 0 1 200px;
+}
+
 .aviso {
   font-size: 13px;
   color: var(--gf-texto-tenue);
@@ -149,91 +399,174 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 8px;
   margin: 0 auto;
+  transition: padding-right 0.25s ease;
 }
 
+/*
+ * El drawer de detalle es fijo a la derecha, no un modal: el grid le hace espacio en vez de que
+ * lo tape, así la cuadrícula sigue visible mientras el panel está abierto.
+ *
+ * Mismas columnas que en reposo, más chicas — no MENOS columnas. `auto-fill` con panel abierto
+ * recalcularía cuántas columnas de 150px caben en el espacio que queda y mostraría menos, todas
+ * al mismo tamaño de antes; fijar el número (`repeat(N, 1fr)`) hace lo contrario: el conteo no se
+ * mueve y son las columnas las que se achican para compartir el hueco.
+ *
+ * Los cortes (1145/987/829px) no son a ojo: son el ancho de viewport exacto donde `auto-fill` con
+ * `minmax(150px,1fr)` y gap de 8px pasa de 7→6→5→4 columnas en reposo — el mismo número que estas
+ * reglas fijan a mano, para que abrir el panel nunca muestre un conteo distinto al que ya se veía.
+ */
+.grid.con-panel {
+  padding-right: min(480px, 100vw);
+  grid-template-columns: repeat(7, 1fr);
+}
+
+@media (max-width: 1145px) {
+  .grid.con-panel {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 987px) {
+  .grid.con-panel {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 829px) {
+  .grid.con-panel {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* A este ancho el drawer se vuelve pantalla completa (ver icon-detail-panel.css): tapa el grid en
+   vez de compartir la fila con él, así que encogerlo aquí solo restaría espacio sin necesidad. */
+@media (max-width: 640px) {
+  .grid.con-panel {
+    padding-right: 0;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* Cuadrada, no rectangular: sin nombre ni botón debajo, el icono es el único contenido, y
+   `aspect-ratio` la mantiene 1:1 sin importar cuánto mida la columna en cada ancho de pantalla. */
 .card {
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 16px 8px 12px;
-  border: 1px solid transparent;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 16px;
+  border: 1.5px solid transparent;
   border-radius: var(--gf-radio);
   background: var(--gf-panel);
   cursor: pointer;
   transition:
-    border-color 0.15s ease,
-    background 0.15s ease;
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.card:hover {
+/* El tooltip cubre la TARJETA entera, no solo el icono — hover en cualquier punto del cuadrado
+   la dispara, no solo sobre el trazo del SVG. */
+.card app-tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * Hover: UN tono, no el degradado completo — con 180 tarjetas el arcoíris permanente se siente
+ * recargado, y es justo lo que se corrigió acá. Alterna azul/morado por posición en vez de sorteo
+ * real: en un `:hover` que se dispara una y otra vez, un color de verdad aleatorio se leería como
+ * parpadeo, no como variedad. `:not(.inspeccionado)` para que la seleccionada no se degrade a un
+ * solo tono al pasarle el mouse por encima — esa conserva su arcoíris completo.
+ */
+.grid .card:nth-child(odd):hover:not(.inspeccionado) {
+  border-color: var(--gf-marca-2);
   background: var(--gf-panel-alto);
 }
 
-.card.inspeccionado {
-  border-color: var(--gf-borde-vivo);
+.grid .card:nth-child(even):hover:not(.inspeccionado) {
+  border-color: var(--gf-marca-4);
   background: var(--gf-panel-alto);
 }
 
 /*
- * El «repetir» de cada tarjeta se atenúa en reposo y se enciende al pasar por la tarjeta: con 180
- * tarjetas, 180 botones a contraste pleno compiten con los iconos, que son lo que se viene a ver.
- * La regla vive aquí y no en la primitiva porque la relación es de la TARJETA — el botón no sabe
- * que está dentro de una.
+ * Seleccionada: el arcoíris completo, reservado para el estado ACTIVO — abrió el drawer, con su
+ * slider de contenido — no para cualquier paso del mouse. Es el truco de doble fondo: `padding-box`
+ * pinta el relleno sólido por dentro, `border-box` pinta el degradado en el grosor del `border` —
+ * lo único que permite un borde en degradado CON `border-radius` (un `border-image` no redondea
+ * esquinas).
  */
-.card .ui-boton {
-  color: var(--gf-texto-apagado);
-  border-color: var(--gf-borde-suave);
+.card.inspeccionado {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--gf-panel-alto), var(--gf-panel-alto)) padding-box,
+    var(--gf-degradado) border-box;
+  box-shadow: 0 0 24px -6px var(--gf-marca-3);
 }
 
-.card:hover .ui-boton {
-  color: var(--gf-texto-medio);
-  border-color: var(--gf-borde-vivo);
-}
-
-.name {
-  font-size: 0.75rem;
-  color: var(--gf-texto-tenue);
-  text-align: center;
-  overflow-wrap: anywhere;
-  line-height: 1.3;
-}
-
-/* ── Insignias ──────────────────────────────────────────────────────────────── */
-
-.insignias {
+/*
+ * El indicador reemplaza a las insignias de texto: un número (`draw` + `default` + extras) en vez
+ * de tres categorías en prosa. El nombre se fue a un tooltip — `.insignia`/`.insignias` ya no
+ * pintan nada, por eso salieron de aquí.
+ */
+.cuenta {
   position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.25rem;
-  max-width: calc(100% - 0.8rem);
-}
-
-.insignia {
-  padding: 0.1rem 0.4rem;
-  border: 1px solid var(--gf-borde);
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 999px;
-  background: var(--gf-panel-alto);
-  font-size: 0.6875rem;
-  line-height: 1.5;
+  background: var(--gf-velo-fuerte);
   color: var(--gf-texto-tenue);
+  font-size: 0.625rem;
+  font-variant-numeric: tabular-nums;
   cursor: help;
 }
 
-/* La única que celebra algo: hay más animación de la que se ve en la tarjeta. */
-.insignia[data-ins='extras'] {
-  border-color: var(--gf-acento-borde);
-  background: var(--gf-acento-fondo);
-  color: var(--gf-acento-claro);
+/* ── Revelado al entrar en pantalla ─────────────────────────────────────────── */
+
+/*
+ * Cada tarjeta se revela cuando entra al viewport, y lo mueve el propio scroll: `animation-timeline:
+ * view()` — hermano del `scroll()` que usa la barra de progreso del header. Cero JavaScript, cero
+ * observadores, cero estado.
+ *
+ * `animation-range: entry` es lo que hace que las tarjetas YA visibles al cargar salgan enteras en
+ * vez de empezar transparentes: su rango ya está consumido, así que arrancan en el fotograma final.
+ * Con un `@keyframes` normal habría un parpadeo de 180 tarjetas al abrir la página.
+ *
+ * Se anima `opacity` y `translate`, que son las dos que el compositor puede mover sin recalcular
+ * layout — con 180 elementos esa diferencia es la que decide si el scroll va fluido o a tirones.
+ */
+@supports (animation-timeline: view()) {
+  .card {
+    animation-name: gf-tarjeta-entra;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
 }
 
-/* Advertencia suave, no error: el icono funciona, solo que nadie le puso coreografía propia. */
-.insignia[data-ins='solo-draw'] {
-  border-color: var(--gf-ambar-borde);
-  background: var(--gf-ambar-fondo);
-  color: var(--gf-ambar-apagado);
+@keyframes gf-tarjeta-entra {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Aquí no hay medias tintas: el revelado es puro adorno y su ausencia no esconde nada. */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
 }

@@ -1,17 +1,34 @@
-import { Component, ViewChildren, QueryList, signal, computed } from '@angular/core';
-import { MaxIconComponent, CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
+import { Component, ViewChildren, QueryList, signal, computed, OnDestroy } from '@angular/core';
+import {
+  MaxIconComponent,
+  CURATED_ICONS,
+  AnimatedIconDef,
+  circleIcon,
+  squareIcon,
+  diamondIcon,
+  triangleIcon,
+  leafIcon,
+  codeIcon,
+} from 'glyphflow';
+import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
 import { Boton } from '../../shared/ui/boton';
+import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Grupo } from '../../shared/ui/grupo';
+import { NombreTransicion } from '../../shared/ui/nombre-transicion';
+import { Tooltip } from '../../shared/ui/tooltip';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
+import { conTransicion } from '../../core/transicion';
 
 interface CuratedEntry {
   name: string;
   def: AnimatedIconDef;
   /** Lo que distingue a ESTA tarjeta de las otras 179. Vacío en la mayoría, y está bien. */
   insignias: Insignia[];
+  /** `draw` + `default` + extras — el indicador numérico de la tarjeta, no el detalle de cuáles. */
+  numAnimaciones: number;
 }
 
 /**
@@ -26,21 +43,103 @@ interface CuratedEntry {
  */
 @Component({
   selector: 'app-iconos',
-  imports: [MaxIconComponent, IconDetailPanel, RouterLink, Boton, Chip, Grupo],
+  imports: [
+    MaxIconComponent,
+    MaxIconMorphComponent,
+    IconDetailPanel,
+    RouterLink,
+    Boton,
+    CampoBusqueda,
+    Chip,
+    Grupo,
+    NombreTransicion,
+    Tooltip,
+  ],
   templateUrl: './iconos.html',
   styleUrl: './iconos.css',
 })
-export class Iconos {
+export class Iconos implements OnDestroy {
   @ViewChildren(MaxIconComponent) private icons!: QueryList<MaxIconComponent>;
 
   private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)
-    .map(([name, def]) => ({ name, def, insignias: insigniasDe(name, def) }))
+    .map(([name, def]) => ({
+      name,
+      def,
+      insignias: insigniasDe(name, def),
+      numAnimaciones: Object.keys(def.animations).length,
+    }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   protected readonly total = this.todos.length;
 
-  /** Filtro por insignia. `null` = sin filtrar, que es el estado normal. */
+  /**
+   * Media docena para la fila animada del hero — la primera prueba de "esto se mueve" antes de
+   * llegar al catálogo completo. Nombres fijos y no un `slice` al azar: se eligieron por variedad de
+   * coreografía (giro, resorte, trazo, rebote), no porque quedaran primero alfabéticamente.
+   */
+  protected readonly demo: CuratedEntry[] = ['sparkles', 'bell', 'settings', 'star', 'zap', 'send']
+    .map((name) => this.todos.find((e) => e.name === name))
+    .filter((e): e is CuratedEntry => !!e);
+
+  /** El destello de la nota. Sale del propio catálogo: el sitio no dibuja iconos que no vende. */
+  protected readonly destello: AnimatedIconDef = CURATED_ICONS['sparkles'];
+
+  /**
+   * La secuencia del showcase de morph: cuatro FORMAS, no cuatro iconos de UI.
+   *
+   * Es deliberado. Lo que el morph hace es interpolar contornos, y con formas geométricas se ve el
+   * contorno viajar; con un `copy → check` se ve un cambio de símbolo y el mecanismo queda tapado
+   * por el significado. Para el «para qué sirve» ya está la página de Patrones.
+   */
+  protected readonly formas: MorphIcon[] = [circleIcon, squareIcon, diamondIcon, triangleIcon];
+
+  /** Qué paso muestra cada hueco. Las cuatro posiciones avanzan a la vez, corridas una de otra. */
+  protected readonly paso = signal(0);
+
+  private readonly reloj = setInterval(
+    () => this.paso.update((p) => (p + 1) % this.formas.length),
+    1900,
+  );
+
+  protected formaEn(hueco: number): MorphIcon {
+    return this.formas[(this.paso() + hueco) % this.formas.length];
+  }
+
+  protected irAlPaso(n: number): void {
+    this.paso.set(n);
+  }
+
+  /**
+   * Los tres argumentos del pie. Viven en el componente y no en la plantilla porque así el bloque
+   * de traducción de mañana es un arreglo y no tres trozos de markup repetidos.
+   */
+  protected readonly argumentos = [
+    {
+      icono: leafIcon,
+      titulo: 'Ligero por diseño',
+      texto: 'Tree-shaking real. Solo pesa lo que de verdad usas.',
+    },
+    {
+      icono: codeIcon,
+      titulo: 'API moderna',
+      texto: 'Standalone, señales y tipado estricto. Sin NgModules.',
+    },
+    {
+      icono: CURATED_ICONS['sparkles'],
+      titulo: 'Hecho para moverse',
+      texto: 'Animaciones declarativas sobre WAAPI, sin dependencias pesadas.',
+    },
+  ];
+
+  ngOnDestroy(): void {
+    clearInterval(this.reloj);
+  }
+
+  /** Filtro por insignia. `null` = "Todos", que es el estado normal. */
   protected readonly filtro = signal<ClaveInsignia | null>(null);
+
+  /** Filtro por nombre. Substring, sin distinguir mayúsculas. */
+  protected readonly busqueda = signal('');
 
   /**
    * Cuántos iconos trae cada insignia — el número va en el propio botón del filtro.
@@ -61,22 +160,24 @@ export class Iconos {
 
   protected readonly entries = computed<CuratedEntry[]>(() => {
     const f = this.filtro();
-    return f ? this.todos.filter((e) => tiene(e, f)) : this.todos;
+    const q = this.busqueda().trim().toLowerCase();
+    const base = f ? this.todos.filter((e) => tiene(e, f)) : this.todos;
+    return q ? base.filter((e) => e.name.toLowerCase().includes(q)) : base;
   });
 
   /** Icono bajo inspección en el Motion Inspector. `null` = panel cerrado. */
   protected readonly inspeccionado = signal<CuratedEntry | null>(null);
 
-  protected alternarFiltro(clave: ClaveInsignia): void {
-    this.filtro.update((actual) => (actual === clave ? null : clave));
-  }
-
   /**
-   * Repite la coreografía de UNA tarjeta. El índice del `@for` casa con el orden del QueryList
-   * porque ambos recorren `entries()` — por eso el filtro reordena las dos cosas a la vez.
+   * Selección directa, no toggle: con la cápsula "Todos" ya hay una forma explícita de volver a
+   * `null`, así que cada botón de insignia siempre ACTIVA la suya — sin el "click de nuevo para
+   * quitar" que antes era la única salida y no se anunciaba en ningún lado.
    */
-  protected repetir(index: number): void {
-    this.icons.get(index)?.play();
+  protected elegirFiltro(clave: ClaveInsignia | null): void {
+    // Dentro de una transición de vista: las tarjetas que sobreviven al filtro VIAJAN a su sitio
+    // nuevo en vez de que la cuadrícula se re-arme de golpe. Es el propio sitio demostrando lo que
+    // vende — y no cuesta una librería, porque el navegador ya trae el motor.
+    conTransicion(() => this.filtro.set(clave));
   }
 
   protected repetirTodo(): void {

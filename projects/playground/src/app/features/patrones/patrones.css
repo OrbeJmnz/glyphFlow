@@ -179,3 +179,24 @@ pre code {
   font-size: 0.8125rem;
   line-height: 1.6;
 }
+
+/*
+ * `.degradado-texto-sutil` (global) empataría en especificidad con `pre code` de aquí arriba —
+ * mismo problema que ya pasó con `.cifras dt` y `.es-primario` en otros archivos. Un selector
+ * propio del componente, más específico, gana sin tocar la utilidad global.
+ */
+pre code.degradado-texto-sutil {
+  color: var(--gf-marca-2);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  pre code.degradado-texto-sutil {
+    background-image: var(--gf-degradado);
+    /* `local`: este `pre` tiene `overflow-x: auto` — sin esto, una línea larga se desliza por
+       debajo de un degradado pintado fijo a la caja y se ve "congelada" al hacer scroll. */
+    background-attachment: local;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
