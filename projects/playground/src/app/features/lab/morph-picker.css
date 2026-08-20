@@ -68,19 +68,33 @@
   padding-right: 0.25rem;
 }
 
+/* Icono en vez de nombre: el propio glifo es más rápido de reconocer que 180 etiquetas de texto
+   del mismo tamaño — el nombre sigue disponible, en el tooltip que lo envuelve. */
 .opcion {
-  padding: 0.2rem 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
   border: 1px solid var(--gf-borde);
-  border-radius: 0.35rem;
+  border-radius: 0.5rem;
   background: var(--gf-panel);
   color: var(--gf-texto-tenue);
-  font-size: 0.6875rem;
   cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
 }
 
 .opcion:hover {
   border-color: var(--gf-borde-vivo);
   color: var(--gf-texto);
+}
+
+.opcion:active {
+  transform: scale(0.92);
 }
 
 .vacio,
@@ -115,13 +129,12 @@
 .cadena li {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.3rem 0.2rem 0.55rem;
+  gap: 0.3rem;
+  padding: 0.3rem 0.3rem 0.3rem 0.45rem;
   border: 1px solid var(--gf-borde);
-  border-radius: 0.35rem;
+  border-radius: 0.4rem;
   background: var(--gf-panel);
   color: var(--gf-texto-medio);
-  font-size: 0.6875rem;
 }
 
 .cadena li.activo {

@@ -145,9 +145,17 @@
 
     <div class="lista">
       @for (c of candidatos(); track c.nombre) {
-        <button type="button" app-chip [activo]="c.nombre === elegido().nombre" (click)="elegir(c)">
-          {{ c.nombre }}
-        </button>
+        <app-tooltip [texto]="c.nombre" [abajo]="true">
+          <button
+            type="button"
+            app-chip
+            [activo]="c.nombre === elegido().nombre"
+            (click)="elegir(c)"
+            [attr.aria-label]="'Editar ' + c.nombre"
+          >
+            <max-icon [iconDef]="c.def" [size]="18" trigger="manual" />
+          </button>
+        </app-tooltip>
       }
     </div>
 

@@ -13,6 +13,7 @@ import {
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { Boton } from '../../shared/ui/boton';
+import { iconoPlano } from '../../core/morph-icon-plano';
 
 /**
  * Patrones reales, no una vitrina de iconos sueltos.
@@ -35,8 +36,14 @@ export class Patrones implements OnDestroy {
 
   // ── Copiar al portapapeles ──────────────────────────────────────────────────
   protected readonly copiado = signal(false);
+  /**
+   * `copyIcon` aplanado a un solo path: son 2 figuras (rect + trazo) contra la 1 de `checkIcon`,
+   * y el plan de morph resuelve p≠q con asignación surjectiva — las dos convergen al MISMO
+   * destino, así que a media transición se ven cruzándose. Aplanado, es 1↔1 real.
+   */
+  private readonly copyIconPlano = iconoPlano(copyIcon);
   protected readonly iconoCopiar = computed<MorphIcon>(() =>
-    this.copiado() ? checkIcon : copyIcon,
+    this.copiado() ? checkIcon : this.copyIconPlano,
   );
   protected readonly TEXTO_A_COPIAR = 'npm i glyphflow';
 

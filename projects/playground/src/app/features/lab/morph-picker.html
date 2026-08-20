@@ -18,9 +18,16 @@
       />
       <div class="resultados">
         @for (item of resultados(); track item.nombre) {
-          <button type="button" class="opcion" (click)="agregar(item)" [attr.title]="item.nombre">
-            {{ item.nombre }}
-          </button>
+          <app-tooltip [texto]="item.nombre" [abajo]="true">
+            <button
+              type="button"
+              class="opcion"
+              (click)="agregar(item)"
+              [attr.aria-label]="'Agregar ' + item.nombre"
+            >
+              <max-icon [iconDef]="item.def" [size]="18" trigger="manual" />
+            </button>
+          </app-tooltip>
         } @empty {
           <p class="vacio">Sin resultados para «{{ filtro() }}».</p>
         }
@@ -30,7 +37,12 @@
     <div class="col-secuencia">
       <div class="lienzo">
         @if (iconoActual(); as icono) {
-          <max-icon-morph [icon]="icono" [size]="96" label="Previsualización del morph" />
+          <max-icon-morph
+            [icon]="icono"
+            [size]="96"
+            [spring]="resorteLento"
+            label="Previsualización del morph"
+          />
         } @else {
           <p class="vacio-lienzo">Elige al menos 2 iconos para armar una secuencia.</p>
         }
@@ -40,7 +52,9 @@
         <ol class="cadena">
           @for (item of secuencia(); track $index) {
             <li [class.activo]="$index === indiceActual()">
-              <span>{{ item.nombre }}</span>
+              <app-tooltip [texto]="item.nombre">
+                <max-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+              </app-tooltip>
               <button
                 type="button"
                 (click)="quitar($index)"

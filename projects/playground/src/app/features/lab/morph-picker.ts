@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
-import { AnimatedIconDef, CURATED_ICONS } from 'glyphflow';
-import { MaxIconMorphComponent, morphKeyframes } from 'glyphflow/morph';
+import { AnimatedIconDef, CURATED_ICONS, MaxIconComponent } from 'glyphflow';
+import { MaxIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Boton } from '../../shared/ui/boton';
+import { Tooltip } from '../../shared/ui/tooltip';
 
 interface Elegido {
   nombre: string;
@@ -22,12 +23,20 @@ interface Elegido {
  */
 @Component({
   selector: 'app-morph-picker',
-  imports: [MaxIconMorphComponent, CampoBusqueda, Boton],
+  imports: [MaxIconComponent, MaxIconMorphComponent, CampoBusqueda, Boton, Tooltip],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './morph-picker.html',
   styleUrl: './morph-picker.css',
 })
 export class MorphPicker implements OnDestroy {
+  /**
+   * Mismo amortiguamiento crítico que `smooth` (ζ = c/(2√k) ≈ 1, sin rebote) pero con la rigidez a
+   * un cuarto: el tiempo de asentamiento de un resorte crítico escala con 1/√k, así que k/4 ≈ el
+   * doble de lento, MISMO carácter. Se pide "más lenta", no "más rebote" — `bouncy`/`snappy` habrían
+   * cambiado la forma de la curva, no solo su duración.
+   */
+  protected readonly resorteLento: SpringConfig = { k: 42, c: 13 };
+
   private readonly todos: Elegido[] = Object.entries(CURATED_ICONS)
     .map(([nombre, def]) => ({ nombre, def }))
     .sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -77,7 +86,9 @@ export class MorphPicker implements OnDestroy {
   /**
    * Encadena los pares consecutivos en SERIE — mismo patrón de orquestación que "Repetir todo"
    * del grid, solo que en serie en vez de en paralelo. El tiempo de cada salto sale de
-   * `morphKeyframes().duracion` (el resorte manda), no de un número inventado.
+   * `morphKeyframes().duracion` (el resorte manda, aquí `resorteLento`), no de un número inventado.
+   * Mismo resorte que el `<max-icon-morph>` del lienzo — si no calzaran, el temporizador dispararía
+   * el siguiente paso antes o después de que la animación real termine.
    */
   protected reproducir(): void {
     const s = this.secuencia();
@@ -88,7 +99,9 @@ export class MorphPicker implements OnDestroy {
 
     let acumulado = 0;
     for (let i = 1; i < s.length; i++) {
-      const { duracion } = morphKeyframes(aIconNode(s[i - 1].def), aIconNode(s[i].def), {});
+      const { duracion } = morphKeyframes(aIconNode(s[i - 1].def), aIconNode(s[i].def), {
+        spring: this.resorteLento,
+      });
       acumulado += duracion;
       const paso = i;
       this.temporizadores.push(

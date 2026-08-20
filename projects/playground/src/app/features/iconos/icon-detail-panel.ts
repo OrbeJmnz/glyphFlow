@@ -10,40 +10,67 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { AnimatedIconDef, MaxIconComponent } from 'glyphflow';
+import { RouterLink } from '@angular/router';
+import { AnimatedIconDef, MaxIconComponent, checkIcon, copyIcon } from 'glyphflow';
+import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { analizarIcono, VariantReport } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
 import { IconScrubber } from './icon-scrubber';
 import { Boton } from '../../shared/ui/boton';
+import { Tooltip } from '../../shared/ui/tooltip';
+import { URL_REPO } from '../../core/github';
+import { iconoPlano } from '../../core/morph-icon-plano';
+
+/** Las tres pestañas del drawer — una sola cosa visible a la vez, el resto es scroll perdido. */
+type TabDetalle = 'preview' | 'codigo' | 'inspector';
 
 /**
  * Panel de detalle por icono: nombre, selector de variante (mapea a `animation=`), preview en
  * vivo, snippet de Angular único, export/import JSON de la coreografía, y el Motion Inspector
  * (solo lectura) sobre CADA variante — no solo la que está en preview.
  *
+ * Drawer fijo a la derecha, NO modal: la cuadrícula sigue visible y navegable detrás. Por eso no
+ * hay backdrop ni bloqueo de scroll — cerrar es opcional, no obligatorio.
+ *
  * Se abre con click en una tarjeta del grid. `[iconDef]`, nunca `name=`: es la misma ruta
  * tree-shakeable que ya usa el resto del playground.
  */
 @Component({
   selector: 'app-icon-detail-panel',
-  imports: [MaxIconComponent, IconScrubber, Boton],
+  imports: [MaxIconComponent, MaxIconMorphComponent, IconScrubber, Boton, Tooltip, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-detail-panel.html',
   styleUrl: './icon-detail-panel.css',
 })
 export class IconDetailPanel {
-  @ViewChild('preview') private preview?: MaxIconComponent;
+  @ViewChild('previewGrande') private previewGrande?: MaxIconComponent;
   @ViewChild('cajaJson') private cajaJson?: ElementRef<HTMLTextAreaElement>;
 
   readonly nombre = input.required<string>();
   readonly def = input.required<AnimatedIconDef>();
   readonly cerrar = output<void>();
 
+  protected readonly tabActiva = signal<TabDetalle>('preview');
+
   protected readonly variantes: Signal<string[]> = computed(() =>
     Object.keys(this.def().animations),
   );
   protected readonly varianteActiva = signal('default');
   protected readonly copiado = signal<'snippet' | 'json' | null>(null);
+
+  /**
+   * Mismo patrón que "Copiar al portapapeles" en /patrones: copy → check vía morph real.
+   * `copyIcon` aplanado (ver `iconoPlano`): son 2 figuras contra la 1 de `checkIcon`, y sin
+   * aplanar el plan las reparte con asignación surjectiva — ambas convergen al MISMO destino y
+   * a media transición se cruzan antes de fundirse recién en t=1.
+   */
+  private readonly copyIconPlano = iconoPlano(copyIcon);
+  protected readonly iconoCopiarSnippet = computed<MorphIcon>(() =>
+    this.copiado() === 'snippet' ? checkIcon : this.copyIconPlano,
+  );
+  protected readonly iconoCopiarJson = computed<MorphIcon>(() =>
+    this.copiado() === 'json' ? checkIcon : this.copyIconPlano,
+  );
 
   constructor() {
     // Si cambia el icono seleccionado, la variante activa vuelve a `default` (o a la primera que
@@ -67,6 +94,15 @@ export class IconDetailPanel {
     );
   });
 
+  /** Prellenado del issue: quién lo abre no debería escribir de cero qué icono es. */
+  protected readonly urlReportar = computed(() => {
+    const params = new URLSearchParams({
+      title: `Icono: ${this.nombre()}`,
+      body: `Coreografía de \`${this.constName()}\` (variante \`${this.varianteActiva()}\`).\n\n<!-- Qué esperabas ver vs. qué pasó -->\n`,
+    });
+    return `${URL_REPO}/issues/new?${params.toString()}`;
+  });
+
   protected readonly exportJson = computed(() =>
     JSON.stringify(
       {
@@ -88,8 +124,13 @@ export class IconDetailPanel {
     this.varianteActiva.set(v);
   }
 
+  protected elegirTab(t: TabDetalle): void {
+    this.tabActiva.set(t);
+  }
+
+  /** No-op si la tab "Vista previa" no está montada — el ícono grande solo vive ahí. */
   protected reproducir(): void {
-    this.preview?.play();
+    this.previewGrande?.play();
   }
 
   protected async copiarSnippet(): Promise<void> {

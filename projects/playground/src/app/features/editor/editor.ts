@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { CURATED_ICONS, type AnimatedIconDef, type IconShape } from 'glyphflow';
+import { CURATED_ICONS, MaxIconComponent, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
   dDeSubpath,
@@ -19,6 +19,7 @@ import { Taller } from '../../core/taller';
 import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
+import { Tooltip } from '../../shared/ui/tooltip';
 
 const LADO = 24;
 
@@ -36,7 +37,7 @@ interface Curado {
  */
 @Component({
   selector: 'app-editor',
-  imports: [Boton, CampoBusqueda, Chip],
+  imports: [Boton, CampoBusqueda, Chip, MaxIconComponent, Tooltip],
   templateUrl: './editor.html',
   styleUrl: './editor.css',
   // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de

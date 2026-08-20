@@ -1,115 +1,183 @@
 <section class="detalle" aria-label="Detalle del icono">
   <header class="detalle-head">
-    <max-icon
-      #preview
-      [iconDef]="def()"
-      [animation]="varianteActiva()"
-      [size]="32"
-      trigger="manual"
-    />
     <div class="titulo">
       <h2>{{ nombre() }}</h2>
       <span class="const"
         ><code>{{ constName() }}</code> · {{ varianteActiva() }}</span
       >
     </div>
-    <button type="button" class="reproducir" (click)="reproducir()">▶ reproducir</button>
     <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">
       ✕
     </button>
   </header>
 
-  <app-icon-scrubber [def]="def()" [variante]="varianteActiva()" class="scrubber-bloque" />
-
-  <nav class="variantes-nav" aria-label="Variantes de la coreografía">
-    @for (v of variantes(); track v) {
-      <button
-        type="button"
-        class="pill"
-        [class.activa]="v === varianteActiva()"
-        (click)="elegirVariante(v)"
-      >
-        {{ v }}
-      </button>
-    }
+  <!--
+    Tabs y no columnas: a 480px de ancho dos columnas lado a lado no respiran, y antes obligaban a
+    ver snippet + JSON + inspector de TODAS las variantes de un jalón. Cada quien entra a lo que
+    necesita — el propio Motion Inspector deja de sentirse un debugger encima de la vista previa.
+  -->
+  <nav class="tabs-nav" aria-label="Secciones del detalle">
+    <button type="button" [class.activa]="tabActiva() === 'preview'" (click)="elegirTab('preview')">
+      Vista previa
+    </button>
+    <button type="button" [class.activa]="tabActiva() === 'codigo'" (click)="elegirTab('codigo')">
+      Código
+    </button>
+    <button
+      type="button"
+      [class.activa]="tabActiva() === 'inspector'"
+      (click)="elegirTab('inspector')"
+    >
+      Motion Inspector
+    </button>
   </nav>
 
-  <div class="columnas">
-    <div class="col-snippet">
-      <div class="bloque-titulo">
-        <h3>Snippet</h3>
-        <button type="button" app-boton compacto (click)="copiarSnippet()">
-          {{ copiado() === 'snippet' ? '✓ copiado' : 'copiar' }}
-        </button>
-      </div>
-      <pre class="codigo">{{ snippet() }}</pre>
+  <div class="tab-cuerpo">
+    @switch (tabActiva()) {
+      @case ('preview') {
+        <div class="panel-preview">
+          <!-- Sin botón propio: el reproductor ES el icono — hover en desktop, click en cualquier
+               dispositivo. -->
+          <div class="escenario">
+            <max-icon
+              #previewGrande
+              [iconDef]="def()"
+              [animation]="varianteActiva()"
+              [size]="96"
+              trigger="manual"
+              (mouseenter)="reproducir()"
+              (click)="reproducir()"
+            />
+          </div>
 
-      <div class="bloque-titulo">
-        <h3>Exportar JSON</h3>
-        <button type="button" app-boton compacto (click)="copiarJson()">
-          {{ copiado() === 'json' ? '✓ copiado' : 'copiar' }}
-        </button>
-      </div>
-      <textarea
-        #cajaJson
-        class="codigo json"
-        readonly
-        rows="6"
-        (click)="seleccionarJson()"
-        [value]="exportJson()"
-      ></textarea>
-    </div>
+          <nav class="variantes-nav" aria-label="Variantes de la coreografía">
+            @for (v of variantes(); track v) {
+              <button
+                type="button"
+                class="pill"
+                [class.activa]="v === varianteActiva()"
+                (click)="elegirVariante(v)"
+              >
+                {{ v }}
+              </button>
+            }
+          </nav>
+        </div>
+      }
+      @case ('codigo') {
+        <div class="col-snippet">
+          <div class="bloque-titulo">
+            <h3>Snippet</h3>
+            <app-tooltip
+              [texto]="copiado() === 'snippet' ? 'Copiado' : 'Copiar'"
+              [abajo]="true"
+              [derecha]="true"
+            >
+              <button
+                type="button"
+                class="copiar"
+                [class.exito]="copiado() === 'snippet'"
+                (click)="copiarSnippet()"
+                [attr.aria-label]="copiado() === 'snippet' ? 'Copiado' : 'Copiar snippet'"
+              >
+                <max-icon-morph [icon]="iconoCopiarSnippet()" [size]="14" spring="bouncy" />
+              </button>
+            </app-tooltip>
+          </div>
+          <pre class="codigo degradado-texto-sutil">{{ snippet() }}</pre>
 
-    <div class="col-inspector">
-      <h3>Motion Inspector — todas las variantes</h3>
-      <div class="variantes-inspector">
-        @for (v of reporte().variantes; track v.variante) {
-          <article class="variante" [class.activa]="v.variante === varianteActiva()">
-            <h4>{{ v.variante }}</h4>
-            <dl>
-              <div>
-                <dt>duración</dt>
-                <dd>{{ duracion(v) }}</dd>
-              </div>
-              <div>
-                <dt>rotación máx.</dt>
-                <dd>{{ v.rotacionMaximaDeg }}°</dd>
-              </div>
-              <div>
-                <dt>tracks solapados</dt>
-                <dd>
-                  @if (v.tracksSolapados.length) {
-                    @for (o of v.tracksSolapados; track o.a + o.b) {
-                      <span class="par">{{ o.a }} ↔ {{ o.b }}</span>
-                    }
-                  } @else {
-                    ninguno
+          <div class="bloque-titulo">
+            <h3>Exportar JSON</h3>
+            <app-tooltip
+              [texto]="copiado() === 'json' ? 'Copiado' : 'Copiar'"
+              [abajo]="true"
+              [derecha]="true"
+            >
+              <button
+                type="button"
+                class="copiar"
+                [class.exito]="copiado() === 'json'"
+                (click)="copiarJson()"
+                [attr.aria-label]="copiado() === 'json' ? 'Copiado' : 'Copiar JSON'"
+              >
+                <max-icon-morph [icon]="iconoCopiarJson()" [size]="14" spring="bouncy" />
+              </button>
+            </app-tooltip>
+          </div>
+          <textarea
+            #cajaJson
+            class="codigo json degradado-texto-sutil"
+            readonly
+            rows="10"
+            (click)="seleccionarJson()"
+            [value]="exportJson()"
+          ></textarea>
+        </div>
+      }
+      @case ('inspector') {
+        <div class="col-inspector">
+          <div class="variantes-inspector">
+            @for (v of reporte().variantes; track v.variante) {
+              <article class="variante" [class.activa]="v.variante === varianteActiva()">
+                <h4>{{ v.variante }}</h4>
+                <dl>
+                  <div>
+                    <dt>duración</dt>
+                    <dd>{{ duracion(v) }}</dd>
+                  </div>
+                  <div>
+                    <dt>rotación máx.</dt>
+                    <dd>{{ v.rotacionMaximaDeg }}°</dd>
+                  </div>
+                  <div>
+                    <dt>tracks solapados</dt>
+                    <dd>
+                      @if (v.tracksSolapados.length) {
+                        @for (o of v.tracksSolapados; track o.a + o.b) {
+                          <span class="par">{{ o.a }} ↔ {{ o.b }}</span>
+                        }
+                      } @else {
+                        ninguno
+                      }
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>reverseOnLeave</dt>
+                    <dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd>
+                  </div>
+                </dl>
+                <div class="costo">
+                  @for (p of v.propiedadesAnimadas; track p) {
+                    <span class="prop" [class.caro]="p === 'd'">{{ p }}</span>
                   }
-                </dd>
-              </div>
-              <div>
-                <dt>reverseOnLeave</dt>
-                <dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd>
-              </div>
-            </dl>
-            <div class="costo">
-              @for (p of v.propiedadesAnimadas; track p) {
-                <span class="prop" [class.caro]="p === 'd'">{{ p }}</span>
-              }
-              @if (v.autoDraw) {
-                <span class="prop">autoDraw</span>
-              }
-              @if (v.animaD) {
-                <span class="aviso">⚠ anima <code>d</code> — redibuja el path</span>
-              }
-            </div>
-          </article>
-        }
-      </div>
-      <p class="nota">
-        <code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no
-        es un dato de esta coreografía, es un contrato del motor.
-      </p>
-    </div>
+                  @if (v.autoDraw) {
+                    <span class="prop">autoDraw</span>
+                  }
+                  @if (v.animaD) {
+                    <span class="aviso">⚠ anima <code>d</code> — redibuja el path</span>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Timeline y nota hasta abajo: son contexto de apoyo, no lo primero que se lee al abrir. -->
+  <app-icon-scrubber [def]="def()" [variante]="varianteActiva()" class="scrubber-bloque" />
+
+  <p class="nota">
+    <code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no es
+    un dato de esta coreografía, es un contrato del motor.
+  </p>
+
+  <div class="acciones-rapidas">
+    <a app-boton compacto routerLink="/editor">Probar en editor</a>
+    <a app-boton compacto routerLink="/docs/api">Ver en Docs</a>
+    <a app-boton compacto [href]="urlReportar()" target="_blank" rel="noopener noreferrer"
+      >Reportar icono</a
+    >
   </div>
 </section>

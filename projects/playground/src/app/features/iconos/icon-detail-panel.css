@@ -1,27 +1,49 @@
+/*
+ * Drawer fijo, NO modal: sin backdrop y sin bloquear el scroll del body — la cuadrícula sigue
+ * viva detrás. `top: 78px` despeja el header sticky (68px de alto medido + margen); es un número
+ * y no una variable calculada porque el alto del header es estable en desktop (una sola fila).
+ *
+ * `display: flex; column` para que SOLO `.tab-cuerpo` scrollee — header, scrubber, tabs y acciones
+ * quedan fijos en su sitio mientras el contenido de la tab activa se desplaza por separado.
+ */
 .detalle {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  margin: 0 0 1.5rem;
-  padding: 1rem 1.25rem 1.25rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.75rem;
+  position: fixed;
+  top: 78px;
+  right: 0;
+  bottom: 0;
+  z-index: 18;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(480px, 100vw);
+  /* Vertical de 3rem (equivalente a `my-12`): con `top`/`bottom` fijos, el margen no lo mueve —
+     lo encoge desde adentro, así que el panel deja de tocar el borde de arriba y abajo del
+     viewport. */
+  margin: 3rem 0;
+  padding: 1rem 1.25rem 0;
+  border-left: 1px solid var(--gf-borde);
   background: var(--gf-panel-alto);
-  box-shadow: 0 8px 24px var(--gf-sombra);
-  max-height: 85vh;
-  overflow-y: auto;
+  box-shadow: -12px 0 32px var(--gf-sombra);
+}
+
+/* A este ancho el drawer de 480px es la pantalla entera: toma todo, tapa el header incluido —
+   volver no pide encontrar el hueco angosto de cuadrícula que quedó detrás. El margen vertical de
+   arriba es cosa de escritorio: en la toma completa de pantalla no hay "insetado" que valga. */
+@media (max-width: 640px) {
+  .detalle {
+    top: 0;
+    z-index: 25;
+    width: 100vw;
+    margin: 0;
+  }
 }
 
 .detalle-head {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.detalle-head max-icon {
-  color: var(--gf-texto);
   flex: none;
+  margin-bottom: 0.75rem;
 }
 
 .titulo {
@@ -46,22 +68,8 @@
   color: var(--gf-texto-medio);
 }
 
-.reproducir {
-  margin-left: auto;
-  padding: 0.35rem 0.8rem;
-  border: 1px solid var(--gf-borde-vivo);
-  border-radius: 0.4rem;
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto);
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-.reproducir:hover {
-  border-color: var(--gf-acento);
-}
-
 .cerrar {
+  margin-left: auto;
   border: 1px solid var(--gf-borde);
   border-radius: 0.4rem;
   background: transparent;
@@ -70,6 +78,10 @@
   height: 1.75rem;
   cursor: pointer;
   font-size: 0.8rem;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
 }
 
 .cerrar:hover {
@@ -77,11 +89,94 @@
   border-color: var(--gf-borde-vivo);
 }
 
+.cerrar:active {
+  transform: scale(0.9);
+}
+
+/* ── Tabs ───────────────────────────────────────────────────────────────────── */
+
+.tabs-nav {
+  display: flex;
+  flex: none;
+  gap: 1rem;
+  border-bottom: 1px solid var(--gf-borde-suave);
+}
+
+.tabs-nav button {
+  padding: 0.6rem 0.1rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tabs-nav button:hover {
+  color: var(--gf-texto-medio);
+}
+
+.tabs-nav button.activa {
+  border-color: var(--gf-marca-2);
+  color: var(--gf-texto);
+}
+
+.tabs-nav button:active {
+  transform: translateY(1px);
+}
+
+/*
+ * Único que scrollea: header, scrubber, tabs y acciones se quedan fijos alrededor de esto.
+ * `overflow-x: hidden` explícito: dejar ese eje en `visible` haría que el navegador lo compute
+ * como `auto` igual que el eje Y (así lo define la spec cuando un eje es `visible` y el otro no),
+ * y el hueco que reserva la scrollbar vertical basta para disparar una horizontal espuria.
+ */
+.tab-cuerpo {
+  flex: 1;
+  min-height: 0;
+  padding: 1rem 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── Tab: Vista previa ─────────────────────────────────────────────────────── */
+
+.panel-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.escenario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 12rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.75rem;
+  background: var(--gf-panel);
+  color: var(--gf-texto);
+  /* El icono adentro es el reproductor: hover/click lo disparan, y el cursor lo anuncia. */
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.escenario:active {
+  background: var(--gf-panel-alto);
+}
+
 .variantes-nav {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.4rem;
-  margin-bottom: 1rem;
 }
 
 .pill {
@@ -92,6 +187,10 @@
   color: var(--gf-texto-tenue);
   font-size: 0.75rem;
   cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
 }
 
 .pill:hover {
@@ -105,16 +204,72 @@
   color: var(--gf-texto);
 }
 
-.columnas {
-  display: grid;
-  grid-template-columns: minmax(16rem, 1fr) minmax(20rem, 1.4fr);
-  gap: 1.25rem;
+.pill:active {
+  transform: scale(0.94);
 }
 
-@media (max-width: 55rem) {
-  .columnas {
-    grid-template-columns: 1fr;
-  }
+/* ── Copiar ─────────────────────────────────────────────────────────────────── */
+
+.copiar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.copiar:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.copiar:active {
+  transform: scale(0.9);
+}
+
+/* Confirmación: mismo verde que ya usa el Motion Inspector para "esto no cuesta caro" — un solo
+   verde con significado en el sitio, no uno nuevo solo para esto. */
+.copiar.exito {
+  border-color: var(--gf-verde-borde);
+  color: var(--gf-verde);
+}
+
+.copiar.exito:hover {
+  color: var(--gf-verde);
+}
+
+/* ── Acciones rápidas ──────────────────────────────────────────────────────── */
+
+.acciones-rapidas {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+/* Microinteracción: hundido al presionar, sobre la primitiva compartida — sin pisar su color ni
+   su borde, que ya reaccionan solos al hover. */
+.acciones-rapidas .ui-boton {
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.acciones-rapidas .ui-boton:active {
+  transform: scale(0.96);
 }
 
 .bloque-titulo {
@@ -128,8 +283,7 @@
   margin-top: 0;
 }
 
-.bloque-titulo h3,
-.col-inspector > h3 {
+.bloque-titulo h3 {
   margin: 0;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -154,6 +308,27 @@ textarea.codigo.json {
   width: 100%;
   resize: vertical;
   box-sizing: border-box;
+}
+
+/*
+ * `.degradado-texto-sutil` (global) empataría en especificidad con `.codigo` de arriba — mismo
+ * problema que `.cifras dt`/`.es-primario` en otros archivos. Un selector propio del componente
+ * gana sin tocar la utilidad global.
+ */
+.codigo.degradado-texto-sutil {
+  color: var(--gf-marca-2);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .codigo.degradado-texto-sutil {
+    background-image: var(--gf-degradado);
+    /* `local`: si el contenido se desborda y el elemento scrollea por su cuenta, el fondo viaja
+       CON el texto en vez de quedar pintado fijo a la caja (se ve "congelado" si no). */
+    background-attachment: local;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 .variantes-inspector {
@@ -230,7 +405,8 @@ textarea.codigo.json {
 }
 
 .nota {
-  margin: 0.9rem 0 0;
+  flex: none;
+  margin: 0 0 0.75rem;
   color: var(--gf-texto-apagado);
   font-size: 0.6875rem;
 }
@@ -239,9 +415,12 @@ textarea.codigo.json {
   color: var(--gf-texto-medio);
 }
 
+/* Timeline: ahora vive pegado abajo, entre el contenido de la tab y la nota — separación arriba
+   Y abajo, ya no solo abajo como cuando estaba pegado al header. */
 .scrubber-bloque {
   display: block;
-  margin: 0 0 1rem;
+  flex: none;
+  margin: 1rem 0 0.75rem;
   padding: 0.6rem 0.9rem;
   border: 1px solid var(--gf-borde-suave);
   border-radius: 0.6rem;
