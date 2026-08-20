@@ -69,7 +69,7 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
 
-    const nombre = html.querySelector('.lista .chip.activo')!.textContent!.trim();
+    const nombre = nombreDe(html.querySelector('.lista .chip.activo')!);
     // Por la clase, no por el atributo: `[app-boton]` casa aunque el componente no esté importado.
     html.querySelector<HTMLButtonElement>('.panel button.ui-boton')!.click();
     await fixture.whenStable();
@@ -88,3 +88,12 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     expect(pieza.def.shapes.map((f) => f.tag)).toEqual(originales.map((f) => f.tag));
   });
 });
+
+/**
+ * Los chips de la lista del editor son SOLO icono: el nombre dejó de estar en el texto y vive en el
+ * nombre accesible. Se lee de ahí y no del `[texto]` del tooltip a propósito — `aria-label` es lo
+ * que de verdad percibe quien navega con lector de pantalla.
+ */
+function nombreDe(chip: Element): string {
+  return (chip.getAttribute('aria-label') ?? '').replace(/^Editar\s+/, '');
+}

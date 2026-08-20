@@ -52,7 +52,12 @@ describe('Iconos', () => {
     // El grupo de filtros, no el primer botón de la barra: ese es «Repetir todo». Se apunta al
     // componente `app-grupo` y no a una clase, porque el componente es el contrato y la clase es
     // un detalle de su estilo.
-    const filtro = html.querySelector<HTMLButtonElement>('.barra app-grupo button');
+    //
+    // Y DENTRO del grupo, no el primero: ese es la cápsula «Todos», que por definición no recorta
+    // nada. Se pide el primero sin pulsar, que es el primer filtro de insignia de verdad.
+    const filtro = html.querySelector<HTMLButtonElement>(
+      '.barra app-grupo button[aria-pressed="false"]',
+    );
     expect(filtro).toBeTruthy();
     filtro!.click();
     await fixture.whenStable();
@@ -61,7 +66,9 @@ describe('Iconos', () => {
     expect(filtrado).toBeGreaterThan(0);
     expect(filtrado).toBeLessThan(total);
 
-    html.querySelector<HTMLButtonElement>('.aviso .enlace')!.click();
+    // Volver a todos es la propia cápsula «Todos»: el enlace «quitar filtro» que había antes
+    // desapareció justamente porque duplicaba esto.
+    html.querySelector<HTMLButtonElement>('.barra app-grupo button')!.click();
     await fixture.whenStable();
     expect(html.querySelectorAll('.card').length).toBe(total);
   });

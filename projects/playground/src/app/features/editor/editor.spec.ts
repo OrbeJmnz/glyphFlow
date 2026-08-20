@@ -21,7 +21,7 @@ describe('Editor', () => {
   it('arranca con un icono cargado y su `d` intacto', async () => {
     const { html } = await montar();
     const salida = html.querySelector('.salida code')!.textContent!;
-    const nombre = html.querySelector('.lista .chip.activo')!.textContent!.trim();
+    const nombre = nombreDe(html.querySelector('.lista .chip.activo')!);
 
     const original = CURATED_ICONS[nombre].shapes
       .filter(
@@ -58,10 +58,9 @@ describe('Editor', () => {
   it('cambiar de icono no arrastra el estado del anterior', async () => {
     const { fixture, html } = await montar();
     const primero = html.querySelector('.salida code')!.textContent;
-    const otro = [...html.querySelectorAll<HTMLButtonElement>('.lista .chip')].find(
-      (b) =>
-        b.textContent?.trim() !== html.querySelector('.lista .chip.activo')?.textContent?.trim(),
-    )!;
+    // Cualquiera que no sea el puesto. Antes se comparaba por texto, y con los chips ya sin texto
+    // la búsqueda devolvía `undefined`.
+    const otro = html.querySelector<HTMLButtonElement>('.lista .chip:not(.activo)')!;
     otro.click();
     await fixture.whenStable();
     expect(html.querySelector('.salida code')!.textContent).not.toBe(primero);
@@ -199,8 +198,17 @@ describe('Editor', () => {
     input.value = 'bell';
     input.dispatchEvent(new Event('input'));
     await fixture.whenStable();
-    const despues = [...html.querySelectorAll('.lista .chip')].map((c) => c.textContent!.trim());
+    const despues = [...html.querySelectorAll('.lista .chip')].map(nombreDe);
     expect(despues.length).toBeLessThan(antes);
     expect(despues.every((n) => n.includes('bell'))).toBe(true);
   });
 });
+
+/**
+ * Los chips de la lista del editor son SOLO icono: el nombre dejó de estar en el texto y vive en el
+ * nombre accesible. Se lee de ahí y no del `[texto]` del tooltip a propósito — `aria-label` es lo
+ * que de verdad percibe quien navega con lector de pantalla.
+ */
+function nombreDe(chip: Element): string {
+  return (chip.getAttribute('aria-label') ?? '').replace(/^Editar\s+/, '');
+}
