@@ -24,6 +24,12 @@ export const bellIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellShapes, {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 20, -10, 10, -5, 3, 0]), 900, { origin: 'top center' }),
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -6, 5, -5, 4, -3, 2, 0]), 1100) },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(-10deg)' }, { transform: 'rotate(10deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(0deg)' }], 900, { easing: EASE, origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(0)' }], 1100, { easing: EASE }),
+      },
+    },
   });
 
 /** Campana con ondas: repica y las ondas salen DESPUÉS del primer golpe, no junto con él. */
@@ -34,6 +40,12 @@ export const bellRingIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellRingShapes
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -5, 4, -3, 2, 0]), 1050),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 650, { delay: 140 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 650, { delay: 140 }),
+      },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(20deg)' }, { transform: 'rotate(-10deg)' }, { transform: 'rotate(10deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(3deg)' }, { transform: 'rotate(0deg)' }], 900, { easing: EASE, origin: 'top center' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(0)' }], 1100, { easing: EASE }),
       },
     },
   });
@@ -105,6 +117,9 @@ export const bellOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellOffShapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 360 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 export const bellPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellPlusShapes, {
@@ -146,6 +161,11 @@ export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
         },
       },
     },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 24, opacity: 0, offset: 0 }, { strokeDashoffset: 24, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Toast de error/advertencia: el círculo se dibuja y el signo aparece después. */
@@ -157,6 +177,9 @@ export const circleAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleAlert
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 340 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
   });
 
 /** Toast de éxito: primero el círculo, luego la palomita. Nunca al mismo tiempo. */
@@ -165,6 +188,11 @@ export const circleCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleCheck
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 280 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });
@@ -189,6 +217,13 @@ const COPY_HANDSHAKE = /* @__PURE__ */ [
 
 export const copyIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(COPY_HANDSHAKE, 600) } },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, -3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Copiado y confirmado: la misma separación de copy y la palomita se dibuja de insignia. */
@@ -210,6 +245,11 @@ export const copyCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyCheckShap
       shapes: {
         1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 350 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });
@@ -295,11 +335,23 @@ export const calendarIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarShapes
 /** Empujoncito hacia donde lleva. Sostenido mientras dure el hover. */
 export const chevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronRightShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Igual que el chevron pero de regreso: la flecha de "volver". */
 export const arrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowLeftShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, -3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Descargar: el asta y la punta bajan juntas; la bandeja no se mueve (es el piso). */
@@ -309,6 +361,13 @@ export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 550),
       },
+    },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -326,6 +385,9 @@ export const eyeIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeShapes, {
 /** Ocultar: se tacha. Solo la diagonal se dibuja, el ojo ya estaba ahí. */
 export const eyeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeOffShapes, {
     default: { shapes: { 3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420) } },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 /** Anónimo: se toca el sombrero y los lentes aparecen. */
@@ -442,6 +504,9 @@ export const heartOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartOffShapes
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 380 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 export const heartPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartPlusShapes, {
@@ -485,6 +550,15 @@ export const imagesIcon: AnimatedIconDef = /* @__PURE__ */ icon(imagesShapes, {
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.5, 0]), 600),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.5, 0]), 600),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 500, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -595,6 +669,9 @@ export const mousePointerIcon: AnimatedIconDef = /* @__PURE__ */ icon(mousePoint
         ),
       },
     },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)', offset: 0 }, { transform: 'translate(0, -4px)', offset: 0.25 }, { transform: 'translate(-3px, 0)', offset: 0.75 }, { transform: 'translate(0, 0)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
   });
 
 /** Una sola figura: el cursor se hunde igual que en `mouse-pointer-click`, sin chispas. */
@@ -604,6 +681,9 @@ export const mousePointer2Icon: AnimatedIconDef = /* @__PURE__ */ icon(mousePoin
     },
     wander: {
       shapes: { 0: /* @__PURE__ */ track(CURSOR_WANDER_CLICK, 3400, { origin: '10px 10px' }) },
+    },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'translate(0, 0)', offset: 0 }, { transform: 'translate(0, -4px)', offset: 0.25 }, { transform: 'translate(-3px, 0)', offset: 0.75 }, { transform: 'translate(0, 0)', offset: 1 }], 1000, { easing: 'ease' }),
     },
   });
 
@@ -672,6 +752,9 @@ export const pencilIcon: AnimatedIconDef = /* @__PURE__ */ icon(pencilShapes, {
         origin: '2.3px 21.5px',
       }),
     },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(-15deg)', offset: 0.25 }, { transform: 'rotate(15deg)', offset: 0.75 }], 400, { easing: EASE }),
+    },
   });
 
 /** Agregar: golpe seco. `turn` es la otra lectura, la de "+ que se vuelve ✕". */
@@ -680,6 +763,12 @@ export const plusIcon: AnimatedIconDef = /* @__PURE__ */ icon(plusShapes, {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 400, { easing: SPRING_OUT, origin: 'center' }),
     },
     turn: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 90]), 350, { origin: 'center' }),
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 /** `default` es de ESTADO: gira 45° y se queda; al salir el puntero regresa (portado). */
@@ -687,6 +776,10 @@ export const refreshCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(refreshCwShap
     default: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 45]), 450, { origin: 'center' }),
     rotate: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 700, { easing: SPRING_OUT, origin: 'center' }),
+    },
+    active: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
     },
   });
 
@@ -754,6 +847,9 @@ export const saveOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveOffShapes, 
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 90, { delay: 200 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 230, easing: SPRING_OUT }),
       },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
   });
 
@@ -845,6 +941,9 @@ export const searchIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchShapes, {
         ],
         1000,
       ),
+    },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0) translateY(0)', offset: 0 }, { transform: 'translateX(0) translateY(-4px)', offset: 0.25 }, { transform: 'translateX(-3px) translateY(0)', offset: 0.5 }, { transform: 'translateX(0) translateY(0)', offset: 1 }], 1000, { easing: EASE }),
     },
   });
 
@@ -969,6 +1068,10 @@ export const settingsIcon: AnimatedIconDef = /* @__PURE__ */ icon(settingsShapes
     rotate: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 2000, { easing: 'linear', origin: 'center' }),
     },
+    active: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 1000, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
   });
 
 /** Protegido: el escudo primero, la palomita después. */
@@ -976,6 +1079,11 @@ export const shieldCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldCheck
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 500, { origin: 'center' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { delay: 260 }) },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
     },
   });
 
@@ -987,6 +1095,12 @@ export const sparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(sparklesShapes
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 140 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 200 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 300 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1.1)' }, { transform: 'scale(1)' }], 600, { easing: EASE }),
+        3: /* @__PURE__ */ track([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0)' }, { opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], 600, { easing: EASE }),
       },
     },
   });
@@ -1016,6 +1130,14 @@ export const trashIcon: AnimatedIconDef = /* @__PURE__ */ icon(trashShapes, {
           { origin: '3px 6px' },
         ),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -1048,6 +1170,16 @@ export const trash2Icon: AnimatedIconDef = /* @__PURE__ */ icon(trash2Shapes, {
         ),
       },
     },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Advertencia: se sacude y el signo aparece al final. */
@@ -1058,6 +1190,9 @@ export const triangleAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(triangleA
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 220 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 340 }),
       },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
     },
   });
 
@@ -1080,6 +1215,13 @@ export const uploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(uploadShapes, {
         ),
       },
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Persona: la cabeza asoma tantito. */
@@ -1087,6 +1229,12 @@ export const userIcon: AnimatedIconDef = /* @__PURE__ */ icon(userShapes, {
     default: {
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 500) },
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.05, 1]), 500, { origin: 'center' }),
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(2px)', offset: 0.33 }, { transform: 'translateY(-2px)', offset: 0.66 }, { transform: 'translateY(0)', offset: 1 }], 600, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(4px)', offset: 0.33 }, { transform: 'translateY(-2px)', offset: 0.66 }, { transform: 'translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      },
     },
   });
 
@@ -1100,6 +1248,12 @@ export const wrenchIcon: AnimatedIconDef = /* @__PURE__ */ icon(wrenchShapes, {
 /** Cerrar: gira 90° y se sostiene mientras el puntero siga encima. */
 export const xIcon: AnimatedIconDef = /* @__PURE__ */ icon(xShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 90]), 350, { origin: 'center' }),
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 17, offset: 0 }, { opacity: 1, strokeDashoffset: 17, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 17, offset: 0 }, { opacity: 1, strokeDashoffset: 17, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 // ── 2ª tanda: lo que más se usa en la app ──────────────────────────────────
@@ -1155,6 +1309,11 @@ export const packageCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageChe
     drop: {
       root: PACKAGE_DROP,
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 330 }) },
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
     },
   });
 
@@ -1349,6 +1508,11 @@ export const folderCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderCheck
         ),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Mismo criterio de `calendar-clock`/`clipboard-clock`: el reloj respira y la manecilla da un tic. */
@@ -1478,6 +1642,20 @@ export const folderCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderCogShap
         9: /* @__PURE__ */ track(FOLDER_COG_WOBBLE, 1050, { delay: 260, origin: '18px 18px' }),
       },
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        9: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 export const folderDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderDotShapes, {
@@ -1537,6 +1715,14 @@ export const folderDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderDownSh
           { delay: 380 },
         ),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -1733,6 +1919,13 @@ export const folderKanbanIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderKanb
         ),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 20, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
   });
 
 export const folderKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderKeyShapes, {
@@ -1910,6 +2103,11 @@ export const folderPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderPenShap
         ),
       },
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
   });
 
 export const folderPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderPlusShapes, {
@@ -1944,6 +2142,12 @@ export const folderPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderPlusSh
           850,
           { delay: 260, origin: '12px 13px' },
         ),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
       },
     },
   });
@@ -2128,6 +2332,15 @@ export const folderSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderSyncSh
         ),
       },
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Sin cuerpo único de carpeta: el tronco se dibuja primero, luego la rama, luego los dos archivos. */
@@ -2205,6 +2418,14 @@ export const folderUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderUpShapes
         ),
       },
     },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Igual que el default; al terminar, la X pega un golpe más grande y regresa. */
@@ -2239,6 +2460,12 @@ export const folderXIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderXShapes, 
           770,
           { delay: 340, origin: '12px 13px' },
         ),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 7.5, offset: 0 }, { opacity: 1, strokeDashoffset: 7.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 7.5, offset: 0 }, { opacity: 1, strokeDashoffset: 7.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
       },
     },
   });
@@ -2366,6 +2593,11 @@ const BOOKMARK_WAVE = /* @__PURE__ */ track(
 export const bookmarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(BOOKMARK_DROP, 450, { easing: SPRING_OUT }) } },
     wave: { root: BOOKMARK_WAVE },
+    pulse: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Guardado: el listón cae y la palomita se dibuja de insignia. */
@@ -2377,6 +2609,12 @@ export const bookmarkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkC
       },
     },
     wave: { root: BOOKMARK_WAVE },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Quitar: el listón cae y el "-" se dibuja de insignia. */
@@ -2388,6 +2626,12 @@ export const bookmarkMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkM
       },
     },
     wave: { root: BOOKMARK_WAVE },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 6, offset: 0 }, { opacity: 1, strokeDashoffset: 6, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Sin guardar: el listón se dibuja en fragmentos y la diagonal lo tacha al final. */
@@ -2412,6 +2656,13 @@ export const bookmarkPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkPl
       },
     },
     wave: { root: BOOKMARK_WAVE },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 /** Quitar: el listón cae y la equis se dibuja de insignia. */
@@ -2424,6 +2675,13 @@ export const bookmarkXIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkXShap
       },
     },
     wave: { root: BOOKMARK_WAVE },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 // La esquina doblada gira desde donde se pega a la hoja, como si se doblara en el momento.
@@ -2567,6 +2825,11 @@ export const ticketCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(ticketCheck
       },
     },
     tear: { root: TICKET_TEAR },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Quitar: sale y el "-" se dibuja de insignia. */
@@ -2657,6 +2920,11 @@ export const grid2x2CheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(grid2x2Che
       },
     },
     flash: { shapes: { 0: /* @__PURE__ */ track(GRID_FLASH, 240) } },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Agregar: el marco entra y el "+" se dibuja de insignia, en dos trazos. */
@@ -2687,6 +2955,10 @@ export const grid2x2XIcon: AnimatedIconDef = /* @__PURE__ */ icon(grid2x2XShapes
 export const keyIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -20, 0]), 700, { origin: '7.5px 15.5px' }),
+    },
+    active: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-28deg)' }], 600, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
     },
   });
 
@@ -2763,6 +3035,11 @@ export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheck
         ),
       },
     },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Igual, pero la palomita reemplaza el punto adentro del pin. */
@@ -2770,6 +3047,11 @@ export const mapPinCheckInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPi
     default: {
       root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 150 }) },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
     },
   });
 
@@ -2909,6 +3191,9 @@ export const briefcaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(briefcaseShap
     default: {
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 500) },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(12deg)', offset: 0.25 }, { transform: 'rotate(-10deg)', offset: 0.55 }, { transform: 'rotate(3deg)', offset: 0.85 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
+    },
   });
 
 /** Libro que se abre. */
@@ -2951,12 +3236,19 @@ export const rotateCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(rotateCcwShap
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -360]), 800, { easing: SPRING_OUT, origin: 'center' }),
     },
+    active: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
   });
 
 /** Carrito rodando con las ruedas girando. */
 export const shoppingCartIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingCartShapes, {
     default: {
       root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
+    },
+    pulse: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }], 800, { easing: EASE }),
     },
   });
 
@@ -3151,6 +3443,12 @@ export const lightbulbIcon: AnimatedIconDef = /* @__PURE__ */ icon(lightbulbShap
         ),
       },
     },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.4 }, { transform: 'rotate(15deg)', offset: 0.6 }, { transform: 'rotate(-7deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE, delay: 300 }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(0deg)', offset: 0.4 }, { transform: 'rotate(10deg)', offset: 0.6 }, { transform: 'rotate(-5deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
+      },
+    },
   });
 
 /** Obturador: solo el lente se cierra y abre. */
@@ -3201,6 +3499,12 @@ export const logOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(logOutShapes, {
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2.5, 0]), 550),
       },
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 400),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 400),
+      },
+    },
   });
 
 /** Filtrar: el embudo se comprime y suelta. */
@@ -3220,12 +3524,27 @@ export const funnelIcon: AnimatedIconDef = /* @__PURE__ */ icon(funnelShapes, {
 /** Electro: el trazo ES la animación, y lento a propósito para que se lea el pulso. */
 export const activityIcon: AnimatedIconDef = /* @__PURE__ */ icon(activityShapes, {
     default: { autoDraw: { speed: 45 } },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 50, offset: 0 }, { strokeDashoffset: 50, offset: 0.15 }, { strokeDashoffset: 100, offset: 1 }], 600, { easing: EASE }),
+      },
+    },
   });
 
 /** Despertador sonando: campanas y patas se sacuden juntas. */
 export const alarmClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClockShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -8, 7, -5, 3, 0]), 600, { origin: 'center' }),
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(0, -1.5px)' }], 300, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(0, -1.5px)' }], 300, { easing: 'linear' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(0, -1.5px)' }], 300, { easing: 'linear' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(-1px, -1.5px)' }, { transform: 'translate(1px, -1.5px)' }, { transform: 'translate(0, -1.5px)' }], 300, { easing: 'linear' }),
+        4: /* @__PURE__ */ track([{ transform: 'translate(0, -2.5px)' }, { transform: 'translate(-2px, -2.5px)' }, { transform: 'translate(2px, -2.5px)' }, { transform: 'translate(-2px, -2.5px)' }, { transform: 'translate(2px, -2.5px)' }, { transform: 'translate(0, -2.5px)' }], 300, { easing: 'linear' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0, -2.5px)' }, { transform: 'translate(-2px, -2.5px)' }, { transform: 'translate(2px, -2.5px)' }, { transform: 'translate(-2px, -2.5px)' }, { transform: 'translate(2px, -2.5px)' }, { transform: 'translate(0, -2.5px)' }], 300, { easing: 'linear' }),
+      },
     },
   });
 
@@ -3241,6 +3560,11 @@ export const alarmClockCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmCl
     ring: {
       root: /* @__PURE__ */ track(CLOCK_RING, 350, { origin: 'center' }),
       shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 250 }) },
+    },
+    reveal: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
     },
   });
 
@@ -3267,6 +3591,9 @@ export const alarmClockOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmCloc
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 300 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 420 }),
       },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
   });
 
@@ -3322,6 +3649,12 @@ export const badgeCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeCheckSh
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
     },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1)' }], 1200, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 10, opacity: 1 }, { strokeDashoffset: 0, opacity: 1 }], 1200, { easing: EASE }),
+      },
+    },
   });
 
 const BADGE_POP = /* @__PURE__ */ scaleSeq([1, 1.08, 1]);
@@ -3340,6 +3673,9 @@ export const badgeAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeAlertSh
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
     },
   });
 
@@ -3536,6 +3872,12 @@ export const badgeQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(badge
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
     },
+    alert: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+      },
+    },
   });
 
 export const badgeRussianRubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeRussianRubleShapes, {
@@ -3609,11 +3951,32 @@ export const badgeXIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeXShapes, {
     },
   });
 
-export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDownShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, 3]), 320) });
+export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDownShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, 3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  });
 
-export const chevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronLeftShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, -3]), 320) });
+export const chevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronLeftShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, -3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  });
 
-export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, -3]), 320) });
+export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, -3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  });
 
 /** Ordenar: las dos flechas se separan — el gesto de "esto se puede mover". */
 export const chevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronsUpDownShapes, {
@@ -3622,6 +3985,13 @@ export const chevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevrons
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500),
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 500),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -3634,6 +4004,12 @@ export const circlePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(circlePlusSh
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 320 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 /** Ayuda: el signo de interrogación llega al final, que es lo que se mira. */
@@ -3643,6 +4019,12 @@ export const circleQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(circ
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 260 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 380 }),
+      },
+    },
+    alert: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-10deg)', offset: 0.2 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-10deg)', offset: 0.6 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'center' }),
       },
     },
   });
@@ -3678,6 +4060,11 @@ const REFRESH_SPIN = /* @__PURE__ */ rotateSeq([0, 360]);
 
 export const clipboardCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardCheckShapes, {
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { delay: 150 }) } },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** El reloj respira y la manecilla da un tic — mismo criterio que `calendar-clock`. */
@@ -3731,6 +4118,17 @@ export const clipboardListIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboard
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 120, { delay: 130 }),
       },
     },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }], 300, { easing: 'ease', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }], 300, { easing: 'ease', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }], 300, { easing: 'ease', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }], 300, { easing: 'ease', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** `bounce`: mismo rebote de `minus` (scale 1→1.25→1) combinado con el trazo. */
@@ -3775,11 +4173,21 @@ export const clipboardPenLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipbo
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 850 }),
       },
     },
+    alert: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)' }, { transform: 'rotate(-0.3deg) translate(-0.5px, 1px)' }, { transform: 'rotate(0.2deg) translate(1px, -0.5px)' }, { transform: 'rotate(-0.4deg) translate(0px, 0px)' }, { transform: 'rotate(0deg) translate(0px, 0px)' }], 500, { easing: EASE }),
+      },
+    },
   });
 
 export const clipboardPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardPenShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 150 }) } },
     write: { shapes: { 1: /* @__PURE__ */ track(PEN_WRITE_SQUIGGLE, 700, { delay: 150 }) } },
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
   });
 
 /** `bounce`: mismo rebote de `plus` (scale 1→1.25→1) combinado con el trazo. */
@@ -3828,6 +4236,14 @@ export const clipboardXIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardXSh
       shapes: {
         2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { delay: 150, origin: '12px 14px' }),
         3: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { delay: 230, origin: '12px 14px' }),
+      },
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8.5, offset: 0 }, { opacity: 1, strokeDashoffset: 8.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8.5, offset: 0 }, { opacity: 1, strokeDashoffset: 8.5, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
       },
     },
   });
@@ -3880,6 +4296,11 @@ export const ellipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(ellipsisShapes
 /** Archivo validado. */
 export const fileCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckShapes, {
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) } },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Archivo rechazado: la equis se tacha en dos tiempos. */
@@ -3960,6 +4381,15 @@ export const landmarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(landmarkShapes
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([2, 0]), 420, { delay: 160, easing: SPRING_OUT }),
       },
     },
+    alert: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 300 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 200 }),
+        3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 100 }),
+        4: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-10px)', offset: 0 }, { opacity: 0, transform: 'translateY(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 400 }),
+      },
+    },
   });
 
 /** Idiomas: se traza, que es lo que hace un alfabeto. */
@@ -4020,6 +4450,13 @@ export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
         ),
       },
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-9px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-5px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Tablero armándose, tarjeta por tarjeta. */
@@ -4069,6 +4506,14 @@ export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutD
         ),
       },
     },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-10px)', offset: 0 }, { opacity: 0, transform: 'translateY(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 200 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 100 }),
+        3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 300 }),
+      },
+    },
   });
 
 /** Igual que el tablero pero en diagonal. */
@@ -4090,6 +4535,14 @@ export const layoutGridIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutGridSh
           delay: 210,
           origin: '3px 21px',
         }),
+      },
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 300 }),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-10px)', offset: 0 }, { opacity: 0, transform: 'translateY(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 100 }),
+        3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 200 }),
       },
     },
   });
@@ -4129,6 +4582,13 @@ export const layoutPanelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutP
         ),
       },
     },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-5px)', offset: 0 }, { opacity: 0, transform: 'translateX(-5px)', offset: 0.2 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 200 }),
+      },
+    },
   });
 
 /** Header + 2 tarjetas: crecen/achican alternado, el header respira en alto (no ancho). */
@@ -4164,6 +4624,13 @@ export const layoutPanelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutPa
           700,
           { origin: '12px 3px' },
         ),
+      },
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-5px)', offset: 0 }, { opacity: 0, transform: 'translateY(-5px)', offset: 0.2 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 200 }),
       },
     },
   });
@@ -4232,6 +4699,13 @@ export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTe
           900,
           { delay: 60, origin: '21px 21px' },
         ),
+      },
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-5px)', offset: 0 }, { opacity: 0, transform: 'translateY(-5px)', offset: 0.2 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(3px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 400, { easing: 'ease-out', delay: 200 }),
       },
     },
   });
@@ -4347,11 +4821,22 @@ export const listChecksIcon: AnimatedIconDef = /* @__PURE__ */ icon(listChecksSh
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 160 }),
       },
     },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 export const minusIcon: AnimatedIconDef = /* @__PURE__ */ icon(minusShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 400, { easing: SPRING_OUT, origin: 'center' }),
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 14, offset: 0 }, { opacity: 1, strokeDashoffset: 14, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+      },
     },
   });
 
@@ -4398,6 +4883,12 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
         450,
         { easing: SPRING_BOUNCY, origin: 'center' },
       ),
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -4520,6 +5011,9 @@ export const serverOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverOffShap
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 190, { delay: 290, easing: SPRING_OUT }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 /** Agregar servidor: los indicadores parpadean y el "+" se dibuja de insignia. */
@@ -4565,11 +5059,17 @@ export const shieldAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldAlert
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 300 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+    },
   });
 
 /** Protección apagada: el tajo cae al final. */
 export const shieldOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldOffShapes, {
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { delay: 220 }) } },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 const SHIELD_POP = /* @__PURE__ */ scaleSeq([1, 1.08, 1]);
@@ -4645,6 +5145,12 @@ export const shieldPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldPlusSh
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 260 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: 0, strokeDashoffset: 8, offset: 0 }, { opacity: 1, strokeDashoffset: 8, offset: 0.15 }, { opacity: 1, strokeDashoffset: 0, offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
+      },
+    },
   });
 
 /** Escudo con persona: el escudo late, la cabeza aparece de golpe y los hombros se dibujan. */
@@ -4679,6 +5185,9 @@ export const shoppingBagIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingBag
 export const tagIcon: AnimatedIconDef = /* @__PURE__ */ icon(tagShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 8, -6, 3, 0]), 700, { origin: '7.5px 7.5px' }),
+    },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(10deg)', offset: 0.4 }, { transform: 'rotate(-5deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE, origin: 'top left' }),
     },
   });
 
@@ -4777,6 +5286,9 @@ export const starIcon: AnimatedIconDef = /* @__PURE__ */ icon(starShapes, {
         { origin: 'center' },
       ),
     },
+    pulse: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9)', offset: 0.33 }, { transform: 'scale(1.2)', offset: 0.66 }, { transform: 'scale(1)', offset: 1 }], 600, { easing: EASE, origin: 'center' }),
+    },
   });
 
 const STAR_SPIN = /* @__PURE__ */ [
@@ -4833,6 +5345,9 @@ export const starOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(starOffShapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180, { delay: 250, easing: SPRING_OUT }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 /** Agregar a favoritos: gira y el "+" se dibuja de insignia, en dos trazos. */
@@ -4876,9 +5391,23 @@ export const starXIcon: AnimatedIconDef = /* @__PURE__ */ icon(starXShapes, {
 /** Cámara que barre la escena. */
 export const cctvIcon: AnimatedIconDef = /* @__PURE__ */ icon(cctvShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 8, 0]), 750, { origin: 'center' }) },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-15deg)', offset: 0.33 }, { transform: 'rotate(10deg)', offset: 0.66 }, { transform: 'rotate(0deg)', offset: 1 }], 2000, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-15deg)', offset: 0.33 }, { transform: 'rotate(10deg)', offset: 0.66 }, { transform: 'rotate(0deg)', offset: 1 }], 2000, { easing: EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-15deg)', offset: 0.33 }, { transform: 'rotate(10deg)', offset: 0.66 }, { transform: 'rotate(0deg)', offset: 1 }], 2000, { easing: EASE }),
+      },
+    },
   });
 
-export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320) });
+export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320),
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  });
 
 /** Gráfica: las barras crecen desde su base, de la más alta a la más baja. */
 export const chartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(chartColumnShapes, {
@@ -4898,6 +5427,13 @@ export const chartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(chartColumn
           easing: SPRING_OUT,
           origin: '0px 17px',
         }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        3: /* @__PURE__ */ track([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: 12, opacity: 0 }, { strokeDashoffset: 0, opacity: 1 }], 600, { easing: 'ease' }),
       },
     },
   });
@@ -4951,6 +5487,11 @@ export const squarePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(squarePenShap
         ),
       },
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
   });
 
 export const penIcon: AnimatedIconDef = /* @__PURE__ */ icon(penShapes, {
@@ -4970,6 +5511,9 @@ export const penIcon: AnimatedIconDef = /* @__PURE__ */ icon(penShapes, {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 6, -8, 5, -6, 3, 0]), 950, {
         origin: '2.3px 21.5px',
       }),
+    },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(-15deg)', offset: 0.25 }, { transform: 'rotate(15deg)', offset: 0.75 }], 400, { easing: EASE }),
     },
   });
 
@@ -4997,6 +5541,11 @@ export const penLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(penLineShapes, 
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 700, { delay: 150 }),
       },
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
   });
 
 export const fileIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileShapes, {
@@ -5005,6 +5554,11 @@ export const fileIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileShapes, {
 
 export const fileCheckCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckCornerShapes, {
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) } },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Hoja de cálculo: las celdas se llenan en cascada. */
@@ -5034,6 +5588,9 @@ export const fileExclamationPointIcon: AnimatedIconDef = /* @__PURE__ */ icon(fi
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4, 3, 0]), 550),
       shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 200 }) },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', offset: 0 }, { transform: 'scale(1.1) rotate(-3deg)', offset: 0.2 }, { transform: 'scale(1.1) rotate(3deg)', offset: 0.4 }, { transform: 'scale(1.1) rotate(-2deg)', offset: 0.6 }, { transform: 'scale(1) rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
     },
   });
 
@@ -5070,6 +5627,11 @@ export const gripVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(gripVertic
         5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.2, 0]), 450, { delay: 180 }),
       },
     },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.3 }, { opacity: 1 }], 800, { easing: 'ease-in' }),
+      },
+    },
   });
 
 export const hashIcon: AnimatedIconDef = /* @__PURE__ */ icon(hashShapes, {
@@ -5085,6 +5647,11 @@ export const hashIcon: AnimatedIconDef = /* @__PURE__ */ icon(hashShapes, {
 
 export const houseIcon: AnimatedIconDef = /* @__PURE__ */ icon(houseShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2.5, 0]), 500, { easing: SPRING_OUT }) },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDashoffset: 22, opacity: 0, offset: 0 }, { strokeDashoffset: 22, opacity: 0, offset: 0.15 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 600, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Foto: sale el sol y luego el paisaje. */
@@ -5100,6 +5667,9 @@ export const imageIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageShapes, {
 /** Sin imagen: el tajo cae al final. */
 export const imageOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageOffShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 220 }) } },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 export const imageDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageDownShapes, {
@@ -5109,6 +5679,14 @@ export const imageDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageDownShap
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 220 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -5151,6 +5729,14 @@ export const imageUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageUpShapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 220 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
       },
+    },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -5227,6 +5813,9 @@ export const mouseOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(mouseOffShapes
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 380 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 export const mouseRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(mouseRightShapes, {
@@ -5273,6 +5862,10 @@ export const printerIcon: AnimatedIconDef = /* @__PURE__ */ icon(printerShapes, 
 
 export const rotateCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(rotateCwShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 800, { easing: SPRING_OUT, origin: 'center' }) },
+    active: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      reverseOnLeave: true,
+    },
   });
 
 /** Router: la señal sale del aparato hacia afuera. */
@@ -5344,6 +5937,14 @@ export const tvIcon: AnimatedIconDef = /* @__PURE__ */ icon(tvShapes, {
 /** Subir a la nube: la flecha se va para arriba. */
 export const cloudUploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(cloudUploadShapes, {
     default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 550) } },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Usuario validado: la palomita se dibuja al final. */
@@ -5352,6 +5953,11 @@ export const userCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCheckShap
       shapes: {
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 450),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 200 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });
@@ -5584,6 +6190,20 @@ export const userCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCogShapes, 
         ),
       },
     },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 const USER_ROUND_HEAD_BOB = /* @__PURE__ */ moveYSeq([0, -1, 0]);
@@ -5597,6 +6217,12 @@ const USER_ROUND_GEAR_SPIN = /* @__PURE__ */ [
 export const userRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundShapes, {
     default: {
       shapes: { 0: /* @__PURE__ */ track(USER_ROUND_HEAD_BOB, 450) },
+    },
+    alert: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(1px)', offset: 0.33 }, { transform: 'translateY(-2px)', offset: 0.66 }, { transform: 'translateY(0)', offset: 1 }], 600, { easing: EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(4px)', offset: 0.33 }, { transform: 'translateY(-2px)', offset: 0.66 }, { transform: 'translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      },
     },
   });
 
@@ -5618,6 +6244,11 @@ export const userRoundCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoun
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 200 }),
       },
     },
+    reveal: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
   });
 
 /** Configurar usuario redondo: la cabeza asoma y el engrane late — mismo criterio que `user-cog`. */
@@ -5635,6 +6266,20 @@ export const userRoundCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundC
         8: /* @__PURE__ */ track(USER_ROUND_GEAR_SPIN, 650, { delay: 150, origin: '18px 18px' }),
         10: /* @__PURE__ */ track(USER_ROUND_GEAR_SPIN, 650, { delay: 150, origin: '18px 18px' }),
       },
+    },
+    active: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        9: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        10: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 
@@ -5664,6 +6309,11 @@ export const userRoundPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundP
       shapes: {
         2: /* @__PURE__ */ track(USER_ROUND_HEAD_BOB, 450),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 200 }),
+      },
+    },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),
       },
     },
   });
@@ -5701,6 +6351,12 @@ export const userRoundXIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundXSh
 /** Igual que `arrow-left`/`arrow-right`: nudge que se sostiene en hover y regresa al salir. */
 export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, -3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShapes, {
@@ -5710,21 +6366,45 @@ export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShap
 const ARROW_UP_LEFT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, -3px)' }];
 export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpLeftShapes, {
     default: /* @__PURE__ */ held(ARROW_UP_LEFT_NUDGE, 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 const ARROW_UP_RIGHT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(3px, -3px)' }];
 export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRightShapes, {
     default: /* @__PURE__ */ held(ARROW_UP_RIGHT_NUDGE, 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 const ARROW_DOWN_LEFT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, 3px)' }];
 export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownLeftShapes, {
     default: /* @__PURE__ */ held(ARROW_DOWN_LEFT_NUDGE, 320),
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 const ARROW_DOWN_RIGHT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(3px, 3px)' }];
 export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownRightShapes, {
     default: /* @__PURE__ */ held(ARROW_DOWN_RIGHT_NUDGE, 320),
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Wifi conectando: del punto hacia afuera, arco por arco. */
@@ -5744,6 +6424,13 @@ export const wifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiShapes, {
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 390 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
   });
 
 /** Señal fuerte: como wifi, sin el arco más exterior. */
@@ -5753,6 +6440,12 @@ export const wifiHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiHighShapes
         0: /* @__PURE__ */ track(WIFI_RISE, 320),
         2: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 260 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
       },
     },
   });
@@ -5765,11 +6458,21 @@ export const wifiLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiLowShapes, 
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
   });
 
 /** Sin señal: solo el punto. */
 export const wifiZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiZeroShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(WIFI_RISE, 320) } },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 1200),
+      },
+    },
   });
 
 export const typeIcon: AnimatedIconDef = /* @__PURE__ */ icon(typeShapes, { default: { autoDraw: { speed: 60 } } });
@@ -5838,6 +6541,13 @@ export const panelLeftCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLef
       },
       reverseOnLeave: true,
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Abrir panel: la flecha ">" empuja hacia la derecha (adentro) y se sostiene. */
@@ -5846,6 +6556,13 @@ export const panelLeftOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeft
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -5885,6 +6602,13 @@ export const panelRightCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRi
       },
       reverseOnLeave: true,
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Abrir panel: la flecha "&lt;" empuja hacia la izquierda (adentro) y se sostiene. */
@@ -5893,6 +6617,13 @@ export const panelRightOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRig
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -5911,6 +6642,13 @@ export const panelTopCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopC
       },
       reverseOnLeave: true,
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Abrir panel: la flecha "v" empuja hacia abajo (adentro) y se sostiene. */
@@ -5919,6 +6657,13 @@ export const panelTopOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopOp
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: EASE, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: EASE, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -5937,6 +6682,13 @@ export const panelBottomCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelB
       },
       reverseOnLeave: true,
     },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** Abrir panel: la flecha "^" empuja hacia arriba (adentro) y se sostiene. */
@@ -5945,6 +6697,13 @@ export const panelBottomOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBo
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: EASE, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: EASE, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -6102,6 +6861,11 @@ export const calendarCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarC
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500),
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 500, { delay: 90 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 260 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDashoffset: 9, opacity: 0, offset: 0 }, { strokeDashoffset: 9, opacity: 0, offset: 0.33 }, { strokeDashoffset: 0, opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });
@@ -6273,6 +7037,20 @@ export const calendarCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarCog
         12: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
       },
     },
+    active: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        9: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        10: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        11: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        12: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 /** La esquina doblada ya está en la geometría — solo brincan los pines, sin insignia aparte. */
@@ -6356,6 +7134,9 @@ export const calendarOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarOff
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 460 }),
       },
+    },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
   });
 
@@ -6464,6 +7245,15 @@ export const calendarSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarSy
         4: /* @__PURE__ */ track(REFRESH_SPIN, 700, { delay: 260, easing: SPRING_OUT, origin: '16px 16px' }),
       },
     },
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 export const calendarX2Icon: AnimatedIconDef = /* @__PURE__ */ icon(calendarX2Shapes, {
@@ -6533,11 +7323,19 @@ export const mapIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapShapes, {
    */
 export const keyRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyRoundShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -20, 0]), 700, { origin: '16.5px 7.5px' }) },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0) rotate(0deg)', offset: 0 }, { transform: 'translateY(-3px) rotate(3deg)', offset: 0.2 }, { transform: 'translateY(0) rotate(-3deg)', offset: 0.4 }, { transform: 'translateY(-2px) rotate(0deg)', offset: 0.6 }, { transform: 'translateY(0) rotate(0deg)', offset: 1 }], 900, { easing: 'ease' }),
+    },
   });
 
 /** Infinito: lento a propósito, el chiste es ver el trazo completar el lazo. */
 export const infinityIcon: AnimatedIconDef = /* @__PURE__ */ icon(infinityShapes, {
     default: { autoDraw: { speed: 38 } },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDashoffset: 28, offset: 0 }, { strokeDashoffset: 28, offset: 0.15 }, { strokeDashoffset: 56, offset: 1 }], 1000, { easing: EASE }),
+      },
+    },
   });
 
 export const squareIcon: AnimatedIconDef = /* @__PURE__ */ icon(squareShapes, {
@@ -6575,6 +7373,9 @@ export const volumeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(volumeOffShap
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 380 }),
       },
     },
+    alert: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
   });
 
 /** Volumen nulo: el altavoz + la equis se dibuja en dos trazos. */
@@ -6601,6 +7402,14 @@ export const signalIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalShapes, {
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 300 }),
+        4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 400 }),
+      },
+    },
   });
 
 /** Señal fuerte: como signal, sin la barra más alta. */
@@ -6611,6 +7420,13 @@ export const signalHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalHighSh
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 100 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 180 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+        3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 300 }),
       },
     },
   });
@@ -6624,6 +7440,12 @@ export const signalMediumIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalMedi
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 180 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
+      },
+    },
   });
 
 /** Señal débil: punto + 1 barra. */
@@ -6634,11 +7456,21 @@ export const signalLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalLowShap
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 100 }),
       },
     },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
+      },
+    },
   });
 
 /** Sin señal: solo el punto. */
 export const signalZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalZeroShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260) } },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 1200),
+      },
+    },
   });
 
 // Cada raya se dibuja en orden, como si se fuera contando — tally-5 remata con el trazo
