@@ -40,6 +40,8 @@
    */
   --gf-velo: rgba(255, 255, 255, 0.04);
   --gf-velo-fuerte: rgba(255, 255, 255, 0.06);
+  /* La píldora puesta: bastante más clara que el velo de hover, para que se lea de un vistazo. */
+  --gf-velo-activo: rgba(255, 255, 255, 0.14);
   --gf-sombra: rgba(0, 0, 0, 0.35);
 
   /* La acción principal invierte el contraste contra el fondo, sea cual sea. */
@@ -69,6 +71,69 @@
   --gf-estrella: #facc15;
   --gf-destello: #fef08a;
 
+  /*
+   * El degradado de la marca, sacado de las paradas del propio logotipo (no elegido a ojo). Hasta
+   * ahora vivía encerrado en el SVG; como tokens se vuelve el acento del sitio — la cifra que
+   * importa, el destello de la nota, el trazo del showcase.
+   *
+   * Va aquí y NO dentro del bloque de tema: es la marca, y la marca no cambia con el fondo.
+   */
+  --gf-marca-1: #03ccf8;
+  --gf-marca-2: #5987f8;
+  --gf-marca-3: #9166f8;
+  --gf-marca-4: #b952f8;
+  --gf-degradado: linear-gradient(
+    100deg,
+    var(--gf-marca-1),
+    var(--gf-marca-2),
+    var(--gf-marca-3),
+    var(--gf-marca-4)
+  );
+
+  /*
+   * El resorte de la casa como token: ζ = 0.73, sobrepaso 1.0265 — la MISMA curva que usa
+   * <max-icon-morph spring="snappy">. Vive aquí y no copiada en cada componente porque hasta ahora
+   * estaba duplicada en el botón de GitHub.
+   *
+   * Se copia del paquete y no se importa porque `SPRING_SNAPPY` existe en la librería pero NO sale
+   * en su `public-api`; el playground consume desde npm y no la puede pedir. Exportarla es pendiente.
+   */
+  --gf-resorte: linear(
+    0,
+    0.0636,
+    0.1905,
+    0.3809,
+    0.5302,
+    0.6626,
+    0.7725,
+    0.8587,
+    0.9227,
+    0.9763,
+    1.0024,
+    1.0175,
+    1.0247,
+    1.0265,
+    1.0251,
+    1.0208,
+    1.0168,
+    1.0128,
+    1.0092,
+    1.0063,
+    1.0039,
+    1.0018,
+    1.0007,
+    1,
+    1
+  );
+
+  /* Medidas del carril de velocidad. Las píldoras van todas iguales para que el indicador se
+     mueva por aritmética (índice × paso) en vez de medir el DOM. */
+  /* Sangría del separador del header: el hueco entre controles es el doble, así la raya
+     queda centrada en el aire en vez de pegada a uno de los dos. */
+  --gf-sangria-sep: 0.7rem;
+  --gf-ancho-pildora: 46px;
+  --gf-hueco-pildora: 2px;
+
   /* Radios: 24px en tarjetas y píldora completa en controles. */
   --gf-radio: 24px;
   --gf-radio-chico: 12px;
@@ -93,6 +158,9 @@
 
   --gf-velo: rgba(22, 22, 28, 0.04);
   --gf-velo-fuerte: rgba(22, 22, 28, 0.07);
+  /* En claro la píldora puesta va BLANCA sobre el carril gris, no más oscura: sobre fondo claro lo
+     que destaca es lo que se levanta, no lo que se hunde. */
+  --gf-velo-activo: #ffffff;
   --gf-sombra: rgba(22, 22, 28, 0.14);
 
   --gf-invertido-fondo: #16161c;
@@ -135,18 +203,47 @@
  * La foto nueva va encima; la vieja se queda quieta debajo, haciendo de fondo mientras el círculo
  * crece.
  */
-::view-transition-old(root),
-::view-transition-new(root) {
+:root[data-transicion='tema']::view-transition-old(root),
+:root[data-transicion='tema']::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) {
+:root[data-transicion='tema']::view-transition-old(root) {
   z-index: 0;
 }
 
-::view-transition-new(root) {
+:root[data-transicion='tema']::view-transition-new(root) {
   z-index: 1;
+}
+
+/* La del tema no viaja: su movimiento entero es el círculo. Las demás sí quieren el cruce. */
+:root[data-transicion='tema']
+
+/*
+ * ── Reordenamiento del grid ───────────────────────────────────────────────────
+ *
+ * El `group` es la caja que el navegador mueve e interpola de la posición vieja a la nueva; ahí va
+ * el ritmo. Con `*` alcanza a las tarjetas con nombre, y la de `root` se re-declara abajo porque su
+ * transición no es un viaje sino el círculo del tema.
+ *
+ * `--gf-resorte` y no un `ease`: es la misma curva del carril de velocidad y del indicador de la
+ * nav, así que una tarjeta que cruza la cuadrícula se siente de la misma familia que una píldora
+ * que se desliza, y no como otro motor.
+ */
+::view-transition-group(*) {
+  animation-duration: 0.42s;
+  animation-timing-function: var(--gf-resorte);
+}
+
+/*
+ * Las tarjetas que ENTRAN o SALEN se funden rápido, sin viajar desde ningún lado: al filtrar 180 a
+ * 5, ver 175 tarjetas salir volando sería un espectáculo que tapa la información. Viajan las que
+ * sobreviven, que son las que el ojo puede seguir.
+ */
+::view-transition-old(*):only-child,
+::view-transition-new(*):only-child {
+  animation-duration: 0.18s;
 }
 
 html {
@@ -173,6 +270,40 @@ code {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
 }
 
+/*
+ * ── Scrollbar ─────────────────────────────────────────────────────────────────
+ *
+ * Sitewide: la de la página Y la de `.tab-cuerpo` en el drawer son la misma regla, no dos. Delgada
+ * y sin pista visible — el hueco lo marca el propio fondo, no una barra gris que compita con la UI.
+ *
+ * `scrollbar-width`/`scrollbar-color` cubren Firefox (y ya también Chromium reciente); los
+ * pseudo-elementos `::-webkit-scrollbar*` quedan de respaldo para el resto de la familia Blink/WebKit.
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gf-borde-vivo) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-color: var(--gf-borde-vivo);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gf-texto-apagado);
+}
+
 /* ── Primitivas compartidas ───────────────────────────────────────────────────
  *
  * Los estilos de `shared/ui/` viven aquí, en el CSS global, y no en cada componente. La razón es
@@ -192,18 +323,34 @@ code {
   background: transparent;
   color: var(--gf-texto-suave);
   font: inherit;
+  /* Sobre un <a> el navegador subraya por default, y una píldora subrayada se lee como enlace
+     suelto en vez de como control. */
+  text-decoration: none;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition:
     color 0.15s ease,
     border-color 0.15s ease,
-    background 0.15s ease;
+    background 0.15s ease,
+    scale 0.24s var(--gf-resorte);
 }
 
 .chip:hover:not(:disabled) {
   color: var(--gf-texto);
   background: var(--gf-velo);
+}
+
+/*
+ * El hundido al presionar. Es la mitad de la microinteracción que faltaba: sin esto la píldora
+ * cambia de color al pasar el puntero pero no acusa recibo del clic, y en táctil —donde no hay
+ * hover— no daba NINGUNA señal de haber sido tocada.
+ *
+ * Va en `scale` y no en `transform` para no pisar transformaciones que ponga quien la use, y con la
+ * curva de la casa: entra rápido y suelta con un pelo de rebote, igual que el resto del sitio.
+ */
+.chip:active:not(:disabled) {
+  scale: 0.94;
 }
 
 /* Deshabilitada. `:not(:disabled)` arriba en vez de resetear el hover después: si se deja que el
@@ -214,9 +361,15 @@ code {
   cursor: default;
 }
 
+/*
+ * La activa sube de contraste. Con el 8% de antes, en el carril de velocidad no se distinguía cuál
+ * estaba puesta sin fijarse — y ese control gobierna TODO lo que se mueve en el sitio, así que
+ * saber en qué velocidad estás no puede costar esfuerzo.
+ */
 .chip.activo {
-  background: var(--gf-acento-fondo);
+  background: var(--gf-velo-activo);
   color: var(--gf-texto);
+  box-shadow: 0 1px 2px var(--gf-sombra);
 }
 
 /*
@@ -266,6 +419,101 @@ code {
 }
 
 /*
+ * Texto pintado con el degradado de la marca, y en movimiento. Se reserva para UN dato por pantalla:
+ * en cuanto hay dos, ninguno destaca y el degradado pasa de acento a decoración.
+ *
+ * **No hace falta librería: son keyframes.** El truco es que el degradado se declara ESPEJADO
+ * (1→4→1) y el fondo mide más que el texto; al recorrerlo exactamente un mosaico, el final empalma
+ * con el principio y el ciclo no tiene costura. Con el degradado normal se vería un salto de violeta
+ * a cian en cada vuelta.
+ *
+ * El `color` de respaldo va PRIMERO y sin `transparent`: si `background-clip: text` no se soporta,
+ * lo que se hereda es ese color y el texto sigue leyéndose. Al revés — transparente por default y el
+ * color dentro del `@supports` — desaparecería justo en el navegador que no entiende la regla, que
+ * es exactamente donde no puedes verlo.
+ *
+ * OJO AL USARLO: una regla del componente que ponga `color` LE GANA a esta, porque la encapsulación
+ * emulada le suma dos selectores de atributo y esto es una sola clase. Ya pasó con `.cifras dt`: el
+ * degradado estaba pintado y el blanco encima. Si no se ve, el culpable es el `color` de la página,
+ * no esta utilidad.
+ */
+.degradado-texto {
+  color: var(--gf-marca-2);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .degradado-texto {
+    background-image: linear-gradient(
+      100deg,
+      var(--gf-marca-1),
+      var(--gf-marca-2),
+      var(--gf-marca-3),
+      var(--gf-marca-4),
+      var(--gf-marca-3),
+      var(--gf-marca-2),
+      var(--gf-marca-1)
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gf-degradado-corre 7s linear infinite;
+  }
+}
+
+@keyframes gf-degradado-corre {
+  to {
+    background-position: 220% center;
+  }
+}
+
+/*
+ * Variante estática de `.degradado-texto` — mismo degradado de marca, SIN el shimmer en
+ * movimiento. Para texto largo/multilínea (bloques de código): ahí una animación constante
+ * compite con leer y copiar, que es justo para lo que ese texto existe. Reusa `--gf-degradado`
+ * tal cual (el de 4 paradas, no el espejado) porque sin animación no hace falta que cierre en
+ * loop — se pinta una sola vez sobre el alto real del bloque.
+ */
+.degradado-texto-sutil {
+  color: var(--gf-marca-2);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .degradado-texto-sutil {
+    background-image: var(--gf-degradado);
+    /* `local`: si el elemento tiene su propio scroll (el `overflow-x` de un `<pre>` con una línea
+       larga), el fondo viaja CON el contenido. Sin esto el degradado queda pintado fijo a la caja
+       y el texto se desliza por debajo — se ve "congelado", desenganchado de lo que se lee. */
+    background-attachment: local;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Movimiento sin propósito y en bucle: es justo lo que la preferencia pide quitar. El color se
+   queda, que es lo que comunica. */
+@media (prefers-reduced-motion: reduce) {
+  .degradado-texto {
+    animation: none;
+  }
+
+  /*
+   * Los controles dejan de crecer y hundirse, pero NO se quedan mudos: el cambio de color del hover
+   * y el foco siguen ahí. Quitar la respuesta entera sería confundir «menos movimiento» con «menos
+   * retroalimentación».
+   */
+  .chip,
+  .chip:active:not(:disabled),
+  .ui-boton,
+  .ui-boton:hover:not(:disabled),
+  .ui-boton:active:not(:disabled) {
+    scale: 1;
+    transition-duration: 0.12s;
+  }
+}
+
+/*
  * Esconde a la vista SIN esconder del lector de pantalla. `display:none` o `visibility:hidden`
  * harían lo contrario: sacarlo también del árbol de accesibilidad, que es justo lo que no se busca.
  */
@@ -307,12 +555,24 @@ code {
   transition:
     color 0.15s ease,
     background 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    scale 0.24s var(--gf-resorte);
 }
 
+/*
+ * Crecer al pasar y hundirse al presionar. Los números NO son nuevos: son los que ya usaba el botón
+ * de GitHub por su cuenta. Subirlos a la primitiva convierte un gesto suelto en el lenguaje del
+ * sitio — y de paso el header deja de tener un botón que reacciona y tres que no.
+ */
 .ui-boton:hover:not(:disabled) {
   color: var(--gf-texto);
   border-color: var(--gf-borde-vivo);
+  scale: 1.02;
+}
+
+/* El hundido gana al crecido: durante un clic los dos estados están activos a la vez. */
+.ui-boton:active:not(:disabled) {
+  scale: 0.96;
 }
 
 .ui-boton:disabled {
@@ -413,4 +673,96 @@ code {
   /* `accent-color` pinta el carril y el pulgar sin re-implementar el control por navegador. */
   accent-color: var(--gf-acento-claro);
   cursor: pointer;
+}
+
+/* ── Tooltip ────────────────────────────────────────────────────────────────── */
+
+.ui-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+/*
+ * `--burbuja-x`/`--burbuja-y-reposo` componen la posición en vez de que cada combinación de
+ * `abajo`/`derecha` necesite su propia regla explícita: 2 variantes booleanas ya son 4
+ * combinaciones, y las reglas de posición (`top`/`left`/`right`) y las de MOVIMIENTO (el `transform`
+ * de la entrada) son independientes entre sí — cada variante toca solo la suya.
+ */
+.ui-tooltip .burbuja {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 5;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  background: var(--gf-invertido-fondo);
+  color: var(--gf-invertido-texto);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  --burbuja-x: -50%;
+  --burbuja-y-reposo: 4px;
+  transform: translate(var(--burbuja-x), var(--burbuja-y-reposo));
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+
+/* El piquito: el truco de triángulo con bordes — dos lados transparentes y uno pintado. Mismo
+   color que la burbuja para que se lea como una sola pieza, no como dos formas pegadas. */
+.ui-tooltip .burbuja::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: var(--gf-invertido-fondo);
+  transform: translateX(-50%);
+}
+
+.ui-tooltip:hover .burbuja,
+.ui-tooltip:focus-within .burbuja {
+  opacity: 1;
+  transform: translate(var(--burbuja-x), 0);
+}
+
+/* Variante `abajo`: burbuja Y piquito invertidos — no solo la posición, o el triángulo quedaría
+   apuntando al revés de la burbuja que señala. Corrige el borde SUPERIOR de un contenedor con
+   scroll: `overflow` recorta lo que se sale de SU caja, no del viewport. */
+.ui-tooltip.abajo .burbuja {
+  bottom: auto;
+  top: calc(100% + 8px);
+  --burbuja-y-reposo: -4px;
+}
+
+.ui-tooltip.abajo .burbuja::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--gf-invertido-fondo);
+}
+
+/* Variante `derecha`: el borde derecho de la burbuja queda pegado al del trigger en vez de
+   centrada — corrige el borde DERECHO de un contenedor angosto (el mismo recorte de `overflow`,
+   en el otro eje). El piquito la sigue: dejarlo centrado apuntaría al aire. */
+.ui-tooltip.derecha .burbuja {
+  left: auto;
+  right: 0;
+  --burbuja-x: 0;
+}
+
+.ui-tooltip.derecha .burbuja::after {
+  left: auto;
+  right: 0.6rem;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-tooltip .burbuja {
+    transition: opacity 0.12s ease;
+  }
 }

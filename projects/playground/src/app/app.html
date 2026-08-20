@@ -6,7 +6,7 @@
       <app-logo [alto]="32" [variante]="tema()" />
     </a>
 
-    <nav class="nav" aria-label="Secciones">
+    <nav class="nav" appCarrilActivo aria-label="Secciones">
       <a
         app-chip
         routerLink="/"
@@ -34,34 +34,41 @@
         etiqueta="Velocidad global de las animaciones"
         class="velocidad"
       >
-        @for (p of presets; track p.valor) {
-          <button
-            type="button"
-            app-chip
-            [activo]="escala() === p.valor"
-            [attr.aria-pressed]="escala() === p.valor"
-            [title]="p.nota"
-            (click)="escala.set(p.valor)"
-          >
-            {{ p.etiqueta }}
-          </button>
-        }
+        <!-- El carril envuelve SOLO las píldoras: el indicador que se desliza se ancla aquí, y
+             el rótulo del grupo queda fuera para que su ancho no corra el origen. -->
+        <span class="carril" [style.--i]="indiceEscala()">
+          @for (p of presets; track p.valor) {
+            <button
+              type="button"
+              app-chip
+              [activo]="escala() === p.valor"
+              [attr.aria-pressed]="escala() === p.valor"
+              [title]="p.nota"
+              (click)="escala.set(p.valor)"
+            >
+              {{ p.etiqueta }}
+            </button>
+          }
+        </span>
       </app-grupo>
 
-      <div class="acciones">
-        <app-boton-github />
+      <!--
+        Los tres van como hermanos directos, sin caja intermedia: los separadores se dibujan con
+        `+` entre hermanos, y envueltos en un `<div>` el CSS solo podía poner UNA raya (antes del
+        grupo entero) en vez de una entre cada par.
+      -->
+      <app-boton-github />
 
-        <button
-          type="button"
-          app-boton
-          class="tema"
-          [attr.aria-label]="etiquetaTema()"
-          [attr.aria-pressed]="tema() === 'claro'"
-          (click)="cambiarTema($event)"
-        >
-          <max-icon-morph [icon]="iconoTema()" [size]="16" spring="bouncy" />
-        </button>
-      </div>
+      <button
+        type="button"
+        app-boton
+        class="tema"
+        [attr.aria-label]="etiquetaTema()"
+        [attr.aria-pressed]="tema() === 'claro'"
+        (click)="cambiarTema($event)"
+      >
+        <max-icon-morph [icon]="iconoTema()" [size]="16" spring="bouncy" />
+      </button>
     </div>
   </div>
 

@@ -1,4 +1,5 @@
 import { DOCUMENT, effect, inject, signal } from '@angular/core';
+import { conTransicion } from './transicion';
 
 export type Tema = 'oscuro' | 'claro';
 
@@ -85,47 +86,44 @@ export function alternarTema(origen?: Origen): void {
     aplicar(siguiente);
   };
 
-  // Copia local: TypeScript no conserva el estrechamiento de un `let` de módulo hasta dentro del
-  // callback de abajo, y con la copia sí.
   const d = doc;
   const ventana = d?.defaultView;
 
-  if (
-    !d ||
-    !ventana ||
-    !origen ||
-    !d.startViewTransition ||
-    ventana.matchMedia('(prefers-reduced-motion: reduce)').matches
-  ) {
+  // Sin origen no hay círculo que dibujar (pasa al llamarlo por código), así que se ahorra la
+  // transición entera. Los demás casos —sin soporte, con movimiento reducido— los cubre
+  // `conTransicion`, que es quien sabe de eso.
+  if (!d || !ventana || !origen) {
     cambiar();
     return;
   }
 
-  const transicion = d.startViewTransition(cambiar);
-  void transicion.ready.then(() => {
-    const { innerWidth: ancho, innerHeight: alto } = ventana;
-    // Radio hasta la esquina MÁS LEJANA. Con la diagonal de la pantalla a secas, un botón pegado a
-    // una orilla dejaría sin descubrir el rincón opuesto.
-    const radio = Math.hypot(
-      Math.max(origen.x, ancho - origen.x),
-      Math.max(origen.y, alto - origen.y),
-    );
+  conTransicion(cambiar, {
+    marca: 'tema',
+    alEstarLista: () => {
+      const { innerWidth: ancho, innerHeight: alto } = ventana;
+      // Radio hasta la esquina MÁS LEJANA. Con la diagonal de la pantalla a secas, un botón pegado
+      // a una orilla dejaría sin descubrir el rincón opuesto.
+      const radio = Math.hypot(
+        Math.max(origen.x, ancho - origen.x),
+        Math.max(origen.y, alto - origen.y),
+      );
 
-    d.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${origen.x}px ${origen.y}px)`,
-          `circle(${radio}px at ${origen.x}px ${origen.y}px)`,
-        ],
-      },
-      {
-        duration: 620,
-        // El expo-out de la casa. Arranca rápido y frena largo: el círculo se lee como una onda que
-        // sale del botón y no como un barrido a velocidad constante.
-        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        pseudoElement: '::view-transition-new(root)',
-      },
-    );
+      d.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${origen.x}px ${origen.y}px)`,
+            `circle(${radio}px at ${origen.x}px ${origen.y}px)`,
+          ],
+        },
+        {
+          duration: 620,
+          // El expo-out de la casa. Arranca rápido y frena largo: el círculo se lee como una onda
+          // que sale del botón y no como un barrido a velocidad constante.
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          pseudoElement: '::view-transition-new(root)',
+        },
+      );
+    },
   });
 }
 

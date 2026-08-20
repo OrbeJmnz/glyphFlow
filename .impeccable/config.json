@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "projects/playground/src/styles.css"
+        ],
+        "createdAt": "2026-08-20T03:46:42.804Z",
+        "reason": "user confirmed: pidio explicitamente degradado en textos de enfasis con los colores de la barra de scroll; son las paradas del propio logotipo de glyphflow, no un adorno generico"
+      }
+    ]
+  }
+}

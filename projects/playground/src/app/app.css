@@ -27,10 +27,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  max-width: var(--gf-ancho);
+  /*
+   * Más ancho que el cuerpo (1240) A PROPÓSITO. La barra ya se pinta de borde a borde; atar su
+   * contenido al ancho del texto dejaba los tres grupos de control amontonados contra el borde
+   * derecho en cuanto la pantalla pasaba de 1400. Con más carril, `space-between` los reparte.
+   */
+  max-width: 1560px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 14px 32px;
 }
 
 .marca {
@@ -43,43 +49,182 @@
   font-weight: 500;
   letter-spacing: -0.01em;
   text-decoration: none;
+  /* `transform-origin` a la izquierda: creciendo desde el centro, la marca se despegaría del borde
+     del header y el gesto se leería como que la barra se mueve, no el logotipo. */
+  transform-origin: left center;
+  transition: scale 0.24s var(--gf-resorte);
 }
 
+.marca:hover {
+  scale: 1.02;
+}
+
+.marca:active {
+  scale: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marca,
+  .marca:hover,
+  .marca:active {
+    scale: 1;
+  }
+}
+
+/*
+ * El indicador de la sección actual se DESLIZA entre enlaces, igual que el de velocidad. La
+ * diferencia es cómo sabe a dónde ir: allá las píldoras miden lo mismo y basta con aritmética; aquí
+ * los cinco rótulos miden distinto, así que `appCarrilActivo` mide el DOM y publica `--ind-x/w/o`.
+ *
+ * `position: relative` no es decoración: es lo que hace que el `offsetLeft` que mide la directiva
+ * sea relativo a ESTE contenedor, y de paso el ancla del indicador.
+ */
 .nav {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
+  isolation: isolate;
+}
+
+.nav::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 0;
+  width: var(--ind-w, 0);
+  translate: var(--ind-x, 0) 0;
+  opacity: var(--ind-o, 0);
+  border-radius: 999px;
+  background: var(--gf-velo-activo);
+  box-shadow: 0 1px 2px var(--gf-sombra);
+  /*
+   * Con nombre propio, el indicador SOBREVIVE al cambio de ruta: el navegador lo reconoce en la foto
+   * vieja y en la nueva, así que en vez de re-medirse de golpe viaja de una sección a la otra como
+   * parte de la misma transición que cruza la página.
+   */
+  view-transition-name: gf-nav-indicador;
+  /*
+   * `width` se anima además de `translate` porque los rótulos miden distinto: sin eso el indicador
+   * llegaría al enlace nuevo con el ancho del viejo. No es compositable, pero son cinco elementos y
+   * 2px de alto — el costo real es cero.
+   */
+  transition:
+    translate 0.42s var(--gf-resorte),
+    width 0.42s var(--gf-resorte),
+    opacity 0.2s ease;
+}
+
+/* El fondo lo pinta el indicador; pintado también por la píldora se verían dos capas al deslizar. */
+.nav .chip.activo {
+  background: transparent;
+  box-shadow: none;
+}
+
+/*
+ * En la primera pintada el indicador aparece donde toca en vez de viajar desde la esquina: hasta que
+ * la directiva mide, `--ind-o` es 0 y no hay nada visible que animar.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .nav::before {
+    transition: opacity 0.2s ease;
+  }
 }
 
 /* ── Controles de la derecha ────────────────────────────────────────────────── */
 
 /*
- * `margin-left: auto` aquí y NO `margin-right: auto` en el nav: con el margen en el nav, al
- * envolverse los controles caían a la segunda fila pegados a la izquierda. Empujando desde este
- * lado quedan a la derecha en las dos situaciones, en una fila o en dos.
+ * Velocidad, GitHub y tema van JUNTOS a la derecha, con una raya entre cada par. Repartidos con
+ * `space-between` a lo ancho del header, el botón de tema quedaba flotando solo en la esquina y ya
+ * no se leía como parte del mismo cluster de controles.
  */
 .controles {
   display: flex;
   align-items: center;
-  /* Red de seguridad: si aun así no cabe, las acciones caen debajo de la velocidad y siguen a la
-     derecha, en vez de desbordar la página con scroll horizontal. */
+  /* Red de seguridad: si aun así no cabe, el grupo baja a un renglón propio en vez de desbordar la
+     página con scroll horizontal. */
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 0.75rem;
-  margin-left: auto;
+  /* El hueco es el DOBLE de la sangría del separador, para que la raya quede centrada en el aire. */
+  gap: calc(var(--gf-sangria-sep) * 2);
 }
 
 /*
- * El borde separa este cluster del de velocidad: son dos decisiones distintas (qué tan rápido se
- * mueve todo vs. acciones sobre el repo/tema), y sin la costura se leían como una sola fila de
- * botones sueltos.
+ * Los separadores. Van como `::before` posicionado en el hueco y no como `border-left` del propio
+ * item: el botón de tema y el de GitHub ya tienen su borde de píldora, y un borde izquierdo se
+ * sumaría a él en vez de dibujar una raya aparte.
+ *
+ * Altura fija de 20px y no del alto del item: los tres miden distinto (el carril de velocidad es
+ * más alto que los botones), y rayas de tres largos distintos se leen como un error.
  */
-.acciones {
+.controles > * + * {
+  position: relative;
+}
+
+.controles > * + *::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--gf-sangria-sep) * -1);
+  top: 50%;
+  width: 1px;
+  height: 20px;
+  translate: 0 -50%;
+  background: var(--gf-borde);
+  pointer-events: none;
+}
+
+/* ── Carril de velocidad ─────────────────────────────────────────────────────── */
+
+/*
+ * La píldora de la velocidad activa SE DESLIZA entre posiciones en vez de aparecer y desaparecer.
+ *
+ * El indicador es un solo elemento sobre el carril y se mueve con `translateX`, así que el navegador
+ * lo compone sin recalcular layout. La cuenta es posible porque las cuatro píldoras miden LO MISMO
+ * (`width` fijo, no `min-width`): el desplazamiento es índice × paso, y el índice lo pasa la
+ * plantilla en `--i`. Con anchos distintos habría que medir el DOM y observar cambios de tamaño.
+ *
+ * Va sobre `.carril` y no sobre el grupo entero porque el rótulo «VELOCIDAD» corre el origen — y su
+ * ancho cambia con el idioma, así que anclarse a él se rompería solo al traducir.
+ */
+.velocidad .carril {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-left: 0.75rem;
-  border-left: 1px solid var(--gf-borde-suave);
+  gap: var(--gf-hueco-pildora);
+  isolation: isolate;
+}
+
+.velocidad .carril::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 0;
+  width: var(--gf-ancho-pildora);
+  border-radius: 999px;
+  background: var(--gf-velo-activo);
+  box-shadow: 0 1px 2px var(--gf-sombra);
+  transform: translateX(calc(var(--i, 1) * (var(--gf-ancho-pildora) + var(--gf-hueco-pildora))));
+  transition: transform 0.42s var(--gf-resorte);
+}
+
+.velocidad .chip {
+  width: var(--gf-ancho-pildora);
+  padding: 0;
+  justify-content: center;
+}
+
+/* El fondo lo pinta el indicador; si además lo pintara la píldora se verían dos capas al deslizar. */
+.velocidad .chip.activo {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Quien pidió menos movimiento no necesita ver viajar la píldora: aparece donde toca. */
+@media (prefers-reduced-motion: reduce) {
+  .velocidad .carril::before {
+    transition: none;
+  }
 }
 
 /*
@@ -94,6 +239,32 @@
 }
 
 /*
+ * El sol gira un poco al pasar el puntero. Es la única pista de que el botón hace algo ANTES de
+ * pulsarlo: es icono solo, sin texto que explique, y el morph —que es la respuesta de verdad— solo
+ * ocurre después del clic.
+ *
+ * Doce grados y no más: el sol de Lucide tiene ocho rayos, o sea simetría cada 45°. Girar 45 lo
+ * dejaría idéntico y el gesto se perdería; girar poco se lee como que el icono se acomoda.
+ */
+.tema max-icon-morph {
+  display: inline-flex;
+  transition: rotate 0.3s var(--gf-resorte);
+}
+
+.tema:hover max-icon-morph,
+.tema:focus-visible max-icon-morph {
+  rotate: 12deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tema max-icon-morph,
+  .tema:hover max-icon-morph,
+  .tema:focus-visible max-icon-morph {
+    rotate: none;
+  }
+}
+
+/*
  * En móvil el header es STICKY, así que cada fila que se agrega se la queda para siempre: con las
  * acciones en su propio renglón el chrome llegaba a 217px de 780, más de un cuarto de la pantalla.
  *
@@ -102,6 +273,31 @@
  * tiene medio renglón vacío a la derecha. Una fila menos, sin quitar ni un control.
  */
 @media (max-width: 640px) {
+  /*
+   * El respiro de 32px que le dio aire a los controles en escritorio aquí es al revés: son 64px
+   * menos de carril, y con eso el quinto enlace del nav se salía de la pantalla. Medido: 382 de
+   * scroll contra 375 de ventana.
+   */
+  .shell-interior {
+    padding: 12px 16px;
+  }
+
+  /*
+   * Los cinco enlaces pedían 350px contra 343 disponibles — se partían en dos renglones y el header
+   * sticky se comía 203px de 780. Se aprieta la sangría horizontal, NO la altura: los 32px de alto
+   * son el área táctil y esa no se toca.
+   *
+   * El `wrap` se queda de última red por si un idioma trae nombres más largos.
+   */
+  .nav {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .nav .chip {
+    padding: 0 11px;
+  }
+
   .controles {
     display: contents;
   }
@@ -110,9 +306,21 @@
     order: 1;
   }
 
-  .acciones {
+  /* Los dos botones suben junto a la marca; el de GitHub empuja para que el par quede a la
+     derecha del renglón. */
+  app-boton-github {
     order: 2;
     margin-left: auto;
+  }
+
+  .tema {
+    order: 2;
+  }
+
+  /* Sin separadores: aquí los controles ya no comparten renglón, así que la raya no separaría
+     nada — quedaría flotando al inicio de una fila. */
+  .controles > * + *::before {
+    content: none;
   }
 
   /* El nav ocupa su renglón completo: a este ancho los cinco enlaces no comparten con nadie. */
@@ -187,10 +395,11 @@
   text-align: center;
 }
 
+/* Los 3rem despegan el contenido del header sticky, que al ir pegado arriba no deja aire propio. */
 .shell-cuerpo {
   display: block;
   max-width: var(--gf-ancho);
-  margin: 0 auto;
+  margin: 3rem auto 0;
   padding: 0 24px 96px;
 }
 

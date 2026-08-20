@@ -5,9 +5,11 @@ import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
 import { alternarTema, conectarTema, tema } from './core/tema';
+import { conectarTransiciones } from './core/transicion';
 import { BotonGithub } from './shared/marca/boton-github';
 import { Logo } from './shared/marca/logo';
 import { Boton } from './shared/ui/boton';
+import { CarrilActivo } from './shared/ui/carril-activo';
 import { Chip } from './shared/ui/chip';
 import { Grupo } from './shared/ui/grupo';
 
@@ -30,6 +32,7 @@ import { Grupo } from './shared/ui/grupo';
     BotonGithub,
     Logo,
     Boton,
+    CarrilActivo,
     Chip,
     Grupo,
   ],
@@ -39,6 +42,13 @@ import { Grupo } from './shared/ui/grupo';
 export class App {
   protected readonly presets = PRESETS_ESCALA;
   protected readonly escala = escalaDuracion;
+  /** Qué píldora está puesta. Lo consume el CSS como `--i` para desplazar el indicador. */
+  protected readonly indiceEscala = computed(() =>
+    Math.max(
+      0,
+      PRESETS_ESCALA.findIndex((p) => p.valor === escalaDuracion()),
+    ),
+  );
 
   /** El glifo de la marca, junto al logotipo. Se dibuja al montar y repite al pasar por el enlace. */
   protected readonly glifo: AnimatedIconDef = workflowIcon;
@@ -62,6 +72,8 @@ export class App {
   }
 
   constructor() {
+    // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
+    conectarTransiciones();
     conectarTema();
     // Sin `await` ni bloqueo: si nunca responde, el botón se queda diciendo «GitHub» y el sitio ya
     // está usable desde el primer cuadro.
