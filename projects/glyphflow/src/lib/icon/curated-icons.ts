@@ -2883,6 +2883,15 @@ export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLe
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 210 }),
       },
     },
+    /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+      },
+    },
   });
 
 /** Marca de resize a la derecha: las 4 rayas invitan a jalar hacia la derecha. */
@@ -2893,6 +2902,15 @@ export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelR
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 70 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 140 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 210 }),
+      },
+    },
+    /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
       },
     },
   });
@@ -2907,6 +2925,15 @@ export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTop
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 210 }),
       },
     },
+    /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+      },
+    },
   });
 
 /** Marca de resize abajo: las 4 rayas invitan a jalar hacia abajo. */
@@ -2917,6 +2944,15 @@ export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panel
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 70 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 140 }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 400, { delay: 210 }),
+      },
+    },
+    /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
       },
     },
   });
@@ -2935,6 +2971,19 @@ export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
         7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 400, { delay: 210 }),
       },
     },
+    /** Jalando de verdad: los 8 se separan juntos, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+      },
+    },
   });
 
 /** Marca de resize izquierda y derecha: cada par se separa hacia afuera. */
@@ -2949,6 +2998,19 @@ export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
         6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 140 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 400, { delay: 210 }),
         7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 400, { delay: 210 }),
+      },
+    },
+    /** Jalando de verdad: los 8 se separan juntos, sin escalonar, con rebote elástico. */
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
       },
     },
   });
