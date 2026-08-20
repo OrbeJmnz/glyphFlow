@@ -52,8 +52,25 @@ describe('insigniasDe', () => {
     }
   });
 
-  it('la mayoría no trae insignia — si eso deja de ser cierto, dejaron de distinguir', () => {
-    const conAlguna = TODOS.filter(([n]) => claves(n).length > 0).length;
-    expect(conAlguna).toBeLessThan(TODOS.length / 2);
+  /**
+   * Antes esto medía cuántas tarjetas llevaban ALGUNA insignia, porque se pintaban en el grid y una
+   * insignia en todas partes deja de destacar. Ya no se pintan: la tarjeta muestra el conteo de
+   * animaciones y `insigniasDe` quedó como la taxonomía de los FILTROS.
+   *
+   * Así que el invariante cambia con el uso. Lo que un filtro tiene que hacer es ACOTAR: si casa
+   * con todo no sirve de nada, y si no casa con nada tampoco. Y se mide por clave y no en conjunto
+   * — sumadas cruzaban la mitad (205 de 405) sin que ninguna hubiera perdido su poder de separar.
+   */
+  it('cada filtro acota de verdad: ni casa con todo ni se queda vacío', () => {
+    const claves: ClaveInsignia[] = ['extras', 'held', 'solo-draw'];
+    for (const clave of claves) {
+      const n = TODOS.filter(([nombre]) =>
+        insigniasDe(nombre, CURATED_ICONS[nombre]).some((i) => i.clave === clave),
+      ).length;
+      expect(n, `el filtro "${clave}" no casa con ningún icono`).toBeGreaterThan(0);
+      expect(n, `el filtro "${clave}" casa con la mayoría: deja de acotar`).toBeLessThan(
+        TODOS.length / 2,
+      );
+    }
   });
 });

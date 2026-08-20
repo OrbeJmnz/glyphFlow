@@ -2,13 +2,18 @@ import { AnimatedIconDef } from 'glyphflow';
 import { analizarIcono } from './motion-inspector';
 
 /**
- * Insignias del grid: la respuesta a "¿cuál de estas 180 tarjetas vale la pena abrir?".
+ * La taxonomía de los filtros del grid: cómo se parte un catálogo de cientos en grupos que valen
+ * la pena mirar por separado.
  *
- * Se calculan del MISMO `analizarIcono` que alimenta al Motion Inspector — el grid y el panel de
+ * Se calcula del MISMO `analizarIcono` que alimenta al Motion Inspector — el grid y el panel de
  * detalle no pueden discrepar sobre lo que hace un icono porque leen el mismo análisis.
  *
- * Solo se pinta lo que DISTINGUE. `draw` no es insignia: las 180 lo traen (lo inyecta el registro),
- * así que marcarlo no separaría a ninguna de las otras 179.
+ * NACIÓ como insignias pintadas en cada tarjeta, y de ahí el nombre. Ya no se pintan: la tarjeta
+ * muestra el conteo de animaciones, que dice lo mismo con más precisión que un `+1` constante. Lo
+ * que queda es filtrar, y el criterio pasó de «esto DESTACA» a «esto ACOTA».
+ *
+ * `draw` no entra: lo trae cualquier curado (lo inyecta el registro), así que filtrar por él
+ * devolvería el catálogo entero.
  */
 export type ClaveInsignia = 'extras' | 'held' | 'solo-draw';
 
