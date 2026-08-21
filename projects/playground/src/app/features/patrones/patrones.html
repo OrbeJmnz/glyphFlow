@@ -16,16 +16,16 @@
       <h2>{{ 'patrones.copiar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">protected readonly copiado = signal(false);
-protected readonly icono = computed(() =&gt; (this.copiado() ? checkIcon : copyIcon));
+      <pre><code class="degradado-texto-sutil">protected readonly copied = signal(false);
+protected readonly icon = computed(() =&gt; (this.copied() ? checkIcon : copyIcon));
 
-async copiar() &#123;
-  try &#123; await navigator.clipboard.writeText(texto); &#125; catch &#123; return; &#125;
-  this.copiado.set(true);
-  setTimeout(() =&gt; this.copiado.set(false), 1600);
+async copy() &#123;
+  try &#123; await navigator.clipboard.writeText(text); &#125; catch &#123; return; &#125;
+  this.copied.set(true);
+  setTimeout(() =&gt; this.copied.set(false), 1600);
 &#125;
 
-&lt;max-icon-morph [icon]="icono()" [size]="18" spring="bouncy" /&gt;</code></pre>
+&lt;max-icon-morph [icon]="icon()" [size]="18" spring="bouncy" /&gt;</code></pre>
     </div>
   </article>
 
@@ -47,11 +47,11 @@ async copiar() &#123;
       <h2>{{ 'patrones.tema.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">protected readonly claro = signal(false);
-protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon));
+      <pre><code class="degradado-texto-sutil">protected readonly light = signal(false);
+protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon));
 
-&lt;button [attr.aria-label]="claro() ? 'Tema oscuro' : 'Tema claro'"&gt;
-  &lt;max-icon-morph [icon]="icono()" [size]="20" /&gt;
+&lt;button [attr.aria-label]="light() ? 'Dark theme' : 'Light theme'"&gt;
+  &lt;max-icon-morph [icon]="icon()" [size]="20" /&gt;
 &lt;/button&gt;</code></pre>
     </div>
   </article>
@@ -78,10 +78,10 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
       <h2>{{ 'patrones.enviar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">&#64;if (estado() === 'enviando') &#123;
+      <pre><code class="degradado-texto-sutil">&#64;if (state() === 'sending') &#123;
   &lt;max-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
 &#125; &#64;else &#123;
-  &lt;max-icon-morph [icon]="estado() === 'enviado' ? circleCheckIcon : sendIcon" /&gt;
+  &lt;max-icon-morph [icon]="state() === 'sent' ? circleCheckIcon : sendIcon" /&gt;
 &#125;</code></pre>
     </div>
   </article>
@@ -105,9 +105,15 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
       <h2>{{ 'patrones.reaccion.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="meGusta()" (click)="alternar()"&gt;
+      <!--
+        `ngNonBindable` porque el snippet lleva llaves dobles: el parser decodifica `&amp;#123;` a `{`
+        ANTES de que Angular busque interpolaciones, así que esto se evaluaba de verdad. Con
+        `votos()` —que existe en el componente— el bloque no mostraba el código, mostraba el 128 del
+        demo, y cambiaba al pulsar el corazón. Sin bindear, las llaves se ven tal cual.
+      -->
+      <pre ngNonBindable><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="liked()" (click)="toggle()"&gt;
   &lt;max-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
-  &#123;&#123; votos() &#125;&#125;
+  {{ votes() }}
 &lt;/button&gt;</code></pre>
     </div>
   </article>

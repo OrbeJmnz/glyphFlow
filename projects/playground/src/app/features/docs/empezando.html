@@ -11,11 +11,11 @@
 import &#123; MaxIconComponent, bellIcon &#125; from 'glyphflow';
 
 &#64;Component(&#123;
-  selector: 'app-aviso',
+  selector: 'app-alert',
   imports: [MaxIconComponent],
-  template: '&lt;max-icon [iconDef]="bell" [size]="24" label="Notificaciones" /&gt;',
+  template: '&lt;max-icon [iconDef]="bell" [size]="24" label="Notifications" /&gt;',
 &#125;)
-export class Aviso &#123;
+export class Alert &#123;
   protected readonly bell = bellIcon;
 &#125;</code></pre>
 <p [innerHTML]="'docs.empezando.primerIcono.texto2' | transloco"></p>
@@ -106,7 +106,7 @@ providers: [provideMaxIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
 <p [innerHTML]="'docs.empezando.morph.texto1' | transloco"></p>
 <pre><code>import &#123; MaxIconMorphComponent &#125; from 'glyphflow/morph';
 
-// El binding ES el estado: cambiar [icon] dispara la transición desde el valor anterior.
-// &lt;max-icon-morph [icon]="actual()" [size]="32" label="Estado" /&gt;</code></pre>
+// The binding IS the state: changing [icon] triggers the transition from the previous value.
+// &lt;max-icon-morph [icon]="current()" [size]="32" label="Status" /&gt;</code></pre>
 <p class="nota">{{ 'docs.empezando.morph.nota' | transloco }}</p>
 <p [innerHTML]="'docs.empezando.morph.texto2' | transloco"></p>
