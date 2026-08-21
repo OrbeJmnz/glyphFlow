@@ -208,7 +208,7 @@ export const copyCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyCheckShap
     },
     peel: {
       shapes: {
-        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: EASE }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 350 }),
       },
     },
@@ -224,7 +224,7 @@ export const copyMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyMinusShap
     },
     peel: {
       shapes: {
-        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: EASE }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
     },
@@ -241,7 +241,7 @@ export const copyPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyPlusShapes
     },
     peel: {
       shapes: {
-        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: EASE }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
@@ -258,7 +258,7 @@ export const copySlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(copySlashShap
     },
     peel: {
       shapes: {
-        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: EASE }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { delay: 350 }),
       },
     },
@@ -275,7 +275,7 @@ export const copyXIcon: AnimatedIconDef = /* @__PURE__ */ icon(copyXShapes, {
     },
     peel: {
       shapes: {
-        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(COPY_PEEL, 500, { easing: EASE }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 430 }),
       },
@@ -699,7 +699,7 @@ export const saveIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveShapes, {
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 0.9, 1]), 600, {
           delay: 80,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 17px',
         }),
       },
@@ -716,16 +716,16 @@ export const saveCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveCheckShap
       shapes: {
         2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 0.9, 1]), 600, {
           delay: 80,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 17px',
         }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
     pop: {
-      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: EASE, origin: 'center' }),
       shapes: {
-        2: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: EASE, origin: '12px 17px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
@@ -764,16 +764,16 @@ export const savePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePenShapes, 
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 0.9, 1]), 600, {
           delay: 80,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 17px',
         }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
     pop: {
-      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: EASE, origin: 'center' }),
       shapes: {
-        0: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
+        0: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: EASE, origin: '12px 17px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 500 }),
       },
     },
@@ -786,7 +786,7 @@ export const savePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePlusShapes
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 0.9, 1]), 600, {
           delay: 80,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 17px',
         }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
@@ -794,9 +794,9 @@ export const savePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePlusShapes
       },
     },
     pop: {
-      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(SAVE_POP_ROOT, 500, { easing: EASE, origin: 'center' }),
       shapes: {
-        1: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: SPRING_BOUNCY, origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(SAVE_POP_BADGE, 550, { delay: 80, easing: EASE, origin: '12px 17px' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 500 }),
       },
@@ -818,12 +818,12 @@ export const saveAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveAllShapes, 
     stack: {
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.78, 1.05, 1]), 460, {
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '13px 14px',
         }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1.08, 1]), 500, {
           delay: 160,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 12px',
         }),
       },
@@ -1143,7 +1143,7 @@ const PACKAGE_BOUNCE = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2.5, 
   easing: SPRING_OUT,
 });
 const PACKAGE_DROP = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -6, 1, 0]), 480, {
-  easing: SPRING_BOUNCY,
+  easing: EASE,
 });
 
 /** Paquete confirmado: el mismo bounce de package y la palomita se dibuja de insignia. */
@@ -1190,12 +1190,12 @@ export const packageOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageOpen
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
           delay: 60,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 8px',
         }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
           delay: 140,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '12px 8px',
         }),
       },
@@ -2759,7 +2759,7 @@ export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheck
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scale(1)' },
           ],
           380,
-          { delay: 280, easing: SPRING_BOUNCY, origin: '19px 20px' },
+          { delay: 280, easing: EASE, origin: '19px 20px' },
         ),
       },
     },
@@ -3318,7 +3318,7 @@ export const badgeCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeCheckSh
     /** `drop`: la insignia cae con gravedad y rebota; la palomita aparece de un solo golpe. */
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
     },
@@ -3336,7 +3336,7 @@ export const badgeAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeAlertSh
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3353,7 +3353,7 @@ export const badgeCentIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeCentShap
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3370,7 +3370,7 @@ export const badgeDollarSignIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeDo
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3387,7 +3387,7 @@ export const badgeEuroIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeEuroShap
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3405,7 +3405,7 @@ export const badgeIndianRupeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeI
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
@@ -3423,7 +3423,7 @@ export const badgeInfoIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeInfoShap
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3442,7 +3442,7 @@ export const badgeJapaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeJ
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
@@ -3460,7 +3460,7 @@ export const badgeMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeMinusSh
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
     },
@@ -3477,7 +3477,7 @@ export const badgePercentIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgePerce
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
@@ -3495,7 +3495,7 @@ export const badgePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgePlusShap
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3513,7 +3513,7 @@ export const badgePoundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(badg
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
@@ -3531,7 +3531,7 @@ export const badgeQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(badge
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3548,7 +3548,7 @@ export const badgeRussianRubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(badge
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3566,7 +3566,7 @@ export const badgeSwissFrancIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeSw
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
@@ -3585,7 +3585,7 @@ export const badgeTurkishLiraIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeT
     },
     drop: {
       shapes: {
-        2: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3602,7 +3602,7 @@ export const badgeXIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeXShapes, {
     },
     drop: {
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: SPRING_BOUNCY, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
@@ -3708,7 +3708,7 @@ export const clipboardCopyIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboard
     peel: {
       shapes: {
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
-        4: /* @__PURE__ */ track(COPY_PEEL, 500, { delay: 150, easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(COPY_PEEL, 500, { delay: 150, easing: EASE }),
       },
     },
   });
@@ -3754,8 +3754,8 @@ export const clipboardPasteIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboar
     },
     nudge: {
       shapes: {
-        0: /* @__PURE__ */ track(PASTE_NUDGE, 400, { delay: 150, easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(PASTE_NUDGE, 400, { delay: 190, easing: SPRING_BOUNCY }),
+        0: /* @__PURE__ */ track(PASTE_NUDGE, 400, { delay: 150, easing: EASE }),
+        2: /* @__PURE__ */ track(PASTE_NUDGE, 400, { delay: 190, easing: EASE }),
       },
     },
   });
@@ -4396,7 +4396,7 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
       root: /* @__PURE__ */ track(
         [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
         450,
-        { easing: SPRING_BOUNCY, origin: 'center' },
+        { easing: EASE, origin: 'center' },
       ),
     },
   });
@@ -4489,11 +4489,11 @@ export const serverCrashIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCrash
       },
     },
     shock: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 2, -1, 0]), 300, { easing: SPRING_BOUNCY }),
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 2, -1, 0]), 300, { easing: EASE }),
       shapes: {
         2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250),
         3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250, { delay: 90 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 220, easing: SPRING_BOUNCY }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 220, easing: EASE }),
       },
     },
   });
@@ -4538,12 +4538,12 @@ export const serverPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverPlusSh
         5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 350, { delay: 120 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 0.9, 1]), 400, {
           delay: 240,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '18px 8px',
         }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 0.9, 1]), 400, {
           delay: 240,
-          easing: SPRING_BOUNCY,
+          easing: EASE,
           origin: '18px 8px',
         }),
       },
@@ -4716,7 +4716,7 @@ export const zoomInIcon: AnimatedIconDef = /* @__PURE__ */ icon(zoomInShapes, {
             { transform: 'scaleY(1)' },
           ],
           550,
-          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+          { delay: 120, easing: EASE, origin: '11px 11px' },
         ),
         3: /* @__PURE__ */ track(
           [
@@ -4726,7 +4726,7 @@ export const zoomInIcon: AnimatedIconDef = /* @__PURE__ */ icon(zoomInShapes, {
             { transform: 'scaleX(1)' },
           ],
           550,
-          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+          { delay: 120, easing: EASE, origin: '11px 11px' },
         ),
       },
     },
@@ -4744,7 +4744,7 @@ export const zoomOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(zoomOutShapes, 
             { transform: 'scaleX(1)' },
           ],
           550,
-          { delay: 120, easing: SPRING_BOUNCY, origin: '11px 11px' },
+          { delay: 120, easing: EASE, origin: '11px 11px' },
         ),
       },
     },
@@ -4794,7 +4794,7 @@ export const starCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(starCheckShap
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 850 }) },
     },
     twinkle: {
-      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: EASE, origin: 'center' }),
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 450 }) },
     },
   });
@@ -4802,7 +4802,7 @@ export const starCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(starCheckShap
 /** Media estrella: mismo giro que star, sin insignia. */
 export const starHalfIcon: AnimatedIconDef = /* @__PURE__ */ icon(starHalfShapes, {
     default: { root: /* @__PURE__ */ track(STAR_SPIN, 1050, { easing: SPRING_OUT, origin: 'center' }) },
-    twinkle: { root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }) },
+    twinkle: { root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: EASE, origin: 'center' }) },
   });
 
 /** Quitar de favoritos: gira y el "-" se dibuja de insignia. */
@@ -4812,7 +4812,7 @@ export const starMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(starMinusShap
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 850 }) },
     },
     twinkle: {
-      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: EASE, origin: 'center' }),
       shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }) },
     },
   });
@@ -4845,7 +4845,7 @@ export const starPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(starPlusShapes
       },
     },
     twinkle: {
-      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: EASE, origin: 'center' }),
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
@@ -4863,7 +4863,7 @@ export const starXIcon: AnimatedIconDef = /* @__PURE__ */ icon(starXShapes, {
       },
     },
     twinkle: {
-      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: SPRING_BOUNCY, origin: 'center' }),
+      root: /* @__PURE__ */ track(STAR_TWINKLE, 650, { easing: EASE, origin: 'center' }),
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 450 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 530 }),
@@ -5966,10 +5966,10 @@ export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLe
     /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -5987,10 +5987,10 @@ export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelR
     /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -6008,10 +6008,10 @@ export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTop
     /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -6029,10 +6029,10 @@ export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panel
     /** Jalando de verdad: las 4 rayas se mueven juntas, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -6054,14 +6054,14 @@ export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
     /** Jalando de verdad: los 8 se separan juntos, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -6083,14 +6083,14 @@ export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
     /** Jalando de verdad: los 8 se separan juntos, sin escalonar, con rebote elástico. */
     active: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: SPRING_BOUNCY }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: SPRING_BOUNCY }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
   });
@@ -6262,15 +6262,15 @@ export const calendarCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarCog
       shapes: {
         2: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         11: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        0: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        1: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        3: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        4: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        5: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        6: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        7: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        8: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
-        12: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: SPRING_BOUNCY, origin: '18px 18px' }),
+        0: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        1: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        3: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        4: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        5: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        6: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        7: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        8: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
+        12: /* @__PURE__ */ track(CALENDAR_COG_TRIPLE_SPIN, 500, { delay: 200, easing: EASE, origin: '18px 18px' }),
       },
     },
   });
@@ -6654,7 +6654,7 @@ const TALLY_BOUNCE = /* @__PURE__ */ [
 
 export const tally1Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally1Shapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260) } },
-    count: { shapes: { 0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: SPRING_BOUNCY, origin: '4px 20px' }) } },
+    count: { shapes: { 0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: EASE, origin: '4px 20px' }) } },
   });
 
 export const tally2Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally2Shapes, {
@@ -6666,8 +6666,8 @@ export const tally2Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally2Shapes, {
     },
     count: {
       shapes: {
-        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: SPRING_BOUNCY, origin: '4px 20px' }),
-        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: SPRING_BOUNCY, origin: '9px 20px' }),
+        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: EASE, origin: '4px 20px' }),
+        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: EASE, origin: '9px 20px' }),
       },
     },
   });
@@ -6682,9 +6682,9 @@ export const tally3Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally3Shapes, {
     },
     count: {
       shapes: {
-        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: SPRING_BOUNCY, origin: '4px 20px' }),
-        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: SPRING_BOUNCY, origin: '9px 20px' }),
-        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: SPRING_BOUNCY, origin: '14px 20px' }),
+        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: EASE, origin: '4px 20px' }),
+        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: EASE, origin: '9px 20px' }),
+        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: EASE, origin: '14px 20px' }),
       },
     },
   });
@@ -6700,10 +6700,10 @@ export const tally4Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally4Shapes, {
     },
     count: {
       shapes: {
-        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: SPRING_BOUNCY, origin: '4px 20px' }),
-        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: SPRING_BOUNCY, origin: '9px 20px' }),
-        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: SPRING_BOUNCY, origin: '14px 20px' }),
-        3: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 240, easing: SPRING_BOUNCY, origin: '19px 20px' }),
+        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: EASE, origin: '4px 20px' }),
+        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: EASE, origin: '9px 20px' }),
+        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: EASE, origin: '14px 20px' }),
+        3: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 240, easing: EASE, origin: '19px 20px' }),
       },
     },
   });
@@ -6722,10 +6722,10 @@ export const tally5Icon: AnimatedIconDef = /* @__PURE__ */ icon(tally5Shapes, {
     /** Las 4 rayas pegan con rebote; la diagonal remata con un tachón rápido y seco. */
     count: {
       shapes: {
-        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: SPRING_BOUNCY, origin: '4px 20px' }),
-        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: SPRING_BOUNCY, origin: '9px 20px' }),
-        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: SPRING_BOUNCY, origin: '14px 20px' }),
-        3: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 240, easing: SPRING_BOUNCY, origin: '19px 20px' }),
+        0: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { easing: EASE, origin: '4px 20px' }),
+        1: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 80, easing: EASE, origin: '9px 20px' }),
+        2: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 160, easing: EASE, origin: '14px 20px' }),
+        3: /* @__PURE__ */ track(TALLY_BOUNCE, 400, { delay: 240, easing: EASE, origin: '19px 20px' }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 140, { delay: 420 }),
       },
     },
