@@ -4,10 +4,12 @@ import {
   QueryList,
   signal,
   computed,
+  effect,
   inject,
   OnDestroy,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import {
   MaxIconComponent,
   CURATED_ICONS,
@@ -21,6 +23,8 @@ import {
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
+import { BotonDonar } from '../../shared/marca/boton-donar';
+import { BotonGithub } from '../../shared/marca/boton-github';
 import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
@@ -60,6 +64,8 @@ interface CuratedEntry {
     MaxIconMorphComponent,
     IconDetailPanel,
     RouterLink,
+    BotonDonar,
+    BotonGithub,
     Boton,
     CampoBusqueda,
     Chip,
@@ -67,6 +73,7 @@ interface CuratedEntry {
     Grupo,
     NombreTransicion,
     Tooltip,
+    TranslocoPipe,
   ],
   templateUrl: './iconos.html',
   styleUrl: './iconos.css',
@@ -92,9 +99,21 @@ export class Iconos implements OnDestroy {
    * router costaba 460KB —es eager, y `import('glyphflow')` ahí subía el registro entero al chunk
    * inicial (medido: 354KB → 813KB)—. Este componente ya importa `CURATED_ICONS`, así que el dato
    * es gratis. Corre después del `title` de la ruta, que queda como respaldo sin número.
+   *
+   * Vive como `effect()` y no como un `setTitle` de una sola vez: la clave está en el scope
+   * ROOT (`routes.iconos.tituloConConteo`, en `i18n/{en,es}.json`), así que un cambio de idioma
+   * en vivo tiene que volver a pintar el título tal como lo hace `TranslatedTitleStrategy` con el
+   * resto de las rutas — si no, cambiar de idioma dejaría ESTE título congelado en el viejo.
    */
-  private readonly titulo = inject(Title).setTitle(
-    `glyphflow — ${this.todos.length} iconos animados`,
+  private readonly tituloServicio = inject(Title);
+  private readonly tituloConConteo = translateSignal(
+    'routes.iconos.tituloConConteo',
+    computed(() => ({ n: this.total })),
+  );
+  // `inject()` solo es válido en el cuerpo de la clase, no dentro del callback del effect — por
+  // eso el servicio se inyecta arriba, como campo, y aquí solo se usa `this.tituloServicio`.
+  private readonly efectoTitulo = effect(() =>
+    this.tituloServicio.setTitle(this.tituloConConteo()),
   );
 
   /**
@@ -124,7 +143,7 @@ export class Iconos implements OnDestroy {
   /** El destello de la nota. Sale del propio catálogo: el sitio no dibuja iconos que no vende. */
   protected readonly destello: AnimatedIconDef = CURATED_ICONS['sparkles'];
 
-  /** El resto de las cifras del hero — mismos números que repite el menú móvil. */
+  /** El resto de las cifras del hero. */
   protected readonly cifras = CIFRAS;
 
   /**
@@ -159,18 +178,18 @@ export class Iconos implements OnDestroy {
   protected readonly argumentos = [
     {
       icono: leafIcon,
-      titulo: 'Ligero por diseño',
-      texto: 'Tree-shaking real. Solo pesa lo que de verdad usas.',
+      titulo: 'iconos.argumentos.liviano.titulo',
+      texto: 'iconos.argumentos.liviano.texto',
     },
     {
       icono: codeIcon,
-      titulo: 'API moderna',
-      texto: 'Standalone, señales y tipado estricto. Sin NgModules.',
+      titulo: 'iconos.argumentos.api.titulo',
+      texto: 'iconos.argumentos.api.texto',
     },
     {
       icono: CURATED_ICONS['sparkles'],
-      titulo: 'Hecho para moverse',
-      texto: 'Animaciones declarativas sobre WAAPI, sin dependencias pesadas.',
+      titulo: 'iconos.argumentos.movimiento.titulo',
+      texto: 'iconos.argumentos.movimiento.texto',
     },
   ];
 
@@ -193,9 +212,9 @@ export class Iconos implements OnDestroy {
    */
   protected readonly conteos: { clave: ClaveInsignia; etiqueta: string; n: number }[] = (
     [
-      { clave: 'extras', etiqueta: 'con variante extra' },
-      { clave: 'held', etiqueta: 'held' },
-      { clave: 'solo-draw', etiqueta: 'solo trazo' },
+      { clave: 'extras', etiqueta: 'iconos.barra.insignias.extras' },
+      { clave: 'held', etiqueta: 'iconos.barra.insignias.held' },
+      { clave: 'solo-draw', etiqueta: 'iconos.barra.insignias.soloDraw' },
     ] as { clave: ClaveInsignia; etiqueta: string }[]
   )
     .map((o) => ({ ...o, n: this.todos.filter((e) => tiene(e, o.clave)).length }))

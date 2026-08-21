@@ -1,4 +1,5 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
   MaxIconComponent,
@@ -11,8 +12,11 @@ import {
   type AnimatedIconDef,
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { TranslocoPipe, TranslocoService, translateSignal } from '@jsverse/transloco';
+import { configureBoneyard } from 'boneyard-js/angular';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
+import { conectarIdiomaDelDocumento, type Idioma } from './core/i18n';
 import { alternarTema, conectarTema, tema } from './core/tema';
 import { conectarTransiciones } from './core/transicion';
 import { BotonGithub } from './shared/marca/boton-github';
@@ -44,6 +48,7 @@ import { Grupo } from './shared/ui/grupo';
     CarrilActivo,
     Chip,
     Grupo,
+    TranslocoPipe,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -90,9 +95,24 @@ export class App {
   protected readonly iconoTema = computed<MorphIcon>(() =>
     tema() === 'oscuro' ? sunIcon : moonIcon,
   );
-  protected readonly etiquetaTema = computed(() =>
-    tema() === 'oscuro' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro',
+  protected readonly claveTema = computed(() =>
+    tema() === 'oscuro' ? 'shell.tema.aClaro' : 'shell.tema.aOscuro',
   );
+  protected readonly etiquetaTema = translateSignal(this.claveTema);
+
+  /**
+   * El switcher es un solo botón que alterna, igual que el de tema — no un `<select>` ni una
+   * pastilla de 2 opciones: con solo 2 idiomas, alternar es más rápido que elegir.
+   */
+  private readonly transloco = inject(TranslocoService);
+  protected readonly idioma = toSignal(this.transloco.langChanges$, {
+    initialValue: this.transloco.getActiveLang() as Idioma,
+  });
+  protected readonly etiquetaIdioma = translateSignal('shell.idioma.cambiar');
+
+  protected alternarIdioma(): void {
+    this.transloco.setActiveLang(this.idioma() === 'en' ? 'es' : 'en');
+  }
 
   /**
    * El círculo sale del CENTRO del botón y no del punto del clic: con teclado, `Enter` dispara un
@@ -105,9 +125,20 @@ export class App {
   }
 
   constructor() {
+    // Mismo var para `color` y `darkColor` a propósito: boneyard trae su PROPIA detección de
+    // claro/oscuro (probablemente `prefers-color-scheme`), que no tiene por qué coincidir con nuestro
+    // tema manual (`data-tema`). Pasarle el mismo custom property a los dos neutraliza esa detección
+    // — el color correcto lo sigue resolviendo el CSS del sitio, no boneyard.
+    configureBoneyard({
+      color: 'var(--gf-panel-alto)',
+      darkColor: 'var(--gf-panel-alto)',
+      animate: 'shimmer',
+    });
+
     // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
     conectarTransiciones();
     conectarTema();
+    conectarIdiomaDelDocumento();
     // Sin `await` ni bloqueo: si nunca responde, el botón se queda diciendo «GitHub» y el sitio ya
     // está usable desde el primer cuadro.
     void cargarEstrellas();

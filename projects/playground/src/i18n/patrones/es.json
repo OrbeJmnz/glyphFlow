@@ -1,0 +1,37 @@
+{
+  "titulo": "Patrones",
+  "intro": "La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve: controles que de verdad hacen lo que dicen — el de copiar copia, el de tema cambia colores, el de enviar tiene sus tres estados. El código de cada uno está al lado.",
+  "copiar": {
+    "titulo": "Copiar al portapapeles",
+    "descripcion": "El caso donde el morph gana claro: <code>copy</code> → <code>check</code> confirma sin mover el layout ni meter un toast. El botón de arriba copia de verdad — pruébalo y pega.",
+    "detalle": "Si el <code>writeText</code> falla (sin permiso, sin foco, sitio en http) el estado no cambia: el icono se queda en <code>copy</code> en vez de mentir con una palomita.",
+    "boton": {
+      "copiar": "Copiar",
+      "copiado": "Copiado"
+    }
+  },
+  "tema": {
+    "titulo": "Cambio de tema",
+    "descripcion": "<code>moon</code> ↔ <code>sun</code>. El icono hereda el color del texto (<code>stroke=\"currentColor\"</code>), así que el tema no necesita tocarlo: cambia el color del contenedor y el icono va detrás.",
+    "detalle": "Aquí el tema aplica solo a <strong>este panel</strong>, para que se vea el patrón aislado. El de verdad está en el header, con el mismo morph: escribe <code>data-tema</code> en <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que crece desde el propio botón.",
+    "ariaAOscuro": "Cambiar a tema oscuro",
+    "ariaAClaro": "Cambiar a tema claro",
+    "labelClaro": "Tema claro",
+    "labelOscuro": "Tema oscuro"
+  },
+  "enviar": {
+    "titulo": "Acción con tres estados",
+    "descripcion": "Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por morph; el spinner es un <code>&lt;max-icon&gt;</code> curado en <code>loop</code>.",
+    "detalle": "Mezclarlos no es descuido: un morph tiene <strong>principio y fin</strong>, y \"cargando\" no sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que cicle, que es exactamente lo que el motor de coreografía ya hace.",
+    "boton": {
+      "reposo": "Enviar",
+      "enviando": "Enviando…",
+      "enviado": "Enviado"
+    }
+  },
+  "reaccion": {
+    "titulo": "Reacción",
+    "descripcion": "Aquí no hay morph: la forma no cambia, solo el gesto. <code>trigger=\"tap\"</code> reproduce la coreografía curada del corazón en cada click, y el color lo pone el botón.",
+    "detalle": "La regla para elegir motor: si el icono <strong>cambia de forma</strong>, morph; si el mismo icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación de dos figuras idénticas."
+  }
+}

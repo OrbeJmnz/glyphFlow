@@ -11,9 +11,10 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { AnimatedIconDef, MaxIconComponent, checkIcon, copyIcon } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
-import { analizarIcono, VariantReport } from './motion-inspector';
+import { analizarIcono } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
 import { IconScrubber } from './icon-scrubber';
 import { Boton } from '../../shared/ui/boton';
@@ -37,7 +38,15 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
  */
 @Component({
   selector: 'app-icon-detail-panel',
-  imports: [MaxIconComponent, MaxIconMorphComponent, IconScrubber, Boton, Tooltip, RouterLink],
+  imports: [
+    MaxIconComponent,
+    MaxIconMorphComponent,
+    IconScrubber,
+    Boton,
+    Tooltip,
+    RouterLink,
+    TranslocoPipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-detail-panel.html',
   styleUrl: './icon-detail-panel.css',
@@ -72,6 +81,33 @@ export class IconDetailPanel {
     this.copiado() === 'json' ? checkIcon : this.copyIconPlano,
   );
 
+  /**
+   * Tooltip y aria-label de cada botón de copiar, uno por botón porque cada uno vigila SU PROPIO
+   * estado (`copiado() === 'snippet'` vs. `=== 'json'`) — mismo patrón que «Copiar al
+   * portapapeles» en /patrones: la rama elige la CLAVE, no el texto.
+   */
+  private readonly claveTooltipSnippet = computed(() =>
+    this.copiado() === 'snippet' ? 'iconos.detalle.codigo.copiado' : 'iconos.detalle.codigo.copiar',
+  );
+  protected readonly tooltipSnippet = translateSignal(this.claveTooltipSnippet);
+  private readonly claveAriaSnippet = computed(() =>
+    this.copiado() === 'snippet'
+      ? 'iconos.detalle.codigo.copiado'
+      : 'iconos.detalle.codigo.copiarSnippetAria',
+  );
+  protected readonly ariaSnippet = translateSignal(this.claveAriaSnippet);
+
+  private readonly claveTooltipJson = computed(() =>
+    this.copiado() === 'json' ? 'iconos.detalle.codigo.copiado' : 'iconos.detalle.codigo.copiar',
+  );
+  protected readonly tooltipJson = translateSignal(this.claveTooltipJson);
+  private readonly claveAriaJson = computed(() =>
+    this.copiado() === 'json'
+      ? 'iconos.detalle.codigo.copiado'
+      : 'iconos.detalle.codigo.copiarJsonAria',
+  );
+  protected readonly ariaJson = translateSignal(this.claveAriaJson);
+
   constructor() {
     // Si cambia el icono seleccionado, la variante activa vuelve a `default` (o a la primera que
     // haya) — quedarse en una variante de OTRO icono sería mostrar un snippet que no corresponde.
@@ -95,10 +131,18 @@ export class IconDetailPanel {
   });
 
   /** Prellenado del issue: quién lo abre no debería escribir de cero qué icono es. */
+  private readonly issueTitulo = translateSignal(
+    'iconos.detalle.issue.titulo',
+    computed(() => ({ nombre: this.nombre() })),
+  );
+  private readonly issueCuerpo = translateSignal(
+    'iconos.detalle.issue.cuerpo',
+    computed(() => ({ constName: this.constName(), variante: this.varianteActiva() })),
+  );
   protected readonly urlReportar = computed(() => {
     const params = new URLSearchParams({
-      title: `Icono: ${this.nombre()}`,
-      body: `Coreografía de \`${this.constName()}\` (variante \`${this.varianteActiva()}\`).\n\n<!-- Qué esperabas ver vs. qué pasó -->\n`,
+      title: this.issueTitulo(),
+      body: this.issueCuerpo(),
     });
     return `${URL_REPO}/issues/new?${params.toString()}`;
   });
@@ -115,10 +159,6 @@ export class IconDetailPanel {
       2,
     ),
   );
-
-  protected duracion(v: VariantReport): string {
-    return v.duracionMs === null ? 'en vivo (autoDraw)' : `${v.duracionMs} ms`;
-  }
 
   protected elegirVariante(v: string): void {
     this.varianteActiva.set(v);

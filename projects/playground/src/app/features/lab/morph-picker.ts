@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { AnimatedIconDef, CURATED_ICONS, MaxIconComponent } from 'glyphflow';
 import { MaxIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
@@ -23,7 +24,7 @@ interface Elegido {
  */
 @Component({
   selector: 'app-morph-picker',
-  imports: [MaxIconComponent, MaxIconMorphComponent, CampoBusqueda, Boton, Tooltip],
+  imports: [MaxIconComponent, MaxIconMorphComponent, CampoBusqueda, Boton, Tooltip, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './morph-picker.html',
   styleUrl: './morph-picker.css',
@@ -45,6 +46,11 @@ export class MorphPicker implements OnDestroy {
   protected readonly secuencia = signal<Elegido[]>([]);
   protected readonly indiceActual = signal(0);
   protected readonly corriendo = signal(false);
+  /** Reposo → corriendo, cada uno su clave — mismo patrón que el botón de enviar de patrones.ts. */
+  private readonly claveReproducir = computed(() =>
+    this.corriendo() ? 'lab.morphPicker.reproducir.corriendo' : 'lab.morphPicker.reproducir.reposo',
+  );
+  protected readonly etiquetaReproducir = translateSignal(this.claveReproducir);
 
   private temporizadores: ReturnType<typeof setTimeout>[] = [];
 

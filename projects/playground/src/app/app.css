@@ -283,6 +283,25 @@
 }
 
 /*
+ * Un solo botón que alterna, mismo alto de 36px que `.tema` (van pegados) — pero ancho normal, no
+ * cuadrado: es TEXTO ("EN"/"ES"), forzarlo a 36px lo dejaría apretado o cortado.
+ */
+.idioma {
+  height: 36px;
+  padding: 0 14px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Dentro del panel móvil no hay separadores de `.controles` que la acompañen — el hueco lo pone
+   el propio `justify-content: space-between` de `.menu-cabecera`. */
+.idioma-movil {
+  height: 1.75rem;
+  padding: 0 10px;
+  font-size: 0.75rem;
+}
+
+/*
  * En móvil el header es STICKY, así que cada control que se deja visible se lo queda para
  * siempre. En vez de repartir nav/velocidad/GitHub en más renglones, se esconden detrás de un
  * menú: el header se queda en UNA fila (disparador, marca, tema) y el resto vive en el panel
@@ -395,14 +414,17 @@
     }
   }
 
+  /* El título empuja con `margin-right: auto`; idioma y cerrar quedan pegados entre sí a la
+     derecha — con `space-between` a los 3 el del medio quedaba flotando lejos de los otros dos. */
   .menu-cabecera {
     display: flex;
     flex: none;
     align-items: center;
-    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   .menu-cabecera span {
+    margin-right: auto;
     font-size: 0.6875rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;

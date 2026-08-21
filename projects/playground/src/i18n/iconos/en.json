@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "h1": "glyphflow — icons that move",
+    "bajada": "Lucide icons animated on the native Web Animations API. Zero animation dependencies, real tree-shaking, and morphing between shapes. For Angular.",
+    "empezar": "Get started",
+    "nota": "Icons that move. No dependencies.",
+    "cifras": {
+      "curados": "hand-curated",
+      "catalogo": "in the catalog",
+      "pesoIcono": "one icon, gzip",
+      "depsAnimacion": "animation deps"
+    }
+  },
+  "showcase": {
+    "titulo": "Morph between shapes",
+    "descripcion": "Smooth transitions between outlines. Keyframes are computed once and the browser interpolates them — zero animation loop.",
+    "probarEditor": "Try it in the editor",
+    "pasoGrupoAria": "Sequence step",
+    "irAlPaso": "Go to step {{n}}"
+  },
+  "argumentos": {
+    "liviano": {
+      "titulo": "Light by design",
+      "texto": "Real tree-shaking. You only ship what you actually use."
+    },
+    "api": {
+      "titulo": "Modern API",
+      "texto": "Standalone, signals, and strict typing. No NgModules."
+    },
+    "movimiento": {
+      "titulo": "Built to move",
+      "texto": "Declarative animations on WAAPI, no heavy dependencies."
+    }
+  },
+  "barra": {
+    "repetirTodo": "Replay all",
+    "buscarMarcador": "Search by name…",
+    "buscarEtiqueta": "Search icon by name",
+    "filtrarInsigniaEtiqueta": "Filter by badge",
+    "todos": "All",
+    "insignias": {
+      "extras": "with extra variant",
+      "held": "held",
+      "soloDraw": "draw only"
+    },
+    "aviso": "{{n}} of {{total}}."
+  },
+  "grid": {
+    "inspeccionarAria": "Inspect {{nombre}}",
+    "animacionesTitle": "{{n}} animations"
+  },
+  "scrubber": {
+    "progresoEtiqueta": "Choreography progress",
+    "progresoValor": "{{actual}} of {{total}} milliseconds",
+    "sinScrubNota": "This variant has no fixed tracks to scrub by hand — its duration is computed live by the component with <code>getTotalLength()</code> (autoDraw)."
+  },
+  "detalle": {
+    "seccionAria": "Icon detail",
+    "cerrarAria": "Close panel",
+    "tabsNavAria": "Detail sections",
+    "tabs": {
+      "preview": "Preview",
+      "codigo": "Code",
+      "inspector": "Motion Inspector"
+    },
+    "variantesNavAria": "Choreography variants",
+    "codigo": {
+      "snippetTitulo": "Snippet",
+      "exportarJsonTitulo": "Export JSON",
+      "copiar": "Copy",
+      "copiado": "Copied",
+      "copiarSnippetAria": "Copy snippet",
+      "copiarJsonAria": "Copy JSON"
+    },
+    "inspector": {
+      "duracion": "duration",
+      "duracionVivo": "live (autoDraw)",
+      "rotacionMax": "max rotation",
+      "tracksSolapados": "overlapping tracks",
+      "ninguno": "none",
+      "si": "yes",
+      "no": "no",
+      "avisoAnimaD": "⚠ animates <code>d</code> — redraws the path"
+    },
+    "nota": "<code>respectReducedMotion</code>: inherits the component's default (<code>true</code>) — it's not data from this choreography, it's a contract of the engine.",
+    "acciones": {
+      "probarEditor": "Try in editor",
+      "verDocs": "View in Docs",
+      "reportarIcono": "Report icon"
+    },
+    "issue": {
+      "titulo": "Icon: {{nombre}}",
+      "cuerpo": "Choreography for `{{constName}}` (variant `{{variante}}`).\n\n<!-- What you expected to see vs. what happened -->\n"
+    }
+  }
+}

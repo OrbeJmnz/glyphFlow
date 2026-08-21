@@ -1,0 +1,86 @@
+{
+  "titulo": "Lab",
+  "intro": "The authoring harnesses. Not product — they exist to decide numbers by looking at things side by side: how many discrete poses, what to do with the spring's tail, how an unvalidated pair looks. What gets decided here is what ends up as the library's default.",
+  "iconImport": {
+    "toggle": "Import choreography (JSON)",
+    "desdeEditor": "Loaded <strong>{{nombre}}</strong> from the geometry editor, with its original choreography. Previewed below.",
+    "instrucciones": "Paste the JSON you copied from \"Export JSON\" in the detail panel. It previews with the same <code>[iconDef]</code> the rest of the playground uses.",
+    "cargarEjemplo": "load example (bell)",
+    "errores": {
+      "jsonInvalido": "Invalid JSON — check your commas and braces.",
+      "noEsObjeto": "Expected an object.",
+      "faltaShapes": "Missing \"shapes\" (must be an array).",
+      "faltaAnimations": "Missing \"animations\" (must be an object)."
+    },
+    "sinNombre": "(unnamed)",
+    "previewHint": "hover to animate it"
+  },
+  "morphPicker": {
+    "titulo": "Free-form morph — build your sequence",
+    "expectativa": "⚠ Only the benchmark's 4 pairs are thoroughly validated. Arbitrary combinations between very different icons <strong>can look wrong</strong> — that's a real limit of shape interpolation, not a bug: the core pairs subpaths by proximity, and if two icons share nothing in common, there's no good match to find.",
+    "buscar": {
+      "marcador": "filter the 180 curated icons…",
+      "etiqueta": "Filter icons",
+      "sinResultados": "No results for \"{{filtro}}\"."
+    },
+    "agregarAria": "Add {{nombre}}",
+    "quitarAria": "Remove {{nombre}}",
+    "previewLabel": "Morph preview",
+    "vacioLienzo": "Choose at least 2 icons to build a sequence.",
+    "reproducir": {
+      "reposo": "▶ play sequence",
+      "corriendo": "running…"
+    },
+    "limpiar": "clear"
+  },
+  "morphBench": {
+    "titulo": "Morph benchmark",
+    "intro": "One pair at a time, 4 variants side by side. The spring only decides the timing: zero animation loop — the keyframes are computed once and the browser interpolates them.",
+    "controles": {
+      "reproducirTodas": "Play all 4",
+      "loop": { "on": "Loop on", "off": "Loop off" },
+      "reset": "Reset",
+      "modoPasos": "compare steps",
+      "modoCola": "compare spring tail",
+      "modoVuelta": "compare the return",
+      "modoSobrepaso": "compare the bounce",
+      "resolucion": "res"
+    },
+    "avisos": {
+      "cola": "The tail only shows up <strong>on the way back</strong>: turn on <em>Loop</em> and watch it land. \"No reverse\" doesn't come back — it restarts from the origin every cycle.",
+      "sobrepaso": "An underdamped spring <strong>overshoots</strong> the target and comes back. That used to just stretch the clock: the icon would arrive and sit still. Now the overshoot poses render by default — the comparison that matters is <em>snappy, undrawn</em> (<code>sobrepaso: false</code>) against <em>snappy</em>. <code>bouncy</code> is clamped: extrapolating further would push it off the canvas and the SVG would clip it.",
+      "vuelta": "<strong>Hover in, then pull out</strong> — that's the real case (<code>reverseOnLeave</code>). <em>reverse()</em> walks the offsets in mirror and lands abruptly; <em>Round trip</em> carries its own spring on each leg and doesn't need you to pull out."
+    },
+    "variantes": {
+      "p10": { "titulo": "10 steps" },
+      "p15": { "titulo": "15 steps" },
+      "p20": { "titulo": "20 steps", "nota": "default" },
+      "p30": { "titulo": "30 steps" },
+      "v-alternate": { "titulo": "reverse()", "nota": "current" },
+      "v-ida-vuelta": { "titulo": "Round trip", "nota": "spring per leg" },
+      "s-smooth": { "titulo": "smooth", "nota": "ζ=1.00, no bounce" },
+      "s-073-sin": { "titulo": "snappy, undrawn", "nota": "sobrepaso: false" },
+      "s-073-con": { "titulo": "snappy", "nota": "ζ=0.73, default" },
+      "s-040-con": { "titulo": "bouncy", "nota": "ζ=0.40, clamped to viewBox" },
+      "completa": { "titulo": "Full tail", "nota": "current" },
+      "corta": { "titulo": "Short tail", "nota": "|1−x| < 0.01" },
+      "recorte": { "titulo": "Trimmed to 99%", "nota": "physics unchanged" },
+      "reinicio": { "titulo": "No reverse", "nota": "restarts from origin" }
+    },
+    "envoltorio": {
+      "descripcion": "The thin wrapper. A single <code>[icon]</code>: changing it triggers the morph from the previous value. The first render paints static — there's nowhere to transition from.",
+      "resorteAria": "Wrapper spring",
+      "resorteTit": "spring",
+      "avisoChico": "Underdamped springs <strong>overshoot the target and come back</strong>. Hit \"next\" with <code>bouncy</code> and watch the overshoot — that's what didn't used to render.",
+      "demoLabel": "Morph demo",
+      "siguiente": "next: {{nombre}}"
+    },
+    "tabla": {
+      "keyframes": "keyframes",
+      "peso": "weight",
+      "duracion": "duration",
+      "ultimoTramo": "last leg"
+    },
+    "reproducirSolo": "Play just this one"
+  }
+}

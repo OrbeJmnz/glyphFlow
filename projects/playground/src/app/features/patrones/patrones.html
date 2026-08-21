@@ -1,10 +1,6 @@
 <header class="head">
-  <h1>Patrones</h1>
-  <p>
-    La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve: controles que de verdad
-    hacen lo que dicen — el de copiar copia, el de tema cambia colores, el de enviar tiene sus tres
-    estados. El código de cada uno está al lado.
-  </p>
+  <h1>{{ 'patrones.titulo' | transloco }}</h1>
+  <p>{{ 'patrones.intro' | transloco }}</p>
 </header>
 
 <div class="patrones">
@@ -13,19 +9,13 @@
     <div class="demo">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
         <max-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
-        {{ copiado() ? 'Copiado' : 'Copiar' }}
+        {{ etiquetaCopiar() }}
       </button>
     </div>
     <div class="texto">
-      <h2>Copiar al portapapeles</h2>
-      <p>
-        El caso donde el morph gana claro: <code>copy</code> → <code>check</code> confirma sin mover
-        el layout ni meter un toast. El botón de arriba copia de verdad — pruébalo y pega.
-      </p>
-      <p class="detalle">
-        Si el <code>writeText</code> falla (sin permiso, sin foco, sitio en http) el estado no
-        cambia: el icono se queda en <code>copy</code> en vez de mentir con una palomita.
-      </p>
+      <h2>{{ 'patrones.copiar.titulo' | transloco }}</h2>
+      <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
       <pre><code class="degradado-texto-sutil">protected readonly copiado = signal(false);
 protected readonly icono = computed(() =&gt; (this.copiado() ? checkIcon : copyIcon));
 
@@ -47,29 +37,16 @@ async copiar() &#123;
         app-boton
         class="icono-solo"
         (click)="alternarTema()"
-        [attr.aria-label]="claro() ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'"
+        [attr.aria-label]="ariaTema()"
       >
-        <max-icon-morph
-          [icon]="iconoTema()"
-          [size]="20"
-          [label]="claro() ? 'Tema claro' : 'Tema oscuro'"
-        />
+        <max-icon-morph [icon]="iconoTema()" [size]="20" [label]="labelTema()" />
       </button>
       <span class="muestra">Aa</span>
     </div>
     <div class="texto">
-      <h2>Cambio de tema</h2>
-      <p>
-        <code>moon</code> ↔ <code>sun</code>. El icono hereda el color del texto
-        (<code>stroke="currentColor"</code>), así que el tema no necesita tocarlo: cambia el color
-        del contenedor y el icono va detrás.
-      </p>
-      <p class="detalle">
-        Aquí el tema aplica solo a <strong>este panel</strong>, para que se vea el patrón aislado.
-        El de verdad está en el header, con el mismo morph: escribe <code>data-tema</code> en
-        <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que
-        crece desde el propio botón.
-      </p>
+      <h2>{{ 'patrones.tema.titulo' | transloco }}</h2>
+      <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
       <pre><code class="degradado-texto-sutil">protected readonly claro = signal(false);
 protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon));
 
@@ -94,30 +71,13 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
         } @else {
           <max-icon-morph [icon]="iconoEnvio()" [size]="18" />
         }
-        @switch (estadoEnvio()) {
-          @case ('enviando') {
-            Enviando…
-          }
-          @case ('enviado') {
-            Enviado
-          }
-          @default {
-            Enviar
-          }
-        }
+        {{ etiquetaEnvio() }}
       </button>
     </div>
     <div class="texto">
-      <h2>Acción con tres estados</h2>
-      <p>
-        Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por
-        morph; el spinner es un <code>&lt;max-icon&gt;</code> curado en <code>loop</code>.
-      </p>
-      <p class="detalle">
-        Mezclarlos no es descuido: un morph tiene <strong>principio y fin</strong>, y "cargando" no
-        sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que
-        cicle, que es exactamente lo que el motor de coreografía ya hace.
-      </p>
+      <h2>{{ 'patrones.enviar.titulo' | transloco }}</h2>
+      <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
       <pre><code class="degradado-texto-sutil">&#64;if (estado() === 'enviando') &#123;
   &lt;max-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
 &#125; &#64;else &#123;
@@ -142,17 +102,9 @@ protected readonly icono = computed(() =&gt; (this.claro() ? sunIcon : moonIcon)
       </button>
     </div>
     <div class="texto">
-      <h2>Reacción</h2>
-      <p>
-        Aquí no hay morph: la forma no cambia, solo el gesto.
-        <code>trigger="tap"</code> reproduce la coreografía curada del corazón en cada click, y el
-        color lo pone el botón.
-      </p>
-      <p class="detalle">
-        La regla para elegir motor: si el icono <strong>cambia de forma</strong>, morph; si el mismo
-        icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación
-        de dos figuras idénticas.
-      </p>
+      <h2>{{ 'patrones.reaccion.titulo' | transloco }}</h2>
+      <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
       <pre><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="meGusta()" (click)="alternar()"&gt;
   &lt;max-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
   &#123;&#123; votos() &#125;&#125;

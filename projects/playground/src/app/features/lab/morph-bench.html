@@ -1,10 +1,7 @@
 <section class="bench">
   <header class="bench-head">
-    <h2>Benchmark de morph</h2>
-    <p>
-      Un par a la vez, 4 variantes lado a lado. El spring solo decide el timing: cero loop de
-      animación, los keyframes se calculan una vez y los interpola el navegador.
-    </p>
+    <h2>{{ 'lab.morphBench.titulo' | transloco }}</h2>
+    <p>{{ 'lab.morphBench.intro' | transloco }}</p>
 
     <nav class="pares">
       @for (par of pares; track par.id) {
@@ -22,12 +19,14 @@
 
     <div class="controles">
       <button type="button" app-boton variante="primario" (click)="reproducirTodas()">
-        Reproducir las 4
+        {{ 'lab.morphBench.controles.reproducirTodas' | transloco }}
       </button>
       <button type="button" app-chip variante="contorno" [activo]="loop()" (click)="alternarLoop()">
-        Loop {{ loop() ? 'on' : 'off' }}
+        {{ etiquetaLoop() }}
       </button>
-      <button type="button" app-chip variante="contorno" (click)="cancelar()">Reset</button>
+      <button type="button" app-chip variante="contorno" (click)="cancelar()">
+        {{ 'lab.morphBench.controles.reset' | transloco }}
+      </button>
       <span class="separador"></span>
       <button
         type="button"
@@ -36,7 +35,7 @@
         [activo]="modo() === 'pasos'"
         (click)="elegirModo('pasos')"
       >
-        comparar pasos
+        {{ 'lab.morphBench.controles.modoPasos' | transloco }}
       </button>
       <button
         type="button"
@@ -45,7 +44,7 @@
         [activo]="modo() === 'cola'"
         (click)="elegirModo('cola')"
       >
-        comparar cola del spring
+        {{ 'lab.morphBench.controles.modoCola' | transloco }}
       </button>
       <button
         type="button"
@@ -54,7 +53,7 @@
         [activo]="modo() === 'vuelta'"
         (click)="elegirModo('vuelta')"
       >
-        comparar la vuelta
+        {{ 'lab.morphBench.controles.modoVuelta' | transloco }}
       </button>
       <button
         type="button"
@@ -63,7 +62,7 @@
         [activo]="modo() === 'sobrepaso'"
         (click)="elegirModo('sobrepaso')"
       >
-        comparar el rebote
+        {{ 'lab.morphBench.controles.modoSobrepaso' | transloco }}
       </button>
       <span class="separador"></span>
       @for (r of resoluciones; track r) {
@@ -74,46 +73,32 @@
           [activo]="resolucion() === r"
           (click)="elegirResolucion(r)"
         >
-          res {{ r }}
+          {{ 'lab.morphBench.controles.resolucion' | transloco }} {{ r }}
         </button>
       }
     </div>
 
     @if (modo() === 'cola') {
-      <p class="aviso">
-        La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje.
-        «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.
-      </p>
+      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.cola' | transloco"></p>
     }
     @if (modo() === 'sobrepaso') {
-      <p class="aviso">
-        Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Eso antes solo
-        alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se
-        dibujan por default — la comparación que importa es <em>snappy sin dibujarlo</em> (<code
-          >sobrepaso: false</code
-        >) contra <em>snappy</em>. <code>bouncy</code> va topado: extrapolar más lo sacaría del
-        lienzo y el SVG lo recortaría.
-      </p>
+      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.sobrepaso' | transloco"></p>
     }
     @if (modo() === 'vuelta') {
-      <p class="aviso">
-        <strong>Pasa el puntero por encima y sácalo</strong> — es el caso real
-        (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza
-        de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la
-        saques.
-      </p>
+      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.vuelta' | transloco"></p>
     }
   </header>
 
   <div class="envoltorio">
     <div class="envoltorio-txt">
       <h3>&lt;max-icon-morph&gt;</h3>
-      <p>
-        El envoltorio delgado. Un solo <code>[icon]</code>: cambiarlo dispara el morph desde el
-        valor anterior. El primer render se pinta estático — no hay desde dónde transicionar.
-      </p>
-      <div class="grupo" role="group" aria-label="Resorte del envoltorio">
-        <span class="grupo-tit">resorte</span>
+      <p [innerHTML]="'lab.morphBench.envoltorio.descripcion' | transloco"></p>
+      <div
+        class="grupo"
+        role="group"
+        [attr.aria-label]="'lab.morphBench.envoltorio.resorteAria' | transloco"
+      >
+        <span class="grupo-tit">{{ 'lab.morphBench.envoltorio.resorteTit' | transloco }}</span>
         @for (r of resortes; track r) {
           <button
             type="button"
@@ -127,16 +112,18 @@
           </button>
         }
       </div>
-      <p class="aviso-chico">
-        Los subamortiguados <strong>se pasan del destino y regresan</strong>. Dale a «siguiente» con
-        <code>bouncy</code> y mira el sobrepaso: eso es lo que antes no se dibujaba.
-      </p>
+      <p class="aviso-chico" [innerHTML]="'lab.morphBench.envoltorio.avisoChico' | transloco"></p>
     </div>
     <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
-    <max-icon-morph [icon]="iconoDemo()" [spring]="resorte()" [size]="72" label="Demo de morph" />
+    <max-icon-morph
+      [icon]="iconoDemo()"
+      [spring]="resorte()"
+      [size]="72"
+      [label]="'lab.morphBench.envoltorio.demoLabel' | transloco"
+    />
     <max-icon-morph class="decorativo" [icon]="iconoDemo()" [spring]="resorte()" [size]="72" />
     <button type="button" app-boton compacto (click)="siguienteDemo()">
-      siguiente: {{ nombreDemo() }}
+      {{ 'lab.morphBench.envoltorio.siguiente' | transloco: { nombre: nombreDemo() } }}
     </button>
   </div>
 
@@ -145,14 +132,16 @@
       <article
         class="variante"
         [attr.data-id]="m.id"
-        [class.elegida]="m.nota === 'default'"
+        [class.elegida]="m.porDefecto"
         (mouseenter)="entrar(m)"
         (mouseleave)="salir(m)"
       >
         <h3>
-          {{ m.titulo }}
-          @if (m.nota) {
-            <span class="etiqueta">{{ m.nota }}</span>
+          {{ ('lab.morphBench.variantes.' + m.id + '.titulo') | transloco }}
+          @if (m.tieneNota) {
+            <span class="etiqueta"
+              >{{ ('lab.morphBench.variantes.' + m.id + '.nota') | transloco }}</span
+            >
           }
         </h3>
         <svg
@@ -170,24 +159,24 @@
         </svg>
         <dl class="datos">
           <div>
-            <dt>keyframes</dt>
+            <dt>{{ 'lab.morphBench.tabla.keyframes' | transloco }}</dt>
             <dd>{{ m.keyframes }}</dd>
           </div>
           <div>
-            <dt>peso</dt>
+            <dt>{{ 'lab.morphBench.tabla.peso' | transloco }}</dt>
             <dd>{{ (m.bytes / 1024).toFixed(1) }} KB</dd>
           </div>
           <div>
-            <dt>duración</dt>
+            <dt>{{ 'lab.morphBench.tabla.duracion' | transloco }}</dt>
             <dd>{{ m.duracion }} ms</dd>
           </div>
           <div>
-            <dt>último tramo</dt>
+            <dt>{{ 'lab.morphBench.tabla.ultimoTramo' | transloco }}</dt>
             <dd>{{ m.colaPct }}%</dd>
           </div>
         </dl>
         <button type="button" app-boton variante="fantasma" compacto (click)="reproducir(m)">
-          Reproducir solo este
+          {{ 'lab.morphBench.reproducirSolo' | transloco }}
         </button>
       </article>
     }

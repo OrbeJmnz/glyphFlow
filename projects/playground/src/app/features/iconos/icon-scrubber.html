@@ -69,15 +69,14 @@
         [max]="1000"
         [valor]="progreso() * 1000"
         (valorChange)="mover($event)"
-        etiqueta="Progreso de la coreografía"
-        [textoValor]="tiempoActualMs() + ' de ' + dur + ' milisegundos'"
+        [etiqueta]="'iconos.scrubber.progresoEtiqueta' | transloco"
+        [textoValor]="
+          'iconos.scrubber.progresoValor' | transloco: { actual: tiempoActualMs(), total: dur }
+        "
       />
       <span class="tiempo">{{ tiempoActualMs() }} / {{ dur }} ms</span>
     </div>
   } @else {
-    <p class="sin-scrub">
-      Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente en
-      vivo con <code>getTotalLength()</code> (autoDraw).
-    </p>
+    <p class="sin-scrub" [innerHTML]="'iconos.scrubber.sinScrubNota' | transloco"></p>
   }
 </div>

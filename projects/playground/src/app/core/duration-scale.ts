@@ -17,14 +17,15 @@ export const escalaDuracion = signal(1);
 export interface PresetEscala {
   valor: number;
   etiqueta: string;
-  nota: string;
+  /** Clave de traducción (`i18n/{en,es}.json`, bajo `shell.velocidad.*`) — no texto suelto. */
+  notaClave: string;
 }
 
 export const PRESETS_ESCALA: PresetEscala[] = [
-  { valor: 0.5, etiqueta: '0.5×', nota: 'el doble de rápido' },
-  { valor: 1, etiqueta: '1×', nota: 'default' },
-  { valor: 1.5, etiqueta: '1.5×', nota: 'medio lento' },
-  { valor: 2, etiqueta: '2×', nota: 'para ver el detalle' },
+  { valor: 0.5, etiqueta: '0.5×', notaClave: 'shell.velocidad.notaMitad' },
+  { valor: 1, etiqueta: '1×', notaClave: 'shell.velocidad.notaNormal' },
+  { valor: 1.5, etiqueta: '1.5×', notaClave: 'shell.velocidad.notaMediaLenta' },
+  { valor: 2, etiqueta: '2×', notaClave: 'shell.velocidad.notaDetalle' },
 ];
 
 export function provideEscalaEnVivo(): Provider {

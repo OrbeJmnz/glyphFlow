@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "iconos": "Iconos",
+    "patrones": "Patrones",
+    "editor": "Editor",
+    "lab": "Lab",
+    "docs": "Docs"
+  },
+  "shell": {
+    "marcaAria": "glyphflow, ir al inicio",
+    "menu": {
+      "titulo": "Menú",
+      "abrir": "Menú",
+      "cerrar": "Cerrar menú",
+      "cerrarFondo": "Cerrar el menú"
+    },
+    "tema": {
+      "aClaro": "Cambiar a tema claro",
+      "aOscuro": "Cambiar a tema oscuro"
+    },
+    "idioma": {
+      "cambiar": "Cambiar idioma"
+    },
+    "velocidad": {
+      "titulo": "velocidad",
+      "etiqueta": "Velocidad global de las animaciones",
+      "notaMitad": "el doble de rápido",
+      "notaNormal": "default",
+      "notaMediaLenta": "medio lento",
+      "notaDetalle": "para ver el detalle"
+    },
+    "aviso": "Velocidad {{n}}× — aplica desde la siguiente reproducción; lo que ya está corriendo conserva la suya.",
+    "footer": {
+      "creditos": "Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.",
+      "github": "GitHub"
+    }
+  },
+  "routes": {
+    "iconos": {
+      "title": "glyphflow — iconos de Lucide animados para Angular",
+      "tituloConConteo": "glyphflow — {{n}} iconos animados"
+    },
+    "patrones": { "title": "Patrones — glyphflow" },
+    "editor": { "title": "Editor de nodos — glyphflow" },
+    "lab": { "title": "Lab — glyphflow" },
+    "docsEmpezando": { "title": "Empezando — glyphflow" },
+    "docsAccesibilidad": { "title": "Accesibilidad — glyphflow" },
+    "docsSsr": { "title": "SSR — glyphflow" },
+    "docsApi": { "title": "API — glyphflow" }
+  },
+  "marca": {
+    "github": {
+      "texto": "Star on GitHub",
+      "ariaSinConteo": "Dar estrella a glyphflow en GitHub",
+      "ariaConUna": "Dar estrella a glyphflow en GitHub, {{n}} estrella",
+      "ariaConVarias": "Dar estrella a glyphflow en GitHub, {{n}} estrellas"
+    },
+    "donar": {
+      "texto": "Donar",
+      "aria": "Invitar un café al proyecto en Buy Me a Coffee"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "titulo": "Editor de nodos",
+  "intro": "Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.",
+  "trazos": "Este icono tiene {{n}} trazos. Da click en uno para editar sus nodos.",
+  "busqueda": {
+    "marcador": "buscar entre los curados…",
+    "etiqueta": "Buscar icono para editar"
+  },
+  "lista": {
+    "editarAria": "Editar {{nombre}}"
+  },
+  "lienzo": {
+    "nodos": "{{n}} nodos",
+    "trazos": "{{n}} trazos",
+    "modificado": "modificado",
+    "intacto": "sin cambios",
+    "estadoAria": "Estado del lienzo",
+    "zoomAria": "Zoom del lienzo",
+    "acercar": "Acercar",
+    "alejar": "Alejar",
+    "reencuadrar": "Volver al 100%",
+    "pantalla": "Pantalla completa",
+    "salirPantalla": "Salir de pantalla completa",
+    "nodo": "1 nodo",
+    "trazo": "1 trazo"
+  },
+  "secciones": {
+    "elementos": "elementos",
+    "edicion": "edición",
+    "resultado": "resultado"
+  },
+  "nodo": {
+    "grupoAria": "Nodo seleccionado",
+    "titulo": "Nodo #{{n}}",
+    "agregar": "+ nodo aquí",
+    "teclaMas": "tecla +",
+    "borrar": "− borrar nodo",
+    "teclaSupr": "tecla Supr",
+    "pista": "Toca un nodo para agregar o borrar."
+  },
+  "historial": {
+    "grupoAria": "Historial",
+    "deshacer": "↶ deshacer",
+    "rehacer": "↷ rehacer"
+  },
+  "salida": {
+    "titulo": "resultado",
+    "path": "svg path",
+    "json": "json",
+    "restablecer": "restablecer",
+    "copiar": "copiar",
+    "copiado": "copiado",
+    "copiarD": "copiar d",
+    "copiarJson": "copiar JSON",
+    "plegarAria": "Mostrar u ocultar {{que}}"
+  },
+  "coreografiar": {
+    "boton": "Coreografiar esta forma",
+    "nota": "Se lleva la geometría editada al Lab <strong>con la coreografía original</strong>: los tracks apuntan a las mismas figuras, así que la animación que ya existía corre sobre la forma nueva."
+  }
+}

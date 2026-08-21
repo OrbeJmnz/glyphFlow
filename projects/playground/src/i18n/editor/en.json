@@ -1,0 +1,61 @@
+{
+  "titulo": "Node editor",
+  "intro": "Drag the points along the outline and watch <code>d</code> change. What you don't touch gets rewritten exactly as it was — that's why the result stays readable instead of turning into a wall of cubics.",
+  "trazos": "This icon has {{n}} strokes. Click one to edit its nodes.",
+  "busqueda": {
+    "marcador": "search the curated set…",
+    "etiqueta": "Search icon to edit"
+  },
+  "lista": {
+    "editarAria": "Edit {{nombre}}"
+  },
+  "lienzo": {
+    "nodos": "{{n}} nodes",
+    "trazos": "{{n}} strokes",
+    "modificado": "modified",
+    "intacto": "unchanged",
+    "estadoAria": "Canvas status",
+    "zoomAria": "Canvas zoom",
+    "acercar": "Zoom in",
+    "alejar": "Zoom out",
+    "reencuadrar": "Back to 100%",
+    "pantalla": "Fullscreen",
+    "salirPantalla": "Exit fullscreen",
+    "nodo": "1 node",
+    "trazo": "1 stroke"
+  },
+  "secciones": {
+    "elementos": "elements",
+    "edicion": "editing",
+    "resultado": "result"
+  },
+  "nodo": {
+    "grupoAria": "Selected node",
+    "titulo": "Node #{{n}}",
+    "agregar": "+ node here",
+    "teclaMas": "key +",
+    "borrar": "− delete node",
+    "teclaSupr": "key Delete",
+    "pista": "Tap a node to add or delete."
+  },
+  "historial": {
+    "grupoAria": "History",
+    "deshacer": "↶ undo",
+    "rehacer": "↷ redo"
+  },
+  "salida": {
+    "titulo": "result",
+    "path": "svg path",
+    "json": "json",
+    "restablecer": "reset",
+    "copiar": "copy",
+    "copiado": "copied",
+    "copiarD": "copy d",
+    "copiarJson": "copy JSON",
+    "plegarAria": "Show or hide {{que}}"
+  },
+  "coreografiar": {
+    "boton": "Choreograph this shape",
+    "nota": "Carries the edited geometry to the Lab <strong>with the original choreography</strong>: the tracks point at the same shapes, so the animation that already existed runs on the new form."
+  }
+}

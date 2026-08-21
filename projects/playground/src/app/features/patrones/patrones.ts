@@ -12,6 +12,7 @@ import {
   type AnimatedIconDef,
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { Boton } from '../../shared/ui/boton';
 import { iconoPlano } from '../../core/morph-icon-plano';
 
@@ -27,7 +28,7 @@ import { iconoPlano } from '../../core/morph-icon-plano';
  */
 @Component({
   selector: 'app-patrones',
-  imports: [MaxIconComponent, MaxIconMorphComponent, Boton],
+  imports: [MaxIconComponent, MaxIconMorphComponent, Boton, TranslocoPipe],
   templateUrl: './patrones.html',
   styleUrl: './patrones.css',
 })
@@ -46,6 +47,11 @@ export class Patrones implements OnDestroy {
     this.copiado() ? checkIcon : this.copyIconPlano,
   );
   protected readonly TEXTO_A_COPIAR = 'npm i glyphflow';
+  /** La rama elige la CLAVE, no el texto — mismo patrón que `boton-github.ts`. */
+  private readonly claveCopiar = computed(() =>
+    this.copiado() ? 'patrones.copiar.boton.copiado' : 'patrones.copiar.boton.copiar',
+  );
+  protected readonly etiquetaCopiar = translateSignal(this.claveCopiar);
 
   protected async copiar(): Promise<void> {
     // El write real puede fallar (sin permiso, sin foco, http). Si truena, no se miente con la
@@ -62,6 +68,16 @@ export class Patrones implements OnDestroy {
   // ── Tema claro/oscuro ───────────────────────────────────────────────────────
   protected readonly claro = signal(false);
   protected readonly iconoTema = computed<MorphIcon>(() => (this.claro() ? sunIcon : moonIcon));
+  /** El aria-label dice A DÓNDE vas, no dónde estás — mismo criterio que el switcher del shell. */
+  private readonly claveAriaTema = computed(() =>
+    this.claro() ? 'patrones.tema.ariaAOscuro' : 'patrones.tema.ariaAClaro',
+  );
+  protected readonly ariaTema = translateSignal(this.claveAriaTema);
+  /** El `label` del icono, en cambio, nombra el estado actual. */
+  private readonly claveLabelTema = computed(() =>
+    this.claro() ? 'patrones.tema.labelClaro' : 'patrones.tema.labelOscuro',
+  );
+  protected readonly labelTema = translateSignal(this.claveLabelTema);
 
   protected alternarTema(): void {
     this.claro.update((v) => !v);
@@ -74,6 +90,18 @@ export class Patrones implements OnDestroy {
     this.estadoEnvio() === 'enviado' ? circleCheckIcon : sendIcon,
   );
   protected readonly spinner: AnimatedIconDef = loaderCircleIcon;
+  /** Reposo → enviando → enviado, cada uno su propia clave. */
+  private readonly claveEnvio = computed(() => {
+    switch (this.estadoEnvio()) {
+      case 'enviando':
+        return 'patrones.enviar.boton.enviando';
+      case 'enviado':
+        return 'patrones.enviar.boton.enviado';
+      default:
+        return 'patrones.enviar.boton.reposo';
+    }
+  });
+  protected readonly etiquetaEnvio = translateSignal(this.claveEnvio);
 
   protected enviar(): void {
     if (this.estadoEnvio() !== 'reposo') return;

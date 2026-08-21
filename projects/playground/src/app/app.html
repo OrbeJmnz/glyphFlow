@@ -9,13 +9,13 @@
       class="menu-disparador"
       [attr.aria-expanded]="menuAbierto()"
       aria-controls="menu-movil"
-      aria-label="Menú"
+      [attr.aria-label]="'shell.menu.abrir' | transloco"
       (click)="alternarMenu()"
     >
       <max-icon-morph [icon]="iconoMenu()" [size]="18" spring="snappy" />
     </button>
 
-    <a class="marca" routerLink="/" aria-label="glyphflow, ir al inicio">
+    <a class="marca" routerLink="/" [attr.aria-label]="'shell.marcaAria' | transloco">
       <!-- El glifo es el propio motor animándose: `trigger="group"` lo cuelga del hover de este <a>. -->
       <max-icon [iconDef]="glifo" [size]="24" trigger="group" />
       <app-logo [alto]="32" [variante]="tema()" />
@@ -27,12 +27,12 @@
         routerLink="/"
         routerLinkActive="activo"
         [routerLinkActiveOptions]="{ exact: true }"
-        >Iconos</a
+        >{{ 'nav.iconos' | transloco }}</a
       >
-      <a app-chip routerLink="/patrones" routerLinkActive="activo">Patrones</a>
-      <a app-chip routerLink="/editor" routerLinkActive="activo">Editor</a>
-      <a app-chip routerLink="/lab" routerLinkActive="activo">Lab</a>
-      <a app-chip routerLink="/docs" routerLinkActive="activo">Docs</a>
+      <a app-chip routerLink="/patrones" routerLinkActive="activo">{{ 'nav.patrones' | transloco }}</a>
+      <a app-chip routerLink="/editor" routerLinkActive="activo">{{ 'nav.editor' | transloco }}</a>
+      <a app-chip routerLink="/lab" routerLinkActive="activo">{{ 'nav.lab' | transloco }}</a>
+      <a app-chip routerLink="/docs" routerLinkActive="activo">{{ 'nav.docs' | transloco }}</a>
     </nav>
 
     <!--
@@ -45,8 +45,8 @@
         así que el control pertenece al chrome, no a una página.
       -->
       <app-grupo
-        titulo="velocidad"
-        etiqueta="Velocidad global de las animaciones"
+        [titulo]="'shell.velocidad.titulo' | transloco"
+        [etiqueta]="'shell.velocidad.etiqueta' | transloco"
         class="velocidad"
       >
         <!-- El carril envuelve SOLO las píldoras: el indicador que se desliza se ancla aquí, y
@@ -58,7 +58,7 @@
               app-chip
               [activo]="escala() === p.valor"
               [attr.aria-pressed]="escala() === p.valor"
-              [title]="p.nota"
+              [title]="p.notaClave | transloco"
               (click)="escala.set(p.valor)"
             >
               {{ p.etiqueta }}
@@ -68,11 +68,21 @@
       </app-grupo>
 
       <!--
-        Los tres van como hermanos directos, sin caja intermedia: los separadores se dibujan con
-        `+` entre hermanos, y envueltos en un `<div>` el CSS solo podía poner UNA raya (antes del
-        grupo entero) en vez de una entre cada par.
+        Van como hermanos directos, sin caja intermedia: los separadores se dibujan con `+` entre
+        hermanos, y envueltos en un `<div>` el CSS solo podía poner UNA raya (antes del grupo
+        entero) en vez de una entre cada par.
       -->
       <app-boton-github />
+
+      <button
+        type="button"
+        app-boton
+        class="idioma"
+        [attr.aria-label]="etiquetaIdioma()"
+        (click)="alternarIdioma()"
+      >
+        {{ idioma() === 'en' ? 'EN' : 'ES' }}
+      </button>
 
       <button
         type="button"
@@ -106,15 +116,28 @@
   <button
     type="button"
     class="menu-fondo"
-    aria-label="Cerrar el menú"
+    [attr.aria-label]="'shell.menu.cerrarFondo' | transloco"
     (click)="cerrarMenu()"
   ></button>
 }
 
-<aside class="menu-movil" [class.abierto]="menuAbierto()" id="menu-movil" aria-label="Menú">
+<aside class="menu-movil" [class.abierto]="menuAbierto()" id="menu-movil" [attr.aria-label]="'shell.menu.titulo' | transloco">
   <div class="menu-cabecera">
-    <span>Menú</span>
-    <button type="button" class="menu-cerrar" aria-label="Cerrar menú" (click)="cerrarMenu()">
+    <span>{{ 'shell.menu.titulo' | transloco }}</span>
+    <button
+      type="button"
+      class="idioma idioma-movil"
+      [attr.aria-label]="etiquetaIdioma()"
+      (click)="alternarIdioma()"
+    >
+      {{ idioma() === 'en' ? 'EN' : 'ES' }}
+    </button>
+    <button
+      type="button"
+      class="menu-cerrar"
+      [attr.aria-label]="'shell.menu.cerrar' | transloco"
+      (click)="cerrarMenu()"
+    >
       ✕
     </button>
   </div>
@@ -125,12 +148,18 @@
       routerLinkActive="activo"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="cerrarMenu()"
-      >Iconos</a
+      >{{ 'nav.iconos' | transloco }}</a
     >
-    <a routerLink="/patrones" routerLinkActive="activo" (click)="cerrarMenu()">Patrones</a>
-    <a routerLink="/editor" routerLinkActive="activo" (click)="cerrarMenu()">Editor</a>
-    <a routerLink="/lab" routerLinkActive="activo" (click)="cerrarMenu()">Lab</a>
-    <a routerLink="/docs" routerLinkActive="activo" (click)="cerrarMenu()">Docs</a>
+    <a routerLink="/patrones" routerLinkActive="activo" (click)="cerrarMenu()">{{
+      'nav.patrones' | transloco
+    }}</a>
+    <a routerLink="/editor" routerLinkActive="activo" (click)="cerrarMenu()">{{
+      'nav.editor' | transloco
+    }}</a>
+    <a routerLink="/lab" routerLinkActive="activo" (click)="cerrarMenu()">{{ 'nav.lab' | transloco }}</a>
+    <a routerLink="/docs" routerLinkActive="activo" (click)="cerrarMenu()">{{
+      'nav.docs' | transloco
+    }}</a>
   </nav>
 
   <app-boton-github class="menu-github" />
@@ -138,8 +167,8 @@
   <!-- Empuja la velocidad al fondo del panel — separada del resto, es la de menos uso de las
        tres. La raya de arriba es lo único que la distingue del resto, no una caja aparte. -->
   <app-grupo
-    titulo="velocidad"
-    etiqueta="Velocidad global de las animaciones"
+    [titulo]="'shell.velocidad.titulo' | transloco"
+    [etiqueta]="'shell.velocidad.etiqueta' | transloco"
     class="velocidad menu-velocidad"
   >
     <span class="carril" [style.--i]="indiceEscala()">
@@ -149,7 +178,7 @@
           app-chip
           [activo]="escala() === p.valor"
           [attr.aria-pressed]="escala() === p.valor"
-          [title]="p.nota"
+          [title]="p.notaClave | transloco"
           (click)="escala.set(p.valor)"
         >
           {{ p.etiqueta }}
@@ -161,8 +190,7 @@
 
 @if (escala() !== 1) {
   <p class="shell-aviso">
-    Velocidad <strong>{{ escala() }}×</strong> — aplica desde la siguiente reproducción; lo que ya
-    está corriendo conserva la suya.
+    {{ 'shell.aviso' | transloco: { n: escala() } }}
   </p>
 }
 
@@ -171,8 +199,6 @@
 </main>
 
 <footer class="shell-foot">
-  <span>
-    Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.
-  </span>
-  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">GitHub</a>
+  <span [innerHTML]="'shell.footer.creditos' | transloco"></span>
+  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">{{ 'shell.footer.github' | transloco }}</a>
 </footer>

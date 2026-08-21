@@ -6,7 +6,8 @@
   // `ng test` truena con TS2307. Ya pasó.
   "extends": ["../../tsconfig.json", "./tsconfig.paths.json"],
   "compilerOptions": {
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
+  "include": ["src/**/*.d.ts", "src/**/*.spec.ts", "src/test-setup.ts"]
 }

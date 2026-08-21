@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild, signal, computed } from '@angular/core';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import {
   AnimatedIconDef,
   bellIcon,
@@ -54,10 +55,18 @@ const PARES: Par[] = [
 
 type Cola = 'completa' | 'corta' | 'recorte';
 
+/**
+ * `titulo`/`nota` NO son texto: son claves de traducción bajo `lab.morphBench.variantes.<id>`
+ * (ver `lab/en.json` / `lab/es.json`). El template arma la ruta completa con `id` — así los 14
+ * literales no viven duplicados aquí Y en el JSON. `porDefecto` es la única bandera que compara
+ * ESTADO (para el resaltado `elegida`), separada a propósito de `tieneNota` (que solo decide si
+ * el `<span>` de la nota se pinta): antes ambas vivían encimadas en el valor literal `'default'`
+ * de `nota`, lo que habría atado el resaltado al TEXTO traducido en vez de al id.
+ */
 interface Variante {
   id: string;
-  titulo: string;
-  nota?: string;
+  tieneNota?: boolean;
+  porDefecto?: boolean;
   pasos: number;
   cola: Cola;
   /** `alternate` regresa por la trayectoria; `normal` reinicia desde el origen. */
@@ -72,8 +81,8 @@ interface Variante {
 
 const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
   id: `p${n}`,
-  titulo: `${n} pasos`,
-  nota: n === PASOS_DEFAULT ? 'default' : undefined,
+  tieneNota: n === PASOS_DEFAULT,
+  porDefecto: n === PASOS_DEFAULT,
   pasos: n,
   cola: 'completa',
   direccion: 'alternate',
@@ -82,16 +91,14 @@ const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
 const VARIANTES_VUELTA: Variante[] = [
   {
     id: 'v-alternate',
-    titulo: 'reverse()',
-    nota: 'hoy',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'alternate',
   },
   {
     id: 'v-ida-vuelta',
-    titulo: 'Ida y vuelta',
-    nota: 'resorte por tramo',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
@@ -107,8 +114,7 @@ const VARIANTES_VUELTA: Variante[] = [
 const VARIANTES_SOBREPASO: Variante[] = [
   {
     id: 's-smooth',
-    titulo: 'smooth',
-    nota: 'ζ=1.00, no rebota',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
@@ -116,8 +122,7 @@ const VARIANTES_SOBREPASO: Variante[] = [
   },
   {
     id: 's-073-sin',
-    titulo: 'snappy sin dibujarlo',
-    nota: 'sobrepaso: false',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
@@ -126,8 +131,7 @@ const VARIANTES_SOBREPASO: Variante[] = [
   },
   {
     id: 's-073-con',
-    titulo: 'snappy',
-    nota: 'ζ=0.73, default',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
@@ -135,8 +139,7 @@ const VARIANTES_SOBREPASO: Variante[] = [
   },
   {
     id: 's-040-con',
-    titulo: 'bouncy',
-    nota: 'ζ=0.40, topado al viewBox',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'normal',
@@ -147,32 +150,28 @@ const VARIANTES_SOBREPASO: Variante[] = [
 const VARIANTES_COLA: Variante[] = [
   {
     id: 'completa',
-    titulo: 'Cola completa',
-    nota: 'hoy',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'completa',
     direccion: 'alternate',
   },
   {
     id: 'corta',
-    titulo: 'Cola corta',
-    nota: '|1−x| < 0.01',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'corta',
     direccion: 'alternate',
   },
   {
     id: 'recorte',
-    titulo: 'Recorte al 99%',
-    nota: 'física intacta',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'recorte',
     direccion: 'alternate',
   },
   {
     id: 'reinicio',
-    titulo: 'Sin reversa',
-    nota: 'reinicia desde el origen',
+    tieneNota: true,
     pasos: PASOS_DEFAULT,
     cola: 'completa',
     direccion: 'normal',
@@ -189,7 +188,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
-  imports: [MaxIconMorphComponent, Boton, Chip],
+  imports: [MaxIconMorphComponent, Boton, Chip, TranslocoPipe],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })
@@ -200,6 +199,11 @@ export class MorphBench {
   protected readonly parActivo = signal(PARES[0]);
   protected readonly modo = signal<'pasos' | 'cola' | 'vuelta' | 'sobrepaso'>('pasos');
   protected readonly loop = signal(false);
+  /** Mismo patrón que `etiquetaEnvio` de patrones.ts: la rama elige la CLAVE, no el texto. */
+  private readonly claveLoop = computed(() =>
+    this.loop() ? 'lab.morphBench.controles.loop.on' : 'lab.morphBench.controles.loop.off',
+  );
+  protected readonly etiquetaLoop = translateSignal(this.claveLoop);
   /**
    * La otra perilla del peso: puntos por subpath. Arranca en el default real de la librería, no
    * en un número suelto. Se queda aunque el benchmark de pasos ya cerró: retomar esto con más

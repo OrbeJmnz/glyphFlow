@@ -1,22 +1,19 @@
 <section class="import" [class.abierto]="abierto()">
   <button type="button" class="import-toggle" (click)="alternar()">
-    {{ abierto() ? '▾' : '▸' }} Importar coreografía (JSON)
+    {{ abierto() ? '▾' : '▸' }} {{ 'lab.iconImport.toggle' | transloco }}
   </button>
 
   @if (abierto()) {
     <div class="import-body">
       @if (desdeEditor(); as nombre) {
-        <p class="import-nota desde-editor">
-          Llegó <strong>{{ nombre }}</strong> desde el editor de geometría, con su coreografía
-          original. Se previsualiza abajo.
-        </p>
+        <p
+          class="import-nota desde-editor"
+          [innerHTML]="'lab.iconImport.desdeEditor' | transloco: { nombre: nombre }"
+        ></p>
       }
-      <p class="import-nota">
-        Pega el JSON que copiaste de "Exportar JSON" en el panel de detalle. Se previsualiza con el
-        mismo <code>[iconDef]</code> que usa el resto del playground.
-      </p>
+      <p class="import-nota" [innerHTML]="'lab.iconImport.instrucciones' | transloco"></p>
       <button type="button" app-boton compacto (click)="cargarEjemplo()">
-        cargar ejemplo (bell)
+        {{ 'lab.iconImport.cargarEjemplo' | transloco }}
       </button>
       <textarea
         class="entrada"
@@ -27,12 +24,15 @@
       ></textarea>
 
       @let r = resultado();
-      @if (r && 'error' in r) {
-        <p class="error">{{ r.error }}</p>
+      @if (r && 'errorKey' in r) {
+        <p class="error">{{ r.errorKey | transloco }}</p>
       } @else if (r) {
         <div class="preview">
           <max-icon [iconDef]="r.def" [size]="32" trigger="hover" />
-          <span>{{ r.nombre }} — pasa el puntero para animarlo</span>
+          <span
+            >{{ r.nombre ?? ('lab.iconImport.sinNombre' | transloco) }} —
+            {{ 'lab.iconImport.previewHint' | transloco }}</span
+          >
         </div>
       }
     </div>

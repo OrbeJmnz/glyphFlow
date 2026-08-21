@@ -1,69 +1,39 @@
-<h1>SSR</h1>
-<p class="bajada">
-  glyphflow renderiza en servidor sin <code>window</code> ni <code>document</code> reales. El icono
-  llega pintado en el HTML; la animación arranca cuando el navegador hidrata.
-</p>
+<h1>{{ 'docs.ssr.titulo' | transloco }}</h1>
+<p class="bajada" [innerHTML]="'docs.ssr.bajada' | transloco"></p>
 
-<h2>Qué pasa en cada lado</h2>
+<h2>{{ 'docs.ssr.tabla.titulo' | transloco }}</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
       <tr>
-        <th>Momento</th>
-        <th>Qué se ve</th>
+        <th>{{ 'docs.ssr.tabla.colMomento' | transloco }}</th>
+        <th>{{ 'docs.ssr.tabla.colQueSeVe' | transloco }}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Render de servidor</td>
-        <td>
-          El <code>&lt;svg&gt;</code> completo, con su geometría y su <code>aria-hidden</code>. Sin
-          animación: no hay WAAPI en Node.
-        </td>
+        <td>{{ 'docs.ssr.tabla.filaServidor.momento' | transloco }}</td>
+        <td [innerHTML]="'docs.ssr.tabla.filaServidor.queSeVe' | transloco"></td>
       </tr>
       <tr>
-        <td>Después de hidratar</td>
-        <td>El mismo SVG, ya vivo. El <code>trigger</code> empieza a funcionar.</td>
+        <td>{{ 'docs.ssr.tabla.filaHidratar.momento' | transloco }}</td>
+        <td [innerHTML]="'docs.ssr.tabla.filaHidratar.queSeVe' | transloco"></td>
       </tr>
     </tbody>
   </table>
 </div>
-<p>
-  No hay parpadeo ni salto de layout: el SVG que pinta el servidor es el mismo nodo que el cliente
-  anima. No se reemplaza, se le agregan animaciones encima.
-</p>
+<p>{{ 'docs.ssr.sinParpadeo' | transloco }}</p>
 
-<h2>No necesitas configurar nada</h2>
-<p>
-  Ni <code>afterNextRender</code>, ni un guard de <code>isPlatformBrowser</code>, ni importar el
-  componente de forma diferida. Funciona con la config de SSR que ya tengas.
-</p>
+<h2>{{ 'docs.ssr.sinConfig.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.ssr.sinConfig.texto' | transloco"></p>
 
-<h2>Cómo se verifica</h2>
-<p>
-  Con un smoke test que corre en <strong>Node genuino</strong>, no en jsdom — y eso es el punto:
-  jsdom define <code>window</code>, así que un test ahí no probaría nada. El script arranca fallando
-  a propósito si detecta <code>window</code>:
-</p>
+<h2>{{ 'docs.ssr.verificacion.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.ssr.verificacion.texto1' | transloco"></p>
 <pre><code>if (typeof window !== 'undefined') &#123;
   throw new Error('Este smoke test debe correr sin `window` global — si existe, no prueba nada.');
 &#125;</code></pre>
-<p>
-  Luego renderiza con <code>renderApplication</code> de <code>&#64;angular/platform-server</code> y
-  exige dos cosas del HTML resultante: que haya un <code>&lt;svg&gt;</code>, y que traiga el
-  <code>aria-hidden="true"</code> del icono decorativo. Corre en CI en cada commit (<code
-    >npm run test:ssr</code
-  >).
-</p>
-<p class="nota">
-  La segunda comprobación no es de adorno. Un render que "no truena" pero devuelve HTML vacío pasa
-  cualquier prueba que solo mire si hubo excepción — por eso el test afirma sobre el contenido, no
-  sobre la ausencia de error.
-</p>
+<p [innerHTML]="'docs.ssr.verificacion.texto2' | transloco"></p>
+<p class="nota">{{ 'docs.ssr.verificacion.nota' | transloco }}</p>
 
-<h2>Morph en servidor</h2>
-<p>
-  <code>&lt;max-icon-morph&gt;</code> cae por el mismo camino que el primer render del cliente:
-  pinta el icono estático. Morphear "desde nada" no existe, y en el servidor tampoco hay un valor
-  anterior del cual salir. Se ve el icono correcto; la transición espera al navegador.
-</p>
+<h2>{{ 'docs.ssr.morphServidor.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.ssr.morphServidor.texto' | transloco"></p>

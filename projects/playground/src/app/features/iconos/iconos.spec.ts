@@ -1,15 +1,28 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CURATED_ICONS } from 'glyphflow';
+import { providersI18nTest } from '../../core/i18n-testing';
+import { stubMatchMedia } from '../../core/test-polyfills';
 import { Iconos } from './iconos';
+import iconosEn from '../../../i18n/iconos/en.json';
+import iconosEs from '../../../i18n/iconos/es.json';
 
 describe('Iconos', () => {
   beforeEach(async () => {
-    // La portada trae el hero, y su botón «Empezar» es un routerLink.
+    // El hero trae `app-boton-github` (boneyard-js usa `matchMedia` — ver `test-polyfills.ts`) y
+    // su botón «Empezar» es un routerLink.
+    stubMatchMedia();
     await TestBed.configureTestingModule({
-      imports: [Iconos],
+      // `Iconos` traduce su título con conteo (`translateSignal`) y su template usa el scope
+      // `iconos.*` (hero, showcase, argumentos, barra, grid) — sin ambos truena con
+      // `TRANSLOCO_TRANSPILER` no encontrado. Ver `core/i18n-testing.ts`.
+      imports: [Iconos, providersI18nTest({ 'iconos/en': iconosEn, 'iconos/es': iconosEs })],
       providers: [provideRouter([])],
     }).compileComponents();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('pinta una tarjeta por icono curado del paquete publicado', async () => {

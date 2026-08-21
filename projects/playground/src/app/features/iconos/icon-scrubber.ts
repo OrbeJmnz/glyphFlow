@@ -10,6 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { AnimatedIconDef, IconShape, MotionTrack } from 'glyphflow';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { Deslizador } from '../../shared/ui/deslizador';
 
 /**
@@ -25,7 +26,7 @@ import { Deslizador } from '../../shared/ui/deslizador';
  */
 @Component({
   selector: 'app-icon-scrubber',
-  imports: [Deslizador],
+  imports: [Deslizador, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-scrubber.html',
   styleUrl: './icon-scrubber.css',

@@ -1,0 +1,86 @@
+{
+  "titulo": "Lab",
+  "intro": "Los arneses de autoría. No son producto: existen para decidir números mirando las cosas juntas — cuántas poses discretas, qué hacer con la cola del resorte, cómo se ve un par que nadie validó. Lo que se decide aquí es lo que termina siendo el default de la librería.",
+  "iconImport": {
+    "toggle": "Importar coreografía (JSON)",
+    "desdeEditor": "Llegó <strong>{{nombre}}</strong> desde el editor de geometría, con su coreografía original. Se previsualiza abajo.",
+    "instrucciones": "Pega el JSON que copiaste de \"Exportar JSON\" en el panel de detalle. Se previsualiza con el mismo <code>[iconDef]</code> que usa el resto del playground.",
+    "cargarEjemplo": "cargar ejemplo (bell)",
+    "errores": {
+      "jsonInvalido": "JSON inválido — revisa comas y llaves.",
+      "noEsObjeto": "Se esperaba un objeto.",
+      "faltaShapes": "Falta \"shapes\" (debe ser un arreglo).",
+      "faltaAnimations": "Falta \"animations\" (debe ser un objeto)."
+    },
+    "sinNombre": "(sin nombre)",
+    "previewHint": "pasa el puntero para animarlo"
+  },
+  "morphPicker": {
+    "titulo": "Morph libre — elige tu secuencia",
+    "expectativa": "⚠ Solo los 4 pares del benchmark están validados a fondo. Combinaciones arbitrarias entre iconos muy distintos <strong>pueden verse mal</strong> — es un límite real de la interpolación de formas, no un bug: el core empareja subpaths por cercanía, y si dos iconos no tienen nada en común, no hay correspondencia buena que encontrar.",
+    "buscar": {
+      "marcador": "filtrar entre los 180 curados…",
+      "etiqueta": "Filtrar iconos",
+      "sinResultados": "Sin resultados para «{{filtro}}»."
+    },
+    "agregarAria": "Agregar {{nombre}}",
+    "quitarAria": "Quitar {{nombre}}",
+    "previewLabel": "Previsualización del morph",
+    "vacioLienzo": "Elige al menos 2 iconos para armar una secuencia.",
+    "reproducir": {
+      "reposo": "▶ reproducir secuencia",
+      "corriendo": "corriendo…"
+    },
+    "limpiar": "limpiar"
+  },
+  "morphBench": {
+    "titulo": "Benchmark de morph",
+    "intro": "Un par a la vez, 4 variantes lado a lado. El spring solo decide el timing: cero loop de animación, los keyframes se calculan una vez y los interpola el navegador.",
+    "controles": {
+      "reproducirTodas": "Reproducir las 4",
+      "loop": { "on": "Loop on", "off": "Loop off" },
+      "reset": "Reset",
+      "modoPasos": "comparar pasos",
+      "modoCola": "comparar cola del spring",
+      "modoVuelta": "comparar la vuelta",
+      "modoSobrepaso": "comparar el rebote",
+      "resolucion": "res"
+    },
+    "avisos": {
+      "cola": "La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje. «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.",
+      "sobrepaso": "Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Eso antes solo alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se dibujan por default — la comparación que importa es <em>snappy sin dibujarlo</em> (<code>sobrepaso: false</code>) contra <em>snappy</em>. <code>bouncy</code> va topado: extrapolar más lo sacaría del lienzo y el SVG lo recortaría.",
+      "vuelta": "<strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques."
+    },
+    "variantes": {
+      "p10": { "titulo": "10 pasos" },
+      "p15": { "titulo": "15 pasos" },
+      "p20": { "titulo": "20 pasos", "nota": "default" },
+      "p30": { "titulo": "30 pasos" },
+      "v-alternate": { "titulo": "reverse()", "nota": "hoy" },
+      "v-ida-vuelta": { "titulo": "Ida y vuelta", "nota": "resorte por tramo" },
+      "s-smooth": { "titulo": "smooth", "nota": "ζ=1.00, no rebota" },
+      "s-073-sin": { "titulo": "snappy sin dibujarlo", "nota": "sobrepaso: false" },
+      "s-073-con": { "titulo": "snappy", "nota": "ζ=0.73, default" },
+      "s-040-con": { "titulo": "bouncy", "nota": "ζ=0.40, topado al viewBox" },
+      "completa": { "titulo": "Cola completa", "nota": "hoy" },
+      "corta": { "titulo": "Cola corta", "nota": "|1−x| < 0.01" },
+      "recorte": { "titulo": "Recorte al 99%", "nota": "física intacta" },
+      "reinicio": { "titulo": "Sin reversa", "nota": "reinicia desde el origen" }
+    },
+    "envoltorio": {
+      "descripcion": "El envoltorio delgado. Un solo <code>[icon]</code>: cambiarlo dispara el morph desde el valor anterior. El primer render se pinta estático — no hay desde dónde transicionar.",
+      "resorteAria": "Resorte del envoltorio",
+      "resorteTit": "resorte",
+      "avisoChico": "Los subamortiguados <strong>se pasan del destino y regresan</strong>. Dale a «siguiente» con <code>bouncy</code> y mira el sobrepaso: eso es lo que antes no se dibujaba.",
+      "demoLabel": "Demo de morph",
+      "siguiente": "siguiente: {{nombre}}"
+    },
+    "tabla": {
+      "keyframes": "keyframes",
+      "peso": "peso",
+      "duracion": "duración",
+      "ultimoTramo": "último tramo"
+    },
+    "reproducirSolo": "Reproducir solo este"
+  }
+}

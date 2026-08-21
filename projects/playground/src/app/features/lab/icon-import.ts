@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
 import { Taller } from '../../core/taller';
 import { Boton } from '../../shared/ui/boton';
@@ -10,7 +11,7 @@ import { Boton } from '../../shared/ui/boton';
  */
 @Component({
   selector: 'app-icon-import',
-  imports: [MaxIconComponent, Boton],
+  imports: [MaxIconComponent, Boton, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-import.html',
   styleUrl: './icon-import.css',
@@ -44,8 +45,13 @@ export class IconImport {
     );
   }
 
+  /**
+   * Los mensajes de error viajan como CLAVE, no como texto: `resultado()` no sabe en qué idioma
+   * está el usuario, y llamar a `TranslocoService.translate()` aquí sería imperativo y síncrono —
+   * el patrón del proyecto es dejar que el template resuelva la clave con el pipe.
+   */
   protected readonly resultado = computed<
-    { def: AnimatedIconDef; nombre: string } | { error: string } | null
+    { def: AnimatedIconDef; nombre: string | null } | { errorKey: string } | null
   >(() => {
     const texto = this.entrada().trim();
     if (!texto) return null;
@@ -53,16 +59,23 @@ export class IconImport {
     try {
       json = JSON.parse(texto);
     } catch {
-      return { error: 'JSON inválido — revisa comas y llaves.' };
+      return { errorKey: 'lab.iconImport.errores.jsonInvalido' };
     }
-    if (typeof json !== 'object' || json === null) return { error: 'Se esperaba un objeto.' };
+    if (typeof json !== 'object' || json === null) {
+      return { errorKey: 'lab.iconImport.errores.noEsObjeto' };
+    }
     const obj = json as Record<string, unknown>;
-    if (!Array.isArray(obj['shapes'])) return { error: 'Falta "shapes" (debe ser un arreglo).' };
+    if (!Array.isArray(obj['shapes'])) {
+      return { errorKey: 'lab.iconImport.errores.faltaShapes' };
+    }
     if (typeof obj['animations'] !== 'object' || obj['animations'] === null) {
-      return { error: 'Falta "animations" (debe ser un objeto).' };
+      return { errorKey: 'lab.iconImport.errores.faltaAnimations' };
     }
     return {
-      nombre: typeof obj['icono'] === 'string' ? obj['icono'] : '(sin nombre)',
+      // `null` en vez de un literal '(sin nombre)': el nombre real del usuario nunca debe pasar
+      // por el pipe de traducción (podría casualmente ser una clave), así que el fallback se
+      // resuelve en el template con `??`, no aquí.
+      nombre: typeof obj['icono'] === 'string' ? obj['icono'] : null,
       def: {
         viewBox: obj['viewBox'] as string | undefined,
         shapes: obj['shapes'],

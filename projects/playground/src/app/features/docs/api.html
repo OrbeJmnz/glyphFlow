@@ -1,18 +1,14 @@
-<h1>API</h1>
-<p class="bajada">
-  Toda la superficie pública, en dos entry points. Esta página se pinta desde la misma lista que un
-  test compara contra los exports reales del paquete — si documentara algo que ya no existe, el test
-  falla.
-</p>
+<h1>{{ 'docs.api.titulo' | transloco }}</h1>
+<p class="bajada">{{ 'docs.api.bajada' | transloco }}</p>
 
 <h2>&lt;max-icon&gt;</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
       <tr>
-        <th>Input</th>
-        <th>Tipo</th>
-        <th>Default</th>
+        <th>{{ 'docs.api.colInput' | transloco }}</th>
+        <th>{{ 'docs.api.colTipo' | transloco }}</th>
+        <th>{{ 'docs.api.colDefault' | transloco }}</th>
         <th></th>
       </tr>
     </thead>
@@ -28,25 +24,27 @@
           <td>
             <code>{{ i.porDefecto }}</code>
           </td>
-          <td>{{ i.nota }}</td>
+          <td>{{ i.nota | transloco }}</td>
         </tr>
       }
     </tbody>
   </table>
 </div>
-<p>
-  Método público: <code>play(variante?)</code> — reproduce una variante; sin argumento, la del input
-  <code>animation</code>. Es lo que necesitas con <code>trigger="manual"</code>.
-</p>
+<p [innerHTML]="'docs.api.metodos.intro' | transloco"></p>
+<ul>
+  <li [innerHTML]="'docs.api.metodos.play' | transloco"></li>
+  <li [innerHTML]="'docs.api.metodos.reverse' | transloco"></li>
+  <li [innerHTML]="'docs.api.metodos.cancel' | transloco"></li>
+</ul>
 
 <h2>&lt;max-icon-morph&gt;</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
       <tr>
-        <th>Input</th>
-        <th>Tipo</th>
-        <th>Default</th>
+        <th>{{ 'docs.api.colInput' | transloco }}</th>
+        <th>{{ 'docs.api.colTipo' | transloco }}</th>
+        <th>{{ 'docs.api.colDefault' | transloco }}</th>
         <th></th>
       </tr>
     </thead>
@@ -62,7 +60,7 @@
           <td>
             <code>{{ i.porDefecto }}</code>
           </td>
-          <td>{{ i.nota }}</td>
+          <td>{{ i.nota | transloco }}</td>
         </tr>
       }
     </tbody>
@@ -70,15 +68,13 @@
 </div>
 
 @for (e of entradas; track e) {
-  <h2>
-    Exports de <code>{{ e }}</code>
-  </h2>
+  <h2 [innerHTML]="'docs.api.exportsDe' | transloco: { e: e }"></h2>
   <div class="tabla-scroll">
     <table>
       <thead>
         <tr>
-          <th>Símbolo</th>
-          <th>Qué es</th>
+          <th>{{ 'docs.api.colSimbolo' | transloco }}</th>
+          <th>{{ 'docs.api.colQueEs' | transloco }}</th>
           <th></th>
         </tr>
       </thead>
@@ -88,20 +84,20 @@
             <td>
               <code>{{ s.nombre }}</code>
             </td>
-            <td>{{ s.clase }}</td>
-            <td>{{ s.resumen }}</td>
+            <td>{{ claseClaves[s.clase] | transloco }}</td>
+            <td>{{ s.resumen | transloco }}</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
 
-  <h3>Tipos</h3>
+  <h3>{{ 'docs.api.tiposTitulo' | transloco }}</h3>
   <div class="tabla-scroll">
     <table>
       <thead>
         <tr>
-          <th>Tipo</th>
+          <th>{{ 'docs.api.colTipo' | transloco }}</th>
           <th></th>
         </tr>
       </thead>
@@ -111,7 +107,7 @@
             <td>
               <code>{{ t.nombre }}</code>
             </td>
-            <td>{{ t.resumen }}</td>
+            <td>{{ t.resumen | transloco }}</td>
           </tr>
         }
       </tbody>
@@ -119,15 +115,6 @@
   </div>
 }
 
-<h2>Los iconos</h2>
-<p>
-  Además de lo anterior, <code>glyphflow</code> exporta un <code>const</code> por icono con sufijo
-  <code>Icon</code> — <code>bellIcon</code>, <code>trash2Icon</code>, <code>circleCheckIcon</code>.
-  Esos son la ruta tree-shakeable, y por eso no se listan uno por uno: son ~1767 y el catálogo
-  navegable está en <a href="/">la página de iconos</a>.
-</p>
-<p class="nota ojo">
-  El nombre del <code>const</code> es el del icono en camelCase más <code>Icon</code>:
-  <code>trash-2</code> → <code>trash2Icon</code>, <code>circle-check</code> →
-  <code>circleCheckIcon</code>. El panel de detalle de cada icono te da el snippet ya armado.
-</p>
+<h2>{{ 'docs.api.iconos.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.api.iconos.texto' | transloco"></p>
+<p class="nota ojo" [innerHTML]="'docs.api.iconos.nota' | transloco"></p>

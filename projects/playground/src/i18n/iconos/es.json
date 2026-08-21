@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "h1": "glyphflow — iconos que se mueven",
+    "bajada": "Los iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real y morph entre formas. Para Angular.",
+    "empezar": "Empezar",
+    "nota": "Iconos que se mueven. Sin dependencias.",
+    "cifras": {
+      "curados": "curados a mano",
+      "catalogo": "en el catálogo",
+      "pesoIcono": "un icono, gzip",
+      "depsAnimacion": "deps de animación"
+    }
+  },
+  "showcase": {
+    "titulo": "Morph entre formas",
+    "descripcion": "Transiciones fluidas entre contornos. Los keyframes se calculan una vez y los interpola el navegador — cero loop de animación.",
+    "probarEditor": "Probar en el editor",
+    "pasoGrupoAria": "Paso de la secuencia",
+    "irAlPaso": "Ir al paso {{n}}"
+  },
+  "argumentos": {
+    "liviano": {
+      "titulo": "Ligero por diseño",
+      "texto": "Tree-shaking real. Solo pesa lo que de verdad usas."
+    },
+    "api": {
+      "titulo": "API moderna",
+      "texto": "Standalone, señales y tipado estricto. Sin NgModules."
+    },
+    "movimiento": {
+      "titulo": "Hecho para moverse",
+      "texto": "Animaciones declarativas sobre WAAPI, sin dependencias pesadas."
+    }
+  },
+  "barra": {
+    "repetirTodo": "Repetir todo",
+    "buscarMarcador": "Buscar por nombre…",
+    "buscarEtiqueta": "Buscar icono por nombre",
+    "filtrarInsigniaEtiqueta": "Filtrar por insignia",
+    "todos": "Todos",
+    "insignias": {
+      "extras": "con variante extra",
+      "held": "held",
+      "soloDraw": "solo trazo"
+    },
+    "aviso": "{{n}} de {{total}}."
+  },
+  "grid": {
+    "inspeccionarAria": "Inspeccionar {{nombre}}",
+    "animacionesTitle": "{{n}} animaciones"
+  },
+  "scrubber": {
+    "progresoEtiqueta": "Progreso de la coreografía",
+    "progresoValor": "{{actual}} de {{total}} milisegundos",
+    "sinScrubNota": "Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente en vivo con <code>getTotalLength()</code> (autoDraw)."
+  },
+  "detalle": {
+    "seccionAria": "Detalle del icono",
+    "cerrarAria": "Cerrar panel",
+    "tabsNavAria": "Secciones del detalle",
+    "tabs": {
+      "preview": "Vista previa",
+      "codigo": "Código",
+      "inspector": "Motion Inspector"
+    },
+    "variantesNavAria": "Variantes de la coreografía",
+    "codigo": {
+      "snippetTitulo": "Snippet",
+      "exportarJsonTitulo": "Exportar JSON",
+      "copiar": "Copiar",
+      "copiado": "Copiado",
+      "copiarSnippetAria": "Copiar snippet",
+      "copiarJsonAria": "Copiar JSON"
+    },
+    "inspector": {
+      "duracion": "duración",
+      "duracionVivo": "en vivo (autoDraw)",
+      "rotacionMax": "rotación máx.",
+      "tracksSolapados": "tracks solapados",
+      "ninguno": "ninguno",
+      "si": "sí",
+      "no": "no",
+      "avisoAnimaD": "⚠ anima <code>d</code> — redibuja el path"
+    },
+    "nota": "<code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no es un dato de esta coreografía, es un contrato del motor.",
+    "acciones": {
+      "probarEditor": "Probar en editor",
+      "verDocs": "Ver en Docs",
+      "reportarIcono": "Reportar icono"
+    },
+    "issue": {
+      "titulo": "Icono: {{nombre}}",
+      "cuerpo": "Coreografía de `{{constName}}` (variante `{{variante}}`).\n\n<!-- Qué esperabas ver vs. qué pasó -->\n"
+    }
+  }
+}

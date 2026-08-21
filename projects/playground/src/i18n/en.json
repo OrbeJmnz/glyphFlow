@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "iconos": "Icons",
+    "patrones": "Patterns",
+    "editor": "Editor",
+    "lab": "Lab",
+    "docs": "Docs"
+  },
+  "shell": {
+    "marcaAria": "glyphflow, go to home",
+    "menu": {
+      "titulo": "Menu",
+      "abrir": "Menu",
+      "cerrar": "Close menu",
+      "cerrarFondo": "Close menu"
+    },
+    "tema": {
+      "aClaro": "Switch to light theme",
+      "aOscuro": "Switch to dark theme"
+    },
+    "idioma": {
+      "cambiar": "Switch language"
+    },
+    "velocidad": {
+      "titulo": "speed",
+      "etiqueta": "Global animation speed",
+      "notaMitad": "twice as fast",
+      "notaNormal": "default",
+      "notaMediaLenta": "a bit slower",
+      "notaDetalle": "to see the detail"
+    },
+    "aviso": "Speed {{n}}× — applies from the next playback; anything already running keeps its own.",
+    "footer": {
+      "creditos": "This site consumes <code>glyphflow</code> from npm, just like any other project.",
+      "github": "GitHub"
+    }
+  },
+  "routes": {
+    "iconos": {
+      "title": "glyphflow — animated Lucide icons for Angular",
+      "tituloConConteo": "glyphflow — {{n}} animated icons"
+    },
+    "patrones": { "title": "Patterns — glyphflow" },
+    "editor": { "title": "Node editor — glyphflow" },
+    "lab": { "title": "Lab — glyphflow" },
+    "docsEmpezando": { "title": "Getting started — glyphflow" },
+    "docsAccesibilidad": { "title": "Accessibility — glyphflow" },
+    "docsSsr": { "title": "SSR — glyphflow" },
+    "docsApi": { "title": "API — glyphflow" }
+  },
+  "marca": {
+    "github": {
+      "texto": "Star on GitHub",
+      "ariaSinConteo": "Star glyphflow on GitHub",
+      "ariaConUna": "Star glyphflow on GitHub, {{n}} star",
+      "ariaConVarias": "Star glyphflow on GitHub, {{n}} stars"
+    },
+    "donar": {
+      "texto": "Donate",
+      "aria": "Buy the project a coffee on Buy Me a Coffee"
+    }
+  }
+}

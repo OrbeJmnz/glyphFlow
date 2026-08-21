@@ -1,9 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { CURATED_ICONS, type AnimatedIconDef } from 'glyphflow';
+import { providersI18nTest } from './i18n-testing';
 import { Taller } from './taller';
 import { IconImport } from '../features/lab/icon-import';
 import { Editor } from '../features/editor/editor';
+import editorEn from '../../i18n/editor/en.json';
+import editorEs from '../../i18n/editor/es.json';
+import labEn from '../../i18n/lab/en.json';
+import labEs from '../../i18n/lab/es.json';
 
 /**
  * El círculo que el proyecto promete desde v4.1: editar la forma y coreografiar ESA forma, sin
@@ -24,7 +29,10 @@ describe('Taller — el puente entre editar y coreografiar', () => {
   });
 
   it('el importador recoge lo que mandó el editor y lo previsualiza', async () => {
-    TestBed.configureTestingModule({ imports: [IconImport] });
+    // `IconImport` vive en el scope `lab` — mismo patrón que `Editor` con `editor` más abajo.
+    TestBed.configureTestingModule({
+      imports: [IconImport, providersI18nTest({ 'lab/en': labEn, 'lab/es': labEs })],
+    });
     const taller = TestBed.inject(Taller);
     const editado: AnimatedIconDef = {
       ...CURATED_ICONS['bell'],
@@ -48,7 +56,9 @@ describe('Taller — el puente entre editar y coreografiar', () => {
   });
 
   it('sin nada en el taller, el importador arranca cerrado y vacío', async () => {
-    TestBed.configureTestingModule({ imports: [IconImport] });
+    TestBed.configureTestingModule({
+      imports: [IconImport, providersI18nTest({ 'lab/en': labEn, 'lab/es': labEs })],
+    });
     const fixture = TestBed.createComponent(IconImport);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
@@ -61,7 +71,9 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     // rutas vacías Angular rechazaba la navegación con NG04002 — una promesa sin manejar que
     // Vitest marca como posible falso positivo del resto de la corrida.
     TestBed.configureTestingModule({
-      imports: [Editor],
+      // `Editor` vive en el scope `editor` — el módulo de testing acepta la clave con scope
+      // incluido directo. Ver `core/i18n-testing.ts`.
+      imports: [Editor, providersI18nTest({ 'editor/en': editorEn, 'editor/es': editorEs })],
       providers: [provideRouter([{ path: 'lab', children: [] }])],
     });
     const taller = TestBed.inject(Taller);

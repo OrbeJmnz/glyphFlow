@@ -1,20 +1,15 @@
 <section class="picker">
   <header class="picker-head">
-    <h2>Morph libre — elige tu secuencia</h2>
-    <p class="expectativa">
-      ⚠ Solo los 4 pares del benchmark están validados a fondo. Combinaciones arbitrarias entre
-      iconos muy distintos <strong>pueden verse mal</strong> — es un límite real de la interpolación
-      de formas, no un bug: el core empareja subpaths por cercanía, y si dos iconos no tienen nada
-      en común, no hay correspondencia buena que encontrar.
-    </p>
+    <h2>{{ 'lab.morphPicker.titulo' | transloco }}</h2>
+    <p class="expectativa" [innerHTML]="'lab.morphPicker.expectativa' | transloco"></p>
   </header>
 
   <div class="cuerpo">
     <div class="col-buscar">
       <app-campo-busqueda
         [(texto)]="filtro"
-        marcador="filtrar entre los 180 curados…"
-        etiqueta="Filtrar iconos"
+        [marcador]="'lab.morphPicker.buscar.marcador' | transloco"
+        [etiqueta]="'lab.morphPicker.buscar.etiqueta' | transloco"
       />
       <div class="resultados">
         @for (item of resultados(); track item.nombre) {
@@ -23,13 +18,15 @@
               type="button"
               class="opcion"
               (click)="agregar(item)"
-              [attr.aria-label]="'Agregar ' + item.nombre"
+              [attr.aria-label]="'lab.morphPicker.agregarAria' | transloco: { nombre: item.nombre }"
             >
               <max-icon [iconDef]="item.def" [size]="18" trigger="manual" />
             </button>
           </app-tooltip>
         } @empty {
-          <p class="vacio">Sin resultados para «{{ filtro() }}».</p>
+          <p class="vacio">
+            {{ 'lab.morphPicker.buscar.sinResultados' | transloco: { filtro: filtro() } }}
+          </p>
         }
       </div>
     </div>
@@ -41,10 +38,10 @@
             [icon]="icono"
             [size]="96"
             [spring]="resorteLento"
-            label="Previsualización del morph"
+            [label]="'lab.morphPicker.previewLabel' | transloco"
           />
         } @else {
-          <p class="vacio-lienzo">Elige al menos 2 iconos para armar una secuencia.</p>
+          <p class="vacio-lienzo">{{ 'lab.morphPicker.vacioLienzo' | transloco }}</p>
         }
       </div>
 
@@ -58,7 +55,7 @@
               <button
                 type="button"
                 (click)="quitar($index)"
-                [attr.aria-label]="'Quitar ' + item.nombre"
+                [attr.aria-label]="'lab.morphPicker.quitarAria' | transloco: { nombre: item.nombre }"
               >
                 ✕
               </button>
@@ -77,9 +74,11 @@
             [disabled]="secuencia().length < 2 || corriendo()"
             (click)="reproducir()"
           >
-            {{ corriendo() ? 'corriendo…' : '▶ reproducir secuencia' }}
+            {{ etiquetaReproducir() }}
           </button>
-          <button type="button" app-boton compacto (click)="limpiar()">limpiar</button>
+          <button type="button" app-boton compacto (click)="limpiar()">
+            {{ 'lab.morphPicker.limpiar' | transloco }}
+          </button>
         </div>
       }
     </div>

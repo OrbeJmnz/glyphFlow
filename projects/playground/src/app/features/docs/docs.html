@@ -1,9 +1,9 @@
 <div class="docs-marco">
-  <nav class="indice" aria-label="Documentación">
+  <nav class="indice" [attr.aria-label]="'docs.nav.aria' | transloco">
     @for (s of secciones; track s.ruta) {
       <a [routerLink]="s.ruta" routerLinkActive="activo">
-        <strong>{{ s.titulo }}</strong>
-        <span>{{ s.nota }}</span>
+        <strong>{{ s.tituloClave | transloco }}</strong>
+        <span>{{ s.notaClave | transloco }}</span>
       </a>
     }
   </nav>

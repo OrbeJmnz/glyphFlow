@@ -1,4 +1,4 @@
-<section class="detalle" aria-label="Detalle del icono">
+<section class="detalle" [attr.aria-label]="'iconos.detalle.seccionAria' | transloco">
   <header class="detalle-head">
     <div class="titulo">
       <h2>{{ nombre() }}</h2>
@@ -6,7 +6,12 @@
         ><code>{{ constName() }}</code> · {{ varianteActiva() }}</span
       >
     </div>
-    <button type="button" class="cerrar" (click)="cerrar.emit()" aria-label="Cerrar panel">
+    <button
+      type="button"
+      class="cerrar"
+      (click)="cerrar.emit()"
+      [attr.aria-label]="'iconos.detalle.cerrarAria' | transloco"
+    >
       ✕
     </button>
   </header>
@@ -16,19 +21,19 @@
     ver snippet + JSON + inspector de TODAS las variantes de un jalón. Cada quien entra a lo que
     necesita — el propio Motion Inspector deja de sentirse un debugger encima de la vista previa.
   -->
-  <nav class="tabs-nav" aria-label="Secciones del detalle">
+  <nav class="tabs-nav" [attr.aria-label]="'iconos.detalle.tabsNavAria' | transloco">
     <button type="button" [class.activa]="tabActiva() === 'preview'" (click)="elegirTab('preview')">
-      Vista previa
+      {{ 'iconos.detalle.tabs.preview' | transloco }}
     </button>
     <button type="button" [class.activa]="tabActiva() === 'codigo'" (click)="elegirTab('codigo')">
-      Código
+      {{ 'iconos.detalle.tabs.codigo' | transloco }}
     </button>
     <button
       type="button"
       [class.activa]="tabActiva() === 'inspector'"
       (click)="elegirTab('inspector')"
     >
-      Motion Inspector
+      {{ 'iconos.detalle.tabs.inspector' | transloco }}
     </button>
   </nav>
 
@@ -50,7 +55,10 @@
             />
           </div>
 
-          <nav class="variantes-nav" aria-label="Variantes de la coreografía">
+          <nav
+            class="variantes-nav"
+            [attr.aria-label]="'iconos.detalle.variantesNavAria' | transloco"
+          >
             @for (v of variantes(); track v) {
               <button
                 type="button"
@@ -67,18 +75,14 @@
       @case ('codigo') {
         <div class="col-snippet">
           <div class="bloque-titulo">
-            <h3>Snippet</h3>
-            <app-tooltip
-              [texto]="copiado() === 'snippet' ? 'Copiado' : 'Copiar'"
-              [abajo]="true"
-              [derecha]="true"
-            >
+            <h3>{{ 'iconos.detalle.codigo.snippetTitulo' | transloco }}</h3>
+            <app-tooltip [texto]="tooltipSnippet()" [abajo]="true" [derecha]="true">
               <button
                 type="button"
                 class="copiar"
                 [class.exito]="copiado() === 'snippet'"
                 (click)="copiarSnippet()"
-                [attr.aria-label]="copiado() === 'snippet' ? 'Copiado' : 'Copiar snippet'"
+                [attr.aria-label]="ariaSnippet()"
               >
                 <max-icon-morph [icon]="iconoCopiarSnippet()" [size]="14" spring="bouncy" />
               </button>
@@ -87,18 +91,14 @@
           <pre class="codigo degradado-texto-sutil">{{ snippet() }}</pre>
 
           <div class="bloque-titulo">
-            <h3>Exportar JSON</h3>
-            <app-tooltip
-              [texto]="copiado() === 'json' ? 'Copiado' : 'Copiar'"
-              [abajo]="true"
-              [derecha]="true"
-            >
+            <h3>{{ 'iconos.detalle.codigo.exportarJsonTitulo' | transloco }}</h3>
+            <app-tooltip [texto]="tooltipJson()" [abajo]="true" [derecha]="true">
               <button
                 type="button"
                 class="copiar"
                 [class.exito]="copiado() === 'json'"
                 (click)="copiarJson()"
-                [attr.aria-label]="copiado() === 'json' ? 'Copiado' : 'Copiar JSON'"
+                [attr.aria-label]="ariaJson()"
               >
                 <max-icon-morph [icon]="iconoCopiarJson()" [size]="14" spring="bouncy" />
               </button>
@@ -122,28 +122,41 @@
                 <h4>{{ v.variante }}</h4>
                 <dl>
                   <div>
-                    <dt>duración</dt>
-                    <dd>{{ duracion(v) }}</dd>
+                    <dt>{{ 'iconos.detalle.inspector.duracion' | transloco }}</dt>
+                    <dd>
+                      @if (v.duracionMs === null) {
+                        {{ 'iconos.detalle.inspector.duracionVivo' | transloco }}
+                      } @else {
+                        {{ v.duracionMs }} ms
+                      }
+                    </dd>
                   </div>
                   <div>
-                    <dt>rotación máx.</dt>
+                    <dt>{{ 'iconos.detalle.inspector.rotacionMax' | transloco }}</dt>
                     <dd>{{ v.rotacionMaximaDeg }}°</dd>
                   </div>
                   <div>
-                    <dt>tracks solapados</dt>
+                    <dt>{{ 'iconos.detalle.inspector.tracksSolapados' | transloco }}</dt>
                     <dd>
                       @if (v.tracksSolapados.length) {
                         @for (o of v.tracksSolapados; track o.a + o.b) {
                           <span class="par">{{ o.a }} ↔ {{ o.b }}</span>
                         }
                       } @else {
-                        ninguno
+                        {{ 'iconos.detalle.inspector.ninguno' | transloco }}
                       }
                     </dd>
                   </div>
                   <div>
                     <dt>reverseOnLeave</dt>
-                    <dd>{{ v.reverseOnLeave ? 'sí' : 'no' }}</dd>
+                    <dd>
+                      {{
+                        (v.reverseOnLeave
+                          ? 'iconos.detalle.inspector.si'
+                          : 'iconos.detalle.inspector.no'
+                        ) | transloco
+                      }}
+                    </dd>
                   </div>
                 </dl>
                 <div class="costo">
@@ -154,7 +167,10 @@
                     <span class="prop">autoDraw</span>
                   }
                   @if (v.animaD) {
-                    <span class="aviso">⚠ anima <code>d</code> — redibuja el path</span>
+                    <span
+                      class="aviso"
+                      [innerHTML]="'iconos.detalle.inspector.avisoAnimaD' | transloco"
+                    ></span>
                   }
                 </div>
               </article>
@@ -168,16 +184,17 @@
   <!-- Timeline y nota hasta abajo: son contexto de apoyo, no lo primero que se lee al abrir. -->
   <app-icon-scrubber [def]="def()" [variante]="varianteActiva()" class="scrubber-bloque" />
 
-  <p class="nota">
-    <code>respectReducedMotion</code>: hereda el default del componente (<code>true</code>) — no es
-    un dato de esta coreografía, es un contrato del motor.
-  </p>
+  <p class="nota" [innerHTML]="'iconos.detalle.nota' | transloco"></p>
 
   <div class="acciones-rapidas">
-    <a app-boton compacto routerLink="/editor">Probar en editor</a>
-    <a app-boton compacto routerLink="/docs/api">Ver en Docs</a>
+    <a app-boton compacto routerLink="/editor"
+      >{{ 'iconos.detalle.acciones.probarEditor' | transloco }}</a
+    >
+    <a app-boton compacto routerLink="/docs/api"
+      >{{ 'iconos.detalle.acciones.verDocs' | transloco }}</a
+    >
     <a app-boton compacto [href]="urlReportar()" target="_blank" rel="noopener noreferrer"
-      >Reportar icono</a
+      >{{ 'iconos.detalle.acciones.reportarIcono' | transloco }}</a
     >
   </div>
 </section>

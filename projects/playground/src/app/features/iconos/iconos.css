@@ -214,6 +214,17 @@
   font-weight: 600;
 }
 
+/* GitHub y donar van JUSTO debajo de las cifras que las justifican: quien ve «405 curados, 4 KB
+   por icono» y decide apoyar el proyecto no debería tener que buscar el botón en otro lado. */
+.hero-secundarias {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
 /* ── Showcase de morph ──────────────────────────────────────────────────────── */
 
 .showcase {

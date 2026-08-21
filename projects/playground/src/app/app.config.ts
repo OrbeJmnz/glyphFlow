@@ -1,8 +1,10 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
+import { provideRouter, TitleStrategy, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { registrarExterna } from './core/transicion';
 import { provideEscalaEnVivo } from './core/duration-scale';
+import { provideI18n } from './core/i18n';
+import { TranslatedTitleStrategy } from './core/translated-title-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +24,8 @@ export const appConfig: ApplicationConfig = {
       }),
     ),
     provideEscalaEnVivo(),
+    provideI18n(),
+    // `route.title` ahora es una clave de traducción, no texto — ver `translated-title-strategy.ts`.
+    { provide: TitleStrategy, useClass: TranslatedTitleStrategy },
   ],
 };

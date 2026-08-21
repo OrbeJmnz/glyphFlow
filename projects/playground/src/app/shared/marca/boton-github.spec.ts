@@ -1,10 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { estrellas } from '../../core/github';
+import { providersI18nTest } from '../../core/i18n-testing';
+import { stubMatchMedia } from '../../core/test-polyfills';
 import { BotonGithub } from './boton-github';
 
 describe('BotonGithub', () => {
-  beforeEach(() => estrellas.set(null));
+  beforeEach(() => {
+    estrellas.set(null);
+    // boneyard-js (el skeleton del `.conteo`) usa `matchMedia` — ver `test-polyfills.ts` para el
+    // porqué no puede ser un stub global. `ResizeObserver` sí lo es, en `test-setup.ts`.
+    stubMatchMedia();
+    TestBed.configureTestingModule({ imports: [providersI18nTest()] });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
 
   function montar() {
     const fixture = TestBed.createComponent(BotonGithub);
@@ -26,7 +38,7 @@ describe('BotonGithub', () => {
     const { html, enlace } = montar();
     // Un `0` diría «este repo no le gusta a nadie»; no saberlo y decir 0 no es lo mismo.
     expect(html.querySelector('.conteo')).toBeNull();
-    expect(enlace.getAttribute('aria-label')).toBe('Dar estrella a glyphflow en GitHub');
+    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub');
   });
 
   it('a la vista abrevia, pero la etiqueta lleva el número entero', () => {
@@ -36,17 +48,15 @@ describe('BotonGithub', () => {
 
     // «1.2k estrellas» no es algo que un lector de pantalla pueda decir bien.
     expect(html.querySelector('.conteo')?.textContent?.trim()).toBe('1.2k');
-    expect(enlace.getAttribute('aria-label')).toBe(
-      'Dar estrella a glyphflow en GitHub, 1240 estrellas',
-    );
+    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub, 1240 stars');
   });
 
   it('concuerda el singular con una sola estrella', () => {
     const { fixture, enlace } = montar();
     estrellas.set(1);
     fixture.detectChanges();
-    expect(enlace.getAttribute('aria-label')).toContain('1 estrella');
-    expect(enlace.getAttribute('aria-label')).not.toContain('estrellas');
+    expect(enlace.getAttribute('aria-label')).toContain('1 star');
+    expect(enlace.getAttribute('aria-label')).not.toContain('1 stars');
   });
 
   it('las dos capas del icono existen y quedan fuera del árbol de accesibilidad', () => {

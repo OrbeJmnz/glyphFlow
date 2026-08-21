@@ -9,7 +9,9 @@ describe('provideEscalaEnVivo', () => {
 
   it('el default es 1: sin tocar nada, la librería anima igual que siempre', () => {
     expect(escalaDuracion()).toBe(1);
-    expect(PRESETS_ESCALA.some((p) => p.valor === 1 && p.nota === 'default')).toBe(true);
+    expect(
+      PRESETS_ESCALA.some((p) => p.valor === 1 && p.notaClave === 'shell.velocidad.notaNormal'),
+    ).toBe(true);
   });
 
   it('la config leída DESPUÉS de mover la señal trae el valor nuevo, sin re-proveer', () => {

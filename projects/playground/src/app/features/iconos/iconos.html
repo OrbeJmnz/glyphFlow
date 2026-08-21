@@ -9,7 +9,7 @@
     solos sería el sitio contradiciendo lo que documenta. Un GIF no se puede pausar por CSS, así que
     con esa preferencia se sirve el logotipo quieto.
   -->
-  <h1 class="visualmente-oculto">glyphflow — iconos que se mueven</h1>
+  <h1 class="visualmente-oculto">{{ 'iconos.hero.h1' | transloco }}</h1>
   <!--
     Las dos fuentes van por SEÑAL y no por `<source media>`: el tema del sitio lo manda
     `data-tema`, y una media query no puede leer un atributo. Con `prefers-color-scheme` se
@@ -26,16 +26,13 @@
       decoding="async"
     />
   </picture>
-  <p class="bajada">
-    Los iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación,
-    tree-shaking real y morph entre formas. Para Angular.
-  </p>
+  <p class="bajada">{{ 'iconos.hero.bajada' | transloco }}</p>
 
   <div class="acciones">
     <a app-boton variante="primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
       <span class="mono degradado-comando">npm i glyphflow</span>
     </a>
-    <a app-boton routerLink="/docs">Empezar</a>
+    <a app-boton routerLink="/docs">{{ 'iconos.hero.empezar' | transloco }}</a>
   </div>
 
   <!--
@@ -58,17 +55,17 @@
        resume la tesis del proyecto. -->
   <p class="nota">
     <max-icon [iconDef]="destello" [size]="16" trigger="view" />
-    Iconos que se mueven. Sin dependencias.
+    {{ 'iconos.hero.nota' | transloco }}
   </p>
 
   <dl class="cifras">
     <div class="destaca">
       <dt><app-contador [valor]="total" /></dt>
-      <dd>curados a mano</dd>
+      <dd>{{ 'iconos.hero.cifras.curados' | transloco }}</dd>
     </div>
     <div>
       <dt><app-contador [valor]="cifras.catalogo" /></dt>
-      <dd>en el catálogo</dd>
+      <dd>{{ 'iconos.hero.cifras.catalogo' | transloco }}</dd>
     </div>
     <!-- El degradado va SOLO en esta. Es la cifra que decide si alguien instala la librería, y en
          cuanto hay dos números pintados ninguno destaca. -->
@@ -76,13 +73,18 @@
       <dt class="degradado-texto">
         <app-contador [valor]="cifras.pesoIconoKb" [decimales]="2" sufijo=" KB" />
       </dt>
-      <dd>un icono, gzip</dd>
+      <dd>{{ 'iconos.hero.cifras.pesoIcono' | transloco }}</dd>
     </div>
     <div>
       <dt><app-contador [valor]="cifras.depsAnimacion" /></dt>
-      <dd>deps de animación</dd>
+      <dd>{{ 'iconos.hero.cifras.depsAnimacion' | transloco }}</dd>
     </div>
   </dl>
+
+  <div class="hero-secundarias">
+    <app-boton-github />
+    <app-boton-donar />
+  </div>
 </section>
 
 <!-- ── Showcase de morph ──────────────────────────────────────────────────────── -->
@@ -94,12 +96,9 @@
 -->
 <section class="showcase">
   <div class="showcase-texto">
-    <h2>Morph entre formas</h2>
-    <p>
-      Transiciones fluidas entre contornos. Los keyframes se calculan una vez y los interpola el
-      navegador — cero loop de animación.
-    </p>
-    <a app-boton routerLink="/editor">Probar en el editor</a>
+    <h2>{{ 'iconos.showcase.titulo' | transloco }}</h2>
+    <p>{{ 'iconos.showcase.descripcion' | transloco }}</p>
+    <a app-boton routerLink="/editor">{{ 'iconos.showcase.probarEditor' | transloco }}</a>
   </div>
 
   <div class="showcase-visual">
@@ -118,14 +117,14 @@
       Botones de verdad y no puntitos decorativos: mueven la secuencia, así que tienen que poder
       pulsarse con teclado y anunciarse. `aria-pressed` dice cuál está puesto.
     -->
-    <div class="pasos" role="group" aria-label="Paso de la secuencia">
+    <div class="pasos" role="group" [attr.aria-label]="'iconos.showcase.pasoGrupoAria' | transloco">
       @for (f of formas; track $index) {
         <button
           type="button"
           class="punto"
           [class.activo]="paso() === $index"
           [attr.aria-pressed]="paso() === $index"
-          [attr.aria-label]="'Ir al paso ' + ($index + 1)"
+          [attr.aria-label]="'iconos.showcase.irAlPaso' | transloco: { n: $index + 1 }"
           (click)="irAlPaso($index)"
         ></button>
       }
@@ -140,24 +139,26 @@
     <li>
       <max-icon [iconDef]="a.icono" [size]="22" trigger="view" />
       <div>
-        <h3>{{ a.titulo }}</h3>
-        <p>{{ a.texto }}</p>
+        <h3>{{ a.titulo | transloco }}</h3>
+        <p>{{ a.texto | transloco }}</p>
       </div>
     </li>
   }
 </ul>
 
 <div class="barra">
-  <button type="button" app-boton compacto (click)="repetirTodo()">Repetir todo</button>
+  <button type="button" app-boton compacto (click)="repetirTodo()">
+    {{ 'iconos.barra.repetirTodo' | transloco }}
+  </button>
 
   <app-campo-busqueda
     [(texto)]="busqueda"
-    marcador="Buscar por nombre…"
-    etiqueta="Buscar icono por nombre"
+    [marcador]="'iconos.barra.buscarMarcador' | transloco"
+    [etiqueta]="'iconos.barra.buscarEtiqueta' | transloco"
     class="busqueda"
   />
 
-  <app-grupo etiqueta="Filtrar por insignia">
+  <app-grupo [etiqueta]="'iconos.barra.filtrarInsigniaEtiqueta' | transloco">
     <button
       type="button"
       app-chip
@@ -165,7 +166,7 @@
       [attr.aria-pressed]="filtro() === null"
       (click)="elegirFiltro(null)"
     >
-      Todos <em>{{ total }}</em>
+      {{ 'iconos.barra.todos' | transloco }} <em>{{ total }}</em>
     </button>
     @for (c of conteos; track c.clave) {
       <button
@@ -175,13 +176,15 @@
         [attr.aria-pressed]="filtro() === c.clave"
         (click)="elegirFiltro(c.clave)"
       >
-        {{ c.etiqueta }} <em>{{ c.n }}</em>
+        {{ c.etiqueta | transloco }} <em>{{ c.n }}</em>
       </button>
     }
   </app-grupo>
 
   @if (filtro() || busqueda()) {
-    <span class="aviso">{{ entries().length }} de {{ total }}.</span>
+    <span class="aviso">{{
+      'iconos.barra.aviso' | transloco: { n: entries().length, total }
+    }}</span>
   }
 </div>
 
@@ -197,13 +200,15 @@
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
       tabindex="0"
-      [attr.aria-label]="'Inspeccionar ' + entry.name"
+      [attr.aria-label]="'iconos.grid.inspeccionarAria' | transloco: { nombre: entry.name }"
       (click)="inspeccionar(entry)"
       (keydown.enter)="inspeccionar(entry)"
     >
-      <span class="cuenta" [title]="entry.numAnimaciones + ' animaciones'">{{
-        entry.numAnimaciones
-      }}</span>
+      <span
+        class="cuenta"
+        [title]="'iconos.grid.animacionesTitle' | transloco: { n: entry.numAnimaciones }"
+        >{{ entry.numAnimaciones }}</span
+      >
 
       <app-tooltip [texto]="entry.name">
         <max-icon [iconDef]="entry.def" [size]="36" trigger="group" />

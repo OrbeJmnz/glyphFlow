@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MaxIconComponent, starIcon, type AnimatedIconDef } from 'glyphflow';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { SkeletonComponent } from 'boneyard-js/angular';
 import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 
 /**
@@ -17,7 +19,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 @Component({
   selector: 'app-boton-github',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MaxIconComponent],
+  imports: [MaxIconComponent, TranslocoPipe, SkeletonComponent],
   template: `
     <a
       class="gh"
@@ -47,11 +49,20 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
         </span>
       </span>
 
-      <span class="texto">Star on GitHub</span>
+      <span class="texto">{{ 'marca.github.texto' | transloco }}</span>
 
-      @if (conteo() !== null) {
-        <span class="conteo">{{ conteo() }}</span>
-      }
+      <!--
+        Único dato async de todo el playground (ver core/github.ts). El resto del sitio es
+        síncrono — por eso boneyard-js solo envuelve ESTO, no un componente entero: no hay más
+        huecos de carga reales que rellenar. "loading" se apaga en cuanto conteo() deja de ser
+        null; el contenido real (el @if de abajo) sigue ahí debajo, boneyard solo lo tapa con el
+        hueso mientras carga — por eso el @if puede seguir vacío sin dejar un salto de layout.
+      -->
+      <boneyard-skeleton name="github-conteo" [loading]="conteo() === null">
+        @if (conteo() !== null) {
+          <span class="conteo">{{ conteo() }}</span>
+        }
+      </boneyard-skeleton>
     </a>
   `,
   styles: `
@@ -237,11 +248,17 @@ export class BotonGithub {
   /**
    * El conteo se pinta abreviado («1.2k») para que el header no crezca, pero eso no se puede leer en
    * voz alta. La etiqueta lleva el número entero, y el destino cuando todavía no se sabe.
+   *
+   * La rama elige la CLAVE, no el texto — `translateSignal` resuelve la interpolación de `{{n}}`
+   * solo en las dos claves que la llevan; en la de "sin conteo" el param simplemente no se usa.
    */
-  protected readonly etiqueta = computed(() => {
+  private readonly claveEtiqueta = computed(() => {
     const n = estrellas();
-    return n === null
-      ? 'Dar estrella a glyphflow en GitHub'
-      : `Dar estrella a glyphflow en GitHub, ${n} ${n === 1 ? 'estrella' : 'estrellas'}`;
+    if (n === null) return 'marca.github.ariaSinConteo';
+    return n === 1 ? 'marca.github.ariaConUna' : 'marca.github.ariaConVarias';
   });
+  protected readonly etiqueta = translateSignal(
+    this.claveEtiqueta,
+    computed(() => ({ n: estrellas() })),
+  );
 }

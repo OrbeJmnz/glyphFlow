@@ -5,7 +5,10 @@
   // tsconfig.spec.json — no se duplican aquí.
   "extends": ["../../tsconfig.json", "./tsconfig.paths.json"],
   "compilerOptions": {
-    "types": []
+    "types": [],
+    // Las traducciones se importan como módulo (`import('../i18n/en.json')`), no por HttpClient —
+    // ver `core/i18n-loader.ts`. Sin esto TS no tipa el `import()` de un `.json`.
+    "resolveJsonModule": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

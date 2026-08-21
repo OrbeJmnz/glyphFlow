@@ -38,6 +38,8 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+# Snapshots y logs que deja el MCP de Playwright al revisar el sitio en vivo — scratch de sesión.
+.playwright-mcp/
 
 # System files
 .DS_Store

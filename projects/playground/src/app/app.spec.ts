@@ -5,6 +5,8 @@ import { App } from './app';
 import { routes } from './app.routes';
 import { escalaDuracion } from './core/duration-scale';
 import { estrellas } from './core/github';
+import { providersI18nTest } from './core/i18n-testing';
+import { stubMatchMedia } from './core/test-polyfills';
 import { tema } from './core/tema';
 
 describe('App (shell)', () => {
@@ -12,12 +14,18 @@ describe('App (shell)', () => {
     // El shell pide las estrellas al montar. Sin esto cada test de aquí saldría a api.github.com:
     // lento, dependiente de la red y quemando la cuota por IP.
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, json: async () => ({}) }));
+    // `BotonGithub` (el header) trae boneyard-js, que usa `matchMedia` — ver `test-polyfills.ts`.
+    // `ResizeObserver` ya está cubierto global en `test-setup.ts`.
+    stubMatchMedia();
     sessionStorage.clear();
+    localStorage.clear();
     estrellas.set(null);
     tema.set('oscuro');
 
     await TestBed.configureTestingModule({
-      imports: [App],
+      // `providersI18nTest()`: módulo oficial de testing de Transloco, loader síncrono — sin él
+      // el pipe/`translateSignal` no tienen de dónde resolver. Ver `core/i18n-testing.ts`.
+      imports: [App, providersI18nTest()],
       providers: [provideRouter([])],
     }).compileComponents();
     escalaDuracion.set(1);
@@ -25,6 +33,7 @@ describe('App (shell)', () => {
 
   afterEach(() => {
     escalaDuracion.set(1);
+    localStorage.clear();
     vi.unstubAllGlobals();
   });
 
@@ -40,8 +49,9 @@ describe('App (shell)', () => {
     // lo que oye un lector de pantalla — y no que el `<img>` exista, que no probaría nada.
     expect(html.querySelector('.marca img')?.getAttribute('alt')).toBe('glyphflow');
     expect(html.querySelector('.marca')?.getAttribute('aria-label')).toContain('glyphflow');
+    // Inglés por default (i18n, tráfico) — no español. Ver `core/i18n.ts`.
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
-    expect(rutas).toEqual(['Iconos', 'Patrones', 'Editor', 'Lab', 'Docs']);
+    expect(rutas).toEqual(['Icons', 'Patterns', 'Editor', 'Lab', 'Docs']);
     // El glifo junto al logotipo: el sitio animando su propio producto en el header.
     expect(html.querySelector('.marca max-icon')).not.toBeNull();
     // El botón del repo está cableado (lo suyo se prueba en su propia spec).
@@ -54,14 +64,15 @@ describe('App (shell)', () => {
     const html = fixture.nativeElement as HTMLElement;
     const boton = html.querySelector<HTMLButtonElement>('button.tema')!;
 
-    expect(boton.getAttribute('aria-label')).toBe('Cambiar a tema claro');
+    expect(boton.getAttribute('aria-label')).toBe('Switch to light theme');
     expect(boton.getAttribute('aria-pressed')).toBe('false');
 
     boton.click();
     fixture.detectChanges();
+    await fixture.whenStable();
 
     expect(tema()).toBe('claro');
-    expect(boton.getAttribute('aria-label')).toBe('Cambiar a tema oscuro');
+    expect(boton.getAttribute('aria-label')).toBe('Switch to dark theme');
     expect(boton.getAttribute('aria-pressed')).toBe('true');
   });
 

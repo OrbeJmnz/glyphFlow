@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { API_TIPOS, API_VALORES, type Entrada } from './api-surface';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { API_TIPOS, API_VALORES, type Clase, type Entrada } from './api-surface';
 
 /**
  * La referencia de API se PINTA desde `api-surface.ts`, que es el mismo dato que un spec compara
  * contra los exports reales del paquete. Escribir estas tablas a mano en el HTML habría dejado la
  * puerta abierta a documentar un símbolo que ya no existe.
+ *
+ * `nota` en `inputsIcono`/`inputsMorph` y `resumen` en `api-surface.ts` son CLAVES de traducción,
+ * no texto — mismo criterio en los dos archivos. `clase` en cambio se queda como el valor técnico
+ * ('componente' | 'función'...) y se traduce aparte con `claseClaves`, porque son solo 4 valores
+ * repetidos ~20 veces: una clave por símbolo habría sido puro ruido.
  */
 @Component({
   selector: 'app-docs-api',
+  imports: [TranslocoPipe],
   templateUrl: './api.html',
   styleUrl: './docs-page.css',
 })
@@ -22,58 +29,86 @@ export class Api {
     return API_TIPOS.filter((t) => t.entrada === entrada);
   }
 
+  /** Las 4 clases de símbolo, traducidas. La tabla indexa esto con `[s.clase]` en el template. */
+  protected readonly claseClaves: Record<Clase, string> = {
+    componente: 'docs.api.clases.componente',
+    función: 'docs.api.clases.funcion',
+    token: 'docs.api.clases.token',
+    constante: 'docs.api.clases.constante',
+  };
+
   protected readonly inputsIcono = [
     {
       nombre: 'iconDef',
       tipo: 'AnimatedIconDef',
       porDefecto: '—',
-      nota: 'La vía tree-shakeable. Gana sobre name.',
+      nota: 'docs.api.inputsIcono.iconDef',
     },
     {
       nombre: 'name',
       tipo: 'string',
       porDefecto: "''",
-      nota: 'Requiere provideIconCatalog. Desconocido = no pinta, no truena.',
+      nota: 'docs.api.inputsIcono.name',
     },
     {
       nombre: 'animation',
       tipo: 'string',
       porDefecto: "'default'",
-      nota: 'Qué variante reproducir.',
+      nota: 'docs.api.inputsIcono.animation',
     },
     {
       nombre: 'trigger',
       tipo: 'AnimatedIconTrigger',
       porDefecto: "'group'",
-      nota: 'Cuándo se anima.',
+      nota: 'docs.api.inputsIcono.trigger',
     },
-    { nombre: 'size', tipo: 'number | string', porDefecto: '24', nota: 'Lado del SVG.' },
-    { nombre: 'strokeWidth', tipo: 'number | string', porDefecto: '2', nota: 'Grosor del trazo.' },
+    {
+      nombre: 'size',
+      tipo: 'number | string',
+      porDefecto: '24',
+      nota: 'docs.api.inputsIcono.size',
+    },
+    {
+      nombre: 'strokeWidth',
+      tipo: 'number | string',
+      porDefecto: '2',
+      nota: 'docs.api.inputsIcono.strokeWidth',
+    },
     {
       nombre: 'loop',
       tipo: 'boolean',
       porDefecto: 'false',
-      nota: 'Con easings de un tiro se nota el corte entre vueltas.',
+      nota: 'docs.api.inputsIcono.loop',
     },
     {
       nombre: 'delay',
       tipo: 'number',
       porDefecto: '0',
-      nota: 'Retraso extra (ms), ADICIONAL al de cada track.',
+      nota: 'docs.api.inputsIcono.delay',
     },
-    { nombre: 'viewOnce', tipo: 'boolean', porDefecto: 'true', nota: 'Solo con trigger="view".' },
+    {
+      nombre: 'viewOnce',
+      tipo: 'boolean',
+      porDefecto: 'true',
+      nota: 'docs.api.inputsIcono.viewOnce',
+    },
     {
       nombre: 'decorative',
       tipo: 'boolean',
       porDefecto: 'true',
-      nota: 'Ver Accesibilidad: manda el label.',
+      nota: 'docs.api.inputsIcono.decorative',
     },
-    { nombre: 'label', tipo: 'string', porDefecto: '—', nota: 'Con label el icono es semántico.' },
+    {
+      nombre: 'label',
+      tipo: 'string',
+      porDefecto: '—',
+      nota: 'docs.api.inputsIcono.label',
+    },
     {
       nombre: 'respectReducedMotion',
       tipo: 'boolean',
       porDefecto: 'true',
-      nota: 'Se queda estático si el sistema lo pide.',
+      nota: 'docs.api.inputsIcono.respectReducedMotion',
     },
   ];
 
@@ -82,28 +117,43 @@ export class Api {
       nombre: 'icon',
       tipo: 'MorphIcon',
       porDefecto: '—',
-      nota: 'El binding ES el estado. El primer valor se pinta estático.',
+      nota: 'docs.api.inputsMorph.icon',
     },
-    { nombre: 'size', tipo: 'number | string', porDefecto: '24', nota: 'Lado del SVG.' },
-    { nombre: 'strokeWidth', tipo: 'number | string', porDefecto: '2', nota: 'Grosor del trazo.' },
+    {
+      nombre: 'size',
+      tipo: 'number | string',
+      porDefecto: '24',
+      nota: 'docs.api.inputsMorph.size',
+    },
+    {
+      nombre: 'strokeWidth',
+      tipo: 'number | string',
+      porDefecto: '2',
+      nota: 'docs.api.inputsMorph.strokeWidth',
+    },
     {
       nombre: 'decorative',
       tipo: 'boolean',
       porDefecto: 'true',
-      nota: 'Mismo contrato que <max-icon>.',
+      nota: 'docs.api.inputsMorph.decorative',
     },
-    { nombre: 'label', tipo: 'string', porDefecto: '—', nota: 'Con label el icono es semántico.' },
+    {
+      nombre: 'label',
+      tipo: 'string',
+      porDefecto: '—',
+      nota: 'docs.api.inputsMorph.label',
+    },
     {
       nombre: 'respectReducedMotion',
       tipo: 'boolean',
       porDefecto: 'true',
-      nota: 'Aquí SALTA al destino en vez de quedarse quieto.',
+      nota: 'docs.api.inputsMorph.respectReducedMotion',
     },
     {
       nombre: 'spring',
       tipo: 'SpringPreset | SpringConfig',
       porDefecto: "'smooth'",
-      nota: 'smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría.',
+      nota: 'docs.api.inputsMorph.spring',
     },
   ];
 }

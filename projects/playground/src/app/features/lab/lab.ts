@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { IconImport } from './icon-import';
 import { MorphPicker } from './morph-picker';
 import { MorphBench } from './morph-bench';
@@ -12,7 +13,7 @@ import { MorphBench } from './morph-bench';
  */
 @Component({
   selector: 'app-lab',
-  imports: [IconImport, MorphPicker, MorphBench],
+  imports: [IconImport, MorphPicker, MorphBench, TranslocoPipe],
   templateUrl: './lab.html',
   styleUrl: './lab.css',
 })

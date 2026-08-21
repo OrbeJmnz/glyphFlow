@@ -1,0 +1,37 @@
+{
+  "titulo": "Patterns",
+  "intro": "The icon grid shows what's there. This shows what it's for: controls that actually do what they say — the copy one copies, the theme one changes colors, the send one has its three states. Each one's code sits right next to it.",
+  "copiar": {
+    "titulo": "Copy to clipboard",
+    "descripcion": "The case where morph clearly wins: <code>copy</code> → <code>check</code> confirms without shifting the layout or bolting on a toast. The button above actually copies — try it and paste.",
+    "detalle": "If <code>writeText</code> fails (no permission, no focus, site on http) the state doesn't change: the icon stays on <code>copy</code> instead of lying with a checkmark.",
+    "boton": {
+      "copiar": "Copy",
+      "copiado": "Copied"
+    }
+  },
+  "tema": {
+    "titulo": "Theme switch",
+    "descripcion": "<code>moon</code> ↔ <code>sun</code>. The icon inherits the text color (<code>stroke=\"currentColor\"</code>), so the theme never has to touch it directly: change the container's color and the icon follows.",
+    "detalle": "Here the theme only applies to <strong>this panel</strong>, so the pattern reads in isolation. The real one lives in the header, with the same morph: it writes <code>data-tema</code> on <code>&lt;html&gt;</code>, remembers your choice, and reveals the new theme with a circle that grows out of the button itself.",
+    "ariaAOscuro": "Switch to dark theme",
+    "ariaAClaro": "Switch to light theme",
+    "labelClaro": "Light theme",
+    "labelOscuro": "Dark theme"
+  },
+  "enviar": {
+    "titulo": "Three-state action",
+    "descripcion": "Idle → sending → sent, and back again. <code>send</code> → <code>circle-check</code> via morph; the spinner is a curated <code>&lt;max-icon&gt;</code> on <code>loop</code>.",
+    "detalle": "Mixing them isn't sloppiness: a morph has a <strong>start and an end</strong>, and \"loading\" doesn't know when it's done. An unknown-duration state needs an animation that cycles — exactly what the choreography engine already does.",
+    "boton": {
+      "reposo": "Send",
+      "enviando": "Sending…",
+      "enviado": "Sent"
+    }
+  },
+  "reaccion": {
+    "titulo": "Reaction",
+    "descripcion": "There's no morph here: the shape doesn't change, only the gesture. <code>trigger=\"tap\"</code> replays the heart's curated choreography on every click, and the button supplies the color.",
+    "detalle": "The rule for picking an engine: if the icon <strong>changes shape</strong>, morph; if the same icon <strong>reacts</strong>, choreography. Using morph here would mean paying for the interpolation of two identical shapes."
+  }
+}
