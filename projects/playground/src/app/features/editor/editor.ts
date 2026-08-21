@@ -1,5 +1,14 @@
-import { Component, ElementRef, ViewChild, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { CURATED_ICONS, MaxIconComponent, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
@@ -23,9 +32,26 @@ import { Tooltip } from '../../shared/ui/tooltip';
 
 const LADO = 24;
 
+/** Zoom: 1 = el icono completo. No se baja de ahí porque debajo del 100% solo se ve vacío. */
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 8;
+const ZOOM_PASO = 1.35;
+
 interface Curado {
   nombre: string;
   def: AnimatedIconDef;
+}
+
+/**
+ * Un nodo listo para pintar: además de dónde está, QUÉ es. Sin esto todos los puntos se ven
+ * iguales y el usuario no sabe cuál está manipulando ni por dónde abre el trazo.
+ */
+interface NodoVista extends Nodo {
+  /** 1-based, en el orden en que se recorre el trazo. Es el número que se le enseña al usuario. */
+  indice: number;
+  inicio: boolean;
+  /** Solo en subpaths ABIERTOS: en uno cerrado el final es el inicio y marcarlo dos veces miente. */
+  fin: boolean;
 }
 
 /**
@@ -37,17 +63,34 @@ interface Curado {
  */
 @Component({
   selector: 'app-editor',
-  imports: [Boton, CampoBusqueda, Chip, MaxIconComponent, Tooltip],
+  imports: [Boton, CampoBusqueda, Chip, MaxIconComponent, Tooltip, TranslocoPipe],
   templateUrl: './editor.html',
   styleUrl: './editor.css',
   // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de
   // ese elemento. Colgarlo de un `div` además obligaba a hacerlo focusable para nada.
-  host: { '(window:keydown)': 'atajo($event)' },
+  host: {
+    '(window:keydown)': 'atajo($event)',
+    '(document:fullscreenchange)': 'sincronizarPantalla()',
+  },
 })
-export class Editor {
+export class Editor implements OnDestroy {
   @ViewChild('lienzo', { static: true }) private lienzo!: ElementRef<SVGSVGElement>;
+  /** El marco que entra a pantalla completa: el lienzo con su barra, no el `<svg>` pelón. */
+  @ViewChild('zona', { static: true }) private zona!: ElementRef<HTMLElement>;
 
   protected readonly lado = LADO;
+  protected readonly zoomMin = ZOOM_MIN;
+  protected readonly zoomMax = ZOOM_MAX;
+  /** El glifo del CTA. Va por `iconDef` y no por `name=`: el playground no registra el catálogo. */
+  protected readonly iconoPlay = CURATED_ICONS['play'];
+
+  /**
+   * Coordenada para leer, no para calcular. Dos decimales y sin ceros de relleno: la cifra cambia
+   * en cada píxel del arrastre y `12.30` saltando a `12.4` marea más de lo que informa.
+   */
+  protected dec(v: number): string {
+    return String(Math.round(v * 100) / 100);
+  }
 
   private readonly curados: Curado[] = Object.entries(CURATED_ICONS)
     .map(([nombre, def]) => ({ nombre, def }))
@@ -93,6 +136,125 @@ export class Editor {
     const m = this.modelos()[this.indiceActivo()];
     return m ? manijasDe(m) : [];
   });
+
+  /**
+   * Los nodos con jerarquía: cuál es el primero del trazo, cuál lo cierra, y qué número lleva.
+   * Solo los movibles — el `Z` no tiene punto propio y pintarlo sería un nodo fantasma.
+   */
+  protected readonly nodosVista = computed<NodoVista[]>(() => {
+    const todos = this.nodos();
+    const movibles = todos.filter((n) => n.movible);
+    // Un subpath con `Z` está cerrado: su último punto vuelve al primero, así que no tiene «fin».
+    const cerrados = new Set(todos.filter((n) => !n.movible).map((n) => n.sub));
+    const primeros = new Map<number, number>();
+    const ultimos = new Map<number, number>();
+    for (const n of movibles) {
+      if (!primeros.has(n.sub)) primeros.set(n.sub, n.seg);
+      ultimos.set(n.sub, n.seg);
+    }
+    return movibles.map((n, i) => ({
+      ...n,
+      indice: i + 1,
+      inicio: primeros.get(n.sub) === n.seg,
+      fin: !cerrados.has(n.sub) && ultimos.get(n.sub) === n.seg,
+    }));
+  });
+
+  /**
+   * El nodo seleccionado tal como está AHORA, no como estaba al agarrarlo. `activo()` guarda la
+   * referencia del `pointerdown`; leer su `punto` dejaría las coordenadas congeladas en el sitio
+   * donde empezó el arrastre en vez de seguir al puntero.
+   */
+  protected readonly nodoActivo = computed<NodoVista | null>(() => {
+    const a = this.activo();
+    if (!a) return null;
+    return this.nodosVista().find((n) => n.sub === a.sub && n.seg === a.seg) ?? null;
+  });
+
+  // ── Encuadre: zoom y paneo ──────────────────────────────────────────────────
+
+  protected readonly zoom = signal(1);
+  /** Esquina superior izquierda del viewBox, en unidades del icono. */
+  protected readonly pan = signal<[number, number]>([0, 0]);
+
+  /** El lado visible: a más zoom, menos icono cabe. */
+  private readonly ladoVisible = computed(() => LADO / this.zoom());
+
+  protected readonly vista = computed(() => {
+    const l = this.ladoVisible();
+    const [x, y] = this.pan();
+    return `${x} ${y} ${l} ${l}`;
+  });
+
+  protected readonly porcentaje = computed(() => Math.round(this.zoom() * 100));
+
+  /**
+   * El tamaño de las manijas se divide entre el zoom para que el cuadrito mida siempre lo mismo en
+   * PANTALLA. Sin esto, acercarse convierte los agarres en bloques que tapan la figura que se está
+   * editando — justo cuando más precisión hace falta.
+   */
+  protected readonly ladoManija = computed(() => 0.84 / this.zoom());
+  protected readonly radioNodo = computed(() => 0.5 / this.zoom());
+  /** El halo del nodo seleccionado engorda mientras se arrastra: «esto es lo que traigo». */
+  protected readonly radioHalo = computed(
+    () => (this.arrastrandoNodo() ? 1.5 : 1.05) / this.zoom(),
+  );
+
+  /** El pan no puede salirse del icono: fuera del 0–24 no hay nada que ver. */
+  private encuadrar(x: number, y: number): [number, number] {
+    const tope = LADO - this.ladoVisible();
+    const dentro = (v: number) => Math.min(Math.max(v, 0), tope);
+    return [dentro(x), dentro(y)];
+  }
+
+  /** Aplica un zoom nuevo dejando fijo el punto del icono que está bajo `ancla`. */
+  private aplicarZoom(destino: number, ancla?: [number, number]): void {
+    const z = Math.min(Math.max(destino, ZOOM_MIN), ZOOM_MAX);
+    if (z === this.zoom()) return;
+    const [ax, ay] = ancla ?? [
+      this.pan()[0] + this.ladoVisible() / 2,
+      this.pan()[1] + this.ladoVisible() / 2,
+    ];
+    // Regla de tres: la fracción del viewBox donde cae el ancla se conserva al cambiar la escala.
+    const fx = (ax - this.pan()[0]) / this.ladoVisible();
+    const fy = (ay - this.pan()[1]) / this.ladoVisible();
+    this.zoom.set(z);
+    const l = LADO / z;
+    this.pan.set(this.encuadrar(ax - fx * l, ay - fy * l));
+  }
+
+  protected acercar(): void {
+    this.aplicarZoom(this.zoom() * ZOOM_PASO);
+  }
+
+  protected alejar(): void {
+    this.aplicarZoom(this.zoom() / ZOOM_PASO);
+  }
+
+  protected reencuadrar(): void {
+    this.zoom.set(1);
+    this.pan.set([0, 0]);
+  }
+
+  /** Rueda del ratón / pinch del trackpad: zoom sobre el punto que está bajo el puntero. */
+  protected rueda(ev: WheelEvent): void {
+    ev.preventDefault();
+    const factor = ev.deltaY < 0 ? ZOOM_PASO : 1 / ZOOM_PASO;
+    this.aplicarZoom(this.zoom() * factor, this.aViewBox(ev));
+  }
+
+  protected readonly enPantalla = signal(false);
+
+  protected alternarPantalla(): void {
+    // `?.` en las dos: jsdom no implementa la API de pantalla completa y el navegador puede
+    // negarla por política. Ninguna de las dos es motivo para tronar.
+    if (document.fullscreenElement) void document.exitFullscreen?.();
+    else void this.zona.nativeElement.requestFullscreen?.();
+  }
+
+  protected sincronizarPantalla(): void {
+    this.enPantalla.set(document.fullscreenElement === this.zona.nativeElement);
+  }
 
   protected readonly dPorPath = computed<string[]>(() =>
     this.modelos().map((subs) => subs.map(dDeSubpath).join('')),
@@ -235,6 +397,10 @@ export class Editor {
     this.indiceActivo.set(0);
     this.tocado.set(false);
     this.arrastrando = null;
+    this.activo.set(null);
+    this.manijaActiva.set(null);
+    // Un encuadre heredado deja el icono nuevo fuera de cuadro: cada figura tiene su propio centro.
+    this.reencuadrar();
     // El historial del icono anterior no aplica al nuevo.
     this.historial.limpiar();
     this.sincronizarPila();
@@ -252,15 +418,36 @@ export class Editor {
     | null = null;
   protected readonly activo = signal<Nodo | null>(null);
   protected readonly manijaActiva = signal<Manija | null>(null);
+  /** Se pinta el nodo agrandado mientras se arrastra: la señal de «esto es lo que traigo». */
+  protected readonly arrastrandoNodo = signal(false);
+
+  /**
+   * El paneo va por su propio carril, no por `arrastrando`. Mueve la CÁMARA, no la geometría: ni
+   * toca el modelo ni entra al historial, y meterlo en la misma unión obligaría a filtrarlo en
+   * cada rama que sí edita.
+   */
+  private paneando: { cliente: [number, number]; inicio: [number, number] } | null = null;
+
+  protected empezarPan(ev: PointerEvent): void {
+    // Al 100% no hay nada que revelar; y si ya se está agarrando un nodo o una manija, ese gesto
+    // manda. Sin este guardia, arrastrar un punto movería además el encuadre debajo de él.
+    if (this.zoom() === 1 || this.arrastrando) return;
+    (ev.currentTarget as Element).setPointerCapture(ev.pointerId);
+    this.paneando = { cliente: [ev.clientX, ev.clientY], inicio: this.pan() };
+  }
 
   /**
    * De coordenadas de pantalla a unidades del viewBox. Se usa el rect real del `<svg>` en vez de
    * un factor fijo porque el lienzo es responsivo: con un número quemado, el nodo se despega del
    * puntero en cuanto cambia el ancho de la ventana.
    */
-  private aViewBox(ev: PointerEvent): [number, number] {
+  private aViewBox(ev: { clientX: number; clientY: number }): [number, number] {
     const r = this.lienzo.nativeElement.getBoundingClientRect();
-    return [((ev.clientX - r.left) / r.width) * LADO, ((ev.clientY - r.top) / r.height) * LADO];
+    // El zoom entra aquí y en ningún otro lado: es el único punto donde pantalla y viewBox se
+    // tocan. Con zoom 1 y pan (0,0) la cuenta es idéntica a la de antes.
+    const l = this.ladoVisible();
+    const [px, py] = this.pan();
+    return [px + ((ev.clientX - r.left) / r.width) * l, py + ((ev.clientY - r.top) / r.height) * l];
   }
 
   protected empezar(ev: PointerEvent, nodo: Nodo): void {
@@ -274,6 +461,7 @@ export class Editor {
     this.historial.abrir(this.modelos());
     this.arrastrando = { tipo: 'nodo', ref: nodo, ultimo: this.aViewBox(ev), movio: false };
     this.activo.set(nodo);
+    this.arrastrandoNodo.set(true);
     this.manijaActiva.set(null);
   }
 
@@ -288,6 +476,15 @@ export class Editor {
   }
 
   protected mover(ev: PointerEvent): void {
+    if (this.paneando) {
+      const r = this.lienzo.nativeElement.getBoundingClientRect();
+      const l = this.ladoVisible();
+      // El encuadre se mueve al REVÉS que el puntero: se arrastra el papel, no la ventana.
+      const dx = ((ev.clientX - this.paneando.cliente[0]) / r.width) * l;
+      const dy = ((ev.clientY - this.paneando.cliente[1]) / r.height) * l;
+      this.pan.set(this.encuadrar(this.paneando.inicio[0] - dx, this.paneando.inicio[1] - dy));
+      return;
+    }
     if (!this.arrastrando) return;
     const [x, y] = this.aViewBox(ev);
     const [px, py] = this.arrastrando.ultimo;
@@ -311,6 +508,8 @@ export class Editor {
   }
 
   protected terminar(): void {
+    this.paneando = null;
+    this.arrastrandoNodo.set(false);
     if (!this.arrastrando) return;
     const movio = this.arrastrando.movio;
     this.arrastrando = null;
@@ -340,19 +539,40 @@ export class Editor {
     void this.router.navigate(['/lab']);
   }
 
-  protected async copiarJson(): Promise<void> {
+  // ── Salida ──────────────────────────────────────────────────────────────────
+
+  /** El `d` abierto y el JSON cerrado: uno se lee de un vistazo, el otro son cien líneas. */
+  protected readonly verPath = signal(true);
+  protected readonly verJson = signal(false);
+
+  /** Cuál de los dos bloques acaba de copiarse, para acusar recibo. */
+  protected readonly copiado = signal<'path' | 'json' | null>(null);
+  private avisoCopiado?: ReturnType<typeof setTimeout>;
+
+  /**
+   * Copiar de verdad o no decir nada. El `catch` vacío es a propósito: sin permiso de portapapeles
+   * el acuse NO se pinta, en vez de mentirle al usuario diciendo «copiado» sobre un buffer vacío.
+   */
+  private async alPortapapeles(texto: string, cual: 'path' | 'json'): Promise<void> {
     try {
-      await navigator.clipboard.writeText(this.json());
+      await navigator.clipboard.writeText(texto);
+      this.copiado.set(cual);
+      clearTimeout(this.avisoCopiado);
+      this.avisoCopiado = setTimeout(() => this.copiado.set(null), 1600);
     } catch {
       /* sin permiso: no se finge que copió */
     }
   }
 
-  protected async copiar(): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(this.editado());
-    } catch {
-      /* sin permiso: no se finge que copió */
-    }
+  protected copiarJson(): Promise<void> {
+    return this.alPortapapeles(this.json(), 'json');
+  }
+
+  protected copiar(): Promise<void> {
+    return this.alPortapapeles(this.editado(), 'path');
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.avisoCopiado);
   }
 }

@@ -83,7 +83,9 @@ describe('Taller — el puente entre editar y coreografiar', () => {
 
     const nombre = nombreDe(html.querySelector('.lista .chip.activo')!);
     // Por la clase, no por el atributo: `[app-boton]` casa aunque el componente no esté importado.
-    html.querySelector<HTMLButtonElement>('.panel button.ui-boton')!.click();
+    // Y acotado a `.cta`: el panel tiene más botones de esa clase (los de copiar de cada bloque de
+    // salida), así que el primer `.ui-boton` del panel dejó de ser el que navega.
+    html.querySelector<HTMLButtonElement>('.cta button.ui-boton')!.click();
     await fixture.whenStable();
 
     // Y de paso se verifica lo que el botón promete: además de mandar la pieza, lleva al Lab.
@@ -107,5 +109,5 @@ describe('Taller — el puente entre editar y coreografiar', () => {
  * que de verdad percibe quien navega con lector de pantalla.
  */
 function nombreDe(chip: Element): string {
-  return (chip.getAttribute('aria-label') ?? '').replace(/^Editar\s+/, '');
+  return (chip.getAttribute('aria-label') ?? '').replace(/^Edit\s+/, '');
 }

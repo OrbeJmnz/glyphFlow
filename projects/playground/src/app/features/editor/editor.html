@@ -1,17 +1,52 @@
 <header class="head">
-  <h1>Editor de nodos</h1>
-  <p>
-    Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe
-    tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.
-  </p>
+  <h1>{{ 'editor.titulo' | transloco }}</h1>
+  <p [innerHTML]="'editor.intro' | transloco"></p>
 </header>
 
 <div class="marco">
-  <section class="taller">
+  <!--
+    El lienzo es el protagonista y por eso trae sus dos barras DENTRO: arriba qué se está editando
+    y en qué estado, abajo cómo mirarlo. Colgarlas del panel las habría convertido en ajustes
+    sueltos; aquí leen como los bordes de una mesa de trabajo.
+  -->
+  <section #zona class="taller" [class.completa]="enPantalla()">
+    <div class="barra barra-alta">
+      <span class="identidad">
+        <max-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
+        <strong>{{ elegido().nombre }}</strong>
+      </span>
+
+      <span class="estado" role="status" [attr.aria-label]="'editor.lienzo.estadoAria' | transloco">
+        <span>{{
+          (nodosVista().length === 1 ? 'editor.lienzo.nodo' : 'editor.lienzo.nodos')
+            | transloco: { n: nodosVista().length }
+        }}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{{
+          (dPorPath().length === 1 ? 'editor.lienzo.trazo' : 'editor.lienzo.trazos')
+            | transloco: { n: dPorPath().length }
+        }}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="marca-estado" [class.vivo]="tocado()">
+          <i class="punto" aria-hidden="true"></i>
+          {{ (tocado() ? 'editor.lienzo.modificado' : 'editor.lienzo.intacto') | transloco }}
+        </span>
+      </span>
+    </div>
+
+    <!--
+      `--z` lleva el zoom al CSS. Nodos, manijas y líneas de pelo se dividen entre él para medir
+      siempre lo mismo en pantalla: si crecieran con el viewBox, acercarse taparía justo la
+      geometría que se quiere ver de cerca.
+    -->
     <svg
       #lienzo
       class="lienzo"
-      [attr.viewBox]="'0 0 ' + lado + ' ' + lado"
+      [class.paneable]="zoom() > zoomMin"
+      [style.--z]="zoom()"
+      [attr.viewBox]="vista()"
+      (pointerdown)="empezarPan($event)"
+      (wheel)="rueda($event)"
       (pointermove)="mover($event)"
       (pointerup)="terminar()"
       (pointercancel)="terminar()"
@@ -73,12 +108,7 @@
           />
         }
         @for (d of dPorPath(); track $index) {
-          <path
-            class="hilo"
-            stroke-width="0.12"
-            [attr.d]="d"
-            [class.inactivo]="$index !== indiceActivo()"
-          />
+          <path class="hilo" [attr.d]="d" [class.inactivo]="$index !== indiceActivo()" />
         }
       </g>
 
@@ -103,114 +133,270 @@
               manijaActiva()?.seg === m.seg &&
               manijaActiva()?.cual === m.cual
             "
-            [attr.x]="m.punto[0] - 0.42"
-            [attr.y]="m.punto[1] - 0.42"
-            width="0.84"
-            height="0.84"
+            [attr.x]="m.punto[0] - ladoManija() / 2"
+            [attr.y]="m.punto[1] - ladoManija() / 2"
+            [attr.width]="ladoManija()"
+            [attr.height]="ladoManija()"
             (pointerdown)="empezarManija($event, m)"
           />
         }
       </g>
 
-      <!-- Los nodos van al final para quedar por encima del trazo y poder agarrarse. -->
+      <!--
+        Los nodos van al final para quedar por encima del trazo y poder agarrarse. El halo del
+        activo es un círculo APARTE y sin eventos: engordar el nodo real para dibujarlo agrandaría
+        también su área de click, y el punto de agarre dejaría de coincidir con lo que se ve.
+      -->
       <g class="nodos">
-        @for (n of nodos(); track n.sub + ':' + n.seg) {
-          @if (n.movible) {
+        @for (n of nodosVista(); track n.sub + ':' + n.seg) {
+          @if (activo()?.sub === n.sub && activo()?.seg === n.seg) {
             <circle
-              class="nodo"
-              [class.activo]="activo()?.sub === n.sub && activo()?.seg === n.seg"
+              class="halo"
+              [attr.r]="radioHalo()"
               [attr.cx]="n.punto[0]"
               [attr.cy]="n.punto[1]"
-              r="0.55"
-              (pointerdown)="empezar($event, n)"
             />
           }
+          <circle
+            class="nodo"
+            [class.activo]="activo()?.sub === n.sub && activo()?.seg === n.seg"
+            [class.inicio]="n.inicio"
+            [class.fin]="n.fin"
+            [attr.r]="radioNodo()"
+            [attr.cx]="n.punto[0]"
+            [attr.cy]="n.punto[1]"
+            (pointerdown)="empezar($event, n)"
+          />
         }
       </g>
     </svg>
 
     @if (dPorPath().length > 1) {
       <p class="pista">
-        Este icono tiene {{ dPorPath().length }} trazos. Da click en uno para editar sus nodos.
+        {{ 'editor.trazos' | transloco: { n: dPorPath().length } }}
       </p>
     }
+
+    <div
+      class="barra barra-baja"
+      role="group"
+      [attr.aria-label]="'editor.lienzo.zoomAria' | transloco"
+    >
+      <button
+        type="button"
+        class="lienzo-btn"
+        [disabled]="zoom() <= zoomMin"
+        [title]="'editor.lienzo.alejar' | transloco"
+        [attr.aria-label]="'editor.lienzo.alejar' | transloco"
+        (click)="alejar()"
+      >
+        −
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn lienzo-btn-txt"
+        [title]="'editor.lienzo.reencuadrar' | transloco"
+        (click)="reencuadrar()"
+      >
+        {{ porcentaje() }}%
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn"
+        [disabled]="zoom() >= zoomMax"
+        [title]="'editor.lienzo.acercar' | transloco"
+        [attr.aria-label]="'editor.lienzo.acercar' | transloco"
+        (click)="acercar()"
+      >
+        +
+      </button>
+
+      <span class="crece"></span>
+
+      <button
+        type="button"
+        class="lienzo-btn"
+        [title]="
+          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+        "
+        [attr.aria-label]="
+          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+        "
+        (click)="alternarPantalla()"
+      >
+        ⛶
+      </button>
+    </div>
   </section>
 
   <aside class="panel">
-    <app-campo-busqueda
-      [(texto)]="filtro"
-      marcador="buscar entre los curados…"
-      etiqueta="Buscar icono para editar"
-    />
+    <!-- 1. QUÉ edito -->
+    <section class="seccion">
+      <h2 class="grupo-tit">{{ 'editor.secciones.elementos' | transloco }}</h2>
 
-    <div class="lista">
-      @for (c of candidatos(); track c.nombre) {
-        <app-tooltip [texto]="c.nombre" [abajo]="true">
-          <button
-            type="button"
-            app-chip
-            [activo]="c.nombre === elegido().nombre"
-            (click)="elegir(c)"
-            [attr.aria-label]="'Editar ' + c.nombre"
-          >
-            <max-icon [iconDef]="c.def" [size]="18" trigger="manual" />
-          </button>
-        </app-tooltip>
-      }
-    </div>
+      <app-campo-busqueda
+        [(texto)]="filtro"
+        [marcador]="'editor.busqueda.marcador' | transloco"
+        [etiqueta]="'editor.busqueda.etiqueta' | transloco"
+      />
 
-    <div class="nodo-acciones" role="group" aria-label="Nodo seleccionado">
-      @if (activo(); as n) {
-        <button type="button" app-chip (click)="agregarNodo()" title="tecla +">+ nodo aquí</button>
-        <button type="button" app-chip (click)="borrarNodo()" title="tecla Supr">
-          − borrar nodo
-        </button>
-      } @else {
-        <span class="pista-nodo">Toca un nodo para agregar o borrar.</span>
-      }
-    </div>
-
-    <div class="deshacer" role="group" aria-label="Historial">
-      <button
-        type="button"
-        class="chip"
-        [disabled]="!pila().deshacer"
-        (click)="deshacer()"
-        title="Ctrl+Z"
-      >
-        ↶ deshacer
-      </button>
-      <button
-        type="button"
-        class="chip"
-        [disabled]="!pila().rehacer"
-        (click)="rehacer()"
-        title="Ctrl+Shift+Z"
-      >
-        ↷ rehacer
-      </button>
-    </div>
-
-    <div class="salida">
-      <div class="salida-cab">
-        <span class="grupo-tit">resultado</span>
-        <span class="acciones-txt">
-          @if (tocado()) {
-            <button type="button" class="enlace" (click)="restablecer()">restablecer</button>
-          }
-          <button type="button" class="enlace" (click)="copiar()">copiar d</button>
-          <button type="button" class="enlace" (click)="copiarJson()">copiar JSON</button>
-        </span>
+      <div class="lista">
+        @for (c of candidatos(); track c.nombre) {
+          <app-tooltip [texto]="c.nombre" [abajo]="true">
+            <button
+              type="button"
+              app-chip
+              [activo]="c.nombre === elegido().nombre"
+              (click)="elegir(c)"
+              [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
+            >
+              <max-icon [iconDef]="c.def" [size]="18" trigger="manual" />
+            </button>
+          </app-tooltip>
+        }
       </div>
-      <pre><code>{{ editado() }}</code></pre>
-    </div>
+    </section>
 
-    <button type="button" app-boton variante="primario" (click)="coreografiar()">
-      Coreografiar esta forma →
-    </button>
-    <p class="pista-nodo">
-      Se lleva la geometría editada al Lab <strong>con la coreografía original</strong>: los tracks
-      apuntan a las mismas figuras, así que la animación que ya existía corre sobre la forma nueva.
-    </p>
+    <!-- 2. CÓMO lo edito -->
+    <section class="seccion">
+      <h2 class="grupo-tit">{{ 'editor.secciones.edicion' | transloco }}</h2>
+
+      <div
+        class="deshacer"
+        role="group"
+        [attr.aria-label]="'editor.historial.grupoAria' | transloco"
+      >
+        <button
+          type="button"
+          class="chip es-contorno"
+          [disabled]="!pila().deshacer"
+          (click)="deshacer()"
+          title="Ctrl+Z"
+        >
+          {{ 'editor.historial.deshacer' | transloco }}
+        </button>
+        <button
+          type="button"
+          class="chip es-contorno"
+          [disabled]="!pila().rehacer"
+          (click)="rehacer()"
+          title="Ctrl+Shift+Z"
+        >
+          {{ 'editor.historial.rehacer' | transloco }}
+        </button>
+      </div>
+
+      <!--
+        Contextual: sin nodo elegido solo se pinta la pista. Enseñar «+ nodo» y «borrar nodo»
+        apagados todo el tiempo llenaba el panel de controles que no aplican todavía.
+      -->
+      <div
+        class="nodo-acciones"
+        role="group"
+        [attr.aria-label]="'editor.nodo.grupoAria' | transloco"
+      >
+        @if (nodoActivo(); as n) {
+          <div class="nodo-cab">
+            <strong>{{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}</strong>
+            <span class="coords">
+              <span><em>X</em>{{ dec(n.punto[0]) }}</span>
+              <span><em>Y</em>{{ dec(n.punto[1]) }}</span>
+            </span>
+          </div>
+          <div class="nodo-btns">
+            <button
+              type="button"
+              app-chip
+              variante="contorno"
+              (click)="agregarNodo()"
+              [title]="'editor.nodo.teclaMas' | transloco"
+            >
+              {{ 'editor.nodo.agregar' | transloco }}
+            </button>
+            <button
+              type="button"
+              app-chip
+              variante="contorno"
+              (click)="borrarNodo()"
+              [title]="'editor.nodo.teclaSupr' | transloco"
+            >
+              {{ 'editor.nodo.borrar' | transloco }}
+            </button>
+          </div>
+        } @else {
+          <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
+        }
+      </div>
+    </section>
+
+    <!-- 3. QUÉ me llevo -->
+    <section class="seccion salida">
+      <div class="salida-cab">
+        <h2 class="grupo-tit">{{ 'editor.secciones.resultado' | transloco }}</h2>
+        @if (tocado()) {
+          <button type="button" class="enlace restablecer" (click)="restablecer()">
+            {{ 'editor.salida.restablecer' | transloco }}
+          </button>
+        }
+      </div>
+
+      <!--
+        Dos bloques plegables en vez de un muro. El `d` abierto porque es la respuesta que se viene
+        a buscar; el JSON cerrado porque son cien líneas que casi nunca se leen — se copian.
+      -->
+      <div class="bloque" [class.abierto]="verPath()">
+        <button
+          type="button"
+          class="bloque-cab"
+          [attr.aria-expanded]="verPath()"
+          (click)="verPath.set(!verPath())"
+        >
+          <span class="flecha" aria-hidden="true">▸</span>
+          <span class="grupo-tit">{{ 'editor.salida.path' | transloco }}</span>
+        </button>
+        @if (verPath()) {
+          <pre><code>{{ editado() }}</code></pre>
+        }
+        <button type="button" app-boton compacto variante="fantasma" (click)="copiar()">
+          {{
+            (copiado() === 'path' ? 'editor.salida.copiado' : 'editor.salida.copiar') | transloco
+          }}
+        </button>
+      </div>
+
+      <div class="bloque" [class.abierto]="verJson()">
+        <button
+          type="button"
+          class="bloque-cab"
+          [attr.aria-expanded]="verJson()"
+          (click)="verJson.set(!verJson())"
+        >
+          <span class="flecha" aria-hidden="true">▸</span>
+          <span class="grupo-tit">{{ 'editor.salida.json' | transloco }}</span>
+        </button>
+        @if (verJson()) {
+          <pre class="json"><code>{{ json() }}</code></pre>
+        }
+        <button type="button" app-boton compacto variante="fantasma" (click)="copiarJson()">
+          {{
+            (copiado() === 'json' ? 'editor.salida.copiado' : 'editor.salida.copiar') | transloco
+          }}
+        </button>
+      </div>
+    </section>
+
+    <!--
+      El CTA cierra el círculo: se acaba de editar una forma, y la pregunta que sigue sola es qué
+      hacer con ella. Va fuera de las tres secciones a propósito — no es un ajuste más del panel,
+      es la salida del editor.
+    -->
+    <div class="cta">
+      <button type="button" app-boton variante="primario" (click)="coreografiar()">
+        <max-icon [iconDef]="iconoPlay" [size]="16" trigger="manual" />
+        {{ 'editor.coreografiar.boton' | transloco }}
+        <span class="flecha-cta" aria-hidden="true">→</span>
+      </button>
+      <p class="pista-nodo" [innerHTML]="'editor.coreografiar.nota' | transloco"></p>
+    </div>
   </aside>
 </div>

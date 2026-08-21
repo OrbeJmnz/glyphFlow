@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-08-20T03:46:42.804Z",
         "reason": "user confirmed: pidio explicitamente degradado en textos de enfasis con los colores de la barra de scroll; son las paradas del propio logotipo de glyphflow, no un adorno generico"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "projects/playground/src/app/features/iconos/iconos.css"
+        ],
+        "createdAt": "2026-08-20T15:39:24.761Z",
+        "reason": "grid transitions padding-right on purpose so columns really reflow to make room for the icon-detail drawer (documented inline, 'el grid le hace espacio... las columnas se achican'); transform/opacity can't fake real column reflow, this predates today's mobile-menu work"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "projects/playground/src/app/features/iconos/iconos.css"
+        ],
+        "createdAt": "2026-08-20T15:52:29.032Z",
+        "reason": "degradado-texto en la cifra de 4.09KB es decision intencional preexistente, documentada inline en el propio CSS (unica cifra pintada a proposito para que destaque, decision de sesiones previas a esta, no algo que yo introduje)"
       }
     ]
   }

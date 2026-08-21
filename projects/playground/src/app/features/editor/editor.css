@@ -36,11 +36,138 @@
   }
 }
 
+/* ── El taller: barra, lienzo, barra ─────────────────────────────────────────── */
+
+/*
+ * Sin padding lateral a propósito: las barras llegan hasta el borde y encierran el lienzo, que es
+ * lo que lo hace leer como zona de trabajo en vez de como una imagen suelta dentro de una tarjeta.
+ */
 .taller {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
   border-radius: var(--gf-radio);
   background: var(--gf-panel);
+  overflow: hidden;
 }
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 12px;
+  color: var(--gf-texto-tenue);
+}
+
+.barra-alta {
+  border-bottom: 1px solid var(--gf-borde-suave);
+}
+
+.barra-baja {
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+.identidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--gf-texto);
+}
+
+.identidad strong {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.sep {
+  color: var(--gf-texto-apagado);
+}
+
+.marca-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* El punto de estado: apagado mientras el icono está intacto, vivo en cuanto se toca algo. */
+.punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gf-texto-apagado);
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.marca-estado.vivo {
+  color: var(--gf-texto-medio);
+}
+
+.marca-estado.vivo .punto {
+  background: var(--gf-marca-1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gf-marca-1) 22%, transparent);
+}
+
+/* Empuja lo que venga después hasta el extremo opuesto de la barra. */
+.crece {
+  flex: 1;
+}
+
+/*
+ * Los botones del lienzo son cuadrados y sin borde: viven sobre el propio lienzo, así que un
+ * contorno permanente por cada uno metería cinco rectángulos compitiendo con la figura.
+ */
+.lienzo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.lienzo-btn:hover:not(:disabled) {
+  color: var(--gf-texto);
+  background: var(--gf-velo);
+}
+
+.lienzo-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.lienzo-btn-txt {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── El lienzo ───────────────────────────────────────────────────────────────── */
 
 .lienzo {
   display: block;
@@ -48,14 +175,32 @@
   max-height: 60vh;
   aspect-ratio: 1;
   margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
   color: var(--gf-texto);
   /* Sin esto, arrastrar en un móvil hace scroll en vez de mover el nodo. */
   touch-action: none;
 }
 
+/* Solo con zoom hay algo que revelar; al 100% el cursor de mano prometería un gesto que no existe. */
+.lienzo.paneable {
+  cursor: grab;
+}
+
+.lienzo.paneable:active {
+  cursor: grabbing;
+}
+
+/*
+ * Todo lo que es ANDAMIO —rejilla, hilo, varillas, nodos, manijas— se divide entre `--z`, el zoom
+ * que pone el componente. El viewBox encoge al acercarse, así que una medida fija en unidades
+ * crecería en pantalla: a 8× los nodos serían manchas de 40px tapando la curva que se edita.
+ * Lo que NO se divide es `.tinta`: esas 2 unidades son el trazo REAL del icono y tienen que
+ * engordar con el zoom, porque es justo lo que se está juzgando.
+ */
 .rejilla line {
   stroke: var(--gf-velo-fuerte);
-  stroke-width: 0.06;
+  stroke-width: calc(0.06 / var(--z, 1));
 }
 
 .contexto {
@@ -70,6 +215,7 @@
 
 /* La geometria exacta, para poder apuntar. */
 .hilo {
+  stroke-width: calc(0.12 / var(--z, 1));
   opacity: 0.9;
   pointer-events: none;
 }
@@ -82,51 +228,147 @@
   opacity: 0.3;
 }
 
+/* ── Jerarquía de nodos ──────────────────────────────────────────────────────── */
+
+/*
+ * Cuatro estados, cuatro señales distintas, para que en cualquier momento se sepa qué se está
+ * manipulando sin leer el panel:
+ *   normal   — relleno del fondo, aro gris
+ *   inicio   — mismo tamaño, aro del DOBLE de grosor: por ahí abre el trazo
+ *   fin      — relleno sólido gris, solo en trazos abiertos (en uno cerrado el fin ES el inicio)
+ *   activo   — relleno de marca con halo; arrastrando, el halo crece
+ *
+ * El radio BASE va como atributo en la plantilla, no aquí. `r` como propiedad CSS es reciente
+ * (Firefox la soporta desde la 128) y declararlo solo en CSS deja los nodos con radio 0 —
+ * invisibles y sin nada que agarrar— en cuanto el navegador no la conoce. Aquí queda únicamente
+ * el crecimiento al pasar el puntero: si no se soporta, no crece y ya. Nadie se queda sin editor.
+ */
 .nodo {
-  fill: var(--gf-fondo);
+  fill: var(--gf-panel);
   stroke: var(--gf-texto-medio);
-  stroke-width: 0.18;
+  stroke-width: calc(0.18 / var(--z, 1));
   cursor: grab;
+  transition:
+    fill 0.12s ease,
+    stroke 0.12s ease;
 }
 
 .nodo:hover {
+  r: calc(0.64 / var(--z, 1));
   stroke: var(--gf-texto);
-  r: 0.7;
+}
+
+.nodo.inicio {
+  stroke-width: calc(0.36 / var(--z, 1));
+}
+
+.nodo.fin {
+  fill: var(--gf-texto-medio);
 }
 
 .nodo.activo {
-  fill: var(--gf-texto);
+  fill: var(--gf-marca-1);
+  stroke: var(--gf-marca-2);
+  stroke-width: calc(0.16 / var(--z, 1));
+  cursor: grabbing;
+}
+
+.nodo.activo:hover {
+  r: calc(0.64 / var(--z, 1));
+}
+
+/*
+ * El halo va en su propio círculo, detrás y sin eventos. Agrandar el nodo real para dibujarlo
+ * habría agrandado también su área de click, y el punto de agarre dejaría de coincidir con el
+ * punto que se ve — el arrastre saldría desviado justo en el gesto más preciso del editor.
+ */
+.halo {
+  fill: color-mix(in srgb, var(--gf-marca-1) 18%, transparent);
+  stroke: color-mix(in srgb, var(--gf-marca-1) 45%, transparent);
+  stroke-width: calc(0.09 / var(--z, 1));
+  pointer-events: none;
+  transition: r 0.16s var(--gf-resorte);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo {
+    transition: none;
+  }
+}
+
+/* La varilla solo orienta: no se puede agarrar, para no robarle el click a nada. */
+.varilla {
+  stroke: var(--gf-texto-apagado);
+  stroke-width: calc(0.08 / var(--z, 1));
+  pointer-events: none;
+}
+
+.manija {
+  fill: var(--gf-panel);
+  stroke: var(--gf-texto-apagado);
+  stroke-width: calc(0.14 / var(--z, 1));
+  cursor: grab;
+}
+
+.manija:hover {
   stroke: var(--gf-texto);
+}
+
+.manija.activa {
+  fill: var(--gf-marca-3);
+  stroke: var(--gf-marca-3);
   cursor: grabbing;
 }
 
 .pista {
-  margin: 12px 0 0;
+  margin: 0 0 12px;
   text-align: center;
   font-size: 13px;
   color: var(--gf-texto-apagado);
 }
 
+/*
+ * En pantalla completa el navegador pinta negro detrás: sin fondo propio el panel desaparecería y
+ * el lienzo quedaría flotando. Y el `max-height` de 60vh estorba justo aquí, que es cuando por fin
+ * hay pantalla de sobra.
+ */
+.taller.completa {
+  justify-content: center;
+  height: 100%;
+  border-radius: 0;
+  background: var(--gf-fondo);
+}
+
+.taller.completa .lienzo {
+  max-height: none;
+  height: auto;
+  max-width: min(100%, 90vh);
+}
+
+/* ── El panel ────────────────────────────────────────────────────────────────── */
+
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px;
+  padding: 4px 16px 16px;
   border-radius: var(--gf-radio);
   background: var(--gf-panel);
 }
 
-.buscador input {
-  width: 100%;
-  box-sizing: border-box;
-  height: 36px;
-  padding: 0 12px;
-  border: 1px solid var(--gf-borde);
-  border-radius: 999px;
-  background: var(--gf-fondo);
-  color: var(--gf-texto);
-  font: inherit;
-  font-size: 13px;
+/*
+ * Tres bloques con rótulo y una línea que los separa. Antes todo colgaba del mismo `flex` con el
+ * mismo hueco: buscador, iconos, deshacer, resultado y CTA pesaban igual y el panel se leía como
+ * una lista de cosas sueltas en vez de como tres decisiones — qué edito, cómo lo edito, qué me llevo.
+ */
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 0;
+}
+
+.seccion + .seccion {
+  border-top: 1px solid var(--gf-borde-suave);
 }
 
 .lista {
@@ -137,29 +379,133 @@
   overflow-y: auto;
 }
 
+/* Historial: los dos botones juntos. El apagado al no haber a dónde ir lo pone `.chip:disabled`. */
+.deshacer {
+  display: flex;
+  gap: 4px;
+}
+
+/*
+ * Acciones del nodo: contextuales. Sin nodo elegido solo va la pista — enseñar «+ nodo» y «borrar»
+ * apagados de forma permanente era ruido constante por una acción que casi nunca aplica.
+ * El `min-height` mantiene el sitio para que el panel no salte al seleccionar.
+ */
+.nodo-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.nodo-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nodo-cab strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gf-texto);
+}
+
+/*
+ * `tabular-nums` no es cosmético: la cifra cambia en cada píxel del arrastre, y sin ancho fijo por
+ * dígito el bloque entero bailotea de izquierda a derecha mientras se mueve el nodo.
+ */
+.coords {
+  display: inline-flex;
+  gap: 10px;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--gf-texto-medio);
+}
+
+.coords em {
+  margin-right: 4px;
+  font-style: normal;
+  color: var(--gf-texto-apagado);
+}
+
+.nodo-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.pista-nodo {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--gf-texto-apagado);
+}
+
+/* ── La salida ───────────────────────────────────────────────────────────────── */
+
 .salida-cab {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  gap: 8px;
 }
 
-.acciones-txt {
-  display: inline-flex;
-  gap: 10px;
-  font-size: 12px;
-}
-
-.salida pre {
+.salida-cab h2 {
   margin: 0;
-  padding: 12px;
+}
+
+.bloque {
+  border: 1px solid var(--gf-borde-suave);
   border-radius: var(--gf-radio-chico);
-  background: var(--gf-fondo);
-  max-height: 14rem;
+  overflow: hidden;
+}
+
+.bloque-cab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bloque-cab:hover {
+  background: var(--gf-velo);
+}
+
+.flecha {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--gf-texto-apagado);
+  transition: rotate 0.18s ease;
+}
+
+.bloque.abierto .flecha {
+  rotate: 90deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flecha {
+    transition: none;
+  }
+}
+
+.bloque pre {
+  margin: 0;
+  padding: 0 10px 8px;
+  max-height: 12rem;
   overflow: auto;
 }
 
-.salida code {
+.bloque pre.json {
+  max-height: 18rem;
+}
+
+.bloque code {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
   font-size: 12px;
   line-height: 1.6;
@@ -168,63 +514,45 @@
   overflow-wrap: anywhere;
 }
 
-/* La varilla solo orienta: no se puede agarrar, para no robarle el click a nada. */
-.varilla {
-  stroke: var(--gf-texto-apagado);
-  stroke-width: 0.08;
-  pointer-events: none;
+/* El copiar de cada bloque, pegado a su contenido y no en una barra de acciones compartida. */
+.bloque .ui-boton {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--gf-borde-suave);
+  border-radius: 0;
 }
 
-.manija {
-  fill: var(--gf-fondo);
-  stroke: var(--gf-texto-apagado);
-  stroke-width: 0.14;
-  cursor: grab;
-}
+/* ── El CTA ──────────────────────────────────────────────────────────────────── */
 
-.manija:hover {
-  stroke: var(--gf-acento-claro);
-}
-
-.manija.activa {
-  fill: var(--gf-acento-claro);
-  stroke: var(--gf-acento-claro);
-  cursor: grabbing;
-}
-
-/* Historial: los dos botones juntos. El apagado al no haber a dónde ir lo pone `.chip:disabled`. */
-.deshacer {
+/*
+ * La única acción de página completa del editor, y por eso la única con `variante="primario"`.
+ * El resto del panel es blanco y gris: aquí el contraste invertido no compite con nada.
+ */
+.cta {
   display: flex;
-  gap: 4px;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gf-borde-suave);
 }
 
-/* Acciones del nodo seleccionado. Ocupan sitio siempre para que el panel no salte al elegir uno. */
-.nodo-acciones {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 32px;
+.cta .ui-boton {
+  justify-content: center;
+  width: 100%;
+  height: 40px;
 }
 
-.pista-nodo {
-  font-size: 12px;
-  color: var(--gf-texto-apagado);
+/* La flecha se despega al pasar el puntero: dice «esto te lleva a otro lado», no «esto aplica». */
+.flecha-cta {
+  transition: translate 0.18s var(--gf-resorte);
 }
 
-/* La acción que cierra el círculo: editar forma -> coreografiarla, sin copiar y pegar. */
-.btn-coreografiar {
-  height: 36px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  background: var(--gf-invertido-fondo);
-  color: var(--gf-invertido-texto);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s ease;
+.cta .ui-boton:hover .flecha-cta {
+  translate: 3px 0;
 }
 
-.btn-coreografiar:hover {
-  background: var(--gf-acento-claro);
+@media (prefers-reduced-motion: reduce) {
+  .flecha-cta {
+    transition: none;
+  }
 }
