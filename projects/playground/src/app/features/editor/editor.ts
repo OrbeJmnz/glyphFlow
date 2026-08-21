@@ -99,7 +99,15 @@ export class Editor implements OnDestroy {
   protected readonly filtro = signal('');
   protected readonly candidatos = computed(() => {
     const q = this.filtro().trim().toLowerCase();
-    return this.curados.filter((c) => !q || c.nombre.includes(q)).slice(0, 60);
+    const filtrados = this.curados.filter((c) => !q || c.nombre.includes(q));
+    const visibles = filtrados.slice(0, 60);
+    // El elegido puede caer fuera del corte (alfabéticamente lejos, catálogo grande): sin esto el
+    // chip activo desaparece de la lista y la UI queda sin selección visible.
+    const elegido = this.elegido();
+    if (!visibles.some((c) => c.nombre === elegido.nombre) && filtrados.some((c) => c.nombre === elegido.nombre)) {
+      return [elegido, ...visibles.slice(0, 59)];
+    }
+    return visibles;
   });
 
   protected readonly elegido = signal<Curado>(

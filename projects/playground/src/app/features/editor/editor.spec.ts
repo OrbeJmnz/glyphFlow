@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { CURATED_ICONS } from 'glyphflow';
 import { providersI18nTest } from '../../core/i18n-testing';
 import { Editor } from './editor';
+import { parseD } from './geometria/path-model';
+import { nodosDe } from './geometria/path-edit';
 import editorEn from '../../../i18n/editor/en.json';
 import editorEs from '../../../i18n/editor/es.json';
 
@@ -44,9 +46,13 @@ describe('Editor', () => {
   it('pinta un nodo por punto arrastrable, y ninguno por el `Z`', async () => {
     const { html } = await montar();
     const d = html.querySelector('.salida code')!.textContent!;
-    const cierres = (d.match(/[zZ]/g) ?? []).length;
-    const comandos = (d.match(/[MmLlHhVvCcSsQqTtAaZz]/g) ?? []).length;
-    expect(html.querySelectorAll('.nodo').length).toBe(comandos - cierres);
+    // Contra el parser real (`parseD`/`nodosDe`, ya probado sobre los 899 paths del catálogo) en
+    // vez de contar letras de comando a mano: un comando puede repetirse implícito (mismo `a` con
+    // varios juegos de parámetros seguidos), y ahí contar letras sub-cuenta puntos reales.
+    const esperados = d
+      .split('\n')
+      .flatMap((linea) => nodosDe(parseD(linea)).filter((n) => n.movible));
+    expect(html.querySelectorAll('.nodo').length).toBe(esperados.length);
   });
 
   it('las figuras que no son `path` se pintan de contexto pero no traen nodos', async () => {

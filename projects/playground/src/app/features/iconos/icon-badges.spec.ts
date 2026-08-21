@@ -11,14 +11,15 @@ function claves(nombre: string): ClaveInsignia[] {
 
 describe('insigniasDe', () => {
   it('no marca nada cuando el icono no se distingue en nada', () => {
-    // `bell` tiene coreografía propia, sin variante extra y sin `held`: la tarjeta va limpia.
-    expect(claves('bell')).toEqual([]);
+    // `archive-x` tiene coreografía propia, sin variante extra y sin `held`: la tarjeta va limpia.
+    expect(claves('archive-x')).toEqual([]);
   });
 
   it('marca la variante extra y la nombra en el tooltip', () => {
+    // `search` trae `find` y `nudge` además de `default`.
     const insignias = insigniasDe('search', CURATED_ICONS['search']);
     const extra = insignias.find((i) => i.clave === 'extras');
-    expect(extra?.etiqueta).toBe('+1');
+    expect(extra?.etiqueta).toBe('+2');
     expect(extra?.titulo).toContain('find');
   });
 
