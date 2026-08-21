@@ -6505,13 +6505,6 @@ export const headsetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const heartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" },
-  ],
-  {},
-);
-
 export const heaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 8c2-3-2-3 0-6" },
@@ -7414,14 +7407,6 @@ export const lockKeyholeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const lockOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 11, x: 3, y: 11, rx: 2, ry: 2 },
-    { tag: 'path', d: "M7 11V7a5 5 0 0 1 9.9-1" },
-  ],
-  {},
-);
-
 export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10 17 5-5-5-5" },
@@ -7724,15 +7709,6 @@ export const memoryStickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M8 12v-2" },
     { tag: 'path', d: "M8 18v-2" },
     { tag: 'rect', x: 2, y: 6, width: 20, height: 10, rx: 2 },
-  ],
-  {},
-);
-
-export const menuIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 5h16" },
-    { tag: 'path', d: "M4 12h16" },
-    { tag: 'path', d: "M4 19h16" },
   ],
   {},
 );
@@ -8457,14 +8433,6 @@ export const moveLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const moveRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M18 8L22 12L18 16" },
-    { tag: 'path', d: "M2 12H22" },
-  ],
-  {},
-);
-
 export const moveUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M5 11V5H11" },
@@ -8922,14 +8890,6 @@ export const partyPopperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" },
     { tag: 'path', d: "m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" },
     { tag: 'path', d: "M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" },
-  ],
-  {},
-);
-
-export const pauseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', x: 14, y: 3, width: 5, height: 18, rx: 1 },
-    { tag: 'rect', x: 5, y: 3, width: 5, height: 18, rx: 1 },
   ],
   {},
 );
@@ -14454,7 +14414,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'headphone-off': headphoneOffIcon,
   headphones: headphonesIcon,
   headset: headsetIcon,
-  heart: heartIcon,
   heater: heaterIcon,
   helicopter: helicopterIcon,
   hexagon: hexagonIcon,
@@ -14543,7 +14502,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   locate: locateIcon,
   'lock-keyhole-open': lockKeyholeOpenIcon,
   'lock-keyhole': lockKeyholeIcon,
-  'lock-open': lockOpenIcon,
   'log-in': logInIcon,
   logs: logsIcon,
   lollipop: lollipopIcon,
@@ -14574,7 +14532,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'megaphone-off': megaphoneOffIcon,
   megaphone: megaphoneIcon,
   'memory-stick': memoryStickIcon,
-  menu: menuIcon,
   merge: mergeIcon,
   'message-circle-check': messageCircleCheckIcon,
   'message-circle-code': messageCircleCodeIcon,
@@ -14648,7 +14605,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'move-down': moveDownIcon,
   'move-horizontal': moveHorizontalIcon,
   'move-left': moveLeftIcon,
-  'move-right': moveRightIcon,
   'move-up-left': moveUpLeftIcon,
   'move-up-right': moveUpRightIcon,
   'move-up': moveUpIcon,
@@ -14696,7 +14652,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   parentheses: parenthesesIcon,
   'parking-meter': parkingMeterIcon,
   'party-popper': partyPopperIcon,
-  pause: pauseIcon,
   'paw-print': pawPrintIcon,
   'pc-case': pcCaseIcon,
   'pen-off': penOffIcon,

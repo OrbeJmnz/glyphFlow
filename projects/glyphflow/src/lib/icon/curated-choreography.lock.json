@@ -1014,6 +1014,9 @@
       "circle:18055e6d7c50",
       "circle:6342845e15c6"
     ],
+    "heart": [
+      "path:91c0d03ce70d"
+    ],
     "heart-crack": [
       "path:70d232b4ee26",
       "path:a36954c5a65e"
@@ -1254,6 +1257,10 @@
       "rect:2e7ac1490503",
       "path:fac77bd8ebb9"
     ],
+    "lock-open": [
+      "rect:2e7ac1490503",
+      "path:1bd57539cc06"
+    ],
     "log-out": [
       "path:adcbdbb71db8",
       "path:0b53922c0fea",
@@ -1324,6 +1331,11 @@
       "path:97f5daa0eb26",
       "path:e2f5084122f0"
     ],
+    "menu": [
+      "path:abe44efbbb54",
+      "path:3a01242d74ba",
+      "path:bdd281d23085"
+    ],
     "minus": [
       "path:52f6eb0c4372"
     ],
@@ -1378,6 +1390,10 @@
       "path:78da7358ee13",
       "path:77a7376fc011",
       "circle:aa1dfd5d9bd8"
+    ],
+    "move-right": [
+      "path:072e539f326c",
+      "path:5f8b9afcf511"
     ],
     "navigation": [
       "polygon:67e43b02cce7"
@@ -1551,6 +1567,10 @@
       "rect:d427f2bc2999",
       "path:ec3d9996cae7",
       "path:fe4d12b9ba05"
+    ],
+    "pause": [
+      "rect:ef9a23339fcc",
+      "rect:b8d76df10e5a"
     ],
     "pen": [
       "path:72015e06e6ed"

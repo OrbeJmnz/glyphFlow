@@ -1,6 +1,6 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { EASE, SPRING_OUT, SPRING_BOUNCY, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
-import { activityShapes, alarmClockShapes, alarmClockCheckShapes, alarmClockMinusShapes, alarmClockOffShapes, alarmClockPlusShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, arrowUpShapes, arrowDownShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowDownLeftShapes, arrowDownRightShapes, atSignShapes, badgeCheckShapes, badgeAlertShapes, badgeCentShapes, badgeDollarSignShapes, badgeEuroShapes, badgeIndianRupeeShapes, badgeInfoShapes, badgeJapaneseYenShapes, badgeMinusShapes, badgePercentShapes, badgePlusShapes, badgePoundSterlingShapes, badgeQuestionMarkShapes, badgeRussianRubleShapes, badgeSwissFrancShapes, badgeTurkishLiraShapes, badgeXShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bellCheckShapes, bellDotShapes, bellMinusShapes, bellOffShapes, bellPlusShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, calendar1Shapes, calendarArrowDownShapes, calendarArrowUpShapes, calendarCheck2Shapes, calendarCogShapes, calendarFoldShapes, calendarHeartShapes, calendarMinus2Shapes, calendarMinusShapes, calendarOffShapes, calendarPlus2Shapes, calendarPlusShapes, calendarRangeShapes, calendarSearchShapes, calendarSyncShapes, calendarX2Shapes, calendarXShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clipboardClockShapes, clipboardCopyShapes, clipboardListShapes, clipboardMinusShapes, clipboardPasteShapes, clipboardPenLineShapes, clipboardPenShapes, clipboardPlusShapes, clipboardTypeShapes, clipboardXShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, copyCheckShapes, copyMinusShapes, copyPlusShapes, copySlashShapes, copyXShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, folderArchiveShapes, folderBookmarkShapes, folderCheckShapes, folderClockShapes, folderClosedShapes, folderCodeShapes, folderCogShapes, folderDotShapes, folderDownShapes, folderGit2Shapes, folderGitShapes, folderHeartShapes, folderInputShapes, folderKanbanShapes, folderKeyShapes, folderLockShapes, folderMinusShapes, folderOpenDotShapes, folderOutputShapes, folderPenShapes, folderPlusShapes, folderRootShapes, folderSearch2Shapes, folderSearchShapes, folderSymlinkShapes, folderSyncShapes, folderTreeShapes, folderUpShapes, folderXShapes, funnelShapes, gitForkShapes, globeShapes, globeCheckShapes, globeLockShapes, globeOffShapes, globeXShapes, bookmarkShapes, bookmarkCheckShapes, bookmarkMinusShapes, bookmarkOffShapes, bookmarkPlusShapes, bookmarkXShapes, stickyNoteShapes, stickyNoteCheckShapes, stickyNoteMinusShapes, stickyNoteOffShapes, stickyNotePlusShapes, stickyNoteXShapes, ticketShapes, ticketCheckShapes, ticketMinusShapes, ticketPercentShapes, ticketPlusShapes, ticketSlashShapes, ticketXShapes, grid2x2Shapes, grid2x2CheckShapes, grid2x2PlusShapes, grid2x2XShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartPulseShapes, heartCrackShapes, heartHandshakeShapes, heartMinusShapes, heartOffShapes, heartPlusShapes, heartXShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, imageDownShapes, imageMinusShapes, imagePlayShapes, imagePlusShapes, imageUpShapes, imageUpscaleShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutListShapes, layoutTemplateShapes, layoutFreeformShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, mouseLeftShapes, mouseOffShapes, mouseRightShapes, mousePointerShapes, mousePointer2Shapes, mousePointer2OffShapes, mousePointerBanShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, packageCheckShapes, packageMinusShapes, packageOpenShapes, packagePlusShapes, packageXShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, panelLeftOpenShapes, panelRightShapes, panelRightCloseShapes, panelRightOpenShapes, panelTopShapes, panelTopCloseShapes, panelTopOpenShapes, panelBottomShapes, panelBottomCloseShapes, panelBottomOpenShapes, panelLeftDashedShapes, panelRightDashedShapes, panelTopDashedShapes, panelBottomDashedShapes, panelTopBottomDashedShapes, panelLeftRightDashedShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, saveAllShapes, saveCheckShapes, saveOffShapes, savePenShapes, savePlusShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, serverCogShapes, serverCrashShapes, serverOffShapes, serverPlusShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shieldBanShapes, shieldCogShapes, shieldHalfShapes, shieldKeyholeShapes, shieldLockShapes, shieldMinusShapes, shieldPlusShapes, shieldUserShapes, shieldXShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, starCheckShapes, starHalfShapes, starMinusShapes, starOffShapes, starPlusShapes, starXShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, signalShapes, signalHighShapes, signalMediumShapes, signalLowShapes, signalZeroShapes, volumeShapes, volume1Shapes, volumeOffShapes, volumeXShapes, tally1Shapes, tally2Shapes, tally3Shapes, tally4Shapes, tally5Shapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, userRoundShapes, userRoundArrowLeftShapes, userRoundCheckShapes, userRoundCogShapes, userRoundKeyShapes, userRoundMinusShapes, userRoundPenShapes, userRoundPlusShapes, userRoundSearchShapes, userRoundXShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
+import { activityShapes, alarmClockShapes, alarmClockCheckShapes, alarmClockMinusShapes, alarmClockOffShapes, alarmClockPlusShapes, appWindowShapes, arrowLeftShapes, arrowRightShapes, moveRightShapes, arrowUpShapes, arrowDownShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowDownLeftShapes, arrowDownRightShapes, atSignShapes, badgeCheckShapes, badgeAlertShapes, badgeCentShapes, badgeDollarSignShapes, badgeEuroShapes, badgeIndianRupeeShapes, badgeInfoShapes, badgeJapaneseYenShapes, badgeMinusShapes, badgePercentShapes, badgePlusShapes, badgePoundSterlingShapes, badgeQuestionMarkShapes, badgeRussianRubleShapes, badgeSwissFrancShapes, badgeTurkishLiraShapes, badgeXShapes, banShapes, banknoteShapes, bellRingShapes, bellShapes, bellCheckShapes, bellDotShapes, bellMinusShapes, bellOffShapes, bellPlusShapes, bookOpenShapes, bracesShapes, briefcaseShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, calendarCheckShapes, calendarClockShapes, calendarDaysShapes, calendarShapes, calendar1Shapes, calendarArrowDownShapes, calendarArrowUpShapes, calendarCheck2Shapes, calendarCogShapes, calendarFoldShapes, calendarHeartShapes, calendarMinus2Shapes, calendarMinusShapes, calendarOffShapes, calendarPlus2Shapes, calendarPlusShapes, calendarRangeShapes, calendarSearchShapes, calendarSyncShapes, calendarX2Shapes, calendarXShapes, cameraShapes, cctvShapes, chartColumnShapes, checkShapes, chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes, chevronsUpDownShapes, circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes, clipboardCheckShapes, clipboardClockShapes, clipboardCopyShapes, clipboardListShapes, clipboardMinusShapes, clipboardPasteShapes, clipboardPenLineShapes, clipboardPenShapes, clipboardPlusShapes, clipboardTypeShapes, clipboardXShapes, clockShapes, cloudUploadShapes, commandShapes, contactShapes, copyShapes, copyCheckShapes, copyMinusShapes, copyPlusShapes, copySlashShapes, copyXShapes, cpuShapes, creditCardShapes, crownShapes, databaseShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes, folderOpenShapes, folderArchiveShapes, folderBookmarkShapes, folderCheckShapes, folderClockShapes, folderClosedShapes, folderCodeShapes, folderCogShapes, folderDotShapes, folderDownShapes, folderGit2Shapes, folderGitShapes, folderHeartShapes, folderInputShapes, folderKanbanShapes, folderKeyShapes, folderLockShapes, folderMinusShapes, folderOpenDotShapes, folderOutputShapes, folderPenShapes, folderPlusShapes, folderRootShapes, folderSearch2Shapes, folderSearchShapes, folderSymlinkShapes, folderSyncShapes, folderTreeShapes, folderUpShapes, folderXShapes, funnelShapes, gitForkShapes, globeShapes, globeCheckShapes, globeLockShapes, globeOffShapes, globeXShapes, bookmarkShapes, bookmarkCheckShapes, bookmarkMinusShapes, bookmarkOffShapes, bookmarkPlusShapes, bookmarkXShapes, stickyNoteShapes, stickyNoteCheckShapes, stickyNoteMinusShapes, stickyNoteOffShapes, stickyNotePlusShapes, stickyNoteXShapes, ticketShapes, ticketCheckShapes, ticketMinusShapes, ticketPercentShapes, ticketPlusShapes, ticketSlashShapes, ticketXShapes, grid2x2Shapes, grid2x2CheckShapes, grid2x2PlusShapes, grid2x2XShapes, graduationCapShapes, gripVerticalShapes, hardDriveShapes, hashShapes, hatGlassesShapes, heartShapes, heartPulseShapes, heartCrackShapes, heartHandshakeShapes, heartMinusShapes, heartOffShapes, heartPlusShapes, heartXShapes, rotateCcwClockShapes, houseShapes, idCardShapes, imageOffShapes, imageShapes, imagesShapes, imageDownShapes, imageMinusShapes, imagePlayShapes, imagePlusShapes, imageUpShapes, imageUpscaleShapes, inboxShapes, infinityShapes, infoShapes, keyRoundShapes, keyShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, layoutDashboardShapes, layoutGridShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutListShapes, layoutTemplateShapes, layoutFreeformShapes, libraryShapes, lightbulbShapes, link2Shapes, linkShapes, listChecksShapes, listShapes, loaderCircleShapes, lockShapes, lockOpenShapes, logOutShapes, mailShapes, mapPinShapes, mapPinCheckShapes, mapPinCheckInsideShapes, mapPinHouseShapes, mapPinMinusShapes, mapPinMinusInsideShapes, mapPinPlusShapes, mapPinPlusInsideShapes, mapPinSearchShapes, mapPinXShapes, mapPinXInsideShapes, mapShapes, menuShapes, minusShapes, monitorShapes, moonShapes, mousePointerClickShapes, mouseShapes, mouseLeftShapes, mouseOffShapes, mouseRightShapes, mousePointerShapes, mousePointer2Shapes, mousePointer2OffShapes, mousePointerBanShapes, navigationShapes, networkShapes, packageSearchShapes, packageShapes, packageCheckShapes, packageMinusShapes, packageOpenShapes, packagePlusShapes, packageXShapes, paletteShapes, panelLeftCloseShapes, panelLeftShapes, panelLeftOpenShapes, panelRightShapes, panelRightCloseShapes, panelRightOpenShapes, panelTopShapes, panelTopCloseShapes, panelTopOpenShapes, panelBottomShapes, panelBottomCloseShapes, panelBottomOpenShapes, panelLeftDashedShapes, panelRightDashedShapes, panelTopDashedShapes, panelBottomDashedShapes, panelTopBottomDashedShapes, panelLeftRightDashedShapes, penLineShapes, penShapes, pencilShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, receiptShapes, refreshCwShapes, rotateCcwShapes, rotateCwShapes, routerShapes, saveShapes, saveAllShapes, saveCheckShapes, saveOffShapes, savePenShapes, savePlusShapes, scrollTextShapes, searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes, sendShapes, serverShapes, serverCogShapes, serverCrashShapes, serverOffShapes, serverPlusShapes, settingsShapes, shieldAlertShapes, shieldCheckShapes, shieldOffShapes, shieldShapes, shieldBanShapes, shieldCogShapes, shieldHalfShapes, shieldKeyholeShapes, shieldLockShapes, shieldMinusShapes, shieldPlusShapes, shieldUserShapes, shieldXShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, smartphoneShapes, sparklesShapes, squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes, starShapes, starCheckShapes, starHalfShapes, starMinusShapes, starOffShapes, starPlusShapes, starXShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, signalShapes, signalHighShapes, signalMediumShapes, signalLowShapes, signalZeroShapes, volumeShapes, volume1Shapes, volumeOffShapes, volumeXShapes, tally1Shapes, tally2Shapes, tally3Shapes, tally4Shapes, tally5Shapes, userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userShapes, userXShapes, usersShapes, userRoundShapes, userRoundArrowLeftShapes, userRoundCheckShapes, userRoundCogShapes, userRoundKeyShapes, userRoundMinusShapes, userRoundPenShapes, userRoundPlusShapes, userRoundSearchShapes, userRoundXShapes, volume2Shapes, warehouseShapes, webhookShapes, wifiShapes, wifiHighShapes, wifiLowShapes, wifiZeroShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
  * Catálogo CURADO — coreografía con intención, a mano, icono por icono. El generador offline
@@ -401,6 +401,20 @@ const HEART_BEAT = /* @__PURE__ */ scaleSeq([1, 1.1, 1]);
 // Palpitar real: 4 pulsaciones que se van apagando, como un corazón calmándose.
 const HEART_QUAD_PULSE = /* @__PURE__ */ scaleSeq([1, 1.16, 1, 1.16, 1, 1.1, 1, 1.06, 1]);
 
+/**
+ * El corazón base — cierra la familia: sus cinco hermanos (`heart-crack`, `-handshake`, `-minus`,
+ * `-plus`, `-x`) ya comparten este par exacto de variantes, y este era el único que se quedaba con
+ * solo `draw`. Sin figura extra que trazar: aquí todo el gesto es la silueta completa.
+ */
+export const heartIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartShapes, {
+    default: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
+    },
+  });
+
 export const heartCrackIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartCrackShapes, {
     default: {
       root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
@@ -512,6 +526,22 @@ export const lockIcon: AnimatedIconDef = /* @__PURE__ */ icon(lockShapes, {
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.8, 0]), 500, { delay: 120 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.8, 0]), 500),
+      },
+    },
+  });
+
+/**
+ * Cerrar: el gesto inverso de `lock`. El cuerpo da EXACTAMENTE el mismo tirón (mismos 500 ms, mismo
+ * retraso de 120) para que al alternar el par no se sienta que cambió el icono, sino el estado.
+ *
+ * El arco no sube: gira sobre su bisagra —el punto donde toca el cuerpo, 7,11— porque en este icono
+ * ya está abierto e inclinado. Levantarlo diría "se abre más"; bajarlo dice "se va a cerrar".
+ */
+export const lockOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(lockOpenShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.8, 0]), 500, { delay: 120 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 10, 0]), 500, { origin: '7px 11px' }),
       },
     },
   });
@@ -1094,6 +1124,21 @@ export const userIcon: AnimatedIconDef = /* @__PURE__ */ icon(userShapes, {
 export const wrenchIcon: AnimatedIconDef = /* @__PURE__ */ icon(wrenchShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -18, 12, 0]), 700, { origin: 'center' }),
+    },
+  });
+
+/**
+ * Menú: las tres barras se recorren en cascada de arriba a abajo. El desfase de 70 ms es TODO el
+ * gesto — las tres a la vez serían un bloque moviéndose, que es justo lo que la regla del archivo
+ * dice que no es coreografía.
+ */
+export const menuIcon: AnimatedIconDef = /* @__PURE__ */ icon(menuShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2.5, 0]), 420),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2.5, 0]), 420, { delay: 70 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2.5, 0]), 420, { delay: 140 }),
+      },
     },
   });
 
@@ -4401,6 +4446,21 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
     },
   });
 
+/**
+ * Pausa: las dos barras se separan un pelo y vuelven — el reverso del empujón de `play`, con sus
+ * mismos 420 ms y su mismo resorte para que el par alterne sin cambiar de carácter.
+ *
+ * Índices al revés de lo que uno espera: en Lucide la barra DERECHA (x=14) es la figura 0.
+ */
+export const pauseIcon: AnimatedIconDef = /* @__PURE__ */ icon(pauseShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.2, 0]), 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.2, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
+  });
+
 /** Escaneo: las esquinas primero, luego los módulos. */
 export const qrCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(qrCodeShapes, {
     default: {
@@ -4879,6 +4939,29 @@ export const cctvIcon: AnimatedIconDef = /* @__PURE__ */ icon(cctvShapes, {
   });
 
 export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320) });
+
+/**
+ * Mover a la derecha: la punta se recoge y sale disparada. El asta NO se mueve, y no es pereza —
+ * a diferencia de `arrow-right` (que va de 5 a 19 y tiene aire para deslizarse entero), esta flecha
+ * cruza el viewBox de borde a borde (x 2→22). El `<svg>` raíz recorta por defecto, así que
+ * cualquier traslación del conjunto se comería la punta o el nacimiento del asta. El gesto se va a
+ * la única figura que sí tiene margen.
+ */
+export const moveRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(moveRightShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translateX(0)' },
+            // 0.6: recogerse tarda más que salir. Simétrico se siente un temblor, no un disparo.
+            { transform: 'translateX(-2.5px)', offset: 0.6 },
+            { transform: 'translateX(0)' },
+          ],
+          440,
+        ),
+      },
+    },
+  });
 
 /** Gráfica: las barras crecen desde su base, de la más alta a la más baja. */
 export const chartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(chartColumnShapes, {
@@ -6756,6 +6839,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   eye: eyeIcon,
   'eye-off': eyeOffIcon,
   'hat-glasses': hatGlassesIcon,
+  heart: heartIcon,
   'heart-pulse': heartPulseIcon,
   'heart-crack': heartCrackIcon,
   'heart-handshake': heartHandshakeIcon,
@@ -6767,6 +6851,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   info: infoIcon,
   'loader-circle': loaderCircleIcon,
   lock: lockIcon,
+  'lock-open': lockOpenIcon,
   mail: mailIcon,
   'mouse-pointer-click': mousePointerClickIcon,
   'mouse-pointer': mousePointerIcon,
@@ -6805,6 +6890,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   upload: uploadIcon,
   user: userIcon,
   wrench: wrenchIcon,
+  menu: menuIcon,
   x: xIcon,
   'file-text': fileTextIcon,
   monitor: monitorIcon,
@@ -6985,6 +7071,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   network: networkIcon,
   palette: paletteIcon,
   play: playIcon,
+  pause: pauseIcon,
   'qr-code': qrCodeIcon,
   'scroll-text': scrollTextIcon,
   server: serverIcon,
@@ -7010,6 +7097,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'star-x': starXIcon,
   cctv: cctvIcon,
   'arrow-right': arrowRightIcon,
+  'move-right': moveRightIcon,
   'chart-column': chartColumnIcon,
   building: buildingIcon,
   'building-2': building2Icon,

@@ -3135,6 +3135,34 @@ export const tally5Shapes: IconShape[] = [
     { tag: 'path', d: 'M22 6 2 18' },
   ];
 
+export const menuShapes: IconShape[] = [
+    { tag: 'path', d: 'M4 5h16' },
+    { tag: 'path', d: 'M4 12h16' },
+    { tag: 'path', d: 'M4 19h16' },
+  ];
+
+export const pauseShapes: IconShape[] = [
+    { tag: 'rect', x: 14, y: 3, width: 5, height: 18, rx: 1 },
+    { tag: 'rect', x: 5, y: 3, width: 5, height: 18, rx: 1 },
+  ];
+
+export const lockOpenShapes: IconShape[] = [
+    { tag: 'rect', x: 3, y: 11, width: 18, height: 11, rx: 2, ry: 2 },
+    { tag: 'path', d: 'M7 11V7a5 5 0 0 1 9.9-1' },
+  ];
+
+export const heartShapes: IconShape[] = [
+    {
+      tag: 'path',
+      d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
+    },
+  ];
+
+export const moveRightShapes: IconShape[] = [
+    { tag: 'path', d: 'M18 8L22 12L18 16' },
+    { tag: 'path', d: 'M2 12H22' },
+  ];
+
 export const SHAPES: Record<string, IconShape[]> = {
   bell: bellShapes,
   'bell-ring': bellRingShapes,
@@ -3150,11 +3178,13 @@ export const SHAPES: Record<string, IconShape[]> = {
   eye: eyeShapes,
   'eye-off': eyeOffShapes,
   'hat-glasses': hatGlassesShapes,
+  heart: heartShapes,
   'heart-pulse': heartPulseShapes,
   images: imagesShapes,
   info: infoShapes,
   'loader-circle': loaderCircleShapes,
   lock: lockShapes,
+  'lock-open': lockOpenShapes,
   mail: mailShapes,
   'mouse-pointer-click': mousePointerClickShapes,
   pencil: pencilShapes,
@@ -3175,6 +3205,7 @@ export const SHAPES: Record<string, IconShape[]> = {
   upload: uploadShapes,
   user: userShapes,
   wrench: wrenchShapes,
+  menu: menuShapes,
   x: xShapes,
   'file-text': fileTextShapes,
   monitor: monitorShapes,
@@ -3249,6 +3280,7 @@ export const SHAPES: Record<string, IconShape[]> = {
   network: networkShapes,
   palette: paletteShapes,
   play: playShapes,
+  pause: pauseShapes,
   'qr-code': qrCodeShapes,
   'scroll-text': scrollTextShapes,
   server: serverShapes,
@@ -3264,6 +3296,7 @@ export const SHAPES: Record<string, IconShape[]> = {
   'zoom-out': zoomOutShapes,
   cctv: cctvShapes,
   'arrow-right': arrowRightShapes,
+  'move-right': moveRightShapes,
   'chart-column': chartColumnShapes,
   building: buildingShapes,
   'building-2': building2Shapes,

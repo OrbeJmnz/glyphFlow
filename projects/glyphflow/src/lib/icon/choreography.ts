@@ -6,7 +6,7 @@ import { SPRING_BOUNCY, SPRING_SMOOTH, SPRING_SNAPPY } from './spring-easings';
 export { SPRING_BOUNCY, SPRING_SMOOTH, SPRING_SNAPPY };
 
 /**
- * Vocabulario de movimiento compartido — lo usan tanto `curated-icons.ts` (180 coreografías a
+ * Vocabulario de movimiento compartido — lo usan tanto `curated-icons.ts` (410 coreografías a
  * mano) como `generated-icons.ts` (el generador offline, que solo usa `icon()` con la variante
  * `draw` automática). Vive separado de ambos para que ninguno tenga que importar del otro. Data
  * pura, sin figuras: por eso no importa nada de `animated-icons.shapes.ts`.
