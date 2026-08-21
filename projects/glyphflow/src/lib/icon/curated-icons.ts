@@ -12803,7 +12803,610 @@ export const zapOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ─── Fase A: familias a medias ────────────────────────────────────────────────────────────────
+// arrow-*, chart-* y monitor-* ya tenían hermanos curados. Estos extienden SU idioma, no inventan
+// otro: la flecha se desliza con resorte contra una referencia quieta, la barra crece desde su
+// base, y en el monitor solo se mueve lo que está dentro de la pantalla.
+
+export const arrowDownFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 3H5" },
+    { tag: 'path', d: "M12 21V7" },
+    { tag: 'path', d: "m6 15 6 6 6-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownToDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v14" },
+    { tag: 'path', d: "m19 9-7 7-7-7" },
+    { tag: 'circle', cx: 12, cy: 21, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17V3" },
+    { tag: 'path', d: "m6 11 6 6 6-6" },
+    { tag: 'path', d: "M19 21H5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowLeftFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 6-6 6 6 6" },
+    { tag: 'path', d: "M3 12h14" },
+    { tag: 'path', d: "M21 19V5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowLeftToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 19V5" },
+    { tag: 'path', d: "m13 6-6 6 6 6" },
+    { tag: 'path', d: "M7 12h14" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowRightFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5v14" },
+    { tag: 'path', d: "M21 12H7" },
+    { tag: 'path', d: "m15 18 6-6-6-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowRightToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 12H3" },
+    { tag: 'path', d: "m11 18 6-6-6-6" },
+    { tag: 'path', d: "M21 5v14" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpFromDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m5 9 7-7 7 7" },
+    { tag: 'path', d: "M12 16V2" },
+    { tag: 'circle', cx: 12, cy: 21, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 9-6-6-6 6" },
+    { tag: 'path', d: "M12 3v14" },
+    { tag: 'path', d: "M5 21h14" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 3h14" },
+    { tag: 'path', d: "m18 13-6-6-6 6" },
+    { tag: 'path', d: "M12 7v14" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'path', d: "m21 8-4-4-4 4" },
+    { tag: 'path', d: "M17 4v16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m21 16-4 4-4-4" },
+    { tag: 'path', d: "M17 20V4" },
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'path', d: "M11 4h4" },
+    { tag: 'path', d: "M11 8h7" },
+    { tag: 'path', d: "M11 12h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 90, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 180, fill: 'backwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M11 12h4" },
+    { tag: 'path', d: "M11 16h7" },
+    { tag: 'path', d: "M11 20h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 90, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 180, fill: 'backwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowDownWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 16 4 4 4-4" },
+    { tag: 'path', d: "M7 20V4" },
+    { tag: 'path', d: "M11 4h10" },
+    { tag: 'path', d: "M11 8h7" },
+    { tag: 'path', d: "M11 12h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 90, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const arrowUpWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 8 4-4 4 4" },
+    { tag: 'path', d: "M7 4v16" },
+    { tag: 'path', d: "M11 12h10" },
+    { tag: 'path', d: "M11 16h7" },
+    { tag: 'path', d: "M11 20h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px', delay: 90, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '11px 0px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+export const chartAreaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M7 11.207a.5.5 0 0 1 .146-.353l2-2a.5.5 0 0 1 .708 0l3.292 3.292a.5.5 0 0 0 .708 0l4.292-4.292a.5.5 0 0 1 .854.353V16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 700, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const chartBarBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'rect', x: 7, y: 13, width: 9, height: 4, rx: 1 },
+    { tag: 'rect', x: 7, y: 5, width: 12, height: 4, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '7px 0px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '7px 0px', delay: 110, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const chartBarStackedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 13v4" },
+    { tag: 'path', d: "M15 5v4" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'rect', x: 7, y: 13, width: 9, height: 4, rx: 1 },
+    { tag: 'rect', x: 7, y: 5, width: 12, height: 4, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '7px 0px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(0.12)' }, { transform: 'scaleX(1)' }], 500, { easing: SPRING_OUT, origin: '7px 0px', delay: 110, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const chartColumnStackedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 13H7" },
+    { tag: 'path', d: "M19 9h-4" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'rect', x: 15, y: 5, width: 4, height: 12, rx: 1 },
+    { tag: 'rect', x: 7, y: 8, width: 4, height: 9, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 17px', delay: 110, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 17px' }),
+      },
+    },
+  },
+);
+
+export const chartColumnBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'rect', x: 15, y: 5, width: 4, height: 12, rx: 1 },
+    { tag: 'rect', x: 7, y: 8, width: 4, height: 9, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 17px', delay: 110, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 17px' }),
+      },
+    },
+  },
+);
+
+export const chartCandlestickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 5v4" },
+    { tag: 'rect', width: 4, height: 6, x: 7, y: 9, rx: 1 },
+    { tag: 'path', d: "M9 15v2" },
+    { tag: 'path', d: "M17 3v2" },
+    { tag: 'rect', width: 4, height: 8, x: 15, y: 5, rx: 1 },
+    { tag: 'path', d: "M17 13v3" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 460, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 9px', delay: 110, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 460, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const chartNetworkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m13.11 7.664 1.78 2.672" },
+    { tag: 'path', d: "m14.162 12.788-3.324 1.424" },
+    { tag: 'path', d: "m20 4-6.06 1.515" },
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'circle', cx: 12, cy: 6, r: 2 },
+    { tag: 'circle', cx: 16, cy: 12, r: 2 },
+    { tag: 'circle', cx: 9, cy: 15, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 460, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '12px 6px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '16px 12px', delay: 90, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '9px 15px', delay: 180, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const monitorCloudIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 13a3 3 0 1 1 2.83-4H14a2 2 0 0 1 0 4z" },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const monitorDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M22 12.307V15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8.693" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'circle', cx: 19, cy: 6, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '19px 6px' }),
+      },
+    },
+  },
+);
+
+export const monitorPlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z" },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '13px 12px' }),
+      },
+    },
+  },
+);
+
+export const monitorStopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
+    { tag: 'rect', x: 9, y: 7, width: 6, height: 6, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '12px 10px' }),
+      },
+    },
+  },
+);
+
+export const monitorSmartphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8" },
+    { tag: 'path', d: "M10 19v-3.96 3.15" },
+    { tag: 'path', d: "M7 19h5" },
+    { tag: 'rect', width: 6, height: 10, x: 16, y: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '19px 17px' }),
+      },
+    },
+  },
+);
+
+export const monitorPauseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 13V7" },
+    { tag: 'path', d: "M14 13V7" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 10px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 10px', delay: 90, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const monitorXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14.5 12.5-5-5" },
+    { tag: 'path', d: "m9.5 12.5 5-5" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 110, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const monitorSpeakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5.5 20H8" },
+    { tag: 'path', d: "M17 9h.01" },
+    { tag: 'rect', width: 10, height: 16, x: 12, y: 4, rx: 2 },
+    { tag: 'path', d: "M8 6H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4" },
+    { tag: 'circle', cx: 17, cy: 15, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '17px 9px', delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '17px 15px' }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
+  'arrow-down-from-line': arrowDownFromLineIcon,
+  'arrow-down-to-dot': arrowDownToDotIcon,
+  'arrow-down-to-line': arrowDownToLineIcon,
+  'arrow-left-from-line': arrowLeftFromLineIcon,
+  'arrow-left-to-line': arrowLeftToLineIcon,
+  'arrow-right-from-line': arrowRightFromLineIcon,
+  'arrow-right-to-line': arrowRightToLineIcon,
+  'arrow-up-from-dot': arrowUpFromDotIcon,
+  'arrow-up-from-line': arrowUpFromLineIcon,
+  'arrow-up-to-line': arrowUpToLineIcon,
+  'arrow-down-up': arrowDownUpIcon,
+  'arrow-up-down': arrowUpDownIcon,
+  'arrow-down-narrow-wide': arrowDownNarrowWideIcon,
+  'arrow-up-narrow-wide': arrowUpNarrowWideIcon,
+  'arrow-down-wide-narrow': arrowDownWideNarrowIcon,
+  'arrow-up-wide-narrow': arrowUpWideNarrowIcon,
+  'chart-area': chartAreaIcon,
+  'chart-bar-big': chartBarBigIcon,
+  'chart-bar-stacked': chartBarStackedIcon,
+  'chart-column-stacked': chartColumnStackedIcon,
+  'chart-column-big': chartColumnBigIcon,
+  'chart-candlestick': chartCandlestickIcon,
+  'chart-network': chartNetworkIcon,
+  'monitor-cloud': monitorCloudIcon,
+  'monitor-dot': monitorDotIcon,
+  'monitor-play': monitorPlayIcon,
+  'monitor-stop': monitorStopIcon,
+  'monitor-smartphone': monitorSmartphoneIcon,
+  'monitor-pause': monitorPauseIcon,
+  'monitor-x': monitorXIcon,
+  'monitor-speaker': monitorSpeakerIcon,
   'airplay': airplayIcon,
   'align-horizontal-space-around': alignHorizontalSpaceAroundIcon,
   'align-vertical-space-around': alignVerticalSpaceAroundIcon,
