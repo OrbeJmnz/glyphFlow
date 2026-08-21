@@ -781,3 +781,14 @@ code {
     transition: opacity 0.12s ease;
   }
 }
+
+/*
+ * Caja del esqueleto de página (ver `app.html`). Global y no en `app.css` a propósito: `cssClass`
+ * aterriza en un div INTERNO de `<boneyard-skeleton>`, fuera del alcance del CSS encapsulado de
+ * `App`. Y la altura es imprescindible, no cosmética: el overlay de huesos es `absolute; inset:0`
+ * con `overflow:hidden` sobre ese div, y sin contenido proyectado —el caso, la página aún no
+ * existe— mide 0 y recorta TODOS los huesos.
+ */
+.esqueleto-pagina {
+  min-height: 70vh;
+}

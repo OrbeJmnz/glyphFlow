@@ -3,7 +3,17 @@
 import { registerBones } from 'boneyard-js'
 
 import _github_conteo from './github-conteo.bones.json'
+import _pagina_docs from './pagina-docs.bones.json'
+import _pagina_editor from './pagina-editor.bones.json'
+import _pagina_iconos from './pagina-iconos.bones.json'
+import _pagina_lab from './pagina-lab.bones.json'
+import _pagina_patrones from './pagina-patrones.bones.json'
 
 registerBones({
   "github-conteo": _github_conteo,
+  "pagina-docs": _pagina_docs,
+  "pagina-editor": _pagina_editor,
+  "pagina-iconos": _pagina_iconos,
+  "pagina-lab": _pagina_lab,
+  "pagina-patrones": _pagina_patrones,
 })
