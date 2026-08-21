@@ -3590,6 +3590,30 @@
     "square": [
       "rect:d427f2bc2999"
     ],
+    "square-activity": [
+      "rect:d427f2bc2999",
+      "path:efb20e0db044"
+    ],
+    "square-arrow-down": [
+      "rect:d427f2bc2999",
+      "path:3fbc681c0854",
+      "path:79cf1387b52d"
+    ],
+    "square-arrow-down-left": [
+      "path:98a0f3796bf2",
+      "path:a1673b0b12ed",
+      "rect:d427f2bc2999"
+    ],
+    "square-arrow-down-right": [
+      "path:4400c26795d2",
+      "path:086cbbadcb5f",
+      "rect:d427f2bc2999"
+    ],
+    "square-arrow-left": [
+      "rect:d427f2bc2999",
+      "path:c2920cff60b3",
+      "path:17472901b4bc"
+    ],
     "square-arrow-out-down-left": [
       "path:c0da0fd3c245",
       "path:ecc178565b6c",
@@ -3609,6 +3633,52 @@
       "path:25da88ea41de",
       "path:6fab1760a21f",
       "path:c78685b083c9"
+    ],
+    "square-arrow-right": [
+      "rect:d427f2bc2999",
+      "path:996d85dad073",
+      "path:92b5434c2b48"
+    ],
+    "square-arrow-right-enter": [
+      "path:402492aec108",
+      "path:30a4ad394372",
+      "path:f1c4e78aa08d"
+    ],
+    "square-arrow-right-exit": [
+      "path:c9b7ab374d0b",
+      "path:a7b8bd3de711",
+      "path:bd061af0095f"
+    ],
+    "square-arrow-up": [
+      "rect:d427f2bc2999",
+      "path:3ea4320c03d0",
+      "path:c7079927093e"
+    ],
+    "square-arrow-up-left": [
+      "path:4400c26795d2",
+      "path:a46aac3d9f5a",
+      "rect:d427f2bc2999"
+    ],
+    "square-arrow-up-right": [
+      "path:1c6a79a9a6c5",
+      "path:091bcebfb4e2",
+      "rect:d427f2bc2999"
+    ],
+    "square-asterisk": [
+      "rect:d427f2bc2999",
+      "path:3fbc681c0854",
+      "path:e0ab40ab34c7",
+      "path:cf5623425cb6"
+    ],
+    "square-bottom-dashed-scissors": [
+      "path:7a07fdea6ace",
+      "path:d2b328d32fc1",
+      "path:cb9ac448e4a4",
+      "path:cb2a65ee52ac",
+      "path:ba1549358a2a",
+      "path:46278c25e7b1",
+      "circle:141d30938106",
+      "circle:1f11bdfddbb4"
     ],
     "square-centerline-dashed-horizontal": [
       "path:524992e37fee",
@@ -3656,6 +3726,37 @@
       "rect:d427f2bc2999",
       "path:85de324d9c0f"
     ],
+    "square-code": [
+      "path:3186be922313",
+      "path:77eb42276b70",
+      "rect:d427f2bc2999"
+    ],
+    "square-dashed": [
+      "path:ef1bdc35cfbe",
+      "path:c7b2bb90b1e1",
+      "path:80725d054810",
+      "path:31d82b3b73c2",
+      "path:f90eb83a5630",
+      "path:cb2a65ee52ac",
+      "path:eeb109ae6ae3",
+      "path:7a07fdea6ace",
+      "path:6fb68d5085ea",
+      "path:022c4ef664be",
+      "path:0fd5b1aaea90",
+      "path:aa966c8ca562"
+    ],
+    "square-dashed-bottom": [
+      "path:57664014c77c",
+      "path:cb2a65ee52ac",
+      "path:7a07fdea6ace"
+    ],
+    "square-dashed-bottom-code": [
+      "path:9f1d5348b288",
+      "path:7a07fdea6ace",
+      "path:b949366b43e8",
+      "path:57664014c77c",
+      "path:cb2a65ee52ac"
+    ],
     "square-dashed-kanban": [
       "path:a21154b51c4b",
       "path:81fca52936b1",
@@ -3673,11 +3774,104 @@
       "path:0fd5b1aaea90",
       "path:6fb68d5085ea"
     ],
+    "square-dashed-mouse-pointer": [
+      "path:7736d8157c0d",
+      "path:ef1bdc35cfbe",
+      "path:c7b2bb90b1e1",
+      "path:31d82b3b73c2",
+      "path:f90eb83a5630",
+      "path:ca2a645b51ac",
+      "path:eeb109ae6ae3",
+      "path:6fb68d5085ea",
+      "path:012c4d6363be",
+      "path:0fd5b1aaea90"
+    ],
+    "square-dashed-text": [
+      "path:7a07fdea6ace",
+      "path:eeb109ae6ae3",
+      "path:c7b2bb90b1e1",
+      "path:aa966c8ca562",
+      "path:80725d054810",
+      "path:022c4ef664be",
+      "path:0fd5b1aaea90",
+      "path:6fb68d5085ea",
+      "path:31d82b3b73c2",
+      "path:ef1bdc35cfbe",
+      "path:f412b7da9f87",
+      "path:22b2f4eb3df6",
+      "path:b501e17ee172",
+      "path:cb2a65ee52ac",
+      "path:f90eb83a5630"
+    ],
+    "square-dashed-top-solid": [
+      "path:7a07fdea6ace",
+      "path:aa966c8ca562",
+      "path:80725d054810",
+      "path:022c4ef664be",
+      "path:0fd5b1aaea90",
+      "path:a3f095c5c9e2",
+      "path:6fb68d5085ea",
+      "path:31d82b3b73c2",
+      "path:cb2a65ee52ac"
+    ],
+    "square-divide": [
+      "rect:c77b46add5d7",
+      "line:47622f9df753",
+      "line:ed040cf4359b",
+      "line:5f761792b0c0"
+    ],
+    "square-dot": [
+      "rect:d427f2bc2999",
+      "circle:a07fcd427480"
+    ],
+    "square-equal": [
+      "rect:d427f2bc2999",
+      "path:98a845c826a8",
+      "path:1a6f161ceb35"
+    ],
+    "square-function": [
+      "rect:c77b46add5d7",
+      "path:e93618dc1b92",
+      "path:0e03311e67b5"
+    ],
     "square-kanban": [
       "rect:d427f2bc2999",
       "path:a21154b51c4b",
       "path:81fca52936b1",
       "path:9e8d103eb415"
+    ],
+    "square-library": [
+      "rect:d427f2bc2999",
+      "path:f241384a9cd0",
+      "path:336ed8b90fd4",
+      "path:4815fb0d1c01"
+    ],
+    "square-m": [
+      "path:9d2d5c887b64",
+      "rect:d427f2bc2999"
+    ],
+    "square-menu": [
+      "rect:d427f2bc2999",
+      "path:35e454eb4ff4",
+      "path:f412b7da9f87",
+      "path:78c43d8e004c"
+    ],
+    "square-minus": [
+      "rect:d427f2bc2999",
+      "path:996d85dad073"
+    ],
+    "square-mouse-pointer": [
+      "path:7736d8157c0d",
+      "path:426f6c27cc61"
+    ],
+    "square-off": [
+      "path:134f72d6f5e7",
+      "path:c9df73c4c05c",
+      "path:20d6939fac75"
+    ],
+    "square-parking": [
+      "rect:d427f2bc2999",
+      "path:1262b6f0399b"
     ],
     "square-parking-off": [
       "path:63dd9f56d2dd",
@@ -3686,14 +3880,54 @@
       "path:467deb61cc4e",
       "path:c4b4eaceb5ef"
     ],
+    "square-pause": [
+      "rect:d427f2bc2999",
+      "line:dc3473915fb3",
+      "line:021097793a35"
+    ],
     "square-pen": [
       "path:c7672d7328a4",
       "path:7cbb20d205bb"
+    ],
+    "square-percent": [
+      "rect:d427f2bc2999",
+      "path:d9ee5f9557b1",
+      "path:b10a06368ff2",
+      "path:2176c0460811"
+    ],
+    "square-pi": [
+      "rect:d427f2bc2999",
+      "path:4657ea249913",
+      "path:98b521d459fd",
+      "path:3e6b17d3eb49"
+    ],
+    "square-pilcrow": [
+      "rect:d427f2bc2999",
+      "path:b464288d360c",
+      "path:2bbf5596f0d0",
+      "path:95fca522d70a"
+    ],
+    "square-play": [
+      "rect:d427f2bc2999",
+      "path:6b7902fb0304"
     ],
     "square-plus": [
       "rect:d427f2bc2999",
       "path:996d85dad073",
       "path:3fbc681c0854"
+    ],
+    "square-power": [
+      "path:81fca52936b1",
+      "path:f4e802465dbb",
+      "rect:d427f2bc2999"
+    ],
+    "square-radical": [
+      "path:0c20b9e2e133",
+      "rect:d427f2bc2999"
+    ],
+    "square-round-corner": [
+      "path:e90374ab96c4",
+      "path:511ea438f6e8"
     ],
     "square-scissors": [
       "path:d2b328d32fc1",
@@ -3703,15 +3937,60 @@
       "circle:1f11bdfddbb4",
       "rect:d427f2bc2999"
     ],
+    "square-sigma": [
+      "rect:d427f2bc2999",
+      "path:ba9275c6c4f5"
+    ],
+    "square-slash": [
+      "rect:d427f2bc2999",
+      "line:6a37f85421dd"
+    ],
+    "square-split-horizontal": [
+      "path:fca7fd842bbb",
+      "path:bff0ad6b0218",
+      "line:1d5072c0d001"
+    ],
+    "square-split-vertical": [
+      "path:9ebc6464e653",
+      "path:9fb43f91ce72",
+      "line:8919679883aa"
+    ],
+    "square-square": [
+      "rect:d427f2bc2999",
+      "rect:93f189d5066b"
+    ],
     "square-stack": [
       "path:40116740999d",
       "path:7205b60a0742",
       "rect:2e888508b211"
     ],
+    "square-star": [
+      "path:2851f04cd6df",
+      "rect:d427f2bc2999"
+    ],
+    "square-stop": [
+      "rect:d427f2bc2999",
+      "rect:33bc22b16357"
+    ],
     "square-terminal": [
       "path:f4e5877df6d4",
       "path:1bfcb751c452",
       "rect:c77b46add5d7"
+    ],
+    "square-user": [
+      "rect:d427f2bc2999",
+      "circle:34719e7a21bf",
+      "path:89d45733fea8"
+    ],
+    "square-user-round": [
+      "path:f2a66af88554",
+      "circle:ee15036c27be",
+      "rect:d427f2bc2999"
+    ],
+    "square-x": [
+      "rect:c77b46add5d7",
+      "path:d9ee5f9557b1",
+      "path:029e593ffb58"
     ],
     "star": [
       "path:28aacd06c27e"
