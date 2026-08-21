@@ -3534,7 +3534,7 @@ export const activityIcon: AnimatedIconDef = /* @__PURE__ */ icon(activityShapes
     default: { autoDraw: { speed: 45 } },
     reveal: {
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 1 }], 600, { easing: EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 600, { easing: EASE }),
       },
     },
   });
@@ -7373,7 +7373,7 @@ export const infinityIcon: AnimatedIconDef = /* @__PURE__ */ icon(infinityShapes
     default: { autoDraw: { speed: 38 } },
     reveal: {
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 1 }], 1000, { easing: EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 1000, { easing: EASE }),
       },
     },
   });
@@ -11650,11 +11650,13 @@ export const rainbowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M10 17a2 2 0 0 1 4 0" },
   ],
   {
+    // Los tres arcos se dibujan en cascada, de afuera hacia adentro: a la vez se leen como un
+    // solo trazo grueso y se pierde que son tres.
     default: {
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 1 }], 800, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 1 }], 800, { easing: 'ease-out' }),
-        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '1' }], 800, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out', delay: 150 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out', delay: 300 }),
       },
     },
   },
@@ -11938,7 +11940,7 @@ export const signatureIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 1 }], 600, { easing: 'ease-in' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 600, { easing: 'ease-in' }),
       },
     },
   },
