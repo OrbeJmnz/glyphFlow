@@ -70,8 +70,8 @@
         "cuando": "The icon sits next to text that already says the same thing."
       },
       "filaSemantico": {
-        "escribes": "<code>label=\"Guardar\"</code>",
-        "sale": "<code>aria-hidden=\"false\"</code> + <code>aria-label=\"Guardar\"</code>",
+        "escribes": "<code>label=\"Save\"</code>",
+        "sale": "<code>aria-hidden=\"false\"</code> + <code>aria-label=\"Save\"</code>",
         "cuando": "The icon <em>is</em> the content: a button with no text."
       },
       "texto2": "<code>decorative</code> defaults to <code>true</code> and you almost never touch it: <code>label</code> is what decides. Applies the same way to <code>&lt;max-icon&gt;</code> and <code>&lt;max-icon-morph&gt;</code>."

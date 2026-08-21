@@ -30,7 +30,7 @@
 <h2>{{ 'docs.ssr.verificacion.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.ssr.verificacion.texto1' | transloco"></p>
 <pre><code>if (typeof window !== 'undefined') &#123;
-  throw new Error('Este smoke test debe correr sin `window` global — si existe, no prueba nada.');
+  throw new Error('This smoke test must run without a global `window` — if it exists, it proves nothing.');
 &#125;</code></pre>
 <p [innerHTML]="'docs.ssr.verificacion.texto2' | transloco"></p>
 <p class="nota">{{ 'docs.ssr.verificacion.nota' | transloco }}</p>

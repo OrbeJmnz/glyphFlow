@@ -70,8 +70,8 @@
         "cuando": "El icono acompaña a un texto que ya dice lo mismo."
       },
       "filaSemantico": {
-        "escribes": "<code>label=\"Guardar\"</code>",
-        "sale": "<code>aria-hidden=\"false\"</code> + <code>aria-label=\"Guardar\"</code>",
+        "escribes": "<code>label=\"Save\"</code>",
+        "sale": "<code>aria-hidden=\"false\"</code> + <code>aria-label=\"Save\"</code>",
         "cuando": "El icono <em>es</em> el contenido: un botón sin texto."
       },
       "texto2": "<code>decorative</code> viene en <code>true</code> por default y casi nunca hay que tocarlo: es el <code>label</code> el que decide. Aplica igual a <code>&lt;max-icon&gt;</code> y a <code>&lt;max-icon-morph&gt;</code>."
