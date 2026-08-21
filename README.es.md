@@ -47,6 +47,27 @@ import { MaxIconComponent, bellIcon } from 'glyphflow';
 <max-icon [iconDef]="bellIcon" trigger="hover" /> <max-icon [iconDef]="searchIcon" label="Buscar" />
 ```
 
+## Triggers
+
+| `trigger`         | Cuándo dispara                                                                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `group` (default)  | Se dibuja al montar y se anima con el hover del `.group` más cercano — el mismo ancestro que lee `group-hover:` de Tailwind. Sin `.group` alrededor, escucha su propio hover. |
+| `hover`            | Al entrar el puntero.                                                                                                                        |
+| `tap`              | Al hacer click.                                                                                                                              |
+| `view`             | Al entrar al viewport. `viewOnce` (default `true`) decide una vez o cada reentrada.                                                         |
+| `auto`             | En cuanto monta.                                                                                                                             |
+| `manual`           | Nunca solo.                                                                                                                                  |
+
+`manual` va con tres métodos públicos — toma la instancia con `ViewChild`/`viewChild()`:
+
+```ts
+@ViewChild(MaxIconComponent) icon!: MaxIconComponent;
+
+this.icon.play('hover'); // reproduce una variante — sin argumento repite `animation`
+this.icon.reverse(); // invierte la animación que esté corriendo
+this.icon.cancel(); // la corta y restablece la pose base
+```
+
 ## El catálogo
 
 |                        |                                                     |
@@ -89,6 +110,38 @@ import { MaxIconMorphComponent } from 'glyphflow/morph';
 
 El primer valor se pinta estático — morphear "desde nada" no existe. Ahí caen también el SSR y
 cualquier navegador sin WAAPI: se ve el icono, solo que no se anima.
+
+```ts
+import { Component } from '@angular/core';
+import { MaxIconMorphComponent } from 'glyphflow/morph';
+import { moonIcon, sunIcon } from 'glyphflow';
+
+@Component({
+  imports: [MaxIconMorphComponent],
+  template: `
+    <button (click)="oscuro = !oscuro">
+      <max-icon-morph [icon]="oscuro ? moonIcon : sunIcon" />
+    </button>
+  `,
+})
+export class ToggleTema {
+  oscuro = false;
+}
+```
+
+## Velocidad
+
+Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph
+por igual:
+
+```ts
+import { provideMaxIcons } from 'glyphflow';
+
+providers: [provideMaxIcons({ durationScale: 0.8 })]; // 20% más rápido, en todos lados
+```
+
+`1` es el default — sin cambio. Aplica desde la siguiente reproducción: lo que ya está animando
+conserva la duración que WAAPI ya recibió cuando arrancó.
 
 ## Compatibilidad
 
