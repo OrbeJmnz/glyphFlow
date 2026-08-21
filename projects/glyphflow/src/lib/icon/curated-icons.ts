@@ -14244,7 +14244,1888 @@ export const squareXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ─── Fase C: lo que distingue a cada icono de su base ─────────────────────────────────────────
+// Se anima SOLO el glifo que da nombre al icono — el palomeo de un `-check`, la diagonal de un
+// `-off` — y el resto se queda quieto, que es lo que ya hacían sus hermanos curados. El glifo se
+// reconoce por su trazo relativo: es el mismo dibujo en todo el catálogo, solo colocado en otro
+// lado, así que se identifica aunque Lucide haya redibujado la base de esa variante.
+
+export const archiveXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 20, height: 5, x: 2, y: 3, rx: 1 },
+    { tag: 'path', d: "M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" },
+    { tag: 'path', d: "m9.5 17 5-5" },
+    { tag: 'path', d: "m9.5 12 5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const audioLinesXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 3v18" },
+    { tag: 'path', d: "M14 8v6.35" },
+    { tag: 'path', d: "m17 17 5 5" },
+    { tag: 'path', d: "M18 5v8.1" },
+    { tag: 'path', d: "M2 10v3" },
+    { tag: 'path', d: "M22 10v3" },
+    { tag: 'path', d: "m22 17-5 5" },
+    { tag: 'path', d: "M6 6v11" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const banknoteCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.748 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4.875" },
+    { tag: 'path', d: "m16 19 2 2 4-4" },
+    { tag: 'path', d: "M18 12h.01" },
+    { tag: 'path', d: "M6 12h.01" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const beefOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.771 6.109a2.5 2.5 0 0 1 3.12 3.12" },
+    { tag: 'path', d: "M17.852 12.185a6.5 6.5 0 0 0-9.035-9.04" },
+    { tag: 'path', d: "M18.013 18.013C15.029 20.349 10.831 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5" },
+    { tag: 'path', d: "m18.5 6 2.19 4.5a6.48 6.48 0 0 1-.139 4.393" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M6.355 6.37a7 7 0 0 0-.075.23c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c3.356 0 6.993-1.267 9.85-3.151" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const bugPlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 19.655A6 6 0 0 1 6 14v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 3.97" },
+    { tag: 'path', d: "M14 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z" },
+    { tag: 'path', d: "M14.12 3.88 16 2" },
+    { tag: 'path', d: "M21 5a4 4 0 0 1-3.55 3.97" },
+    { tag: 'path', d: "M3 21a4 4 0 0 1 3.81-4" },
+    { tag: 'path', d: "M3 5a4 4 0 0 0 3.55 3.97" },
+    { tag: 'path', d: "M6 13H2" },
+    { tag: 'path', d: "m8 2 1.88 1.88" },
+    { tag: 'path', d: "M9 7.13V6a3 3 0 1 1 6 0v1.13" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const cannabisOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22v-4c1.5 1.5 3.5 3 6 3 0-1.5-.5-3.5-2-5" },
+    { tag: 'path', d: "M13.988 8.327C13.902 6.054 13.365 3.82 12 2a9.3 9.3 0 0 0-1.445 2.9" },
+    { tag: 'path', d: "M17.375 11.725C18.882 10.53 21 7.841 21 6c-2.324 0-5.08 1.296-6.662 2.684" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M21.024 15.378A15 15 0 0 0 22 15c-.426-1.279-2.67-2.557-4.25-2.907" },
+    { tag: 'path', d: "M6.995 6.992C5.714 6.4 4.29 6 3 6c0 2 2.5 5 4 6-1.5 0-4.5 1.5-5 3 3.5 1.5 6 1 6 1-1.5 1.5-2 3.5-2 5 2.5 0 4.5-1.5 6-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const cctvOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12.309 6.652 4.797 2.401a1 1 0 0 1 .447 1.341l-.501 1.001.605.605h2.725a1 1 0 0 1 .894 1.447l-.724 1.448" },
+    { tag: 'path', d: "m15.166 15.166-.719 1.439a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.9 2.9 0 0 1 .873-1.037" },
+    { tag: 'path', d: "M2 19h3.76a2 2 0 0 0 1.8-1.1l1.441-2.902" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M2 21v-4" },
+    { tag: 'path', d: "M7 9h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+export const circleEuroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 9.4a4 4 0 1 0 0 5.2" },
+    { tag: 'path', d: "M7 12h5" },
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M8 12h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleParkingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M9 17V7h4a3 3 0 0 1 0 6H9" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circlePlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z" },
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circlePoundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M10 16V9.5a1 1 0 0 1 5 0" },
+    { tag: 'path', d: "M8 12h4" },
+    { tag: 'path', d: "M8 16h7" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleSlash2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M22 2 2 22" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleSlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'line', x1: 9, x2: 15, y1: 15, y2: 9 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleStarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const circleStopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'rect', x: 9, y: 9, width: 6, height: 6, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+export const clock1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l2-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l-4-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock11Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l-2-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock12Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l4-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock5Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l2 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock6Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v10" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock7Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l-2 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock8Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6l-4 2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clock9Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 6v6H8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const clockArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6v6l2 1" },
+    { tag: 'path', d: "M13.5 21.885A10 10 0 1 1 22 12" },
+    { tag: 'path', d: "M14 18h8" },
+    { tag: 'path', d: "m18 22 4-4-4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const cloudCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.852 19.772-.383.924" },
+    { tag: 'path', d: "m13.148 14.228.383-.923" },
+    { tag: 'path', d: "M13.148 19.772a3 3 0 1 0-2.296-5.544l-.383-.923" },
+    { tag: 'path', d: "m13.53 20.696-.382-.924a3 3 0 1 1-2.296-5.544" },
+    { tag: 'path', d: "m14.772 15.852.923-.383" },
+    { tag: 'path', d: "m14.772 18.148.923.383" },
+    { tag: 'path', d: "M4.2 15.1a7 7 0 1 1 9.93-9.858A7 7 0 0 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.2" },
+    { tag: 'path', d: "m9.228 15.852-.923-.383" },
+    { tag: 'path', d: "m9.228 18.148-.923.383" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const cloudMoonRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 20v2" },
+    { tag: 'path', d: "M18.376 14.512a6 6 0 0 0 3.461-4.127c.148-.625-.659-.97-1.248-.714a4 4 0 0 1-5.259-5.26c.255-.589-.09-1.395-.716-1.248a6 6 0 0 0-4.594 5.36" },
+    { tag: 'path', d: "M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24" },
+    { tag: 'path', d: "M7 19v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const cloudSunRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "m4.93 4.93 1.41 1.41" },
+    { tag: 'path', d: "M20 12h2" },
+    { tag: 'path', d: "m19.07 4.93-1.41 1.41" },
+    { tag: 'path', d: "M15.947 12.65a4 4 0 0 0-5.925-4.128" },
+    { tag: 'path', d: "M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24" },
+    { tag: 'path', d: "M11 20v2" },
+    { tag: 'path', d: "M7 19v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const columns3CogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.6 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v5.6" },
+    { tag: 'path', d: "m14.305 19.53.923-.382" },
+    { tag: 'path', d: "M15 3v7.6" },
+    { tag: 'path', d: "m15.229 16.852-.924-.383" },
+    { tag: 'path', d: "m16.852 15.228-.383-.923" },
+    { tag: 'path', d: "m16.852 20.772-.383.924" },
+    { tag: 'path', d: "m19.148 15.228.383-.923" },
+    { tag: 'path', d: "m19.53 21.696-.382-.924" },
+    { tag: 'path', d: "m20.773 16.852.922-.383" },
+    { tag: 'path', d: "m20.773 19.148.922.383" },
+    { tag: 'path', d: "M9 3v18" },
+    { tag: 'circle', cx: 18, cy: 18, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const contactRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 2v2" },
+    { tag: 'path', d: "M17.915 21a6 6 0 10-12 0" },
+    { tag: 'path', d: "M8 2v2" },
+    { tag: 'circle', cx: 12, cy: 11, r: 4 },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const databaseCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 19 2 2 4-4" },
+    { tag: 'path', d: "M21 13.127V5" },
+    { tag: 'path', d: "M3 12A9 3 0 0 0 21 12" },
+    { tag: 'path', d: "M3 5V19A9 3 0 0 0 13.318 21.968" },
+    { tag: 'ellipse', cx: 12, cy: 5, rx: 9, ry: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const databaseMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 15V5" },
+    { tag: 'path', d: "M22 19h-6" },
+    { tag: 'path', d: "M3 12A9 3 0 0 0 21 12" },
+    { tag: 'path', d: "M3 5V19A9 3 0 0 0 13.318 21.968" },
+    { tag: 'ellipse', cx: 12, cy: 5, rx: 9, ry: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const disc3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M6 12c0-1.7.7-3.2 1.8-4.2" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+    { tag: 'path', d: "M18 12c0 1.7-.7 3.2-1.8 4.2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const equalNotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 5, x2: 19, y1: 9, y2: 9 },
+    { tag: 'line', x1: 5, x2: 19, y1: 15, y2: 15 },
+    { tag: 'line', x1: 19, x2: 5, y1: 5, y2: 19 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const faceSlightlySmilingPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.267 2.08a10 10 0 108.653 8.653" },
+    { tag: 'path', d: "M15 10V9" },
+    { tag: 'path', d: "M16 5h6" },
+    { tag: 'path', d: "M16.472 15a6 6 0 01-8.943 0" },
+    { tag: 'path', d: "M19 2v6" },
+    { tag: 'path', d: "M9 10V9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileAxis3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m8 18 4-4" },
+    { tag: 'path', d: "M8 10v8h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileBracesCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 22h4a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M5 14a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1 1 1 0 0 1 1 1v2a1 1 0 0 0 1 1" },
+    { tag: 'path', d: "M9 22a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileBracesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1" },
+    { tag: 'path', d: "M14 18a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1 1 1 0 0 1-1-1v-1a1 1 0 0 0-1-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileCodeCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m5 16-3 3 3 3" },
+    { tag: 'path', d: "m9 22 3-3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M10 12.5 8 15l2 2.5" },
+    { tag: 'path', d: "m14 12.5 2 2.5-2 2.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 8a1 1 0 0 1-1-1V2a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8z" },
+    { tag: 'path', d: "M20 8v12a2 2 0 0 1-2 2h-4.182" },
+    { tag: 'path', d: "m3.305 19.53.923-.382" },
+    { tag: 'path', d: "M4 10.592V4a2 2 0 0 1 2-2h8" },
+    { tag: 'path', d: "m4.228 16.852-.924-.383" },
+    { tag: 'path', d: "m5.852 15.228-.383-.923" },
+    { tag: 'path', d: "m5.852 20.772-.383.924" },
+    { tag: 'path', d: "m8.148 15.228.383-.923" },
+    { tag: 'path', d: "m8.53 21.696-.382-.924" },
+    { tag: 'path', d: "m9.773 16.852.922-.383" },
+    { tag: 'path', d: "m9.773 19.148.922.383" },
+    { tag: 'circle', cx: 7, cy: 18, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileImageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'circle', cx: 10, cy: 12, r: 2 },
+    { tag: 'path', d: "m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileInputIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M2 15h10" },
+    { tag: 'path', d: "m9 18 3-3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileMinusCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 14V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M14 18h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const filePlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M15.033 13.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56v-4.704a.645.645 0 0 1 .967-.56z" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const filePlusCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.35 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5.35" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M14 19h6" },
+    { tag: 'path', d: "M17 16v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileSearchCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m21 22-2.88-2.88" },
+    { tag: 'circle', cx: 16, cy: 17, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'circle', cx: 11.5, cy: 14.5, r: 2.5 },
+    { tag: 'path', d: "M13.3 16.3 15 18" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileSignalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 15h.01" },
+    { tag: 'path', d: "M11.5 13.5a2.5 2.5 0 0 1 0 3" },
+    { tag: 'path', d: "M15 12a5 5 0 0 1 0 6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileTypeCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22h6a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v6" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M3 16v-1.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5V16" },
+    { tag: 'path', d: "M6 22h2" },
+    { tag: 'path', d: "M7 14v8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const fileTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M11 18h2" },
+    { tag: 'path', d: "M12 12v6" },
+    { tag: 'path', d: "M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M16 22a4 4 0 0 0-8 0" },
+    { tag: 'circle', cx: 12, cy: 15, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const fileXCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5" },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m15 17 5 5" },
+    { tag: 'path', d: "m20 17-5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const gitBranchMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 6a9 9 0 0 0-9 9V3" },
+    { tag: 'path', d: "M21 18h-6" },
+    { tag: 'circle', cx: 18, cy: 6, r: 3 },
+    { tag: 'circle', cx: 6, cy: 18, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const gitPullRequestArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 5, cy: 6, r: 3 },
+    { tag: 'path', d: "M5 9v12" },
+    { tag: 'circle', cx: 19, cy: 18, r: 3 },
+    { tag: 'path', d: "m15 9-3-3 3-3" },
+    { tag: 'path', d: "M12 6h5a2 2 0 0 1 2 2v7" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const gitPullRequestCreateArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 5, cy: 6, r: 3 },
+    { tag: 'path', d: "M5 9v12" },
+    { tag: 'path', d: "m15 9-3-3 3-3" },
+    { tag: 'path', d: "M12 6h5a2 2 0 0 1 2 2v3" },
+    { tag: 'path', d: "M19 15v6" },
+    { tag: 'path', d: "M22 18h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const gitPullRequestDraftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 18, cy: 18, r: 3 },
+    { tag: 'circle', cx: 6, cy: 6, r: 3 },
+    { tag: 'path', d: "M18 6V5" },
+    { tag: 'path', d: "M18 11v-1" },
+    { tag: 'line', x1: 6, x2: 6, y1: 9, y2: 21 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const houseHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8.62 13.8A2.25 2.25 0 1 1 12 10.836a2.25 2.25 0 1 1 3.38 2.966l-2.626 2.856a.998.998 0 0 1-1.507 0z" },
+    { tag: 'path', d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const laptopMinimalCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 20h20" },
+    { tag: 'path', d: "m9 10 2 2 4-4" },
+    { tag: 'rect', x: 3, y: 4, width: 18, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const listFilterPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 5H2" },
+    { tag: 'path', d: "M6 12h12" },
+    { tag: 'path', d: "M9 19h6" },
+    { tag: 'path', d: "M16 5h6" },
+    { tag: 'path', d: "M19 8V2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const listTreeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 5h13" },
+    { tag: 'path', d: "M13 12h8" },
+    { tag: 'path', d: "M13 19h8" },
+    { tag: 'path', d: "M3 10a2 2 0 0 0 2 2h3" },
+    { tag: 'path', d: "M3 5v12a2 2 0 0 0 2 2h3" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const locateFixedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 2, x2: 5, y1: 12, y2: 12 },
+    { tag: 'line', x1: 19, x2: 22, y1: 12, y2: 12 },
+    { tag: 'line', x1: 12, x2: 12, y1: 2, y2: 5 },
+    { tag: 'line', x1: 12, x2: 12, y1: 19, y2: 22 },
+    { tag: 'circle', cx: 12, cy: 12, r: 7 },
+    { tag: 'circle', cx: 12, cy: 12, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+export const lockKeyholeOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 16, r: 1 },
+    { tag: 'rect', width: 18, height: 12, x: 3, y: 10, rx: 2 },
+    { tag: 'path', d: "M7 10V7a5 5 0 0 1 9.33-2.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const lockOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 18, height: 11, x: 3, y: 11, rx: 2, ry: 2 },
+    { tag: 'path', d: "M7 11V7a5 5 0 0 1 9.9-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const messageCircleCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+    { tag: 'path', d: "m9 12 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const messageCircleHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" },
+    { tag: 'path', d: "M7.828 13.07A3 3 0 0 1 12 8.764a3 3 0 0 1 5.004 2.224 3 3 0 0 1-.832 2.083l-3.447 3.62a1 1 0 0 1-1.45-.001z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const messageSquareCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.7.7 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" },
+    { tag: 'path', d: "m9 11 2 2 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const messageSquareHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" },
+    { tag: 'path', d: "M7.5 9.5c0 .687.265 1.383.697 1.844l3.009 3.264a1.14 1.14 0 0 0 .407.314 1 1 0 0 0 .783-.004 1.14 1.14 0 0 0 .398-.31l3.008-3.264A2.77 2.77 0 0 0 16.5 9.5 2.5 2.5 0 0 0 12 8a2.5 2.5 0 0 0-4.5 1.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const mountainSnowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m8 3 4 8 5-5 5 15H2L8 3z" },
+    { tag: 'path', d: "M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const music4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 18V5l12-2v13" },
+    { tag: 'path', d: "m9 9 12-2" },
+    { tag: 'circle', cx: 6, cy: 18, r: 3 },
+    { tag: 'circle', cx: 18, cy: 16, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const notebookTabsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 6h4" },
+    { tag: 'path', d: "M2 10h4" },
+    { tag: 'path', d: "M2 14h4" },
+    { tag: 'path', d: "M2 18h4" },
+    { tag: 'rect', width: 16, height: 20, x: 4, y: 2, rx: 2 },
+    { tag: 'path', d: "M15 2v20" },
+    { tag: 'path', d: "M15 7h5" },
+    { tag: 'path', d: "M15 12h5" },
+    { tag: 'path', d: "M15 17h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const notebookTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 6h4" },
+    { tag: 'path', d: "M2 10h4" },
+    { tag: 'path', d: "M2 14h4" },
+    { tag: 'path', d: "M2 18h4" },
+    { tag: 'rect', width: 16, height: 20, x: 4, y: 2, rx: 2 },
+    { tag: 'path', d: "M9.5 8h5" },
+    { tag: 'path', d: "M9.5 12H16" },
+    { tag: 'path', d: "M9.5 16H14" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const octagonMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z" },
+    { tag: 'path', d: "M8 12h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const playOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.215 4.56 9.79 5.71a2 2 0 0 1 .003 3.458l-.393.23" },
+    { tag: 'path', d: "m16.042 16.042-8.034 4.686A2 2 0 0 1 5 19V5" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const radioOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.414 13.414a2 2 0 1 1-2.828-2.828" },
+    { tag: 'path', d: "M16.247 7.761a6 6 0 0 1 1.744 4.572" },
+    { tag: 'path', d: "M19.075 4.933a10 10 0 0 1 2.234 10.72" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M4.925 19.067a10 10 0 0 1 0-14.134" },
+    { tag: 'path', d: "M7.753 16.239a6 6 0 0 1 0-8.478" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const receiptJapaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 10 3-3" },
+    { tag: 'path', d: "M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" },
+    { tag: 'path', d: "M9 11h6" },
+    { tag: 'path', d: "M9 15h6" },
+    { tag: 'path', d: "m9 7 3 3v7" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const receiptPoundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 17V9.5a1 1 0 0 1 5 0" },
+    { tag: 'path', d: "M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" },
+    { tag: 'path', d: "M8 13h5" },
+    { tag: 'path', d: "M8 17h7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const receiptTurkishLiraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 7v10a5 5 0 0 0 5-5" },
+    { tag: 'path', d: "m14 8-6 3" },
+    { tag: 'path', d: "M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const redoDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 17, r: 1 },
+    { tag: 'path', d: "M21 7v6h-6" },
+    { tag: 'path', d: "M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+export const repeat1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 2 4 4-4 4" },
+    { tag: 'path', d: "M3 11v-1a4 4 0 0 1 4-4h14" },
+    { tag: 'path', d: "m7 22-4-4 4-4" },
+    { tag: 'path', d: "M21 13v1a4 4 0 0 1-4 4H3" },
+    { tag: 'path', d: "M11 10h1v4" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const repeatOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.656 6H21l-4-4" },
+    { tag: 'path', d: "M17.898 17.898A4 4 0 0 1 17 18H3l4-4" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M21 13v1a4 4 0 0 1-.171 1.159" },
+    { tag: 'path', d: "m21 6-4 4" },
+    { tag: 'path', d: "M3 11v-1a4 4 0 0 1 3.102-3.898" },
+    { tag: 'path', d: "m7 22-4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const replaceAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 14a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1" },
+    { tag: 'path', d: "M14 4a1 1 0 0 1 1-1" },
+    { tag: 'path', d: "M15 10a1 1 0 0 1-1-1" },
+    { tag: 'path', d: "M19 14a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1" },
+    { tag: 'path', d: "M21 4a1 1 0 0 0-1-1" },
+    { tag: 'path', d: "M21 9a1 1 0 0 1-1 1" },
+    { tag: 'path', d: "m3 7 3 3 3-3" },
+    { tag: 'path', d: "M6 10V5a2 2 0 0 1 2-2h2" },
+    { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanBarcodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M8 7v10" },
+    { tag: 'path', d: "M12 7v10" },
+    { tag: 'path', d: "M17 7v10" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanEyeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+    { tag: 'path', d: "M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanFaceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M8 14s1.5 2 4 2 4-2 4-2" },
+    { tag: 'path', d: "M9 9h.01" },
+    { tag: 'path', d: "M15 9h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M7.828 13.07A3 3 0 0 1 12 8.764a3 3 0 0 1 4.172 4.306l-3.447 3.62a1 1 0 0 1-1.449 0z" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const scanLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M7 12h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const scanQrCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 12v4a1 1 0 0 1-1 1h-4" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M17 8V7" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M7 17h.01" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'rect', x: 7, y: 7, width: 5, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT, delay: 360, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'circle', cx: 12, cy: 12, r: 3 },
+    { tag: 'path', d: "m16 16-1.9-1.9" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const scanSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
+    { tag: 'rect', width: 8, height: 8, x: 8, y: 8, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+export const screenShareOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "m22 3-5 5" },
+    { tag: 'path', d: "m17 3 5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const smartphoneChargingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 14, height: 20, x: 5, y: 2, rx: 2, ry: 2 },
+    { tag: 'path', d: "M12.667 8 10 12h4l-2.667 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const spellCheck2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m6 16 6-12 6 12" },
+    { tag: 'path', d: "M8 12h8" },
+    { tag: 'path', d: "M4 21c1.1 0 1.1-1 2.3-1s1.1 1 2.3 1c1.1 0 1.1-1 2.3-1 1.1 0 1.1 1 2.3 1 1.1 0 1.1-1 2.3-1 1.1 0 1.1 1 2.3 1 1.1 0 1.1-1 2.3-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const splinePointerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z" },
+    { tag: 'path', d: "M5 17A12 12 0 0 1 17 5" },
+    { tag: 'circle', cx: 19, cy: 5, r: 2 },
+    { tag: 'circle', cx: 5, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const sunMoonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715" },
+    { tag: 'path', d: "M16 12a4 4 0 0 0-4-4" },
+    { tag: 'path', d: "m19 5-1.256 1.256" },
+    { tag: 'path', d: "M20 12h2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const tableCellsMergeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 21v-6" },
+    { tag: 'path', d: "M12 9V3" },
+    { tag: 'path', d: "M3 15h18" },
+    { tag: 'path', d: "M3 9h18" },
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const tableCellsSplitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 15V9" },
+    { tag: 'path', d: "M3 15h18" },
+    { tag: 'path', d: "M3 9h18" },
+    { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const ticketsPlaneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.5 17h1.227a2 2 0 0 0 1.345-.52L18 12" },
+    { tag: 'path', d: "m12 13.5 3.794.506" },
+    { tag: 'path', d: "m3.173 8.18 11-5a2 2 0 0 1 2.647.993L18.56 8" },
+    { tag: 'path', d: "M6 10V8" },
+    { tag: 'path', d: "M6 14v1" },
+    { tag: 'path', d: "M6 19v2" },
+    { tag: 'rect', x: 2, y: 8, width: 20, height: 13, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const tvMinimalPlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z" },
+    { tag: 'path', d: "M7 21h10" },
+    { tag: 'rect', width: 20, height: 14, x: 2, y: 3, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const webcamOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22v-4" },
+    { tag: 'path', d: "M12.754 7.096a3 3 0 0 1 2.15 2.15" },
+    { tag: 'path', d: "M12.863 12.873a3 3 0 0 1-3.736-3.735" },
+    { tag: 'path', d: "M16.566 16.57A8 8 0 0 1 5.43 5.433" },
+    { tag: 'path', d: "m2 2 20 20" },
+    { tag: 'path', d: "M7 22h10" },
+    { tag: 'path', d: "M8.478 2.817a8 8 0 0 1 10.705 10.705" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+export const wrenchOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.747 5.093a6 6 0 0 1 6.841-2.882c.438.12.54.662.219.984L14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-2.882 6.842" },
+    { tag: 'path', d: "m13.5 13.5-7.88 7.88a1 1 0 0 1-2.999-3l7.88-7.88" },
+    { tag: 'path', d: "m2 2 20 20" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
+  'archive-x': archiveXIcon,
+  'audio-lines-x': audioLinesXIcon,
+  'banknote-check': banknoteCheckIcon,
+  'beef-off': beefOffIcon,
+  'bug-play': bugPlayIcon,
+  'cannabis-off': cannabisOffIcon,
+  'cctv-off': cctvOffIcon,
+  'circle-dot': circleDotIcon,
+  'circle-euro': circleEuroIcon,
+  'circle-minus': circleMinusIcon,
+  'circle-parking': circleParkingIcon,
+  'circle-play': circlePlayIcon,
+  'circle-pound-sterling': circlePoundSterlingIcon,
+  'circle-slash-2': circleSlash2Icon,
+  'circle-slash': circleSlashIcon,
+  'circle-star': circleStarIcon,
+  'circle-stop': circleStopIcon,
+  'clock-1': clock1Icon,
+  'clock-10': clock10Icon,
+  'clock-11': clock11Icon,
+  'clock-12': clock12Icon,
+  'clock-2': clock2Icon,
+  'clock-3': clock3Icon,
+  'clock-5': clock5Icon,
+  'clock-6': clock6Icon,
+  'clock-7': clock7Icon,
+  'clock-8': clock8Icon,
+  'clock-9': clock9Icon,
+  'clock-arrow-right': clockArrowRightIcon,
+  'cloud-cog': cloudCogIcon,
+  'cloud-moon-rain': cloudMoonRainIcon,
+  'cloud-sun-rain': cloudSunRainIcon,
+  'columns-3-cog': columns3CogIcon,
+  'contact-round': contactRoundIcon,
+  'database-check': databaseCheckIcon,
+  'database-minus': databaseMinusIcon,
+  'disc-3': disc3Icon,
+  'equal-not': equalNotIcon,
+  'face-slightly-smiling-plus': faceSlightlySmilingPlusIcon,
+  'file-axis-3d': fileAxis3dIcon,
+  'file-braces-corner': fileBracesCornerIcon,
+  'file-braces': fileBracesIcon,
+  'file-code-corner': fileCodeCornerIcon,
+  'file-code': fileCodeIcon,
+  'file-cog': fileCogIcon,
+  'file-image': fileImageIcon,
+  'file-input': fileInputIcon,
+  'file-minus-corner': fileMinusCornerIcon,
+  'file-play': filePlayIcon,
+  'file-plus-corner': filePlusCornerIcon,
+  'file-search-corner': fileSearchCornerIcon,
+  'file-search': fileSearchIcon,
+  'file-signal': fileSignalIcon,
+  'file-type-corner': fileTypeCornerIcon,
+  'file-type': fileTypeIcon,
+  'file-user': fileUserIcon,
+  'file-x-corner': fileXCornerIcon,
+  'git-branch-minus': gitBranchMinusIcon,
+  'git-pull-request-arrow': gitPullRequestArrowIcon,
+  'git-pull-request-create-arrow': gitPullRequestCreateArrowIcon,
+  'git-pull-request-draft': gitPullRequestDraftIcon,
+  'house-heart': houseHeartIcon,
+  'laptop-minimal-check': laptopMinimalCheckIcon,
+  'list-filter-plus': listFilterPlusIcon,
+  'list-tree': listTreeIcon,
+  'locate-fixed': locateFixedIcon,
+  'lock-keyhole-open': lockKeyholeOpenIcon,
+  'lock-open': lockOpenIcon,
+  'message-circle-check': messageCircleCheckIcon,
+  'message-circle-heart': messageCircleHeartIcon,
+  'message-square-check': messageSquareCheckIcon,
+  'message-square-heart': messageSquareHeartIcon,
+  'mountain-snow': mountainSnowIcon,
+  'music-4': music4Icon,
+  'notebook-tabs': notebookTabsIcon,
+  'notebook-text': notebookTextIcon,
+  'octagon-minus': octagonMinusIcon,
+  'play-off': playOffIcon,
+  'radio-off': radioOffIcon,
+  'receipt-japanese-yen': receiptJapaneseYenIcon,
+  'receipt-pound-sterling': receiptPoundSterlingIcon,
+  'receipt-turkish-lira': receiptTurkishLiraIcon,
+  'redo-dot': redoDotIcon,
+  'repeat-1': repeat1Icon,
+  'repeat-off': repeatOffIcon,
+  'replace-all': replaceAllIcon,
+  'scan-barcode': scanBarcodeIcon,
+  'scan-eye': scanEyeIcon,
+  'scan-face': scanFaceIcon,
+  'scan-heart': scanHeartIcon,
+  'scan-line': scanLineIcon,
+  'scan-qr-code': scanQrCodeIcon,
+  'scan-search': scanSearchIcon,
+  'scan-square': scanSquareIcon,
+  'screen-share-off': screenShareOffIcon,
+  'smartphone-charging': smartphoneChargingIcon,
+  'spell-check-2': spellCheck2Icon,
+  'spline-pointer': splinePointerIcon,
+  'sun-moon': sunMoonIcon,
+  'table-cells-merge': tableCellsMergeIcon,
+  'table-cells-split': tableCellsSplitIcon,
+  'tickets-plane': ticketsPlaneIcon,
+  'tv-minimal-play': tvMinimalPlayIcon,
+  'webcam-off': webcamOffIcon,
+  'wrench-off': wrenchOffIcon,
   'square-activity': squareActivityIcon,
   'square-arrow-down-left': squareArrowDownLeftIcon,
   'square-arrow-down-right': squareArrowDownRightIcon,

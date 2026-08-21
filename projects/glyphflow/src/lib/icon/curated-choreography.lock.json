@@ -78,6 +78,12 @@
       "path:3551ee6df4bc",
       "path:a13341c32f92"
     ],
+    "archive-x": [
+      "rect:d4f23d9358f0",
+      "path:3551ee6df4bc",
+      "path:34ef44ba0da3",
+      "path:9d1f47749369"
+    ],
     "arrow-big-down": [
       "path:8919ba3d21b2"
     ],
@@ -300,6 +306,16 @@
       "circle:9d7fc8897980",
       "path:fbcd70ad6f8d"
     ],
+    "audio-lines-x": [
+      "path:96876b585c2b",
+      "path:5db9338e6774",
+      "path:03193dcbbcf8",
+      "path:ba9e77d047e0",
+      "path:769d94b158e0",
+      "path:e2989361590a",
+      "path:02e02e027d76",
+      "path:e142b42575d5"
+    ],
     "award": [
       "path:051a1dc64247",
       "circle:a8ae242cda11"
@@ -412,6 +428,13 @@
       "circle:9f7fcbaf7380",
       "path:62e62aed2bb4"
     ],
+    "banknote-check": [
+      "path:65041da35efa",
+      "path:a3dc324db9d5",
+      "path:f41b999e53c6",
+      "path:020af2f1dd37",
+      "circle:9f7fcbaf7380"
+    ],
     "battery": [
       "path:f31245513d71",
       "rect:e8d8bf6cc89e"
@@ -452,6 +475,14 @@
       "path:7791bd69be3b",
       "path:469e80851869",
       "line:ed241e14c4ca"
+    ],
+    "beef-off": [
+      "path:4aa6205a6547",
+      "path:1b793a50a1e8",
+      "path:40cefec62155",
+      "path:8a0fb371be4f",
+      "path:378c27879c92",
+      "path:ce17d81961b6"
     ],
     "beer-off": [
       "path:64f4a6ae0e9d",
@@ -775,6 +806,17 @@
       "path:decb2afbaee5",
       "path:a30be0839763"
     ],
+    "bug-play": [
+      "path:fff1b17155a5",
+      "path:0546069645d2",
+      "path:07de73a335b8",
+      "path:6a814920e4a0",
+      "path:71ca484c9ea4",
+      "path:a1b0f2e01593",
+      "path:1cc8da3dc09e",
+      "path:decb2afbaee5",
+      "path:d507960342a5"
+    ],
     "building": [
       "path:d120e0ee3194",
       "path:db602e4ae359",
@@ -1013,6 +1055,14 @@
       "path:378c27879c92",
       "path:26bce148f1d6"
     ],
+    "cannabis-off": [
+      "path:a81a5f7f0f14",
+      "path:c6e6dcaa9295",
+      "path:d3ef471ff804",
+      "path:378c27879c92",
+      "path:c42de780055a",
+      "path:b29f1b2cde73"
+    ],
     "captions-off": [
       "path:a8edc5d9f202",
       "path:d18a368fd2d8",
@@ -1031,6 +1081,14 @@
       "path:994a1eb7e731",
       "path:ce9f81c568d2",
       "path:51c0904f6851",
+      "path:ad381e15efab",
+      "path:2ad56b84259b"
+    ],
+    "cctv-off": [
+      "path:0fe5fcc6d3b0",
+      "path:e92bf42461d7",
+      "path:4e976d76f594",
+      "path:378c27879c92",
       "path:ad381e15efab",
       "path:2ad56b84259b"
     ],
@@ -1307,10 +1365,27 @@
       "circle:1b306a76ecc0",
       "path:85de324d9c0f"
     ],
+    "circle-dot": [
+      "circle:1b306a76ecc0",
+      "circle:a07fcd427480"
+    ],
+    "circle-euro": [
+      "path:5c0425039900",
+      "path:ef033f1af12c",
+      "circle:1b306a76ecc0"
+    ],
+    "circle-minus": [
+      "circle:1b306a76ecc0",
+      "path:996d85dad073"
+    ],
     "circle-off": [
       "path:378c27879c92",
       "path:23bc3fef8f7b",
       "path:3d88671adc85"
+    ],
+    "circle-parking": [
+      "circle:1b306a76ecc0",
+      "path:1262b6f0399b"
     ],
     "circle-parking-off": [
       "path:37bae5eee846",
@@ -1320,15 +1395,41 @@
       "path:b4e7c9914232",
       "path:cbb75f013b8a"
     ],
+    "circle-play": [
+      "path:6b7902fb0304",
+      "circle:1b306a76ecc0"
+    ],
     "circle-plus": [
       "circle:1b306a76ecc0",
       "path:996d85dad073",
       "path:3fbc681c0854"
     ],
+    "circle-pound-sterling": [
+      "circle:1b306a76ecc0",
+      "path:c3078e66288d",
+      "path:8d6d72f6cc73",
+      "path:d833b1cf804b"
+    ],
     "circle-question-mark": [
       "circle:1b306a76ecc0",
       "path:fbaf6ad092cd",
       "path:172792977efc"
+    ],
+    "circle-slash": [
+      "circle:1b306a76ecc0",
+      "line:6a37f85421dd"
+    ],
+    "circle-slash-2": [
+      "circle:1b306a76ecc0",
+      "path:afcae63f9ad1"
+    ],
+    "circle-star": [
+      "circle:1b306a76ecc0",
+      "path:171b27e87307"
+    ],
+    "circle-stop": [
+      "circle:1b306a76ecc0",
+      "rect:33bc22b16357"
     ],
     "circle-x": [
       "circle:1b306a76ecc0",
@@ -1420,6 +1521,67 @@
       "circle:1b306a76ecc0",
       "path:21ece3eaabba"
     ],
+    "clock-1": [
+      "circle:1b306a76ecc0",
+      "path:43653ef74d42"
+    ],
+    "clock-10": [
+      "circle:1b306a76ecc0",
+      "path:7b8a93524d53"
+    ],
+    "clock-11": [
+      "circle:1b306a76ecc0",
+      "path:63e2e9ce45ff"
+    ],
+    "clock-12": [
+      "circle:1b306a76ecc0",
+      "path:a16f32144624"
+    ],
+    "clock-2": [
+      "circle:1b306a76ecc0",
+      "path:9bf8dcebb5da"
+    ],
+    "clock-3": [
+      "circle:1b306a76ecc0",
+      "path:cda27b0043ac"
+    ],
+    "clock-5": [
+      "circle:1b306a76ecc0",
+      "path:4581189a3f22"
+    ],
+    "clock-6": [
+      "circle:1b306a76ecc0",
+      "path:4009a6a3851a"
+    ],
+    "clock-7": [
+      "circle:1b306a76ecc0",
+      "path:d1db4833c40b"
+    ],
+    "clock-8": [
+      "circle:1b306a76ecc0",
+      "path:f56f7ce35773"
+    ],
+    "clock-9": [
+      "circle:1b306a76ecc0",
+      "path:5953a584b7fb"
+    ],
+    "clock-arrow-right": [
+      "path:428113e14422",
+      "path:a58435307244",
+      "path:84ff4121489f",
+      "path:0983322d3e44"
+    ],
+    "cloud-cog": [
+      "path:50e70e43a7d6",
+      "path:7e60ec4a9de7",
+      "path:2a7c5815c590",
+      "path:a3b24c1e3bd1",
+      "path:0dc4c1d82d8e",
+      "path:c6c785eeb1fd",
+      "path:f29b5dd12e3c",
+      "path:30ad046f1fc5",
+      "path:950d52d58ed8"
+    ],
     "cloud-download": [
       "path:dcadd2f04518",
       "path:93f63292b894",
@@ -1429,10 +1591,26 @@
       "path:fd807f446027",
       "path:afd426ae862b"
     ],
+    "cloud-moon-rain": [
+      "path:fdf9f92b4bd8",
+      "path:afd426ae862b",
+      "path:512b79e88b86",
+      "path:a94db64045b6"
+    ],
     "cloud-off": [
       "path:7d5c262f292e",
       "path:e7cfede9f7ea",
       "path:378c27879c92"
+    ],
+    "cloud-sun-rain": [
+      "path:c769d66c2029",
+      "path:0911493ba313",
+      "path:fe28ecd48f6e",
+      "path:6e2af8913bcb",
+      "path:2c8a9c38309e",
+      "path:512b79e88b86",
+      "path:fdf9f92b4bd8",
+      "path:a94db64045b6"
     ],
     "cloud-upload": [
       "path:0a74c744e5c5",
@@ -1455,6 +1633,20 @@
       "circle:9f7fcbaf7380",
       "circle:a97fdb6d7d80"
     ],
+    "columns-3-cog": [
+      "path:d648799672c6",
+      "path:b0ba452434c2",
+      "path:8955d7056016",
+      "path:acecb0653796",
+      "path:aaf66353f530",
+      "path:9b1669994dd5",
+      "path:07b683399bd9",
+      "path:088bd6cd66db",
+      "path:42f786823d4d",
+      "path:ea25ecdaf6d4",
+      "path:4eda0d68cc05",
+      "circle:19df0cd8a262"
+    ],
     "command": [
       "path:cea8e6cbc81f"
     ],
@@ -1467,6 +1659,13 @@
       "path:6576cb1fa946",
       "path:cdc0b5d15b8f",
       "circle:34719e7a21bf",
+      "rect:d427f2bc2999"
+    ],
+    "contact-round": [
+      "path:028b3b686e81",
+      "path:4985c57dad51",
+      "path:cdc0b5d15b8f",
+      "circle:ee15036c27be",
       "rect:d427f2bc2999"
     ],
     "contrast": [
@@ -1537,6 +1736,20 @@
       "path:785c9b18ccc6",
       "path:990ff122724e"
     ],
+    "database-check": [
+      "path:a3dc324db9d5",
+      "path:6a722fa77abb",
+      "path:990ff122724e",
+      "path:ace3d7a8c3ab",
+      "ellipse:22d490ea4115"
+    ],
+    "database-minus": [
+      "path:c9e1ea07bc84",
+      "path:5badf604346b",
+      "path:990ff122724e",
+      "path:ace3d7a8c3ab",
+      "ellipse:22d490ea4115"
+    ],
     "diamond-plus": [
       "path:3fbc681c0854",
       "path:3070bd94f9df",
@@ -1585,6 +1798,12 @@
       "path:215a5436fb35",
       "path:c3d5ef664089",
       "path:eeb36d422fd8"
+    ],
+    "disc-3": [
+      "circle:1b306a76ecc0",
+      "path:d5c127853c1f",
+      "circle:9f7fcbaf7380",
+      "path:83852c85740b"
     ],
     "dna-off": [
       "path:89a012fd0e15",
@@ -1643,6 +1862,11 @@
       "circle:8b98e27e7dcb",
       "circle:7eb1bb9b7fd5"
     ],
+    "equal-not": [
+      "line:35fac14be571",
+      "line:643efc73b6cf",
+      "line:fdbbc69aae21"
+    ],
     "external-link": [
       "path:c78685b083c9",
       "path:68486e0bf3ee",
@@ -1658,15 +1882,41 @@
       "path:341f39d1190e",
       "path:378c27879c92"
     ],
+    "face-slightly-smiling-plus": [
+      "path:61ed3c9e4f25",
+      "path:1d399e9110c9",
+      "path:02df10fb102a",
+      "path:869be482501c",
+      "path:06e3cd556126",
+      "path:41f25670cb06"
+    ],
     "file": [
       "path:ed539cad8550",
       "path:3212171d6006"
+    ],
+    "file-axis-3d": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:183003a96948",
+      "path:681e5d7abfee"
     ],
     "file-badge": [
       "path:69d598665c87",
       "path:3212171d6006",
       "path:d81340ff8494",
       "circle:9e159e69e60c"
+    ],
+    "file-braces": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:d77f8276b851",
+      "path:e25ba8b02b76"
+    ],
+    "file-braces-corner": [
+      "path:7cfeb36e51ff",
+      "path:3212171d6006",
+      "path:019baa70ae64",
+      "path:3b2e6a1fab15"
     ],
     "file-chart-column": [
       "path:ed539cad8550",
@@ -1697,6 +1947,32 @@
       "path:3212171d6006",
       "path:a6d646e70a74"
     ],
+    "file-code": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:ea09d2b17978",
+      "path:9f4876939412"
+    ],
+    "file-code-corner": [
+      "path:47dcc1f67f88",
+      "path:3212171d6006",
+      "path:d1a559e25453",
+      "path:dc75c58564a8"
+    ],
+    "file-cog": [
+      "path:80a6f068e6c5",
+      "path:588a77cf7557",
+      "path:5a5139927b40",
+      "path:6980f6ef54aa",
+      "path:9535c2682b4c",
+      "path:3702423d1997",
+      "path:d8e22aa36b38",
+      "path:b6255591e498",
+      "path:b81acea55559",
+      "path:a214dcf52855",
+      "path:383e5337a1dd",
+      "circle:6342845e15c6"
+    ],
     "file-down": [
       "path:ed539cad8550",
       "path:3212171d6006",
@@ -1708,15 +1984,37 @@
       "path:34c460878309",
       "path:172792977efc"
     ],
+    "file-image": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "circle:bd9107f918d6",
+      "path:7a79b511747d"
+    ],
+    "file-input": [
+      "path:3329bcd72156",
+      "path:3212171d6006",
+      "path:9ddf6c7e8b60",
+      "path:18be67f02f2b"
+    ],
     "file-minus": [
       "path:ed539cad8550",
       "path:3212171d6006",
       "path:ae1320749785"
     ],
+    "file-minus-corner": [
+      "path:29445b0ddd46",
+      "path:3212171d6006",
+      "path:7eff37af4a9f"
+    ],
     "file-pen": [
       "path:4cab5fa18a71",
       "path:3212171d6006",
       "path:0d625333cf67"
+    ],
+    "file-play": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:a4fd0c9f084f"
     ],
     "file-plus": [
       "path:ed539cad8550",
@@ -1724,10 +2022,35 @@
       "path:ae1320749785",
       "path:4afda6cc81aa"
     ],
+    "file-plus-corner": [
+      "path:d1b59dd0a495",
+      "path:3212171d6006",
+      "path:a0402af44c57",
+      "path:479c2f1cd2fb"
+    ],
     "file-question-mark": [
       "path:ed539cad8550",
       "path:172792977efc",
       "path:7c434f4f24bd"
+    ],
+    "file-search": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "circle:112078518364",
+      "path:a16f3bfd2dbf"
+    ],
+    "file-search-corner": [
+      "path:27037aeb8083",
+      "path:3212171d6006",
+      "path:c3ee00aa4124",
+      "circle:e4a7668b516c"
+    ],
+    "file-signal": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:ec83baead227",
+      "path:de57dd8058d4",
+      "path:4b55336eade1"
     ],
     "file-sliders": [
       "path:ed539cad8550",
@@ -1758,17 +2081,43 @@
       "path:2888031645d5",
       "path:656069828a3b"
     ],
+    "file-type": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:ed74724a5d71",
+      "path:ef0240a5e279",
+      "path:6d5abed99b4c"
+    ],
+    "file-type-corner": [
+      "path:58684ce69ca0",
+      "path:3212171d6006",
+      "path:3ebc279b03b5",
+      "path:957e1ed16cc4",
+      "path:3d370821e2e0"
+    ],
     "file-up": [
       "path:ed539cad8550",
       "path:3212171d6006",
       "path:ef0240a5e279",
       "path:dc6e26ea8e74"
     ],
+    "file-user": [
+      "path:ed539cad8550",
+      "path:3212171d6006",
+      "path:c232f8f2c643",
+      "circle:d23241153381"
+    ],
     "file-x": [
       "path:ed539cad8550",
       "path:3212171d6006",
       "path:c87e13d07cf4",
       "path:6a381bd15bf0"
+    ],
+    "file-x-corner": [
+      "path:01b9e5d2d5ff",
+      "path:3212171d6006",
+      "path:e323b74d1645",
+      "path:8292620cdb30"
     ],
     "fish-off": [
       "path:f5b1dd1fa911",
@@ -1995,12 +2344,40 @@
       "path:c9829e4ebefc",
       "path:80ba57ae239e"
     ],
+    "git-branch-minus": [
+      "path:cc3fdb9a038f",
+      "path:2ea17d7848b4",
+      "circle:9bcf8b13a544",
+      "circle:2cef230d7e6c"
+    ],
     "git-fork": [
       "circle:5d9311e2c27e",
       "circle:5a150a8c86b8",
       "circle:9bcf8b13a544",
       "path:8824715c099c",
       "path:ea0238c6e579"
+    ],
+    "git-pull-request-arrow": [
+      "circle:3e6ca237c03d",
+      "path:201cab50934e",
+      "circle:4e93cdff6a30",
+      "path:b1132b3544c1",
+      "path:56392606ed27"
+    ],
+    "git-pull-request-create-arrow": [
+      "circle:3e6ca237c03d",
+      "path:201cab50934e",
+      "path:b1132b3544c1",
+      "path:5a392c52e927",
+      "path:58b56a2bd8f6",
+      "path:9b7706593668"
+    ],
+    "git-pull-request-draft": [
+      "circle:19df0cd8a262",
+      "circle:5a150a8c86b8",
+      "path:70adc5efc275",
+      "path:55e8facefb6e",
+      "line:90be80e8413b"
     ],
     "globe": [
       "circle:1b306a76ecc0",
@@ -2188,6 +2565,10 @@
       "path:1477bac52fac",
       "path:e0ea0fc31f97"
     ],
+    "house-heart": [
+      "path:51f9d65b2d2d",
+      "path:e0ea0fc31f97"
+    ],
     "house-wifi": [
       "path:ae341ca1b19b",
       "path:172792977efc",
@@ -2335,6 +2716,11 @@
       "path:d518d9f7e3b4",
       "path:d4802f74279a"
     ],
+    "laptop-minimal-check": [
+      "path:3a9f4a2de11a",
+      "path:f09077e0d6b9",
+      "rect:fb7571cfc6a8"
+    ],
     "layers": [
       "path:23e10d821f47",
       "path:83ab0cd6476c",
@@ -2434,6 +2820,13 @@
       "path:0985d66b04c7",
       "path:dc894b2ea642"
     ],
+    "list-filter-plus": [
+      "path:64c391cba42e",
+      "path:94d076f74108",
+      "path:b95a6f1039bb",
+      "path:02df10fb102a",
+      "path:50e857ab332b"
+    ],
     "list-todo": [
       "path:c4c320068d89",
       "path:6794259018da",
@@ -2441,8 +2834,23 @@
       "path:0985d66b04c7",
       "rect:0e1db49c904a"
     ],
+    "list-tree": [
+      "path:d181d0d8cd63",
+      "path:6794259018da",
+      "path:9c1c7409cb86",
+      "path:136bc743788d",
+      "path:408dfede308c"
+    ],
     "loader-circle": [
       "path:3f3f9a73a2b8"
+    ],
+    "locate-fixed": [
+      "line:4bab6f993c3c",
+      "line:1b19e93e8b6a",
+      "line:cb6771cb6781",
+      "line:7deb7c5aa3b0",
+      "circle:9a7fc3d07680",
+      "circle:9e7fca1c7280"
     ],
     "locate-off": [
       "path:d5a4d0a7fe9a",
@@ -2456,6 +2864,15 @@
     "lock": [
       "rect:2e7ac1490503",
       "path:fac77bd8ebb9"
+    ],
+    "lock-keyhole-open": [
+      "circle:b7f3ff5e9944",
+      "rect:bad5794068ed",
+      "path:421ffca55b99"
+    ],
+    "lock-open": [
+      "rect:2e7ac1490503",
+      "path:1bd57539cc06"
     ],
     "log-out": [
       "path:adcbdbb71db8",
@@ -2561,6 +2978,14 @@
     "message-circle": [
       "path:7eee4a3030d6"
     ],
+    "message-circle-check": [
+      "path:7eee4a3030d6",
+      "path:a6c388c2ba21"
+    ],
+    "message-circle-heart": [
+      "path:7eee4a3030d6",
+      "path:461bd925ff84"
+    ],
     "message-circle-more": [
       "path:7eee4a3030d6",
       "path:101f890beab1",
@@ -2584,6 +3009,14 @@
     ],
     "message-square": [
       "path:bad857bccaae"
+    ],
+    "message-square-check": [
+      "path:3d0ea83860a5",
+      "path:1308c6effbb4"
+    ],
+    "message-square-heart": [
+      "path:bad857bccaae",
+      "path:d9c66afbec8d"
     ],
     "message-square-more": [
       "path:bad857bccaae",
@@ -2725,6 +3158,10 @@
     "moon": [
       "path:2dcf463a91e5"
     ],
+    "mountain-snow": [
+      "path:94ea3a010939",
+      "path:e29ddb3aa41c"
+    ],
     "mouse": [
       "rect:c10883e34bad",
       "path:a36f353a4824"
@@ -2821,6 +3258,12 @@
       "path:1cb50009bd16",
       "path:d6c0383cf5a2"
     ],
+    "music-4": [
+      "path:ba2c49a67b80",
+      "path:f1798cad98b0",
+      "circle:2cef230d7e6c",
+      "circle:4041b7825cb2"
+    ],
     "navigation": [
       "polygon:67e43b02cce7"
     ],
@@ -2855,6 +3298,27 @@
       "path:14b2869aaf01",
       "path:03fda71dc243"
     ],
+    "notebook-tabs": [
+      "path:8e949e07fcdc",
+      "path:6bc015a25617",
+      "path:1ff9d536a3b9",
+      "path:14b2869aaf01",
+      "rect:2428eb83eaf8",
+      "path:d6da70371a1a",
+      "path:25b23d012689",
+      "path:82e44d1d603b",
+      "path:9404ef36a7d3"
+    ],
+    "notebook-text": [
+      "path:8e949e07fcdc",
+      "path:6bc015a25617",
+      "path:1ff9d536a3b9",
+      "path:14b2869aaf01",
+      "rect:2428eb83eaf8",
+      "path:61e3d9ca2a18",
+      "path:1c09f133d45e",
+      "path:a01b46bd6d9a"
+    ],
     "nut-off": [
       "path:76cf5c3e2588",
       "path:cd86ac2337e1",
@@ -2866,6 +3330,10 @@
       "path:04796774ada1",
       "path:43bc6e680454",
       "path:630aeb8973b4"
+    ],
+    "octagon-minus": [
+      "path:b22901dc7b65",
+      "path:996d85dad073"
     ],
     "orbit": [
       "path:a86a6d8ec922",
@@ -3098,6 +3566,11 @@
     "play": [
       "path:af57b8299ff9"
     ],
+    "play-off": [
+      "path:615fec954838",
+      "path:5f5a9ba9ec32",
+      "path:378c27879c92"
+    ],
     "plus": [
       "path:52f6eb0c4372",
       "path:0d2f2c183d2b"
@@ -3169,6 +3642,14 @@
       "path:bd3fbee62a06",
       "circle:9f7fcbaf7380"
     ],
+    "radio-off": [
+      "path:a05f3f906e3b",
+      "path:7f7cca76ae0d",
+      "path:64a5d5b306ba",
+      "path:378c27879c92",
+      "path:28834186d061",
+      "path:bd3fbee62a06"
+    ],
     "radio-tower": [
       "path:c56499e28f75",
       "path:188fdb3151b9",
@@ -3187,6 +3668,29 @@
       "path:df0359bda912",
       "path:3cc9a81227a7",
       "path:1d16cf4dd274"
+    ],
+    "receipt-japanese-yen": [
+      "path:8cf8c61a63c5",
+      "path:1d16cf4dd274",
+      "path:62eab0c8634c",
+      "path:ae1320749785",
+      "path:63df98fe883e"
+    ],
+    "receipt-pound-sterling": [
+      "path:f2f2aa0d2581",
+      "path:1d16cf4dd274",
+      "path:8b53bfeec9e2",
+      "path:d4a33be47c93"
+    ],
+    "receipt-turkish-lira": [
+      "path:b99e1fa444e9",
+      "path:6716525ebf34",
+      "path:1d16cf4dd274"
+    ],
+    "redo-dot": [
+      "circle:8eeb691d9e35",
+      "path:4f7ed88c3771",
+      "path:b5dc7f414d5a"
     ],
     "refresh-ccw": [
       "path:1287271a770a",
@@ -3215,6 +3719,33 @@
       "path:f932f511e70d",
       "path:006e317a5f7c",
       "path:20d6939fac75"
+    ],
+    "repeat-1": [
+      "path:92da259eee3b",
+      "path:d6ca715ce29e",
+      "path:ce60783b7632",
+      "path:a823451fa97b",
+      "path:0d8f6cada273"
+    ],
+    "repeat-off": [
+      "path:750f6a91eba1",
+      "path:c14ba44676cc",
+      "path:378c27879c92",
+      "path:1806cbbbdd4b",
+      "path:95a75f0bc571",
+      "path:77b06d1791ca",
+      "path:2b352b669609"
+    ],
+    "replace-all": [
+      "path:7c49481d7458",
+      "path:675a941ba8f3",
+      "path:1d4c9ecae70a",
+      "path:6953b97cea97",
+      "path:d836f125d98c",
+      "path:a51a31b4e4d1",
+      "path:eed1154606ca",
+      "path:030221928454",
+      "rect:38f85033b683"
     ],
     "rocking-chair": [
       "path:f10040931976",
@@ -3308,6 +3839,71 @@
       "path:5badf604346b",
       "path:3e0eea9df583"
     ],
+    "scan-barcode": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "path:2239c6092f8a",
+      "path:2bbf5596f0d0",
+      "path:829494b7c309"
+    ],
+    "scan-eye": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "circle:a07fcd427480",
+      "path:a0be696d3159"
+    ],
+    "scan-face": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "path:141d9f7df5dc",
+      "path:b10a06368ff2",
+      "path:f065a0fdaabc"
+    ],
+    "scan-heart": [
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:96ff372fadc2",
+      "path:39950cbff050",
+      "path:f3b41bd5441c"
+    ],
+    "scan-line": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "path:f412b7da9f87"
+    ],
+    "scan-qr-code": [
+      "path:a5de247a7aa9",
+      "path:e4d5aeacd8b8",
+      "path:ee5d5b066ef0",
+      "path:709b29d2da99",
+      "path:96ff372fadc2",
+      "path:5844263b1770",
+      "path:39950cbff050",
+      "rect:20402dcb6ad4"
+    ],
+    "scan-search": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "circle:9e7fca1c7280",
+      "path:ac6a68359e10"
+    ],
+    "scan-square": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050",
+      "rect:93f189d5066b"
+    ],
     "scan-text": [
       "path:96ff372fadc2",
       "path:e4d5aeacd8b8",
@@ -3323,6 +3919,13 @@
       "path:896dcbccbeb3",
       "circle:2cef230d7e6c",
       "path:329bc2d1a0aa"
+    ],
+    "screen-share-off": [
+      "path:67e9f12dafb3",
+      "path:7d3dab3c346b",
+      "path:5c523d642661",
+      "path:55b18e41397f",
+      "path:042eab48e489"
     ],
     "scroll-text": [
       "path:2578e480ba2c",
@@ -3548,6 +4151,10 @@
       "rect:7ce4e1ad28f9",
       "path:d38b9216eb2e"
     ],
+    "smartphone-charging": [
+      "rect:7ce4e1ad28f9",
+      "path:20c3299f8c49"
+    ],
     "smartphone-nfc": [
       "rect:2defd8dbcd62",
       "path:a43b8c027e4c",
@@ -3586,6 +4193,17 @@
       "path:48c323eb89be",
       "path:996d85dad073",
       "path:b147b00d467b"
+    ],
+    "spell-check-2": [
+      "path:48c323eb89be",
+      "path:996d85dad073",
+      "path:1370d5882d67"
+    ],
+    "spline-pointer": [
+      "path:7736d8157c0d",
+      "path:54fc91cb4e17",
+      "circle:550aec9454b4",
+      "circle:26f6f7589d92"
     ],
     "square": [
       "rect:d427f2bc2999"
@@ -4064,11 +4682,31 @@
       "path:fbbbd4b5d56a",
       "path:6e2af8913bcb"
     ],
+    "sun-moon": [
+      "path:c769d66c2029",
+      "path:a44ee02845b0",
+      "path:c39e8180e216",
+      "path:6dba0935ba57",
+      "path:fe28ecd48f6e"
+    ],
     "sword": [
       "path:67860b837c84",
       "path:8ff8c6f1f8ee",
       "path:9ca590c360cf",
       "path:aff53ac7ca42"
+    ],
+    "table-cells-merge": [
+      "path:8637edfcefd8",
+      "path:3174a9ee0858",
+      "path:23130bc9b30b",
+      "path:ec3d9996cae7",
+      "rect:d427f2bc2999"
+    ],
+    "table-cells-split": [
+      "path:fa1633294c4d",
+      "path:23130bc9b30b",
+      "path:ec3d9996cae7",
+      "rect:d427f2bc2999"
     ],
     "tablet": [
       "rect:99b68d40977b",
@@ -4185,6 +4823,15 @@
       "path:b73051969af7",
       "path:35b602571a01"
     ],
+    "tickets-plane": [
+      "path:e43effc14546",
+      "path:9127e80b6a44",
+      "path:9ba2d5bedd09",
+      "path:fd78df94b13b",
+      "path:4a2b99db7726",
+      "path:876f84f10b50",
+      "rect:56f4c778016d"
+    ],
     "timer": [
       "line:560bcb76b91e",
       "line:7e405c76f2ec",
@@ -4250,6 +4897,11 @@
     "tv": [
       "path:090fac32bac5",
       "rect:7a7abeb39c53"
+    ],
+    "tv-minimal-play": [
+      "path:e3051a6f52d6",
+      "path:5d2333806eeb",
+      "rect:20419a9cd419"
     ],
     "type": [
       "path:f6343ac7e775",
@@ -4449,6 +5101,15 @@
       "path:695fd7e2ae95",
       "path:80e6860ed483"
     ],
+    "webcam-off": [
+      "path:71de7e15294b",
+      "path:04cd377634cf",
+      "path:df29021d1325",
+      "path:38099257e628",
+      "path:378c27879c92",
+      "path:e0466143bf8c",
+      "path:21a0ed06b2b0"
+    ],
     "webhook": [
       "path:eaafaaff0e43",
       "path:ef92365e7130",
@@ -4522,6 +5183,11 @@
     ],
     "wrench": [
       "path:8eacea6c8744"
+    ],
+    "wrench-off": [
+      "path:ae5c83112b9d",
+      "path:a988e0c1891d",
+      "path:378c27879c92"
     ],
     "x": [
       "path:c6016d65b42e",
