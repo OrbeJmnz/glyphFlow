@@ -2604,7 +2604,7 @@ export const bookmarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkShapes
 export const bookmarkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkCheckShapes, {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(BOOKMARK_DROP, 450, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-3px) scale(0.9, 1.3)', offset: 0 }, { transform: 'translateY(0) scale(1.1, 0.9)', offset: 0.5 }, { transform: 'translateY(0) scale(0.95, 1.05)', offset: 0.72 }, { transform: 'translateY(0) scale(1, 1)', offset: 1 }], 600, { easing: 'ease-out', origin: '12px 12px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 350 }),
       },
     },
@@ -2621,7 +2621,7 @@ export const bookmarkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkC
 export const bookmarkMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkMinusShapes, {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(BOOKMARK_DROP, 450, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-3px) scale(0.9, 1.3)', offset: 0 }, { transform: 'translateY(0) scale(1.1, 0.9)', offset: 0.5 }, { transform: 'translateY(0) scale(0.95, 1.05)', offset: 0.72 }, { transform: 'translateY(0) scale(1, 1)', offset: 1 }], 600, { easing: 'ease-out', origin: '12px 12px' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
     },
@@ -2637,6 +2637,7 @@ export const bookmarkMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkM
 /** Sin guardar: el listón se dibuja en fragmentos y la diagonal lo tacha al final. */
 export const bookmarkOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkOffShapes, {
     default: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out', origin: 'center' }),
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 120 }),
@@ -2650,7 +2651,7 @@ export const bookmarkOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkOff
 export const bookmarkPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkPlusShapes, {
     default: {
       shapes: {
-        2: /* @__PURE__ */ track(BOOKMARK_DROP, 450, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(-3px) scale(0.9, 1.3)', offset: 0 }, { transform: 'translateY(0) scale(1.1, 0.9)', offset: 0.5 }, { transform: 'translateY(0) scale(0.95, 1.05)', offset: 0.72 }, { transform: 'translateY(0) scale(1, 1)', offset: 1 }], 600, { easing: 'ease-out', origin: '12px 12px' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
       },
@@ -2669,7 +2670,7 @@ export const bookmarkPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkPl
 export const bookmarkXIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkXShapes, {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(BOOKMARK_DROP, 450, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-3px) scale(0.9, 1.3)', offset: 0 }, { transform: 'translateY(0) scale(1.1, 0.9)', offset: 0.5 }, { transform: 'translateY(0) scale(0.95, 1.05)', offset: 0.72 }, { transform: 'translateY(0) scale(1, 1)', offset: 1 }], 600, { easing: 'ease-out', origin: '12px 12px' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 350 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 430 }),
       },
