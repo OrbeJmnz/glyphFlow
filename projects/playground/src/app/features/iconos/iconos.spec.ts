@@ -2,16 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CURATED_ICONS } from 'glyphflow';
 import { providersI18nTest } from '../../core/i18n-testing';
-import { stubMatchMedia } from '../../core/test-polyfills';
 import { Iconos } from './iconos';
 import iconosEn from '../../../i18n/iconos/en.json';
 import iconosEs from '../../../i18n/iconos/es.json';
 
 describe('Iconos', () => {
   beforeEach(async () => {
-    // El hero trae `app-boton-github` (boneyard-js usa `matchMedia` — ver `test-polyfills.ts`) y
     // su botón «Empezar» es un routerLink.
-    stubMatchMedia();
     await TestBed.configureTestingModule({
       // `Iconos` traduce su título con conteo (`translateSignal`) y su template usa el scope
       // `iconos.*` (hero, showcase, argumentos, barra, grid) — sin ambos truena con

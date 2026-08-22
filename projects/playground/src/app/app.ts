@@ -13,7 +13,6 @@ import {
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { TranslocoPipe, TranslocoService, translateSignal } from '@jsverse/transloco';
-import { configureBoneyard } from 'boneyard-js/angular';
 import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
 import { conectarIdiomaDelDocumento, type Idioma } from './core/i18n';
@@ -125,16 +124,6 @@ export class App {
   }
 
   constructor() {
-    // Mismo var para `color` y `darkColor` a propósito: boneyard trae su PROPIA detección de
-    // claro/oscuro (probablemente `prefers-color-scheme`), que no tiene por qué coincidir con nuestro
-    // tema manual (`data-tema`). Pasarle el mismo custom property a los dos neutraliza esa detección
-    // — el color correcto lo sigue resolviendo el CSS del sitio, no boneyard.
-    configureBoneyard({
-      color: 'var(--gf-panel-alto)',
-      darkColor: 'var(--gf-panel-alto)',
-      animate: 'shimmer',
-    });
-
     // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
     conectarTransiciones();
     conectarTema();

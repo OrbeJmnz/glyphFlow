@@ -6,7 +6,6 @@ import { routes } from './app.routes';
 import { escalaDuracion } from './core/duration-scale';
 import { estrellas } from './core/github';
 import { providersI18nTest } from './core/i18n-testing';
-import { stubMatchMedia } from './core/test-polyfills';
 import { tema } from './core/tema';
 
 describe('App (shell)', () => {
@@ -14,9 +13,7 @@ describe('App (shell)', () => {
     // El shell pide las estrellas al montar. Sin esto cada test de aquí saldría a api.github.com:
     // lento, dependiente de la red y quemando la cuota por IP.
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, json: async () => ({}) }));
-    // `BotonGithub` (el header) trae boneyard-js, que usa `matchMedia` — ver `test-polyfills.ts`.
     // `ResizeObserver` ya está cubierto global en `test-setup.ts`.
-    stubMatchMedia();
     sessionStorage.clear();
     localStorage.clear();
     estrellas.set(null);

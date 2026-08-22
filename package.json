@@ -23,7 +23,6 @@
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",
-    "skeleton:capture": "node scripts/skeleton-capture.mjs",
     "release": "npm run build:lib && node scripts/release.mjs"
   },
   "private": true,
@@ -54,7 +53,6 @@
     "@changesets/cli": "^3.0.0",
     "@eslint/js": "^10.0.1",
     "angular-eslint": "22.1.0",
-    "boneyard-js": "^1.9.0",
     "eslint": "^10.6.0",
     "jsdom": "^28.0.0",
     "lucide-static": "1.31.0",

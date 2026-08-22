@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MaxIconComponent, starIcon, type AnimatedIconDef } from 'glyphflow';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { SkeletonComponent } from 'boneyard-js/angular';
 import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 
 /**
@@ -19,7 +18,7 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
 @Component({
   selector: 'app-boton-github',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MaxIconComponent, TranslocoPipe, SkeletonComponent],
+  imports: [MaxIconComponent, TranslocoPipe],
   template: `
     <a
       class="gh"
@@ -52,17 +51,13 @@ import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
       <span class="texto">{{ 'marca.github.texto' | transloco }}</span>
 
       <!--
-        Único dato async de todo el playground (ver core/github.ts). El resto del sitio es
-        síncrono — por eso boneyard-js solo envuelve ESTO, no un componente entero: no hay más
-        huecos de carga reales que rellenar. "loading" se apaga en cuanto conteo() deja de ser
-        null; el contenido real (el @if de abajo) sigue ahí debajo, boneyard solo lo tapa con el
-        hueso mientras carga — por eso el @if puede seguir vacío sin dejar un salto de layout.
+        Único dato async de todo el playground (ver core/github.ts). Mientras no llega no se pinta
+        NADA en vez de un hueco reservado: el conteo entra al final de una fila que ya está puesta,
+        así que aparecer no recorre nada de lo que hay a su izquierda.
       -->
-      <boneyard-skeleton name="github-conteo" [loading]="conteo() === null">
-        @if (conteo() !== null) {
-          <span class="conteo">{{ conteo() }}</span>
-        }
-      </boneyard-skeleton>
+      @if (conteo() !== null) {
+        <span class="conteo">{{ conteo() }}</span>
+      }
     </a>
   `,
   styles: `

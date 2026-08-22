@@ -2,15 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { estrellas } from '../../core/github';
 import { providersI18nTest } from '../../core/i18n-testing';
-import { stubMatchMedia } from '../../core/test-polyfills';
 import { BotonGithub } from './boton-github';
 
 describe('BotonGithub', () => {
   beforeEach(() => {
     estrellas.set(null);
-    // boneyard-js (el skeleton del `.conteo`) usa `matchMedia` — ver `test-polyfills.ts` para el
     // porqué no puede ser un stub global. `ResizeObserver` sí lo es, en `test-setup.ts`.
-    stubMatchMedia();
     TestBed.configureTestingModule({ imports: [providersI18nTest()] });
   });
 

@@ -98,10 +98,7 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "setupFiles": ["projects/playground/src/test-setup.ts"]
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
