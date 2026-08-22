@@ -107,10 +107,27 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.ICON_META',
   },
+  /*
+   * Ojo con la asimetría de esta tabla mientras la major no esté publicada.
+   *
+   * El sitio resuelve `glyphflow/morph` al código LOCAL, así que ya ve `GfIconMorphComponent`.
+   * Pero resuelve `glyphflow` al paquete PUBLICADO (1.3.0), que todavía dice `MaxIconComponent`.
+   * Por eso aquí conviven los dos vocabularios: no es un descuido, es lo que el sitio consume de
+   * verdad hoy — y el spec compara contra eso, no contra lo que nos gustaría.
+   *
+   * Al publicar y mover el lockfile, los símbolos de `glyphflow` pasan a `Gf*` y esta nota se va.
+   */
+  {
+    nombre: 'GfIconMorphComponent',
+    entrada: 'glyphflow/morph',
+    clase: 'componente',
+    resumen: 'docs.api.simbolos.MaxIconMorphComponent',
+  },
   {
     nombre: 'MaxIconMorphComponent',
     entrada: 'glyphflow/morph',
     clase: 'componente',
+    obsoleto: 'GfIconMorphComponent',
     resumen: 'docs.api.simbolos.MaxIconMorphComponent',
   },
   {

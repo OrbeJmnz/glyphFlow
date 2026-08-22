@@ -29,6 +29,15 @@
         ],
         "createdAt": "2026-08-20T15:52:29.032Z",
         "reason": "degradado-texto en la cifra de 4.09KB es decision intencional preexistente, documentada inline en el propio CSS (unica cifra pintada a proposito para que destaque, decision de sesiones previas a esta, no algo que yo introduje)"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "projects/playground/src/app/features/docs/docs-page.css"
+        ],
+        "createdAt": "2026-08-22T16:54:57.572Z",
+        "reason": "Preexistente, no tocado por este cambio. Es el componente 'Recuadro tipado' que el plan UX del proyecto especifica literalmente: 'Cuatro variantes con etiqueta e icono: Regla (cian), Nota (neutro), Caso limite (rojo), Advertencia (ambar). Barra izquierda de 3px del color de su tipo' (docs/planning/plan-ux-glyphflow.md, seccion Sistema de diseno > Componentes compartidos). Decision de diseno documentada, no un default de plantilla."
       }
     ]
   }

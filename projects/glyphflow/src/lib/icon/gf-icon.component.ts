@@ -19,8 +19,8 @@ import {
   IconShape,
   MotionTrack,
 } from './animated-icon.model';
-import { MAX_ICONS_CONFIG } from './max-icons.config';
-import { MAX_ICON_CATALOG } from './icon-catalog.provider';
+import { GF_ICONS_CONFIG } from './gf-icons.config';
+import { GF_ICON_CATALOG } from './icon-catalog.provider';
 import { conRelevo, easingSeguro } from './motion-runtime';
 
 /**
@@ -41,7 +41,19 @@ import { conRelevo, easingSeguro } from './motion-runtime';
  * <max-icon name="search" label="Buscar" />
  */
 @Component({
-  selector: 'max-icon',
+  /*
+   * Dos selectores durante la deprecacion, y el viejo no es cortesia.
+   *
+   * Un renombrado de selector no se comporta como uno de simbolo. Quitando `max-icon` y corriendo
+   * los tests: con el componente en `imports:` Angular SI avisa (NG8001, 'max-icon' is not a
+   * known element) — comprobado. Pero ese aviso depende del modo: con `CUSTOM_ELEMENTS_SCHEMA`
+   * puesto, o en una plantilla que no declare el import, el mismo `<max-icon>` se degrada a
+   * elemento desconocido y simplemente NO PINTA. Ahi el fallo llega a produccion como iconos
+   * invisibles, sin un error que lo delate.
+   *
+   * `max-icon` sale en la proxima major.
+   */
+  selector: 'gf-icon, max-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -133,7 +145,7 @@ import { conRelevo, easingSeguro } from './motion-runtime';
     '[style.--ai-size.px]': 'size',
   },
 })
-export class MaxIconComponent implements AfterViewInit, OnChanges {
+export class GfIconComponent implements AfterViewInit, OnChanges {
   /** Clave del catálogo (`bell`, `trash-2`, `check`…). Desconocida = no pinta nada, no truena. */
   @Input() name = '';
   /**
@@ -172,8 +184,8 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly el = inject(ElementRef);
-  private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
-  private readonly catalog = inject(MAX_ICON_CATALOG, { optional: true });
+  private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
+  private readonly catalog = inject(GF_ICON_CATALOG, { optional: true });
   /**
    * Tracks de `root`/`shapes`: UNA animación viva por elemento, así que no crece. Antes era un
    * array `running` compartido con el trazo, que nunca se podaba: las animaciones de `autoDraw` se
@@ -365,7 +377,7 @@ export class MaxIconComponent implements AfterViewInit, OnChanges {
     for (const { el, len } of ordenadas) {
       const base = medible ? Math.min(max, Math.max(min, (len / speed) * 1000)) : 500;
       const duration = base * this.durationScale;
-      const anim = el.animate(MaxIconComponent.DRAW_KEYFRAMES, {
+      const anim = el.animate(GfIconComponent.DRAW_KEYFRAMES, {
         duration,
         delay: start + Number(this.delay || 0),
         easing: easingSeguro(easing),

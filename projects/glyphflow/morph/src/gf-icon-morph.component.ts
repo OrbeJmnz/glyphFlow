@@ -12,6 +12,25 @@ import {
 // una ruta relativa hacia el primario haría que ng-packagr duplique ese código en este bundle. Con
 // `MAX_ICONS_CONFIG` eso no sería solo peso: `InjectionToken` es identidad de objeto, así que una
 // copia duplicada es OTRO token, y el `provideMaxIcons` del consumidor no llegaría nunca.
+/*
+ * ⚠️ `MAX_ICONS_CONFIG` y no `GF_ICONS_CONFIG`, a propósito y temporalmente.
+ *
+ * Este import dice `from 'glyphflow'` (regla de los entry points secundarios: nunca por ruta
+ * relativa). Pero ese nombre no resuelve al mismo sitio en los dos builds del repo:
+ *
+ * - Al construir la librería resuelve a `dist/glyphflow`, recién generado, que ya trae los dos
+ *   nombres.
+ * - Al construir el PLAYGROUND resuelve al paquete PUBLICADO —`glyphflow-published`, hoy 1.3.0—
+ *   porque el sitio consume del registro, no de `dist/`. Y 1.3.0 no conoce `GF_ICONS_CONFIG`:
+ *   se publicó antes de que existiera.
+ *
+ * Con el nombre nuevo aquí, `ng build playground` truena con TS2724. Comprobado, no supuesto.
+ *
+ * Así que este import se queda en el alias hasta que la major esté PUBLICADA y el lockfile del
+ * playground apunte a ella. Entonces —y solo entonces— pasa a `GF_ICONS_CONFIG`. Es el mismo
+ * token de todos modos, así que no hay diferencia de comportamiento: solo de qué versión del
+ * paquete sabe pronunciar el nombre.
+ */
 import { IconShape, MAX_ICONS_CONFIG } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
@@ -55,11 +74,13 @@ function aIconInput(icono: MorphIcon): IconInput {
  * Este componente es el envoltorio: no reimplementa nada de eso.
  *
  * Pinta UN solo `<path>`, no las N figuras del icono, porque WAAPI únicamente interpola entre `d`
- * con la misma estructura de comandos. Por eso no es un input de `<max-icon>` sino su propio
+ * con la misma estructura de comandos. Por eso no es un input de `<gf-icon>` sino su propio
  * componente, y por eso vive en `glyphflow/morph`: quien no morphea no paga el core matemático.
  */
 @Component({
-  selector: 'max-icon-morph',
+  /* Los dos selectores durante la deprecacion — misma razon que en `gf-icon`: una plantilla no
+     truena al perder su componente, solo deja de pintar. `max-icon-morph` sale en la major. */
+  selector: 'gf-icon-morph, max-icon-morph',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -84,7 +105,7 @@ function aIconInput(icono: MorphIcon): IconInput {
     </svg>
   `,
   styles: [
-    // Mismo contrato de tamaño que <max-icon>: por contención, no por override (ver ahí el porqué
+    // Mismo contrato de tamaño que <gf-icon>: por contención, no por override (ver ahí el porqué
     // con utilidades en capas).
     ':host { display: inline-flex; align-items: center; justify-content: center; flex: none; line-height: 0; }',
     'svg { width: var(--ai-size); height: var(--ai-size); max-width: 100%; max-height: 100%; }',
@@ -93,7 +114,7 @@ function aIconInput(icono: MorphIcon): IconInput {
     '[style.--ai-size.px]': 'size',
   },
 })
-export class MaxIconMorphComponent implements OnChanges {
+export class GfIconMorphComponent implements OnChanges {
   @ViewChild('figura', { static: true }) private figura!: ElementRef<SVGPathElement>;
 
   /**
@@ -104,7 +125,7 @@ export class MaxIconMorphComponent implements OnChanges {
   @Input() size: number | string = 24;
   @Input() strokeWidth: number | string = 2;
   /**
-   * Mismo contrato de accesibilidad que `<max-icon>`, una sola regla: `decorative=true` sin `label`
+   * Mismo contrato de accesibilidad que `<gf-icon>`, una sola regla: `decorative=true` sin `label`
    * → `aria-hidden="true"`. Con `label` → icono semántico.
    */
   @Input() decorative = true;
@@ -112,7 +133,7 @@ export class MaxIconMorphComponent implements OnChanges {
   /**
    * Con `prefers-reduced-motion`, salta directo al icono nuevo sin animar la transición.
    *
-   * **Decisión deliberada, NO herencia de `<max-icon>`**: allá "respetar" significa quedarse
+   * **Decisión deliberada, NO herencia de `<gf-icon>`**: allá "respetar" significa quedarse
    * quieto, porque la coreografía es un adorno sobre un icono que ya es el correcto. Aquí quedarse
    * quieto dejaría al usuario mirando el icono EQUIVOCADO — el destino es información, no adorno.
    * Se respeta el movimiento reducido quitando el movimiento, no el cambio de estado.
@@ -128,7 +149,7 @@ export class MaxIconMorphComponent implements OnChanges {
    */
   @Input() spring?: SpringPreset | SpringConfig;
 
-  /** El mismo `provideMaxIcons({ durationScale })` que escala las coreografías de `<max-icon>`. */
+  /** El mismo `provideMaxIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
 
   private anterior?: MorphIcon;

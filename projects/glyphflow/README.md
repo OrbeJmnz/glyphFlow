@@ -40,11 +40,11 @@ all 1767, because it cannot know which one you will ask for — so that route is
 `provideIconCatalog(ANIMATED_ICONS)`, never a hidden fallback.
 
 ```ts
-import { MaxIconComponent, bellIcon } from 'glyphflow';
+import { GfIconComponent, bellIcon } from 'glyphflow';
 ```
 
 ```html
-<max-icon [iconDef]="bellIcon" trigger="hover" /> <max-icon [iconDef]="searchIcon" label="Search" />
+<gf-icon [iconDef]="bellIcon" trigger="hover" /> <gf-icon [iconDef]="searchIcon" label="Search" />
 ```
 
 ## Triggers
@@ -61,7 +61,7 @@ import { MaxIconComponent, bellIcon } from 'glyphflow';
 `manual` pairs with three public methods — grab the instance with `ViewChild`/`viewChild()`:
 
 ```ts
-@ViewChild(MaxIconComponent) icon!: MaxIconComponent;
+@ViewChild(GfIconComponent) icon!: GfIconComponent;
 
 this.icon.play('hover'); // plays a variant — no argument replays `animation`
 this.icon.reverse(); // reverses the animation currently running
@@ -86,15 +86,15 @@ You never coordinate `aria-hidden` with `aria-label`. You either pass a `label` 
 
 ```html
 <!-- Decorative: the button already says "Save" -->
-<button><max-icon [iconDef]="saveIcon" /> Save</button>
+<button><gf-icon [iconDef]="saveIcon" /> Save</button>
 
 <!-- Semantic: no text, so the icon carries the meaning -->
-<button><max-icon [iconDef]="saveIcon" label="Save" /></button>
+<button><gf-icon [iconDef]="saveIcon" label="Save" /></button>
 ```
 
 Both components honour `prefers-reduced-motion` by default — but honouring it means something
-different in each, and that is deliberate. In `<max-icon>` the choreography is decoration on an icon
-that is already correct, so it holds still. In `<max-icon-morph>` holding still would leave you
+different in each, and that is deliberate. In `<gf-icon>` the choreography is decoration on an icon
+that is already correct, so it holds still. In `<gf-icon-morph>` holding still would leave you
 staring at the **wrong** icon, so it jumps straight to the destination. Reduced motion removes the
 motion, not the state change.
 
@@ -104,7 +104,7 @@ Lives in a separate entry point, `glyphflow/morph`, so anyone who only wants ani
 pay for shape-interpolation math.
 
 ```ts
-import { MaxIconMorphComponent } from 'glyphflow/morph';
+import { GfIconMorphComponent } from 'glyphflow/morph';
 // The binding IS the state: changing [icon] transitions from the previous value.
 ```
 
@@ -113,14 +113,14 @@ WAAPI land there too: you see the icon, it just doesn't animate.
 
 ```ts
 import { Component } from '@angular/core';
-import { MaxIconMorphComponent } from 'glyphflow/morph';
+import { GfIconMorphComponent } from 'glyphflow/morph';
 import { moonIcon, sunIcon } from 'glyphflow';
 
 @Component({
-  imports: [MaxIconMorphComponent],
+  imports: [GfIconMorphComponent],
   template: `
     <button (click)="dark = !dark">
-      <max-icon-morph [icon]="dark ? moonIcon : sunIcon" />
+      <gf-icon-morph [icon]="dark ? moonIcon : sunIcon" />
     </button>
   `,
 })
@@ -134,9 +134,9 @@ export class ThemeToggle {
 One multiplier for every calculated duration — choreography and morph transitions alike:
 
 ```ts
-import { provideMaxIcons } from 'glyphflow';
+import { provideGfIcons } from 'glyphflow';
 
-providers: [provideMaxIcons({ durationScale: 0.8 })]; // 20% faster, everywhere
+providers: [provideGfIcons({ durationScale: 0.8 })]; // 20% faster, everywhere
 ```
 
 `1` is the default — no change. It applies from the next playback: anything already animating keeps
@@ -150,7 +150,7 @@ version's CLI, installing the real `.tgz`, and building it with SSR prerendering
 
 ## Workspace
 
-- `projects/glyphflow` — the library (`ng-packagr`, `max` prefix → `<max-icon>`).
+- `projects/glyphflow` — the library (`ng-packagr`, `gf` prefix → `<gf-icon>`).
 - `projects/playground` — the live site: icon catalog, patterns, geometry editor and authoring lab.
   It consumes the **published** package from npm, never the source in this repo, so that anything
   the public API fails to cover shows up immediately.

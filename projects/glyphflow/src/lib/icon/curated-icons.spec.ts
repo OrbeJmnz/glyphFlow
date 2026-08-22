@@ -8,7 +8,7 @@ import iconNodes from 'lucide-static/icon-nodes.json';
  * BARRIDO DE SANIDAD DE LOS CURADOS — que cada track siga apuntando a la figura que su
  * coreografía asume.
  *
- * Que el índice EXISTA ya se prueba en max-icon.component.spec.ts. Aquí se cubre el fallo que ese
+ * Que el índice EXISTA ya se prueba en gf-icon.component.spec.ts. Aquí se cubre el fallo que ese
  * chequeo no ve y que ya costó caro (`calendar-clock`): la coreografía movía las figuras 0 y 1
  * dando por hecho que eran los pines del calendario, pero en ESE icono los pines son 1 y 4 — el 0
  * son las manecillas del reloj. Índices válidos, figuras existentes, tests en verde, y las
@@ -44,7 +44,7 @@ describe('Barrido de sanidad — los 180 curados', () => {
    * un archivo histórico. Si el lock se borrara mañana, este chequeo sigue teniendo la misma
    * fuerza — y si algo aquí truena, lo de abajo ni vale la pena leerlo.
    *
-   * `max-icon.component.spec.ts` prueba lo mismo sobre los 1767 (índice definido); esta versión es
+   * `gf-icon.component.spec.ts` prueba lo mismo sobre los 1767 (índice definido); esta versión es
    * de los curados y además exige que el índice sea un entero en rango, que ningún bloque
    * `shapes` quede vacío y que ninguna variante se quede sin UN SOLO índice válido — el caso en
    * que la coreografía existe pero no mueve ninguna figura de este icono.
@@ -232,7 +232,7 @@ describe('Barrido de sanidad — los 180 curados', () => {
     for (const [name, def] of CURADOS) {
       const porDefecto = def.animations['default'];
       const draw = def.animations['draw'];
-      if (!porDefecto || !draw) continue; // la ausencia ya truena en max-icon.component.spec.ts
+      if (!porDefecto || !draw) continue; // la ausencia ya truena en gf-icon.component.spec.ts
       if (JSON.stringify(porDefecto) === JSON.stringify(draw)) {
         problemas.push(
           `${name}: su default es idéntico a la variante draw — o le escribes coreografía o se va a generated-icons.ts`,

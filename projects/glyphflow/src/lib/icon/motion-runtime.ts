@@ -47,7 +47,7 @@ export function easingSeguro(easing: string | undefined): string | undefined {
 
 /**
  * Reescribe una lista de keyframes para que arranque en el estado ACTUAL de la figura en vez de en
- * su pose base — la mitad del relevo (ver `MaxIconComponent.run`).
+ * su pose base — la mitad del relevo (ver `GfIconComponent.run`).
  *
  * Cómo: se tira el keyframe 0 y los demás CONSERVAN su offset original (`(i+1)/n`). Al no haber
  * keyframe en el offset 0, WAAPI construye uno implícito con el valor subyacente del elemento, que

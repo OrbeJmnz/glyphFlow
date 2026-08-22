@@ -546,7 +546,7 @@ export interface RunMorphOpts extends MorphKeyframesOpts {
   iterations?: number;
   direction?: PlaybackDirection;
   /**
-   * Multiplicador de la duración final (el `durationScale` global de `provideMaxIcons`). Se aplica
+   * Multiplicador de la duración final (el `durationScale` global de `provideGfIcons`). Se aplica
    * al reloj y NADA más: los offsets son fracciones normalizadas de la duración, así que la forma
    * del resorte se conserva intacta — solo se estira o encoge el tiempo.
    */
