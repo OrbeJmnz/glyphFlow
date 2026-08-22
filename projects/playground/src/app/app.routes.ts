@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { provideTranslocoScope } from '@jsverse/transloco';
 
 /**
  * Todo va por `loadComponent`. Lo que eso compra, medido en `ng build playground`: quien entra a
@@ -13,11 +12,15 @@ import { provideTranslocoScope } from '@jsverse/transloco';
  * Sacarlo pide `await import('glyphflow')` en ambos consumidores — un slice aparte, no un efecto
  * colateral de partir las páginas.
  *
- * Las traducciones siguen la MISMA frontera lazy: cada `provideTranslocoScope` trae su propio
- * `en.json`/`es.json` por `import()` dinámico, así que el chunk de `/docs` no arrastra las
- * traducciones del editor ni viceversa. `route.title` ya no es texto — es una CLAVE que resuelve
- * `TranslatedTitleStrategy` (ver `core/translated-title-strategy.ts`) contra el scope `root`
- * (`i18n/{en,es}.json`), que ya está cargado desde el arranque.
+ * Las traducciones siguen la MISMA frontera lazy, pero su scope NO se declara aquí: va en el
+ * `providers` de cada componente diferido. Este archivo es eager, así que un loader puesto aquí se
+ * resuelve en un `import()` aparte que se encadena DESPUÉS de bajar el chunk de la página — dos
+ * esperas en fila, y mientras tanto el texto se pinta vacío. Medido en 3G lento, los textos del
+ * hero tardaban ~9.5s. Declarado en el componente, el idioma por defecto viaja DENTRO de su chunk.
+ *
+ * `route.title` ya no es texto — es una CLAVE que resuelve `TranslatedTitleStrategy` (ver
+ * `core/translated-title-strategy.ts`) contra el scope raíz (`i18n/{en,es}.json`), que va en el
+ * bundle inicial para que el shell nunca se pinte sin texto (ver `core/i18n-loader.ts`).
  */
 export const routes: Routes = [
   {
@@ -27,58 +30,25 @@ export const routes: Routes = [
     // cargado. Derivarlo AQUI costaba 460KB — el router es eager y `import('glyphflow')` subia el
     // registro entero (1767 iconos) al chunk inicial. Medido: 354KB -> 813KB.
     title: 'routes.iconos.title',
+    // El scope `iconos` NO se declara aquí sino en el propio componente: este archivo es eager, y
+    // su loader vive en un `import()` aparte que se encadena DESPUÉS del chunk de la página. Puesto
+    // en el componente, el JSON viaja DENTRO de su chunk y llega con él. Ver `iconos.ts`.
     loadComponent: () => import('./features/iconos/iconos').then((m) => m.Iconos),
-    providers: [
-      provideTranslocoScope({
-        scope: 'iconos',
-        loader: {
-          en: () => import('../i18n/iconos/en.json').then((m) => m.default),
-          es: () => import('../i18n/iconos/es.json').then((m) => m.default),
-        },
-      }),
-    ],
   },
   {
     path: 'patrones',
     title: 'routes.patrones.title',
     loadComponent: () => import('./features/patrones/patrones').then((m) => m.Patrones),
-    providers: [
-      provideTranslocoScope({
-        scope: 'patrones',
-        loader: {
-          en: () => import('../i18n/patrones/en.json').then((m) => m.default),
-          es: () => import('../i18n/patrones/es.json').then((m) => m.default),
-        },
-      }),
-    ],
   },
   {
     path: 'editor',
     title: 'routes.editor.title',
     loadComponent: () => import('./features/editor/editor').then((m) => m.Editor),
-    providers: [
-      provideTranslocoScope({
-        scope: 'editor',
-        loader: {
-          en: () => import('../i18n/editor/en.json').then((m) => m.default),
-          es: () => import('../i18n/editor/es.json').then((m) => m.default),
-        },
-      }),
-    ],
   },
   {
     path: 'lab',
     title: 'routes.lab.title',
     loadComponent: () => import('./features/lab/lab').then((m) => m.Lab),
-    providers: [
-      provideTranslocoScope({
-        scope: 'lab',
-        loader: {
-          en: () => import('../i18n/lab/en.json').then((m) => m.default),
-          es: () => import('../i18n/lab/es.json').then((m) => m.default),
-        },
-      }),
-    ],
   },
   {
     path: 'docs',
@@ -86,15 +56,6 @@ export const routes: Routes = [
     // Una sola scope para las 4 hijas: comparten el mismo tema (documentación), y las cuatro se
     // navegan entre sí sin recargar — separar en 4 scopes solo multiplicaría el round-trip de
     // `import()` sin que ninguna quede más aislada de las otras.
-    providers: [
-      provideTranslocoScope({
-        scope: 'docs',
-        loader: {
-          en: () => import('../i18n/docs/en.json').then((m) => m.default),
-          es: () => import('../i18n/docs/es.json').then((m) => m.default),
-        },
-      }),
-    ],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'empezando' },
       {

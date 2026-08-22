@@ -1,11 +1,25 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import docsEn from '../../../i18n/docs/en.json';
 
 /** Marco de las docs: índice lateral fijo + la página. */
 @Component({
   selector: 'app-docs',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslocoPipe],
+  // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
+  // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
+  // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
+  // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
+  providers: [
+    provideTranslocoScope({
+      scope: 'docs',
+      loader: {
+        en: () => Promise.resolve(docsEn),
+        es: () => import('../../../i18n/docs/es.json').then((m) => m.default),
+      },
+    }),
+  ],
   templateUrl: './docs.html',
   styleUrl: './docs.css',
 })

@@ -8,7 +8,8 @@ import {
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import editorEn from '../../../i18n/editor/en.json';
 import { CURATED_ICONS, MaxIconComponent, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
@@ -64,6 +65,19 @@ interface NodoVista extends Nodo {
 @Component({
   selector: 'app-editor',
   imports: [Boton, CampoBusqueda, Chip, MaxIconComponent, Tooltip, TranslocoPipe],
+  // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
+  // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
+  // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
+  // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
+  providers: [
+    provideTranslocoScope({
+      scope: 'editor',
+      loader: {
+        en: () => Promise.resolve(editorEn),
+        es: () => import('../../../i18n/editor/es.json').then((m) => m.default),
+      },
+    }),
+  ],
   templateUrl: './editor.html',
   styleUrl: './editor.css',
   // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de
@@ -104,7 +118,10 @@ export class Editor implements OnDestroy {
     // El elegido puede caer fuera del corte (alfabéticamente lejos, catálogo grande): sin esto el
     // chip activo desaparece de la lista y la UI queda sin selección visible.
     const elegido = this.elegido();
-    if (!visibles.some((c) => c.nombre === elegido.nombre) && filtrados.some((c) => c.nombre === elegido.nombre)) {
+    if (
+      !visibles.some((c) => c.nombre === elegido.nombre) &&
+      filtrados.some((c) => c.nombre === elegido.nombre)
+    ) {
       return [elegido, ...visibles.slice(0, 59)];
     }
     return visibles;

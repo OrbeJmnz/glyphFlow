@@ -12,7 +12,8 @@ import {
   type AnimatedIconDef,
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
-import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { iconoPlano } from '../../core/morph-icon-plano';
 
@@ -29,6 +30,19 @@ import { iconoPlano } from '../../core/morph-icon-plano';
 @Component({
   selector: 'app-patrones',
   imports: [MaxIconComponent, MaxIconMorphComponent, Boton, TranslocoPipe],
+  // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
+  // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
+  // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
+  // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
+  providers: [
+    provideTranslocoScope({
+      scope: 'patrones',
+      loader: {
+        en: () => Promise.resolve(patronesEn),
+        es: () => import('../../../i18n/patrones/es.json').then((m) => m.default),
+      },
+    }),
+  ],
   templateUrl: './patrones.html',
   styleUrl: './patrones.css',
 })

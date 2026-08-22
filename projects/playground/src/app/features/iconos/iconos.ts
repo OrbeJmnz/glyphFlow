@@ -9,7 +9,8 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import iconosEn from '../../../i18n/iconos/en.json';
 import {
   MaxIconComponent,
   CURATED_ICONS,
@@ -74,6 +75,19 @@ interface CuratedEntry {
     NombreTransicion,
     Tooltip,
     TranslocoPipe,
+  ],
+  // El scope vive aquí y no en la ruta a propósito: `app.routes.ts` es eager, así que su loader
+  // se resuelve en un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas
+  // en fila. Medido en 3G lento, los textos del hero tardaban ~9.5s en aparecer y mientras tanto
+  // se veían cajas vacías. Declarado aquí, el inglés viaja DENTRO de este chunk y llega con él.
+  providers: [
+    provideTranslocoScope({
+      scope: 'iconos',
+      loader: {
+        en: () => Promise.resolve(iconosEn),
+        es: () => import('../../../i18n/iconos/es.json').then((m) => m.default),
+      },
+    }),
   ],
   templateUrl: './iconos.html',
   styleUrl: './iconos.css',
