@@ -25,7 +25,7 @@ const lucideVersion = require('lucide-static/package.json').version;
 
 // Import dinámico de los .ts vía tsx (este script se corre con `npx tsx`).
 const { CURATED_ICONS } = await import('../projects/glyphflow/src/lib/icon/curated-icons.ts');
-const { shapesFingerprint, variantesPorFigura } = await import(
+const { shapesFingerprint, variantesPorFigura, choreographyFingerprint } = await import(
   '../projects/glyphflow/src/lib/icon/curated-audit.ts'
 );
 
@@ -34,12 +34,18 @@ const dryRun = process.argv.includes('--dry-run') || check;
 const OUT = new URL('../projects/glyphflow/src/lib/icon/curated-choreography.lock.json', import.meta.url);
 
 const icons = {};
+const choreography = {};
 for (const name of Object.keys(CURATED_ICONS).sort()) {
   icons[name] = shapesFingerprint(CURATED_ICONS[name].shapes);
+  choreography[name] = choreographyFingerprint(CURATED_ICONS[name]);
 }
 
 // ── Diff contra el lock que ya está en disco ──────────────────────────────────────────────────
-const previo = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')).icons : null;
+const enDisco = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : null;
+const previo = enDisco ? enDisco.icons : null;
+// `?? null` y no `?? {}`: un lock viejo sin el bloque de coreografía es "todavía no anclada", que se
+// reporta como alta de cero. Un `{}` lo leería como "todos los iconos perdieron su coreografía".
+const previoChor = enDisco ? (enDisco.choreography ?? null) : null;
 const lineas = [];
 
 if (!previo) {
@@ -81,16 +87,64 @@ if (!previo) {
   }
 }
 
+// ── Diff de la COREOGRAFÍA ────────────────────────────────────────────────────────────────────
+// Va aparte del de geometría a propósito: son dos preguntas distintas. Aquélla es "cambió el
+// dibujo"; ésta es "cambió el movimiento". Un refactor que solo mueve código de archivo debe dejar
+// las dos quietas — si ésta se mueve, algo se reasignó o se perdió en el camino.
+const lineasChor = [];
+if (!previoChor) {
+  lineasChor.push(
+    `  (el lock previo no anclaba coreografía — se anclan ${Object.keys(choreography).length} iconos de cero)`,
+  );
+} else {
+  for (const name of Object.keys(choreography)) {
+    if (!previoChor[name]) lineasChor.push(`+ ${name} — curado nuevo, sin coreografía previa`);
+  }
+  for (const name of Object.keys(previoChor)) {
+    if (!choreography[name]) lineasChor.push(`- ${name} — ya no es curado`);
+  }
+  for (const [name, actual] of Object.entries(choreography)) {
+    const antes = previoChor[name];
+    if (!antes) continue;
+    const cambios = [];
+    for (const variante of Object.keys(actual)) {
+      if (!antes[variante]) cambios.push(`    + variante '${variante}' nueva`);
+      else if (antes[variante] !== actual[variante])
+        cambios.push(`    ~ variante '${variante}': ${antes[variante]} → ${actual[variante]}`);
+    }
+    for (const variante of Object.keys(antes)) {
+      if (!actual[variante]) cambios.push(`    - variante '${variante}' DESAPARECIÓ`);
+    }
+    if (cambios.length) lineasChor.push(`~ ${name}`, ...cambios);
+  }
+}
+
 console.log(`\n=== curated:lock — qué cambia respecto al lock en disco ===`);
+console.log('\n-- GEOMETRÍA (el dibujo) --');
 console.log(lineas.length ? lineas.join('\n') : '  sin cambios: el lock ya refleja la geometría actual');
 console.log(
   '\nUn `⚠ LA ANIMA` significa que hay una coreografía apoyada en esa figura: confirma que su\n' +
-    'track sigue apuntando a lo que asume ANTES de aprobar este cambio.\n',
+    'track sigue apuntando a lo que asume ANTES de aprobar este cambio.',
+);
+console.log('\n-- COREOGRAFÍA (el movimiento) --');
+console.log(
+  lineasChor.length ? lineasChor.join('\n') : '  sin cambios: el lock ya refleja la coreografía actual',
+);
+console.log(
+  '\nSi esperabas mover SOLO código de sitio (partir el archivo, mover figuras a otro módulo) y\n' +
+    'aquí aparece algo, el refactor no fue neutro: una coreografía se reasignó o se perdió.\n',
 );
 
 if (check) {
   if (!previo) {
     console.error('curated:lock --check: no hay lock en disco. Corre `npm run curated:lock`.');
+    process.exit(1);
+  }
+  if (!previoChor) {
+    console.error(
+      'curated:lock --check: el lock en disco no ancla la coreografía todavía. Corre\n' +
+        '`npm run curated:lock` y commitea el lock actualizado.',
+    );
     process.exit(1);
   }
   if (lineas.length) {
@@ -99,6 +153,15 @@ if (check) {
         'El diff de arriba es la lista completa de lo que cambió. Revisa cada `⚠ LA ANIMA` — su\n' +
         'coreografía puede haber quedado apuntando a otra figura — y recién entonces corre\n' +
         '`npm run curated:lock` y commitea el lock en el mismo PR.',
+    );
+    process.exit(1);
+  }
+  if (lineasChor.length) {
+    console.error(
+      'curated:lock --check: el lock commiteado NO refleja la coreografía de curated-icons.ts.\n' +
+        'Si el cambio fue A PROPÓSITO (retocaste un timing, agregaste una variante), corre\n' +
+        '`npm run curated:lock` y commitea el lock en el mismo PR. Si esperabas que el cambio\n' +
+        'fuera solo estructural, esto es la alarma: algo se reasignó o se perdió.',
     );
     process.exit(1);
   }
@@ -112,9 +175,10 @@ if (dryRun) {
 }
 
 const lock = {
-  note: 'GENERADO por `npm run curated:lock`. Huella de la geometría contra la que se escribió cada coreografía curada. Si el barrido truena, revisa los índices ANTES de regenerar.',
+  note: 'GENERADO por `npm run curated:lock`. `icons` huella la GEOMETRÍA contra la que se escribió cada coreografía; `choreography` huella el MOVIMIENTO mismo, una entrada por variante. Si el barrido truena, revisa los índices ANTES de regenerar.',
   lucide: lucideVersion,
   icons,
+  choreography,
 };
 
 writeFileSync(OUT, JSON.stringify(lock, null, 2) + '\n');

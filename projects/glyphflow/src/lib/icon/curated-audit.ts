@@ -44,6 +44,50 @@ export function shapesFingerprint(shapes: IconShape[]): string[] {
 }
 
 /**
+ * Forma canónica de cualquier valor: claves ordenadas en profundidad y números normalizados.
+ *
+ * El orden de las claves NO se conserva a propósito. Ni el orden de las variantes ni el de los
+ * índices dentro de `shapes` cambian lo que se ve — el motor las lee por nombre, no por posición —
+ * así que reordenarlas no debe mover la huella. Lo que sí la mueve es el VALOR: otro keyframe, otra
+ * duración, otro `origin`, u otro índice de figura.
+ */
+function canonical(v: unknown): string {
+  if (v === null || v === undefined) return String(v);
+  if (Array.isArray(v)) return `[${v.map(canonical).join(',')}]`;
+  if (typeof v === 'object') {
+    return `{${Object.entries(v as Record<string, unknown>)
+      .filter(([, val]) => val !== undefined)
+      .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+      .map(([k, val]) => `${k}:${canonical(val)}`)
+      .join(',')}}`;
+  }
+  return normalizeValue(v);
+}
+
+/**
+ * Huella del MOVIMIENTO, una por variante — la contraparte de `shapesFingerprint`, que solo huella
+ * el dibujo.
+ *
+ * Existe porque el lock de geometría deja un hueco: mover una coreografía al icono equivocado,
+ * perder una variante en un corte, o duplicar un helper compartido y editar solo una copia pasa
+ * verde por typecheck, lint, el barrido, `curated:lock:check`, `bundle-check` y `pack-check`. Con
+ * 911 curados y miles de tracks eso no se revisa a ojo. Anclar la coreografía convierte cualquier
+ * refactor masivo del catálogo (partir el archivo, mover figuras a otro módulo) en una operación
+ * verificable: si la huella no se movió, el movimiento no se movió.
+ *
+ * Va por variante y no un hash por icono para que el diff diga QUÉ variante cambió, no solo cuál
+ * icono — mismo criterio que la huella de geometría, que va figura por figura.
+ */
+export function choreographyFingerprint(def: AnimatedIconDef): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const variante of Object.keys(def.animations).sort()) {
+    const payload = canonical(def.animations[variante]);
+    out[variante] = (fnv1a(payload, 0x811c9dc5) + fnv1a(payload, 0x9e3779b9)).slice(0, 12);
+  }
+  return out;
+}
+
+/**
  * Índice de figura → variantes que la animan. Vacío = esa figura no la mueve nadie.
  *
  * Es lo que convierte "esta figura cambió" en "esta figura cambió Y hay una coreografía apoyada
