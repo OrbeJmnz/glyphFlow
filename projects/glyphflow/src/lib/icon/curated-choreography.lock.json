@@ -2344,11 +2344,48 @@
       "path:c9829e4ebefc",
       "path:80ba57ae239e"
     ],
+    "git-branch": [
+      "path:cc3fdb9a038f",
+      "circle:9bcf8b13a544",
+      "circle:2cef230d7e6c"
+    ],
     "git-branch-minus": [
       "path:cc3fdb9a038f",
       "path:2ea17d7848b4",
       "circle:9bcf8b13a544",
       "circle:2cef230d7e6c"
+    ],
+    "git-branch-plus": [
+      "path:163eb6d9a0f2",
+      "path:01f9006a1ff7",
+      "path:b2f66b31ce3a",
+      "path:71ffe58976a0",
+      "path:c699c0ba3bb7",
+      "path:2ea17d7848b4"
+    ],
+    "git-commit-horizontal": [
+      "circle:9e7fca1c7280",
+      "line:bc13c6446e0f",
+      "line:323fa3b39805"
+    ],
+    "git-commit-vertical": [
+      "path:b1f7593f02b7",
+      "circle:9e7fca1c7280",
+      "path:82c758f44cfd"
+    ],
+    "git-compare": [
+      "circle:19df0cd8a262",
+      "circle:5a150a8c86b8",
+      "path:cff4c46b58b5",
+      "path:f469874b21c4"
+    ],
+    "git-compare-arrows": [
+      "circle:3e6ca237c03d",
+      "path:56392606ed27",
+      "path:b1132b3544c1",
+      "circle:4e93cdff6a30",
+      "path:8fe0caa9b243",
+      "path:d595ef6b04cf"
     ],
     "git-fork": [
       "circle:5d9311e2c27e",
@@ -2357,12 +2394,53 @@
       "path:8824715c099c",
       "path:ea0238c6e579"
     ],
+    "git-graph": [
+      "circle:3e6ca237c03d",
+      "path:fe9cf16332d1",
+      "circle:9d8fc39c479a",
+      "path:2d5a671aff35",
+      "circle:c170ff06e13e",
+      "path:cd3e6be74e4f"
+    ],
+    "git-merge": [
+      "circle:19df0cd8a262",
+      "circle:5a150a8c86b8",
+      "path:f3ba2de2eff6"
+    ],
+    "git-merge-conflict": [
+      "path:399a8381d833",
+      "path:27150f4ddd78",
+      "path:82c9e3f70bd4",
+      "path:979099278a4a",
+      "circle:19df0cd8a262"
+    ],
+    "git-pull-request": [
+      "circle:19df0cd8a262",
+      "circle:5a150a8c86b8",
+      "path:cff4c46b58b5",
+      "line:90be80e8413b"
+    ],
     "git-pull-request-arrow": [
       "circle:3e6ca237c03d",
       "path:201cab50934e",
       "circle:4e93cdff6a30",
       "path:b1132b3544c1",
       "path:56392606ed27"
+    ],
+    "git-pull-request-closed": [
+      "circle:5a150a8c86b8",
+      "path:827c1a430df0",
+      "path:03c36a48c703",
+      "path:63ae103bbd5e",
+      "path:69fa19b5576d",
+      "circle:19df0cd8a262"
+    ],
+    "git-pull-request-create": [
+      "circle:5a150a8c86b8",
+      "path:827c1a430df0",
+      "path:d3f4cab754b5",
+      "path:c699c0ba3bb7",
+      "path:2ea17d7848b4"
     ],
     "git-pull-request-create-arrow": [
       "circle:3e6ca237c03d",
