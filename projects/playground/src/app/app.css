@@ -341,11 +341,17 @@
     transform: scale(0.94);
   }
 
+  /*
+   * Centrada de verdad, no «lo que sobre»: los dos flancos miden 36×36 (`.menu-disparador` y
+   * `.tema`), así que repartir el hueco a ambos lados deja el logotipo en el eje del header.
+   * Con `margin-left: auto` en el tema quedaba pegada a la hamburguesa.
+   */
   .marca {
     order: 2;
+    margin-inline: auto;
   }
 
-  /* El nav de arriba, la velocidad y el GitHub del header se mudan al panel — quedan fuera del
+  /* El nav de arriba, la velocidad, el GitHub y el idioma se mudan al panel — quedan fuera del
      árbol de accesibilidad en vez de vivos-pero-invisibles duplicando el tab order. */
   .nav {
     display: none;
@@ -355,14 +361,19 @@
     display: contents;
   }
 
+  /*
+   * El idioma se esconde aquí porque YA existe en la cabecera del panel (`.idioma-movil`). Vivo en
+   * los dos sitios era el mismo botón dos veces, y encima rompía la fila que este bloque dice
+   * construir: quedaba «EN · ☰ · logo», con la hamburguesa fuera del borde y el logo descentrado.
+   */
   .controles .velocidad,
+  .controles .idioma,
   .controles app-boton-github {
     display: none;
   }
 
   .tema {
     order: 3;
-    margin-left: auto;
   }
 
   /* Sin separadores: con un solo control visible en `.controles`, la raya no tendría qué
