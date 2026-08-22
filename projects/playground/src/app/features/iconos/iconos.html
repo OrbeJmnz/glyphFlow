@@ -45,7 +45,7 @@
   <ul class="demo">
     @for (d of demo; track d.name) {
       <li>
-        <max-icon [iconDef]="d.def" [size]="48" trigger="group" />
+        <gf-icon [iconDef]="d.def" [size]="48" trigger="group" />
         <span>{{ d.name }}</span>
       </li>
     }
@@ -109,7 +109,7 @@
           <span class="flecha">→</span>
         }
         <span class="forma" [attr.data-paso]="hueco">
-          <max-icon-morph [icon]="formaEn(hueco)" [size]="52" spring="snappy" />
+          <gf-icon-morph [icon]="formaEn(hueco)" [size]="52" spring="snappy" />
         </span>
       }
     </div>
@@ -138,7 +138,7 @@
 <ul class="argumentos">
   @for (a of argumentos; track a.titulo) {
     <li>
-      <max-icon [iconDef]="a.icono" [size]="22" trigger="view" />
+      <gf-icon [iconDef]="a.icono" [size]="22" trigger="view" />
       <div>
         <h3>{{ a.titulo | transloco }}</h3>
         <p>{{ a.texto | transloco }}</p>
@@ -212,7 +212,7 @@
       >
 
       <app-tooltip [texto]="entry.name">
-        <max-icon [iconDef]="entry.def" [size]="36" trigger="group" />
+        <gf-icon [iconDef]="entry.def" [size]="36" trigger="group" />
       </app-tooltip>
     </article>
   }

@@ -15,7 +15,7 @@ import type {
   IconChoreography,
   IconMeta,
   IconShape,
-  MaxIconsConfig,
+  GfIconsConfig,
   MotionTrack,
 } from 'glyphflow';
 import type {
@@ -35,7 +35,7 @@ type TiposImportados = [
   IconChoreography,
   IconMeta,
   IconShape,
-  MaxIconsConfig,
+  GfIconsConfig,
   MotionTrack,
   MorphIcon,
   MorphKeyframes,

@@ -10,28 +10,9 @@ import {
 } from '@angular/core';
 // Por NOMBRE DE PAQUETE, no por ruta relativa: `glyphflow/morph` es un entry point secundario, y
 // una ruta relativa hacia el primario haría que ng-packagr duplique ese código en este bundle. Con
-// `MAX_ICONS_CONFIG` eso no sería solo peso: `InjectionToken` es identidad de objeto, así que una
-// copia duplicada es OTRO token, y el `provideMaxIcons` del consumidor no llegaría nunca.
-/*
- * ⚠️ `MAX_ICONS_CONFIG` y no `GF_ICONS_CONFIG`, a propósito y temporalmente.
- *
- * Este import dice `from 'glyphflow'` (regla de los entry points secundarios: nunca por ruta
- * relativa). Pero ese nombre no resuelve al mismo sitio en los dos builds del repo:
- *
- * - Al construir la librería resuelve a `dist/glyphflow`, recién generado, que ya trae los dos
- *   nombres.
- * - Al construir el PLAYGROUND resuelve al paquete PUBLICADO —`glyphflow-published`, hoy 1.3.0—
- *   porque el sitio consume del registro, no de `dist/`. Y 1.3.0 no conoce `GF_ICONS_CONFIG`:
- *   se publicó antes de que existiera.
- *
- * Con el nombre nuevo aquí, `ng build playground` truena con TS2724. Comprobado, no supuesto.
- *
- * Así que este import se queda en el alias hasta que la major esté PUBLICADA y el lockfile del
- * playground apunte a ella. Entonces —y solo entonces— pasa a `GF_ICONS_CONFIG`. Es el mismo
- * token de todos modos, así que no hay diferencia de comportamiento: solo de qué versión del
- * paquete sabe pronunciar el nombre.
- */
-import { IconShape, MAX_ICONS_CONFIG } from 'glyphflow';
+// `GF_ICONS_CONFIG` eso no sería solo peso: `InjectionToken` es identidad de objeto, así que una
+// copia duplicada es OTRO token, y el `provideGfIcons` del consumidor no llegaría nunca.
+import { GF_ICONS_CONFIG, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
 import type { IconInput } from './core/types';
@@ -66,8 +47,8 @@ function aIconInput(icono: MorphIcon): IconInput {
  * anterior. No hay `from`/`to` ni `trigger` — el binding ES el estado:
  *
  * ```html
- * <max-icon-morph [icon]="abierto() ? equisIcon : menuIcon" label="Menú" />
- * <max-icon-morph [icon]="hover() ? bellRingIcon : bellIcon" />
+ * <gf-icon-morph [icon]="abierto() ? equisIcon : menuIcon" label="Menú" />
+ * <gf-icon-morph [icon]="hover() ? bellRingIcon : bellIcon" />
  * ```
  *
  * Todo el ciclo (construcción de keyframes, interrupción, aterrizaje exacto) vive en `runMorph()`.
@@ -79,7 +60,8 @@ function aIconInput(icono: MorphIcon): IconInput {
  */
 @Component({
   /* Los dos selectores durante la deprecacion — misma razon que en `gf-icon`: una plantilla no
-     truena al perder su componente, solo deja de pintar. `max-icon-morph` sale en la major. */
+     truena al perder su componente, solo deja de pintar. `max-icon-morph` se envia
+     deprecado en la v2 y sale en la v3. */
   selector: 'gf-icon-morph, max-icon-morph',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -149,8 +131,8 @@ export class GfIconMorphComponent implements OnChanges {
    */
   @Input() spring?: SpringPreset | SpringConfig;
 
-  /** El mismo `provideMaxIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
-  private readonly config = inject(MAX_ICONS_CONFIG, { optional: true });
+  /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
+  private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
 
   private anterior?: MorphIcon;
 

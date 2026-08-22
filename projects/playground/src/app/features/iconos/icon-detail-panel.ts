@@ -12,8 +12,8 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { AnimatedIconDef, MaxIconComponent, checkIcon, copyIcon } from 'glyphflow';
-import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { AnimatedIconDef, GfIconComponent, checkIcon, copyIcon } from 'glyphflow';
+import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { analizarIcono } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
 import { IconScrubber } from './icon-scrubber';
@@ -39,8 +39,8 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
 @Component({
   selector: 'app-icon-detail-panel',
   imports: [
-    MaxIconComponent,
-    MaxIconMorphComponent,
+    GfIconComponent,
+    GfIconMorphComponent,
     IconScrubber,
     Boton,
     Tooltip,
@@ -52,7 +52,7 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
   styleUrl: './icon-detail-panel.css',
 })
 export class IconDetailPanel {
-  @ViewChild('previewGrande') private previewGrande?: MaxIconComponent;
+  @ViewChild('previewGrande') private previewGrande?: GfIconComponent;
   @ViewChild('cajaJson') private cajaJson?: ElementRef<HTMLTextAreaElement>;
 
   readonly nombre = input.required<string>();
@@ -126,7 +126,7 @@ export class IconDetailPanel {
     const attrVariante = variante === 'default' ? '' : ` animation="${variante}"`;
     return (
       `import { ${constName} } from 'glyphflow';\n\n` +
-      `<max-icon [iconDef]="${constName}"${attrVariante} />`
+      `<gf-icon [iconDef]="${constName}"${attrVariante} />`
     );
   });
 

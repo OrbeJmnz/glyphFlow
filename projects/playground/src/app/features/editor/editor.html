@@ -12,7 +12,7 @@
   <section #zona class="taller" [class.completa]="enPantalla()">
     <div class="barra barra-alta">
       <span class="identidad">
-        <max-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
+        <gf-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
         <strong>{{ elegido().nombre }}</strong>
       </span>
 
@@ -256,7 +256,7 @@
               (click)="elegir(c)"
               [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
             >
-              <max-icon [iconDef]="c.def" [size]="18" trigger="manual" />
+              <gf-icon [iconDef]="c.def" [size]="18" trigger="manual" />
             </button>
           </app-tooltip>
         }
@@ -398,7 +398,7 @@
     -->
     <div class="cta">
       <button type="button" app-boton variante="primario" (click)="coreografiar()">
-        <max-icon [iconDef]="iconoPlay" [size]="16" trigger="manual" />
+        <gf-icon [iconDef]="iconoPlay" [size]="16" trigger="manual" />
         {{ 'editor.coreografiar.boton' | transloco }}
         <span class="flecha-cta" aria-hidden="true">→</span>
       </button>

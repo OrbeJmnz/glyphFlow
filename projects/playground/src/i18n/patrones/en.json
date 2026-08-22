@@ -21,7 +21,7 @@
   },
   "enviar": {
     "titulo": "Three-state action",
-    "descripcion": "Idle → sending → sent, and back again. <code>send</code> → <code>circle-check</code> via morph; the spinner is a curated <code>&lt;max-icon&gt;</code> on <code>loop</code>.",
+    "descripcion": "Idle → sending → sent, and back again. <code>send</code> → <code>circle-check</code> via morph; the spinner is a curated <code>&lt;gf-icon&gt;</code> on <code>loop</code>.",
     "detalle": "Mixing them isn't sloppiness: a morph has a <strong>start and an end</strong>, and \"loading\" doesn't know when it's done. An unknown-duration state needs an animation that cycles — exactly what the choreography engine already does.",
     "boton": {
       "reposo": "Send",

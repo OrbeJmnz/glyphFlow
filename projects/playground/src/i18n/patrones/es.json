@@ -21,7 +21,7 @@
   },
   "enviar": {
     "titulo": "Acción con tres estados",
-    "descripcion": "Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por morph; el spinner es un <code>&lt;max-icon&gt;</code> curado en <code>loop</code>.",
+    "descripcion": "Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por morph; el spinner es un <code>&lt;gf-icon&gt;</code> curado en <code>loop</code>.",
     "detalle": "Mezclarlos no es descuido: un morph tiene <strong>principio y fin</strong>, y \"cargando\" no sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que cicle, que es exactamente lo que el motor de coreografía ya hace.",
     "boton": {
       "reposo": "Enviar",

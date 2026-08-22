@@ -50,7 +50,7 @@ describe('App (shell)', () => {
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
     expect(rutas).toEqual(['Icons', 'Patterns', 'Editor', 'Lab', 'Docs']);
     // El glifo junto al logotipo: el sitio animando su propio producto en el header.
-    expect(html.querySelector('.marca max-icon')).not.toBeNull();
+    expect(html.querySelector('.marca gf-icon')).not.toBeNull();
     // El botón del repo está cableado (lo suyo se prueba en su propia spec).
     expect(html.querySelector('app-boton-github a.gh')).not.toBeNull();
   });

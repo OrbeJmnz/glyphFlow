@@ -15,8 +15,7 @@
     },
     "primerIcono": {
       "titulo": "Your first icon",
-      "texto1": "The component is standalone: import it where you use it, no intermediate module. The icon is passed as a <strong>value</strong>, via a named import.",
-      "texto2": "The selector is <code>max-icon</code>, not <code>glyphflow-icon</code>: the prefix isn't tied to the package name, same pattern as <code>mat-button</code> or <code>p-button</code>."
+      "texto1": "The component is standalone: import it where you use it, no intermediate module. The icon is passed as a <strong>value</strong>, via a named import."
     },
     "porQue": {
       "titulo": "Why <code>[iconDef]</code> and not <code>name=</code>",
@@ -74,17 +73,17 @@
         "sale": "<code>aria-hidden=\"false\"</code> + <code>aria-label=\"Save\"</code>",
         "cuando": "The icon <em>is</em> the content: a button with no text."
       },
-      "texto2": "<code>decorative</code> defaults to <code>true</code> and you almost never touch it: <code>label</code> is what decides. Applies the same way to <code>&lt;max-icon&gt;</code> and <code>&lt;max-icon-morph&gt;</code>."
+      "texto2": "<code>decorative</code> defaults to <code>true</code> and you almost never touch it: <code>label</code> is what decides. Applies the same way to <code>&lt;gf-icon&gt;</code> and <code>&lt;gf-icon-morph&gt;</code>."
     },
     "reducedMotion": {
       "titulo": "<code>prefers-reduced-motion</code>",
       "texto1": "Both components respect it by default (<code>respectReducedMotion = true</code>). But respecting it <strong>doesn't mean the same thing</strong> in both, and that difference is deliberate, not an inheritance oversight:",
       "icono": {
-        "titulo": "In <code>&lt;max-icon&gt;</code>: it stays still",
+        "titulo": "In <code>&lt;gf-icon&gt;</code>: it stays still",
         "texto": "The choreography is decoration on top of an icon that's <em>already the right one</em>. Removing the motion doesn't remove information: the bell is still a bell."
       },
       "morph": {
-        "titulo": "In <code>&lt;max-icon-morph&gt;</code>: it jumps to the new icon",
+        "titulo": "In <code>&lt;gf-icon-morph&gt;</code>: it jumps to the new icon",
         "texto": "Here, staying still would leave the user looking at the <strong>wrong</strong> icon. The destination isn't decoration, it's state: if the button went from \"play\" to \"pause\", it has to show \"pause\"."
       },
       "nota": "Reduced motion is respected <strong>by removing the movement, not the state change</strong>. The morph skips the transition and paints the destination immediately.",
@@ -126,7 +125,7 @@
     },
     "morphServidor": {
       "titulo": "Morph on the server",
-      "texto": "<code>&lt;max-icon-morph&gt;</code> falls through the same path as the client's first render: it paints the static icon. Morphing \"from nothing\" doesn't exist, and on the server there's no previous value to morph from either. You see the right icon; the transition waits for the browser."
+      "texto": "<code>&lt;gf-icon-morph&gt;</code> falls through the same path as the client's first render: it paints the static icon. Morphing \"from nothing\" doesn't exist, and on the server there's no previous value to morph from either. You see the right icon; the transition waits for the browser."
     }
   },
   "api": {
@@ -168,7 +167,7 @@
       "icon": "The binding IS the state. The first value renders static.",
       "size": "The SVG's side length.",
       "strokeWidth": "Stroke thickness.",
-      "decorative": "Same contract as <max-icon>.",
+      "decorative": "Same contract as <gf-icon>.",
       "label": "With label, the icon is semantic.",
       "respectReducedMotion": "Here it JUMPS to the destination instead of staying still.",
       "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry."
@@ -176,11 +175,11 @@
     "obsoleto": "deprecated",
     "usaEnSuLugar": "Use {{nuevo}} instead.",
     "simbolos": {
-      "MaxIconComponent": "The engine. Selector <max-icon>. Standalone.",
-      "provideMaxIcons": "Optional global config. Today just durationScale.",
-      "MAX_ICONS_CONFIG": "The InjectionToken behind provideMaxIcons, in case you want to provide it yourself.",
+      "GfIconComponent": "The engine. Selector <gf-icon>. Standalone.",
+      "provideGfIcons": "Optional global config. Today just durationScale.",
+      "GF_ICONS_CONFIG": "The InjectionToken behind provideGfIcons, in case you want to provide it yourself.",
       "provideIconCatalog": "Registers the catalog so you can use name=. Opt-in: without this, name= renders nothing.",
-      "MAX_ICON_CATALOG": "The catalog's token. Without it, an unknown name renders empty, without throwing.",
+      "GF_ICON_CATALOG": "The catalog's token. Without it, an unknown name renders empty, without throwing.",
       "CURATED_ICONS": "The {{curados}} with hand-authored choreography.",
       "GENERATED_ICONS": "The remaining {{generados}} from Lucide, auto-draw only.",
       "ANIMATED_ICONS": "Curated + generated. Referencing it anchors the whole catalog in your bundle.",
@@ -188,7 +187,7 @@
       "ICON_ALIASES": "Real Lucide renames (same glyph, new name).",
       "resolveIconName": "Applies the aliases: old name → current name.",
       "ICON_META": "Per-icon metadata (categories, search tags).",
-      "MaxIconMorphComponent": "Selector <max-icon-morph>. Changing [icon] triggers the transition.",
+      "GfIconMorphComponent": "Selector <gf-icon-morph>. Changing [icon] triggers the transition.",
       "morphKeyframes": "Computes the discrete `d` keyframes between two icons. Doesn't animate anything.",
       "runMorph": "morphKeyframes + element.animate(). Returns the Animation so you can control it.",
       "canonicalD": "The already-resolved `d` of an icon — what renders when there's no transition.",
@@ -207,7 +206,7 @@
       "MotionTrack": "Keyframes + WAAPI options for one shape.",
       "AutoDraw": "Auto-draw config (speed, overlap, caps).",
       "AnimatedIconTrigger": "'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual'.",
-      "MaxIconsConfig": "What provideMaxIcons receives.",
+      "GfIconsConfig": "What provideGfIcons receives.",
       "IconMeta": "One catalog icon's metadata.",
       "MorphIcon": "What [icon] accepts: an AnimatedIconDef or its geometry.",
       "MorphKeyframes": "morphKeyframes' output: keyframes, duration, weight.",

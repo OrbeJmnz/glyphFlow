@@ -14,7 +14,7 @@ import {
 import {
   morphKeyframes,
   runMorph,
-  MaxIconMorphComponent,
+  GfIconMorphComponent,
   STEPS_DEFAULT,
   type SpringTail,
   RESOLUTION_DEFAULT,
@@ -189,7 +189,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
-  imports: [MaxIconMorphComponent, Boton, Chip, TranslocoPipe],
+  imports: [GfIconMorphComponent, Boton, Chip, TranslocoPipe],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })

@@ -8,7 +8,7 @@
   <article class="patron">
     <div class="demo">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
-        <max-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
+        <gf-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
         {{ etiquetaCopiar() }}
       </button>
     </div>
@@ -25,7 +25,7 @@ async copy() &#123;
   setTimeout(() =&gt; this.copied.set(false), 1600);
 &#125;
 
-&lt;max-icon-morph [icon]="icon()" [size]="18" spring="bouncy" /&gt;</code></pre>
+&lt;gf-icon-morph [icon]="icon()" [size]="18" spring="bouncy" /&gt;</code></pre>
     </div>
   </article>
 
@@ -39,7 +39,7 @@ async copy() &#123;
         (click)="alternarTema()"
         [attr.aria-label]="ariaTema()"
       >
-        <max-icon-morph [icon]="iconoTema()" [size]="20" [label]="labelTema()" />
+        <gf-icon-morph [icon]="iconoTema()" [size]="20" [label]="labelTema()" />
       </button>
       <span class="muestra">Aa</span>
     </div>
@@ -51,7 +51,7 @@ async copy() &#123;
 protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon));
 
 &lt;button [attr.aria-label]="light() ? 'Dark theme' : 'Light theme'"&gt;
-  &lt;max-icon-morph [icon]="icon()" [size]="20" /&gt;
+  &lt;gf-icon-morph [icon]="icon()" [size]="20" /&gt;
 &lt;/button&gt;</code></pre>
     </div>
   </article>
@@ -67,9 +67,9 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
         (click)="enviar()"
       >
         @if (estadoEnvio() === 'enviando') {
-          <max-icon [iconDef]="spinner" [size]="18" trigger="auto" [loop]="true" />
+          <gf-icon [iconDef]="spinner" [size]="18" trigger="auto" [loop]="true" />
         } @else {
-          <max-icon-morph [icon]="iconoEnvio()" [size]="18" />
+          <gf-icon-morph [icon]="iconoEnvio()" [size]="18" />
         }
         {{ etiquetaEnvio() }}
       </button>
@@ -79,9 +79,9 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
       <pre><code class="degradado-texto-sutil">&#64;if (state() === 'sending') &#123;
-  &lt;max-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
+  &lt;gf-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
 &#125; &#64;else &#123;
-  &lt;max-icon-morph [icon]="state() === 'sent' ? circleCheckIcon : sendIcon" /&gt;
+  &lt;gf-icon-morph [icon]="state() === 'sent' ? circleCheckIcon : sendIcon" /&gt;
 &#125;</code></pre>
     </div>
   </article>
@@ -97,7 +97,7 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
         [attr.aria-pressed]="meGusta()"
         (click)="alternarMeGusta()"
       >
-        <max-icon [iconDef]="corazon" [size]="18" trigger="tap" />
+        <gf-icon [iconDef]="corazon" [size]="18" trigger="tap" />
         {{ votos() }}
       </button>
     </div>
@@ -112,7 +112,7 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
         demo, y cambiaba al pulsar el corazón. Sin bindear, las llaves se ven tal cual.
       -->
       <pre ngNonBindable><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="liked()" (click)="toggle()"&gt;
-  &lt;max-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
+  &lt;gf-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
   {{ votes() }}
 &lt;/button&gt;</code></pre>
     </div>

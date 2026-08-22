@@ -2,7 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
-  MaxIconComponent,
+  GfIconComponent,
   menuIcon,
   moonIcon,
   sunIcon,
@@ -11,7 +11,7 @@ import {
   zapIcon,
   type AnimatedIconDef,
 } from 'glyphflow';
-import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { TranslocoPipe, TranslocoService, translateSignal } from '@jsverse/transloco';
 import { velocidadGlobal, PRESETS_VELOCIDAD } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
@@ -30,8 +30,8 @@ import { Grupo } from './shared/ui/grupo';
  * contenido.
  *
  * Los chips de velocidad viven AQUÍ y no en el showcase porque `durationScale` es config global
- * (`provideMaxIcons`): gobierna las coreografías de `<max-icon>` y las transiciones de
- * `<max-icon-morph>` por igual. Ponerlos dentro de una página sugeriría que solo aplican ahí.
+ * (`provideGfIcons`): gobierna las coreografías de `<gf-icon>` y las transiciones de
+ * `<gf-icon-morph>` por igual. Ponerlos dentro de una página sugeriría que solo aplican ahí.
  */
 @Component({
   selector: 'app-root',
@@ -39,8 +39,8 @@ import { Grupo } from './shared/ui/grupo';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    MaxIconComponent,
-    MaxIconMorphComponent,
+    GfIconComponent,
+    GfIconMorphComponent,
     BotonGithub,
     Logo,
     Boton,

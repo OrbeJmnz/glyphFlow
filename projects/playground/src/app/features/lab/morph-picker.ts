@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { AnimatedIconDef, CURATED_ICONS, ICON_ALIASES, MaxIconComponent } from 'glyphflow';
-import { MaxIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
+import { AnimatedIconDef, CURATED_ICONS, ICON_ALIASES, GfIconComponent } from 'glyphflow';
+import { GfIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Boton } from '../../shared/ui/boton';
@@ -24,7 +24,7 @@ interface Elegido {
  */
 @Component({
   selector: 'app-morph-picker',
-  imports: [MaxIconComponent, MaxIconMorphComponent, CampoBusqueda, Boton, Tooltip, TranslocoPipe],
+  imports: [GfIconComponent, GfIconMorphComponent, CampoBusqueda, Boton, Tooltip, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './morph-picker.html',
   styleUrl: './morph-picker.css',
@@ -109,7 +109,7 @@ export class MorphPicker implements OnDestroy {
    * Encadena los pares consecutivos en SERIE — mismo patrón de orquestación que "Repetir todo"
    * del grid, solo que en serie en vez de en paralelo. El tiempo de cada salto sale de
    * `morphKeyframes().duration` (el resorte manda, aquí `resorteLento`), no de un número inventado.
-   * Mismo resorte que el `<max-icon-morph>` del lienzo — si no calzaran, el temporizador dispararía
+   * Mismo resorte que el `<gf-icon-morph>` del lienzo — si no calzaran, el temporizador dispararía
    * el siguiente paso antes o después de que la animación real termine.
    */
   protected reproducir(): void {

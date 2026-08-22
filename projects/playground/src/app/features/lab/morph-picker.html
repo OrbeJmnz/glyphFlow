@@ -20,7 +20,7 @@
               (click)="agregar(item)"
               [attr.aria-label]="'lab.morphPicker.agregarAria' | transloco: { nombre: item.nombre }"
             >
-              <max-icon [iconDef]="item.def" [size]="18" trigger="manual" />
+              <gf-icon [iconDef]="item.def" [size]="18" trigger="manual" />
             </button>
           </app-tooltip>
         } @empty {
@@ -34,7 +34,7 @@
     <div class="col-secuencia">
       <div class="lienzo">
         @if (iconoActual(); as icono) {
-          <max-icon-morph
+          <gf-icon-morph
             [icon]="icono"
             [size]="96"
             [spring]="resorteLento"
@@ -50,7 +50,7 @@
           @for (item of secuencia(); track $index) {
             <li [class.activo]="$index === indiceActual()">
               <app-tooltip [texto]="item.nombre">
-                <max-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+                <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
               </app-tooltip>
               <button
                 type="button"

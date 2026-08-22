@@ -20,7 +20,7 @@ export function iconoPlano(def: AnimatedIconDef): MorphIcon {
 }
 
 /** `IconShape[]` (forma objeto, `{tag, ...attrs}`) → data estilo Lucide (`[tag, attrs][]`), que
- *  es lo que el core de morph consume. Mismo mapeo que usa `MaxIconMorphComponent` puertas
+ *  es lo que el core de morph consume. Mismo mapeo que usa `GfIconMorphComponent` puertas
  *  adentro para su propio `[icon]` — no expuesto, así que se repite aquí en vez de importarlo. */
 function aTuplas(shapes: IconShape[]) {
   return shapes.map((s) => {

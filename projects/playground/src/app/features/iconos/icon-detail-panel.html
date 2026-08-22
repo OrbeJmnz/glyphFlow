@@ -44,7 +44,7 @@
           <!-- Sin botón propio: el reproductor ES el icono — hover en desktop, click en cualquier
                dispositivo. -->
           <div class="escenario">
-            <max-icon
+            <gf-icon
               #previewGrande
               [iconDef]="def()"
               [animation]="varianteActiva()"
@@ -84,7 +84,7 @@
                 (click)="copiarSnippet()"
                 [attr.aria-label]="ariaSnippet()"
               >
-                <max-icon-morph [icon]="iconoCopiarSnippet()" [size]="14" spring="bouncy" />
+                <gf-icon-morph [icon]="iconoCopiarSnippet()" [size]="14" spring="bouncy" />
               </button>
             </app-tooltip>
           </div>
@@ -100,7 +100,7 @@
                 (click)="copiarJson()"
                 [attr.aria-label]="ariaJson()"
               >
-                <max-icon-morph [icon]="iconoCopiarJson()" [size]="14" spring="bouncy" />
+                <gf-icon-morph [icon]="iconoCopiarJson()" [size]="14" spring="bouncy" />
               </button>
             </app-tooltip>
           </div>

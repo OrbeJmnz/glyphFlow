@@ -52,7 +52,7 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     expect(textarea.value).toContain('M1 2h3');
     // Y entra por la MISMA puerta pública: si el JSON no fuera válido para el importador, no
     // habría preview.
-    expect(html.querySelector('max-icon')).not.toBeNull();
+    expect(html.querySelector('gf-icon')).not.toBeNull();
   });
 
   it('sin nada en el taller, el importador arranca cerrado y vacío', async () => {

@@ -39,7 +39,7 @@
     "@angular/router": "^22.1.0",
     "@jsverse/transloco": "^8.4.0",
     "@jsverse/transloco-persist-lang": "^8.4.0",
-    "glyphflow-published": "npm:glyphflow@^1.0.0",
+    "glyphflow-published": "npm:glyphflow@^2.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

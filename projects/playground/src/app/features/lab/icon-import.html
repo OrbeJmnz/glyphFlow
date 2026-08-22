@@ -28,7 +28,7 @@
         <p class="error">{{ r.errorKey | transloco }}</p>
       } @else if (r) {
         <div class="preview">
-          <max-icon [iconDef]="r.def" [size]="32" trigger="hover" />
+          <gf-icon [iconDef]="r.def" [size]="32" trigger="hover" />
           <span
             >{{ r.nombre ?? ('lab.iconImport.sinNombre' | transloco) }} —
             {{ 'lab.iconImport.previewHint' | transloco }}</span

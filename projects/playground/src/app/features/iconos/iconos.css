@@ -352,7 +352,7 @@
 }
 
 /* El icono no se encoge cuando el texto envuelve a dos renglones. */
-.argumentos max-icon {
+.argumentos gf-icon {
   flex: none;
   margin-top: 2px;
   color: var(--gf-marca-2);

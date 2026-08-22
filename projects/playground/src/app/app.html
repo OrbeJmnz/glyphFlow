@@ -12,12 +12,12 @@
       [attr.aria-label]="'shell.menu.abrir' | transloco"
       (click)="alternarMenu()"
     >
-      <max-icon-morph [icon]="iconoMenu()" [size]="18" spring="snappy" />
+      <gf-icon-morph [icon]="iconoMenu()" [size]="18" spring="snappy" />
     </button>
 
     <a class="marca" routerLink="/" [attr.aria-label]="'shell.marcaAria' | transloco">
       <!-- El glifo es el propio motor animándose: `trigger="group"` lo cuelga del hover de este <a>. -->
-      <max-icon [iconDef]="glifo" [size]="24" trigger="group" />
+      <gf-icon [iconDef]="glifo" [size]="24" trigger="group" />
       <app-logo [alto]="32" [variante]="tema()" />
     </a>
 
@@ -41,7 +41,7 @@
     -->
     <div class="controles">
       <!--
-        Global a propósito: `durationScale` escala <max-icon> y <max-icon-morph> con el mismo valor,
+        Global a propósito: `durationScale` escala <gf-icon> y <gf-icon-morph> con el mismo valor,
         así que el control pertenece al chrome, no a una página.
       -->
       <app-grupo
@@ -92,7 +92,7 @@
         [attr.aria-pressed]="tema() === 'claro'"
         (click)="cambiarTema($event)"
       >
-        <max-icon-morph [icon]="iconoTema()" [size]="16" spring="bouncy" />
+        <gf-icon-morph [icon]="iconoTema()" [size]="16" spring="bouncy" />
       </button>
     </div>
   </div>

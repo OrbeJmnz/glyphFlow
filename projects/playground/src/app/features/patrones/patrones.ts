@@ -1,6 +1,6 @@
 import { Component, signal, computed, OnDestroy } from '@angular/core';
 import {
-  MaxIconComponent,
+  GfIconComponent,
   checkIcon,
   circleCheckIcon,
   copyIcon,
@@ -11,7 +11,7 @@ import {
   sunIcon,
   type AnimatedIconDef,
 } from 'glyphflow';
-import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
@@ -29,7 +29,7 @@ import { iconoPlano } from '../../core/morph-icon-plano';
  */
 @Component({
   selector: 'app-patrones',
-  imports: [MaxIconComponent, MaxIconMorphComponent, Boton, TranslocoPipe],
+  imports: [GfIconComponent, GfIconMorphComponent, Boton, TranslocoPipe],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de

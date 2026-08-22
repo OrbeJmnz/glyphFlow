@@ -264,20 +264,20 @@
  * Doce grados y no más: el sol de Lucide tiene ocho rayos, o sea simetría cada 45°. Girar 45 lo
  * dejaría idéntico y el gesto se perdería; girar poco se lee como que el icono se acomoda.
  */
-.tema max-icon-morph {
+.tema gf-icon-morph {
   display: inline-flex;
   transition: rotate 0.3s var(--gf-resorte);
 }
 
-.tema:hover max-icon-morph,
-.tema:focus-visible max-icon-morph {
+.tema:hover gf-icon-morph,
+.tema:focus-visible gf-icon-morph {
   rotate: 12deg;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tema max-icon-morph,
-  .tema:hover max-icon-morph,
-  .tema:focus-visible max-icon-morph {
+  .tema gf-icon-morph,
+  .tema:hover gf-icon-morph,
+  .tema:focus-visible gf-icon-morph {
     rotate: none;
   }
 }

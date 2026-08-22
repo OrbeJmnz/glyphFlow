@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MaxIconComponent, coffeeIcon, heartIcon, type AnimatedIconDef } from 'glyphflow';
+import { GfIconComponent, coffeeIcon, heartIcon, type AnimatedIconDef } from 'glyphflow';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 /**
@@ -14,7 +14,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 @Component({
   selector: 'app-boton-donar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MaxIconComponent, TranslocoPipe],
+  imports: [GfIconComponent, TranslocoPipe],
   template: `
     <a
       class="dn"
@@ -25,13 +25,13 @@ import { TranslocoPipe } from '@jsverse/transloco';
     >
       <span class="capas" aria-hidden="true">
         <span class="capa capa-cafe">
-          <max-icon [iconDef]="cafe" [size]="16" trigger="group" />
+          <gf-icon [iconDef]="cafe" [size]="16" trigger="group" />
         </span>
 
         <span class="capa capa-corazon">
           <!-- El propio motor, igual que en BotonGithub: trigger=group se cuelga del hover de
                este <a>, así que el corazón SE DIBUJA justo mientras entra. -->
-          <max-icon [iconDef]="corazon" [size]="16" trigger="group" />
+          <gf-icon [iconDef]="corazon" [size]="16" trigger="group" />
           <span class="destello">
             <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
               <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6z" />

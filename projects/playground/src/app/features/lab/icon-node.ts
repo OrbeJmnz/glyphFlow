@@ -4,7 +4,7 @@ import { AnimatedIconDef, IconShape } from 'glyphflow';
  * `AnimatedIconDef` → data estilo Lucide (`[tag, attrs][]`), que es lo que come la API FUNCIONAL
  * de morph (`morphKeyframes`/`runMorph`).
  *
- * `<max-icon-morph>` no lo necesita — su input `MorphIcon` acepta el def tal cual y convierte
+ * `<gf-icon-morph>` no lo necesita — su input `MorphIcon` acepta el def tal cual y convierte
  * adentro. Esto es solo para cuando se llama a las funciones directo, típicamente para preguntar
  * una duración antes de animar.
  */

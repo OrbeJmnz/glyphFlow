@@ -18,9 +18,9 @@ import { Deslizador } from '../../shared/ui/deslizador';
  * motor — plan.md es explícito: "otra vista de lo que ya vive en MotionTrack/IconChoreography".
  *
  * Por eso construye sus propias `Animation` con `el.animate(track.keyframes, track.options)`,
- * pausadas, y las mueve con `currentTime`. Es exactamente lo que hace `MaxIconComponent.play()`
+ * pausadas, y las mueve con `currentTime`. Es exactamente lo que hace `GfIconComponent.play()`
  * puertas adentro (mismo manejo de `origin`/`transformBox`), pero aquí en pausa y bajo control del
- * usuario en vez de disparado por hover. No se reutiliza `<max-icon>`: no expone sus `Animation`
+ * usuario en vez de disparado por hover. No se reutiliza `<gf-icon>`: no expone sus `Animation`
  * internas (ni debería — no es parte de su contrato de inputs/outputs), así que este componente
  * pinta su PROPIO svg con las mismas figuras. Mismo patrón que ya usa `morph-bench.ts`.
  */

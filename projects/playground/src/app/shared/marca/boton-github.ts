@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { MaxIconComponent, starIcon, type AnimatedIconDef } from 'glyphflow';
+import { GfIconComponent, starIcon, type AnimatedIconDef } from 'glyphflow';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
 
@@ -18,7 +18,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
 @Component({
   selector: 'app-boton-github',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MaxIconComponent, TranslocoPipe],
+  imports: [GfIconComponent, TranslocoPipe],
   template: `
     <a
       class="gh"
@@ -39,7 +39,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
         <span class="capa capa-estrella">
           <!-- El propio motor. Con trigger=group se cuelga del hover de este enlace, así que la
                estrella SE DIBUJA justo mientras entra. -->
-          <max-icon [iconDef]="estrella" [size]="16" trigger="group" />
+          <gf-icon [iconDef]="estrella" [size]="16" trigger="group" />
           <span class="destello">
             <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
               <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6z" />
@@ -66,7 +66,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
     }
 
     /*
-     * El resorte de la casa: ζ = 0.73, sobrepaso 1.0265. Es la MISMA curva que usa <max-icon-morph>
+     * El resorte de la casa: ζ = 0.73, sobrepaso 1.0265. Es la MISMA curva que usa <gf-icon-morph>
      * con spring="snappy".
      *
      * Está copiada y no importada porque "SPRING_SNAPPY" vive en la librería pero NO sale en su

@@ -13,7 +13,7 @@ import editorEn from '../../../i18n/editor/en.json';
 import {
   CURATED_ICONS,
   ICON_ALIASES,
-  MaxIconComponent,
+  GfIconComponent,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
@@ -70,7 +70,7 @@ interface NodoVista extends Nodo {
  */
 @Component({
   selector: 'app-editor',
-  imports: [Boton, CampoBusqueda, Chip, MaxIconComponent, Tooltip, TranslocoPipe],
+  imports: [Boton, CampoBusqueda, Chip, GfIconComponent, Tooltip, TranslocoPipe],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de

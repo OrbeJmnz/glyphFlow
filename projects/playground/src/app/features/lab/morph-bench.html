@@ -91,7 +91,7 @@
 
   <div class="envoltorio">
     <div class="envoltorio-txt">
-      <h3>&lt;max-icon-morph&gt;</h3>
+      <h3>&lt;gf-icon-morph&gt;</h3>
       <p [innerHTML]="'lab.morphBench.envoltorio.descripcion' | transloco"></p>
       <div
         class="grupo"
@@ -115,13 +115,13 @@
       <p class="aviso-chico" [innerHTML]="'lab.morphBench.envoltorio.avisoChico' | transloco"></p>
     </div>
     <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
-    <max-icon-morph
+    <gf-icon-morph
       [icon]="iconoDemo()"
       [spring]="resorte()"
       [size]="72"
       [label]="'lab.morphBench.envoltorio.demoLabel' | transloco"
     />
-    <max-icon-morph class="decorativo" [icon]="iconoDemo()" [spring]="resorte()" [size]="72" />
+    <gf-icon-morph class="decorativo" [icon]="iconoDemo()" [spring]="resorte()" [size]="72" />
     <button type="button" app-boton compacto (click)="siguienteDemo()">
       {{ 'lab.morphBench.envoltorio.siguiente' | transloco: { nombre: nombreDemo() } }}
     </button>

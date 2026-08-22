@@ -36,9 +36,9 @@ import { conRelevo, easingSeguro } from './motion-runtime';
  * Template inline a propósito (menos archivos que copiar), única desviación del estilo de la casa.
  *
  * @example
- * <max-icon name="bell" trigger="hover" class="size-5 text-brand-500" />
- * <max-icon name="settings" animation="rotate" trigger="auto" [loop]="true" />
- * <max-icon name="search" label="Buscar" />
+ * <gf-icon name="bell" trigger="hover" class="size-5 text-brand-500" />
+ * <gf-icon name="settings" animation="rotate" trigger="auto" [loop]="true" />
+ * <gf-icon name="search" label="Buscar" />
  */
 @Component({
   /*
@@ -51,7 +51,7 @@ import { conRelevo, easingSeguro } from './motion-runtime';
    * elemento desconocido y simplemente NO PINTA. Ahi el fallo llega a produccion como iconos
    * invisibles, sin un error que lo delate.
    *
-   * `max-icon` sale en la proxima major.
+   * `max-icon` se envia deprecado en la v2 y sale en la v3.
    */
   selector: 'gf-icon, max-icon',
   standalone: true,

@@ -72,7 +72,7 @@ describe('BotonGithub', () => {
     // El movimiento es puro CSS; lo que un test puede afirmar es que las piezas están y que no
     // ensucian lo que oye un lector de pantalla — el nombre ya lo da el `aria-label` del enlace.
     expect(html.querySelector('.capa-marca svg')).not.toBeNull();
-    expect(html.querySelector('.capa-estrella max-icon')).not.toBeNull();
+    expect(html.querySelector('.capa-estrella gf-icon')).not.toBeNull();
     expect(html.querySelector('.destello svg')).not.toBeNull();
     expect(html.querySelector('.capas')?.getAttribute('aria-hidden')).toBe('true');
   });

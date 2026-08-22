@@ -12,7 +12,7 @@ import { Title } from '@angular/platform-browser';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import iconosEn from '../../../i18n/iconos/en.json';
 import {
-  MaxIconComponent,
+  GfIconComponent,
   CURATED_ICONS,
   AnimatedIconDef,
   circleIcon,
@@ -22,7 +22,7 @@ import {
   leafIcon,
   codeIcon,
 } from 'glyphflow';
-import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
 import { BotonDonar } from '../../shared/marca/boton-donar';
 import { BotonGithub } from '../../shared/marca/boton-github';
@@ -61,8 +61,8 @@ interface CuratedEntry {
 @Component({
   selector: 'app-iconos',
   imports: [
-    MaxIconComponent,
-    MaxIconMorphComponent,
+    GfIconComponent,
+    GfIconMorphComponent,
     IconDetailPanel,
     RouterLink,
     BotonDonar,
@@ -93,7 +93,7 @@ interface CuratedEntry {
   styleUrl: './iconos.css',
 })
 export class Iconos implements OnDestroy {
-  @ViewChildren(MaxIconComponent) private icons!: QueryList<MaxIconComponent>;
+  @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
 
   private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)
     .map(([name, def]) => ({

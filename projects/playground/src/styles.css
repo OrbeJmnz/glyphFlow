@@ -92,7 +92,7 @@
 
   /*
    * El resorte de la casa como token: ζ = 0.73, sobrepaso 1.0265 — la MISMA curva que usa
-   * <max-icon-morph spring="snappy">. Vive aquí y no copiada en cada componente porque hasta ahora
+   * <gf-icon-morph spring="snappy">. Vive aquí y no copiada en cada componente porque hasta ahora
    * estaba duplicada en el botón de GitHub.
    *
    * Se copia del paquete y no se importa porque `SPRING_SNAPPY` existe en la librería pero NO sale

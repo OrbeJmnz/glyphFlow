@@ -71,7 +71,7 @@ button button.primario:hover {
   line-height: 1.5;
 }
 
-.envoltorio max-icon-morph {
+.envoltorio gf-icon-morph {
   color: var(--gf-texto);
 }
 

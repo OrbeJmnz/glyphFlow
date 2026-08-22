@@ -36,22 +36,22 @@ export const SUFIJO_ICONO = /Icon$/;
 
 export const API_VALORES: SimboloApi[] = [
   {
-    nombre: 'MaxIconComponent',
+    nombre: 'GfIconComponent',
     entrada: 'glyphflow',
     clase: 'componente',
-    resumen: 'docs.api.simbolos.MaxIconComponent',
+    resumen: 'docs.api.simbolos.GfIconComponent',
   },
   {
-    nombre: 'provideMaxIcons',
+    nombre: 'provideGfIcons',
     entrada: 'glyphflow',
     clase: 'función',
-    resumen: 'docs.api.simbolos.provideMaxIcons',
+    resumen: 'docs.api.simbolos.provideGfIcons',
   },
   {
-    nombre: 'MAX_ICONS_CONFIG',
+    nombre: 'GF_ICONS_CONFIG',
     entrada: 'glyphflow',
     clase: 'token',
-    resumen: 'docs.api.simbolos.MAX_ICONS_CONFIG',
+    resumen: 'docs.api.simbolos.GF_ICONS_CONFIG',
   },
   {
     nombre: 'provideIconCatalog',
@@ -60,10 +60,10 @@ export const API_VALORES: SimboloApi[] = [
     resumen: 'docs.api.simbolos.provideIconCatalog',
   },
   {
-    nombre: 'MAX_ICON_CATALOG',
+    nombre: 'GF_ICON_CATALOG',
     entrada: 'glyphflow',
     clase: 'token',
-    resumen: 'docs.api.simbolos.MAX_ICON_CATALOG',
+    resumen: 'docs.api.simbolos.GF_ICON_CATALOG',
   },
   {
     nombre: 'CURATED_ICONS',
@@ -107,28 +107,49 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.ICON_META',
   },
-  /*
-   * Ojo con la asimetría de esta tabla mientras la major no esté publicada.
-   *
-   * El sitio resuelve `glyphflow/morph` al código LOCAL, así que ya ve `GfIconMorphComponent`.
-   * Pero resuelve `glyphflow` al paquete PUBLICADO (1.3.0), que todavía dice `MaxIconComponent`.
-   * Por eso aquí conviven los dos vocabularios: no es un descuido, es lo que el sitio consume de
-   * verdad hoy — y el spec compara contra eso, no contra lo que nos gustaría.
-   *
-   * Al publicar y mover el lockfile, los símbolos de `glyphflow` pasan a `Gf*` y esta nota se va.
-   */
+  // Los nombres de la v1. Se documentan porque la v2 los sigue exportando —el spec exige que TODO
+  // export esté documentado— y porque quien llegue con código de la v1 tiene que encontrar a qué
+  // migrar, que es justo cuando va a buscarlo.
+  {
+    nombre: 'MaxIconComponent',
+    entrada: 'glyphflow',
+    clase: 'componente',
+    obsoleto: 'GfIconComponent',
+    resumen: 'docs.api.simbolos.GfIconComponent',
+  },
+  {
+    nombre: 'provideMaxIcons',
+    entrada: 'glyphflow',
+    clase: 'función',
+    obsoleto: 'provideGfIcons',
+    resumen: 'docs.api.simbolos.provideGfIcons',
+  },
+  {
+    nombre: 'MAX_ICONS_CONFIG',
+    entrada: 'glyphflow',
+    clase: 'token',
+    obsoleto: 'GF_ICONS_CONFIG',
+    resumen: 'docs.api.simbolos.GF_ICONS_CONFIG',
+  },
+  {
+    nombre: 'MAX_ICON_CATALOG',
+    entrada: 'glyphflow',
+    clase: 'token',
+    obsoleto: 'GF_ICON_CATALOG',
+    resumen: 'docs.api.simbolos.GF_ICON_CATALOG',
+  },
   {
     nombre: 'GfIconMorphComponent',
     entrada: 'glyphflow/morph',
     clase: 'componente',
-    resumen: 'docs.api.simbolos.MaxIconMorphComponent',
+    resumen: 'docs.api.simbolos.GfIconMorphComponent',
   },
   {
     nombre: 'MaxIconMorphComponent',
     entrada: 'glyphflow/morph',
     clase: 'componente',
     obsoleto: 'GfIconMorphComponent',
-    resumen: 'docs.api.simbolos.MaxIconMorphComponent',
+    resumen: 'docs.api.simbolos.GfIconMorphComponent',
   },
   {
     nombre: 'morphKeyframes',
@@ -229,7 +250,7 @@ export const API_TIPOS: { nombre: string; entrada: Entrada; resumen: string }[] 
     entrada: 'glyphflow',
     resumen: 'docs.api.tipos.AnimatedIconTrigger',
   },
-  { nombre: 'MaxIconsConfig', entrada: 'glyphflow', resumen: 'docs.api.tipos.MaxIconsConfig' },
+  { nombre: 'GfIconsConfig', entrada: 'glyphflow', resumen: 'docs.api.tipos.GfIconsConfig' },
   { nombre: 'IconMeta', entrada: 'glyphflow', resumen: 'docs.api.tipos.IconMeta' },
   {
     nombre: 'MorphIcon',

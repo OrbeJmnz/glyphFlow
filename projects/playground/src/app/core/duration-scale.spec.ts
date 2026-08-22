@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { computed } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { MAX_ICONS_CONFIG, MaxIconsConfig } from 'glyphflow';
+import { GF_ICONS_CONFIG, GfIconsConfig } from 'glyphflow';
 import { velocidadGlobal, provideVelocidadEnVivo, PRESETS_VELOCIDAD } from './duration-scale';
 
 describe('provideVelocidadEnVivo', () => {
@@ -16,7 +16,7 @@ describe('provideVelocidadEnVivo', () => {
 
   it('la config leída DESPUÉS de mover la señal trae el valor nuevo, sin re-proveer', () => {
     TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
-    const config = TestBed.inject<MaxIconsConfig>(MAX_ICONS_CONFIG);
+    const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     // Es la misma referencia de objeto: lo que cambia es lo que devuelve el getter. Ese es todo el
     // truco — la librería lee `config.durationScale` al momento de animar, no al inyectar.
@@ -32,7 +32,7 @@ describe('provideVelocidadEnVivo', () => {
   // la duración al doble, o sea corría a la mitad de rápido.
   it('velocidad y durationScale son recíprocos: 2× de rápido es la mitad de duración', () => {
     TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
-    const config = TestBed.inject<MaxIconsConfig>(MAX_ICONS_CONFIG);
+    const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     velocidadGlobal.set(2);
     expect(config.durationScale).toBe(0.5);
@@ -48,7 +48,7 @@ describe('provideVelocidadEnVivo', () => {
 
   it('leer la config no suscribe al lector: un computed no se recalcula al mover la velocidad', () => {
     TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
-    const config = TestBed.inject<MaxIconsConfig>(MAX_ICONS_CONFIG);
+    const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     let lecturas = 0;
     const espia = computed(() => {

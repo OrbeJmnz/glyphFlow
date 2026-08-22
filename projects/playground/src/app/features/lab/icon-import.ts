@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { AnimatedIconDef, MaxIconComponent, bellIcon } from 'glyphflow';
+import { AnimatedIconDef, GfIconComponent, bellIcon } from 'glyphflow';
 import { Taller } from '../../core/taller';
 import { Boton } from '../../shared/ui/boton';
 
@@ -11,7 +11,7 @@ import { Boton } from '../../shared/ui/boton';
  */
 @Component({
   selector: 'app-icon-import',
-  imports: [MaxIconComponent, Boton, TranslocoPipe],
+  imports: [GfIconComponent, Boton, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './icon-import.html',
   styleUrl: './icon-import.css',

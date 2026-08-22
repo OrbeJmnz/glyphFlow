@@ -8,17 +8,16 @@
 <h2>{{ 'docs.empezando.primerIcono.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.primerIcono.texto1' | transloco"></p>
 <pre><code>import &#123; Component &#125; from '&#64;angular/core';
-import &#123; MaxIconComponent, bellIcon &#125; from 'glyphflow';
+import &#123; GfIconComponent, bellIcon &#125; from 'glyphflow';
 
 &#64;Component(&#123;
   selector: 'app-alert',
-  imports: [MaxIconComponent],
-  template: '&lt;max-icon [iconDef]="bell" [size]="24" label="Notifications" /&gt;',
+  imports: [GfIconComponent],
+  template: '&lt;gf-icon [iconDef]="bell" [size]="24" label="Notifications" /&gt;',
 &#125;)
 export class Alert &#123;
   protected readonly bell = bellIcon;
 &#125;</code></pre>
-<p [innerHTML]="'docs.empezando.primerIcono.texto2' | transloco"></p>
 
 <h2 [innerHTML]="'docs.empezando.porQue.titulo' | transloco"></h2>
 <p>{{ 'docs.empezando.porQue.texto1' | transloco }}</p>
@@ -97,16 +96,16 @@ bootstrapApplication(App, &#123;
 
 <h2>{{ 'docs.empezando.velocidad.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.velocidad.texto1' | transloco"></p>
-<pre><code>import &#123; provideMaxIcons &#125; from 'glyphflow';
+<pre><code>import &#123; provideGfIcons &#125; from 'glyphflow';
 
-providers: [provideMaxIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
+providers: [provideGfIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
 <p [innerHTML]="'docs.empezando.velocidad.texto2' | transloco"></p>
 
 <h2>{{ 'docs.empezando.morph.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.morph.texto1' | transloco"></p>
-<pre><code>import &#123; MaxIconMorphComponent &#125; from 'glyphflow/morph';
+<pre><code>import &#123; GfIconMorphComponent &#125; from 'glyphflow/morph';
 
 // The binding IS the state: changing [icon] triggers the transition from the previous value.
-// &lt;max-icon-morph [icon]="current()" [size]="32" label="Status" /&gt;</code></pre>
+// &lt;gf-icon-morph [icon]="current()" [size]="32" label="Status" /&gt;</code></pre>
 <p class="nota">{{ 'docs.empezando.morph.nota' | transloco }}</p>
 <p [innerHTML]="'docs.empezando.morph.texto2' | transloco"></p>
