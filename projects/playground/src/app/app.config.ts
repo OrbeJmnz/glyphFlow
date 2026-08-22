@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, TitleStrategy, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { registrarExterna } from './core/transicion';
-import { provideEscalaEnVivo } from './core/duration-scale';
+import { provideVelocidadEnVivo } from './core/duration-scale';
 import { provideI18n } from './core/i18n';
 import { TranslatedTitleStrategy } from './core/translated-title-strategy';
 
@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
         onViewTransitionCreated: ({ transition }) => registrarExterna(transition),
       }),
     ),
-    provideEscalaEnVivo(),
+    provideVelocidadEnVivo(),
     provideI18n(),
     // `route.title` ahora es una clave de traducción, no texto — ver `translated-title-strategy.ts`.
     { provide: TitleStrategy, useClass: TranslatedTitleStrategy },

@@ -51,15 +51,15 @@
       >
         <!-- El carril envuelve SOLO las píldoras: el indicador que se desliza se ancla aquí, y
              el rótulo del grupo queda fuera para que su ancho no corra el origen. -->
-        <span class="carril" [style.--i]="indiceEscala()">
+        <span class="carril" [style.--i]="indiceVelocidad()">
           @for (p of presets; track p.valor) {
             <button
               type="button"
               app-chip
-              [activo]="escala() === p.valor"
-              [attr.aria-pressed]="escala() === p.valor"
+              [activo]="velocidad() === p.valor"
+              [attr.aria-pressed]="velocidad() === p.valor"
               [title]="p.notaClave | transloco"
-              (click)="escala.set(p.valor)"
+              (click)="velocidad.set(p.valor)"
             >
               {{ p.etiqueta }}
             </button>
@@ -171,15 +171,15 @@
     [etiqueta]="'shell.velocidad.etiqueta' | transloco"
     class="velocidad menu-velocidad"
   >
-    <span class="carril" [style.--i]="indiceEscala()">
+    <span class="carril" [style.--i]="indiceVelocidad()">
       @for (p of presets; track p.valor) {
         <button
           type="button"
           app-chip
-          [activo]="escala() === p.valor"
-          [attr.aria-pressed]="escala() === p.valor"
+          [activo]="velocidad() === p.valor"
+          [attr.aria-pressed]="velocidad() === p.valor"
           [title]="p.notaClave | transloco"
-          (click)="escala.set(p.valor)"
+          (click)="velocidad.set(p.valor)"
         >
           {{ p.etiqueta }}
         </button>
@@ -188,9 +188,9 @@
   </app-grupo>
 </aside>
 
-@if (escala() !== 1) {
+@if (velocidad() !== 1) {
   <p class="shell-aviso">
-    {{ 'shell.aviso' | transloco: { n: escala() } }}
+    {{ 'shell.aviso' | transloco: { n: velocidad() } }}
   </p>
 }
 

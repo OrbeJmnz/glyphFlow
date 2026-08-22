@@ -24,10 +24,10 @@
     "velocidad": {
       "titulo": "velocidad",
       "etiqueta": "Velocidad global de las animaciones",
-      "notaMitad": "el doble de rápido",
+      "notaLento": "para ver el detalle",
       "notaNormal": "default",
-      "notaMediaLenta": "medio lento",
-      "notaDetalle": "para ver el detalle"
+      "notaMasRapido": "un poco más rápido",
+      "notaDoble": "el doble de rápido"
     },
     "aviso": "Velocidad {{n}}× — aplica desde la siguiente reproducción; lo que ya está corriendo conserva la suya.",
     "footer": {

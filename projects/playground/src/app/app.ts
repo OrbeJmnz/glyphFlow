@@ -13,7 +13,7 @@ import {
 } from 'glyphflow';
 import { MaxIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { TranslocoPipe, TranslocoService, translateSignal } from '@jsverse/transloco';
-import { escalaDuracion, PRESETS_ESCALA } from './core/duration-scale';
+import { velocidadGlobal, PRESETS_VELOCIDAD } from './core/duration-scale';
 import { cargarEstrellas } from './core/github';
 import { conectarIdiomaDelDocumento, type Idioma } from './core/i18n';
 import { alternarTema, conectarTema, tema } from './core/tema';
@@ -58,13 +58,13 @@ import { Grupo } from './shared/ui/grupo';
   },
 })
 export class App {
-  protected readonly presets = PRESETS_ESCALA;
-  protected readonly escala = escalaDuracion;
+  protected readonly presets = PRESETS_VELOCIDAD;
+  protected readonly velocidad = velocidadGlobal;
   /** Qué píldora está puesta. Lo consume el CSS como `--i` para desplazar el indicador. */
-  protected readonly indiceEscala = computed(() =>
+  protected readonly indiceVelocidad = computed(() =>
     Math.max(
       0,
-      PRESETS_ESCALA.findIndex((p) => p.valor === escalaDuracion()),
+      PRESETS_VELOCIDAD.findIndex((p) => p.valor === velocidadGlobal()),
     ),
   );
   protected readonly iconoVelocidad: AnimatedIconDef = zapIcon;

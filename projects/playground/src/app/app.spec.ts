@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { vi } from 'vitest';
 import { App } from './app';
 import { routes } from './app.routes';
-import { escalaDuracion } from './core/duration-scale';
+import { velocidadGlobal } from './core/duration-scale';
 import { estrellas } from './core/github';
 import { providersI18nTest } from './core/i18n-testing';
 import { tema } from './core/tema';
@@ -25,11 +25,11 @@ describe('App (shell)', () => {
       imports: [App, providersI18nTest()],
       providers: [provideRouter([])],
     }).compileComponents();
-    escalaDuracion.set(1);
+    velocidadGlobal.set(1);
   });
 
   afterEach(() => {
-    escalaDuracion.set(1);
+    velocidadGlobal.set(1);
     localStorage.clear();
     vi.unstubAllGlobals();
   });
@@ -84,7 +84,7 @@ describe('App (shell)', () => {
     expect(chips.map((c) => c.textContent?.trim())).toEqual(['0.5×', '1×', '1.5×', '2×']);
 
     chips[3].click();
-    expect(escalaDuracion()).toBe(2);
+    expect(velocidadGlobal()).toBe(2);
     await fixture.whenStable();
     // El aviso solo aparece fuera de 1×: en el default no hay nada que advertir.
     expect(html.querySelector('.shell-aviso')?.textContent).toContain('2×');

@@ -24,10 +24,10 @@
     "velocidad": {
       "titulo": "speed",
       "etiqueta": "Global animation speed",
-      "notaMitad": "twice as fast",
+      "notaLento": "to see the detail",
       "notaNormal": "default",
-      "notaMediaLenta": "a bit slower",
-      "notaDetalle": "to see the detail"
+      "notaMasRapido": "a bit faster",
+      "notaDoble": "twice as fast"
     },
     "aviso": "Speed {{n}}× — applies from the next playback; anything already running keeps its own.",
     "footer": {
