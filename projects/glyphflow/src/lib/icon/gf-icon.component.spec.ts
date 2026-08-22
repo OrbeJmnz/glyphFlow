@@ -1,8 +1,17 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { MaxIconComponent } from './max-icon.component';
+import { GfIconComponent } from './gf-icon.component';
 import { ANIMATED_ICONS, ICON_ALIASES } from './animated-icons.registry';
 import { CURATED_ICONS } from './curated-icons';
-import { provideIconCatalog } from './icon-catalog.provider';
+import { provideIconCatalog, GF_ICON_CATALOG, MAX_ICON_CATALOG } from './icon-catalog.provider';
+// Los alias de la v1: se importan justamente para probar que siguen siendo el mismo objeto.
+import { MaxIconComponent } from '../../public-api';
+import {
+  GF_ICONS_CONFIG,
+  MAX_ICONS_CONFIG,
+  provideGfIcons,
+  provideMaxIcons,
+} from './gf-icons.config';
 
 /**
  * El contrato que importa: el registro y el template no se desincronizan. Si alguien agrega un
@@ -15,16 +24,16 @@ import { provideIconCatalog } from './icon-catalog.provider';
  * Los specs registran el catálogo completo vía `provideIconCatalog` a propósito, para probar
  * `name="..."` — en producción ese registro es opt-in (ver icon-catalog.provider.ts).
  */
-describe('MaxIconComponent', () => {
+describe('GfIconComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MaxIconComponent],
+      imports: [GfIconComponent],
       providers: [provideIconCatalog(ANIMATED_ICONS)],
     }).compileComponents();
   });
 
   function render(name: string) {
-    const fixture = TestBed.createComponent(MaxIconComponent);
+    const fixture = TestBed.createComponent(GfIconComponent);
     fixture.componentRef.setInput('name', name);
     fixture.detectChanges();
     return fixture;
@@ -124,12 +133,70 @@ describe('MaxIconComponent', () => {
     expect(sinLabel.getAttribute('aria-hidden')).toBe('true');
     expect(sinLabel.getAttribute('aria-label')).toBeNull();
 
-    const fixture = TestBed.createComponent(MaxIconComponent);
+    const fixture = TestBed.createComponent(GfIconComponent);
     fixture.componentRef.setInput('name', 'search');
     fixture.componentRef.setInput('label', 'Buscar');
     fixture.detectChanges();
     const conLabel = fixture.nativeElement.querySelector('svg');
     expect(conLabel.getAttribute('aria-hidden')).toBe('false');
     expect(conLabel.getAttribute('aria-label')).toBe('Buscar');
+  });
+});
+
+/**
+ * Los alias de la v1 (`Max*`), clavados.
+ *
+ * El caso peligroso no es el import: si `MaxIconComponent` desapareciera, TypeScript lo diría a
+ * gritos. El peligroso es el SELECTOR — una plantilla es texto, así que un `<max-icon>` que se
+ * queda sin componente no truena: Angular lo trata como elemento desconocido y no pinta nada.
+ * Un renombrado de selector sin puente se ve como iconos invisibles, no como un error.
+ */
+describe('alias de la v1', () => {
+  @Component({
+    // El selector VIEJO, tal cual lo tiene escrito hoy quien ya usa la librería.
+    template: `<max-icon name="search" />`,
+    imports: [GfIconComponent],
+  })
+  class ConSelectorViejo {}
+
+  it('`<max-icon>` sigue montando el componente y pintando sus figuras', async () => {
+    await TestBed.configureTestingModule({
+      imports: [ConSelectorViejo],
+      providers: [provideIconCatalog(ANIMATED_ICONS)],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(ConSelectorViejo);
+    fixture.detectChanges();
+
+    const svg = fixture.nativeElement.querySelector('svg');
+    // Si el puente del selector faltara, `svg` sería null y el icono estaría invisible en la app
+    // de alguien sin un solo mensaje de error.
+    expect(svg).not.toBeNull();
+    expect(svg.children.length).toBeGreaterThan(0);
+  });
+
+  it('los símbolos viejos son LA MISMA referencia, no copias', () => {
+    // Para un `InjectionToken` esto no es cosmético: dos tokens distintos no se ven entre sí, así
+    // que un `provideMaxIcons()` no alimentaría al componente y `durationScale` se ignoraría en
+    // silencio, sin un error que lo delate.
+    expect(MaxIconComponent).toBe(GfIconComponent);
+    expect(MAX_ICONS_CONFIG).toBe(GF_ICONS_CONFIG);
+    expect(provideMaxIcons).toBe(provideGfIcons);
+    expect(MAX_ICON_CATALOG).toBe(GF_ICON_CATALOG);
+  });
+
+  it('`provideMaxIcons` sigue alimentando al componente de verdad', async () => {
+    // No basta con que el token sea el mismo objeto: se prueba el viaje entero, del provider viejo
+    // al `inject()` nuevo.
+    await TestBed.configureTestingModule({
+      imports: [GfIconComponent],
+      providers: [provideIconCatalog(ANIMATED_ICONS), provideMaxIcons({ durationScale: 0.5 })],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(GfIconComponent);
+    fixture.componentRef.setInput('name', 'search');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('svg')).not.toBeNull();
+    expect(TestBed.inject(GF_ICONS_CONFIG).durationScale).toBe(0.5);
   });
 });

@@ -173,6 +173,8 @@
       "respectReducedMotion": "Here it JUMPS to the destination instead of staying still.",
       "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry."
     },
+    "obsoleto": "deprecated",
+    "usaEnSuLugar": "Use {{nuevo}} instead.",
     "simbolos": {
       "MaxIconComponent": "The engine. Selector <max-icon>. Standalone.",
       "provideMaxIcons": "Optional global config. Today just durationScale.",
@@ -191,6 +193,9 @@
       "runMorph": "morphKeyframes + element.animate(). Returns the Animation so you can control it.",
       "canonicalD": "The already-resolved `d` of an icon — what renders when there's no transition.",
       "SPRING_PRESETS": "smooth (ζ=1.00), snappy (ζ=0.73), and bouncy (ζ=0.40). The last two actually overshoot.",
+      "STEPS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
+      "RESOLUTION_DEFAULT": "64 points per subpath.",
+      "SPRING_TAIL_DEFAULT": "What to do with the spring's asymptotic tail.",
       "PASOS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 points per subpath.",
       "COLA_DEFAULT": "What to do with the spring's asymptotic tail."

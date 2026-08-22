@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { bellIcon, bellRingIcon } from 'glyphflow';
-import { MaxIconMorphComponent, type MorphIcon } from './max-icon-morph.component';
+import { GfIconMorphComponent, type MorphIcon } from './gf-icon-morph.component';
 import { PASOS_DEFAULT, SPRING_PRESETS, type SpringPreset } from './morph-keyframes';
 
 /**
@@ -14,8 +14,8 @@ import { PASOS_DEFAULT, SPRING_PRESETS, type SpringPreset } from './morph-keyfra
  * keyframes exactos que se le entregaron al navegador.
  */
 @Component({
-  imports: [MaxIconMorphComponent],
-  template: '<max-icon-morph [icon]="icono()" [spring]="resorte()" label="prueba" />',
+  imports: [GfIconMorphComponent],
+  template: '<gf-icon-morph [icon]="icono()" [spring]="resorte()" label="prueba" />',
 })
 class Anfitrion {
   readonly icono = signal<MorphIcon | undefined>(bellIcon);
@@ -54,7 +54,7 @@ function espiarAnimate(): { llamadas: Llamada[]; restaurar: () => void } {
   };
 }
 
-describe('<max-icon-morph> — input spring', () => {
+describe('<gf-icon-morph> — input spring', () => {
   let espia: ReturnType<typeof espiarAnimate>;
 
   beforeEach(() => (espia = espiarAnimate()));

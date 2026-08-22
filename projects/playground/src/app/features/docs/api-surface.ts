@@ -21,6 +21,14 @@ export interface SimboloApi {
   clase: Clase;
   /** Clave de traducción, no el texto — ver la nota de arriba. */
   resumen: string;
+  /**
+   * Si está, este símbolo es un alias `@deprecated` y aquí va el nombre que lo reemplaza.
+   *
+   * No basta con borrarlo de esta lista: el spec exige que TODO export esté documentado, y el
+   * alias sigue exportado. Y aunque no lo exigiera, quien llega con código de la v1 necesita
+   * encontrar en la página a qué migrar — que es justo cuando va a buscarlo.
+   */
+  obsoleto?: string;
 }
 
 /** Los ~1767 `export const xIcon` NO van aquí: se documentan como categoría, no uno por uno. */
@@ -99,10 +107,27 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.ICON_META',
   },
+  /*
+   * Ojo con la asimetría de esta tabla mientras la major no esté publicada.
+   *
+   * El sitio resuelve `glyphflow/morph` al código LOCAL, así que ya ve `GfIconMorphComponent`.
+   * Pero resuelve `glyphflow` al paquete PUBLICADO (1.3.0), que todavía dice `MaxIconComponent`.
+   * Por eso aquí conviven los dos vocabularios: no es un descuido, es lo que el sitio consume de
+   * verdad hoy — y el spec compara contra eso, no contra lo que nos gustaría.
+   *
+   * Al publicar y mover el lockfile, los símbolos de `glyphflow` pasan a `Gf*` y esta nota se va.
+   */
+  {
+    nombre: 'GfIconMorphComponent',
+    entrada: 'glyphflow/morph',
+    clase: 'componente',
+    resumen: 'docs.api.simbolos.MaxIconMorphComponent',
+  },
   {
     nombre: 'MaxIconMorphComponent',
     entrada: 'glyphflow/morph',
     clase: 'componente',
+    obsoleto: 'GfIconMorphComponent',
     resumen: 'docs.api.simbolos.MaxIconMorphComponent',
   },
   {
@@ -130,21 +155,44 @@ export const API_VALORES: SimboloApi[] = [
     resumen: 'docs.api.simbolos.SPRING_PRESETS',
   },
   {
+    nombre: 'STEPS_DEFAULT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.STEPS_DEFAULT',
+  },
+  {
+    nombre: 'RESOLUTION_DEFAULT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.RESOLUTION_DEFAULT',
+  },
+  {
+    nombre: 'SPRING_TAIL_DEFAULT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.SPRING_TAIL_DEFAULT',
+  },
+  // Los nombres de la v1. Se documentan porque siguen exportados —el spec exige que TODO export
+  // esté documentado— y porque quien llegue con código viejo tiene que encontrar a qué migrar.
+  {
     nombre: 'PASOS_DEFAULT',
     entrada: 'glyphflow/morph',
     clase: 'constante',
+    obsoleto: 'STEPS_DEFAULT',
     resumen: 'docs.api.simbolos.PASOS_DEFAULT',
   },
   {
     nombre: 'RESOLUCION_DEFAULT',
     entrada: 'glyphflow/morph',
     clase: 'constante',
+    obsoleto: 'RESOLUTION_DEFAULT',
     resumen: 'docs.api.simbolos.RESOLUCION_DEFAULT',
   },
   {
     nombre: 'COLA_DEFAULT',
     entrada: 'glyphflow/morph',
     clase: 'constante',
+    obsoleto: 'SPRING_TAIL_DEFAULT',
     resumen: 'docs.api.simbolos.COLA_DEFAULT',
   },
 ];
