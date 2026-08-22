@@ -37,27 +37,16 @@ const servidor = spawn('npx', ['ng', 'serve', 'playground', '--port', String(POR
   detached: process.platform !== 'win32',
 });
 
-/**
- * El CLI descubre rutas navegando enlaces, y eso deja fuera lo que vive tras un redirect: `/docs`
- * rebota a `/docs/empezando` y el crawler reporta «No skeletons found» sin capturar nada. Esas se
- * visitan aparte, apuntando al destino final. Cada corrida MEZCLA con lo que ya hay en `out` (lo
- * que no vuelve a ver queda «unchanged»), así que no se pisan.
- */
-const RUTAS_EXTRA = ['/docs/empezando'];
-
 let capturaOk = false;
 try {
   await esperarServidor();
 
-  for (const destino of ['', ...RUTAS_EXTRA]) {
-    const url = `${URL_DEV}${destino}`;
-    console.log(`\n=== npx boneyard-js build ${url} ===`);
-    execFileSync('npx', ['boneyard-js', 'build', url], {
-      cwd: `${ROOT}projects/playground`,
-      stdio: 'inherit',
-      shell: true,
-    });
-  }
+  console.log(`\n=== npx boneyard-js build ${URL_DEV} ===`);
+  execFileSync('npx', ['boneyard-js', 'build', URL_DEV], {
+    cwd: `${ROOT}projects/playground`,
+    stdio: 'inherit',
+    shell: true,
+  });
   capturaOk = true;
 } finally {
   console.log('\n=== Bajando el dev server ===');

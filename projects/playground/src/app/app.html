@@ -194,49 +194,8 @@
   </p>
 }
 
-<!--
-  El esqueleto envuelve al outlet, no vive dentro de cada página: durante la navegación el
-  componente destino todavía no existe, así que un esqueleto suyo no podría pintarse. Envolviendo
-  aquí, `skeleton:capture` captura al visitar cada ruta la geometría REAL de esa página, y el shell
-  reusa esos huesos al navegar.
-
-  `cssClass` y no `class`: la altura tiene que ir al DIV INTERNO del componente, no al host. El
-  overlay de huesos es `position:absolute; inset:0` sobre ese div, con `overflow:hidden` — y sin
-  contenido proyectado mide 0, así que recorta los huesos y no se ve NADA. `cssClass` es el input
-  que boneyard aplica justo ahí.
-
-  `select="viewport"`: los huesos se capturan por ancho de ventana y este contenedor es más
-  angosto. Sin esto elegiría el breakpoint equivocado.
-
-  Color propio, no el global de `configureBoneyard`: aquel es `--gf-panel-alto` (#f0f0f3), que
-  contrasta contra el PANEL donde vive el conteo de GitHub pero es invisible sobre el fondo de la
-  página (#fdfcfd, un 3% de diferencia).
--->
 <main class="shell-cuerpo">
-  @if (cargandoPagina()) {
-    <boneyard-skeleton
-      [name]="esqueletoPagina()"
-      [loading]="true"
-      cssClass="esqueleto-pagina"
-      select="viewport"
-      animate="shimmer"
-      color="rgba(22, 22, 28, 0.09)"
-      darkColor="rgba(255, 255, 255, 0.07)"
-    />
-  }
-  <!--
-    Escondido mientras el esqueleto está puesto: el router NO destruye la página anterior hasta que
-    la nueva resuelve, así que sin esto se ve el esqueleto del destino Y debajo la página de la que
-    vienes. `display:none` y no `@if`: quitarlo del DOM destruiría el outlet a media navegación.
-  -->
-  <boneyard-skeleton
-    [name]="esqueletoRutaActual()"
-    [loading]="false"
-    select="viewport"
-    [style.display]="cargandoPagina() ? 'none' : null"
-  >
-    <router-outlet />
-  </boneyard-skeleton>
+  <router-outlet />
 </main>
 
 <footer class="shell-foot">
