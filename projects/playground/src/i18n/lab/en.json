@@ -10,6 +10,7 @@
       "jsonInvalido": "Invalid JSON — check your commas and braces.",
       "noEsObjeto": "Expected an object.",
       "faltaShapes": "Missing \"shapes\" (must be an array).",
+      "shapesInvalidas": "\"shapes\" must have at least one figure, and each one needs a \"tag\".",
       "faltaAnimations": "Missing \"animations\" (must be an object)."
     },
     "sinNombre": "(unnamed)",
@@ -19,7 +20,7 @@
     "titulo": "Free-form morph — build your sequence",
     "expectativa": "⚠ Only the benchmark's 4 pairs are thoroughly validated. Arbitrary combinations between very different icons <strong>can look wrong</strong> — that's a real limit of shape interpolation, not a bug: the core pairs subpaths by proximity, and if two icons share nothing in common, there's no good match to find.",
     "buscar": {
-      "marcador": "filter the 180 curated icons…",
+      "marcador": "filter the {{total}} curated icons…",
       "etiqueta": "Filter icons",
       "sinResultados": "No results for \"{{filtro}}\"."
     },

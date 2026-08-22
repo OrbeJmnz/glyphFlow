@@ -419,6 +419,20 @@ code {
   color: var(--gf-texto-apagado);
 }
 
+/**
+ * Conteo junto a un título de grupo — «visibles/total».
+ *
+ * `tabular-nums` porque la cifra cambia con cada tecla del buscador: sin ancho fijo el número
+ * baila y el ojo persigue el movimiento en vez de leerlo.
+ */
+.grupo-tit .conteo {
+  margin-left: 0.5ch;
+  font-variant-numeric: tabular-nums;
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.75;
+}
+
 .enlace {
   border: 0;
   padding: 0;

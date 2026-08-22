@@ -10,7 +10,13 @@ import {
 import { Router } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import editorEn from '../../../i18n/editor/en.json';
-import { CURATED_ICONS, MaxIconComponent, type AnimatedIconDef, type IconShape } from 'glyphflow';
+import {
+  CURATED_ICONS,
+  ICON_ALIASES,
+  MaxIconComponent,
+  type AnimatedIconDef,
+  type IconShape,
+} from 'glyphflow';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
   dDeSubpath,
@@ -110,22 +116,33 @@ export class Editor implements OnDestroy {
     .map(([nombre, def]) => ({ nombre, def }))
     .sort((a, b) => a.nombre.localeCompare(b.nombre));
 
+  /**
+   * Nombre viejo de Lucide → nombre actual. Quien llega con `alert-triangle` en la cabeza no tiene
+   * por qué saber que ahora se llama `triangle-alert`; sin esto la búsqueda le devuelve una
+   * pantalla vacía y concluye que el icono no existe.
+   */
+  private readonly porAlias = new Map<string, string>(Object.entries(ICON_ALIASES));
+
   protected readonly filtro = signal('');
+
+  /**
+   * Sin `slice`: se renderiza el catálogo completo, igual que el showcase.
+   *
+   * Antes cortaba en 60 y el corte era invisible — el `max-height` con scroll de la lista hace que
+   * 60-de-899 se vea idéntico a 60-de-60, así que el usuario llegaba al fondo, veía `axis-3d` y
+   * concluía que el catálogo se acababa en la letra "a". Peor: el icono `x` quedaba INALCANZABLE,
+   * porque su única consulta posible (`x`) lo dejaba en la posición 60 de 61 coincidencias, un
+   * lugar afuera. Un editor al que no se le puede pedir un icono del catálogo no es un editor.
+   */
   protected readonly candidatos = computed(() => {
     const q = this.filtro().trim().toLowerCase();
-    const filtrados = this.curados.filter((c) => !q || c.nombre.includes(q));
-    const visibles = filtrados.slice(0, 60);
-    // El elegido puede caer fuera del corte (alfabéticamente lejos, catálogo grande): sin esto el
-    // chip activo desaparece de la lista y la UI queda sin selección visible.
-    const elegido = this.elegido();
-    if (
-      !visibles.some((c) => c.nombre === elegido.nombre) &&
-      filtrados.some((c) => c.nombre === elegido.nombre)
-    ) {
-      return [elegido, ...visibles.slice(0, 59)];
-    }
-    return visibles;
+    if (!q) return this.curados;
+    const canonico = this.porAlias.get(q);
+    return this.curados.filter((c) => c.nombre.includes(q) || (canonico && c.nombre === canonico));
   });
+
+  /** Para que la lista diga cuántos hay: un corte silencioso se lee como "esto es todo". */
+  protected readonly totalCurados = this.curados.length;
 
   protected readonly elegido = signal<Curado>(
     this.curados.find((c) => c.nombre === 'heart') ?? this.curados[0],

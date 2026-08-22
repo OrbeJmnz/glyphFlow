@@ -8,7 +8,7 @@
     <div class="col-buscar">
       <app-campo-busqueda
         [(texto)]="filtro"
-        [marcador]="'lab.morphPicker.buscar.marcador' | transloco"
+        [marcador]="'lab.morphPicker.buscar.marcador' | transloco: { total: totalCurados }"
         [etiqueta]="'lab.morphPicker.buscar.etiqueta' | transloco"
       />
       <div class="resultados">

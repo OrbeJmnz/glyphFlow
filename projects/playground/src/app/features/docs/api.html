@@ -85,7 +85,7 @@
               <code>{{ s.nombre }}</code>
             </td>
             <td>{{ claseClaves[s.clase] | transloco }}</td>
-            <td>{{ s.resumen | transloco }}</td>
+            <td>{{ s.resumen | transloco: conteos }}</td>
           </tr>
         }
       </tbody>

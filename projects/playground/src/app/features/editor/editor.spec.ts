@@ -215,6 +215,49 @@ describe('Editor', () => {
     expect(despues.every((n) => n.includes('bell'))).toBe(true);
   });
 
+  /**
+   * La lista se cortaba en 60 con un `slice`, y el corte era invisible: el contenedor tiene
+   * `max-height` con scroll, así que 60-de-899 se veía idéntico a 60-de-60.
+   *
+   * El daño no era solo de descubrimiento. El icono `x` quedaba INALCANZABLE: su única consulta
+   * posible (`x`) tiene 61 coincidencias y `x` cae en la posición 60 — un lugar fuera del corte.
+   * Un editor al que no se le puede pedir un icono del catálogo no cumple su trabajo.
+   */
+  it('ofrece el catálogo completo, sin corte silencioso', async () => {
+    const { html } = await montar();
+    const chips = html.querySelectorAll('.lista .chip').length;
+    expect(chips).toBe(Object.keys(CURATED_ICONS).length);
+  });
+
+  it('se puede llegar a `x`, que el corte de 60 dejaba fuera para siempre', async () => {
+    const { fixture, html } = await montar();
+    const input = html.querySelector<HTMLInputElement>('app-campo-busqueda input')!;
+    input.value = 'x';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    expect([...html.querySelectorAll('.lista .chip')].map(nombreDe)).toContain('x');
+  });
+
+  /**
+   * Un nombre viejo de Lucide tiene que encontrar al actual. Sin esto, quien llega con
+   * `alert-triangle` en la cabeza ve una lista vacía y concluye que el icono no existe.
+   */
+  it('la búsqueda entiende los alias de nombres viejos de Lucide', async () => {
+    const { fixture, html } = await montar();
+    const input = html.querySelector<HTMLInputElement>('app-campo-busqueda input')!;
+    input.value = 'alert-triangle';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    expect([...html.querySelectorAll('.lista .chip')].map(nombreDe)).toContain('triangle-alert');
+  });
+
+  /** El conteo va derivado: escrito a mano se queda atrás, como ya pasó con el «180». */
+  it('publica cuántos ve el usuario y cuántos hay', async () => {
+    const { html } = await montar();
+    const total = Object.keys(CURATED_ICONS).length;
+    expect(html.querySelector('.grupo-tit .conteo')!.textContent!.trim()).toBe(`${total}/${total}`);
+  });
+
   it('el zoom reencuadra el viewBox y la conversión pantalla→viewBox lo respeta', async () => {
     // El riesgo real del zoom no es que se vea mal: es que `aViewBox` deje de cuadrar y el nodo se
     // despegue del puntero. Aquí se mide justo eso, arrastrando UNA unidad del icono con el

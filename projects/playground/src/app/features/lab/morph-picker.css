@@ -68,7 +68,7 @@
   padding-right: 0.25rem;
 }
 
-/* Icono en vez de nombre: el propio glifo es más rápido de reconocer que 180 etiquetas de texto
+/* Icono en vez de nombre: el propio glifo es más rápido de reconocer que cientos de etiquetas de texto
    del mismo tamaño — el nombre sigue disponible, en el tooltip que lo envuelve. */
 .opcion {
   display: flex;

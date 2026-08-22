@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
 
 /**
- * El campo de búsqueda: filtrar los 180 curados en el editor, y elegir iconos en el picker del lab.
+ * El campo de búsqueda: filtrar los curados en el editor, y elegir iconos en el picker del lab.
  *
  * Usa `model()` en vez de un `@Input` + `@Output` a mano, así que el consumidor escribe
  * `[(texto)]="filtro"` y se acabó. Es `type="search"` de verdad — no un `text` disfrazado — para

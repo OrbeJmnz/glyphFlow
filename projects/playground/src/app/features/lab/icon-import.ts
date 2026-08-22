@@ -68,6 +68,17 @@ export class IconImport {
     if (!Array.isArray(obj['shapes'])) {
       return { errorKey: 'lab.iconImport.errores.faltaShapes' };
     }
+    // Mirar ADENTRO del array, no solo que sea un array: el motor hace `@switch (shape.tag)` sobre
+    // cada elemento, así que un `shapes: [null]` pasaba las validaciones de contenedor y reventaba
+    // al renderizar. El importador come JSON pegado por el usuario — aquí la entrada es hostil por
+    // definición y el error tiene que salir como mensaje, no como excepción.
+    const figuras = obj['shapes'] as unknown[];
+    const figurasValidas = figuras.every(
+      (f) => typeof f === 'object' && f !== null && typeof (f as { tag?: unknown }).tag === 'string',
+    );
+    if (!figuras.length || !figurasValidas) {
+      return { errorKey: 'lab.iconImport.errores.shapesInvalidas' };
+    }
     if (typeof obj['animations'] !== 'object' || obj['animations'] === null) {
       return { errorKey: 'lab.iconImport.errores.faltaAnimations' };
     }

@@ -49,7 +49,7 @@ interface CuratedEntry {
 }
 
 /**
- * Los 180 curados, cada uno con su coreografía real corriendo en el navegador.
+ * Los curados, cada uno con su coreografía real corriendo en el navegador.
  *
  * Consume el paquete PUBLICADO (`glyphflow` del registro, vía el alias en tsconfig.paths.json),
  * nunca `dist/glyphflow` ni el código de projects/glyphflow. Si algo de la API pública no alcanza,

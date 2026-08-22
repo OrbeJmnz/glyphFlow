@@ -10,6 +10,7 @@
       "jsonInvalido": "JSON inválido — revisa comas y llaves.",
       "noEsObjeto": "Se esperaba un objeto.",
       "faltaShapes": "Falta \"shapes\" (debe ser un arreglo).",
+      "shapesInvalidas": "\"shapes\" necesita al menos una figura, y cada una su \"tag\".",
       "faltaAnimations": "Falta \"animations\" (debe ser un objeto)."
     },
     "sinNombre": "(sin nombre)",
@@ -19,7 +20,7 @@
     "titulo": "Morph libre — elige tu secuencia",
     "expectativa": "⚠ Solo los 4 pares del benchmark están validados a fondo. Combinaciones arbitrarias entre iconos muy distintos <strong>pueden verse mal</strong> — es un límite real de la interpolación de formas, no un bug: el core empareja subpaths por cercanía, y si dos iconos no tienen nada en común, no hay correspondencia buena que encontrar.",
     "buscar": {
-      "marcador": "filtrar entre los 180 curados…",
+      "marcador": "filtrar entre los {{total}} curados…",
       "etiqueta": "Filtrar iconos",
       "sinResultados": "Sin resultados para «{{filtro}}»."
     },

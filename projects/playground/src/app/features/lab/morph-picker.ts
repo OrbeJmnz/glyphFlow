@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { AnimatedIconDef, CURATED_ICONS, MaxIconComponent } from 'glyphflow';
+import { AnimatedIconDef, CURATED_ICONS, ICON_ALIASES, MaxIconComponent } from 'glyphflow';
 import { MaxIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
@@ -17,7 +17,7 @@ interface Elegido {
  * selección, en vivo. No es motor nuevo — es exponer `buildPlan()` a input arbitrario del usuario
  * en lugar de a los 4 pares fijos del benchmark.
  *
- * Alcance deliberado: el picker ofrece los 180 CURADOS, no los 1767. `ANIMATED_ICONS` arrastraría
+ * Alcance deliberado: el picker ofrece los CURADOS, no el catálogo completo. `ANIMATED_ICONS` arrastraría
  * el registro completo al bundle del playground (~94KB gzip) por una lista de selección — y los
  * curados ya están en el bundle porque el grid los pinta. Si algún día hace falta el set completo,
  * es una decisión de peso a tomar a propósito, no un efecto colateral de este panel.
@@ -54,11 +54,27 @@ export class MorphPicker implements OnDestroy {
 
   private temporizadores: ReturnType<typeof setTimeout>[] = [];
 
+  /**
+   * Nombre viejo de Lucide → nombre actual, para que quien busque `alert-triangle` encuentre
+   * `triangle-alert` en vez de una lista vacía.
+   */
+  private readonly porAlias = new Map<string, string>(Object.entries(ICON_ALIASES));
+
+  /**
+   * Sin `slice`: se ofrecen todos. El corte anterior en 60 era invisible — la lista tiene
+   * `max-height` con scroll, así que 60-de-899 se veía igual que 60-de-60 y el usuario llegaba al
+   * fondo creyendo que el catálogo terminaba en `axis-3d`. Un picker que solo sirve si ya sabes el
+   * nombre del icono no es un picker.
+   */
   protected readonly resultados = computed(() => {
     const q = this.filtro().trim().toLowerCase();
-    const base = q ? this.todos.filter((i) => i.nombre.includes(q)) : this.todos;
-    return base.slice(0, 60);
+    if (!q) return this.todos;
+    const canonico = this.porAlias.get(q);
+    return this.todos.filter((i) => i.nombre.includes(q) || (canonico && i.nombre === canonico));
   });
+
+  /** Derivado, nunca a mano: el placeholder que decía «180» llevaba 719 iconos de retraso. */
+  protected readonly totalCurados = this.todos.length;
 
   /** El icono que el componente muestra ahora. Cambiarlo ES lo que dispara el morph. */
   protected readonly iconoActual = computed<AnimatedIconDef | null>(() => {
@@ -103,6 +119,11 @@ export class MorphPicker implements OnDestroy {
     this.corriendo.set(true);
     this.indiceActual.set(0);
 
+    // Dos relojes distintos y por eso van en timers separados: cada paso se DISPARA cuando arranca
+    // su tramo (`acumulado - duracion`), pero la secuencia TERMINA cuando el último tramo acaba
+    // (`acumulado`). Apagar `corriendo` en el disparo del último paso —como estaba— soltaba el
+    // botón una duración completa antes de tiempo: la etiqueta volvía a «play» con el morph a media
+    // máquina y dejaba re-disparar encima de la animación en curso.
     let acumulado = 0;
     for (let i = 1; i < s.length; i++) {
       const { duracion } = morphKeyframes(aIconNode(s[i - 1].def), aIconNode(s[i].def), {
@@ -110,13 +131,9 @@ export class MorphPicker implements OnDestroy {
       });
       acumulado += duracion;
       const paso = i;
-      this.temporizadores.push(
-        setTimeout(() => {
-          this.indiceActual.set(paso);
-          if (paso === s.length - 1) this.corriendo.set(false);
-        }, acumulado - duracion),
-      );
+      this.temporizadores.push(setTimeout(() => this.indiceActual.set(paso), acumulado - duracion));
     }
+    this.temporizadores.push(setTimeout(() => this.corriendo.set(false), acumulado));
   }
 
   protected detener(): void {

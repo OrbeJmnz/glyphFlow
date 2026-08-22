@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { CURATED_ICONS } from 'glyphflow';
+import { CIFRAS } from '../../core/cifras';
 import { API_TIPOS, API_VALORES, type Clase, type Entrada } from './api-surface';
 
 /**
@@ -20,6 +22,21 @@ import { API_TIPOS, API_VALORES, type Clase, type Entrada } from './api-surface'
 })
 export class Api {
   protected readonly entradas: Entrada[] = ['glyphflow', 'glyphflow/morph'];
+
+  /**
+   * Los conteos que interpolan los resúmenes de `CURATED_ICONS` y `GENERATED_ICONS`.
+   *
+   * Estuvieron escritos dentro del texto traducido ("Los 180 con coreografía a mano", "los 1587
+   * restantes") y quedaron cinco veces atrás de la realidad, contradiciendo al hero de la misma
+   * sesión, que sí los deriva. Van como parámetros para que no puedan volver a desfasarse.
+   *
+   * `generados` se calcula restando en vez de leer `GENERATED_ICONS`: ese registro arrastraría los
+   * 868 generados al bundle del sitio solo para pintar un número.
+   */
+  protected readonly conteos = {
+    curados: Object.keys(CURATED_ICONS).length,
+    generados: CIFRAS.catalogo - Object.keys(CURATED_ICONS).length,
+  };
 
   protected valoresDe(entrada: Entrada) {
     return API_VALORES.filter((s) => s.entrada === entrada);
