@@ -362,6 +362,7 @@ export const arrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowLeftShap
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -5683,6 +5684,7 @@ export const cctvIcon: AnimatedIconDef = /* @__PURE__ */ icon(cctvShapes, {
 export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320),
     active: {
       shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -6806,6 +6808,7 @@ export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, 
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -6813,6 +6816,13 @@ export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, 
 
 export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, 3]), 320),
+    active: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
   });
 
 const ARROW_UP_LEFT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, -3px)' }];
@@ -6821,6 +6831,7 @@ export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpLeft
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -6832,6 +6843,7 @@ export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRig
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -6842,6 +6854,7 @@ export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDown
     default: /* @__PURE__ */ held(ARROW_DOWN_LEFT_NUDGE, 320),
     active: {
       shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -6853,6 +6866,7 @@ export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDow
     default: /* @__PURE__ */ held(ARROW_DOWN_RIGHT_NUDGE, 320),
     active: {
       shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -17094,7 +17108,19 @@ export const gitBranchMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 560 }),
+        1: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
+          ],
+          650,
+          { easing: 'ease-out', delay: 820, fill: 'both', origin: '21px 18px' },
+        ),
       },
     },
   },
@@ -17111,7 +17137,29 @@ export const gitPullRequestArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 480 }),
+        3: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
+          ],
+          650,
+          { easing: 'ease-out', delay: 740, fill: 'both', origin: '19px 15px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
+          ],
+          650,
+          { easing: 'ease-out', delay: 740, fill: 'both', origin: '19px 15px' },
+        ),
       },
     },
   },
@@ -17129,7 +17177,30 @@ export const gitPullRequestCreateArrowIcon: AnimatedIconDef = /* @__PURE__ */ ic
   {
     default: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 260 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 480 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 480 }),
+        2: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
+          ],
+          650,
+          { easing: 'ease-out', delay: 680, fill: 'both', origin: '19px 11px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
+          ],
+          650,
+          { easing: 'ease-out', delay: 680, fill: 'both', origin: '19px 11px' },
+        ),
       },
     },
   },
