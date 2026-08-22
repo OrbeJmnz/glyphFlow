@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { computed, signal } from '@angular/core';
 
 /** Solo lo que se usa. Declarado como propiedad y no como índice: `noPropertyAccessFromIndexSignature`. */
 interface RepoGh {
@@ -20,6 +20,29 @@ const VIGENCIA_MS = 6 * 60 * 60 * 1000;
  * nadie le importa tanto.
  */
 export const estrellas = signal<number | null>(null);
+
+/**
+ * Por debajo de esto el número NO se pinta.
+ *
+ * Un «Star on GitHub | 1» le dice a cada visitante que a nadie le ha gustado el proyecto, y es de
+ * lo primero que lee un dev que llega a evaluarlo. Prueba social en contra: peor que no decir nada.
+ *
+ * Vive aquí solo, sin copias, para poder subirlo o bajarlo de un tirón cuando el repo crezca.
+ */
+export const UMBRAL_ESTRELLAS = 50;
+
+/**
+ * El conteo que se PINTA — `null` cuando no hay número que valga la pena enseñar, sea porque
+ * todavía no llegó, porque no se pudo saber, o porque está por debajo del umbral.
+ *
+ * Es un derivado y no una rama dentro del componente a propósito: la etiqueta accesible tiene que
+ * decir exactamente lo mismo que se ve. Con dos lecturas separadas de `estrellas()` era cuestión de
+ * tiempo que el botón dijera «Star on GitHub» mientras el lector de pantalla anunciaba «1 star».
+ */
+export const conteoVisible = computed(() => {
+  const n = estrellas();
+  return n !== null && n >= UMBRAL_ESTRELLAS ? n : null;
+});
 
 interface Cache {
   n: number;

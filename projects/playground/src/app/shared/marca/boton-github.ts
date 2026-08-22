@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { MaxIconComponent, starIcon, type AnimatedIconDef } from 'glyphflow';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { estrellas, formatearEstrellas, URL_REPO } from '../../core/github';
+import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
 
 /**
  * «Star on GitHub»: en reposo la marca de GitHub, y al pasar el puntero sale hacia arriba mientras
@@ -236,7 +236,7 @@ export class BotonGithub {
   protected readonly estrella: AnimatedIconDef = starIcon;
 
   protected readonly conteo = computed(() => {
-    const n = estrellas();
+    const n = conteoVisible();
     return n === null ? null : formatearEstrellas(n);
   });
 
@@ -246,14 +246,22 @@ export class BotonGithub {
    *
    * La rama elige la CLAVE, no el texto — `translateSignal` resuelve la interpolación de `{{n}}`
    * solo en las dos claves que la llevan; en la de "sin conteo" el param simplemente no se usa.
+   *
+   * Lee `conteoVisible` y no `estrellas`: por debajo del umbral el botón no enseña número, así que
+   * la etiqueta tampoco lo dice. Ocultarlo a la vista y anunciarlo por audio sería esconder la
+   * prueba social en contra solo de quien puede verla.
+   *
+   * `ariaConUna` queda hoy fuera de alcance —el umbral es 50— y se conserva igual: la concordancia
+   * de singular es una propiedad del dato, no del umbral, y el umbral es política de presentación
+   * que puede bajar mañana.
    */
   private readonly claveEtiqueta = computed(() => {
-    const n = estrellas();
+    const n = conteoVisible();
     if (n === null) return 'marca.github.ariaSinConteo';
     return n === 1 ? 'marca.github.ariaConUna' : 'marca.github.ariaConVarias';
   });
   protected readonly etiqueta = translateSignal(
     this.claveEtiqueta,
-    computed(() => ({ n: estrellas() })),
+    computed(() => ({ n: conteoVisible() })),
   );
 }

@@ -147,26 +147,6 @@
   color: var(--gf-texto-tenue);
 }
 
-/*
- * La nota que cierra el hero. El destello toma el cian de la marca — un solo color y no el degradado
- * entero, porque el trazo de un icono se pinta con `currentColor` y un degradado ahí necesitaría
- * meterse dentro del SVG del componente, que es justo lo que el consumidor no debería tener que
- * hacer para usar la librería.
- */
-.nota {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 28px 0 0;
-  font-size: 13px;
-  color: var(--gf-texto-tenue);
-}
-
-.nota max-icon {
-  color: var(--gf-marca-1);
-}
-
 .cifras {
   display: flex;
   flex-wrap: wrap;
@@ -223,6 +203,27 @@
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+}
+
+/*
+ * El «Star on GitHub» del hero solo existe donde el del header NO está a la vista.
+ *
+ * `display: none` y no un `@if`: así el botón tampoco entra al árbol de accesibilidad ni al orden
+ * de tabulación cuando sobra — que es el motivo real de quitarlo, no el pixel. Es además el mismo
+ * mecanismo con el que el header se lo quita a sí mismo (`.controles app-boton-github`).
+ *
+ * ATADO A `app.css`: los 640px son los MISMOS del breakpoint donde el header manda este botón al
+ * panel del menú. Si allá se mueve, aquí también — o el sitio se queda sin ninguno a la vista, o
+ * con dos.
+ */
+.hero-secundarias .solo-compacto {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .hero-secundarias .solo-compacto {
+    display: inline-flex;
+  }
 }
 
 /* ── Showcase de morph ──────────────────────────────────────────────────────── */

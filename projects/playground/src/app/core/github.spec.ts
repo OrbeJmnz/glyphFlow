@@ -1,5 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cargarEstrellas, estrellas, formatearEstrellas } from './github';
+import {
+  cargarEstrellas,
+  conteoVisible,
+  estrellas,
+  formatearEstrellas,
+  UMBRAL_ESTRELLAS,
+} from './github';
 
 /** Respuesta mínima de `fetch` con lo que el servicio consume. */
 function respuesta(cuerpo: unknown, ok = true): Response {
@@ -24,6 +30,26 @@ describe('estrellas de GitHub', () => {
     expect(formatearEstrellas(1000)).toBe('1k');
     expect(formatearEstrellas(1240)).toBe('1.2k');
     expect(formatearEstrellas(12500)).toBe('12.5k');
+  });
+
+  it('no enseña un conteo que juega en contra', () => {
+    // Los tres estados que tienen que verse IGUAL de vacíos: no se sabe todavía, no se pudo saber,
+    // y se sabe pero el número es tan bajo que decirlo resta.
+    estrellas.set(null);
+    expect(conteoVisible()).toBeNull();
+
+    estrellas.set(0);
+    expect(conteoVisible()).toBeNull();
+
+    estrellas.set(UMBRAL_ESTRELLAS - 1);
+    expect(conteoVisible()).toBeNull();
+
+    // Desde el umbral, hacia arriba, el número deja de ser un problema y pasa a ser el argumento.
+    estrellas.set(UMBRAL_ESTRELLAS);
+    expect(conteoVisible()).toBe(UMBRAL_ESTRELLAS);
+
+    estrellas.set(1240);
+    expect(conteoVisible()).toBe(1240);
   });
 
   it('publica el conteo y lo guarda para el resto de la sesión', async () => {

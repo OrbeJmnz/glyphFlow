@@ -51,13 +51,6 @@
     }
   </ul>
 
-  <!-- El degradado de la marca entra aquí como acento, no como decoración: marca la frase que
-       resume la tesis del proyecto. -->
-  <p class="nota">
-    <max-icon [iconDef]="destello" [size]="16" trigger="view" />
-    {{ 'iconos.hero.nota' | transloco }}
-  </p>
-
   <dl class="cifras">
     <div class="destaca">
       <dt><app-contador [valor]="total" /></dt>
@@ -81,8 +74,16 @@
     </div>
   </dl>
 
+  <!--
+    En escritorio, solo «Donate»: el «Star on GitHub» que estaba aquí sobraba, porque el mismo botón
+    vive en el header, fijo y visible en toda la ruta. Dos llamados idénticos en la misma pantalla
+    no ganan un clic, se lo quitan el uno al otro.
+
+    Pero por debajo de 640px el header SÍ lo esconde —se muda al panel del menú— y entonces este
+    deja de ser un duplicado: es el único acceso a la vista. Por eso vuelve, y solo ahí.
+  -->
   <div class="hero-secundarias">
-    <app-boton-github />
+    <app-boton-github class="solo-compacto" />
     <app-boton-donar />
   </div>
 </section>

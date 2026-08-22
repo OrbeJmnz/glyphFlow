@@ -154,9 +154,6 @@ export class Iconos implements OnDestroy {
     tema() === 'claro' ? '/images/glyphflow-logo-light.svg' : '/images/glyphflow-logo.svg',
   );
 
-  /** El destello de la nota. Sale del propio catálogo: el sitio no dibuja iconos que no vende. */
-  protected readonly destello: AnimatedIconDef = CURATED_ICONS['sparkles'];
-
   /** El resto de las cifras del hero. */
   protected readonly cifras = CIFRAS;
 

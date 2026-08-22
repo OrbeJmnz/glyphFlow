@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { estrellas } from '../../core/github';
+import { estrellas, UMBRAL_ESTRELLAS } from '../../core/github';
 import { providersI18nTest } from '../../core/i18n-testing';
 import { BotonGithub } from './boton-github';
 
@@ -48,12 +48,23 @@ describe('BotonGithub', () => {
     expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub, 1240 stars');
   });
 
-  it('concuerda el singular con una sola estrella', () => {
-    const { fixture, enlace } = montar();
-    estrellas.set(1);
+  it('calla el conteo por debajo del umbral, y lo calla TAMBIÉN para el lector de pantalla', () => {
+    const { fixture, html, enlace } = montar();
+    estrellas.set(UMBRAL_ESTRELLAS - 1);
     fixture.detectChanges();
-    expect(enlace.getAttribute('aria-label')).toContain('1 star');
-    expect(enlace.getAttribute('aria-label')).not.toContain('1 stars');
+
+    // Un «| 1» le dice a cada visitante que a nadie le gustó el proyecto. Prueba social en contra.
+    expect(html.querySelector('.conteo')).toBeNull();
+    // Y la etiqueta va con el botón: ocultarlo a la vista y anunciarlo por audio sería esconder el
+    // dato malo solo de quien puede verlo.
+    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub');
+  });
+
+  it('el umbral es inclusivo: justo en el número, el conteo aparece', () => {
+    const { fixture, html } = montar();
+    estrellas.set(UMBRAL_ESTRELLAS);
+    fixture.detectChanges();
+    expect(html.querySelector('.conteo')?.textContent?.trim()).toBe(String(UMBRAL_ESTRELLAS));
   });
 
   it('las dos capas del icono existen y quedan fuera del árbol de accesibilidad', () => {
