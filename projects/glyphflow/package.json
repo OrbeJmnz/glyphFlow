@@ -1,6 +1,6 @@
 {
   "name": "glyphflow",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Lucide icons animated on native Web Animations API for Angular — zero animation-library dependencies.",
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/OrbeJmnz/glyphFlow.git" },
