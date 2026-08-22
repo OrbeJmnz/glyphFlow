@@ -108,7 +108,7 @@ export class MorphPicker implements OnDestroy {
   /**
    * Encadena los pares consecutivos en SERIE — mismo patrón de orquestación que "Repetir todo"
    * del grid, solo que en serie en vez de en paralelo. El tiempo de cada salto sale de
-   * `morphKeyframes().duracion` (el resorte manda, aquí `resorteLento`), no de un número inventado.
+   * `morphKeyframes().duration` (el resorte manda, aquí `resorteLento`), no de un número inventado.
    * Mismo resorte que el `<max-icon-morph>` del lienzo — si no calzaran, el temporizador dispararía
    * el siguiente paso antes o después de que la animación real termine.
    */

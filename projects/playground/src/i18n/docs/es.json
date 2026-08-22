@@ -173,6 +173,8 @@
       "respectReducedMotion": "Aquí SALTA al destino en vez de quedarse quieto.",
       "spring": "smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría."
     },
+    "obsoleto": "obsoleto",
+    "usaEnSuLugar": "Usa {{nuevo}} en su lugar.",
     "simbolos": {
       "MaxIconComponent": "El motor. Selector <max-icon>. Standalone.",
       "provideMaxIcons": "Config global opcional. Hoy solo durationScale.",
@@ -191,6 +193,9 @@
       "runMorph": "morphKeyframes + element.animate(). Devuelve la Animation para que la controles.",
       "canonicalD": "El `d` de un icono ya resuelto — lo que se pinta cuando no hay transición.",
       "SPRING_PRESETS": "smooth (ζ=1.00), snappy (ζ=0.73) y bouncy (ζ=0.40). Los dos últimos rebotan de verdad.",
+      "STEPS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
+      "RESOLUTION_DEFAULT": "64 puntos por subpath.",
+      "SPRING_TAIL_DEFAULT": "Qué hacer con la cola asintótica del resorte.",
       "PASOS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 puntos por subpath.",
       "COLA_DEFAULT": "Qué hacer con la cola asintótica del resorte."

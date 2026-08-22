@@ -15,8 +15,9 @@ import {
   morphKeyframes,
   runMorph,
   MaxIconMorphComponent,
-  PASOS_DEFAULT,
-  RESOLUCION_DEFAULT,
+  STEPS_DEFAULT,
+  type SpringTail,
+  RESOLUTION_DEFAULT,
   SPRING_PRESETS,
   type MorphKeyframes,
   type MorphIcon,
@@ -53,7 +54,7 @@ const PARES: Par[] = [
   { id: 'user → user-round', origen: userIcon, destino: userRoundIcon },
 ];
 
-type Cola = 'completa' | 'corta' | 'recorte';
+type Cola = SpringTail;
 
 /**
  * `titulo`/`nota` NO son texto: son claves de traducción bajo `lab.morphBench.variantes.<id>`
@@ -81,10 +82,10 @@ interface Variante {
 
 const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
   id: `p${n}`,
-  tieneNota: n === PASOS_DEFAULT,
-  porDefecto: n === PASOS_DEFAULT,
+  tieneNota: n === STEPS_DEFAULT,
+  porDefecto: n === STEPS_DEFAULT,
   pasos: n,
-  cola: 'completa',
+  cola: 'full',
   direccion: 'alternate',
 }));
 
@@ -92,15 +93,15 @@ const VARIANTES_VUELTA: Variante[] = [
   {
     id: 'v-alternate',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'alternate',
   },
   {
     id: 'v-ida-vuelta',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'normal',
     idaYVuelta: true,
   },
@@ -115,16 +116,16 @@ const VARIANTES_SOBREPASO: Variante[] = [
   {
     id: 's-smooth',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'normal',
     spring: 'smooth',
   },
   {
     id: 's-073-sin',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'normal',
     spring: 'snappy',
     sobrepaso: false,
@@ -132,16 +133,16 @@ const VARIANTES_SOBREPASO: Variante[] = [
   {
     id: 's-073-con',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'normal',
     spring: 'snappy',
   },
   {
     id: 's-040-con',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'normal',
     spring: 'bouncy',
   },
@@ -151,29 +152,29 @@ const VARIANTES_COLA: Variante[] = [
   {
     id: 'completa',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'completa',
+    pasos: STEPS_DEFAULT,
+    cola: 'full',
     direccion: 'alternate',
   },
   {
     id: 'corta',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'corta',
+    pasos: STEPS_DEFAULT,
+    cola: 'short',
     direccion: 'alternate',
   },
   {
     id: 'recorte',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'recorte',
+    pasos: STEPS_DEFAULT,
+    cola: 'clip',
     direccion: 'alternate',
   },
   {
     id: 'reinicio',
     tieneNota: true,
-    pasos: PASOS_DEFAULT,
-    cola: 'completa',
+    pasos: STEPS_DEFAULT,
+    cola: 'full',
     direccion: 'normal',
   },
 ];
@@ -209,7 +210,7 @@ export class MorphBench {
    * en un número suelto. Se queda aunque el benchmark de pasos ya cerró: retomar esto con más
    * pares no debería costar rearmarlo.
    */
-  protected readonly resolucion = signal<number>(RESOLUCION_DEFAULT);
+  protected readonly resolucion = signal<number>(RESOLUTION_DEFAULT);
   protected readonly resoluciones = [64, 32] as const;
 
   private readonly animaciones = new Map<string, Animation>();
@@ -253,12 +254,12 @@ export class MorphBench {
     const salida: Record<string, MorphKeyframes> = {};
     for (const v of this.variantes()) {
       salida[v.id] = morphKeyframes(a, b, {
-        pasos: v.pasos,
+        steps: v.pasos,
         resolucion,
-        cola: v.cola,
-        idaYVuelta: v.idaYVuelta,
+        tail: v.cola,
+        roundTrip: v.idaYVuelta,
         spring: v.spring,
-        sobrepaso: v.sobrepaso,
+        overshoot: v.sobrepaso,
       });
     }
     return salida;
@@ -271,7 +272,7 @@ export class MorphBench {
       return {
         ...v,
         bytes: m.bytes,
-        duracion: Math.round(m.duracion),
+        duracion: Math.round(m.duration),
         keyframes: m.keyframes.length,
         colaPct: Math.round((1 - offs[offs.length - 2]) * 100),
       };
@@ -343,12 +344,12 @@ export class MorphBench {
 
     const par = this.parActivo();
     const { animation } = runMorph(path, aIconNode(par.origen), aIconNode(par.destino), {
-      pasos: v.pasos,
+      steps: v.pasos,
       resolucion: this.resolucion(),
-      cola: v.cola,
-      idaYVuelta: v.idaYVuelta,
+      tail: v.cola,
+      roundTrip: v.idaYVuelta,
       spring: v.spring,
-      sobrepaso: v.sobrepaso,
+      overshoot: v.sobrepaso,
       loop: this.loop(),
       direction: this.loop() ? v.direccion : 'normal',
     });

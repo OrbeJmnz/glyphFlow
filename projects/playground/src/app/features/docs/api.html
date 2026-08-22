@@ -80,12 +80,26 @@
       </thead>
       <tbody>
         @for (s of valoresDe(e); track s.nombre) {
-          <tr>
+          <tr [class.obsoleto]="s.obsoleto">
             <td>
               <code>{{ s.nombre }}</code>
+              <!--
+                Un `@deprecated` que solo vive en el JSDoc lo ve quien ya está en el editor con el
+                símbolo escrito. Aquí lo ve quien está DECIDIENDO cuál usar, que es antes.
+              -->
+              @if (s.obsoleto) {
+                <span class="insignia-obsoleto">{{ 'docs.api.obsoleto' | transloco }}</span>
+              }
             </td>
             <td>{{ claseClaves[s.clase] | transloco }}</td>
-            <td>{{ s.resumen | transloco: conteos }}</td>
+            <td>
+              {{ s.resumen | transloco: conteos }}
+              @if (s.obsoleto) {
+                <span class="migrar">{{
+                  'docs.api.usaEnSuLugar' | transloco: { nuevo: s.obsoleto }
+                }}</span>
+              }
+            </td>
           </tr>
         }
       </tbody>

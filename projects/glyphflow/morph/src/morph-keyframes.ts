@@ -20,34 +20,70 @@ import type { IconInput, Sampled } from './core/types';
  */
 
 /**
+ * Qué se hace con la cola asintótica del resorte — ver `MorphKeyframesOpts.tail`.
+ *
+ * Los tres valores viajan al usuario, así que van en inglés. El vocabulario viejo
+ * (`'completa' | 'corta' | 'recorte'`) se sigue aceptando en tiempo de ejecución durante una
+ * minor; ver `normalizarCola`.
+ */
+export type SpringTail = 'full' | 'short' | 'clip';
+
+/** El vocabulario de la v1. @deprecated Usa {@link SpringTail}. */
+export type SpringTailLegacy = 'completa' | 'corta' | 'recorte';
+
+/**
  * Poses discretas que se le entregan a WAAPI. Fijado midiendo los 4 pares de referencia
  * (`bell→bell-ring`, `heart→star`, `circle→square`, `user→user-round`) en 10/15/20/30: la
  * desviación se parte a la mitad con cada escalón y el peso sube lineal, así que 20 es donde deja
  * de pagar la pena. El caso duro es `bell→bell-ring`, el único con rotación real: 1.05 unidades de
  * desviación con 10 pasos contra 0.28 con 20, sobre un lienzo de 24.
  */
-export const PASOS_DEFAULT = 20;
+export const STEPS_DEFAULT = 20;
 
 /**
  * Puntos por subpath con los que se muestrea la geometría.
  *
  * Alimenta el matching de Procrustes y el anclaje de esquinas — no es muestreo temporal como
- * PASOS_DEFAULT: bajarla puede cambiar qué punto corresponde a cuál, no solo suavizar. Medido:
+ * STEPS_DEFAULT: bajarla puede cambiar qué punto corresponde a cuál, no solo suavizar. Medido:
  * `heart→star` se degrada 42x con res 32 pese a que `bell→bell-ring` mejora. Cualquier ajuste
  * futuro se mide con distancia SIMÉTRICA, nunca de un solo lado — ver el bug de Hausdorff
  * unidireccional de este benchmark.
  */
-export const RESOLUCION_DEFAULT = 64;
+export const RESOLUTION_DEFAULT = 64;
 
 /**
- * Qué se hace con la cola asintótica del resorte. Ver `MorphKeyframesOpts.cola`.
+ * Qué se hace con la cola asintótica del resorte. Ver `MorphKeyframesOpts.tail`.
  *
- * `corta` en vez de `completa` porque la cola estricta se lleva el 51% de la duración en
- * movimiento que nadie ve, y al reproducir en reversa (soltar el hover) queda al principio: el
- * morph aterriza de golpe. Medido en `bell→bell-ring`: 737ms → 521ms, y el último tramo entre
- * keyframes baja de 51% a 31% de la duración.
+ * `short` en vez de `full` porque la cola estricta se lleva el 51% de la duración en movimiento
+ * que nadie ve, y al reproducir en reversa (soltar el hover) queda al principio: el morph aterriza
+ * de golpe. Medido en `bell→bell-ring`: 737ms → 521ms, y el último tramo entre keyframes baja de
+ * 51% a 31% de la duración.
  */
-export const COLA_DEFAULT: 'completa' | 'corta' | 'recorte' = 'corta';
+export const SPRING_TAIL_DEFAULT: SpringTail = 'short';
+
+/*
+ * ── Alias de la v1 ──────────────────────────────────────────────────────────────────────────
+ *
+ * Se conservan una minor para que un proyecto que ya importaba estos nombres siga compilando.
+ * Son la MISMA referencia, no copias: `PASOS_DEFAULT === STEPS_DEFAULT` es `true`, y para un
+ * `InjectionToken` esa distinción sería la diferencia entre funcionar y fallar en silencio.
+ */
+
+/** @deprecated Renombrada a {@link STEPS_DEFAULT}. Sale en la próxima major. */
+export const PASOS_DEFAULT = STEPS_DEFAULT;
+
+/** @deprecated Renombrada a {@link RESOLUTION_DEFAULT}. Sale en la próxima major. */
+export const RESOLUCION_DEFAULT = RESOLUTION_DEFAULT;
+
+/**
+ * @deprecated Renombrada a {@link SPRING_TAIL_DEFAULT}. Sale en la próxima major.
+ *
+ * **Su valor cambió de `'corta'` a `'short'`**, no solo su nombre. Un `{ cola: COLA_DEFAULT }`
+ * escrito contra la v1 sigue funcionando porque `tail`/`cola` aceptan los dos vocabularios
+ * (`normalizarCola`), pero si lo estabas COMPARANDO (`x === COLA_DEFAULT`) contra un `'corta'`
+ * literal, esa comparación ahora da `false`.
+ */
+export const COLA_DEFAULT = SPRING_TAIL_DEFAULT;
 
 /**
  * Presets de resorte: los tres del catálogo vendorizado.
@@ -55,7 +91,7 @@ export const COLA_DEFAULT: 'completa' | 'corta' | 'recorte' = 'corta';
  * Estuvieron acotados a `smooth` a propósito: los subamortiguados NO rebotaban aquí, porque las
  * poses se muestreaban en t ∈ [0,1] y el sobrepaso vive en t > 1 — `snappy` y `bouncy` solo
  * habrían alargado el reloj con el icono ya quieto, y exportar esos nombres era vender un rebote
- * que el motor no entregaba. Ahora `sobrepaso` dibuja las poses de t > 1 (topadas al lienzo por
+ * que el motor no entregaba. Ahora `overshoot` dibuja las poses de t > 1 (topadas al lienzo por
  * bisección), así que la etiqueta cumple y la superficie se reabre — aditivo, como decía el plan.
  *
  * Los valores salen del catálogo vendorizado, no se re-declaran: si upstream afina uno, esto lo
@@ -79,15 +115,23 @@ export interface SpringConfig {
   c: number;
 }
 
+/*
+ * Nombres de opciones en INGLÉS, comentarios en español.
+ *
+ * No es incoherencia: es dónde está la frontera. Todo lo que el usuario ESCRIBE viaja fuera del
+ * proyecto —lo teclea alguien que quizá no habla español— así que va en inglés. Lo que se lee
+ * puertas adentro se queda en el idioma del equipo, y por eso más abajo `const pasos = opts.steps`
+ * no es un descuido.
+ */
 export interface MorphKeyframesOpts {
-  /** Cuántas poses discretas se le entregan a WAAPI. Default: `PASOS_DEFAULT`. */
-  pasos?: number;
+  /** Cuántas poses discretas se le entregan a WAAPI. Default: `STEPS_DEFAULT`. */
+  steps?: number;
   /**
    * Puntos por subpath. Es la OTRA perilla del peso, y pega más fuerte que los pasos: el costo
    * total es (pasos × resolución), pero la resolución multiplica el tamaño de CADA pose. Lee la
-   * advertencia de `RESOLUCION_DEFAULT` antes de moverla. Default: `RESOLUCION_DEFAULT`.
+   * advertencia de `RESOLUTION_DEFAULT` antes de moverla. Default: `RESOLUTION_DEFAULT`.
    */
-  resolucion?: number;
+  resolution?: number;
   /**
    * Resorte: solo decide duración y reparto temporal de los keyframes, nunca la geometría.
    * Un preset por nombre (`'smooth'`) o un `{ k, c }` propio.
@@ -101,17 +145,19 @@ export interface MorphKeyframesOpts {
    * en reversa (`reverse()` al soltar el hover, o `alternate` en loop) esa cola queda al principio
    * y el tramo veloz al final — el morph aterriza de golpe.
    *
-   * - `corta` (default): afloja el criterio a |1−x| < 0.01 **y |v| < 0.2**. La condición de
+   * - `short` (default): afloja el criterio a |1−x| < 0.01 **y |v| < 0.2**. La condición de
    *   velocidad NO es decorativa: sin ella, un resorte subamortiguado cumple |1−x| < 0.01 mientras
    *   PASA subiendo por el destino, y el corte se come el rebote entero (medido con ζ = 0.40:
    *   cortaba a los 121ms de 925, cruzando a v=7.53 rumbo a x=1.24).
-   * - `completa`: el criterio estricto del core, |1−x| < 0.001 y |v| < 0.02. Deja una cola
-   *   asintótica imperceptible que se lleva la mitad de la duración.
-   * - `recorte`: integra completo y tira desde el ÚLTIMO instante en que |1−x| ≥ 0.01. Equivale a
-   *   `corta` dentro de unos pocos ms en los tres presets (517/308/633 contra 521/317/637); se
+   * - `full`: el criterio estricto del core, |1−x| < 0.001 y |v| < 0.02. Deja una cola asintótica
+   *   imperceptible que se lleva la mitad de la duración.
+   * - `clip`: integra completo y tira desde el ÚLTIMO instante en que |1−x| ≥ 0.01. Equivale a
+   *   `short` dentro de unos pocos ms en los tres presets (517/308/633 contra 521/317/637); se
    *   conserva porque son criterios distintos y podrían separarse con presets futuros.
+   *
+   * Acepta también el vocabulario de la v1 (`'completa' | 'corta' | 'recorte'`) durante una minor.
    */
-  cola?: 'completa' | 'corta' | 'recorte';
+  tail?: SpringTail | SpringTailLegacy;
   /**
    * Construye ida Y vuelta en UNA sola iteración, con resorte propio en cada tramo.
    *
@@ -124,7 +170,7 @@ export interface MorphKeyframesOpts {
    * integrar el resorte: 0.0075 ms, un 0.2% de construir una dirección. Lo que sí se duplica de
    * verdad es el PESO del arreglo (2·pasos−1 keyframes).
    */
-  idaYVuelta?: boolean;
+  roundTrip?: boolean;
   /**
    * Dibuja el SOBREPASO del resorte: las poses más allá del destino, cuando el preset rebota.
    *
@@ -142,6 +188,25 @@ export interface MorphKeyframesOpts {
    * subamortiguado quiere el rebote, no un reloj más largo. `false` es la salida para quien
    * prefiera la trayectoria truncada.
    */
+  overshoot?: boolean;
+
+  /*
+   * ── Nombres de la v1 ──────────────────────────────────────────────────────────────────────
+   *
+   * Siguen leyéndose una minor: un `{ pasos: 30 }` escrito contra la v1 sigue haciendo lo mismo.
+   * El nuevo GANA si vienen los dos, porque es el que la persona escribió a conciencia después
+   * de migrar. Salen en la próxima major.
+   */
+
+  /** @deprecated Renombrada a {@link MorphKeyframesOpts.steps}. */
+  pasos?: number;
+  /** @deprecated Renombrada a {@link MorphKeyframesOpts.resolution}. */
+  resolucion?: number;
+  /** @deprecated Renombrada a {@link MorphKeyframesOpts.tail}. */
+  cola?: SpringTail | SpringTailLegacy;
+  /** @deprecated Renombrada a {@link MorphKeyframesOpts.roundTrip}. */
+  idaYVuelta?: boolean;
+  /** @deprecated Renombrada a {@link MorphKeyframesOpts.overshoot}. */
   sobrepaso?: boolean;
 }
 
@@ -149,10 +214,35 @@ export interface MorphKeyframes {
   /** Keyframes listos para `element.animate()`, con su `offset` ya calculado por el spring. */
   keyframes: Keyframe[];
   /** Duración total en ms, medida integrando el spring hasta que asienta. */
+  duration: number;
+  /**
+   * @deprecated Renombrada a {@link MorphKeyframes.duration}. Sale en la próxima major.
+   *
+   * Se sigue rellenando con el mismo número — es un campo de SALIDA, así que no hay ambigüedad
+   * que resolver: quien lea cualquiera de los dos lee lo mismo.
+   */
   duracion: number;
   /** Peso del arreglo de keyframes en bytes (UTF-8), que es lo que cuesta en memoria y en parse. */
   bytes: number;
   plan: MorphPlan;
+}
+
+/**
+ * Traduce el vocabulario de la v1 al de hoy. Todo lo de adentro compara contra los nombres
+ * nuevos y solo contra ellos; el mapa vive aquí, en un punto único, y se borra entero cuando
+ * caiga la deprecación.
+ */
+function normalizarCola(v: SpringTail | SpringTailLegacy): SpringTail {
+  switch (v) {
+    case 'completa':
+      return 'full';
+    case 'corta':
+      return 'short';
+    case 'recorte':
+      return 'clip';
+    default:
+      return v;
+  }
 }
 
 /**
@@ -161,7 +251,7 @@ export interface MorphKeyframes {
  */
 function curvaDelSpring(
   resorte: SpringPreset | SpringConfig,
-  cola: 'completa' | 'corta' | 'recorte',
+  cola: SpringTail,
 ): { tiempos: number[]; progreso: number[] } {
   const { k, c } = typeof resorte === 'string' ? SPRING_PRESETS[resorte] : resorte;
   const spring = new Spring();
@@ -182,12 +272,12 @@ function curvaDelSpring(
     // `corta`: cerca del destino Y ya casi quieto. Las dos condiciones, no una — ver el comentario
     // de `cola` en las opciones: sin la de velocidad, un resorte que rebota se corta a sí mismo el
     // rebote al pasar por el destino a toda velocidad.
-    if (cola === 'corta' ? Math.abs(1 - spring.x) < 0.01 && Math.abs(spring.v) < 0.2 : asentado) {
+    if (cola === 'short' ? Math.abs(1 - spring.x) < 0.01 && Math.abs(spring.v) < 0.2 : asentado) {
       break;
     }
   }
 
-  if (cola === 'recorte') {
+  if (cola === 'clip') {
     // Desde el ÚLTIMO instante fuera de la banda del 1%, no el primero: con sobrepaso, el primero
     // cae subiendo y decapitaría el rebote igual que la versión ingenua de `corta`.
     let hasta = progreso.length - 1;
@@ -305,15 +395,18 @@ export function morphKeyframes(
   destino: IconInput,
   opts: MorphKeyframesOpts = {},
 ): MorphKeyframes {
-  const pasos = Math.max(2, Math.floor(opts.pasos ?? PASOS_DEFAULT));
-  const resolucion = Math.max(8, Math.floor(opts.resolucion ?? RESOLUCION_DEFAULT));
+  const pasos = Math.max(2, Math.floor(opts.steps ?? opts.pasos ?? STEPS_DEFAULT));
+  const resolucion = Math.max(8, Math.floor(opts.resolution ?? opts.resolucion ?? RESOLUTION_DEFAULT));
   const a: Sampled[] = resampleIcon(origen, resolucion);
   const b: Sampled[] = resampleIcon(destino, resolucion);
   const plan = buildPlan(a, b);
   const out = allocOutputs(plan);
   const cerrados = a.map((s) => s.closed);
 
-  const { tiempos, progreso } = curvaDelSpring(opts.spring ?? 'smooth', opts.cola ?? COLA_DEFAULT);
+  const { tiempos, progreso } = curvaDelSpring(
+    opts.spring ?? 'smooth',
+    normalizarCola(opts.tail ?? opts.cola ?? SPRING_TAIL_DEFAULT),
+  );
 
   // Las poses: se calculan UNA vez. La vuelta son estas mismas al revés — un morph es simétrico,
   // así que reusarlas no es una optimización sucia, es la misma trayectoria leída de derecha a
@@ -340,7 +433,7 @@ export function morphKeyframes(
    * el rebote ocupa exactamente el tramo de tiempo en que la física estuvo del otro lado del 1.
    */
   const xMaximo = Math.max(...progreso);
-  if ((opts.sobrepaso ?? true) && xMaximo > 1.001) {
+  if ((opts.overshoot ?? opts.sobrepaso ?? true) && xMaximo > 1.001) {
     const tope = limiteSeguro(plan, out, cerrados, LADO_VIEWBOX, xMaximo);
     const totalTiempo = tiempos[tiempos.length - 1];
     const primerCruce = progreso.findIndex((x) => x >= 1);
@@ -373,7 +466,7 @@ export function morphKeyframes(
   // sobre `pasos` las dejaba calculadas y fuera del arreglo final, en silencio.
   const total = poses.length;
 
-  if (opts.idaYVuelta) {
+  if (opts.roundTrip ?? opts.idaYVuelta) {
     // Tramo de ida en la primera mitad del reloj…
     for (let i = 0; i < total; i++) {
       keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] / 2 });
@@ -390,9 +483,12 @@ export function morphKeyframes(
   }
 
   const bytes = new TextEncoder().encode(JSON.stringify(keyframes)).length;
+  const duracion = (opts.roundTrip ?? opts.idaYVuelta) ? duracionDeTramo * 2 : duracionDeTramo;
   return {
     keyframes,
-    duracion: opts.idaYVuelta ? duracionDeTramo * 2 : duracionDeTramo,
+    duration: duracion,
+    // El alias de la v1 se rellena con el mismo número. Sale en la próxima major.
+    duracion,
     bytes,
     plan,
   };
@@ -493,7 +589,7 @@ export function runMorph(
 
   const medidas = morphKeyframes(origenEfectivo, destino, opts);
   const animation = el.animate(medidas.keyframes, {
-    duration: medidas.duracion * (opts.durationScale ?? 1),
+    duration: medidas.duration * (opts.durationScale ?? 1),
     // `linear`: la no-linealidad ya vive en los offsets de los keyframes. Un easing encima
     // deformaría dos veces la misma curva.
     easing: 'linear',
@@ -520,7 +616,7 @@ export function runMorph(
    * Escribir ese icono sería reintroducir el salto justo al final.
    */
   const poseFinal = (): string => {
-    if (opts.idaYVuelta || animation.playbackRate < 0) return canonicalD(origenEfectivo);
+    if ((opts.roundTrip ?? opts.idaYVuelta) || animation.playbackRate < 0) return canonicalD(origenEfectivo);
     return opts.dFinal ?? canonicalD(destino);
   };
 

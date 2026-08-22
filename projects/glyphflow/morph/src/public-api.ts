@@ -11,6 +11,10 @@ export {
   morphKeyframes,
   runMorph,
   canonicalD,
+  STEPS_DEFAULT,
+  RESOLUTION_DEFAULT,
+  SPRING_TAIL_DEFAULT,
+  // Los nombres de la v1, vivos una minor. Ver el bloque «Alias de la v1» en morph-keyframes.ts.
   PASOS_DEFAULT,
   RESOLUCION_DEFAULT,
   COLA_DEFAULT,
@@ -21,6 +25,8 @@ export type {
   RunMorphOpts,
   SpringPreset,
   SpringConfig,
+  SpringTail,
+  SpringTailLegacy,
 } from './morph-keyframes';
 export { MaxIconMorphComponent } from './max-icon-morph.component';
 export type { MorphIcon } from './max-icon-morph.component';

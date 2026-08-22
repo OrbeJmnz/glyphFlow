@@ -123,3 +123,31 @@ td code {
 .tabla-scroll {
   overflow-x: auto;
 }
+
+/*
+ * Un símbolo obsoleto se atenúa, no se tacha: sigue funcionando y hay quien lo tiene escrito hoy.
+ * Tachado diría «esto ya no anda», que es falso durante toda la deprecación.
+ */
+tr.obsoleto code {
+  color: var(--gf-texto-medio);
+}
+
+.insignia-obsoleto {
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 40px;
+  color: var(--gf-texto-tenue);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  /* La insignia NO hereda el `nowrap` del code de al lado: en una tabla angosta prefiere bajar. */
+  white-space: normal;
+}
+
+/* En su propia línea: es la acción a tomar, no una coletilla de la descripción. */
+.migrar {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--gf-texto-medio);
+}
