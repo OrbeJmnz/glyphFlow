@@ -42,6 +42,10 @@
     "buscarMarcador": "Search by name…",
     "buscarEtiqueta": "Search icon by name",
     "filtrarInsigniaEtiqueta": "Filter by badge",
+    "densidadEtiqueta": "Grid density",
+    "densidadComoda": "Comfortable",
+    "densidadCompacta": "Compact",
+    "leyendaInsignia": "The number on each card is how many animation variants that icon has.",
     "todos": "All",
     "insignias": {
       "extras": "with extra variant",
@@ -51,8 +55,8 @@
     "aviso": "{{n}} of {{total}}."
   },
   "grid": {
-    "inspeccionarAria": "Inspect {{nombre}}",
-    "animacionesTitle": "{{n}} animations"
+    "variantesAria": "{{n}} animation variants",
+    "inspeccionarAria": "Inspect {{nombre}}"
   },
   "scrubber": {
     "progresoEtiqueta": "Choreography progress",

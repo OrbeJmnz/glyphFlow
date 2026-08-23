@@ -214,12 +214,39 @@
     }
   </app-grupo>
 
+  <app-grupo [etiqueta]="'iconos.barra.densidadEtiqueta' | transloco">
+    <button
+      type="button"
+      app-chip
+      [activo]="densidad() === 'comoda'"
+      [attr.aria-pressed]="densidad() === 'comoda'"
+      (click)="cambiarDensidad('comoda')"
+    >
+      {{ 'iconos.barra.densidadComoda' | transloco }}
+    </button>
+    <button
+      type="button"
+      app-chip
+      [activo]="densidad() === 'compacta'"
+      [attr.aria-pressed]="densidad() === 'compacta'"
+      (click)="cambiarDensidad('compacta')"
+    >
+      {{ 'iconos.barra.densidadCompacta' | transloco }}
+    </button>
+  </app-grupo>
+
   @if (filtro() || busqueda()) {
     <span class="aviso">{{
       'iconos.barra.aviso' | transloco: { n: entries().length, total }
     }}</span>
   }
 </div>
+
+<!--
+  La leyenda va en el DOM siempre, no tras un hover: el número de la esquina de cada tarjeta no se
+  explica solo, y lo que solo aparece al pasar el ratón no existe para quien entra desde el móvil.
+-->
+<p class="leyenda-insignia">{{ 'iconos.barra.leyendaInsignia' | transloco }}</p>
 
 @if (inspeccionado(); as sel) {
   <!--
@@ -236,10 +263,11 @@
   le hacía sitio con `padding-right` y un número de columnas fijo por breakpoint, y cada tarjeta
   cambiaba de posición — al cerrar, nadie encontraba dónde iba.
 -->
-<div class="grid">
+<div class="grid" [class.comoda]="densidad() === 'comoda'">
   @for (entry of entries(); track entry.name) {
     <article
       class="card"
+      appTituloSiTruncado
       [class.inspeccionado]="inspeccionado()?.name === entry.name"
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
@@ -251,13 +279,17 @@
     >
       <span
         class="cuenta"
-        [title]="'iconos.grid.animacionesTitle' | transloco: { n: entry.numAnimaciones }"
+        [attr.aria-label]="'iconos.grid.variantesAria' | transloco: { n: entry.numAnimaciones }"
         >{{ entry.numAnimaciones }}</span
       >
 
-      <app-tooltip [texto]="entry.name">
-        <gf-icon [iconDef]="entry.def" [size]="36" trigger="group" />
-      </app-tooltip>
+      <gf-icon [iconDef]="entry.def" [size]="tamGlifo()" trigger="group" />
+
+      <!--
+        Texto REAL en el DOM, no un pseudo-elemento ni un atributo: tiene que encontrarlo el
+        `Ctrl+F` del navegador, que es media razón de que el nombre esté visible.
+      -->
+      <span class="nombre" data-nombre>{{ entry.name }}</span>
     </article>
   }
 </div>

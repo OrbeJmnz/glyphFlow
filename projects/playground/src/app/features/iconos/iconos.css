@@ -395,25 +395,53 @@
   color: var(--gf-texto-tenue);
 }
 
+/*
+ * Compacta por defecto. Con 911 tarjetas, la cómoda enseña 35 de golpe a 1920×1080 y el catálogo
+ * se vuelve un scroll sin fin — el ancho de columna es lo único que decide cuántas caben, así que
+ * es lo único que cambia entre densidades.
+ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
   gap: 8px;
   margin: 0 auto;
+}
+
+.grid.comoda {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+/* A 375px de ancho quedan 327px útiles: con el mínimo en 104 solo entran DOS columnas y la tarjeta
+   se estira a 155 con el glifo clavado en 32 — se ve vacía, justo lo contrario de "compacta". Ocho
+   píxeles menos de mínimo dejan entrar tres, y ahí la tarjeta mide casi exactamente los 104 de
+   diseño. */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  }
 }
 
 
 /* Cuadrada, no rectangular: sin nombre ni botón debajo, el icono es el único contenido, y
    `aspect-ratio` la mantiene 1:1 sin importar cuánto mida la columna en cada ancho de pantalla. */
+/*
+ * Alto FIJO y no `aspect-ratio`: la caja tiene que medir 96px mida lo que mida la columna, porque
+ * el glifo y el nombre son de tamaño fijo. Con `aspect-ratio`, en las columnas anchas de un
+ * viewport grande la tarjeta crecería a lo alto y dejaría un hueco muerto bajo el nombre.
+ */
 .card {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  aspect-ratio: 1;
-  padding: 16px;
+  justify-content: space-between;
+  /* `border-box`: la caja mide 96px CON su padding y su borde. Sin esto sumaban 28px encima y la
+     tarjeta salía de 124 — el alto del ticket es la caja entera, no su contenido. */
+  box-sizing: border-box;
+  height: 96px;
+  padding: 16px 8px 10px;
   border: 1.5px solid transparent;
-  border-radius: var(--gf-radio);
+  border-radius: 12px;
   background: var(--gf-panel);
   cursor: pointer;
   transition:
@@ -421,14 +449,46 @@
     border-color 0.15s ease;
 }
 
-/* El tooltip cubre la TARJETA entera, no solo el icono — hover en cualquier punto del cuadrado
-   la dispara, no solo sobre el trazo del SVG. */
-.card app-tooltip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+.grid.comoda .card {
+  height: auto;
+  aspect-ratio: 1;
+  padding: 24px 12px 14px;
+  border-radius: var(--gf-radio);
+}
+
+/*
+ * Una sola línea con elipsis. El `min-width: 0` es el que hace el trabajo: sin él, un hijo flex
+ * se niega a encogerse por debajo de su contenido y el nombre desborda la tarjeta en vez de
+ * cortarse. El `title` completo lo pone `appTituloSiTruncado`, y SOLO cuando de verdad corta.
+ */
+.nombre {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--gf-texto-tenue);
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid.comoda .nombre {
+  font-size: 12px;
+}
+
+.card:hover .nombre,
+.card.inspeccionado .nombre {
+  color: var(--gf-texto-medio);
+}
+
+/* Leyenda de la insignia: discreta, pero en el DOM y sin hover de por medio. */
+.leyenda-insignia {
+  max-width: var(--gf-ancho);
+  margin: 0 auto 12px;
+  padding: 0 24px;
+  color: var(--gf-texto-apagado);
+  font-size: 12px;
 }
 
 /*

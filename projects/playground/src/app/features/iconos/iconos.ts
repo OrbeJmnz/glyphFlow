@@ -34,13 +34,14 @@ import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
-import { Tooltip } from '../../shared/ui/tooltip';
+import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { CIFRAS } from '../../core/cifras';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { tema } from '../../core/tema';
+import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
 /**
  * Lo que se enseña en la portada. Es el uso REAL, no una ilustración: cubre el import, el
@@ -98,7 +99,7 @@ interface CuratedEntry {
     Contador,
     Grupo,
     NombreTransicion,
-    Tooltip,
+    TituloSiTruncado,
     TranslocoPipe,
   ],
   // El scope vive aquí y no en la ruta a propósito: `app.routes.ts` es eager, así que su loader
@@ -119,6 +120,16 @@ interface CuratedEntry {
 })
 export class Iconos implements OnDestroy {
   @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
+
+  protected readonly densidad = densidad;
+
+  /* El glifo cambia de tamaño con la densidad, no la tarjeta sola: a 104px de caja, un glifo de 48
+     deja el nombre sin sitio y la tarjeta se lee apretada en vez de densa. */
+  protected readonly tamGlifo = computed(() => (densidad() === 'comoda' ? 48 : 32));
+
+  protected cambiarDensidad(d: Densidad): void {
+    elegirDensidad(d);
+  }
 
   protected readonly snippet = SNIPPET_PORTADA;
   protected readonly angularPeer = CIFRAS.angularPeer;
