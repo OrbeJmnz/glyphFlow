@@ -1,4 +1,8 @@
 {
+  "notaTipos": "No es un descuido: reciben tipos distintos. [iconDef] recibe la definición completa del icono — su geometría más sus variantes de animación. [icon] recibe la forma HACIA la que transforma.",
+  "verEnApi": "Ver los dos en la referencia de API →",
+  "notaSpring": "spring recibe el nombre de un preset. La lista completa, con el amortiguamiento de cada uno, está en la referencia de API — no se copia aquí para que las dos no puedan separarse.",
+  "verPresets": "Ver los presets de spring →",
   "titulo": "Patrones",
   "intro": "La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve: controles que de verdad hacen lo que dicen — el de copiar copia, el de tema cambia colores, el de enviar tiene sus tres estados. El código de cada uno está al lado.",
   "copiar": {

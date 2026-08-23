@@ -820,3 +820,15 @@ code {
 .shell-foot-legal a:hover {
   color: var(--gf-texto);
 }
+
+/* ── Anclas contra el header sticky ──────────────────────────────────────────── */
+
+/* El header mide 71px y es sticky: cualquier enlace a `#algo` deja su destino EXACTAMENTE debajo
+   de él, y quien siguió el enlace no ve lo que vino a ver. Medido: la fila aterrizaba en top −0.x.
+
+   Va aquí, sobre el elemento que scrollea, y NO como `scroll-margin-top` en el destino: sobre un
+   `<tr>` esa propiedad no muerde —probado— y además así queda arreglado para TODA ancla del
+   sitio, no solo para las filas de la tabla de API. */
+html {
+  scroll-padding-top: 88px;
+}

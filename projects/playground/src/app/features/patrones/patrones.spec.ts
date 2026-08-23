@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { providersI18nTest } from '../../core/i18n-testing';
 import { Patrones } from './patrones';
 import patronesEn from '../../../i18n/patrones/en.json';
@@ -14,6 +15,9 @@ describe('Patrones', () => {
         Patrones,
         providersI18nTest({ 'patrones/en': patronesEn, 'patrones/es': patronesEs }),
       ],
+      // La nota que enlaza a la referencia de API usa `routerLink`, y sin router el componente ni
+      // siquiera monta.
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 

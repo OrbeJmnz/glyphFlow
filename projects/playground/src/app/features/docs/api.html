@@ -79,8 +79,12 @@
         </tr>
       </thead>
       <tbody>
+        <!--
+          El `id` sale del propio símbolo, no de una lista escrita a mano: cualquier página puede
+          enlazar a `#api-LoQueSea` y el ancla existe sola. Un símbolo nuevo llega enlazable.
+        -->
         @for (s of valoresDe(e); track s.nombre) {
-          <tr [class.obsoleto]="s.obsoleto">
+          <tr [id]="'api-' + s.nombre" [class.obsoleto]="s.obsoleto">
             <td>
               <code>{{ s.nombre }}</code>
               <!--

@@ -200,3 +200,24 @@ pre code.degradado-texto-sutil {
     color: transparent;
   }
 }
+
+/* Va DEBAJO del snippet, no encima: se lee cuando ya viste el choque, que es cuando la pregunta
+   aparece. El enlace apunta a la fila real de la tabla de API — no se copia aquí ninguna lista,
+   porque dos copias de lo mismo acaban diciendo cosas distintas. */
+.nota-api {
+  margin: 0.6rem 0 0;
+  color: var(--gf-texto-apagado);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.nota-api a {
+  color: var(--gf-texto-medio);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+.nota-api a:hover {
+  color: var(--gf-texto);
+}

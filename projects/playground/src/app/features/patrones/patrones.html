@@ -26,6 +26,12 @@ async copy() &#123;
 &#125;
 
 &lt;gf-icon-morph [icon]="icon()" [size]="18" spring="bouncy" /&gt;</code></pre>
+      <p class="nota-api">
+        {{ 'patrones.notaSpring' | transloco }}
+        <a routerLink="/docs/api" fragment="api-SPRING_PRESETS">{{
+          'patrones.verPresets' | transloco
+        }}</a>
+      </p>
     </div>
   </article>
 
@@ -83,6 +89,17 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
 &#125; &#64;else &#123;
   &lt;gf-icon-morph [icon]="state() === 'sent' ? circleCheckIcon : sendIcon" /&gt;
 &#125;</code></pre>
+      <!--
+        Aquí es donde los dos componentes se ven juntos, y donde desde fuera parece un descuido.
+        La explicación va JUNTO al choque: entenderla obligando a abrir otra página es exactamente
+        el problema que este ticket describe.
+      -->
+      <p class="nota-api">
+        {{ 'patrones.notaTipos' | transloco }}
+        <a routerLink="/docs/api" fragment="api-GfIconComponent">{{
+          'patrones.verEnApi' | transloco
+        }}</a>
+      </p>
     </div>
   </article>
 

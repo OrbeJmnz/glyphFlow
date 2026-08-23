@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 import {
   GfIconComponent,
   menuIcon,
@@ -156,7 +157,18 @@ export class App {
     alternarTema({ x: caja.left + caja.width / 2, y: caja.top + caja.height / 2 });
   }
 
+  /*
+   * El header es sticky y mide 71px, así que un enlace a `#algo` deja su destino justo DEBAJO de
+   * él: quien siguió el enlace no ve lo que vino a ver. Medido: la fila aterrizaba en top −0.x.
+   *
+   * No basta con `scroll-padding-top` en el CSS —está puesto y no alcanza—: el `anchorScrolling`
+   * de Angular no usa `scrollIntoView`, va por `ViewportScroller`, que hace `window.scrollTo` y
+   * esa vía IGNORA `scroll-padding`. `setOffset` es el punto donde el router sí lo respeta.
+   * Se dejan los dos: el CSS cubre los saltos que hace el navegador por su cuenta.
+   */
   constructor() {
+    inject(ViewportScroller).setOffset([0, 88]);
+
     // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
     conectarTransiciones();
     conectarTema();
