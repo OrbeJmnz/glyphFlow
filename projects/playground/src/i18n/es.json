@@ -32,7 +32,8 @@
     "aviso": "Velocidad {{n}}× — aplica desde la siguiente reproducción; lo que ya está corriendo conserva la suya.",
     "footer": {
       "creditos": "Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.",
-      "github": "GitHub"
+      "github": "GitHub",
+      "lucide": "La geometría de los iconos es de <a href=\"https://lucide.dev\" rel=\"noopener\">Lucide</a>, usada bajo la <a href=\"https://github.com/lucide-icons/lucide/blob/main/LICENSE\" rel=\"noopener\">Licencia ISC</a>."
     }
   },
   "routes": {

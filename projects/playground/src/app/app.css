@@ -596,8 +596,14 @@
   color: var(--gf-texto-apagado);
 }
 
-.shell-foot code {
-  color: var(--gf-texto-medio);
+/* Ocupa la fila entera —el footer es flex-wrap— para no competir con los créditos: es la
+   atribución que exige la licencia ISC de Lucide, no una línea de relleno.
+   Sus ENLACES se estilan en `styles.css`, no aquí — ver el porqué allá. */
+.shell-foot-legal {
+  flex-basis: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
 }
 
 .shell-foot a {

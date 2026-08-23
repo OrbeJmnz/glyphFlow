@@ -795,3 +795,28 @@ code {
     transition: opacity 0.12s ease;
   }
 }
+
+/* ── Footer: lo que llega por `[innerHTML]` ──────────────────────────────────── */
+
+/* Estas reglas viven aquí y NO en `app.css` por una razón que no se ve leyendo el componente:
+   el footer pinta parte de su contenido con `[innerHTML]`, y el sanitizador crea esos nodos en
+   runtime SIN el atributo `_ngcontent-*`. La encapsulación emulada del componente no los alcanza
+   jamás, así que una regla puesta allá no aplica — y no avisa, simplemente no pinta.
+   Medido, no supuesto: los enlaces de la atribución salían con el azul por defecto del navegador
+   (`rgb(0,0,238)`) sobre el fondo oscuro, y `.shell-foot code` llevaba ahí sin efecto desde antes.
+
+   Los enlaces de la atribución van SUBRAYADOS, al revés que el resto del footer: es una obligación
+   de licencia, y una atribución cuyo enlace no parece enlace la cumple a medias. */
+.shell-foot code {
+  color: var(--gf-texto-medio);
+}
+
+.shell-foot-legal a {
+  color: var(--gf-texto-medio);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.shell-foot-legal a:hover {
+  color: var(--gf-texto);
+}
