@@ -16,7 +16,17 @@ import { CURATED_ICONS } from 'glyphflow';
 export const CIFRAS = {
   curados: Object.keys(CURATED_ICONS).length,
   catalogo: 1767,
-  pesoIconoKb: 4.09,
+  /**
+   * Escrito a mano por la misma razón que `catalogo`, pero con una trampa propia: **nada lo
+   * ancla**, y por eso derivó. Decía 4.09 desde que el catálogo tenía 180 curados; con 911 el
+   * `bundle-check` mide 4.83, o sea el hero llevaba meses presumiendo un número que el CI ya no
+   * producía. Lo mismo le pasó a la tabla de los dos README.
+   *
+   * Sale de `npm run bundle-check`, escenario A (un icono suelto, tree-shakeable), y describe el
+   * paquete PUBLICADO, que es el que el sitio consume — no el árbol de trabajo. Al publicar una
+   * versión que mueva el número, se actualiza aquí junto con el `npm update glyphflow-published`.
+   */
+  pesoIconoKb: 4.83,
   depsAnimacion: 0,
   /**
    * El rango de Angular que el paquete declara. Escrito a mano por la MISMA razón que
