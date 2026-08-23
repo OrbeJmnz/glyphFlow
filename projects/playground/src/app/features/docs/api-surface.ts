@@ -107,6 +107,12 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.ICON_META',
   },
+  {
+    nombre: 'ICON_TAGS',
+    entrada: 'glyphflow',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.ICON_TAGS',
+  },
   // Los nombres de la v1. Se documentan porque la v2 los sigue exportando —el spec exige que TODO
   // export esté documentado— y porque quien llegue con código de la v1 tiene que encontrar a qué
   // migrar, que es justo cuando va a buscarlo.
