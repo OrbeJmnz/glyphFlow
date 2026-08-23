@@ -7,6 +7,7 @@
     "bundle-check": "npm run build:lib && tsx scripts/bundle-size-check.ts",
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",
+    "docs:check": "tsx scripts/docs-check.ts",
     "gen:playground-tags": "tsx scripts/gen-playground-tags.ts",
     "gen:sitemap": "tsx scripts/gen-sitemap.ts",
     "gen:sitemap:check": "tsx scripts/gen-sitemap.ts --check",
