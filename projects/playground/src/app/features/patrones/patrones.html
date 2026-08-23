@@ -16,16 +16,7 @@
       <h2>{{ 'patrones.copiar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">protected readonly copied = signal(false);
-protected readonly icon = computed(() =&gt; (this.copied() ? checkIcon : copyIcon));
-
-async copy() &#123;
-  try &#123; await navigator.clipboard.writeText(text); &#125; catch &#123; return; &#125;
-  this.copied.set(true);
-  setTimeout(() =&gt; this.copied.set(false), 1600);
-&#125;
-
-&lt;gf-icon-morph [icon]="icon()" [size]="18" spring="bouncy" /&gt;</code></pre>
+      <app-bloque-codigo [codigo]="SNIPPET_COPIAR" />
       <p class="nota-api">
         {{ 'patrones.notaSpring' | transloco }}
         <a [routerLink]="rutas.a('docs', 'api')" fragment="api-SPRING_PRESETS">{{
@@ -53,12 +44,7 @@ async copy() &#123;
       <h2>{{ 'patrones.tema.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">protected readonly light = signal(false);
-protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon));
-
-&lt;button [attr.aria-label]="light() ? 'Dark theme' : 'Light theme'"&gt;
-  &lt;gf-icon-morph [icon]="icon()" [size]="20" /&gt;
-&lt;/button&gt;</code></pre>
+      <app-bloque-codigo [codigo]="SNIPPET_TEMA" />
     </div>
   </article>
 
@@ -84,11 +70,7 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
       <h2>{{ 'patrones.enviar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
-      <pre><code class="degradado-texto-sutil">&#64;if (state() === 'sending') &#123;
-  &lt;gf-icon [iconDef]="loaderCircleIcon" trigger="auto" [loop]="true" /&gt;
-&#125; &#64;else &#123;
-  &lt;gf-icon-morph [icon]="state() === 'sent' ? circleCheckIcon : sendIcon" /&gt;
-&#125;</code></pre>
+      <app-bloque-codigo [codigo]="SNIPPET_ENVIAR" />
       <!--
         Aquí es donde los dos componentes se ven juntos, y donde desde fuera parece un descuido.
         La explicación va JUNTO al choque: entenderla obligando a abrir otra página es exactamente
@@ -122,18 +104,7 @@ protected readonly icon = computed(() =&gt; (this.light() ? sunIcon : moonIcon))
       <h2>{{ 'patrones.reaccion.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
-      <!--
-        `ngNonBindable` porque el snippet lleva llaves dobles: el parser decodifica `&amp;#123;` a `{`
-        ANTES de que Angular busque interpolaciones, así que esto se evaluaba de verdad. Con
-        `votos()` —que existe en el componente— el bloque no mostraba el código, mostraba el 128 del
-        demo, y cambiaba al pulsar el corazón. Sin bindear, las llaves se ven tal cual.
-      -->
-      <pre
-        ngNonBindable
-      ><code class="degradado-texto-sutil">&lt;button [attr.aria-pressed]="liked()" (click)="toggle()"&gt;
-  &lt;gf-icon [iconDef]="heartIcon" [size]="18" trigger="tap" /&gt;
-  {{ votes() }}
-&lt;/button&gt;</code></pre>
+      <app-bloque-codigo [codigo]="SNIPPET_REACCION" />
     </div>
   </article>
 </div>

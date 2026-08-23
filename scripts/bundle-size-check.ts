@@ -16,7 +16,7 @@ const FESM = new URL('../dist/glyphflow/fesm2022/glyphflow.mjs', import.meta.url
 const CASES = [
   {
     name: 'core — solo el componente, sin ningún icono',
-    // La fila del README que promete ESTE número. Ver `verificarREADME()` abajo.
+    // La fila del README que promete ESTE número. Ver `PUBLICACIONES` y `verificarDocs()` abajo.
     filaReadme: 'The component alone, no icons',
     entry: `import { MaxIconComponent } from '${FESM.replace(/\\/g, '/')}'; console.log(MaxIconComponent);`,
     // El runtime compartido que paga TODO consumidor, use un icono o mil: el componente, su
@@ -56,33 +56,61 @@ const CASES = [
  */
 const TOLERANCIA = 0.02;
 
-function verificarREADME(medidos: Map<string, number>): boolean {
-  const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8');
+/**
+ * Dónde se publica cada cifra. **Son DOS sitios, no uno**, y eso lo enseñó el propio bug: se
+ * arreglaron los README y la tabla de `Getting started` del sitio siguió imprimiendo 3.74 / 4.09 /
+ * 94.48 durante horas, porque la guarda solo miraba `README.md`. Una guarda que cubre la mitad de
+ * los lugares da la peor de las señales: verde, y la mentira sigue publicada.
+ *
+ * `cifras.ts` es la única copia del lado del sitio — la plantilla lee de ahí, no escribe números.
+ */
+const PUBLICACIONES: { archivo: string; patron: (fila: string, clave: string) => RegExp }[] = [
+  // `| The component alone, no icons | **4.57 KB** |`
+  {
+    archivo: '../README.md',
+    patron: (fila) => new RegExp(`\\|\\s*${escapar(fila)}\\s*\\|\\s*\\*\\*([0-9.]+) KB\\*\\*`),
+  },
+  // `bundleCoreKb: 4.57,`
+  {
+    archivo: '../projects/playground/src/app/core/cifras.ts',
+    patron: (_fila, clave) => new RegExp(`${clave}:\\s*([0-9.]+),`),
+  },
+];
+
+/** La clave de `CIFRAS` que publica cada escenario. */
+const CLAVE_CIFRAS: Record<string, string> = {
+  'The component alone, no icons': 'bundleCoreKb',
+  'One icon (`[iconDef]="bellIcon"`)': 'pesoIconoKb',
+  'The whole catalog (`name="bell"`)': 'bundleCatalogoKb',
+};
+
+const escapar = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+function verificarDocs(medidos: Map<string, number>): boolean {
   let ok = true;
 
-  for (const [fila, kb] of medidos) {
-    // `| <fila> | **4.57 KB** |`
-    const escapada = fila.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const m = readme.match(
-      new RegExp(`\\|\\s*${escapada}\\s*\\|\\s*\\*\\*([0-9.]+) KB\\*\\*`),
-    );
-    if (!m) {
-      console.error(`  ✗ README: no encuentro la fila "${fila}" en la tabla de bundle.`);
-      ok = false;
-      continue;
-    }
-    const publicado = Number(m[1]);
-    const desvio = Math.abs(publicado - kb) / kb;
-    if (desvio > TOLERANCIA) {
-      console.error(
-        `  ✗ README miente en "${fila}": publica ${publicado} KB, el CI mide ${kb.toFixed(2)} KB ` +
-          `(${(desvio * 100).toFixed(1)}% de desvío). Actualiza la tabla en README.md Y en README.es.md.`,
-      );
-      ok = false;
+  for (const { archivo, patron } of PUBLICACIONES) {
+    const texto = readFileSync(new URL(archivo, import.meta.url), 'utf8');
+    for (const [fila, kb] of medidos) {
+      const m = texto.match(patron(fila, CLAVE_CIFRAS[fila]));
+      if (!m) {
+        console.error(`  ✗ ${archivo}: no encuentro la cifra de "${fila}".`);
+        ok = false;
+        continue;
+      }
+      const publicado = Number(m[1]);
+      const desvio = Math.abs(publicado - kb) / kb;
+      if (desvio > TOLERANCIA) {
+        console.error(
+          `  ✗ ${archivo} miente en "${fila}": publica ${publicado} KB, el CI mide ${kb.toFixed(2)} KB ` +
+            `(${(desvio * 100).toFixed(1)}% de desvío). Recuerda que README.es.md lleva la misma tabla.`,
+        );
+        ok = false;
+      }
     }
   }
 
-  if (ok) console.log('\nREADME: la tabla de bundle coincide con lo medido.');
+  if (ok) console.log('\nCifras publicadas: README y el sitio coinciden con lo medido.');
   return ok;
 }
 
@@ -120,7 +148,7 @@ async function main() {
     medidos.set(c.filaReadme, gzip / 1024);
   }
 
-  if (!verificarREADME(medidos)) failed = true;
+  if (!verificarDocs(medidos)) failed = true;
 
   rmSync(tmp, { recursive: true, force: true });
 

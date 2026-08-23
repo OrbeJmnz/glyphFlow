@@ -2,22 +2,12 @@
 <p class="bajada" [innerHTML]="'docs.empezando.bajada' | transloco"></p>
 
 <h2>{{ 'docs.empezando.instalar.titulo' | transloco }}</h2>
-<pre><code>npm i glyphflow</code></pre>
+<app-bloque-codigo [codigo]="SNIPPET_INSTALAR" />
 <p [innerHTML]="'docs.empezando.instalar.texto' | transloco"></p>
 
 <h2>{{ 'docs.empezando.primerIcono.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.primerIcono.texto1' | transloco"></p>
-<pre><code>import &#123; Component &#125; from '&#64;angular/core';
-import &#123; GfIconComponent, bellIcon &#125; from 'glyphflow';
-
-&#64;Component(&#123;
-  selector: 'app-alert',
-  imports: [GfIconComponent],
-  template: '&lt;gf-icon [iconDef]="bell" [size]="24" label="Notifications" /&gt;',
-&#125;)
-export class Alert &#123;
-  protected readonly bell = bellIcon;
-&#125;</code></pre>
+<app-bloque-codigo [codigo]="SNIPPET_PRIMER_ICONO" />
 
 <h2 [innerHTML]="'docs.empezando.porQue.titulo' | transloco"></h2>
 <p>{{ 'docs.empezando.porQue.texto1' | transloco }}</p>
@@ -32,15 +22,15 @@ export class Alert &#123;
     <tbody>
       <tr>
         <td>{{ 'docs.empezando.porQue.filaSolo' | transloco }}</td>
-        <td>3.74 KB</td>
+        <td>{{ cifras.bundleCoreKb }} KB</td>
       </tr>
       <tr>
         <td>{{ 'docs.empezando.porQue.filaImport' | transloco }}</td>
-        <td>4.09 KB</td>
+        <td>{{ cifras.pesoIconoKb }} KB</td>
       </tr>
       <tr>
         <td [innerHTML]="'docs.empezando.porQue.filaName' | transloco"></td>
-        <td>94.48 KB</td>
+        <td>{{ cifras.bundleCatalogoKb }} KB</td>
       </tr>
     </tbody>
   </table>
@@ -49,11 +39,7 @@ export class Alert &#123;
 
 <h2 [innerHTML]="'docs.empezando.nameOptIn.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.empezando.nameOptIn.texto1' | transloco"></p>
-<pre><code>import &#123; provideIconCatalog, ANIMATED_ICONS &#125; from 'glyphflow';
-
-bootstrapApplication(App, &#123;
-  providers: [provideIconCatalog(ANIMATED_ICONS)],
-&#125;);</code></pre>
+<app-bloque-codigo [codigo]="SNIPPET_CATALOGO_POR_NOMBRE" />
 <p class="nota ojo" [innerHTML]="'docs.empezando.nameOptIn.nota' | transloco"></p>
 
 <h2>{{ 'docs.empezando.trigger.titulo' | transloco }}</h2>
@@ -96,16 +82,11 @@ bootstrapApplication(App, &#123;
 
 <h2>{{ 'docs.empezando.velocidad.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.velocidad.texto1' | transloco"></p>
-<pre><code>import &#123; provideGfIcons &#125; from 'glyphflow';
-
-providers: [provideGfIcons(&#123; durationScale: 0.8 &#125;)]</code></pre>
+<app-bloque-codigo [codigo]="SNIPPET_VELOCIDAD" />
 <p [innerHTML]="'docs.empezando.velocidad.texto2' | transloco"></p>
 
 <h2>{{ 'docs.empezando.morph.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.morph.texto1' | transloco"></p>
-<pre><code>import &#123; GfIconMorphComponent &#125; from 'glyphflow/morph';
-
-// The binding IS the state: changing [icon] triggers the transition from the previous value.
-// &lt;gf-icon-morph [icon]="current()" [size]="32" label="Status" /&gt;</code></pre>
+<app-bloque-codigo [codigo]="SNIPPET_MORPH" />
 <p class="nota">{{ 'docs.empezando.morph.nota' | transloco }}</p>
 <p [innerHTML]="'docs.empezando.morph.texto2' | transloco"></p>

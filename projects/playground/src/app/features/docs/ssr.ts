@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
+import { SNIPPET_GUARDIA_WINDOW } from './snippets';
 
 @Component({
   selector: 'app-docs-ssr',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, BloqueCodigo],
   templateUrl: './ssr.html',
   styleUrl: './docs-page.css',
 })
-export class Ssr {}
+export class Ssr {
+  /** Los snippets viven en `snippets.ts`, en texto plano. Ver su cabecera. */
+  protected readonly SNIPPET_GUARDIA_WINDOW = SNIPPET_GUARDIA_WINDOW;
+}

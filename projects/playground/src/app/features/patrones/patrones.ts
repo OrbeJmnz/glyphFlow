@@ -16,6 +16,8 @@ import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
+import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
+import { SNIPPET_COPIAR, SNIPPET_ENVIAR, SNIPPET_REACCION, SNIPPET_TEMA } from './snippets';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { Rutas } from '../../core/rutas.service';
 
@@ -31,7 +33,7 @@ import { Rutas } from '../../core/rutas.service';
  */
 @Component({
   selector: 'app-patrones',
-  imports: [GfIconComponent, GfIconMorphComponent, Boton, RouterLink, TranslocoPipe],
+  imports: [BloqueCodigo, GfIconComponent, GfIconMorphComponent, Boton, RouterLink, TranslocoPipe],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -51,6 +53,12 @@ import { Rutas } from '../../core/rutas.service';
 export class Patrones implements OnDestroy {
   /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
   protected readonly rutas = inject(Rutas);
+
+  /** Los snippets viven en `snippets.ts`, en texto plano. El porqué está en su cabecera. */
+  protected readonly SNIPPET_COPIAR = SNIPPET_COPIAR;
+  protected readonly SNIPPET_TEMA = SNIPPET_TEMA;
+  protected readonly SNIPPET_ENVIAR = SNIPPET_ENVIAR;
+  protected readonly SNIPPET_REACCION = SNIPPET_REACCION;
 
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 

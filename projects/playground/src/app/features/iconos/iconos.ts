@@ -46,6 +46,7 @@ import { CIFRAS } from '../../core/cifras';
 import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
+import { Copiador } from '../../shared/ui/copiar';
 import { normalizar, ordenarPorRelevancia } from './buscador';
 import { Rutas } from '../../core/rutas.service';
 import { tema } from '../../core/tema';
@@ -173,7 +174,8 @@ export class Iconos implements OnDestroy {
   protected readonly snippet = SNIPPET_PORTADA;
   protected readonly angularPeer = CIFRAS.angularPeer;
 
-  protected readonly copiado = signal(false);
+  protected readonly copiador = new Copiador();
+  protected readonly copiado = this.copiador.copiado;
 
   /* `copyIcon` aplanado: son 2 figuras contra la 1 de `checkIcon`, y WAAPI solo interpola entre
      `d` con la misma estructura. Mismo tratamiento que en el panel de detalle. */
@@ -189,15 +191,14 @@ export class Iconos implements OnDestroy {
   );
   protected readonly rotuloCopiar = translateSignal(this.claveCopiar);
 
-  protected async copiarSnippet(): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(SNIPPET_PORTADA);
-      this.copiado.set(true);
-      setTimeout(() => this.copiado.set(false), 1500);
-    } catch {
-      // La Clipboard API pide contexto seguro o permiso. Sin eso el `<pre>` sigue siendo
-      // seleccionable, así que Ctrl+C funciona igual — no hay nada que reponer.
-    }
+  /**
+   * La lógica sale de `Copiador`, compartida con `<app-bloque-codigo>`: era la cuarta copia de lo
+   * mismo en el repo, con temporizadores distintos entre sí. El BOTÓN sigue siendo el de aquí —
+   * rotulado y siempre visible, en la cabecera de la sección — porque en la portada el copiar es
+   * la acción principal, no un accesorio que aparece al pasar el ratón.
+   */
+  protected copiarSnippet(): void {
+    void this.copiador.copiar(SNIPPET_PORTADA);
   }
 
   private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)

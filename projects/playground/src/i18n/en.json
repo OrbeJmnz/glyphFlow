@@ -1,4 +1,9 @@
 {
+  "codigo": {
+    "copiar": "Copy code",
+    "copiado": "Copied",
+    "fallo": "The browser blocked the clipboard. Select the code and press Ctrl+C."
+  },
   "nav": {
     "iconos": "Icons",
     "patrones": "Patterns",

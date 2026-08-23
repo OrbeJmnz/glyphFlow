@@ -1,0 +1,100 @@
+/*
+ * El bloque y su botón. El `position: relative` vive aquí y no en el `<pre>`: el `pre` tiene
+ * `overflow-x: auto`, y un botón absoluto dentro de un contenedor con scroll se desplaza con el
+ * contenido — al arrastrar una línea larga, el botón se iba de viaje.
+ */
+.bloque {
+  position: relative;
+}
+
+pre {
+  /* El fondo es lo único que difería entre las dos reglas que este componente reemplaza (patrones
+     usaba `--gf-fondo`, docs `--gf-panel`). Se expone como variable para que cada página conserve
+     el suyo en vez de imponerle a una el de la otra. */
+  margin: 0;
+  padding: 0.85rem 1rem;
+  /* Hueco a la derecha para que el botón no se pose encima de una línea de código. */
+  padding-right: 3rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  background: var(--bloque-fondo, var(--gf-panel));
+  overflow-x: auto;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  color: var(--gf-texto-medio);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.copiar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.45rem;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-medio);
+  cursor: pointer;
+  /* Aparece al acercarse, pero NO se anima de un salto: el bloque de código no debería parpadear
+     cada vez que el ratón lo cruza de camino a otra cosa. */
+  opacity: 0;
+  transition:
+    opacity 160ms ease-out,
+    border-color 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.bloque:hover .copiar,
+/* SIEMPRE visible con foco de teclado: un control que solo existe con hover no existe para quien
+   navega con Tab, y este es el botón principal de una página hecha para copiar. */
+.copiar:focus-visible {
+  opacity: 1;
+}
+
+.copiar:hover {
+  border-color: var(--gf-borde-vivo);
+  color: var(--gf-texto);
+}
+
+/* Confirmado: el color hace el trabajo que el icono ya empezó con el morph a la palomita. */
+.copiar.hecho {
+  border-color: var(--gf-verde-borde);
+  color: var(--gf-verde);
+  opacity: 1;
+}
+
+.copiar.fallo {
+  border-color: var(--gf-rosa-borde);
+  color: var(--gf-rojo);
+  opacity: 1;
+}
+
+.aviso-fallo {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  color: var(--gf-rojo);
+}
+
+/*
+ * Sin hover no hay forma de descubrir el botón, así que ahí se queda puesto. Es la diferencia
+ * entre "discreto" y "escondido": en un teléfono, lo segundo.
+ */
+@media (hover: none) {
+  .copiar {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copiar {
+    transition: none;
+  }
+}

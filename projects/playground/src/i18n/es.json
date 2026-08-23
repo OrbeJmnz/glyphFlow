@@ -1,4 +1,9 @@
 {
+  "codigo": {
+    "copiar": "Copiar código",
+    "copiado": "Copiado",
+    "fallo": "El navegador bloqueó el portapapeles. Selecciona el código y pulsa Ctrl+C."
+  },
   "nav": {
     "iconos": "Iconos",
     "patrones": "Patrones",
