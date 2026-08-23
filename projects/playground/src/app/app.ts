@@ -1,6 +1,5 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import {
   GfIconComponent,
@@ -13,10 +12,13 @@ import {
   type AnimatedIconDef,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
-import { TranslocoPipe, TranslocoService, translateSignal } from '@jsverse/transloco';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { velocidadGlobal, elegirVelocidad, PRESETS_VELOCIDAD } from './core/duration-scale';
+import { conectarEnlacesDeIdioma } from './core/enlaces-idioma';
 import { cargarEstrellas } from './core/github';
-import { conectarIdiomaDelDocumento, type Idioma } from './core/i18n';
+import { conectarIdiomaDelDocumento } from './core/i18n';
+import { recordarIdioma, type Idioma } from './core/idioma';
+import { Rutas, traducirRuta } from './core/rutas';
 import { alternarTema, conectarTema, tema } from './core/tema';
 import { conectarTransiciones } from './core/transicion';
 import { BotonGithub } from './shared/marca/boton-github';
@@ -134,17 +136,33 @@ export class App {
   protected readonly etiquetaTema = translateSignal(this.claveTema);
 
   /**
+   * Los enlaces del nav se piden por ID, no por ruta: el slug cambia con el idioma (`/en/patterns`
+   * ↔ `/es/patrones`) y `Rutas` lo resuelve leyendo el idioma activo por señal. Escribirlos duros
+   * dejaría al visitante en español navegando a URLs en inglés.
+   */
+  protected readonly rutas = inject(Rutas);
+  private readonly router = inject(Router);
+
+  /**
    * El switcher es un solo botón que alterna, igual que el de tema — no un `<select>` ni una
    * pastilla de 2 opciones: con solo 2 idiomas, alternar es más rápido que elegir.
+   *
+   * Ya no cambia el idioma: NAVEGA. Con el idioma en la URL, cambiarlo sin moverse dejaría a
+   * `/en/patterns` pintado en español — contenido y dirección diciendo cosas distintas, que es el
+   * bug que T19 vino a cerrar. Quien recibe el enlace tiene que ver lo mismo que quien lo mandó.
+   *
+   * Conserva la página, el query y el fragmento (`traducirRuta`): mandar a la portada por cambiar
+   * de idioma es perder el lugar, y en las docs es perder el ancla exacta que alguien compartió.
    */
-  private readonly transloco = inject(TranslocoService);
-  protected readonly idioma = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang() as Idioma,
-  });
+  protected readonly idioma = this.rutas.idioma;
   protected readonly etiquetaIdioma = translateSignal('shell.idioma.cambiar');
 
   protected alternarIdioma(): void {
-    this.transloco.setActiveLang(this.idioma() === 'en' ? 'es' : 'en');
+    const destino: Idioma = this.idioma() === 'en' ? 'es' : 'en';
+    // Se recuerda aquí y no en el guard: lo que se guarda es la ELECCIÓN, no el idioma de la URL
+    // que alguien te compartió. Solo decide a dónde manda `/` en la próxima visita.
+    recordarIdioma(destino);
+    void this.router.navigateByUrl(traducirRuta(this.router.url, destino));
   }
 
   /**
@@ -173,6 +191,9 @@ export class App {
     conectarTransiciones();
     conectarTema();
     conectarIdiomaDelDocumento();
+    // `hreflang` recíproco + `canonical` en cada navegación: sin eso las dos ramas de idioma se
+    // leen como contenido duplicado. Ver `core/enlaces-idioma.ts`.
+    conectarEnlacesDeIdioma();
     // Sin `await` ni bloqueo: si nunca responde, el botón se queda diciendo «GitHub» y el sitio ya
     // está usable desde el primer cuadro.
     void cargarEstrellas();

@@ -34,7 +34,8 @@ export function conectarTransiciones(): void {
 
 export interface OpcionesTransicion {
   /**
-   * Etiqueta el tipo de transición en `<html data-transicion="…">` mientras dura.
+   * Etiqueta el tipo de transición en `<html data-transition="…">` mientras dura. El atributo va en
+   * inglés como todos los que salen al DOM; el valor lo pone quien la dispara (T19).
    *
    * El CSS la necesita porque los tipos NO se animan igual: el tema apaga el cruce del `root` (su
    * movimiento es el círculo), mientras que una ruta o el grid sí quieren el cruce de default. Sin
@@ -74,7 +75,7 @@ export function conTransicion(cambio: () => void, opciones?: OpcionesTransicion)
   }
 
   const raiz = doc.documentElement;
-  if (opciones?.marca) raiz.dataset['transicion'] = opciones.marca;
+  if (opciones?.marca) raiz.dataset['transition'] = opciones.marca;
 
   // Interrumpir a la anterior es deliberado: el usuario acaba de pedir otra cosa, y encimar dos
   // transiciones deja fotos de estados que ya no existen.
@@ -91,7 +92,7 @@ export function conTransicion(cambio: () => void, opciones?: OpcionesTransicion)
       enCurso = null;
       // Se limpia solo cuando ESTA sigue siendo la vigente: si otra la interrumpió, la marca ya es
       // suya y borrarla aquí le apagaría el estilo a media transición.
-      delete raiz.dataset['transicion'];
+      delete raiz.dataset['transition'];
     }
   });
 

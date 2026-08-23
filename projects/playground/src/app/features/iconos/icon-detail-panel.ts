@@ -25,6 +25,7 @@ import { Boton } from '../../shared/ui/boton';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { URL_REPO } from '../../core/github';
 import { iconoPlano } from '../../core/morph-icon-plano';
+import { Rutas } from '../../core/rutas';
 
 /** Las tres pestañas del drawer — una sola cosa visible a la vez, el resto es scroll perdido. */
 type TabDetalle = 'preview' | 'codigo' | 'inspector';
@@ -56,6 +57,9 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
   styleUrl: './icon-detail-panel.css',
 })
 export class IconDetailPanel implements OnDestroy {
+  /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
+  protected readonly rutas = inject(Rutas);
+
   /** Solo hay un panel abierto a la vez, así que un id fijo alcanza y se lee en el DOM. */
   protected readonly ID_TITULO = 'detalle-titulo';
 

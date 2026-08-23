@@ -3,7 +3,17 @@ import { conTransicion } from './transicion';
 
 export type Tema = 'oscuro' | 'claro';
 
-const CLAVE = 'gf:tema';
+/**
+ * El vocabulario que sale al DOM y al storage. Adentro el código sigue en español como todo el
+ * resto del playground; afuera, inglés — `data-theme` y `gf:theme` los ve cualquiera en las
+ * herramientas del navegador, y uno de los ejemplos de la portada los enseña. La frontera es aquí,
+ * no repartida por el archivo (T19: los atributos y las claves de almacenamiento no se traducen).
+ */
+const VALOR: Record<Tema, 'dark' | 'light'> = { oscuro: 'dark', claro: 'light' };
+
+const CLAVE = 'gf:theme';
+/** La de antes de T19. Se lee una sola vez para no tirar el tema de quien ya venía usando el sitio. */
+const CLAVE_VIEJA = 'gf:tema';
 
 /**
  * El documento, guardado al conectar.
@@ -16,8 +26,10 @@ let doc: Document | null = null;
 
 function guardado(): Tema | null {
   try {
-    const v = localStorage.getItem(CLAVE);
-    return v === 'claro' || v === 'oscuro' ? v : null;
+    const v = localStorage.getItem(CLAVE) ?? localStorage.getItem(CLAVE_VIEJA);
+    if (v === 'dark' || v === 'oscuro') return 'oscuro';
+    if (v === 'light' || v === 'claro') return 'claro';
+    return null;
   } catch {
     return null; // Modo privado o cookies bloqueadas: se arranca con el default y no se persiste.
   }
@@ -43,9 +55,9 @@ export const tema = signal<Tema>(semilla());
 
 function aplicar(t: Tema): void {
   if (!doc) return;
-  // Corchetes, no `.tema`: `noPropertyAccessFromIndexSignature` prohíbe el acceso por punto sobre
+  // Corchetes, no `.theme`: `noPropertyAccessFromIndexSignature` prohíbe el acceso por punto sobre
   // `DOMStringMap`.
-  doc.documentElement.dataset['tema'] = t;
+  doc.documentElement.dataset['theme'] = VALOR[t];
   // La barra del navegador en Android sigue al `theme-color`; con dos <meta> y su `media`, el que
   // manda es el que casa con `prefers-color-scheme`, no con nuestra elección manual. Por eso se
   // escribe a mano el que corresponde.
@@ -53,7 +65,7 @@ function aplicar(t: Tema): void {
     .querySelector('meta[name="theme-color"]')
     ?.setAttribute('content', t === 'claro' ? '#ffffff' : '#121212');
   try {
-    localStorage.setItem(CLAVE, t);
+    localStorage.setItem(CLAVE, VALOR[t]);
   } catch {
     // Sin storage la elección dura lo que la pestaña. Degradación aceptable, no un error.
   }
@@ -98,7 +110,7 @@ export function alternarTema(origen?: Origen): void {
   }
 
   conTransicion(cambiar, {
-    marca: 'tema',
+    marca: 'theme',
     alEstarLista: () => {
       const { innerWidth: ancho, innerHeight: alto } = ventana;
       // Radio hasta la esquina MÁS LEJANA. Con la diagonal de la pantalla a secas, un botón pegado

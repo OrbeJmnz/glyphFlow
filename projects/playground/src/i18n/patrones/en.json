@@ -17,7 +17,7 @@
   "tema": {
     "titulo": "Theme switch",
     "descripcion": "<code>moon</code> ↔ <code>sun</code>. The icon inherits the text color (<code>stroke=\"currentColor\"</code>), so the theme never has to touch it directly: change the container's color and the icon follows.",
-    "detalle": "Here the theme only applies to <strong>this panel</strong>, so the pattern reads in isolation. The real one lives in the header, with the same morph: it writes <code>data-tema</code> on <code>&lt;html&gt;</code>, remembers your choice, and reveals the new theme with a circle that grows out of the button itself.",
+    "detalle": "Here the theme only applies to <strong>this panel</strong>, so the pattern reads in isolation. The real one lives in the header, with the same morph: it writes <code>data-theme</code> on <code>&lt;html&gt;</code>, remembers your choice, and reveals the new theme with a circle that grows out of the button itself.",
     "ariaAOscuro": "Switch to dark theme",
     "ariaAClaro": "Switch to light theme",
     "labelClaro": "Light theme",

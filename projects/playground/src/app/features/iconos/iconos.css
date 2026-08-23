@@ -62,7 +62,7 @@
  * color que el fondo del asset. Se probó dejarlo contra blanco puro y el rectángulo del GIF SÍ se
  * notaba — dos puntos de diferencia bastan cuando el borde es recto.
  */
-:host-context([data-tema='claro']) .marca-hero img {
+:host-context([data-theme='light']) .marca-hero img {
   mix-blend-mode: normal;
 }
 
@@ -288,16 +288,16 @@
  * barra de progreso. Va por posición y no por figura a propósito: así el degradado se queda quieto
  * de izquierda a derecha mientras las formas lo atraviesan.
  */
-.forma[data-paso='0'] {
+.forma[data-step='0'] {
   color: var(--gf-marca-1);
 }
-.forma[data-paso='1'] {
+.forma[data-step='1'] {
   color: var(--gf-marca-2);
 }
-.forma[data-paso='2'] {
+.forma[data-step='2'] {
   color: var(--gf-marca-3);
 }
-.forma[data-paso='3'] {
+.forma[data-step='3'] {
   color: var(--gf-marca-4);
 }
 

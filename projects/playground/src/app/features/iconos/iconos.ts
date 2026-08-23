@@ -44,6 +44,7 @@ import { CIFRAS } from '../../core/cifras';
 import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
+import { Rutas } from '../../core/rutas';
 import { tema } from '../../core/tema';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
@@ -123,6 +124,9 @@ interface CuratedEntry {
   styleUrl: './iconos.css',
 })
 export class Iconos implements OnDestroy {
+  /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
+  protected readonly rutas = inject(Rutas);
+
   @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
   @ViewChild('barraCatalogo') private barraCatalogo?: ElementRef<HTMLElement>;
 

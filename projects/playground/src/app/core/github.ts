@@ -8,7 +8,7 @@ interface RepoGh {
 const REPO = 'OrbeJmnz/glyphFlow';
 export const URL_REPO = `https://github.com/${REPO}`;
 
-const CLAVE_CACHE = 'gf:estrellas';
+const CLAVE_CACHE = 'gf:stars';
 /** Seis horas. El conteo de estrellas no es un dato en vivo; nadie recarga para ver si subió una. */
 const VIGENCIA_MS = 6 * 60 * 60 * 1000;
 

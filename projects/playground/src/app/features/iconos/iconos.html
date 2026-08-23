@@ -12,7 +12,7 @@
   <h1 class="visualmente-oculto">{{ 'iconos.hero.h1' | transloco }}</h1>
   <!--
     Las dos fuentes van por SEÑAL y no por `<source media>`: el tema del sitio lo manda
-    `data-tema`, y una media query no puede leer un atributo. Con `prefers-color-scheme` se
+    `data-theme`, y una media query no puede leer un atributo. Con `prefers-color-scheme` se
     ignoraría la elección manual, que es justo lo que el toggle existe para respetar.
   -->
   <picture class="marca-hero">
@@ -45,7 +45,7 @@
     <a app-boton variante="primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
       <span class="mono degradado-comando">npm i glyphflow</span>
     </a>
-    <a app-boton routerLink="/docs">{{ 'iconos.hero.empezar' | transloco }}</a>
+    <a app-boton [routerLink]="rutas.a('docs')">{{ 'iconos.hero.empezar' | transloco }}</a>
   </div>
 
   <!--
@@ -123,7 +123,9 @@
   <div class="showcase-texto">
     <h2>{{ 'iconos.showcase.titulo' | transloco }}</h2>
     <p>{{ 'iconos.showcase.descripcion' | transloco }}</p>
-    <a app-boton routerLink="/editor">{{ 'iconos.showcase.probarEditor' | transloco }}</a>
+    <a app-boton [routerLink]="rutas.a('editor')">{{
+      'iconos.showcase.probarEditor' | transloco
+    }}</a>
   </div>
 
   <div class="showcase-visual">
@@ -132,7 +134,7 @@
         @if (hueco > 0) {
           <span class="flecha">→</span>
         }
-        <span class="forma" [attr.data-paso]="hueco">
+        <span class="forma" [attr.data-step]="hueco">
           <gf-icon-morph [icon]="formaEn(hueco)" [size]="52" spring="snappy" />
         </span>
       }
@@ -313,7 +315,7 @@
         Texto REAL en el DOM, no un pseudo-elemento ni un atributo: tiene que encontrarlo el
         `Ctrl+F` del navegador, que es media razón de que el nombre esté visible.
       -->
-      <span class="nombre" data-nombre>{{ entry.name }}</span>
+      <span class="nombre" data-name>{{ entry.name }}</span>
     </article>
   }
 </div>
@@ -330,7 +332,9 @@
     </p>
     <ul>
       @for (n of muestraGenerados(); track n) {
-        <li><code>{{ n }}</code></li>
+        <li>
+          <code>{{ n }}</code>
+        </li>
       }
       @if (generadosCoincidentes().length > muestraGenerados().length) {
         <li class="resto">
@@ -343,11 +347,9 @@
     </ul>
     <p class="como">
       {{ 'iconos.generados.queLesFalta' | transloco }}
-      <a
-        href="https://github.com/OrbeJmnz/glyphFlow/blob/main/CONTRIBUTING.md"
-        rel="noopener"
-        >{{ 'iconos.generados.comoPedirla' | transloco }}</a
-      >
+      <a href="https://github.com/OrbeJmnz/glyphFlow/blob/main/CONTRIBUTING.md" rel="noopener">{{
+        'iconos.generados.comoPedirla' | transloco
+      }}</a>
     </p>
   </aside>
 }

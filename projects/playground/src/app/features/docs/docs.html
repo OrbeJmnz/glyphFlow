@@ -1,7 +1,7 @@
 <div class="docs-marco">
   <nav class="indice" [attr.aria-label]="'docs.nav.aria' | transloco">
-    @for (s of secciones; track s.ruta) {
-      <a [routerLink]="s.ruta" routerLinkActive="activo">
+    @for (s of secciones; track s.id) {
+      <a [routerLink]="rutas.slug(s.id)" routerLinkActive="activo">
         <strong>{{ s.tituloClave | transloco }}</strong>
         <span>{{ s.notaClave | transloco }}</span>
       </a>

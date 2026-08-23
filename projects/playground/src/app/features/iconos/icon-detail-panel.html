@@ -189,14 +189,14 @@
   <p class="nota" [innerHTML]="'iconos.detalle.nota' | transloco"></p>
 
   <div class="acciones-rapidas">
-    <a app-boton compacto routerLink="/editor"
-      >{{ 'iconos.detalle.acciones.probarEditor' | transloco }}</a
-    >
-    <a app-boton compacto routerLink="/docs/api"
-      >{{ 'iconos.detalle.acciones.verDocs' | transloco }}</a
-    >
-    <a app-boton compacto [href]="urlReportar()" target="_blank" rel="noopener noreferrer"
-      >{{ 'iconos.detalle.acciones.reportarIcono' | transloco }}</a
-    >
+    <a app-boton compacto [routerLink]="rutas.a('editor')">{{
+      'iconos.detalle.acciones.probarEditor' | transloco
+    }}</a>
+    <a app-boton compacto [routerLink]="rutas.a('docs', 'api')">{{
+      'iconos.detalle.acciones.verDocs' | transloco
+    }}</a>
+    <a app-boton compacto [href]="urlReportar()" target="_blank" rel="noopener noreferrer">{{
+      'iconos.detalle.acciones.reportarIcono' | transloco
+    }}</a>
   </div>
 </section>

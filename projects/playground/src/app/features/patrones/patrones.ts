@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnDestroy } from '@angular/core';
+import { Component, signal, computed, inject, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   GfIconComponent,
@@ -17,6 +17,7 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { iconoPlano } from '../../core/morph-icon-plano';
+import { Rutas } from '../../core/rutas';
 
 /**
  * Patrones reales, no una vitrina de iconos sueltos.
@@ -48,6 +49,9 @@ import { iconoPlano } from '../../core/morph-icon-plano';
   styleUrl: './patrones.css',
 })
 export class Patrones implements OnDestroy {
+  /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
+  protected readonly rutas = inject(Rutas);
+
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 
   // ── Copiar al portapapeles ──────────────────────────────────────────────────

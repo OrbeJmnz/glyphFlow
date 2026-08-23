@@ -15,7 +15,7 @@
       <gf-icon-morph [icon]="iconoMenu()" [size]="18" spring="snappy" />
     </button>
 
-    <a class="marca" routerLink="/" [attr.aria-label]="'shell.marcaAria' | transloco">
+    <a class="marca" [routerLink]="rutas.a()" [attr.aria-label]="'shell.marcaAria' | transloco">
       <!-- El glifo es el propio motor animándose: `trigger="group"` lo cuelga del hover de este <a>. -->
       <gf-icon [iconDef]="glifo" [size]="24" trigger="group" />
       <app-logo [alto]="32" [variante]="tema()" />
@@ -24,15 +24,23 @@
     <nav class="nav" appCarrilActivo aria-label="Secciones">
       <a
         app-chip
-        routerLink="/"
+        [routerLink]="rutas.a()"
         routerLinkActive="activo"
         [routerLinkActiveOptions]="{ exact: true }"
         >{{ 'nav.iconos' | transloco }}</a
       >
-      <a app-chip routerLink="/patrones" routerLinkActive="activo">{{ 'nav.patrones' | transloco }}</a>
-      <a app-chip routerLink="/editor" routerLinkActive="activo">{{ 'nav.editor' | transloco }}</a>
-      <a app-chip routerLink="/lab" routerLinkActive="activo">{{ 'nav.lab' | transloco }}</a>
-      <a app-chip routerLink="/docs" routerLinkActive="activo">{{ 'nav.docs' | transloco }}</a>
+      <a app-chip [routerLink]="rutas.a('patrones')" routerLinkActive="activo">{{
+        'nav.patrones' | transloco
+      }}</a>
+      <a app-chip [routerLink]="rutas.a('editor')" routerLinkActive="activo">{{
+        'nav.editor' | transloco
+      }}</a>
+      <a app-chip [routerLink]="rutas.a('lab')" routerLinkActive="activo">{{
+        'nav.lab' | transloco
+      }}</a>
+      <a app-chip [routerLink]="rutas.a('docs')" routerLinkActive="activo">{{
+        'nav.docs' | transloco
+      }}</a>
     </nav>
 
     <!--
@@ -135,7 +143,12 @@
   ></button>
 }
 
-<aside class="menu-movil" [class.abierto]="menuAbierto()" id="menu-movil" [attr.aria-label]="'shell.menu.titulo' | transloco">
+<aside
+  class="menu-movil"
+  [class.abierto]="menuAbierto()"
+  id="menu-movil"
+  [attr.aria-label]="'shell.menu.titulo' | transloco"
+>
   <div class="menu-cabecera">
     <span>{{ 'shell.menu.titulo' | transloco }}</span>
     <button
@@ -158,20 +171,22 @@
 
   <nav class="menu-nav" aria-label="Secciones">
     <a
-      routerLink="/"
+      [routerLink]="rutas.a()"
       routerLinkActive="activo"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="cerrarMenu()"
       >{{ 'nav.iconos' | transloco }}</a
     >
-    <a routerLink="/patrones" routerLinkActive="activo" (click)="cerrarMenu()">{{
+    <a [routerLink]="rutas.a('patrones')" routerLinkActive="activo" (click)="cerrarMenu()">{{
       'nav.patrones' | transloco
     }}</a>
-    <a routerLink="/editor" routerLinkActive="activo" (click)="cerrarMenu()">{{
+    <a [routerLink]="rutas.a('editor')" routerLinkActive="activo" (click)="cerrarMenu()">{{
       'nav.editor' | transloco
     }}</a>
-    <a routerLink="/lab" routerLinkActive="activo" (click)="cerrarMenu()">{{ 'nav.lab' | transloco }}</a>
-    <a routerLink="/docs" routerLinkActive="activo" (click)="cerrarMenu()">{{
+    <a [routerLink]="rutas.a('lab')" routerLinkActive="activo" (click)="cerrarMenu()">{{
+      'nav.lab' | transloco
+    }}</a>
+    <a [routerLink]="rutas.a('docs')" routerLinkActive="activo" (click)="cerrarMenu()">{{
       'nav.docs' | transloco
     }}</a>
   </nav>
@@ -224,6 +239,8 @@
 
 <footer class="shell-foot">
   <span [innerHTML]="'shell.footer.creditos' | transloco"></span>
-  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">{{ 'shell.footer.github' | transloco }}</a>
+  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">{{
+    'shell.footer.github' | transloco
+  }}</a>
   <p class="shell-foot-legal" [innerHTML]="'shell.footer.lucide' | transloco"></p>
 </footer>

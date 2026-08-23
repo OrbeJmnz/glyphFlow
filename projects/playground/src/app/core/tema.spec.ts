@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { alternarTema, conectarTema, tema } from './tema';
 
 @Component({ template: '' })
@@ -12,9 +12,10 @@ class Anfitrion {
 
 describe('tema', () => {
   beforeEach(() => {
+    localStorage.removeItem('gf:theme');
     localStorage.removeItem('gf:tema');
     tema.set('oscuro');
-    delete document.documentElement.dataset['tema'];
+    delete document.documentElement.dataset['theme'];
     document.querySelector('meta[name="theme-color"]')?.remove();
   });
 
@@ -33,15 +34,27 @@ describe('tema', () => {
     expect(tema()).toBe('oscuro');
   });
 
-  it('escribe data-tema en <html> y persiste la elección', () => {
+  it('escribe data-theme en <html> y persiste la elección', () => {
     const fixture = montar();
-    expect(document.documentElement.dataset['tema']).toBe('oscuro');
+    expect(document.documentElement.dataset['theme']).toBe('dark');
 
     alternarTema();
     fixture.detectChanges();
 
-    expect(document.documentElement.dataset['tema']).toBe('claro');
-    expect(localStorage.getItem('gf:tema')).toBe('claro');
+    expect(document.documentElement.dataset['theme']).toBe('light');
+    expect(localStorage.getItem('gf:theme')).toBe('light');
+  });
+
+  it('hereda la elección guardada con la clave vieja de antes de T19', async () => {
+    // `gf:tema` fue la clave hasta que T19 puso en inglés todo lo que se ve desde fuera. Sin este
+    // rescate, cada visitante que ya había elegido tema volvería al default en su próxima visita —
+    // y el síntoma sería «el sitio se me olvidó el tema», imposible de atribuir a un renombrado.
+    localStorage.setItem('gf:tema', 'claro');
+    // La semilla se lee al EVALUAR el módulo, no dentro de una función que se pueda volver a
+    // llamar: la única forma de probarla es volver a cargarlo.
+    vi.resetModules();
+    const recargado = await import('./tema');
+    expect(recargado.tema()).toBe('claro');
   });
 
   it('deja el DOM listo DENTRO del cambio, sin esperar al efecto', () => {
@@ -50,7 +63,7 @@ describe('tema', () => {
     // con el DOM ya cambiado, y con Angular sin zonas el efecto todavía no corrió. Si esto se
     // rompiera, la foto «nueva» saldría idéntica a la vieja y no se vería ninguna transición.
     alternarTema();
-    expect(document.documentElement.dataset['tema']).toBe('claro');
+    expect(document.documentElement.dataset['theme']).toBe('light');
   });
 
   it('mueve el theme-color, que es la barra del navegador en Android', () => {
@@ -77,7 +90,7 @@ describe('tema', () => {
     try {
       // Modo privado o cookies bloqueadas: la elección dura lo que la pestaña, pero funciona.
       expect(() => alternarTema()).not.toThrow();
-      expect(document.documentElement.dataset['tema']).toBe('claro');
+      expect(document.documentElement.dataset['theme']).toBe('light');
     } finally {
       Storage.prototype.setItem = original;
     }

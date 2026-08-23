@@ -3,5 +3,19 @@
   "framework": null,
   "buildCommand": "ng build playground",
   "outputDirectory": "dist/playground/browser",
+  "redirects": [
+    { "source": "/patrones", "destination": "/en/patterns", "statusCode": 301 },
+    { "source": "/docs/empezando", "destination": "/en/docs/getting-started", "statusCode": 301 },
+    {
+      "source": "/docs/accesibilidad",
+      "destination": "/en/docs/accessibility",
+      "statusCode": 301
+    },
+    { "source": "/docs/ssr", "destination": "/en/docs/ssr", "statusCode": 301 },
+    { "source": "/docs/api", "destination": "/en/docs/api", "statusCode": 301 },
+    { "source": "/docs", "destination": "/en/docs", "statusCode": 301 },
+    { "source": "/editor", "destination": "/en/editor", "statusCode": 301 },
+    { "source": "/lab", "destination": "/en/lab", "statusCode": 301 }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

@@ -17,7 +17,7 @@
   "tema": {
     "titulo": "Cambio de tema",
     "descripcion": "<code>moon</code> ↔ <code>sun</code>. El icono hereda el color del texto (<code>stroke=\"currentColor\"</code>), así que el tema no necesita tocarlo: cambia el color del contenedor y el icono va detrás.",
-    "detalle": "Aquí el tema aplica solo a <strong>este panel</strong>, para que se vea el patrón aislado. El de verdad está en el header, con el mismo morph: escribe <code>data-tema</code> en <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que crece desde el propio botón.",
+    "detalle": "Aquí el tema aplica solo a <strong>este panel</strong>, para que se vea el patrón aislado. El de verdad está en el header, con el mismo morph: escribe <code>data-theme</code> en <code>&lt;html&gt;</code>, recuerda tu elección y descubre el tema nuevo con un círculo que crece desde el propio botón.",
     "ariaAOscuro": "Cambiar a tema oscuro",
     "ariaAClaro": "Cambiar a tema claro",
     "labelClaro": "Tema claro",

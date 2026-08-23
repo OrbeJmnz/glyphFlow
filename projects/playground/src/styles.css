@@ -9,7 +9,7 @@
 /*
  * ── Tema ──────────────────────────────────────────────────────────────────────
  *
- * `:root` lleva el OSCURO, que es la identidad del sitio, y `[data-tema='claro']` lo sobreescribe.
+ * `:root` lleva el OSCURO, que es la identidad del sitio, y `[data-theme='light']` lo sobreescribe.
  * El atributo lo pone `core/tema.ts` en <html> desde la primera carga, así que no hay parpadeo.
  *
  * Todo color con significado tiene su par: los que se eligieron para fondo oscuro (el ámbar de las
@@ -140,7 +140,7 @@
   --gf-ancho: 1240px;
 }
 
-:root[data-tema='claro'] {
+:root[data-theme='light'] {
   /*
    * No es blanco puro, y el motivo es medible: el GIF del hero trae fondo opaco rgb(253,252,253) y
    * contra #ffffff se dibujaba su rectángulo — poco, pero se veía. Igualar la página al asset borra
@@ -210,22 +210,22 @@
  * La foto nueva va encima; la vieja se queda quieta debajo, haciendo de fondo mientras el círculo
  * crece.
  */
-:root[data-transicion='tema']::view-transition-old(root),
-:root[data-transicion='tema']::view-transition-new(root) {
+:root[data-transition='theme']::view-transition-old(root),
+:root[data-transition='theme']::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-:root[data-transicion='tema']::view-transition-old(root) {
+:root[data-transition='theme']::view-transition-old(root) {
   z-index: 0;
 }
 
-:root[data-transicion='tema']::view-transition-new(root) {
+:root[data-transition='theme']::view-transition-new(root) {
   z-index: 1;
 }
 
 /* La del tema no viaja: su movimiento entero es el círculo. Las demás sí quieren el cruce. */
-:root[data-transicion='tema']
+:root[data-transition='theme']
 
 /*
  * ── Reordenamiento del grid ───────────────────────────────────────────────────

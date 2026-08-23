@@ -74,7 +74,7 @@ describe('estrellas de GitHub', () => {
 
     // `null`, no 0: son cosas distintas. Un 0 pintaría «0 estrellas», que sería mentir.
     expect(estrellas()).toBeNull();
-    expect(sessionStorage.getItem('gf:estrellas')).toBeNull();
+    expect(sessionStorage.getItem('gf:stars')).toBeNull();
   });
 
   it('sin red no truena — es un caso normal, no un error', async () => {
@@ -85,7 +85,7 @@ describe('estrellas de GitHub', () => {
   });
 
   it('ignora un caché corrupto en vez de arrastrar el fallo', async () => {
-    sessionStorage.setItem('gf:estrellas', 'esto no es json');
+    sessionStorage.setItem('gf:stars', 'esto no es json');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(respuesta({ stargazers_count: 7 })));
 
     await cargarEstrellas();

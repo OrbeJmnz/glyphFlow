@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, inject } from '@angular/core';
 
 /**
- * Pone `title` en el host **solo si** su etiqueta `[data-nombre]` viene cortada con elipsis.
+ * Pone `title` en el host **solo si** su etiqueta `[data-name]` viene cortada con elipsis.
  *
  * Por qué no siempre: un `title` en las 911 tarjetas repite en un tooltip nativo lo que ya se lee
  * en la tarjeta. Estorba —tapa la vecina, tarda en salir— y no aporta nada cuando el nombre cabe
@@ -23,7 +23,7 @@ export class TituloSiTruncado {
   @HostListener('mouseenter')
   protected alEntrar(): void {
     const el = this.host.nativeElement;
-    const etiqueta = el.querySelector<HTMLElement>('[data-nombre]');
+    const etiqueta = el.querySelector<HTMLElement>('[data-name]');
     if (!etiqueta) return;
 
     if (etiqueta.scrollWidth > etiqueta.clientWidth) {
