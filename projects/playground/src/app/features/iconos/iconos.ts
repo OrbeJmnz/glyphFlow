@@ -12,6 +12,8 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import iconosEn from '../../../i18n/iconos/en.json';
 import {
@@ -44,6 +46,7 @@ import { CIFRAS } from '../../core/cifras';
 import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
+import { normalizar, ordenarPorRelevancia } from './buscador';
 import { Rutas } from '../../core/rutas';
 import { tema } from '../../core/tema';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
@@ -308,18 +311,104 @@ export class Iconos implements OnDestroy {
 
   constructor() {
     afterNextRender(() => this.enfocarBuscadorSiProcede());
+
+    // `?q=` de la URL, para que un enlace de búsqueda compartido abra ya filtrado. Se lee del
+    // snapshot y no por suscripción: esta página no se re-navega a sí misma —el query lo escribe
+    // `replaceState`, que NO dispara al router— así que un stream aquí no tendría nada que emitir.
+    const inicial = this.ruta.snapshot.queryParamMap.get('q');
+    if (inicial) this.busqueda.set(inicial);
+
+    /*
+     * Un solo efecto para las dos vías de entrada: el campo del héroe pasa por un método, pero el
+     * del catálogo escribe la señal directo con `[(texto)]`. Enganchar el método habría dejado la
+     * mitad de los tecleos sin cargar los tags, y el síntoma —buscar `delete` funciona arriba y no
+     * abajo— es de los que se atribuyen a cualquier cosa menos a esto.
+     */
+    effect(() => {
+      const q = this.busqueda().trim();
+      if (q.length >= 2) this.asegurarTags();
+      this.sincronizarUrl(q);
+    });
+  }
+
+  private readonly ruta = inject(ActivatedRoute);
+  private readonly ubicacion = inject(Location);
+  private temporizadorUrl?: ReturnType<typeof setTimeout>;
+
+  /**
+   * Escribe `?q=` sin navegar. `Location.replaceState` y NO `router.navigate`: el router tiene
+   * `withViewTransitions` puesto, así que navegar por cada tecla animaría la página entera en cada
+   * pulsación. Esto no es una navegación, es la URL poniéndose al día con un filtro de interfaz.
+   *
+   * Los 150 ms son del ticket y aquí sí ganan algo: sin ellos el historial recibe una reescritura
+   * por letra. El FILTRADO en cambio sigue siendo inmediato — ver la nota de `buscarDesdeHero`.
+   *
+   * `replaceState`, no `pushState`: teclear no debería llenar el botón de atrás de estados
+   * intermedios. Y el `canonical` de `core/enlaces-idioma.ts` ignora el query a propósito, así que
+   * esto no parte el showcase en tantas URLs como búsquedas haga la gente.
+   */
+  private sincronizarUrl(q: string): void {
+    clearTimeout(this.temporizadorUrl);
+    this.temporizadorUrl = setTimeout(() => {
+      const base = this.ubicacion.path().split(/[?#]/)[0];
+      this.ubicacion.replaceState(base + (q ? `?q=${encodeURIComponent(q)}` : ''));
+    }, 150);
   }
 
   ngOnDestroy(): void {
     clearInterval(this.reloj);
     clearTimeout(this.temporizadorScroll);
+    clearTimeout(this.temporizadorUrl);
   }
 
   /** Filtro por insignia. `null` = "Todos", que es el estado normal. */
   protected readonly filtro = signal<ClaveInsignia | null>(null);
 
-  /** Filtro por nombre. Substring, sin distinguir mayúsculas. */
+  /** Filtro por nombre y por sinónimo. Ver `buscador.ts` para el orden de relevancia. */
   protected readonly busqueda = signal('');
+
+  /**
+   * Los sinónimos de Lucide, `null` hasta que alguien busca.
+   *
+   * **No se importan de `glyphflow`, y eso está medido**: el shell ya importa el paquete
+   * estáticamente (el `<gf-icon>` del header), así que referenciar `ICON_TAGS` lo ancla al bundle
+   * INICIAL en vez de al chunk de esta página. Transferencia inicial 147.90 → 181.10 kB, +33 kB
+   * gzip que pagaría TODO visitante, incluido el que nunca escribe en el buscador. Es el mismo
+   * mecanismo que midió T29, y por el que ya existe `nombres-generados.ts`.
+   *
+   * Con `import()` sobre una copia local, esbuild le da su propio chunk — igual que a `es.json` —
+   * y solo lo baja quien busca. Lo mantiene en sync `tags-catalogo.spec.ts`.
+   */
+  private readonly tags = signal<Record<string, readonly string[]> | null>(null);
+  private pidiendoTags = false;
+
+  /**
+   * Normalizados UNA vez al llegar, no en cada tecla. Son 13 829 tags: normalizarlos por pulsación
+   * significaba pagar 13 829 `normalize('NFD')` por letra tecleada. Aquí se paga una sola vez y
+   * el filtrado queda en comparaciones de cadenas.
+   */
+  private readonly tagsNormalizados = computed<Record<string, readonly string[]> | null>(() => {
+    const crudos = this.tags();
+    if (!crudos) return null;
+    return Object.fromEntries(
+      Object.entries(crudos).map(([nombre, tags]) => [nombre, tags.map(normalizar)]),
+    );
+  });
+
+  /**
+   * Se dispara al primer tecleo útil, no al montar: quien entra a mirar la rejilla no debería
+   * bajar 162 kB de sinónimos que no pidió. Mientras el chunk viaja, el buscador ya responde por
+   * nombre — los niveles de tag simplemente aparecen cuando el dato llega (ver `buscador.ts`).
+   */
+  private asegurarTags(): void {
+    // Bandera plana y no `this.tags()`: esto se llama DESDE un efecto, y leer la señal ahí la
+    // volvería una dependencia — el efecto se re-dispararía al llegar el chunk, sin necesidad.
+    if (this.pidiendoTags) return;
+    this.pidiendoTags = true;
+    void import('./tags-catalogo.json').then((m) => {
+      this.tags.set(m.default as Record<string, readonly string[]>);
+    });
+  }
 
   /**
    * Cuántos iconos trae cada insignia — el número va en el propio botón del filtro.
@@ -340,9 +429,11 @@ export class Iconos implements OnDestroy {
 
   protected readonly entries = computed<CuratedEntry[]>(() => {
     const f = this.filtro();
-    const q = this.busqueda().trim().toLowerCase();
+    const q = this.busqueda().trim();
     const base = f ? this.todos.filter((e) => tiene(e, f)) : this.todos;
-    return q ? base.filter((e) => e.name.toLowerCase().includes(q)) : base;
+    if (!q) return base;
+    const tags = this.tagsNormalizados();
+    return ordenarPorRelevancia(base, q, (e) => e.name, tags ? (e) => tags[e.name] : undefined);
   });
 
   /**
@@ -356,9 +447,10 @@ export class Iconos implements OnDestroy {
    * Solo los NOMBRES, que es lo que hace falta para responder "sí existe": la geometría no.
    */
   protected readonly generadosCoincidentes = computed<string[]>(() => {
-    const q = this.busqueda().trim().toLowerCase();
+    const q = this.busqueda().trim();
     if (q.length < 2) return [];
-    return NOMBRES_GENERADOS.filter((n) => n.includes(q));
+    const tags = this.tagsNormalizados();
+    return ordenarPorRelevancia(NOMBRES_GENERADOS, q, (n) => n, tags ? (n) => tags[n] : undefined);
   });
 
   /** Una muestra, no los 856: la lista es una pista, no un segundo catálogo. */

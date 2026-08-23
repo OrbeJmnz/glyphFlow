@@ -23,7 +23,8 @@
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",
-    "release": "npm run build:lib && node scripts/release.mjs"
+    "release": "npm run build:lib && node scripts/release.mjs",
+    "gen:playground-tags": "tsx scripts/gen-playground-tags.ts"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
