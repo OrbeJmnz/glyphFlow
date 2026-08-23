@@ -306,8 +306,12 @@
  * siempre. En vez de repartir nav/velocidad/GitHub en más renglones, se esconden detrás de un
  * menú: el header se queda en UNA fila (disparador, marca, tema) y el resto vive en el panel
  * lateral de abajo.
+ *
+ * El corte es 1100 y no 640: ahí es donde velocidad e idioma dejan de caber al lado del nav. La
+ * NAVEGACIÓN aguanta más —son cinco enlaces cortos— y se colapsa aparte, a 900. Esconderla antes
+ * sería meter en un menú algo que todavía cabía a la vista.
  */
-@media (max-width: 640px) {
+@media (max-width: 1100px) {
   .shell-interior {
     padding: 12px 16px;
   }
@@ -351,8 +355,8 @@
     margin-inline: auto;
   }
 
-  /* El nav de arriba, la velocidad, el GitHub y el idioma se mudan al panel — quedan fuera del
-     árbol de accesibilidad en vez de vivos-pero-invisibles duplicando el tab order. */
+  /* La velocidad y el idioma se mudan al panel — quedan fuera del árbol de accesibilidad en vez
+     de vivos-pero-invisibles duplicando el tab order. El nav se va aparte, más abajo. */
   .nav {
     display: none;
   }
@@ -367,8 +371,7 @@
    * construir: quedaba «EN · ☰ · logo», con la hamburguesa fuera del borde y el logo descentrado.
    */
   .controles .velocidad,
-  .controles .idioma,
-  .controles app-boton-github {
+  .controles .idioma {
     display: none;
   }
 
@@ -613,4 +616,30 @@
 
 .shell-foot a:hover {
   color: var(--gf-texto);
+}
+
+/*
+ * Entre 901 y 1100 el header ya perdió velocidad e idioma, pero los cinco enlaces siguen cabiendo.
+ * Se devuelven al header y se apagan en el panel: tenerlos en los dos sitios a la vez duplica el
+ * recorrido de `Tab` y hace que el mismo enlace se anuncie dos veces.
+ */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .nav {
+    display: flex;
+  }
+
+  .menu-nav {
+    display: none;
+  }
+}
+
+/*
+ * El botón de GitHub aguanta hasta 640 y no hasta 1100: su relevo del héroe solo aparece por
+ * debajo de 640 (ver T2), así que esconderlo antes dejaría todo el rango 640–1100 sin un solo
+ * acceso a la vista.
+ */
+@media (max-width: 640px) {
+  .controles app-boton-github {
+    display: none;
+  }
 }

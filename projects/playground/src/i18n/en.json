@@ -22,6 +22,7 @@
       "cambiar": "Switch language"
     },
     "velocidad": {
+      "afecta": "Affects every animation on the site.",
       "titulo": "speed",
       "etiqueta": "Global animation speed",
       "notaLento": "to see the detail",

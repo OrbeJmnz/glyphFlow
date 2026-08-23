@@ -20,7 +20,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   `,
   host: {
     class: 'ui-grupo',
-    role: 'group',
+    '[attr.role]': 'rol',
     '[attr.aria-label]': 'etiqueta || titulo || null',
   },
 })
@@ -29,4 +29,12 @@ export class Grupo {
   @Input() titulo?: string;
   /** Nombre accesible cuando no hay título visible, o cuando debe decir algo más completo. */
   @Input() etiqueta?: string;
+  /**
+   * `radiogroup` cuando el grupo es una elección EXCLUYENTE y sus botones son `role="radio"`.
+   *
+   * No es cosmético: con `radiogroup`, el lector anuncia "1 de 4" y el teclado espera que las
+   * flechas muevan la selección. Prometerlo sin implementar las flechas sería peor que dejarlo en
+   * `group` — por eso solo lo pide quien las implementa.
+   */
+  @Input() rol: 'group' | 'radiogroup' = 'group';
 }

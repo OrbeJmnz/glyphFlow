@@ -17,7 +17,29 @@ import { provideGfIcons } from 'glyphflow';
  * Consecuencia honesta: aplica desde la SIGUIENTE reproducción. Una animación ya corriendo se
  * queda con la velocidad que tenía cuando arrancó — WAAPI ya recibió su `duration`.
  */
-export const velocidadGlobal = signal(1);
+const CLAVE_VELOCIDAD = 'gf:speed';
+
+function velocidadGuardada(): number | null {
+  try {
+    const v = Number(localStorage.getItem(CLAVE_VELOCIDAD));
+    // Solo un preset conocido: un valor a mano en el storage no debe poder meter una velocidad
+    // que la UI no sabe dibujar —el carril posiciona su indicador por ÍNDICE, no por valor—.
+    return [0.5, 1, 1.5, 2].includes(v) ? v : null;
+  } catch {
+    return null; // Modo privado o cookies bloqueadas: se arranca en 1x y no se persiste.
+  }
+}
+
+export const velocidadGlobal = signal(velocidadGuardada() ?? 1);
+
+export function elegirVelocidad(v: number): void {
+  velocidadGlobal.set(v);
+  try {
+    localStorage.setItem(CLAVE_VELOCIDAD, String(v));
+  } catch {
+    // Sin storage la elección dura lo que la pestaña. Degradación aceptable, no un error.
+  }
+}
 
 export interface PresetVelocidad {
   /** Multiplicador de VELOCIDAD, no de duración: 2 corre el doble de rápido. */
