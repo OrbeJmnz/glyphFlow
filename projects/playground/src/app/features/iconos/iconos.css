@@ -487,8 +487,7 @@
   font-size: 12px;
 }
 
-.card:hover .nombre,
-.card.inspeccionado .nombre {
+.card:hover .nombre {
   color: var(--gf-texto-medio);
 }
 
@@ -648,10 +647,6 @@
   border-color: var(--gf-borde-vivo);
 }
 
-.copiar-snippet:active {
-  transform: scale(0.97);
-}
-
 /* Mismo verde con significado que ya usa el resto del sitio para confirmar. No uno nuevo. */
 .copiar-snippet.exito,
 .copiar-snippet.exito:hover {
@@ -729,4 +724,57 @@
 .demo button:hover {
   border-color: var(--gf-borde);
   background: var(--gf-panel);
+}
+
+/* ── Los generados que la búsqueda encontró ─────────────────────────────────── */
+
+/* Debajo de la rejilla y no encima: se lee DESPUÉS de ver qué sí había, que es cuando la
+   pregunta "¿y este otro no existe?" aparece. */
+.hay-generados {
+  max-width: var(--gf-ancho);
+  margin: 20px auto 0;
+  padding: 16px 20px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  background: var(--gf-panel);
+  color: var(--gf-texto-apagado);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.hay-generados p {
+  margin: 0;
+}
+
+.hay-generados ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hay-generados code {
+  padding: 2px 7px;
+  border-radius: 0.35rem;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-medio);
+  font-size: 12px;
+}
+
+.hay-generados .como {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+.hay-generados a {
+  color: var(--gf-texto-medio);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hay-generados a:hover {
+  color: var(--gf-texto);
 }

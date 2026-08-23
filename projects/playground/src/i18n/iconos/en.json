@@ -57,6 +57,12 @@
     },
     "aviso": "{{n}} of {{total}}."
   },
+  "generados": {
+    "hay": "{{n}} more live in the catalog as generated icons. They are not drawn here, but they ship in the package and you can use them today:",
+    "yMas": "…and {{n}} more",
+    "queLesFalta": "A generated icon has Lucide geometry and an automatic draw — no hand-made choreography, so no hover or state variants.",
+    "comoPedirla": "Ask for one to be choreographed →"
+  },
   "grid": {
     "variantesAria": "{{n}} animation variants",
     "inspeccionarAria": "Inspect {{nombre}}"

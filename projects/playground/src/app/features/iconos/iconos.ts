@@ -41,6 +41,7 @@ import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { CIFRAS } from '../../core/cifras';
+import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { tema } from '../../core/tema';
@@ -339,6 +340,25 @@ export class Iconos implements OnDestroy {
     const base = f ? this.todos.filter((e) => tiene(e, f)) : this.todos;
     return q ? base.filter((e) => e.name.toLowerCase().includes(q)) : base;
   });
+
+  /**
+   * Los generados que casan con la búsqueda.
+   *
+   * El catálogo del paquete tiene 1767 iconos y esta rejilla enseña 911: los otros 856 existen, se
+   * pueden usar, y hasta ahora quien buscaba uno concluía que no estaba. Eso es lo que arregla
+   * esto — decirlo, no pintarlos. Pintarlos costaba +224 kB en el bundle inicial (medido), y este
+   * sitio vende tree-shaking real en su propia portada.
+   *
+   * Solo los NOMBRES, que es lo que hace falta para responder "sí existe": la geometría no.
+   */
+  protected readonly generadosCoincidentes = computed<string[]>(() => {
+    const q = this.busqueda().trim().toLowerCase();
+    if (q.length < 2) return [];
+    return NOMBRES_GENERADOS.filter((n) => n.includes(q));
+  });
+
+  /** Una muestra, no los 856: la lista es una pista, no un segundo catálogo. */
+  protected readonly muestraGenerados = computed(() => this.generadosCoincidentes().slice(0, 10));
 
   /** Icono bajo inspección en el Motion Inspector. `null` = panel cerrado. */
   protected readonly inspeccionado = signal<CuratedEntry | null>(null);

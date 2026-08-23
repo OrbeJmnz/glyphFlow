@@ -317,3 +317,37 @@
     </article>
   }
 </div>
+
+<!--
+  Los 856 generados NO se pintan: su geometría cuesta +224 kB en el bundle inicial (medido) y este
+  sitio vende tree-shaking real en la portada. Pero existir, existen — y quien los buscaba concluía
+  que no. Esto responde "sí está, y así es", que es lo que hacía falta.
+-->
+@if (generadosCoincidentes().length) {
+  <aside class="hay-generados">
+    <p>
+      {{ 'iconos.generados.hay' | transloco: { n: generadosCoincidentes().length } }}
+    </p>
+    <ul>
+      @for (n of muestraGenerados(); track n) {
+        <li><code>{{ n }}</code></li>
+      }
+      @if (generadosCoincidentes().length > muestraGenerados().length) {
+        <li class="resto">
+          {{
+            'iconos.generados.yMas'
+              | transloco: { n: generadosCoincidentes().length - muestraGenerados().length }
+          }}
+        </li>
+      }
+    </ul>
+    <p class="como">
+      {{ 'iconos.generados.queLesFalta' | transloco }}
+      <a
+        href="https://github.com/OrbeJmnz/glyphFlow/blob/main/CONTRIBUTING.md"
+        rel="noopener"
+        >{{ 'iconos.generados.comoPedirla' | transloco }}</a
+      >
+    </p>
+  </aside>
+}
