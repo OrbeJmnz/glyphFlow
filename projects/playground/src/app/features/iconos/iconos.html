@@ -222,10 +222,21 @@
 </div>
 
 @if (inspeccionado(); as sel) {
-  <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="inspeccionado.set(null)" />
+  <!--
+    El scrim tapa TODO, header incluido. Con `aria-modal="true"` en el panel, dejar el header
+    clickeable sería mentirle al lector de pantalla: le decimos que lo de fuera está inerte y no
+    lo estaría. O es modal de verdad o no lleva el atributo.
+  -->
+  <div class="scrim" (click)="cerrarDetalle()" aria-hidden="true"></div>
+  <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="cerrarDetalle()" />
 }
 
-<div class="grid" [class.con-panel]="inspeccionado()">
+<!--
+  Sin `con-panel`: el panel es un overlay, así que la rejilla NO se reacomoda al abrirlo. Antes
+  le hacía sitio con `padding-right` y un número de columnas fijo por breakpoint, y cada tarjeta
+  cambiaba de posición — al cerrar, nadie encontraba dónde iba.
+-->
+<div class="grid">
   @for (entry of entries(); track entry.name) {
     <article
       class="card"
@@ -233,9 +244,10 @@
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
       tabindex="0"
+      data-icon-card
       [attr.aria-label]="'iconos.grid.inspeccionarAria' | transloco: { nombre: entry.name }"
-      (click)="inspeccionar(entry)"
-      (keydown.enter)="inspeccionar(entry)"
+      (click)="inspeccionar(entry, $event)"
+      (keydown.enter)="inspeccionar(entry, $event)"
     >
       <span
         class="cuenta"

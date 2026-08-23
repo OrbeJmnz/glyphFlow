@@ -312,8 +312,23 @@ export class Iconos implements OnDestroy {
     for (const icon of this.icons) icon.play();
   }
 
-  protected inspeccionar(entry: CuratedEntry): void {
+  /**
+   * La tarjeta que abrió el panel. Se guarda para devolverle el foco al cerrar: sin esto, `Esc`
+   * deja el foco en el `<body>` y el siguiente `Tab` reinicia el recorrido desde el header —
+   * quien navega por teclado pierde el sitio donde iba, que es justo lo que el panel-overlay
+   * venía a arreglar para el ratón.
+   */
+  private origenFoco: HTMLElement | null = null;
+
+  protected inspeccionar(entry: CuratedEntry, ev?: Event): void {
+    this.origenFoco = (ev?.currentTarget as HTMLElement) ?? null;
     this.inspeccionado.set(entry);
+  }
+
+  protected cerrarDetalle(): void {
+    this.inspeccionado.set(null);
+    this.origenFoco?.focus();
+    this.origenFoco = null;
   }
 }
 

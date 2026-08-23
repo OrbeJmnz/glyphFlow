@@ -2,10 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostListener,
+  OnDestroy,
   Signal,
   ViewChild,
+  afterNextRender,
   computed,
   effect,
+  inject,
   input,
   output,
   signal,
@@ -51,7 +55,61 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
   templateUrl: './icon-detail-panel.html',
   styleUrl: './icon-detail-panel.css',
 })
-export class IconDetailPanel {
+export class IconDetailPanel implements OnDestroy {
+  /** Solo hay un panel abierto a la vez, así que un id fijo alcanza y se lee en el DOM. */
+  protected readonly ID_TITULO = 'detalle-titulo';
+
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+
+  /* Lo que el `<body>` tenía antes de bloquearlo. Se restaura tal cual: escribir `''` daría por
+     hecho que nadie más lo había tocado. */
+  private readonly overflowPrevio = document.body.style.overflow;
+  private readonly paddingPrevio = document.body.style.paddingRight;
+
+  ngOnDestroy(): void {
+    document.body.style.overflow = this.overflowPrevio;
+    document.body.style.paddingRight = this.paddingPrevio;
+  }
+
+  /**
+   * Trampa de foco. `Tab` cicla dentro del panel en vez de salirse a una página que, para quien
+   * usa ratón, está tapada por el scrim. Se recalcula en cada pulsación a propósito: las tabs
+   * cambian qué controles existen, así que una lista cacheada en el constructor apuntaría a
+   * botones que ya no están en el DOM.
+   */
+  @HostListener('keydown', ['$event'])
+  protected alTeclado(ev: KeyboardEvent): void {
+    if (ev.key === 'Escape') {
+      ev.preventDefault();
+      this.cerrar.emit();
+      return;
+    }
+    if (ev.key !== 'Tab') return;
+
+    const focos = this.enfocables();
+    if (focos.length === 0) return;
+
+    const primero = focos[0];
+    const ultimo = focos[focos.length - 1];
+    const activo = document.activeElement;
+
+    if (ev.shiftKey && (activo === primero || !this.host.nativeElement.contains(activo))) {
+      ev.preventDefault();
+      ultimo.focus();
+    } else if (!ev.shiftKey && activo === ultimo) {
+      ev.preventDefault();
+      primero.focus();
+    }
+  }
+
+  private enfocables(): HTMLElement[] {
+    return Array.from(
+      this.host.nativeElement.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((el) => el.offsetParent !== null);
+  }
+
   @ViewChild('previewGrande') private previewGrande?: GfIconComponent;
   @ViewChild('cajaJson') private cajaJson?: ElementRef<HTMLTextAreaElement>;
 
@@ -115,6 +173,21 @@ export class IconDetailPanel {
       const vs = this.variantes();
       this.varianteActiva.set(vs.includes('default') ? 'default' : (vs[0] ?? 'default'));
     });
+
+    /*
+     * Bloquear el scroll del `<body>` esconde la barra, y eso ENSANCHA el viewport: la rejilla
+     * centrada se correría unos píxeles justo al abrir el panel — exactamente lo que este ticket
+     * venía a impedir. El padding compensa el ancho que la barra deja libre, así que nada se mueve.
+     */
+    const anchoBarra = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (anchoBarra > 0) {
+      document.body.style.paddingRight = `${anchoBarra}px`;
+    }
+
+    // El foco entra al panel: si se queda en la tarjeta, el primer `Tab` se va al resto de la
+    // rejilla, que está detrás del scrim y es inalcanzable con ratón.
+    afterNextRender(() => this.enfocables()[0]?.focus());
   }
 
   protected readonly reporte = computed(() => analizarIcono(this.nombre(), this.def()));

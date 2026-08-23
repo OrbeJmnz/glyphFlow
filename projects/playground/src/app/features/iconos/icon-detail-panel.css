@@ -11,7 +11,7 @@
   top: 78px;
   right: 0;
   bottom: 0;
-  z-index: 18;
+  z-index: 33;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -33,7 +33,7 @@
  * el header queda visible arriba, y con contenido corto (como este mismo icono) el hueco es aún
  * mayor. `max-height` es la única cuerda: sin `top`, `bottom: 0` solo fija el borde de abajo.
  */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .detalle {
     top: auto;
     bottom: 0;

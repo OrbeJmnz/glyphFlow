@@ -400,53 +400,8 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 8px;
   margin: 0 auto;
-  transition: padding-right 0.25s ease;
 }
 
-/*
- * El drawer de detalle es fijo a la derecha, no un modal: el grid le hace espacio en vez de que
- * lo tape, así la cuadrícula sigue visible mientras el panel está abierto.
- *
- * Mismas columnas que en reposo, más chicas — no MENOS columnas. `auto-fill` con panel abierto
- * recalcularía cuántas columnas de 150px caben en el espacio que queda y mostraría menos, todas
- * al mismo tamaño de antes; fijar el número (`repeat(N, 1fr)`) hace lo contrario: el conteo no se
- * mueve y son las columnas las que se achican para compartir el hueco.
- *
- * Los cortes (1145/987/829px) no son a ojo: son el ancho de viewport exacto donde `auto-fill` con
- * `minmax(150px,1fr)` y gap de 8px pasa de 7→6→5→4 columnas en reposo — el mismo número que estas
- * reglas fijan a mano, para que abrir el panel nunca muestre un conteo distinto al que ya se veía.
- */
-.grid.con-panel {
-  padding-right: min(480px, 100vw);
-  grid-template-columns: repeat(7, 1fr);
-}
-
-@media (max-width: 1145px) {
-  .grid.con-panel {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-@media (max-width: 987px) {
-  .grid.con-panel {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 829px) {
-  .grid.con-panel {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* A este ancho el drawer se vuelve pantalla completa (ver icon-detail-panel.css): tapa el grid en
-   vez de compartir la fila con él, así que encogerlo aquí solo restaría espacio sin necesidad. */
-@media (max-width: 640px) {
-  .grid.con-panel {
-    padding-right: 0;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
 
 /* Cuadrada, no rectangular: sin nombre ni botón debajo, el icono es el único contenido, y
    `aspect-ratio` la mantiene 1:1 sin importar cuánto mida la columna en cada ancho de pantalla. */
@@ -649,4 +604,33 @@
   margin: 0.6rem 0 0;
   font-size: 12px;
   color: var(--gf-texto-apagado);
+}
+
+/* ── Scrim del panel de detalle ──────────────────────────────────────────────── */
+
+/* Por ENCIMA del header (que llega a 31), no solo del contenido. El panel declara
+   `aria-modal="true"`: si el header siguiera clickeable, el atributo estaría mintiendo.
+   Cerrar al hacer clic aquí es la salida con ratón; `Esc` es la de teclado. */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 32;
+  background: var(--gf-fondo);
+  opacity: 0.72;
+}
+
+/* Aparecer de golpe a pantalla completa es un fogonazo. Quien pidió menos movimiento no lo ve. */
+@media (prefers-reduced-motion: no-preference) {
+  .scrim {
+    animation: scrim-entra 0.18s ease both;
+  }
+}
+
+@keyframes scrim-entra {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.72;
+  }
 }
