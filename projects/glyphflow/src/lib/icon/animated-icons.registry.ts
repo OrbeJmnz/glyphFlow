@@ -1,6 +1,7 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { CURATED_ICONS } from './curated-icons';
 import { GENERATED_ICONS } from './generated-icons';
+import { ICON_TAGS } from './icon-tags';
 
 /**
  * Composición final: generado primero, curado al final — un argumento posterior de
@@ -40,6 +41,19 @@ export interface IconMeta {
   source: 'lucide';
   autoDraw: boolean;
   curated: boolean;
+  /**
+   * Los sinónimos con los que Lucide indexa el icono: `trash-2` trae `delete`, que es justo lo que
+   * alguien teclea cuando no se sabe el nombre.
+   *
+   * **Requerido, no opcional**, y eso es un hecho medido, no un optimismo: los 1767 del catálogo
+   * tienen al menos uno, verificado en las dos direcciones contra `lucide-static/tags.json`. El
+   * generador lo vuelve a comprobar en cada corrida y ABORTA si alguno se queda sin — así el día
+   * que Lucide publique uno pelado se entera un humano, en vez de colarse un `[]` silencioso.
+   *
+   * Si solo necesitas buscar, importa `ICON_TAGS` directo: tocar `ICON_META` arrastra el catálogo
+   * completo, porque se construye sobre `ANIMATED_ICON_NAMES`.
+   */
+  tags: readonly string[];
   morphTargets?: string[];
 }
 
@@ -54,7 +68,15 @@ export interface IconMeta {
 export const ICON_META: Record<string, IconMeta> = /* @__PURE__ */ Object.fromEntries(
   /* @__PURE__ */ ANIMATED_ICON_NAMES.map((name) => [
     name,
-    { name, source: 'lucide' as const, autoDraw: true, curated: !!CURATED_ICONS[name] },
+    {
+      name,
+      source: 'lucide' as const,
+      autoDraw: true,
+      curated: !!CURATED_ICONS[name],
+      // Acceso a propiedad, no llamada: no hay una sub-expresión más que anotar. Aquí colgarlo
+      // sale gratis en peso porque quien llega a `ICON_META` ya se trajo el catálogo entero.
+      tags: ICON_TAGS[name],
+    },
   ]),
 );
 

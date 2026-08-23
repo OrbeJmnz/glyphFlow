@@ -11,6 +11,10 @@ export * from './lib/icon/animated-icon.model';
 // ANIMATED_ICONS/ANIMATED_ICON_NAMES/ICON_ALIASES/resolveIconName — la ruta de conveniencia por
 // `name`, que sí arrastra el registro completo.
 export * from './lib/icon/animated-icons.registry';
+// ICON_TAGS aparte del registro A PROPÓSITO: son los sinónimos de los 1767 SIN su geometría, así
+// que un buscador puede indexarlos sin bajar el catálogo. Colgados solo de `IconMeta`, buscar
+// obligaría a importar `ICON_META`, que se construye sobre `ANIMATED_ICON_NAMES` y arrastra todo.
+export * from './lib/icon/icon-tags';
 // Los curados a mano, uno por familia bajo `icons/` más los que aún no tienen módulo propio: la
 // ruta tree-shakeable vía `[iconDef]="bellIcon"`.
 export * from './lib/icon/curated-icons';
