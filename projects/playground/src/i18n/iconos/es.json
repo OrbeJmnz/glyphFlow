@@ -2,6 +2,9 @@
   "hero": {
     "h1": "glyphflow — iconos que se mueven",
     "bajada": "Los iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real y morph entre formas. Para Angular.",
+    "buscarMarcador": "Busca entre {{n}} iconos…",
+    "buscarEtiqueta": "Buscar iconos",
+    "sugerenciaAria": "Buscar {{nombre}}",
     "empezar": "Empezar",
     "cifras": {
       "curados": "curados a mano",

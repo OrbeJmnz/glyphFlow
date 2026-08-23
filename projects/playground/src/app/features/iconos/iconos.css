@@ -9,9 +9,19 @@
  * bajada, 32px hasta las acciones. Es lo que hace que se sienta como la referencia aunque el
  * contenido sea otro.
  */
+/* 24 y no 48: entre el header y el logotipo había 141px de nada, y en una laptop de 768 el
+   catálogo quedaba a dos scrolls. La herramienta principal tiene que caber en la primera pantalla. */
 .hero {
-  padding: 48px 0 0;
+  padding: 24px 0 0;
   text-align: center;
+}
+
+/* ~520px: más ancho no ayuda —los nombres de icono son cortos— y menos lo vuelve un campo de
+   filtro en vez de la entrada principal de la página. */
+.busqueda-hero {
+  display: block;
+  max-width: 520px;
+  margin: 20px auto 0;
 }
 
 /*
@@ -693,4 +703,30 @@
   to {
     opacity: 0.72;
   }
+}
+
+/* ── Las sugerencias del héroe ───────────────────────────────────────────────── */
+
+/* Botón sin apariencia de botón: hereda la caja de la muestra que ya existía, y solo aparece al
+   hover/foco para que se note que es pulsable. El foco visible NO es opcional — es un control. */
+.demo button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: inherit;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.demo button:hover {
+  border-color: var(--gf-borde);
+  background: var(--gf-panel);
 }

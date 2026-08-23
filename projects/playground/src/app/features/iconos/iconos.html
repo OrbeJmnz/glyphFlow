@@ -28,6 +28,19 @@
   </picture>
   <p class="bajada">{{ 'iconos.hero.bajada' | transloco }}</p>
 
+  <!--
+    Mismo `busqueda` que el buscador del catálogo: no hay dos estados que sincronizar, hay uno que
+    dos campos escriben. Se usa la forma larga (`[texto]` + `(textoChange)`) y no `[(texto)]`
+    porque SOLO este campo arrastra la página al catálogo — el de abajo ya está ahí.
+  -->
+  <app-campo-busqueda
+    class="busqueda-hero"
+    [texto]="busqueda()"
+    (textoChange)="buscarDesdeHero($event)"
+    [marcador]="'iconos.hero.buscarMarcador' | transloco: { n: total }"
+    [etiqueta]="'iconos.hero.buscarEtiqueta' | transloco"
+  />
+
   <div class="acciones">
     <a app-boton variante="primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
       <span class="mono degradado-comando">npm i glyphflow</span>
@@ -42,11 +55,22 @@
     con él es una muestra: se puede ver el movimiento Y saber qué pedirle a la librería, que es la
     única razón por la que alguien mira un catálogo de iconos.
   -->
+  <!--
+    Dejan de ser decoración: al pulsarlos rellenan el buscador con su nombre. Son `<button>` de
+    verdad y no `<li>` con un `click` encima — si hacen algo, tienen que poder pulsarse con
+    teclado y anunciarse como lo que son.
+  -->
   <ul class="demo">
     @for (d of demo; track d.name) {
       <li>
-        <gf-icon [iconDef]="d.def" [size]="48" trigger="group" />
-        <span>{{ d.name }}</span>
+        <button
+          type="button"
+          [attr.aria-label]="'iconos.hero.sugerenciaAria' | transloco: { nombre: d.name }"
+          (click)="buscarDesdeHero(d.name)"
+        >
+          <gf-icon [iconDef]="d.def" [size]="48" trigger="group" />
+          <span>{{ d.name }}</span>
+        </button>
       </li>
     }
   </ul>
@@ -179,7 +203,7 @@
   }
 </ul>
 
-<div class="barra">
+<div class="barra" #barraCatalogo>
   <button type="button" app-boton compacto (click)="repetirTodo()">
     {{ 'iconos.barra.repetirTodo' | transloco }}
   </button>

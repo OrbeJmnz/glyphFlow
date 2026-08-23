@@ -1,7 +1,10 @@
 import {
   Component,
+  ElementRef,
+  ViewChild,
   ViewChildren,
   QueryList,
+  afterNextRender,
   signal,
   computed,
   effect,
@@ -120,6 +123,34 @@ interface CuratedEntry {
 })
 export class Iconos implements OnDestroy {
   @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
+  @ViewChild('barraCatalogo') private barraCatalogo?: ElementRef<HTMLElement>;
+
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+  private temporizadorScroll?: ReturnType<typeof setTimeout>;
+
+  /**
+   * Escribir arriba filtra abajo y ARRASTRA la página hasta el catálogo. Solo desde el héroe: el
+   * campo de abajo ya está en el catálogo, y moverle el suelo a alguien mientras teclea es
+   * exactamente lo que no debe pasar.
+   *
+   * Los 300 ms no son un debounce del filtrado —ese es inmediato, la señal se escribe ya— sino
+   * del SCROLL: arrastrar la página en la primera letra le quitaría el campo de debajo del dedo
+   * a quien todavía está escribiendo.
+   */
+  protected buscarDesdeHero(texto: string): void {
+    this.busqueda.set(texto);
+    clearTimeout(this.temporizadorScroll);
+    if (texto.trim().length < 2) return;
+    this.temporizadorScroll = setTimeout(() => this.irAlCatalogo(), 300);
+  }
+
+  private irAlCatalogo(): void {
+    const destino = this.barraCatalogo?.nativeElement;
+    if (!destino) return;
+    // Quien pidió menos movimiento no quiere que la página se deslice sola bajo sus pies.
+    const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    destino.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+  }
 
   protected readonly densidad = densidad;
 
@@ -270,8 +301,13 @@ export class Iconos implements OnDestroy {
     },
   ];
 
+  constructor() {
+    afterNextRender(() => this.enfocarBuscadorSiProcede());
+  }
+
   ngOnDestroy(): void {
     clearInterval(this.reloj);
+    clearTimeout(this.temporizadorScroll);
   }
 
   /** Filtro por insignia. `null` = "Todos", que es el estado normal. */
@@ -330,6 +366,19 @@ export class Iconos implements OnDestroy {
    * venía a arreglar para el ratón.
    */
   private origenFoco: HTMLElement | null = null;
+
+  /**
+   * `autofocus` solo en escritorio y solo sin ancla en la URL.
+   *
+   * En móvil abriría el teclado nada más entrar, tapando media pantalla antes de que nadie haya
+   * pedido buscar. Y con un ancla, el visitante venía a un sitio concreto de la página: robarle
+   * el foco lo devolvería arriba.
+   */
+  private enfocarBuscadorSiProcede(): void {
+    if (location.hash) return;
+    if (!matchMedia('(min-width: 768px) and (pointer: fine)').matches) return;
+    this.host.nativeElement.querySelector<HTMLInputElement>('.busqueda-hero input')?.focus();
+  }
 
   protected inspeccionar(entry: CuratedEntry, ev?: Event): void {
     this.origenFoco = (ev?.currentTarget as HTMLElement) ?? null;
