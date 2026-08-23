@@ -18,4 +18,11 @@ export const CIFRAS = {
   catalogo: 1767,
   pesoIconoKb: 4.09,
   depsAnimacion: 0,
+  /**
+   * El rango de Angular que el paquete declara. Escrito a mano por la MISMA razón que
+   * `catalogo`: leerlo en el cliente obligaría a importar el `package.json` del paquete, y
+   * un rango de versiones no vale un byte de bundle. Lo ancla `cifras.spec.ts` contra las
+   * `peerDependencies` reales del publicado, así que no se puede quedar atrás en silencio.
+   */
+  angularPeer: '>=20.0.0 <23.0.0',
 } as const;

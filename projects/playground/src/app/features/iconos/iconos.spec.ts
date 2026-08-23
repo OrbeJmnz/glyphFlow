@@ -2,9 +2,37 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CURATED_ICONS } from 'glyphflow';
 import { providersI18nTest } from '../../core/i18n-testing';
-import { Iconos } from './iconos';
+import { Iconos, SNIPPET_PORTADA } from './iconos';
 import iconosEn from '../../../i18n/iconos/en.json';
 import iconosEs from '../../../i18n/iconos/es.json';
+
+describe('el snippet de la portada', () => {
+  /*
+   * La portada enseña código que la gente va a pegar. Un snippet que cita un símbolo que ya no
+   * existe es peor que no tener snippet: se lee igual de creíble y truena en su proyecto, no en
+   * el nuestro. Esto lo compara contra lo que el paquete exporta DE VERDAD — el mismo criterio
+   * que `api-surface.spec.ts` aplica a la tabla de API.
+   */
+  it('cada símbolo que cita existe en el paquete', async () => {
+    const gf = (await import('glyphflow')) as Record<string, unknown>;
+    for (const simbolo of ['GfIconComponent', 'bellIcon']) {
+      expect(SNIPPET_PORTADA, `el snippet ya no cita ${simbolo}`).toContain(simbolo);
+      expect(gf[simbolo], `${simbolo} no existe en el paquete`).toBeDefined();
+    }
+  });
+
+  it('cubre las tres cosas que T4 pide enseñar', () => {
+    expect(SNIPPET_PORTADA).toContain("from 'glyphflow'");
+    expect(SNIPPET_PORTADA).toContain('imports: [GfIconComponent]');
+    expect(SNIPPET_PORTADA).toContain('<gf-icon');
+    // Al menos un input de configuración, no solo la etiqueta pelada.
+    expect(SNIPPET_PORTADA).toMatch(/[size]|[iconDef]/);
+  });
+
+  it('no quedó hablando el namespace de la v1', () => {
+    expect(SNIPPET_PORTADA).not.toMatch(/MaxIcon|max-icon|provideMaxIcons/);
+  });
+});
 
 describe('Iconos', () => {
   beforeEach(async () => {

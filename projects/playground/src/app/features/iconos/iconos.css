@@ -571,3 +571,82 @@
     animation: none;
   }
 }
+
+/* ── La API en la portada ────────────────────────────────────────────────────── */
+
+/* NO va al ancho de página como el resto de las secciones. El sistema de diseño fija la medida
+   en ~65 caracteres, y la línea más larga de este snippet son 76: estirarlo a 1240 px lo vuelve
+   incómodo de leer Y aplana el degradado —el relleno se reparte a lo ancho de la CAJA, así que
+   con una caja enorme el texto cae entero en la franja azul y pierde el cian y el morado—. */
+.api {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 24px 8px;
+}
+
+.api-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.api-cabecera h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Lleva rótulo y no solo el glifo: es la acción de la sección, no un icono de barra apretada.
+   El botón morphea copy→check con la propia librería — el sitio come de su plato. */
+.copiar-snippet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.copiar-snippet:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.copiar-snippet:active {
+  transform: scale(0.97);
+}
+
+/* Mismo verde con significado que ya usa el resto del sitio para confirmar. No uno nuevo. */
+.copiar-snippet.exito,
+.copiar-snippet.exito:hover {
+  border-color: var(--gf-verde-borde);
+  color: var(--gf-verde);
+}
+
+.api-codigo {
+  overflow-x: auto;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  font-size: 14.5px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.api-compat {
+  margin: 0.6rem 0 0;
+  font-size: 12px;
+  color: var(--gf-texto-apagado);
+}

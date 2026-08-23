@@ -17,6 +17,12 @@
     "pasoGrupoAria": "Paso de la secuencia",
     "irAlPaso": "Ir al paso {{n}}"
   },
+  "api": {
+    "titulo": "Mira la API",
+    "copiar": "Copiar",
+    "copiado": "Copiado",
+    "compat": "Angular {{rango}} · renderiza en el servidor (SSR), sin window ni document reales."
+  },
   "argumentos": {
     "liviano": {
       "titulo": "Ligero por diseño",

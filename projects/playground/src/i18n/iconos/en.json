@@ -17,6 +17,12 @@
     "pasoGrupoAria": "Sequence step",
     "irAlPaso": "Go to step {{n}}"
   },
+  "api": {
+    "titulo": "See the API",
+    "copiar": "Copy",
+    "copiado": "Copied",
+    "compat": "Angular {{rango}} · renders on the server (SSR), with no real window or document."
+  },
   "argumentos": {
     "liviano": {
       "titulo": "Light by design",

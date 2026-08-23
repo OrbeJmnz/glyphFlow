@@ -133,6 +133,38 @@
   </div>
 </section>
 
+<!-- ── La API, enseñada en vez de descrita ────────────────────────────────────── -->
+
+<!--
+  El sitio presumía "Standalone, signals, and strict typing" sin enseñar una línea. Un dev de
+  Angular decide viendo la API, así que aquí va el uso real: import, `imports:` y la etiqueta.
+  El `<pre>` pinta `snippet` por interpolación —no `innerHTML`— así que no hay nada que escapar
+  ni que sanear, y el texto queda seleccionable para quien no tenga Clipboard API.
+-->
+<section class="api">
+  <div class="api-cabecera">
+    <h2>{{ 'iconos.api.titulo' | transloco }}</h2>
+
+    <button
+      type="button"
+      class="copiar-snippet"
+      [class.exito]="copiado()"
+      (click)="copiarSnippet()"
+      [attr.aria-label]="rotuloCopiar()"
+    >
+      <gf-icon-morph [icon]="iconoCopiar()" [size]="14" spring="bouncy" />
+      <span>{{ rotuloCopiar() }}</span>
+    </button>
+  </div>
+
+  <pre class="api-codigo degradado-texto-sutil">{{ snippet }}</pre>
+
+  <!-- El rango sale de `CIFRAS`, anclado por spec contra las peerDependencies reales. -->
+  <p class="api-compat">
+    {{ 'iconos.api.compat' | transloco: { rango: angularPeer } }}
+  </p>
+</section>
+
 <!-- ── Los tres argumentos ────────────────────────────────────────────────────── -->
 
 <ul class="argumentos">

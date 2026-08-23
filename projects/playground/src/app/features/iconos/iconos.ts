@@ -21,6 +21,8 @@ import {
   triangleIcon,
   leafIcon,
   codeIcon,
+  checkIcon,
+  copyIcon,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
@@ -36,8 +38,31 @@ import { Tooltip } from '../../shared/ui/tooltip';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { CIFRAS } from '../../core/cifras';
+import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { tema } from '../../core/tema';
+
+/**
+ * Lo que se enseña en la portada. Es el uso REAL, no una ilustración: cubre el import, el
+ * `imports:` de un standalone y la etiqueta con un input de configuración.
+ *
+ * Gemelo del de `docs/empezando.html`, que es la versión larga. Que los dos digan la verdad lo
+ * cuida `iconos.spec.ts`: comprueba que cada símbolo citado aquí EXISTA en el paquete, así que
+ * el próximo renombrado de la API rompe el test en vez de dejar la portada mintiendo.
+ */
+const SNIPPET_PORTADA = `import { Component } from '@angular/core';
+import { GfIconComponent, bellIcon } from 'glyphflow';
+
+@Component({
+  selector: 'app-alert',
+  imports: [GfIconComponent],
+  template: '<gf-icon [iconDef]="bell" [size]="24" label="Notifications" />',
+})
+export class Alert {
+  protected readonly bell = bellIcon;
+}`;
+
+export { SNIPPET_PORTADA };
 
 interface CuratedEntry {
   name: string;
@@ -94,6 +119,36 @@ interface CuratedEntry {
 })
 export class Iconos implements OnDestroy {
   @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
+
+  protected readonly snippet = SNIPPET_PORTADA;
+  protected readonly angularPeer = CIFRAS.angularPeer;
+
+  protected readonly copiado = signal(false);
+
+  /* `copyIcon` aplanado: son 2 figuras contra la 1 de `checkIcon`, y WAAPI solo interpola entre
+     `d` con la misma estructura. Mismo tratamiento que en el panel de detalle. */
+  private readonly copyIconPlano = iconoPlano(copyIcon);
+  protected readonly iconoCopiar = computed<MorphIcon>(() =>
+    this.copiado() ? checkIcon : this.copyIconPlano,
+  );
+
+  /* Una sola lectura de `copiado()` alimenta rótulo y `aria-label`: con dos lecturas sueltas es
+     cuestión de tiempo que el botón diga una cosa y el lector de pantalla otra. */
+  private readonly claveCopiar = computed(() =>
+    this.copiado() ? 'iconos.api.copiado' : 'iconos.api.copiar',
+  );
+  protected readonly rotuloCopiar = translateSignal(this.claveCopiar);
+
+  protected async copiarSnippet(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(SNIPPET_PORTADA);
+      this.copiado.set(true);
+      setTimeout(() => this.copiado.set(false), 1500);
+    } catch {
+      // La Clipboard API pide contexto seguro o permiso. Sin eso el `<pre>` sigue siendo
+      // seleccionable, así que Ctrl+C funciona igual — no hay nada que reponer.
+    }
+  }
 
   private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)
     .map(([name, def]) => ({
