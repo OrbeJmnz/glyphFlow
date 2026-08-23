@@ -29,13 +29,19 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/glyphflow/tsconfig.spec.json",
-            "include": ["**/*.spec.ts", "../morph/**/*.spec.ts"]
+            "include": [
+              "**/*.spec.ts",
+              "../morph/**/*.spec.ts"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/glyphflow/**/*.ts", "projects/glyphflow/**/*.html"],
+            "lintFilePatterns": [
+              "projects/glyphflow/**/*.ts",
+              "projects/glyphflow/**/*.html"
+            ],
             "eslintConfig": "projects/glyphflow/eslint.config.js"
           }
         }
@@ -59,7 +65,11 @@
                 "input": "projects/playground/public"
               }
             ],
-            "styles": ["projects/playground/src/styles.css"]
+            "styles": [
+              "projects/playground/src/styles.css"
+            ],
+            "server": "projects/playground/src/main.server.ts",
+            "outputMode": "static"
           },
           "configurations": {
             "production": {
@@ -103,7 +113,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/playground/**/*.ts", "projects/playground/**/*.html"],
+            "lintFilePatterns": [
+              "projects/playground/**/*.ts",
+              "projects/playground/**/*.html"
+            ],
             "eslintConfig": "projects/playground/eslint.config.js"
           }
         }

@@ -47,7 +47,7 @@ import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { normalizar, ordenarPorRelevancia } from './buscador';
-import { Rutas } from '../../core/rutas';
+import { Rutas } from '../../core/rutas.service';
 import { tema } from '../../core/tema';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
@@ -231,9 +231,16 @@ export class Iconos implements OnDestroy {
   );
   // `inject()` solo es válido en el cuerpo de la clase, no dentro del callback del effect — por
   // eso el servicio se inyecta arriba, como campo, y aquí solo se usa `this.tituloServicio`.
-  private readonly efectoTitulo = effect(() =>
-    this.tituloServicio.setTitle(this.tituloConConteo()),
-  );
+  //
+  // La guarda del vacío NO es defensiva de más: `translateSignal` devuelve `''` mientras la
+  // traducción del root no ha cargado, y en español eso es un `import()` dinámico. En el navegador
+  // se autocorregía al llegar el JSON y nadie lo notó nunca; al prerenderizar, la foto se toma en
+  // ese hueco y `/es` salía con `<title></title>` publicado. Es la MISMA guarda que ya tiene
+  // `TranslatedTitleStrategy`, y por la misma razón.
+  private readonly efectoTitulo = effect(() => {
+    const texto = this.tituloConConteo();
+    if (texto) this.tituloServicio.setTitle(texto);
+  });
 
   /**
    * Media docena para la fila animada del hero — la primera prueba de "esto se mueve" antes de

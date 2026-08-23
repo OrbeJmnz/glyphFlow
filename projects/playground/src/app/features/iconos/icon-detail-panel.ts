@@ -25,7 +25,7 @@ import { Boton } from '../../shared/ui/boton';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { URL_REPO } from '../../core/github';
 import { iconoPlano } from '../../core/morph-icon-plano';
-import { Rutas } from '../../core/rutas';
+import { Rutas } from '../../core/rutas.service';
 
 /** Las tres pestañas del drawer — una sola cosa visible a la vez, el resto es scroll perdido. */
 type TabDetalle = 'preview' | 'codigo' | 'inspector';

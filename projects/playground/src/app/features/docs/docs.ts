@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import docsEn from '../../../i18n/docs/en.json';
-import { Rutas, type RutaId } from '../../core/rutas';
+import { type RutaId } from '../../core/rutas';
+import { Rutas } from '../../core/rutas.service';
 
 /** Marco de las docs: índice lateral fijo + la página. */
 @Component({

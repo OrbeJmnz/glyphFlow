@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { IDIOMAS } from './idioma';
 import { alternativas } from './rutas';
+import { ORIGEN } from './sitio';
 
 /**
  * `hreflang` recíproco + `canonical`, reescritos en cada navegación.
@@ -41,12 +42,11 @@ export function conectarEnlacesDeIdioma(): void {
     // Sin query ni fragmento: `?q=…` es un filtro de la interfaz, no otra página, y anunciarlo
     // como canónico partiría una sola página en tantas URLs como búsquedas haga la gente.
     const camino = url().split(/[?#]/)[0];
-    const origen = doc.location.origin;
     const otras = alternativas(camino);
 
-    fijar(doc, 'canonical', null, origen + camino);
-    for (const idioma of IDIOMAS) fijar(doc, 'alternate', idioma, origen + otras[idioma]);
-    fijar(doc, 'alternate', 'x-default', origen + otras.en);
+    fijar(doc, 'canonical', null, ORIGEN + camino);
+    for (const idioma of IDIOMAS) fijar(doc, 'alternate', idioma, ORIGEN + otras[idioma]);
+    fijar(doc, 'alternate', 'x-default', ORIGEN + otras.en);
   });
 }
 

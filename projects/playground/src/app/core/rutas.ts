@@ -1,9 +1,11 @@
-import { Injectable, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { TranslocoService } from '@jsverse/transloco';
 import { IDIOMAS, esIdioma, type Idioma } from './idioma';
 
 /**
+ * SIN Angular a propósito: este archivo es la única fuente de verdad de las URLs del sitio, y
+ * `scripts/gen-sitemap.ts` lo importa desde Node crudo para escribir el sitemap. Con un
+ * `@Injectable` dentro, ese import arrastraba el DI de Angular y tronaba con «needs to be compiled
+ * using the JIT compiler». El adaptador reactivo vive al lado, en `rutas.service.ts`.
+ *
  * El id de una página NO cambia con el idioma; su slug sí. Todo lo que enlaza a una página lo hace
  * por id, así que traducir una URL es cambiar la tabla, no perseguir `routerLink` por el repo.
  */
@@ -84,33 +86,4 @@ export function alternativas(url: string): Record<Idioma, string> {
     Idioma,
     string
   >;
-}
-
-/**
- * Lo mismo que las funciones de arriba, pero atado al idioma activo — que es lo que necesita una
- * plantilla. Se lee por señal (`langChanges$`), así que cambiar de idioma repinta los `routerLink`
- * sin que nadie los toque.
- */
-@Injectable({ providedIn: 'root' })
-export class Rutas {
-  private readonly transloco = inject(TranslocoService);
-
-  private readonly activo = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang(),
-  });
-
-  readonly idioma = computed<Idioma>(() => {
-    const v = this.activo();
-    return esIdioma(v) ? v : 'en';
-  });
-
-  /** Ruta absoluta: `rutas.a('docs', 'api')`. */
-  a(...ids: RutaId[]): string {
-    return ruta(this.idioma(), ...ids);
-  }
-
-  /** Slug suelto, para los `routerLink` RELATIVOS (el índice de las docs). */
-  slug(id: RutaId): string {
-    return slug(id, this.idioma());
-  }
 }

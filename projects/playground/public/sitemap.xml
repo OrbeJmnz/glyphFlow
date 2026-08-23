@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/patterns</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/patrones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/editor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/editor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/editor"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/lab</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/lab"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/getting-started</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/getting-started"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/empezando"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/getting-started"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/accessibility</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/accessibility"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/accesibilidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/accessibility"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/ssr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/ssr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/ssr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/ssr"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/patrones</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/patrones"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/editor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/editor"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/editor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/editor"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/lab</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/lab"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/empezando</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/getting-started"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/empezando"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/getting-started"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/accesibilidad</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/accessibility"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/accesibilidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/accessibility"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/ssr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/ssr"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/ssr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/ssr"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/api</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/api"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
+  </url>
+</urlset>

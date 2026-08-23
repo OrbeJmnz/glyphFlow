@@ -17,7 +17,7 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { iconoPlano } from '../../core/morph-icon-plano';
-import { Rutas } from '../../core/rutas';
+import { Rutas } from '../../core/rutas.service';
 
 /**
  * Patrones reales, no una vitrina de iconos sueltos.

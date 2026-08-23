@@ -2,12 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>glyphflow — iconos de Lucide animados para Angular</title>
+    <!--
+      En INGLÉS, igual que el default del sitio (D3: inglés por tráfico). Estuvo en español hasta
+      2026-08-23 y nadie lo vio porque el cliente reescribe el `<title>` al arrancar — pero esto es
+      justo lo que leen los que NO ejecutan JS: los buscadores antes de renderizar, los scrapers de
+      redes y los motores de respuesta. Con el prerender ya casi nadie cae aquí (cada ruta trae el
+      suyo); queda como respaldo, y un respaldo tiene que estar en el idioma por defecto.
+    -->
+    <title>glyphflow — animated Lucide icons for Angular</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Iconos de Lucide animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real, morph entre formas."
+      content="Lucide icons animated on the native Web Animations API. Zero animation dependencies, real tree-shaking, and morphing between shapes. For Angular."
     />
     <!--
       Una sola etiqueta, sin `media`: la barra del navegador en Android tiene que seguir al tema
@@ -24,12 +31,20 @@
       tamaño que piden las tarjetas grandes.
     -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="glyphflow — iconos de Lucide animados para Angular" />
+    <meta property="og:title" content="glyphflow — animated Lucide icons for Angular" />
     <meta
       property="og:description"
-      content="Animados sobre Web Animations API nativa. Cero dependencias de animación, tree-shaking real, morph entre formas."
+      content="Animated on the native Web Animations API. Zero animation dependencies, real tree-shaking, and morphing between shapes."
     />
-    <meta property="og:image" content="/images/glyphflow-logo-1200w.png" />
+    <!--
+      ABSOLUTA, no `/images/…`: Open Graph exige URL absoluta y la mayoría de scrapers no resuelven
+      una relativa — la vista previa salía sin imagen aunque el archivo respondiera 200.
+    -->
+    <meta property="og:url" content="https://glyph-flow-zeta.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://glyph-flow-zeta.vercel.app/images/glyphflow-logo-1200w.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="406" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -42,6 +57,29 @@
       `display=swap`: el texto se ve con la fuente del sistema mientras Outfit llega, en vez de
       quedarse invisible.
     -->
+    <!--
+      Datos estructurados. Solo hechos comprobables desde el propio paquete —nombre, licencia,
+      repositorio, que es gratis— y ni uno inventado: un `aggregateRating` o un conteo de descargas
+      sin respaldo es justo lo que hace que Google descarte el bloque entero.
+
+      `SoftwareSourceCode` y no `SoftwareApplication`: esto no es una app que alguien ejecuta, es
+      una librería que se instala en otra.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "glyphflow",
+        "description": "Lucide icons animated on the native Web Animations API. Zero animation dependencies, real tree-shaking, and morphing between shapes.",
+        "url": "https://glyph-flow-zeta.vercel.app/",
+        "codeRepository": "https://github.com/OrbeJmnz/glyphFlow",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": "Angular",
+        "license": "https://opensource.org/licenses/MIT",
+        "isAccessibleForFree": true
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

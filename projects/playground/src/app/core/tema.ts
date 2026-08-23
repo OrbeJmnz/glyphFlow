@@ -55,9 +55,11 @@ export const tema = signal<Tema>(semilla());
 
 function aplicar(t: Tema): void {
   if (!doc) return;
-  // Corchetes, no `.theme`: `noPropertyAccessFromIndexSignature` prohíbe el acceso por punto sobre
-  // `DOMStringMap`.
-  doc.documentElement.dataset['theme'] = VALOR[t];
+  // `setAttribute` y NO `dataset`: el DOM del prerender no implementa `DOMStringMap`, así que
+  // `dataset['theme'] = …` truena con «Cannot set properties of undefined» en cada una de las 19
+  // rutas — y el error llega minificado, sin decir de qué archivo salió. Escriben el MISMO
+  // atributo; esta forma existe en los dos lados.
+  doc.documentElement.setAttribute('data-theme', VALOR[t]);
   // La barra del navegador en Android sigue al `theme-color`; con dos <meta> y su `media`, el que
   // manda es el que casa con `prefers-color-scheme`, no con nuestra elección manual. Por eso se
   // escribe a mano el que corresponde.
