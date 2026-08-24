@@ -54,11 +54,18 @@
 <div class="patrones">
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
   <article class="patron" id="copy-to-clipboard">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
         <gf-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
         {{ etiquetaCopiar() }}
       </button>
+
+      <!--
+        El demo también anuncia. Va sobre un nodo que YA existe y solo cambia de texto: si el
+        elemento entero apareciera y desapareciera, muchos lectores no dicen nada porque la región
+        nace con el contenido ya puesto.
+      -->
+      <p class="visualmente-oculto" aria-live="polite">{{ anuncioCopiar() }}</p>
     </div>
     <div class="texto">
       <h2>
@@ -71,7 +78,7 @@
         >
       </h2>
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
+      <app-recuadro tipo="caso" [texto]="'patrones.copiar.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_COPIAR"
         [completo]="SNIPPET_COPIAR_COMPLETO"
@@ -88,7 +95,11 @@
 
   <!-- ── Tema ───────────────────────────────────────────────────────────────── -->
   <article class="patron" id="theme-switch">
-    <div class="demo demo-tema" [class.claro]="claro()">
+    <div
+      class="demo demo-tema"
+      [class.claro]="claro()"
+      [attr.data-pista]="'patrones.pruebalo' | transloco"
+    >
       <button
         type="button"
         app-boton
@@ -108,7 +119,7 @@
         >
       </h2>
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.tema.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_TEMA"
         [completo]="SNIPPET_TEMA_COMPLETO"
@@ -119,7 +130,7 @@
 
   <!-- ── Enviar ─────────────────────────────────────────────────────────────── -->
   <article class="patron" id="three-state-action">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -146,7 +157,7 @@
         >
       </h2>
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.enviar.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_ENVIAR"
         [completo]="SNIPPET_ENVIAR_COMPLETO"
@@ -168,7 +179,7 @@
 
   <!-- ── Me gusta ───────────────────────────────────────────────────────────── -->
   <article class="patron" id="reaction">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -187,7 +198,7 @@
         }}<a class="ancla" href="#reaction" [attr.aria-label]="'patrones.enlazar' | transloco">#</a>
       </h2>
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.reaccion.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_REACCION"
         [completo]="SNIPPET_REACCION_COMPLETO"
@@ -198,7 +209,7 @@
 
   <!-- ── Menú: hamburguesa → X ──────────────────────────────────────────────── -->
   <article class="patron" id="menu-hamburger-x">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -230,7 +241,7 @@
       </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.menu.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.menu.detalle' | transloco"></p>
+      <app-recuadro tipo="caso" [texto]="'patrones.menu.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_MENU"
         [completo]="SNIPPET_MENU_COMPLETO"
@@ -241,7 +252,7 @@
 
   <!-- ── Reproductor: play → pause ──────────────────────────────────────────── -->
   <article class="patron" id="player-play-pause">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -265,7 +276,7 @@
       </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.play.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.play.detalle' | transloco"></p>
+      <app-recuadro tipo="regla" [texto]="'patrones.play.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_PLAY"
         [completo]="SNIPPET_PLAY_COMPLETO"
@@ -276,7 +287,7 @@
 
   <!-- ── Acordeón: el contraejemplo. Rotación, NO morph. ────────────────────── -->
   <article class="patron" id="accordion">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -303,14 +314,14 @@
       </h2>
       <p class="motor motor-ninguno">{{ 'patrones.motor.ninguno' | transloco }}</p>
       <p [innerHTML]="'patrones.acordeon.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.acordeon.detalle' | transloco"></p>
+      <app-recuadro tipo="regla" [texto]="'patrones.acordeon.detalle' | transloco" />
       <app-bloque-codigo [codigo]="SNIPPET_ACORDEON" />
     </div>
   </article>
 
   <!-- ── Campana: choreography sobre la misma forma ─────────────────────────── -->
   <article class="patron" id="bell-with-notification">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button
         type="button"
         app-boton
@@ -336,7 +347,7 @@
       </h2>
       <p class="motor motor-coreografia">{{ 'patrones.motor.coreografia' | transloco }}</p>
       <p [innerHTML]="'patrones.campana.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.campana.detalle' | transloco"></p>
+      <app-recuadro tipo="regla" [texto]="'patrones.campana.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_CAMPANA"
         [completo]="SNIPPET_CAMPANA_COMPLETO"
@@ -347,7 +358,7 @@
 
   <!-- ── Buscar → cerrar ────────────────────────────────────────────────────── -->
   <article class="patron" id="search-close">
-    <div class="demo">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <div class="demo-buscar" [class.abierto]="buscando()">
         <input
           #campoBuscar
@@ -376,7 +387,7 @@
       </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.buscar.descripcion' | transloco"></p>
-      <p class="detalle" [innerHTML]="'patrones.buscar.detalle' | transloco"></p>
+      <app-recuadro tipo="caso" [texto]="'patrones.buscar.detalle' | transloco" />
       <app-bloque-codigo
         [codigo]="SNIPPET_BUSCAR"
         [completo]="SNIPPET_BUSCAR_COMPLETO"

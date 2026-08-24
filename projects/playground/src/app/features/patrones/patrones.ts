@@ -32,6 +32,7 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
+import { Recuadro } from '../../shared/ui/recuadro';
 import { huecoBajoHeader } from '../../core/header';
 import {
   SNIPPET_ACORDEON,
@@ -67,7 +68,15 @@ import { Rutas } from '../../core/rutas.service';
  */
 @Component({
   selector: 'app-patrones',
-  imports: [BloqueCodigo, GfIconComponent, GfIconMorphComponent, Boton, RouterLink, TranslocoPipe],
+  imports: [
+    BloqueCodigo,
+    Recuadro,
+    GfIconComponent,
+    GfIconMorphComponent,
+    Boton,
+    RouterLink,
+    TranslocoPipe,
+  ],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -128,6 +137,19 @@ export class Patrones implements OnDestroy {
     this.copiado() ? 'patrones.copiar.boton.copiado' : 'patrones.copiar.boton.copiar',
   );
   protected readonly etiquetaCopiar = translateSignal(this.claveCopiar);
+
+  /*
+   * El acuse para lectores de pantalla (T22, punto 5). El botón YA cambia su texto de «Copiar» a
+   * «Copiado», pero eso solo se anuncia si el foco está encima y depende del lector — el estado
+   * cambiaba visualmente sin decir nada. Es el mismo trato que en `bloque-codigo`, y por lo mismo:
+   * la página que enseña el patrón tiene que cumplirlo.
+   *
+   * Vacío mientras no ha pasado nada: una región viva que arranca CON texto lo anuncia al montar.
+   */
+  private readonly claveAnuncioCopiar = computed(() =>
+    this.copiado() ? 'patrones.copiar.boton.copiado' : '',
+  );
+  protected readonly anuncioCopiar = translateSignal(this.claveAnuncioCopiar);
 
   protected async copiar(): Promise<void> {
     // El write real puede fallar (sin permiso, sin foco, http). Si truena, no se miente con la

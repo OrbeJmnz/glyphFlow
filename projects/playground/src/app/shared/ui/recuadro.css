@@ -1,0 +1,60 @@
+/*
+ * Tres variantes que se distinguen SIN leerlas, que es el criterio de aceptación de T22.
+ *
+ * Lo que las separa es la etiqueta con su icono y su color, no el fondo: tres fondos distintos
+ * dentro de una página que ya tiene paneles, demos y bloques de código habrían competido con todo
+ * lo demás. El borde izquierdo se queda en 1px y toma el color del tipo — es el ancho que el piso
+ * de calidad permite, y aquí no es decoración: es lo que hace escaneable la columna.
+ */
+.recuadro {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 1px solid var(--gf-borde-vivo);
+  background: var(--gf-panel-alto);
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+
+.etiqueta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.3rem;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--gf-texto-apagado);
+}
+
+.cuerpo {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--gf-texto-medio);
+}
+
+/* Caso límite: qué pasa cuando falla. */
+.es-caso {
+  border-left-color: var(--gf-aviso, #d9822b);
+}
+
+.es-caso .etiqueta {
+  color: var(--gf-aviso, #d9822b);
+}
+
+/* Nota: alcance o aclaración. La más neutra de las tres, a propósito. */
+.es-nota {
+  border-left-color: var(--gf-acento-claro);
+}
+
+.es-nota .etiqueta {
+  color: var(--gf-acento-claro);
+}
+
+/* Regla: criterio de diseño. */
+.es-regla {
+  border-left-color: var(--gf-marca-2);
+}
+
+.es-regla .etiqueta {
+  color: var(--gf-marca-2);
+}

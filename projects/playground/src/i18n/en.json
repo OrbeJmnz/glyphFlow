@@ -3,7 +3,10 @@
     "copiar": "Copy code",
     "stackblitz": "Open in StackBlitz",
     "vistas": "Code version",
-    "vista": { "fragmento": "Fragment", "completo": "Full component" },
+    "vista": {
+      "fragmento": "Fragment",
+      "completo": "Full component"
+    },
     "copiado": "Copied",
     "fallo": "The browser blocked the clipboard. Select the code and press Ctrl+C."
   },
@@ -55,13 +58,27 @@
       "title": "glyphflow — animated Lucide icons for Angular",
       "tituloConConteo": "glyphflow — {{n}} animated icons"
     },
-    "patrones": { "title": "Patterns — glyphflow" },
-    "editor": { "title": "Node editor — glyphflow" },
-    "lab": { "title": "Lab — glyphflow" },
-    "docsEmpezando": { "title": "Getting started — glyphflow" },
-    "docsAccesibilidad": { "title": "Accessibility — glyphflow" },
-    "docsSsr": { "title": "SSR — glyphflow" },
-    "docsApi": { "title": "API — glyphflow" }
+    "patrones": {
+      "title": "Patterns — glyphflow"
+    },
+    "editor": {
+      "title": "Node editor — glyphflow"
+    },
+    "lab": {
+      "title": "Lab — glyphflow"
+    },
+    "docsEmpezando": {
+      "title": "Getting started — glyphflow"
+    },
+    "docsAccesibilidad": {
+      "title": "Accessibility — glyphflow"
+    },
+    "docsSsr": {
+      "title": "SSR — glyphflow"
+    },
+    "docsApi": {
+      "title": "API — glyphflow"
+    }
   },
   "marca": {
     "github": {
@@ -74,5 +91,10 @@
       "texto": "Donate",
       "aria": "Buy the project a coffee on Buy Me a Coffee"
     }
+  },
+  "recuadro": {
+    "caso": "Edge case",
+    "nota": "Note",
+    "regla": "Rule"
   }
 }

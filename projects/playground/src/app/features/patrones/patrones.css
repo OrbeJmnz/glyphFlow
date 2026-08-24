@@ -61,6 +61,7 @@
   border-radius: 0.7rem;
   background: var(--gf-fondo);
   transition:
+    border-color 160ms ease-out,
     background 0.25s ease,
     color 0.25s ease;
 }
@@ -539,11 +540,19 @@ pre code.degradado-texto-sutil {
 /* El ticket lo fija en 1100: por debajo no hay ancho para una columna lateral sin robárselo al
    contenido, que es lo que la gente vino a leer. */
 /*
- * El índice lateral se esconde bajo 1100 px de ancho (no hay columna que darle) y también bajo
- * 700 px de alto o con movimiento reducido: es `fixed`, así que despegarlo no tiene sentido — lo
- * que corresponde es quitarlo.
+ * El índice lateral solo aparece cuando hay MARGEN de verdad donde ponerlo, y el número sale de una
+ * cuenta, no de un breakpoint bonito: el contenido mide como mucho `--gf-ancho` (1240 px) y va
+ * centrado, así que el margen libre a cada lado es `(viewport − 1240) / 2`. El índice necesita sus
+ * 11rem más el hueco, o sea ~190 px. De ahí 1240 + 190×2 = 1620.
+ *
+ * Primero estaba en 1100 y a 1440 el índice se ENCIMABA con la caja de decisión: a ese ancho el
+ * margen es de 100 px y no cabe. Lo cazó una captura, no un test — la geometría estaba «bien» en
+ * cada regla por separado.
+ *
+ * También se quita bajo 700 px de alto y con movimiento reducido: es `fixed`, así que despegarlo
+ * no tiene sentido; lo que corresponde es quitarlo.
  */
-@media (max-width: 1100px), (max-height: 700px), (prefers-reduced-motion: reduce) {
+@media (max-width: 1619px), (max-height: 700px), (prefers-reduced-motion: reduce) {
   .indice-patrones {
     display: none;
   }
@@ -571,5 +580,66 @@ pre code.degradado-texto-sutil {
   .demo {
     position: static;
     top: auto;
+  }
+}
+
+/*
+ * ── T22 · Medida, señal en el demo y foco ─────────────────────────────────────
+ *
+ * **620 px de medida.** Medido a 1920: los párrafos llegaban a 81 caracteres por línea, por encima
+ * del rango cómodo de 65–75. No es preferencia tipográfica — pasado ese ancho el ojo pierde el
+ * renglón al saltar de línea, y esta página es de leer, no de mirar.
+ */
+.patron .texto {
+  max-width: 620px;
+}
+
+/*
+ * **La señal de que el demo se toca.** El panel era una caja con un control diminuto al centro y
+ * ninguna pista de que fuera interactivo; la invitación («try it and paste») vivía en el texto de
+ * al lado, lejos de la mano.
+ *
+ * El borde punteado se activa al pasar por encima Y al enfocar cualquier cosa de dentro
+ * (`:focus-within`): quien navega con teclado recibe la misma señal que quien usa ratón, en el
+ * mismo sitio.
+ */
+/*
+ * El panel YA tiene borde (`1px solid var(--gf-borde-suave)`, arriba). Lo que cambia al pasar por
+ * encima o al enfocar es su COLOR, no que aparezca uno nuevo: poner un segundo borde encima del
+ * existente no se veía —el de reposo ya estaba ahí— y la señal no llegaba.
+ */
+.demo:hover,
+.demo:focus-within {
+  border-color: var(--gf-acento-claro);
+}
+
+/*
+ * El rótulo aparece con la misma señal, DENTRO del panel y no en el texto de al lado.
+ *
+ * Se ancla al `.demo`, que ya es `position: sticky` — o sea ya establece contexto de
+ * posicionamiento. No hace falta añadirle `relative`, y quitarle el sticky rompería esto además
+ * del pegado.
+ */
+.demo::after {
+  content: attr(data-pista);
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.4rem;
+  font-size: 0.66rem;
+  color: var(--gf-texto-apagado);
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+  pointer-events: none;
+}
+
+.demo:hover::after,
+.demo:focus-within::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo,
+  .demo::after {
+    transition: none;
   }
 }

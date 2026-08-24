@@ -1,0 +1,7 @@
+<aside class="recuadro" [class]="'es-' + tipo()">
+  <p class="etiqueta">
+    <gf-icon [iconDef]="icono()" [size]="13" trigger="manual" />
+    {{ 'recuadro.' + tipo() | transloco }}
+  </p>
+  <div class="cuerpo" [innerHTML]="texto()"></div>
+</aside>
