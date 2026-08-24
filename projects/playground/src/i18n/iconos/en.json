@@ -41,7 +41,7 @@
     }
   },
   "barra": {
-    "repetirTodo": "Replay all",
+    "repetirVisibles": "Replay visible",
     "buscarMarcador": "Search by name…",
     "buscarEtiqueta": "Search icon by name",
     "filtrarInsigniaEtiqueta": "Filter by badge",

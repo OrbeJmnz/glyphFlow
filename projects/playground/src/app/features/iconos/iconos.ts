@@ -132,6 +132,10 @@ export class Iconos implements OnDestroy {
   protected readonly rutas = inject(Rutas);
 
   @ViewChildren(GfIconComponent) private icons!: QueryList<GfIconComponent>;
+  /* En paralelo a `icons` y en el MISMO orden: la instancia sabe animarse, pero solo el elemento
+     sabe dónde está. Angular garantiza que las dos consultas recorren la vista igual. */
+  @ViewChildren(GfIconComponent, { read: ElementRef })
+  private iconEls!: QueryList<ElementRef<HTMLElement>>;
   @ViewChild('barraCatalogo') private barraCatalogo?: ElementRef<HTMLElement>;
 
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
@@ -479,8 +483,26 @@ export class Iconos implements OnDestroy {
     conTransicion(() => this.filtro.set(clave));
   }
 
-  protected repetirTodo(): void {
-    for (const icon of this.icons) icon.play();
+  /**
+   * Repite SOLO los iconos en pantalla, no los 911.
+   *
+   * Medido en producción antes de cambiarlo: «Repetir todo» lanzaba **2186 animaciones** y bloqueaba
+   * el hilo principal **166.9 ms** en el clic — 3.3× el techo de 50 ms que el propio ticket fija. Y
+   * lo peor era que casi todo ese trabajo era invisible: animaba tarjetas a miles de píxeles del
+   * viewport, para nadie.
+   *
+   * Los rectángulos se leen TODOS antes de tocar nada. Intercalar lecturas y `play()` obligaría al
+   * navegador a recalcular el layout en cada vuelta; en una sola pasada de lectura paga un layout.
+   */
+  protected repetirVisibles(): void {
+    const alto = window.innerHeight;
+    const elementos = this.iconEls.toArray();
+    const enPantalla = this.icons.toArray().filter((_, i) => {
+      const r = elementos[i]?.nativeElement.getBoundingClientRect();
+      return !!r && r.bottom > 0 && r.top < alto;
+    });
+
+    for (const icon of enPantalla) icon.play();
   }
 
   /**

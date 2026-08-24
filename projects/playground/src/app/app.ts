@@ -21,6 +21,7 @@ import { conectarIdiomaDelDocumento } from './core/i18n';
 import { recordarIdioma, type Idioma } from './core/idioma';
 import { traducirRuta } from './core/rutas';
 import { Rutas } from './core/rutas.service';
+import { conectarPausaOculta } from './core/pausa-oculta';
 import { alternarTema, conectarTema, tema } from './core/tema';
 import { conectarTransiciones } from './core/transicion';
 import { BotonGithub } from './shared/marca/boton-github';
@@ -199,6 +200,8 @@ export class App {
     // `hreflang` recíproco + `canonical` en cada navegación: sin eso las dos ramas de idioma se
     // leen como contenido duplicado. Ver `core/enlaces-idioma.ts`.
     conectarEnlacesDeIdioma();
+    // Con la pestaña oculta no se anima contra un DOM que nadie mira. Ver `core/pausa-oculta.ts`.
+    conectarPausaOculta();
     // Sin `await` ni bloqueo: si nunca responde, el botón se queda diciendo «GitHub» y el sitio ya
     // está usable desde el primer cuadro.
     void cargarEstrellas();

@@ -41,7 +41,7 @@
     }
   },
   "barra": {
-    "repetirTodo": "Repetir todo",
+    "repetirVisibles": "Repetir visibles",
     "buscarMarcador": "Buscar por nombre…",
     "buscarEtiqueta": "Buscar icono por nombre",
     "filtrarInsigniaEtiqueta": "Filtrar por insignia",
