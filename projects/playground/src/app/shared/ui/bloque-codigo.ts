@@ -47,6 +47,24 @@ export class BloqueCodigo implements OnDestroy {
    */
   readonly completo = input<string>();
 
+  /**
+   * La carpeta de `examples/` que corresponde a este bloque, si tiene una. Opcional: no todo
+   * snippet es un proyecto (`npm i glyphflow` no se abre en StackBlitz).
+   *
+   * Se enlaza a GitHub y NO se manda el código por POST. La diferencia no es de comodidad: lo que
+   * está en `examples/` es un proyecto real que el CI compila contra el paquete PUBLICADO, así que
+   * el botón no puede ofrecer algo que no funciona. Un payload armado en el cliente solo se puede
+   * validar abriendo StackBlitz a mano, y el día que deje de arrancar no se entera nadie.
+   */
+  readonly ejemplo = input<string>();
+
+  protected readonly urlEjemplo = computed(() => {
+    const dir = this.ejemplo();
+    return dir
+      ? `https://stackblitz.com/github/OrbeJmnz/glyphFlow/tree/main/examples/${dir}`
+      : null;
+  });
+
   protected readonly VISTAS: readonly Vista[] = ['fragmento', 'completo'];
   protected readonly vista = signal<Vista>('fragmento');
 

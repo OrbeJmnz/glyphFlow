@@ -8,6 +8,8 @@
     "curated:lock": "tsx scripts/curated-lock.mjs",
     "curated:lock:check": "tsx scripts/curated-lock.mjs --check",
     "docs:check": "tsx scripts/docs-check.ts",
+    "gen:examples": "tsx scripts/gen-examples.ts",
+    "gen:examples:check": "tsx scripts/gen-examples.ts --check",
     "gen:playground-tags": "tsx scripts/gen-playground-tags.ts",
     "gen:sitemap": "tsx scripts/gen-sitemap.ts",
     "gen:sitemap:check": "tsx scripts/gen-sitemap.ts --check",

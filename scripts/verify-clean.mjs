@@ -48,6 +48,8 @@ const steps = [
   ['Drift de sitemap.xml y robots.txt', 'npm', ['run', 'gen:sitemap:check']],
   ['README: paridad EN/ES y sin API de la v1', 'npm', ['run', 'docs:check']],
   ['Snippets copiables del sitio', 'npm', ['run', 'snippets:check']],
+  ['Drift de examples/ contra los snippets', 'npm', ['run', 'gen:examples:check']],
+  ['Los ejemplos compilan contra el paquete PUBLICADO', 'npx', ['tsc', '-p', 'examples/tsconfig.check.json']],
   ['Unit tests (glyphflow)', 'npx', ['ng', 'test', 'glyphflow', '--watch=false']],
   ['Unit tests (playground)', 'npx', ['ng', 'test', 'playground', '--watch=false']],
   ['Build glyphflow (development)', 'npx', ['ng', 'build', 'glyphflow', '--configuration', 'development']],

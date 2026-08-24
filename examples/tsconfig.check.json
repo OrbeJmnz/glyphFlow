@@ -1,0 +1,38 @@
+/*
+ * Type-check de los ejemplos contra el paquete PUBLICADO y el Angular del workspace.
+ *
+ * Es lo que convierte «compila pegado tal cual» en algo comprobado en vez de prometido: cada
+ * ejemplo se compila con los tipos reales de `glyphflow`, así que un símbolo renombrado o un import
+ * que no existe truena aquí y no en el editor de quien lo pegó.
+ *
+ * Sin `baseUrl` (deprecado en TS 7): los `paths` se resuelven relativos a este archivo. Y apuntan
+ * al `.d.ts` DIRECTO, no a la carpeta: el paquete expone sus entry points por un mapa `exports`,
+ * que un `paths` a la carpeta cortocircuita — `glyphflow/morph` dejaba de resolver.
+ *
+ * `paths` mapea `glyphflow` al alias del registro por la MISMA razón que el playground (regla 4 del
+ * CLAUDE.md): probar contra `dist/` respondería si el código de hoy compila, no si compila lo que
+ * la gente puede instalar.
+ *
+ * LÍMITE, dicho aquí para que nadie lo suponga resuelto: `tsc` no revisa PLANTILLAS. Comprueba la
+ * clase, sus tipos y sus imports. Un error dentro del `template` de un `@Component` pasa. Cubrirlo
+ * pediría compilar cada ejemplo con Angular de verdad, o sea un `npm install` por ejemplo.
+ */
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": [],
+    "lib": ["ES2022", "DOM"],
+    "paths": {
+      "glyphflow": ["../node_modules/glyphflow-published/types/glyphflow.d.ts"],
+      "glyphflow/morph": ["../node_modules/glyphflow-published/types/glyphflow-morph.d.ts"],
+      "@angular/*": ["../node_modules/@angular/*"]
+    }
+  },
+  "include": ["*/src/**/*.ts"]
+}

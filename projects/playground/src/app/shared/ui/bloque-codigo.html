@@ -21,6 +21,17 @@
     </div>
   }
 
+  @if (urlEjemplo(); as url) {
+    <!--
+      Enlace y no botón: navega a otro sitio, así que tiene que poder abrirse en pestaña nueva,
+      copiarse y mostrar su destino en la barra de estado. Un <button> con `window.open` rompe las
+      tres cosas.
+    -->
+    <a class="ejemplo" [href]="url" target="_blank" rel="noopener noreferrer">
+      {{ 'codigo.stackblitz' | transloco }}
+    </a>
+  }
+
   <pre><code>{{ mostrado() }}</code></pre>
   <button
     type="button"

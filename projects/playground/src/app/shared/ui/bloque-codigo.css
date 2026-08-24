@@ -7,6 +7,56 @@
   position: relative;
 }
 
+/*
+ * La fila de encima del código: el conmutador a la izquierda, el enlace al ejemplo a la derecha.
+ * Van juntos porque los dos hablan de QUÉ estás leyendo, no de qué hacer con ello — el botón de
+ * copiar, que sí es una acción sobre el código, vive dentro del bloque y separado a propósito.
+ *
+ * `:has()` y no un div envolvente: el conmutador solo existe cuando hay versión completa y el
+ * enlace solo cuando hay ejemplo. Con un envoltorio fijo quedaría una fila vacía ocupando espacio
+ * en los bloques que no tienen ninguno de los dos — que son la mayoría del sitio.
+ */
+.bloque:has(.vistas, .ejemplo) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0 0.75rem;
+}
+
+.bloque:has(.vistas, .ejemplo) pre {
+  grid-column: 1 / -1;
+}
+
+/* Sin conmutador, el enlace se queda solo y va a la izquierda: nada que equilibrar. */
+.bloque:has(.ejemplo):not(:has(.vistas)) .ejemplo {
+  grid-column: 1;
+  justify-self: start;
+}
+
+.ejemplo {
+  justify-self: end;
+  margin-bottom: 0.4rem;
+  color: var(--gf-texto-tenue);
+  font-size: 0.72rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 140ms ease-out,
+    border-color 140ms ease-out;
+}
+
+.ejemplo:hover,
+.ejemplo:focus-visible {
+  color: var(--gf-acento-claro);
+  border-bottom-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ejemplo {
+    transition: none;
+  }
+}
+
 pre {
   /* El fondo es lo único que difería entre las dos reglas que este componente reemplaza (patrones
      usaba `--gf-fondo`, docs `--gf-panel`). Se expone como variable para que cada página conserve

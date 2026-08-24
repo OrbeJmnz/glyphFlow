@@ -1,6 +1,7 @@
 {
   "codigo": {
     "copiar": "Copiar código",
+    "stackblitz": "Abrir en StackBlitz",
     "vistas": "Versión del código",
     "vista": { "fragmento": "Fragmento", "completo": "Componente completo" },
     "copiado": "Copiado",
