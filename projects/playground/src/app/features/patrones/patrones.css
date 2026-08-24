@@ -305,8 +305,30 @@ pre code.degradado-texto-sutil {
   background: var(--gf-panel-alto);
 }
 
+/*
+ * El campo se expande animando la PISTA de una rejilla, no su `width`.
+ *
+ * Animar `width` provoca layout thrash en cada cuadro — y lo destapó el detector de diseño en
+ * cuanto dejó de correr degradado, después de una sesión entera invisible. Es especialmente feo
+ * aquí: esta es la página que enseña animación de iconos, y T24 acaba de exigir en el propio sitio
+ * que el movimiento no cause reflow.
+ *
+ * `0fr` → `1fr` es la técnica que recomienda el propio detector (la misma que `grid-template-rows`
+ * para altos). El `min-width: 0` del input es obligatorio: sin él, su ancho intrínseco impide que
+ * la pista llegue a cero y el campo nunca se cierra del todo.
+ */
+.demo-buscar .campo {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.demo-buscar.abierto .campo {
+  grid-template-columns: 1fr;
+}
+
 .demo-buscar input {
-  width: 0;
+  min-width: 0;
   padding: 0;
   border: 0;
   background: none;
@@ -314,17 +336,16 @@ pre code.degradado-texto-sutil {
   font: inherit;
   font-size: 0.82rem;
   outline: none;
-  transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
 .demo-buscar.abierto input {
-  width: 8.5rem;
   padding: 0 0.3rem 0 0.6rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .demo-acordeon .chevron,
-  .demo-buscar input {
+  .demo-buscar .campo {
     transition: none;
   }
 }

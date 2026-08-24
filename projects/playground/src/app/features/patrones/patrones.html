@@ -360,12 +360,18 @@
   <article class="patron" id="search-close">
     <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <div class="demo-buscar" [class.abierto]="buscando()">
-        <input
-          #campoBuscar
-          type="search"
-          [attr.aria-label]="'patrones.buscar.campo' | transloco"
-          [attr.tabindex]="buscando() ? null : -1"
-        />
+        <!--
+          El campo va envuelto en una rejilla de una sola columna: lo que se anima es la PISTA
+          (`0fr` → `1fr`), no el `width` del input. Ver el porqué en el CSS.
+        -->
+        <span class="campo">
+          <input
+            #campoBuscar
+            type="search"
+            [attr.aria-label]="'patrones.buscar.campo' | transloco"
+            [attr.tabindex]="buscando() ? null : -1"
+          />
+        </span>
         <button
           type="button"
           app-boton
