@@ -155,7 +155,16 @@ export class GfIconMorphComponent implements OnChanges {
     // Primer valor, sin nada previo: se pinta y ya. Morphear "desde nada" no existe.
     // También cae aquí el SSR y cualquier navegador sin WAAPI: se ve el icono, no se anima.
     const puedeAnimar = typeof this.figura.nativeElement.animate === 'function';
-    if (!anterior || !puedeAnimar || (this.respectReducedMotion && this.movimientoReducido)) {
+    // `animationsEnabled` en `false` cae aquí a propósito: la figura nueva se PINTA, solo no se
+    // interpola. Saltarse la escritura dejaría el icono anterior en pantalla, que es peor que no
+    // animar — el valor habría cambiado y el usuario vería el de antes.
+    const animacionesActivas = this.config?.animationsEnabled ?? true;
+    if (
+      !anterior ||
+      !puedeAnimar ||
+      !animacionesActivas ||
+      (this.respectReducedMotion && this.movimientoReducido)
+    ) {
       this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
       return;
     }

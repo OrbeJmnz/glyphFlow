@@ -7,6 +7,21 @@ import { InjectionToken, Provider } from '@angular/core';
 export interface GfIconsConfig {
   /** Escala toda duración calculada (tracks manuales y auto-draw). 1 = sin cambio, <1 = más rápido. */
   durationScale?: number;
+  /**
+   * Interruptor global de movimiento. Default `true`. En `false` ningún icono anima: se quedan en
+   * su pose base, que es el icono tal cual se dibuja.
+   *
+   * **No sustituye a `prefers-reduced-motion`**, que se sigue respetando por su cuenta (ver el
+   * input `respectReducedMotion` de cada icono). Existe para lo que la media query NO puede
+   * cubrir: una app con su propio ajuste de accesibilidad, donde el usuario apaga el movimiento
+   * DENTRO del producto sin tocar la configuración del sistema operativo. Sin esto, la única
+   * salida era poner `respectReducedMotion` icono por icono, y aun así solo permitía seguir al
+   * sistema, nunca contradecirlo.
+   *
+   * Igual que `durationScale`, se lee EN EL MOMENTO DE ANIMAR: un getter sobre una señal lo
+   * convierte en un interruptor vivo sin re-bootstrapear la aplicación.
+   */
+  animationsEnabled?: boolean;
 }
 
 /**

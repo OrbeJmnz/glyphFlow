@@ -233,6 +233,14 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     return this.config?.durationScale ?? 1;
   }
 
+  /**
+   * Getter y no un campo: la config puede exponer `animationsEnabled` como getter sobre una señal,
+   * y leerlo una sola vez al construir congelaría el interruptor en el valor del arranque.
+   */
+  private get animationsEnabled(): boolean {
+    return this.config?.animationsEnabled ?? true;
+  }
+
   ngAfterViewInit(): void {
     if (this.trigger === 'auto') this.play();
     if (this.trigger === 'view') this.observeViewport();
@@ -323,6 +331,10 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   // ── API pública (útil con trigger="manual") ────────────────────────────────
   /** Reproduce una variante; sin argumento, la del input `animation`. */
   play(variant?: string): void {
+    // El interruptor global va PRIMERO y no mira `respectReducedMotion`: ese input decide si se
+    // sigue al sistema, y esto es una orden directa del consumidor. Un icono con
+    // `respectReducedMotion="false"` ignora al sistema, no a la aplicación que lo hospeda.
+    if (!this.animationsEnabled) return;
     if (this.respectReducedMotion && this.prefersReducedMotion) return;
     const chor = this.def?.animations[variant ?? this.animation];
     if (!chor) return;

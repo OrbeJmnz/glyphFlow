@@ -199,4 +199,96 @@ describe('alias de la v1', () => {
     expect(fixture.nativeElement.querySelector('svg')).not.toBeNull();
     expect(TestBed.inject(GF_ICONS_CONFIG).durationScale).toBe(0.5);
   });
+
+  /*
+   * ── `animationsEnabled` ────────────────────────────────────────────────────────────────────
+   *
+   * jsdom no implementa Web Animations API, así que `play()` se corta solo por falta de `animate`
+   * y no distinguiría "lo paró el interruptor" de "aquí no hay motor". Por eso se pone un doble de
+   * `animate` y se afirma sobre si LLEGÓ a llamarse: es la única forma de probar el interruptor y
+   * no el entorno.
+   */
+  describe('animationsEnabled', () => {
+    let llamadas: number;
+    let original: PropertyDescriptor | undefined;
+
+    beforeEach(() => {
+      llamadas = 0;
+      original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+      Object.defineProperty(Element.prototype, 'animate', {
+        configurable: true,
+        writable: true,
+        value: function (): Animation {
+          llamadas++;
+          return dobleDeAnimacion();
+        },
+      });
+    });
+
+    afterEach(() => {
+      if (original) Object.defineProperty(Element.prototype, 'animate', original);
+      else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
+    });
+
+    async function montar(config: Record<string, unknown>) {
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [GfIconComponent],
+        providers: [provideIconCatalog(ANIMATED_ICONS), provideGfIcons(config)],
+      }).compileComponents();
+
+      const fixture = TestBed.createComponent(GfIconComponent);
+      fixture.componentRef.setInput('name', 'bell');
+      fixture.detectChanges();
+      return fixture;
+    }
+
+    it('en `false` no se crea ni una animación', async () => {
+      const fixture = await montar({ animationsEnabled: false });
+      fixture.componentInstance.play();
+      expect(llamadas).toBe(0);
+    });
+
+    it('sin declararlo, anima como siempre', async () => {
+      const fixture = await montar({});
+      fixture.componentInstance.play();
+      expect(llamadas).toBeGreaterThan(0);
+    });
+
+    it('se lee EN CADA reproducción, así que sirve como interruptor vivo', async () => {
+      // El caso que justifica que sea un getter y no un campo: si el componente lo cacheara al
+      // construirse, apagar el movimiento en caliente no tendría efecto hasta recargar.
+      const config = {
+        activo: true,
+        get animationsEnabled() {
+          return this.activo;
+        },
+      };
+      const fixture = await montar(config);
+
+      fixture.componentInstance.play();
+      const conMovimiento = llamadas;
+      expect(conMovimiento).toBeGreaterThan(0);
+
+      config.activo = false;
+      fixture.componentInstance.play();
+      expect(llamadas).toBe(conMovimiento);
+    });
+  });
 });
+
+/** Lo mínimo que el componente toca del objeto que devuelve `animate()`. */
+function dobleDeAnimacion(): Animation {
+  return {
+    playState: 'running',
+    currentTime: 0,
+    finished: Promise.resolve(),
+    onfinish: null,
+    cancel() {},
+    play() {},
+    pause() {},
+    reverse() {},
+    commitStyles() {},
+    persist() {},
+  } as unknown as Animation;
+}
