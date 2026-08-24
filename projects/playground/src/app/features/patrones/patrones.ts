@@ -17,7 +17,16 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
-import { SNIPPET_COPIAR, SNIPPET_ENVIAR, SNIPPET_REACCION, SNIPPET_TEMA } from './snippets';
+import {
+  SNIPPET_COPIAR,
+  SNIPPET_COPIAR_COMPLETO,
+  SNIPPET_ENVIAR,
+  SNIPPET_ENVIAR_COMPLETO,
+  SNIPPET_REACCION,
+  SNIPPET_REACCION_COMPLETO,
+  SNIPPET_TEMA,
+  SNIPPET_TEMA_COMPLETO,
+} from './snippets';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { Rutas } from '../../core/rutas.service';
 
@@ -59,6 +68,10 @@ export class Patrones implements OnDestroy {
   protected readonly SNIPPET_TEMA = SNIPPET_TEMA;
   protected readonly SNIPPET_ENVIAR = SNIPPET_ENVIAR;
   protected readonly SNIPPET_REACCION = SNIPPET_REACCION;
+  protected readonly SNIPPET_COPIAR_COMPLETO = SNIPPET_COPIAR_COMPLETO;
+  protected readonly SNIPPET_TEMA_COMPLETO = SNIPPET_TEMA_COMPLETO;
+  protected readonly SNIPPET_ENVIAR_COMPLETO = SNIPPET_ENVIAR_COMPLETO;
+  protected readonly SNIPPET_REACCION_COMPLETO = SNIPPET_REACCION_COMPLETO;
 
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 

@@ -1,6 +1,8 @@
 {
   "codigo": {
     "copiar": "Copiar código",
+    "vistas": "Versión del código",
+    "vista": { "fragmento": "Fragmento", "completo": "Componente completo" },
     "copiado": "Copiado",
     "fallo": "El navegador bloqueó el portapapeles. Selecciona el código y pulsa Ctrl+C."
   },

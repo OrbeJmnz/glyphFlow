@@ -16,7 +16,7 @@
       <h2>{{ 'patrones.copiar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
-      <app-bloque-codigo [codigo]="SNIPPET_COPIAR" />
+      <app-bloque-codigo [codigo]="SNIPPET_COPIAR" [completo]="SNIPPET_COPIAR_COMPLETO" />
       <p class="nota-api">
         {{ 'patrones.notaSpring' | transloco }}
         <a [routerLink]="rutas.a('docs', 'api')" fragment="api-SPRING_PRESETS">{{
@@ -44,7 +44,7 @@
       <h2>{{ 'patrones.tema.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
-      <app-bloque-codigo [codigo]="SNIPPET_TEMA" />
+      <app-bloque-codigo [codigo]="SNIPPET_TEMA" [completo]="SNIPPET_TEMA_COMPLETO" />
     </div>
   </article>
 
@@ -70,7 +70,7 @@
       <h2>{{ 'patrones.enviar.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
-      <app-bloque-codigo [codigo]="SNIPPET_ENVIAR" />
+      <app-bloque-codigo [codigo]="SNIPPET_ENVIAR" [completo]="SNIPPET_ENVIAR_COMPLETO" />
       <!--
         Aquí es donde los dos componentes se ven juntos, y donde desde fuera parece un descuido.
         La explicación va JUNTO al choque: entenderla obligando a abrir otra página es exactamente
@@ -104,7 +104,7 @@
       <h2>{{ 'patrones.reaccion.titulo' | transloco }}</h2>
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
-      <app-bloque-codigo [codigo]="SNIPPET_REACCION" />
+      <app-bloque-codigo [codigo]="SNIPPET_REACCION" [completo]="SNIPPET_REACCION_COMPLETO" />
     </div>
   </article>
 </div>

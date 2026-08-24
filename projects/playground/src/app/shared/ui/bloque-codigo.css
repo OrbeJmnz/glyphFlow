@@ -98,3 +98,45 @@ pre code {
     transition: none;
   }
 }
+
+/*
+ * El conmutador fragmento / completo. Va ARRIBA del bloque y no flotando sobre él: es una decisión
+ * sobre qué estás leyendo, no una acción sobre el código, y mezclarla con el botón de copiar en la
+ * misma esquina las volvería dos cosas del mismo tipo.
+ */
+.vistas {
+  display: inline-flex;
+  gap: 0.15rem;
+  margin-bottom: 0.4rem;
+  padding: 0.15rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.45rem;
+  background: var(--gf-panel-alto);
+}
+
+.vistas button {
+  padding: 0.2rem 0.55rem;
+  border: 0;
+  border-radius: 0.32rem;
+  background: none;
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: color 140ms ease-out;
+}
+
+.vistas button:hover {
+  color: var(--gf-texto-medio);
+}
+
+.vistas button.activa {
+  background: var(--gf-velo-activo);
+  color: var(--gf-texto);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vistas button {
+    transition: none;
+  }
+}

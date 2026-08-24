@@ -1,0 +1,46 @@
+<div class="bloque">
+  @if (completo()) {
+    <!--
+      Radiogroup y no dos botones sueltos: son dos vistas del MISMO código, de las que siempre
+      hay exactamente una puesta. Con `aria-pressed` el lector diría "presionado / no
+      presionado" dos veces; con radio dice "1 de 2", que es lo que pasa de verdad.
+    -->
+    <div class="vistas" role="radiogroup" [attr.aria-label]="'codigo.vistas' | transloco">
+      @for (v of VISTAS; track v) {
+        <button
+          type="button"
+          role="radio"
+          [attr.aria-checked]="vista() === v"
+          [class.activa]="vista() === v"
+          (click)="vista.set(v)"
+          (keydown)="teclaVista($event)"
+        >
+          {{ 'codigo.vista.' + v | transloco }}
+        </button>
+      }
+    </div>
+  }
+
+  <pre><code>{{ mostrado() }}</code></pre>
+  <button
+    type="button"
+    class="copiar"
+    [class.hecho]="copiador.copiado()"
+    [class.fallo]="copiador.fallo()"
+    [attr.aria-label]="etiqueta()"
+    (click)="copiar()"
+  >
+    <gf-icon-morph [icon]="icono()" [size]="15" spring="bouncy" />
+  </button>
+
+  <!--
+    El acuse para lectores de pantalla. La región viva va sobre un nodo que YA existe en el
+    DOM y solo cambia de texto: si el elemento entero apareciera y desapareciera, muchos
+    lectores no anuncian nada, porque la región nace con el contenido ya puesto.
+  -->
+  <p class="visualmente-oculto" aria-live="polite">{{ anuncio() }}</p>
+
+  @if (copiador.fallo()) {
+    <p class="aviso-fallo">{{ 'codigo.fallo' | transloco }}</p>
+  }
+</div>

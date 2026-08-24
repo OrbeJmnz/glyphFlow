@@ -20,6 +20,7 @@
     "notice-check": "node scripts/notice-check.mjs",
     "pack-check": "npm run build:lib && tsx scripts/pack-check.ts",
     "release": "npm run build:lib && node scripts/release.mjs",
+    "snippets:check": "tsx scripts/snippets-check.ts",
     "start": "ng serve",
     "sync:package-files": "node scripts/sync-package-files.mjs",
     "sync:package-files:check": "node scripts/sync-package-files.mjs --check",

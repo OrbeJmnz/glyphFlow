@@ -1,8 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, input, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  signal,
+  OnDestroy,
+} from '@angular/core';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { checkIcon, copyIcon } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { Copiador } from './copiar';
+
+/** Las dos vistas del mismo código. Tipo aparte: `typeof this.X` no es válido en posición de tipo. */
+type Vista = 'fragmento' | 'completo';
 
 /**
  * Un bloque de código con botón de copiar. **El único del sitio**: antes había dos reglas de `pre`
@@ -21,38 +31,40 @@ import { Copiador } from './copiar';
   selector: 'app-bloque-codigo',
   imports: [GfIconMorphComponent, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="bloque">
-      <pre><code>{{ codigo() }}</code></pre>
-      <button
-        type="button"
-        class="copiar"
-        [class.hecho]="copiador.copiado()"
-        [class.fallo]="copiador.fallo()"
-        [attr.aria-label]="etiqueta()"
-        (click)="copiar()"
-      >
-        <gf-icon-morph [icon]="icono()" [size]="15" spring="bouncy" />
-      </button>
-
-      <!--
-        El acuse para lectores de pantalla. La región viva va sobre un nodo que YA existe en el
-        DOM y solo cambia de texto: si el elemento entero apareciera y desapareciera, muchos
-        lectores no anuncian nada, porque la región nace con el contenido ya puesto.
-        (Sin comillas invertidas aquí dentro: cierran el template literal a media clase.)
-      -->
-      <p class="visualmente-oculto" aria-live="polite">{{ anuncio() }}</p>
-
-      @if (copiador.fallo()) {
-        <p class="aviso-fallo">{{ 'codigo.fallo' | transloco }}</p>
-      }
-    </div>
-  `,
+  templateUrl: './bloque-codigo.html',
   styleUrl: './bloque-codigo.css',
 })
 export class BloqueCodigo implements OnDestroy {
   /** El código, en texto plano. Sin escapar nada: no pasa por el parser de HTML. */
   readonly codigo = input.required<string>();
+
+  /**
+   * La versión pegable: imports, componente y todo. Opcional — sin ella no aparece el conmutador,
+   * porque no todo bloque tiene una (`npm i glyphflow` no necesita un componente alrededor).
+   *
+   * El fragmento se queda de vista por defecto: es el que ENSEÑA, sin el ruido de los imports. El
+   * completo es el que se USA, y por eso es el que copia el botón cuando está puesto.
+   */
+  readonly completo = input<string>();
+
+  protected readonly VISTAS: readonly Vista[] = ['fragmento', 'completo'];
+  protected readonly vista = signal<Vista>('fragmento');
+
+  /** Lo que se ve Y lo que se copia: una sola fuente, para que nunca copies algo distinto de lo que lees. */
+  protected readonly mostrado = computed(() =>
+    this.vista() === 'completo' ? (this.completo() ?? this.codigo()) : this.codigo(),
+  );
+
+  /** Flechas dentro del radiogroup — es lo que el rol PROMETE. Mismo trato que la velocidad del shell. */
+  protected teclaVista(ev: KeyboardEvent): void {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(ev.key)) return;
+    ev.preventDefault();
+    const siguiente: Vista = this.vista() === 'fragmento' ? 'completo' : 'fragmento';
+    this.vista.set(siguiente);
+    const boton = ev.currentTarget as HTMLElement;
+    const hermanos = boton.parentElement?.querySelectorAll<HTMLElement>('[role="radio"]');
+    hermanos?.[this.VISTAS.indexOf(siguiente)]?.focus();
+  }
 
   protected readonly copiador = new Copiador();
 
@@ -74,7 +86,7 @@ export class BloqueCodigo implements OnDestroy {
   protected readonly anuncio = translateSignal(this.claveAnuncio);
 
   protected copiar(): void {
-    void this.copiador.copiar(this.codigo());
+    void this.copiador.copiar(this.mostrado());
   }
 
   ngOnDestroy(): void {

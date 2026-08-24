@@ -1,6 +1,8 @@
 {
   "codigo": {
     "copiar": "Copy code",
+    "vistas": "Code version",
+    "vista": { "fragmento": "Fragment", "completo": "Full component" },
     "copiado": "Copied",
     "fallo": "The browser blocked the clipboard. Select the code and press Ctrl+C."
   },
