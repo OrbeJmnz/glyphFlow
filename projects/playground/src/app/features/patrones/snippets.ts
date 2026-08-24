@@ -254,7 +254,7 @@ export class PlayButton {
 }`;
 
 export const SNIPPET_ACORDEON = `<!-- No morph: the shape does not change, it ROTATES. -->
-<gf-icon [iconDef]="chevronDownIcon" [size]="16" trigger="none" [class.open]="open()" />
+<gf-icon [iconDef]="chevronDownIcon" [size]="16" trigger="manual" [class.open]="open()" />
 
 gf-icon { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); }
 gf-icon.open { transform: rotate(180deg); }

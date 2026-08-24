@@ -363,15 +363,15 @@ pre code.degradado-texto-sutil {
   background: var(--gf-panel);
 }
 
-.columna.motor-menu {
+.columna.columna-morph {
   border-top-color: var(--gf-acento-claro);
 }
 
-.columna.motor-bell {
+.columna.columna-coreografia {
   border-top-color: var(--gf-marca-2);
 }
 
-.columna.motor-send {
+.columna.columna-bucle {
   border-top-color: var(--gf-texto-apagado);
 }
 
@@ -389,11 +389,11 @@ pre code.degradado-texto-sutil {
   color: var(--gf-acento-claro);
 }
 
-.columna.motor-bell .responde {
+.columna.columna-coreografia .responde {
   color: var(--gf-marca-2);
 }
 
-.columna.motor-send .responde {
+.columna.columna-bucle .responde {
   color: var(--gf-texto-medio);
 }
 
@@ -444,5 +444,109 @@ pre code.degradado-texto-sutil {
 @media (max-width: 900px) {
   .columnas {
     grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * ── T23 · Índice, anclas y cierre ─────────────────────────────────────────────
+ *
+ * El índice va pegajoso a la izquierda, FUERA del flujo de los patrones: `position: fixed` y no
+ * `sticky` porque su contenedor es el `<div class="patrones">`, y un sticky se detiene al llegar al
+ * final de su padre — con nueve patrones eso lo dejaba plantado a media página.
+ */
+.indice-patrones {
+  position: fixed;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  max-width: 11rem;
+  z-index: 1;
+}
+
+.indice-patrones ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.indice-patrones a {
+  display: block;
+  padding: 0.15rem 0.5rem;
+  border-left: 2px solid transparent;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--gf-texto-apagado);
+  text-decoration: none;
+  transition: color 140ms ease-out;
+}
+
+.indice-patrones a:hover {
+  color: var(--gf-texto-medio);
+}
+
+.indice-patrones a.activo {
+  border-left-color: var(--gf-acento-claro);
+  color: var(--gf-texto);
+}
+
+/*
+ * El ancla junto al título. Aparece al pasar el ratón sobre el patrón, pero SIEMPRE al recibir
+ * foco: un control que solo existe con hover no existe para quien navega con Tab.
+ */
+.patron h2 {
+  position: relative;
+}
+
+.ancla {
+  margin-left: 0.4rem;
+  color: var(--gf-texto-apagado);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+
+.patron:hover .ancla,
+.ancla:focus-visible {
+  opacity: 1;
+}
+
+.ancla:hover {
+  color: var(--gf-acento-claro);
+}
+
+.cierre {
+  max-width: var(--gf-ancho);
+  margin: 2.5rem auto 0;
+  padding: 1.75rem 1rem 0;
+  border-top: 1px solid var(--gf-borde-suave);
+  text-align: center;
+}
+
+.cierre p {
+  margin: 0 0 0.9rem;
+  color: var(--gf-texto-medio);
+}
+
+.cierre .acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+/* El ticket lo fija en 1100: por debajo no hay ancho para una columna lateral sin robárselo al
+   contenido, que es lo que la gente vino a leer. */
+@media (max-width: 1100px) {
+  .indice-patrones {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indice-patrones a,
+  .ancla {
+    transition: none;
   }
 }

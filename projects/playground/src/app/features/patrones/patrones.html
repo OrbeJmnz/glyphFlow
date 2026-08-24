@@ -16,7 +16,7 @@
 
   <div class="columnas">
     @for (col of columnasDecision; track col.ancla) {
-      <article class="columna" [class]="'motor-' + col.ancla">
+      <article class="columna" [class]="'columna-' + col.tono">
         <h3>{{ col.pregunta | transloco }}</h3>
         <p class="responde">{{ col.motor | transloco }}</p>
         <p class="ejemplos">{{ col.ejemplos | transloco }}</p>
@@ -29,13 +29,31 @@
   <!-- El caso que rompe la regla de las tres columnas, y por eso va aparte y a lo ancho. -->
   <p class="mezcla">
     <span [innerHTML]="'patrones.decision.mezcla' | transloco"></span>
-    <a href="#send">{{ 'patrones.decision.mezclaVer' | transloco }}</a>
+    <a href="#three-state-action">{{ 'patrones.decision.mezclaVer' | transloco }}</a>
   </p>
 </section>
 
+<!--
+  Índice pegajoso. Se calcula con `IntersectionObserver` y no leyendo `scrollY` en cada cuadro: el
+  scroll dispara decenas de veces por segundo y esto solo necesita saber cuándo ENTRA o SALE un
+  patrón. Por debajo de 1100 px se oculta — no hay ancho para una columna lateral sin robárselo al
+  contenido, que es lo que la gente vino a leer.
+-->
+<nav class="indice-patrones" [attr.aria-label]="'patrones.indice' | transloco">
+  <ol>
+    @for (p of indicePatrones; track p.ancla) {
+      <li>
+        <a [href]="'#' + p.ancla" [class.activo]="anclaVisible() === p.ancla">
+          {{ p.titulo | transloco }}
+        </a>
+      </li>
+    }
+  </ol>
+</nav>
+
 <div class="patrones">
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
-  <article class="patron" id="copy">
+  <article class="patron" id="copy-to-clipboard">
     <div class="demo">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
         <gf-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
@@ -43,7 +61,15 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.copiar.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.copiar.titulo' | transloco
+        }}<a
+          class="ancla"
+          href="#copy-to-clipboard"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.copiar.detalle' | transloco"></p>
       <app-bloque-codigo
@@ -61,7 +87,7 @@
   </article>
 
   <!-- ── Tema ───────────────────────────────────────────────────────────────── -->
-  <article class="patron" id="theme">
+  <article class="patron" id="theme-switch">
     <div class="demo demo-tema" [class.claro]="claro()">
       <button
         type="button"
@@ -75,7 +101,12 @@
       <span class="muestra">Aa</span>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.tema.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.tema.titulo' | transloco
+        }}<a class="ancla" href="#theme-switch" [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.tema.detalle' | transloco"></p>
       <app-bloque-codigo
@@ -87,7 +118,7 @@
   </article>
 
   <!-- ── Enviar ─────────────────────────────────────────────────────────────── -->
-  <article class="patron" id="send">
+  <article class="patron" id="three-state-action">
     <div class="demo">
       <button
         type="button"
@@ -105,7 +136,15 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.enviar.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.enviar.titulo' | transloco
+        }}<a
+          class="ancla"
+          href="#three-state-action"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.enviar.detalle' | transloco"></p>
       <app-bloque-codigo
@@ -143,7 +182,10 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.reaccion.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.reaccion.titulo' | transloco
+        }}<a class="ancla" href="#reaction" [attr.aria-label]="'patrones.enlazar' | transloco">#</a>
+      </h2>
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.reaccion.detalle' | transloco"></p>
       <app-bloque-codigo
@@ -155,7 +197,7 @@
   </article>
 
   <!-- ── Menú: hamburguesa → X ──────────────────────────────────────────────── -->
-  <article class="patron" id="menu">
+  <article class="patron" id="menu-hamburger-x">
     <div class="demo">
       <button
         type="button"
@@ -177,7 +219,15 @@
       }
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.menu.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.menu.titulo' | transloco
+        }}<a
+          class="ancla"
+          href="#menu-hamburger-x"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.menu.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.menu.detalle' | transloco"></p>
@@ -190,7 +240,7 @@
   </article>
 
   <!-- ── Reproductor: play → pause ──────────────────────────────────────────── -->
-  <article class="patron" id="play">
+  <article class="patron" id="player-play-pause">
     <div class="demo">
       <button
         type="button"
@@ -204,7 +254,15 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.play.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.play.titulo' | transloco
+        }}<a
+          class="ancla"
+          href="#player-play-pause"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.play.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.play.detalle' | transloco"></p>
@@ -237,7 +295,12 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.acordeon.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.acordeon.titulo' | transloco
+        }}<a class="ancla" href="#accordion" [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p class="motor motor-ninguno">{{ 'patrones.motor.ninguno' | transloco }}</p>
       <p [innerHTML]="'patrones.acordeon.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.acordeon.detalle' | transloco"></p>
@@ -246,7 +309,7 @@
   </article>
 
   <!-- ── Campana: choreography sobre la misma forma ─────────────────────────── -->
-  <article class="patron" id="bell">
+  <article class="patron" id="bell-with-notification">
     <div class="demo">
       <button
         type="button"
@@ -262,7 +325,15 @@
       </button>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.campana.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.campana.titulo' | transloco
+        }}<a
+          class="ancla"
+          href="#bell-with-notification"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p class="motor motor-coreografia">{{ 'patrones.motor.coreografia' | transloco }}</p>
       <p [innerHTML]="'patrones.campana.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.campana.detalle' | transloco"></p>
@@ -275,7 +346,7 @@
   </article>
 
   <!-- ── Buscar → cerrar ────────────────────────────────────────────────────── -->
-  <article class="patron" id="search">
+  <article class="patron" id="search-close">
     <div class="demo">
       <div class="demo-buscar" [class.abierto]="buscando()">
         <input
@@ -297,7 +368,12 @@
       </div>
     </div>
     <div class="texto">
-      <h2>{{ 'patrones.buscar.titulo' | transloco }}</h2>
+      <h2>
+        {{ 'patrones.buscar.titulo' | transloco
+        }}<a class="ancla" href="#search-close" [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
       <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
       <p [innerHTML]="'patrones.buscar.descripcion' | transloco"></p>
       <p class="detalle" [innerHTML]="'patrones.buscar.detalle' | transloco"></p>
@@ -309,3 +385,18 @@
     </div>
   </article>
 </div>
+
+<!-- La página terminaba en una raya horizontal. Dos salidas: la que falta y la que te haces. -->
+<section class="cierre">
+  <p>{{ 'patrones.cierre.pregunta' | transloco }}</p>
+  <div class="acciones">
+    <a
+      app-boton
+      href="https://github.com/OrbeJmnz/glyphFlow/issues/new"
+      target="_blank"
+      rel="noopener noreferrer"
+      >{{ 'patrones.cierre.issue' | transloco }}</a
+    >
+    <a app-boton [routerLink]="rutas.a('editor')">{{ 'patrones.cierre.editor' | transloco }}</a>
+  </div>
+</section>

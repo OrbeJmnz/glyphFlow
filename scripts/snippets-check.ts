@@ -103,6 +103,38 @@ for (const [nombre, codigo] of Object.entries(patrones)) {
   }
 }
 
+// --- 5. Ningún snippet enseña un `trigger` que no existe ---
+//
+// El del acordeón enseñaba `trigger="none"`, que NO es un valor válido — el mismo que no compiló
+// al escribir el demo. Se coló porque ese snippet no tiene versión completa, así que nada lo
+// type-chequeaba: los checks de arriba solo miran los `_COMPLETO`.
+//
+// Los válidos se leen del paquete PUBLICADO, no de una lista escrita aquí: una copia a mano se
+// queda atrás en cuanto la librería agregue o quite uno, y entonces el check aprobaría lo que ya
+// no funciona.
+const TRIGGERS = new Set(
+  (
+    readFileSync(
+      new URL('../node_modules/glyphflow-published/types/glyphflow.d.ts', import.meta.url),
+      'utf8',
+    ).match(/AnimatedIconTrigger = ([^;]*)/)?.[1] ?? ''
+  )
+    .split('|')
+    .map((t) => t.trim().replace(/'/g, ''))
+    .filter(Boolean),
+);
+
+for (const [nombre, codigo] of Object.entries(patrones)) {
+  for (const m of (codigo as string).matchAll(/trigger="([^"]*)"/g)) {
+    if (!TRIGGERS.has(m[1])) {
+      console.error(
+        `  ✗ ${nombre}: enseña trigger="${m[1]}", que no existe. Válidos: ${[...TRIGGERS].join(', ')}`,
+      );
+      fallos++;
+    }
+  }
+}
+
 if (fallos > 0) {
   console.error(`\nsnippets-check FALLÓ — ${fallos} problema(s) en los snippets copiables.`);
   process.exit(1);

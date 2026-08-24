@@ -1,4 +1,12 @@
-import { Component, signal, computed, inject, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  afterNextRender,
+  signal,
+  computed,
+  inject,
+  OnDestroy,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   bellIcon,
@@ -76,6 +84,8 @@ import { Rutas } from '../../core/rutas.service';
   styleUrl: './patrones.css',
 })
 export class Patrones implements OnDestroy {
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+
   /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
   protected readonly rutas = inject(Rutas);
 
@@ -137,13 +147,18 @@ export class Patrones implements OnDestroy {
    *
    * Cada una enlaza al patrón que la ilustra — las anclas existen desde T25.
    *
+   * `tono` va SEPARADO de `ancla` a propósito, y no es purismo: el color estuvo atado al ancla y se
+   * rompió en cuanto T23 las renombró a la forma derivada del título. Un ancla es una URL pública
+   * que puede cambiar; el color de una columna no debería depender de eso.
+   *
    * Las claves llevan NOMBRE (`forma`, `reacciona`, `duracion`) y no índice: primero fueron un
    * array en el JSON y Transloco no indexa arrays con notación de punto — la página salió pintando
    * `patrones.decision.cols.0.pregunta` en crudo. Con nombre además se lee qué es cada columna.
    */
   protected readonly columnasDecision = [
     {
-      ancla: 'menu',
+      ancla: 'menu-hamburger-x',
+      tono: 'morph',
       pregunta: 'patrones.decision.forma.pregunta',
       motor: 'patrones.decision.forma.motor',
       ejemplos: 'patrones.decision.forma.ejemplos',
@@ -151,7 +166,8 @@ export class Patrones implements OnDestroy {
       ver: 'patrones.decision.forma.ver',
     },
     {
-      ancla: 'bell',
+      ancla: 'bell-with-notification',
+      tono: 'coreografia',
       pregunta: 'patrones.decision.reacciona.pregunta',
       motor: 'patrones.decision.reacciona.motor',
       ejemplos: 'patrones.decision.reacciona.ejemplos',
@@ -159,7 +175,8 @@ export class Patrones implements OnDestroy {
       ver: 'patrones.decision.reacciona.ver',
     },
     {
-      ancla: 'send',
+      ancla: 'three-state-action',
+      tono: 'bucle',
       pregunta: 'patrones.decision.duracion.pregunta',
       motor: 'patrones.decision.duracion.motor',
       ejemplos: 'patrones.decision.duracion.ejemplos',
@@ -167,6 +184,54 @@ export class Patrones implements OnDestroy {
       ver: 'patrones.decision.duracion.ver',
     },
   ];
+
+  // ── T23 · Índice, anclas y cierre ───────────────────────────────────────────
+
+  /**
+   * El índice lateral. Los nueve patrones, con su ancla y su clave de título — las mismas claves
+   * que pinta cada `<h2>`, así que el índice no puede quedarse diciendo un nombre viejo.
+   */
+  protected readonly indicePatrones = [
+    { ancla: 'copy-to-clipboard', titulo: 'patrones.copiar.titulo' },
+    { ancla: 'theme-switch', titulo: 'patrones.tema.titulo' },
+    { ancla: 'three-state-action', titulo: 'patrones.enviar.titulo' },
+    { ancla: 'reaction', titulo: 'patrones.reaccion.titulo' },
+    { ancla: 'menu-hamburger-x', titulo: 'patrones.menu.titulo' },
+    { ancla: 'player-play-pause', titulo: 'patrones.play.titulo' },
+    { ancla: 'accordion', titulo: 'patrones.acordeon.titulo' },
+    { ancla: 'bell-with-notification', titulo: 'patrones.campana.titulo' },
+    { ancla: 'search-close', titulo: 'patrones.buscar.titulo' },
+  ];
+
+  /** Qué patrón está a la vista. `null` hasta que el observador dice algo. */
+  protected readonly anclaVisible = signal<string | null>(null);
+  private observador?: IntersectionObserver;
+
+  /**
+   * Marca el patrón visible mientras se hace scroll.
+   *
+   * `IntersectionObserver` y no un listener de scroll: el scroll dispara decenas de veces por
+   * segundo y esto solo necesita saber cuándo ENTRA o SALE un patrón del viewport.
+   *
+   * El `rootMargin` recorta 45% arriba y 45% abajo, dejando una franja del 10% en el centro de la
+   * pantalla: así el resaltado marca lo que estás MIRANDO, no lo primero que asoma por el borde.
+   * Sin eso, con nueve patrones había siempre dos o tres intersecando a la vez.
+   */
+  private conectarIndice(): void {
+    if (typeof IntersectionObserver === 'undefined') return;
+    this.observador = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) {
+          if (e.isIntersecting) this.anclaVisible.set(e.target.id);
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    );
+    for (const { ancla } of this.indicePatrones) {
+      const el = this.host.nativeElement.querySelector(`#${ancla}`);
+      if (el) this.observador.observe(el);
+    }
+  }
 
   // ── T25 · Los cinco patrones que la gente viene buscando ────────────────────
 
@@ -309,7 +374,40 @@ export class Patrones implements OnDestroy {
     this.relojes.push(setTimeout(fn, ms));
   }
 
+  constructor() {
+    // Tras el primer render: antes de eso los `<article>` no existen y no hay qué observar.
+    afterNextRender(() => {
+      this.conectarIndice();
+      this.irAlAncla();
+    });
+  }
+
+  /**
+   * Vuelve a aplicar el ancla de la URL una vez que la página ya asentó.
+   *
+   * **Medido**: entrar directo a `/en/patterns#accordion` aterrizaba a 1376 px del destino, aunque
+   * disparar el mismo hash DESDE la página funcionaba. La diferencia es el momento — con la página
+   * prerenderizada el navegador intenta desplazar en cuanto ve el hash, y entonces todavía faltan
+   * por asentar las fuentes y los nueve demos, así que el destino se mueve DEBAJO del scroll ya
+   * hecho. Es el primer criterio de aceptación de T23, y sin esto no se cumplía.
+   *
+   * Los 88 px son el mismo offset que usa el resto del sitio (`ViewportScroller.setOffset`), y por
+   * la misma razón: el header es fijo y mide 71: sin el hueco, el destino queda debajo de él.
+   */
+  private irAlAncla(): void {
+    const id = location.hash.slice(1);
+    if (!id) return;
+    const destino = this.host.nativeElement.querySelector(`#${CSS.escape(id)}`);
+    if (!destino) return;
+    // `requestAnimationFrame`: dentro del mismo cuadro el layout todavía puede moverse.
+    requestAnimationFrame(() => {
+      const y = destino.getBoundingClientRect().top + window.scrollY - 88;
+      window.scrollTo({ top: y, behavior: 'auto' });
+    });
+  }
+
   ngOnDestroy(): void {
     for (const r of this.relojes) clearTimeout(r);
+    this.observador?.disconnect();
   }
 }

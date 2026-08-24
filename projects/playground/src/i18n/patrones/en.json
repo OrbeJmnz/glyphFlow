@@ -104,5 +104,12 @@
       "porque": "A morph has a start and an end. \"Loading\" has neither, so it needs an animation that cycles.",
       "ver": "See three-state action"
     }
+  },
+  "indice": "Patterns on this page",
+  "enlazar": "Link to this pattern",
+  "cierre": {
+    "pregunta": "Missing a pattern, or want to build your own?",
+    "issue": "Open an issue",
+    "editor": "Try the editor"
   }
 }

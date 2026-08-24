@@ -104,5 +104,12 @@
       "porque": "Un morph tiene principio y fin. «Cargando» no tiene ninguno, así que necesita una animación que cicle.",
       "ver": "Ver la acción de tres estados"
     }
+  },
+  "indice": "Patrones de esta página",
+  "enlazar": "Enlazar a este patrón",
+  "cierre": {
+    "pregunta": "¿Te falta un patrón, o quieres armar el tuyo?",
+    "issue": "Abrir un issue",
+    "editor": "Probar el editor"
   }
 }
