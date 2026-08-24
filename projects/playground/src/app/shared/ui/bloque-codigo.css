@@ -68,6 +68,18 @@ pre {
   border: 1px solid var(--gf-borde-suave);
   border-radius: 0.6rem;
   background: var(--bloque-fondo, var(--gf-panel));
+  /*
+   * El código se ENVUELVE en vez de desplazarse. Medido a 1366 px: la página de SSR pedía 879 px
+   * dentro de una caja de 702, o sea una barra horizontal dentro del bloque — y hay 18 líneas de
+   * más de 80 caracteres repartidas por los snippets del sitio. Acortarlas todas obligaría a
+   * partir genéricos reales (`viewChild.required<ElementRef<HTMLInputElement>>`) en sitios donde
+   * nadie los partiría al escribir, y el problema volvería con el siguiente snippet largo.
+   *
+   * `overflow-x: auto` se queda de red: un token sin espacios que no quepa —una URL larga— sigue
+   * necesitando por dónde salir.
+   */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   overflow-x: auto;
 }
 

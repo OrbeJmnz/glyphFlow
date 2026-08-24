@@ -41,6 +41,13 @@ export const SNIPPET_DECORATIVO_VS_SEMANTICO = `<!-- Decorative: the button alre
 <!-- Semantic: no text, the icon carries the meaning -->
 <button><gf-icon [iconDef]="save" label="Save" /></button>`;
 
+/*
+ * El mensaje va partido en dos líneas a propósito. En una sola medía 107 caracteres y el bloque
+ * pedía 879 px dentro de una caja de 702 a 1366 px de ventana: barra de desplazamiento horizontal
+ * dentro del código, que es justo lo que T27 viene a quitar. `snippets:check` lo vigila.
+ */
 export const SNIPPET_GUARDIA_WINDOW = `if (typeof window !== 'undefined') {
-  throw new Error('This smoke test must run without a global \`window\` — if it exists, it proves nothing.');
+  throw new Error(
+    'This smoke test must run without a global \`window\` — if it exists, it proves nothing.',
+  );
 }`;
