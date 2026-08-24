@@ -5,7 +5,7 @@
 
 <div class="patrones">
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
-  <article class="patron">
+  <article class="patron" id="copy">
     <div class="demo">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
         <gf-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
@@ -31,7 +31,7 @@
   </article>
 
   <!-- ── Tema ───────────────────────────────────────────────────────────────── -->
-  <article class="patron">
+  <article class="patron" id="theme">
     <div class="demo demo-tema" [class.claro]="claro()">
       <button
         type="button"
@@ -57,7 +57,7 @@
   </article>
 
   <!-- ── Enviar ─────────────────────────────────────────────────────────────── -->
-  <article class="patron">
+  <article class="patron" id="send">
     <div class="demo">
       <button
         type="button"
@@ -98,7 +98,7 @@
   </article>
 
   <!-- ── Me gusta ───────────────────────────────────────────────────────────── -->
-  <article class="patron">
+  <article class="patron" id="reaction">
     <div class="demo">
       <button
         type="button"
@@ -120,6 +120,161 @@
         [codigo]="SNIPPET_REACCION"
         [completo]="SNIPPET_REACCION_COMPLETO"
         ejemplo="like-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Menú: hamburguesa → X ──────────────────────────────────────────────── -->
+  <article class="patron" id="menu">
+    <div class="demo">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-expanded]="menuAbierto()"
+        aria-controls="demo-menu-panel"
+        [attr.aria-label]="ariaMenu()"
+        (click)="alternarMenu()"
+        (keydown.escape)="cerrarMenuDemo($event)"
+      >
+        <gf-icon-morph [icon]="iconoMenu()" [size]="20" spring="snappy" />
+      </button>
+      @if (menuAbierto()) {
+        <ul id="demo-menu-panel" class="demo-menu">
+          <li>{{ 'patrones.menu.uno' | transloco }}</li>
+          <li>{{ 'patrones.menu.dos' | transloco }}</li>
+        </ul>
+      }
+    </div>
+    <div class="texto">
+      <h2>{{ 'patrones.menu.titulo' | transloco }}</h2>
+      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <p [innerHTML]="'patrones.menu.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.menu.detalle' | transloco"></p>
+      <app-bloque-codigo
+        [codigo]="SNIPPET_MENU"
+        [completo]="SNIPPET_MENU_COMPLETO"
+        ejemplo="menu-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Reproductor: play → pause ──────────────────────────────────────────── -->
+  <article class="patron" id="play">
+    <div class="demo">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="reproduciendo()"
+        [attr.aria-label]="ariaPlay()"
+        (click)="reproduciendo.set(!reproduciendo())"
+      >
+        <gf-icon-morph [icon]="iconoPlay()" [size]="20" spring="snappy" />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>{{ 'patrones.play.titulo' | transloco }}</h2>
+      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <p [innerHTML]="'patrones.play.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.play.detalle' | transloco"></p>
+      <app-bloque-codigo
+        [codigo]="SNIPPET_PLAY"
+        [completo]="SNIPPET_PLAY_COMPLETO"
+        ejemplo="play-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Acordeón: el contraejemplo. Rotación, NO morph. ────────────────────── -->
+  <article class="patron" id="accordion">
+    <div class="demo">
+      <button
+        type="button"
+        app-boton
+        class="demo-acordeon"
+        [attr.aria-expanded]="desplegado()"
+        (click)="desplegado.set(!desplegado())"
+      >
+        {{ 'patrones.acordeon.boton' | transloco }}
+        <gf-icon
+          class="chevron"
+          [class.girado]="desplegado()"
+          [iconDef]="chevron"
+          [size]="16"
+          trigger="manual"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>{{ 'patrones.acordeon.titulo' | transloco }}</h2>
+      <p class="motor motor-ninguno">{{ 'patrones.motor.ninguno' | transloco }}</p>
+      <p [innerHTML]="'patrones.acordeon.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.acordeon.detalle' | transloco"></p>
+      <app-bloque-codigo [codigo]="SNIPPET_ACORDEON" />
+    </div>
+  </article>
+
+  <!-- ── Campana: choreography sobre la misma forma ─────────────────────────── -->
+  <article class="patron" id="bell">
+    <div class="demo">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo demo-campana"
+        [attr.aria-label]="'patrones.campana.aria' | transloco"
+        (click)="marcarLeidas()"
+      >
+        <gf-icon [iconDef]="campana" [size]="20" trigger="hover" />
+        @if (noLeidas() > 0) {
+          <span class="punto" aria-hidden="true"></span>
+        }
+      </button>
+    </div>
+    <div class="texto">
+      <h2>{{ 'patrones.campana.titulo' | transloco }}</h2>
+      <p class="motor motor-coreografia">{{ 'patrones.motor.coreografia' | transloco }}</p>
+      <p [innerHTML]="'patrones.campana.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.campana.detalle' | transloco"></p>
+      <app-bloque-codigo
+        [codigo]="SNIPPET_CAMPANA"
+        [completo]="SNIPPET_CAMPANA_COMPLETO"
+        ejemplo="bell-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Buscar → cerrar ────────────────────────────────────────────────────── -->
+  <article class="patron" id="search">
+    <div class="demo">
+      <div class="demo-buscar" [class.abierto]="buscando()">
+        <input
+          #campoBuscar
+          type="search"
+          [attr.aria-label]="'patrones.buscar.campo' | transloco"
+          [attr.tabindex]="buscando() ? null : -1"
+        />
+        <button
+          type="button"
+          app-boton
+          class="icono-solo"
+          [attr.aria-expanded]="buscando()"
+          [attr.aria-label]="ariaBuscar()"
+          (click)="alternarBuscar(campoBuscar)"
+        >
+          <gf-icon-morph [icon]="iconoBuscar()" [size]="18" spring="snappy" />
+        </button>
+      </div>
+    </div>
+    <div class="texto">
+      <h2>{{ 'patrones.buscar.titulo' | transloco }}</h2>
+      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <p [innerHTML]="'patrones.buscar.descripcion' | transloco"></p>
+      <p class="detalle" [innerHTML]="'patrones.buscar.detalle' | transloco"></p>
+      <app-bloque-codigo
+        [codigo]="SNIPPET_BUSCAR"
+        [completo]="SNIPPET_BUSCAR_COMPLETO"
+        ejemplo="search-toggle"
       />
     </div>
   </article>

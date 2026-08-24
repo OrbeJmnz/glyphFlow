@@ -19,7 +19,7 @@ type SendState = 'idle' | 'sending' | 'sent';
   `,
 })
 export class SendButton {
-  // Expuestos a la plantilla: los iconos son valores, no nombres mágicos.
+  // Exposed to the template: icons are values, not magic names.
   protected readonly loaderCircleIcon = loaderCircleIcon;
   protected readonly circleCheckIcon = circleCheckIcon;
   protected readonly sendIcon = sendIcon;

@@ -14,7 +14,7 @@ import { GfIconMorphComponent } from 'glyphflow/morph';
 export class ThemeToggle {
   protected readonly light = signal(false);
 
-  // El icono dice A DÓNDE vas, no dónde estás: en oscuro se ofrece el sol.
+  // The icon says WHERE you are going, not where you are: in dark mode it offers the sun.
   protected readonly icon = computed(() => (this.light() ? moonIcon : sunIcon));
   protected readonly label = computed(() => (this.light() ? 'Dark theme' : 'Light theme'));
 

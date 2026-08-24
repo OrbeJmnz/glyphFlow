@@ -1,16 +1,23 @@
 import { Component, signal, computed, inject, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  GfIconComponent,
+  bellIcon,
   checkIcon,
+  chevronDownIcon,
   circleCheckIcon,
   copyIcon,
+  GfIconComponent,
   heartIcon,
   loaderCircleIcon,
+  menuIcon,
   moonIcon,
+  pauseIcon,
+  playIcon,
+  searchIcon,
   sendIcon,
   sunIcon,
   type AnimatedIconDef,
+  xIcon,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
@@ -18,10 +25,19 @@ import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import {
+  SNIPPET_ACORDEON,
+  SNIPPET_BUSCAR,
+  SNIPPET_BUSCAR_COMPLETO,
+  SNIPPET_CAMPANA,
+  SNIPPET_CAMPANA_COMPLETO,
   SNIPPET_COPIAR,
   SNIPPET_COPIAR_COMPLETO,
   SNIPPET_ENVIAR,
   SNIPPET_ENVIAR_COMPLETO,
+  SNIPPET_MENU,
+  SNIPPET_MENU_COMPLETO,
+  SNIPPET_PLAY,
+  SNIPPET_PLAY_COMPLETO,
   SNIPPET_REACCION,
   SNIPPET_REACCION_COMPLETO,
   SNIPPET_TEMA,
@@ -72,6 +88,15 @@ export class Patrones implements OnDestroy {
   protected readonly SNIPPET_TEMA_COMPLETO = SNIPPET_TEMA_COMPLETO;
   protected readonly SNIPPET_ENVIAR_COMPLETO = SNIPPET_ENVIAR_COMPLETO;
   protected readonly SNIPPET_REACCION_COMPLETO = SNIPPET_REACCION_COMPLETO;
+  protected readonly SNIPPET_MENU = SNIPPET_MENU;
+  protected readonly SNIPPET_MENU_COMPLETO = SNIPPET_MENU_COMPLETO;
+  protected readonly SNIPPET_PLAY = SNIPPET_PLAY;
+  protected readonly SNIPPET_PLAY_COMPLETO = SNIPPET_PLAY_COMPLETO;
+  protected readonly SNIPPET_ACORDEON = SNIPPET_ACORDEON;
+  protected readonly SNIPPET_CAMPANA = SNIPPET_CAMPANA;
+  protected readonly SNIPPET_CAMPANA_COMPLETO = SNIPPET_CAMPANA_COMPLETO;
+  protected readonly SNIPPET_BUSCAR = SNIPPET_BUSCAR;
+  protected readonly SNIPPET_BUSCAR_COMPLETO = SNIPPET_BUSCAR_COMPLETO;
 
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 
@@ -103,6 +128,85 @@ export class Patrones implements OnDestroy {
     }
     this.copiado.set(true);
     this.enUnRato(() => this.copiado.set(false), 1600);
+  }
+
+  // ── T25 · Los cinco patrones que la gente viene buscando ────────────────────
+
+  /**
+   * Hamburguesa → X. **El ejemplo canónico de morph de iconos**, y el primero que busca quien
+   * llega a evaluar la librería. Es el mismo control del header de este sitio, que ya lo usaba —
+   * aquí se enseña aislado, con lo que un menú de verdad necesita: `aria-expanded` y el foco de
+   * vuelta al disparador al cerrar.
+   */
+  protected readonly menuAbierto = signal(false);
+  protected readonly iconoMenu = computed<MorphIcon>(() => (this.menuAbierto() ? xIcon : menuIcon));
+  private readonly claveMenu = computed(() =>
+    this.menuAbierto() ? 'patrones.menu.cerrar' : 'patrones.menu.abrir',
+  );
+  protected readonly ariaMenu = translateSignal(this.claveMenu);
+
+  protected alternarMenu(): void {
+    this.menuAbierto.update((v) => !v);
+  }
+
+  /**
+   * Cierra y DEVUELVE el foco al disparador. Sin esto, `Esc` deja el foco en el `<body>` y el
+   * siguiente `Tab` reinicia el recorrido desde el header.
+   *
+   * El elemento sale de `ev.currentTarget` y NO de una referencia de plantilla: `#dispMenu` sobre
+   * un `<button app-boton>` resuelve al DIRECTIVO `Boton`, no al elemento, y pasarlo directo no
+   * compila. Es el mismo patrón que ya usa `teclaVelocidad` en el shell.
+   */
+  protected cerrarMenuDemo(ev: Event): void {
+    this.menuAbierto.set(false);
+    (ev.currentTarget as HTMLElement).focus();
+  }
+
+  /** Play / pause. Dos formas distintas para el mismo control: morph. */
+  protected readonly reproduciendo = signal(false);
+  protected readonly iconoPlay = computed<MorphIcon>(() =>
+    this.reproduciendo() ? pauseIcon : playIcon,
+  );
+  private readonly clavePlay = computed(() =>
+    this.reproduciendo() ? 'patrones.play.pausar' : 'patrones.play.reproducir',
+  );
+  protected readonly ariaPlay = translateSignal(this.clavePlay);
+
+  /**
+   * El chevron del acordeón. **NO es morph, y ese es el punto**: la forma no cambia, gira. Meter
+   * un motor de interpolación de trazos para rotar 180° sería pagar por resolver un problema que
+   * no se tiene — es el contraejemplo que hace concreta la regla de cuándo NO usar morph.
+   */
+  protected readonly desplegado = signal(false);
+  /* `trigger="manual"` y nadie llama a `play()`: la geometría se pinta quieta y el giro lo hace
+     CSS. Es lo que el patrón enseña — el motor no participa. */
+  protected readonly chevron: AnimatedIconDef = chevronDownIcon;
+
+  /**
+   * La campana. Choreography sobre la MISMA forma: no hay a qué transicionar, hay un movimiento
+   * con intención sobre una figura que no cambia.
+   */
+  protected readonly campana: AnimatedIconDef = bellIcon;
+  protected readonly noLeidas = signal(3);
+
+  protected marcarLeidas(): void {
+    this.noLeidas.set(0);
+  }
+
+  /** Buscar → cerrar. El campo se expande y el icono dice qué hace ahora el botón. */
+  protected readonly buscando = signal(false);
+  protected readonly iconoBuscar = computed<MorphIcon>(() =>
+    this.buscando() ? xIcon : searchIcon,
+  );
+  private readonly claveBuscar = computed(() =>
+    this.buscando() ? 'patrones.buscar.cerrar' : 'patrones.buscar.abrir',
+  );
+  protected readonly ariaBuscar = translateSignal(this.claveBuscar);
+
+  protected alternarBuscar(campo: HTMLInputElement): void {
+    this.buscando.update((v) => !v);
+    // El foco entra al campo al abrir; al cerrar se queda en el botón, que es donde estaba la mano.
+    if (this.buscando()) queueMicrotask(() => campo.focus());
   }
 
   // ── Tema claro/oscuro ───────────────────────────────────────────────────────

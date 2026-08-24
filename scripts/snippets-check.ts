@@ -83,6 +83,26 @@ for (const [nombre, codigo] of completos) {
   }
 }
 
+// --- 4. Nada de español dentro del código que se publica ---
+//
+// Los snippets se copian y además se generan como proyectos reales en `examples/`, o sea son
+// superficie pública. Un comentario en español ahí es el mismo bug que dejó al README en español
+// enseñando la API de la v1 y al `og:title` anunciando en inglés una página en español: la frontera
+// que fijó T19 es que lo que sale al público va en inglés, y el código lo es.
+//
+// Se revisa el VALOR del snippet, no el archivo: la documentación de `snippets.ts` sobre sí mismo
+// sigue en español, como todo el código interno del repo.
+for (const [nombre, codigo] of Object.entries(patrones)) {
+  const acentos = (codigo as string).match(/[áéíóúñÁÉÍÓÚÑ¿¡]/g);
+  if (acentos) {
+    console.error(
+      `  ✗ ${nombre}: contiene español (${[...new Set(acentos)].join('')}). Los snippets se copian ` +
+        `y se publican en examples/ — van en inglés.`,
+    );
+    fallos++;
+  }
+}
+
 if (fallos > 0) {
   console.error(`\nsnippets-check FALLÓ — ${fallos} problema(s) en los snippets copiables.`);
   process.exit(1);

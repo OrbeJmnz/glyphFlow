@@ -19,7 +19,7 @@ export class CopyButton {
   protected readonly icon = computed(() => (this.copied() ? checkIcon : copyIcon));
 
   protected async copy(): Promise<void> {
-    // Si el navegador lo bloquea, el estado NO cambia: nada de palomitas sobre un buffer vacío.
+    // If the browser blocks it, the state does NOT change: no check mark over an empty buffer.
     try {
       await navigator.clipboard.writeText(this.text);
     } catch {

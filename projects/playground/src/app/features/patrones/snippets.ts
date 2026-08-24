@@ -73,7 +73,7 @@ export class CopyButton {
   protected readonly icon = computed(() => (this.copied() ? checkIcon : copyIcon));
 
   protected async copy(): Promise<void> {
-    // Si el navegador lo bloquea, el estado NO cambia: nada de palomitas sobre un buffer vacío.
+    // If the browser blocks it, the state does NOT change: no check mark over an empty buffer.
     try {
       await navigator.clipboard.writeText(this.text);
     } catch {
@@ -100,7 +100,7 @@ import { GfIconMorphComponent } from 'glyphflow/morph';
 export class ThemeToggle {
   protected readonly light = signal(false);
 
-  // El icono dice A DÓNDE vas, no dónde estás: en oscuro se ofrece el sol.
+  // The icon says WHERE you are going, not where you are: in dark mode it offers the sun.
   protected readonly icon = computed(() => (this.light() ? moonIcon : sunIcon));
   protected readonly label = computed(() => (this.light() ? 'Dark theme' : 'Light theme'));
 
@@ -130,7 +130,7 @@ type SendState = 'idle' | 'sending' | 'sent';
   \`,
 })
 export class SendButton {
-  // Expuestos a la plantilla: los iconos son valores, no nombres mágicos.
+  // Exposed to the template: icons are values, not magic names.
   protected readonly loaderCircleIcon = loaderCircleIcon;
   protected readonly circleCheckIcon = circleCheckIcon;
   protected readonly sendIcon = sendIcon;
@@ -166,5 +166,166 @@ export class LikeButton {
   protected toggle(): void {
     this.liked.update((v) => !v);
     this.votes.update((n) => (this.liked() ? n + 1 : n - 1));
+  }
+}`;
+
+/*
+ * ── T25 · Los cinco que faltaban ──────────────────────────────────────────────
+ *
+ * El acordeón es el ÚNICO sin versión completa ni proyecto, y a propósito: su fragmento son cuatro
+ * líneas de CSS, no un componente. Inventarle un envoltorio sería fingir que necesita uno.
+ */
+export const SNIPPET_MENU = `readonly open = signal(false);
+readonly icon = computed(() => (this.open() ? xIcon : menuIcon));
+
+<button [attr.aria-expanded]="open()" aria-controls="menu" (click)="open.set(!open())">
+  <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+</button>`;
+
+export const SNIPPET_MENU_COMPLETO = `import { Component, computed, signal, ElementRef, viewChild } from '@angular/core';
+import { menuIcon, xIcon } from 'glyphflow';
+import { GfIconMorphComponent } from 'glyphflow/morph';
+
+@Component({
+  selector: 'app-menu-button',
+  imports: [GfIconMorphComponent],
+  template: \`
+    <button
+      #trigger
+      type="button"
+      [attr.aria-expanded]="open()"
+      aria-controls="menu-panel"
+      [attr.aria-label]="open() ? 'Close menu' : 'Open menu'"
+      (click)="open.set(!open())"
+      (keydown.escape)="close()"
+    >
+      <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+    </button>
+
+    @if (open()) {
+      <ul id="menu-panel">
+        <li>Profile</li>
+        <li>Sign out</li>
+      </ul>
+    }
+  \`,
+})
+export class MenuButton {
+  private readonly trigger = viewChild.required<ElementRef<HTMLElement>>('trigger');
+
+  protected readonly open = signal(false);
+  protected readonly icon = computed(() => (this.open() ? xIcon : menuIcon));
+
+  /** Returns focus to the trigger: otherwise Escape leaves it on the <body>. */
+  protected close(): void {
+    this.open.set(false);
+    this.trigger().nativeElement.focus();
+  }
+}`;
+
+export const SNIPPET_PLAY = `readonly playing = signal(false);
+readonly icon = computed(() => (this.playing() ? pauseIcon : playIcon));
+
+<button [attr.aria-pressed]="playing()" (click)="playing.set(!playing())">
+  <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+</button>`;
+
+export const SNIPPET_PLAY_COMPLETO = `import { Component, computed, signal } from '@angular/core';
+import { pauseIcon, playIcon } from 'glyphflow';
+import { GfIconMorphComponent } from 'glyphflow/morph';
+
+@Component({
+  selector: 'app-play-button',
+  imports: [GfIconMorphComponent],
+  template: \`
+    <button
+      type="button"
+      [attr.aria-pressed]="playing()"
+      [attr.aria-label]="playing() ? 'Pause' : 'Play'"
+      (click)="playing.set(!playing())"
+    >
+      <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+    </button>
+  \`,
+})
+export class PlayButton {
+  protected readonly playing = signal(false);
+  protected readonly icon = computed(() => (this.playing() ? pauseIcon : playIcon));
+}`;
+
+export const SNIPPET_ACORDEON = `<!-- No morph: the shape does not change, it ROTATES. -->
+<gf-icon [iconDef]="chevronDownIcon" [size]="16" trigger="none" [class.open]="open()" />
+
+gf-icon { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+gf-icon.open { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { gf-icon { transition: none; } }`;
+
+export const SNIPPET_CAMPANA = `<!-- Same shape, movement with intent: choreography. -->
+<gf-icon [iconDef]="bellIcon" [size]="20" trigger="hover" />`;
+
+export const SNIPPET_CAMPANA_COMPLETO = `import { Component, signal } from '@angular/core';
+import { GfIconComponent, bellIcon } from 'glyphflow';
+
+@Component({
+  selector: 'app-bell-button',
+  imports: [GfIconComponent],
+  template: \`
+    <button type="button" [attr.aria-label]="label()" (click)="unread.set(0)">
+      <gf-icon [iconDef]="bellIcon" [size]="20" trigger="hover" />
+      @if (unread() > 0) {
+        <span aria-hidden="true">•</span>
+      }
+    </button>
+  \`,
+})
+export class BellButton {
+  protected readonly bellIcon = bellIcon;
+  protected readonly unread = signal(3);
+
+  protected label(): string {
+    const n = this.unread();
+    return n > 0 ? n + ' unread notifications' : 'No unread notifications';
+  }
+}`;
+
+export const SNIPPET_BUSCAR = `readonly open = signal(false);
+readonly icon = computed(() => (this.open() ? xIcon : searchIcon));
+
+<input [attr.tabindex]="open() ? null : -1" />
+<button [attr.aria-expanded]="open()" (click)="toggle()">
+  <gf-icon-morph [icon]="icon()" [size]="18" spring="snappy" />
+</button>`;
+
+export const SNIPPET_BUSCAR_COMPLETO = `import { Component, computed, signal, ElementRef, viewChild } from '@angular/core';
+import { searchIcon, xIcon } from 'glyphflow';
+import { GfIconMorphComponent } from 'glyphflow/morph';
+
+@Component({
+  selector: 'app-search-toggle',
+  imports: [GfIconMorphComponent],
+  template: \`
+    <div [class.open]="open()">
+      <input #field type="search" aria-label="Search" [attr.tabindex]="open() ? null : -1" />
+      <button
+        type="button"
+        [attr.aria-expanded]="open()"
+        [attr.aria-label]="open() ? 'Close search' : 'Open search'"
+        (click)="toggle()"
+      >
+        <gf-icon-morph [icon]="icon()" [size]="18" spring="snappy" />
+      </button>
+    </div>
+  \`,
+})
+export class SearchToggle {
+  private readonly field = viewChild.required<ElementRef<HTMLInputElement>>('field');
+
+  protected readonly open = signal(false);
+  protected readonly icon = computed(() => (this.open() ? xIcon : searchIcon));
+
+  protected toggle(): void {
+    this.open.update((v) => !v);
+    // Focus enters the field on open; on close it stays on the button, where the hand was.
+    if (this.open()) queueMicrotask(() => this.field().nativeElement.focus());
   }
 }`;

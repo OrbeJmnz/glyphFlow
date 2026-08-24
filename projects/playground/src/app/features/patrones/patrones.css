@@ -221,3 +221,109 @@ pre code.degradado-texto-sutil {
 .nota-api a:hover {
   color: var(--gf-texto);
 }
+
+/*
+ * ── T25 · Los cinco patrones nuevos ───────────────────────────────────────────
+ *
+ * El rótulo de motor. Va DEBAJO del título y no como insignia flotante: es una clasificación que
+ * se lee con el título, no una etiqueta que decore la esquina.
+ */
+.motor {
+  margin: -0.35rem 0 0.6rem;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--gf-acento-claro);
+}
+
+/* El contraejemplo se marca distinto a propósito: si los tres rótulos se vieran igual, la página
+   diría que rotar con CSS es "otro motor más" en vez de la ausencia de uno. */
+.motor-coreografia {
+  color: var(--gf-marca-2);
+}
+
+.motor-ninguno {
+  color: var(--gf-texto-apagado);
+}
+
+.demo-menu {
+  margin: 0.6rem 0 0;
+  padding: 0.35rem 0;
+  list-style: none;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.5rem;
+  background: var(--gf-panel-alto);
+  font-size: 0.8rem;
+  color: var(--gf-texto-medio);
+}
+
+.demo-menu li {
+  padding: 0.25rem 0.85rem;
+}
+
+.demo-acordeon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/*
+ * La rotación del chevron. ESTO es el patrón que el bloque de al lado enseña: un `transform`, no
+ * un morph. Si se cambiara por interpolación de trazos, el contraejemplo dejaría de serlo.
+ */
+.demo-acordeon .chevron {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.demo-acordeon .chevron.girado {
+  transform: rotate(180deg);
+}
+
+.demo-campana {
+  position: relative;
+}
+
+.demo-campana .punto {
+  position: absolute;
+  top: 0.42rem;
+  right: 0.42rem;
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid var(--gf-panel);
+  border-radius: 50%;
+  background: var(--gf-marca-2);
+}
+
+.demo-buscar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
+}
+
+.demo-buscar input {
+  width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--gf-texto);
+  font: inherit;
+  font-size: 0.82rem;
+  outline: none;
+  transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.demo-buscar.abierto input {
+  width: 8.5rem;
+  padding: 0 0.3rem 0 0.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-acordeon .chevron,
+  .demo-buscar input {
+    transition: none;
+  }
+}

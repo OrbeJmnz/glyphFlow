@@ -37,5 +37,46 @@
     "titulo": "Reaction",
     "descripcion": "There's no morph here: the shape doesn't change, only the gesture. <code>trigger=\"tap\"</code> replays the heart's curated choreography on every click, and the button supplies the color.",
     "detalle": "The rule for picking an engine: if the icon <strong>changes shape</strong>, morph; if the same icon <strong>reacts</strong>, choreography. Using morph here would mean paying for the interpolation of two identical shapes."
+  },
+  "motor": {
+    "morph": "morph",
+    "coreografia": "choreography",
+    "ninguno": "no engine — CSS"
+  },
+  "menu": {
+    "titulo": "Menu: hamburger → X",
+    "abrir": "Open menu",
+    "cerrar": "Close menu",
+    "uno": "Profile",
+    "dos": "Sign out",
+    "descripcion": "Two different shapes for one control. The icon says what the button <strong>does now</strong>, not what it is.",
+    "detalle": "The trigger owns <code>aria-expanded</code>, and <kbd>Esc</kbd> closes returning focus to it. Without that, Escape leaves focus on the <code>&lt;body&gt;</code> and the next <kbd>Tab</kbd> restarts from the top of the page."
+  },
+  "play": {
+    "titulo": "Player: play → pause",
+    "reproducir": "Play",
+    "pausar": "Pause",
+    "descripcion": "The same control, two shapes. <code>aria-pressed</code> carries the state; the morph only carries the change.",
+    "detalle": "Not a spinner and not a swap: the triangle becomes the two bars. If it just swapped, the eye would read it as two buttons instead of one that changed."
+  },
+  "acordeon": {
+    "titulo": "Accordion: the counterexample",
+    "boton": "Details",
+    "descripcion": "This one <strong>is not morph</strong>, and that is the point: the shape does not change, it <strong>rotates</strong>.",
+    "detalle": "A shape-interpolation engine to turn 180° is paying for a problem you do not have. A CSS <code>transform</code> does it, honours <code>prefers-reduced-motion</code> with three lines, and ships zero bytes of runtime."
+  },
+  "campana": {
+    "titulo": "Bell with notification",
+    "aria": "Mark notifications as read",
+    "descripcion": "Nothing to transition to: the shape stays the same and the <strong>movement</strong> carries the meaning.",
+    "detalle": "That is what separates the two engines. Morph needs a destination shape; choreography needs a reason to move. Here there is no second shape — a bell that rang is still a bell."
+  },
+  "buscar": {
+    "titulo": "Search → close",
+    "abrir": "Open search",
+    "cerrar": "Close search",
+    "campo": "Search",
+    "descripcion": "The field expands and the icon announces what the button will do next.",
+    "detalle": "While collapsed the input is out of the tab order (<code>tabindex=\"-1\"</code>): a field nobody can see should not be a stop for someone navigating by keyboard."
   }
 }

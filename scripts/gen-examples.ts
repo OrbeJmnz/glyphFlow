@@ -56,6 +56,34 @@ export const EJEMPLOS: Ejemplo[] = [
     titulo: 'Reaction',
     fuente: SNIPPETS.SNIPPET_REACCION_COMPLETO,
   },
+  {
+    dir: 'menu-button',
+    clase: 'MenuButton',
+    selector: 'app-menu-button',
+    titulo: 'Menu: hamburger to X',
+    fuente: SNIPPETS.SNIPPET_MENU_COMPLETO,
+  },
+  {
+    dir: 'play-button',
+    clase: 'PlayButton',
+    selector: 'app-play-button',
+    titulo: 'Player: play to pause',
+    fuente: SNIPPETS.SNIPPET_PLAY_COMPLETO,
+  },
+  {
+    dir: 'bell-button',
+    clase: 'BellButton',
+    selector: 'app-bell-button',
+    titulo: 'Bell with notification',
+    fuente: SNIPPETS.SNIPPET_CAMPANA_COMPLETO,
+  },
+  {
+    dir: 'search-toggle',
+    clase: 'SearchToggle',
+    selector: 'app-search-toggle',
+    titulo: 'Search to close',
+    fuente: SNIPPETS.SNIPPET_BUSCAR_COMPLETO,
+  },
 ];
 
 function archivosDe(e: Ejemplo): Record<string, string> {

@@ -31,10 +31,33 @@ describe('Patrones', () => {
     return html.querySelectorAll<HTMLButtonElement>('.demo button.ui-boton')[i];
   }
 
-  it('pinta los cuatro patrones, cada uno con su snippet', async () => {
+  /**
+   * Antes esto fijaba «cuatro patrones» con un número a secas, y al llegar T25 falló diciendo
+   * «expected 9 to be 4» — cierto, pero no dice si los cinco nuevos están BIEN formados.
+   *
+   * Ahora la cuenta solo pone un piso (no puede haber menos de los que hay) y lo que se comprueba
+   * de verdad es la estructura de CADA uno: sin `id` no se puede enlazar, sin `<h2>` no se puede
+   * escanear, y sin bloque de código no es un patrón, es un párrafo.
+   */
+  it('cada patrón trae ancla, título y su bloque de código', async () => {
     const { html } = await montar();
-    expect(html.querySelectorAll('.patron').length).toBe(4);
-    expect(html.querySelectorAll('.patron pre code').length).toBe(4);
+    const patrones = [...html.querySelectorAll<HTMLElement>('.patron')];
+
+    expect(patrones.length).toBeGreaterThanOrEqual(9);
+
+    for (const patron of patrones) {
+      const donde = patron.id || '(sin id)';
+      expect(patron.id, 'un patrón sin `id` no se puede enlazar').toBeTruthy();
+      expect(patron.querySelector('h2'), `"${donde}" no tiene título`).not.toBeNull();
+      expect(
+        patron.querySelector('pre code'),
+        `"${donde}" no tiene bloque de código`,
+      ).not.toBeNull();
+    }
+
+    // Los `id` son el contrato de enlace de la página: dos iguales rompen el ancla en silencio.
+    const ids = patrones.map((p) => p.id);
+    expect(new Set(ids).size, `hay anclas repetidas: ${ids.join(', ')}`).toBe(ids.length);
   });
 
   it('copiar escribe en el portapapeles de verdad y vuelve solo', async () => {

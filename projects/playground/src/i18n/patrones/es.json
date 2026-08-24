@@ -37,5 +37,46 @@
     "titulo": "Reacción",
     "descripcion": "Aquí no hay morph: la forma no cambia, solo el gesto. <code>trigger=\"tap\"</code> reproduce la coreografía curada del corazón en cada click, y el color lo pone el botón.",
     "detalle": "La regla para elegir motor: si el icono <strong>cambia de forma</strong>, morph; si el mismo icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación de dos figuras idénticas."
+  },
+  "motor": {
+    "morph": "morph",
+    "coreografia": "coreografía",
+    "ninguno": "sin motor — CSS"
+  },
+  "menu": {
+    "titulo": "Menú: hamburguesa → X",
+    "abrir": "Abrir menú",
+    "cerrar": "Cerrar menú",
+    "uno": "Perfil",
+    "dos": "Cerrar sesión",
+    "descripcion": "Dos formas distintas para un mismo control. El icono dice qué <strong>hace ahora</strong> el botón, no qué es.",
+    "detalle": "El disparador lleva <code>aria-expanded</code>, y <kbd>Esc</kbd> cierra devolviéndole el foco. Sin eso, Escape deja el foco en el <code>&lt;body&gt;</code> y el siguiente <kbd>Tab</kbd> reinicia desde el principio de la página."
+  },
+  "play": {
+    "titulo": "Reproductor: play → pausa",
+    "reproducir": "Reproducir",
+    "pausar": "Pausar",
+    "descripcion": "El mismo control, dos formas. El estado lo lleva <code>aria-pressed</code>; el morph solo lleva el cambio.",
+    "detalle": "No es un spinner ni un reemplazo: el triángulo se convierte en las dos barras. Si solo se cambiara, el ojo lo leería como dos botones en vez de uno que cambió."
+  },
+  "acordeon": {
+    "titulo": "Acordeón: el contraejemplo",
+    "boton": "Detalles",
+    "descripcion": "Este <strong>no es morph</strong>, y ese es el punto: la forma no cambia, <strong>gira</strong>.",
+    "detalle": "Meter un motor de interpolación de trazos para rotar 180° es pagar por un problema que no se tiene. Un <code>transform</code> de CSS lo hace, respeta <code>prefers-reduced-motion</code> en tres líneas y no manda ni un byte de runtime."
+  },
+  "campana": {
+    "titulo": "Campana con notificación",
+    "aria": "Marcar notificaciones como leídas",
+    "descripcion": "No hay a qué transicionar: la forma es la misma y el <strong>movimiento</strong> es el que lleva el significado.",
+    "detalle": "Ahí se separan los dos motores. El morph necesita una forma destino; la coreografía necesita un motivo para moverse. Aquí no hay segunda forma — una campana que sonó sigue siendo una campana."
+  },
+  "buscar": {
+    "titulo": "Buscar → cerrar",
+    "abrir": "Abrir búsqueda",
+    "cerrar": "Cerrar búsqueda",
+    "campo": "Buscar",
+    "descripcion": "El campo se expande y el icono anuncia qué hará el botón a continuación.",
+    "detalle": "Mientras está cerrado, el campo sale del recorrido de tabulación (<code>tabindex=\"-1\"</code>): un campo que nadie ve no debería ser una parada para quien navega con el teclado."
   }
 }
