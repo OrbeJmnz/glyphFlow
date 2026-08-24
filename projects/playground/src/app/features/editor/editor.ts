@@ -627,6 +627,27 @@ export class Editor implements OnDestroy {
     return this.alPortapapeles(this.json(), 'json');
   }
 
+  /**
+   * Baja el JSON como archivo. Cierra el ciclo que ya existía a medias: el editor sabía EXPORTAR
+   * (al portapapeles) y el Lab sabe IMPORTAR, pero entre los dos solo había un copiar-pegar. Con
+   * archivo, lo que se hizo aquí se puede guardar, mandar y volver a abrir.
+   *
+   * Es el mismo texto que copia el botón de al lado — no una serialización aparte que pudiera
+   * divergir. Que ese texto sea exactamente lo que el importador acepta lo ancla un test.
+   *
+   * El `revokeObjectURL` va en un tick posterior y no justo después del `click()`: revocar en el
+   * mismo turno puede cancelar la descarga antes de que el navegador la haya tomado.
+   */
+  protected descargarJson(): void {
+    const doc = this.lienzo.nativeElement.ownerDocument;
+    const url = URL.createObjectURL(new Blob([this.json()], { type: 'application/json' }));
+    const enlace = doc.createElement('a');
+    enlace.href = url;
+    enlace.download = `${this.elegido().nombre}.json`;
+    enlace.click();
+    setTimeout(() => URL.revokeObjectURL(url));
+  }
+
   protected copiar(): Promise<void> {
     return this.alPortapapeles(this.editado(), 'path');
   }

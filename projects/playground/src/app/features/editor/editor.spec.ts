@@ -6,6 +6,7 @@ import { parseD } from './geometria/path-model';
 import { nodosDe } from './geometria/path-edit';
 import editorEn from '../../../i18n/editor/en.json';
 import editorEs from '../../../i18n/editor/es.json';
+import { analizarImportacion } from '../lab/icon-import';
 
 /**
  * La matemática de edición tiene sus propios tests sobre los 450 paths del catálogo. Esto prueba
@@ -59,6 +60,42 @@ describe('Editor', () => {
      * medir la leyenda además del lienzo.
      */
     expect(html.querySelectorAll('.nodos .nodo').length).toBe(esperados.length);
+  });
+
+  it('lo que el editor exporta es exactamente lo que el importador del Lab acepta', async () => {
+    /*
+     * El viaje de ida y vuelta, anclado. El editor sabía exportar y el Lab sabe importar, pero
+     * nadie comprobaba que hablaran el mismo idioma: bastaba con que alguien renombrara una clave
+     * en un lado para que el JSON dejara de entrar por el otro, y el síntoma habría sido un usuario
+     * pegando su trabajo y viendo un error.
+     *
+     * Contra el texto que se RENDERIZA, no contra el `computed` interno: es el que se copia y el
+     * que se descarga, así que es el que de verdad viaja.
+     */
+    const { fixture, html } = await montar();
+
+    // El bloque de JSON solo pinta su contenido abierto; es el último de los dos plegables.
+    const cabeceras = html.querySelectorAll<HTMLButtonElement>('.bloque-cab');
+    cabeceras[cabeceras.length - 1].click();
+    await fixture.whenStable();
+
+    const exportado = html.querySelector('pre.json code')!.textContent!;
+    const resultado = analizarImportacion(exportado);
+
+    expect(resultado).not.toBeNull();
+    expect(resultado).not.toHaveProperty('errorKey');
+
+    const aceptado = resultado as { def: { shapes: unknown[] }; nombre: string | null };
+    expect(aceptado.nombre).toBe(nombreDe(html.querySelector('.lista .chip.activo')!));
+    expect(aceptado.def.shapes.length).toBeGreaterThan(0);
+
+    // Y lleva la geometría que el editor está mostrando, no la del catálogo sin tocar.
+    const dMostrado = html.querySelector('.salida code')!.textContent!;
+    const dExportado = (aceptado.def.shapes as { d?: string }[])
+      .filter((f) => typeof f.d === 'string')
+      .map((f) => f.d)
+      .join('\n');
+    expect(dExportado).toBe(dMostrado);
   });
 
   it('las figuras que no son `path` se pintan de contexto pero no traen nodos', async () => {

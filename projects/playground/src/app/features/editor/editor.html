@@ -422,6 +422,13 @@
             (copiado() === 'json' ? 'editor.salida.copiado' : 'editor.salida.copiar') | transloco
           }}
         </button>
+        <!--
+          Descargar, no solo copiar: es lo que convierte «lo hice» en «me lo llevo». El archivo es
+          exactamente lo que come el importador del Lab.
+        -->
+        <button type="button" app-boton compacto variante="fantasma" (click)="descargarJson()">
+          {{ 'editor.salida.descargar' | transloco }}
+        </button>
       </div>
     </section>
 
