@@ -158,7 +158,19 @@ export class GfIconMorphComponent implements OnChanges {
     // `animationsEnabled` en `false` cae aquí a propósito: la figura nueva se PINTA, solo no se
     // interpola. Saltarse la escritura dejaría el icono anterior en pantalla, que es peor que no
     // animar — el valor habría cambiado y el usuario vería el de antes.
-    const animacionesActivas = this.config?.animationsEnabled ?? true;
+    /*
+     * El ensanchado no es pereza: en ESTE workspace el morph se compila DOS veces contra primarios
+     * DISTINTOS. Con `tsconfig.lib.json`, `glyphflow` resuelve a `dist/` — el código de hoy. Con el
+     * del playground resuelve al paquete PUBLICADO (regla 4: el sitio consume npm, no dist), que es
+     * una versión anterior y todavía no conoce este campo.
+     *
+     * Sin esto, agregar CUALQUIER campo nuevo a `GfIconsConfig` deja `npm run typecheck` en rojo
+     * hasta que salga una release: la librería no podría crecer sin publicar primero. En runtime no
+     * cambia nada — el campo se lee igual y cae a `true` cuando no está, que es justo lo que pasa
+     * cuando el consumidor corre una versión vieja del primario.
+     */
+    const config = this.config as { animationsEnabled?: boolean } | null;
+    const animacionesActivas = config?.animationsEnabled ?? true;
     if (
       !anterior ||
       !puedeAnimar ||

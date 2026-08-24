@@ -277,18 +277,26 @@ describe('alias de la v1', () => {
   });
 });
 
-/** Lo mínimo que el componente toca del objeto que devuelve `animate()`. */
+/**
+ * Lo mínimo que el componente toca del objeto que devuelve `animate()`.
+ *
+ * Los métodos son `() => undefined` y no `() => {}` porque el lint de la librería prohíbe cuerpos
+ * vacíos, y aquí no hay nada que ejecutar: lo que se afirma es que `animate()` LLEGÓ a llamarse,
+ * no lo que pase después.
+ */
 function dobleDeAnimacion(): Animation {
+  const nada = (): undefined => undefined;
+
   return {
     playState: 'running',
     currentTime: 0,
     finished: Promise.resolve(),
     onfinish: null,
-    cancel() {},
-    play() {},
-    pause() {},
-    reverse() {},
-    commitStyles() {},
-    persist() {},
+    cancel: nada,
+    play: nada,
+    pause: nada,
+    reverse: nada,
+    commitStyles: nada,
+    persist: nada,
   } as unknown as Animation;
 }
