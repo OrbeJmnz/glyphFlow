@@ -42,6 +42,11 @@
     "footer": {
       "creditos": "Este sitio consume <code>glyphflow</code> desde npm, igual que cualquier otro proyecto.",
       "github": "GitHub",
+      "aria": "Enlaces del proyecto",
+      "npm": "npm",
+      "docs": "Docs",
+      "licencia": "Licencia MIT",
+      "version": "v{{ v }}",
       "lucide": "La geometría de los iconos es de <a href=\"https://lucide.dev\" rel=\"noopener\">Lucide</a>, usada bajo la <a href=\"https://github.com/lucide-icons/lucide/blob/main/LICENSE\" rel=\"noopener\">Licencia ISC</a>."
     }
   },

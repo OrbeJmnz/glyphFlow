@@ -32,6 +32,14 @@ describe('CIFRAS', () => {
     expect(CIFRAS.angularPeer).toBe(pkg.peerDependencies['@angular/common']);
   });
 
+  it('la versión del pie coincide con la publicada en npm', async () => {
+    // Criterio de aceptación de T16. Sin esto, el pie sigue anunciando la versión de hace tres
+    // publicaciones y nadie se entera: no truena nada, solo miente.
+    const pkg = (await import('glyphflow-published/package.json', { with: { type: 'json' } }))
+      .default as { version: string };
+    expect(CIFRAS.version).toBe(pkg.version);
+  });
+
   it('curados y catálogo son coherentes entre sí', () => {
     expect(CIFRAS.curados).toBeGreaterThan(0);
     expect(CIFRAS.curados).toBeLessThanOrEqual(CIFRAS.catalogo);

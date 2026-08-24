@@ -643,3 +643,27 @@
     display: none;
   }
 }
+
+/*
+ * Los enlaces del proyecto. Fila propia, centrada, con separadores dibujados por CSS y no tecleados
+ * en la traducción: un «·» dentro del texto lo tendría que repetir cada idioma y un lector de
+ * pantalla lo leería como contenido.
+ */
+.shell-foot-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.75rem;
+}
+
+.shell-foot-enlaces a + a::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+  background: var(--gf-borde-vivo);
+  vertical-align: middle;
+}

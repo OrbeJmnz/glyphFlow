@@ -239,8 +239,29 @@
 
 <footer class="shell-foot">
   <span [innerHTML]="'shell.footer.creditos' | transloco"></span>
-  <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">{{
-    'shell.footer.github' | transloco
-  }}</a>
+
+  <!--
+    Los cuatro destinos en una sola lista: es navegación, no prosa suelta. `<nav>` con etiqueta
+    para que un lector de pantalla pueda saltar al bloque en vez de recorrer el pie entero.
+
+    La versión es un ENLACE a npm y no un rótulo: quien la mira normalmente está comprobando si va
+    atrasado, y el siguiente paso es justamente esa página.
+  -->
+  <nav class="shell-foot-enlaces" [attr.aria-label]="'shell.footer.aria' | transloco">
+    <a [href]="'https://www.npmjs.com/package/glyphflow/v/' + cifras.version" rel="noopener">{{
+      'shell.footer.version' | transloco: { v: cifras.version }
+    }}</a>
+    <a href="https://www.npmjs.com/package/glyphflow" rel="noopener">{{
+      'shell.footer.npm' | transloco
+    }}</a>
+    <a href="https://github.com/OrbeJmnz/glyphFlow" rel="noopener">{{
+      'shell.footer.github' | transloco
+    }}</a>
+    <a [routerLink]="rutas.a('docs')">{{ 'shell.footer.docs' | transloco }}</a>
+    <a href="https://github.com/OrbeJmnz/glyphFlow/blob/main/LICENSE" rel="noopener">{{
+      'shell.footer.licencia' | transloco
+    }}</a>
+  </nav>
+
   <p class="shell-foot-legal" [innerHTML]="'shell.footer.lucide' | transloco"></p>
 </footer>

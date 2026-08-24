@@ -15,6 +15,7 @@ import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { velocidadGlobal, elegirVelocidad, PRESETS_VELOCIDAD } from './core/duration-scale';
 import { conectarEnlacesDeIdioma } from './core/enlaces-idioma';
+import { CIFRAS } from './core/cifras';
 import { cargarEstrellas } from './core/github';
 import { conectarIdiomaDelDocumento } from './core/i18n';
 import { recordarIdioma, type Idioma } from './core/idioma';
@@ -123,6 +124,9 @@ export class App {
 
   /** El disparador hace morph entre hamburguesa y X — dice lo que hace, no solo lo que es. */
   protected readonly iconoMenu = computed<MorphIcon>(() => (this.menuAbierto() ? xIcon : menuIcon));
+
+  /** La versión publicada, para el pie. Fijada en `CIFRAS` y anclada por `cifras.spec.ts`. */
+  protected readonly cifras = CIFRAS;
 
   /** El glifo de la marca, junto al logotipo. Se dibuja al montar y repite al pasar por el enlace. */
   protected readonly glifo: AnimatedIconDef = workflowIcon;

@@ -43,4 +43,15 @@ export const CIFRAS = {
    * `peerDependencies` reales del publicado, así que no se puede quedar atrás en silencio.
    */
   angularPeer: '>=20.0.0 <23.0.0',
+  /**
+   * La versión que el pie de página muestra. Escrita a mano por la MISMA razón que `angularPeer`:
+   * leerla en vivo obligaría a importar el `package.json` del paquete, y un número de versión no
+   * vale un byte de bundle.
+   *
+   * Que no mienta lo cuida `cifras.spec.ts`, que sí puede importarlo porque corre en Node. El
+   * criterio de aceptación de T16 es literal —«la versión mostrada coincide con la publicada en
+   * npm»— y ese spec es quien lo hace cierto: al publicar una versión nueva, truena hasta que
+   * alguien actualice esto.
+   */
+  version: '2.1.0',
 } as const;
