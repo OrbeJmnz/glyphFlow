@@ -17,10 +17,42 @@
   },
   "nav": {
     "aria": "Documentation",
-    "empezando": { "titulo": "Getting started", "nota": "install and paint your first icon" },
-    "accesibilidad": { "titulo": "Accessibility", "nota": "one rule, not a matrix" },
-    "ssr": { "titulo": "SSR", "nota": "render without window" },
-    "api": { "titulo": "API", "nota": "the full public surface" }
+    "empezando": {
+      "titulo": "Getting started",
+      "nota": "install and paint your first icon"
+    },
+    "accesibilidad": {
+      "titulo": "Accessibility",
+      "nota": "one rule, not a matrix"
+    },
+    "ssr": {
+      "titulo": "SSR",
+      "nota": "render without window"
+    },
+    "api": {
+      "titulo": "API",
+      "nota": "the full public surface"
+    },
+    "migracion": {
+      "titulo": "Migration",
+      "nota": "what changed, and what still works"
+    },
+    "comparativa": {
+      "titulo": "Comparison",
+      "nota": "measured against the alternatives"
+    },
+    "verificar": {
+      "titulo": "Verify your bundle",
+      "nota": "reproduce the numbers yourself"
+    },
+    "problemas": {
+      "titulo": "Troubleshooting",
+      "nota": "when it does not do what you expect"
+    },
+    "temas": {
+      "titulo": "Theming and color",
+      "nota": "inheritance, dark mode, stroke width"
+    }
   },
   "empezando": {
     "titulo": "Getting started",
@@ -246,6 +278,120 @@
       "funcion": "function",
       "token": "token",
       "constante": "constant"
+    }
+  },
+  "migracion": {
+    "bajada": "glyphflow renamed its public surface in v2. The old names still work — this page says what changed, and until when.",
+    "v2": {
+      "titulo": "What v2 changed",
+      "texto": "One thing: the <strong>prefix</strong>. Everything called <code>Max*</code> is now <code>Gf*</code>, and the elements <code>&lt;max-icon&gt;</code> / <code>&lt;max-icon-morph&gt;</code> are <code>&lt;gf-icon&gt;</code> / <code>&lt;gf-icon-morph&gt;</code>. The package is called glyphflow, so the brand is one word, not two. No behaviour changed with the rename."
+    },
+    "renombres": {
+      "titulo": "The equivalence table",
+      "texto": "Every row on the left still resolves to the one on the right — they are the <em>same object</em>, not a copy. That matters for <code>GF_ICONS_CONFIG</code> in particular: two distinct injection tokens would not see each other, and a <code>provideMaxIcons()</code> would silently never reach the component.",
+      "colV1": "v1",
+      "colV2": "v2"
+    },
+    "deprecados": {
+      "titulo": "How long the old names last",
+      "texto": "They are exported and marked <code>@deprecated</code> through the whole v2 line, and they go away in <strong>v3</strong>. Nothing breaks by upgrading to v2 — you can rename at your own pace.",
+      "nota": "A rename of a selector does not behave like a rename of a symbol: if a symbol disappears, TypeScript shouts. If a selector disappears, a template is just text — Angular treats the unknown element as nothing and renders it. Silently. That is why the old selectors stay."
+    }
+  },
+  "comparativa": {
+    "bajada": "Measured, not claimed. Numbers below come from a real production build, and the method is written down so you can redo it.",
+    "peso": {
+      "titulo": "Weight",
+      "texto": "Net cost over an empty Angular 22 app, gzip, entry chunks only. <strong>Measured on 2026-08-24</strong> against the versions listed.",
+      "colLib": "Package",
+      "col1": "1 icon",
+      "col10": "10 icons",
+      "colMarginal": "per extra icon",
+      "lottieNota": "the player alone, before a single animation",
+      "lectura": "Read the last column, not the first. glyphflow has the <strong>highest floor</strong> — it ships an animation engine — and the <strong>lowest slope</strong>: each extra <em>animated</em> icon costs less than each extra <em>static</em> icon from the others. The lines cross around 30 icons against <code>&#64;ng-icons</code> and around 80 against <code>&#64;lucide/angular</code>. Below that, they are lighter, and this page says so."
+    },
+    "queTraen": {
+      "titulo": "What you get for it",
+      "colDimension": "Dimension",
+      "animacion": "Animation",
+      "dep": "Animation dependency",
+      "morph": "Shape morphing",
+      "ssr": "Server rendering",
+      "angular": "Angular supported",
+      "si": "yes",
+      "no": "no",
+      "ninguna": "none — Web Animations API",
+      "elPropio": "its own player",
+      "autoria": "authored, not computed",
+      "soloCliente": "client only"
+    },
+    "metodo": {
+      "titulo": "How this was measured",
+      "texto": "A clean app from <code>ng new --minimal</code> on Angular 22, one component importing one icon from each library, <code>ng build --configuration production</code>, gzip of the entry chunks, minus the same build with no icon library at all. Same harness for every row.",
+      "cicatriz": "An earlier attempt measured the published bundles directly with esbuild instead of building the app. It reported <strong>241 KB</strong> for one <code>&#64;lucide/angular</code> icon — 25× off. Angular's own optimizer prunes it fine; esbuild could not, because that package ships no <code>&#64;__PURE__</code> annotations. The wrong number was never published, and this note is here so nobody re-derives it that way."
+    }
+  },
+  "verificar": {
+    "bajada": "Do not take the numbers on this site on faith. Here is how to get them in your own project.",
+    "porQue": {
+      "titulo": "Why bother",
+      "texto": "Because \"tree-shakeable\" is a claim, and yours is the only bundle that matters. A library can be perfectly tree-shakeable and still land whole in <em>your</em> build — one <code>import * as</code>, one lookup by string, one barrel file, and the bundler stops being able to prove what is unused."
+    },
+    "como": {
+      "titulo": "How",
+      "texto1": "Build twice and subtract. First, <code>ng build --configuration production</code> as you have it today; note the gzip size of the entry chunks. Then add the icon and build again. The difference is what the icon cost you — not what anyone promised.",
+      "texto2": "To see <em>why</em> a number is what it is, build with <code>--stats-json</code> and open the result in any bundle analyser. What you are looking for is whether the icon catalog appears whole: if you imported <code>bellIcon</code> and the output mentions icons you never named, something is anchoring the registry.",
+      "texto3": "The usual culprit is <code>name=\"bell\"</code> with <code>provideIconCatalog(ANIMATED_ICONS)</code>. That path is a convenience and it is documented as such: a lookup by string cannot be tree-shaken, so it pulls the whole catalog on purpose. If you want the small number, pass the icon by value with <code>[iconDef]</code>."
+    },
+    "esperar": {
+      "titulo": "What to expect",
+      "texto": "Measured in CI on every push against the published package:",
+      "uno": "<strong>One icon</strong> — around 13.7 KB gzip net over an empty app, engine included.",
+      "diez": "<strong>Ten icons</strong> — around 15.2 KB. The engine is paid once; each icon adds roughly 0.17 KB.",
+      "catalogo": "<strong>The whole catalog</strong> via <code>name=</code> — over 100 KB. That is the trade, and it is the reason the catalog is opt-in.",
+      "nota": "If your numbers are far above these, the difference is in your build, not in the package — and the stats file will say where."
+    }
+  },
+  "problemas": {
+    "bajada": "Four things that look like bugs and usually are not.",
+    "noAnima": {
+      "titulo": "The icon renders but never animates",
+      "texto": "In order of how often it turns out to be each one:",
+      "reducido": "<strong>The system asks for reduced motion.</strong> Icons respect <code>prefers-reduced-motion</code> by default and stay on their base pose. That is the intended behaviour — check your OS setting before anything else.",
+      "trigger": "<strong>The trigger never fires.</strong> The default is <code>hover</code>. With <code>trigger=\"manual\"</code> nothing happens until you call <code>play()</code> yourself, and with <code>trigger=\"group\"</code> the animation hangs off an ancestor being hovered, not the icon.",
+      "variante": "<strong>The variant does not exist on that icon.</strong> Asking for <code>animation=\"spin\"</code> on an icon that only has <code>default</code> and <code>draw</code> is a no-op, not an error. Every icon in the catalog lists its variants."
+    },
+    "morphRaro": {
+      "titulo": "The morph looks wrong",
+      "texto": "Morphing pairs subpaths by proximity. When two icons share nothing structural — a circle and a bell, say — there is no good pairing to find, and the result is honest about it: shapes travel across the canvas in ways nobody designed. This is a limit of shape interpolation, not a defect.",
+      "queHacer": "What helps: morph between icons of the same family (<code>bell</code> → <code>bell-ring</code>), or between shapes with the same number of subpaths. The Lab lets you try any pair before you commit to it."
+    },
+    "nameVacio": {
+      "titulo": "<code>name=</code> renders nothing",
+      "texto": "The catalog is <strong>opt-in</strong>. Without <code>provideIconCatalog(ANIMATED_ICONS)</code> in your providers, <code>name=\"bell\"</code> has nothing to look up and the component renders empty — deliberately, because registering 1767 icons by default would put the entire catalog in every bundle. Either add the provider, or pass the icon by value with <code>[iconDef]</code>."
+    },
+    "ssr": {
+      "titulo": "Server rendering fails or does not hydrate",
+      "texto": "There is nothing to configure — no <code>afterNextRender</code>, no <code>isPlatformBrowser</code> guard, no deferred import. If your build fails at render time, the cause is almost never the icon: the component touches no browser global on the server, and that is verified in CI on every commit with a smoke test that runs in real Node, not jsdom.",
+      "nota": "The SVG the server paints is the exact same node the client animates — it is never replaced, animations are just added on top. If you see a flash, look for something else swapping the DOM."
+    }
+  },
+  "temas": {
+    "bajada": "Icons inherit. That single decision answers most theming questions before you ask them.",
+    "color": {
+      "titulo": "It follows <code>currentColor</code>",
+      "texto": "The SVG uses <code>stroke=\"currentColor\"</code>, so the icon takes the text color of whatever contains it. There is no <code>color</code> input, and that is on purpose: an input would be a second source of truth that drifts from the CSS around it.",
+      "consecuencia": "The consequence is convenient — change the container's color and the icon follows, including on hover, on focus, and inside a disabled button — and it is also the whole of the API. If you need a color the container does not have, set <code>color</code> on the icon in CSS like any other element."
+    },
+    "oscuro": {
+      "titulo": "Dark mode",
+      "texto": "Nothing to do. If your text is readable in both themes, so is the icon: it is the same color. That holds for any mechanism — a class on <code>&lt;html&gt;</code>, a data attribute, <code>prefers-color-scheme</code> — because the icon never reads the theme, only its inherited color.",
+      "nota": "Contrast is still yours to check. Inheriting the text color means inheriting its contrast problems too: an icon at 3:1 against the background fails the same threshold a graphic element has to meet."
+    },
+    "trazo": {
+      "titulo": "Stroke width at small sizes",
+      "texto": "The default <code>strokeWidth</code> is 2, drawn in a 24-unit viewBox. Rendered at 24 px that is a clean 2 px line. Rendered at 16 px it is 1.33 px, and on a non-retina screen that lands between pixels and reads blurry.",
+      "recomendacion": "Below 20 px, drop to <code>[strokeWidth]=\"1.5\"</code>. Above 32 px you can go the other way — 2 keeps looking thin as the icon grows. The value is an input precisely because the right answer depends on the size you render at, and only you know that."
     }
   }
 }

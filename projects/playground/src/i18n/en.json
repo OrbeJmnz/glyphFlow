@@ -78,6 +78,21 @@
     },
     "docsApi": {
       "title": "API — glyphflow"
+    },
+    "docsMigracion": {
+      "title": "Migration — glyphflow"
+    },
+    "docsComparativa": {
+      "title": "Comparison — glyphflow"
+    },
+    "docsVerificar": {
+      "title": "Verify your bundle — glyphflow"
+    },
+    "docsProblemas": {
+      "title": "Troubleshooting — glyphflow"
+    },
+    "docsTemas": {
+      "title": "Theming and color — glyphflow"
     }
   },
   "marca": {

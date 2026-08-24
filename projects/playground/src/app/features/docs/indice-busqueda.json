@@ -253,6 +253,230 @@
   },
   {
     "idioma": "en",
+    "ruta": "migracion",
+    "ancla": "v1-to-v2",
+    "titulo": "What v2 changed",
+    "texto": "What v2 changed What v2 changed One thing: the prefix . Everything called Max* is now Gf* , and the elements <max-icon> / <max-icon-morph> are <gf-icon> / <gf-icon-morph> . The package is called glyphflow, so the brand is one word, not two. No behaviour changed with the rename."
+  },
+  {
+    "idioma": "es",
+    "ruta": "migracion",
+    "ancla": "v1-to-v2",
+    "titulo": "Qué cambió en la v2",
+    "texto": "Qué cambió en la v2 Qué cambió en la v2 Una cosa: el prefijo . Todo lo que se llamaba Max* ahora es Gf* , y los elementos <max-icon> / <max-icon-morph> son <gf-icon> / <gf-icon-morph> . El paquete se llama glyphflow, así que la marca es una sola palabra y no dos. El renombrado no cambió ningún comportamiento."
+  },
+  {
+    "idioma": "en",
+    "ruta": "migracion",
+    "ancla": "renames",
+    "titulo": "The equivalence table",
+    "texto": "The equivalence table The equivalence table Every row on the left still resolves to the one on the right — they are the same object , not a copy. That matters for GF_ICONS_CONFIG in particular: two distinct injection tokens would not see each other, and a provideMaxIcons() would silently never reach the component. v1 v2"
+  },
+  {
+    "idioma": "es",
+    "ruta": "migracion",
+    "ancla": "renames",
+    "titulo": "La tabla de equivalencias",
+    "texto": "La tabla de equivalencias La tabla de equivalencias Cada fila de la izquierda sigue resolviendo a la de la derecha — son el mismo objeto , no una copia. Con GF_ICONS_CONFIG eso importa especialmente: dos tokens de inyección distintos no se ven entre sí, y un provideMaxIcons() nunca llegaría al componente, en silencio. v1 v2"
+  },
+  {
+    "idioma": "en",
+    "ruta": "migracion",
+    "ancla": "deprecations",
+    "titulo": "How long the old names last",
+    "texto": "How long the old names last How long the old names last They are exported and marked @deprecated through the whole v2 line, and they go away in v3 . Nothing breaks by upgrading to v2 — you can rename at your own pace. A rename of a selector does not behave like a rename of a symbol: if a symbol disappears, TypeScript shouts. If a selector disappears, a template is just text — Angular treats the unknown element as nothing and renders it. Silently. That is why the old selectors stay."
+  },
+  {
+    "idioma": "es",
+    "ruta": "migracion",
+    "ancla": "deprecations",
+    "titulo": "Cuánto duran los nombres viejos",
+    "texto": "Cuánto duran los nombres viejos Cuánto duran los nombres viejos Están exportados y marcados @deprecated durante toda la línea v2, y desaparecen en la v3 . Actualizar a la v2 no rompe nada: puedes renombrar a tu ritmo. Renombrar un selector no se comporta como renombrar un símbolo: si un símbolo desaparece, TypeScript grita. Si desaparece un selector, una plantilla es solo texto — Angular trata el elemento desconocido como nada y lo pinta vacío. Sin avisar. Por eso los selectores viejos se quedan."
+  },
+  {
+    "idioma": "en",
+    "ruta": "comparativa",
+    "ancla": "weight",
+    "titulo": "Weight",
+    "texto": "Weight Weight Net cost over an empty Angular 22 app, gzip, entry chunks only. Measured on 2026-08-24 against the versions listed. Package 1 icon 10 icons per extra icon the player alone, before a single animation Read the last column, not the first. glyphflow has the highest floor — it ships an animation engine — and the lowest slope : each extra animated icon costs less than each extra static icon from the others. The lines cross around 30 icons against &#64;ng-icons and around 80 against &#64;lucide/angular . Below that, they are lighter, and this page says so."
+  },
+  {
+    "idioma": "es",
+    "ruta": "comparativa",
+    "ancla": "weight",
+    "titulo": "Peso",
+    "texto": "Peso Peso Coste neto sobre una app Angular 22 vacía, gzip, solo chunks de entrada. Medido el 2026-08-24 contra las versiones que se listan. Paquete 1 icono 10 iconos por icono extra solo el reproductor, antes de una sola animación Lee la última columna, no la primera. glyphflow tiene el suelo más alto —trae un motor de animación— y la pendiente más baja : cada icono animado extra cuesta menos que cada icono estático extra de los otros. Las líneas se cruzan sobre los 30 iconos frente a &#64;ng-icons y sobre los 80 frente a &#64;lucide/angular . Por debajo de eso ellos pesan menos, y esta página lo dice."
+  },
+  {
+    "idioma": "en",
+    "ruta": "comparativa",
+    "ancla": "what-you-get",
+    "titulo": "What you get for it",
+    "texto": "What you get for it What you get for it Dimension Animation yes no Animation dependency none — Web Animations API its own player Shape morphing authored, not computed Server rendering client only Angular supported"
+  },
+  {
+    "idioma": "es",
+    "ruta": "comparativa",
+    "ancla": "what-you-get",
+    "titulo": "Qué obtienes a cambio",
+    "texto": "Qué obtienes a cambio Qué obtienes a cambio Dimensión Animación sí no Dependencia de animación ninguna — Web Animations API su propio reproductor Morphing de formas de autoría, no calculado Render en servidor solo cliente Angular soportado"
+  },
+  {
+    "idioma": "en",
+    "ruta": "comparativa",
+    "ancla": "method",
+    "titulo": "How this was measured",
+    "texto": "How this was measured How this was measured A clean app from ng new --minimal on Angular 22, one component importing one icon from each library, ng build --configuration production , gzip of the entry chunks, minus the same build with no icon library at all. Same harness for every row. An earlier attempt measured the published bundles directly with esbuild instead of building the app. It reported 241 KB for one &#64;lucide/angular icon — 25× off. Angular's own optimizer prunes it fine; esbuild could not, because that package ships no &#64;__PURE__ annotations. The wrong number was never published, and this note is here so nobody re-derives it that way."
+  },
+  {
+    "idioma": "es",
+    "ruta": "comparativa",
+    "ancla": "method",
+    "titulo": "Cómo se midió",
+    "texto": "Cómo se midió Cómo se midió Una app limpia de ng new --minimal sobre Angular 22, un componente importando un icono de cada librería, ng build --configuration production , gzip de los chunks de entrada, menos el mismo build sin ninguna librería de iconos. El mismo arnés para todas las filas. Un intento anterior midió los bundles publicados directamente con esbuild en vez de compilar la app. Reportaba 241 KB para un icono de &#64;lucide/angular — un error de 25×. El optimizador de Angular lo poda sin problema; esbuild no podía, porque ese paquete no trae anotaciones &#64;__PURE__ . El número equivocado nunca se publicó, y esta nota está aquí para que nadie lo vuelva a derivar así."
+  },
+  {
+    "idioma": "en",
+    "ruta": "verificar",
+    "ancla": "why",
+    "titulo": "Why bother",
+    "texto": "Why bother Why bother Because \"tree-shakeable\" is a claim, and yours is the only bundle that matters. A library can be perfectly tree-shakeable and still land whole in your build — one import * as , one lookup by string, one barrel file, and the bundler stops being able to prove what is unused."
+  },
+  {
+    "idioma": "es",
+    "ruta": "verificar",
+    "ancla": "why",
+    "titulo": "Por qué molestarse",
+    "texto": "Por qué molestarse Por qué molestarse Porque «tree-shakeable» es una afirmación, y el único bundle que importa es el tuyo. Una librería puede ser perfectamente tree-shakeable y aun así entrar entera en tu build — un import * as , una búsqueda por cadena, un archivo barril, y el empaquetador deja de poder demostrar qué sobra."
+  },
+  {
+    "idioma": "en",
+    "ruta": "verificar",
+    "ancla": "how",
+    "titulo": "How",
+    "texto": "How How Build twice and subtract. First, ng build --configuration production as you have it today; note the gzip size of the entry chunks. Then add the icon and build again. The difference is what the icon cost you — not what anyone promised. To see why a number is what it is, build with --stats-json and open the result in any bundle analyser. What you are looking for is whether the icon catalog appears whole: if you imported bellIcon and the output mentions icons you never named, something is anchoring the registry. The usual culprit is name=\"bell\" with provideIconCatalog(ANIMATED_ICONS) . That path is a convenience and it is documented as such: a lookup by string cannot be tree-shaken, so it pulls the whole catalog on purpose. If you want the small number, pass the icon by value with [iconDef] ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "verificar",
+    "ancla": "how",
+    "titulo": "Cómo",
+    "texto": "Cómo Cómo Compila dos veces y resta. Primero ng build --configuration production tal como lo tienes hoy; anota el tamaño gzip de los chunks de entrada. Después agrega el icono y vuelve a compilar. La diferencia es lo que te costó el icono — no lo que alguien prometió. Para ver por qué un número es el que es, compila con --stats-json y abre el resultado en cualquier analizador de bundles. Lo que buscas es si el catálogo aparece entero: si importaste bellIcon y la salida menciona iconos que nunca nombraste, algo está anclando el registro. El sospechoso habitual es name=\"bell\" con provideIconCatalog(ANIMATED_ICONS) . Esa ruta es una conveniencia y está documentada como tal: una búsqueda por cadena no se puede tree-shakear, así que arrastra el catálogo entero a propósito. Si quieres el número pequeño, pasa el icono por valor con [iconDef] ."
+  },
+  {
+    "idioma": "en",
+    "ruta": "verificar",
+    "ancla": "expect",
+    "titulo": "What to expect",
+    "texto": "What to expect What to expect Measured in CI on every push against the published package: One icon — around 13.7 KB gzip net over an empty app, engine included. Ten icons — around 15.2 KB. The engine is paid once; each icon adds roughly 0.17 KB. The whole catalog via name= — over 100 KB. That is the trade, and it is the reason the catalog is opt-in. If your numbers are far above these, the difference is in your build, not in the package — and the stats file will say where."
+  },
+  {
+    "idioma": "es",
+    "ruta": "verificar",
+    "ancla": "expect",
+    "titulo": "Qué esperar",
+    "texto": "Qué esperar Qué esperar Medido en CI en cada push contra el paquete publicado: Un icono — unos 13.7 KB gzip netos sobre una app vacía, motor incluido. Diez iconos — unos 15.2 KB. El motor se paga una vez; cada icono suma alrededor de 0.17 KB. El catálogo entero vía name= — más de 100 KB. Ese es el trato, y es la razón de que el catálogo sea opt-in. Si tus números quedan muy por encima de estos, la diferencia está en tu build y no en el paquete — y el archivo de estadísticas dirá dónde."
+  },
+  {
+    "idioma": "en",
+    "ruta": "problemas",
+    "ancla": "no-animation",
+    "titulo": "The icon renders but never animates",
+    "texto": "The icon renders but never animates The icon renders but never animates In order of how often it turns out to be each one: The system asks for reduced motion. Icons respect prefers-reduced-motion by default and stay on their base pose. That is the intended behaviour — check your OS setting before anything else. The trigger never fires. The default is hover . With trigger=\"manual\" nothing happens until you call play() yourself, and with trigger=\"group\" the animation hangs off an ancestor being hovered, not the icon. The variant does not exist on that icon. Asking for animation=\"spin\" on an icon that only has default and draw is a no-op, not an error. Every icon in the catalog lists its variants."
+  },
+  {
+    "idioma": "es",
+    "ruta": "problemas",
+    "ancla": "no-animation",
+    "titulo": "El icono se pinta pero no anima",
+    "texto": "El icono se pinta pero no anima El icono se pinta pero no anima En orden de con qué frecuencia resulta ser cada una: El sistema pide movimiento reducido. Los iconos respetan prefers-reduced-motion por defecto y se quedan en su pose base. Es el comportamiento previsto — revisa el ajuste de tu sistema antes que nada. El disparador nunca ocurre. El default es hover . Con trigger=\"manual\" no pasa nada hasta que llames a play() , y con trigger=\"group\" la animación cuelga del hover de un ancestro, no del icono. Esa variante no existe en ese icono. Pedir animation=\"spin\" en un icono que solo tiene default y draw no hace nada, y no es un error. Cada icono del catálogo lista sus variantes."
+  },
+  {
+    "idioma": "en",
+    "ruta": "problemas",
+    "ancla": "morph-looks-wrong",
+    "titulo": "The morph looks wrong",
+    "texto": "The morph looks wrong The morph looks wrong Morphing pairs subpaths by proximity. When two icons share nothing structural — a circle and a bell, say — there is no good pairing to find, and the result is honest about it: shapes travel across the canvas in ways nobody designed. This is a limit of shape interpolation, not a defect. What helps: morph between icons of the same family ( bell → bell-ring ), or between shapes with the same number of subpaths. The Lab lets you try any pair before you commit to it."
+  },
+  {
+    "idioma": "es",
+    "ruta": "problemas",
+    "ancla": "morph-looks-wrong",
+    "titulo": "El morph se ve raro",
+    "texto": "El morph se ve raro El morph se ve raro El morphing empareja subtrazos por proximidad. Cuando dos iconos no comparten nada estructural —un círculo y una campana, por ejemplo— no hay buen emparejamiento que encontrar, y el resultado es honesto al respecto: las formas viajan por el lienzo de maneras que nadie diseñó. Es un límite de la interpolación de formas, no un defecto. Lo que ayuda: morphear entre iconos de la misma familia ( bell → bell-ring ), o entre formas con el mismo número de subtrazos. El Lab te deja probar cualquier pareja antes de comprometerte con ella."
+  },
+  {
+    "idioma": "en",
+    "ruta": "problemas",
+    "ancla": "name-renders-nothing",
+    "titulo": "name= renders nothing",
+    "texto": "name= renders nothing name= renders nothing The catalog is opt-in . Without provideIconCatalog(ANIMATED_ICONS) in your providers, name=\"bell\" has nothing to look up and the component renders empty — deliberately, because registering 1767 icons by default would put the entire catalog in every bundle. Either add the provider, or pass the icon by value with [iconDef] ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "problemas",
+    "ancla": "name-renders-nothing",
+    "titulo": "name= no pinta nada",
+    "texto": "name= no pinta nada name= no pinta nada El catálogo es opt-in . Sin provideIconCatalog(ANIMATED_ICONS) en tus providers, name=\"bell\" no tiene dónde buscar y el componente se pinta vacío — a propósito, porque registrar 1767 iconos por defecto metería el catálogo entero en todos los bundles. O agregas el provider, o pasas el icono por valor con [iconDef] ."
+  },
+  {
+    "idioma": "en",
+    "ruta": "problemas",
+    "ancla": "ssr",
+    "titulo": "Server rendering fails or does not hydrate",
+    "texto": "Server rendering fails or does not hydrate Server rendering fails or does not hydrate There is nothing to configure — no afterNextRender , no isPlatformBrowser guard, no deferred import. If your build fails at render time, the cause is almost never the icon: the component touches no browser global on the server, and that is verified in CI on every commit with a smoke test that runs in real Node, not jsdom. The SVG the server paints is the exact same node the client animates — it is never replaced, animations are just added on top. If you see a flash, look for something else swapping the DOM."
+  },
+  {
+    "idioma": "es",
+    "ruta": "problemas",
+    "ancla": "ssr",
+    "titulo": "El render en servidor falla o no hidrata",
+    "texto": "El render en servidor falla o no hidrata El render en servidor falla o no hidrata No hay nada que configurar — ni afterNextRender , ni guarda de isPlatformBrowser , ni import diferido. Si tu build falla al renderizar, la causa casi nunca es el icono: el componente no toca ningún global del navegador en el servidor, y eso se verifica en CI en cada commit con una prueba de humo que corre en Node de verdad, no en jsdom. El SVG que pinta el servidor es exactamente el mismo nodo que anima el cliente — nunca se reemplaza, las animaciones solo se añaden encima. Si ves un parpadeo, busca otra cosa que esté cambiando el DOM."
+  },
+  {
+    "idioma": "en",
+    "ruta": "temas",
+    "ancla": "currentcolor",
+    "titulo": "It follows currentColor",
+    "texto": "It follows currentColor It follows currentColor The SVG uses stroke=\"currentColor\" , so the icon takes the text color of whatever contains it. There is no color input, and that is on purpose: an input would be a second source of truth that drifts from the CSS around it. The consequence is convenient — change the container's color and the icon follows, including on hover, on focus, and inside a disabled button — and it is also the whole of the API. If you need a color the container does not have, set color on the icon in CSS like any other element."
+  },
+  {
+    "idioma": "es",
+    "ruta": "temas",
+    "ancla": "currentcolor",
+    "titulo": "Sigue a currentColor",
+    "texto": "Sigue a currentColor Sigue a currentColor El SVG usa stroke=\"currentColor\" , así que el icono toma el color de texto de lo que lo contiene. No hay input color , y es a propósito: un input sería una segunda fuente de verdad que se separa del CSS que lo rodea. La consecuencia es cómoda —cambias el color del contenedor y el icono lo sigue, incluso en hover, en foco y dentro de un botón deshabilitado— y además es toda la API. Si necesitas un color que el contenedor no tiene, ponle color al icono en CSS como a cualquier otro elemento."
+  },
+  {
+    "idioma": "en",
+    "ruta": "temas",
+    "ancla": "dark-mode",
+    "titulo": "Dark mode",
+    "texto": "Dark mode Dark mode Nothing to do. If your text is readable in both themes, so is the icon: it is the same color. That holds for any mechanism — a class on <html> , a data attribute, prefers-color-scheme — because the icon never reads the theme, only its inherited color. Contrast is still yours to check. Inheriting the text color means inheriting its contrast problems too: an icon at 3:1 against the background fails the same threshold a graphic element has to meet."
+  },
+  {
+    "idioma": "es",
+    "ruta": "temas",
+    "ancla": "dark-mode",
+    "titulo": "Modo oscuro",
+    "texto": "Modo oscuro Modo oscuro Nada que hacer. Si tu texto se lee en los dos temas, el icono también: es el mismo color. Eso vale con cualquier mecanismo —una clase en <html> , un atributo de datos, prefers-color-scheme — porque el icono nunca lee el tema, solo su color heredado. El contraste sigue siendo cosa tuya. Heredar el color del texto es heredar también sus problemas de contraste: un icono a 3:1 contra el fondo falla el mismo umbral que tiene que cumplir un elemento gráfico."
+  },
+  {
+    "idioma": "en",
+    "ruta": "temas",
+    "ancla": "stroke-width",
+    "titulo": "Stroke width at small sizes",
+    "texto": "Stroke width at small sizes Stroke width at small sizes The default strokeWidth is 2, drawn in a 24-unit viewBox. Rendered at 24 px that is a clean 2 px line. Rendered at 16 px it is 1.33 px, and on a non-retina screen that lands between pixels and reads blurry. Below 20 px, drop to [strokeWidth]=\"1.5\" . Above 32 px you can go the other way — 2 keeps looking thin as the icon grows. The value is an input precisely because the right answer depends on the size you render at, and only you know that."
+  },
+  {
+    "idioma": "es",
+    "ruta": "temas",
+    "ancla": "stroke-width",
+    "titulo": "Grosor del trazo en tamaños pequeños",
+    "texto": "Grosor del trazo en tamaños pequeños Grosor del trazo en tamaños pequeños El strokeWidth por defecto es 2, dibujado en un viewBox de 24 unidades. Renderizado a 24 px eso es una línea limpia de 2 px. Renderizado a 16 px son 1.33 px, y en una pantalla sin retina eso cae entre píxeles y se ve borroso. Por debajo de 20 px, baja a [strokeWidth]=\"1.5\" . Por encima de 32 px puedes ir al revés — el 2 se sigue viendo fino conforme el icono crece. El valor es un input justamente porque la respuesta correcta depende del tamaño al que rendericas, y eso solo lo sabes tú."
+  },
+  {
+    "idioma": "en",
     "ruta": "api",
     "ancla": "exports-glyphflow",
     "titulo": "glyphflow",

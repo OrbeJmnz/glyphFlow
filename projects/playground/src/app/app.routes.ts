@@ -105,6 +105,31 @@ function paginas(idioma: Idioma): Routes {
           title: 'routes.docsApi.title',
           loadComponent: () => import('./features/docs/api').then((m) => m.Api),
         },
+        {
+          path: slug('migracion', idioma),
+          title: 'routes.docsMigracion.title',
+          loadComponent: () => import('./features/docs/migracion').then((m) => m.Migracion),
+        },
+        {
+          path: slug('comparativa', idioma),
+          title: 'routes.docsComparativa.title',
+          loadComponent: () => import('./features/docs/comparativa').then((m) => m.Comparativa),
+        },
+        {
+          path: slug('verificar', idioma),
+          title: 'routes.docsVerificar.title',
+          loadComponent: () => import('./features/docs/verificar').then((m) => m.Verificar),
+        },
+        {
+          path: slug('problemas', idioma),
+          title: 'routes.docsProblemas.title',
+          loadComponent: () => import('./features/docs/problemas').then((m) => m.Problemas),
+        },
+        {
+          path: slug('temas', idioma),
+          title: 'routes.docsTemas.title',
+          loadComponent: () => import('./features/docs/temas').then((m) => m.Temas),
+        },
       ],
     },
     // Relativo al prefijo: `/en/basura` cae en `/en`, no en la portada del otro idioma.

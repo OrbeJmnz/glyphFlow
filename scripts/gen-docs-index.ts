@@ -18,10 +18,7 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  API_VALORES,
-  API_TIPOS,
-} from '../projects/playground/src/app/features/docs/api-surface';
+import { API_VALORES, API_TIPOS } from '../projects/playground/src/app/features/docs/api-surface';
 
 const RAIZ = join(import.meta.dirname, '..');
 const DOCS = join(RAIZ, 'projects/playground/src/app/features/docs');
@@ -34,6 +31,11 @@ const PAGINAS = [
   { archivo: 'api.html', ruta: 'api' },
   { archivo: 'accesibilidad.html', ruta: 'accesibilidad' },
   { archivo: 'ssr.html', ruta: 'ssr' },
+  { archivo: 'migracion.html', ruta: 'migracion' },
+  { archivo: 'comparativa.html', ruta: 'comparativa' },
+  { archivo: 'verificar.html', ruta: 'verificar' },
+  { archivo: 'problemas.html', ruta: 'problemas' },
+  { archivo: 'temas.html', ruta: 'temas' },
 ] as const;
 
 const IDIOMAS = ['en', 'es'] as const;
@@ -174,5 +176,7 @@ if (process.argv.includes('--check')) {
 } else {
   writeFileSync(SALIDA, json);
   const porIdioma = IDIOMAS.map((l) => `${l}: ${entradas.filter((e) => e.idioma === l).length}`);
-  console.log(`indice-busqueda.json escrito — ${entradas.length} entradas (${porIdioma.join(', ')})`);
+  console.log(
+    `indice-busqueda.json escrito — ${entradas.length} entradas (${porIdioma.join(', ')})`,
+  );
 }

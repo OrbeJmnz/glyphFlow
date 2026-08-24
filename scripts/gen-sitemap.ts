@@ -25,7 +25,20 @@ const PAGINAS: RutaId[][] = [
   ['docs', 'accesibilidad'],
   ['docs', 'ssr'],
   ['docs', 'api'],
+  ['docs', 'migracion'],
+  ['docs', 'comparativa'],
+  ['docs', 'verificar'],
+  ['docs', 'problemas'],
+  ['docs', 'temas'],
 ];
+
+/*
+ * OJO: ésta es la TERCERA lista a mano de «qué páginas tiene Docs» — las otras son `secciones` en
+ * `docs.ts` (la barra lateral) y `PAGINAS` en `gen-docs-index.ts` (el buscador). Agregar una página
+ * y olvidar una de las tres deja un fallo distinto en cada caso: sin enlace, sin resultado de
+ * búsqueda, o fuera del sitemap. Las tres se derivan del mismo hecho y deberían salir de un solo
+ * sitio; hasta que eso pase, quien agregue una página tiene que tocar las tres.
+ */
 
 /**
  * Cada `<url>` declara sus alternativas en los dos idiomas, incluida ella misma. Es la misma regla

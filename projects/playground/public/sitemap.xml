@@ -49,6 +49,36 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
   </url>
   <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/migration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/migration"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/migracion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/migration"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/comparison</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/comparison"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/comparativa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/comparison"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/verifica-tu-bundle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/solucion-de-problemas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/docs/theming</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/theming"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/temas-y-color"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/theming"/>
+  </url>
+  <url>
     <loc>https://glyph-flow-zeta.vercel.app/es</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es"/>
@@ -95,5 +125,35 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/api"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/api"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/migracion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/migration"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/migracion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/migration"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/comparativa</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/comparison"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/comparativa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/comparison"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/verifica-tu-bundle</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/verifica-tu-bundle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/solucion-de-problemas</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/solucion-de-problemas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/docs/temas-y-color</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/theming"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/temas-y-color"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/docs/theming"/>
   </url>
 </urlset>

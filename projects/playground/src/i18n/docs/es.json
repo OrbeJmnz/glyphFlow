@@ -17,10 +17,42 @@
   },
   "nav": {
     "aria": "Documentación",
-    "empezando": { "titulo": "Empezando", "nota": "instalar y pintar el primer icono" },
-    "accesibilidad": { "titulo": "Accesibilidad", "nota": "una regla, no una matriz" },
-    "ssr": { "titulo": "SSR", "nota": "render sin window" },
-    "api": { "titulo": "API", "nota": "la superficie pública completa" }
+    "empezando": {
+      "titulo": "Empezando",
+      "nota": "instalar y pintar el primer icono"
+    },
+    "accesibilidad": {
+      "titulo": "Accesibilidad",
+      "nota": "una regla, no una matriz"
+    },
+    "ssr": {
+      "titulo": "SSR",
+      "nota": "render sin window"
+    },
+    "api": {
+      "titulo": "API",
+      "nota": "la superficie pública completa"
+    },
+    "migracion": {
+      "titulo": "Migración",
+      "nota": "qué cambió y qué sigue funcionando"
+    },
+    "comparativa": {
+      "titulo": "Comparativa",
+      "nota": "medida contra las alternativas"
+    },
+    "verificar": {
+      "titulo": "Verifica tu bundle",
+      "nota": "reproduce los números tú mismo"
+    },
+    "problemas": {
+      "titulo": "Solución de problemas",
+      "nota": "cuando no hace lo que esperas"
+    },
+    "temas": {
+      "titulo": "Temas y color",
+      "nota": "herencia, modo oscuro, grosor"
+    }
   },
   "empezando": {
     "titulo": "Empezando",
@@ -246,6 +278,120 @@
       "funcion": "función",
       "token": "token",
       "constante": "constante"
+    }
+  },
+  "migracion": {
+    "bajada": "glyphflow renombró su superficie pública en la v2. Los nombres viejos siguen funcionando — esta página dice qué cambió y hasta cuándo.",
+    "v2": {
+      "titulo": "Qué cambió en la v2",
+      "texto": "Una cosa: el <strong>prefijo</strong>. Todo lo que se llamaba <code>Max*</code> ahora es <code>Gf*</code>, y los elementos <code>&lt;max-icon&gt;</code> / <code>&lt;max-icon-morph&gt;</code> son <code>&lt;gf-icon&gt;</code> / <code>&lt;gf-icon-morph&gt;</code>. El paquete se llama glyphflow, así que la marca es una sola palabra y no dos. El renombrado no cambió ningún comportamiento."
+    },
+    "renombres": {
+      "titulo": "La tabla de equivalencias",
+      "texto": "Cada fila de la izquierda sigue resolviendo a la de la derecha — son el <em>mismo objeto</em>, no una copia. Con <code>GF_ICONS_CONFIG</code> eso importa especialmente: dos tokens de inyección distintos no se ven entre sí, y un <code>provideMaxIcons()</code> nunca llegaría al componente, en silencio.",
+      "colV1": "v1",
+      "colV2": "v2"
+    },
+    "deprecados": {
+      "titulo": "Cuánto duran los nombres viejos",
+      "texto": "Están exportados y marcados <code>@deprecated</code> durante toda la línea v2, y desaparecen en la <strong>v3</strong>. Actualizar a la v2 no rompe nada: puedes renombrar a tu ritmo.",
+      "nota": "Renombrar un selector no se comporta como renombrar un símbolo: si un símbolo desaparece, TypeScript grita. Si desaparece un selector, una plantilla es solo texto — Angular trata el elemento desconocido como nada y lo pinta vacío. Sin avisar. Por eso los selectores viejos se quedan."
+    }
+  },
+  "comparativa": {
+    "bajada": "Medido, no prometido. Los números salen de un build de producción real, y el método está escrito para que puedas repetirlo.",
+    "peso": {
+      "titulo": "Peso",
+      "texto": "Coste neto sobre una app Angular 22 vacía, gzip, solo chunks de entrada. <strong>Medido el 2026-08-24</strong> contra las versiones que se listan.",
+      "colLib": "Paquete",
+      "col1": "1 icono",
+      "col10": "10 iconos",
+      "colMarginal": "por icono extra",
+      "lottieNota": "solo el reproductor, antes de una sola animación",
+      "lectura": "Lee la última columna, no la primera. glyphflow tiene el <strong>suelo más alto</strong> —trae un motor de animación— y la <strong>pendiente más baja</strong>: cada icono <em>animado</em> extra cuesta menos que cada icono <em>estático</em> extra de los otros. Las líneas se cruzan sobre los 30 iconos frente a <code>&#64;ng-icons</code> y sobre los 80 frente a <code>&#64;lucide/angular</code>. Por debajo de eso ellos pesan menos, y esta página lo dice."
+    },
+    "queTraen": {
+      "titulo": "Qué obtienes a cambio",
+      "colDimension": "Dimensión",
+      "animacion": "Animación",
+      "dep": "Dependencia de animación",
+      "morph": "Morphing de formas",
+      "ssr": "Render en servidor",
+      "angular": "Angular soportado",
+      "si": "sí",
+      "no": "no",
+      "ninguna": "ninguna — Web Animations API",
+      "elPropio": "su propio reproductor",
+      "autoria": "de autoría, no calculado",
+      "soloCliente": "solo cliente"
+    },
+    "metodo": {
+      "titulo": "Cómo se midió",
+      "texto": "Una app limpia de <code>ng new --minimal</code> sobre Angular 22, un componente importando un icono de cada librería, <code>ng build --configuration production</code>, gzip de los chunks de entrada, menos el mismo build sin ninguna librería de iconos. El mismo arnés para todas las filas.",
+      "cicatriz": "Un intento anterior midió los bundles publicados directamente con esbuild en vez de compilar la app. Reportaba <strong>241 KB</strong> para un icono de <code>&#64;lucide/angular</code> — un error de 25×. El optimizador de Angular lo poda sin problema; esbuild no podía, porque ese paquete no trae anotaciones <code>&#64;__PURE__</code>. El número equivocado nunca se publicó, y esta nota está aquí para que nadie lo vuelva a derivar así."
+    }
+  },
+  "verificar": {
+    "bajada": "No te fíes de los números de este sitio. Aquí está cómo obtenerlos en tu propio proyecto.",
+    "porQue": {
+      "titulo": "Por qué molestarse",
+      "texto": "Porque «tree-shakeable» es una afirmación, y el único bundle que importa es el tuyo. Una librería puede ser perfectamente tree-shakeable y aun así entrar entera en <em>tu</em> build — un <code>import * as</code>, una búsqueda por cadena, un archivo barril, y el empaquetador deja de poder demostrar qué sobra."
+    },
+    "como": {
+      "titulo": "Cómo",
+      "texto1": "Compila dos veces y resta. Primero <code>ng build --configuration production</code> tal como lo tienes hoy; anota el tamaño gzip de los chunks de entrada. Después agrega el icono y vuelve a compilar. La diferencia es lo que te costó el icono — no lo que alguien prometió.",
+      "texto2": "Para ver <em>por qué</em> un número es el que es, compila con <code>--stats-json</code> y abre el resultado en cualquier analizador de bundles. Lo que buscas es si el catálogo aparece entero: si importaste <code>bellIcon</code> y la salida menciona iconos que nunca nombraste, algo está anclando el registro.",
+      "texto3": "El sospechoso habitual es <code>name=\"bell\"</code> con <code>provideIconCatalog(ANIMATED_ICONS)</code>. Esa ruta es una conveniencia y está documentada como tal: una búsqueda por cadena no se puede tree-shakear, así que arrastra el catálogo entero a propósito. Si quieres el número pequeño, pasa el icono por valor con <code>[iconDef]</code>."
+    },
+    "esperar": {
+      "titulo": "Qué esperar",
+      "texto": "Medido en CI en cada push contra el paquete publicado:",
+      "uno": "<strong>Un icono</strong> — unos 13.7 KB gzip netos sobre una app vacía, motor incluido.",
+      "diez": "<strong>Diez iconos</strong> — unos 15.2 KB. El motor se paga una vez; cada icono suma alrededor de 0.17 KB.",
+      "catalogo": "<strong>El catálogo entero</strong> vía <code>name=</code> — más de 100 KB. Ese es el trato, y es la razón de que el catálogo sea opt-in.",
+      "nota": "Si tus números quedan muy por encima de estos, la diferencia está en tu build y no en el paquete — y el archivo de estadísticas dirá dónde."
+    }
+  },
+  "problemas": {
+    "bajada": "Cuatro cosas que parecen fallos y normalmente no lo son.",
+    "noAnima": {
+      "titulo": "El icono se pinta pero no anima",
+      "texto": "En orden de con qué frecuencia resulta ser cada una:",
+      "reducido": "<strong>El sistema pide movimiento reducido.</strong> Los iconos respetan <code>prefers-reduced-motion</code> por defecto y se quedan en su pose base. Es el comportamiento previsto — revisa el ajuste de tu sistema antes que nada.",
+      "trigger": "<strong>El disparador nunca ocurre.</strong> El default es <code>hover</code>. Con <code>trigger=\"manual\"</code> no pasa nada hasta que llames a <code>play()</code>, y con <code>trigger=\"group\"</code> la animación cuelga del hover de un ancestro, no del icono.",
+      "variante": "<strong>Esa variante no existe en ese icono.</strong> Pedir <code>animation=\"spin\"</code> en un icono que solo tiene <code>default</code> y <code>draw</code> no hace nada, y no es un error. Cada icono del catálogo lista sus variantes."
+    },
+    "morphRaro": {
+      "titulo": "El morph se ve raro",
+      "texto": "El morphing empareja subtrazos por proximidad. Cuando dos iconos no comparten nada estructural —un círculo y una campana, por ejemplo— no hay buen emparejamiento que encontrar, y el resultado es honesto al respecto: las formas viajan por el lienzo de maneras que nadie diseñó. Es un límite de la interpolación de formas, no un defecto.",
+      "queHacer": "Lo que ayuda: morphear entre iconos de la misma familia (<code>bell</code> → <code>bell-ring</code>), o entre formas con el mismo número de subtrazos. El Lab te deja probar cualquier pareja antes de comprometerte con ella."
+    },
+    "nameVacio": {
+      "titulo": "<code>name=</code> no pinta nada",
+      "texto": "El catálogo es <strong>opt-in</strong>. Sin <code>provideIconCatalog(ANIMATED_ICONS)</code> en tus providers, <code>name=\"bell\"</code> no tiene dónde buscar y el componente se pinta vacío — a propósito, porque registrar 1767 iconos por defecto metería el catálogo entero en todos los bundles. O agregas el provider, o pasas el icono por valor con <code>[iconDef]</code>."
+    },
+    "ssr": {
+      "titulo": "El render en servidor falla o no hidrata",
+      "texto": "No hay nada que configurar — ni <code>afterNextRender</code>, ni guarda de <code>isPlatformBrowser</code>, ni import diferido. Si tu build falla al renderizar, la causa casi nunca es el icono: el componente no toca ningún global del navegador en el servidor, y eso se verifica en CI en cada commit con una prueba de humo que corre en Node de verdad, no en jsdom.",
+      "nota": "El SVG que pinta el servidor es exactamente el mismo nodo que anima el cliente — nunca se reemplaza, las animaciones solo se añaden encima. Si ves un parpadeo, busca otra cosa que esté cambiando el DOM."
+    }
+  },
+  "temas": {
+    "bajada": "Los iconos heredan. Esa sola decisión responde la mayoría de las preguntas de tematización antes de que las hagas.",
+    "color": {
+      "titulo": "Sigue a <code>currentColor</code>",
+      "texto": "El SVG usa <code>stroke=\"currentColor\"</code>, así que el icono toma el color de texto de lo que lo contiene. No hay input <code>color</code>, y es a propósito: un input sería una segunda fuente de verdad que se separa del CSS que lo rodea.",
+      "consecuencia": "La consecuencia es cómoda —cambias el color del contenedor y el icono lo sigue, incluso en hover, en foco y dentro de un botón deshabilitado— y además es toda la API. Si necesitas un color que el contenedor no tiene, ponle <code>color</code> al icono en CSS como a cualquier otro elemento."
+    },
+    "oscuro": {
+      "titulo": "Modo oscuro",
+      "texto": "Nada que hacer. Si tu texto se lee en los dos temas, el icono también: es el mismo color. Eso vale con cualquier mecanismo —una clase en <code>&lt;html&gt;</code>, un atributo de datos, <code>prefers-color-scheme</code>— porque el icono nunca lee el tema, solo su color heredado.",
+      "nota": "El contraste sigue siendo cosa tuya. Heredar el color del texto es heredar también sus problemas de contraste: un icono a 3:1 contra el fondo falla el mismo umbral que tiene que cumplir un elemento gráfico."
+    },
+    "trazo": {
+      "titulo": "Grosor del trazo en tamaños pequeños",
+      "texto": "El <code>strokeWidth</code> por defecto es 2, dibujado en un viewBox de 24 unidades. Renderizado a 24 px eso es una línea limpia de 2 px. Renderizado a 16 px son 1.33 px, y en una pantalla sin retina eso cae entre píxeles y se ve borroso.",
+      "recomendacion": "Por debajo de 20 px, baja a <code>[strokeWidth]=\"1.5\"</code>. Por encima de 32 px puedes ir al revés — el 2 se sigue viendo fino conforme el icono crece. El valor es un input justamente porque la respuesta correcta depende del tamaño al que rendericas, y eso solo lo sabes tú."
     }
   }
 }

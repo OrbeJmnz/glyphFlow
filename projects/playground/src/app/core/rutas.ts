@@ -10,7 +10,20 @@ import { IDIOMAS, esIdioma, type Idioma } from './idioma';
  * por id, así que traducir una URL es cambiar la tabla, no perseguir `routerLink` por el repo.
  */
 export type RutaId =
-  'iconos' | 'patrones' | 'editor' | 'lab' | 'docs' | 'empezando' | 'accesibilidad' | 'ssr' | 'api';
+  | 'iconos'
+  | 'patrones'
+  | 'editor'
+  | 'lab'
+  | 'docs'
+  | 'empezando'
+  | 'accesibilidad'
+  | 'ssr'
+  | 'api'
+  | 'migracion'
+  | 'comparativa'
+  | 'verificar'
+  | 'problemas'
+  | 'temas';
 
 /**
  * Solo se traduce el slug cuando en el otro idioma es OTRA palabra que alguien podría buscar.
@@ -30,6 +43,11 @@ export const SLUGS: Record<RutaId, Record<Idioma, string>> = {
   accesibilidad: { en: 'accessibility', es: 'accesibilidad' },
   ssr: { en: 'ssr', es: 'ssr' },
   api: { en: 'api', es: 'api' },
+  migracion: { en: 'migration', es: 'migracion' },
+  comparativa: { en: 'comparison', es: 'comparativa' },
+  verificar: { en: 'verify-your-bundle', es: 'verifica-tu-bundle' },
+  problemas: { en: 'troubleshooting', es: 'solucion-de-problemas' },
+  temas: { en: 'theming', es: 'temas-y-color' },
 };
 
 /** Índice inverso: de cualquier slug, en cualquier idioma, al id que representa. */

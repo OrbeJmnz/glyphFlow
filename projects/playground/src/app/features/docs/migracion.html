@@ -1,0 +1,54 @@
+<p class="bajada">{{ 'docs.migracion.bajada' | transloco }}</p>
+
+<h2 id="v1-to-v2">{{ 'docs.migracion.v2.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.migracion.v2.texto' | transloco"></p>
+
+<h2 id="renames">{{ 'docs.migracion.renombres.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.migracion.renombres.texto' | transloco"></p>
+
+<!--
+  La tabla va escrita a mano y no generada: son SIETE filas que no cambian salvo en una major, y
+  atarlas a un generador costaría más de mantener que las siete líneas.
+-->
+<table>
+  <thead>
+    <tr>
+      <th>{{ 'docs.migracion.renombres.colV1' | transloco }}</th>
+      <th>{{ 'docs.migracion.renombres.colV2' | transloco }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;max-icon&gt;</code></td>
+      <td><code>&lt;gf-icon&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;max-icon-morph&gt;</code></td>
+      <td><code>&lt;gf-icon-morph&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>MaxIconComponent</code></td>
+      <td><code>GfIconComponent</code></td>
+    </tr>
+    <tr>
+      <td><code>MaxIconMorphComponent</code></td>
+      <td><code>GfIconMorphComponent</code></td>
+    </tr>
+    <tr>
+      <td><code>provideMaxIcons</code></td>
+      <td><code>provideGfIcons</code></td>
+    </tr>
+    <tr>
+      <td><code>MAX_ICONS_CONFIG</code></td>
+      <td><code>GF_ICONS_CONFIG</code></td>
+    </tr>
+    <tr>
+      <td><code>MaxIconsConfig</code></td>
+      <td><code>GfIconsConfig</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="deprecations">{{ 'docs.migracion.deprecados.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.migracion.deprecados.texto' | transloco"></p>
+<p class="nota">{{ 'docs.migracion.deprecados.nota' | transloco }}</p>

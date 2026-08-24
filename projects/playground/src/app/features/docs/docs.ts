@@ -63,5 +63,30 @@ export class Docs {
     },
     { id: 'ssr', tituloClave: 'docs.nav.ssr.titulo', notaClave: 'docs.nav.ssr.nota' },
     { id: 'api', tituloClave: 'docs.nav.api.titulo', notaClave: 'docs.nav.api.nota' },
+    {
+      id: 'migracion',
+      tituloClave: 'docs.nav.migracion.titulo',
+      notaClave: 'docs.nav.migracion.nota',
+    },
+    {
+      id: 'comparativa',
+      tituloClave: 'docs.nav.comparativa.titulo',
+      notaClave: 'docs.nav.comparativa.nota',
+    },
+    {
+      id: 'verificar',
+      tituloClave: 'docs.nav.verificar.titulo',
+      notaClave: 'docs.nav.verificar.nota',
+    },
+    {
+      id: 'problemas',
+      tituloClave: 'docs.nav.problemas.titulo',
+      notaClave: 'docs.nav.problemas.nota',
+    },
+    {
+      id: 'temas',
+      tituloClave: 'docs.nav.temas.titulo',
+      notaClave: 'docs.nav.temas.nota',
+    },
   ];
 }

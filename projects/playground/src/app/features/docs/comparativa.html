@@ -1,0 +1,104 @@
+<p class="bajada">{{ 'docs.comparativa.bajada' | transloco }}</p>
+
+<h2 id="weight">{{ 'docs.comparativa.peso.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.comparativa.peso.texto' | transloco"></p>
+
+<!--
+  Los números son los MEDIDOS, escritos a mano y con su fecha. No se leen de ninguna variable a
+  propósito: son una foto de un día concreto contra versiones concretas, y fingir que se actualizan
+  solos sería peor que no ponerlos. Cuando alguien vuelva a medir, cambia la fecha con la cifra.
+-->
+<table>
+  <thead>
+    <tr>
+      <th>{{ 'docs.comparativa.peso.colLib' | transloco }}</th>
+      <th>{{ 'docs.comparativa.peso.col1' | transloco }}</th>
+      <th>{{ 'docs.comparativa.peso.col10' | transloco }}</th>
+      <th>{{ 'docs.comparativa.peso.colMarginal' | transloco }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&#64;ng-icons</code> 35.0.1</td>
+      <td>6.07 KB</td>
+      <td>9.85 KB</td>
+      <td>0.42 KB</td>
+    </tr>
+    <tr>
+      <td><code>&#64;lucide/angular</code> 1.34.0</td>
+      <td>9.65 KB</td>
+      <td>11.62 KB</td>
+      <td>0.22 KB</td>
+    </tr>
+    <tr>
+      <td><strong>glyphflow</strong> 2.1.0</td>
+      <td><strong>13.66 KB</strong></td>
+      <td><strong>15.20 KB</strong></td>
+      <td><strong>0.17 KB</strong></td>
+    </tr>
+    <tr>
+      <td><code>lottie-web</code> 5.13.0 <em>(light)</em></td>
+      <td colspan="3">48.33 KB — {{ 'docs.comparativa.peso.lottieNota' | transloco }}</td>
+    </tr>
+    <tr>
+      <td><code>lottie-web</code> 5.13.0</td>
+      <td colspan="3">77.14 KB — {{ 'docs.comparativa.peso.lottieNota' | transloco }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p [innerHTML]="'docs.comparativa.peso.lectura' | transloco"></p>
+
+<h2 id="what-you-get">{{ 'docs.comparativa.queTraen.titulo' | transloco }}</h2>
+<table>
+  <thead>
+    <tr>
+      <th>{{ 'docs.comparativa.queTraen.colDimension' | transloco }}</th>
+      <th>glyphflow</th>
+      <th><code>&#64;lucide/angular</code></th>
+      <th><code>&#64;ng-icons</code></th>
+      <th><code>lottie-web</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ 'docs.comparativa.queTraen.animacion' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.no' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.no' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'docs.comparativa.queTraen.dep' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.ninguna' | transloco }}</td>
+      <td>—</td>
+      <td>—</td>
+      <td>{{ 'docs.comparativa.queTraen.elPropio' | transloco }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'docs.comparativa.queTraen.morph' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.no' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.no' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.autoria' | transloco }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'docs.comparativa.queTraen.ssr' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.si' | transloco }}</td>
+      <td>{{ 'docs.comparativa.queTraen.soloCliente' | transloco }}</td>
+    </tr>
+    <tr>
+      <td>{{ 'docs.comparativa.queTraen.angular' | transloco }}</td>
+      <td>22</td>
+      <td>&ge;17</td>
+      <td>&ge;22</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="method">{{ 'docs.comparativa.metodo.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.comparativa.metodo.texto' | transloco"></p>
+<p class="nota" [innerHTML]="'docs.comparativa.metodo.cicatriz' | transloco"></p>
