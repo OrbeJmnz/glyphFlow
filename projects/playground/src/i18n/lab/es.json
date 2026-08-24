@@ -39,15 +39,17 @@
     "intro": "Un par a la vez, 4 variantes lado a lado. El spring solo decide el timing: cero loop de animación, los keyframes se calculan una vez y los interpola el navegador.",
     "controles": {
       "reproducirTodas": "Reproducir las 4",
-      "loop": { "on": "Loop on", "off": "Loop off" },
+      "loop": "Loop",
       "reset": "Reset",
       "modoPasos": "comparar pasos",
       "modoCola": "comparar cola del spring",
       "modoVuelta": "comparar la vuelta",
       "modoSobrepaso": "comparar el rebote",
-      "resolucion": "res"
+      "resolucion": "res",
+      "resolucionNota": "<strong>res</strong> es la resolución de muestreo: a cuántos puntos se remuestrea cada subtrazo antes de emparejar las dos figuras. Muestrea el CONTORNO, no el tiempo — cambia con cuánta fidelidad se sigue la curva, nunca cuántos cuadros se reproducen."
     },
     "avisos": {
+      "pasos": "Más pasos son más poses intermedias, así que el trazo se sigue más de cerca — y el arreglo de keyframes crece. Lo que se compara aquí es fidelidad contra peso.",
       "cola": "La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje. «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.",
       "sobrepaso": "Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Eso antes solo alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se dibujan por default — la comparación que importa es <em>snappy sin dibujarlo</em> (<code>sobrepaso: false</code>) contra <em>snappy</em>. <code>bouncy</code> va topado: extrapolar más lo sacaría del lienzo y el SVG lo recortaría.",
       "vuelta": "<strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques."
@@ -80,7 +82,8 @@
       "keyframes": "keyframes",
       "peso": "peso",
       "duracion": "duración",
-      "ultimoTramo": "último tramo"
+      "ultimoTramo": "último tramo",
+      "leyenda": "<strong>keyframes</strong> — cuántas poses interpola el navegador. <strong>peso</strong> — lo que ocupa ese arreglo de keyframes en memoria, en bytes UTF-8. <em>No es peso del bundle.</em> Estos keyframes se calculan en tu navegador cuando corre el morph; ninguno viaja dentro del paquete. <strong>duración</strong> — lo que dura un tramo del morph. <strong>último tramo</strong> — qué porcentaje de esa duración se lleva el último salto entre dos keyframes. Cuanto más alto, más se ve el icono arrastrándose hasta parar."
     },
     "reproducirSolo": "Reproducir solo este"
   }

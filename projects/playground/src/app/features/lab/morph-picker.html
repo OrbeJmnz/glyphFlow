@@ -48,24 +48,27 @@
       @if (secuencia().length) {
         <ol class="cadena">
           @for (item of secuencia(); track $index) {
+            <!--
+              El nombre va VISIBLE y no en un tooltip. El tooltip envolvía un `<gf-icon>`, que no
+              recibe foco, así que el nombre solo existía al pasar el ratón: con teclado o en
+              táctil, la cadena era una fila de iconos sin identificar. Y con el nombre aquí, el
+              renglón de pares que iba debajo pasa a ser una repetición — por eso se fue.
+            -->
             <li [class.activo]="$index === indiceActual()">
-              <app-tooltip [texto]="item.nombre">
-                <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
-              </app-tooltip>
+              <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+              <span class="nombre">{{ item.nombre }}</span>
               <button
                 type="button"
                 (click)="quitar($index)"
-                [attr.aria-label]="'lab.morphPicker.quitarAria' | transloco: { nombre: item.nombre }"
+                [attr.aria-label]="
+                  'lab.morphPicker.quitarAria' | transloco: { nombre: item.nombre }
+                "
               >
                 ✕
               </button>
             </li>
           }
         </ol>
-
-        @if (pares().length) {
-          <p class="pares">{{ pares().join(' · ') }}</p>
-        }
 
         <div class="acciones">
           <button

@@ -156,10 +156,14 @@
   color: var(--gf-rojo);
 }
 
-.pares {
-  margin: 0 0 0.75rem;
-  color: var(--gf-texto-apagado);
+/*
+ * El nombre dentro de la ficha de la cadena. Sustituye al renglón de pares que iba debajo —
+ * decía lo mismo dos veces— y al tooltip, que colgaba de un icono sin foco y por tanto solo
+ * existía para el ratón.
+ */
+.cadena li .nombre {
   font-size: 0.6875rem;
+  letter-spacing: 0.01em;
 }
 
 .acciones {

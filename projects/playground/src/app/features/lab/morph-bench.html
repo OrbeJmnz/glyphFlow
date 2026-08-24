@@ -21,8 +21,15 @@
       <button type="button" app-boton variante="primario" (click)="reproducirTodas()">
         {{ 'lab.morphBench.controles.reproducirTodas' | transloco }}
       </button>
-      <button type="button" app-chip variante="contorno" [activo]="loop()" (click)="alternarLoop()">
-        {{ etiquetaLoop() }}
+      <button
+        type="button"
+        app-chip
+        variante="contorno"
+        [activo]="loop()"
+        [attr.aria-pressed]="loop()"
+        (click)="alternarLoop()"
+      >
+        {{ 'lab.morphBench.controles.loop' | transloco }}
       </button>
       <button type="button" app-chip variante="contorno" (click)="cancelar()">
         {{ 'lab.morphBench.controles.reset' | transloco }}
@@ -78,15 +85,22 @@
       }
     </div>
 
-    @if (modo() === 'cola') {
-      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.cola' | transloco"></p>
-    }
-    @if (modo() === 'sobrepaso') {
-      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.sobrepaso' | transloco"></p>
-    }
-    @if (modo() === 'vuelta') {
-      <p class="aviso" [innerHTML]="'lab.morphBench.avisos.vuelta' | transloco"></p>
-    }
+    <!--
+      Un solo aviso con la clave derivada del modo, en vez de un `@if` por modo. Antes eran tres
+      bloques y el cuarto —`pasos`, que además es el modo POR DEFECTO— simplemente no existía: el
+      eje que ve todo el mundo al entrar era el único sin explicar. Con la clave derivada, agregar
+      un modo nuevo sin su línea es imposible de olvidar.
+    -->
+    <p class="aviso" [innerHTML]="claveAviso() | transloco"></p>
+
+    <!--
+      La resolución necesita su línea aparte y no un aviso por modo: aplica a los cuatro ejes, y es
+      la cifra que más se malinterpreta del Lab — parece un muestreo de TIEMPO y es del contorno.
+    -->
+    <p
+      class="aviso aviso-res"
+      [innerHTML]="'lab.morphBench.controles.resolucionNota' | transloco"
+    ></p>
   </header>
 
   <div class="envoltorio">
@@ -137,11 +151,11 @@
         (mouseleave)="salir(m)"
       >
         <h3>
-          {{ ('lab.morphBench.variantes.' + m.id + '.titulo') | transloco }}
+          {{ 'lab.morphBench.variantes.' + m.id + '.titulo' | transloco }}
           @if (m.tieneNota) {
-            <span class="etiqueta"
-              >{{ ('lab.morphBench.variantes.' + m.id + '.nota') | transloco }}</span
-            >
+            <span class="etiqueta">{{
+              'lab.morphBench.variantes.' + m.id + '.nota' | transloco
+            }}</span>
           }
         </h3>
         <svg
@@ -155,7 +169,17 @@
           stroke-linejoin="round"
           aria-hidden="true"
         >
-          <path [attr.d]="dInicial(m.id)" />
+          <!--
+            El rastro: todas las poses encimadas y tenues, y encima la final sólida. Es lo que hace
+            que «10 steps» y «30 steps» se vean distintos SIN reproducir nada.
+
+            El `@for` va sobre el índice porque las poses no tienen identidad propia — son cuadros
+            de la misma figura, no elementos de una lista que se reordene.
+          -->
+          @for (d of poses(m.id); track $index) {
+            <path class="rastro" [attr.d]="d" />
+          }
+          <path class="pose-final" [attr.d]="dFinal(m.id)" />
         </svg>
         <dl class="datos">
           <div>
@@ -181,4 +205,16 @@
       </article>
     }
   </div>
+
+  <!--
+    La leyenda va UNA vez debajo de la rejilla, no repetida en las cuatro fichas: son cuatro
+    métricas por ficha, y explicarlas dentro daría dieciséis líneas de texto compitiendo con los
+    números que se vienen a comparar.
+
+    Y existe por una confusión con consecuencia: `weight` es el peso del arreglo de keyframes en
+    memoria, no del bundle. Alguien que llega de la portada acaba de leer «4.09 KB one icon» — si
+    entiende que 30 pasos le meten 83 KB al bundle, el argumento central del proyecto se cae en su
+    propia página.
+  -->
+  <app-recuadro tipo="nota" [texto]="'lab.morphBench.tabla.leyenda' | transloco" />
 </section>

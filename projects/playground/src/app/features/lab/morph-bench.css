@@ -127,6 +127,40 @@ button button.primario:hover {
   color: var(--gf-texto);
 }
 
+/*
+ * El rastro: todas las poses de la variante, encimadas y tenues. Es lo que distingue las cuatro
+ * fichas en reposo — antes las cuatro dibujaban la misma campana y solo se diferenciaban en
+ * movimiento, lo que anulaba el propósito de ponerlas lado a lado.
+ *
+ * La opacidad es baja a propósito y NO se compensa por número de poses: que «30 steps» se vea más
+ * denso que «10 steps» ES el dato. Igualar la densidad borraría justo lo que se compara.
+ */
+.variante svg .rastro {
+  /*
+   * Más fino que la pose sólida, y no solo por estética: a 2px el trazo de treinta poses encimadas
+   * se funde en una mancha gris y deja de leerse como poses. A 1px se siguen distinguiendo los
+   * trazos individuales, que es lo único que hace comparable «10 steps» con «30 steps».
+   */
+  stroke-width: 1;
+  opacity: 0.16;
+}
+
+/* La sólida va encima del rastro por orden en el DOM, sin `z-index`: en SVG pinta el último. */
+.variante svg .pose-final {
+  opacity: 1;
+}
+
+/*
+ * Sin movimiento, el rastro sube: es la ÚNICA forma que queda de ver la diferencia entre
+ * variantes, porque reproducirlas está descartado. Aquí el papel cebolla deja de ser un extra y
+ * pasa a ser el contenido.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .variante svg .rastro {
+    opacity: 0.22;
+  }
+}
+
 .separador {
   width: 1px;
   align-self: stretch;

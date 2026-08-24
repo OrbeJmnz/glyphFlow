@@ -82,11 +82,6 @@ export class MorphPicker implements OnDestroy {
     return s.length ? s[Math.min(this.indiceActual(), s.length - 1)].def : null;
   });
 
-  protected readonly pares = computed(() => {
-    const s = this.secuencia();
-    return s.length >= 2 ? s.slice(1).map((x, i) => `${s[i].nombre} → ${x.nombre}`) : [];
-  });
-
   protected agregar(item: Elegido): void {
     this.detener();
     this.secuencia.update((s) => [...s, item]);

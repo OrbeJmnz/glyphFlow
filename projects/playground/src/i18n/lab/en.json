@@ -39,15 +39,17 @@
     "intro": "One pair at a time, 4 variants side by side. The spring only decides the timing: zero animation loop — the keyframes are computed once and the browser interpolates them.",
     "controles": {
       "reproducirTodas": "Play all 4",
-      "loop": { "on": "Loop on", "off": "Loop off" },
+      "loop": "Loop",
       "reset": "Reset",
       "modoPasos": "compare steps",
       "modoCola": "compare spring tail",
       "modoVuelta": "compare the return",
       "modoSobrepaso": "compare the bounce",
-      "resolucion": "res"
+      "resolucion": "res",
+      "resolucionNota": "<strong>res</strong> is the sampling resolution: how many points each subpath is resampled to before the two shapes are paired up. It samples the OUTLINE, not time — it changes how faithfully the curve is followed, never how many frames play."
     },
     "avisos": {
+      "pasos": "More steps means more intermediate poses, so the path is tracked more closely — and the keyframe array grows. What you are comparing here is fidelity against payload.",
       "cola": "The tail only shows up <strong>on the way back</strong>: turn on <em>Loop</em> and watch it land. \"No reverse\" doesn't come back — it restarts from the origin every cycle.",
       "sobrepaso": "An underdamped spring <strong>overshoots</strong> the target and comes back. That used to just stretch the clock: the icon would arrive and sit still. Now the overshoot poses render by default — the comparison that matters is <em>snappy, undrawn</em> (<code>sobrepaso: false</code>) against <em>snappy</em>. <code>bouncy</code> is clamped: extrapolating further would push it off the canvas and the SVG would clip it.",
       "vuelta": "<strong>Hover in, then pull out</strong> — that's the real case (<code>reverseOnLeave</code>). <em>reverse()</em> walks the offsets in mirror and lands abruptly; <em>Round trip</em> carries its own spring on each leg and doesn't need you to pull out."
@@ -80,7 +82,8 @@
       "keyframes": "keyframes",
       "peso": "weight",
       "duracion": "duration",
-      "ultimoTramo": "last leg"
+      "ultimoTramo": "last leg",
+      "leyenda": "<strong>keyframes</strong> — how many poses the browser interpolates between. <strong>weight</strong> — the size of that keyframe array in memory, as UTF-8 bytes. <em>This is not bundle weight.</em> These keyframes are computed in your browser when the morph runs; none of them ship inside the package. <strong>duration</strong> — how long a single leg of the morph lasts. <strong>last leg</strong> — the share of that duration spent on the final step between two keyframes. The higher it is, the more the icon looks like it crawls to a stop."
     },
     "reproducirSolo": "Play just this one"
   }

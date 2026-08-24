@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, signal, computed } from '@angular/core';
-import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import {
   AnimatedIconDef,
   bellIcon,
@@ -26,6 +26,7 @@ import {
 import { aIconNode } from './icon-node';
 import { Boton } from '../../shared/ui/boton';
 import { Chip } from '../../shared/ui/chip';
+import { Recuadro } from '../../shared/ui/recuadro';
 
 /**
  * Arnés del benchmark de morph. NO es producto: existe para decidir números mirando las cosas
@@ -189,7 +190,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
-  imports: [GfIconMorphComponent, Boton, Chip, TranslocoPipe],
+  imports: [GfIconMorphComponent, Boton, Chip, Recuadro, TranslocoPipe],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })
@@ -199,12 +200,23 @@ export class MorphBench {
   protected readonly pares = PARES;
   protected readonly parActivo = signal(PARES[0]);
   protected readonly modo = signal<'pasos' | 'cola' | 'vuelta' | 'sobrepaso'>('pasos');
+  /**
+   * El rótulo del botón se queda QUIETO en «Loop» y el estado lo lleva `aria-pressed`. Antes
+   * alternaba entre «Loop on» y «Loop off», y eso se lee de dos maneras: puede ser el estado
+   * actual o la acción del botón. Un lector de pantalla no recibía ninguna de las dos — el botón
+   * ni siquiera anunciaba que fuera un interruptor.
+   *
+   * `aria-pressed` y no `role="radio"` como el carril de velocidad: allá se elige UNA de cuatro,
+   * aquí se enciende y se apaga una sola cosa.
+   */
   protected readonly loop = signal(false);
-  /** Mismo patrón que `etiquetaEnvio` de patrones.ts: la rama elige la CLAVE, no el texto. */
-  private readonly claveLoop = computed(() =>
-    this.loop() ? 'lab.morphBench.controles.loop.on' : 'lab.morphBench.controles.loop.off',
-  );
-  protected readonly etiquetaLoop = translateSignal(this.claveLoop);
+  /**
+   * La clave del aviso se DERIVA del modo en vez de estar escrita en un `@if` por cada uno. Con
+   * los cuatro a mano, el del modo por defecto (`pasos`) era el único que faltaba — o sea el eje
+   * que ve todo el que entra. Derivada, un modo nuevo sin su línea revienta al traducir en vez de
+   * quedarse callado.
+   */
+  protected readonly claveAviso = computed(() => `lab.morphBench.avisos.${this.modo()}`);
   /**
    * La otra perilla del peso: puntos por subpath. Arranca en el default real de la librería, no
    * en un número suelto. Se queda aunque el benchmark de pasos ya cerró: retomar esto con más
@@ -279,9 +291,27 @@ export class MorphBench {
     }),
   );
 
-  /** `d` inicial de cada lienzo: la pose de origen, para que el SVG no arranque vacío. */
-  protected dInicial(id: string): string {
-    return (this.calculo()[id].keyframes[0]['d'] as string).slice(6, -2);
+  /**
+   * Las poses de una variante, en orden, listas para pintar.
+   *
+   * Existe para que las cuatro fichas se distingan EN REPOSO. Antes cada lienzo pintaba la pose de
+   * origen y nada más: «10 steps» y «30 steps» dibujaban exactamente la misma campana, así que
+   * ponerlas lado a lado —el propósito entero del banco— no comunicaba nada hasta darle a
+   * reproducir. Medido: los cuatro `d` iniciales eran un único valor distinto.
+   *
+   * Con todas las poses encimadas y tenues, el conteo de pasos SE VE, y donde se amontonan se lee
+   * el «último tramo» sin mirar la cifra — el dibujo y la métrica cuentan lo mismo.
+   *
+   * El `slice` quita el envoltorio `path("…")` con que WAAPI expresa el atributo `d`.
+   */
+  protected poses(id: string): string[] {
+    return this.calculo()[id].keyframes.map((k) => (k['d'] as string).slice(6, -2));
+  }
+
+  /** La pose en la que aterriza. Va sólida encima del rastro: es dónde acaba, no por dónde pasó. */
+  protected dFinal(id: string): string {
+    const kfs = this.calculo()[id].keyframes;
+    return (kfs[kfs.length - 1]['d'] as string).slice(6, -2);
   }
 
   protected elegirPar(par: Par): void {
@@ -333,8 +363,16 @@ export class MorphBench {
    * Si el arnés replicara esa lógica dejaría de probar lo que de verdad se va a publicar.
    */
   protected reproducir(v: Variante): void {
+    /*
+     * `path.pose-final` y NO `path` a secas: desde que el lienzo dibuja el rastro, el primer
+     * `<path>` del SVG es una pose tenue de referencia. Con el selector suelto se animaba ese —
+     * el fantasma se movía y la figura sólida se quedaba quieta, sin ningún error que lo delatara.
+     *
+     * Que el rastro se quede FIJO mientras la sólida corre es lo que se quiere: hace de pista por
+     * la que se ve pasar la animación.
+     */
     const path = this.lienzos.nativeElement.querySelector<SVGPathElement>(
-      `[data-id="${v.id}"] path`,
+      `[data-id="${v.id}"] path.pose-final`,
     );
     if (!path) return;
 
