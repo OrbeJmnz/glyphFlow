@@ -34,6 +34,16 @@
   --gf-acento-fondo: rgba(255, 255, 255, 0.08);
 
   /*
+   * El anillo de foco tiene token PROPIO y no reusa `--gf-acento`, aunque en oscuro valgan lo
+   * mismo. `--gf-acento` se usa además como color decorativo, y ahí 0.4 es lo que se quiere; el
+   * anillo tiene un piso que cumplir (WCAG 1.4.11, 3:1 contra su fondo) y sube solo cuando hace
+   * falta. Con un único token, subir el anillo oscurecía la decoración de toda la página.
+   *
+   * Medido en oscuro: 3.79:1 sobre la tarjeta, 3.84:1 sobre el fondo. Pasa, así que no se toca.
+   */
+  --gf-foco: rgba(255, 255, 255, 0.4);
+
+  /*
    * Velos: el relleno sutil de hover y de carriles. Son los `rgba(255,255,255,.0x)` que estaban
    * repartidos por seis archivos — y son justo lo que un tema claro no puede heredar, porque blanco
    * sobre blanco no se ve. En claro pasan a negro con la misma alfa.
@@ -178,6 +188,17 @@
   --gf-acento: rgba(22, 22, 28, 0.38);
   --gf-acento-claro: #2f2f38;
   --gf-acento-fondo: rgba(22, 22, 28, 0.07);
+
+  /*
+   * Aquí está la razón de que el token exista. Con `--gf-acento` (0.38) el anillo daba 2.38:1
+   * sobre la tarjeta y 2.40:1 sobre el fondo — por debajo del piso de 3:1, o sea el tema claro
+   * tenía un anillo de foco que se veía a medias. A 0.62 da 4.80:1 / 5.01:1.
+   *
+   * Y NO lleva el cian de marca, aunque sea el color de «activo»: `--gf-marca-1` sobre estos
+   * fondos da 1.68:1. El propio sistema de diseño ya lo advierte para texto; como anillo de foco
+   * falla por el mismo motivo.
+   */
+  --gf-foco: rgba(22, 22, 28, 0.62);
 
   --gf-velo: rgba(22, 22, 28, 0.04);
   --gf-velo-fuerte: rgba(22, 22, 28, 0.07);
@@ -571,7 +592,7 @@ code {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gf-acento);
+  outline: 2px solid var(--gf-foco);
   outline-offset: 2px;
 }
 

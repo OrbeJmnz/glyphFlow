@@ -289,7 +289,18 @@
   le hacía sitio con `padding-right` y un número de columnas fijo por breakpoint, y cada tarjeta
   cambiaba de posición — al cerrar, nadie encontraba dónde iba.
 -->
-<div class="grid" [class.comoda]="densidad() === 'comoda'">
+<!--
+  `role="group"` y no `role="grid"`: un `grid` de ARIA exige `role="row"` en medio, y aquí las filas
+  las forma `auto-fill` — no existen en el DOM y cambian con el ancho. El porqué completo, en
+  `appRejillaTeclado`.
+-->
+<div
+  class="grid"
+  appRejillaTeclado
+  role="group"
+  [attr.aria-label]="'iconos.grid.rejillaAria' | transloco: { n: entries().length }"
+  [class.comoda]="densidad() === 'comoda'"
+>
   @for (entry of entries(); track entry.name) {
     <article
       class="card"
@@ -297,11 +308,12 @@
       [class.inspeccionado]="inspeccionado()?.name === entry.name"
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
-      tabindex="0"
-      data-icon-card
+      data-celda
+      [attr.tabindex]="$first ? 0 : -1"
       [attr.aria-label]="'iconos.grid.inspeccionarAria' | transloco: { nombre: entry.name }"
       (click)="inspeccionar(entry, $event)"
       (keydown.enter)="inspeccionar(entry, $event)"
+      (keydown.space)="inspeccionar(entry, $event); $event.preventDefault()"
     >
       <span
         class="cuenta"

@@ -65,7 +65,8 @@
   },
   "grid": {
     "variantesAria": "{{n}} animation variants",
-    "inspeccionarAria": "Inspect {{nombre}}"
+    "inspeccionarAria": "Inspect {{nombre}}",
+    "rejillaAria": "Icon catalog, {{n}} icons. Use the arrow keys to move between them."
   },
   "scrubber": {
     "progresoEtiqueta": "Choreography progress",

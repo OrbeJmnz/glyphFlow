@@ -39,6 +39,7 @@ import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
+import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
 import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
@@ -108,6 +109,7 @@ interface CuratedEntry {
     Contador,
     Grupo,
     NombreTransicion,
+    RejillaTeclado,
     TituloSiTruncado,
     TranslocoPipe,
   ],

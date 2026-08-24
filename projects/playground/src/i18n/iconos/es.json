@@ -65,7 +65,8 @@
   },
   "grid": {
     "variantesAria": "{{n}} variantes de animación",
-    "inspeccionarAria": "Inspeccionar {{nombre}}"
+    "inspeccionarAria": "Inspeccionar {{nombre}}",
+    "rejillaAria": "Catálogo de iconos, {{n}} iconos. Usa las flechas para moverte entre ellos."
   },
   "scrubber": {
     "progresoEtiqueta": "Progreso de la coreografía",

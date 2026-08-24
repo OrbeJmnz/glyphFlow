@@ -38,6 +38,15 @@
         ],
         "createdAt": "2026-08-22T16:54:57.572Z",
         "reason": "Preexistente, no tocado por este cambio. Es el componente 'Recuadro tipado' que el plan UX del proyecto especifica literalmente: 'Cuatro variantes con etiqueta e icono: Regla (cian), Nota (neutro), Caso limite (rojo), Advertencia (ambar). Barra izquierda de 3px del color de su tipo' (docs/planning/plan-ux-glyphflow.md, seccion Sistema de diseno > Componentes compartidos). Decision de diseno documentada, no un default de plantilla."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "projects/playground/src/app/features/iconos/iconos.html"
+        ],
+        "createdAt": "2026-08-24T15:21:52.867Z",
+        "reason": "Falso positivo del detector: el <img> del hero usa [src]=\"logoAnimado()\" (binding de Angular), no un src estatico. Verificado: los 4 archivos referenciados existen en projects/playground/public/images/."
       }
     ]
   }
