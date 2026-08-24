@@ -3,6 +3,36 @@
   <p>{{ 'patrones.intro' | transloco }}</p>
 </header>
 
+<!--
+  La caja de decisión. Va ANTES del primer patrón porque es el modelo mental que hace falta para
+  leer los ejemplos, no la conclusión que se saca después — hasta hoy esta regla vivía dentro del
+  recuadro gris del cuarto patrón, o sea al final.
+
+  Las tres columnas son preguntas, no categorías: quien llega no sabe cómo se llama lo que
+  necesita, sabe qué quiere que pase.
+-->
+<section class="decision" [attr.aria-label]="'patrones.decision.titulo' | transloco">
+  <h2>{{ 'patrones.decision.titulo' | transloco }}</h2>
+
+  <div class="columnas">
+    @for (col of columnasDecision; track col.ancla) {
+      <article class="columna" [class]="'motor-' + col.ancla">
+        <h3>{{ col.pregunta | transloco }}</h3>
+        <p class="responde">{{ col.motor | transloco }}</p>
+        <p class="ejemplos">{{ col.ejemplos | transloco }}</p>
+        <p class="porque">{{ col.porque | transloco }}</p>
+        <a [href]="'#' + col.ancla">{{ col.ver | transloco }}</a>
+      </article>
+    }
+  </div>
+
+  <!-- El caso que rompe la regla de las tres columnas, y por eso va aparte y a lo ancho. -->
+  <p class="mezcla">
+    <span [innerHTML]="'patrones.decision.mezcla' | transloco"></span>
+    <a href="#send">{{ 'patrones.decision.mezclaVer' | transloco }}</a>
+  </p>
+</section>
+
 <div class="patrones">
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
   <article class="patron" id="copy">

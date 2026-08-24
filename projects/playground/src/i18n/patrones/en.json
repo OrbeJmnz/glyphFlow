@@ -26,7 +26,7 @@
   "enviar": {
     "titulo": "Three-state action",
     "descripcion": "Idle → sending → sent, and back again. <code>send</code> → <code>circle-check</code> via morph; the spinner is a curated <code>&lt;gf-icon&gt;</code> on <code>loop</code>.",
-    "detalle": "Mixing them isn't sloppiness: a morph has a <strong>start and an end</strong>, and \"loading\" doesn't know when it's done. An unknown-duration state needs an animation that cycles — exactly what the choreography engine already does.",
+    "detalle": "The spinner is a curated <code>&lt;gf-icon&gt;</code> on <code>loop</code>; the check is a morph. Two engines, one button.",
     "boton": {
       "reposo": "Send",
       "enviando": "Sending…",
@@ -36,7 +36,7 @@
   "reaccion": {
     "titulo": "Reaction",
     "descripcion": "There's no morph here: the shape doesn't change, only the gesture. <code>trigger=\"tap\"</code> replays the heart's curated choreography on every click, and the button supplies the color.",
-    "detalle": "The rule for picking an engine: if the icon <strong>changes shape</strong>, morph; if the same icon <strong>reacts</strong>, choreography. Using morph here would mean paying for the interpolation of two identical shapes."
+    "detalle": "The heart keeps its shape — only the gesture changes, so the choreography engine is the whole job."
   },
   "motor": {
     "morph": "morph",
@@ -78,5 +78,31 @@
     "campo": "Search",
     "descripcion": "The field expands and the icon announces what the button will do next.",
     "detalle": "While collapsed the input is out of the tab order (<code>tabindex=\"-1\"</code>): a field nobody can see should not be a stop for someone navigating by keyboard."
+  },
+  "decision": {
+    "titulo": "Which engine do I use?",
+    "mezcla": "Mixing them isn't sloppiness. The three-state send button uses <strong>both</strong>: a looping choreography while it does not know when it will finish, and a morph the moment it does.",
+    "mezclaVer": "See it in three-state action",
+    "forma": {
+      "pregunta": "Does the icon change shape?",
+      "motor": "morph",
+      "ejemplos": "menu → X · play → pause · search → close",
+      "porque": "Two shapes, one control. The morph carries the change so the eye reads one button, not two.",
+      "ver": "See menu → X"
+    },
+    "reacciona": {
+      "pregunta": "Does the same icon react?",
+      "motor": "choreography",
+      "ejemplos": "bell · heart · copy → check",
+      "porque": "Nothing to transition to. The shape stays and the movement carries the meaning.",
+      "ver": "See the bell"
+    },
+    "duracion": {
+      "pregunta": "Is the duration unknown?",
+      "motor": "a looping choreography",
+      "ejemplos": "loader-circle · refresh-cw",
+      "porque": "A morph has a start and an end. \"Loading\" has neither, so it needs an animation that cycles.",
+      "ver": "See three-state action"
+    }
   }
 }

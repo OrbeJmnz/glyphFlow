@@ -130,6 +130,44 @@ export class Patrones implements OnDestroy {
     this.enUnRato(() => this.copiado.set(false), 1600);
   }
 
+  /**
+   * Las tres columnas de la caja de decisión (T21). Se declaran como DATOS y no como tres bloques
+   * repetidos en la plantilla: son la misma estructura tres veces, y escribirla tres veces es
+   * garantizar que la cuarta se escriba distinta.
+   *
+   * Cada una enlaza al patrón que la ilustra — las anclas existen desde T25.
+   *
+   * Las claves llevan NOMBRE (`forma`, `reacciona`, `duracion`) y no índice: primero fueron un
+   * array en el JSON y Transloco no indexa arrays con notación de punto — la página salió pintando
+   * `patrones.decision.cols.0.pregunta` en crudo. Con nombre además se lee qué es cada columna.
+   */
+  protected readonly columnasDecision = [
+    {
+      ancla: 'menu',
+      pregunta: 'patrones.decision.forma.pregunta',
+      motor: 'patrones.decision.forma.motor',
+      ejemplos: 'patrones.decision.forma.ejemplos',
+      porque: 'patrones.decision.forma.porque',
+      ver: 'patrones.decision.forma.ver',
+    },
+    {
+      ancla: 'bell',
+      pregunta: 'patrones.decision.reacciona.pregunta',
+      motor: 'patrones.decision.reacciona.motor',
+      ejemplos: 'patrones.decision.reacciona.ejemplos',
+      porque: 'patrones.decision.reacciona.porque',
+      ver: 'patrones.decision.reacciona.ver',
+    },
+    {
+      ancla: 'send',
+      pregunta: 'patrones.decision.duracion.pregunta',
+      motor: 'patrones.decision.duracion.motor',
+      ejemplos: 'patrones.decision.duracion.ejemplos',
+      porque: 'patrones.decision.duracion.porque',
+      ver: 'patrones.decision.duracion.ver',
+    },
+  ];
+
   // ── T25 · Los cinco patrones que la gente viene buscando ────────────────────
 
   /**

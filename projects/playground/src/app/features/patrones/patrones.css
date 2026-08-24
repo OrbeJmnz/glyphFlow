@@ -327,3 +327,122 @@ pre code.degradado-texto-sutil {
     transition: none;
   }
 }
+
+/*
+ * ── T21 · La caja de decisión ─────────────────────────────────────────────────
+ *
+ * Va antes del primer patrón: es el modelo mental que hace falta ANTES de leer los ejemplos.
+ * Hasta hoy la regla vivía dentro del recuadro gris del cuarto patrón, o sea al final.
+ */
+.decision {
+  margin: 0 0 2.5rem;
+}
+
+.decision > h2 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+/*
+ * La barra de color va arriba y mide 2px. El piso de calidad prohíbe un `border-left` de color
+ * grueso como decoración; aquí no es decoración: es lo ÚNICO que distingue las tres columnas de un
+ * vistazo, y por eso está arriba y no al costado, donde competiría con los recuadros de nota que
+ * ya usan borde izquierdo en esta misma página.
+ */
+.columna {
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-top: 2px solid var(--gf-borde-vivo);
+  border-radius: 0.6rem;
+  background: var(--gf-panel);
+}
+
+.columna.motor-menu {
+  border-top-color: var(--gf-acento-claro);
+}
+
+.columna.motor-bell {
+  border-top-color: var(--gf-marca-2);
+}
+
+.columna.motor-send {
+  border-top-color: var(--gf-texto-apagado);
+}
+
+.columna h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+  color: var(--gf-texto);
+}
+
+/* El motor que responde: es la respuesta, así que pesa más que la pregunta. */
+.columna .responde {
+  margin: 0 0 0.5rem;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--gf-acento-claro);
+}
+
+.columna.motor-bell .responde {
+  color: var(--gf-marca-2);
+}
+
+.columna.motor-send .responde {
+  color: var(--gf-texto-medio);
+}
+
+.columna .ejemplos {
+  margin: 0 0 0.5rem;
+  font-size: 0.74rem;
+  color: var(--gf-texto-apagado);
+}
+
+.columna .porque {
+  margin: 0 0 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--gf-texto-medio);
+}
+
+.columna a,
+.mezcla a {
+  font-size: 0.78rem;
+  color: var(--gf-acento-claro);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.columna a:hover,
+.columna a:focus-visible,
+.mezcla a:hover,
+.mezcla a:focus-visible {
+  border-bottom-color: currentColor;
+}
+
+/* El caso que rompe la regla de las tres columnas: por eso va aparte y a lo ancho. */
+.mezcla {
+  margin: 0.85rem 0 0;
+  padding: 0.8rem 1rem;
+  border: 1px dashed var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--gf-texto-medio);
+}
+
+.mezcla a {
+  margin-left: 0.4rem;
+}
+
+/* El ticket lo fija en 900: por debajo, tres columnas dejan de caber sin romper la medida. */
+@media (max-width: 900px) {
+  .columnas {
+    grid-template-columns: 1fr;
+  }
+}

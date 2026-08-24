@@ -26,7 +26,7 @@
   "enviar": {
     "titulo": "Acción con tres estados",
     "descripcion": "Reposo → enviando → enviado, y de regreso. <code>send</code> → <code>circle-check</code> por morph; el spinner es un <code>&lt;gf-icon&gt;</code> curado en <code>loop</code>.",
-    "detalle": "Mezclarlos no es descuido: un morph tiene <strong>principio y fin</strong>, y \"cargando\" no sabe cuándo termina. Para un estado de duración desconocida se necesita una animación que cicle, que es exactamente lo que el motor de coreografía ya hace.",
+    "detalle": "El spinner es un <code>&lt;gf-icon&gt;</code> curado en <code>loop</code>; la palomita es un morph. Dos motores, un botón.",
     "boton": {
       "reposo": "Enviar",
       "enviando": "Enviando…",
@@ -36,7 +36,7 @@
   "reaccion": {
     "titulo": "Reacción",
     "descripcion": "Aquí no hay morph: la forma no cambia, solo el gesto. <code>trigger=\"tap\"</code> reproduce la coreografía curada del corazón en cada click, y el color lo pone el botón.",
-    "detalle": "La regla para elegir motor: si el icono <strong>cambia de forma</strong>, morph; si el mismo icono <strong>reacciona</strong>, coreografía. Meter morph aquí sería pagar la interpolación de dos figuras idénticas."
+    "detalle": "El corazón conserva su forma — solo cambia el gesto, así que el motor de coreografía es todo el trabajo."
   },
   "motor": {
     "morph": "morph",
@@ -78,5 +78,31 @@
     "campo": "Buscar",
     "descripcion": "El campo se expande y el icono anuncia qué hará el botón a continuación.",
     "detalle": "Mientras está cerrado, el campo sale del recorrido de tabulación (<code>tabindex=\"-1\"</code>): un campo que nadie ve no debería ser una parada para quien navega con el teclado."
+  },
+  "decision": {
+    "titulo": "¿Qué motor uso?",
+    "mezcla": "Mezclarlos no es descuido. El botón de enviar usa <strong>los dos</strong>: una coreografía en bucle mientras no sabe cuándo va a terminar, y un morph en el momento en que ya lo sabe.",
+    "mezclaVer": "Verlo en la acción de tres estados",
+    "forma": {
+      "pregunta": "¿El icono cambia de forma?",
+      "motor": "morph",
+      "ejemplos": "menú → X · play → pausa · buscar → cerrar",
+      "porque": "Dos formas, un control. El morph lleva el cambio para que el ojo lea un botón, no dos.",
+      "ver": "Ver menú → X"
+    },
+    "reacciona": {
+      "pregunta": "¿El mismo icono reacciona?",
+      "motor": "coreografía",
+      "ejemplos": "campana · corazón · copiar → palomita",
+      "porque": "No hay a qué transicionar. La forma se queda y el movimiento lleva el significado.",
+      "ver": "Ver la campana"
+    },
+    "duracion": {
+      "pregunta": "¿La duración es desconocida?",
+      "motor": "una coreografía en bucle",
+      "ejemplos": "loader-circle · refresh-cw",
+      "porque": "Un morph tiene principio y fin. «Cargando» no tiene ninguno, así que necesita una animación que cicle.",
+      "ver": "Ver la acción de tres estados"
+    }
   }
 }
