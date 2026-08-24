@@ -89,6 +89,15 @@
       "nota": "Reduced motion is respected <strong>by removing the movement, not the state change</strong>. The morph skips the transition and paints the destination immediately.",
       "override": "If you need to ignore the system preference — a rare case, and justifying it is on you — the override exists: <code>[respectReducedMotion]=\"false\"</code>."
     },
+    "motionLint": {
+      "titulo": "How the catalog’s motion is kept cheap",
+      "texto1": "Every curated choreography is analysed by a deterministic linter — the same <strong>Motion Inspector</strong> you can open on any icon in the catalog, running as a CI check over the whole curated set on any PR that touches it. One implementation, two places.",
+      "texto2": "It reports three things, measured over 911 icons and 2236 variants:",
+      "animaD": "<strong>Animating <code>d</code></strong> — this <em>fails</em> the build. Changing the path data redraws it every frame; <code>transform</code> and <code>opacity</code> are moved by the compositor without repainting. The catalog has <strong>zero</strong> of these today, so the rule guards against a regression rather than flagging existing debt. Progressive stroke (<code>autoDraw</code>) is exempt: there is no cheap equivalent for it.",
+      "duracion": "<strong>Duration over 1200 ms</strong> — a warning. 53 variants exceed it, mostly icons that tell a small story (dice rolling, weather).",
+      "rotacion": "<strong>Rotation over 720°</strong> — a warning. Exactly two: <code>orbit</code> and <code>calendar-cog/spin</code>, both deliberate.",
+      "porQueAvisa": "Only the first one breaks the build. The other two measure <em>cost</em>, not correctness, and an expensive choreography can be the right call for a given icon — a check that fails on a matter of taste gets switched off within a week."
+    },
     "noDecide": {
       "titulo": "What the component doesn't decide for you",
       "color": "<strong>Color.</strong> The SVG uses <code>stroke=\"currentColor\"</code>, so it inherits the text color. Contrast against the background is on you.",

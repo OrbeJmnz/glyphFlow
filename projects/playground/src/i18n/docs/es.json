@@ -89,6 +89,15 @@
       "nota": "Se respeta el movimiento reducido <strong>quitando el movimiento, no el cambio de estado</strong>. El morph se salta la transición y pinta el destino de una.",
       "override": "Si necesitas ignorar la preferencia del sistema — un caso raro, y la carga de justificarlo es tuya — el override existe: <code>[respectReducedMotion]=\"false\"</code>."
     },
+    "motionLint": {
+      "titulo": "Cómo se mantiene barato el movimiento del catálogo",
+      "texto1": "Cada coreografía curada la analiza un linter determinista — el mismo <strong>Motion Inspector</strong> que puedes abrir sobre cualquier icono del catálogo, corriendo como check de CI sobre todo el curado en cada PR que lo toca. Una implementación, dos lugares.",
+      "texto2": "Reporta tres cosas, medidas sobre 911 iconos y 2236 variantes:",
+      "animaD": "<strong>Animar <code>d</code></strong> — esto <em>rompe</em> el build. Cambiar los datos del trazo lo redibuja en cada cuadro; <code>transform</code> y <code>opacity</code> las mueve el compositor sin repintar. Hoy el catálogo tiene <strong>cero</strong>, así que la regla protege contra una regresión en vez de señalar deuda existente. El trazo progresivo (<code>autoDraw</code>) queda fuera: no tiene equivalente barato.",
+      "duracion": "<strong>Duración mayor a 1200 ms</strong> — aviso. La superan 53 variantes, casi todas iconos que cuentan una pequeña historia (dados, clima).",
+      "rotacion": "<strong>Rotación mayor a 720°</strong> — aviso. Exactamente dos: <code>orbit</code> y <code>calendar-cog/spin</code>, las dos a propósito.",
+      "porQueAvisa": "Solo la primera rompe el build. Las otras dos miden <em>costo</em>, no correctitud, y una coreografía cara puede ser la decisión correcta para un icono concreto — un check que falla por gusto se desactiva en una semana."
+    },
     "noDecide": {
       "titulo": "Lo que el componente no decide por ti",
       "color": "<strong>El color.</strong> El SVG usa <code>stroke=\"currentColor\"</code>, así que hereda el color del texto. El contraste contra el fondo lo controlas tú.",

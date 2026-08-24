@@ -18,6 +18,7 @@
     "generate:icons": "tsx scripts/generate-lucide-icons.ts",
     "lint": "ng lint",
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
+    "motion-lint": "tsx scripts/motion-lint.ts",
     "ng": "ng",
     "notice-check": "node scripts/notice-check.mjs",
     "pack-check": "npm run build:lib && tsx scripts/pack-check.ts",

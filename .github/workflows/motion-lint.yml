@@ -1,0 +1,44 @@
+name: Motion lint
+
+# Workflow APARTE y no un job dentro de `ci.yml` por una razón concreta: los filtros `paths` de
+# GitHub Actions viven en el disparador del workflow, no en el job. Con `ci.yml` corriendo en todo
+# PR, la única forma de acotar ESTE check a los PRs que tocan el catálogo —que es lo que pide su
+# ficha— sin arrastrar una acción de terceros para filtrar rutas es dándole su propio archivo.
+on:
+  pull_request:
+    paths:
+      # El catálogo curado: la coreografía escrita a mano, que es lo que este linter juzga.
+      - 'projects/glyphflow/src/lib/icon/curated-icons.ts'
+      - 'projects/glyphflow/src/lib/icon/icons/**'
+      - 'projects/glyphflow/src/lib/icon/animated-icons.shapes.ts'
+      # Y el propio análisis: si cambian las reglas, hay que volver a medir el catálogo con ellas.
+      - 'projects/playground/src/app/features/iconos/motion-inspector.ts'
+      - 'scripts/motion-lint.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/glyphflow/src/lib/icon/curated-icons.ts'
+      - 'projects/glyphflow/src/lib/icon/icons/**'
+      - 'projects/glyphflow/src/lib/icon/animated-icons.shapes.ts'
+      - 'projects/playground/src/app/features/iconos/motion-inspector.ts'
+      - 'scripts/motion-lint.ts'
+
+jobs:
+  motion-lint:
+    name: Motion lint sobre el catálogo curado
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Sin `build:lib` delante: el linter lee el catálogo del FUENTE, no de `dist/`. Es a propósito
+      # — un `dist/` construido antes del cambio revisaría el catálogo anterior, que es justo lo que
+      # un check de PR no debe hacer.
+      - name: Motion lint
+        run: npm run motion-lint

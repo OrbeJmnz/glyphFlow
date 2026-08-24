@@ -46,3 +46,18 @@
   <li [innerHTML]="'docs.accesibilidad.noDecide.area' | transloco"></li>
   <li [innerHTML]="'docs.accesibilidad.noDecide.foco' | transloco"></li>
 </ul>
+
+<!--
+  El linter de motion. Va en esta página y no en una propia porque es la continuación natural de la
+  sección de movimiento reducido: las dos hablan de qué se anima y a qué costo. Y es un argumento de
+  calidad que hasta ahora solo existía dentro del repositorio.
+-->
+<h2>{{ 'docs.accesibilidad.motionLint.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.accesibilidad.motionLint.texto1' | transloco"></p>
+<p>{{ 'docs.accesibilidad.motionLint.texto2' | transloco }}</p>
+<ul>
+  <li [innerHTML]="'docs.accesibilidad.motionLint.animaD' | transloco"></li>
+  <li [innerHTML]="'docs.accesibilidad.motionLint.duracion' | transloco"></li>
+  <li [innerHTML]="'docs.accesibilidad.motionLint.rotacion' | transloco"></li>
+</ul>
+<p class="nota" [innerHTML]="'docs.accesibilidad.motionLint.porQueAvisa' | transloco"></p>
