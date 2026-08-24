@@ -2,9 +2,9 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { computed } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { GF_ICONS_CONFIG, GfIconsConfig } from 'glyphflow';
-import { velocidadGlobal, provideVelocidadEnVivo, PRESETS_VELOCIDAD } from './duration-scale';
+import { velocidadGlobal, provideConfigEnVivo, PRESETS_VELOCIDAD } from './duration-scale';
 
-describe('provideVelocidadEnVivo', () => {
+describe('provideConfigEnVivo', () => {
   afterEach(() => velocidadGlobal.set(1));
 
   it('el default es 1: sin tocar nada, la librería anima igual que siempre', () => {
@@ -15,7 +15,7 @@ describe('provideVelocidadEnVivo', () => {
   });
 
   it('la config leída DESPUÉS de mover la señal trae el valor nuevo, sin re-proveer', () => {
-    TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
+    TestBed.configureTestingModule({ providers: [provideConfigEnVivo()] });
     const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     // Es la misma referencia de objeto: lo que cambia es lo que devuelve el getter. Ese es todo el
@@ -31,7 +31,7 @@ describe('provideVelocidadEnVivo', () => {
   // recíprocos, y confundirlos es exactamente el bug que se arregló aquí — el chip `2×` alargaba
   // la duración al doble, o sea corría a la mitad de rápido.
   it('velocidad y durationScale son recíprocos: 2× de rápido es la mitad de duración', () => {
-    TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
+    TestBed.configureTestingModule({ providers: [provideConfigEnVivo()] });
     const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     velocidadGlobal.set(2);
@@ -47,7 +47,7 @@ describe('provideVelocidadEnVivo', () => {
   });
 
   it('leer la config no suscribe al lector: un computed no se recalcula al mover la velocidad', () => {
-    TestBed.configureTestingModule({ providers: [provideVelocidadEnVivo()] });
+    TestBed.configureTestingModule({ providers: [provideConfigEnVivo()] });
     const config = TestBed.inject<GfIconsConfig>(GF_ICONS_CONFIG);
 
     let lecturas = 0;

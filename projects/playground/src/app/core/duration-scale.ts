@@ -1,5 +1,6 @@
 import { Provider, signal, untracked } from '@angular/core';
 import { provideGfIcons } from 'glyphflow';
+import { hayMovimiento } from './movimiento';
 
 /**
  * Velocidad global de las animaciones, movible en vivo desde la UI. 2 = el doble de rápido.
@@ -56,13 +57,23 @@ export const PRESETS_VELOCIDAD: PresetVelocidad[] = [
   { valor: 2, etiqueta: '2×', notaClave: 'shell.velocidad.notaDoble' },
 ];
 
-export function provideVelocidadEnVivo(): Provider {
+/**
+ * La config viva de los iconos: velocidad Y movimiento.
+ *
+ * Van juntas en UN solo `provideGfIcons` porque `GF_ICONS_CONFIG` es un token, no un array: un
+ * segundo `provide…` no se suma al primero, lo SUSTITUYE. Separarlos en dos providers dejaría
+ * silenciosamente sin efecto al que quedara primero.
+ */
+export function provideConfigEnVivo(): Provider {
   return provideGfIcons({
     // `untracked`: el getter corre dentro de `play()`, y `play()` se dispara desde efectos del
     // componente. Sin esto ese efecto quedaría suscrito a la señal y se re-ejecutaría al mover el
     // chip — un ciclo reactivo que nadie pidió, disparado desde fuera de este archivo.
     get durationScale() {
       return 1 / untracked(velocidadGlobal);
+    },
+    get animationsEnabled() {
+      return untracked(hayMovimiento);
     },
   });
 }

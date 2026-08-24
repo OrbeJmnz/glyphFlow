@@ -90,6 +90,22 @@
       </app-grupo>
 
       <!--
+        Pegado a la velocidad porque son la misma familia: los dos gobiernan el movimiento de todo
+        el sitio. Apagarlo hace más que pausar lo que corre — impide que empiece nada nuevo, y esa
+        elección le GANA a `prefers-reduced-motion`. Ver `core/movimiento.ts`.
+      -->
+      <button
+        type="button"
+        app-boton
+        class="movimiento"
+        [attr.aria-label]="etiquetaMovimiento()"
+        [attr.aria-pressed]="!hayMovimiento()"
+        (click)="alternarMovimiento()"
+      >
+        <gf-icon-morph [icon]="iconoMovimiento()" [size]="16" spring="bouncy" />
+      </button>
+
+      <!--
         Van como hermanos directos, sin caja intermedia: los separadores se dibujan con `+` entre
         hermanos, y envueltos en un `<div>` el CSS solo podía poner UNA raya (antes del grupo
         entero) en vez de una entre cada par.

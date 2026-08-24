@@ -29,6 +29,10 @@
       "aClaro": "Switch to light theme",
       "aOscuro": "Switch to dark theme"
     },
+    "movimiento": {
+      "pausar": "Turn off animations",
+      "reanudar": "Turn animations back on"
+    },
     "idioma": {
       "cambiar": "Switch language"
     },
