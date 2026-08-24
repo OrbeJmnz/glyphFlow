@@ -5,12 +5,13 @@ import docsEn from '../../../i18n/docs/en.json';
 import { type RutaId } from '../../core/rutas';
 import { Rutas } from '../../core/rutas.service';
 import { IndicePagina } from './indice-pagina';
+import { BuscadorDocs } from './buscador-docs';
 import { CIFRAS } from '../../core/cifras';
 
 /** Marco de las docs: índice lateral fijo + la página. */
 @Component({
   selector: 'app-docs',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, IndicePagina, TranslocoPipe],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, IndicePagina, BuscadorDocs, TranslocoPipe],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de

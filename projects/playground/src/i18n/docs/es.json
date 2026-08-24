@@ -1,4 +1,12 @@
 {
+  "buscador": {
+    "abrir": "Buscar en la documentación",
+    "aria": "Buscar en la documentación",
+    "marcador": "Escribe para buscar…",
+    "cerrar": "Cerrar la búsqueda",
+    "cuenta": "{{n}} resultados",
+    "sinResultados": "Nada para «{{q}}»."
+  },
   "pie": {
     "version": "Esta documentación describe la <strong>v{{v}}</strong>, la versión publicada en npm.",
     "editar": "Editar esta página en GitHub"

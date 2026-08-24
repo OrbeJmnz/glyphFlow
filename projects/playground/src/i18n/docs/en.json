@@ -1,4 +1,12 @@
 {
+  "buscador": {
+    "abrir": "Search the docs",
+    "aria": "Search the documentation",
+    "marcador": "Type to search…",
+    "cerrar": "Close search",
+    "cuenta": "{{n}} results",
+    "sinResultados": "Nothing for “{{q}}”."
+  },
   "pie": {
     "version": "These docs describe <strong>v{{v}}</strong>, the version published on npm.",
     "editar": "Edit this page on GitHub"

@@ -1,12 +1,17 @@
 <div class="docs-marco">
-  <nav class="indice" [attr.aria-label]="'docs.nav.aria' | transloco">
-    @for (s of secciones; track s.id) {
-      <a [routerLink]="rutas.slug(s.id)" routerLinkActive="activo">
-        <strong>{{ s.tituloClave | transloco }}</strong>
-        <span>{{ s.notaClave | transloco }}</span>
-      </a>
-    }
-  </nav>
+  <div class="docs-lateral">
+    <!-- El buscador encabeza la barra: es lo primero que se busca cuando ya sabes qué quieres. -->
+    <app-buscador-docs />
+
+    <nav class="indice" [attr.aria-label]="'docs.nav.aria' | transloco">
+      @for (s of secciones; track s.id) {
+        <a [routerLink]="rutas.slug(s.id)" routerLinkActive="activo">
+          <strong>{{ s.tituloClave | transloco }}</strong>
+          <span>{{ s.notaClave | transloco }}</span>
+        </a>
+      }
+    </nav>
+  </div>
 
   <article class="docs-pagina" #pagina>
     <router-outlet />

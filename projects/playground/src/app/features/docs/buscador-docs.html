@@ -1,0 +1,67 @@
+<!--
+  El disparador visible. El atajo por sí solo sería invisible: quien no lo conoce no lo descubre, y
+  en táctil no hay teclado que pulsar.
+-->
+<button type="button" class="disparador" (click)="abrir()">
+  <span>{{ 'docs.buscador.abrir' | transloco }}</span>
+  <kbd>Ctrl K</kbd>
+</button>
+
+@if (abierto()) {
+  <!--
+    El fondo es un `<button>` y no un `<div>`: una capa de descarte tiene que poder cerrarse sin
+    ratón, y un div con `(click)` no recibe foco ni responde a Enter. Mismo criterio que el menú
+    móvil del shell.
+  -->
+  <button
+    type="button"
+    class="fondo"
+    [attr.aria-label]="'docs.buscador.cerrar' | transloco"
+    (click)="cerrar()"
+  ></button>
+
+  <div
+    class="cuadro"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'docs.buscador.aria' | transloco"
+  >
+    <input
+      #campo
+      type="search"
+      autocomplete="off"
+      class="campo"
+      [attr.placeholder]="'docs.buscador.marcador' | transloco"
+      [attr.aria-label]="'docs.buscador.aria' | transloco"
+      [value]="consulta()"
+      (input)="alEscribir($any($event.target).value)"
+      (keydown)="alTeclearEnCampo($event)"
+    />
+
+    @if (consulta().trim()) {
+      @if (resultados().length) {
+        <!--
+          `aria-live` para que el lector de pantalla anuncie cuántos hay: el resultado del tecleo
+          aparece lejos del cursor y sin esto no llega.
+        -->
+        <p class="cuenta" aria-live="polite">
+          {{ 'docs.buscador.cuenta' | transloco: { n: resultados().length } }}
+        </p>
+        <ul class="resultados">
+          @for (r of resultados(); track r.ruta + r.ancla; let i = $index) {
+            <li>
+              <button type="button" [class.resaltado]="i === resaltado()" (click)="ir(r)">
+                <strong>{{ r.titulo }}</strong>
+                <span class="donde">{{ r.ruta }}#{{ r.ancla }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="cuenta" aria-live="polite">
+          {{ 'docs.buscador.sinResultados' | transloco: { q: consulta().trim() } }}
+        </p>
+      }
+    }
+  </div>
+}

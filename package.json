@@ -10,6 +10,8 @@
     "docs:check": "tsx scripts/docs-check.ts",
     "gen:examples": "tsx scripts/gen-examples.ts",
     "gen:examples:check": "tsx scripts/gen-examples.ts --check",
+    "gen:docs-index": "tsx scripts/gen-docs-index.ts",
+    "gen:docs-index:check": "tsx scripts/gen-docs-index.ts --check",
     "gen:playground-tags": "tsx scripts/gen-playground-tags.ts",
     "gen:sitemap": "tsx scripts/gen-sitemap.ts",
     "gen:sitemap:check": "tsx scripts/gen-sitemap.ts --check",

@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.disparador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 0.5rem;
+  background: var(--gf-panel);
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.disparador:hover {
+  border-color: var(--gf-borde-vivo);
+  color: var(--gf-texto);
+}
+
+.disparador kbd {
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--gf-borde);
+  border-radius: 4px;
+  background: var(--gf-velo);
+  color: var(--gf-texto-apagado);
+  font-family: inherit;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+/*
+ * El fondo y el cuadro van `fixed` y SIN ancestro con `transform`: un `transform` en cualquier
+ * padre haría que `fixed` se posicione contra ese padre en vez de contra la ventana, y el diálogo
+ * aterrizaría dentro de la columna de Docs en vez de sobre la página. Es la cicatriz de overlays
+ * del estándar; aquí el marco no transforma nada, pero conviene no darlo por hecho al mover esto.
+ */
+.fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  border: 0;
+  padding: 0;
+  background: var(--gf-sombra);
+  backdrop-filter: blur(2px);
+  cursor: default;
+}
+
+.cuadro {
+  position: fixed;
+  z-index: 61;
+  top: 12vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(38rem, calc(100vw - 2rem));
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 0.75rem;
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 0.75rem;
+  background: var(--gf-panel);
+  box-shadow: 0 24px 60px -12px var(--gf-sombra);
+}
+
+.campo {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 0.5rem;
+  background: var(--gf-fondo);
+  color: var(--gf-texto);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.cuenta {
+  margin: 0.6rem 0 0;
+  color: var(--gf-texto-apagado);
+  font-size: 0.75rem;
+}
+
+.resultados {
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resultados button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 0;
+  border-radius: 0.45rem;
+  background: none;
+  color: var(--gf-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/*
+ * `resaltado` es la selección del TECLADO y `:hover` la del ratón; se pintan igual a propósito para
+ * que no haya dos «seleccionados» distintos a la vez en pantalla.
+ */
+.resultados button:hover,
+.resultados button.resaltado {
+  background: var(--gf-velo-fuerte);
+}
+
+.resultados .donde {
+  color: var(--gf-texto-apagado);
+  font-size: 0.72rem;
+}

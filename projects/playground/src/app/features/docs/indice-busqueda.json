@@ -1,0 +1,282 @@
+[
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "install",
+    "titulo": "Install",
+    "texto": "Install Install Angular 20, 21, or 22 ( peerDependencies: >=20.0.0 <23.0.0 ). The only real dependency is tslib . MIT licensed."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "install",
+    "titulo": "Instalar",
+    "texto": "Instalar Instalar Angular 20, 21 o 22 ( peerDependencies: >=20.0.0 <23.0.0 ). La única dependencia real es tslib . Licencia MIT."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "first-icon",
+    "titulo": "Your first icon",
+    "texto": "Your first icon Your first icon The component is standalone: import it where you use it, no intermediate module. The icon is passed as a value , via a named import."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "first-icon",
+    "titulo": "Tu primer icono",
+    "texto": "Tu primer icono Tu primer icono El componente es standalone: se importa donde se usa, sin módulo intermedio. El icono se pasa como valor , con un import nombrado."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "why",
+    "titulo": "Why [iconDef] and not name=",
+    "texto": "Why [iconDef] and not name= Why [iconDef] and not name= Because it's the path that actually tree-shakes. The numbers come from the budget that runs in CI on every commit, not a promise: What you import Bundle (gzip) Just the component, no icon at all Component + 1 icon via named import name= with the full registry An icon costs that icon. Looking one up by name at runtime forces the bundler to keep all 1767, because it can't know which one you'll ask for."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "why",
+    "titulo": "Por qué [iconDef] y no name=",
+    "texto": "Por qué [iconDef] y no name= Por qué [iconDef] y no name= Porque es la ruta que de verdad hace tree-shaking. Los números salen del presupuesto que corre en CI en cada commit, no de una promesa: Qué importas Bundle (gzip) Solo el componente, sin ningún icono Componente + 1 icono por import nombrado name= con el registro completo Un icono cuesta ese icono. Buscar por nombre en tiempo de ejecución obliga al bundler a conservar los 1767, porque no puede saber cuál vas a pedir."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "name-opt-in",
+    "titulo": "If you still want name=",
+    "texto": "If you still want name= If you still want name= It exists, and it's opt-in on purpose: without registering the catalog, name=\"bell\" renders nothing and doesn't throw — same contract as an unknown name. That provideIconCatalog(ANIMATED_ICONS) is exactly what pulls in the 94 KB. Use it when the icon name is data (it comes from an API, from config), not when you write it yourself in the template."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "name-opt-in",
+    "titulo": "Si aun así quieres name=",
+    "texto": "Si aun así quieres name= Si aun así quieres name= Existe, y es opt-in a propósito: sin registrar el catálogo, name=\"bell\" no pinta nada y no truena — mismo contrato que un nombre desconocido. Ese provideIconCatalog(ANIMATED_ICONS) es justo lo que trae los 94 KB. Úsalo cuando el nombre del icono sea un dato (viene de una API, de una config), no cuando lo escribes tú en la plantilla."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "trigger",
+    "titulo": "When it animates",
+    "texto": "When it animates When it animates What it does Draws on mount and animates with the hover of the nearest .group container — the same one Tailwind's group-hover: uses. If there's none, it listens to the icon itself. On pointer enter. On click. On entering the viewport. viewOnce decides once vs. every re-entry. As soon as it mounts. Never on its own: you trigger it by calling play() on the instance."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "trigger",
+    "titulo": "Cuándo se anima",
+    "texto": "Cuándo se anima Cuándo se anima Qué hace Dibuja al montarse y se anima con el hover del contenedor .group más cercano — el mismo que gobierna group-hover: de Tailwind. Si no hay ninguno, escucha al propio icono. Al entrar el puntero. Al hacer click. Al entrar al viewport. Con viewOnce decides si una vez o cada reentrada. En cuanto monta. Nunca solo: lo disparas tú llamando play() sobre la instancia."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "speed",
+    "titulo": "Global speed",
+    "texto": "Global speed Global speed One multiplier for every computed duration — choreography and morph transitions alike. 1 means no change; without providing anything, behavior stays untouched. The speed chips in this site's top bar are exactly that, live. They apply starting with the next playback: whatever's already running keeps the duration the browser already gave it."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "speed",
+    "titulo": "Velocidad global",
+    "texto": "Velocidad global Velocidad global Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph por igual. 1 es sin cambio; sin proveer nada, el comportamiento queda intacto. Los chips de velocidad de la barra superior de este sitio son exactamente eso, movidos en vivo. Aplican desde la siguiente reproducción: lo que ya está corriendo conserva la duración que el navegador ya recibió."
+  },
+  {
+    "idioma": "en",
+    "ruta": "empezando",
+    "ancla": "morph",
+    "titulo": "Morphing between two icons",
+    "texto": "Morphing between two icons Morphing between two icons Lives in a separate entry point, glyphflow/morph , so that anyone who only wants animated icons doesn't pay for shape-interpolation math. The first value renders static — morphing \"from nothing\" doesn't exist. SSR and any browser without WAAPI fall into the same case: you see the icon, it just doesn't animate. [spring] decides what the transition feels like: smooth (default, no overshoot), snappy (fast, subtle overshoot), or bouncy (overshoots the target and settles back). The spring never touches the geometry — only the duration and how keyframes are spaced out over time. It also accepts your own &#123; k, c &#125; if you want to tune it yourself."
+  },
+  {
+    "idioma": "es",
+    "ruta": "empezando",
+    "ancla": "morph",
+    "titulo": "Morph entre dos iconos",
+    "texto": "Morph entre dos iconos Morph entre dos iconos Vive en un entry point aparte, glyphflow/morph , para que quien solo quiera iconos animados no pague la matemática de interpolación de formas. El primer valor se pinta estático — morphear \"desde nada\" no existe. Ahí cae también el SSR y cualquier navegador sin WAAPI: se ve el icono, no se anima. Con qué se siente la transición lo decide [spring] : smooth (default, sin rebote), snappy (rápido, sobrepaso sutil) o bouncy (se pasa del destino y regresa). El resorte no toca la geometría — solo la duración y cómo se reparten los keyframes en el tiempo. También acepta un &#123; k, c &#125; propio si quieres afinarlo tú."
+  },
+  {
+    "idioma": "en",
+    "ruta": "api",
+    "ancla": "gf-icon",
+    "titulo": "<gf-icon>",
+    "texto": "<gf-icon> Input Type Default Public methods on the component instance. They're what you need with trigger=\"manual\" : play(variant?) — plays a variant; with no argument, the one from the animation input. reverse() — returns to the starting pose animating, not all at once. Tracks only: reversing an autoDraw would UNdraw the icon, which is nobody's intent when the pointer leaves. cancel() — cuts everything off and puts the shapes back in their original pose."
+  },
+  {
+    "idioma": "es",
+    "ruta": "api",
+    "ancla": "gf-icon",
+    "titulo": "<gf-icon>",
+    "texto": "<gf-icon> Input Tipo Default Métodos públicos de la instancia del componente. Son lo que necesitas con trigger=\"manual\" : play(variante?) — reproduce una variante; sin argumento, la del input animation . reverse() — regresa a la pose inicial animando, no de golpe. Solo los tracks: reversar un autoDraw lo DESdibuja, que no es lo que nadie pidió al sacar el puntero. cancel() — corta todo y devuelve las figuras a su pose original."
+  },
+  {
+    "idioma": "en",
+    "ruta": "api",
+    "ancla": "gf-icon-morph",
+    "titulo": "<gf-icon-morph>",
+    "texto": "<gf-icon-morph> Input Type Default Exports from {{e}} Symbol What it is deprecated Use {{nuevo}} instead. Types"
+  },
+  {
+    "idioma": "es",
+    "ruta": "api",
+    "ancla": "gf-icon-morph",
+    "titulo": "<gf-icon-morph>",
+    "texto": "<gf-icon-morph> Input Tipo Default Exports de {{e}} Símbolo Qué es obsoleto Usa {{nuevo}} en su lugar. Tipos"
+  },
+  {
+    "idioma": "en",
+    "ruta": "api",
+    "ancla": "icons",
+    "titulo": "The icons",
+    "texto": "The icons The icons On top of the above, glyphflow exports one const per icon with an Icon suffix — bellIcon , trash2Icon , circleCheckIcon . That's the tree-shakeable path, which is why they're not listed one by one: there are ~1767 of them, and the browsable catalog lives at the icons page . The const 's name is the icon's name in camelCase plus Icon : trash-2 → trash2Icon , circle-check → circleCheckIcon . Each icon's detail panel gives you the snippet already built."
+  },
+  {
+    "idioma": "es",
+    "ruta": "api",
+    "ancla": "icons",
+    "titulo": "Los iconos",
+    "texto": "Los iconos Los iconos Además de lo anterior, glyphflow exporta un const por icono con sufijo Icon — bellIcon , trash2Icon , circleCheckIcon . Esos son la ruta tree-shakeable, y por eso no se listan uno por uno: son ~1767 y el catálogo navegable está en la página de iconos . El nombre del const es el del icono en camelCase más Icon : trash-2 → trash2Icon , circle-check → circleCheckIcon . El panel de detalle de cada icono te da el snippet ya armado."
+  },
+  {
+    "idioma": "en",
+    "ruta": "accesibilidad",
+    "ancla": "rule",
+    "titulo": "One rule, not a matrix",
+    "texto": "One rule, not a matrix One rule, not a matrix You never coordinate aria-hidden with aria-label . You either set label , or you don't: What you write What lands in the DOM When no label aria-hidden=\"true\" The icon sits next to text that already says the same thing. label=\"Save\" aria-hidden=\"false\" + aria-label=\"Save\" The icon is the content: a button with no text. decorative defaults to true and you almost never touch it: label is what decides. Applies the same way to <gf-icon> and <gf-icon-morph> ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "accesibilidad",
+    "ancla": "rule",
+    "titulo": "Una regla, no una matriz",
+    "texto": "Una regla, no una matriz Una regla, no una matriz No hay que coordinar aria-hidden con aria-label . Solo pones label , o no lo pones: Lo que escribes Lo que sale al DOM Cuándo sin label aria-hidden=\"true\" El icono acompaña a un texto que ya dice lo mismo. label=\"Save\" aria-hidden=\"false\" + aria-label=\"Save\" El icono es el contenido: un botón sin texto. decorative viene en true por default y casi nunca hay que tocarlo: es el label el que decide. Aplica igual a <gf-icon> y a <gf-icon-morph> ."
+  },
+  {
+    "idioma": "en",
+    "ruta": "accesibilidad",
+    "ancla": "reduced-motion",
+    "titulo": "prefers-reduced-motion",
+    "texto": "prefers-reduced-motion prefers-reduced-motion Both components respect it by default ( respectReducedMotion = true ). But respecting it doesn't mean the same thing in both, and that difference is deliberate, not an inheritance oversight: In <gf-icon> : it stays still The choreography is decoration on top of an icon that's already the right one . Removing the motion doesn't remove information: the bell is still a bell. In <gf-icon-morph> : it jumps to the new icon Here, staying still would leave the user looking at the wrong icon. The destination isn't decoration, it's state: if the button went from \"play\" to \"pause\", it has to show \"pause\". Reduced motion is respected by removing the movement, not the state change . The morph skips the transition and paints the destination immediately. If you need to ignore the system preference — a rare case, and justifying it is on you — the override exists: [respectReducedMotion]=\"false\" ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "accesibilidad",
+    "ancla": "reduced-motion",
+    "titulo": "prefers-reduced-motion",
+    "texto": "prefers-reduced-motion prefers-reduced-motion Ambos componentes lo respetan por default ( respectReducedMotion = true ). Pero respetar no significa lo mismo en los dos, y esa diferencia es deliberada, no un descuido de herencia: En <gf-icon> : se queda quieto La coreografía es un adorno sobre un icono que ya es el correcto . Quitar el movimiento no quita información: la campana sigue siendo una campana. En <gf-icon-morph> : salta al icono nuevo Aquí quedarse quieto dejaría al usuario mirando el icono equivocado . El destino no es adorno, es estado: si el botón pasó de \"reproducir\" a \"pausa\", tiene que verse \"pausa\". Se respeta el movimiento reducido quitando el movimiento, no el cambio de estado . El morph se salta la transición y pinta el destino de una. Si necesitas ignorar la preferencia del sistema — un caso raro, y la carga de justificarlo es tuya — el override existe: [respectReducedMotion]=\"false\" ."
+  },
+  {
+    "idioma": "en",
+    "ruta": "accesibilidad",
+    "ancla": "not-your-call",
+    "titulo": "What the component doesn't decide for you",
+    "texto": "What the component doesn't decide for you What the component doesn't decide for you Color. The SVG uses stroke=\"currentColor\" , so it inherits the text color. Contrast against the background is on you. Touch target. size is the size of the drawing. An icon button needs its own padding to reach the 24×24 CSS px minimum target. Focus. The icon isn't interactive: it never receives focus or keyboard input. If it sits inside something clickable, that something has to be a real <button> or <a> ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "accesibilidad",
+    "ancla": "not-your-call",
+    "titulo": "Lo que el componente no decide por ti",
+    "texto": "Lo que el componente no decide por ti Lo que el componente no decide por ti El color. El SVG usa stroke=\"currentColor\" , así que hereda el color del texto. El contraste contra el fondo lo controlas tú. El área de toque. size es el tamaño del dibujo. Un botón de icono necesita su propio padding para llegar a los 24×24 CSS px de objetivo mínimo. El foco. El icono no es interactivo: no recibe foco ni teclado. Si va dentro de algo clickeable, ese algo debe ser un <button> o un <a> real."
+  },
+  {
+    "idioma": "en",
+    "ruta": "accesibilidad",
+    "ancla": "motion-lint",
+    "titulo": "How the catalog’s motion is kept cheap",
+    "texto": "How the catalog’s motion is kept cheap How the catalog’s motion is kept cheap Every curated choreography is analysed by a deterministic linter — the same Motion Inspector you can open on any icon in the catalog, running as a CI check over the whole curated set on any PR that touches it. One implementation, two places. It reports three things, measured over 911 icons and 2236 variants: Animating d — this fails the build. Changing the path data redraws it every frame; transform and opacity are moved by the compositor without repainting. The catalog has zero of these today, so the rule guards against a regression rather than flagging existing debt. Progressive stroke ( autoDraw ) is exempt: there is no cheap equivalent for it. Duration over 1200 ms — a warning. 53 variants exceed it, mostly icons that tell a small story (dice rolling, weather). Rotation over 720° — a warning. Exactly two: orbit and calendar-cog/spin , both deliberate. Only the first one breaks the build. The other two measure cost , not correctness, and an expensive choreography can be the right call for a given icon — a check that fails on a matter of taste gets switched off within a week."
+  },
+  {
+    "idioma": "es",
+    "ruta": "accesibilidad",
+    "ancla": "motion-lint",
+    "titulo": "Cómo se mantiene barato el movimiento del catálogo",
+    "texto": "Cómo se mantiene barato el movimiento del catálogo Cómo se mantiene barato el movimiento del catálogo Cada coreografía curada la analiza un linter determinista — el mismo Motion Inspector que puedes abrir sobre cualquier icono del catálogo, corriendo como check de CI sobre todo el curado en cada PR que lo toca. Una implementación, dos lugares. Reporta tres cosas, medidas sobre 911 iconos y 2236 variantes: Animar d — esto rompe el build. Cambiar los datos del trazo lo redibuja en cada cuadro; transform y opacity las mueve el compositor sin repintar. Hoy el catálogo tiene cero , así que la regla protege contra una regresión en vez de señalar deuda existente. El trazo progresivo ( autoDraw ) queda fuera: no tiene equivalente barato. Duración mayor a 1200 ms — aviso. La superan 53 variantes, casi todas iconos que cuentan una pequeña historia (dados, clima). Rotación mayor a 720° — aviso. Exactamente dos: orbit y calendar-cog/spin , las dos a propósito. Solo la primera rompe el build. Las otras dos miden costo , no correctitud, y una coreografía cara puede ser la decisión correcta para un icono concreto — un check que falla por gusto se desactiva en una semana."
+  },
+  {
+    "idioma": "en",
+    "ruta": "ssr",
+    "ancla": "support",
+    "titulo": "What happens on each side",
+    "texto": "What happens on each side What happens on each side Moment What you see Server render The full <svg> , with its geometry and its aria-hidden . No animation: there's no WAAPI in Node. After hydration The same SVG, now alive. The trigger starts working. No flicker, no layout shift: the SVG the server paints is the exact same node the client animates. It's never replaced — animations are just added on top."
+  },
+  {
+    "idioma": "es",
+    "ruta": "ssr",
+    "ancla": "support",
+    "titulo": "Qué pasa en cada lado",
+    "texto": "Qué pasa en cada lado Qué pasa en cada lado Momento Qué se ve Render de servidor El <svg> completo, con su geometría y su aria-hidden . Sin animación: no hay WAAPI en Node. Después de hidratar El mismo SVG, ya vivo. El trigger empieza a funcionar. No hay parpadeo ni salto de layout: el SVG que pinta el servidor es el mismo nodo que el cliente anima. No se reemplaza, se le agregan animaciones encima."
+  },
+  {
+    "idioma": "en",
+    "ruta": "ssr",
+    "ancla": "no-config",
+    "titulo": "Nothing to configure",
+    "texto": "Nothing to configure Nothing to configure No afterNextRender , no isPlatformBrowser guard, no deferred import of the component. It works with whatever SSR config you already have."
+  },
+  {
+    "idioma": "es",
+    "ruta": "ssr",
+    "ancla": "no-config",
+    "titulo": "No necesitas configurar nada",
+    "texto": "No necesitas configurar nada No necesitas configurar nada Ni afterNextRender , ni un guard de isPlatformBrowser , ni importar el componente de forma diferida. Funciona con la config de SSR que ya tengas."
+  },
+  {
+    "idioma": "en",
+    "ruta": "ssr",
+    "ancla": "verify",
+    "titulo": "How it's verified",
+    "texto": "How it's verified How it's verified With a smoke test that runs in real Node , not jsdom — and that's the point: jsdom defines window , so a test running there wouldn't prove anything. The script starts by deliberately failing if it detects window : Then it renders with renderApplication from &#64;angular/platform-server and demands two things from the resulting HTML: that there's an <svg> , and that it carries the decorative icon's aria-hidden=\"true\" . Runs in CI on every commit ( npm run test:ssr ). The second check isn't decoration. A render that \"doesn't throw\" but returns empty HTML passes any test that only checks for an exception — that's why the test asserts on content, not on the absence of an error."
+  },
+  {
+    "idioma": "es",
+    "ruta": "ssr",
+    "ancla": "verify",
+    "titulo": "Cómo se verifica",
+    "texto": "Cómo se verifica Cómo se verifica Con un smoke test que corre en Node genuino , no en jsdom — y eso es el punto: jsdom define window , así que un test ahí no probaría nada. El script arranca fallando a propósito si detecta window : Luego renderiza con renderApplication de &#64;angular/platform-server y exige dos cosas del HTML resultante: que haya un <svg> , y que traiga el aria-hidden=\"true\" del icono decorativo. Corre en CI en cada commit ( npm run test:ssr ). La segunda comprobación no es de adorno. Un render que \"no truena\" pero devuelve HTML vacío pasa cualquier prueba que solo mire si hubo excepción — por eso el test afirma sobre el contenido, no sobre la ausencia de error."
+  },
+  {
+    "idioma": "en",
+    "ruta": "ssr",
+    "ancla": "morph-on-server",
+    "titulo": "Morph on the server",
+    "texto": "Morph on the server Morph on the server <gf-icon-morph> falls through the same path as the client's first render: it paints the static icon. Morphing \"from nothing\" doesn't exist, and on the server there's no previous value to morph from either. You see the right icon; the transition waits for the browser."
+  },
+  {
+    "idioma": "es",
+    "ruta": "ssr",
+    "ancla": "morph-on-server",
+    "titulo": "Morph en servidor",
+    "texto": "Morph en servidor Morph en servidor <gf-icon-morph> cae por el mismo camino que el primer render del cliente: pinta el icono estático. Morphear \"desde nada\" no existe, y en el servidor tampoco hay un valor anterior del cual salir. Se ve el icono correcto; la transición espera al navegador."
+  },
+  {
+    "idioma": "en",
+    "ruta": "api",
+    "ancla": "exports-glyphflow",
+    "titulo": "glyphflow",
+    "texto": "GfIconComponent The engine. Selector . Standalone. · provideGfIcons Optional global config. Today just durationScale. · GF_ICONS_CONFIG The InjectionToken behind provideGfIcons, in case you want to provide it yourself. · provideIconCatalog Registers the catalog so you can use name=. Opt-in: without this, name= renders nothing. · GF_ICON_CATALOG The catalog's token. Without it, an unknown name renders empty, without throwing. · CURATED_ICONS The {{curados}} with hand-authored choreography. · GENERATED_ICONS The remaining {{generados}} from Lucide, auto-draw only. · ANIMATED_ICONS Curated + generated. Referencing it anchors the whole catalog in your bundle. · ANIMATED_ICON_NAMES The catalog's keys. Same bundle cost as ANIMATED_ICONS. · ICON_ALIASES Real Lucide renames (same glyph, new name). · resolveIconName Applies the aliases: old name → current name. · ICON_META Per-icon metadata: curated flag, source, search tags. · ICON_TAGS Lucide's search synonyms per icon, without the geometry. · MaxIconComponent The engine. Selector . Standalone. · provideMaxIcons Optional global config. Today just durationScale. · MAX_ICONS_CONFIG The InjectionToken behind provideGfIcons, in case you want to provide it yourself. · MAX_ICON_CATALOG The catalog's token. Without it, an unknown name renders empty, without throwing. · AnimatedIconDef An icon: geometry + its animation variants. · IconShape An SVG shape (path, circle, line…). · IconChoreography A variant: per-shape tracks + autoDraw + reverseOnLeave. · MotionTrack Keyframes + WAAPI options for one shape. · AutoDraw Auto-draw config (speed, overlap, caps). · AnimatedIconTrigger 'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual'. · GfIconsConfig What provideGfIcons receives. · IconMeta One catalog icon's metadata. `tags` is always populated."
+  },
+  {
+    "idioma": "en",
+    "ruta": "api",
+    "ancla": "exports-glyphflow/morph",
+    "titulo": "glyphflow/morph",
+    "texto": "GfIconMorphComponent Selector . Changing [icon] triggers the transition. · MaxIconMorphComponent Selector . Changing [icon] triggers the transition. · morphKeyframes Computes the discrete `d` keyframes between two icons. Doesn't animate anything. · runMorph morphKeyframes + element.animate(). Returns the Animation so you can control it. · canonicalD The already-resolved `d` of an icon — what renders when there's no transition. · SPRING_PRESETS smooth (ζ=1.00), snappy (ζ=0.73), and bouncy (ζ=0.40). The last two actually overshoot. · STEPS_DEFAULT 20 discrete poses. Decided in the Lab by comparing 10/15/20/30. · RESOLUTION_DEFAULT 64 points per subpath. · SPRING_TAIL_DEFAULT What to do with the spring's asymptotic tail. · PASOS_DEFAULT 20 discrete poses. Decided in the Lab by comparing 10/15/20/30. · RESOLUCION_DEFAULT 64 points per subpath. · COLA_DEFAULT What to do with the spring's asymptotic tail. · MorphIcon What [icon] accepts: an AnimatedIconDef or its geometry. · MorphKeyframes morphKeyframes' output: keyframes, duration, weight. · MorphKeyframesOpts Steps, resolution, tail, spring, overshoot. · RunMorphOpts The above + loop, direction, and durationScale. · SpringConfig Raw spring: stiffness and damping. · SpringPreset The names in SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'."
+  },
+  {
+    "idioma": "es",
+    "ruta": "api",
+    "ancla": "exports-glyphflow",
+    "titulo": "glyphflow",
+    "texto": "GfIconComponent El motor. Selector . Standalone. · provideGfIcons Config global opcional. Hoy solo durationScale. · GF_ICONS_CONFIG El InjectionToken detrás de provideGfIcons, por si lo quieres proveer tú. · provideIconCatalog Registra el catálogo para poder usar name=. Opt-in: sin esto, name= no pinta. · GF_ICON_CATALOG El token del catálogo. Sin él, un name desconocido se pinta vacío, sin tronar. · CURATED_ICONS Los {{curados}} con coreografía a mano. · GENERATED_ICONS Los {{generados}} restantes de Lucide, solo con trazo automático. · ANIMATED_ICONS Curados + generados. Referenciarlo ancla el catálogo completo en tu bundle. · ANIMATED_ICON_NAMES Las claves del catálogo. Mismo costo de bundle que ANIMATED_ICONS. · ICON_ALIASES Renombramientos reales de Lucide (mismo glifo, nombre nuevo). · resolveIconName Aplica los alias: nombre viejo → nombre actual. · ICON_META Metadatos por icono: si es curado, su origen y sus tags de búsqueda. · ICON_TAGS Los sinónimos de búsqueda de Lucide por icono, sin la geometría. · MaxIconComponent El motor. Selector . Standalone. · provideMaxIcons Config global opcional. Hoy solo durationScale. · MAX_ICONS_CONFIG El InjectionToken detrás de provideGfIcons, por si lo quieres proveer tú. · MAX_ICON_CATALOG El token del catálogo. Sin él, un name desconocido se pinta vacío, sin tronar. · AnimatedIconDef Un icono: geometría + sus variantes de animación. · IconShape Una figura del SVG (path, circle, line…). · IconChoreography Una variante: tracks por figura + autoDraw + reverseOnLeave. · MotionTrack Keyframes + opciones WAAPI para una figura. · AutoDraw Config del trazo automático (velocidad, traslape, topes). · AnimatedIconTrigger 'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual'. · GfIconsConfig Lo que recibe provideGfIcons. · IconMeta Los metadatos de un icono del catálogo. `tags` viene siempre poblado."
+  },
+  {
+    "idioma": "es",
+    "ruta": "api",
+    "ancla": "exports-glyphflow/morph",
+    "titulo": "glyphflow/morph",
+    "texto": "GfIconMorphComponent Selector . Cambiar [icon] dispara la transición. · MaxIconMorphComponent Selector . Cambiar [icon] dispara la transición. · morphKeyframes Calcula los keyframes discretos de `d` entre dos iconos. No anima nada. · runMorph morphKeyframes + element.animate(). Devuelve la Animation para que la controles. · canonicalD El `d` de un icono ya resuelto — lo que se pinta cuando no hay transición. · SPRING_PRESETS smooth (ζ=1.00), snappy (ζ=0.73) y bouncy (ζ=0.40). Los dos últimos rebotan de verdad. · STEPS_DEFAULT 20 poses discretas. Decidido en el Lab comparando 10/15/20/30. · RESOLUTION_DEFAULT 64 puntos por subpath. · SPRING_TAIL_DEFAULT Qué hacer con la cola asintótica del resorte. · PASOS_DEFAULT 20 poses discretas. Decidido en el Lab comparando 10/15/20/30. · RESOLUCION_DEFAULT 64 puntos por subpath. · COLA_DEFAULT Qué hacer con la cola asintótica del resorte. · MorphIcon Lo que acepta [icon]: un AnimatedIconDef o su geometría. · MorphKeyframes La salida de morphKeyframes: keyframes, duración, peso. · MorphKeyframesOpts Pasos, resolución, cola, resorte, sobrepaso. · RunMorphOpts Lo anterior + loop, dirección y durationScale. · SpringConfig Resorte crudo: rigidez y amortiguamiento. · SpringPreset Los nombres de SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'."
+  }
+]
