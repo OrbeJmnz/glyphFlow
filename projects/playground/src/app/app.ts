@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, DOCUMENT, computed, effect, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import {
@@ -17,6 +17,7 @@ import { velocidadGlobal, elegirVelocidad, PRESETS_VELOCIDAD } from './core/dura
 import { conectarEnlacesDeIdioma } from './core/enlaces-idioma';
 import { CIFRAS } from './core/cifras';
 import { cargarEstrellas } from './core/github';
+import { huecoBajoHeader } from './core/header';
 import { conectarIdiomaDelDocumento } from './core/i18n';
 import { recordarIdioma, type Idioma } from './core/idioma';
 import { traducirRuta } from './core/rutas';
@@ -182,8 +183,11 @@ export class App {
   }
 
   /*
-   * El header es sticky y mide 71px, así que un enlace a `#algo` deja su destino justo DEBAJO de
-   * él: quien siguió el enlace no ve lo que vino a ver. Medido: la fila aterrizaba en top −0.x.
+   * El header es sticky, así que un enlace a `#algo` deja su destino justo DEBAJO de él: quien
+   * siguió el enlace no ve lo que vino a ver. Medido: la fila aterrizaba en top −0.x.
+   *
+   * El hueco sale de `--gf-header-h` y NO de un número aquí (T24): había cuatro copias del mismo
+   * valor en dos unidades, y cambiar el header las descuadraba todas en silencio.
    *
    * No basta con `scroll-padding-top` en el CSS —está puesto y no alcanza—: el `anchorScrolling`
    * de Angular no usa `scrollIntoView`, va por `ViewportScroller`, que hace `window.scrollTo` y
@@ -191,7 +195,8 @@ export class App {
    * Se dejan los dos: el CSS cubre los saltos que hace el navegador por su cuenta.
    */
   constructor() {
-    inject(ViewportScroller).setOffset([0, 88]);
+    const doc = inject(DOCUMENT);
+    inject(ViewportScroller).setOffset([0, huecoBajoHeader(doc)]);
 
     // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
     conectarTransiciones();

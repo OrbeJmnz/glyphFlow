@@ -54,7 +54,7 @@
   gap: 0.75rem;
   align-self: start;
   position: sticky;
-  top: 5.5rem;
+  top: calc(var(--gf-header-h) + var(--gf-header-hueco));
   min-height: 6rem;
   padding: 1rem;
   border: 1px solid var(--gf-borde-suave);
@@ -538,7 +538,12 @@ pre code.degradado-texto-sutil {
 
 /* El ticket lo fija en 1100: por debajo no hay ancho para una columna lateral sin robárselo al
    contenido, que es lo que la gente vino a leer. */
-@media (max-width: 1100px) {
+/*
+ * El índice lateral se esconde bajo 1100 px de ancho (no hay columna que darle) y también bajo
+ * 700 px de alto o con movimiento reducido: es `fixed`, así que despegarlo no tiene sentido — lo
+ * que corresponde es quitarlo.
+ */
+@media (max-width: 1100px), (max-height: 700px), (prefers-reduced-motion: reduce) {
   .indice-patrones {
     display: none;
   }
@@ -548,5 +553,23 @@ pre code.degradado-texto-sutil {
   .indice-patrones a,
   .ancla {
     transition: none;
+  }
+}
+
+/*
+ * ── T24 · Cuándo NO pegar nada ────────────────────────────────────────────────
+ *
+ * **Pantalla baja.** Por debajo de 700 px de alto, un pegajoso deja de ayudar y empieza a estorbar:
+ * se come una franja de una ventana que ya es corta y tapa justo lo que se vino a leer. El umbral
+ * lo fija el ticket y va por ALTO, no por ancho — un portátil de 1366×640 es ancho y bajo.
+ *
+ * **Movimiento reducido.** Quien lo pide no quiere que las cosas se queden flotando mientras el
+ * resto se mueve debajo. Es la preferencia con más derecho a ganar en un sitio que presume de
+ * respetarla, así que también apaga el pegado, no solo las transiciones.
+ */
+@media (max-height: 700px), (prefers-reduced-motion: reduce) {
+  .demo {
+    position: static;
+    top: auto;
   }
 }

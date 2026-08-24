@@ -23,7 +23,7 @@
   gap: 0.25rem;
   align-self: start;
   position: sticky;
-  top: 5.5rem;
+  top: calc(var(--gf-header-h) + var(--gf-header-hueco));
 }
 
 @media (max-width: 48rem) {
@@ -70,4 +70,22 @@
 
 .docs-pagina {
   min-width: 0;
+}
+
+/*
+ * ── T24 · Cuándo NO pegar nada ────────────────────────────────────────────────
+ *
+ * **Pantalla baja.** Por debajo de 700 px de alto, un pegajoso deja de ayudar y empieza a estorbar:
+ * se come una franja de una ventana que ya es corta y tapa justo lo que se vino a leer. El umbral
+ * lo fija el ticket y va por ALTO, no por ancho — un portátil de 1366×640 es ancho y bajo.
+ *
+ * **Movimiento reducido.** Quien lo pide no quiere que las cosas se queden flotando mientras el
+ * resto se mueve debajo. Es la preferencia con más derecho a ganar en un sitio que presume de
+ * respetarla, así que también apaga el pegado, no solo las transiciones.
+ */
+@media (max-height: 700px), (prefers-reduced-motion: reduce) {
+  .indice {
+    position: static;
+    top: auto;
+  }
 }

@@ -138,6 +138,22 @@
   --gf-radio: 24px;
   --gf-radio-chico: 12px;
   --gf-ancho: 1240px;
+
+  /*
+   * La altura del header. Es la FUENTE, no una copia: `.shell-head` toma su `min-height` de aquí,
+   * así que cambiar este número mueve el header Y todo lo que se cuelga de él. Declararlo como un
+   * número que "describe" el header sería el bug que T24 viene a matar — una copia que deriva sola
+   * en cuanto alguien toque el padding.
+   *
+   * Antes esto vivía repartido: `top: 5.5rem` en dos hojas, `88` a mano en dos archivos de TS, y
+   * el 71 real solo en comentarios. Cambiar el header descuadraba los cuatro, en silencio.
+   *
+   * Ojo: el header envuelve (`flex-wrap`) en pantallas angostas y ahí crece por encima de esto. Es
+   * aceptable porque a esos anchos los pegajosos que dependen del valor ya están desactivados.
+   */
+  --gf-header-h: 71px;
+  /* El hueco entre el header y lo que se pega debajo. Un pegajoso a ras se lee como parte del header. */
+  --gf-header-hueco: 1rem;
 }
 
 :root[data-theme='light'] {

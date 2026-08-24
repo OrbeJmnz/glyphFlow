@@ -32,6 +32,7 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
+import { huecoBajoHeader } from '../../core/header';
 import {
   SNIPPET_ACORDEON,
   SNIPPET_BUSCAR,
@@ -391,8 +392,8 @@ export class Patrones implements OnDestroy {
    * por asentar las fuentes y los nueve demos, así que el destino se mueve DEBAJO del scroll ya
    * hecho. Es el primer criterio de aceptación de T23, y sin esto no se cumplía.
    *
-   * Los 88 px son el mismo offset que usa el resto del sitio (`ViewportScroller.setOffset`), y por
-   * la misma razón: el header es fijo y mide 71: sin el hueco, el destino queda debajo de él.
+   * El hueco sale de `--gf-header-h` (ver `core/header.ts`), no de un número aquí: es el mismo
+   * offset que usa el resto del sitio y cambiar el header tiene que moverlos todos a la vez.
    */
   private irAlAncla(): void {
     const id = location.hash.slice(1);
@@ -401,7 +402,7 @@ export class Patrones implements OnDestroy {
     if (!destino) return;
     // `requestAnimationFrame`: dentro del mismo cuadro el layout todavía puede moverse.
     requestAnimationFrame(() => {
-      const y = destino.getBoundingClientRect().top + window.scrollY - 88;
+      const y = destino.getBoundingClientRect().top + window.scrollY - huecoBajoHeader(document);
       window.scrollTo({ top: y, behavior: 'auto' });
     });
   }

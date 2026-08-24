@@ -13,6 +13,8 @@
 .shell-head {
   position: sticky;
   top: 0;
+  /* La variable manda: si cambia, cambia el header y con él todo lo que se le cuelga debajo. */
+  min-height: var(--gf-header-h);
   z-index: 20;
   background: var(--gf-fondo);
   border-bottom: 1px solid var(--gf-borde);
@@ -565,6 +567,21 @@
   }
   to {
     clip-path: inset(0 0 0 0);
+  }
+}
+
+/*
+ * Con movimiento reducido, la barra se queda ausente — que es su estado en reposo, no un caso
+ * especial que haya que dibujar. T24 lo pide explícito («barra de progreso estática o ausente») y
+ * es de las que más se olvidan: al no llevar JavaScript, no aparece en ninguna búsqueda de
+ * `prefers-reduced-motion` en el TypeScript.
+ *
+ * `animation-name: none` y no `display: none`: la barra es decorativa y ya está oculta por su
+ * `clip-path`; lo único que sobra es que el scroll la revele.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .shell-progreso {
+    animation-name: none;
   }
 }
 
