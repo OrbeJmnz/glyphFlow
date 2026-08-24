@@ -8,7 +8,24 @@
     }
   </nav>
 
-  <article class="docs-pagina">
+  <article class="docs-pagina" #pagina>
     <router-outlet />
+
+    <!--
+      El pie va DENTRO del artículo para que quede debajo del contenido de cada página, y una sola
+      vez para las cuatro.
+    -->
+    <footer class="docs-pie">
+      <!-- `innerHTML`: el texto lleva un `<strong>` con el número, y la interpolación lo escaparía. -->
+      <p [innerHTML]="'docs.pie.version' | transloco: { v: version }"></p>
+      <a [href]="editarEnGitHub()" rel="noopener">{{ 'docs.pie.editar' | transloco }}</a>
+    </footer>
   </article>
+
+  <!--
+    El índice de ESTA página, distinto de la barra de la izquierda (que lista las páginas). Recibe
+    el artículo por referencia de plantilla en vez de buscarlo con `querySelector`: así el vínculo
+    es explícito y se rompe en compilación si alguien renombra la clase.
+  -->
+  <app-indice-pagina [articulo]="pagina" />
 </div>

@@ -1,15 +1,15 @@
 <h1>{{ 'docs.empezando.titulo' | transloco }}</h1>
 <p class="bajada" [innerHTML]="'docs.empezando.bajada' | transloco"></p>
 
-<h2>{{ 'docs.empezando.instalar.titulo' | transloco }}</h2>
+<h2 id="install">{{ 'docs.empezando.instalar.titulo' | transloco }}</h2>
 <app-bloque-codigo [codigo]="SNIPPET_INSTALAR" />
 <p [innerHTML]="'docs.empezando.instalar.texto' | transloco"></p>
 
-<h2>{{ 'docs.empezando.primerIcono.titulo' | transloco }}</h2>
+<h2 id="first-icon">{{ 'docs.empezando.primerIcono.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.primerIcono.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_PRIMER_ICONO" />
 
-<h2 [innerHTML]="'docs.empezando.porQue.titulo' | transloco"></h2>
+<h2 id="why" [innerHTML]="'docs.empezando.porQue.titulo' | transloco"></h2>
 <p>{{ 'docs.empezando.porQue.texto1' | transloco }}</p>
 <div class="tabla-scroll">
   <table>
@@ -37,12 +37,12 @@
 </div>
 <p>{{ 'docs.empezando.porQue.texto2' | transloco }}</p>
 
-<h2 [innerHTML]="'docs.empezando.nameOptIn.titulo' | transloco"></h2>
+<h2 id="name-opt-in" [innerHTML]="'docs.empezando.nameOptIn.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.empezando.nameOptIn.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_CATALOGO_POR_NOMBRE" />
 <p class="nota ojo" [innerHTML]="'docs.empezando.nameOptIn.nota' | transloco"></p>
 
-<h2>{{ 'docs.empezando.trigger.titulo' | transloco }}</h2>
+<h2 id="trigger">{{ 'docs.empezando.trigger.titulo' | transloco }}</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
@@ -80,12 +80,12 @@
   </table>
 </div>
 
-<h2>{{ 'docs.empezando.velocidad.titulo' | transloco }}</h2>
+<h2 id="speed">{{ 'docs.empezando.velocidad.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.velocidad.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_VELOCIDAD" />
 <p [innerHTML]="'docs.empezando.velocidad.texto2' | transloco"></p>
 
-<h2>{{ 'docs.empezando.morph.titulo' | transloco }}</h2>
+<h2 id="morph">{{ 'docs.empezando.morph.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.empezando.morph.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_MORPH" />
 <p class="nota">{{ 'docs.empezando.morph.nota' | transloco }}</p>

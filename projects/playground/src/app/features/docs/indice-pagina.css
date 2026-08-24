@@ -1,0 +1,69 @@
+/*
+ * El índice de la página, pegajoso a la derecha.
+ *
+ * Aparece a partir de 1200 px y no antes: por debajo no hay hueco libre a la derecha, y meterlo
+ * encima del contenido convertiría un atajo en un estorbo. El número sale de la ficha del ticket,
+ * y coincide con dónde el marco de Docs deja de tener margen sobrante.
+ */
+:host {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  :host {
+    display: block;
+  }
+}
+
+.indice-pagina {
+  position: sticky;
+  /* Se cuelga de la altura REAL del header, no de un número copiado. Ver `--gf-header-h`. */
+  top: calc(var(--gf-header-h) + var(--gf-header-hueco));
+  max-height: calc(100vh - var(--gf-header-h) - var(--gf-header-hueco) * 2);
+  overflow-y: auto;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.indice-pagina-tit {
+  margin: 0 0 0.5rem;
+  color: var(--gf-texto-apagado);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.indice-pagina ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* La raya vertical hace de riel: sin ella la lista flota y no se lee como un índice. */
+  border-left: 1px solid var(--gf-borde-suave);
+}
+
+.indice-pagina a {
+  display: block;
+  padding: 0.28rem 0 0.28rem 0.7rem;
+  /* Cubre el borde del `<ol>` con el suyo: así el marcador de activo ES el riel, no una segunda
+     línea al lado. */
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  color: var(--gf-texto-tenue);
+  text-decoration: none;
+  transition: color 0.12s ease;
+}
+
+.indice-pagina a:hover {
+  color: var(--gf-texto);
+}
+
+.indice-pagina a.activo {
+  border-left-color: var(--gf-marca-1);
+  color: var(--gf-texto);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indice-pagina a {
+    transition: none;
+  }
+}

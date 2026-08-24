@@ -1,7 +1,7 @@
 <h1>{{ 'docs.api.titulo' | transloco }}</h1>
 <p class="bajada">{{ 'docs.api.bajada' | transloco }}</p>
 
-<h2>&lt;gf-icon&gt;</h2>
+<h2 id="gf-icon">&lt;gf-icon&gt;</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
@@ -37,7 +37,7 @@
   <li [innerHTML]="'docs.api.metodos.cancel' | transloco"></li>
 </ul>
 
-<h2>&lt;gf-icon-morph&gt;</h2>
+<h2 id="gf-icon-morph">&lt;gf-icon-morph&gt;</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
@@ -68,7 +68,7 @@
 </div>
 
 @for (e of entradas; track e) {
-  <h2 [innerHTML]="'docs.api.exportsDe' | transloco: { e: e }"></h2>
+  <h2 [attr.id]="'exports-' + e" [innerHTML]="'docs.api.exportsDe' | transloco: { e: e }"></h2>
   <div class="tabla-scroll">
     <table>
       <thead>
@@ -133,6 +133,6 @@
   </div>
 }
 
-<h2>{{ 'docs.api.iconos.titulo' | transloco }}</h2>
+<h2 id="icons">{{ 'docs.api.iconos.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.api.iconos.texto' | transloco"></p>
 <p class="nota ojo" [innerHTML]="'docs.api.iconos.nota' | transloco"></p>

@@ -1,4 +1,12 @@
 {
+  "pie": {
+    "version": "Esta documentación describe la <strong>v{{v}}</strong>, la versión publicada en npm.",
+    "editar": "Editar esta página en GitHub"
+  },
+  "indicePagina": {
+    "titulo": "En esta página",
+    "aria": "Secciones de esta página"
+  },
   "nav": {
     "aria": "Documentación",
     "empezando": { "titulo": "Empezando", "nota": "instalar y pintar el primer icono" },

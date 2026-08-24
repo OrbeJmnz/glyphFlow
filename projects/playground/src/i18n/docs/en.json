@@ -1,4 +1,12 @@
 {
+  "pie": {
+    "version": "These docs describe <strong>v{{v}}</strong>, the version published on npm.",
+    "editar": "Edit this page on GitHub"
+  },
+  "indicePagina": {
+    "titulo": "On this page",
+    "aria": "Sections of this page"
+  },
   "nav": {
     "aria": "Documentation",
     "empezando": { "titulo": "Getting started", "nota": "install and paint your first icon" },

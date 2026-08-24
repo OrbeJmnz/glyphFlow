@@ -10,6 +10,21 @@
   margin: 0 auto;
 }
 
+/*
+ * La tercera columna —el índice de la página— entra en el MISMO punto en que el componente se
+ * enciende (1200 px). Si el ancho se cambiara aquí sin cambiarlo allá, quedaría una columna vacía
+ * empujando el contenido: los dos números tienen que moverse juntos.
+ *
+ * Y el marco crece a la vez: manteniendo 62rem, la tercera columna se la quitaría al texto, que es
+ * lo que se viene a leer.
+ */
+@media (min-width: 1200px) {
+  .docs-marco {
+    grid-template-columns: 15rem minmax(0, 1fr) 12rem;
+    max-width: 76rem;
+  }
+}
+
 @media (max-width: 48rem) {
   .docs-marco {
     grid-template-columns: 1fr;
@@ -88,4 +103,35 @@
     position: static;
     top: auto;
   }
+}
+
+/* ── Pie de las páginas de Docs ──────────────────────────────────────────────── */
+
+/*
+ * Separado del contenido por una raya y no por espacio a secas: al final de una página larga hace
+ * falta una señal de que el texto se acabó, o el pie se lee como un párrafo más.
+ */
+.docs-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--gf-borde-suave);
+  color: var(--gf-texto-apagado);
+  font-size: 0.8125rem;
+}
+
+.docs-pie p {
+  margin: 0;
+}
+
+.docs-pie a {
+  color: var(--gf-texto-tenue);
+}
+
+.docs-pie a:hover {
+  color: var(--gf-texto);
 }

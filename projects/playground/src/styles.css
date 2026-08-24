@@ -869,3 +869,44 @@ code {
 html {
   scroll-padding-top: 88px;
 }
+
+/* ── Anclas de los encabezados de Docs ───────────────────────────────────────── */
+
+/*
+ * Estas reglas viven AQUÍ y no en el CSS de Docs por la misma razón que las del pie: el enlace de
+ * ancla lo crea `app-indice-pagina` en runtime, así que el nodo nace SIN el atributo `_ngcontent-*`
+ * y la encapsulación emulada no lo alcanza jamás. Una regla puesta allá no aplica — y no avisa,
+ * simplemente no pinta.
+ */
+.docs-pagina h2 {
+  position: relative;
+  /*
+   * Para que al saltar a un ancla el título no quede debajo del header pegajoso. Se cuelga de
+   * `--gf-header-h`, que es la fuente real de esa altura, más aire.
+   */
+  scroll-margin-top: calc(var(--gf-header-h) + 1.5rem);
+}
+
+.docs-pagina h2 .ancla {
+  margin-left: 0.4em;
+  color: var(--gf-texto-apagado);
+  font-weight: 400;
+  text-decoration: none;
+  /*
+   * Invisible en reposo pero PRESENTE: con `display: none` no recibiría foco, y quien navega con
+   * teclado no podría copiar el enlace de una sección. Con opacidad, `:focus-visible` lo enciende.
+   */
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.docs-pagina h2:hover .ancla,
+.docs-pagina h2 .ancla:focus-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-pagina h2 .ancla {
+    transition: none;
+  }
+}

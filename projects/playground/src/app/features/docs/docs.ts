@@ -1,14 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import docsEn from '../../../i18n/docs/en.json';
 import { type RutaId } from '../../core/rutas';
 import { Rutas } from '../../core/rutas.service';
+import { IndicePagina } from './indice-pagina';
+import { CIFRAS } from '../../core/cifras';
 
 /** Marco de las docs: índice lateral fijo + la página. */
 @Component({
   selector: 'app-docs',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslocoPipe],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, IndicePagina, TranslocoPipe],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -32,6 +34,19 @@ export class Docs {
    * siendo RELATIVOS, así que el prefijo de idioma lo pone la ruta padre y no se repite aquí.
    */
   protected readonly rutas = inject(Rutas);
+
+  /*
+   * El pie de cada página de Docs. Vive en el MARCO y no repetido en las cuatro páginas: es el
+   * mismo en todas, y copiarlo cuatro veces garantiza que alguna se quede atrás.
+   *
+   * «Editar en GitHub» apunta al JSON de i18n del idioma activo y NO a la plantilla: ahí es donde
+   * está la prosa. Quien ve una errata quiere ese archivo, no el HTML que la coloca.
+   */
+  protected readonly version = CIFRAS.version;
+  protected readonly editarEnGitHub = computed(
+    () =>
+      `https://github.com/OrbeJmnz/glyphFlow/blob/main/projects/playground/src/i18n/docs/${this.rutas.idioma()}.json`,
+  );
 
   /** El título y la nota son CLAVES, no texto — la plantilla las resuelve con el pipe. */
   protected readonly secciones: { id: RutaId; tituloClave: string; notaClave: string }[] = [

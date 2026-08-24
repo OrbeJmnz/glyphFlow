@@ -1,7 +1,7 @@
 <h1>{{ 'docs.accesibilidad.titulo' | transloco }}</h1>
 <p class="bajada" [innerHTML]="'docs.accesibilidad.bajada' | transloco"></p>
 
-<h2>{{ 'docs.accesibilidad.regla.titulo' | transloco }}</h2>
+<h2 id="rule">{{ 'docs.accesibilidad.regla.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.accesibilidad.regla.texto1' | transloco"></p>
 <div class="tabla-scroll">
   <table>
@@ -29,7 +29,7 @@
 <app-bloque-codigo [codigo]="SNIPPET_DECORATIVO_VS_SEMANTICO" />
 <p [innerHTML]="'docs.accesibilidad.regla.texto2' | transloco"></p>
 
-<h2 [innerHTML]="'docs.accesibilidad.reducedMotion.titulo' | transloco"></h2>
+<h2 id="reduced-motion" [innerHTML]="'docs.accesibilidad.reducedMotion.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.accesibilidad.reducedMotion.texto1' | transloco"></p>
 
 <h3 [innerHTML]="'docs.accesibilidad.reducedMotion.icono.titulo' | transloco"></h3>
@@ -40,7 +40,7 @@
 <p class="nota" [innerHTML]="'docs.accesibilidad.reducedMotion.nota' | transloco"></p>
 <p [innerHTML]="'docs.accesibilidad.reducedMotion.override' | transloco"></p>
 
-<h2>{{ 'docs.accesibilidad.noDecide.titulo' | transloco }}</h2>
+<h2 id="not-your-call">{{ 'docs.accesibilidad.noDecide.titulo' | transloco }}</h2>
 <ul>
   <li [innerHTML]="'docs.accesibilidad.noDecide.color' | transloco"></li>
   <li [innerHTML]="'docs.accesibilidad.noDecide.area' | transloco"></li>
@@ -52,7 +52,7 @@
   sección de movimiento reducido: las dos hablan de qué se anima y a qué costo. Y es un argumento de
   calidad que hasta ahora solo existía dentro del repositorio.
 -->
-<h2>{{ 'docs.accesibilidad.motionLint.titulo' | transloco }}</h2>
+<h2 id="motion-lint">{{ 'docs.accesibilidad.motionLint.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.accesibilidad.motionLint.texto1' | transloco"></p>
 <p>{{ 'docs.accesibilidad.motionLint.texto2' | transloco }}</p>
 <ul>

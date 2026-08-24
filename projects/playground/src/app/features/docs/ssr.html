@@ -1,7 +1,7 @@
 <h1>{{ 'docs.ssr.titulo' | transloco }}</h1>
 <p class="bajada" [innerHTML]="'docs.ssr.bajada' | transloco"></p>
 
-<h2>{{ 'docs.ssr.tabla.titulo' | transloco }}</h2>
+<h2 id="support">{{ 'docs.ssr.tabla.titulo' | transloco }}</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
@@ -24,14 +24,14 @@
 </div>
 <p>{{ 'docs.ssr.sinParpadeo' | transloco }}</p>
 
-<h2>{{ 'docs.ssr.sinConfig.titulo' | transloco }}</h2>
+<h2 id="no-config">{{ 'docs.ssr.sinConfig.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.ssr.sinConfig.texto' | transloco"></p>
 
-<h2>{{ 'docs.ssr.verificacion.titulo' | transloco }}</h2>
+<h2 id="verify">{{ 'docs.ssr.verificacion.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.ssr.verificacion.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_GUARDIA_WINDOW" />
 <p [innerHTML]="'docs.ssr.verificacion.texto2' | transloco"></p>
 <p class="nota">{{ 'docs.ssr.verificacion.nota' | transloco }}</p>
 
-<h2>{{ 'docs.ssr.morphServidor.titulo' | transloco }}</h2>
+<h2 id="morph-on-server">{{ 'docs.ssr.morphServidor.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.ssr.morphServidor.texto' | transloco"></p>
