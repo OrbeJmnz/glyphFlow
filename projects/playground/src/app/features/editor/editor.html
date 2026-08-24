@@ -177,6 +177,50 @@
       </p>
     }
 
+    <!--
+      La leyenda del lienzo. El editor ya distinguía cuatro estados de nodo con cuatro señales
+      distintas (ver la jerarquía en el CSS), pero no las explicaba en ningún lado: había que
+      deducir a base de arrastrar qué significaba un círculo relleno, un cuadrito o la silueta gris.
+
+      Cada muestra se dibuja con LAS MISMAS clases que el lienzo, no con copias de sus colores. Si
+      alguien cambia el cian del nodo activo, la leyenda cambia con él en vez de quedarse mintiendo.
+      Por eso son SVG de verdad y no cuadritos de CSS.
+    -->
+    <details class="leyenda">
+      <summary>{{ 'editor.leyenda.titulo' | transloco }}</summary>
+      <ul>
+        @for (m of leyenda; track m.clave) {
+          <li>
+            <svg viewBox="0 0 8 8" width="16" height="16" aria-hidden="true">
+              @if (m.clave === 'manija') {
+                <rect class="manija" x="2" y="2" width="4" height="4" />
+              } @else if (m.clave === 'silueta') {
+                <path
+                  class="tinta"
+                  d="M1 6 Q4 0 7 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              } @else {
+                <circle
+                  class="nodo"
+                  [class.activo]="m.clave === 'activo'"
+                  [class.inicio]="m.clave === 'inicio'"
+                  [class.fin]="m.clave === 'fin'"
+                  cx="4"
+                  cy="4"
+                  r="2.2"
+                />
+              }
+            </svg>
+            <span>{{ 'editor.leyenda.' + m.clave | transloco }}</span>
+          </li>
+        }
+      </ul>
+    </details>
+
     <div
       class="barra barra-baja"
       role="group"
@@ -277,18 +321,18 @@
           class="chip es-contorno"
           [disabled]="!pila().deshacer"
           (click)="deshacer()"
-          title="Ctrl+Z"
         >
           {{ 'editor.historial.deshacer' | transloco }}
+          <kbd>Ctrl+Z</kbd>
         </button>
         <button
           type="button"
           class="chip es-contorno"
           [disabled]="!pila().rehacer"
           (click)="rehacer()"
-          title="Ctrl+Shift+Z"
         >
           {{ 'editor.historial.rehacer' | transloco }}
+          <kbd>Ctrl+Shift+Z</kbd>
         </button>
       </div>
 
@@ -310,23 +354,13 @@
             </span>
           </div>
           <div class="nodo-btns">
-            <button
-              type="button"
-              app-chip
-              variante="contorno"
-              (click)="agregarNodo()"
-              [title]="'editor.nodo.teclaMas' | transloco"
-            >
+            <button type="button" app-chip variante="contorno" (click)="agregarNodo()">
               {{ 'editor.nodo.agregar' | transloco }}
+              <kbd>{{ 'editor.nodo.teclaMas' | transloco }}</kbd>
             </button>
-            <button
-              type="button"
-              app-chip
-              variante="contorno"
-              (click)="borrarNodo()"
-              [title]="'editor.nodo.teclaSupr' | transloco"
-            >
+            <button type="button" app-chip variante="contorno" (click)="borrarNodo()">
               {{ 'editor.nodo.borrar' | transloco }}
+              <kbd>{{ 'editor.nodo.teclaSupr' | transloco }}</kbd>
             </button>
           </div>
         } @else {

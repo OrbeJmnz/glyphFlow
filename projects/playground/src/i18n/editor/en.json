@@ -24,6 +24,15 @@
     "nodo": "1 node",
     "trazo": "1 stroke"
   },
+  "leyenda": {
+    "titulo": "What you are looking at",
+    "nodo": "node — drag it to move the point",
+    "activo": "selected node",
+    "inicio": "start of the subpath",
+    "fin": "end of the subpath",
+    "manija": "bézier handle — bends the curve into it",
+    "silueta": "the icon's real stroke, dimmed so the nodes stay reachable underneath"
+  },
   "secciones": {
     "elementos": "elements",
     "edicion": "editing",
@@ -32,11 +41,11 @@
   "nodo": {
     "grupoAria": "Selected node",
     "titulo": "Node #{{n}}",
-    "agregar": "+ node here",
-    "teclaMas": "key +",
-    "borrar": "− delete node",
-    "teclaSupr": "key Delete",
-    "pista": "Tap a node to add or delete."
+    "agregar": "add node here",
+    "teclaMas": "+",
+    "borrar": "delete node",
+    "teclaSupr": "Del",
+    "pista": "Select a node first — then add or delete."
   },
   "historial": {
     "grupoAria": "History",

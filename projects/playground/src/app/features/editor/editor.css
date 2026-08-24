@@ -328,6 +328,81 @@
 }
 
 /*
+ * Los atajos, VISIBLES dentro de su botón.
+ *
+ * Estaban en `title`, o sea existían solo para quien pasa el ratón: en táctil no hay hover, y el
+ * único texto que el editor ofrecía sobre teclado era invisible. Dentro del botón el atajo queda
+ * pegado a la acción que dispara, y de paso entra en el nombre accesible del control.
+ */
+kbd {
+  margin-left: 0.4em;
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--gf-borde);
+  border-radius: 4px;
+  background: var(--gf-velo);
+  color: var(--gf-texto-apagado);
+  font-family: inherit;
+  font-size: 0.85em;
+}
+
+/* En un botón deshabilitado el atajo no aplica: se apaga con él en vez de seguir ofreciéndose. */
+button:disabled kbd {
+  opacity: 0.55;
+}
+
+/* ── Leyenda del lienzo ──────────────────────────────────────────────────────── */
+
+/*
+ * Va en un `<details>` y no siempre abierta: son seis filas que quien ya sabe leer el lienzo no
+ * necesita ver en cada visita, y el lienzo es lo que tiene que dominar la pantalla. Cerrada ocupa
+ * una línea, y el resumen dice qué hay dentro en vez de un "ayuda" genérico.
+ */
+.leyenda {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--gf-texto-apagado);
+}
+
+.leyenda summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.leyenda ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/*
+ * `--z` es el zoom del lienzo, y las clases de los nodos dividen sus grosores entre él. Aquí no hay
+ * zoom, pero la muestra usa un `viewBox` de 8 donde el lienzo usa 24: sin corregir, los trazos
+ * saldrían tres veces más finos de lo que se ven de verdad. Este valor los devuelve a su
+ * proporción, y sigue siendo UNA constante en vez de una copia de cada grosor.
+ */
+.leyenda svg {
+  --z: 0.4;
+
+  flex: none;
+  color: var(--gf-texto);
+}
+
+/* La muestra es una imagen, no un control: sin esto heredaría el `:hover` que engorda el nodo real. */
+.leyenda svg * {
+  pointer-events: none;
+  cursor: default;
+}
+
+/*
  * En pantalla completa el navegador pinta negro detrás: sin fondo propio el panel desaparecería y
  * el lienzo quedaría flotando. Y el `max-height` de 60vh estorba justo aquí, que es cuando por fin
  * hay pantalla de sobra.

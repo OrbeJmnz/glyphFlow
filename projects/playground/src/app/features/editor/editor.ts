@@ -100,6 +100,23 @@ export class Editor implements OnDestroy {
 
   protected readonly lado = LADO;
   protected readonly zoomMin = ZOOM_MIN;
+
+  /**
+   * Las señales del lienzo, en el orden en que se encuentran al usarlo: primero el nodo suelto,
+   * luego los estados que puede tomar, y al final lo que NO es un nodo.
+   *
+   * Solo la clave: el texto vive en `editor.leyenda.*` y la muestra la dibuja la plantilla con las
+   * clases reales del lienzo. Meter aquí colores o etiquetas crearía una segunda copia que deriva
+   * en cuanto alguien toque el CSS.
+   */
+  protected readonly leyenda = [
+    { clave: 'nodo' },
+    { clave: 'activo' },
+    { clave: 'inicio' },
+    { clave: 'fin' },
+    { clave: 'manija' },
+    { clave: 'silueta' },
+  ] as const;
   protected readonly zoomMax = ZOOM_MAX;
   /** El glifo del CTA. Va por `iconDef` y no por `name=`: el playground no registra el catálogo. */
   protected readonly iconoPlay = CURATED_ICONS['play'];

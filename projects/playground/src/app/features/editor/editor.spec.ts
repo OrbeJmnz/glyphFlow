@@ -52,7 +52,13 @@ describe('Editor', () => {
     const esperados = d
       .split('\n')
       .flatMap((linea) => nodosDe(parseD(linea)).filter((n) => n.movible));
-    expect(html.querySelectorAll('.nodo').length).toBe(esperados.length);
+    /*
+     * `.nodos .nodo` y no `.nodo` a secas —aquí y en el resto del archivo—: la leyenda del lienzo
+     * dibuja sus muestras con LAS MISMAS clases, a propósito, para que no puedan derivar de lo que
+     * se ve arriba. Sin acotar al grupo, estas cuentas incluían las muestras y este test empezó a
+     * medir la leyenda además del lienzo.
+     */
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(esperados.length);
   });
 
   it('las figuras que no son `path` se pintan de contexto pero no traen nodos', async () => {
@@ -85,7 +91,7 @@ describe('Editor', () => {
     const { fixture, html } = await montar();
     const original = html.querySelector('.salida code')!.textContent!;
     const svg = html.querySelector('svg.lienzo')!;
-    const nodo = html.querySelectorAll('.nodo')[1] as SVGCircleElement;
+    const nodo = html.querySelectorAll('.nodos .nodo')[1] as SVGCircleElement;
 
     // El entorno de tests no calcula layout, así que `getBoundingClientRect` devuelve ceros y la
     // conversión a viewBox dividiría entre cero. Se fija un rect: sin esto el test se saltaría sus
@@ -137,7 +143,7 @@ describe('Editor', () => {
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
 
-    const nodo = html.querySelectorAll('.nodo')[1] as SVGCircleElement;
+    const nodo = html.querySelectorAll('.nodos .nodo')[1] as SVGCircleElement;
     nodo.setPointerCapture = () => undefined;
     const punto = (x: number, y: number) => ({
       clientX: (x / 24) * r.width,
@@ -168,10 +174,10 @@ describe('Editor', () => {
     expect(html.querySelector('.nodo-acciones .chip')).toBeNull();
     expect(html.querySelector('.nodo-acciones .pista-nodo')).not.toBeNull();
 
-    const antes = html.querySelectorAll('.nodo').length;
+    const antes = html.querySelectorAll('.nodos .nodo').length;
     const dAntes = html.querySelector('.salida code')!.textContent;
 
-    const nodo = html.querySelectorAll('.nodo')[2] as SVGCircleElement;
+    const nodo = html.querySelectorAll('.nodos .nodo')[2] as SVGCircleElement;
     nodo.setPointerCapture = () => undefined;
     const p = {
       clientX: (Number(nodo.getAttribute('cx')) / 24) * r.width,
@@ -188,11 +194,11 @@ describe('Editor', () => {
 
     botones[0].click();
     await fixture.whenStable();
-    expect(html.querySelectorAll('.nodo').length).toBe(antes + 1);
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes + 1);
 
     html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0].click();
     await fixture.whenStable();
-    expect(html.querySelectorAll('.nodo').length).toBe(antes);
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes);
     expect(html.querySelector('.salida code')!.textContent).toBe(dAntes);
   });
 
@@ -280,7 +286,7 @@ describe('Editor', () => {
     expect(px).toBeCloseTo((24 - ancho) / 2, 3);
     expect(py).toBeCloseTo((24 - ancho) / 2, 3);
 
-    const nodo = html.querySelectorAll('.nodo')[1] as SVGCircleElement;
+    const nodo = html.querySelectorAll('.nodos .nodo')[1] as SVGCircleElement;
     nodo.setPointerCapture = () => undefined;
     const x0 = Number(nodo.getAttribute('cx'));
     const y0 = Number(nodo.getAttribute('cy'));
@@ -297,19 +303,22 @@ describe('Editor', () => {
     svg.dispatchEvent(new PointerEvent('pointerup', aPantalla(x0 + 1, y0)));
     await fixture.whenStable();
 
-    const movido = html.querySelectorAll('.nodo')[1] as SVGCircleElement;
+    const movido = html.querySelectorAll('.nodos .nodo')[1] as SVGCircleElement;
     expect(Number(movido.getAttribute('cx'))).toBeCloseTo(x0 + 1, 1);
     expect(Number(movido.getAttribute('cy'))).toBeCloseTo(y0, 1);
   });
 
   it('el radio de los nodos se divide entre el zoom para medir lo mismo en pantalla', async () => {
     const { fixture, html } = await montar();
-    const antes = Number(html.querySelector('.nodo')!.getAttribute('r'));
+    const antes = Number(html.querySelector('.nodos .nodo')!.getAttribute('r'));
     [...html.querySelectorAll<HTMLButtonElement>('.barra-baja .lienzo-btn')]
       .find((b) => b.textContent?.trim() === '+')!
       .click();
     await fixture.whenStable();
-    expect(Number(html.querySelector('.nodo')!.getAttribute('r'))).toBeCloseTo(antes / 1.35, 4);
+    expect(Number(html.querySelector('.nodos .nodo')!.getAttribute('r'))).toBeCloseTo(
+      antes / 1.35,
+      4,
+    );
   });
 
   it('los nodos marcan inicio, y fin solo en trazos que no cierran', async () => {
@@ -319,8 +328,8 @@ describe('Editor', () => {
     const cierres = (d.match(/[zZ]/g) ?? []).length;
     // Un `inicio` por subpath; `fin` solo en los que quedan abiertos — en uno cerrado el final ES
     // el inicio y marcarlo dos veces sería mentira.
-    expect(html.querySelectorAll('.nodo.inicio').length).toBe(arranques);
-    expect(html.querySelectorAll('.nodo.fin').length).toBe(arranques - cierres);
+    expect(html.querySelectorAll('.nodos .nodo.inicio').length).toBe(arranques);
+    expect(html.querySelectorAll('.nodos .nodo.fin').length).toBe(arranques - cierres);
   });
 
   it('el JSON arranca plegado y el `d` abierto', async () => {

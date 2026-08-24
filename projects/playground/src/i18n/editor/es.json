@@ -24,6 +24,15 @@
     "nodo": "1 nodo",
     "trazo": "1 trazo"
   },
+  "leyenda": {
+    "titulo": "Qué estás viendo",
+    "nodo": "nodo — arrástralo para mover el punto",
+    "activo": "nodo seleccionado",
+    "inicio": "inicio del subtrazo",
+    "fin": "fin del subtrazo",
+    "manija": "manija bézier — curva el trazo hacia ella",
+    "silueta": "el trazo real del icono, atenuado para que los nodos se puedan apuntar debajo"
+  },
   "secciones": {
     "elementos": "elementos",
     "edicion": "edición",
@@ -32,11 +41,11 @@
   "nodo": {
     "grupoAria": "Nodo seleccionado",
     "titulo": "Nodo #{{n}}",
-    "agregar": "+ nodo aquí",
-    "teclaMas": "tecla +",
-    "borrar": "− borrar nodo",
-    "teclaSupr": "tecla Supr",
-    "pista": "Toca un nodo para agregar o borrar."
+    "agregar": "agregar nodo aquí",
+    "teclaMas": "+",
+    "borrar": "borrar nodo",
+    "teclaSupr": "Supr",
+    "pista": "Selecciona un nodo primero — luego agrega o borra."
   },
   "historial": {
     "grupoAria": "Historial",
