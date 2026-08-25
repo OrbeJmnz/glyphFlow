@@ -6,6 +6,23 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, moveYSeq, track, icon } from '../choreography';
 import { briefcaseShapes } from '../animated-icons.shapes';
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Parpadea: un indicador encendido, un aviso. */
+const E2_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+const E2_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
 export const briefcaseBusinessIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 12h.01" },
@@ -45,3 +62,33 @@ export const briefcaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(briefcaseShap
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(12deg)', offset: 0.25 }, { transform: 'rotate(-10deg)', offset: 0.55 }, { transform: 'rotate(3deg)', offset: 0.85 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Los rodillos pasan de derecha a izquierda y el maletín avanza sobre ellos. */
+export const briefcaseConveyorBeltIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 20v2" },
+    { tag: 'path', d: "M14 20v2" },
+    { tag: 'path', d: "M18 20v2" },
+    { tag: 'path', d: "M21 20H3" },
+    { tag: 'path', d: "M6 20v2" },
+    { tag: 'path', d: "M8 16V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v12" },
+    { tag: 'rect', x: 4, y: 6, width: 16, height: 10, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_BLINK, 600, { easing: EASE, delay: 180, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_BLINK, 600, { easing: EASE, delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E2_BLINK, 600, { easing: EASE }),
+        4: /* @__PURE__ */ track(E2_BLINK, 600, { easing: EASE, delay: 270, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E2_PUSH_LEFT, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E2_PUSH_LEFT, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
+      },
+    },
+  },
+);

@@ -3,7 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
+import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 
 /**
  * El marco a secas: las cuatro esquinas se dibujan en el sentido del reloj, con el mismo trazo y la
@@ -12,6 +12,15 @@ import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
  * Escalonadas y no a la vez: cuatro esquinas apareciendo juntas son un bloque; una tras otra se lee
  * como un marco cerrándose alrededor de algo, que es lo que un escáner hace.
  */
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Aparece de golpe con un rebote corto. Para lo macizo, que un trazo no le luce. */
+const E1_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
 export const scanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: 'M3 7V5a2 2 0 0 1 2-2h2' },
@@ -533,6 +542,40 @@ export const scanTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         ),
       },
       reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Las cuatro esquinas se cierran en sentido del reloj y la caja aparece dentro. */
+export const scanBoxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12v5.5" },
+    { tag: 'path', d: "M17 3h2a2 2 0 012 2v2" },
+    { tag: 'path', d: "M21 17v2a2 2 0 01-2 2h-2" },
+    { tag: 'path', d: "M3 7V5a2 2 0 012-2h2" },
+    { tag: 'path', d: "M7 21H5a2 2 0 01-2-2v-2" },
+    { tag: 'path', d: "M7.264 9.252 12 12l4.737-2.748" },
+    {
+      tag: 'path',
+      d: "M7.995 8.514A2 2 0 007 10.244v3.516a2 2 0 00.996 1.73l3 1.74a2 2 0 002.008 0l3-1.74A2 2 0 0017 13.76v-3.517a2 2 0 00-.995-1.73l-3-1.742a2 2 0 00-1.892-.064z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_POP, 380, { easing: EASE, origin: '12px 14.8px', delay: 480, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 270, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E1_POP, 380, { easing: EASE, origin: '12px 10.6px', delay: 420, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E1_POP, 380, { easing: EASE, origin: '12px 12px', delay: 360, fill: 'backwards' }),
+      },
     },
   },
 );

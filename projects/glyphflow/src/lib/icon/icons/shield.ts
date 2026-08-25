@@ -9,6 +9,26 @@ import { SHIELD_GEAR_SPIN } from './_shared';
 
 const SHIELD_POP = /* @__PURE__ */ scaleSeq([1, 1.08, 1]);
 
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Parpadea. Para puntos suspensivos y avisos: dice "esto sigue pasando". */
+const E1_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+/** Late una vez. */
+const E1_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Una vuelta entera sobre el eje que se le indique. */
+const E1_SPIN = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }];
+
 export const shieldQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" },
@@ -176,3 +196,66 @@ export const shieldOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(shieldOffShap
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El engrane gira sobre su propio eje, en la esquina del escudo. */
+export const shieldCogCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M11 22c-3.806-1.45-7-3.966-7-9V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v4",
+    },
+    { tag: 'path', d: "M14.923 16.547 14 16.164" },
+    { tag: 'path', d: "m14.923 18.843-.923.383" },
+    { tag: 'path', d: "M16.547 14.923 16.164 14" },
+    { tag: 'path', d: "m16.547 20.467-.383.924" },
+    { tag: 'path', d: "m18.843 14.923.383-.923" },
+    { tag: 'path', d: "m19.225 21.391-.382-.924" },
+    { tag: 'path', d: "m20.467 16.547.923-.383" },
+    { tag: 'path', d: "m20.467 18.843.923.383" },
+    { tag: 'circle', cx: 17.695, cy: 17.695, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PULSE, 500, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(E1_SPIN, 800, { easing: EASE, origin: '17.7px 17.7px', delay: 180, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Los tres puntos parpadean en fila: el escudo está pensando. */
+export const shieldEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+    },
+    { tag: 'path', d: "M8 12h.01" },
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M16 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PULSE, 500, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 180, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 280, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 380, fill: 'backwards' }),
+      },
+    },
+  },
+);

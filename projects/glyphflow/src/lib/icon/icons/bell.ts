@@ -15,6 +15,43 @@ const BELL_RING_ROOT = /* @__PURE__ */ rotateSeq([0, 20, -10, 10, -5, 3, 0]);
 
 const BELL_RING_CLAPPER = /* @__PURE__ */ moveXSeq([0, -6, 5, -5, 4, -3, 2, 0]);
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Aparece de golpe con un rebote corto. */
+const E2_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
+/** Lo que vibra al sonar: una campana, un megáfono. Corto y rápido, o parece que se cae. */
+const E2_RING = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)', offset: 0 },
+  { transform: 'rotate(-8deg)', offset: 0.2 },
+  { transform: 'rotate(7deg)', offset: 0.45 },
+  { transform: 'rotate(-4deg)', offset: 0.7 },
+  { transform: 'rotate(0deg)', offset: 1 },
+];
+
+/** Una onda que sale hacia fuera. */
+const E2_WAVE_OUT = /* @__PURE__ */ [
+  { transform: 'scale(0.6)', opacity: 0, offset: 0 },
+  { transform: 'scale(1)', opacity: 1, offset: 0.6 },
+  { transform: 'scale(1)', opacity: 1, offset: 1 },
+];
+
+/**
+ * El martillo golpea la campana y rebota. Va hacia ella —está en (9,9) y él en (20,16)— y el
+ * recorrido se reparte entre los dos ejes en esa proporción, o el golpe no apuntaría a nada.
+ */
+const E2_STRIKE = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)', offset: 0 },
+  { transform: 'translate(-1.7px, -1.1px)', offset: 0.3 },
+  { transform: 'translate(0.5px, 0.3px)', offset: 0.55 },
+  { transform: 'translate(-0.7px, -0.45px)', offset: 0.75 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+
 /** Cuerpo 0.9s y badajo 1.1s: ese desfase ES el efecto (portado de Animate UI). */
 export const bellIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellShapes, {
     default: {
@@ -131,3 +168,31 @@ export const bellPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellPlusShapes
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El martillo golpea la campana y rebota; ella suena después del impacto, no a la vez. */
+export const bellElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18.518 17.347A7 7 0 0 1 14 19" },
+    { tag: 'path', d: "M18.8 4A11 11 0 0 1 20 9" },
+    { tag: 'path', d: "M9 9h.01" },
+    { tag: 'circle', cx: 20, cy: 16, r: 2 },
+    { tag: 'circle', cx: 9, cy: 9, r: 7 },
+    { tag: 'rect', x: 4, y: 16, width: 10, height: 6, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(E2_STRIKE, 700, { easing: EASE }),
+        0: /* @__PURE__ */ track(E2_STRIKE, 700, { easing: EASE }),
+        4: /* @__PURE__ */ track(E2_RING, 620, { easing: EASE, origin: '9px 9px', delay: 210, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E2_POP, 300, { easing: 'ease-out', origin: '9px 9px', delay: 260, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_WAVE_OUT, 480, { easing: 'ease-out', origin: '19px 6.5px', delay: 340, fill: 'backwards' }),
+      },
+    },
+  },
+);

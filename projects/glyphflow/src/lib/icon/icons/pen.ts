@@ -6,6 +6,22 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, rotateSeq, track, strokeDraw, icon } from '../choreography';
 import { penLineShapes, penShapes } from '../animated-icons.shapes';
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E2_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Aparece de golpe con un rebote corto. */
+const E2_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
 export const penOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10 10-6.157 6.162a2 2 0 0 0-.5.833l-1.322 4.36a.5.5 0 0 0 .622.624l4.358-1.323a2 2 0 0 0 .83-.5L14 13.982" },
@@ -72,3 +88,34 @@ export const penLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(penLineShapes, 
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** La línea se traza y el nodo aparece en su extremo. */
+export const penToolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z",
+    },
+    {
+      tag: 'path',
+      d: "m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18",
+    },
+    { tag: 'path', d: "m2.3 2.3 7.286 7.286" },
+    { tag: 'circle', cx: 11, cy: 11, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_PULSE, 460, { easing: EASE, origin: '14px 20px', delay: 280, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_PULSE, 460, { easing: EASE, origin: '12px 12px', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(E2_POP, 340, { easing: EASE, origin: '11px 11px', delay: 400, fill: 'backwards' }),
+      },
+    },
+  },
+);

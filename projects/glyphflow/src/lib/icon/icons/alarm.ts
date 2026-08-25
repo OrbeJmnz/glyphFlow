@@ -10,6 +10,22 @@ import { alarmClockCheckShapes, alarmClockMinusShapes, alarmClockOffShapes, alar
 // Sonando de verdad: sacudida más grande y rápida que el temblor de despertar.
 const CLOCK_RING = /* @__PURE__ */ rotateSeq([0, -15, 12, -10, 8, -4, 0]);
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E2_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** El humo sube y se desvanece por arriba. */
+const E2_SMOKE = /* @__PURE__ */ [
+  { transform: 'translateY(1.5px)', opacity: 0.2, offset: 0 },
+  { transform: 'translateY(0)', opacity: 1, offset: 0.55 },
+  { transform: 'translateY(0)', opacity: 1, offset: 1 },
+];
+
 /** Despertador sonando: campanas y patas se sacuden juntas. */
 export const alarmClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClockShapes, {
     default: {
@@ -89,3 +105,29 @@ export const alarmClockPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmClo
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El humo sube en tres columnas desfasadas y la alarma responde. */
+export const alarmSmokeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 21c0-2.5 2-2.5 2-5" },
+    { tag: 'path', d: "M16 21c0-2.5 2-2.5 2-5" },
+    { tag: 'path', d: "m19 8-.8 3a1.25 1.25 0 0 1-1.2 1H7a1.25 1.25 0 0 1-1.2-1L5 8" },
+    { tag: 'path', d: "M21 3a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a1 1 0 0 1 1-1z" },
+    { tag: 'path', d: "M6 21c0-2.5 2-2.5 2-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_SMOKE, 620, { easing: EASE, delay: 110, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_SMOKE, 620, { easing: EASE, delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E2_PULSE, 480, { easing: EASE, origin: 'center' }),
+        4: /* @__PURE__ */ track(E2_SMOKE, 620, { easing: EASE }),
+      },
+    },
+  },
+);

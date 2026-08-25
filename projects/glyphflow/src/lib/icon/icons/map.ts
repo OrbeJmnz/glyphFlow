@@ -199,3 +199,113 @@ export const mapIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapShapes, {
       }),
     },
   });
+
+/** El mapa se despliega y el menos se pone de canto. */
+/** El mapa se despliega. El gesto de `map`. */
+const MAP_UNFOLD = /* @__PURE__ */ [{ transform: 'scaleX(0.88)' }, { transform: 'scaleX(1)' }];
+
+/** El pin se balancea sobre su punta, que es lo único que no se mueve al clavarlo. */
+const MAP_PIN_SWING = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)', offset: 0 },
+  { transform: 'rotate(-12deg)', offset: 0.22 },
+  { transform: 'rotate(8deg)', offset: 0.45 },
+  { transform: 'rotate(-5deg)', offset: 0.68 },
+  { transform: 'rotate(3deg)', offset: 0.85 },
+  { transform: 'rotate(0deg)', offset: 1 },
+];
+
+/** Lo que marca el mapa se agranda y vuelve. */
+const MAP_MARK_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.25)' },
+  { transform: 'scale(1)' },
+];
+
+/** Un cuarto de vuelta y de regreso, para los signos. */
+const LAYER_TURN = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }, { transform: 'rotate(0deg)' }];
+
+export const mapMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "m11 19-1.106-.552a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0l4.212 2.106a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619V14",
+    },
+    { tag: 'path', d: "M15 5.764V14" },
+    { tag: 'path', d: "M21 18h-6" },
+    { tag: 'path', d: "M9 3.236v15" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(MAP_UNFOLD, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(LAYER_TURN, 600, { easing: EASE, origin: '18px 18px', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El pin se balancea sobre su punta y la pluma firma encima. */
+export const mapPinPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17.97 9.304A8 8 0 0 0 2 10c0 4.69 4.887 9.562 7.022 11.468" },
+    {
+      tag: 'path',
+      d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z",
+    },
+    { tag: 'circle', cx: 10, cy: 10, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(MAP_PIN_SWING, 650, { easing: EASE, origin: '10px 20px' }),
+        1: /* @__PURE__ */ track(MAP_MARK_POP, 520, { easing: EASE, origin: '18px 17px', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(MAP_PIN_SWING, 650, { easing: EASE, origin: '10px 20px' }),
+      },
+    },
+  },
+);
+
+/** El pin se balancea y el punto que marca se agranda. */
+export const mapPinnedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0",
+    },
+    { tag: 'circle', cx: 12, cy: 8, r: 2 },
+    {
+      tag: 'path',
+      d: "M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(MAP_PIN_SWING, 650, { easing: EASE, origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(MAP_MARK_POP, 520, { easing: EASE, origin: '12px 8px', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const mapPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "m11 19-1.106-.552a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0l4.212 2.106a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619V12",
+    },
+    { tag: 'path', d: "M15 5.764V12" },
+    { tag: 'path', d: "M18 15v6" },
+    { tag: 'path', d: "M21 18h-6" },
+    { tag: 'path', d: "M9 3.236v15" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(MAP_UNFOLD, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(LAYER_TURN, 600, { easing: EASE, origin: '18px 18px', delay: 260, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(LAYER_TURN, 600, { easing: EASE, origin: '18px 18px', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);

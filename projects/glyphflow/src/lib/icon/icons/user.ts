@@ -439,3 +439,135 @@ export const userRoundXIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundXSh
       },
     },
   });
+
+/** La cabeza asoma y la llave gira sobre su anilla. */
+/** La cabeza asoma. El gesto con el que `user` abre desde siempre. */
+const USER_PEEK = /* @__PURE__ */ [
+  { transform: 'translateY(0)' },
+  { transform: 'translateY(-1.2px)' },
+  { transform: 'translateY(0)' },
+];
+
+/** La llave gira en la cerradura tomando su anilla como eje, igual que en `book-key`. */
+const USER_KEY_TURN = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)' },
+  { transform: 'rotate(22deg)' },
+  { transform: 'rotate(0deg)' },
+];
+
+/** El arco del candado se levanta y encaja. */
+const USER_SHACKLE = /* @__PURE__ */ [
+  { transform: 'translateY(0)' },
+  { transform: 'translateY(-1.4px)' },
+  { transform: 'translateY(0)' },
+];
+
+/** El asta de la lupa sale; la lente se queda. */
+const USER_PROBE = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(0.8px, 0.8px)' },
+  { transform: 'translate(0, 0)' },
+];
+
+/** Lo que distingue al icono se agranda y vuelve — el escudo, la estrella. */
+const USER_BADGE_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.22)' },
+  { transform: 'scale(1)' },
+];
+
+export const userKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 11v6" },
+    { tag: 'path', d: "M20 13h2" },
+    { tag: 'path', d: "M3 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 2.072.578" },
+    { tag: 'circle', cx: 10, cy: 7, r: 4 },
+    { tag: 'circle', cx: 20, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(USER_KEY_TURN, 600, { easing: EASE, origin: '20px 19px', delay: 220, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(USER_KEY_TURN, 600, { easing: EASE, origin: '20px 19px', delay: 220, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(USER_PEEK, 500, { easing: EASE }),
+        4: /* @__PURE__ */ track(USER_KEY_TURN, 600, { easing: EASE, origin: '20px 19px', delay: 220, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La cabeza asoma y el arco del candado se levanta. */
+export const userLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 16v-2a2 2 0 0 0-4 0v2" },
+    { tag: 'path', d: "M9.5 15H7a4 4 0 0 0-4 4v2" },
+    { tag: 'circle', cx: 10, cy: 7, r: 4 },
+    { tag: 'rect', x: 13, y: 16, width: 8, height: 5, rx: 0.899 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(USER_SHACKLE, 600, { easing: EASE, delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(USER_PEEK, 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** La cabeza asoma y el asta de la lupa sale; la lente se queda. */
+export const userSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 10, cy: 7, r: 4 },
+    { tag: 'path', d: "M10.3 15H7a4 4 0 0 0-4 4v2" },
+    { tag: 'circle', cx: 17, cy: 17, r: 3 },
+    { tag: 'path', d: "m21 21-1.9-1.9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(USER_PEEK, 500, { easing: EASE }),
+        3: /* @__PURE__ */ track(USER_PROBE, 600, { easing: EASE, delay: 220, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La cabeza asoma y el escudo se agranda. */
+export const userShieldIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 15H6a4 4 0 0 0-4 4v2" },
+    {
+      tag: 'path',
+      d: "M22 17.5c0 2.499-1.75 3.749-3.83 4.474a.5.5 0 0 1-.335-.005c-2.085-.72-3.835-1.97-3.835-4.47V14a.5.5 0 0 1 .5-.499c1 0 2.25-.6 3.12-1.36a.6.6 0 0 1 .76-.001c.875.765 2.12 1.36 3.12 1.36a.5.5 0 0 1 .5.5z",
+    },
+    { tag: 'circle', cx: 9, cy: 7, r: 4 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(USER_BADGE_POP, 600, { easing: EASE, origin: '18px 17px', delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(USER_PEEK, 500, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** La cabeza asoma y la estrella se agranda. */
+export const userStarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M16.051 12.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z",
+    },
+    { tag: 'path', d: "M8 15H7a4 4 0 0 0-4 4v2" },
+    { tag: 'circle', cx: 10, cy: 7, r: 4 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(USER_BADGE_POP, 600, { easing: EASE, origin: '18px 16px', delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(USER_PEEK, 500, { easing: EASE }),
+      },
+    },
+  },
+);

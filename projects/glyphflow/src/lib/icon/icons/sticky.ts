@@ -3,11 +3,20 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
+import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 import { stickyNoteCheckShapes, stickyNoteMinusShapes, stickyNoteOffShapes, stickyNotePlusShapes, stickyNoteShapes, stickyNoteXShapes } from '../animated-icons.shapes';
 import { FOLD_CHIDA } from './_shared';
 
 const FOLD_FLIP = /* @__PURE__ */ [{ transform: 'rotate(-25deg)' }, { transform: 'rotate(0deg)' }];
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** La nota de encima se despega de la pila. */
+const E1_PEEL = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(-1.5px, 1.5px)' },
+  { transform: 'translate(0, 0)' },
+];
 
 export const stickyNoteIcon: AnimatedIconDef = /* @__PURE__ */ icon(stickyNoteShapes, {
     default: {
@@ -105,3 +114,32 @@ export const stickyNoteXIcon: AnimatedIconDef = /* @__PURE__ */ icon(stickyNoteX
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** La nota de encima se despega de la pila. */
+export const stickyNotesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10 8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 16 14v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z",
+    },
+    { tag: 'path', d: "M10 8v5a1 1 0 0 0 1 1h5" },
+    {
+      tag: 'path',
+      d: "M8 4a2 2 0 0 1 2-2h6a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 22 8v6a2 2 0 0 1-2 2",
+    },
+    { tag: 'path', d: "M16 2v5a1 1 0 0 0 1 1h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PEEL, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(E1_PEEL, 620, { easing: EASE }),
+      },
+    },
+  },
+);

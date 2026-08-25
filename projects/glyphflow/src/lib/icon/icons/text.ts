@@ -3,7 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, track, icon } from '../choreography';
+import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 
 // REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
 export const textAlignCenterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -70,6 +70,141 @@ export const textSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.8)', offset: 0.5 }, { transform: 'scaleX(1)', offset: 1 }], 1000, { easing: EASE, delay: 50 }),
         3: /* @__PURE__ */ track([{ transform: 'translateX(0) translateY(0)', offset: 0 }, { transform: 'translateX(0) translateY(-4px)', offset: 0.25 }, { transform: 'translateX(-3px) translateY(0)', offset: 0.5 }, { transform: 'translateX(0) translateY(0)', offset: 1 }], 1000, { easing: EASE }),
         4: /* @__PURE__ */ track([{ transform: 'translateX(0) translateY(0)', offset: 0 }, { transform: 'translateX(0) translateY(-4px)', offset: 0.25 }, { transform: 'translateX(-3px) translateY(0)', offset: 0.5 }, { transform: 'translateX(0) translateY(0)', offset: 1 }], 1000, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** Los renglones se despliegan desde el margen derecho, que es el que los alinea. */
+/**
+ * La línea LLEGA a su alineación desplegándose desde el margen que la sujeta.
+ *
+ * `text-align-center` lo hacía trasladando, y ese es el concepto que se conserva —el renglón
+ * buscando su sitio—, pero no la técnica: sus líneas van de x=3 a x=21 y un desplazamiento de 3
+ * las saca del lienzo por el lado al que viajan. Desplegándose desde el margen no se salen nunca,
+ * porque ninguna pasa de su propio tamaño, y se ve de dónde las sujeta la alineación.
+ */
+const TEXT_SETTLE = /* @__PURE__ */ [{ transform: 'scaleX(0.3)' }, { transform: 'scaleX(1)' }];
+
+/** La inicial es la protagonista: crece cuando el texto ya está puesto. */
+const TEXT_INITIAL_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.22)' },
+  { transform: 'scale(1)' },
+];
+
+/** La barra de una cita baja en vez de estirarse a lo ancho. */
+const TEXT_SETTLE_Y = /* @__PURE__ */ [{ transform: 'scaleY(0.2)' }, { transform: 'scaleY(1)' }];
+
+export const textAlignEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M21 12H9" },
+    { tag: 'path', d: "M21 19H7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 5px' }),
+        1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 12px', delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 19px', delay: 180, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Justificado: los renglones se estiran desde el centro hasta tocar los dos márgenes. */
+export const textAlignJustifyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5h18" },
+    { tag: 'path', d: "M3 12h18" },
+    { tag: 'path', d: "M3 19h18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '12px 5px' }),
+        1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '12px 12px', delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '12px 19px', delay: 180, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const textAlignStartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M15 12H3" },
+    { tag: 'path', d: "M17 19H3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 5px' }),
+        1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 12px', delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 19px', delay: 180, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El texto se pone y la inicial crece al final: es la que da nombre al icono. */
+export const textInitialIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 5h6" },
+    { tag: 'path', d: "M15 12h6" },
+    { tag: 'path', d: "M3 19h18" },
+    { tag: 'path', d: "m3 12 3.553-7.724a.5.5 0 0 1 .894 0L11 12" },
+    { tag: 'path', d: "M3.92 10h6.16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 5px' }),
+        1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 12px', delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 19px', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(TEXT_INITIAL_POP, 460, { easing: EASE, origin: '7px 8px', delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(TEXT_INITIAL_POP, 460, { easing: EASE, origin: '7px 8px', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La barra de la cita baja primero y después entra lo citado, sangrado tras ella. */
+export const textQuoteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 5H3" },
+    { tag: 'path', d: "M21 12H8" },
+    { tag: 'path', d: "M21 19H8" },
+    { tag: 'path', d: "M3 12v7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 5px', delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '8px 12px', delay: 250, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '8px 19px', delay: 340, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(TEXT_SETTLE_Y, 380, { easing: SPRING_OUT, origin: '3px 12px' }),
+      },
+    },
+  },
+);
+
+/** El renglón se traza hasta que no cabe, da la vuelta y la flecha remata el salto. */
+export const textWrapIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 16-3 3 3 3" },
+    { tag: 'path', d: "M3 12h14.5a1 1 0 0 1 0 7H13" },
+    { tag: 'path', d: "M3 19h6" },
+    { tag: 'path', d: "M3 5h18" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 480, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 19px', delay: 620, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 5px' }),
       },
     },
   },

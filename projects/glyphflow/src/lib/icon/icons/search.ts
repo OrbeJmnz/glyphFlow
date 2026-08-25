@@ -6,6 +6,42 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, rotateSeq, track, strokeDraw, icon } from '../choreography';
 import { searchCheckShapes, searchShapes, searchSlashShapes, searchXShapes } from '../animated-icons.shapes';
 
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Parpadea. Para puntos suspensivos y avisos: dice "esto sigue pasando". */
+const E1_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+/**
+ * Se desplaza y vuelve, con anticipación. La anticipación no es adorno: casi todo lo que se mueve
+ * hacia un borde en este catálogo tiene 1 de margen, y un recorrido de 1 se ve como un temblor.
+ * Retrocediendo antes, el recorrido visible se dobla sin salirse del lienzo.
+ */
+const E1_PUSH_RIGHT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1px)', offset: 0.28 },
+  { transform: 'translateX(1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+const E1_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/** Sale hacia la esquina de arriba a la derecha. */
+const E1_OUT_CORNER = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(0.8px, -0.8px)' },
+  { transform: 'translate(0, 0)' },
+];
+
 /** Sacudida desde el mango; `find` la pasea como si buscara (ambas portadas). */
 export const searchIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchShapes, {
     default: {
@@ -124,3 +160,46 @@ export const searchXIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchXShapes, 
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El asta busca y el aviso parpadea dentro de la lente. */
+export const searchAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 11, cy: 11, r: 8 },
+    { tag: 'path', d: "m21 21-4.3-4.3" },
+    { tag: 'path', d: "M11 7v4" },
+    { tag: 'path', d: "M11 15h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(E1_OUT_CORNER, 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(E1_BLINK, 700, { easing: EASE, delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E1_BLINK, 700, { easing: EASE, delay: 160, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Los chevrons se apartan dentro de la lente mientras el asta busca. */
+export const searchCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m13 13.5 2-2.5-2-2.5" },
+    { tag: 'path', d: "m21 21-4.3-4.3" },
+    { tag: 'path', d: "M9 8.5 7 11l2 2.5" },
+    { tag: 'circle', cx: 11, cy: 11, r: 8 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PUSH_RIGHT, 600, { easing: EASE, delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E1_OUT_CORNER, 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(E1_PUSH_LEFT, 600, { easing: EASE, delay: 160, fill: 'backwards' }),
+      },
+    },
+  },
+);

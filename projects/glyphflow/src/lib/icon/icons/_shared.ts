@@ -48,3 +48,9 @@ export const SHIELD_GEAR_SPIN = /* @__PURE__ */ [
   { transform: 'scale(1.15) rotate(360deg)' },
   { transform: 'scale(1) rotate(720deg)' },
 ];
+
+/**
+ * Una figura sola no tiene con qué escalonarse, así que late. Es el mismo pulso que `circle` usa
+ * desde siempre para su aro pelado; aquí lo comparten todos los iconos de una sola pieza.
+ */
+export const LATIDO = /* @__PURE__ */ scaleSeq([1, 1.15, 1]);

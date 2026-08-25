@@ -14,6 +14,21 @@ const PACKAGE_DROP = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -6, 1, 0
   easing: EASE,
 });
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E2_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Se despliega desde su borde de arriba. */
+const E2_UNFOLD_Y = /* @__PURE__ */ [{ transform: 'scaleY(0.15)' }, { transform: 'scaleY(1)' }];
+
+/** Y desde el borde izquierdo: un pergamino que se desenrolla, una cinta que se estira. */
+const E2_UNFOLD_X = /* @__PURE__ */ [{ transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }];
+
 /** Paquete que aterriza. */
 export const packageIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageShapes, {
     default: {
@@ -122,3 +137,29 @@ export const packageXIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageXShapes
 export const packageSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageSearchShapes, {
     default: { shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.2, 1]), 500, { origin: '18.5px 16.5px' }) } },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Las dos cintas se despliegan y cierran la caja. */
+export const package2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 3v6" },
+    {
+      tag: 'path',
+      d: "M16.76 3a2 2 0 0 1 1.8 1.1l2.23 4.479a2 2 0 0 1 .21.891V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.472a2 2 0 0 1 .211-.894L5.45 4.1A2 2 0 0 1 7.24 3z",
+    },
+    { tag: 'path', d: "M3.054 9.013h17.893" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_UNFOLD_Y, 460, { easing: SPRING_OUT, origin: '12px 3px', delay: 280, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_PULSE, 460, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track(E2_UNFOLD_X, 460, { easing: SPRING_OUT, origin: '3px 9px', delay: 160, fill: 'backwards' }),
+      },
+    },
+  },
+);

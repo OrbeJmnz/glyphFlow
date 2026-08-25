@@ -102,6 +102,39 @@ const BOOK_CHECK_HOP = /* @__PURE__ */ [
   { transform: 'translateY(0)', offset: 1 },
 ];
 
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Parpadea: un indicador encendido, un aviso. */
+const E2_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+/** La hoja de encima se despega de la pila. */
+const E2_PEEL = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(-1.5px, 1.5px)' },
+  { transform: 'translate(0, 0)' },
+];
+
+const E2_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/** El meneo de la familia `book`, para los tres que llegan tarde a ella. */
+const BOOK_WIGGLE_E2 = /* @__PURE__ */ [
+  { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 },
+  { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 },
+  { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 },
+  { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 },
+  { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 },
+];
+
 export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
@@ -584,3 +617,63 @@ export const bookOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookOpenShapes
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Se menea el libro ENTERO, como toda su familia, y el aviso tirita cuando se asienta. */
+export const bookAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13h.01" },
+    { tag: 'path', d: "M12 6v3" },
+    { tag: 'path', d: "M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(E2_BLINK, 700, { easing: EASE, delay: 620, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E2_BLINK, 700, { easing: EASE, delay: 620, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const bookCopyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 7a2 2 0 0 0-2 2v11" },
+    { tag: 'path', d: "M5.803 18H5a2 2 0 0 0 0 4h9.5a.5.5 0 0 0 .5-.5V21" },
+    {
+      tag: 'path',
+      d: "M9 15V4a2 2 0 0 1 2-2h9.5a.5.5 0 0 1 .5.5v14a.5.5 0 0 1-.5.5H11a2 2 0 0 1 0-4h10",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(E2_PEEL, 640, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** El libro entero se menea y después la lupa busca: la lente y su asta son una sola cosa. */
+export const bookSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 22H5.5a1 1 0 0 1 0-5h4.501" },
+    { tag: 'path', d: "m21 22-1.879-1.878" },
+    { tag: 'path', d: "M3 19.5v-15A2.5 2.5 0 0 1 5.5 2H18a1 1 0 0 1 1 1v8" },
+    { tag: 'circle', cx: 17, cy: 18, r: 3 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 600, { easing: EASE }),
+      shapes: {
+        3: /* @__PURE__ */ track(E2_PUSH_LEFT, 620, { easing: EASE, delay: 620, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_PUSH_LEFT, 620, { easing: EASE, delay: 620, fill: 'backwards' }),
+      },
+    },
+  },
+);

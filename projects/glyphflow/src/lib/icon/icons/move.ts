@@ -3,8 +3,24 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { SPRING_SNAPPY, track, icon } from '../choreography';
+import { EASE, SPRING_SNAPPY, track, strokeDraw, icon } from '../choreography';
 import { moveShapes, moveRightShapes } from '../animated-icons.shapes';
+
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+const E2_PUSH_UP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1px)', offset: 0.28 },
+  { transform: 'translateY(-1.5px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+const E2_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
 
 export const moveDiagonal2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -344,6 +360,31 @@ export const moveVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-3px)', offset: 0.25 }, { transform: 'translateY(0)', offset: 0.45 }, { transform: 'translateY(0)', offset: 0.55 }, { transform: 'translateY(3px)', offset: 0.75 }, { transform: 'translateY(0)', offset: 1 }], 1000),
+    },
+  },
+);
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Los ejes se despliegan y las dos puntas llegan a sus extremos. */
+export const move3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 3v16h16" },
+    { tag: 'path', d: "m5 19 6-6" },
+    { tag: 'path', d: "m2 6 3-3 3 3" },
+    { tag: 'path', d: "m18 16 3 3-3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E2_PUSH_UP, 560, { easing: EASE, delay: 400, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E2_PUSH_LEFT, 560, { easing: EASE, delay: 400, fill: 'backwards' }),
+      },
     },
   },
 );

@@ -1,10 +1,22 @@
-// Familia `file` del catálogo curado (37 iconos).
+// Familia `file` del catálogo curado (55 iconos).
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes } from '../animated-icons.shapes';
+
+/**
+ * El tirón de gelatina del papel. Estaba escrito a mano en las 37 primeras; aquí se nombra
+ * porque las 18 nuevas lo comparten y treinta y tres copias más no aportaban nada.
+ */
+const FILE_JELLY = /* @__PURE__ */ [
+  { transform: 'scale(1, 1)' },
+  { transform: 'scale(0.9, 1.3)' },
+  { transform: 'scale(1.1, 0.9)' },
+  { transform: 'scale(0.95, 1.05)' },
+  { transform: 'scale(1, 1)' },
+];
 
 /** El contenido del archivo crece un punto y se queda ahí mientras dure el hover. */
 const FILE_INNER_HOLD = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.22)' }];
@@ -1614,6 +1626,563 @@ export const fileExclamationPointIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
         2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las tres muescas asoman de arriba abajo y el ojal aparece al final. */
+export const fileArchiveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M13.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v11.5",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 12v-1" },
+    { tag: 'path', d: "M8 18v-2" },
+    { tag: 'path', d: "M8 7V6" },
+    { tag: 'circle', cx: 8, cy: 20, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 14px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 14px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 14px', fill: 'forwards' }),
+        5: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 14px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La caja se arma: primero la tapa, después el cuerpo y el canto. */
+export const fileBoxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 2v5a1 1 0 001 1h5" },
+    {
+      tag: 'path',
+      d: "M14.692 22H18a2 2 0 002-2V8a2.4 2.4 0 00-.706-1.706l-3.588-3.588A2.4 2.4 0 0014 2H6a2 2 0 00-2 2v3.804",
+    },
+    { tag: 'path', d: "M2.264 13.752 7 16.5l4.737-2.748" },
+    {
+      tag: 'path',
+      d: "M2.995 13.014A2 2 0 002 14.744v3.516a2 2 0 00.996 1.73l3 1.74a2 2 0 002.008 0l3-1.74A2 2 0 0012 18.26v-3.517a2 2 0 00-.995-1.73l-3-1.742a2 2 0 00-1.892-.064z",
+    },
+    { tag: 'path', d: "M7 16.5V22" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 240, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: 'NaNpx NaNpx', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: 'NaNpx NaNpx', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: 'NaNpx NaNpx', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El aro se traza y la porción entra después: es lo que la gráfica dice. */
+export const fileChartPieIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M15.941 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.704l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.512",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M4.017 11.512a6 6 0 1 0 8.466 8.475" },
+    {
+      tag: 'path',
+      d: "M9 16a1 1 0 0 1-1-1v-4c0-.552.45-1.008.995-.917a6 6 0 0 1 4.922 4.922c.091.544-.365.995-.917.995z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '9px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '9px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La carátula se traza y las manecillas se ponen en hora. */
+export const fileClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M16 22h2a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v2.85",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 14v2.2l1.6 1" },
+    { tag: 'circle', cx: 8, cy: 16, r: 6 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 16px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 16px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Primero el más y después el menos, en el orden en que se lee un diff. */
+export const fileDiffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+    },
+    { tag: 'path', d: "M9 10h6" },
+    { tag: 'path', d: "M12 13V7" },
+    { tag: 'path', d: "M9 17h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 240, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 12px', fill: 'forwards' }),
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 12px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 12px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El uno se escribe y la casilla aparece a su lado. */
+export const fileDigitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 12V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M10 16h2v6" },
+    { tag: 'path', d: "M10 22h4" },
+    { tag: 'rect', x: 2, y: 16, width: 4, height: 6, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 19px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 19px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La diadema se traza de una: es una sola pieza. */
+export const fileHeadphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 6.835V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-.343",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    {
+      tag: 'path',
+      d: "M2 19a2 2 0 0 1 4 0v1a2 2 0 0 1-4 0v-4a6 6 0 0 1 12 0v4a2 2 0 0 1-4 0v-1a2 2 0 0 1 4 0",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El corazón se dibuja de un trazo. */
+export const fileHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M13 22h5a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v7",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    {
+      tag: 'path',
+      d: "M3.62 18.8A2.25 2.25 0 1 1 7 15.836a2.25 2.25 0 1 1 3.38 2.966l-2.626 2.856a1 1 0 0 1-1.507 0z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18.7px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El vástago, el diente y la anilla: en ese orden se arma una llave. */
+export const fileKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M4 12v6" },
+    { tag: 'path', d: "M4 14h2" },
+    {
+      tag: 'path',
+      d: "M9.65 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v4",
+    },
+    { tag: 'circle', cx: 4, cy: 20, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out', delay: 240, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '4px 17px', fill: 'forwards' }),
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '4px 17px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '4px 17px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El cuerpo del candado aparece y el arco lo cierra encima. */
+export const fileLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 9.8V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M9 17v-2a2 2 0 0 0-4 0v2" },
+    { tag: 'rect', x: 3, y: 17, width: 8, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18.5px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El asta se traza y la cabeza de la nota aparece de golpe. */
+export const fileMusicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M11.65 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v10.35",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M8 20v-7l3 1.474" },
+    { tag: 'circle', cx: 6, cy: 20, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7.5px 17.5px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7.5px 17.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El asta sale del papel y la punta la remata — nunca al revés, o se parte. */
+export const fileOutputIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m5 11-3 3" },
+    { tag: 'path', d: "m5 17-3-3h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 14px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 14px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El renglón se escribe y la pluma llega a firmarlo. */
+export const filePenLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z",
+    },
+    { tag: 'path', d: "M14.487 7.858A1 1 0 0 1 14 7V2" },
+    {
+      tag: 'path',
+      d: "M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516",
+    },
+    { tag: 'path', d: "M8 18h1" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '14.7px 13.8px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '14.7px 13.8px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las cuatro esquinas del marco se cierran en sentido del reloj. */
+export const fileScanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M20 10V8a2.4 2.4 0 0 0-.706-1.704l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.35",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M16 14a2 2 0 0 0-2 2" },
+    { tag: 'path', d: "M16 22a2 2 0 0 1-2-2" },
+    { tag: 'path', d: "M20 14a2 2 0 0 1 2 2" },
+    { tag: 'path', d: "M20 22a2 2 0 0 0 2-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 270, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 90, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 180, fill: 'backwards' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '18px 18px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '18px 18px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '18px 18px', fill: 'forwards' }),
+        5: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '18px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las tres hojas se apilan de atrás hacia adelante. */
+export const fileStackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 21a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1" },
+    { tag: 'path', d: "M16 16a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1" },
+    {
+      tag: 'path',
+      d: "M21 6a2 2 0 0 0-.586-1.414l-2-2A2 2 0 0 0 17 2h-3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 130, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        0: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '9.5px 14.5px', fill: 'forwards' }),
+        1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '9.5px 14.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El atajo apunta afuera, en un solo trazo. */
+export const fileSymlinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 11V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h7",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "m10 18 3-3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '11.5px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El cuerpo de la cámara aparece y el objetivo se traza al lado. */
+export const fileVideoCameraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 12V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    {
+      tag: 'path',
+      d: "m10 17.843 3.033-1.755a.64.64 0 0 1 .967.56v4.704a.65.65 0 0 1-.967.56L10 20.157",
+    },
+    { tag: 'rect', x: 3, y: 16, width: 7, height: 6, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8.5px 19px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8.5px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La bocina aparece y la onda sale de ella. */
+export const fileVolumeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 11.55V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-1.95",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M12 15a5 5 0 0 1 0 6" },
+    {
+      tag: 'path',
+      d: "M8 14.502a.5.5 0 0 0-.826-.381l-1.893 1.631a1 1 0 0 1-.651.243H3.5a.5.5 0 0 0-.5.501v3.006a.5.5 0 0 0 .5.501h1.129a1 1 0 0 1 .652.243l1.893 1.633a.5.5 0 0 0 .826-.38z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 360, { easing: 'ease-out' }),
+      },
+    },
+    pulse: {
+      root: /* @__PURE__ */ track(FILE_JELLY, 600, { easing: 'ease-out', origin: 'center' }),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7.5px 18px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7.5px 18px', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

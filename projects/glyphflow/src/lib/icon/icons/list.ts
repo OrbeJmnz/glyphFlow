@@ -1,10 +1,33 @@
-// Familia `list` del catálogo curado (6 iconos).
+// Familia `list` del catálogo curado (23 iconos).
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, burst, strokeDraw, icon } from '../choreography';
+import { SPRING_OUT, track, burst, strokeDraw, icon } from '../choreography';
 import { listChecksShapes, listShapes } from '../animated-icons.shapes';
+
+/**
+ * El renglón cede el paso a la flecha. Cuál cede lo dice DÓNDE TERMINA la punta al girar, no
+ * dónde arranca el gancho: la de `list-end` acaba abajo, así que se aparta el último renglón; la
+ * de `list-start` acaba arriba, y se aparta el primero.
+ */
+const LIST_ROW_YIELD = /* @__PURE__ */ [{ transform: 'translateX(0)' }, { transform: 'translateX(-1.5px)' }];
+
+/** El chevron avanza hacia donde apunta y se queda ahí mientras dure el puntero. */
+const CHEVRON_PUSH_DOWN = /* @__PURE__ */ [{ transform: 'translateY(0)' }, { transform: 'translateY(2px)' }];
+const CHEVRON_PUSH_UP = /* @__PURE__ */ [{ transform: 'translateY(0)' }, { transform: 'translateY(-2px)' }];
+const CHEVRON_PUSH_RIGHT = /* @__PURE__ */ [{ transform: 'translateX(0)' }, { transform: 'translateX(2px)' }];
+
+/** Lo que el chevron empuja se corre menos que él: cede, no huye. */
+const LIST_NUDGE_RIGHT = /* @__PURE__ */ [{ transform: 'translateX(0)' }, { transform: 'translateX(0.8px)' }];
+
+/**
+ * La flecha gira sobre su codo en vez de trasladarse. El pivote va en las opciones porque cambia
+ * con cada icono; el signo, aquí: positivo lleva la punta a la izquierda cuando el codo está
+ * arriba, y al revés cuando está abajo.
+ */
+const LIST_ARROW_SWING = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(8deg)' }];
+const LIST_ARROW_SWING_BACK = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-8deg)' }];
 
 export const listFilterPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -114,3 +137,405 @@ export const listChecksIcon: AnimatedIconDef = /* @__PURE__ */ icon(listChecksSh
       },
     },
   });
+
+/** Los dos chevrons cierran el gesto de plegar. */
+export const listChevronsDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5h8" },
+    { tag: 'path', d: "M3 12h8" },
+    { tag: 'path', d: "M3 19h8" },
+    { tag: 'path', d: "m15 5 3 3 3-3" },
+    { tag: 'path', d: "m15 19 3-3 3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 360, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(CHEVRON_PUSH_DOWN, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(CHEVRON_PUSH_UP, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Y aquí el de desplegar. */
+export const listChevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5h8" },
+    { tag: 'path', d: "M3 12h8" },
+    { tag: 'path', d: "M3 19h8" },
+    { tag: 'path', d: "m15 8 3-3 3 3" },
+    { tag: 'path', d: "m15 16 3 3 3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 360, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(CHEVRON_PUSH_UP, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(CHEVRON_PUSH_DOWN, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los renglones asoman y los dos chevrons apuntan a lo que se pliega. */
+export const listCollapseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 5h11" },
+    { tag: 'path', d: "M10 12h11" },
+    { tag: 'path', d: "M10 19h11" },
+    { tag: 'path', d: "m3 10 3-3-3-3" },
+    { tag: 'path', d: "m3 20 3-3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 360, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(CHEVRON_PUSH_RIGHT, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(CHEVRON_PUSH_RIGHT, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(LIST_NUDGE_RIGHT, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(LIST_NUDGE_RIGHT, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(LIST_NUDGE_RIGHT, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La flecha de sangría entra al final. */
+export const listIndentDecreaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H11" },
+    { tag: 'path', d: "M21 12H11" },
+    { tag: 'path', d: "M21 19H11" },
+    { tag: 'path', d: "m7 8-4 4 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Igual, hacia el otro lado. */
+export const listIndentIncreaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H11" },
+    { tag: 'path', d: "M21 12H11" },
+    { tag: 'path', d: "M21 19H11" },
+    { tag: 'path', d: "m3 8 4 4-4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El menos se traza cuando la lista ya está. */
+export const listMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M11 12H3" },
+    { tag: 'path', d: "M16 19H3" },
+    { tag: 'path', d: "M21 12h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El más, en sus dos trazos. */
+export const listPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M11 12H3" },
+    { tag: 'path', d: "M16 19H3" },
+    { tag: 'path', d: "M18 9v6" },
+    { tag: 'path', d: "M21 12h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 360, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Las dos diagonales cierran. */
+export const listXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M11 12H3" },
+    { tag: 'path', d: "M16 19H3" },
+    { tag: 'path', d: "m15.5 9.5 5 5" },
+    { tag: 'path', d: "m20.5 9.5-5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 360, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El gancho baja y la punta llega al final del recorrido — nunca al revés, o la flecha se parte. */
+export const listEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M16 12H3" },
+    { tag: 'path', d: "M9 19H3" },
+    { tag: 'path', d: "m16 16-3 3 3 3" },
+    { tag: 'path', d: "M21 5v12a2 2 0 0 1-2 2h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 400, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(LIST_ROW_YIELD, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(LIST_ARROW_SWING, 320, { easing: SPRING_OUT, origin: '21px 5px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(LIST_ARROW_SWING, 320, { easing: SPRING_OUT, origin: '21px 5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El mismo recorrido, subiendo. */
+export const listStartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5h6" },
+    { tag: 'path', d: "M3 12h13" },
+    { tag: 'path', d: "M3 19h13" },
+    { tag: 'path', d: "m16 8-3-3 3-3" },
+    { tag: 'path', d: "M21 19V7a2 2 0 0 0-2-2h-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 400, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(LIST_ROW_YIELD, 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(LIST_ARROW_SWING_BACK, 320, { easing: SPRING_OUT, origin: '21px 19px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(LIST_ARROW_SWING_BACK, 320, { easing: SPRING_OUT, origin: '21px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El arco da la vuelta y la punta lo remata. */
+export const listRestartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M7 12H3" },
+    { tag: 'path', d: "M7 19H3" },
+    {
+      tag: 'path',
+      d: "M12 18a5 5 0 0 0 9-3 4.5 4.5 0 0 0-4.5-4.5c-1.33 0-2.54.54-3.41 1.41L11 14",
+    },
+    { tag: 'path', d: "M11 10v4h4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El asta de la nota se traza y la cabeza aparece de golpe: un círculo macizo no se dibuja bien. */
+export const listMusicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5H3" },
+    { tag: 'path', d: "M11 12H3" },
+    { tag: 'path', d: "M11 19H3" },
+    { tag: 'path', d: "M21 16V5" },
+    { tag: 'circle', cx: 18, cy: 16, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 400, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El triángulo de reproducir aparece de golpe, por lo mismo. */
+export const listVideoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 5H3" },
+    { tag: 'path', d: "M10 12H3" },
+    { tag: 'path', d: "M10 19H3" },
+    {
+      tag: 'path',
+      d: "M15 12.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 280, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Los renglones asoman y después se escriben el uno y el dos, en ese orden. */
+export const listOrderedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 5h10" },
+    { tag: 'path', d: "M11 12h10" },
+    { tag: 'path', d: "M11 19h10" },
+    { tag: 'path', d: "M4 4h1v5" },
+    { tag: 'path', d: "M4 9h2" },
+    { tag: 'path', d: "M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 440, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Las tres barras del embudo asoman de la más ancha a la más angosta: el filtro cerrándose. */
+export const listFilterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 5h20" },
+    { tag: 'path', d: "M6 12h12" },
+    { tag: 'path', d: "M9 19h6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Asoman de la más corta a la más larga, que es lo que el icono nombra. */
+export const listSortAscendingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 19h18" },
+    { tag: 'path', d: "M15 12H3" },
+    { tag: 'path', d: "M9 5H3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+/** Y aquí de la más larga a la más corta. */
+export const listSortDescendingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 12H3" },
+    { tag: 'path', d: "M3 5h18" },
+    { tag: 'path', d: "M9 19H3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 80, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+      },
+    },
+  },
+);

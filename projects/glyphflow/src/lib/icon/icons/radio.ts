@@ -3,7 +3,31 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, strokeDraw, icon } from '../choreography';
+import { EASE, track, strokeDraw, icon } from '../choreography';
+
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E2_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Aparece de golpe con un rebote corto. */
+const E2_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
+/** Parpadea: un indicador encendido, un aviso. */
+const E2_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
 
 export const radioOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -63,6 +87,31 @@ export const radioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 150 }),
         3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
         4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+      },
+    },
+  },
+);
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El indicador parpadea: está sintonizando. */
+export const radioReceiverIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 16v2" },
+    { tag: 'path', d: "M19 16v2" },
+    { tag: 'rect', x: 2, y: 8, width: 20, height: 8, rx: 2 },
+    { tag: 'path', d: "M18 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_POP, 300, { easing: EASE, origin: '5px 17px', delay: 260, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_POP, 300, { easing: EASE, origin: '19px 17px', delay: 320, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E2_PULSE, 460, { easing: EASE, origin: 'center' }),
+        3: /* @__PURE__ */ track(E2_BLINK, 700, { easing: EASE, delay: 160, fill: 'backwards' }),
       },
     },
   },

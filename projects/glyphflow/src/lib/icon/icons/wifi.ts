@@ -14,6 +14,16 @@ const WIFI_RISE = /* @__PURE__ */ [
   { transform: 'translateY(0)', opacity: '1' },
 ];
 
+/** Lo que sale del centro hacia fuera: el sonido de un disco, una onda. */
+const RIPPLE_OUT = /* @__PURE__ */ [
+  { transform: 'scale(1)', offset: 0 },
+  { transform: 'scale(1.12)', offset: 0.45 },
+  { transform: 'scale(1)', offset: 1 },
+];
+
+/** Una vuelta entera: rota todo y termina donde empezó. */
+const FULL_TURN_CW = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }];
+
 export const wifiOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 20h.01" },
@@ -108,3 +118,69 @@ export const wifiZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiZeroShapes
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Las ondas salen y el engrane gira sobre su eje, no sobre el del icono. */
+export const wifiCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14.305 19.53.923-.382" },
+    { tag: 'path', d: "m15.228 16.852-.923-.383" },
+    { tag: 'path', d: "m16.852 15.228-.383-.923" },
+    { tag: 'path', d: "m16.852 20.772-.383.924" },
+    { tag: 'path', d: "m19.148 15.228.383-.923" },
+    { tag: 'path', d: "m19.53 21.696-.382-.924" },
+    { tag: 'path', d: "M2 7.82a15 15 0 0 1 20 0" },
+    { tag: 'path', d: "m20.772 16.852.924-.383" },
+    { tag: 'path', d: "m20.772 19.148.924.383" },
+    { tag: 'path', d: "M5 11.858a10 10 0 0 1 11.5-1.785" },
+    { tag: 'path', d: "M8.5 15.429a5 5 0 0 1 2.413-1.31" },
+    { tag: 'circle', cx: 18, cy: 18, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '12px 7.8px', delay: 240, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '10.7px 10.9px', delay: 120, fill: 'backwards' }),
+        10: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '9.7px 14.8px' }),
+        11: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+export const wifiSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.965 10.105v4L13.5 12.5a5 5 0 0 1 8 1.5" },
+    { tag: 'path', d: "M11.965 14.105h4" },
+    { tag: 'path', d: "M17.965 18.105h4L20.43 19.71a5 5 0 0 1-8-1.5" },
+    { tag: 'path', d: "M2 8.82a15 15 0 0 1 20 0" },
+    { tag: 'path', d: "M21.965 22.105v-4" },
+    { tag: 'path', d: "M5 12.86a10 10 0 0 1 3-2.032" },
+    { tag: 'path', d: "M8.5 16.429h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '17px 16px', delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '17px 16px', delay: 300, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '17px 16px', delay: 300, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '12px 8.8px', delay: 240, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(FULL_TURN_CW, 900, { easing: EASE, origin: '17px 16px', delay: 300, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '6.5px 11.8px', delay: 120, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(RIPPLE_OUT, 600, { easing: EASE, origin: '8.5px 16.4px' }),
+      },
+    },
+  },
+);

@@ -3,8 +3,37 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { moveYSeq, track, icon } from '../choreography';
+import { EASE, moveYSeq, track, icon } from '../choreography';
 import { chevronsUpDownShapes } from '../animated-icons.shapes';
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Parpadea. Para puntos suspensivos y avisos: dice "esto sigue pasando". */
+const E1_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+/**
+ * Se desplaza y vuelve, con anticipación. La anticipación no es adorno: casi todo lo que se mueve
+ * hacia un borde en este catálogo tiene 1 de margen, y un recorrido de 1 se ve como un temblor.
+ * Retrocediendo antes, el recorrido visible se dobla sin salirse del lienzo.
+ */
+const E1_PUSH_RIGHT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1px)', offset: 0.28 },
+  { transform: 'translateX(1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+const E1_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
 
 export const chevronsDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -122,3 +151,30 @@ export const chevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevrons
       reverseOnLeave: true,
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Los chevrons se apartan y los puntos parpadean en medio: algo está pasando ahí. */
+export const chevronsLeftRightEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M16 12h.01" },
+    { tag: 'path', d: "m17 7 5 5-5 5" },
+    { tag: 'path', d: "m7 7-5 5 5 5" },
+    { tag: 'path', d: "M8 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 250, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 350, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E1_PUSH_RIGHT, 600, { easing: EASE }),
+        3: /* @__PURE__ */ track(E1_PUSH_LEFT, 600, { easing: EASE }),
+        4: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 150, fill: 'backwards' }),
+      },
+    },
+  },
+);

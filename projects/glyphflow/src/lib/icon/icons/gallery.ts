@@ -3,7 +3,16 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, icon } from '../choreography';
+import { EASE, track, icon } from '../choreography';
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Aparece de golpe con un rebote corto. Para lo macizo, que un trazo no le luce. */
+const E1_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
 
 export const galleryHorizontalEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -64,6 +73,32 @@ export const galleryVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateY(4px)' }, { opacity: 1, transform: 'scale(1) translateY(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
         2: /* @__PURE__ */ track([{ opacity: 0, transform: 'scale(0.8) translateY(-4px)' }, { opacity: 1, transform: 'scale(1) translateY(0)' }], 600, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', delay: 150 }),
+      },
+    },
+  },
+);
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Las miniaturas se encienden de izquierda a derecha, como quien pasa la galería. */
+export const galleryThumbnailsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 14, rx: 2 },
+    { tag: 'path', d: "M4 21h1" },
+    { tag: 'path', d: "M9 21h1" },
+    { tag: 'path', d: "M14 21h1" },
+    { tag: 'path', d: "M19 21h1" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(E1_POP, 320, { easing: EASE, origin: '4.5px 21px' }),
+        2: /* @__PURE__ */ track(E1_POP, 320, { easing: EASE, origin: '9.5px 21px', delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E1_POP, 320, { easing: EASE, origin: '14.5px 21px', delay: 160, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E1_POP, 320, { easing: EASE, origin: '19.5px 21px', delay: 240, fill: 'backwards' }),
       },
     },
   },

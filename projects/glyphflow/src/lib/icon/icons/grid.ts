@@ -3,12 +3,20 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, burst, strokeDraw, icon } from '../choreography';
+import { SPRING_OUT, track, burst, strokeDraw, icon } from '../choreography';
 import { grid2x2CheckShapes, grid2x2PlusShapes, grid2x2Shapes, grid2x2XShapes } from '../animated-icons.shapes';
 
 // El marco entra con un pop; las divisiones/insignia se dibujan encima.
 // Parpadeo corto tras dibujarse, como refrescando la vista.
 const GRID_FLASH = /* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.3' }, { opacity: '1' }];
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Se despliega desde su borde de arriba: divisiones de rejilla, columnas. */
+const E1_UNFOLD_Y = /* @__PURE__ */ [{ transform: 'scaleY(0.15)' }, { transform: 'scaleY(1)' }];
+
+/** Y desde el borde izquierdo. */
+const E1_UNFOLD_X = /* @__PURE__ */ [{ transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }];
 
 export const grid2x2Icon: AnimatedIconDef = /* @__PURE__ */ icon(grid2x2Shapes, {
     default: {
@@ -65,3 +73,48 @@ export const grid2x2XIcon: AnimatedIconDef = /* @__PURE__ */ icon(grid2x2XShapes
     },
     flash: { shapes: { 0: /* @__PURE__ */ track(GRID_FLASH, 240) } },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** La rejilla se arma: primero el travesaño y después las columnas. */
+export const grid3x2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 3v18" },
+    { tag: 'path', d: "M3 12h18" },
+    { tag: 'path', d: "M9 3v18" },
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_UNFOLD_Y, 440, { easing: SPRING_OUT, origin: '15px 3px', delay: 220, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E1_UNFOLD_X, 440, { easing: SPRING_OUT, origin: '3px 12px' }),
+        2: /* @__PURE__ */ track(E1_UNFOLD_Y, 440, { easing: SPRING_OUT, origin: '9px 3px', delay: 140, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Lo mismo con dos de cada. */
+export const grid3x3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    { tag: 'path', d: "M3 9h18" },
+    { tag: 'path', d: "M3 15h18" },
+    { tag: 'path', d: "M9 3v18" },
+    { tag: 'path', d: "M15 3v18" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(E1_UNFOLD_X, 440, { easing: SPRING_OUT, origin: '3px 9px' }),
+        2: /* @__PURE__ */ track(E1_UNFOLD_X, 440, { easing: SPRING_OUT, origin: '3px 15px', delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E1_UNFOLD_Y, 440, { easing: SPRING_OUT, origin: '9px 3px', delay: 180, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E1_UNFOLD_Y, 440, { easing: SPRING_OUT, origin: '15px 3px', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);

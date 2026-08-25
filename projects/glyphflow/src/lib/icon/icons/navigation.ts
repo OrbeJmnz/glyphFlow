@@ -7,6 +7,15 @@ import { EASE, SPRING_OUT, track, icon } from '../choreography';
 import { navigationShapes } from '../animated-icons.shapes';
 
 // REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+/* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E2_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
 export const navigation2OffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M9.31 9.31 5 21l7-4 7 4-1.17-3.17" },
@@ -48,3 +57,22 @@ export const navigationIcon: AnimatedIconDef = /* @__PURE__ */ icon(navigationSh
       ),
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** Una sola pieza: apunta y late. */
+export const navigation2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'polygon', points: "12 2 19 21 12 17 5 21 12 2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E2_PULSE, 500, { easing: EASE, origin: 'center' }),
+      },
+    },
+  },
+);

@@ -1,4 +1,4 @@
-// Familia `circle` del catálogo curado (31 iconos).
+// Familia `circle` del catálogo curado (47 iconos).
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
@@ -471,3 +471,337 @@ export const circleQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(circ
 export const circleIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.15, 1]), 450, { origin: 'center' }) },
   });
+
+/** Un solo aro y nada dentro: late, como el `circle` de la familia. */
+export const circleSmallIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 6 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+/** El aro se traza y las dos rayas se escriben de arriba abajo. */
+export const circleEqualIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M7 10h10" },
+    { tag: 'path', d: "M7 14h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 350, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La raya del medio primero, y los dos puntos después: así se lee el signo. */
+export const circleDivideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'line', x1: 8, y1: 12, x2: 16, y2: 12 },
+    { tag: 'line', x1: 12, y1: 16, x2: 12, y2: 16 },
+    { tag: 'line', x1: 12, y1: 8, x2: 12, y2: 8 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 350, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Los tres puntos aparecen de izquierda a derecha, como quien sigue escribiendo. */
+export const circleEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M17 12h.01" },
+    { tag: 'path', d: "M12 12h.01" },
+    { tag: 'path', d: "M7 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La ese se traza y la barra la atraviesa después. */
+export const circleDollarSignIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" },
+    { tag: 'path', d: "M12 18V6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La diagonal parte el círculo y los dos ceros caen a sus lados. */
+export const circlePercentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m15 9-6 6" },
+    { tag: 'path', d: "M9 9h.01" },
+    { tag: 'path', d: "M15 15h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Las dos barras entran a la vez que se separan: primero la izquierda. */
+export const circlePauseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'line', x1: 10, y1: 15, x2: 10, y2: 9 },
+    { tag: 'line', x1: 14, y1: 15, x2: 14, y2: 9 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El arco de encendido se traza y la barra baja a cerrarlo. */
+export const circlePowerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M12 7v4" },
+    { tag: 'path', d: "M7.998 9.003a5 5 0 1 0 8-.005" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El arco abierto se traza, el eje aparece y la aguja marca al final. */
+export const circleGaugeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15.6 2.7a10 10 0 1 0 5.7 5.7" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+    { tag: 'path', d: "M13.4 10.6 19 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 280, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** La cabeza asoma y los hombros se dibujan debajo. */
+export const circleUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'circle', cx: 12, cy: 10, r: 3 },
+    { tag: 'path', d: "M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Aquí el aro es la figura 2; el orden de lectura es el mismo. */
+export const circleUserRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17.925 20.056a6 6 0 0 0-11.851.001" },
+    { tag: 'circle', cx: 12, cy: 11, r: 4 },
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450, { easing: 'ease-out' }),
+      },
+    },
+  },
+);
+
+/** Seis círculos que se apilan de abajo arriba: primero la base, luego el medio, luego la cima. */
+export const circlePileIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 19, r: 2 },
+    { tag: 'circle', cx: 12, cy: 5, r: 2 },
+    { tag: 'circle', cx: 16, cy: 12, r: 2 },
+    { tag: 'circle', cx: 20, cy: 19, r: 2 },
+    { tag: 'circle', cx: 4, cy: 19, r: 2 },
+    { tag: 'circle', cx: 8, cy: 12, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 70, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Aquí el aro ESTÁ partido, así que dar la vuelta es el gesto: ocho tramos en sentido del reloj. */
+export const circleDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.1 2.182a10 10 0 0 1 3.8 0" },
+    { tag: 'path', d: "M13.9 21.818a10 10 0 0 1-3.8 0" },
+    { tag: 'path', d: "M17.609 3.721a10 10 0 0 1 2.69 2.7" },
+    { tag: 'path', d: "M2.182 13.9a10 10 0 0 1 0-3.8" },
+    { tag: 'path', d: "M20.279 17.609a10 10 0 0 1-2.7 2.69" },
+    { tag: 'path', d: "M21.818 10.1a10 10 0 0 1 0 3.8" },
+    { tag: 'path', d: "M3.721 6.391a10 10 0 0 1 2.7-2.69" },
+    { tag: 'path', d: "M6.391 20.279a10 10 0 0 1-2.69-2.7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 280, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 70, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 210, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 490, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 350, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Lo mismo, y el punto del centro aparece cuando la vuelta se cierra. */
+export const circleDotDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.1 2.18a9.93 9.93 0 0 1 3.8 0" },
+    { tag: 'path', d: "M17.6 3.71a9.95 9.95 0 0 1 2.69 2.7" },
+    { tag: 'path', d: "M21.82 10.1a9.93 9.93 0 0 1 0 3.8" },
+    { tag: 'path', d: "M20.29 17.6a9.95 9.95 0 0 1-2.7 2.69" },
+    { tag: 'path', d: "M13.9 21.82a9.94 9.94 0 0 1-3.8 0" },
+    { tag: 'path', d: "M6.4 20.29a9.95 9.95 0 0 1-2.69-2.7" },
+    { tag: 'path', d: "M2.18 13.9a9.93 9.93 0 0 1 0-3.8" },
+    { tag: 'path', d: "M3.71 6.4a9.95 9.95 0 0 1 2.7-2.69" },
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 70, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 210, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 280, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 350, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 420, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 490, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: 'ease-out', delay: 600, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El aro se desvanece a tramos: se traza del entero al más tenue, y la cruz entra al final. */
+export const circleFadingPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2a10 10 0 0 1 7.38 16.75" },
+    { tag: 'path', d: "M12 8v8" },
+    { tag: 'path', d: "M16 12H8" },
+    { tag: 'path', d: "M2.5 8.875a10 10 0 0 0-.5 3" },
+    { tag: 'path', d: "M2.83 16a10 10 0 0 0 2.43 3.4" },
+    { tag: 'path', d: "M4.636 5.235a10 10 0 0 1 .891-.857" },
+    { tag: 'path', d: "M8.644 21.42a10 10 0 0 0 7.631-.38" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 520, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 610, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 230, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 320, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 410, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** El mismo aro que se desvanece; el asta sube y la punta la remata, o la flecha se parte. */
+export const circleFadingArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2a10 10 0 0 1 7.38 16.75" },
+    { tag: 'path', d: "m16 12-4-4-4 4" },
+    { tag: 'path', d: "M12 16V8" },
+    { tag: 'path', d: "M2.5 8.875a10 10 0 0 0-.5 3" },
+    { tag: 'path', d: "M2.83 16a10 10 0 0 0 2.43 3.4" },
+    { tag: 'path', d: "M4.636 5.235a10 10 0 0 1 .891-.857" },
+    { tag: 'path', d: "M8.644 21.42a10 10 0 0 0 7.631-.38" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 640, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 520, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 230, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 320, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 410, fill: 'backwards' }),
+      },
+    },
+  },
+);

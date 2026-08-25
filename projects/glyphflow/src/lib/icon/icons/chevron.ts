@@ -3,8 +3,36 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { moveXSeq, moveYSeq, track, icon, held } from '../choreography';
+import { EASE, moveXSeq, moveYSeq, track, icon, held } from '../choreography';
 import { chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes } from '../animated-icons.shapes';
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Late una vez. */
+const E1_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/**
+ * Se desplaza y vuelve, con anticipación. La anticipación no es adorno: casi todo lo que se mueve
+ * hacia un borde en este catálogo tiene 1 de margen, y un recorrido de 1 se ve como un temblor.
+ * Retrocediendo antes, el recorrido visible se dobla sin salirse del lienzo.
+ */
+const E1_PUSH_RIGHT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1px)', offset: 0.28 },
+  { transform: 'translateX(1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+const E1_PUSH_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1px)', offset: 0.28 },
+  { transform: 'translateX(-1.5px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
 
 /** Empujoncito hacia donde lleva. Sostenido mientras dure el hover. */
 export const chevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronRightShapes, {
@@ -43,3 +71,40 @@ export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShap
       reverseOnLeave: true,
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El chevron choca contra el tope y rebota: por eso hay un tope. */
+export const chevronFirstIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 18-6-6 6-6" },
+    { tag: 'path', d: "M7 6v12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PUSH_LEFT, 600, { easing: EASE }),
+        1: /* @__PURE__ */ track(E1_PULSE, 400, { easing: EASE, origin: '7px 12px', delay: 220, fill: 'backwards' }),
+      },
+    },
+  },
+);
+
+/** Lo mismo contra el tope de la derecha. */
+export const chevronLastIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m7 18 6-6-6-6" },
+    { tag: 'path', d: "M17 6v12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_PUSH_RIGHT, 600, { easing: EASE }),
+        1: /* @__PURE__ */ track(E1_PULSE, 400, { easing: EASE, origin: '17px 12px', delay: 220, fill: 'backwards' }),
+      },
+    },
+  },
+);

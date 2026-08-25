@@ -3,8 +3,24 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { rotateSeq, moveYSeq, track, icon } from '../choreography';
+import { EASE, rotateSeq, moveYSeq, track, icon } from '../choreography';
 import { lockOpenShapes, lockShapes } from '../animated-icons.shapes';
+
+/* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
+
+/** Aparece de golpe con un rebote corto. Para lo macizo, que un trazo no le luce. */
+const E1_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.1)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
+const E1_PUSH_UP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1px)', offset: 0.28 },
+  { transform: 'translateY(-1.5px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
 
 export const lockKeyholeOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -47,3 +63,25 @@ export const lockIcon: AnimatedIconDef = /* @__PURE__ */ icon(lockShapes, {
       },
     },
   });
+
+/**
+ * El repertorio de la cola larga. Tres gestos y sus variantes, compartidos por 150 iconos: uno
+ * por icono habría sido 150 formas distintas de decir lo mismo.
+ */
+
+/** El arco se levanta y encaja, y el ojo de la cerradura responde. */
+export const lockKeyholeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 16, r: 1 },
+    { tag: 'rect', x: 3, y: 10, width: 18, height: 12, rx: 2 },
+    { tag: 'path', d: "M7 10V7a5 5 0 0 1 10 0v3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(E1_POP, 360, { easing: EASE, origin: '12px 16px', delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E1_PUSH_UP, 600, { easing: EASE }),
+      },
+    },
+  },
+);
