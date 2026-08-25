@@ -4,7 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
-import { badgeAlertShapes, badgeCentShapes, badgeCheckShapes, badgeDollarSignShapes, badgeEuroShapes, badgeIndianRupeeShapes, badgeInfoShapes, badgeJapaneseYenShapes, badgeMinusShapes, badgePercentShapes, badgePlusShapes, badgePoundSterlingShapes, badgeQuestionMarkShapes, badgeRussianRubleShapes, badgeSwissFrancShapes, badgeTurkishLiraShapes, badgeXShapes } from '../animated-icons.shapes';
+import { badgeShapes, badgeAlertShapes, badgeCentShapes, badgeCheckShapes, badgeDollarSignShapes, badgeEuroShapes, badgeIndianRupeeShapes, badgeInfoShapes, badgeJapaneseYenShapes, badgeMinusShapes, badgePercentShapes, badgePlusShapes, badgePoundSterlingShapes, badgeQuestionMarkShapes, badgeRussianRubleShapes, badgeSwissFrancShapes, badgeTurkishLiraShapes, badgeXShapes } from '../animated-icons.shapes';
 
 /** Verificado: la insignia late y la palomita entra después. */
 // La insignia cae con gravedad y rebota al aterrizar; el símbolo aparece TODO junto después,
@@ -16,6 +16,20 @@ const BADGE_DROP = /* @__PURE__ */ [
 ];
 
 const BADGE_POP = /* @__PURE__ */ scaleSeq([1, 1.08, 1]);
+
+/**
+ * La insignia sin símbolo dentro. Late con el mismo gesto que sus 17 variantes le dan al cuerpo, y
+ * conserva la variante `drop` porque toda la familia la tiene: quien alterne entre `badge` y
+ * `badge-check` espera la misma entrada en las dos.
+ */
+export const badgeIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeShapes, {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(BADGE_POP, 450, { origin: '12px 12px' }) },
+    },
+    drop: {
+      shapes: { 0: /* @__PURE__ */ track(BADGE_DROP, 480, { easing: EASE, fill: 'backwards' }) },
+    },
+  });
 
 export const badgeCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeCheckShapes, {
     default: {

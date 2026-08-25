@@ -5,6 +5,63 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, track, strokeDraw, icon } from '../choreography';
 
+/**
+ * La libreta a secas: la tapa se abre y descubre el lomo que tenía debajo.
+ *
+ * El truco es puramente geométrico y no hace falta animar nada caro. El rectángulo va de x=4 a
+ * x=20 (ancho 16) y el lomo está en x=16. Escalando el rectángulo a 12/16 = 0.75 desde su borde
+ * IZQUIERDO, su lado derecho aterriza justo encima del lomo: al empezar se ve UNA sola línea
+ * vertical. Al crecer a 1, el lado derecho se va hasta 20 y deja el lomo a la vista.
+ *
+ * Y se va «junto con las aristas que lo conectan» solo: escalar el `<rect>` mueve su lado derecho
+ * y estira la tapa y el fondo con él, que es exactamente lo que hace una tapa al abrirse. Con dos
+ * figuras separadas habría que sincronizarlas a mano.
+ *
+ * Las cuatro anillas se quedan como estaban — su cadencia de 150 ms ya funcionaba.
+ */
+export const notebookIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: 'M2 6h4' },
+    { tag: 'path', d: 'M2 10h4' },
+    { tag: 'path', d: 'M2 14h4' },
+    { tag: 'path', d: 'M2 18h4' },
+    { tag: 'rect', width: 16, height: 20, x: 4, y: 2, rx: 2 },
+    { tag: 'path', d: 'M16 2v20' },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(0.75)' }, { transform: 'scaleX(1)' }],
+          420,
+          // Origen en el borde izquierdo del rectángulo: es la bisagra de la tapa.
+          { easing: 'ease-out', origin: '4px 12px', fill: 'backwards' },
+        ),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 150,
+          fill: 'backwards',
+        }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 300,
+          fill: 'backwards',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 450,
+          fill: 'backwards',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 600,
+          fill: 'backwards',
+        }),
+      },
+    },
+  },
+);
+
 export const notebookTabsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: 'M2 6h4' },

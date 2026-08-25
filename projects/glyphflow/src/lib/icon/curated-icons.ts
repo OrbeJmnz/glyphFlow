@@ -5076,7 +5076,7 @@ import { fileAxis3dIcon, fileBracesCornerIcon, fileBracesIcon, fileCodeCornerIco
 export * from './icons/circle';
 import { circleDotIcon, circleEuroIcon, circleMinusIcon, circleParkingIcon, circlePlayIcon, circlePoundSterlingIcon, circleSlash2Icon, circleSlashIcon, circleStarIcon, circleStopIcon, circleArrowDownIcon, circleArrowLeftIcon, circleArrowOutDownLeftIcon, circleArrowOutDownRightIcon, circleArrowOutUpLeftIcon, circleArrowOutUpRightIcon, circleArrowRightIcon, circleArrowUpIcon, circleCheckBigIcon, circleChevronDownIcon, circleChevronLeftIcon, circleChevronRightIcon, circleChevronUpIcon, circleOffIcon, circleParkingOffIcon, circleAlertIcon, circleCheckIcon, circleXIcon, circlePlusIcon, circleQuestionMarkIcon, circleIcon } from './icons/circle';
 export * from './icons/folder';
-import { folderOpenIcon, folderArchiveIcon, folderBookmarkIcon, folderCheckIcon, folderClockIcon, folderClosedIcon, folderCodeIcon, folderCogIcon, folderDotIcon, folderDownIcon, folderGit2Icon, folderGitIcon, folderHeartIcon, folderInputIcon, folderKanbanIcon, folderKeyIcon, folderLockIcon, folderMinusIcon, folderOpenDotIcon, folderOutputIcon, folderPenIcon, folderPlusIcon, folderRootIcon, folderSearch2Icon, folderSearchIcon, folderSymlinkIcon, folderSyncIcon, folderTreeIcon, folderUpIcon, folderXIcon } from './icons/folder';
+import { folderIcon, folderOpenIcon, folderArchiveIcon, folderBookmarkIcon, folderCheckIcon, folderClockIcon, folderClosedIcon, folderCodeIcon, folderCogIcon, folderDotIcon, folderDownIcon, folderGit2Icon, folderGitIcon, folderHeartIcon, folderInputIcon, folderKanbanIcon, folderKeyIcon, folderLockIcon, folderMinusIcon, folderOpenDotIcon, folderOutputIcon, folderPenIcon, folderPlusIcon, folderRootIcon, folderSearch2Icon, folderSearchIcon, folderSymlinkIcon, folderSyncIcon, folderTreeIcon, folderUpIcon, folderXIcon } from './icons/folder';
 export * from './icons/chart';
 import { chartAreaIcon, chartBarBigIcon, chartBarStackedIcon, chartColumnStackedIcon, chartColumnBigIcon, chartCandlestickIcon, chartNetworkIcon, chartBarDecreasingIcon, chartBarIncreasingIcon, chartBarIcon, chartColumnDecreasingIcon, chartColumnIncreasingIcon, chartGanttIcon, chartLineIcon, chartNoAxesColumnDecreasingIcon, chartNoAxesColumnIncreasingIcon, chartNoAxesColumnIcon, chartNoAxesCombinedIcon, chartNoAxesGanttIcon, chartPieIcon, chartScatterIcon, chartSplineIcon, chartColumnIcon } from './icons/chart';
 export * from './icons/book';
@@ -5090,7 +5090,7 @@ import { gitBranchMinusIcon, gitPullRequestArrowIcon, gitPullRequestCreateArrowI
 export * from './icons/user';
 import { userPenIcon, userIcon, userCheckIcon, userMinusIcon, userPlusIcon, userXIcon, userCogIcon, userRoundIcon, userRoundArrowLeftIcon, userRoundCheckIcon, userRoundCogIcon, userRoundKeyIcon, userRoundMinusIcon, userRoundPenIcon, userRoundPlusIcon, userRoundSearchIcon, userRoundXIcon } from './icons/user';
 export * from './icons/badge';
-import { badgeCheckIcon, badgeAlertIcon, badgeCentIcon, badgeDollarSignIcon, badgeEuroIcon, badgeIndianRupeeIcon, badgeInfoIcon, badgeJapaneseYenIcon, badgeMinusIcon, badgePercentIcon, badgePlusIcon, badgePoundSterlingIcon, badgeQuestionMarkIcon, badgeRussianRubleIcon, badgeSwissFrancIcon, badgeTurkishLiraIcon, badgeXIcon } from './icons/badge';
+import { badgeIcon, badgeCheckIcon, badgeAlertIcon, badgeCentIcon, badgeDollarSignIcon, badgeEuroIcon, badgeIndianRupeeIcon, badgeInfoIcon, badgeJapaneseYenIcon, badgeMinusIcon, badgePercentIcon, badgePlusIcon, badgePoundSterlingIcon, badgeQuestionMarkIcon, badgeRussianRubleIcon, badgeSwissFrancIcon, badgeTurkishLiraIcon, badgeXIcon } from './icons/badge';
 export * from './icons/monitor';
 import { monitorCloudIcon, monitorDotIcon, monitorPlayIcon, monitorStopIcon, monitorSmartphoneIcon, monitorPauseIcon, monitorXIcon, monitorSpeakerIcon, monitorCheckIcon, monitorCogIcon, monitorDownIcon, monitorOffIcon, monitorUpIcon, monitorIcon } from './icons/monitor';
 export * from './icons/shield';
@@ -5104,9 +5104,9 @@ import { messageCircleCheckIcon, messageCircleHeartIcon, messageSquareCheckIcon,
 export * from './icons/clipboard';
 import { clipboardIcon, clipboardCheckIcon, clipboardClockIcon, clipboardCopyIcon, clipboardListIcon, clipboardMinusIcon, clipboardPasteIcon, clipboardPenLineIcon, clipboardPenIcon, clipboardPlusIcon, clipboardTypeIcon, clipboardXIcon } from './icons/clipboard';
 export * from './icons/move';
-import { moveDiagonal2Icon, moveDiagonalIcon, moveDownLeftIcon, moveDownRightIcon, moveDownIcon, moveHorizontalIcon, moveLeftIcon, moveRightIcon, moveUpLeftIcon, moveUpRightIcon, moveUpIcon, moveVerticalIcon } from './icons/move';
+import { moveIcon, moveDiagonal2Icon, moveDiagonalIcon, moveDownLeftIcon, moveDownRightIcon, moveDownIcon, moveHorizontalIcon, moveLeftIcon, moveRightIcon, moveUpLeftIcon, moveUpRightIcon, moveUpIcon, moveVerticalIcon } from './icons/move';
 export * from './icons/scan';
-import { scanBarcodeIcon, scanEyeIcon, scanFaceIcon, scanHeartIcon, scanLineIcon, scanQrCodeIcon, scanSearchIcon, scanSquareIcon, scanTextIcon } from './icons/scan';
+import { scanIcon, scanBarcodeIcon, scanEyeIcon, scanFaceIcon, scanHeartIcon, scanLineIcon, scanQrCodeIcon, scanSearchIcon, scanSquareIcon, scanTextIcon } from './icons/scan';
 export * from './icons/mouse';
 import { mousePointerClickIcon, mousePointerIcon, mousePointer2Icon, mousePointer2OffIcon, mousePointerBanIcon, mouseIcon, mouseLeftIcon, mouseOffIcon, mouseRightIcon } from './icons/mouse';
 export * from './icons/chevrons';
@@ -5116,7 +5116,7 @@ import { heartIcon, heartPulseIcon, heartCrackIcon, heartHandshakeIcon, heartMin
 export * from './icons/image';
 import { imageIcon, imageOffIcon, imageDownIcon, imageMinusIcon, imagePlayIcon, imagePlusIcon, imageUpIcon, imageUpscaleIcon } from './icons/image';
 export * from './icons/cloud';
-import { cloudCogIcon, cloudMoonRainIcon, cloudSunRainIcon, cloudDownloadIcon, cloudMoonIcon, cloudOffIcon, cloudUploadIcon } from './icons/cloud';
+import { cloudIcon, cloudCogIcon, cloudMoonRainIcon, cloudSunRainIcon, cloudDownloadIcon, cloudMoonIcon, cloudOffIcon, cloudUploadIcon } from './icons/cloud';
 export * from './icons/bell';
 import { bellIcon, bellRingIcon, bellCheckIcon, bellDotIcon, bellMinusIcon, bellOffIcon, bellPlusIcon } from './icons/bell';
 export * from './icons/package';
@@ -5180,7 +5180,7 @@ import { houseHeartIcon, houseWifiIcon, houseIcon } from './icons/house';
 export * from './icons/lock';
 import { lockKeyholeOpenIcon, lockOpenIcon, lockIcon } from './icons/lock';
 export * from './icons/notebook';
-import { notebookTabsIcon, notebookTextIcon, notebookPenIcon } from './icons/notebook';
+import { notebookIcon, notebookTabsIcon, notebookTextIcon, notebookPenIcon } from './icons/notebook';
 export * from './icons/radio';
 import { radioOffIcon, radioTowerIcon, radioIcon } from './icons/radio';
 export * from './icons/smartphone';
@@ -5232,6 +5232,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'clock-8': clock8Icon,
   'clock-9': clock9Icon,
   'clock-arrow-right': clockArrowRightIcon,
+  cloud: cloudIcon,
   'cloud-cog': cloudCogIcon,
   'cloud-moon-rain': cloudMoonRainIcon,
   'cloud-sun-rain': cloudSunRainIcon,
@@ -5277,6 +5278,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'message-square-heart': messageSquareHeartIcon,
   'mountain-snow': mountainSnowIcon,
   'music-4': music4Icon,
+  notebook: notebookIcon,
   'notebook-tabs': notebookTabsIcon,
   'notebook-text': notebookTextIcon,
   'octagon-minus': octagonMinusIcon,
@@ -5289,6 +5291,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'repeat-1': repeat1Icon,
   'repeat-off': repeatOffIcon,
   'replace-all': replaceAllIcon,
+  scan: scanIcon,
   'scan-barcode': scanBarcodeIcon,
   'scan-eye': scanEyeIcon,
   'scan-face': scanFaceIcon,
@@ -5592,6 +5595,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'monitor-down': monitorDownIcon,
   'monitor-off': monitorOffIcon,
   'monitor-up': monitorUpIcon,
+  move: moveIcon,
   'move-diagonal-2': moveDiagonal2Icon,
   'move-diagonal': moveDiagonalIcon,
   'move-down-left': moveDownLeftIcon,
@@ -5780,6 +5784,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'package-x': packageXIcon,
   'rotate-ccw-clock': rotateCcwClockIcon,
   shirt: shirtIcon,
+  folder: folderIcon,
   'folder-open': folderOpenIcon,
   'folder-archive': folderArchiveIcon,
   'folder-bookmark': folderBookmarkIcon,
@@ -5881,6 +5886,7 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-clock-off': alarmClockOffIcon,
   'alarm-clock-plus': alarmClockPlusIcon,
   'app-window': appWindowIcon,
+  badge: badgeIcon,
   'badge-check': badgeCheckIcon,
   'badge-alert': badgeAlertIcon,
   'badge-cent': badgeCentIcon,

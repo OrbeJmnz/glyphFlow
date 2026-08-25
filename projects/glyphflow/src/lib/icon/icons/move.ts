@@ -3,8 +3,8 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, icon } from '../choreography';
-import { moveRightShapes } from '../animated-icons.shapes';
+import { SPRING_SNAPPY, track, icon } from '../choreography';
+import { moveShapes, moveRightShapes } from '../animated-icons.shapes';
 
 export const moveDiagonal2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -103,6 +103,184 @@ export const moveLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
  * cualquier traslación del conjunto se comería la punta o el nacimiento del asta. El gesto se va a
  * la única figura que sí tiene margen.
  */
+/*
+ * ── `move`, el icono sin dirección propia ────────────────────────────────────────────────────
+ *
+ * El asta mide 20 (de 2 a 22) y la punta viaja 2.5 hacia dentro, así que el asta tiene que
+ * acortarse 2.5 por cada extremo: 15/20 = 0.75. Si no, la punta se despega de su línea y se ve
+ * como dos piezas sueltas en vez de una flecha.
+ *
+ * Escalar desde el centro del viewBox deja la intersección de 90° CLAVADA, que es lo que hace que
+ * la cruz siga siendo una cruz mientras se comprime.
+ */
+const MOVE_CENTRO = '12px 12px';
+
+/*
+ * Los factores van ESCRITOS (0.75 encoge, 1.25 crece) y no salen de una constante interpolada.
+ * Un literal de plantilla obliga a un `ToString` del valor y esbuild no puede darlo por inocuo:
+ * con la constante interpolada dentro de los keyframes, `bundle-check` medía 5.24 KB en el caso
+ * de UN icono —por encima del presupuesto de 5— y 4.99 en el core contra 4.60. Misma familia de
+ * problema que el helper que ya se quitó de aquí: una expresion que el empaquetador no puede
+ * demostrar limpia ancla el módulo entero.
+ */
+
+/**
+ * Las cuatro direcciones, por parejas de eje.
+ *
+ * Primero el eje vertical entero —sus dos puntas Y su asta— y después el horizontal. Antes iban
+ * las cuatro puntas escalonadas en reloj y las astas quietas: se veía bien de a una, pero las
+ * puntas se despegaban de sus líneas. Por eje, cada punta viaja pegada a lo suyo.
+ *
+ * El desfase entre los dos ejes es lo que lo mantiene coreografía: los cuatro a la vez serían un
+ * bloque, que es justo lo que el catálogo evita.
+ */
+export const moveIcon: AnimatedIconDef = /* @__PURE__ */ icon(moveShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleY(1)' },
+            { transform: 'scaleY(0.75)', offset: 0.6 },
+            { transform: 'scaleY(1)' },
+          ],
+          440,
+          { origin: MOVE_CENTRO },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(2.5px)', offset: 0.6 },
+            { transform: 'translateY(0)' },
+          ],
+          440,
+        ),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0)' },
+            { transform: 'translateY(-2.5px)', offset: 0.6 },
+            { transform: 'translateY(0)' },
+          ],
+          440,
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(0.75)', offset: 0.6 },
+            { transform: 'scaleX(1)' },
+          ],
+          440,
+          { origin: MOVE_CENTRO, delay: 150, fill: 'backwards' },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(-2.5px)', offset: 0.6 },
+            { transform: 'translateX(0)' },
+          ],
+          440,
+          { delay: 150, fill: 'backwards' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(2.5px)', offset: 0.6 },
+            { transform: 'translateX(0)' },
+          ],
+          440,
+          { delay: 150, fill: 'backwards' },
+        ),
+      },
+    },
+
+    /**
+     * `expand`: las cuatro salen, con sus astas, y la cruz se estira sin moverse del centro.
+     *
+     * Es un ESTADO sostenido, no un tic: se queda mientras el puntero esté encima y se devuelve al
+     * salir. Misma semántica que el helper `held`, escrita a mano porque `held` anima el root y
+     * aquí hace falta figura por figura — de ahí `SPRING_SNAPPY`, `fill: 'forwards'` y
+     * `reverseOnLeave`. El resorte es `snappy` y no `bouncy` a propósito: al salir esto se
+     * reproduce en REVERSA, y un sobrepaso grande se vería al revés de como debe.
+     */
+    expand: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.25)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards', origin: MOVE_CENTRO },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.25)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards', origin: MOVE_CENTRO },
+        ),
+        5: /* @__PURE__ */ track(
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(-2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        1: /* @__PURE__ */ track(
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        4: /* @__PURE__ */ track(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(-2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+      },
+      reverseOnLeave: true,
+    },
+
+    /**
+     * `collapse`: las cuatro se recogen A LA VEZ, en los dos ejes, y ahí se quedan.
+     *
+     * Aquí el bloque es deliberado y no un descuido: no es un gesto, es una POSE. Cuatro figuras
+     * llegando juntas a un estado que se sostiene se lee como una sola cosa encogiéndose, que es
+     * exactamente lo que se pide. La regla de «a la vez es bloque» habla de gestos.
+     */
+    collapse: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.75)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards', origin: MOVE_CENTRO },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.75)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards', origin: MOVE_CENTRO },
+        ),
+        5: /* @__PURE__ */ track(
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        1: /* @__PURE__ */ track(
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(-2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(-2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+        4: /* @__PURE__ */ track(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(2.5px)' }],
+          320,
+          { easing: SPRING_SNAPPY, fill: 'forwards' },
+        ),
+      },
+      reverseOnLeave: true,
+    },
+  });
+
 export const moveRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(moveRightShapes, {
     default: {
       shapes: {

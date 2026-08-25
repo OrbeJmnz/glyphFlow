@@ -5,6 +5,44 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 
+/**
+ * El marco a secas: las cuatro esquinas se dibujan en el sentido del reloj, con el mismo trazo y la
+ * misma cadencia que la familia usa en sus líneas interiores.
+ *
+ * Escalonadas y no a la vez: cuatro esquinas apareciendo juntas son un bloque; una tras otra se lee
+ * como un marco cerrándose alrededor de algo, que es lo que un escáner hace.
+ */
+export const scanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: 'M3 7V5a2 2 0 0 1 2-2h2' },
+    { tag: 'path', d: 'M17 3h2a2 2 0 0 1 2 2v2' },
+    { tag: 'path', d: 'M21 17v2a2 2 0 0 1-2 2h-2' },
+    { tag: 'path', d: 'M7 21H5a2 2 0 0 1-2-2v-2' },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 110,
+          fill: 'backwards',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 220,
+          fill: 'backwards',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
+          easing: 'ease-out',
+          delay: 330,
+          fill: 'backwards',
+        }),
+      },
+    },
+  },
+);
+
 export const scanBarcodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: 'M3 7V5a2 2 0 0 1 2-2h2' },

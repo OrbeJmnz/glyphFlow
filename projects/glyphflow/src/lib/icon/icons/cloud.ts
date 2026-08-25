@@ -7,6 +7,33 @@ import { EASE, moveYSeq, track, icon } from '../choreography';
 import { cloudUploadShapes } from '../animated-icons.shapes';
 import { SHIELD_GEAR_SPIN } from './_shared';
 
+/**
+ * La nube a secas: flota. Es exactamente el mismo desplazamiento lento que `cloud-moon` le da a su
+ * cuerpo de nube —1.2 px en diagonal, 1400 ms, ease-in-out— porque es el mismo cuerpo haciendo lo
+ * mismo, y dos nubes de la misma familia moviéndose distinto se nota al ponerlas juntas.
+ *
+ * Lento a propósito. Una nube que se mueve rápido no es una nube, es un parpadeo.
+ */
+export const cloudIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [{ tag: 'path', d: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z' }],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translate(0, 0)' },
+            { transform: 'translate(-1.2px, -1.2px)' },
+            { transform: 'translate(1.2px, 1.2px)' },
+            { transform: 'translate(0, 0)' },
+          ],
+          1400,
+          { easing: 'ease-in-out' },
+        ),
+      },
+    },
+  },
+);
+
 export const cloudCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: 'm10.852 19.772-.383.924' },

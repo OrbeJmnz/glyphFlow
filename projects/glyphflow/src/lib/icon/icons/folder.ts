@@ -4,7 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
-import { folderArchiveShapes, folderBookmarkShapes, folderCheckShapes, folderClockShapes, folderClosedShapes, folderCodeShapes, folderCogShapes, folderDotShapes, folderDownShapes, folderGit2Shapes, folderGitShapes, folderHeartShapes, folderInputShapes, folderKanbanShapes, folderKeyShapes, folderLockShapes, folderMinusShapes, folderOpenDotShapes, folderOpenShapes, folderOutputShapes, folderPenShapes, folderPlusShapes, folderRootShapes, folderSearch2Shapes, folderSearchShapes, folderSymlinkShapes, folderSyncShapes, folderTreeShapes, folderUpShapes, folderXShapes } from '../animated-icons.shapes';
+import { folderShapes, folderArchiveShapes, folderBookmarkShapes, folderCheckShapes, folderClockShapes, folderClosedShapes, folderCodeShapes, folderCogShapes, folderDotShapes, folderDownShapes, folderGit2Shapes, folderGitShapes, folderHeartShapes, folderInputShapes, folderKanbanShapes, folderKeyShapes, folderLockShapes, folderMinusShapes, folderOpenDotShapes, folderOpenShapes, folderOutputShapes, folderPenShapes, folderPlusShapes, folderRootShapes, folderSearch2Shapes, folderSearchShapes, folderSymlinkShapes, folderSyncShapes, folderTreeShapes, folderUpShapes, folderXShapes } from '../animated-icons.shapes';
 
 const FOLDER_BOUNCE = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.8, 0]), 520, { easing: SPRING_OUT });
 
@@ -22,6 +22,15 @@ const FOLDER_COG_WOBBLE = /* @__PURE__ */ [
   { transform: 'scale(1) rotate(705deg)', offset: 0.78 },
   { transform: 'scale(1) rotate(720deg)', offset: 1 },
 ];
+
+/**
+ * La carpeta a secas. Mismo salto que `folder-open` y que las otras 29: se levanta y asienta con el
+ * resorte de la familia. No lleva nada más porque no hay nada más — una sola figura, y qué hace el
+ * cuerpo ya lo dice el criterio de sus hermanas.
+ */
+export const folderIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderShapes, {
+    default: { root: FOLDER_BOUNCE },
+  });
 
 /** Carpeta que se abre y levanta. */
 export const folderOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderOpenShapes, {

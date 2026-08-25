@@ -480,13 +480,6 @@ export const backpackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const badgeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" },
-  ],
-  {},
-);
-
 export const baggageClaimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M22 18H6a2 2 0 0 1-2-2V7a2 2 0 0 0-2-2" },
@@ -1907,13 +1900,6 @@ export const cloudSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20.996 15.251A4.5 4.5 0 0 0 17.495 8h-1.79a7 7 0 1 0-12.709 5.607" },
     { tag: 'path', d: "M7 10v4h4" },
     { tag: 'path', d: "m7 14 1.535-1.605a5 5 0 0 1 8 1.5" },
-  ],
-  {},
-);
-
-export const cloudIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" },
   ],
   {},
 );
@@ -3356,13 +3342,6 @@ export const foldVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M22 12h-2" },
     { tag: 'path', d: "m15 19-3-3-3 3" },
     { tag: 'path', d: "m15 5-3 3-3-3" },
-  ],
-  {},
-);
-
-export const folderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" },
   ],
   {},
 );
@@ -5204,18 +5183,6 @@ export const move3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const moveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2v20" },
-    { tag: 'path', d: "m15 19-3 3-3-3" },
-    { tag: 'path', d: "m19 9 3 3-3 3" },
-    { tag: 'path', d: "M2 12h20" },
-    { tag: 'path', d: "m5 9-3 3 3 3" },
-    { tag: 'path', d: "m9 5 3-3 3 3" },
-  ],
-  {},
-);
-
 export const music2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 8, cy: 18, r: 4 },
@@ -5264,18 +5231,6 @@ export const nonBinaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m8.5 4 7 4" },
     { tag: 'path', d: "m8.5 8 7-4" },
     { tag: 'circle', cx: 12, cy: 17, r: 5 },
-  ],
-  {},
-);
-
-export const notebookIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 6h4" },
-    { tag: 'path', d: "M2 10h4" },
-    { tag: 'path', d: "M2 14h4" },
-    { tag: 'path', d: "M2 18h4" },
-    { tag: 'rect', width: 16, height: 20, x: 4, y: 2, rx: 2 },
-    { tag: 'path', d: "M16 2v20" },
   ],
   {},
 );
@@ -6466,16 +6421,6 @@ export const scanBoxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M7 21H5a2 2 0 01-2-2v-2" },
     { tag: 'path', d: "M7.264 9.252 12 12l4.737-2.748" },
     { tag: 'path', d: "M7.995 8.514A2 2 0 007 10.244v3.516a2 2 0 00.996 1.73l3 1.74a2 2 0 002.008 0l3-1.74A2 2 0 0017 13.76v-3.517a2 2 0 00-.995-1.73l-3-1.742a2 2 0 00-1.892-.064z" },
-  ],
-  {},
-);
-
-export const scanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 7V5a2 2 0 0 1 2-2h2" },
-    { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
-    { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
-    { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
   ],
   {},
 );
@@ -8795,7 +8740,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'audio-waveform': audioWaveformIcon,
   baby: babyIcon,
   backpack: backpackIcon,
-  badge: badgeIcon,
   'baggage-claim': baggageClaimIcon,
   balloon: balloonIcon,
   banana: bananaIcon,
@@ -8928,7 +8872,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'cloud-snow': cloudSnowIcon,
   'cloud-sun': cloudSunIcon,
   'cloud-sync': cloudSyncIcon,
-  cloud: cloudIcon,
   cloudy: cloudyIcon,
   clover: cloverIcon,
   club: clubIcon,
@@ -9073,7 +9016,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   focus: focusIcon,
   'fold-horizontal': foldHorizontalIcon,
   'fold-vertical': foldVerticalIcon,
-  folder: folderIcon,
   folders: foldersIcon,
   footprints: footprintsIcon,
   forklift: forkliftIcon,
@@ -9255,14 +9197,12 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   motorbike: motorbikeIcon,
   mountain: mountainIcon,
   'move-3d': move3dIcon,
-  move: moveIcon,
   'music-2': music2Icon,
   'music-3': music3Icon,
   music: musicIcon,
   'navigation-2': navigation2Icon,
   newspaper: newspaperIcon,
   'non-binary': nonBinaryIcon,
-  notebook: notebookIcon,
   'notepad-text-dashed': notepadTextDashedIcon,
   'notepad-text': notepadTextIcon,
   nut: nutIcon,
@@ -9385,7 +9325,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   scale: scaleIcon,
   scaling: scalingIcon,
   'scan-box': scanBoxIcon,
-  scan: scanIcon,
   school: schoolIcon,
   'scissors-line-dashed': scissorsLineDashedIcon,
   scooter: scooterIcon,

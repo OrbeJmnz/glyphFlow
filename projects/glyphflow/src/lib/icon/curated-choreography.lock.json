@@ -330,6 +330,9 @@
       "path:90495e681abf",
       "path:4881ae33f798"
     ],
+    "badge": [
+      "path:65bb74b0896e"
+    ],
     "badge-alert": [
       "path:65bb74b0896e",
       "line:00fd201d9463",
@@ -1571,6 +1574,9 @@
       "path:84ff4121489f",
       "path:0983322d3e44"
     ],
+    "cloud": [
+      "path:b72ffcf7faac"
+    ],
     "cloud-cog": [
       "path:50e70e43a7d6",
       "path:7e60ec4a9de7",
@@ -2144,6 +2150,9 @@
       "path:d46007d5aa87",
       "path:dc8e2a536380",
       "path:e8fef3d99973"
+    ],
+    "folder": [
+      "path:bb3d401f7070"
     ],
     "folder-archive": [
       "circle:34fe5b874328",
@@ -3289,6 +3298,14 @@
       "path:77a7376fc011",
       "circle:aa1dfd5d9bd8"
     ],
+    "move": [
+      "path:479c72d49978",
+      "path:4cacf8fe84ed",
+      "path:74cf68f10ad4",
+      "path:ff0106821348",
+      "path:ea1fcc16821a",
+      "path:928a01eebd40"
+    ],
     "move-diagonal": [
       "path:e65df641582b",
       "path:682d0f00c0cb",
@@ -3372,6 +3389,14 @@
       "path:9b6a9d86b5bf",
       "path:7d610ce4dbbb",
       "path:f02c85f0bd27"
+    ],
+    "notebook": [
+      "path:8e949e07fcdc",
+      "path:6bc015a25617",
+      "path:1ff9d536a3b9",
+      "path:14b2869aaf01",
+      "rect:2428eb83eaf8",
+      "path:592e6b88f1aa"
     ],
     "notebook-pen": [
       "path:b7a6fa084c08",
@@ -3925,6 +3950,12 @@
       "path:f07e5dd66cbf",
       "path:5badf604346b",
       "path:3e0eea9df583"
+    ],
+    "scan": [
+      "path:96ff372fadc2",
+      "path:e4d5aeacd8b8",
+      "path:709b29d2da99",
+      "path:39950cbff050"
     ],
     "scan-barcode": [
       "path:96ff372fadc2",
@@ -5557,6 +5588,11 @@
       "default": "7c0db8fe2713",
       "draw": "17c8398e8d34"
     },
+    "badge": {
+      "default": "d6bda53924df",
+      "draw": "17c8398e8d34",
+      "drop": "3716dca39a69"
+    },
     "badge-alert": {
       "alert": "2b103214eefd",
       "default": "ea458adaa83f",
@@ -6524,6 +6560,10 @@
       "default": "0fc67bb760bd",
       "draw": "17c8398e8d34"
     },
+    "cloud": {
+      "default": "b671d265cca0",
+      "draw": "17c8398e8d34"
+    },
     "cloud-cog": {
       "default": "edb23343a869",
       "draw": "17c8398e8d34"
@@ -6941,6 +6981,10 @@
     },
     "flask-conical-off": {
       "default": "e276b867d08e",
+      "draw": "17c8398e8d34"
+    },
+    "folder": {
+      "default": "3212be70516d",
       "draw": "17c8398e8d34"
     },
     "folder-archive": {
@@ -7844,6 +7888,12 @@
       "draw": "17c8398e8d34",
       "wander": "d144da02da60"
     },
+    "move": {
+      "collapse": "06716f50d263",
+      "default": "0532cc31e066",
+      "draw": "17c8398e8d34",
+      "expand": "98a47bfe07e4"
+    },
     "move-diagonal": {
       "default": "25ca9a5660fd",
       "draw": "17c8398e8d34"
@@ -7914,6 +7964,10 @@
     },
     "nfc": {
       "default": "1485e43fe451",
+      "draw": "17c8398e8d34"
+    },
+    "notebook": {
+      "default": "fe691d675434",
       "draw": "17c8398e8d34"
     },
     "notebook-pen": {
@@ -8320,6 +8374,10 @@
       "default": "119ecbb2c16f",
       "draw": "17c8398e8d34",
       "pop": "9ba37e4923ae"
+    },
+    "scan": {
+      "default": "8c96ef112cb1",
+      "draw": "17c8398e8d34"
     },
     "scan-barcode": {
       "default": "19851c6d9fa8",

@@ -3163,6 +3163,23 @@ export const moveRightShapes: IconShape[] = [
     { tag: 'path', d: 'M2 12H22' },
   ];
 
+export const folderShapes: IconShape[] = [
+  { tag: 'path', d: 'M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z' },
+];
+
+export const badgeShapes: IconShape[] = [
+  { tag: 'path', d: 'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z' },
+];
+
+export const moveShapes: IconShape[] = [
+  { tag: 'path', d: 'M12 2v20' },
+  { tag: 'path', d: 'm15 19-3 3-3-3' },
+  { tag: 'path', d: 'm19 9 3 3-3 3' },
+  { tag: 'path', d: 'M2 12h20' },
+  { tag: 'path', d: 'm5 9-3 3 3 3' },
+  { tag: 'path', d: 'm9 5 3-3 3 3' },
+];
+
 export const SHAPES: Record<string, IconShape[]> = {
   bell: bellShapes,
   'bell-ring': bellRingShapes,
