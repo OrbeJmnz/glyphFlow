@@ -172,8 +172,8 @@ export const circleArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.8)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 8px' }),
-        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 8px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -189,8 +189,8 @@ export const circleArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.8)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '16px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '16px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -206,8 +206,8 @@ export const circleArrowOutDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
-        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
     },
   },
@@ -222,8 +222,8 @@ export const circleArrowOutDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
-        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
     },
   },
@@ -238,8 +238,8 @@ export const circleArrowOutUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
     },
   },
@@ -254,8 +254,8 @@ export const circleArrowOutUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
-        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
     },
   },
@@ -270,8 +270,8 @@ export const circleArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.8)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '8px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '8px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -287,8 +287,8 @@ export const circleArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.8)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 16px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 16px' }),
       },
       reverseOnLeave: true,
     },

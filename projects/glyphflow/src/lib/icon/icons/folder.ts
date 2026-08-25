@@ -150,10 +150,13 @@ export const folderClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderClock
     },
   });
 
+/** La tapa baja de y=6 —pegada al borde superior del cuerpo— a su sitio en y=10, descubriéndolo. */
+const FOLDER_LID_SLIDE = /* @__PURE__ */ [{ transform: 'translateY(-4px)' }, { transform: 'translateY(0px)' }];
+
 export const folderClosedIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderClosedShapes, {
     default: {
       root: FOLDER_BOUNCE,
-      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 260 }) },
+      shapes: { 1: /* @__PURE__ */ track(FOLDER_LID_SLIDE, 340, { easing: SPRING_OUT, delay: 260, fill: 'backwards' }) },
     },
     /** Igual que el default; al terminar, el pliegue se hunde un poco (como si se sellara) y regresa. */
     extra: {

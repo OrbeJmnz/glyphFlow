@@ -3,7 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { rotateSeq, track, strokeDraw, icon } from '../choreography';
+import { SPRING_OUT, rotateSeq, track, icon } from '../choreography';
 import { clockShapes } from '../animated-icons.shapes';
 
 export const clock1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -182,6 +182,10 @@ export const clock9Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La flecha entra desde la izquierda y se asienta. Asta y punta comparten el track: si una se
+ *  moviera sin la otra, la punta se despegaría — la trampa clásica de esta familia. */
+const CLOCK_ARROW_ADVANCE = /* @__PURE__ */ [{ transform: 'translateX(-3px)' }, { transform: 'translateX(0px)' }];
+
 export const clockArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: 'M12 6v6l2 1' },
@@ -195,12 +199,12 @@ export const clockArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(CLOCK_ARROW_ADVANCE, 420, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(CLOCK_ARROW_ADVANCE, 420, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
       },
     },
   },
 );
-
 /** Manecillas dando la vuelta; la carátula quieta. */
 export const clockIcon: AnimatedIconDef = /* @__PURE__ */ icon(clockShapes, {
     default: {

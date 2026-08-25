@@ -6,6 +6,9 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes } from '../animated-icons.shapes';
 
+/** El contenido del archivo crece un punto y se queda ahí mientras dure el hover. */
+const FILE_INNER_HOLD = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.22)' }];
+
 export const fileAxis3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -39,6 +42,11 @@ export const fileAxis3dIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -71,6 +79,11 @@ export const fileBracesCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -108,6 +121,11 @@ export const fileBracesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -140,6 +158,11 @@ export const fileCodeCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 19px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -177,6 +200,11 @@ export const fileCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -232,6 +260,18 @@ export const fileCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        5: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        6: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        7: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        8: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        9: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        10: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        11: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -277,6 +317,11 @@ export const fileImageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '14px 16px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '14px 16px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -309,6 +354,11 @@ export const fileInputIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -340,6 +390,10 @@ export const fileMinusCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -374,6 +428,10 @@ export const filePlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12.5px 14px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -406,6 +464,11 @@ export const filePlusCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 19px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -438,6 +501,11 @@ export const fileSearchCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 18px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -483,6 +551,11 @@ export const fileSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -526,6 +599,12 @@ export const fileSignalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '11.5px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '11.5px 15px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '11.5px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -559,6 +638,12 @@ export const fileTypeCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '7px 18px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -602,6 +687,12 @@ export const fileTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -643,6 +734,11 @@ export const fileUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 17px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 17px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -675,6 +771,11 @@ export const fileXCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17.5px 19.5px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17.5px 19.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -735,6 +836,12 @@ export const fileChartColumnIncreasingIcon: AnimatedIconDef = /* @__PURE__ */ ic
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -795,6 +902,12 @@ export const fileChartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -834,6 +947,10 @@ export const fileChartLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -887,6 +1004,11 @@ export const fileDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -927,6 +1049,10 @@ export const fileMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -971,6 +1097,10 @@ export const filePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '8.7px 17.3px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1021,6 +1151,11 @@ export const filePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1074,6 +1209,11 @@ export const fileQuestionMarkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1118,6 +1258,13 @@ export const fileSlidersIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14.5px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14.5px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14.5px', fill: 'forwards' }),
+        5: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 14.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1153,6 +1300,11 @@ export const fileTerminalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1206,6 +1358,11 @@ export const fileUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -1232,7 +1389,13 @@ export const fileTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileTextShapes
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 /** Archivo validado. */
@@ -1265,7 +1428,11 @@ export const fileCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckShap
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 /** Archivo rechazado: la equis se tacha en dos tiempos. */
@@ -1288,7 +1455,12 @@ export const fileXIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileXShapes, {
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 export const fileIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileShapes, {
@@ -1339,7 +1511,11 @@ export const fileCheckCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileChe
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '17px 20px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 /** Hoja de cálculo: las celdas se llenan en cascada. */
@@ -1363,7 +1539,14 @@ export const fileSpreadsheetIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileSpr
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        4: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+        5: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 15px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 export const fileBadgeIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileBadgeShapes, {
@@ -1388,7 +1571,12 @@ export const fileBadgeIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileBadgeShap
       600,
       { easing: 'ease-out', origin: 'center' },
     ),
-  },
+      shapes: {
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '6px 16.5px', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '6px 16.5px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
 });
 
 export const fileExclamationPointIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -1423,6 +1611,11 @@ export const fileExclamationPointIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: 'ease-out', origin: 'center' },
       ),
+      shapes: {
+        1: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+        2: /* @__PURE__ */ track(FILE_INNER_HOLD, 320, { easing: SPRING_OUT, delay: 560, origin: '12px 13px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );

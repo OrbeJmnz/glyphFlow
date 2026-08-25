@@ -3,8 +3,104 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, track, icon } from '../choreography';
+import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 import { bookOpenShapes } from '../animated-icons.shapes';
+
+/**
+ * El meneo con el que abre TODA la familia: el libro se ladea a un lado y al otro y se asienta.
+ * Estaba escrito a mano en cada icono; aquí solo se nombra donde hacía falta colgarle algo más.
+ */
+const BOOK_WIGGLE = /* @__PURE__ */ [
+  { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 },
+  { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 },
+  { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 },
+  { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 },
+  { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 },
+];
+
+/** Lo que pasa "al final" arranca cuando el meneo ya terminó. El mismo número que usa `reveal`. */
+const BOOK_AFTER = 620;
+
+/** La flecha baja y vuelve. Asta y punta comparten track: si solo bajara una, se partirían. */
+const BOOK_ARROW_DIP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(3px)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** La misma flecha, para arriba. */
+const BOOK_ARROW_HOP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-3px)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/**
+ * `book-up-2` · las dos flechas se agachan, suben juntas, y ahí la de arriba sigue sola.
+ *
+ * Sube 1 y no más porque no cabe: su vértice ya está en y=2 y con `stroke-width: 2` el trazo
+ * llega a y=1. Lo que le da recorrido al gesto es la agachada previa — 2.5 en total, sin salirse.
+ */
+const BOOK_UP2_TOGETHER = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.5px)', offset: 0.22 },
+  { transform: 'translateY(0)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** La de más arriba: lo mismo, y después sube el tramo que la separa de la otra. */
+const BOOK_UP2_LEAD = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.5px)', offset: 0.22 },
+  { transform: 'translateY(0)', offset: 0.5 },
+  { transform: 'translateY(-1px)', offset: 0.72 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** Los auriculares se menean puestos. Las tres piezas giran sobre el MISMO punto o se desarman. */
+const BOOK_HEADPHONE_SWAY = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)', offset: 0 },
+  { transform: 'rotate(-7deg)', offset: 0.3 },
+  { transform: 'rotate(7deg)', offset: 0.65 },
+  { transform: 'rotate(0deg)', offset: 1 },
+];
+
+/** El objetivo se abre y vuelve — el círculo de `book-image` es el lente, no un adorno. */
+const BOOK_LENS_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)', offset: 0 },
+  { transform: 'scale(1.45)', offset: 0.45 },
+  { transform: 'scale(1)', offset: 1 },
+];
+
+/** La llave gira y vuelve. El giro va sobre la anilla, que es lo que se queda quieto. */
+const BOOK_KEY_TURN = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)', offset: 0 },
+  { transform: 'rotate(25deg)', offset: 0.5 },
+  { transform: 'rotate(0deg)', offset: 1 },
+];
+
+/** El arco del candado se levanta y encaja. El cuerpo se queda donde está. */
+const BOOK_SHACKLE_LIFT = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.5px)', offset: 0.45 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** El libro se abre: las páginas salen del lomo. Con 0.9 el gesto no se leía; con 0.15, sí. */
+const BOOK_OPEN_SPREAD = /* @__PURE__ */ [{ transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }];
+
+/**
+ * El check se traza mientras el libro se abre y salta cuando ya está abierto. Va en UN track y no
+ * en dos porque una figura solo admite uno: el trazo y el salto se reparten los offsets. Un
+ * keyframe que no nombra `transform` no lo congela — WAAPI interpola cada propiedad por su cuenta.
+ */
+const BOOK_CHECK_HOP = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'translateY(0)', offset: 0 },
+  { strokeDashoffset: '1', opacity: 0, offset: 0.3 },
+  { strokeDashoffset: '0', opacity: 1, transform: 'translateY(0)', offset: 0.62 },
+  { transform: 'translateY(-3px)', offset: 0.8 },
+  { transform: 'translateY(0)', offset: 1 },
+];
 
 export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -92,7 +188,11 @@ export const bookDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BOOK_ARROW_DIP, 420, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_ARROW_DIP, 420, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -113,7 +213,12 @@ export const bookHeadphonesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(BOOK_HEADPHONE_SWAY, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_HEADPHONE_SWAY, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(BOOK_HEADPHONE_SWAY, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -151,7 +256,10 @@ export const bookImageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        2: /* @__PURE__ */ track(BOOK_LENS_POP, 420, { easing: EASE, origin: '10px 8px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -173,7 +281,12 @@ export const bookKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(BOOK_KEY_TURN, 480, { easing: EASE, origin: '17px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_KEY_TURN, 480, { easing: EASE, origin: '17px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(BOOK_KEY_TURN, 480, { easing: EASE, origin: '17px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -194,7 +307,10 @@ export const bookLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BOOK_SHACKLE_LIFT, 420, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -251,11 +367,11 @@ export const bookOpenCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(BOOK_OPEN_SPREAD, 560, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(BOOK_CHECK_HOP, 900, { easing: EASE }),
       },
     },
     reveal: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
@@ -264,7 +380,6 @@ export const bookOpenCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
   },
 );
-
 // REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
 export const bookOpenTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -277,19 +392,16 @@ export const bookOpenTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(1.05)', offset: 0.2 }, { transform: 'scale(1)', offset: 1 }], 800, { easing: 'ease' }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
-        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
-        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
-        4: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
-        5: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1.1)', offset: 0.3 }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'ease' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { easing: 'ease-out', delay: 400, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 240, { easing: 'ease-out', delay: 500, fill: 'backwards' }),
       },
     },
   },
 );
-
 export const bookPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 7v6" },
@@ -366,7 +478,12 @@ export const bookUp2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BOOK_UP2_TOGETHER, 700, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(BOOK_UP2_TOGETHER, 700, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(BOOK_UP2_LEAD, 700, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -387,7 +504,11 @@ export const bookUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE, 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BOOK_ARROW_HOP, 420, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_ARROW_HOP, 420, { easing: EASE, delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -453,13 +574,10 @@ export const bookIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const bookOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookOpenShapes, {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'scaleX(0.9)' }, { transform: 'scaleX(1)' }], 500, {
-          origin: '12px 12px',
-        }),
+        1: /* @__PURE__ */ track(BOOK_OPEN_SPREAD, 560, { easing: SPRING_OUT, origin: '12px 12px' }),
       },
     },
     reveal: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),

@@ -1,6 +1,6 @@
 import { AnimatedIconDef } from './animated-icon.model';
 import { SHIELD_GEAR_SPIN } from './icons/_shared';
-import { EASE, SPRING_OUT, SPRING_SMOOTH, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
+import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
 /**
@@ -69,6 +69,10 @@ export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
 
 
 /** Descargar: el asta y la punta bajan juntas; la bandeja no se mueve (es el piso). */
+/** La flecha baja y se queda ahí mientras dure el hover. Asta y punta comparten el track: si solo
+ *  bajara una, la punta se despegaría del asta. */
+const DOWNLOAD_DIP = /* @__PURE__ */ [{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }];
+
 export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes, {
     default: {
       shapes: {
@@ -76,15 +80,14 @@ export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 550),
       },
     },
-    active: {
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        0: /* @__PURE__ */ track(DOWNLOAD_DIP, 320, { easing: SPRING_SNAPPY, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(DOWNLOAD_DIP, 320, { easing: SPRING_SNAPPY, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
   });
-
 /** Parpadeo. Aplastar en Y con el origen al centro lee como párpado. */
 export const eyeIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeShapes, {
     default: {
@@ -885,15 +888,19 @@ export const cakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(cakeShapes, {
 });
 
 /** Prohibido: primero el círculo, luego el tajo. */
+/** Crece y vuelve. Sin `origin`: en el root el centro por defecto ya es el del viewBox. */
+const BAN_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)', offset: 0 },
+  { transform: 'scale(1.15)', offset: 0.45 },
+  { transform: 'scale(1)', offset: 1 },
+];
+
 export const banIcon: AnimatedIconDef = /* @__PURE__ */ icon(banShapes, {
     default: {
-      shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 300 }),
-      },
+      root: /* @__PURE__ */ track(BAN_POP, 520, { easing: EASE }),
+      shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 180, fill: 'backwards' }) },
     },
   });
-
 /** Arroba: se traza la espiral desde afuera. */
 export const atSignIcon: AnimatedIconDef = /* @__PURE__ */ icon(atSignShapes, {
     default: {
@@ -968,54 +975,19 @@ export const activityIcon: AnimatedIconDef = /* @__PURE__ */ icon(activityShapes
 
 
 /** Ventana: los tres puntos de la barra de título se encienden en orden. */
+/** La barra de título se traza desde el borde izquierdo; el `origin` de ese extremo va en las
+ *  opciones, porque es dónde está la figura y no parte del gesto. */
+const APP_WINDOW_BAR = /* @__PURE__ */ [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }];
+
 export const appWindowIcon: AnimatedIconDef = /* @__PURE__ */ icon(appWindowShapes, {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 80 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 160 }),
+        2: /* @__PURE__ */ track(APP_WINDOW_BAR, 300, { easing: SPRING_OUT, origin: '2px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 330, fill: 'backwards' }),
       },
     },
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** Contacto: la cabeza asoma. */
 export const contactIcon: AnimatedIconDef = /* @__PURE__ */ icon(contactShapes, {
     default: { shapes: { 3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 500) } },
@@ -1947,11 +1919,19 @@ export const anvilIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Aparece al separarse las mitades y baja con el cuerpo, cerrándole el borde que le falta. */
+const ARCHIVE_SEAL = /* @__PURE__ */ [
+  { opacity: 0, transform: 'translateY(0px)' },
+  { opacity: 1, transform: 'translateY(2px)' },
+];
+
 export const archiveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 20, height: 5, x: 2, y: 3, rx: 1 },
     { tag: 'path', d: "M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" },
     { tag: 'path', d: "M10 12h4" },
+    // Figura de más respecto a Lucide, y a propósito: ver ARCHIVE_SEAL y FIGURAS_ANEXAS.
+    { tag: 'path', d: "M4 8h16", opacity: '0' },
   ],
   {
     default: {
@@ -1959,30 +1939,12 @@ export const archiveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
+        3: /* @__PURE__ */ track(ARCHIVE_SEAL, 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
   },
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const awardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" },
@@ -2101,8 +2063,8 @@ export const blendIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3.5px, 3.5px)' }], 320, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3.5px, -3.5px)' }], 320, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 320, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-3px, -3px)' }], 320, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -4294,6 +4256,14 @@ export const archiveXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Una barra del ecualizador: se hunde y rebota. El desfase entre barras lo pone cada `delay`. */
+const AUDIO_EQ_BAR = /* @__PURE__ */ [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.45)', offset: 0.25 },
+  { transform: 'scaleY(1.15)', offset: 0.6 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
 export const audioLinesXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 3v18" },
@@ -4308,15 +4278,16 @@ export const audioLinesXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 150, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 450, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '2px 11.5px' }),
+        7: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '6px 11.5px', delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '10px 12px', delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '14px 11.2px', delay: 240, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '18px 9.1px', delay: 320, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(AUDIO_EQ_BAR, 700, { easing: EASE, origin: '22px 11.5px', delay: 400, fill: 'backwards' }),
       },
     },
   },
 );
-
 export const banknoteCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11.748 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4.875" },

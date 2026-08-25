@@ -341,6 +341,9 @@ export const userRoundCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoun
   });
 
 /** Configurar usuario redondo: la cabeza asoma y el engrane late — mismo criterio que `user-cog`. */
+/** Media vuelta del engrane. El eje va en las opciones (18,18), no aquí: es del icono, no del giro. */
+const USER_ROUND_COG_HALF_TURN = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }];
+
 export const userRoundCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundCogShapes, {
     default: {
       shapes: {
@@ -358,15 +361,15 @@ export const userRoundCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userRoundC
     },
     active: {
       shapes: {
-        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        5: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        6: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        7: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        8: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        9: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
-        10: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
+        0: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        1: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        2: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        3: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        4: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        5: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        7: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        8: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
+        10: /* @__PURE__ */ track(USER_ROUND_COG_HALF_TURN, 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards', origin: '18px 18px' }),
       },
       reverseOnLeave: true,
     },

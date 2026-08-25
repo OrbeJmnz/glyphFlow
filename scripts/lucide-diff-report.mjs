@@ -49,12 +49,24 @@ function normalizeShape(tag, attrs) {
   return JSON.stringify([tag, norm]);
 }
 
+/**
+ * Curados con figuras que Lucide NO tiene. Van al final y nacen con `opacity: '0'`, así que el
+ * icono en reposo sigue siendo idéntico al de Lucide: la figura solo existe mientras dura el
+ * gesto. La MISMA lista vive en curated-icons.spec.ts, que es quien exige esas dos condiciones —
+ * aquí se declara para que el reporte no las cuente como drift y las esconda entre el ruido.
+ */
+const FIGURAS_ANEXAS = {
+  // El cajón de `archive` queda sin borde de arriba al separarse las mitades; esto se lo cierra.
+  archive: 1,
+};
+
 const changed = [];
 for (const name of curatedNames) {
   if (!lucideNames.has(name)) continue; // de los 5 "missing" del lado curado, no hay con qué comparar
   const currentNodes = iconNodes[name];
   const curatedShapes = CURATED_ICONS[name].shapes;
-  if (currentNodes.length !== curatedShapes.length) {
+  const anexas = FIGURAS_ANEXAS[name] ?? 0;
+  if (currentNodes.length !== curatedShapes.length - anexas) {
     changed.push(`${name}: Lucide tiene ${currentNodes.length} figuras, curado tiene ${curatedShapes.length}`);
     continue;
   }

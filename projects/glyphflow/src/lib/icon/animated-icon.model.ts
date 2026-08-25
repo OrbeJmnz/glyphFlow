@@ -41,6 +41,19 @@ export interface IconShape {
    * color fijo, para que siga heredando del texto igual que el trazo.
    */
   fill?: string;
+  /**
+   * Opacidad de arranque, como atributo. Existe para una sola cosa: figuras que el icono necesita
+   * PARA MOVERSE pero que en reposo no debe enseñar, porque Lucide no las dibuja.
+   *
+   * El caso que la trajo es `archive`: al separarse las dos mitades, el cajón de abajo queda sin
+   * borde superior — Lucide no lo dibuja porque con la tapa puesta no se ve. La arista que lo
+   * cierra nace en `'0'` y solo aparece mientras dura el gesto, así que el icono quieto sigue
+   * siendo idéntico al de Lucide.
+   *
+   * Va como atributo de presentación a propósito: cualquier keyframe con `opacity` lo gana
+   * mientras la animación corre, y al terminar manda otra vez este valor. Sin trucos de CSS.
+   */
+  opacity?: string;
 }
 
 /**

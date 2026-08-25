@@ -6,6 +6,17 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { track, icon } from '../choreography';
 
 // REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+/** Sin carga: tres parpadeos. El cuerpo y el borne van al unísono, así late la batería entera. */
+const BATTERY_BLINK = /* @__PURE__ */ [
+  { opacity: 1 },
+  { opacity: 0 },
+  { opacity: 1 },
+  { opacity: 0 },
+  { opacity: 1 },
+  { opacity: 0 },
+  { opacity: 1 },
+];
+
 export const batteryChargingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m11 7-3 5h4l-3 5" },
@@ -104,7 +115,8 @@ export const batteryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 900, { easing: 'ease-in-out' }),
+        0: /* @__PURE__ */ track(BATTERY_BLINK, 900, { easing: 'ease-in-out' }),
+        1: /* @__PURE__ */ track(BATTERY_BLINK, 900, { easing: 'ease-in-out' }),
       },
     },
   },

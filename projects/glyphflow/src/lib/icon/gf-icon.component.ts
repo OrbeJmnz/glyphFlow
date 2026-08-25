@@ -81,7 +81,7 @@ import { conRelevo, easingSeguro } from './motion-runtime';
               [attr.cx]="shape.cx"
               [attr.cy]="shape.cy"
               [attr.r]="shape.r"
-              [attr.fill]="shape.fill ?? null"
+              [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null"
               pathLength="1"
             />
           }
@@ -93,7 +93,7 @@ import { conRelevo, easingSeguro } from './motion-runtime';
               [attr.height]="shape.height"
               [attr.rx]="shape.rx"
               [attr.ry]="shape.ry"
-              [attr.fill]="shape.fill ?? null"
+              [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null"
               pathLength="1"
             />
           }
@@ -103,7 +103,7 @@ import { conRelevo, easingSeguro } from './motion-runtime';
               [attr.y1]="shape.y1"
               [attr.x2]="shape.x2"
               [attr.y2]="shape.y2"
-              [attr.fill]="shape.fill ?? null"
+              [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null"
               pathLength="1"
             />
           }
@@ -113,18 +113,18 @@ import { conRelevo, easingSeguro } from './motion-runtime';
               [attr.cy]="shape.cy"
               [attr.rx]="shape.rx"
               [attr.ry]="shape.ry"
-              [attr.fill]="shape.fill ?? null"
+              [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null"
               pathLength="1"
             />
           }
           @case ('polyline') {
-            <polyline [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" pathLength="1" />
+            <polyline [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null" pathLength="1" />
           }
           @case ('polygon') {
-            <polygon [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" pathLength="1" />
+            <polygon [attr.points]="shape.points" [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null" pathLength="1" />
           }
           @default {
-            <path [attr.d]="shape.d" [attr.fill]="shape.fill ?? null" pathLength="1" />
+            <path [attr.d]="shape.d" [attr.fill]="shape.fill ?? null" [attr.opacity]="shape.opacity ?? null" pathLength="1" />
           }
         }
       }
@@ -380,7 +380,12 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   private runAutoDraw(children: SVGElement[], cfg: AutoDraw): Animation[] {
     const { speed = 70, overlap = 0.55, min = 160, max = 700, easing = 'ease-in-out' } = cfg;
 
-    const measured = children.map((el) => ({ el, len: this.totalLength(el) }));
+    // Una figura que el icono NO enseña en reposo no forma parte de su trazo. `archive` lleva una
+    // arista invisible que solo existe para cerrar el cajón mientras se abre; dibujarla aquí la
+    // haría aparecer y desaparecer sin que el icono la tenga.
+    const visibles = children.filter((el) => el.getAttribute('opacity') !== '0');
+
+    const measured = visibles.map((el) => ({ el, len: this.totalLength(el) }));
     const medible = measured.every((m) => m.len > 0);
     const ordenadas = medible ? [...measured].sort((a, b) => b.len - a.len) : measured;
 

@@ -38,6 +38,20 @@ function tracks(name: string, def: AnimatedIconDef): { donde: string; track: Mot
   return out;
 }
 
+/**
+ * Curados que llevan figuras que Lucide NO tiene. Se declaran una a una y con el motivo: el
+ * catálogo es Lucide animado, y esa promesa solo aguanta si cada excepción está firmada.
+ *
+ * La condición para entrar aquí es dura y la verifica el propio test: la figura anexa va al final
+ * y nace con `opacity: '0'`. O sea que el icono QUIETO sigue siendo idéntico al de Lucide y la
+ * figura solo existe mientras dura el gesto. Una que se vea en reposo no cabe en esta lista.
+ */
+const FIGURAS_ANEXAS: Record<string, number> = {
+  // Al separarse las dos mitades, el cajón de abajo queda sin borde superior — Lucide no se lo
+  // dibuja porque con la tapa puesta no se ve. Esta arista lo cierra mientras está abierto.
+  archive: 1,
+};
+
 describe('Barrido de sanidad — los 180 curados', () => {
   /**
    * PRIMERO y sin lock: esto se para sobre el estado ACTUAL del catálogo, no sobre un diff contra
@@ -139,9 +153,20 @@ describe('Barrido de sanidad — los 180 curados', () => {
         problemas.push(`${name}: curado sin nombre vigente en Lucide — ¿renombre? ver ICON_ALIASES`);
         continue;
       }
-      if (nodos.length !== def.shapes.length) {
-        problemas.push(`${name}: Lucide tiene ${nodos.length} figuras, el curado ${def.shapes.length}`);
+      // Las anexas van al FINAL y no se comparan; las de Lucide se siguen comparando todas, así
+      // que la excepción no abre un hueco: si Lucide cambia el dibujo real, esto lo caza igual.
+      const anexas = FIGURAS_ANEXAS[name] ?? 0;
+      if (nodos.length !== def.shapes.length - anexas) {
+        problemas.push(
+          `${name}: Lucide tiene ${nodos.length} figuras, el curado ${def.shapes.length}` +
+            (anexas ? ` (${anexas} anexa(s) declarada(s))` : ''),
+        );
         continue;
+      }
+      for (let i = nodos.length; i < def.shapes.length; i++) {
+        if (def.shapes[i].opacity !== '0') {
+          problemas.push(`${name}[${i}]: figura anexa que SÍ se ve en reposo — Lucide no la dibuja`);
+        }
       }
       const propias = shapesFingerprint(def.shapes);
       for (let i = 0; i < nodos.length; i++) {
