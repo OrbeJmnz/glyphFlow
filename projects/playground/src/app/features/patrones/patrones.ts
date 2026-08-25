@@ -242,13 +242,22 @@ export class Patrones implements OnDestroy {
    */
   private conectarIndice(): void {
     if (typeof IntersectionObserver === 'undefined') return;
+    const visibledMap = new Map<string, boolean>();
+
     this.observador = new IntersectionObserver(
       (entradas) => {
         for (const e of entradas) {
-          if (e.isIntersecting) this.anclaVisible.set(e.target.id);
+          visibledMap.set(e.target.id, e.isIntersecting);
+        }
+
+        for (const { ancla } of this.indicePatrones) {
+          if (visibledMap.get(ancla)) {
+            this.anclaVisible.set(ancla);
+            break;
+          }
         }
       },
-      { rootMargin: '-45% 0px -45% 0px' },
+      { rootMargin: '-70px 0px -50% 0px' },
     );
     for (const { ancla } of this.indicePatrones) {
       const el = this.host.nativeElement.querySelector(`#${ancla}`);

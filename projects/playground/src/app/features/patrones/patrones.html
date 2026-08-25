@@ -33,25 +33,23 @@
   </p>
 </section>
 
-<!--
-  Índice pegajoso. Se calcula con `IntersectionObserver` y no leyendo `scrollY` en cada cuadro: el
-  scroll dispara decenas de veces por segundo y esto solo necesita saber cuándo ENTRA o SALE un
-  patrón. Por debajo de 1100 px se oculta — no hay ancho para una columna lateral sin robárselo al
-  contenido, que es lo que la gente vino a leer.
--->
-<nav class="indice-patrones" [attr.aria-label]="'patrones.indice' | transloco">
-  <ol>
-    @for (p of indicePatrones; track p.ancla) {
-      <li>
-        <a [href]="'#' + p.ancla" [class.activo]="anclaVisible() === p.ancla">
-          {{ p.titulo | transloco }}
-        </a>
-      </li>
-    }
-  </ol>
-</nav>
+<div class="patrones-marco">
+  <aside class="patrones-sidebar">
+    <nav class="indice-patrones" [attr.aria-label]="'patrones.indice' | transloco">
+      <span class="indice-titulo">{{ 'patrones.indice' | transloco }}</span>
+      <ol>
+        @for (p of indicePatrones; track p.ancla) {
+          <li>
+            <a [href]="'#' + p.ancla" [class.activo]="anclaVisible() === p.ancla">
+              {{ p.titulo | transloco }}
+            </a>
+          </li>
+        }
+      </ol>
+    </nav>
+  </aside>
 
-<div class="patrones">
+  <div class="patrones">
   <!-- ── Copiar ─────────────────────────────────────────────────────────────── -->
   <article class="patron" id="copy-to-clipboard">
     <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
@@ -401,6 +399,7 @@
       />
     </div>
   </article>
+</div>
 </div>
 
 <!-- La página terminaba en una raya horizontal. Dos salidas: la que falta y la que te haces. -->
