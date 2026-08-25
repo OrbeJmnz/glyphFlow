@@ -7884,7 +7884,7 @@
       "draw": "17c8398e8d34"
     },
     "bean": {
-      "default": "f3bdad68fe54",
+      "default": "cf1d56ffa84f",
       "draw": "17c8398e8d34"
     },
     "bean-off": {
@@ -7892,7 +7892,7 @@
       "draw": "17c8398e8d34"
     },
     "beef": {
-      "default": "d0ae27349c05",
+      "default": "0aeb3ad4ea54",
       "draw": "17c8398e8d34"
     },
     "beef-off": {
@@ -7901,7 +7901,7 @@
       "draw": "17c8398e8d34"
     },
     "beer": {
-      "default": "a2b5ff10c27b",
+      "default": "8f92fae535eb",
       "draw": "17c8398e8d34"
     },
     "beer-off": {
@@ -8000,7 +8000,7 @@
       "draw": "17c8398e8d34"
     },
     "bone-fracture": {
-      "default": "da6bfee0d956",
+      "default": "a7e501565e01",
       "draw": "17c8398e8d34"
     },
     "book": {
@@ -8215,7 +8215,7 @@
       "draw": "17c8398e8d34"
     },
     "bug": {
-      "default": "425ef43dcc62",
+      "default": "dacce9c4d955",
       "draw": "17c8398e8d34"
     },
     "bug-off": {
@@ -8250,7 +8250,7 @@
       "pulse": "5e2da2b81fe0"
     },
     "cake-slice": {
-      "default": "265f831d0d21",
+      "default": "948aab8535e4",
       "draw": "17c8398e8d34"
     },
     "calendar": {
@@ -8365,11 +8365,11 @@
       "draw": "17c8398e8d34"
     },
     "candy": {
-      "default": "61ec7dbd3783",
+      "default": "d267d7918050",
       "draw": "17c8398e8d34"
     },
     "candy-cane": {
-      "default": "46aef4fccd7b",
+      "default": "e3b5a286eb8a",
       "draw": "17c8398e8d34"
     },
     "candy-off": {
@@ -8377,7 +8377,7 @@
       "draw": "17c8398e8d34"
     },
     "cannabis": {
-      "default": "621bd00c9b59",
+      "default": "282f7ade53a8",
       "draw": "17c8398e8d34"
     },
     "cannabis-off": {
@@ -8583,7 +8583,7 @@
       "draw": "17c8398e8d34"
     },
     "cigarette": {
-      "default": "eb3b80928b01",
+      "default": "085a0189abb0",
       "draw": "17c8398e8d34"
     },
     "cigarette-off": {
@@ -9214,7 +9214,7 @@
       "draw": "17c8398e8d34"
     },
     "dna": {
-      "default": "37fbc410fddc",
+      "default": "4ae35e766dd3",
       "draw": "17c8398e8d34"
     },
     "dna-off": {
@@ -9227,7 +9227,7 @@
       "hold": "bfbcfef9af04"
     },
     "droplet": {
-      "default": "0511884b90ce",
+      "default": "826da5c1569d",
       "draw": "17c8398e8d34"
     },
     "droplet-off": {
@@ -9239,7 +9239,7 @@
       "draw": "17c8398e8d34"
     },
     "ear": {
-      "default": "dbdb904b1050",
+      "default": "6227242b8fa1",
       "draw": "17c8398e8d34"
     },
     "ear-off": {
@@ -9251,11 +9251,11 @@
       "draw": "17c8398e8d34"
     },
     "egg": {
-      "default": "0511884b90ce",
+      "default": "92f52b2fae46",
       "draw": "17c8398e8d34"
     },
     "egg-fried": {
-      "default": "77b46fbf4c94",
+      "default": "e477106bda6b",
       "draw": "17c8398e8d34"
     },
     "egg-off": {
@@ -9611,7 +9611,7 @@
       "pulse": "cee73beb5f57"
     },
     "fish": {
-      "default": "0674adb492fc",
+      "default": "530bcaf4c2b0",
       "draw": "17c8398e8d34"
     },
     "fish-off": {
@@ -9619,11 +9619,11 @@
       "draw": "17c8398e8d34"
     },
     "fish-symbol": {
-      "default": "0511884b90ce",
+      "default": "df005cf42e28",
       "draw": "17c8398e8d34"
     },
     "flag": {
-      "default": "0511884b90ce",
+      "default": "f9a740824962",
       "draw": "17c8398e8d34"
     },
     "flag-off": {
@@ -9631,11 +9631,11 @@
       "draw": "17c8398e8d34"
     },
     "flag-triangle-left": {
-      "default": "0511884b90ce",
+      "default": "2ce9d5f40ccb",
       "draw": "17c8398e8d34"
     },
     "flag-triangle-right": {
-      "default": "0511884b90ce",
+      "default": "681517e76d92",
       "draw": "17c8398e8d34"
     },
     "flashlight": {
@@ -9647,7 +9647,7 @@
       "draw": "17c8398e8d34"
     },
     "flask-conical": {
-      "default": "23f827d315e0",
+      "default": "cde5aa616bd3",
       "draw": "17c8398e8d34"
     },
     "flask-conical-off": {
@@ -9655,7 +9655,7 @@
       "draw": "17c8398e8d34"
     },
     "flask-round": {
-      "default": "eef08a328926",
+      "default": "cde5aa616bd3",
       "draw": "17c8398e8d34"
     },
     "folder": {
@@ -10051,7 +10051,7 @@
       "draw": "17c8398e8d34"
     },
     "hard-hat": {
-      "default": "8d01af5a272b",
+      "default": "a7f6b401aefe",
       "draw": "17c8398e8d34"
     },
     "hash": {
@@ -10106,7 +10106,7 @@
       "pulse": "4c1f81594e5d"
     },
     "hop": {
-      "default": "fd61bd699e0c",
+      "default": "0a2d0c159388",
       "draw": "17c8398e8d34"
     },
     "hop-off": {
@@ -10801,7 +10801,7 @@
       "draw": "17c8398e8d34"
     },
     "milk": {
-      "default": "d5ea730bd184",
+      "default": "108ebef72a45",
       "draw": "17c8398e8d34"
     },
     "milk-off": {
@@ -10882,11 +10882,11 @@
       "draw": "17c8398e8d34"
     },
     "moon-star": {
-      "default": "6133b501ee0c",
+      "default": "8cfbcb70107b",
       "draw": "17c8398e8d34"
     },
     "mountain": {
-      "default": "0511884b90ce",
+      "default": "ce41b419c43d",
       "draw": "17c8398e8d34"
     },
     "mountain-snow": {
@@ -11055,7 +11055,7 @@
       "pulse": "5e2da2b81fe0"
     },
     "nut": {
-      "default": "0d01c56fbc59",
+      "default": "de83c9b0b373",
       "draw": "17c8398e8d34"
     },
     "nut-off": {
@@ -11319,11 +11319,11 @@
       "draw": "17c8398e8d34"
     },
     "plane-landing": {
-      "default": "621bd00c9b59",
+      "default": "86e31cc297da",
       "draw": "17c8398e8d34"
     },
     "plane-takeoff": {
-      "default": "ec909d9767c2",
+      "default": "1e3829faeb48",
       "draw": "17c8398e8d34"
     },
     "play": {
@@ -11829,7 +11829,7 @@
       "draw": "17c8398e8d34"
     },
     "shopping-basket": {
-      "default": "235c15604c9d",
+      "default": "7df2eef327d7",
       "draw": "17c8398e8d34"
     },
     "shopping-cart": {
@@ -12282,11 +12282,11 @@
       "shine": "f41d0a1952d4"
     },
     "sun-dim": {
-      "default": "0551beaadbc4",
+      "default": "500e29f4da4a",
       "draw": "17c8398e8d34"
     },
     "sun-medium": {
-      "default": "34b9085aaa47",
+      "default": "3ed09d76ae27",
       "draw": "17c8398e8d34"
     },
     "sun-moon": {
@@ -12294,7 +12294,7 @@
       "draw": "17c8398e8d34"
     },
     "sun-snow": {
-      "default": "6c1278ece12d",
+      "default": "dff5ddc8e699",
       "draw": "17c8398e8d34"
     },
     "sword": {
@@ -12432,11 +12432,11 @@
       "draw": "17c8398e8d34"
     },
     "thermometer-snowflake": {
-      "default": "6ece06661cfa",
+      "default": "18c54c7de5b3",
       "draw": "17c8398e8d34"
     },
     "thermometer-sun": {
-      "default": "ffb3562d52f1",
+      "default": "994749aeeb1b",
       "draw": "17c8398e8d34"
     },
     "thumbs-down": {
@@ -12516,7 +12516,7 @@
       "draw": "17c8398e8d34"
     },
     "touchpad": {
-      "default": "c4fdb48319f2",
+      "default": "6ebb1cfbe015",
       "draw": "17c8398e8d34"
     },
     "touchpad-off": {
@@ -12555,7 +12555,7 @@
       "draw": "17c8398e8d34"
     },
     "truck-electric": {
-      "default": "b2a8e02890f9",
+      "default": "5dc6e8952f5a",
       "draw": "17c8398e8d34"
     },
     "tv": {
@@ -12564,7 +12564,7 @@
       "pulse": "5e2da2b81fe0"
     },
     "tv-minimal": {
-      "default": "621bd00c9b59",
+      "default": "6370a8bb6fdf",
       "draw": "17c8398e8d34"
     },
     "tv-minimal-play": {
@@ -12580,7 +12580,7 @@
       "draw": "17c8398e8d34"
     },
     "umbrella": {
-      "default": "6b35bc88f11c",
+      "default": "be9588e91540",
       "draw": "17c8398e8d34"
     },
     "umbrella-off": {
@@ -12706,7 +12706,7 @@
       "draw": "17c8398e8d34"
     },
     "users-round": {
-      "default": "97acb6d15565",
+      "default": "0c1cb10c6a1b",
       "draw": "17c8398e8d34"
     },
     "vibrate": {
@@ -12718,7 +12718,7 @@
       "draw": "17c8398e8d34"
     },
     "video": {
-      "default": "621bd00c9b59",
+      "default": "5cc2f510e380",
       "draw": "17c8398e8d34"
     },
     "video-off": {
@@ -12755,7 +12755,7 @@
       "draw": "17c8398e8d34"
     },
     "webcam": {
-      "default": "e2b147b3c7d3",
+      "default": "46b5bfa00cc5",
       "draw": "17c8398e8d34"
     },
     "webcam-off": {
@@ -12772,7 +12772,7 @@
       "draw": "17c8398e8d34"
     },
     "wheat": {
-      "default": "96363a11e6f7",
+      "default": "799e34614e4f",
       "draw": "17c8398e8d34"
     },
     "wheat-off": {
@@ -12816,7 +12816,7 @@
       "reveal": "d80e0f8477da"
     },
     "wine": {
-      "default": "83efadaca92d",
+      "default": "5467f7b8b872",
       "draw": "17c8398e8d34"
     },
     "wine-off": {

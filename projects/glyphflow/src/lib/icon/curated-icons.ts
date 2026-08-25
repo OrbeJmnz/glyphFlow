@@ -626,6 +626,187 @@ const E2_WINK = /* @__PURE__ */ [
   { transform: 'scaleY(1) scaleX(1)', offset: 1 },
 ];
 
+/* ── Vocabulario de la etapa 3: el mundo ─────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E3_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Aparece de golpe con un rebote corto. */
+const E3_POP = /* @__PURE__ */ [
+  { transform: 'scale(0.35)', opacity: 0 },
+  { transform: 'scale(1.12)', opacity: 1 },
+  { transform: 'scale(1)', opacity: 1 },
+];
+
+/** Una burbuja sube y se va. Empieza abajo y con poca opacidad, como sale del líquido. */
+const E3_BUBBLE = /* @__PURE__ */ [
+  { transform: 'translateY(1.6px)', opacity: 0.2, offset: 0 },
+  { transform: 'translateY(0)', opacity: 1, offset: 0.6 },
+  { transform: 'translateY(0)', opacity: 1, offset: 1 },
+];
+
+/**
+ * Ondear. Se hace con `skewX` y no con `rotate`: una bandera girando se descuelga de su asta,
+ * mientras que inclinándose se deforma como la tela, que es lo que pasa de verdad.
+ */
+const E3_WAVE = /* @__PURE__ */ [
+  { transform: 'skewX(0deg)', offset: 0 },
+  { transform: 'skewX(-6deg)', offset: 0.3 },
+  { transform: 'skewX(5deg)', offset: 0.65 },
+  { transform: 'skewX(0deg)', offset: 1 },
+];
+
+/** Temblar corto y rápido: una fractura que cruje, una yema que se mueve. */
+const E3_WOBBLE = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-0.6px)', offset: 0.2 },
+  { transform: 'translateX(0.6px)', offset: 0.4 },
+  { transform: 'translateX(-0.4px)', offset: 0.6 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/** La yema tiembla como gelatina: se deforma en los dos ejes a contratiempo. */
+const E3_JIGGLE = /* @__PURE__ */ [
+  { transform: 'scale(1, 1)', offset: 0 },
+  { transform: 'scale(1.12, 0.9)', offset: 0.3 },
+  { transform: 'scale(0.92, 1.1)', offset: 0.6 },
+  { transform: 'scale(1, 1)', offset: 1 },
+];
+
+/** Un paso: la pata se levanta y vuelve. El desfase entre patas es lo que hace que camine. */
+const E3_STEP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.2px)', offset: 0.4 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** Cae y rebota: un fruto, un casco que se asienta. */
+const E3_DROP = /* @__PURE__ */ [
+  { transform: 'translateY(-2.5px)', offset: 0 },
+  { transform: 'translateY(0.5px)', offset: 0.55 },
+  { transform: 'translateY(-0.25px)', offset: 0.78 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** Destella: una estrella, un rayo, una chispa. */
+const E3_TWINKLE = /* @__PURE__ */ [
+  { transform: 'scale(0.5)', opacity: 0, offset: 0 },
+  { transform: 'scale(1.2)', opacity: 1, offset: 0.4 },
+  { transform: 'scale(1)', opacity: 1, offset: 1 },
+];
+
+/** Se abre desde su base: un paraguas, una espiga, un objetivo. */
+const E3_UNFURL = /* @__PURE__ */ [{ transform: 'scale(0.4)' }, { transform: 'scale(1)' }];
+
+/** Se mece colgando o apoyado, sobre el punto que se le indique. */
+const E3_SWAY = /* @__PURE__ */ [
+  { transform: 'rotate(0deg)', offset: 0 },
+  { transform: 'rotate(-5deg)', offset: 0.28 },
+  { transform: 'rotate(4deg)', offset: 0.62 },
+  { transform: 'rotate(0deg)', offset: 1 },
+];
+
+/** El mercurio sube por el tubo, o baja. Se estira desde el bulbo, que es lo que no se mueve. */
+const E3_MERCURY = /* @__PURE__ */ [
+  { transform: 'scaleY(0.55)', offset: 0 },
+  { transform: 'scaleY(1)', offset: 0.65 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
+/** Se desplaza y vuelve, con anticipación: sin ella el recorrido que cabe no se lee. */
+const E3_GLIDE_UP = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)', offset: 0 },
+  { transform: 'translate(-0.8px, 1px)', offset: 0.28 },
+  { transform: 'translate(1px, -1.4px)', offset: 0.7 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+
+const E3_GLIDE_DOWN = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)', offset: 0 },
+  { transform: 'translate(-0.8px, -1.4px)', offset: 0.28 },
+  { transform: 'translate(1px, 1px)', offset: 0.7 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+
+/** Parpadea. */
+const E3_BLINK = /* @__PURE__ */ [
+  { opacity: 1, offset: 0 },
+  { opacity: 0.15, offset: 0.35 },
+  { opacity: 1, offset: 0.75 },
+  { opacity: 1, offset: 1 },
+];
+
+/** Una rueda que gira sobre su eje. */
+const E3_ROLL = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }];
+
+/**
+ * El nivel del líquido baja y sube: el recipiente se vacía y se vuelve a llenar. Va en la LÍNEA,
+ * no en el recipiente, porque lo que se mueve es lo de dentro.
+ */
+const E3_LIQUID = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(2.5px)', offset: 0.35 },
+  { transform: 'translateY(-2px)', offset: 0.72 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** Un meneo elástico de arriba abajo, con el rebote pasado de largo. */
+const E3_ELASTIC_Y = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.8px)', offset: 0.3 },
+  { transform: 'translateY(1.2px)', offset: 0.58 },
+  { transform: 'translateY(-0.5px)', offset: 0.8 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** El mismo meneo de lado. */
+const E3_ELASTIC_X = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1.8px)', offset: 0.3 },
+  { transform: 'translateX(1.2px)', offset: 0.58 },
+  { transform: 'translateX(-0.5px)', offset: 0.8 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/**
+ * Las dos rayas de `touchpad`, que se mueven ATADAS: la horizontal sube y baja 1.5, y la vertical
+ * —que mide 6 y arranca en ella— se alarga y se acorta lo justo para no despegarse.
+ *
+ * Los factores son la cuenta, no el ojo: (6+1.5)/6 = 1.25 cuando la horizontal sube, y
+ * (6−1.5)/6 = 0.75 cuando baja. Con el pivote en su base, el extremo de arriba cae clavado en
+ * ella en los dos casos.
+ */
+const E3_PAD_ROW = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.5px)', offset: 0.35 },
+  { transform: 'translateY(1.5px)', offset: 0.72 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+const E3_PAD_COL = /* @__PURE__ */ [
+  { transform: 'translateX(0) scaleY(1)', offset: 0 },
+  { transform: 'translateX(-1.5px) scaleY(1.25)', offset: 0.35 },
+  { transform: 'translateX(1.5px) scaleY(0.75)', offset: 0.72 },
+  { transform: 'translateX(0) scaleY(1)', offset: 1 },
+];
+
+/**
+ * Aterrizaje gomoso: cae, se APLASTA al tocar, rebota estirada y se asienta. El squash & stretch
+ * de siempre, y el pivote en la base es lo que lo hace legible — aplastando desde el centro
+ * parecería que encoge, no que pesa.
+ */
+const E3_SQUASH_LAND = /* @__PURE__ */ [
+  { transform: 'translateY(-3px) scale(1, 1)', offset: 0 },
+  { transform: 'translateY(0) scale(1.07, 0.88)', offset: 0.42 },
+  { transform: 'translateY(-0.9px) scale(0.97, 1.06)', offset: 0.62 },
+  { transform: 'translateY(0) scale(1.02, 0.97)', offset: 0.82 },
+  { transform: 'translateY(0) scale(1, 1)', offset: 1 },
+];
+
 /** Palomita: se dibuja mientras crece 10% y regresa (portado de Animate UI). */
 export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
     default: {
@@ -5743,19 +5924,6 @@ import { pencilLineIcon, pencilOffIcon, pencilIcon, pencilRulerIcon, pencilSpark
  * por icono habría sido 150 formas distintas de decir lo mismo.
  */
 
-/** El cuerpo late una vez, y su detalle entra después. */
-const COLA_PULSE = /* @__PURE__ */ [
-  { transform: 'scale(1)' },
-  { transform: 'scale(1.07)' },
-  { transform: 'scale(1)' },
-];
-
-/** Las piezas de un conjunto sin jerarquía se arman cada una desde su propio centro. */
-const COLA_POP = /* @__PURE__ */ [
-  { transform: 'scale(0.4)', opacity: 0 },
-  { transform: 'scale(1)', opacity: 1 },
-];
-
 /** Lo que sale hacia fuera: una onda, una señal. Crece desde dentro. */
 const WAVE_OUT = /* @__PURE__ */ [
   { transform: 'scale(0.55)', opacity: 0, offset: 0 },
@@ -5939,6 +6107,7 @@ export const banknoteXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La semilla late: es lo único que una pieza sola permite. */
 export const beanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -5950,14 +6119,13 @@ export const beanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '10px 7px', delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 520, { easing: EASE, origin: 'center' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
 export const beefIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -5973,15 +6141,14 @@ export const beefIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        2: /* @__PURE__ */ track(COLA_POP, 360, { easing: EASE, origin: '12.5px 8.5px', delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 500, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 500, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track(E3_POP, 340, { easing: EASE, origin: '12.5px 8.5px', delay: 200, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
 export const beerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M17 11h1a3 3 0 0 1 0 6h-1" },
@@ -5996,17 +6163,16 @@ export const beerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 470, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: '18px 14px', delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_BUBBLE, 620, { easing: EASE, delay: 140, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_BUBBLE, 620, { easing: EASE, delay: 240, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_JIGGLE, 560, { easing: EASE, origin: '11px 8px', delay: 60, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
       },
     },
   },
 );
 
-/** Una sola pieza: late. */
 export const bluetoothIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m7 7 10 10-5 5V2l5 5L7 17" },
@@ -6056,6 +6222,7 @@ export const bluetoothSearchingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La fractura cruje: el hueso tiembla y las marcas destellan. */
 export const boneFractureIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -6074,18 +6241,17 @@ export const boneFractureIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '15.8px 8.2px', delay: 160, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '15.5px 19px', delay: 400, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '19px 15.5px', delay: 320, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '5px 8.5px', delay: 80, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8.5px 5px' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8.2px 15.8px', delay: 240, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_WOBBLE, 560, { easing: EASE }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '15.5px 19px', delay: 320, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '19px 15.5px', delay: 400, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '5px 8.5px', delay: 240, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '8.5px 5px', delay: 160, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_WOBBLE, 560, { easing: EASE }),
       },
     },
   },
 );
 
-/** El robot guiña: la raya del ojo derecho se cierra y se ensancha hasta quedar tumbada. */
 export const botIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 8V4H8" },
@@ -6185,6 +6351,7 @@ export const brainCircuitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Camina: las patas se levantan en alternancia, no todas a la vez. */
 export const bugIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 20v-9" },
@@ -6202,23 +6369,20 @@ export const bugIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 15.5px', delay: 560, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 10.5px', delay: 480, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '15.1px 2.9px', delay: 80, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '19.1px 19px', delay: 800, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '19.2px 7px', delay: 320, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20px 13px', delay: 640, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4.9px 19px', delay: 720, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4.8px 7px', delay: 160, fill: 'backwards' }),
-        8: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4px 13px', delay: 400, fill: 'backwards' }),
-        9: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8.9px 2.9px' }),
-        10: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 6.6px', delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track(E3_SWAY, 640, { easing: EASE, origin: '12px 7px' }),
+        3: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 220, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 100, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 340, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 100, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 220, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E3_STEP, 560, { easing: EASE, delay: 340, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(E3_SWAY, 640, { easing: EASE, origin: '12px 7px' }),
       },
     },
   },
 );
 
-/** La cabina se balancea colgando del cable, no de su centro. */
 export const cableCarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 3h.01" },
@@ -6243,6 +6407,7 @@ export const cableCarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La cereza rebota encima y las capas responden. */
 export const cakeSliceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M16 13H3" },
@@ -6256,16 +6421,16 @@ export const cakeSliceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        3: /* @__PURE__ */ track(COLA_POP, 360, { easing: EASE, origin: '9px 7px', delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '9.5px 13px', delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '9.5px 17px', delay: 300, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        3: /* @__PURE__ */ track(E3_DROP, 620, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** El caramelo se retuerce: los dos extremos giran en sentidos opuestos. */
 export const candyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 7v10.9" },
@@ -6286,17 +6451,17 @@ export const candyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 12.5px', delay: 80, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '14px 11.6px', delay: 240, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18.9px 5.1px' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12px', delay: 160, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '5.1px 18.9px', delay: 320, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_BLINK, 600, { easing: EASE, delay: 180, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_BLINK, 600, { easing: EASE, delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_SWAY, 640, { easing: EASE, origin: '16px 5px', delay: 120, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        4: /* @__PURE__ */ track(E3_SWAY, 640, { easing: EASE, origin: '8px 19px', delay: 220, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Las rayas recorren el bastón de abajo arriba. */
 export const candyCaneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10.8 5 2.111 4.223" },
@@ -6311,17 +6476,17 @@ export const candyCaneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 470, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Las hojas se mecen sobre el tallo, que se queda quieto. */
 export const cannabisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 22v-4" },
@@ -6333,14 +6498,13 @@ export const cannabisIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 400, { easing: EASE, origin: '12px 20px', delay: 180, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_SWAY, 700, { easing: EASE, origin: '12px 18px' }),
       },
     },
   },
 );
 
-/** El recuadro late y los subtítulos se escriben dentro. */
 export const captionsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', x: 3, y: 5, width: 18, height: 14, rx: 2, ry: 2 },
@@ -6373,6 +6537,7 @@ export const checkLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** El humo sube ondulando por encima. */
 export const cigaretteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M17 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14" },
@@ -6384,17 +6549,16 @@ export const cigaretteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '9.5px 14px', delay: 240, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17px 5.5px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '21.5px 14px', delay: 320, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '21px 5.5px', delay: 80, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '7px 14px', delay: 160, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 440, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E3_BUBBLE, 640, { easing: EASE, delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '21px 14px', delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_BUBBLE, 640, { easing: EASE, delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_POP, 280, { easing: EASE, origin: '7px 14px', delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** La división se despliega de arriba abajo. */
 export const columns2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
@@ -6554,6 +6718,7 @@ export const discAlbumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La hélice se enciende de abajo arriba: los travesaños, uno tras otro. */
 export const dnaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10 16 1.5 1.5" },
@@ -6571,23 +6736,23 @@ export const dnaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10.8px 16.8px', delay: 720, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '13.3px 7.3px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '13.6px 5px', delay: 80, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17px 11px', delay: 480, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '15.6px 4.6px', delay: 160, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12px', delay: 400, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20.4px 9.4px', delay: 240, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '3.6px 14.6px', delay: 560, fill: 'backwards' }),
-        8: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '7px 13px', delay: 320, fill: 'backwards' }),
-        9: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8.4px 19.4px', delay: 800, fill: 'backwards' }),
-        10: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10.4px 19px', delay: 640, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '10.7px 16.7px', delay: 120, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '13.2px 7.2px', delay: 440, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '17px 11px', delay: 360, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '15.5px 4.5px', delay: 680, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_PULSE, 500, { easing: EASE, origin: 'center' }),
+        6: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '20.4px 9.4px', delay: 520, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '3.5px 14.5px', delay: 280, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '7px 13px', delay: 200, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: EASE, origin: '8.4px 19.4px', delay: 600, fill: 'backwards' }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 280, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Una sola pieza: late como una gota a punto de caer. */
 export const dropletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -6598,13 +6763,13 @@ export const dropletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 520, { easing: EASE, origin: '12px 16px' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** Escucha: el interior pulsa y el pabellón responde. */
 export const earIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0" },
@@ -6613,14 +6778,13 @@ export const earIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12.5px 13.5px' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12.5px 11px', delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 480, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 480, { easing: EASE, origin: '12px 10px', delay: 140, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
 export const eggIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 2C8 2 4 8 4 14a8 8 0 0 0 16 0c0-6-4-12-8-12" },
@@ -6628,13 +6792,13 @@ export const eggIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_SWAY, 700, { easing: EASE, origin: '12px 22px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** La yema tiembla como gelatina; la clara aguanta. */
 export const eggFriedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 11.5, cy: 12.5, r: 3.5 },
@@ -6646,14 +6810,13 @@ export const eggFriedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 360, { easing: EASE, origin: '11.5px 12.5px', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_JIGGLE, 620, { easing: EASE, origin: '11.5px 12.5px', delay: 140, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
       },
     },
   },
 );
 
-/** Las dos rayas se despliegan desde el centro y quedan iguales: es lo que el signo dice. */
 export const equalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'line', x1: 5, y1: 9, x2: 19, y2: 9 },
@@ -6844,7 +7007,7 @@ export const faceSlightlySmilingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Nada: la cola se agita y el cuerpo la sigue. */
 export const fishIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -6863,18 +7026,18 @@ export const fishIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 470, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 560, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_WAVE, 660, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(E3_BLINK, 600, { easing: EASE, delay: 320, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_PULSE, 420, { easing: EASE, origin: '16px 12px', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_SWAY, 700, { easing: EASE, origin: '7px 9px', delay: 60, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_PULSE, 420, { easing: EASE, origin: '11px 5px', delay: 260, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_WAVE, 660, { easing: EASE, origin: '12px 12px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Una sola pieza: ondula al nadar. */
 export const fishSymbolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2 16s9-15 20-4C11 23 2 8 2 8" },
@@ -6882,13 +7045,13 @@ export const fishSymbolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_WAVE, 700, { easing: EASE, origin: '12px 12px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Ondea. Con `skewX` y no con un giro: una bandera que rota se descuelga de su asta. */
 export const flagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -6899,13 +7062,13 @@ export const flagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_WAVE, 700, { easing: EASE, origin: '4px 4px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Igual, con el asta a la derecha. */
 export const flagTriangleLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18 22V2.8a.8.8 0 0 0-1.17-.71L5.45 7.78a.8.8 0 0 0 0 1.44L18 15.5" },
@@ -6913,13 +7076,13 @@ export const flagTriangleLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_WAVE, 700, { easing: EASE, origin: '18px 3px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Y con el asta a la izquierda. */
 export const flagTriangleRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M6 22V2.8a.8.8 0 0 1 1.17-.71l11.38 5.69a.8.8 0 0 1 0 1.44L6 15.5" },
@@ -6927,13 +7090,12 @@ export const flagTriangleRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_WAVE, 700, { easing: EASE, origin: '6px 3px' }),
       },
     },
   },
 );
 
-/** Se enciende: el haz sale de golpe por debajo. */
 export const flashlightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 13v1" },
@@ -6954,6 +7116,7 @@ export const flashlightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** El matraz da su saltito y el líquido baja y sube dentro. */
 export const flaskConicalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -6966,15 +7129,14 @@ export const flaskConicalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E3_LIQUID, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** Lo mismo en el matraz redondo. */
 export const flaskRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 2v6.292a7 7 0 1 0 4 0V2" },
@@ -6984,15 +7146,13 @@ export const flaskRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 5.1px', delay: 80, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 15px', delay: 160, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 2px' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E3_LIQUID, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El embudo late y la cruz gira un cuarto de vuelta. */
 export const funnelPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -7122,7 +7282,7 @@ export const handPlatterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** El lúpulo se abre por brácteas, de dentro hacia fuera. */
 export const hopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -7158,20 +7318,19 @@ export const hopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 650, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 740, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 470, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 560, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '13px 16px', delay: 80, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '14px 5px' }),
+        2: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '15px 19px', delay: 240, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '19px 21px', delay: 480, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '19px 16px', delay: 400, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '19px 8px', delay: 320, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '4px 4px', delay: 560, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_POP, 360, { easing: EASE, origin: '10px 16px', delay: 160, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** La tarjeta se balancea colgando del cordón, con el pivote arriba del todo. */
 export const idCardLanyardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M13.5 8h-3" },
@@ -7823,7 +7982,7 @@ export const micVocalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** El cartón da su saltito y la leche baja y sube dentro: se vacía y se llena. */
 export const milkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M8 2h8" },
@@ -7836,15 +7995,13 @@ export const milkIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 2px' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 15px', delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        2: /* @__PURE__ */ track(E3_LIQUID, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
 export const moonStarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18 5h4" },
@@ -7857,15 +8014,15 @@ export const moonStarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20px 5px' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20px 5px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '16.3px 7.7px', delay: 160, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_TWINKLE, 380, { easing: EASE, origin: '20px 5px', delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 380, { easing: EASE, origin: '20px 5px', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_SWAY, 660, { easing: EASE, origin: '12px 12px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Cae y aterriza gomosa: se aplasta al tocar, rebota estirada y se asienta. */
 export const mountainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m8 3 4 8 5-5 5 15H2L8 3z" },
@@ -7873,13 +8030,12 @@ export const mountainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_SQUASH_LAND, 760, { easing: EASE, origin: '12px 22px' }),
       },
     },
   },
 );
 
-/** Las dos cabezas laten alternadas y las astas se mecen con ellas. */
 export const musicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M9 18V5l12-2v13" },
@@ -7929,6 +8085,7 @@ export const music3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** El fruto cae y rebota; su rabito lo sigue. */
 export const nutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 4V2" },
@@ -7944,15 +8101,14 @@ export const nutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_DROP, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(E3_DROP, 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(E3_DROP, 620, { easing: EASE }),
       },
     },
   },
 );
 
-/** Una sola pieza: late. */
 export const octagonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -8154,6 +8310,7 @@ export const pinIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Y aquí aterriza. */
 export const planeLandingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2 22h20" },
@@ -8165,14 +8322,13 @@ export const planeLandingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 400, { easing: EASE, origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(E3_GLIDE_DOWN, 700, { easing: EASE, delay: 100, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
 export const planeTakeoffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2 22h20" },
@@ -8184,14 +8340,13 @@ export const planeTakeoffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 22px', delay: 80, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '11.9px 11.5px' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 400, { easing: EASE, origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(E3_GLIDE_UP, 700, { easing: EASE, delay: 100, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El índice se levanta y señala; los otros dedos se quedan. */
 export const pointerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M22 14a8 8 0 0 1-8 8" },
@@ -8448,6 +8603,7 @@ export const settings2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La cesta se llena: las varillas bajan una tras otra. */
 export const shoppingBasketIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m15 11-1 9" },
@@ -8461,19 +8617,18 @@ export const shoppingBasketIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '14.5px 15.5px', delay: 480, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17px 7.5px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 11px', delay: 160, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 15.5px', delay: 400, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 15.5px', delay: 320, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '7px 7.5px' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '9.5px 15.5px', delay: 240, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_STEP, 520, { easing: EASE, delay: 380, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_STEP, 520, { easing: EASE, delay: 460, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '12px 11px', delay: 120, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        4: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '12px 15.5px', delay: 540, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_STEP, 520, { easing: EASE, delay: 220, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_STEP, 520, { easing: EASE, delay: 300, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** La curva se traza de un nodo al otro y cada uno aparece en su extremo. */
 export const splineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 19, cy: 5, r: 2 },
@@ -8491,6 +8646,7 @@ export const splineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Los ocho puntos se encienden dando la vuelta y el sol late en medio. */
 export const sunDimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
@@ -8506,21 +8662,21 @@ export const sunDimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12px', delay: 320, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 4px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20px 12px', delay: 400, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 20px', delay: 560, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4px 12px', delay: 240, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17.7px 6.3px', delay: 160, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17.7px 17.7px', delay: 640, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '6.3px 17.7px', delay: 480, fill: 'backwards' }),
-        8: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '6.3px 6.3px' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 520, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '12px 4px', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '20px 12px', delay: 240, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '12px 20px', delay: 360, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '4px 12px', delay: 480, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '17.7px 6.3px', delay: 180, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '17.7px 17.7px', delay: 300, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '6.3px 17.7px', delay: 420, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '6.3px 6.3px', delay: 540, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** Los rayos salen del sol dando la vuelta. */
 export const sunMediumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
@@ -8536,21 +8692,21 @@ export const sunMediumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12px', delay: 320, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 3.5px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 20.5px', delay: 560, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '3.5px 12px', delay: 240, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '20.5px 12px', delay: 400, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 6px', delay: 160, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '6px 18px', delay: 480, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '6px 6px' }),
-        8: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 18px', delay: 640, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 520, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '12px 3.5px', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '12px 20.5px', delay: 360, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '3.5px 12px', delay: 480, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '20.5px 12px', delay: 240, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '18px 6px', delay: 180, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '6px 18px', delay: 420, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '6px 6px', delay: 540, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '18px 18px', delay: 300, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** Medio sol y media nieve: el sol late a un lado mientras los copos caen al otro. */
 export const sunSnowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 21v-1" },
@@ -8568,17 +8724,17 @@ export const sunSnowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 20.5px', delay: 640, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 3.5px', delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 12px', delay: 400, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '16px 18.8px', delay: 720, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '16px 5.3px', delay: 240, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 16.5px', delay: 800, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '15.5px 7.5px', delay: 160, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '2.5px 12px', delay: 320, fill: 'backwards' }),
-        8: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '19.3px 12px', delay: 480, fill: 'backwards' }),
-        9: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4px 18px', delay: 560, fill: 'backwards' }),
-        10: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4px 6px' }),
+        0: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '10px 20.5px', delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '10px 3.5px', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_PULSE, 520, { easing: EASE, origin: '10px 12px' }),
+        3: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '16px 19px', delay: 340, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '16px 5px', delay: 420, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_BUBBLE, 620, { easing: EASE, delay: 180, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_BUBBLE, 620, { easing: EASE, delay: 260, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '2.5px 12px', delay: 280, fill: 'backwards' }),
+        8: /* @__PURE__ */ track(E3_TWINKLE, 320, { easing: EASE, origin: '19px 12px', delay: 500, fill: 'backwards' }),
+        9: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '4px 18px', delay: 360, fill: 'backwards' }),
+        10: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '4px 6px', delay: 440, fill: 'backwards' }),
       },
     },
   },
@@ -8790,6 +8946,7 @@ export const tagXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** El mercurio sube y el copo destella por brazos. */
 export const thermometerSnowflakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10 20-1.25-2.5L6 18" },
@@ -8804,20 +8961,19 @@ export const thermometerSnowflakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8px 18.8px', delay: 480, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8px 5.3px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10.3px 15px', delay: 400, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '6px 10.5px', delay: 160, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 9.3px', delay: 240, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '4.8px 12px', delay: 320, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '8.5px 16.5px', delay: 560, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '9.5px 6px', delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '8px 19px', delay: 460, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '8px 5px', delay: 400, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '10.3px 15px', delay: 580, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_MERCURY, 620, { easing: EASE, origin: '18px 20px' }),
+        5: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '4.7px 12px', delay: 520, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 320, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 240, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
 export const thermometerSunIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 2v2" },
@@ -8830,18 +8986,17 @@ export const thermometerSunIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 3px' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '11.2px 11.8px', delay: 320, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '3px 12px', delay: 240, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 9.3px', delay: 160, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '5.6px 5.6px', delay: 80, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '5.6px 18.4px', delay: 400, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '12px 3px', delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: '12px 12px', delay: 180, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '3px 12px', delay: 380, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_MERCURY, 620, { easing: EASE, origin: '18px 20px' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '5.6px 5.6px', delay: 460, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_TWINKLE, 300, { easing: EASE, origin: '5.6px 18.4px', delay: 540, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** La claqueta: la hoja de arriba se levanta desde su bisagra y el cuerpo cede al otro lado. */
 export const ticketsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m3.173 8.18 11-5a2 2 0 0 1 2.647.993L18.56 8" },
@@ -8877,6 +9032,8 @@ export const timerResetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Las dos rayas de dentro se mueven ATADAS: la vertical se alarga lo justo para no despegarse
+ *  de la horizontal cuando esta sube, y se acorta lo mismo cuando baja. */
 export const touchpadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', x: 2, y: 4, width: 20, height: 16, rx: 2 },
@@ -8886,15 +9043,13 @@ export const touchpadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_PAD_ROW, 700, { easing: EASE }),
+        2: /* @__PURE__ */ track(E3_PAD_COL, 700, { easing: EASE, origin: '12px 20px' }),
       },
     },
   },
 );
 
-/** Los tramos se trazan dando la vuelta al triángulo. */
 export const triangleDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10.17 4.193a2 2 0 0 1 3.666.013" },
@@ -8938,6 +9093,7 @@ export const triangleRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** Arranca y da la vuelta al lienzo, como `truck`, con las ruedas girando y el rayo destellando. */
 export const truckElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M14 19V7a2 2 0 0 0-2-2H9" },
@@ -8953,20 +9109,16 @@ export const truckElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '11.5px 12px', delay: 80, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 19px', delay: 400, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '18px 14px', delay: 240, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '3.5px 16px', delay: 160, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '3.6px 6px' }),
-        5: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17px 19px', delay: 480, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '7px 19px', delay: 320, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: 'ease-out', origin: '4px 5px', delay: 200, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_ROLL, 900, { easing: EASE, origin: '17px 19px' }),
+        6: /* @__PURE__ */ track(E3_ROLL, 900, { easing: EASE, origin: '7px 19px' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
 export const tvMinimalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M7 21h10" },
@@ -8975,14 +9127,13 @@ export const tvMinimalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_POP, 300, { easing: EASE, origin: '12px 21px', delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_UNFURL, 520, { easing: SPRING_OUT, origin: '12px 10px' }),
       },
     },
   },
 );
 
-/** Una sola pieza: late. */
 export const typeOutlineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -8999,6 +9150,7 @@ export const typeOutlineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** El paraguas se mece colgado de su copa; la copa no aparece, ya está ahí. */
 export const umbrellaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 13v7a2 2 0 0 0 4 0" },
@@ -9011,15 +9163,13 @@ export const umbrellaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '14px 16.5px', delay: 160, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 3px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 12.4px', delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_SWAY, 660, { easing: EASE, origin: '12px 13px' }),
+        1: /* @__PURE__ */ track(E3_POP, 280, { easing: 'ease-out', origin: '12px 3px', delay: 200, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Una sola pieza, así que el enlace roto late en vez de partirse. */
 export const unlink2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M15 7h2a5 5 0 0 1 0 10h-2m-6 0H7A5 5 0 0 1 7 7h2" },
@@ -9033,6 +9183,7 @@ export const unlink2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+/** La cabeza asoma y el de atrás aparece después: son dos, no un bloque. */
 export const usersRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18 21a8 8 0 0 0-16 0" },
@@ -9042,15 +9193,15 @@ export const usersRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 21px', delay: 160, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '10px 8px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '19.8px 11.9px', delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: '10px 18px', delay: 120, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E3_STEP, 520, { easing: EASE }),
+        2: /* @__PURE__ */ track(E3_POP, 340, { easing: EASE, origin: '20px 12px', delay: 260, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** El objetivo se menea de arriba abajo, elástico; el cuerpo se queda. */
 export const videoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" },
@@ -9059,14 +9210,13 @@ export const videoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
+        0: /* @__PURE__ */ track(E3_ELASTIC_Y, 720, { easing: EASE }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
+/** Lo único que se mueve es el pie: se bambolea de lado, elástico. El objetivo se queda quieto. */
 export const webcamIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 12, cy: 10, r: 8 },
@@ -9077,16 +9227,13 @@ export const webcamIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(COLA_POP, 360, { easing: EASE, origin: '12px 10px', delay: 200, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_ELASTIC_X, 720, { easing: EASE }),
+        3: /* @__PURE__ */ track(E3_ELASTIC_X, 720, { easing: EASE, delay: 60, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** El cuerpo late una vez y su detalle entra después. */
 export const wheatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2 22 16 8" },
@@ -9119,20 +9266,20 @@ export const wheatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_PULSE, 520, { easing: EASE, origin: 'center' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 560, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 740, fill: 'backwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 650, fill: 'backwards' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 470, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_PULSE, 440, { easing: EASE, origin: '9px 15px' }),
+        1: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '5px 14px', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '9px 10px', delay: 260, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '13px 6px', delay: 420, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '19px 5px', delay: 580, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '9px 19px', delay: 180, fill: 'backwards' }),
+        6: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '13px 15px', delay: 340, fill: 'backwards' }),
+        7: /* @__PURE__ */ track(E3_POP, 320, { easing: EASE, origin: '17px 11px', delay: 500, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** La copa da su saltito y el vino baja y sube dentro: se vacía y se llena. */
 export const wineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M8 22h8" },
@@ -9143,16 +9290,13 @@ export const wineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 22px', delay: 240, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 10px' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 18.5px', delay: 160, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 8.5px', delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E3_PULSE, 460, { easing: EASE, origin: 'center' }),
+        1: /* @__PURE__ */ track(E3_LIQUID, 700, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
 );
 
-/** La línea se despliega y la equis gira debajo. */
 export const xLineTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18 4H6" },

@@ -6,6 +6,23 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, track, icon } from '../choreography';
 import { hardDriveShapes } from '../animated-icons.shapes';
 
+/* ── Vocabulario de la etapa 3: el mundo ─────────────────────────────────────────────────── */
+
+/** Late una vez. */
+const E3_PULSE = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.08)' },
+  { transform: 'scale(1)' },
+];
+
+/** Cae y rebota: un fruto, un casco que se asienta. */
+const E3_DROP = /* @__PURE__ */ [
+  { transform: 'translateY(-2.5px)', offset: 0 },
+  { transform: 'translateY(0.5px)', offset: 0.55 },
+  { transform: 'translateY(-0.25px)', offset: 0.78 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
 export const hardDriveDownloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 2v8" },
@@ -56,13 +73,7 @@ export const hardDriveIcon: AnimatedIconDef = /* @__PURE__ */ icon(hardDriveShap
  * por icono habría sido 150 formas distintas de decir lo mismo.
  */
 
-/** Las piezas de un conjunto sin jerarquía se arman cada una desde su propio centro. */
-const COLA_POP = /* @__PURE__ */ [
-  { transform: 'scale(0.4)', opacity: 0 },
-  { transform: 'scale(1)', opacity: 1 },
-];
-
-/** Se arma pieza por pieza, cada una desde su propio centro. */
+/** El casco se asienta: cae y rebota sobre su ala. */
 export const hardHatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" },
@@ -73,10 +84,10 @@ export const hardHatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 7px' }),
-        1: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '17px 10.5px', delay: 160, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '7px 10.5px', delay: 80, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(COLA_POP, 380, { easing: EASE, origin: '12px 17px', delay: 240, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E3_DROP, 600, { easing: EASE }),
+        1: /* @__PURE__ */ track(E3_DROP, 600, { easing: EASE }),
+        2: /* @__PURE__ */ track(E3_DROP, 600, { easing: EASE }),
+        3: /* @__PURE__ */ track(E3_PULSE, 420, { easing: EASE, origin: '12px 17px', delay: 260, fill: 'backwards' }),
       },
     },
   },
