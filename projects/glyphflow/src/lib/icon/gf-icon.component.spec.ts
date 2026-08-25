@@ -277,6 +277,86 @@ describe('alias de la v1', () => {
   });
 });
 
+describe('reverse() al salir el puntero', () => {
+  let creadas: FalsaAnimacion[];
+  let original: PropertyDescriptor | undefined;
+
+  beforeEach(() => {
+    creadas = [];
+    original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+    Object.defineProperty(Element.prototype, 'animate', {
+      configurable: true,
+      writable: true,
+      value: function (_kf: unknown, opciones: KeyframeAnimationOptions): Animation {
+        const anim: FalsaAnimacion = {
+          playState: 'running',
+          reversas: 0,
+          fill: opciones?.fill,
+          reverse() {
+            this.reversas++;
+          },
+          cancel: () => undefined,
+          commitStyles: () => undefined,
+          onfinish: null,
+          currentTime: 0,
+        };
+        creadas.push(anim);
+        return anim as unknown as Animation;
+      },
+    });
+  });
+
+  afterEach(() => {
+    if (original) Object.defineProperty(Element.prototype, 'animate', original);
+    else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
+  });
+
+  /**
+   * La regresión: `Animation.reverse()` sobre algo que está en `idle` no invierte nada — lo
+   * REVIVE desde el final. Un track de un tiro se cancela solo al terminar, así que al salir el
+   * puntero después de que la animación acabó, las figuras arrancaban hacia atrás estando ya
+   * quietas; y las que llevan `fill: 'backwards'` se quedaban congeladas en su primer fotograma
+   * porque su `onfinish` ya se había soltado. Se veía en `arrow-up-narrow-wide`: las tres líneas
+   * horizontales no volvían a su tamaño.
+   */
+  it('no revive los tracks que ya terminaron y se cancelaron solos', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [GfIconComponent],
+      providers: [provideIconCatalog(ANIMATED_ICONS)],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(GfIconComponent);
+    fixture.componentRef.setInput('name', 'arrow-up-narrow-wide');
+    fixture.detectChanges();
+    fixture.componentInstance.play();
+
+    // Lo que hace el motor de verdad al terminar un track que no sostiene: cancelarlo.
+    const unTiro = creadas.filter((a) => a.fill !== 'forwards' && a.fill !== 'both');
+    const sostienen = creadas.filter((a) => a.fill === 'forwards' || a.fill === 'both');
+    expect(unTiro.length).toBeGreaterThan(0);
+    expect(sostienen.length).toBeGreaterThan(0);
+    for (const a of unTiro) a.playState = 'idle';
+
+    fixture.componentInstance.reverse();
+
+    expect(unTiro.map((a) => a.reversas)).toEqual(unTiro.map(() => 0));
+    expect(sostienen.map((a) => a.reversas)).toEqual(sostienen.map(() => 1));
+  });
+});
+
+/** Lo justo para poder afirmar A QUIÉN se le llamó `reverse()` y en qué estado estaba. */
+interface FalsaAnimacion {
+  playState: string;
+  reversas: number;
+  fill: FillMode | undefined;
+  reverse(): void;
+  cancel(): void;
+  commitStyles(): void;
+  onfinish: (() => void) | null;
+  currentTime: number;
+}
+
 /**
  * Lo mínimo que el componente toca del objeto que devuelve `animate()`.
  *

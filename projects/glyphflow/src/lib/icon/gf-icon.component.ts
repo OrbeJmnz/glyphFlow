@@ -433,7 +433,18 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
    * `autoDraw` lo DESdibuja, que no es lo que nadie pidió al sacar el puntero.
    */
   reverse(): void {
-    for (const anim of this.vivasTrack.values()) anim.reverse();
+    for (const anim of this.vivasTrack.values()) {
+      // `idle` = un track de un tiro que YA terminó y se canceló solo en su `onfinish`. `reverse()`
+      // sobre eso no invierte nada: lo REVIVE desde el final, y la figura se mueve hacia atrás al
+      // salir el puntero — justo cuando ya estaba quieta. Peor con `fill: 'backwards'`: como su
+      // `onfinish` ya se soltó, nadie la vuelve a cancelar y se queda congelada en el PRIMER
+      // keyframe (una línea a `scaleX(0.12)`) en vez de volver a su forma.
+      //
+      // Salir a media animación no pasa por aquí: ahí sigue `running`, se invierte de verdad y su
+      // `onfinish` intacto la cancela y limpia el inline al llegar al principio.
+      if (anim.playState === 'idle') continue;
+      anim.reverse();
+    }
   }
 
   /** Corta y devuelve las figuras a su pose original. */
