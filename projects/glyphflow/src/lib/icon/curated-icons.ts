@@ -5808,6 +5808,10 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/ice-cream';
+import { iceCreamBowlIcon, iceCreamConeIcon } from './icons/ice-cream';
+export * from './icons/utensils';
+import { utensilsIcon, utensilsCrossedIcon } from './icons/utensils';
 export * from './icons/tent';
 import { tentIcon, tentTreeIcon } from './icons/tent';
 export * from './icons/train';
@@ -15650,6 +15654,855 @@ export const luggageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de comida ──────────────────────────────────────────────────────── */
+
+/**
+ * El vapor de algo caliente: nace pegado a la superficie, sube y se deshace. Va con `opacity` a 0
+ * en los dos extremos —aparece y desaparece— porque un vapor que se corta en seco se ve como un
+ * parpadeo. Lo comparten `coffee` y `soup`, que es literalmente lo mismo en dos recipientes.
+ */
+const VAPOR = /* @__PURE__ */ [
+  { transform: 'translateY(0.5px)', opacity: '0', offset: 0 },
+  { transform: 'translateY(0)', opacity: '1', offset: 0.4 },
+  { transform: 'translateY(-0.9px)', opacity: '0', offset: 1 },
+];
+
+/** Servir: cae desde arriba y se asienta. El margen del lienzo da 1 unidad, se usa 0.9. */
+const SE_POSA = /* @__PURE__ */ moveYSeq([-0.9, 0]);
+
+/** Colgar de un punto y balancearse: fruta en su rabito, cubierto en su mango. */
+const CUELGA = /* @__PURE__ */ rotateSeq([0, -7, 4.5, -2, 0]);
+
+/** La manzana se asienta y su rabito acusa el tirón. El pivote va donde toca el suelo. */
+export const appleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6.528V3a1 1 0 0 1 1-1h0" },
+    {
+      tag: 'path',
+      d: "M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.96, 1.02, 1]), 620, { easing: EASE, origin: '12px 21px' }),
+        0: /* @__PURE__ */ track(CUELGA, 720, { easing: EASE, delay: 80, origin: '12px 6.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Cuelga de su rabo, arriba a la derecha, y se balancea entera. */
+export const bananaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5" },
+    {
+      tag: 'path',
+      d: "M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z",
+    },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3.5, -2.5, 1.5, 0]), 940, { easing: EASE, origin: '13px 2px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { origin: '13px 2px' }),
+  },
+);
+
+/** Sirve: la botella se inclina sobre su base y la etiqueta va con ella. */
+export const bottleWineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10 3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a6 6 0 0 0 1.2 3.6l.6.8A6 6 0 0 1 17 13v8a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-8a6 6 0 0 1 1.2-3.6l.6-.8A6 6 0 0 0 10 5z",
+    },
+    { tag: 'path', d: "M17 13h-4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h4" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -11, 0]), 820, { easing: EASE, origin: '12px 22px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { origin: '12px 22px' }),
+  },
+);
+
+/** La copa respira y el tallo la acompaña con la mitad de recorrido. */
+export const broccoliIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 13a3 3 0 0 1-2.121-5.121" },
+    {
+      tag: 'path',
+      d: "M15.606 14.204c-3.5 1.5-5.899 4.503-8.899 7.503A1 1 0 0 1 6 22c-2 0-4-2-4-4a1 1 0 0 1 .293-.707c1.911-1.911 3.823-3.578 5.347-5.441",
+    },
+    { tag: 'path', d: "M16.573 14.737A4 4 0 0 1 14 11" },
+    {
+      tag: 'path',
+      d: "M7.14 10.907a4 4 0 1 1 2.756-7.43A4 4 0 0 1 16.7 4.48a2 2 0 0 1 2.82 2.82 4 4 0 0 1 1.002 6.805A4 4 0 1 1 13 16",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.05, 1]), 720, { easing: EASE, origin: '13px 9px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -2.5, 0]), 720, { easing: EASE, delay: 100, origin: '14px 14px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se arranca de la tierra: primero se agitan las hojas, después sube la raíz. */
+export const carrotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M15 16a1 1 0 0 0-7-7q-4 4-5.987 12.385a.5.5 0 0 0 .602.602Q11 20 15 16l-3-3",
+    },
+    { tag: 'path', d: "M15 9q4 4 7 0-3-4-7 0 4-4 0-7-4 3 0 7" },
+    { tag: 'path', d: "m8 15-2.58-2.58" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 4, 0]), 720, { easing: EASE, origin: '15px 9px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 620, { easing: EASE, delay: 140 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 620, { easing: EASE, delay: 140 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se infla desde la banda, que es lo único que un gorro de chef puede hacer. */
+export const chefHatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z",
+    },
+    { tag: 'path', d: "M6 17h12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.06)' }, { transform: 'scaleY(1)' }], 720, { easing: EASE, origin: '12px 17px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los gajos se trazan de dentro afuera y la corteza late al final. */
+export const citrusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z",
+    },
+    { tag: 'path', d: "M19.65 15.66A8 8 0 0 1 8.35 4.34" },
+    { tag: 'path', d: "m14 10-5.5 5.5" },
+    { tag: 'path', d: "M14 17.85V10H6.15" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 360, { easing: 'ease-out', delay: 360 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 11px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El vapor sube, columna por columna. La taza no se mueve: lo que está caliente es el café. */
+export const coffeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 2v2" },
+    { tag: 'path', d: "M14 2v2" },
+    {
+      tag: 'path',
+      d: "M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1",
+    },
+    { tag: 'path', d: "M6 2v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE }),
+        0: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE, delay: 130 }),
+        1: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE, delay: 260 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las chispas aparecen una a una, como si se hornearan. La galleta no se mueve. */
+export const cookieIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" },
+    { tag: 'path', d: "M8.5 8.5v.01" },
+    { tag: 'path', d: "M16 15.5v.01" },
+    { tag: 'path', d: "M12 12v.01" },
+    { tag: 'path', d: "M11 17v.01" },
+    { tag: 'path', d: "M7 14v.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, origin: '8.5px 8.5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 90, origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 180, origin: '7px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 270, origin: '16px 15.5px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 360, origin: '11px 17px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se destapa: la tapa se levanta con su asa y la olla se queda en el fuego. */
+export const cookingPotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 12h20" },
+    { tag: 'path', d: "M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" },
+    { tag: 'path', d: "m4 8 16-4" },
+    {
+      tag: 'path',
+      d: "m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 720, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 720, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos cuernos se enroscan hacia dentro, cada uno sobre su lado, y el cuerpo respira. */
+export const croissantIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10.2 18H4.774a1.5 1.5 0 0 1-1.352-.97 11 11 0 0 1 .132-6.487",
+    },
+    {
+      tag: 'path',
+      d: "M18 10.2V4.774a1.5 1.5 0 0 0-.97-1.352 11 11 0 0 0-6.486.132",
+    },
+    { tag: 'path', d: "M18 5a4 3 0 0 1 4 3 2 2 0 0 1-2 2 10 10 0 0 0-5.139 1.42" },
+    { tag: 'path', d: "M5 18a3 4 0 0 0 3 4 2 2 0 0 0 2-2 10 10 0 0 1 1.42-5.14" },
+    {
+      tag: 'path',
+      d: "M8.709 2.554a10 10 0 0 0-6.155 6.155 1.5 1.5 0 0 0 .676 1.626l9.807 5.42a2 2 0 0 0 2.718-2.718l-5.42-9.807a1.5 1.5 0 0 0-1.626-.676",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 720, { easing: EASE, origin: '15px 11px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 720, { easing: EASE, origin: '15px 11px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 5, 0]), 720, { easing: EASE, delay: 90, origin: '11px 15px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 5, 0]), 720, { easing: EASE, delay: 90, origin: '11px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La pajilla se agita dentro del vaso y el refresco le responde. */
+export const cupSodaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8" },
+    { tag: 'path', d: "M5 8h14" },
+    { tag: 'path', d: "M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0" },
+    { tag: 'path', d: "m12 8 1-6h2" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, 0]), 720, { easing: EASE, origin: '12px 8px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.4, 0]), 660, { easing: EASE, delay: 120 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La cereza se posa encima y la crema acusa el golpe. */
+export const dessertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10.162 3.167A10 10 0 0 0 2 13a2 2 0 0 0 4 0v-1a2 2 0 0 1 4 0v4a2 2 0 0 0 4 0v-4a2 2 0 0 1 4 0v1a2 2 0 0 0 4-.006 10 10 0 0 0-8.161-9.826",
+    },
+    { tag: 'path', d: "M20.804 14.869a9 9 0 0 1-17.608 0" },
+    { tag: 'circle', cx: 12, cy: 4, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 480, { easing: EASE, delay: 300, origin: '12px 13px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * La dona SÍ gira, y el agujero no: el borde del glaseado es irregular, así que la vuelta se ve;
+ * el agujero es un `circle` y girarlo no se vería. Girando uno y no el otro, se lee el giro.
+ */
+export const donutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M20.5 10a2.5 2.5 0 0 1-2.4-3H18a2.95 2.95 0 0 1-2.6-4.4 10 10 0 1 0 6.3 7.1c-.3.2-.8.3-1.2.3",
+    },
+    { tag: 'circle', cx: 12, cy: 12, r: 3 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(
+        /* @__PURE__ */ [
+          { transform: 'rotate(0deg) translateY(0)' },
+          { transform: 'rotate(12deg) translateY(-0.5px)' },
+          { transform: 'rotate(0deg) translateY(0)' },
+        ],
+        760,
+        { easing: EASE, origin: '12px 12px' },
+      ),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(12deg)' }], 320, { origin: '12px 12px' }),
+  },
+);
+
+/** Se agita agarrado por el hueso, que es por donde se agarra de verdad. */
+export const drumstickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.5 3.43 135 0 0-6.23 6.23",
+    },
+    {
+      tag: 'path',
+      d: "m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59",
+    },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(CUELGA, 860, { easing: EASE, origin: '6px 18px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { origin: '6px 18px' }),
+  },
+);
+
+/** El agua ondea; el vaso no se mueve. Es la misma frontera que en `coffee`. */
+export const glassWaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M5.116 4.104A1 1 0 0 1 6.11 3h11.78a1 1 0 0 1 .994 1.105L17.19 20.21A2 2 0 0 1 15.2 22H8.8a2 2 0 0 1-2-1.79z",
+    },
+    { tag: 'path', d: "M6 12a5 5 0 0 1 6 0 5 5 0 0 0 6 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(
+          /* @__PURE__ */ [
+            { transform: 'translateY(0) scaleX(1)', offset: 0 },
+            { transform: 'translateY(0.4px) scaleX(1.03)', offset: 0.45 },
+            { transform: 'translateY(0) scaleX(1)', offset: 1 },
+          ],
+          760,
+          { easing: EASE, origin: '12px 12px' },
+        ),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * El racimo se llena desde el rabo hacia abajo. Son ocho `circle` y ninguno gira —no se vería—:
+ * lo que hacen es APARECER, y el orden es lo que cuenta la forma del racimo.
+ */
+export const grapeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 5V2l-5.89 5.89" },
+    { tag: 'circle', cx: 16.6, cy: 15.89, r: 3 },
+    { tag: 'circle', cx: 8.11, cy: 7.4, r: 3 },
+    { tag: 'circle', cx: 12.35, cy: 11.65, r: 3 },
+    { tag: 'circle', cx: 13.91, cy: 5.85, r: 3 },
+    { tag: 'circle', cx: 18.15, cy: 10.09, r: 3 },
+    { tag: 'circle', cx: 6.56, cy: 13.2, r: 3 },
+    { tag: 'circle', cx: 10.8, cy: 17.44, r: 3 },
+    { tag: 'circle', cx: 5, cy: 19, r: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, origin: '13.91px 5.85px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 55, origin: '18.15px 10.09px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 110, origin: '12.35px 11.65px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 165, origin: '8.11px 7.4px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 220, origin: '16.6px 15.89px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 275, origin: '6.56px 13.2px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 330, origin: '10.8px 17.44px' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 385, origin: '5px 19px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16.1px 7.89px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El lazo del hueso se agita y el jamón acusa el tirón. */
+export const hamIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.144 21.144A7.274 10.445 45 1 0 2.856 10.856" },
+    {
+      tag: 'path',
+      d: "M13.144 21.144A7.274 4.365 45 0 0 2.856 10.856a7.274 4.365 45 0 0 10.288 10.288",
+    },
+    {
+      tag: 'path',
+      d: "M16.565 10.435 18.6 8.4a2.501 2.501 0 1 0 1.65-4.65 2.5 2.5 0 1 0-4.66 1.66l-2.024 2.025",
+    },
+    { tag: 'path', d: "m8.5 16.5-1-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 820, { easing: EASE, origin: '13px 8px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 620, { easing: EASE, delay: 120, origin: '8px 16px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 620, { easing: EASE, delay: 120, origin: '8px 16px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 8px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se arma: cae el pan de arriba y el relleno se comprime debajo. El de abajo no se mueve. */
+export const hamburgerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 16H4a2 2 0 1 1 0-4h16a2 2 0 1 1 0 4h-4.25" },
+    { tag: 'path', d: "M5 12a2 2 0 0 1-2-2 9 7 0 0 1 18 0 2 2 0 0 1-2 2" },
+    {
+      tag: 'path',
+      d: "M5 16a2 2 0 0 0-2 2 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 2 2 0 0 0-2-2q0 0 0 0",
+    },
+    { tag: 'path', d: "m6.67 12 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 480, { easing: EASE, delay: 260, origin: '12px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 480, { easing: EASE, delay: 260, origin: '12px 16px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se mece desde su punta, que es el único punto de la hoja que está sujeto. */
+export const leafyGreenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 4.409 16.712 4.2 18.1 3.926 19.743 3.014 20.732 2 22",
+    },
+    { tag: 'path', d: "M2 22 17 7" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -2, 1, 0]), 940, { easing: EASE, origin: '2px 22px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { origin: '2px 22px' }),
+  },
+);
+
+/**
+ * Gira la espiral y NO el contorno: el círculo de fuera girando sería invisible, y con la espiral
+ * sola el giro se lee entero. Es el mismo criterio que en `donut`, al revés.
+ */
+export const lollipopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 11, cy: 11, r: 8 },
+    { tag: 'path', d: "m21 21-4.3-4.3" },
+    { tag: 'path', d: "M11 11a2 2 0 0 0 4 0 4 4 0 0 0-8 0 6 6 0 0 0 12 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '11px 11px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(90deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Brinda: la copa se inclina sobre el pie y vuelve. */
+export const martiniIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M12 12 4.207 4.207A.707.707 0 0 1 4.707 3h14.586a.707.707 0 0 1 .5 1.207z",
+    },
+    { tag: 'path', d: "M12 12v10" },
+    { tag: 'path', d: "M7 22h10" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, 0]), 820, { easing: EASE, origin: '12px 22px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { origin: '12px 22px' }),
+  },
+);
+
+/** Se abre por el pliegue de arriba y el fondo cede un poco. */
+export const paperBagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M5.364 3.848C4 6 3 9.652 3 12.652V19a2 2 0 002 2h14a2 2 0 002-2v-5c0-2.334-1.816-4.668-2.622-7.002",
+    },
+    {
+      tag: 'path',
+      d: "M7 3h11.379a2 2 0 011.789 1.106l.723 1.447A1 1 0 0119.997 7h-8.525a2 2 0 01-1.789-1.106L8.79 4.105a2 2 0 10-3.579 1.789l2.261 4.522A5 5 0 018 12.652V21",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.5, 0]), 660, { easing: EASE }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.98)' }, { transform: 'scaleY(1)' }], 660, { easing: EASE, delay: 90, origin: '12px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Le van cayendo los ingredientes a la rebanada, de la punta hacia la corteza. */
+export const pizzaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 14-1 1" },
+    { tag: 'path', d: "m13.75 18.25-1.25 1.42" },
+    { tag: 'path', d: "M17.775 5.654a15.68 15.68 0 0 0-12.121 12.12" },
+    { tag: 'path', d: "M18.8 9.3a1 1 0 0 0 2.1 7.7" },
+    {
+      tag: 'path',
+      d: "M21.964 20.732a1 1 0 0 1-1.232 1.232l-18-5a1 1 0 0 1-.695-1.232A19.68 19.68 0 0 1 15.732 2.037a1 1 0 0 1 1.232.695z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, origin: '11.5px 14.5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 110, origin: '13.1px 18.9px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 220, origin: '19.8px 13.1px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out', delay: 300 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11.5px 14.5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13.1px 18.9px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19.8px 13.1px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las palomitas saltan de la caja y la caja acusa el brinco. */
+export const popcornIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 8a2 2 0 0 0 0-4 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0-4 0 2 2 0 0 0 0 4" },
+    { tag: 'path', d: "M10 22 9 8" },
+    { tag: 'path', d: "m14 22 1-14" },
+    {
+      tag: 'path',
+      d: "M20 8c.5 0 .9.4.8 1l-2.6 12c-.1.5-.7 1-1.2 1H7c-.6 0-1.1-.4-1.2-1L3.2 9c-.1-.6.3-1 .8-1Z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.9, 0]), 620, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.97)' }, { transform: 'scaleY(1)' }], 520, { easing: EASE, delay: 200, origin: '12px 22px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se agita agarrada por el palo, abajo a la derecha. */
+export const popsicleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M18.6 14.4c.8-.8.8-2 0-2.8l-8.1-8.1a4.95 4.95 0 1 0-7.1 7.1l8.1 8.1c.9.7 2.1.7 2.9-.1Z",
+    },
+    { tag: 'path', d: "m22 22-5.5-5.5" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4.5, 3, 0]), 820, { easing: EASE, origin: '22px 22px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4.5deg)' }], 320, { origin: '22px 22px' }),
+  },
+);
+
+/** Se remueve: las hojas se mecen en sentidos contrarios y el bol se queda quieto. */
+export const saladIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 21h10" },
+    { tag: 'path', d: "M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" },
+    {
+      tag: 'path',
+      d: "M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1",
+    },
+    { tag: 'path', d: "m13 12 4-4" },
+    { tag: 'path', d: "M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 2, 0]), 760, { easing: EASE, origin: '16px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 2, 0]), 760, { easing: EASE, origin: '16px 8px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -2, 0]), 760, { easing: EASE, delay: 110, origin: '7px 10px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se cierra: baja la tapa y el relleno cede. Mismo gesto que `hamburger`, otra geometría. */
+export const sandwichIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m2.37 11.223 8.372-6.777a2 2 0 0 1 2.516 0l8.371 6.777" },
+    { tag: 'path', d: "M21 15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.25" },
+    { tag: 'path', d: "M3 15a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h9" },
+    { tag: 'path', d: "m6.67 15 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2" },
+    { tag: 'rect', width: 20, height: 4, x: 2, y: 11, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.8, 0]), 520, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.9)' }, { transform: 'scaleY(1)' }], 480, { easing: EASE, delay: 240, origin: '12px 15px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.3, 0]), 480, { easing: EASE, delay: 240 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Nada: la cola bate, el cuerpo la sigue y el ojo parpadea. */
+export const shrimpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 12h.01" },
+    { tag: 'path', d: "M13 22c.5-.5 1.12-1 2.5-1-1.38 0-2-.5-2.5-1" },
+    {
+      tag: 'path',
+      d: "M14 2a3.28 3.28 0 0 1-3.227 1.798l-6.17-.561A2.387 2.387 0 1 0 4.387 8H15.5a1 1 0 0 1 0 13 1 1 0 0 0 0-5H12a7 7 0 0 1-7-7V8",
+    },
+    { tag: 'path', d: "M14 8a8.5 8.5 0 0 1 0 8" },
+    { tag: 'path', d: "M16 16c2 0 4.5-4 4-6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 6, 0]), 760, { easing: EASE, origin: '13px 21px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 760, { easing: EASE, delay: 90, origin: '16px 16px' }),
+        0: /* @__PURE__ */ track(DESTELLA, 420, { delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El mismo vapor de `coffee`, en otro recipiente: sube de izquierda a derecha. */
+export const soupIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" },
+    { tag: 'path', d: "M7 21h10" },
+    { tag: 'path', d: "M19.5 12 22 6" },
+    {
+      tag: 'path',
+      d: "M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62",
+    },
+    {
+      tag: 'path',
+      d: "M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62",
+    },
+    {
+      tag: 'path',
+      d: "M6.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE }),
+        4: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE, delay: 130 }),
+        3: /* @__PURE__ */ track(VAPOR, 900, { easing: EASE, delay: 260 }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Brota la hoja y detrás se traza el brote. El aro se queda: girarlo no se vería. */
+export const veganIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 8q6 0 6-6-6 0-6 6" },
+    { tag: 'path', d: "M17.41 3.59a10 10 0 1 0 3 3" },
+    { tag: 'path', d: "M2 2a26.6 26.6 0 0 1 10 20c.9-6.82 1.5-9.5 4-14" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 480, { easing: SPRING_OUT, origin: '19px 5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 560, { easing: 'ease-out', delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19px 5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -17187,4 +18040,39 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'backpack': backpackIcon,
   'baggage-claim': baggageClaimIcon,
   'luggage': luggageIcon,
+  'apple': appleIcon,
+  'banana': bananaIcon,
+  'bottle-wine': bottleWineIcon,
+  'broccoli': broccoliIcon,
+  'carrot': carrotIcon,
+  'chef-hat': chefHatIcon,
+  'citrus': citrusIcon,
+  'coffee': coffeeIcon,
+  'cookie': cookieIcon,
+  'cooking-pot': cookingPotIcon,
+  'croissant': croissantIcon,
+  'cup-soda': cupSodaIcon,
+  'dessert': dessertIcon,
+  'donut': donutIcon,
+  'drumstick': drumstickIcon,
+  'glass-water': glassWaterIcon,
+  'grape': grapeIcon,
+  'ham': hamIcon,
+  'hamburger': hamburgerIcon,
+  'ice-cream-bowl': iceCreamBowlIcon,
+  'ice-cream-cone': iceCreamConeIcon,
+  'leafy-green': leafyGreenIcon,
+  'lollipop': lollipopIcon,
+  'martini': martiniIcon,
+  'paper-bag': paperBagIcon,
+  'pizza': pizzaIcon,
+  'popcorn': popcornIcon,
+  'popsicle': popsicleIcon,
+  'salad': saladIcon,
+  'sandwich': sandwichIcon,
+  'shrimp': shrimpIcon,
+  'soup': soupIcon,
+  'utensils': utensilsIcon,
+  'utensils-crossed': utensilsCrossedIcon,
+  'vegan': veganIcon,
 };

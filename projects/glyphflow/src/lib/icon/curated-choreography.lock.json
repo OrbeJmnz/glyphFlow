@@ -257,6 +257,10 @@
       "path:942415d9aec0",
       "path:bb8d17752ec1"
     ],
+    "apple": [
+      "path:b246f55f81e2",
+      "path:5b22e837667b"
+    ],
     "archive": [
       "rect:d4f23d9358f0",
       "path:3551ee6df4bc",
@@ -665,6 +669,10 @@
     "ban": [
       "circle:1b306a76ecc0",
       "path:0ee4d432c24b"
+    ],
+    "banana": [
+      "path:8fd4f4ac9eda",
+      "path:f3866a5687cb"
     ],
     "banknote": [
       "rect:9741cff5b177",
@@ -1177,6 +1185,10 @@
       "path:8dcb2df475f0",
       "path:a6fea51c926d"
     ],
+    "bottle-wine": [
+      "path:3d7d1dda0696",
+      "path:bef8bc3e2aeb"
+    ],
     "box": [
       "path:f07bfee634f1",
       "path:63b1f329941f",
@@ -1268,6 +1280,12 @@
       "path:48bcce95f0c5",
       "path:dc42ac4678d5",
       "rect:1d4195e3d919"
+    ],
+    "broccoli": [
+      "path:8891384ff561",
+      "path:3a39f44f4a52",
+      "path:255094a0f36d",
+      "path:f089a0fbc3f6"
     ],
     "broom": [
       "path:3f8a48a6e62b",
@@ -1691,6 +1709,11 @@
       "path:00051fb82dc9",
       "rect:d44d6c5efd93"
     ],
+    "carrot": [
+      "path:ee3de61f8976",
+      "path:2faf3a192ea1",
+      "path:a71bd9d3b97a"
+    ],
     "case-lower": [
       "path:945179246247",
       "path:fa5a34cd6b6f",
@@ -1893,6 +1916,10 @@
       "path:c7052816ccf2",
       "path:ae04000beec0",
       "path:a63e5993b84e"
+    ],
+    "chef-hat": [
+      "path:236efaa4bf90",
+      "path:80e6860ed483"
     ],
     "cherry": [
       "path:336025c64c22",
@@ -2279,6 +2306,12 @@
       "path:99b20981bb3e",
       "circle:0350e7dba1f8"
     ],
+    "citrus": [
+      "path:16034c03124e",
+      "path:fd32e857d3ae",
+      "path:b0c5c9fc41f3",
+      "path:1dfd0a0e53f8"
+    ],
     "clapperboard": [
       "path:729e55248394",
       "path:b14a485cee78",
@@ -2596,6 +2629,12 @@
       "path:a4534fa4dd2a",
       "path:8db2b2ea21c6"
     ],
+    "coffee": [
+      "path:da93e6a230b2",
+      "path:7f6dea2eeb8c",
+      "path:eda52902f384",
+      "path:5d53d11f3239"
+    ],
     "cog": [
       "path:5d7cc9de1be1",
       "path:ce1f4e3e90e1",
@@ -2682,6 +2721,20 @@
       "circle:1b306a76ecc0",
       "path:cb170bd36d38"
     ],
+    "cookie": [
+      "path:80e9fe8a660e",
+      "path:b9e86f18907c",
+      "path:427a4e6ea5b5",
+      "path:8e7e336271b8",
+      "path:ab4b43767e19",
+      "path:2a3dcd3cdc11"
+    ],
+    "cooking-pot": [
+      "path:ff0106821348",
+      "path:a44de27e8726",
+      "path:73797b33c83b",
+      "path:5a42065c5c40"
+    ],
     "copy": [
       "rect:ea0fade9a490",
       "path:b3ffab0552a2"
@@ -2765,6 +2818,13 @@
       "rect:1e419776da19",
       "line:a36ea600b35d"
     ],
+    "croissant": [
+      "path:e9259b4f9ddc",
+      "path:15100978392e",
+      "path:f7fe412f15cc",
+      "path:1d23223632ab",
+      "path:9db7c4b6442d"
+    ],
     "crop": [
       "path:33f9ab84a2b9",
       "path:ebd633f14b63"
@@ -2779,6 +2839,12 @@
     "crown": [
       "path:77260e716c90",
       "path:eeb36d422fd8"
+    ],
+    "cup-soda": [
+      "path:0a864496de4e",
+      "path:3092a2e5f3e7",
+      "path:bc19219e8764",
+      "path:e582e59ce8b1"
     ],
     "currency": [
       "circle:a97fdb6d7d80",
@@ -2874,6 +2940,11 @@
       "path:c989e4c96fc5",
       "rect:c8c742aff508",
       "rect:e74a424d0d23"
+    ],
+    "dessert": [
+      "path:b04ca90e24b6",
+      "path:0c7f452289b5",
+      "circle:c97188848670"
     ],
     "diamond": [
       "path:b98606776433"
@@ -2999,6 +3070,10 @@
       "line:aae46a48bb36",
       "path:60dd5fc65ecc"
     ],
+    "donut": [
+      "path:40b3f5b349f2",
+      "circle:9e7fca1c7280"
+    ],
     "door-closed": [
       "path:b6a20ca60df9",
       "path:bb708772ff94",
@@ -3050,6 +3125,10 @@
       "path:71cf47ed318a",
       "path:e225ae8f03f1",
       "path:a23b5a201145"
+    ],
+    "drumstick": [
+      "path:7d4078e35799",
+      "path:0f95abc88cb5"
     ],
     "dumbbell": [
       "path:8ea6c35d09c0",
@@ -4092,6 +4171,10 @@
       "path:55e8facefb6e",
       "line:90be80e8413b"
     ],
+    "glass-water": [
+      "path:85756b7e4f25",
+      "path:561e062ac24a"
+    ],
     "globe": [
       "circle:1b306a76ecc0",
       "path:293e5d5ae2d7",
@@ -4137,6 +4220,17 @@
       "path:184e1accc7b0",
       "path:e598981a540a",
       "path:a96148eaeaf9"
+    ],
+    "grape": [
+      "path:116eed4f370b",
+      "circle:093958e449ef",
+      "circle:e9a251d1445d",
+      "circle:30080e704414",
+      "circle:a5db630685f2",
+      "circle:3a6a5a6f494f",
+      "circle:bb17c8c354d8",
+      "circle:bcef9d75b54d",
+      "circle:27f6f8eb9e92"
     ],
     "grid-2x2": [
       "path:2d5a671aff35",
@@ -4202,6 +4296,18 @@
       "path:ef10abd3c067",
       "path:b0cb0d58d9b5",
       "path:941b9f43f7e5"
+    ],
+    "ham": [
+      "path:46313b108350",
+      "path:36e8b6012727",
+      "path:ea80288b95ec",
+      "path:e6fd1dec6787"
+    ],
+    "hamburger": [
+      "path:ea56507d9948",
+      "path:594bcc4fef5c",
+      "path:8ff6db774b41",
+      "path:96f9a86b598e"
     ],
     "hammer": [
       "path:7fdea658f5c3",
@@ -4485,6 +4591,16 @@
       "path:172792977efc",
       "path:e0ea0fc31f97",
       "path:255b0e0051a3"
+    ],
+    "ice-cream-bowl": [
+      "path:6fb78a6d97ca",
+      "path:6a6a436c530e",
+      "path:d25a20c7e92e"
+    ],
+    "ice-cream-cone": [
+      "path:5a96a0ab120e",
+      "path:acbb01c556ea",
+      "path:853bc9b0cc01"
     ],
     "id-card": [
       "path:b3f0aca9e204",
@@ -4828,6 +4944,10 @@
       "rect:683a6c95645e",
       "rect:f23ed0775883"
     ],
+    "leafy-green": [
+      "path:2ec666c8ba85",
+      "path:df880414a903"
+    ],
     "library": [
       "path:2b68f6ad4a6b",
       "path:4409acef811a",
@@ -5107,6 +5227,11 @@
       "path:6794259018da",
       "path:9c1c7409cb86"
     ],
+    "lollipop": [
+      "circle:6c5bffb15d7d",
+      "path:530dc70d3efc",
+      "path:cf29ba72d441"
+    ],
     "luggage": [
       "path:a9f8658d6b5a",
       "path:0bbad6526def",
@@ -5264,6 +5389,11 @@
       "path:c699c0ba3bb7",
       "path:2ea17d7848b4",
       "path:5d142b14b658"
+    ],
+    "martini": [
+      "path:8aa249a15b46",
+      "path:cb7a51b02c94",
+      "path:e0466143bf8c"
     ],
     "maximize": [
       "path:00bd23263ce1",
@@ -6161,6 +6291,10 @@
       "path:ec3d9996cae7",
       "path:c79ca3c44e6c"
     ],
+    "paper-bag": [
+      "path:1aff64b66b1b",
+      "path:719682ac9b28"
+    ],
     "paperclip": [
       "path:9f6de73b2440"
     ],
@@ -6347,6 +6481,13 @@
       "path:378c27879c92",
       "path:18efecce30a4"
     ],
+    "pizza": [
+      "path:d15dfede35ba",
+      "path:d14da9dfdfac",
+      "path:e5544623d572",
+      "path:5fde531206cb",
+      "path:eee6c83abda9"
+    ],
     "plane": [
       "path:96fac3888dc3"
     ],
@@ -6404,6 +6545,16 @@
       "path:55110baef40b",
       "path:93c8f4817f75",
       "path:378c27879c92"
+    ],
+    "popcorn": [
+      "path:e45f2719e6a0",
+      "path:aa3d5ab3d174",
+      "path:5f33895b4382",
+      "path:9d4aaae7402a"
+    ],
+    "popsicle": [
+      "path:f7ec865219e1",
+      "path:7f482e379ed1"
     ],
     "pound-sterling": [
       "path:5feb7e1e457b",
@@ -6842,6 +6993,20 @@
       "path:bdd1da4ee37c",
       "path:140209f9d58a",
       "path:3eaf1e7ed7bd"
+    ],
+    "salad": [
+      "path:5d2333806eeb",
+      "path:61749aeb22ad",
+      "path:27d4f9081759",
+      "path:420e9765214d",
+      "path:5023c2733c28"
+    ],
+    "sandwich": [
+      "path:ec0ab94ef5c6",
+      "path:8d2e819a2359",
+      "path:ae2230aa327c",
+      "path:6c812a60737a",
+      "rect:40af238db482"
     ],
     "satellite": [
       "path:3c6d7b1b487d",
@@ -7321,6 +7486,13 @@
       "path:0f27a35dfa13",
       "path:2eb7384467a5"
     ],
+    "shrimp": [
+      "path:1567287b96f4",
+      "path:7d76b74284eb",
+      "path:921804eaa32e",
+      "path:4cb382aa8b7e",
+      "path:1df3abc7ed6a"
+    ],
     "shrink": [
       "path:87c63ade81cd",
       "path:cd6e0c0c4b34",
@@ -7456,6 +7628,14 @@
       "path:75630ed05d9e",
       "path:c6003b4b96cf",
       "path:70024a980fda"
+    ],
+    "soup": [
+      "path:61749aeb22ad",
+      "path:5d2333806eeb",
+      "path:aaa3bee183c7",
+      "path:02fa9c53ffb1",
+      "path:05296371f34e",
+      "path:62c97be538f6"
     ],
     "sparkle": [
       "path:8b5d172dc737"
@@ -8914,6 +9094,17 @@
       "circle:9431be6ba814",
       "path:79478b40941d"
     ],
+    "utensils": [
+      "path:d85df2bd19f8",
+      "path:f7af4510b8ae",
+      "path:ae9f78337d60"
+    ],
+    "utensils-crossed": [
+      "path:90ea400b404a",
+      "path:e755a479db38",
+      "path:711d69eb5e27",
+      "path:709aa04dc9a5"
+    ],
     "utility-pole": [
       "path:479c72d49978",
       "path:1c77b71058bf",
@@ -8935,6 +9126,11 @@
       "path:fc49327251a6",
       "line:d80838721362",
       "line:6b323e8a31fa"
+    ],
+    "vegan": [
+      "path:32d962b624bb",
+      "path:ea85de91c822",
+      "path:a38ce2a65b29"
     ],
     "vibrate": [
       "path:f9faa4f5f9f3",
@@ -9405,6 +9601,11 @@
       "default": "30f5e58472be",
       "draw": "17c8398e8d34"
     },
+    "apple": {
+      "default": "cc713087debe",
+      "draw": "17c8398e8d34",
+      "hold": "e9480bbdec77"
+    },
     "archive": {
       "default": "798ef893e4b4",
       "draw": "17c8398e8d34"
@@ -9745,6 +9946,11 @@
     "ban": {
       "default": "3f38b93195b4",
       "draw": "17c8398e8d34"
+    },
+    "banana": {
+      "default": "bb69d3071664",
+      "draw": "17c8398e8d34",
+      "hold": "75e723c531a2"
     },
     "banknote": {
       "default": "f54c5ce08411",
@@ -10151,6 +10357,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "bottle-wine": {
+      "default": "79bb650a4454",
+      "draw": "17c8398e8d34",
+      "hold": "8a2325dba780"
+    },
     "box": {
       "default": "55cae8d90a27",
       "draw": "17c8398e8d34",
@@ -10193,6 +10404,11 @@
     "briefcase-medical": {
       "default": "6d5d68ce2ed7",
       "draw": "17c8398e8d34"
+    },
+    "broccoli": {
+      "default": "3effb270deaa",
+      "draw": "17c8398e8d34",
+      "hold": "d3650b464ca3"
     },
     "broom": {
       "default": "664d2f537ab0",
@@ -10431,6 +10647,11 @@
       "draw": "17c8398e8d34",
       "hold": "8019f180b941"
     },
+    "carrot": {
+      "default": "ec22a34328f6",
+      "draw": "17c8398e8d34",
+      "hold": "aec2d96fccfc"
+    },
     "case-lower": {
       "default": "9a9bb909cd92",
       "draw": "17c8398e8d34"
@@ -10572,6 +10793,11 @@
     "check-line": {
       "default": "dc1fb8c7188e",
       "draw": "17c8398e8d34"
+    },
+    "chef-hat": {
+      "default": "5ec2ea4398db",
+      "draw": "17c8398e8d34",
+      "hold": "6bcc5453ae25"
     },
     "cherry": {
       "default": "096f5e5fe20f",
@@ -10883,6 +11109,11 @@
       "draw": "17c8398e8d34",
       "hold": "4b5989e30557"
     },
+    "citrus": {
+      "default": "85151e902abd",
+      "draw": "17c8398e8d34",
+      "hold": "7b418ee8b0f1"
+    },
     "clapperboard": {
       "default": "3e2a324e7661",
       "draw": "17c8398e8d34"
@@ -11125,6 +11356,11 @@
       "draw": "17c8398e8d34",
       "hold": "7b83b6bed9b3"
     },
+    "coffee": {
+      "default": "3fa8478c4f75",
+      "draw": "17c8398e8d34",
+      "hold": "0c61850b8c99"
+    },
     "cog": {
       "default": "7451c33ccee6",
       "draw": "17c8398e8d34"
@@ -11174,6 +11410,16 @@
     "contrast": {
       "default": "b1038258dbb4",
       "draw": "17c8398e8d34"
+    },
+    "cookie": {
+      "default": "18faeefc0a36",
+      "draw": "17c8398e8d34",
+      "hold": "472476e11b58"
+    },
+    "cooking-pot": {
+      "default": "8b117620beee",
+      "draw": "17c8398e8d34",
+      "hold": "e89fdf58c2ca"
     },
     "copy": {
       "active": "cd8084daca32",
@@ -11247,6 +11493,11 @@
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
     },
+    "croissant": {
+      "default": "b3e47d638d10",
+      "draw": "17c8398e8d34",
+      "hold": "aafbfc5a0278"
+    },
     "crop": {
       "default": "0925bb7cbb41",
       "draw": "17c8398e8d34"
@@ -11259,6 +11510,11 @@
     "crown": {
       "default": "7b9ccdcc0ce5",
       "draw": "17c8398e8d34"
+    },
+    "cup-soda": {
+      "default": "f13565f821dd",
+      "draw": "17c8398e8d34",
+      "hold": "7db7661ae9b8"
     },
     "currency": {
       "default": "db9c5abb271c",
@@ -11320,6 +11576,11 @@
     "decimals-arrow-right": {
       "default": "1e995cc3d180",
       "draw": "17c8398e8d34"
+    },
+    "dessert": {
+      "default": "c27cd1aa5d91",
+      "draw": "17c8398e8d34",
+      "hold": "c88cc94dc073"
     },
     "diamond": {
       "default": "d21ae34e9b6f",
@@ -11403,6 +11664,11 @@
       "default": "1738a62cdb8d",
       "draw": "17c8398e8d34"
     },
+    "donut": {
+      "default": "35504a4a25ea",
+      "draw": "17c8398e8d34",
+      "hold": "3e1129f89e7e"
+    },
     "door-closed": {
       "default": "80ea397888fb",
       "draw": "17c8398e8d34",
@@ -11439,6 +11705,11 @@
     "drum": {
       "default": "85bb4cb32629",
       "draw": "17c8398e8d34"
+    },
+    "drumstick": {
+      "default": "c58fb1cb01a0",
+      "draw": "17c8398e8d34",
+      "hold": "f2f6ca16e685"
     },
     "dumbbell": {
       "default": "f8f8175b291e",
@@ -12265,6 +12536,11 @@
       "default": "e09f30744573",
       "draw": "17c8398e8d34"
     },
+    "glass-water": {
+      "default": "6ec6aaf84c7c",
+      "draw": "17c8398e8d34",
+      "hold": "5fe915b38ba9"
+    },
     "globe": {
       "default": "b5fdd816170f",
       "draw": "17c8398e8d34"
@@ -12302,6 +12578,11 @@
     "graduation-cap": {
       "default": "83a3724d091c",
       "draw": "17c8398e8d34"
+    },
+    "grape": {
+      "default": "91f350ba3f95",
+      "draw": "17c8398e8d34",
+      "hold": "c0fc1ec04f1e"
     },
     "grid-2x2": {
       "default": "fc32819bd0e9",
@@ -12349,6 +12630,16 @@
       "default": "cddad0245a6c",
       "draw": "17c8398e8d34",
       "hold": "33956fad3202"
+    },
+    "ham": {
+      "default": "3246aa74f7c5",
+      "draw": "17c8398e8d34",
+      "hold": "782f4c35f711"
+    },
+    "hamburger": {
+      "default": "56f21fd8e692",
+      "draw": "17c8398e8d34",
+      "hold": "08b7c2446f3f"
     },
     "hammer": {
       "default": "4f7c9db4f9e2",
@@ -12548,6 +12839,16 @@
     "house-wifi": {
       "default": "26ab346a4b84",
       "draw": "17c8398e8d34"
+    },
+    "ice-cream-bowl": {
+      "default": "83c2d4b36bb1",
+      "draw": "17c8398e8d34",
+      "hold": "c88cc94dc073"
+    },
+    "ice-cream-cone": {
+      "default": "c3ce49157324",
+      "draw": "17c8398e8d34",
+      "hold": "08b7c2446f3f"
     },
     "id-card": {
       "default": "a1837b08902f",
@@ -12814,6 +13115,11 @@
       "draw": "17c8398e8d34",
       "select": "6d4ff970c411"
     },
+    "leafy-green": {
+      "default": "eb8e7028dac9",
+      "draw": "17c8398e8d34",
+      "hold": "3ef79c5c03f2"
+    },
     "library": {
       "default": "e99a5ff73c59",
       "draw": "17c8398e8d34"
@@ -12999,6 +13305,11 @@
       "draw": "17c8398e8d34",
       "hold": "8588a0b5d915"
     },
+    "lollipop": {
+      "default": "0ef64d63d03d",
+      "draw": "17c8398e8d34",
+      "hold": "e67fa2438272"
+    },
     "luggage": {
       "default": "f1792e4b2443",
       "draw": "17c8398e8d34",
@@ -13131,6 +13442,11 @@
     "map-plus": {
       "default": "8657346536d4",
       "draw": "17c8398e8d34"
+    },
+    "martini": {
+      "default": "e2f183403490",
+      "draw": "17c8398e8d34",
+      "hold": "e1b6910f3d82"
     },
     "maximize": {
       "default": "9fcea5616522",
@@ -13821,6 +14137,11 @@
       "default": "a0c9fe85f92b",
       "draw": "17c8398e8d34"
     },
+    "paper-bag": {
+      "default": "eed3036cea6c",
+      "draw": "17c8398e8d34",
+      "hold": "d1443cb8efe3"
+    },
     "paperclip": {
       "default": "d4ad12275809",
       "draw": "17c8398e8d34",
@@ -13970,6 +14291,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "pizza": {
+      "default": "f434ac9e1ba4",
+      "draw": "17c8398e8d34",
+      "hold": "90cce780c6d0"
+    },
     "plane": {
       "default": "e5ea68a5b8a9",
       "draw": "17c8398e8d34"
@@ -14020,6 +14346,16 @@
     "pointer-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "popcorn": {
+      "default": "82c251b85d1b",
+      "draw": "17c8398e8d34",
+      "hold": "be0c660be87b"
+    },
+    "popsicle": {
+      "default": "2869cd79bf42",
+      "draw": "17c8398e8d34",
+      "hold": "6f8957b3cc15"
     },
     "pound-sterling": {
       "default": "9ca05450955f",
@@ -14333,6 +14669,16 @@
       "default": "0747b4cf19e9",
       "draw": "17c8398e8d34",
       "hold": "2dd6d2a8ea41"
+    },
+    "salad": {
+      "default": "eec7ed7cb373",
+      "draw": "17c8398e8d34",
+      "hold": "aef6094b9eeb"
+    },
+    "sandwich": {
+      "default": "72473cc54440",
+      "draw": "17c8398e8d34",
+      "hold": "cfe030d01140"
     },
     "satellite": {
       "default": "4a67aae73d7f",
@@ -14665,6 +15011,11 @@
       "draw": "17c8398e8d34",
       "hold": "b70a90a72c79"
     },
+    "shrimp": {
+      "default": "99ece8243de4",
+      "draw": "17c8398e8d34",
+      "hold": "ccd6c39daf53"
+    },
     "shrink": {
       "default": "7c7f7e31329a",
       "draw": "17c8398e8d34"
@@ -14762,6 +15113,11 @@
       "default": "77b1f7d4dca3",
       "draw": "17c8398e8d34",
       "hold": "470ef2e257e2"
+    },
+    "soup": {
+      "default": "d6e937029523",
+      "draw": "17c8398e8d34",
+      "hold": "7208b2d35f0d"
     },
     "sparkle": {
       "default": "0256a3c5c781",
@@ -15823,6 +16179,16 @@
       "default": "0c1cb10c6a1b",
       "draw": "17c8398e8d34"
     },
+    "utensils": {
+      "default": "cf39e925370a",
+      "draw": "17c8398e8d34",
+      "hold": "92e654727373"
+    },
+    "utensils-crossed": {
+      "default": "21190d4dda24",
+      "draw": "17c8398e8d34",
+      "hold": "fff71399f6bb"
+    },
     "utility-pole": {
       "default": "6b5340cff4c3",
       "draw": "17c8398e8d34",
@@ -15836,6 +16202,11 @@
     "variable": {
       "default": "9f0a2d525edd",
       "draw": "17c8398e8d34"
+    },
+    "vegan": {
+      "default": "62bdfd1c7902",
+      "draw": "17c8398e8d34",
+      "hold": "d1283616b2ca"
     },
     "vibrate": {
       "default": "e4428158baf2",
