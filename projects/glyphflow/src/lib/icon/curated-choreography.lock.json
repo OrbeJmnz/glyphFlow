@@ -2,6 +2,24 @@
   "note": "GENERADO por `npm run curated:lock`. `icons` huella la GEOMETRÍA contra la que se escribió cada coreografía; `choreography` huella el MOVIMIENTO mismo, una entrada por variante. Si el barrido truena, revisa los índices ANTES de regenerar.",
   "lucide": "1.31.0",
   "icons": {
+    "a-arrow-down": [
+      "path:0b629a36f901",
+      "path:4b6598e0ce30",
+      "path:b46dd0042153",
+      "path:bb794e19bd74"
+    ],
+    "a-arrow-up": [
+      "path:06ef7cd3cd79",
+      "path:4b6598e0ce30",
+      "path:b46dd0042153",
+      "path:bb794e19bd74"
+    ],
+    "a-large-small": [
+      "path:fcf30ef53223",
+      "path:7e3a6aad8170",
+      "path:b46dd0042153",
+      "path:bb794e19bd74"
+    ],
     "activity": [
       "path:702a722aaf15"
     ],
@@ -617,6 +635,11 @@
       "path:020af2f1dd37",
       "circle:9f7fcbaf7380"
     ],
+    "baseline": [
+      "path:3657b812c257",
+      "path:48c323eb89be",
+      "path:996d85dad073"
+    ],
     "battery": [
       "path:f31245513d71",
       "rect:e8d8bf6cc89e"
@@ -798,6 +821,9 @@
       "path:38ddb677bf52",
       "path:3ef7549ddfc0",
       "path:f41b999e53c6"
+    ],
+    "bold": [
+      "path:41f19d4748e9"
     ],
     "bolt": [
       "path:bf22cd457005",
@@ -1421,6 +1447,23 @@
       "path:378c27879c92",
       "path:94644ffc163e",
       "path:28a22d7338e3"
+    ],
+    "case-lower": [
+      "path:945179246247",
+      "path:fa5a34cd6b6f",
+      "circle:3b1d3316e138",
+      "circle:86720cb6884b"
+    ],
+    "case-sensitive": [
+      "path:b46dd0042153",
+      "path:f722b00137bb",
+      "path:bb794e19bd74",
+      "circle:12aee243f711"
+    ],
+    "case-upper": [
+      "path:68b12dcdee4f",
+      "path:b46dd0042153",
+      "path:bb794e19bd74"
     ],
     "cast": [
       "path:0629930aedfe",
@@ -3696,6 +3739,51 @@
       "circle:18055e6d7c50",
       "circle:6342845e15c6"
     ],
+    "heading": [
+      "path:94d076f74108",
+      "path:e2d39fe33051",
+      "path:54fc74dc8e7e"
+    ],
+    "heading-1": [
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc",
+      "path:bf8203c7dfd8",
+      "path:27f96530428b"
+    ],
+    "heading-2": [
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc",
+      "path:bf8203c7dfd8",
+      "path:651c10d2f06a"
+    ],
+    "heading-3": [
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc",
+      "path:bf8203c7dfd8",
+      "path:79975a087b22",
+      "path:c14e76c2e7e4"
+    ],
+    "heading-4": [
+      "path:bf8203c7dfd8",
+      "path:3b404b0d46ff",
+      "path:dde0d73b7467",
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc"
+    ],
+    "heading-5": [
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc",
+      "path:bf8203c7dfd8",
+      "path:60124b2f2b8f",
+      "path:e33d94f9522c"
+    ],
+    "heading-6": [
+      "path:cfb8e60e1ac6",
+      "path:0773b25cdabc",
+      "path:bf8203c7dfd8",
+      "circle:a4008bc6681c",
+      "path:15c0c6b287da"
+    ],
     "headphone-off": [
       "path:d3013d937ec0",
       "path:1bda49aabdd1",
@@ -3735,6 +3823,10 @@
       "path:e060b758c95c",
       "path:4e220319824d",
       "path:cadf1f7385c6"
+    ],
+    "highlighter": [
+      "path:ff9a8f5a485e",
+      "path:fe23e862ee2c"
     ],
     "hop": [
       "path:90eee8b416ec",
@@ -3868,6 +3960,11 @@
       "circle:1b306a76ecc0",
       "path:d189f96410b1",
       "path:d9e04a33511a"
+    ],
+    "italic": [
+      "line:4c6dca41e254",
+      "line:2abb8d662cf4",
+      "line:b1b78371c55a"
     ],
     "iteration-ccw": [
       "path:0d25d4825f85",
@@ -4056,6 +4153,13 @@
       "rect:922527f016cd",
       "path:edbb71669e6c",
       "path:9357079c3a6e"
+    ],
+    "ligature": [
+      "path:ed958d67a51e",
+      "path:78bf7b66715e",
+      "path:16559be0e4a5",
+      "path:f74efddd43cb",
+      "path:be14f79d5472"
     ],
     "lightbulb": [
       "path:3bf03a5a554e",
@@ -5337,6 +5441,25 @@
       "path:9404147c71a5",
       "path:09b1125bfb96"
     ],
+    "pilcrow": [
+      "path:64a8fb264da8",
+      "path:a06e0c0a0eb6",
+      "path:a054bca15a74"
+    ],
+    "pilcrow-left": [
+      "path:50010b07e72e",
+      "path:7215e4db7824",
+      "path:5f8d30cb691e",
+      "path:f2bc91e1baef",
+      "path:d7572b9bc8e1"
+    ],
+    "pilcrow-right": [
+      "path:8f876053652b",
+      "path:8226f07fbfa3",
+      "path:50010b07e72e",
+      "path:878f3b4bb306",
+      "path:fd1de58b9566"
+    ],
     "pin": [
       "path:5d523ef72761",
       "path:e880c36b37d1"
@@ -5426,6 +5549,10 @@
       "path:8df832763c0b",
       "path:b98f531c8f5a",
       "path:8537ec69f6d8"
+    ],
+    "quote": [
+      "path:a84df52c15f1",
+      "path:e18d7072f72e"
     ],
     "rabbit": [
       "path:aa9a4cef70cc",
@@ -5594,6 +5721,19 @@
       "path:f932f511e70d",
       "path:006e317a5f7c",
       "path:20d6939fac75"
+    ],
+    "regex": [
+      "path:ec733d0b592a",
+      "path:988868f6c12a",
+      "path:42643d039125",
+      "path:c14d698cbce4"
+    ],
+    "remove-formatting": [
+      "path:6cbaaa3048d1",
+      "path:09f9c13888c9",
+      "path:96837ff1095d",
+      "path:ca61afe765cd",
+      "path:82815176afaa"
     ],
     "repeat": [
       "path:92da259eee3b",
@@ -6839,6 +6979,16 @@
       "rect:f39e6768d1ae",
       "rect:d75649bf0a3d"
     ],
+    "strikethrough": [
+      "path:16361b061203",
+      "path:6519a0839d3d",
+      "line:8919679883aa"
+    ],
+    "subscript": [
+      "path:6376ef44788c",
+      "path:5b5f583c5c1b",
+      "path:d927dab3f18e"
+    ],
     "sun": [
       "circle:9d7fc8897980",
       "path:c769d66c2029",
@@ -6891,6 +7041,11 @@
       "path:e663e369e353",
       "path:776259cfd8f1",
       "path:823709636528"
+    ],
+    "superscript": [
+      "path:982a583642f7",
+      "path:3e284f241c8e",
+      "path:5b75975b8c5b"
     ],
     "sword": [
       "path:67860b837c84",
@@ -7303,6 +7458,10 @@
       "path:378c27879c92",
       "path:b4503602fe19"
     ],
+    "underline": [
+      "path:f4bac19518bc",
+      "line:3c0a9c502289"
+    ],
     "undo": [
       "path:79dfda8df7eb",
       "path:5c52e9b6dfa7"
@@ -7614,6 +7773,13 @@
       "path:d12c942a4b1f",
       "line:ed241e14c4ca"
     ],
+    "whole-word": [
+      "circle:d9b35bf8d575",
+      "path:95517ab76347",
+      "circle:2a3f726778a1",
+      "path:161df3bbab55",
+      "path:be731b3a19fc"
+    ],
     "wifi": [
       "path:b220a3996c02",
       "path:a53db445f74a",
@@ -7727,6 +7893,18 @@
     ]
   },
   "choreography": {
+    "a-arrow-down": {
+      "default": "0b559acc8684",
+      "draw": "17c8398e8d34"
+    },
+    "a-arrow-up": {
+      "default": "be7c1c4385e8",
+      "draw": "17c8398e8d34"
+    },
+    "a-large-small": {
+      "default": "3b56bd5584d8",
+      "draw": "17c8398e8d34"
+    },
     "activity": {
       "default": "2a86494e1fca",
       "draw": "17c8398e8d34",
@@ -8203,6 +8381,10 @@
       "default": "84dc7850911a",
       "draw": "17c8398e8d34"
     },
+    "baseline": {
+      "default": "c9821f4389e2",
+      "draw": "17c8398e8d34"
+    },
     "battery": {
       "default": "e6641968c2c3",
       "draw": "17c8398e8d34"
@@ -8337,6 +8519,10 @@
     },
     "bluetooth-searching": {
       "default": "c0e5b73374b5",
+      "draw": "17c8398e8d34"
+    },
+    "bold": {
+      "default": "246cf4725654",
       "draw": "17c8398e8d34"
     },
     "bolt": {
@@ -8739,6 +8925,18 @@
     },
     "captions-off": {
       "default": "e276b867d08e",
+      "draw": "17c8398e8d34"
+    },
+    "case-lower": {
+      "default": "9a9bb909cd92",
+      "draw": "17c8398e8d34"
+    },
+    "case-sensitive": {
+      "default": "59f1cbc37bb2",
+      "draw": "17c8398e8d34"
+    },
+    "case-upper": {
+      "default": "f147f75311a6",
       "draw": "17c8398e8d34"
     },
     "cast": {
@@ -10478,6 +10676,34 @@
       "default": "22cf249476b1",
       "draw": "17c8398e8d34"
     },
+    "heading": {
+      "default": "5a9bf3d1c865",
+      "draw": "17c8398e8d34"
+    },
+    "heading-1": {
+      "default": "d33970bd5c3a",
+      "draw": "17c8398e8d34"
+    },
+    "heading-2": {
+      "default": "d33970bd5c3a",
+      "draw": "17c8398e8d34"
+    },
+    "heading-3": {
+      "default": "749c1bbf8e8c",
+      "draw": "17c8398e8d34"
+    },
+    "heading-4": {
+      "default": "d64d578d0903",
+      "draw": "17c8398e8d34"
+    },
+    "heading-5": {
+      "default": "749c1bbf8e8c",
+      "draw": "17c8398e8d34"
+    },
+    "heading-6": {
+      "default": "749c1bbf8e8c",
+      "draw": "17c8398e8d34"
+    },
     "headphone-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
@@ -10520,6 +10746,10 @@
       "default": "1f31bdb49b91",
       "draw": "17c8398e8d34",
       "pulse": "4c1f81594e5d"
+    },
+    "highlighter": {
+      "default": "37cd22abcb97",
+      "draw": "17c8398e8d34"
     },
     "hop": {
       "default": "0a2d0c159388",
@@ -10609,6 +10839,10 @@
     },
     "info": {
       "default": "e79656a7756c",
+      "draw": "17c8398e8d34"
+    },
+    "italic": {
+      "default": "0280d1b23ba2",
       "draw": "17c8398e8d34"
     },
     "iteration-ccw": {
@@ -10754,6 +10988,10 @@
     },
     "library-big": {
       "default": "bf6d27fd6ff2",
+      "draw": "17c8398e8d34"
+    },
+    "ligature": {
+      "default": "d2c070cf5584",
       "draw": "17c8398e8d34"
     },
     "lightbulb": {
@@ -11750,6 +11988,18 @@
       "default": "4f7c9db4f9e2",
       "draw": "17c8398e8d34"
     },
+    "pilcrow": {
+      "default": "8e043cd46397",
+      "draw": "17c8398e8d34"
+    },
+    "pilcrow-left": {
+      "default": "573eeee7e44d",
+      "draw": "17c8398e8d34"
+    },
+    "pilcrow-right": {
+      "default": "731bfd6e144d",
+      "draw": "17c8398e8d34"
+    },
     "pin": {
       "default": "6de9eb9c3601",
       "draw": "17c8398e8d34"
@@ -11816,6 +12066,10 @@
     },
     "qr-code": {
       "default": "6a61afa23576",
+      "draw": "17c8398e8d34"
+    },
+    "quote": {
+      "default": "2a07e539bf4a",
       "draw": "17c8398e8d34"
     },
     "rabbit": {
@@ -11944,6 +12198,14 @@
     },
     "refresh-cw-off": {
       "default": "e276b867d08e",
+      "draw": "17c8398e8d34"
+    },
+    "regex": {
+      "default": "3c2fc5fbeeee",
+      "draw": "17c8398e8d34"
+    },
+    "remove-formatting": {
+      "default": "87f255ba83d7",
       "draw": "17c8398e8d34"
     },
     "repeat": {
@@ -12840,6 +13102,14 @@
       "default": "57b6fcd028ae",
       "draw": "17c8398e8d34"
     },
+    "strikethrough": {
+      "default": "32a744162196",
+      "draw": "17c8398e8d34"
+    },
+    "subscript": {
+      "default": "dd1e56e6baa8",
+      "draw": "17c8398e8d34"
+    },
     "sun": {
       "default": "7f87c30c6098",
       "draw": "17c8398e8d34",
@@ -12859,6 +13129,10 @@
     },
     "sun-snow": {
       "default": "dff5ddc8e699",
+      "draw": "17c8398e8d34"
+    },
+    "superscript": {
+      "default": "5d6b2d2f8378",
       "draw": "17c8398e8d34"
     },
     "sword": {
@@ -13163,6 +13437,10 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "underline": {
+      "default": "ba63d1116314",
+      "draw": "17c8398e8d34"
+    },
     "undo": {
       "default": "29dea506962a",
       "draw": "17c8398e8d34"
@@ -13373,6 +13651,10 @@
     },
     "wheat-off": {
       "default": "e276b867d08e",
+      "draw": "17c8398e8d34"
+    },
+    "whole-word": {
+      "default": "27174ccbc7ae",
       "draw": "17c8398e8d34"
     },
     "wifi": {

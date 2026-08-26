@@ -1,5 +1,5 @@
 import { AnimatedIconDef } from './animated-icon.model';
-import { SHIELD_GEAR_SPIN, TRAZO_INVERSO } from './icons/_shared';
+import { SHIELD_GEAR_SPIN, TRAZO_INVERSO, X_SNAP_DRAW } from './icons/_shared';
 import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
@@ -5796,6 +5796,12 @@ export * from './icons/rectangle';
 import { rectangleHorizontalIcon, rectangleVerticalIcon, rectangleEllipsisIcon, rectangleCircleIcon, rectangleGogglesIcon } from './icons/rectangle';
 export * from './icons/squares';
 import { squaresUniteIcon, squaresIntersectIcon, squaresSubtractIcon, squaresExcludeIcon } from './icons/squares';
+export * from './icons/heading';
+import { headingIcon, heading1Icon, heading2Icon, heading3Icon, heading4Icon, heading5Icon, heading6Icon } from './icons/heading';
+export * from './icons/case';
+import { caseUpperIcon, caseLowerIcon, caseSensitiveIcon } from './icons/case';
+export * from './icons/pilcrow';
+import { pilcrowIcon, pilcrowLeftIcon, pilcrowRightIcon } from './icons/pilcrow';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -10358,6 +10364,361 @@ export const slidersVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Tipografía ─────────────────────────────────────────────────────────────────────────────
+// Cada icono anima LO QUE LE HACE AL TEXTO: negrita engorda, cursiva se inclina, subrayado barre
+// la línea, subíndice baja y superíndice sube. El nombre ya dice cuál es su animación, así que
+// aquí no hay un gesto genérico repartido entre todos.
+//
+// Las familias de tres o más viven en su módulo: icons/heading.ts, icons/case.ts, icons/pilcrow.ts.
+
+/**
+ * `bold` es el único icono del catálogo donde escalar ENGORDA a propósito. Escalar una figura
+ * escala también su trazo, y en todos los demás eso es un efecto colateral que se tolera; aquí
+ * es justo lo que el icono significa.
+ */
+const ENGORDA = [
+          { transform: 'scale(1)', offset: 0 },
+          { transform: 'scale(1.14)', offset: 0.5 },
+          { transform: 'scale(1)', offset: 1 },
+        ];
+
+/**
+ * `italic` se inclina MÁS de lo que ya está, con un contraapoyo al principio. Y va con `skewX`,
+ * no con un giro: girar la letra movería también sus dos remates horizontales, que en una cursiva
+ * real se quedan planos sobre la línea.
+ */
+const INCLINA = [
+          { transform: 'skewX(0deg)', offset: 0 },
+          { transform: 'skewX(3deg)', offset: 0.3 },
+          { transform: 'skewX(-8deg)', offset: 0.7 },
+          { transform: 'skewX(0deg)', offset: 1 },
+        ];
+
+/** La raya barre desde su extremo izquierdo, que es por donde empieza a escribirse. */
+const BARRE = /* @__PURE__ */ [{ transform: 'scaleX(0.05)' }, { transform: 'scaleX(1)' }];
+
+
+/** El texto pierde su formato: se apaga un instante y vuelve. */
+const APAGA = /* @__PURE__ */ [
+  { opacity: '1', offset: 0 },
+  { opacity: '0.3', offset: 0.45 },
+  { opacity: '1', offset: 1 },
+];
+
+/** Engorda: al escalar, el trazo se engrosa con la letra. Aquí eso no es efecto colateral, es el icono. */
+export const boldIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ENGORDA, 480, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+  },
+);
+
+/** Se inclina más, después de un contraapoyo. Con skewX: los remates de una cursiva no giran. */
+export const italicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 19, y1: 4, x2: 10, y2: 4 },
+    { tag: 'line', x1: 14, y1: 20, x2: 5, y2: 20 },
+    { tag: 'line', x1: 15, y1: 4, x2: 9, y2: 20 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(INCLINA, 560, { easing: EASE }),
+    },
+  },
+);
+
+/** La raya barre por debajo y la letra se asienta encima de ella. */
+export const underlineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 4v6a6 6 0 0 0 12 0V4" },
+    { tag: 'line', x1: 4, y1: 20, x2: 20, y2: 20 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(BARRE, 420, { easing: SPRING_OUT, origin: '4px 20px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.8, 0]), 400, { easing: SPRING_OUT, delay: 300 }),
+      },
+    },
+  },
+);
+
+/** La raya tacha y la letra se abre por donde la cortó. Causa y efecto. */
+export const strikethroughIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 4H9a3 3 0 0 0-2.83 4" },
+    { tag: 'path', d: "M14 12a4 4 0 0 1 0 8H6" },
+    { tag: 'line', x1: 4, y1: 12, x2: 20, y2: 12 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(BARRE, 420, { easing: SPRING_OUT, origin: '4px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.7, 0]), 420, { easing: SPRING_OUT, delay: 260 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.7, 0]), 420, { easing: SPRING_OUT, delay: 260 }),
+      },
+    },
+  },
+);
+
+/** El carácter chico BAJA a su sitio. Eso es un subíndice. */
+export const subscriptIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m4 5 8 8" },
+    { tag: 'path', d: "m12 5-8 8" },
+    {
+      tag: 'path',
+      d: "M20 19h-4c0-1.5.44-2 1.5-2.5S20 15.33 20 14c0-.47-.17-.93-.48-1.29a2.11 2.11 0 0 0-2.62-.44c-.42.24-.74.62-.9 1.07",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2, 0]), 460, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Y aquí SUBE. */
+export const superscriptIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m4 19 8-8" },
+    { tag: 'path', d: "m12 19-8-8" },
+    {
+      tag: 'path',
+      d: "M20 12h-4c0-1.5.442-2 1.5-2.5S20 8.334 20 7.002c0-.472-.17-.93-.484-1.29a2.105 2.105 0 0 0-2.617-.436c-.42.239-.738.614-.899 1.06",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([2, 0]), 460, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** La letra aterriza sobre la línea de escritura y la línea acusa el golpe. */
+export const baselineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 20h16" },
+    { tag: 'path', d: "m6 16 6-12 6 12" },
+    { tag: 'path', d: "M8 12h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2, 0]), 460, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2, 0]), 460, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 380, { easing: EASE, delay: 220 }),
+      },
+    },
+  },
+);
+
+/** Una ligadura JUNTA dos letras: se acercan una a la otra y el trazo que las une se queda. */
+export const ligatureIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 12h2v8" },
+    { tag: 'path', d: "M14 20h4" },
+    { tag: 'path', d: "M6 12h4" },
+    { tag: 'path', d: "M6 20h4" },
+    { tag: 'path', d: "M8 20V8a4 4 0 0 1 7.464-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.2, 0]), 480, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.2, 0]), 480, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.6, 0]), 480, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.6, 0]), 480, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Las dos letras botan y el corchete se cierra alrededor: la palabra entera. */
+export const wholeWordIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 7, cy: 12, r: 3 },
+    { tag: 'path', d: "M10 9v6" },
+    { tag: 'circle', cx: 17, cy: 12, r: 3 },
+    { tag: 'path', d: "M14 7v8" },
+    { tag: 'path', d: "M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 440, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 440, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 440, { easing: SPRING_OUT, delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 440, { easing: SPRING_OUT, delay: 100 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.05, 1]), 400, { easing: EASE, delay: 220, origin: '12px 18px' }),
+      },
+    },
+  },
+);
+
+/** El asterisco gira 60°, que es justo su simetría: acaba idéntico a como empezó. */
+export const regexIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 3v10" },
+    { tag: 'path', d: "m12.67 5.5 8.66 5" },
+    { tag: 'path', d: "m12.67 10.5 8.66-5" },
+    { tag: 'path', d: "M9 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 60]), 520, { easing: SPRING_OUT, origin: '17px 8px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 60]), 520, { easing: SPRING_OUT, origin: '17px 8px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 60]), 520, { easing: SPRING_OUT, origin: '17px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 420, { easing: EASE, delay: 140, origin: '6px 18px' }),
+      },
+    },
+  },
+);
+
+/** La equis entra de golpe y el texto se apaga un instante: acaba de perder su formato. */
+export const removeFormattingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 7V4h16v3" },
+    { tag: 'path', d: "M5 20h6" },
+    { tag: 'path', d: "M13 4 8 20" },
+    { tag: 'path', d: "m15 15 5 5" },
+    { tag: 'path', d: "m20 15-5 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(X_SNAP_DRAW, 380, { easing: SPRING_OUT, origin: '17.5px 17.5px' }),
+        4: /* @__PURE__ */ track(X_SNAP_DRAW, 380, { easing: SPRING_OUT, delay: 90, origin: '17.5px 17.5px' }),
+        0: /* @__PURE__ */ track(APAGA, 460, { delay: 200 }),
+        1: /* @__PURE__ */ track(APAGA, 460, { delay: 200 }),
+        2: /* @__PURE__ */ track(APAGA, 460, { delay: 200 }),
+      },
+    },
+  },
+);
+
+/** El plumón pasa por su propia diagonal y la marca que deja se aviva detrás. */
+export const highlighterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m9 11-6 6v3h9l3-3" },
+    { tag: 'path', d: "m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(-1.2px, 1.2px)', offset: 0.45 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ], 520, { easing: EASE }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.07, 1]), 420, { easing: EASE, delay: 160, origin: '9px 17px' }),
+      },
+    },
+  },
+);
+
+/** Las dos comillas caen, la de abrir primero. */
+export const quoteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",
+    },
+    {
+      tag: 'path',
+      d: "M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 440, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 440, { easing: SPRING_OUT, delay: 100 }),
+      },
+    },
+  },
+);
+
+/** Sube el cuerpo de letra: la flecha se estira hacia arriba y la A crece con ella. */
+export const aArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 11 4-4 4 4" },
+    { tag: 'path', d: "M18 16V7" },
+    { tag: 'path', d: "m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" },
+    { tag: 'path', d: "M3.304 13h6.392" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(1.1333)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 500, { easing: EASE, origin: '18px 16px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+      },
+    },
+  },
+);
+
+/** Y aquí lo baja. La flecha crece desde ARRIBA, que es su extremo fijo. */
+export const aArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 12 4 4 4-4" },
+    { tag: 'path', d: "M18 16V7" },
+    { tag: 'path', d: "m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" },
+    { tag: 'path', d: "M3.304 13h6.392" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(1.1333)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 500, { easing: EASE, origin: '18px 7px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 500, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+      },
+    },
+  },
+);
+
+/** La grande crece y la chica encoge a la vez: la diferencia entre las dos ES el icono. */
+export const aLargeSmallIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16" },
+    { tag: 'path', d: "M15.697 14h5.606" },
+    { tag: 'path', d: "m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16" },
+    { tag: 'path', d: "M3.304 13h6.392" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 520, { easing: EASE, origin: '6.5px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 520, { easing: EASE, origin: '6.5px 16px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.88, 1]), 520, { easing: EASE, origin: '18.5px 16px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.88, 1]), 520, { easing: EASE, origin: '18.5px 16px' }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -11668,4 +12029,33 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'flip-vertical-2': flipVertical2Icon,
   'sliders-horizontal': slidersHorizontalIcon,
   'sliders-vertical': slidersVerticalIcon,
+  'heading': headingIcon,
+  'heading-1': heading1Icon,
+  'heading-2': heading2Icon,
+  'heading-3': heading3Icon,
+  'heading-4': heading4Icon,
+  'heading-5': heading5Icon,
+  'heading-6': heading6Icon,
+  'case-upper': caseUpperIcon,
+  'case-lower': caseLowerIcon,
+  'case-sensitive': caseSensitiveIcon,
+  'pilcrow': pilcrowIcon,
+  'pilcrow-left': pilcrowLeftIcon,
+  'pilcrow-right': pilcrowRightIcon,
+  'bold': boldIcon,
+  'italic': italicIcon,
+  'underline': underlineIcon,
+  'strikethrough': strikethroughIcon,
+  'subscript': subscriptIcon,
+  'superscript': superscriptIcon,
+  'baseline': baselineIcon,
+  'ligature': ligatureIcon,
+  'whole-word': wholeWordIcon,
+  'regex': regexIcon,
+  'remove-formatting': removeFormattingIcon,
+  'highlighter': highlighterIcon,
+  'quote': quoteIcon,
+  'a-arrow-up': aArrowUpIcon,
+  'a-arrow-down': aArrowDownIcon,
+  'a-large-small': aLargeSmallIcon,
 };
