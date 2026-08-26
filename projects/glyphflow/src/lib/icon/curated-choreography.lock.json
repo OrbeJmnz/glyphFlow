@@ -209,6 +209,14 @@
       "path:6fd13e863248",
       "path:4712181392e3"
     ],
+    "antenna": [
+      "path:889281ffb15e",
+      "path:e804a06cd194",
+      "path:a47171a098c8",
+      "path:7b59506391f7",
+      "path:678bd3db7cfa",
+      "path:3cb8a10916ee"
+    ],
     "anvil": [
       "path:c80190c9bb34",
       "path:cadf8e92fba5",
@@ -653,6 +661,13 @@
       "path:020af2f1dd37",
       "circle:9f7fcbaf7380"
     ],
+    "barcode": [
+      "path:3337c0606df3",
+      "path:2b5b5937a9e2",
+      "path:0d2f2c183d2b",
+      "path:aab84d595b33",
+      "path:174a8b8a0dbe"
+    ],
     "baseline": [
       "path:3657b812c257",
       "path:48c323eb89be",
@@ -1039,6 +1054,15 @@
       "path:97f5daa0eb26",
       "path:4995e5a36abd",
       "path:e2f5084122f0"
+    ],
+    "boom-box": [
+      "path:10fe2c81d4f6",
+      "path:cc6edf762cbf",
+      "path:48bc76470154",
+      "path:e3b5cff3efd3",
+      "rect:9841d188aa77",
+      "circle:0e29074f9d9f",
+      "circle:f72b2be61c66"
     ],
     "bot": [
       "path:b4dfd2a80407",
@@ -1506,6 +1530,12 @@
       "path:94644ffc163e",
       "path:28a22d7338e3"
     ],
+    "card-sim": [
+      "path:65cf35093d8a",
+      "path:303e8018d5dc",
+      "path:00051fb82dc9",
+      "rect:d44d6c5efd93"
+    ],
     "case-lower": [
       "path:945179246247",
       "path:fa5a34cd6b6f",
@@ -1522,6 +1552,13 @@
       "path:68b12dcdee4f",
       "path:b46dd0042153",
       "path:bb794e19bd74"
+    ],
+    "cassette-tape": [
+      "rect:41e980132aa8",
+      "circle:65b31584ac07",
+      "path:996d85dad073",
+      "circle:b511df89162a",
+      "path:07ccb7b30c92"
     ],
     "cast": [
       "path:0629930aedfe",
@@ -2063,6 +2100,13 @@
       "path:d9ee5f9557b1",
       "path:029e593ffb58"
     ],
+    "circuit-board": [
+      "rect:d427f2bc2999",
+      "path:55b120c38675",
+      "circle:8fccc049aa43",
+      "path:99b20981bb3e",
+      "circle:0350e7dba1f8"
+    ],
     "clapperboard": [
       "path:729e55248394",
       "path:b14a485cee78",
@@ -2431,6 +2475,12 @@
     "compass": [
       "circle:1b306a76ecc0",
       "path:d48c642f2864"
+    ],
+    "computer": [
+      "rect:1f29f54a278d",
+      "rect:ef7e5b17c64d",
+      "path:20c93a049243",
+      "path:af54caf9efe7"
     ],
     "contact": [
       "path:028b3b686e81",
@@ -2864,10 +2914,24 @@
       "line:643efc73b6cf",
       "line:fdbbc69aae21"
     ],
+    "ethernet-port": [
+      "path:ab49939d63ba",
+      "path:2ffc5559bc42",
+      "path:3b472bd59dd9",
+      "path:8b4d351fdf68",
+      "path:df20d6d45f09"
+    ],
     "euro": [
       "path:03b407731bdc",
       "path:ad70c04701bf",
       "path:b76c663784b0"
+    ],
+    "ev-charger": [
+      "path:414e160af516",
+      "path:94ab43171571",
+      "path:7d2afc6aac0d",
+      "path:813d69834766",
+      "path:4c8b5ca124da"
     ],
     "external-link": [
       "path:c78685b083c9",
@@ -3296,6 +3360,17 @@
       "path:52f5ec419223",
       "path:262fb45492ca",
       "path:b8f36f909adb"
+    ],
+    "fingerprint-pattern": [
+      "path:af3e6e86c30d",
+      "path:826aebd0b07c",
+      "path:1bebe3026a70",
+      "path:5f3bc5aa9e55",
+      "path:3979a7e1febd",
+      "path:e0b1278d2db1",
+      "path:fd923bea32bf",
+      "path:2e9f79383a00",
+      "path:31c5c5b28ed6"
     ],
     "fish": [
       "path:64bac92540c7",
@@ -3803,6 +3878,13 @@
       "path:b23595d6c3ed",
       "path:6b0aad74c0b2"
     ],
+    "gpu": [
+      "path:a328f52047c8",
+      "path:7513793d36df",
+      "path:9675199fb7f9",
+      "circle:f267f3a22129",
+      "circle:26da6debc262"
+    ],
     "graduation-cap": [
       "path:184e1accc7b0",
       "path:e598981a540a",
@@ -3866,6 +3948,12 @@
       "circle:21526043d2ab",
       "circle:05934be1aa2c",
       "circle:35fe5d1a4428"
+    ],
+    "guitar": [
+      "path:af5401dd33ad",
+      "path:ef10abd3c067",
+      "path:b0cb0d58d9b5",
+      "path:941b9f43f7e5"
     ],
     "hammer": [
       "path:7fdea658f5c3",
@@ -3962,6 +4050,10 @@
       "circle:18055e6d7c50",
       "circle:6342845e15c6"
     ],
+    "hdmi-port": [
+      "path:f588e3e859f5",
+      "path:996d85dad073"
+    ],
     "heading": [
       "path:94d076f74108",
       "path:e2d39fe33051",
@@ -4013,6 +4105,13 @@
       "path:378c27879c92",
       "path:b907df623c6d",
       "path:01b1b1522c71"
+    ],
+    "headphones": [
+      "path:b9059cbc9ee3"
+    ],
+    "headset": [
+      "path:b4a7b7bc6a45",
+      "path:640a31421eae"
     ],
     "heart": [
       "path:91c0d03ce70d"
@@ -4190,6 +4289,13 @@
       "circle:1b306a76ecc0",
       "path:d189f96410b1",
       "path:d9e04a33511a"
+    ],
+    "inspection-panel": [
+      "rect:d427f2bc2999",
+      "path:f9e79626efcf",
+      "path:7421c9399e53",
+      "path:5844263b1770",
+      "path:f1d69d929a29"
     ],
     "italic": [
       "line:4c6dca41e254",
@@ -4858,6 +4964,19 @@
       "path:5f902d70e559",
       "path:cf6ee42f27bf"
     ],
+    "memory-stick": [
+      "path:d5bf85f2a69e",
+      "path:46fda08085aa",
+      "path:5fa4c206053a",
+      "path:bd7279e477b5",
+      "path:472c6c9f5008",
+      "path:6566b6692bad",
+      "path:f87587184c6a",
+      "path:0da07b7d860f",
+      "path:800a51cb3b6e",
+      "path:13d2627167cd",
+      "rect:2526005f15ab"
+    ],
     "menu": [
       "path:abe44efbbb54",
       "path:3a01242d74ba",
@@ -5019,6 +5138,12 @@
       "path:b49076c90797",
       "path:d3ac25f37ab7"
     ],
+    "metronome": [
+      "path:7ef5bb626e74",
+      "path:513ac8d534cd",
+      "path:f42fd6e6c6c2",
+      "circle:56b5d430fe09"
+    ],
     "mic": [
       "path:d5a4d0a7fe9a",
       "path:f11d7eed2a4f",
@@ -5056,6 +5181,18 @@
       "path:73505dff7cd7",
       "path:7b56bdafbadf",
       "circle:8b85f890335e"
+    ],
+    "microchip": [
+      "path:a13341c32f92",
+      "path:8e3b3ef465ab",
+      "path:24b553edd9a5",
+      "path:1485e19d087f",
+      "path:f71e3eaf5844",
+      "path:7e472df8470d",
+      "path:c5b8d65010c6",
+      "path:1301811e5e86",
+      "path:ab92bb2700a4",
+      "rect:9a31a7759b7e"
     ],
     "milk": [
       "path:d001604d5d6c",
@@ -5670,6 +5807,12 @@
       "rect:ef9a23339fcc",
       "rect:b8d76df10e5a"
     ],
+    "pc-case": [
+      "rect:14cb1192b748",
+      "path:b973a679eae4",
+      "path:40eea23caf4a",
+      "path:4132fc33c16c"
+    ],
     "pen": [
       "path:72015e06e6ed"
     ],
@@ -5773,6 +5916,14 @@
       "path:aa19b3c7e4e2",
       "path:0b52fc2dbe60"
     ],
+    "piano": [
+      "path:4bf837af39d5",
+      "path:e84fb204239c",
+      "path:4d2b9e947226",
+      "path:55d4c97bad80",
+      "path:1854dd5f2d7a",
+      "path:22ff54932845"
+    ],
     "pickaxe": [
       "path:34acd559a0dd",
       "path:42fb315f68b3",
@@ -5836,6 +5987,26 @@
       "path:5f5a9ba9ec32",
       "path:378c27879c92"
     ],
+    "plug": [
+      "path:70de7c82284b",
+      "path:5e919defc0b5",
+      "path:1ce92e7fb523",
+      "path:c6cf05d484ea"
+    ],
+    "plug-2": [
+      "path:75683fa6eac6",
+      "path:dc948731c6b8",
+      "path:5d523ef72761",
+      "path:3092a2e5f3e7",
+      "path:5cb4aad6d360"
+    ],
+    "plug-zap": [
+      "path:7d0dc5aa0a12",
+      "path:649727c22ead",
+      "path:115c13210d8b",
+      "path:7fa135f4ed7e",
+      "path:4bd07287144f"
+    ],
     "plus": [
       "path:52f6eb0c4372",
       "path:0d2f2c183d2b"
@@ -5888,6 +6059,14 @@
       "path:3dc157683c2a",
       "path:19d975649c76",
       "path:14d7a1a956bc"
+    ],
+    "projector": [
+      "path:14d0881ba6fe",
+      "path:ce1b0cd13413",
+      "path:11cdaab990a7",
+      "circle:7180583d60f3",
+      "path:f8c42e5c8cc4",
+      "path:49590c7f80d5"
     ],
     "puzzle": [
       "path:7bafa269c17e"
@@ -6259,6 +6438,19 @@
     "russian-ruble": [
       "path:fd9f84e98ef4",
       "path:b36eafe960f4"
+    ],
+    "satellite": [
+      "path:3c6d7b1b487d",
+      "path:d1d56290bbf0",
+      "path:630dbfb39d9e",
+      "path:c821a70440e9",
+      "path:85b588b63371"
+    ],
+    "satellite-dish": [
+      "path:ca6d2b855010",
+      "path:4d9dd06b5784",
+      "path:278582b232c1",
+      "path:0853cb3e6371"
     ],
     "saudi-riyal": [
       "path:b31e2ec2a6f1",
@@ -6793,6 +6985,15 @@
       "path:624a6b5664b0",
       "path:8480cc704c62"
     ],
+    "solar-panel": [
+      "path:1d0aaf9fd991",
+      "path:a59b8cbd8a2c",
+      "path:ce245cbb9e03",
+      "path:bb99ac1bbccb",
+      "path:75630ed05d9e",
+      "path:c6003b4b96cf",
+      "path:70024a980fda"
+    ],
     "sparkle": [
       "path:8b5d172dc737"
     ],
@@ -6801,6 +7002,12 @@
       "path:e73b73ef417e",
       "path:7b65e402edb4",
       "circle:cbff1aab195b"
+    ],
+    "speaker": [
+      "rect:2428eb83eaf8",
+      "path:6033573d9658",
+      "circle:12ae388f2182",
+      "path:db602e4ae359"
     ],
     "speech": [
       "path:821d9eb6844a",
@@ -7889,6 +8096,12 @@
       "path:87d790178413",
       "path:efb42ccfa1d6"
     ],
+    "turntable": [
+      "path:026c027d032e",
+      "path:4c8802795b0b",
+      "circle:bf910b1f12d6",
+      "rect:41e980132aa8"
+    ],
     "tv": [
       "path:090fac32bac5",
       "rect:7a7abeb39c53"
@@ -7982,6 +8195,15 @@
       "path:235a575cf535",
       "path:e1da6bb8d7c4",
       "path:17b2f245dec9"
+    ],
+    "usb": [
+      "circle:bec30ea213fb",
+      "circle:ccff1c3e1a5b",
+      "path:c2795e8e9f4a",
+      "path:7693e064197c",
+      "path:6264fb800c04",
+      "path:c48ed1b5bf46",
+      "path:3ffe9cf3afbd"
     ],
     "user": [
       "path:1b78480ba63f",
@@ -8130,6 +8352,15 @@
       "circle:9431be6ba814",
       "path:79478b40941d"
     ],
+    "utility-pole": [
+      "path:479c72d49978",
+      "path:1c77b71058bf",
+      "path:406c3a4b8699",
+      "path:f1c4bf674b77",
+      "path:3cb0dce0d2c9",
+      "path:037e2551e611",
+      "path:cad8716d8388"
+    ],
     "variable": [
       "path:d34df7032abd",
       "path:fc49327251a6",
@@ -8156,6 +8387,13 @@
       "path:b7be92a9405f",
       "path:487b42e762a5",
       "path:378c27879c92"
+    ],
+    "videotape": [
+      "rect:41e980132aa8",
+      "path:6753d62ddc46",
+      "circle:17ce37787296",
+      "path:996d85dad073",
+      "circle:d9d54a2d1167"
     ],
     "volleyball": [
       "path:421527a58dd4",
@@ -8552,6 +8790,11 @@
       "default": "8678f2802bc0",
       "draw": "17c8398e8d34"
     },
+    "antenna": {
+      "default": "3007be72c26d",
+      "draw": "17c8398e8d34",
+      "hold": "426adc47b655"
+    },
     "anvil": {
       "default": "dd97f1ae4673",
       "draw": "17c8398e8d34"
@@ -8910,6 +9153,11 @@
       "default": "84dc7850911a",
       "draw": "17c8398e8d34"
     },
+    "barcode": {
+      "default": "7f38fee84d92",
+      "draw": "17c8398e8d34",
+      "hold": "0969a65601c2"
+    },
     "baseline": {
       "default": "c9821f4389e2",
       "draw": "17c8398e8d34"
@@ -9238,6 +9486,11 @@
       "reveal": "f1c27f97e9fc",
       "wave": "cc089b4265c0"
     },
+    "boom-box": {
+      "default": "f885a3ec6a2b",
+      "draw": "17c8398e8d34",
+      "hold": "fd59015749a9"
+    },
     "bot": {
       "default": "3cfff137b902",
       "draw": "17c8398e8d34"
@@ -9485,6 +9738,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "card-sim": {
+      "default": "f085eaa07ec3",
+      "draw": "17c8398e8d34",
+      "hold": "8019f180b941"
+    },
     "case-lower": {
       "default": "9a9bb909cd92",
       "draw": "17c8398e8d34"
@@ -9496,6 +9754,11 @@
     "case-upper": {
       "default": "f147f75311a6",
       "draw": "17c8398e8d34"
+    },
+    "cassette-tape": {
+      "default": "3c2eb33cd95e",
+      "draw": "17c8398e8d34",
+      "hold": "36721812c0ec"
     },
     "cast": {
       "default": "8fa557c060f7",
@@ -9917,6 +10180,11 @@
       "default": "e382a6efbfa0",
       "draw": "17c8398e8d34"
     },
+    "circuit-board": {
+      "default": "7aa8b8fa10c0",
+      "draw": "17c8398e8d34",
+      "hold": "4b5989e30557"
+    },
     "clapperboard": {
       "default": "3e2a324e7661",
       "draw": "17c8398e8d34"
@@ -10186,6 +10454,11 @@
     "compass": {
       "default": "396acb845d6c",
       "draw": "17c8398e8d34"
+    },
+    "computer": {
+      "default": "f3c8a789320c",
+      "draw": "17c8398e8d34",
+      "hold": "eafd548a2061"
     },
     "contact": {
       "default": "a1837b08902f",
@@ -10507,9 +10780,19 @@
       "default": "d262e63d523c",
       "draw": "17c8398e8d34"
     },
+    "ethernet-port": {
+      "default": "e97f4d1f20a9",
+      "draw": "17c8398e8d34",
+      "hold": "37c27fbcfcb1"
+    },
     "euro": {
       "default": "2f2c25cf8363",
       "draw": "17c8398e8d34"
+    },
+    "ev-charger": {
+      "default": "69ecc89f2e44",
+      "draw": "17c8398e8d34",
+      "hold": "048294d7a3d7"
     },
     "external-link": {
       "default": "f2f07b404897",
@@ -10847,6 +11130,11 @@
       "default": "d9a8b8b23ea0",
       "draw": "17c8398e8d34",
       "hold": "6a19b2174d5a"
+    },
+    "fingerprint-pattern": {
+      "default": "1b8503fb296f",
+      "draw": "17c8398e8d34",
+      "hold": "4f42e798071e"
     },
     "fish": {
       "default": "530bcaf4c2b0",
@@ -11258,6 +11546,11 @@
       "draw": "17c8398e8d34",
       "hold": "cfe030d01140"
     },
+    "gpu": {
+      "default": "a3cb28cc73d4",
+      "draw": "17c8398e8d34",
+      "hold": "78c68719b0a0"
+    },
     "graduation-cap": {
       "default": "83a3724d091c",
       "draw": "17c8398e8d34"
@@ -11303,6 +11596,11 @@
       "default": "3147f7e87453",
       "draw": "17c8398e8d34",
       "reveal": "be4c82b31d13"
+    },
+    "guitar": {
+      "default": "cddad0245a6c",
+      "draw": "17c8398e8d34",
+      "hold": "33956fad3202"
     },
     "hammer": {
       "default": "4f7c9db4f9e2",
@@ -11364,6 +11662,11 @@
       "default": "22cf249476b1",
       "draw": "17c8398e8d34"
     },
+    "hdmi-port": {
+      "default": "eb96f3aa9f45",
+      "draw": "17c8398e8d34",
+      "hold": "e287ed3fef58"
+    },
     "heading": {
       "default": "5a9bf3d1c865",
       "draw": "17c8398e8d34"
@@ -11395,6 +11698,16 @@
     "headphone-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "headphones": {
+      "default": "1a676694ce60",
+      "draw": "17c8398e8d34",
+      "hold": "efed76d43122"
+    },
+    "headset": {
+      "default": "da329da9d092",
+      "draw": "17c8398e8d34",
+      "hold": "0229767f9ca3"
     },
     "heart": {
       "default": "c9291124482d",
@@ -11532,6 +11845,11 @@
     "info": {
       "default": "e79656a7756c",
       "draw": "17c8398e8d34"
+    },
+    "inspection-panel": {
+      "default": "edd89e00514e",
+      "draw": "17c8398e8d34",
+      "hold": "db4266e5f2f4"
     },
     "italic": {
       "default": "0280d1b23ba2",
@@ -12027,6 +12345,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "memory-stick": {
+      "default": "64e4bc061aca",
+      "draw": "17c8398e8d34",
+      "hold": "c937b8ae05e3"
+    },
     "menu": {
       "default": "7920479d2f49",
       "draw": "17c8398e8d34"
@@ -12181,6 +12504,11 @@
       "draw": "17c8398e8d34",
       "hold": "cecb07881ae1"
     },
+    "metronome": {
+      "default": "d4c581c09227",
+      "draw": "17c8398e8d34",
+      "hold": "fe30ee1790e4"
+    },
     "mic": {
       "default": "2d37a0c93adb",
       "draw": "17c8398e8d34"
@@ -12200,6 +12528,11 @@
     "mic-vocal": {
       "default": "3a8f8e9aa10b",
       "draw": "17c8398e8d34"
+    },
+    "microchip": {
+      "default": "c459c624ec97",
+      "draw": "17c8398e8d34",
+      "hold": "d4c6c95fa707"
     },
     "milk": {
       "default": "108ebef72a45",
@@ -12664,6 +12997,11 @@
       "default": "d48c6c63a0b2",
       "draw": "17c8398e8d34"
     },
+    "pc-case": {
+      "default": "95a64a68487e",
+      "draw": "17c8398e8d34",
+      "hold": "c348d6ad2e34"
+    },
     "pen": {
       "default": "e8d6dfb91f9f",
       "draw": "17c8398e8d34",
@@ -12750,6 +13088,11 @@
       "default": "7582758c3165",
       "draw": "17c8398e8d34"
     },
+    "piano": {
+      "default": "eb34c167462e",
+      "draw": "17c8398e8d34",
+      "hold": "1dfcd684633d"
+    },
     "pickaxe": {
       "default": "4f7c9db4f9e2",
       "draw": "17c8398e8d34"
@@ -12806,6 +13149,21 @@
       "default": "d262e63d523c",
       "draw": "17c8398e8d34"
     },
+    "plug": {
+      "default": "083cc323fe10",
+      "draw": "17c8398e8d34",
+      "hold": "1b06b7669af6"
+    },
+    "plug-2": {
+      "default": "709d6abdfa5e",
+      "draw": "17c8398e8d34",
+      "hold": "348632f432b7"
+    },
+    "plug-zap": {
+      "default": "b01051077442",
+      "draw": "17c8398e8d34",
+      "hold": "4da72ef608db"
+    },
     "plus": {
       "default": "4fc6320724f7",
       "draw": "17c8398e8d34",
@@ -12843,6 +13201,11 @@
     "printer-x": {
       "default": "a8f878090902",
       "draw": "17c8398e8d34"
+    },
+    "projector": {
+      "default": "4db9dc267fd0",
+      "draw": "17c8398e8d34",
+      "hold": "d1066ebd964b"
     },
     "puzzle": {
       "default": "3621b4af8ed3",
@@ -13107,6 +13470,16 @@
     "russian-ruble": {
       "default": "cd0ae2d6d223",
       "draw": "17c8398e8d34"
+    },
+    "satellite": {
+      "default": "4a67aae73d7f",
+      "draw": "17c8398e8d34",
+      "hold": "22e3d116c778"
+    },
+    "satellite-dish": {
+      "default": "dec3d99aedd2",
+      "draw": "17c8398e8d34",
+      "hold": "ef349368ad8c"
     },
     "saudi-riyal": {
       "default": "e0950aca12f6",
@@ -13482,6 +13855,11 @@
       "default": "ddcf7d4a9eba",
       "draw": "17c8398e8d34"
     },
+    "solar-panel": {
+      "default": "77b1f7d4dca3",
+      "draw": "17c8398e8d34",
+      "hold": "470ef2e257e2"
+    },
     "sparkle": {
       "default": "0256a3c5c781",
       "draw": "17c8398e8d34"
@@ -13490,6 +13868,11 @@
       "default": "e2f84cfb34a1",
       "draw": "17c8398e8d34",
       "reveal": "c25f975334c1"
+    },
+    "speaker": {
+      "default": "1642562f41bf",
+      "draw": "17c8398e8d34",
+      "hold": "47dcff48c1e7"
     },
     "speech": {
       "default": "bb88ec5db0ec",
@@ -14287,6 +14670,11 @@
       "default": "d03a2076e3ff",
       "draw": "17c8398e8d34"
     },
+    "turntable": {
+      "default": "726a87c3ff7d",
+      "draw": "17c8398e8d34",
+      "hold": "ffd2b44e53ec"
+    },
     "tv": {
       "default": "d9284dca9cb9",
       "draw": "17c8398e8d34",
@@ -14357,6 +14745,11 @@
       "default": "bae463d65f9b",
       "draw": "17c8398e8d34",
       "retract": "08f246f3ea1d"
+    },
+    "usb": {
+      "default": "b2443e71e268",
+      "draw": "17c8398e8d34",
+      "hold": "d9aef5aee83e"
     },
     "user": {
       "alert": "f4c1c696954a",
@@ -14462,6 +14855,11 @@
       "default": "0c1cb10c6a1b",
       "draw": "17c8398e8d34"
     },
+    "utility-pole": {
+      "default": "6b5340cff4c3",
+      "draw": "17c8398e8d34",
+      "hold": "a666f365d2de"
+    },
     "variable": {
       "default": "9f0a2d525edd",
       "draw": "17c8398e8d34"
@@ -14481,6 +14879,11 @@
     "video-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "videotape": {
+      "default": "a77b53b8a8d1",
+      "draw": "17c8398e8d34",
+      "hold": "f8b4f76c486b"
     },
     "volleyball": {
       "default": "f33008860794",
