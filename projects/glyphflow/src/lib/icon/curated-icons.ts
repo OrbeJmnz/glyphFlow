@@ -10719,6 +10719,519 @@ export const aLargeSmallIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Símbolos pelados ───────────────────────────────────────────────────────────────────────
+// `badge-dollar-sign` y `circle-dollar-sign` llevaban coreografía y el `$` desnudo no. Doce
+// símbolos estaban igual: enmarcados sí, de a pie no.
+//
+// No se copió al hermano enmarcado a propósito — casi todos son `strokeDraw` escalonado. Aquí
+// cada símbolo anima lo suyo, y en las monedas eso es claro: casi todas son una LETRA ATRAVESADA
+// POR BARRAS, y la barra es lo que convierte una letra en dinero. La letra se asienta y las
+// barras la cruzan. Cambia cuántas hay y por dónde entran, que es lo que distingue una moneda
+// de otra.
+
+/** La barra cruza desde el lado por el que entra. Nunca desde el centro: una moneda se escribe. */
+const CRUZA = /* @__PURE__ */ [{ transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }];
+/** Igual para las diagonales, donde escalar en un solo eje las deformaría. */
+const CRUZA_DIAG = /* @__PURE__ */ [{ transform: 'scale(0.15)' }, { transform: 'scale(1)' }];
+/** El trazo vertical del `$` y de `phi` no entra por un lado: atraviesa desde el centro. */
+const ATRAVIESA = /* @__PURE__ */ [{ transform: 'scaleY(0.4)' }, { transform: 'scaleY(1)' }];
+/** La letra solo acusa el paso de la barra. */
+const ASIENTA = /* @__PURE__ */ scaleSeq([1, 1.06, 1]);
+
+/**
+ * Tres símbolos giran justo su propia simetría y acaban IDÉNTICOS a como empezaron: el asterisco
+ * 60° (seis radios), la equis de `variable` 90° (dos diagonales). Por eso el regreso al reposo
+ * no se ve, aunque el track no tenga `fill` — el cuadro final y el inicial son el mismo dibujo.
+ */
+const GIRA_60 = /* @__PURE__ */ rotateSeq([0, 60]);
+const GIRA_90 = /* @__PURE__ */ rotateSeq([0, 90]);
+
+/** La ese se asienta y el trazo la atraviesa desde el centro, hacia los dos extremos. */
+export const dollarSignIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 12, y1: 2, x2: 12, y2: 22 },
+    { tag: 'path', d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(ATRAVIESA, 460, { easing: SPRING_OUT, origin: '12px 12px', delay: 80 }),
+      },
+    },
+  },
+);
+
+/** La ce se asienta y las dos barras la cruzan desde la izquierda, una tras otra. */
+export const euroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 10h12" },
+    { tag: 'path', d: "M4 14h9" },
+    {
+      tag: 'path',
+      d: "M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 10px', delay: 80 }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 14px', delay: 170 }),
+      },
+    },
+  },
+);
+
+/** El travesaño es lo que hace libra: entra por la izquierda y el resto solo se asienta. */
+export const poundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 7c0-5.333-8-5.333-8 0" },
+    { tag: 'path', d: "M10 7v14" },
+    { tag: 'path', d: "M6 21h12" },
+    { tag: 'path', d: "M6 13h10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '14px 7px' }),
+        1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '10px 14px' }),
+        3: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 13px', delay: 80 }),
+      },
+    },
+  },
+);
+
+/** Dos barras sobre la ye, de arriba abajo. */
+export const japaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 9.5V21m0-11.5L6 3m6 6.5L18 3" },
+    { tag: 'path', d: "M6 15h12" },
+    { tag: 'path', d: "M6 11h12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 11px', delay: 80 }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 15px', delay: 170 }),
+      },
+    },
+  },
+);
+
+/** Las dos barras de arriba entran primero; el bucle y la pierna se asientan. */
+export const indianRupeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 3h12" },
+    { tag: 'path', d: "M6 8h12" },
+    { tag: 'path', d: "m6 13 8.5 8" },
+    { tag: 'path', d: "M6 13h3" },
+    { tag: 'path', d: "M9 13c6.667 0 6.667-10 0-10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 3px' }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 8px', delay: 90 }),
+        4: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '9px 8px', delay: 180 }),
+        2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '6px 13px', delay: 180 }),
+      },
+    },
+  },
+);
+
+/** Una sola barra, y basta: es lo único que separa una erre de un rublo. */
+export const russianRubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 11h8a4 4 0 0 0 0-8H9v18" },
+    { tag: 'path', d: "M6 15h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '9px 12px' }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 15px', delay: 80 }),
+      },
+    },
+  },
+);
+
+/** Las dos barras diagonales entran desde su extremo derecho; los ganchos se asientan. */
+export const saudiRiyalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m20 19.5-5.5 1.2" },
+    { tag: 'path', d: "M14.5 4v11.22a1 1 0 0 0 1.242.97L20 15.2" },
+    { tag: 'path', d: "m2.978 19.351 5.549-1.363A2 2 0 0 0 10 16V2" },
+    { tag: 'path', d: "M20 10 4 13.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '10px 12px' }),
+        1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '15px 10px' }),
+        3: /* @__PURE__ */ track(CRUZA_DIAG, 420, { easing: SPRING_OUT, origin: '20px 10px', delay: 90 }),
+        0: /* @__PURE__ */ track(CRUZA_DIAG, 420, { easing: SPRING_OUT, origin: '20px 19.5px', delay: 180 }),
+      },
+    },
+  },
+);
+
+/** Dos travesaños sobre la efe, de arriba abajo. */
+export const swissFrancIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 21V3h8" },
+    { tag: 'path', d: "M6 16h9" },
+    { tag: 'path', d: "M10 9.5h7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '10px 12px' }),
+        2: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '10px 9.5px', delay: 80 }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 16px', delay: 170 }),
+      },
+    },
+  },
+);
+
+/** Las dos barras bajan en diagonal desde la derecha, cruzando la ele. */
+export const turkishLiraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 4 5 9" },
+    { tag: 'path', d: "m15 8.5-10 5" },
+    { tag: 'path', d: "M18 12a9 9 0 0 1-9 9V3" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(CRUZA_DIAG, 420, { easing: SPRING_OUT, origin: '15px 4px', delay: 80 }),
+        1: /* @__PURE__ */ track(CRUZA_DIAG, 420, { easing: SPRING_OUT, origin: '15px 8.5px', delay: 170 }),
+      },
+    },
+  },
+);
+
+/** Dos barras sobre la pe. */
+export const philippinePesoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 11H4" },
+    { tag: 'path', d: "M20 7H4" },
+    { tag: 'path', d: "M7 21V4a1 1 0 0 1 1-1h4a1 1 0 0 1 0 12H7" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '10px 12px' }),
+        1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 7px', delay: 80 }),
+        0: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 11px', delay: 170 }),
+      },
+    },
+  },
+);
+
+/** Aquí la barra no cruza: es el suelo, y entra al final. */
+export const georgianLariIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11.5 21a7.5 7.5 0 1 1 7.35-9" },
+    { tag: 'path', d: "M13 12V3" },
+    { tag: 'path', d: "M4 21h16" },
+    { tag: 'path', d: "M9 12V3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '11.5px 13.5px' }),
+        3: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '9px 7.5px' }),
+        1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '13px 7.5px' }),
+        2: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 21px', delay: 120 }),
+      },
+    },
+  },
+);
+
+/** Una moneda: gira de canto y vuelve. Es una figura sola, así que no hay nada que desfasar — y no hace falta. */
+export const bitcoinIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.12)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+  },
+);
+
+/** Los cuatro remates se abren en diagonal desde la moneda, en aspa. */
+export const currencyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 8 },
+    { tag: 'line', x1: 3, y1: 3, x2: 6, y2: 6 },
+    { tag: 'line', x1: 21, y1: 3, x2: 18, y2: 6 },
+    { tag: 'line', x1: 3, y1: 21, x2: 6, y2: 18 },
+    { tag: 'line', x1: 21, y1: 21, x2: 18, y2: 18 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 460, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(-1.2px, -1.2px)', offset: 0.5 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ], 460, { easing: SPRING_OUT, delay: 60 }),
+        2: /* @__PURE__ */ track([
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(1.2px, -1.2px)', offset: 0.5 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ], 460, { easing: SPRING_OUT, delay: 120 }),
+        4: /* @__PURE__ */ track([
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(1.2px, 1.2px)', offset: 0.5 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ], 460, { easing: SPRING_OUT, delay: 180 }),
+        3: /* @__PURE__ */ track([
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(-1.2px, 1.2px)', offset: 0.5 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ], 460, { easing: SPRING_OUT, delay: 240 }),
+      },
+    },
+  },
+);
+
+/** Un porcentaje es una proporción: uno de los ceros crece mientras el otro encoge, y luego al revés. */
+export const percentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 19, y1: 5, x2: 5, y2: 19 },
+    { tag: 'circle', cx: 6.5, cy: 6.5, r: 2.5 },
+    { tag: 'circle', cx: 17.5, cy: 17.5, r: 2.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'scale(1)', offset: 0 },
+          { transform: 'scale(1.25)', offset: 0.35 },
+          { transform: 'scale(0.9)', offset: 0.7 },
+          { transform: 'scale(1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '6.5px 6.5px' }),
+        2: /* @__PURE__ */ track([
+          { transform: 'scale(1)', offset: 0 },
+          { transform: 'scale(0.9)', offset: 0.35 },
+          { transform: 'scale(1.25)', offset: 0.7 },
+          { transform: 'scale(1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '17.5px 17.5px' }),
+      },
+    },
+  },
+);
+
+/** Los dos puntos se apartan de la raya. La raya es lo que divide: no se mueve. */
+export const divideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 6, r: 1 },
+    { tag: 'line', x1: 5, y1: 12, x2: 19, y2: 12 },
+    { tag: 'circle', cx: 12, cy: 18, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 460, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 460, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Sumar es recoger: la sigma se estrecha sobre su eje y vuelve. */
+export const sigmaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.85)', offset: 0.45 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 500, { easing: SPRING_OUT, origin: '12px 12px' }),
+      },
+    },
+  },
+);
+
+/** Las dos patas se abren. */
+export const piIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'line', x1: 9, y1: 4, x2: 9, y2: 20 },
+    { tag: 'path', d: "M4 7c0-1.7 1.3-3 3-3h13" },
+    { tag: 'path', d: "M18 20c-1.7 0-3-1.3-3-3V4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.9, 0]), 480, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.9, 0]), 480, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** La raíz se alarga sobre lo que cubre, desde su punta izquierda. */
+export const radicalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M3 12h3.28a1 1 0 0 1 .948.684l2.298 7.934a.5.5 0 0 0 .96-.044L13.82 4.771A1 1 0 0 1 14.792 4H21",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.92)', offset: 0.32 },
+          { transform: 'scaleX(1.04)', offset: 0.7 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { easing: EASE, origin: '3px 12px' }),
+      },
+    },
+  },
+);
+
+/** Gira 60°, que es su propia simetría: acaba idéntico a como empezó. */
+export const asteriskIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6v12" },
+    { tag: 'path', d: "M17.196 9 6.804 15" },
+    { tag: 'path', d: "m6.804 9 10.392 6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(GIRA_60, 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(GIRA_60, 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(GIRA_60, 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+      },
+    },
+  },
+);
+
+/** Un arco sobre dos pies: cae, se aplasta al tocar y se asienta. El pivote va en la base. */
+export const omegaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M3 20h4.5a.5.5 0 0 0 .5-.5v-.282a.52.52 0 0 0-.247-.437 8 8 0 1 1 8.494-.001.52.52 0 0 0-.247.438v.282a.5.5 0 0 0 .5.5H21",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'translateY(-2.2px) scale(1, 1)', offset: 0 },
+          { transform: 'translateY(0) scale(1.06, 0.9)', offset: 0.45 },
+          { transform: 'translateY(0) scale(0.98, 1.04)', offset: 0.72 },
+          { transform: 'translateY(0) scale(1, 1)', offset: 1 },
+        ], 640, { easing: EASE, origin: '12px 20px' }),
+      },
+    },
+  },
+);
+
+/** El trazo atraviesa el óvalo desde el centro, igual que en el dólar. */
+export const phiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v20" },
+    { tag: 'circle', cx: 12, cy: 12, r: 7 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(ATRAVIESA, 460, { easing: SPRING_OUT, origin: '12px 12px', delay: 80 }),
+      },
+    },
+  },
+);
+
+/** Los paréntesis aprietan y la equis de dentro gira 90°: su simetría, así que vuelve igual. */
+export const variableIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 21s-4-3-4-9 4-9 4-9" },
+    { tag: 'path', d: "M16 3s4 3 4 9-4 9-4 9" },
+    { tag: 'line', x1: 15, y1: 9, x2: 9, y2: 15 },
+    { tag: 'line', x1: 9, y1: 9, x2: 15, y2: 15 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.9, 0]), 500, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.9, 0]), 500, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(GIRA_90, 520, { easing: SPRING_OUT, origin: '12px 12px', delay: 90 }),
+        3: /* @__PURE__ */ track(GIRA_90, 520, { easing: SPRING_OUT, origin: '12px 12px', delay: 90 }),
+      },
+    },
+  },
+);
+
+/** El lazo se asienta y la colita da el latigazo final, que es como se escribe a mano. */
+export const ampersandIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 12h3" },
+    {
+      tag: 'path',
+      d: "M17.5 12a8 8 0 0 1-8 8A4.5 4.5 0 0 1 5 15.5c0-6 8-4 8-8.5a3 3 0 1 0-6 0c0 3 2.5 8.5 12 13",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.05, 1]), 480, { easing: EASE, origin: '12px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1, 0]), 420, { easing: SPRING_OUT, delay: 160 }),
+      },
+    },
+  },
+);
+
+/** Dos, y por eso botan en fila: primero el de la izquierda. */
+export const ampersandsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10 17c-5-3-7-7-7-9a2 2 0 0 1 4 0c0 2.5-5 2.5-5 6 0 1.7 1.3 3 3 3 2.8 0 5-2.2 5-5",
+    },
+    {
+      tag: 'path',
+      d: "M22 17c-5-3-7-7-7-9a2 2 0 0 1 4 0c0 2.5-5 2.5-5 6 0 1.7 1.3 3 3 3 2.8 0 5-2.2 5-5",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 440, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 440, { easing: SPRING_OUT, delay: 110 }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -12058,4 +12571,28 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'a-arrow-up': aArrowUpIcon,
   'a-arrow-down': aArrowDownIcon,
   'a-large-small': aLargeSmallIcon,
+  'dollar-sign': dollarSignIcon,
+  'euro': euroIcon,
+  'pound-sterling': poundSterlingIcon,
+  'japanese-yen': japaneseYenIcon,
+  'indian-rupee': indianRupeeIcon,
+  'russian-ruble': russianRubleIcon,
+  'saudi-riyal': saudiRiyalIcon,
+  'swiss-franc': swissFrancIcon,
+  'turkish-lira': turkishLiraIcon,
+  'philippine-peso': philippinePesoIcon,
+  'georgian-lari': georgianLariIcon,
+  'bitcoin': bitcoinIcon,
+  'currency': currencyIcon,
+  'percent': percentIcon,
+  'divide': divideIcon,
+  'sigma': sigmaIcon,
+  'pi': piIcon,
+  'radical': radicalIcon,
+  'asterisk': asteriskIcon,
+  'omega': omegaIcon,
+  'phi': phiIcon,
+  'variable': variableIcon,
+  'ampersand': ampersandIcon,
+  'ampersands': ampersandsIcon,
 };

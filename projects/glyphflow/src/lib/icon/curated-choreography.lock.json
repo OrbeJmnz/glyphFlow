@@ -201,6 +201,14 @@
       "path:ea23593c3905",
       "path:2997e9a60f70"
     ],
+    "ampersand": [
+      "path:8bf82f503a0b",
+      "path:a600c9b55bdc"
+    ],
+    "ampersands": [
+      "path:6fd13e863248",
+      "path:4712181392e3"
+    ],
     "anvil": [
       "path:c80190c9bb34",
       "path:cadf8e92fba5",
@@ -463,6 +471,11 @@
       "path:5dcd8abf6fb8",
       "path:48da24443cd8",
       "path:8de14cc7b38d"
+    ],
+    "asterisk": [
+      "path:4209a9c9871a",
+      "path:28478aea2655",
+      "path:5b8210d72bc2"
     ],
     "at-sign": [
       "circle:9d7fc8897980",
@@ -795,6 +808,9 @@
       "path:fa37b35d5630",
       "path:5c76153c2a55",
       "path:2792c8ae35fd"
+    ],
+    "bitcoin": [
+      "path:6a89168001df"
     ],
     "blend": [
       "circle:92ccc502a543",
@@ -2429,6 +2445,13 @@
       "path:77260e716c90",
       "path:eeb36d422fd8"
     ],
+    "currency": [
+      "circle:a97fdb6d7d80",
+      "line:f2d1c94e9efa",
+      "line:4be2757f5156",
+      "line:d11683d955e5",
+      "line:50f3a424d7f8"
+    ],
     "database": [
       "ellipse:22d490ea4115",
       "path:785c9b18ccc6",
@@ -2599,6 +2622,11 @@
       "circle:9c7fc6f67880",
       "path:eead8e585bc8"
     ],
+    "divide": [
+      "circle:894d378f18f4",
+      "line:6b5d08b3c85e",
+      "circle:5b930ebcc07e"
+    ],
     "dna": [
       "path:3232432bd4fa",
       "path:2246c718b4b9",
@@ -2623,6 +2651,10 @@
       "path:43e4f06e818d",
       "path:3d7341ef2684",
       "path:09fc9a8110da"
+    ],
+    "dollar-sign": [
+      "line:aae46a48bb36",
+      "path:60dd5fc65ecc"
     ],
     "download": [
       "path:00163c9b524d",
@@ -2699,6 +2731,11 @@
       "line:35fac14be571",
       "line:643efc73b6cf",
       "line:fdbbc69aae21"
+    ],
+    "euro": [
+      "path:03b407731bdc",
+      "path:ad70c04701bf",
+      "path:b76c663784b0"
     ],
     "external-link": [
       "path:c78685b083c9",
@@ -3438,6 +3475,12 @@
       "path:c9829e4ebefc",
       "path:80ba57ae239e"
     ],
+    "georgian-lari": [
+      "path:e10fb2bd1201",
+      "path:62b6aff32460",
+      "path:8de14cc7b38d",
+      "path:7308f708fb2f"
+    ],
     "git-branch": [
       "path:cc3fdb9a038f",
       "circle:9bcf8b13a544",
@@ -3953,6 +3996,13 @@
       "polyline:1dc687c209da",
       "path:abb2585540a3"
     ],
+    "indian-rupee": [
+      "path:d42362c3d1f4",
+      "path:e359c37c1184",
+      "path:ede45e8229b4",
+      "path:9c17c10a3fed",
+      "path:345006a766c3"
+    ],
     "infinity": [
       "path:fd219cc1e319"
     ],
@@ -3973,6 +4023,11 @@
     "iteration-cw": [
       "path:a96af905705c",
       "path:0c265bd8a515"
+    ],
+    "japanese-yen": [
+      "path:fc41c2078e1e",
+      "path:58502854c59a",
+      "path:de3ee2882374"
     ],
     "kanban": [
       "path:dae945700399",
@@ -5143,6 +5198,9 @@
       "path:b22901dc7b65",
       "path:029e593ffb58"
     ],
+    "omega": [
+      "path:14ff4d60b142"
+    ],
     "orbit": [
       "path:a86a6d8ec922",
       "path:44f921fb666b",
@@ -5402,6 +5460,20 @@
       "path:23caf7f20f63",
       "path:796845f2e6c6"
     ],
+    "percent": [
+      "line:fdbbc69aae21",
+      "circle:45505e0cf3f7",
+      "circle:a73c7b323f76"
+    ],
+    "phi": [
+      "path:479c72d49978",
+      "circle:9a7fc3d07680"
+    ],
+    "philippine-peso": [
+      "path:fd69aa9336d7",
+      "path:ca0f58f28b74",
+      "path:cb46edce6f1b"
+    ],
     "phone": [
       "path:026dd4457fb2"
     ],
@@ -5434,6 +5506,11 @@
       "path:0c5e6d1f8272",
       "path:0c1da7cc4ac1",
       "path:026dd4457fb2"
+    ],
+    "pi": [
+      "line:cde443122f08",
+      "path:aa19b3c7e4e2",
+      "path:0b52fc2dbe60"
     ],
     "pickaxe": [
       "path:34acd559a0dd",
@@ -5508,6 +5585,12 @@
       "path:93c8f4817f75",
       "path:378c27879c92"
     ],
+    "pound-sterling": [
+      "path:5feb7e1e457b",
+      "path:94b51b885dfd",
+      "path:03037ec143f1",
+      "path:675fd4bcac95"
+    ],
     "power": [
       "path:b9a3e20f0b80",
       "path:9f5d543935d7"
@@ -5570,6 +5653,9 @@
       "path:93d2bf7795d2",
       "circle:9f7fcbaf7380",
       "path:c7591fe4fea7"
+    ],
+    "radical": [
+      "path:2bf403a74df2"
     ],
     "radio": [
       "path:a915bbef35d9",
@@ -5890,6 +5976,16 @@
       "path:311d883d5f95",
       "path:04817aed608d",
       "circle:29f6fc11a092"
+    ],
+    "russian-ruble": [
+      "path:fd9f84e98ef4",
+      "path:b36eafe960f4"
+    ],
+    "saudi-riyal": [
+      "path:b31e2ec2a6f1",
+      "path:0023e8cf8f71",
+      "path:59d59de0cd1f",
+      "path:bc8f754d0d87"
     ],
     "save": [
       "path:f8b6ba920a86",
@@ -6327,6 +6423,9 @@
       "path:93eb2444f28c",
       "path:4530782d895b",
       "path:c030e0cb75e7"
+    ],
+    "sigma": [
+      "path:fb681d05b38f"
     ],
     "signal": [
       "path:31530d108664",
@@ -7047,6 +7146,11 @@
       "path:3e284f241c8e",
       "path:5b75975b8c5b"
     ],
+    "swiss-franc": [
+      "path:ad75ef9230de",
+      "path:e8d0a37b13db",
+      "path:bd688fdbbd7b"
+    ],
     "sword": [
       "path:67860b837c84",
       "path:8ff8c6f1f8ee",
@@ -7425,6 +7529,11 @@
       "circle:ddd732a1ddfa",
       "circle:85612faa36a8"
     ],
+    "turkish-lira": [
+      "path:4aa7cf1303b5",
+      "path:87d790178413",
+      "path:efb42ccfa1d6"
+    ],
     "tv": [
       "path:090fac32bac5",
       "rect:7a7abeb39c53"
@@ -7665,6 +7774,12 @@
       "path:754e9254aa59",
       "circle:9431be6ba814",
       "path:79478b40941d"
+    ],
+    "variable": [
+      "path:d34df7032abd",
+      "path:fc49327251a6",
+      "line:d80838721362",
+      "line:6b323e8a31fa"
     ],
     "vibrate": [
       "path:f9faa4f5f9f3",
@@ -8032,6 +8147,14 @@
       "default": "a6a2371faef8",
       "draw": "17c8398e8d34"
     },
+    "ampersand": {
+      "default": "86a1a9ee64f7",
+      "draw": "17c8398e8d34"
+    },
+    "ampersands": {
+      "default": "8678f2802bc0",
+      "draw": "17c8398e8d34"
+    },
     "anvil": {
       "default": "dd97f1ae4673",
       "draw": "17c8398e8d34"
@@ -8234,6 +8357,10 @@
     },
     "arrows-up-from-line": {
       "default": "fdc25a0e4be9",
+      "draw": "17c8398e8d34"
+    },
+    "asterisk": {
+      "default": "3cce0229461a",
       "draw": "17c8398e8d34"
     },
     "at-sign": {
@@ -8495,6 +8622,10 @@
     },
     "binary": {
       "default": "8035d30d64af",
+      "draw": "17c8398e8d34"
+    },
+    "bitcoin": {
+      "default": "ac7c199378cf",
       "draw": "17c8398e8d34"
     },
     "blend": {
@@ -9681,6 +9812,10 @@
       "default": "7b9ccdcc0ce5",
       "draw": "17c8398e8d34"
     },
+    "currency": {
+      "default": "db9c5abb271c",
+      "draw": "17c8398e8d34"
+    },
     "database": {
       "default": "d407952cd444",
       "draw": "17c8398e8d34"
@@ -9799,12 +9934,20 @@
       "default": "ec819132381f",
       "draw": "17c8398e8d34"
     },
+    "divide": {
+      "default": "f67c9110af5f",
+      "draw": "17c8398e8d34"
+    },
     "dna": {
       "default": "4ae35e766dd3",
       "draw": "17c8398e8d34"
     },
     "dna-off": {
       "default": "e276b867d08e",
+      "draw": "17c8398e8d34"
+    },
+    "dollar-sign": {
+      "default": "1738a62cdb8d",
       "draw": "17c8398e8d34"
     },
     "download": {
@@ -9870,6 +10013,10 @@
     },
     "equal-not": {
       "default": "d262e63d523c",
+      "draw": "17c8398e8d34"
+    },
+    "euro": {
+      "default": "2f2c25cf8363",
       "draw": "17c8398e8d34"
     },
     "external-link": {
@@ -10478,6 +10625,10 @@
       "default": "4f7c9db4f9e2",
       "draw": "17c8398e8d34"
     },
+    "georgian-lari": {
+      "default": "67ed1888b308",
+      "draw": "17c8398e8d34"
+    },
     "git-branch": {
       "default": "c3aa1ec38831",
       "draw": "17c8398e8d34"
@@ -10832,6 +10983,10 @@
       "default": "e9d5b452a1a9",
       "draw": "17c8398e8d34"
     },
+    "indian-rupee": {
+      "default": "a1a8c133465f",
+      "draw": "17c8398e8d34"
+    },
     "infinity": {
       "default": "9a9006a6cef9",
       "draw": "17c8398e8d34",
@@ -10851,6 +11006,10 @@
     },
     "iteration-cw": {
       "default": "c3f73d7c5a62",
+      "draw": "17c8398e8d34"
+    },
+    "japanese-yen": {
+      "default": "a3fdcd33bf24",
       "draw": "17c8398e8d34"
     },
     "kanban": {
@@ -11752,6 +11911,10 @@
       "default": "4d8edf410c9d",
       "draw": "17c8398e8d34"
     },
+    "omega": {
+      "default": "65240ceb3d0e",
+      "draw": "17c8398e8d34"
+    },
     "orbit": {
       "default": "c2ced8056bba",
       "draw": "17c8398e8d34"
@@ -11956,6 +12119,18 @@
       "default": "4a2d0fc9aa9c",
       "draw": "17c8398e8d34"
     },
+    "percent": {
+      "default": "dc5314d0116b",
+      "draw": "17c8398e8d34"
+    },
+    "phi": {
+      "default": "1738a62cdb8d",
+      "draw": "17c8398e8d34"
+    },
+    "philippine-peso": {
+      "default": "540e9b58a18d",
+      "draw": "17c8398e8d34"
+    },
     "phone": {
       "default": "35bf354f6aa7",
       "draw": "17c8398e8d34"
@@ -11982,6 +12157,10 @@
     },
     "phone-outgoing": {
       "default": "756d6222a070",
+      "draw": "17c8398e8d34"
+    },
+    "pi": {
+      "default": "7582758c3165",
       "draw": "17c8398e8d34"
     },
     "pickaxe": {
@@ -12044,6 +12223,10 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "pound-sterling": {
+      "default": "9ca05450955f",
+      "draw": "17c8398e8d34"
+    },
     "power": {
       "default": "5729746c1bfd",
       "draw": "17c8398e8d34"
@@ -12078,6 +12261,10 @@
     },
     "radar": {
       "default": "561dc052b8ad",
+      "draw": "17c8398e8d34"
+    },
+    "radical": {
+      "default": "78395ea4313c",
       "draw": "17c8398e8d34"
     },
     "radio": {
@@ -12308,6 +12495,14 @@
     },
     "rss": {
       "default": "7986be41fdf1",
+      "draw": "17c8398e8d34"
+    },
+    "russian-ruble": {
+      "default": "cd0ae2d6d223",
+      "draw": "17c8398e8d34"
+    },
+    "saudi-riyal": {
+      "default": "e0950aca12f6",
       "draw": "17c8398e8d34"
     },
     "save": {
@@ -12613,6 +12808,10 @@
     },
     "shuffle": {
       "default": "895047d264c6",
+      "draw": "17c8398e8d34"
+    },
+    "sigma": {
+      "default": "0bccfad57d84",
       "draw": "17c8398e8d34"
     },
     "signal": {
@@ -13135,6 +13334,10 @@
       "default": "5d6b2d2f8378",
       "draw": "17c8398e8d34"
     },
+    "swiss-franc": {
+      "default": "0e52af558444",
+      "draw": "17c8398e8d34"
+    },
     "sword": {
       "default": "2251b0c8d1cc",
       "draw": "17c8398e8d34"
@@ -13408,6 +13611,10 @@
       "default": "5dc6e8952f5a",
       "draw": "17c8398e8d34"
     },
+    "turkish-lira": {
+      "default": "d03a2076e3ff",
+      "draw": "17c8398e8d34"
+    },
     "tv": {
       "default": "d9284dca9cb9",
       "draw": "17c8398e8d34",
@@ -13581,6 +13788,10 @@
     },
     "users-round": {
       "default": "0c1cb10c6a1b",
+      "draw": "17c8398e8d34"
+    },
+    "variable": {
+      "default": "9f0a2d525edd",
       "draw": "17c8398e8d34"
     },
     "vibrate": {
