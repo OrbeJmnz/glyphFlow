@@ -3132,6 +3132,21 @@
       "path:17b2f245dec9",
       "path:2f8a5f6a8f76"
     ],
+    "drafting-compass": [
+      "path:71c5c03da204",
+      "path:b67411fc39b5",
+      "path:e54017a38889",
+      "path:dc378d89ec93",
+      "circle:8a98e0eb7ccb"
+    ],
+    "drill": [
+      "path:9e81e61fadff",
+      "path:a8b6fa6d8e54",
+      "path:d861e14c6d7f",
+      "path:8447376a450d",
+      "path:a63815b2fef2",
+      "path:b51864a40252"
+    ],
     "drone": [
       "path:4d1d767d27f0",
       "path:ef10156c25d9",
@@ -3238,6 +3253,10 @@
       "line:35fac14be571",
       "line:643efc73b6cf",
       "line:fdbbc69aae21"
+    ],
+    "eraser": [
+      "path:ca9e3d074adc",
+      "path:ca197563dc45"
     ],
     "ethernet-port": [
       "path:ab49939d63ba",
@@ -3738,6 +3757,16 @@
     ],
     "fish-symbol": [
       "path:0ef323966979"
+    ],
+    "fishing-hook": [
+      "path:2ce328f54d31",
+      "path:b03b644cb0a6",
+      "circle:43d6efe441ff"
+    ],
+    "fishing-rod": [
+      "path:67d1f2383307",
+      "path:ed4665bf7865",
+      "circle:1adf0e6ba362"
     ],
     "flag": [
       "path:9dc6f36b8bf6"
@@ -5307,6 +5336,11 @@
       "circle:ebb8191a369e",
       "circle:ad349ac78cd5"
     ],
+    "magnet": [
+      "path:3dcccf78a254",
+      "path:e3436fc33f94",
+      "path:3884f8f84b55"
+    ],
     "mail": [
       "path:5e4902aa4f77",
       "rect:41e980132aa8"
@@ -6225,6 +6259,17 @@
       "path:71354002671b",
       "path:16327b572aba"
     ],
+    "paint-bucket": [
+      "path:14c334223512",
+      "path:01ad18ba4733",
+      "path:44995c4e6168",
+      "path:68cfe7b21a0b"
+    ],
+    "paint-roller": [
+      "rect:356da5773286",
+      "path:9aecf39461bb",
+      "rect:65e6bb462a0b"
+    ],
     "paintbrush": [
       "path:059381726bde",
       "path:1140c304355e",
@@ -6568,6 +6613,11 @@
       "path:378c27879c92",
       "path:18efecce30a4"
     ],
+    "pipette": [
+      "path:015407757a6c",
+      "path:8ed6308953ee",
+      "path:d4454062fb71"
+    ],
     "pizza": [
       "path:d15dfede35ba",
       "path:d14da9dfdfac",
@@ -6617,6 +6667,13 @@
     "plus": [
       "path:52f6eb0c4372",
       "path:0d2f2c183d2b"
+    ],
+    "pocket-knife": [
+      "path:ef1c65dedd94",
+      "path:670265efa600",
+      "path:b0f90fc38000",
+      "path:da896e03eb0d",
+      "path:6f29a1260943"
     ],
     "pointer": [
       "path:c387ea6d4740",
@@ -7085,6 +7142,23 @@
       "path:311d883d5f95",
       "path:04817aed608d",
       "circle:29f6fc11a092"
+    ],
+    "ruler": [
+      "path:762d45828425",
+      "path:34b14c64c2b9",
+      "path:a649569d4a19",
+      "path:9a66c974f15c",
+      "path:c9378d6a7aa9"
+    ],
+    "ruler-dimension-line": [
+      "path:a5367f4c3b3a",
+      "path:c807a978c112",
+      "path:b4cc8504179d",
+      "path:b321bb578add",
+      "path:bbd36211f913",
+      "path:e2ffe647b320",
+      "path:45d0a6214efa",
+      "rect:ed7e57f1cc4d"
     ],
     "russian-ruble": [
       "path:fd9f84e98ef4",
@@ -7590,6 +7664,15 @@
       "path:0f27a35dfa13",
       "path:2eb7384467a5"
     ],
+    "shredder": [
+      "path:ffe0b4623fc5",
+      "path:3212171d6006",
+      "path:3add9c905f5e",
+      "path:6625ea0f24f4",
+      "path:c4921c4cb769",
+      "path:f4e1a63343c4",
+      "path:0f4651b1a023"
+    ],
     "shrimp": [
       "path:1567287b96f4",
       "path:7d76b74284eb",
@@ -7794,10 +7877,26 @@
       "circle:550aec9454b4",
       "circle:26f6f7589d92"
     ],
+    "spool": [
+      "path:7e9a0c7e11dc",
+      "path:72fb7e88e73c"
+    ],
     "sport-shoe": [
       "path:712bdaa38537",
       "path:fa747e355c3a",
       "path:f89700c53e44"
+    ],
+    "spray-can": [
+      "path:c7cf2a86e7a2",
+      "path:2300cf509a24",
+      "path:9e83c55f30ef",
+      "path:5d9a3a2209a1",
+      "path:2ad56b84259b",
+      "path:c989e4c96fc5",
+      "rect:0b2f2de9b9fa",
+      "path:82835b127c97",
+      "path:711de6e59a62",
+      "path:7e003792c66f"
     ],
     "sprout": [
       "path:23bae7e4d90e",
@@ -8255,6 +8354,11 @@
       "path:2e8001ee5188",
       "path:b6fba9f1b1c8",
       "path:cdef1dd29ee4"
+    ],
+    "stamp": [
+      "path:ae34fac90353",
+      "path:df6816201309",
+      "path:001f3e9998e6"
     ],
     "star": [
       "path:28aacd06c27e"
@@ -8767,6 +8871,19 @@
     "toilet": [
       "path:21cbfbe74342",
       "path:d574687b692a"
+    ],
+    "tool-case": [
+      "path:6b69d8eac2b2",
+      "path:4b5f8541d053",
+      "path:071d5c2c65ee",
+      "path:8276774060e2"
+    ],
+    "toolbox": [
+      "path:1ef3068ba4f2",
+      "path:ed80f29ce504",
+      "path:e9e38284cdcc",
+      "path:e84fb204239c",
+      "path:09ad4a80589f"
     ],
     "tornado": [
       "path:08bf2e0151fc",
@@ -11852,6 +11969,16 @@
       "draw": "17c8398e8d34",
       "hold": "bfbcfef9af04"
     },
+    "drafting-compass": {
+      "default": "8d5ad55e6fd9",
+      "draw": "17c8398e8d34",
+      "hold": "9f55f92d616e"
+    },
+    "drill": {
+      "default": "a886ef062acf",
+      "draw": "17c8398e8d34",
+      "hold": "c5592c8353eb"
+    },
     "drone": {
       "default": "a427e0a9ad96",
       "draw": "17c8398e8d34",
@@ -11936,6 +12063,11 @@
     "equal-not": {
       "default": "d262e63d523c",
       "draw": "17c8398e8d34"
+    },
+    "eraser": {
+      "default": "c6371da7f4c6",
+      "draw": "17c8398e8d34",
+      "hold": "418cc4b986cd"
     },
     "ethernet-port": {
       "default": "e97f4d1f20a9",
@@ -12324,6 +12456,16 @@
     "fish-symbol": {
       "default": "df005cf42e28",
       "draw": "17c8398e8d34"
+    },
+    "fishing-hook": {
+      "default": "3b58acc04daa",
+      "draw": "17c8398e8d34",
+      "hold": "85710e5857e5"
+    },
+    "fishing-rod": {
+      "default": "fde69392c111",
+      "draw": "17c8398e8d34",
+      "hold": "fb2313f4d296"
     },
     "flag": {
       "default": "f9a740824962",
@@ -13503,6 +13645,11 @@
       "draw": "17c8398e8d34",
       "hold": "b329e262bd85"
     },
+    "magnet": {
+      "default": "f357b0c0e568",
+      "draw": "17c8398e8d34",
+      "hold": "3bd468b60a28"
+    },
     "mail": {
       "default": "1d76008320ad",
       "draw": "17c8398e8d34",
@@ -14219,6 +14366,16 @@
       "draw": "17c8398e8d34",
       "drop": "afc863f8c952"
     },
+    "paint-bucket": {
+      "default": "d0a23d04ee80",
+      "draw": "17c8398e8d34",
+      "hold": "eed6f3b3fa36"
+    },
+    "paint-roller": {
+      "default": "169f75d98e25",
+      "draw": "17c8398e8d34",
+      "hold": "f35be3a4e8b4"
+    },
     "paintbrush": {
       "default": "8d87c092d59a",
       "draw": "17c8398e8d34"
@@ -14494,6 +14651,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "pipette": {
+      "default": "42801bff2b44",
+      "draw": "17c8398e8d34",
+      "hold": "4d699e9a7bf0"
+    },
     "pizza": {
       "default": "f434ac9e1ba4",
       "draw": "17c8398e8d34",
@@ -14541,6 +14703,11 @@
       "draw": "17c8398e8d34",
       "reveal": "24a9f83327b9",
       "turn": "c9590aa809d0"
+    },
+    "pocket-knife": {
+      "default": "15f39896e8bc",
+      "draw": "17c8398e8d34",
+      "hold": "d90bf0645c91"
     },
     "pointer": {
       "default": "51fa9ff3a78a",
@@ -14873,6 +15040,16 @@
     "rss": {
       "default": "7986be41fdf1",
       "draw": "17c8398e8d34"
+    },
+    "ruler": {
+      "default": "85482d117f32",
+      "draw": "17c8398e8d34",
+      "hold": "472476e11b58"
+    },
+    "ruler-dimension-line": {
+      "default": "a2383bf1fe7b",
+      "draw": "17c8398e8d34",
+      "hold": "b27fea13e338"
     },
     "russian-ruble": {
       "default": "cd0ae2d6d223",
@@ -15229,6 +15406,11 @@
       "draw": "17c8398e8d34",
       "hold": "b70a90a72c79"
     },
+    "shredder": {
+      "default": "28e9553959ec",
+      "draw": "17c8398e8d34",
+      "hold": "63ae7bc729b6"
+    },
     "shrimp": {
       "default": "99ece8243de4",
       "draw": "17c8398e8d34",
@@ -15381,10 +15563,20 @@
       "default": "3e0254bb9f3f",
       "draw": "17c8398e8d34"
     },
+    "spool": {
+      "default": "d044e71ce2c1",
+      "draw": "17c8398e8d34",
+      "hold": "fc00324568ae"
+    },
     "sport-shoe": {
       "default": "a99eb6326a64",
       "draw": "17c8398e8d34",
       "hold": "59d301955a72"
+    },
+    "spray-can": {
+      "default": "feb0876ca64a",
+      "draw": "17c8398e8d34",
+      "hold": "21015cdfae65"
     },
     "sprout": {
       "default": "57ea510ba05e",
@@ -15705,6 +15897,11 @@
       "default": "39f8ffe636f0",
       "draw": "17c8398e8d34",
       "hold": "c831f6a5f179"
+    },
+    "stamp": {
+      "default": "363403d4c492",
+      "draw": "17c8398e8d34",
+      "hold": "408e1eba6be7"
     },
     "star": {
       "default": "8345cbcfd131",
@@ -16093,6 +16290,16 @@
       "default": "a087817b11c9",
       "draw": "17c8398e8d34",
       "hold": "5fe915b38ba9"
+    },
+    "tool-case": {
+      "default": "53b390fa1810",
+      "draw": "17c8398e8d34",
+      "hold": "032a4cf278c7"
+    },
+    "toolbox": {
+      "default": "02a396dc8c11",
+      "draw": "17c8398e8d34",
+      "hold": "ea30c091bc03"
     },
     "tornado": {
       "default": "291778276863",

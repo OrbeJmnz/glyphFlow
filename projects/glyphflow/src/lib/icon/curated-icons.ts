@@ -5808,6 +5808,12 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/ruler';
+import { rulerIcon, rulerDimensionLineIcon } from './icons/ruler';
+export * from './icons/fishing';
+import { fishingHookIcon, fishingRodIcon } from './icons/fishing';
+export * from './icons/paint';
+import { paintBucketIcon, paintRollerIcon } from './icons/paint';
 export * from './icons/flower';
 import { flowerIcon, flower2Icon } from './icons/flower';
 export * from './icons/ice-cream';
@@ -17064,6 +17070,377 @@ export const sproutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de herramientas ────────────────────────────────────────────────── */
+
+/** Una herramienta que empuja: avanza y vuelve. */
+const EMPUJA = /* @__PURE__ */ moveXSeq([0, 0.7, 0]);
+
+/** El golpe de un sello: baja de golpe y se levanta. */
+const GOLPEA = /* @__PURE__ */ moveYSeq([0, 0.8, 0]);
+
+/** Sale de dentro y se asienta: una herramienta que asoma de su caja. */
+const ASOMA = /* @__PURE__ */ moveYSeq([0.9, 0]);
+
+/**
+ * Taladra: la broca y el mandril avanzan mientras el cuerpo RETROCEDE. Ese contragolpe es lo que
+ * lo hace un taladro y no un puntero moviéndose — la fuerza va en las dos direcciones.
+ */
+export const drillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 18a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a3 3 0 0 1-3-3 1 1 0 0 1 1-1z" },
+    {
+      tag: 'path',
+      d: "M13 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1l-.81 3.242a1 1 0 0 1-.97.758H8",
+    },
+    { tag: 'path', d: "M14 4h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-3" },
+    { tag: 'path', d: "M18 6h4" },
+    { tag: 'path', d: "m5 10-2 8" },
+    { tag: 'path', d: "m7 18 2-8" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(EMPUJA, 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.35, 0]), 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.3, 0]), 620, { easing: EASE, delay: 60 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.3, 0]), 620, { easing: EASE, delay: 60 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.35px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos polos se encienden por turnos: un imán no se mueve, atrae. */
+export const magnetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 15 4 4" },
+    {
+      tag: 'path',
+      d: "M2.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.029-6.029a1 1 0 1 1 3 3l-6.029 6.029a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.365-6.367A1 1 0 0 0 8.716 4.282z",
+    },
+    { tag: 'path', d: "m5 8 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(DESTELLA, 420),
+        0: /* @__PURE__ */ track(DESTELLA, 420, { delay: 150 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.03, 1]), 620, { easing: EASE, delay: 80, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se aprieta el bulbo y la gota sale DESPUÉS: apretar y soltar no pasan a la vez. */
+export const pipetteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12",
+    },
+    {
+      tag: 'path',
+      d: "m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z",
+    },
+    { tag: 'path', d: "m2 22 .414-.414" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.93, 1]), 560, { easing: EASE, origin: '18px 6px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 280, origin: '2.2px 21.8px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 6px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Rocía: la boquilla se hunde y la nube sale en cadena, de cerca a lejos. */
+export const sprayCanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3h.01" },
+    { tag: 'path', d: "M7 5h.01" },
+    { tag: 'path', d: "M11 7h.01" },
+    { tag: 'path', d: "M3 7h.01" },
+    { tag: 'path', d: "M7 9h.01" },
+    { tag: 'path', d: "M3 11h.01" },
+    { tag: 'rect', width: 4, height: 4, x: 15, y: 5 },
+    { tag: 'path', d: "m19 9 2 2v10c0 .6-.4 1-1 1h-6c-.6 0-1-.4-1-1V11l2-2" },
+    { tag: 'path', d: "m13 14 8-2" },
+    { tag: 'path', d: "m13 19 8-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.4, 0]), 520, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 120, origin: '11px 7px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 180, origin: '7px 9px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 240, origin: '7px 5px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 300, origin: '3px 11px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 360, origin: '3px 7px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 420, origin: '3px 3px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.4px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Traza el arco, y las patas se abren primero: sin abrir el compás no hay radio. */
+export const draftingCompassIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12.99 6.74 1.93 3.44" },
+    { tag: 'path', d: "M19.136 12a10 10 0 0 1-14.271 0" },
+    { tag: 'path', d: "m21 21-2.16-3.84" },
+    { tag: 'path', d: "m3 21 8.02-14.26" },
+    { tag: 'circle', cx: 12, cy: 5, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, 0]), 720, { easing: EASE, origin: '12px 5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 0]), 720, { easing: EASE, origin: '12px 5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 0]), 720, { easing: EASE, origin: '12px 5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out', delay: 240 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se despliega la hoja desde su remache, y el muelle del lomo acusa la apertura. */
+export const pocketKnifeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 2v1c0 1 2 1 2 2S3 6 3 7s2 1 2 2-2 1-2 2 2 1 2 2" },
+    { tag: 'path', d: "M18 6h.01" },
+    { tag: 'path', d: "M6 18h.01" },
+    { tag: 'path', d: "M20.83 8.83a4 4 0 0 0-5.66-5.66l-12 12a4 4 0 1 0 5.66 5.66Z" },
+    { tag: 'path', d: "M18 11.66V22a4 4 0 0 0 4-4V6" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 0]), 720, { easing: EASE, origin: '18px 6px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 0]), 720, { easing: EASE, origin: '18px 6px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.94)' }, { transform: 'scaleY(1)' }], 620, { easing: EASE, delay: 140, origin: '4px 7px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 6px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 6px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las herramientas asoman de la caja, una detrás de otra. La caja no se mueve. */
+export const toolCaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 15h4" },
+    {
+      tag: 'path',
+      d: "m14.817 10.995-.971-1.45 1.034-1.232a2 2 0 0 0-2.025-3.238l-1.82.364L9.91 3.885a2 2 0 0 0-3.625.748L6.141 6.55l-1.725.426a2 2 0 0 0-.19 3.756l.657.27",
+    },
+    {
+      tag: 'path',
+      d: "m18.822 10.995 2.26-5.38a1 1 0 0 0-.557-1.318L16.954 2.9a1 1 0 0 0-1.281.533l-.924 2.122",
+    },
+    { tag: 'path', d: "M4 12.006A1 1 0 0 1 4.994 11H19a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(ASOMA, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(ASOMA, 520, { easing: SPRING_OUT, delay: 120 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 480, { easing: EASE, delay: 300, origin: '12px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se levanta por el asa y las dos trabas laten: es lo que se toca al cargarla. */
+export const toolboxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 12v4" },
+    { tag: 'path', d: "M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" },
+    {
+      tag: 'path',
+      d: "M17 6a2 2 0 011.414.586l3 3A2 2 0 0122 11v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8a2 2 0 01.586-1.414l3-3A2 2 0 017 6z",
+    },
+    { tag: 'path', d: "M2 14h20" },
+    { tag: 'path', d: "M8 12v4" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 620, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.1, 1]), 480, { easing: EASE, delay: 180, origin: '8px 14px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.1, 1]), 480, { easing: EASE, delay: 240, origin: '16px 14px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Tritura: las tiras salen por la boca en cadena, de izquierda a derecha. */
+export const shredderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 13V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5",
+    },
+    { tag: 'path', d: "M14 2v5a1 1 0 0 0 1 1h5" },
+    { tag: 'path', d: "M10 22v-5" },
+    { tag: 'path', d: "M14 19v-2" },
+    { tag: 'path', d: "M18 20v-3" },
+    { tag: 'path', d: "M2 13h20" },
+    { tag: 'path', d: "M6 20v-3" },
+  ],
+  {
+    default: {
+      // Todas crecen desde la boca (y=17), que es por donde salen de verdad.
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.1)' }, { transform: 'scaleY(1)' }], 420, { easing: SPRING_OUT, origin: '6px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.1)' }, { transform: 'scaleY(1)' }], 420, { easing: SPRING_OUT, delay: 110, origin: '10px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.1)' }, { transform: 'scaleY(1)' }], 420, { easing: SPRING_OUT, delay: 220, origin: '14px 17px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.1)' }, { transform: 'scaleY(1)' }], 420, { easing: SPRING_OUT, delay: 330, origin: '18px 17px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Sella: baja de golpe y el papel de debajo acusa el impacto. */
+export const stampIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13" },
+    {
+      tag: 'path',
+      d: "M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z",
+    },
+    { tag: 'path', d: "M5 22h14" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(GOLPEA, 520, { easing: EASE }),
+        1: /* @__PURE__ */ track(GOLPEA, 520, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.08)' }, { transform: 'scaleX(1)' }], 420, { easing: EASE, delay: 260, origin: '12px 22px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Borra: va y vuelve por su diagonal, que es la del propio dibujo. */
+export const eraserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21",
+    },
+    { tag: 'path', d: "m5.082 11.09 8.828 8.828" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(
+        /* @__PURE__ */ [
+          { transform: 'translate(0, 0)' },
+          { transform: 'translate(0.7px, -0.7px)' },
+          { transform: 'translate(-0.5px, 0.5px)' },
+          { transform: 'translate(0, 0)' },
+        ],
+        720,
+        { easing: EASE },
+      ),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, -0.7px)' }], 320),
+  },
+);
+
+/** El hilo se devana: las dos vueltas corren en sentidos opuestos, como en un carrete. */
+export const spoolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M17 13.44 4.442 17.082A2 2 0 0 0 4.982 21H19a2 2 0 0 0 .558-3.921l-1.115-.32A2 2 0 0 1 17 14.837V7.66",
+    },
+    {
+      tag: 'path',
+      d: "m7 10.56 12.558-3.642A2 2 0 0 0 19.018 3H5a2 2 0 0 0-.558 3.921l1.115.32A2 2 0 0 1 7 9.163v7.178",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.6, 0]), 760, { easing: EASE }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.6, 0]), 760, { easing: EASE, delay: 100 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -18658,4 +19035,22 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'leaf': leafIcon,
   'shrub': shrubIcon,
   'sprout': sproutIcon,
+  'drill': drillIcon,
+  'magnet': magnetIcon,
+  'pipette': pipetteIcon,
+  'spray-can': sprayCanIcon,
+  'drafting-compass': draftingCompassIcon,
+  'pocket-knife': pocketKnifeIcon,
+  'tool-case': toolCaseIcon,
+  'toolbox': toolboxIcon,
+  'shredder': shredderIcon,
+  'stamp': stampIcon,
+  'eraser': eraserIcon,
+  'spool': spoolIcon,
+  'ruler': rulerIcon,
+  'ruler-dimension-line': rulerDimensionLineIcon,
+  'fishing-hook': fishingHookIcon,
+  'fishing-rod': fishingRodIcon,
+  'paint-bucket': paintBucketIcon,
+  'paint-roller': paintRollerIcon,
 };
