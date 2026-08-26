@@ -178,15 +178,6 @@ export const baggageClaimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const balloonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 16v1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v1" },
-    { tag: 'path', d: "M12 6a2 2 0 0 1 2 2" },
-    { tag: 'path', d: "M18 8c0 4-3.5 8-6 8s-6-4-6-8a6 6 0 0 1 12 0" },
-  ],
-  {},
-);
-
 export const bananaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5" },
@@ -279,15 +270,6 @@ export const bedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const bicepsFlexedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1" },
-    { tag: 'path', d: "M15 14a5 5 0 0 0-7.584 2" },
-    { tag: 'path', d: "M9.964 6.825C8.019 7.977 9.5 13 8 15" },
-  ],
-  {},
-);
-
 export const bikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 18.5, cy: 17.5, r: 3.5 },
@@ -371,15 +353,6 @@ export const blindsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M8 15h12" },
     { tag: 'path', d: "M4 3v14" },
     { tag: 'circle', cx: 4, cy: 19, r: 2 },
-  ],
-  {},
-);
-
-export const bombIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 11, cy: 13, r: 9 },
-    { tag: 'path', d: "M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95" },
-    { tag: 'path', d: "m22 2-1.5 1.5" },
   ],
   {},
 );
@@ -710,75 +683,6 @@ export const chefHatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const chessBishopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "M15 18c1.5-.615 3-2.461 3-4.923C18 8.769 14.5 4.462 12 2 9.5 4.462 6 8.77 6 13.077 6 15.539 7.5 17.385 9 18" },
-    { tag: 'path', d: "m16 7-2.5 2.5" },
-    { tag: 'path', d: "M9 2h6" },
-  ],
-  {},
-);
-
-export const chessKingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 20a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "m6.7 18-1-1C4.35 15.682 3 14.09 3 12a5 5 0 0 1 4.95-5c1.584 0 2.7.455 4.05 1.818C13.35 7.455 14.466 7 16.05 7A5 5 0 0 1 21 12c0 2.082-1.359 3.673-2.7 5l-1 1" },
-    { tag: 'path', d: "M10 4h4" },
-    { tag: 'path', d: "M12 2v6.818" },
-  ],
-  {},
-);
-
-export const chessKnightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "M16.5 18c1-2 2.5-5 2.5-9a7 7 0 0 0-7-7H6.635a1 1 0 0 0-.768 1.64L7 5l-2.32 5.802a2 2 0 0 0 .95 2.526l2.87 1.456" },
-    { tag: 'path', d: "m15 5 1.425-1.425" },
-    { tag: 'path', d: "m17 8 1.53-1.53" },
-    { tag: 'path', d: "M9.713 12.185 7 18" },
-  ],
-  {},
-);
-
-export const chessPawnIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "m14.5 10 1.5 8" },
-    { tag: 'path', d: "M7 10h10" },
-    { tag: 'path', d: "m8 18 1.5-8" },
-    { tag: 'circle', cx: 12, cy: 6, r: 4 },
-  ],
-  {},
-);
-
-export const chessQueenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 20a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "m12.474 5.943 1.567 5.34a1 1 0 0 0 1.75.328l2.616-3.402" },
-    { tag: 'path', d: "m20 9-3 9" },
-    { tag: 'path', d: "m5.594 8.209 2.615 3.403a1 1 0 0 0 1.75-.329l1.567-5.34" },
-    { tag: 'path', d: "M7 18 4 9" },
-    { tag: 'circle', cx: 12, cy: 4, r: 2 },
-    { tag: 'circle', cx: 20, cy: 7, r: 2 },
-    { tag: 'circle', cx: 4, cy: 7, r: 2 },
-  ],
-  {},
-);
-
-export const chessRookIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "M10 2v2" },
-    { tag: 'path', d: "M14 2v2" },
-    { tag: 'path', d: "m17 18-1-9" },
-    { tag: 'path', d: "M6 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2" },
-    { tag: 'path', d: "M6 4h12" },
-    { tag: 'path', d: "m7 18 1-9" },
-  ],
-  {},
-);
-
 export const churchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 9h4" },
@@ -1022,17 +926,6 @@ export const crossIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const crosshairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-    { tag: 'line', x1: 22, x2: 18, y1: 12, y2: 12 },
-    { tag: 'line', x1: 6, x2: 2, y1: 12, y2: 12 },
-    { tag: 'line', x1: 12, x2: 12, y1: 6, y2: 2 },
-    { tag: 'line', x1: 12, x2: 12, y1: 22, y2: 18 },
-  ],
-  {},
-);
-
 export const cuboidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 22v-8" },
@@ -1098,18 +991,6 @@ export const diameterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M6.48 3.66a10 10 0 0 1 13.86 13.86" },
     { tag: 'path', d: "m6.41 6.41 11.18 11.18" },
     { tag: 'path', d: "M3.66 6.48a10 10 0 0 0 13.86 13.86" },
-  ],
-  {},
-);
-
-export const dicesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 12, height: 12, x: 2, y: 10, rx: 2, ry: 2 },
-    { tag: 'path', d: "m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" },
-    { tag: 'path', d: "M6 18h.01" },
-    { tag: 'path', d: "M10 14h.01" },
-    { tag: 'path', d: "M15 6h.01" },
-    { tag: 'path', d: "M18 9h.01" },
   ],
   {},
 );
@@ -1244,17 +1125,6 @@ export const drumstickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.5 3.43 135 0 0-6.23 6.23" },
     { tag: 'path', d: "m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59" },
-  ],
-  {},
-);
-
-export const dumbbellIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z" },
-    { tag: 'path', d: "m2.5 21.5 1.4-1.4" },
-    { tag: 'path', d: "m20.1 3.9 1.4-1.4" },
-    { tag: 'path', d: "M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z" },
-    { tag: 'path', d: "m9.6 14.4 4.8-4.8" },
   ],
   {},
 );
@@ -1571,38 +1441,6 @@ export const fullscreenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const gamepad2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'line', x1: 6, x2: 10, y1: 11, y2: 11 },
-    { tag: 'line', x1: 8, x2: 8, y1: 9, y2: 13 },
-    { tag: 'line', x1: 15, x2: 15.01, y1: 12, y2: 12 },
-    { tag: 'line', x1: 18, x2: 18.01, y1: 10, y2: 10 },
-    { tag: 'path', d: "M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" },
-  ],
-  {},
-);
-
-export const gamepadDirectionalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11.146 15.854a1.207 1.207 0 0 1 1.708 0l1.56 1.56A2 2 0 0 1 15 18.828V21a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2.172a2 2 0 0 1 .586-1.414z" },
-    { tag: 'path', d: "M18.828 15a2 2 0 0 1-1.414-.586l-1.56-1.56a1.207 1.207 0 0 1 0-1.708l1.56-1.56A2 2 0 0 1 18.828 9H21a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1z" },
-    { tag: 'path', d: "M6.586 14.414A2 2 0 0 1 5.172 15H3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h2.172a2 2 0 0 1 1.414.586l1.56 1.56a1.207 1.207 0 0 1 0 1.708z" },
-    { tag: 'path', d: "M9 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2.172a2 2 0 0 1-.586 1.414l-1.56 1.56a1.207 1.207 0 0 1-1.708 0l-1.56-1.56A2 2 0 0 1 9 5.172z" },
-  ],
-  {},
-);
-
-export const gamepadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'line', x1: 6, x2: 10, y1: 12, y2: 12 },
-    { tag: 'line', x1: 8, x2: 8, y1: 10, y2: 14 },
-    { tag: 'line', x1: 15, x2: 15.01, y1: 13, y2: 13 },
-    { tag: 'line', x1: 18, x2: 18.01, y1: 11, y2: 11 },
-    { tag: 'rect', width: 20, height: 12, x: 2, y: 6, rx: 2 },
-  ],
-  {},
-);
-
 export const gemIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10.5 3 8 9l4 13 4-13-2.5-6" },
@@ -1617,16 +1455,6 @@ export const ghostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M9 10h.01" },
     { tag: 'path', d: "M15 10h.01" },
     { tag: 'path', d: "M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z" },
-  ],
-  {},
-);
-
-export const giftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 7v14" },
-    { tag: 'path', d: "M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" },
-    { tag: 'path', d: "M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" },
-    { tag: 'rect', x: 3, y: 7, width: 18, height: 4, rx: 1 },
   ],
   {},
 );
@@ -1646,15 +1474,6 @@ export const glassesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2" },
     { tag: 'path', d: "M2.5 13 5 7c.7-1.3 1.4-2 3-2" },
     { tag: 'path', d: "M21.5 13 19 7c-.7-1.3-1.5-2-3-2" },
-  ],
-  {},
-);
-
-export const goalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 13V2l8 4-8 4" },
-    { tag: 'path', d: "M20.561 10.222a9 9 0 1 1-12.55-5.29" },
-    { tag: 'path', d: "M8.002 9.997a5 5 0 1 0 8.9 2.02" },
   ],
   {},
 );
@@ -1902,16 +1721,6 @@ export const inspectionPanelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 7h.01" },
     { tag: 'path', d: "M7 17h.01" },
     { tag: 'path', d: "M17 17h.01" },
-  ],
-  {},
-);
-
-export const joystickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2Z" },
-    { tag: 'path', d: "M6 15v-2" },
-    { tag: 'path', d: "M12 15V9" },
-    { tag: 'circle', cx: 12, cy: 6, r: 3 },
   ],
   {},
 );
@@ -2176,18 +1985,6 @@ export const martiniIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 12 4.207 4.207A.707.707 0 0 1 4.707 3h14.586a.707.707 0 0 1 .5 1.207z" },
     { tag: 'path', d: "M12 12v10" },
     { tag: 'path', d: "M7 22h10" },
-  ],
-  {},
-);
-
-export const medalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" },
-    { tag: 'path', d: "M11 12 5.12 2.2" },
-    { tag: 'path', d: "m13 12 5.88-9.8" },
-    { tag: 'path', d: "M8 7h8" },
-    { tag: 'circle', cx: 12, cy: 17, r: 5 },
-    { tag: 'path', d: "M12 18v-2h-.5" },
   ],
   {},
 );
@@ -2463,21 +2260,6 @@ export const parkingMeterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const partyPopperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5.8 11.3 2 22l10.7-3.79" },
-    { tag: 'path', d: "M4 3h.01" },
-    { tag: 'path', d: "M22 8h.01" },
-    { tag: 'path', d: "M15 2h.01" },
-    { tag: 'path', d: "M22 20h.01" },
-    { tag: 'path', d: "m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" },
-    { tag: 'path', d: "m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" },
-    { tag: 'path', d: "m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" },
-    { tag: 'path', d: "M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" },
-  ],
-  {},
-);
-
 export const pawPrintIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 11, cy: 4, r: 2 },
@@ -2692,13 +2474,6 @@ export const proportionsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const puzzleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z" },
-  ],
-  {},
-);
-
 export const pyramidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M2.5 16.88a1 1 0 0 1-.32-1.43l9-13.02a1 1 0 0 1 1.64 0l9 13.01a1 1 0 0 1-.32 1.44l-8.51 4.86a2 2 0 0 1-1.98 0Z" },
@@ -2784,16 +2559,6 @@ export const roadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 5V3" },
     { tag: 'path', d: "M12 9v3" },
     { tag: 'path', d: "M2.077 18.449A2 2 0 0 0 4 21h16a2 2 0 0 0 1.924-2.55l-4-14A2 2 0 0 0 16 3H8a2 2 0 0 0-1.924 1.45z" },
-  ],
-  {},
-);
-
-export const rocketIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" },
-    { tag: 'path', d: "M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" },
-    { tag: 'path', d: "M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" },
-    { tag: 'path', d: "M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" },
   ],
   {},
 );
@@ -3206,15 +2971,6 @@ export const spoolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const sportShoeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15 10.42 4.8-5.07" },
-    { tag: 'path', d: "M19 18h3" },
-    { tag: 'path', d: "M9.5 22 21.414 9.415A2 2 0 0 0 21.2 6.4l-5.61-4.208A1 1 0 0 0 14 3v2a2 2 0 0 1-1.394 1.906L8.677 8.053A1 1 0 0 0 8 9c-.155 6.393-2.082 9-4 9a2 2 0 0 0 0 4h14" },
-  ],
-  {},
-);
-
 export const spotlightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M15.295 19.562 16 22" },
@@ -3370,20 +3126,6 @@ export const switchCameraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const swordsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'polyline', points: "14.5 17.5 3 6 3 3 6 3 17.5 14.5" },
-    { tag: 'line', x1: 13, x2: 19, y1: 19, y2: 13 },
-    { tag: 'line', x1: 16, x2: 20, y1: 16, y2: 20 },
-    { tag: 'line', x1: 19, x2: 21, y1: 21, y2: 19 },
-    { tag: 'polyline', points: "14.5 6.5 18 3 21 3 21 6 17.5 9.5" },
-    { tag: 'line', x1: 5, x2: 9, y1: 14, y2: 18 },
-    { tag: 'line', x1: 7, x2: 4, y1: 17, y2: 20 },
-    { tag: 'line', x1: 3, x2: 5, y1: 19, y2: 21 },
-  ],
-  {},
-);
-
 export const syringeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m18 2 4 4" },
@@ -3421,15 +3163,6 @@ export const tangentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15.59 5.41 5.41 15.59" },
     { tag: 'circle', cx: 4, cy: 17, r: 2 },
     { tag: 'path', d: "M12 22s-4-9-1.5-11.5S22 12 22 12" },
-  ],
-  {},
-);
-
-export const targetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-    { tag: 'circle', cx: 12, cy: 12, r: 6 },
-    { tag: 'circle', cx: 12, cy: 12, r: 2 },
   ],
   {},
 );
@@ -3575,15 +3308,6 @@ export const towerControlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const toyBrickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 18, height: 12, x: 3, y: 8, rx: 1 },
-    { tag: 'path', d: "M10 8V5c0-.6-.4-1-1-1H6a1 1 0 0 0-1 1v3" },
-    { tag: 'path', d: "M19 8V5c0-.6-.4-1-1-1h-3a1 1 0 0 0-1 1v3" },
-  ],
-  {},
-);
-
 export const tractorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20" },
@@ -3706,18 +3430,6 @@ export const treesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M7 16v6" },
     { tag: 'path', d: "M13 19v3" },
     { tag: 'path', d: "M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" },
-  ],
-  {},
-);
-
-export const trophyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" },
-    { tag: 'path', d: "M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" },
-    { tag: 'path', d: "M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" },
-    { tag: 'path', d: "M4 22h16" },
-    { tag: 'path', d: "M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" },
-    { tag: 'path', d: "M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" },
   ],
   {},
 );
@@ -3913,18 +3625,6 @@ export const voicemailIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 6, cy: 12, r: 4 },
     { tag: 'circle', cx: 18, cy: 12, r: 4 },
     { tag: 'line', x1: 6, x2: 18, y1: 16, y2: 16 },
-  ],
-  {},
-);
-
-export const volleyballIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 7a16 16 20 0 1 10.98 4.362" },
-    { tag: 'path', d: "M12 12a13 13 0 0 1-8.66 5" },
-    { tag: 'path', d: "M16.83 13.634a16 16 0 0 1-9.267 7.328" },
-    { tag: 'path', d: "M20.66 17A13 13 0 0 0 12 12a13 13 0 0 1 0-10" },
-    { tag: 'path', d: "M8.17 15.366a16 16 0 0 1-1.713-11.69" },
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
   ],
   {},
 );
@@ -4255,7 +3955,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   baby: babyIcon,
   backpack: backpackIcon,
   'baggage-claim': baggageClaimIcon,
-  balloon: balloonIcon,
   banana: bananaIcon,
   bandage: bandageIcon,
   barcode: barcodeIcon,
@@ -4265,7 +3964,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'bed-double': bedDoubleIcon,
   'bed-single': bedSingleIcon,
   bed: bedIcon,
-  'biceps-flexed': bicepsFlexedIcon,
   bike: bikeIcon,
   binoculars: binocularsIcon,
   biohazard: biohazardIcon,
@@ -4273,7 +3971,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   birdhouse: birdhouseIcon,
   blender: blenderIcon,
   blinds: blindsIcon,
-  bomb: bombIcon,
   'boom-box': boomBoxIcon,
   'bottle-wine': bottleWineIcon,
   'bow-arrow': bowArrowIcon,
@@ -4302,12 +3999,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   castle: castleIcon,
   cat: catIcon,
   'chef-hat': chefHatIcon,
-  'chess-bishop': chessBishopIcon,
-  'chess-king': chessKingIcon,
-  'chess-knight': chessKnightIcon,
-  'chess-pawn': chessPawnIcon,
-  'chess-queen': chessQueenIcon,
-  'chess-rook': chessRookIcon,
   church: churchIcon,
   'circuit-board': circuitBoardIcon,
   citrus: citrusIcon,
@@ -4333,7 +4024,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'creative-commons': creativeCommonsIcon,
   croissant: croissantIcon,
   cross: crossIcon,
-  crosshair: crosshairIcon,
   cuboid: cuboidIcon,
   'cup-soda': cupSodaIcon,
   cylinder: cylinderIcon,
@@ -4341,7 +4031,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   delete: deleteIcon,
   dessert: dessertIcon,
   diameter: diameterIcon,
-  dices: dicesIcon,
   dock: dockIcon,
   dog: dogIcon,
   donut: donutIcon,
@@ -4355,7 +4044,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   drone: droneIcon,
   droplets: dropletsIcon,
   drumstick: drumstickIcon,
-  dumbbell: dumbbellIcon,
   'earth-lock': earthLockIcon,
   earth: earthIcon,
   ellipse: ellipseIcon,
@@ -4385,15 +4073,10 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   form: formIcon,
   fuel: fuelIcon,
   fullscreen: fullscreenIcon,
-  'gamepad-2': gamepad2Icon,
-  'gamepad-directional': gamepadDirectionalIcon,
-  gamepad: gamepadIcon,
   gem: gemIcon,
   ghost: ghostIcon,
-  gift: giftIcon,
   'glass-water': glassWaterIcon,
   glasses: glassesIcon,
-  goal: goalIcon,
   gpu: gpuIcon,
   grape: grapeIcon,
   group: groupIcon,
@@ -4417,7 +4100,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'ice-cream-cone': iceCreamConeIcon,
   import: importIcon,
   'inspection-panel': inspectionPanelIcon,
-  joystick: joystickIcon,
   kayak: kayakIcon,
   'lamp-ceiling': lampCeilingIcon,
   'lamp-desk': lampDeskIcon,
@@ -4446,7 +4128,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'mars-stroke': marsStrokeIcon,
   mars: marsIcon,
   martini: martiniIcon,
-  medal: medalIcon,
   'memory-stick': memoryStickIcon,
   merge: mergeIcon,
   'messages-square': messagesSquareIcon,
@@ -4472,7 +4153,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   parasol: parasolIcon,
   parentheses: parenthesesIcon,
   'parking-meter': parkingMeterIcon,
-  'party-popper': partyPopperIcon,
   'paw-print': pawPrintIcon,
   'pc-case': pcCaseIcon,
   pentagon: pentagonIcon,
@@ -4495,7 +4175,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   presentation: presentationIcon,
   projector: projectorIcon,
   proportions: proportionsIcon,
-  puzzle: puzzleIcon,
   pyramid: pyramidIcon,
   radiation: radiationIcon,
   radius: radiusIcon,
@@ -4505,7 +4184,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   refrigerator: refrigeratorIcon,
   ribbon: ribbonIcon,
   road: roadIcon,
-  rocket: rocketIcon,
   'roller-coaster': rollerCoasterIcon,
   rose: roseIcon,
   'ruler-dimension-line': rulerDimensionLineIcon,
@@ -4545,7 +4223,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   speaker: speakerIcon,
   split: splitIcon,
   spool: spoolIcon,
-  'sport-shoe': sportShoeIcon,
   spotlight: spotlightIcon,
   'spray-can': sprayCanIcon,
   sprout: sproutIcon,
@@ -4560,12 +4237,10 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   sunset: sunsetIcon,
   'swatch-book': swatchBookIcon,
   'switch-camera': switchCameraIcon,
-  swords: swordsIcon,
   syringe: syringeIcon,
   tablets: tabletsIcon,
   tags: tagsIcon,
   tangent: tangentIcon,
-  target: targetIcon,
   'tent-tree': tentTreeIcon,
   tent: tentIcon,
   'test-tube-diagonal': testTubeDiagonalIcon,
@@ -4579,7 +4254,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   torus: torusIcon,
   'towel-rack': towelRackIcon,
   'tower-control': towerControlIcon,
-  'toy-brick': toyBrickIcon,
   tractor: tractorIcon,
   'traffic-cone': trafficConeIcon,
   'train-front-tunnel': trainFrontTunnelIcon,
@@ -4591,7 +4265,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'tree-palm': treePalmIcon,
   'tree-pine': treePineIcon,
   trees: treesIcon,
-  trophy: trophyIcon,
   turntable: turntableIcon,
   turtle: turtleIcon,
   ungroup: ungroupIcon,
@@ -4610,7 +4283,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   videotape: videotapeIcon,
   view: viewIcon,
   voicemail: voicemailIcon,
-  volleyball: volleyballIcon,
   'wallet-cards': walletCardsIcon,
   'wallet-minimal': walletMinimalIcon,
   wallet: walletIcon,

@@ -608,6 +608,11 @@
       "line:d80838721362",
       "line:6b323e8a31fa"
     ],
+    "balloon": [
+      "path:7feeddb1ae06",
+      "path:57ff595e6979",
+      "path:d9a09217d379"
+    ],
     "ban": [
       "circle:1b306a76ecc0",
       "path:0ee4d432c24b"
@@ -801,6 +806,11 @@
       "path:b04f2f9c9d02",
       "rect:0fb91189d8a5"
     ],
+    "biceps-flexed": [
+      "path:d7edf8d40de7",
+      "path:e7b294aedc1f",
+      "path:3d568a3b034b"
+    ],
     "binary": [
       "rect:80b4a83e9a27",
       "rect:76490ff86308",
@@ -844,6 +854,11 @@
     "bolt": [
       "path:bf22cd457005",
       "circle:9d7fc8897980"
+    ],
+    "bomb": [
+      "circle:069a68004850",
+      "path:1d228b2b9844",
+      "path:af83a37a8a62"
     ],
     "bone": [
       "path:13169e58d7ad"
@@ -1656,6 +1671,51 @@
       "path:a2675e2bd321",
       "path:0767c4a4a404"
     ],
+    "chess-bishop": [
+      "path:aeb11d6ce718",
+      "path:eca12edf15fc",
+      "path:b119b316314f",
+      "path:f52861d0fb10"
+    ],
+    "chess-king": [
+      "path:caebc558aabc",
+      "path:8a66a91ad600",
+      "path:c69bfa3c7e55",
+      "path:383a25870cf2"
+    ],
+    "chess-knight": [
+      "path:aeb11d6ce718",
+      "path:6b3c3446bff1",
+      "path:f767d219194c",
+      "path:7de5f30c2eb1",
+      "path:f926e73e7715"
+    ],
+    "chess-pawn": [
+      "path:aeb11d6ce718",
+      "path:95806a8032a7",
+      "path:98a845c826a8",
+      "path:13b5356f4889",
+      "circle:844d2fb01bf4"
+    ],
+    "chess-queen": [
+      "path:caebc558aabc",
+      "path:1c6fb86d8f01",
+      "path:0423ab8b41d5",
+      "path:65b459d06e43",
+      "path:ef1fff04e475",
+      "circle:c97188848670",
+      "circle:27729b7239ec",
+      "circle:8ea08eb632ff"
+    ],
+    "chess-rook": [
+      "path:aeb11d6ce718",
+      "path:da93e6a230b2",
+      "path:7f6dea2eeb8c",
+      "path:af09c5ee1cd9",
+      "path:aead689b4479",
+      "path:f904da481662",
+      "path:f341b0a2c0ca"
+    ],
     "chevron-down": [
       "path:99707fdfad60"
     ],
@@ -2441,6 +2501,13 @@
       "path:33f9ab84a2b9",
       "path:ebd633f14b63"
     ],
+    "crosshair": [
+      "circle:1b306a76ecc0",
+      "line:ca7437417f60",
+      "line:e235ffd41a3f",
+      "line:c05089ae827a",
+      "line:beada21d53d3"
+    ],
     "crown": [
       "path:77260e716c90",
       "path:eeb36d422fd8"
@@ -2597,6 +2664,14 @@
       "path:101f890beab1",
       "path:a84a55b76b79"
     ],
+    "dices": [
+      "rect:280b00d0b55a",
+      "path:265f6b095c6a",
+      "path:b0f90fc38000",
+      "path:bdbb822c4d85",
+      "path:3713456009dd",
+      "path:ddf6253e032e"
+    ],
     "diff": [
       "path:215a5436fb35",
       "path:c3d5ef664089",
@@ -2677,6 +2752,13 @@
       "path:71cf47ed318a",
       "path:e225ae8f03f1",
       "path:a23b5a201145"
+    ],
+    "dumbbell": [
+      "path:8ea6c35d09c0",
+      "path:839c7dddc43a",
+      "path:f32313c776ca",
+      "path:664aab9dd7f7",
+      "path:01d3da8a9f85"
     ],
     "ear": [
       "path:7d7af7081de2",
@@ -3464,6 +3546,26 @@
       "path:513fd49bdcf1",
       "rect:bad5794068ed"
     ],
+    "gamepad": [
+      "line:f44c26652763",
+      "line:fc9406f0a580",
+      "line:af15b15b4c32",
+      "line:9dc6b6dbb493",
+      "rect:9741cff5b177"
+    ],
+    "gamepad-2": [
+      "line:c5ee537d6e1e",
+      "line:d52b0805a2c2",
+      "line:a0f525538547",
+      "line:8166a1039833",
+      "path:13a6cbd22239"
+    ],
+    "gamepad-directional": [
+      "path:ff4d1d20a30a",
+      "path:ea685f399411",
+      "path:a1bef813d277",
+      "path:b08135467113"
+    ],
     "gauge": [
       "path:e77beac69142",
       "path:251aaa93ab8d"
@@ -3480,6 +3582,12 @@
       "path:62b6aff32460",
       "path:8de14cc7b38d",
       "path:7308f708fb2f"
+    ],
+    "gift": [
+      "path:2fbf5be2ecd0",
+      "path:2410efe5f87e",
+      "path:77d9a513af2c",
+      "rect:0196e19089ee"
     ],
     "git-branch": [
       "path:cc3fdb9a038f",
@@ -3622,6 +3730,11 @@
       "path:3001bc43b3bd",
       "path:9d6626ef2777",
       "path:05dd1d50c9ba"
+    ],
+    "goal": [
+      "path:f1dbc3cb51c2",
+      "path:b23595d6c3ed",
+      "path:6b0aad74c0b2"
     ],
     "graduation-cap": [
       "path:184e1accc7b0",
@@ -4028,6 +4141,12 @@
       "path:fc41c2078e1e",
       "path:58502854c59a",
       "path:de3ee2882374"
+    ],
+    "joystick": [
+      "path:034551712bde",
+      "path:44d0a48e4dfa",
+      "path:fa1633294c4d",
+      "circle:8b4d3ab51af4"
     ],
     "kanban": [
       "path:dae945700399",
@@ -4623,6 +4742,14 @@
       "path:e248e8a02588",
       "path:a5bebfd20328",
       "path:82784bf9c6d5"
+    ],
+    "medal": [
+      "path:fed567bca835",
+      "path:ed6d39ecbf0b",
+      "path:971741bfb5e8",
+      "path:275bc7c6295a",
+      "circle:8aeb62d1a235",
+      "path:2ef298b2884a"
     ],
     "megaphone": [
       "path:e6fa03af28b2",
@@ -5405,6 +5532,17 @@
     "paperclip": [
       "path:9f6de73b2440"
     ],
+    "party-popper": [
+      "path:924339d334f5",
+      "path:959670376394",
+      "path:87f1d800adcb",
+      "path:6676733cda79",
+      "path:b3f5cdc051a0",
+      "path:31611e48b25b",
+      "path:52fe66f94123",
+      "path:bdf61527d6ae",
+      "path:19cfdbb016b8"
+    ],
     "pause": [
       "rect:ef9a23339fcc",
       "rect:b8d76df10e5a"
@@ -5618,6 +5756,9 @@
       "path:3dc157683c2a",
       "path:19d975649c76",
       "path:14d7a1a956bc"
+    ],
+    "puzzle": [
+      "path:7bafa269c17e"
     ],
     "qr-code": [
       "rect:ff7cc9738b97",
@@ -5881,6 +6022,12 @@
     "rewind": [
       "path:a981750469e5",
       "path:5dbd34d0e50e"
+    ],
+    "rocket": [
+      "path:50e51c8e6147",
+      "path:e91e8369e2cc",
+      "path:39f40c0915ab",
+      "path:c16efa765da9"
     ],
     "rocking-chair": [
       "path:f10040931976",
@@ -6549,6 +6696,11 @@
       "circle:550aec9454b4",
       "circle:26f6f7589d92"
     ],
+    "sport-shoe": [
+      "path:712bdaa38537",
+      "path:fa747e355c3a",
+      "path:f89700c53e44"
+    ],
     "square": [
       "rect:d427f2bc2999"
     ],
@@ -7157,6 +7309,16 @@
       "path:9ca590c360cf",
       "path:aff53ac7ca42"
     ],
+    "swords": [
+      "polyline:2d0cb9e12d8a",
+      "line:c66ea548a320",
+      "line:a0800a44c741",
+      "line:247fc14c5d1d",
+      "polyline:aa8170f8b6e1",
+      "line:afe054fef4f3",
+      "line:1c9b363dbb43",
+      "line:c7bac6bbd435"
+    ],
     "table": [
       "path:2d5a671aff35",
       "rect:d427f2bc2999",
@@ -7268,6 +7430,11 @@
       "path:7574ec79bd45",
       "path:f2579d8ccc94",
       "path:d365b312773b"
+    ],
+    "target": [
+      "circle:1b306a76ecc0",
+      "circle:9b7fc5637780",
+      "circle:9f7fcbaf7380"
     ],
     "telescope": [
       "path:b73c31aa0f41",
@@ -7465,6 +7632,11 @@
       "path:ebca78a2f3e1",
       "path:f197a9af631a"
     ],
+    "toy-brick": [
+      "rect:4628d300ae98",
+      "path:6b810bb103b3",
+      "path:61d5469e8039"
+    ],
     "trash": [
       "path:fcbffd502b93",
       "path:8d73c9199add",
@@ -7512,6 +7684,14 @@
     ],
     "triangle-right": [
       "path:6b9a9a4fa291"
+    ],
+    "trophy": [
+      "path:e12b39f34718",
+      "path:b8aa40571348",
+      "path:d9dd6b0e5b7c",
+      "path:a1f981a0bb6e",
+      "path:9a31ec79d380",
+      "path:477b457ec52b"
     ],
     "truck": [
       "path:3d560e079839",
@@ -7801,6 +7981,14 @@
       "path:b7be92a9405f",
       "path:487b42e762a5",
       "path:378c27879c92"
+    ],
+    "volleyball": [
+      "path:421527a58dd4",
+      "path:617211f71e6b",
+      "path:812b20a912af",
+      "path:caa3813a6931",
+      "path:44b518350327",
+      "circle:1b306a76ecc0"
     ],
     "volume": [
       "path:bf678970bfa2"
@@ -8484,6 +8672,11 @@
       "draw": "17c8398e8d34",
       "drop": "1c80ba7c5fea"
     },
+    "balloon": {
+      "default": "fac1bb06434b",
+      "draw": "17c8398e8d34",
+      "hold": "3ea3005843ce"
+    },
     "ban": {
       "default": "3f38b93195b4",
       "draw": "17c8398e8d34"
@@ -8620,6 +8813,11 @@
       "default": "920b554233cf",
       "draw": "17c8398e8d34"
     },
+    "biceps-flexed": {
+      "default": "6a5d916a1e38",
+      "draw": "17c8398e8d34",
+      "hold": "cf6d6ff93fb3"
+    },
     "binary": {
       "default": "8035d30d64af",
       "draw": "17c8398e8d34"
@@ -8659,6 +8857,11 @@
     "bolt": {
       "default": "ba541b42eba9",
       "draw": "17c8398e8d34"
+    },
+    "bomb": {
+      "default": "8d9e56b5a521",
+      "draw": "17c8398e8d34",
+      "hold": "ac7947d121d7"
     },
     "bone": {
       "default": "73c9f83758a9",
@@ -9193,6 +9396,36 @@
     "cherry": {
       "default": "096f5e5fe20f",
       "draw": "17c8398e8d34"
+    },
+    "chess-bishop": {
+      "default": "85415fa5d2ec",
+      "draw": "17c8398e8d34",
+      "hold": "fdf4ba9bba9e"
+    },
+    "chess-king": {
+      "default": "12090c3f1592",
+      "draw": "17c8398e8d34",
+      "hold": "fdf4ba9bba9e"
+    },
+    "chess-knight": {
+      "default": "9402106ff973",
+      "draw": "17c8398e8d34",
+      "hold": "66894dcb320d"
+    },
+    "chess-pawn": {
+      "default": "46e0a1bfbfc8",
+      "draw": "17c8398e8d34",
+      "hold": "66894dcb320d"
+    },
+    "chess-queen": {
+      "default": "2ae21ebb0313",
+      "draw": "17c8398e8d34",
+      "hold": "798a0a77be9b"
+    },
+    "chess-rook": {
+      "default": "990b873ef352",
+      "draw": "17c8398e8d34",
+      "hold": "bed0232e607a"
     },
     "chevron-down": {
       "active": "53afeecd5837",
@@ -9808,6 +10041,11 @@
       "default": "0925bb7cbb41",
       "draw": "17c8398e8d34"
     },
+    "crosshair": {
+      "default": "4fb21b1359c3",
+      "draw": "17c8398e8d34",
+      "hold": "dd77e24311e7"
+    },
     "crown": {
       "default": "7b9ccdcc0ce5",
       "draw": "17c8398e8d34"
@@ -9913,6 +10151,11 @@
       "default": "9379473bebd8",
       "draw": "17c8398e8d34"
     },
+    "dices": {
+      "default": "c529f38d3b0a",
+      "draw": "17c8398e8d34",
+      "hold": "ec1c83f1060c"
+    },
     "diff": {
       "default": "ac75a52a24ea",
       "draw": "17c8398e8d34"
@@ -9966,6 +10209,11 @@
     "drum": {
       "default": "85bb4cb32629",
       "draw": "17c8398e8d34"
+    },
+    "dumbbell": {
+      "default": "f8f8175b291e",
+      "draw": "17c8398e8d34",
+      "hold": "e0564b957566"
     },
     "ear": {
       "default": "6227242b8fa1",
@@ -10617,6 +10865,21 @@
       "default": "d7eb0a28961c",
       "draw": "17c8398e8d34"
     },
+    "gamepad": {
+      "default": "f4b9e08b9826",
+      "draw": "17c8398e8d34",
+      "hold": "9e59bab2a8dc"
+    },
+    "gamepad-2": {
+      "default": "a83e6ea171a9",
+      "draw": "17c8398e8d34",
+      "hold": "6b3d4374b4ae"
+    },
+    "gamepad-directional": {
+      "default": "355badc1fee4",
+      "draw": "17c8398e8d34",
+      "hold": "b70f56f108e8"
+    },
     "gauge": {
       "default": "e3165eae4e5a",
       "draw": "17c8398e8d34"
@@ -10628,6 +10891,11 @@
     "georgian-lari": {
       "default": "67ed1888b308",
       "draw": "17c8398e8d34"
+    },
+    "gift": {
+      "default": "d1ccfdea4026",
+      "draw": "17c8398e8d34",
+      "hold": "f65671c77dee"
     },
     "git-branch": {
       "default": "c3aa1ec38831",
@@ -10720,6 +10988,11 @@
       "default": "cb1096ad4d2d",
       "draw": "17c8398e8d34",
       "shake": "fa034c52e906"
+    },
+    "goal": {
+      "default": "8089db52c6e1",
+      "draw": "17c8398e8d34",
+      "hold": "cfe030d01140"
     },
     "graduation-cap": {
       "default": "83a3724d091c",
@@ -11011,6 +11284,11 @@
     "japanese-yen": {
       "default": "a3fdcd33bf24",
       "draw": "17c8398e8d34"
+    },
+    "joystick": {
+      "default": "cae26f245085",
+      "draw": "17c8398e8d34",
+      "hold": "0ecfa248e8bb"
     },
     "kanban": {
       "default": "4decc6acc7b4",
@@ -11451,6 +11729,11 @@
     "maximize-2": {
       "default": "3151c2633a07",
       "draw": "17c8398e8d34"
+    },
+    "medal": {
+      "default": "84d423802bce",
+      "draw": "17c8398e8d34",
+      "hold": "c4613e4021da"
     },
     "megaphone": {
       "default": "5cc00626a3d8",
@@ -12073,6 +12356,11 @@
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
     },
+    "party-popper": {
+      "default": "5affcb99cebc",
+      "draw": "17c8398e8d34",
+      "hold": "c896327278e9"
+    },
     "pause": {
       "default": "d48c6c63a0b2",
       "draw": "17c8398e8d34"
@@ -12246,6 +12534,11 @@
     "printer-x": {
       "default": "a8f878090902",
       "draw": "17c8398e8d34"
+    },
+    "puzzle": {
+      "default": "3621b4af8ed3",
+      "draw": "17c8398e8d34",
+      "hold": "2c55e13e89db"
     },
     "qr-code": {
       "default": "6a61afa23576",
@@ -12430,6 +12723,11 @@
     "rewind": {
       "default": "34de2b5320b1",
       "draw": "17c8398e8d34"
+    },
+    "rocket": {
+      "default": "620e990b3f5f",
+      "draw": "17c8398e8d34",
+      "hold": "03df880bce83"
     },
     "rocking-chair": {
       "default": "3dc888da043a",
@@ -12904,6 +13202,11 @@
       "default": "3e0254bb9f3f",
       "draw": "17c8398e8d34"
     },
+    "sport-shoe": {
+      "default": "a99eb6326a64",
+      "draw": "17c8398e8d34",
+      "hold": "59d301955a72"
+    },
     "square": {
       "default": "cf6bb2a7af0d",
       "draw": "17c8398e8d34"
@@ -13342,6 +13645,11 @@
       "default": "2251b0c8d1cc",
       "draw": "17c8398e8d34"
     },
+    "swords": {
+      "default": "ad97a9ab0690",
+      "draw": "17c8398e8d34",
+      "hold": "2f93337f9cb4"
+    },
     "table": {
       "default": "dc27db727a1b",
       "draw": "17c8398e8d34"
@@ -13419,6 +13727,11 @@
       "count": "35cf809a6963",
       "default": "ac7c35a70b2d",
       "draw": "17c8398e8d34"
+    },
+    "target": {
+      "default": "e073e978b7dd",
+      "draw": "17c8398e8d34",
+      "hold": "f211f76360cd"
     },
     "telescope": {
       "default": "9f964837b627",
@@ -13564,6 +13877,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "toy-brick": {
+      "default": "ecc1fabb993d",
+      "draw": "17c8398e8d34",
+      "hold": "028771847118"
+    },
     "trash": {
       "active": "c8898926da75",
       "default": "cdd9c71017c4",
@@ -13602,6 +13920,11 @@
     "triangle-right": {
       "default": "c6537761a3f2",
       "draw": "17c8398e8d34"
+    },
+    "trophy": {
+      "default": "b935a474d72f",
+      "draw": "17c8398e8d34",
+      "hold": "992c7b45df9b"
     },
     "truck": {
       "default": "5b64c8954f2c",
@@ -13809,6 +14132,11 @@
     "video-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "volleyball": {
+      "default": "f33008860794",
+      "draw": "17c8398e8d34",
+      "hold": "301dc698803b"
     },
     "volume": {
       "default": "bdb5bbdf20d9",
