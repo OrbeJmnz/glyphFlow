@@ -176,17 +176,6 @@ export const armchairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const arrowsUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m4 6 3-3 3 3" },
-    { tag: 'path', d: "M7 17V3" },
-    { tag: 'path', d: "m14 6 3-3 3 3" },
-    { tag: 'path', d: "M17 17V3" },
-    { tag: 'path', d: "M4 21h16" },
-  ],
-  {},
-);
-
 export const asteriskIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 6v12" },
@@ -1113,70 +1102,6 @@ export const copyrightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const cornerDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 4v7a4 4 0 0 1-4 4H4" },
-    { tag: 'path', d: "m9 10-5 5 5 5" },
-  ],
-  {},
-);
-
-export const cornerDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15 10 5 5-5 5" },
-    { tag: 'path', d: "M4 4v7a4 4 0 0 0 4 4h12" },
-  ],
-  {},
-);
-
-export const cornerLeftDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m14 15-5 5-5-5" },
-    { tag: 'path', d: "M20 4h-7a4 4 0 0 0-4 4v12" },
-  ],
-  {},
-);
-
-export const cornerLeftUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M14 9 9 4 4 9" },
-    { tag: 'path', d: "M20 20h-7a4 4 0 0 1-4-4V4" },
-  ],
-  {},
-);
-
-export const cornerRightDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m10 15 5 5 5-5" },
-    { tag: 'path', d: "M4 4h7a4 4 0 0 1 4 4v12" },
-  ],
-  {},
-);
-
-export const cornerRightUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m10 9 5-5 5 5" },
-    { tag: 'path', d: "M4 20h7a4 4 0 0 0 4-4V4" },
-  ],
-  {},
-);
-
-export const cornerUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 20v-7a4 4 0 0 0-4-4H4" },
-    { tag: 'path', d: "M9 14 4 9l5-5" },
-  ],
-  {},
-);
-
-export const cornerUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15 14 5-5-5-5" },
-    { tag: 'path', d: "M4 20v-7a4 4 0 0 1 4-4h12" },
-  ],
-  {},
-);
-
 export const creativeCommonsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
@@ -1262,27 +1187,6 @@ export const damIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M2 18h4" },
     { tag: 'path', d: "M2 6h4" },
     { tag: 'path', d: "M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1L10 4a1 1 0 0 0-1-1z" },
-  ],
-  {},
-);
-
-export const decimalsArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m13 21-3-3 3-3" },
-    { tag: 'path', d: "M20 18H10" },
-    { tag: 'path', d: "M3 11h.01" },
-    { tag: 'rect', x: 6, y: 3, width: 5, height: 8, rx: 2.5 },
-  ],
-  {},
-);
-
-export const decimalsArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 18h10" },
-    { tag: 'path', d: "m17 21 3-3-3-3" },
-    { tag: 'path', d: "M3 11h.01" },
-    { tag: 'rect', x: 15, y: 3, width: 5, height: 8, rx: 2.5 },
-    { tag: 'rect', x: 6, y: 3, width: 5, height: 8, rx: 2.5 },
   ],
   {},
 );
@@ -1512,14 +1416,6 @@ export const earthIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const ejectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 13a1 1 0 0 1-.72-1.695l7.257-7.668a2 2 0 0 1 2.926 0l7.256 7.668A1 1 0 0 1 20 13z" },
-    { tag: 'rect', x: 3, y: 17, width: 18, height: 4, rx: 1 },
-  ],
-  {},
-);
-
 export const ellipseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'ellipse', cx: 12, cy: 12, rx: 10, ry: 6 },
@@ -1594,14 +1490,6 @@ export const fanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z" },
     { tag: 'path', d: "M12 12v.01" },
-  ],
-  {},
-);
-
-export const fastForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 6a2 2 0 0 1 3.414-1.414l6 6a2 2 0 0 1 0 2.828l-6 6A2 2 0 0 1 12 18z" },
-    { tag: 'path', d: "M2 6a2 2 0 0 1 3.414-1.414l6 6a2 2 0 0 1 0 2.828l-6 6A2 2 0 0 1 2 18z" },
   ],
   {},
 );
@@ -1854,14 +1742,6 @@ export const formIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M4 2h10" },
     { tag: 'rect', x: 4, y: 18, width: 16, height: 4, rx: 1 },
     { tag: 'rect', x: 4, y: 6, width: 16, height: 4, rx: 1 },
-  ],
-  {},
-);
-
-export const forwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m15 17 5-5-5-5" },
-    { tag: 'path', d: "M4 18v-2a4 4 0 0 1 4-4h12" },
   ],
   {},
 );
@@ -2333,22 +2213,6 @@ export const italicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const iterationCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m16 14 4 4-4 4" },
-    { tag: 'path', d: "M20 10a8 8 0 1 0-8 8h8" },
-  ],
-  {},
-);
-
-export const iterationCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 10a8 8 0 1 1 8 8H4" },
-    { tag: 'path', d: "m8 22-4-4 4-4" },
-  ],
-  {},
-);
-
 export const japaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 9.5V21m0-11.5L6 3m6 6.5L18 3" },
@@ -2459,25 +2323,6 @@ export const lassoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M3.704 14.467a10 8 0 1 1 3.115 2.375" },
     { tag: 'path', d: "M7 22a5 5 0 0 1-2-3.994" },
     { tag: 'circle', cx: 5, cy: 16, r: 2 },
-  ],
-  {},
-);
-
-export const layerArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 10v10" },
-    { tag: 'path', d: "M22 10a1 1 0 01-.59.92l-5.077 2.308" },
-    { tag: 'path', d: "M22.017 10.005a1 1 0 00-.597-.916l-8.59-3.91a2 2 0 00-1.66.001L2.6 9.08a1 1 0 00-.02 1.831l5.093 2.316" },
-    { tag: 'path', d: "m9 17 3 3 3-3" },
-  ],
-  {},
-);
-
-export const layerArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 14V4" },
-    { tag: 'path', d: "M7.674 10.774 2.58 13.09a1 1 0 000 1.822l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92 1 1 0 00-.59-.922l-5.078-2.308" },
-    { tag: 'path', d: "m9 7 3-3 3 3" },
   ],
   {},
 );
@@ -3434,31 +3279,6 @@ export const removeFormattingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m12 17-5-5 5-5" },
-    { tag: 'path', d: "M22 18v-2a4 4 0 0 0-4-4H7" },
-    { tag: 'path', d: "m7 17-5-5 5-5" },
-  ],
-  {},
-);
-
-export const replyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 18v-2a4 4 0 0 0-4-4H4" },
-    { tag: 'path', d: "m9 17-5-5 5-5" },
-  ],
-  {},
-);
-
-export const rewindIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 6a2 2 0 0 0-3.414-1.414l-6 6a2 2 0 0 0 0 2.828l6 6A2 2 0 0 0 12 18z" },
-    { tag: 'path', d: "M22 6a2 2 0 0 0-3.414-1.414l-6 6a2 2 0 0 0 0 2.828l6 6A2 2 0 0 0 22 18z" },
-  ],
-  {},
-);
-
 export const ribbonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 11.22C11 9.997 10 9 10 8a2 2 0 0 1 4 0c0 1-.998 2.002-2.01 3.22" },
@@ -3724,26 +3544,6 @@ export const shapesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const share2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 18, cy: 5, r: 3 },
-    { tag: 'circle', cx: 6, cy: 12, r: 3 },
-    { tag: 'circle', cx: 18, cy: 19, r: 3 },
-    { tag: 'line', x1: 8.59, x2: 15.42, y1: 13.51, y2: 17.49 },
-    { tag: 'line', x1: 15.41, x2: 8.59, y1: 6.51, y2: 10.49 },
-  ],
-  {},
-);
-
-export const shareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2v13" },
-    { tag: 'path', d: "m16 6-4-4-4 4" },
-    { tag: 'path', d: "M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" },
-  ],
-  {},
-);
-
 export const sheetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
@@ -3824,17 +3624,6 @@ export const shrubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m18 14 4 4-4 4" },
-    { tag: 'path', d: "m18 2 4 4-4 4" },
-    { tag: 'path', d: "M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22" },
-    { tag: 'path', d: "M2 6h1.972a4 4 0 0 1 3.6 2.2" },
-    { tag: 'path', d: "M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45" },
-  ],
-  {},
-);
-
 export const sigmaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2" },
@@ -3871,22 +3660,6 @@ export const sirenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 2v1" },
     { tag: 'path', d: "m4.929 4.929.707.707" },
     { tag: 'path', d: "M12 12v6" },
-  ],
-  {},
-);
-
-export const skipBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z" },
-    { tag: 'path', d: "M3 20V4" },
-  ],
-  {},
-);
-
-export const skipForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 4v16" },
-    { tag: 'path', d: "M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" },
   ],
   {},
 );
@@ -4170,22 +3943,6 @@ export const stampIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13" },
     { tag: 'path', d: "M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z" },
     { tag: 'path', d: "M5 22h14" },
-  ],
-  {},
-);
-
-export const stepBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M13.971 4.285A2 2 0 0 1 17 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z" },
-    { tag: 'path', d: "M21 20V4" },
-  ],
-  {},
-);
-
-export const stepForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" },
-    { tag: 'path', d: "M3 4v16" },
   ],
   {},
 );
@@ -4682,32 +4439,6 @@ export const treesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const trendingDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 17h6v-6" },
-    { tag: 'path', d: "m22 17-8.5-8.5-5 5L2 7" },
-  ],
-  {},
-);
-
-export const trendingUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M14.828 14.828 21 21" },
-    { tag: 'path', d: "M21 16v5h-5" },
-    { tag: 'path', d: "m21 3-9 9-4-4-6 6" },
-    { tag: 'path', d: "M21 8V3h-5" },
-  ],
-  {},
-);
-
-export const trendingUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 7h6v6" },
-    { tag: 'path', d: "m22 7-8.5 8.5-5-5L2 17" },
-  ],
-  {},
-);
-
 export const trophyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" },
@@ -4753,31 +4484,6 @@ export const underlineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M6 4v6a6 6 0 0 0 12 0V4" },
     { tag: 'line', x1: 4, x2: 20, y1: 20, y2: 20 },
-  ],
-  {},
-);
-
-export const undo2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M9 14 4 9l5-5" },
-    { tag: 'path', d: "M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" },
-  ],
-  {},
-);
-
-export const undoDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 17a9 9 0 0 0-15-6.7L3 13" },
-    { tag: 'path', d: "M3 7v6h6" },
-    { tag: 'circle', cx: 12, cy: 17, r: 1 },
-  ],
-  {},
-);
-
-export const undoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 7v6h6" },
-    { tag: 'path', d: "M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" },
   ],
   {},
 );
@@ -5344,7 +5050,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   aperture: apertureIcon,
   apple: appleIcon,
   armchair: armchairIcon,
-  'arrows-up-from-line': arrowsUpFromLineIcon,
   asterisk: asteriskIcon,
   astroid: astroidIcon,
   atom: atomIcon,
@@ -5432,14 +5137,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'cooking-pot': cookingPotIcon,
   copyleft: copyleftIcon,
   copyright: copyrightIcon,
-  'corner-down-left': cornerDownLeftIcon,
-  'corner-down-right': cornerDownRightIcon,
-  'corner-left-down': cornerLeftDownIcon,
-  'corner-left-up': cornerLeftUpIcon,
-  'corner-right-down': cornerRightDownIcon,
-  'corner-right-up': cornerRightUpIcon,
-  'corner-up-left': cornerUpLeftIcon,
-  'corner-up-right': cornerUpRightIcon,
   'creative-commons': creativeCommonsIcon,
   croissant: croissantIcon,
   cross: crossIcon,
@@ -5449,8 +5146,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   currency: currencyIcon,
   cylinder: cylinderIcon,
   dam: damIcon,
-  'decimals-arrow-left': decimalsArrowLeftIcon,
-  'decimals-arrow-right': decimalsArrowRightIcon,
   delete: deleteIcon,
   dessert: dessertIcon,
   diameter: diameterIcon,
@@ -5473,7 +5168,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   dumbbell: dumbbellIcon,
   'earth-lock': earthLockIcon,
   earth: earthIcon,
-  eject: ejectIcon,
   ellipse: ellipseIcon,
   eraser: eraserIcon,
   'ethernet-port': ethernetPortIcon,
@@ -5482,7 +5176,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   expand: expandIcon,
   factory: factoryIcon,
   fan: fanIcon,
-  'fast-forward': fastForwardIcon,
   feather: featherIcon,
   fence: fenceIcon,
   'ferris-wheel': ferrisWheelIcon,
@@ -5505,7 +5198,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   footprints: footprintsIcon,
   forklift: forkliftIcon,
   form: formIcon,
-  forward: forwardIcon,
   fuel: fuelIcon,
   fullscreen: fullscreenIcon,
   'gamepad-2': gamepad2Icon,
@@ -5551,8 +5243,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'indian-rupee': indianRupeeIcon,
   'inspection-panel': inspectionPanelIcon,
   italic: italicIcon,
-  'iteration-ccw': iterationCcwIcon,
-  'iteration-cw': iterationCwIcon,
   'japanese-yen': japaneseYenIcon,
   joystick: joystickIcon,
   kayak: kayakIcon,
@@ -5565,8 +5255,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'land-plot': landPlotIcon,
   'lasso-select': lassoSelectIcon,
   lasso: lassoIcon,
-  'layer-arrow-down': layerArrowDownIcon,
-  'layer-arrow-up': layerArrowUpIcon,
   leaf: leafIcon,
   'leafy-green': leafyGreenIcon,
   lectern: lecternIcon,
@@ -5664,9 +5352,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   refrigerator: refrigeratorIcon,
   regex: regexIcon,
   'remove-formatting': removeFormattingIcon,
-  'reply-all': replyAllIcon,
-  reply: replyIcon,
-  rewind: rewindIcon,
   ribbon: ribbonIcon,
   road: roadIcon,
   rocket: rocketIcon,
@@ -5693,8 +5378,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'separator-horizontal': separatorHorizontalIcon,
   'separator-vertical': separatorVerticalIcon,
   shapes: shapesIcon,
-  'share-2': share2Icon,
-  share: shareIcon,
   sheet: sheetIcon,
   shell: shellIcon,
   'shelving-unit': shelvingUnitIcon,
@@ -5702,13 +5385,10 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   shredder: shredderIcon,
   shrimp: shrimpIcon,
   shrub: shrubIcon,
-  shuffle: shuffleIcon,
   sigma: sigmaIcon,
   'signpost-big': signpostBigIcon,
   signpost: signpostIcon,
   siren: sirenIcon,
-  'skip-back': skipBackIcon,
-  'skip-forward': skipForwardIcon,
   skull: skullIcon,
   slash: slashIcon,
   slice: sliceIcon,
@@ -5736,8 +5416,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   squircle: squircleIcon,
   squirrel: squirrelIcon,
   stamp: stampIcon,
-  'step-back': stepBackIcon,
-  'step-forward': stepForwardIcon,
   stethoscope: stethoscopeIcon,
   sticker: stickerIcon,
   stone: stoneIcon,
@@ -5784,17 +5462,11 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'tree-palm': treePalmIcon,
   'tree-pine': treePineIcon,
   trees: treesIcon,
-  'trending-down': trendingDownIcon,
-  'trending-up-down': trendingUpDownIcon,
-  'trending-up': trendingUpIcon,
   trophy: trophyIcon,
   'turkish-lira': turkishLiraIcon,
   turntable: turntableIcon,
   turtle: turtleIcon,
   underline: underlineIcon,
-  'undo-2': undo2Icon,
-  'undo-dot': undoDotIcon,
-  undo: undoIcon,
   'unfold-horizontal': unfoldHorizontalIcon,
   'unfold-vertical': unfoldVerticalIcon,
   ungroup: ungroupIcon,

@@ -54,3 +54,16 @@ export const SHIELD_GEAR_SPIN = /* @__PURE__ */ [
  * desde siempre para su aro pelado; aquí lo comparten todos los iconos de una sola pieza.
  */
 export const LATIDO = /* @__PURE__ */ scaleSeq([1, 1.15, 1]);
+
+/**
+ * Trazo que se dibuja AL REVÉS de como está escrito el `d`. Con `pathLength="1"`, un
+ * `strokeDashoffset` de −1 esconde el trazo por el OTRO extremo, así que al ir a 0 se revela
+ * empezando por donde el path TERMINA.
+ *
+ * Existe porque el sentido del trazo a veces ES el significado (`trending-*`, la propagación de
+ * `share-2`) y Lucide escribió esos paths en el sentido contrario al que se leen.
+ */
+export const TRAZO_INVERSO = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '-1', opacity: '0' },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' },
+];

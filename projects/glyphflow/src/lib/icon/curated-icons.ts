@@ -1,5 +1,5 @@
 import { AnimatedIconDef } from './animated-icon.model';
-import { SHIELD_GEAR_SPIN } from './icons/_shared';
+import { SHIELD_GEAR_SPIN, TRAZO_INVERSO } from './icons/_shared';
 import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
@@ -5782,6 +5782,12 @@ export const wrenchOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 // que sostiene public-api.ts y la ruta tree-shakeable del consumidor), y el `import` nombrado
 // los mete en el scope de este módulo, que es lo que necesita el literal CURATED_ICONS de abajo.
 // Nombrado y no `import * as`: un namespace object ancla el módulo entero y mata el árbol.
+export * from './icons/corner';
+import { cornerDownLeftIcon, cornerDownRightIcon, cornerLeftDownIcon, cornerLeftUpIcon, cornerRightDownIcon, cornerRightUpIcon, cornerUpLeftIcon, cornerUpRightIcon } from './icons/corner';
+export * from './icons/trending';
+import { trendingUpIcon, trendingDownIcon, trendingUpDownIcon } from './icons/trending';
+export * from './icons/undo';
+import { undoIcon, undo2Icon, undoDotIcon } from './icons/undo';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -9314,6 +9320,553 @@ export const xLineTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Transporte, respuesta y flechas sueltas ────────────────────────────────────────────────
+// Este bloque cierra bordes que estaban abiertos por concepto aunque no por familia: `redo*`
+// llevaba coreografía y `undo*` no; `play`/`pause` sí y `skip`/`step`/`rewind` no.
+// Los `undo*` viven en icons/undo.ts, los `corner*` en icons/corner.ts y los `trending*` en
+// icons/trending.ts — aquí queda lo que no alcanza para módulo propio.
+
+/** Golpe: la figura avanza y regresa con resorte. */
+const GOLPE_IZQ = /* @__PURE__ */ moveXSeq([0, -2, 0]);
+const GOLPE_DER = /* @__PURE__ */ moveXSeq([0, 2, 0]);
+
+/** Y lo golpeado recula: más chico y más tarde que el golpe, o no se lee como consecuencia. */
+const RECULA_IZQ = /* @__PURE__ */ moveXSeq([0, -0.9, 0.4, 0]);
+const RECULA_DER = /* @__PURE__ */ moveXSeq([0, 0.9, -0.4, 0]);
+
+/**
+ * Un PASO, no un empujón: avanza, SE QUEDA ahí un momento y vuelve. Ese reposo a media animación
+ * es lo único que separa a `step-*` de `skip-*` — sin él son el mismo gesto con otro nombre.
+ */
+const PASO_IZQ = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1.8px)', offset: 0.4 },
+  { transform: 'translateX(-1.8px)', offset: 0.62 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const PASO_DER = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1.8px)', offset: 0.4 },
+  { transform: 'translateX(1.8px)', offset: 0.62 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/**
+ * `rewind` y `fast-forward` están encajonados por los DOS lados: al triángulo izquierdo le queda 1
+ * de margen a la izquierda y al derecho 1 a la derecha. Medido sobre la geometría, no estimado.
+ *
+ * Por eso aquí NO se aplica el truco de la casa de tomar impulso al revés: el retroceso solo
+ * mueve el recorte al otro borde. El recorrido se queda en lo que la figura aguanta, y lo que
+ * hace legible la dirección es el desfase de 90 ms entre las dos puntas, no la distancia.
+ */
+const CADENA_IZQ = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(0.85px)', offset: 0.3 },
+  { transform: 'translateX(-0.85px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const CADENA_DER = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-0.85px)', offset: 0.3 },
+  { transform: 'translateX(0.85px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/** `eject` expulsa: 1.8 y no más, porque a 2.5 la punta del triángulo se corta contra el borde. */
+const EXPULSA = /* @__PURE__ */ moveYSeq([0, -1.8, 0]);
+/** Y la ranura acusa el disparo hundiéndose un pelo. Acción y reacción. */
+const ACUSA = /* @__PURE__ */ moveYSeq([0, 0.7, 0]);
+
+/**
+ * PUNTAS SOLDADAS A LA PLUMA — el mismo mecanismo que `PUNTA_*` en icons/_shared.ts, pero cada
+ * asta de aquí tiene su propio largo, así que cada una lleva su offset. El número es la fracción
+ * del trazo a la que arranca el último tramo recto, MEDIDA sobre la geometría; el desplazamiento
+ * es el largo de ese tramo. Asta y punta comparten duración y easing: eso es lo que las suelda.
+ */
+const PUNTA_REPLY = [
+  { transform: 'translate(12px, 0px)', offset: 0 },
+  { transform: 'translate(12px, 0px)', offset: 0.407 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+const PUNTA_REPLY_ALL = [
+  { transform: 'translate(11px, 0px)', offset: 0 },
+  { transform: 'translate(11px, 0px)', offset: 0.4285 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+const PUNTA_FORWARD = [
+  { transform: 'translate(-12px, 0px)', offset: 0 },
+  { transform: 'translate(-12px, 0px)', offset: 0.406 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+/** El bucle de `iteration-*` mide 45.7 y su tramo recto solo 8: la punta sale al final del todo. */
+const PUNTA_ITER_IZQ = [
+  { transform: 'translate(8px, 0px)', offset: 0 },
+  { transform: 'translate(8px, 0px)', offset: 0.823 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+const PUNTA_ITER_DER = [
+  { transform: 'translate(-8px, 0px)', offset: 0 },
+  { transform: 'translate(-8px, 0px)', offset: 0.823 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+const PUNTA_SHUFFLE_LARGA = [
+  { transform: 'translate(-6px, 0px)', offset: 0 },
+  { transform: 'translate(-6px, 0px)', offset: 0.766 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+const PUNTA_SHUFFLE_CORTA = [
+  { transform: 'translate(-6px, 0px)', offset: 0 },
+  { transform: 'translate(-6px, 0px)', offset: 0.426 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+
+/**
+ * FLECHAS QUE SE ESTIRAN — sin dibujo: la flecha entera existe desde el cuadro 0 y se ALARGA.
+ * El asta escala desde su cola y la punta se traslada exactamente lo que el asta crece, así que
+ * no pueden despegarse. Los factores salen del largo real de cada asta, no de un valor bonito:
+ * un asta de 10 que debe estirarse 2.2 escala (10+2.2)/10.
+ *
+ * El retroceso previo no es adorno. Los iconos de Lucide ya tocan su caja — hacia cualquier borde
+ * queda 1 de margen — y 1 de recorrido se lee como temblor; encogerse primero DUPLICA el trayecto
+ * visible sin salirse del lienzo.
+ */
+const ESTIRA_Y = [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.85)', offset: 0.3 },
+  { transform: 'scaleY(1.22)', offset: 0.7 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+const ESTIRA_X = [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(0.85)', offset: 0.3 },
+  { transform: 'scaleX(1.22)', offset: 0.7 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+const PUNTA_BAJA = [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.5px)', offset: 0.3 },
+  { transform: 'translateY(2.2px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+const PUNTA_SUBE = [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.5px)', offset: 0.3 },
+  { transform: 'translateY(-2.2px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+const PUNTA_VA_IZQ = [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1.5px)', offset: 0.3 },
+  { transform: 'translateX(-2.2px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const PUNTA_VA_DER = [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1.5px)', offset: 0.3 },
+  { transform: 'translateX(2.2px)', offset: 0.7 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+
+/** `share`: asta de 13, y la punta ya toca y=2 — hacia arriba solo caben 0.8 antes de cortarse. */
+const ESTIRA_SHARE = [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.8615)', offset: 0.3 },
+  { transform: 'scaleY(1.0615)', offset: 0.7 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+const PUNTA_SHARE = [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.8px)', offset: 0.3 },
+  { transform: 'translateY(-0.8px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** `arrows-up-from-line`: astas de 14, y la punta arranca en y=3. */
+const ESTIRA_SALTO = [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.8929)', offset: 0.3 },
+  { transform: 'scaleY(1.1143)', offset: 0.7 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+const PUNTA_SALTO = [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.5px)', offset: 0.3 },
+  { transform: 'translateY(-1.6px)', offset: 0.7 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+const ESTIRADO = 520;
+
+/** El triángulo se estrella contra la barra y la barra acusa el golpe. */
+export const skipBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z",
+    },
+    { tag: 'path', d: "M3 20V4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(GOLPE_IZQ, 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(RECULA_IZQ, 380, { delay: 150 }),
+      },
+    },
+  },
+);
+
+/** Lo mismo del otro lado: aquí la barra es la figura 0. */
+export const skipForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 4v16" },
+    {
+      tag: 'path',
+      d: "M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(GOLPE_DER, 420, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(RECULA_DER, 380, { delay: 150 }),
+      },
+    },
+  },
+);
+
+/** Un paso atrás y de regreso. La barra queda quieta: es la pared de la que te alejas. */
+export const stepBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M13.971 4.285A2 2 0 0 1 17 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z",
+    },
+    { tag: 'path', d: "M21 20V4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(PASO_IZQ, 560),
+      },
+    },
+  },
+);
+
+/** Un paso adelante y de regreso. */
+export const stepForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10.029 4.285A2 2 0 0 0 7 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z",
+    },
+    { tag: 'path', d: "M3 4v16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(PASO_DER, 560),
+      },
+    },
+  },
+);
+
+/** Las dos puntas retroceden en cadena: primero la de adelante (la izquierda), luego la otra. */
+export const rewindIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6a2 2 0 0 0-3.414-1.414l-6 6a2 2 0 0 0 0 2.828l6 6A2 2 0 0 0 12 18z" },
+    { tag: 'path', d: "M22 6a2 2 0 0 0-3.414-1.414l-6 6a2 2 0 0 0 0 2.828l6 6A2 2 0 0 0 22 18z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(CADENA_IZQ, 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(CADENA_IZQ, 420, { delay: 90, easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Igual hacia adelante: la de la derecha va primero, porque es la que abre camino. */
+export const fastForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6a2 2 0 0 1 3.414-1.414l6 6a2 2 0 0 1 0 2.828l-6 6A2 2 0 0 1 12 18z" },
+    { tag: 'path', d: "M2 6a2 2 0 0 1 3.414-1.414l6 6a2 2 0 0 1 0 2.828l-6 6A2 2 0 0 1 2 18z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(CADENA_DER, 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(CADENA_DER, 420, { delay: 90, easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Expulsa: el triángulo salta y la ranura se hunde por el disparo. */
+export const ejectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 13a1 1 0 0 1-.72-1.695l7.257-7.668a2 2 0 0 1 2.926 0l7.256 7.668A1 1 0 0 1 20 13z",
+    },
+    { tag: 'rect', x: 3, y: 17, width: 18, height: 4, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(EXPULSA, 460, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(ACUSA, 380, { delay: 40 }),
+      },
+    },
+  },
+);
+
+/** Los dos carriles se trazan cruzados y cada punta viene soldada al suyo. */
+export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 14 4 4-4 4" },
+    { tag: 'path', d: "m18 2 4 4-4 4" },
+    { tag: 'path', d: "M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22" },
+    { tag: 'path', d: "M2 6h1.972a4 4 0 0 1 3.6 2.2" },
+    { tag: 'path', d: "M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520),
+        1: /* @__PURE__ */ track(PUNTA_SHUFFLE_LARGA, 520),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 160 }),
+        4: /* @__PURE__ */ track(TRAZO_INVERSO, 380, { delay: 300 }),
+        0: /* @__PURE__ */ track(PUNTA_SHUFFLE_CORTA, 380, { delay: 300 }),
+      },
+    },
+  },
+);
+
+/** El gancho se traza y la punta, que ya estaba ahí, sale soldada a la pluma. */
+export const replyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 18v-2a4 4 0 0 0-4-4H4" },
+    { tag: 'path', d: "m9 17-5-5 5-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480),
+        1: /* @__PURE__ */ track(PUNTA_REPLY, 480),
+      },
+    },
+  },
+);
+
+/** Dos puntas soldadas al mismo trazo: viajan juntas, que es como están en reposo. */
+export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 17-5-5 5-5" },
+    { tag: 'path', d: "M22 18v-2a4 4 0 0 0-4-4H7" },
+    { tag: 'path', d: "m7 17-5-5 5-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480),
+        0: /* @__PURE__ */ track(PUNTA_REPLY_ALL, 480),
+        2: /* @__PURE__ */ track(PUNTA_REPLY_ALL, 480),
+      },
+    },
+  },
+);
+
+/** El espejo de reply. */
+export const forwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m15 17 5-5-5-5" },
+    { tag: 'path', d: "M4 18v-2a4 4 0 0 1 4-4h12" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480),
+        0: /* @__PURE__ */ track(PUNTA_FORWARD, 480),
+      },
+    },
+  },
+);
+
+/** El bucle se traza y la punta sale por su boca, soldada a la pluma. */
+export const iterationCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 10a8 8 0 1 1 8 8H4" },
+    { tag: 'path', d: "m8 22-4-4 4-4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 560),
+        1: /* @__PURE__ */ track(PUNTA_ITER_IZQ, 560),
+      },
+    },
+  },
+);
+
+/** Y al revés: aquí el bucle es la figura 1. */
+export const iterationCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 14 4 4-4 4" },
+    { tag: 'path', d: "M20 10a8 8 0 1 0-8 8h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 560),
+        0: /* @__PURE__ */ track(PUNTA_ITER_DER, 560),
+      },
+    },
+  },
+);
+
+/** La flecha se ESTIRA hacia el fondo del montón; las capas ni se enteran. */
+export const layerArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 10v10" },
+    { tag: 'path', d: "M22 10a1 1 0 01-.59.92l-5.077 2.308" },
+    {
+      tag: 'path',
+      d: "M22.017 10.005a1 1 0 00-.597-.916l-8.59-3.91a2 2 0 00-1.66.001L2.6 9.08a1 1 0 00-.02 1.831l5.093 2.316",
+    },
+    { tag: 'path', d: "m9 17 3 3 3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_Y, ESTIRADO, { origin: '12px 10px' }),
+        3: /* @__PURE__ */ track(PUNTA_BAJA, ESTIRADO),
+      },
+    },
+  },
+);
+
+/** Y aquí se estira hacia arriba. La cola es el pivote: es lo que no se mueve. */
+export const layerArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 14V4" },
+    {
+      tag: 'path',
+      d: "M7.674 10.774 2.58 13.09a1 1 0 000 1.822l8.6 3.91a2 2 0 001.65 0l8.58-3.9a1 1 0 00.59-.92 1 1 0 00-.59-.922l-5.078-2.308",
+    },
+    { tag: 'path', d: "m9 7 3-3 3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_Y, ESTIRADO, { origin: '12px 14px' }),
+        2: /* @__PURE__ */ track(PUNTA_SUBE, ESTIRADO),
+      },
+    },
+  },
+);
+
+/** Quita un decimal: la flecha se estira a la izquierda y el dígito que queda se encoge. */
+export const decimalsArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m13 21-3-3 3-3" },
+    { tag: 'path', d: "M20 18H10" },
+    { tag: 'path', d: "M3 11h.01" },
+    { tag: 'rect', x: 6, y: 3, width: 5, height: 8, rx: 2.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(ESTIRA_X, ESTIRADO, { origin: '20px 18px' }),
+        0: /* @__PURE__ */ track(PUNTA_VA_IZQ, ESTIRADO),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.86, 1]), 380, { delay: 240, origin: '8.5px 7px' }),
+      },
+    },
+  },
+);
+
+/** Agrega uno: la flecha se estira a la derecha y el segundo dígito APARECE. Esa asimetría es el icono. */
+export const decimalsArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 18h10" },
+    { tag: 'path', d: "m17 21 3-3-3-3" },
+    { tag: 'path', d: "M3 11h.01" },
+    { tag: 'rect', x: 15, y: 3, width: 5, height: 8, rx: 2.5 },
+    { tag: 'rect', x: 6, y: 3, width: 5, height: 8, rx: 2.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_X, ESTIRADO, { origin: '10px 18px' }),
+        1: /* @__PURE__ */ track(PUNTA_VA_DER, ESTIRADO),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { delay: 240, easing: SPRING_OUT, origin: '17.5px 7px' }),
+      },
+    },
+  },
+);
+
+/** Las dos flechas se encogen y se estiran fuera de la línea, desfasadas. La línea es el suelo. */
+export const arrowsUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m4 6 3-3 3 3" },
+    { tag: 'path', d: "M7 17V3" },
+    { tag: 'path', d: "m14 6 3-3 3 3" },
+    { tag: 'path', d: "M17 17V3" },
+    { tag: 'path', d: "M4 21h16" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(ESTIRA_SALTO, ESTIRADO, { origin: '7px 17px' }),
+        0: /* @__PURE__ */ track(PUNTA_SALTO, ESTIRADO),
+        3: /* @__PURE__ */ track(ESTIRA_SALTO, ESTIRADO, { delay: 120, origin: '17px 17px' }),
+        2: /* @__PURE__ */ track(PUNTA_SALTO, ESTIRADO, { delay: 120 }),
+      },
+    },
+  },
+);
+
+/** Lo que se estira es la flecha, no la caja: se hunde en ella y sale disparada. */
+export const shareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v13" },
+    { tag: 'path', d: "m16 6-4-4-4 4" },
+    { tag: 'path', d: "M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_SHARE, ESTIRADO, { origin: '12px 15px' }),
+        1: /* @__PURE__ */ track(PUNTA_SHARE, ESTIRADO),
+      },
+    },
+  },
+);
+
+/** Se propaga: late el nodo de origen, la señal recorre cada hilo y el nodo del otro extremo aparece. */
+export const share2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 18, cy: 5, r: 3 },
+    { tag: 'circle', cx: 6, cy: 12, r: 3 },
+    { tag: 'circle', cx: 18, cy: 19, r: 3 },
+    { tag: 'line', x1: 8.59, y1: 13.51, x2: 15.42, y2: 17.49 },
+    { tag: 'line', x1: 15.41, y1: 6.51, x2: 8.59, y2: 10.49 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 360, { easing: SPRING_OUT, origin: '6px 12px' }),
+        4: /* @__PURE__ */ track(TRAZO_INVERSO, 260, { delay: 200 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 440, easing: SPRING_OUT, origin: '18px 5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 320 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 560, easing: SPRING_OUT, origin: '18px 19px' }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -10561,4 +11114,38 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'git-pull-request': gitPullRequestIcon,
   'git-pull-request-closed': gitPullRequestClosedIcon,
   'git-pull-request-create': gitPullRequestCreateIcon,
+  'undo': undoIcon,
+  'undo-2': undo2Icon,
+  'undo-dot': undoDotIcon,
+  'corner-down-left': cornerDownLeftIcon,
+  'corner-down-right': cornerDownRightIcon,
+  'corner-left-down': cornerLeftDownIcon,
+  'corner-left-up': cornerLeftUpIcon,
+  'corner-right-down': cornerRightDownIcon,
+  'corner-right-up': cornerRightUpIcon,
+  'corner-up-left': cornerUpLeftIcon,
+  'corner-up-right': cornerUpRightIcon,
+  'trending-down': trendingDownIcon,
+  'trending-up': trendingUpIcon,
+  'trending-up-down': trendingUpDownIcon,
+  'skip-back': skipBackIcon,
+  'skip-forward': skipForwardIcon,
+  'step-back': stepBackIcon,
+  'step-forward': stepForwardIcon,
+  'rewind': rewindIcon,
+  'fast-forward': fastForwardIcon,
+  'eject': ejectIcon,
+  'shuffle': shuffleIcon,
+  'reply': replyIcon,
+  'reply-all': replyAllIcon,
+  'forward': forwardIcon,
+  'iteration-cw': iterationCwIcon,
+  'iteration-ccw': iterationCcwIcon,
+  'layer-arrow-down': layerArrowDownIcon,
+  'layer-arrow-up': layerArrowUpIcon,
+  'decimals-arrow-left': decimalsArrowLeftIcon,
+  'decimals-arrow-right': decimalsArrowRightIcon,
+  'arrows-up-from-line': arrowsUpFromLineIcon,
+  'share': shareIcon,
+  'share-2': share2Icon,
 };
