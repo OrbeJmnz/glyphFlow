@@ -520,6 +520,11 @@
       "circle:9d7fc8897980",
       "path:fbcd70ad6f8d"
     ],
+    "atom": [
+      "circle:a07fcd427480",
+      "path:32fecbdeeb81",
+      "path:049b39cc7731"
+    ],
     "audio-lines": [
       "path:769d94b158e0",
       "path:e142b42575d5",
@@ -554,6 +559,12 @@
       "path:2ecddc821f1d",
       "path:90495e681abf",
       "path:4881ae33f798"
+    ],
+    "baby": [
+      "path:6530430bbf06",
+      "path:6fa7e80f7200",
+      "path:0fb2182c3f83",
+      "path:caa106765aaa"
     ],
     "backpack": [
       "path:e5d5bbeb0b38",
@@ -674,6 +685,15 @@
       "path:8fd4f4ac9eda",
       "path:f3866a5687cb"
     ],
+    "bandage": [
+      "path:6c66dcef4a65",
+      "path:936898fbb0af",
+      "path:d1cab1e3d09e",
+      "path:e31010b7f8dd",
+      "path:42bcc523f2c5",
+      "path:de42af6c72d5",
+      "rect:9741cff5b177"
+    ],
     "banknote": [
       "rect:9741cff5b177",
       "circle:9f7fcbaf7380",
@@ -770,6 +790,11 @@
       "path:675e66ee24fe",
       "path:5e252a8d50df",
       "path:fef627dffddd"
+    ],
+    "beaker": [
+      "path:b0503edfb06d",
+      "path:1b8e3b47b9e0",
+      "path:03ba01f12524"
     ],
     "bean": [
       "path:f9e6ef1c6474",
@@ -4145,6 +4170,11 @@
       "path:8de14cc7b38d",
       "path:7308f708fb2f"
     ],
+    "ghost": [
+      "path:68a9b1e07837",
+      "path:e903e9f59b8e",
+      "path:77261e15cf75"
+    ],
     "gift": [
       "path:2fbf5be2ecd0",
       "path:2410efe5f87e",
@@ -4267,6 +4297,13 @@
     "glass-water": [
       "path:85756b7e4f25",
       "path:561e062ac24a"
+    ],
+    "glasses": [
+      "circle:f9bee82b29b5",
+      "circle:3af454d29bf5",
+      "path:28168332e44a",
+      "path:af4cb57d6e3e",
+      "path:12d9191f43f7"
     ],
     "globe": [
       "circle:1b306a76ecc0",
@@ -5759,6 +5796,14 @@
       "path:ab92bb2700a4",
       "rect:9a31a7759b7e"
     ],
+    "microscope": [
+      "path:1ac930929c43",
+      "path:f4f193b7c53c",
+      "path:d7f26932bd35",
+      "path:88d226e3fa6c",
+      "path:ae6b4fcc9f90",
+      "path:363450a621da"
+    ],
     "microwave": [
       "rect:7b7ac0469d53",
       "rect:aad04cf8b17f",
@@ -6513,6 +6558,12 @@
       "line:fdbbc69aae21",
       "circle:45505e0cf3f7",
       "circle:a73c7b323f76"
+    ],
+    "person-standing": [
+      "circle:8b98e27e7dcb",
+      "path:1b1fe74bdf33",
+      "path:01a446507e43",
+      "path:17c922c58b41"
     ],
     "phi": [
       "path:479c72d49978",
@@ -7749,6 +7800,12 @@
       "path:4691e2dd3d55",
       "path:e41db3f6c40b"
     ],
+    "skull": [
+      "path:28af004b2a9a",
+      "path:8f9bb68dc75c",
+      "circle:21526043d2ab",
+      "circle:4c61a838a64f"
+    ],
     "sliders-horizontal": [
       "path:42335bae01ed",
       "path:55bd9f0deeee",
@@ -8397,6 +8454,13 @@
       "path:5c0c3f7d0de6",
       "path:7fb4e94f183d"
     ],
+    "stethoscope": [
+      "path:2519c6c1718c",
+      "path:fe3a11467814",
+      "path:2d6406c1e55b",
+      "path:b72f668da295",
+      "circle:a6484da4b641"
+    ],
     "sticky-note": [
       "path:1db87d1bc649",
       "path:aa6c1625c361"
@@ -8537,6 +8601,14 @@
       "line:1c9b363dbb43",
       "line:c7bac6bbd435"
     ],
+    "syringe": [
+      "path:94c79ea2b317",
+      "path:74144a71ab9a",
+      "path:faed37a7452c",
+      "path:54bec8329dcc",
+      "path:f9501f5bd20a",
+      "path:892f7804357d"
+    ],
     "table": [
       "path:2d5a671aff35",
       "rect:d427f2bc2999",
@@ -8607,6 +8679,12 @@
       "rect:553261d919a0",
       "path:307cfc77a684",
       "path:2b491369548e"
+    ],
+    "tablets": [
+      "circle:b041f8b0683b",
+      "circle:b895d5666e39",
+      "path:28fb363b899e",
+      "path:023b2c2ffc0e"
     ],
     "tag": [
       "path:453b6d169cfe",
@@ -10066,6 +10144,11 @@
       "default": "1379aab3315b",
       "draw": "17c8398e8d34"
     },
+    "atom": {
+      "default": "ce427ab41d47",
+      "draw": "17c8398e8d34",
+      "hold": "9bda4f79ef55"
+    },
     "audio-lines": {
       "default": "a203dcab21c8",
       "draw": "17c8398e8d34"
@@ -10089,6 +10172,11 @@
     "axis-3d": {
       "default": "7c0db8fe2713",
       "draw": "17c8398e8d34"
+    },
+    "baby": {
+      "default": "c05925d59eca",
+      "draw": "17c8398e8d34",
+      "hold": "bd04692eede5"
     },
     "backpack": {
       "default": "765072a6bee1",
@@ -10207,6 +10295,11 @@
       "draw": "17c8398e8d34",
       "hold": "75e723c531a2"
     },
+    "bandage": {
+      "default": "a0dedceae9b0",
+      "draw": "17c8398e8d34",
+      "hold": "ce38c821d3dd"
+    },
     "banknote": {
       "default": "f54c5ce08411",
       "draw": "17c8398e8d34"
@@ -10268,6 +10361,11 @@
     "battery-warning": {
       "default": "e63968e06220",
       "draw": "17c8398e8d34"
+    },
+    "beaker": {
+      "default": "bb93ba341b21",
+      "draw": "17c8398e8d34",
+      "hold": "29eb30f3d758"
     },
     "bean": {
       "default": "cf1d56ffa84f",
@@ -12788,6 +12886,11 @@
       "default": "67ed1888b308",
       "draw": "17c8398e8d34"
     },
+    "ghost": {
+      "default": "0d18935891c9",
+      "draw": "17c8398e8d34",
+      "hold": "75dad1a13ba1"
+    },
     "gift": {
       "default": "d1ccfdea4026",
       "draw": "17c8398e8d34",
@@ -12865,6 +12968,11 @@
       "default": "6ec6aaf84c7c",
       "draw": "17c8398e8d34",
       "hold": "5fe915b38ba9"
+    },
+    "glasses": {
+      "default": "6070e87019fd",
+      "draw": "17c8398e8d34",
+      "hold": "053ca52841df"
     },
     "globe": {
       "default": "b5fdd816170f",
@@ -13993,6 +14101,11 @@
       "draw": "17c8398e8d34",
       "hold": "d4c6c95fa707"
     },
+    "microscope": {
+      "default": "91002aa83a7a",
+      "draw": "17c8398e8d34",
+      "hold": "fce1af3072d3"
+    },
     "microwave": {
       "default": "3dd4e4777e06",
       "draw": "17c8398e8d34",
@@ -14571,6 +14684,11 @@
     "percent": {
       "default": "dc5314d0116b",
       "draw": "17c8398e8d34"
+    },
+    "person-standing": {
+      "default": "31e1f420712e",
+      "draw": "17c8398e8d34",
+      "hold": "7c02a963ce15"
     },
     "phi": {
       "default": "1738a62cdb8d",
@@ -15480,6 +15598,11 @@
       "default": "d80612414aff",
       "draw": "17c8398e8d34"
     },
+    "skull": {
+      "default": "56c446d6a61b",
+      "draw": "17c8398e8d34",
+      "hold": "7b2eb98154f2"
+    },
     "sliders-horizontal": {
       "default": "770ce144df71",
       "draw": "17c8398e8d34"
@@ -15948,6 +16071,11 @@
       "default": "c28c59a69cd9",
       "draw": "17c8398e8d34"
     },
+    "stethoscope": {
+      "default": "712ab09381a5",
+      "draw": "17c8398e8d34",
+      "hold": "4e61e44d6768"
+    },
     "sticky-note": {
       "default": "04c5b8cc75a6",
       "draw": "17c8398e8d34",
@@ -16041,6 +16169,11 @@
       "draw": "17c8398e8d34",
       "hold": "2f93337f9cb4"
     },
+    "syringe": {
+      "default": "f93a4b77ac4a",
+      "draw": "17c8398e8d34",
+      "hold": "8ddf70c1fb24"
+    },
     "table": {
       "default": "dc27db727a1b",
       "draw": "17c8398e8d34"
@@ -16080,6 +16213,11 @@
     "tablet-smartphone": {
       "default": "f4ca320ffdfd",
       "draw": "17c8398e8d34"
+    },
+    "tablets": {
+      "default": "03788f555d56",
+      "draw": "17c8398e8d34",
+      "hold": "812adb4252e5"
     },
     "tag": {
       "default": "c86e613d0709",

@@ -17441,6 +17441,342 @@ export const spoolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/**
+ * Se coloca ladeada y la trama de la gasa aparece detrás, en aspa. La tirita no se pega recta:
+ * nadie la pone así.
+ */
+export const bandageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10.01h.01" },
+    { tag: 'path', d: "M10 14.01h.01" },
+    { tag: 'path', d: "M14 10.01h.01" },
+    { tag: 'path', d: "M14 14.01h.01" },
+    { tag: 'path', d: "M18 6v12" },
+    { tag: 'path', d: "M6 6v12" },
+    { tag: 'rect', x: 2, y: 6, width: 20, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([-3, 0]), 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 200, origin: '10px 10px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 260, origin: '14px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 320, origin: '14px 10px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 380, origin: '10px 14px' }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { origin: '12px 12px' }),
+  },
+);
+
+/** Las cuencas se encienden por turnos. Es lo único que se mueve en una calavera. */
+export const skullIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12.5 17-.5-1-.5 1h1z" },
+    {
+      tag: 'path',
+      d: "M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z",
+    },
+    { tag: 'circle', cx: 15, cy: 12, r: 1 },
+    { tag: 'circle', cx: 9, cy: 12, r: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.45, 1]), 480, { easing: EASE, origin: '9px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.45, 1]), 480, { easing: EASE, delay: 180, origin: '15px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.45)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.45)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * Inyecta: el émbolo baja POR EL EJE de la jeringa, que va en diagonal, y la gota sale por la
+ * punta al final. Mover el émbolo en vertical lo despegaría del cuerpo.
+ */
+export const syringeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 2 4 4" },
+    { tag: 'path', d: "m17 7 3-3" },
+    { tag: 'path', d: "M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5" },
+    { tag: 'path', d: "m9 11 4 4" },
+    { tag: 'path', d: "m5 19-3 3" },
+    { tag: 'path', d: "m14 4 6 6" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-0.6px, 0.6px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-0.6px, 0.6px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-0.6px, 0.6px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 320, origin: '3.5px 20.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Caen las dos, una detrás de otra, y cada raya cae con SU pastilla: van pegadas. */
+export const tabletsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 7, cy: 7, r: 5 },
+    { tag: 'circle', cx: 17, cy: 17, r: 5 },
+    { tag: 'path', d: "M12 17h10" },
+    { tag: 'path', d: "m3.46 10.54 7.08-7.08" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT, delay: 140 }),
+        2: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT, delay: 140 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Ausculta: la campana late con lo que está oyendo. Dos golpes, que es un pulso. */
+export const stethoscopeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 2v2" },
+    { tag: 'path', d: "M5 2v2" },
+    { tag: 'path', d: "M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1" },
+    { tag: 'path', d: "M8 15a6 6 0 0 0 12 0v-3" },
+    { tag: 'circle', cx: 20, cy: 10, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(LATIDO_DOBLE, 720, { easing: EASE, origin: '20px 10px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -2, 1, 0]), 760, { easing: EASE, delay: 120, origin: '8px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '20px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Enfoca: el tubo baja hacia la platina y la muestra se ilumina cuando llega. */
+export const microscopeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 18h8" },
+    { tag: 'path', d: "M3 22h18" },
+    { tag: 'path', d: "M14 22a7 7 0 1 0 0-14h-1" },
+    { tag: 'path', d: "M9 14h2" },
+    { tag: 'path', d: "M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" },
+    { tag: 'path', d: "M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 620, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 620, { easing: EASE }),
+        3: /* @__PURE__ */ track(DESTELLA, 420, { delay: 280 }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El nivel sube y baja: lo que está vivo en un vaso de precipitados es el líquido. */
+export const beakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4.5 3h15" },
+    { tag: 'path', d: "M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3" },
+    { tag: 'path', d: "M6 14h12" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(
+          /* @__PURE__ */ [
+            { transform: 'translateY(0) scaleX(1)', offset: 0 },
+            { transform: 'translateY(-0.7px) scaleX(1.02)', offset: 0.5 },
+            { transform: 'translateY(0) scaleX(1)', offset: 1 },
+          ],
+          760,
+          { easing: EASE, origin: '12px 14px' },
+        ),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * Las órbitas NO giran, se TRAZAN. Girarlas era lo primero que pedía el icono y la medición lo
+ * tumbó: son elipses cruzadas cuyas puntas quedan a 11.6 unidades del centro —más que el radio
+ * del lienzo—, así que cualquier giro las saca (medido: -0.72 y 24.72 sobre una caja de 0 a 24).
+ *
+ * Trazarlas uno detrás de otro dice lo mismo y mejor: es el electrón recorriendo su órbita.
+ */
+export const atomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 1 },
+    {
+      tag: 'path',
+      d: "M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z",
+    },
+    {
+      tag: 'path',
+      d: "M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out', delay: 220 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.6, 1]), 520, { easing: EASE, delay: 480, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.8)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Sonríe y parpadea: la boca se ensancha y los ojos llegan después. */
+export const babyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5" },
+    { tag: 'path', d: "M15 12h.01" },
+    {
+      tag: 'path',
+      d: "M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1",
+    },
+    { tag: 'path', d: "M9 12h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], 620, { easing: EASE, origin: '12px 16px' }),
+        3: /* @__PURE__ */ track(DESTELLA, 380, { delay: 220 }),
+        1: /* @__PURE__ */ track(DESTELLA, 380, { delay: 220 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 16px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Saluda: los brazos giran desde los hombros y la cabeza acompaña un poco. */
+export const personStandingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 5, r: 1 },
+    { tag: 'path', d: "m9 20 3-6 3 6" },
+    { tag: 'path', d: "m6 8 6 2 6-2" },
+    { tag: 'path', d: "M12 10v4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 4, 0]), 760, { easing: EASE, origin: '12px 10px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3, 2, 0]), 760, { easing: EASE, delay: 90, origin: '12px 10px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los cristales se encienden por turnos, de izquierda a derecha. La montura no se mueve. */
+export const glassesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 6, cy: 15, r: 4 },
+    { tag: 'circle', cx: 18, cy: 15, r: 4 },
+    { tag: 'path', d: "M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2" },
+    { tag: 'path', d: "M2.5 13 5 7c.7-1.3 1.4-2 3-2" },
+    { tag: 'path', d: "M21.5 13 19 7c-.7-1.3-1.5-2-3-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(DESTELLA, 420),
+        1: /* @__PURE__ */ track(DESTELLA, 420, { delay: 160 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 520, { easing: EASE, delay: 80, origin: '12px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Flota y parpadea. El borde de abajo ya está ondulado: lo que falta es que levite. */
+export const ghostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M9 10h.01" },
+    { tag: 'path', d: "M15 10h.01" },
+    {
+      tag: 'path',
+      d: "M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z",
+    },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.9, 0]), 940, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(DESTELLA, 420, { delay: 200 }),
+        1: /* @__PURE__ */ track(DESTELLA, 420, { delay: 200 }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320),
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -19053,4 +19389,16 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'fishing-rod': fishingRodIcon,
   'paint-bucket': paintBucketIcon,
   'paint-roller': paintRollerIcon,
+  'bandage': bandageIcon,
+  'skull': skullIcon,
+  'syringe': syringeIcon,
+  'tablets': tabletsIcon,
+  'stethoscope': stethoscopeIcon,
+  'microscope': microscopeIcon,
+  'beaker': beakerIcon,
+  'atom': atomIcon,
+  'baby': babyIcon,
+  'person-standing': personStandingIcon,
+  'glasses': glassesIcon,
+  'ghost': ghostIcon,
 };
