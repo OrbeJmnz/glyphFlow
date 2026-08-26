@@ -389,33 +389,6 @@ export const bowArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const boxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" },
-    { tag: 'path', d: "m3.3 7 8.7 5 8.7-5" },
-    { tag: 'path', d: "M12 22V12" },
-  ],
-  {},
-);
-
-export const boxesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" },
-    { tag: 'path', d: "m7 16.5-4.74-2.85" },
-    { tag: 'path', d: "m7 16.5 5-3" },
-    { tag: 'path', d: "M7 16.5v5.17" },
-    { tag: 'path', d: "M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" },
-    { tag: 'path', d: "m17 16.5-5-3" },
-    { tag: 'path', d: "m17 16.5 4.74-2.85" },
-    { tag: 'path', d: "M17 16.5v5.17" },
-    { tag: 'path', d: "M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" },
-    { tag: 'path', d: "M12 8 7.26 5.15" },
-    { tag: 'path', d: "m12 8 4.74-2.85" },
-    { tag: 'path', d: "M12 13.5V8" },
-  ],
-  {},
-);
-
 export const bracketsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M16 3h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-3" },
@@ -560,18 +533,6 @@ export const calculatorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M8 14h.01" },
     { tag: 'path', d: "M12 18h.01" },
     { tag: 'path', d: "M8 18h.01" },
-  ],
-  {},
-);
-
-export const calendarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2v2" },
-    { tag: 'path', d: "M15.726 21.01A2 2 0 0 1 14 22H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2" },
-    { tag: 'path', d: "M18 2v2" },
-    { tag: 'path', d: "M2 13h2" },
-    { tag: 'path', d: "M8 8h14" },
-    { tag: 'rect', x: 8, y: 3, width: 14, height: 14, rx: 2 },
   ],
   {},
 );
@@ -745,23 +706,6 @@ export const clubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M17.28 9.05a5.5 5.5 0 1 0-10.56 0A5.5 5.5 0 1 0 12 17.66a5.5 5.5 0 1 0 5.28-8.6Z" },
     { tag: 'path', d: "M12 17.66L12 22" },
-  ],
-  {},
-);
-
-export const codeXmlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m18 16 4-4-4-4" },
-    { tag: 'path', d: "m6 8-4 4 4 4" },
-    { tag: 'path', d: "m14.5 4-5 16" },
-  ],
-  {},
-);
-
-export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m16 18 6-6-6-6" },
-    { tag: 'path', d: "m8 6-6 6 6 6" },
   ],
   {},
 );
@@ -1129,28 +1073,6 @@ export const drumstickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const earthLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 3.34V5a3 3 0 0 0 3 3" },
-    { tag: 'path', d: "M11 21.95V18a2 2 0 0 0-2-2 2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05" },
-    { tag: 'path', d: "M21.54 15H17a2 2 0 0 0-2 2v4.54" },
-    { tag: 'path', d: "M12 2a10 10 0 1 0 9.54 13" },
-    { tag: 'path', d: "M20 6V4a2 2 0 1 0-4 0v2" },
-    { tag: 'rect', width: 8, height: 5, x: 14, y: 6, rx: 1 },
-  ],
-  {},
-);
-
-export const earthIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21.54 15H17a2 2 0 0 0-2 2v4.54" },
-    { tag: 'path', d: "M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17" },
-    { tag: 'path', d: "M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05" },
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-  ],
-  {},
-);
-
 export const ellipseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'ellipse', cx: 12, cy: 12, rx: 10, ry: 6 },
@@ -1257,15 +1179,6 @@ export const ferrisWheelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const filesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8" },
-    { tag: 'path', d: "M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z" },
-    { tag: 'path', d: "M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1" },
-  ],
-  {},
-);
-
 export const filmIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -1325,22 +1238,6 @@ export const fishingRodIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const flameKindlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10a5 5 0 1 1-10 0c0-.3 0-.6.1-.9a2 2 0 1 0 3.3-2C8 4.5 11 2 12 2Z" },
-    { tag: 'path', d: "m5 22 14-4" },
-    { tag: 'path', d: "m5 18 14 4" },
-  ],
-  {},
-);
-
-export const flameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" },
-  ],
-  {},
-);
-
 export const flower2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1" },
@@ -1375,14 +1272,6 @@ export const focusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 3h2a2 2 0 0 1 2 2v2" },
     { tag: 'path', d: "M21 17v2a2 2 0 0 1-2 2h-2" },
     { tag: 'path', d: "M7 21H5a2 2 0 0 1-2-2v-2" },
-  ],
-  {},
-);
-
-export const foldersIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 5a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2.5a1.5 1.5 0 0 1 1.2.6l.6.8a1.5 1.5 0 0 0 1.2.6z" },
-    { tag: 'path', d: "M3 8.268a2 2 0 0 0-1 1.738V19a2 2 0 0 0 2 2h11a2 2 0 0 0 1.732-1" },
   ],
   {},
 );
@@ -1800,26 +1689,6 @@ export const landPlotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const lassoSelectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 22a5 5 0 0 1-2-4" },
-    { tag: 'path', d: "M7 16.93c.96.43 1.96.74 2.99.91" },
-    { tag: 'path', d: "M3.34 14A6.8 6.8 0 0 1 2 10c0-4.42 4.48-8 10-8s10 3.58 10 8a7.19 7.19 0 0 1-.33 2" },
-    { tag: 'path', d: "M5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
-    { tag: 'path', d: "M14.33 22h-.09a.35.35 0 0 1-.24-.32v-10a.34.34 0 0 1 .33-.34c.08 0 .15.03.21.08l7.34 6a.33.33 0 0 1-.21.59h-4.49l-2.57 3.85a.35.35 0 0 1-.28.14z" },
-  ],
-  {},
-);
-
-export const lassoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3.704 14.467a10 8 0 1 1 3.115 2.375" },
-    { tag: 'path', d: "M7 22a5 5 0 0 1-2-3.994" },
-    { tag: 'circle', cx: 5, cy: 16, r: 2 },
-  ],
-  {},
-);
-
 export const leafIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" },
@@ -1898,21 +1767,6 @@ export const lineStyleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const logsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 5h1" },
-    { tag: 'path', d: "M3 12h1" },
-    { tag: 'path', d: "M3 19h1" },
-    { tag: 'path', d: "M8 5h1" },
-    { tag: 'path', d: "M8 12h1" },
-    { tag: 'path', d: "M8 19h1" },
-    { tag: 'path', d: "M13 5h8" },
-    { tag: 'path', d: "M13 12h8" },
-    { tag: 'path', d: "M13 19h8" },
-  ],
-  {},
-);
-
 export const lollipopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
@@ -1948,15 +1802,6 @@ export const mailboxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'polyline', points: "15,9 18,9 18,11" },
     { tag: 'path', d: "M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2" },
     { tag: 'line', x1: 6, x2: 7, y1: 10, y2: 10 },
-  ],
-  {},
-);
-
-export const mailsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 1-1.732" },
-    { tag: 'path', d: "m22 5.5-6.419 4.179a2 2 0 0 1-2.162 0L7 5.5" },
-    { tag: 'rect', x: 7, y: 3, width: 15, height: 12, rx: 2 },
   ],
   {},
 );
@@ -2011,14 +1856,6 @@ export const mergeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m8 6 4-4 4 4" },
     { tag: 'path', d: "M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22" },
     { tag: 'path', d: "m20 22-5-5" },
-  ],
-  {},
-);
-
-export const messagesSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" },
-    { tag: 'path', d: "M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" },
   ],
   {},
 );
@@ -2140,38 +1977,6 @@ export const nonBinaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m8.5 4 7 4" },
     { tag: 'path', d: "m8.5 8 7-4" },
     { tag: 'circle', cx: 12, cy: 17, r: 5 },
-  ],
-  {},
-);
-
-export const notepadTextDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M8 2v4" },
-    { tag: 'path', d: "M12 2v4" },
-    { tag: 'path', d: "M16 2v4" },
-    { tag: 'path', d: "M16 4h2a2 2 0 0 1 2 2v2" },
-    { tag: 'path', d: "M20 12v2" },
-    { tag: 'path', d: "M20 18v2a2 2 0 0 1-2 2h-1" },
-    { tag: 'path', d: "M13 22h-2" },
-    { tag: 'path', d: "M7 22H6a2 2 0 0 1-2-2v-2" },
-    { tag: 'path', d: "M4 14v-2" },
-    { tag: 'path', d: "M4 8V6a2 2 0 0 1 2-2h2" },
-    { tag: 'path', d: "M8 10h6" },
-    { tag: 'path', d: "M8 14h8" },
-    { tag: 'path', d: "M8 18h5" },
-  ],
-  {},
-);
-
-export const notepadTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M8 2v4" },
-    { tag: 'path', d: "M12 2v4" },
-    { tag: 'path', d: "M16 2v4" },
-    { tag: 'rect', width: 16, height: 18, x: 4, y: 4, rx: 2 },
-    { tag: 'path', d: "M8 10h6" },
-    { tag: 'path', d: "M8 14h8" },
-    { tag: 'path', d: "M8 18h5" },
   ],
   {},
 );
@@ -2333,23 +2138,6 @@ export const piggyBankIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" },
     { tag: 'path', d: "M16 10h.01" },
     { tag: 'path', d: "M2 8v1a2 2 0 0 0 2 2h1" },
-  ],
-  {},
-);
-
-export const pillBottleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M18 11h-4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4" },
-    { tag: 'path', d: "M6 7v13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" },
-    { tag: 'rect', width: 16, height: 5, x: 4, y: 2, rx: 1 },
-  ],
-  {},
-);
-
-export const pillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" },
-    { tag: 'path', d: "m8.5 8.5 7 7" },
   ],
   {},
 );
@@ -3148,15 +2936,6 @@ export const tabletsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const tagsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z" },
-    { tag: 'path', d: "M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193" },
-    { tag: 'circle', cx: 10.5, cy: 6.5, r: 0.5, fill: "currentColor" },
-  ],
-  {},
-);
-
 export const tangentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 17, cy: 4, r: 2 },
@@ -3186,36 +2965,6 @@ export const tentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20.5 21 10 3" },
     { tag: 'path', d: "M15.5 21 12 15l-3.5 6" },
     { tag: 'path', d: "M2 21h20" },
-  ],
-  {},
-);
-
-export const testTubeDiagonalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 7 6.82 21.18a2.83 2.83 0 0 1-3.99-.01a2.83 2.83 0 0 1 0-4L17 3" },
-    { tag: 'path', d: "m16 2 6 6" },
-    { tag: 'path', d: "M12 16H4" },
-  ],
-  {},
-);
-
-export const testTubeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5c-1.4 0-2.5-1.1-2.5-2.5V2" },
-    { tag: 'path', d: "M8.5 2h7" },
-    { tag: 'path', d: "M14.5 16h-5" },
-  ],
-  {},
-);
-
-export const testTubesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M9 2v17.5A2.5 2.5 0 0 1 6.5 22A2.5 2.5 0 0 1 4 19.5V2" },
-    { tag: 'path', d: "M20 2v17.5a2.5 2.5 0 0 1-2.5 2.5a2.5 2.5 0 0 1-2.5-2.5V2" },
-    { tag: 'path', d: "M3 2h7" },
-    { tag: 'path', d: "M14 2h7" },
-    { tag: 'path', d: "M9 16H4" },
-    { tag: 'path', d: "M20 16h-5" },
   ],
   {},
 );
@@ -3394,42 +3143,6 @@ export const transgenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m22 2-7.17 7.17" },
     { tag: 'path', d: "M8 5 5 8" },
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
-  ],
-  {},
-);
-
-export const treeDeciduousIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z" },
-    { tag: 'path', d: "M12 19v3" },
-  ],
-  {},
-);
-
-export const treePalmIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4" },
-    { tag: 'path', d: "M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3" },
-    { tag: 'path', d: "M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35" },
-    { tag: 'path', d: "M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14" },
-  ],
-  {},
-);
-
-export const treePineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z" },
-    { tag: 'path', d: "M12 22v-3" },
-  ],
-  {},
-);
-
-export const treesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" },
-    { tag: 'path', d: "M7 16v6" },
-    { tag: 'path', d: "M13 19v3" },
-    { tag: 'path', d: "M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" },
   ],
   {},
 );
@@ -3629,31 +3342,6 @@ export const voicemailIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const walletCardsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 11h3.75a2 2 0 0 1 1.6.8l.45.6a4 4 0 0 0 6.4 0l.45-.6a2 2 0 0 1 1.6-.8H21" },
-    { tag: 'path', d: "M3 7h18" },
-    { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
-  ],
-  {},
-);
-
-export const walletMinimalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17 14h.01" },
-    { tag: 'path', d: "M7 7h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14" },
-  ],
-  {},
-);
-
-export const walletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" },
-    { tag: 'path', d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" },
-  ],
-  {},
-);
-
 export const wallpaperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 17v4" },
@@ -3661,35 +3349,6 @@ export const wallpaperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15" },
     { tag: 'circle', cx: 8, cy: 9, r: 2 },
     { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
-  ],
-  {},
-);
-
-export const wandSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" },
-    { tag: 'path', d: "m14 7 3 3" },
-    { tag: 'path', d: "M5 6v4" },
-    { tag: 'path', d: "M19 14v4" },
-    { tag: 'path', d: "M10 2v2" },
-    { tag: 'path', d: "M7 8H3" },
-    { tag: 'path', d: "M21 16h-4" },
-    { tag: 'path', d: "M11 3H9" },
-  ],
-  {},
-);
-
-export const wandIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 4V2" },
-    { tag: 'path', d: "M15 16v-2" },
-    { tag: 'path', d: "M8 9h2" },
-    { tag: 'path', d: "M20 9h2" },
-    { tag: 'path', d: "M17.8 11.8 19 13" },
-    { tag: 'path', d: "M15 9h.01" },
-    { tag: 'path', d: "M17.8 6.2 19 5" },
-    { tag: 'path', d: "m3 21 9-9" },
-    { tag: 'path', d: "M12.2 6.2 11 5" },
   ],
   {},
 );
@@ -3974,8 +3633,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'boom-box': boomBoxIcon,
   'bottle-wine': bottleWineIcon,
   'bow-arrow': bowArrowIcon,
-  box: boxIcon,
-  boxes: boxesIcon,
   brackets: bracketsIcon,
   'brick-wall-fire': brickWallFireIcon,
   'brick-wall-shield': brickWallShieldIcon,
@@ -3988,7 +3645,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'bus-front': busFrontIcon,
   bus: busIcon,
   calculator: calculatorIcon,
-  calendars: calendarsIcon,
   'car-front': carFrontIcon,
   'car-taxi-front': carTaxiFrontIcon,
   car: carIcon,
@@ -4006,8 +3662,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   cloudy: cloudyIcon,
   clover: cloverIcon,
   club: clubIcon,
-  'code-xml': codeXmlIcon,
-  code: codeIcon,
   coffee: coffeeIcon,
   coins: coinsIcon,
   combine: combineIcon,
@@ -4044,8 +3698,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   drone: droneIcon,
   droplets: dropletsIcon,
   drumstick: drumstickIcon,
-  'earth-lock': earthLockIcon,
-  earth: earthIcon,
   ellipse: ellipseIcon,
   eraser: eraserIcon,
   'ethernet-port': ethernetPortIcon,
@@ -4056,18 +3708,14 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   feather: featherIcon,
   fence: fenceIcon,
   'ferris-wheel': ferrisWheelIcon,
-  files: filesIcon,
   film: filmIcon,
   'fingerprint-pattern': fingerprintPatternIcon,
   'fire-extinguisher': fireExtinguisherIcon,
   'fishing-hook': fishingHookIcon,
   'fishing-rod': fishingRodIcon,
-  'flame-kindling': flameKindlingIcon,
-  flame: flameIcon,
   'flower-2': flower2Icon,
   flower: flowerIcon,
   focus: focusIcon,
-  folders: foldersIcon,
   footprints: footprintsIcon,
   forklift: forkliftIcon,
   form: formIcon,
@@ -4108,8 +3756,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'lamp-wall-up': lampWallUpIcon,
   lamp: lampIcon,
   'land-plot': landPlotIcon,
-  'lasso-select': lassoSelectIcon,
-  lasso: lassoIcon,
   leaf: leafIcon,
   'leafy-green': leafyGreenIcon,
   lectern: lecternIcon,
@@ -4119,18 +3765,15 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'line-dot-right-horizontal': lineDotRightHorizontalIcon,
   'line-squiggle': lineSquiggleIcon,
   'line-style': lineStyleIcon,
-  logs: logsIcon,
   lollipop: lollipopIcon,
   luggage: luggageIcon,
   magnet: magnetIcon,
   mailbox: mailboxIcon,
-  mails: mailsIcon,
   'mars-stroke': marsStrokeIcon,
   mars: marsIcon,
   martini: martiniIcon,
   'memory-stick': memoryStickIcon,
   merge: mergeIcon,
-  'messages-square': messagesSquareIcon,
   metronome: metronomeIcon,
   microchip: microchipIcon,
   microscope: microscopeIcon,
@@ -4142,8 +3785,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   motorbike: motorbikeIcon,
   newspaper: newspaperIcon,
   'non-binary': nonBinaryIcon,
-  'notepad-text-dashed': notepadTextDashedIcon,
-  'notepad-text': notepadTextIcon,
   option: optionIcon,
   origami: origamiIcon,
   'paint-bucket': paintBucketIcon,
@@ -4161,8 +3802,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'picture-in-picture-2': pictureInPicture2Icon,
   'picture-in-picture': pictureInPictureIcon,
   'piggy-bank': piggyBankIcon,
-  'pill-bottle': pillBottleIcon,
-  pill: pillIcon,
   pipette: pipetteIcon,
   pizza: pizzaIcon,
   'plug-2': plug2Icon,
@@ -4239,13 +3878,9 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'switch-camera': switchCameraIcon,
   syringe: syringeIcon,
   tablets: tabletsIcon,
-  tags: tagsIcon,
   tangent: tangentIcon,
   'tent-tree': tentTreeIcon,
   tent: tentIcon,
-  'test-tube-diagonal': testTubeDiagonalIcon,
-  'test-tube': testTubeIcon,
-  'test-tubes': testTubesIcon,
   theater: theaterIcon,
   timeline: timelineIcon,
   toilet: toiletIcon,
@@ -4261,10 +3896,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'train-track': trainTrackIcon,
   'tram-front': tramFrontIcon,
   transgender: transgenderIcon,
-  'tree-deciduous': treeDeciduousIcon,
-  'tree-palm': treePalmIcon,
-  'tree-pine': treePineIcon,
-  trees: treesIcon,
   turntable: turntableIcon,
   turtle: turtleIcon,
   ungroup: ungroupIcon,
@@ -4283,12 +3914,7 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   videotape: videotapeIcon,
   view: viewIcon,
   voicemail: voicemailIcon,
-  'wallet-cards': walletCardsIcon,
-  'wallet-minimal': walletMinimalIcon,
-  wallet: walletIcon,
   wallpaper: wallpaperIcon,
-  'wand-sparkles': wandSparklesIcon,
-  wand: wandIcon,
   'washing-machine': washingMachineIcon,
   watch: watchIcon,
   'waves-arrow-down': wavesArrowDownIcon,

@@ -1065,6 +1065,25 @@
       "path:8dcb2df475f0",
       "path:a6fea51c926d"
     ],
+    "box": [
+      "path:f07bfee634f1",
+      "path:63b1f329941f",
+      "path:11495c3f06f5"
+    ],
+    "boxes": [
+      "path:36947fa03fea",
+      "path:f62e6f3afe4d",
+      "path:267d5f03bc48",
+      "path:2b5be9210cea",
+      "path:a1635aeff951",
+      "path:b12f358f120c",
+      "path:95eb1ef63a80",
+      "path:d2c0a416f0aa",
+      "path:dec854d0bea6",
+      "path:62a8c510cb8c",
+      "path:d2def3596490",
+      "path:cbb6c0fd1d9f"
+    ],
     "braces": [
       "path:ae4b9d22556e",
       "path:720192e9a2fc"
@@ -1421,6 +1440,14 @@
       "path:abdfbd5e4819",
       "path:ec3d9996cae7",
       "path:ccc0b43e5a8f"
+    ],
+    "calendars": [
+      "path:c769d66c2029",
+      "path:500e9e279f5d",
+      "path:3a98ff0a7d04",
+      "path:0ad92cd15da7",
+      "path:366d5850a9d1",
+      "rect:232f9ed16711"
     ],
     "camera": [
       "path:bcbbb4d6b10d",
@@ -2344,6 +2371,15 @@
       "path:ef8fcfc3c829",
       "path:59881d74e4a8"
     ],
+    "code": [
+      "path:d4f38a8e18d3",
+      "path:c7afcaa4f044"
+    ],
+    "code-xml": [
+      "path:13e09cd68401",
+      "path:a4534fa4dd2a",
+      "path:8db2b2ea21c6"
+    ],
     "cog": [
       "path:5d7cc9de1be1",
       "path:ce1f4e3e90e1",
@@ -2770,6 +2806,20 @@
       "path:156d719d2906",
       "path:f524f9574771",
       "line:ed241e14c4ca"
+    ],
+    "earth": [
+      "path:94af8256b0c5",
+      "path:72fdbed456b5",
+      "path:95ee93801bc2",
+      "circle:1b306a76ecc0"
+    ],
+    "earth-lock": [
+      "path:402b5d5c63e9",
+      "path:a38c5dedcaaa",
+      "path:94af8256b0c5",
+      "path:c71f38e6937c",
+      "path:56367a74fdb4",
+      "rect:c5a5de398963"
     ],
     "eclipse": [
       "circle:1b306a76ecc0",
@@ -3242,6 +3292,11 @@
       "path:e323b74d1645",
       "path:8292620cdb30"
     ],
+    "files": [
+      "path:52f5ec419223",
+      "path:262fb45492ca",
+      "path:b8f36f909adb"
+    ],
     "fish": [
       "path:64bac92540c7",
       "path:c4cab726410b",
@@ -3272,6 +3327,14 @@
     ],
     "flag-triangle-right": [
       "path:b13fc8186efe"
+    ],
+    "flame": [
+      "path:1972f3fa42b7"
+    ],
+    "flame-kindling": [
+      "path:1c164ccc898e",
+      "path:0969cf00ff72",
+      "path:85a4b4b2e5c9"
     ],
     "flashlight": [
       "path:0374bc3fdec4",
@@ -3495,6 +3558,10 @@
       "path:bb3d401f7070",
       "path:aea8e2bb27f5",
       "path:da182c2afc02"
+    ],
+    "folders": [
+      "path:392d0a65e37a",
+      "path:18e4363f8126"
     ],
     "forward": [
       "path:5842a4e0b4c7",
@@ -4230,6 +4297,18 @@
       "path:f09077e0d6b9",
       "rect:fb7571cfc6a8"
     ],
+    "lasso": [
+      "path:8035fc0433b9",
+      "path:f0b253876df3",
+      "circle:58dfd4b13d5c"
+    ],
+    "lasso-select": [
+      "path:6f7552020c9e",
+      "path:da3fad413a85",
+      "path:e5f5c3169abb",
+      "path:044b980c0953",
+      "path:6b494e0555c4"
+    ],
     "layer-arrow-down": [
       "path:68953ee2caed",
       "path:0ebeb74384b3",
@@ -4585,6 +4664,17 @@
       "path:0b53922c0fea",
       "path:113fe37e469f"
     ],
+    "logs": [
+      "path:58106f66a55f",
+      "path:8d7405b2ff09",
+      "path:aa94baaf9c29",
+      "path:50b2d2fb4552",
+      "path:926d7ad5c973",
+      "path:3913c32c721d",
+      "path:c4c320068d89",
+      "path:6794259018da",
+      "path:9c1c7409cb86"
+    ],
     "mail": [
       "path:5e4902aa4f77",
       "rect:41e980132aa8"
@@ -4639,6 +4729,11 @@
       "path:aeb06f0bb330",
       "path:e06187a39a40",
       "path:7f4b7635fd4b"
+    ],
+    "mails": [
+      "path:be0e354a5b61",
+      "path:d38af8e295ba",
+      "rect:9defc2f981fb"
     ],
     "map": [
       "path:cd5f635cd55b",
@@ -4919,6 +5014,10 @@
       "path:bad857bccaae",
       "path:27ce5fe9243d",
       "path:0f1fcd2015e9"
+    ],
+    "messages-square": [
+      "path:b49076c90797",
+      "path:d3ac25f37ab7"
     ],
     "mic": [
       "path:d5a4d0a7fe9a",
@@ -5290,6 +5389,30 @@
       "path:61e3d9ca2a18",
       "path:1c09f133d45e",
       "path:a01b46bd6d9a"
+    ],
+    "notepad-text": [
+      "path:cfc0b8f7558f",
+      "path:c569d3462629",
+      "path:088b44da6c81",
+      "rect:bc6a013ae0eb",
+      "path:afeb8296f144",
+      "path:00051fb82dc9",
+      "path:d82cda5b99d5"
+    ],
+    "notepad-text-dashed": [
+      "path:cfc0b8f7558f",
+      "path:c569d3462629",
+      "path:088b44da6c81",
+      "path:a9772eeade35",
+      "path:fdf2d2da9f9c",
+      "path:0947038bbebb",
+      "path:4f7983a6ecfb",
+      "path:61f01037e0ac",
+      "path:821707c9252b",
+      "path:a2de4f1acb5d",
+      "path:afeb8296f144",
+      "path:00051fb82dc9",
+      "path:d82cda5b99d5"
     ],
     "nut": [
       "path:76cf5c3e2588",
@@ -5674,6 +5797,15 @@
       "path:50010b07e72e",
       "path:878f3b4bb306",
       "path:fd1de58b9566"
+    ],
+    "pill": [
+      "path:17af73a69a9b",
+      "path:53da806b378a"
+    ],
+    "pill-bottle": [
+      "path:5c2b943be453",
+      "path:46973ca8f337",
+      "rect:29e12d1bae19"
     ],
     "pin": [
       "path:5d523ef72761",
@@ -7406,6 +7538,11 @@
       "path:8f9a429ebc67",
       "circle:0e09129bad7a"
     ],
+    "tags": [
+      "path:80ec0169575c",
+      "path:69856a1edc63",
+      "circle:cfb354eadaf8"
+    ],
     "tally-1": [
       "path:1151e39017a8"
     ],
@@ -7448,6 +7585,24 @@
     "terminal": [
       "path:ca6ea55cf39e",
       "path:e0e02d6803a3"
+    ],
+    "test-tube": [
+      "path:5dad3d9757b4",
+      "path:e8fef3d99973",
+      "path:2e1807da4355"
+    ],
+    "test-tube-diagonal": [
+      "path:9ad9cac3ce8e",
+      "path:d147e488bd4d",
+      "path:4f33fbdd092f"
+    ],
+    "test-tubes": [
+      "path:246797d1ced4",
+      "path:2c9f27755cc2",
+      "path:d6f787719510",
+      "path:f44182bf689a",
+      "path:317bbd6f1ac6",
+      "path:0689d3301d71"
     ],
     "text-align-center": [
       "path:66e34506b020",
@@ -7648,6 +7803,26 @@
       "path:fcbffd502b93",
       "path:8d73c9199add",
       "path:62965d1ecf4f"
+    ],
+    "tree-deciduous": [
+      "path:3606ea085eb6",
+      "path:d5a4d0a7fe9a"
+    ],
+    "tree-palm": [
+      "path:f665f419358b",
+      "path:54e6b57fdf7a",
+      "path:4127d94d20e0",
+      "path:626e626eb02f"
+    ],
+    "tree-pine": [
+      "path:15826ee8c665",
+      "path:6ade73102a4b"
+    ],
+    "trees": [
+      "path:826d3a79d708",
+      "path:92e9bf35adca",
+      "path:993f0192386d",
+      "path:05c30c37e74a"
     ],
     "trending-down": [
       "path:0b758399c14a",
@@ -8018,6 +8193,40 @@
       "path:a6c388c2ba21",
       "path:5ab1d484eaff",
       "path:d96bbf13dff2"
+    ],
+    "wallet": [
+      "path:97465217d7e4",
+      "path:2e1168247f00"
+    ],
+    "wallet-cards": [
+      "path:5f3b6b01eb21",
+      "path:883d74884e66",
+      "rect:d427f2bc2999"
+    ],
+    "wallet-minimal": [
+      "path:3ec5a7ff7d5c",
+      "path:24e514240a56"
+    ],
+    "wand": [
+      "path:33d0801b3cbb",
+      "path:0864b2831d46",
+      "path:65213f3232e4",
+      "path:4ef6d3ea214d",
+      "path:e1d7b62333f1",
+      "path:f065a0fdaabc",
+      "path:fe3960e2af5c",
+      "path:ecc178565b6c",
+      "path:8cd92df51167"
+    ],
+    "wand-sparkles": [
+      "path:8cf790181fd1",
+      "path:7e9fd0f5bc57",
+      "path:425bf4484d78",
+      "path:dc289482ec68",
+      "path:da93e6a230b2",
+      "path:ac518533e8c2",
+      "path:982fbc282bf1",
+      "path:b97373f57583"
     ],
     "warehouse": [
       "path:c81ca35840df",
@@ -9041,6 +9250,16 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "box": {
+      "default": "55cae8d90a27",
+      "draw": "17c8398e8d34",
+      "hold": "ee885c00ef56"
+    },
+    "boxes": {
+      "default": "3cb64c056eda",
+      "draw": "17c8398e8d34",
+      "hold": "7b1a73e1fb56"
+    },
     "braces": {
       "default": "ef1d5bd9f5e8",
       "draw": "17c8398e8d34"
@@ -9223,6 +9442,11 @@
       "default": "e940d2f9b018",
       "draw": "17c8398e8d34",
       "snap": "03015e495e96"
+    },
+    "calendars": {
+      "default": "9906ae56a145",
+      "draw": "17c8398e8d34",
+      "hold": "ad04961f928b"
     },
     "camera": {
       "default": "950149b6ddce",
@@ -9925,6 +10149,16 @@
       "default": "bd7c6467fb67",
       "draw": "17c8398e8d34"
     },
+    "code": {
+      "default": "f97ddb7aefbd",
+      "draw": "17c8398e8d34",
+      "hold": "f742223fc430"
+    },
+    "code-xml": {
+      "default": "2fe648b062a4",
+      "draw": "17c8398e8d34",
+      "hold": "7b83b6bed9b3"
+    },
     "cog": {
       "default": "7451c33ccee6",
       "draw": "17c8398e8d34"
@@ -10222,6 +10456,16 @@
     "ear-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "earth": {
+      "default": "10135446ab3a",
+      "draw": "17c8398e8d34",
+      "hold": "440a8f810901"
+    },
+    "earth-lock": {
+      "default": "c77fb5181ec9",
+      "draw": "17c8398e8d34",
+      "hold": "d583b4e72426"
     },
     "eclipse": {
       "default": "6afc8d53f73f",
@@ -10599,6 +10843,11 @@
       "draw": "17c8398e8d34",
       "pulse": "cee73beb5f57"
     },
+    "files": {
+      "default": "d9a8b8b23ea0",
+      "draw": "17c8398e8d34",
+      "hold": "6a19b2174d5a"
+    },
     "fish": {
       "default": "530bcaf4c2b0",
       "draw": "17c8398e8d34"
@@ -10626,6 +10875,16 @@
     "flag-triangle-right": {
       "default": "681517e76d92",
       "draw": "17c8398e8d34"
+    },
+    "flame": {
+      "default": "d179a6565278",
+      "draw": "17c8398e8d34",
+      "hold": "0c410875b0fe"
+    },
+    "flame-kindling": {
+      "default": "2bc76fafcc58",
+      "draw": "17c8398e8d34",
+      "hold": "5ff63c382277"
     },
     "flashlight": {
       "default": "fd35bc00c7df",
@@ -10824,6 +11083,11 @@
       "draw": "17c8398e8d34",
       "extra": "5d5b0b3e215f",
       "reveal": "a6fdfac1f9ae"
+    },
+    "folders": {
+      "default": "0c8f0705f11e",
+      "draw": "17c8398e8d34",
+      "hold": "56974d308657"
     },
     "forward": {
       "default": "23c35283d7fc",
@@ -11341,6 +11605,16 @@
       "default": "f5ebc25a1f63",
       "draw": "17c8398e8d34"
     },
+    "lasso": {
+      "default": "23b5859e0d1b",
+      "draw": "17c8398e8d34",
+      "hold": "0416bbde8d40"
+    },
+    "lasso-select": {
+      "default": "b69c9c75a921",
+      "draw": "17c8398e8d34",
+      "hold": "14c18a3e2be0"
+    },
     "layer-arrow-down": {
       "default": "6cc8fba3a8c0",
       "draw": "17c8398e8d34"
@@ -11599,6 +11873,11 @@
       "draw": "17c8398e8d34",
       "nudge": "cd75c9e7b02d"
     },
+    "logs": {
+      "default": "d2136f17c66c",
+      "draw": "17c8398e8d34",
+      "hold": "8588a0b5d915"
+    },
     "mail": {
       "default": "1d76008320ad",
       "draw": "17c8398e8d34",
@@ -11647,6 +11926,11 @@
       "default": "e52448352c94",
       "draw": "17c8398e8d34",
       "hold": "702f0120ccc4"
+    },
+    "mails": {
+      "default": "e3a688507aea",
+      "draw": "17c8398e8d34",
+      "hold": "8c82b911168a"
     },
     "map": {
       "default": "ecece17e15d6",
@@ -11891,6 +12175,11 @@
       "default": "271a4ded4f33",
       "draw": "17c8398e8d34",
       "hold": "bfd4283ff986"
+    },
+    "messages-square": {
+      "default": "5ddc3d261a63",
+      "draw": "17c8398e8d34",
+      "hold": "cecb07881ae1"
     },
     "mic": {
       "default": "2d37a0c93adb",
@@ -12165,6 +12454,16 @@
       "default": "348dd97ad749",
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
+    },
+    "notepad-text": {
+      "default": "d94acd24662a",
+      "draw": "17c8398e8d34",
+      "hold": "28e7100461b0"
+    },
+    "notepad-text-dashed": {
+      "default": "d6f26e46ffb9",
+      "draw": "17c8398e8d34",
+      "hold": "fe18a533ad9f"
     },
     "nut": {
       "default": "de83c9b0b373",
@@ -12466,6 +12765,16 @@
     "pilcrow-right": {
       "default": "731bfd6e144d",
       "draw": "17c8398e8d34"
+    },
+    "pill": {
+      "default": "40a4f2600f53",
+      "draw": "17c8398e8d34",
+      "hold": "461d5b5f2e9c"
+    },
+    "pill-bottle": {
+      "default": "42a38f0e457e",
+      "draw": "17c8398e8d34",
+      "hold": "c88cc94dc073"
     },
     "pin": {
       "default": "6de9eb9c3601",
@@ -13703,6 +14012,11 @@
       "default": "813c8fe5bc71",
       "draw": "17c8398e8d34"
     },
+    "tags": {
+      "default": "cdc392cd88c9",
+      "draw": "17c8398e8d34",
+      "hold": "318f4ccd2f55"
+    },
     "tally-1": {
       "count": "036f4278f5c1",
       "default": "7b0dcae845a0",
@@ -13740,6 +14054,21 @@
     "terminal": {
       "default": "59448cc0cd3b",
       "draw": "17c8398e8d34"
+    },
+    "test-tube": {
+      "default": "982ea4c110a9",
+      "draw": "17c8398e8d34",
+      "hold": "0379d9f62ca4"
+    },
+    "test-tube-diagonal": {
+      "default": "982ea4c110a9",
+      "draw": "17c8398e8d34",
+      "hold": "0379d9f62ca4"
+    },
+    "test-tubes": {
+      "default": "ca949f7e1aae",
+      "draw": "17c8398e8d34",
+      "hold": "63126008bce2"
     },
     "text-align-center": {
       "default": "20a3c607a5bc",
@@ -13880,7 +14209,7 @@
     "toy-brick": {
       "default": "ecc1fabb993d",
       "draw": "17c8398e8d34",
-      "hold": "028771847118"
+      "hold": "4ca0612e0eec"
     },
     "trash": {
       "active": "c8898926da75",
@@ -13891,6 +14220,26 @@
       "active": "d5d5aed7ac35",
       "default": "e6790c50367c",
       "draw": "17c8398e8d34"
+    },
+    "tree-deciduous": {
+      "default": "84160bb66522",
+      "draw": "17c8398e8d34",
+      "hold": "2476a47d45a2"
+    },
+    "tree-palm": {
+      "default": "ab3ee66df171",
+      "draw": "17c8398e8d34",
+      "hold": "a8339054621e"
+    },
+    "tree-pine": {
+      "default": "84160bb66522",
+      "draw": "17c8398e8d34",
+      "hold": "2476a47d45a2"
+    },
+    "trees": {
+      "default": "42113d1183f2",
+      "draw": "17c8398e8d34",
+      "hold": "968ebd0e47e3"
     },
     "trending-down": {
       "default": "e739f4aec237",
@@ -14162,6 +14511,31 @@
     "vote": {
       "default": "100d9decc6df",
       "draw": "17c8398e8d34"
+    },
+    "wallet": {
+      "default": "14826b17e90a",
+      "draw": "17c8398e8d34",
+      "hold": "443ea8549654"
+    },
+    "wallet-cards": {
+      "default": "847d394e0296",
+      "draw": "17c8398e8d34",
+      "hold": "8c29303c6de5"
+    },
+    "wallet-minimal": {
+      "default": "2db69c8fe187",
+      "draw": "17c8398e8d34",
+      "hold": "ba145095fead"
+    },
+    "wand": {
+      "default": "4be4f4efdc10",
+      "draw": "17c8398e8d34",
+      "hold": "2747c87330a1"
+    },
+    "wand-sparkles": {
+      "default": "d1845879e19b",
+      "draw": "17c8398e8d34",
+      "hold": "be0a4b9d01f9"
     },
     "warehouse": {
       "default": "56751a4b4117",

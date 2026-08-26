@@ -5806,6 +5806,12 @@ export * from './icons/chess';
 import { chessKingIcon, chessQueenIcon, chessRookIcon, chessBishopIcon, chessKnightIcon, chessPawnIcon } from './icons/chess';
 export * from './icons/gamepad';
 import { gamepadIcon, gamepad2Icon, gamepadDirectionalIcon } from './icons/gamepad';
+export * from './icons/test';
+import { testTubeIcon, testTubesIcon, testTubeDiagonalIcon } from './icons/test';
+export * from './icons/wallet';
+import { walletIcon, walletCardsIcon, walletMinimalIcon } from './icons/wallet';
+export * from './icons/tree';
+import { treeDeciduousIcon, treePineIcon, treePalmIcon } from './icons/tree';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -11358,7 +11364,7 @@ export const toyBrickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12049,6 +12055,794 @@ export const giftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+
+// ── Plurales y hermanos sueltos ────────────────────────────────────────────────────────────
+// `file` tiene 55 curados y `files` ninguno; `folder` 31 y `folders` ninguno; `message-square`
+// 29 y `messages-square` ninguno. Ocho plurales huérfanos de familias completas, más un puñado
+// de hermanos que se quedaron fuera aunque su pareja estuviera dentro (`globe` sí, `earth` no).
+//
+// El lenguaje del plural sale del propio dibujo: son PILAS, así que el de encima se despega del
+// de atrás. Los que no son pila hacen lo suyo.
+
+/** El de encima de la pila se despega del de atrás y vuelve. */
+const DESPEGA = [
+          { transform: 'translate(0, 0)', offset: 0 },
+          { transform: 'translate(-0.85px, 0.7px)', offset: 0.5 },
+          { transform: 'translate(0, 0)', offset: 1 },
+        ];
+
+/** Un destello corto para lo que chispea: varitas, brasas. */
+const CHISPA = /* @__PURE__ */ [
+  { transform: 'scale(0.4)', opacity: '0.3' },
+  { transform: 'scale(1.15)', opacity: '1' },
+  { transform: 'scale(1)', opacity: '1' },
+];
+
+/** La copa se mece sobre el tronco, que está clavado. Mismo criterio que icons/tree.ts. */
+const MECE_COPA = [
+          { transform: 'rotate(0deg)', offset: 0 },
+          { transform: 'rotate(3deg)', offset: 0.3 },
+          { transform: 'rotate(-2.2deg)', offset: 0.62 },
+          { transform: 'rotate(0deg)', offset: 1 },
+        ];
+
+/** El de delante se despega del de atrás: eso es lo que hace que sean dos y no uno. */
+export const filesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 2h-4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8" },
+    {
+      tag: 'path',
+      d: "M16.706 2.706A2.4 2.4 0 0 0 15 2v5a1 1 0 0 0 1 1h5a2.4 2.4 0 0 0-.706-1.706z",
+    },
+    { tag: 'path', d: "M5 7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h8a2 2 0 0 0 1.732-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(DESPEGA, 480, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Igual con las carpetas. */
+export const foldersIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M20 5a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2.5a1.5 1.5 0 0 1 1.2.6l.6.8a1.5 1.5 0 0 0 1.2.6z",
+    },
+    { tag: 'path', d: "M3 8.268a2 2 0 0 0-1 1.738V19a2 2 0 0 0 2 2h11a2 2 0 0 0 1.732-1" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(DESPEGA, 480, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El sobre de delante se separa del fajo. */
+export const mailsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 1-1.732" },
+    { tag: 'path', d: "m22 5.5-6.419 4.179a2 2 0 0 1-2.162 0L7 5.5" },
+    { tag: 'rect', x: 7, y: 3, width: 15, height: 12, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(DESPEGA, 480, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El calendario de delante se levanta y sus anillas botan detrás. */
+export const calendarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M15.726 21.01A2 2 0 0 1 14 22H4a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2" },
+    { tag: 'path', d: "M18 2v2" },
+    { tag: 'path', d: "M2 13h2" },
+    { tag: 'path', d: "M8 8h14" },
+    { tag: 'rect', x: 8, y: 3, width: 14, height: 14, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(DESPEGA, 480, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(DESPEGA, 480, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 420, { easing: SPRING_OUT, delay: 140 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 420, { easing: SPRING_OUT, delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** No es una pila: son dos que se responden. Por eso botan por turnos, no a la vez. */
+export const messagesSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z",
+    },
+    {
+      tag: 'path',
+      d: "M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 420, { easing: SPRING_OUT, origin: '9px 8px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 420, { easing: SPRING_OUT, delay: 180, origin: '15px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 15px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La de delante se columpia desde SU agujero, igual que hace `tag` desde el suyo. */
+export const tagsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z",
+    },
+    { tag: 'path', d: "M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193" },
+    { tag: 'circle', cx: 10.5, cy: 6.5, r: 0.5, fill: "currentColor" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 2, 0]), 700, { origin: '10.5px 6.5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 2, 0]), 700, { origin: '10.5px 6.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los registros entran de arriba abajo, una línea por vez, con su marca delante. */
+export const logsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 5h1" },
+    { tag: 'path', d: "M3 12h1" },
+    { tag: 'path', d: "M3 19h1" },
+    { tag: 'path', d: "M8 5h1" },
+    { tag: 'path', d: "M8 12h1" },
+    { tag: 'path', d: "M8 19h1" },
+    { tag: 'path', d: "M13 5h8" },
+    { tag: 'path', d: "M13 12h8" },
+    { tag: 'path', d: "M13 19h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 110 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 110 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 110 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 220 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 220 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.2, 0]), 420, { easing: SPRING_OUT, delay: 220 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Gira como `globe`: los continentes se estrechan sobre el eje y el aro se queda quieto. */
+export const earthIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21.54 15H17a2 2 0 0 0-2 2v4.54" },
+    {
+      tag: 'path',
+      d: "M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17",
+    },
+    { tag: 'path', d: "M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05" },
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Igual, y el candado se cierra encima. */
+export const earthLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 3.34V5a3 3 0 0 0 3 3" },
+    { tag: 'path', d: "M11 21.95V18a2 2 0 0 0-2-2 2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05" },
+    { tag: 'path', d: "M21.54 15H17a2 2 0 0 0-2 2v4.54" },
+    { tag: 'path', d: "M12 2a10 10 0 1 0 9.54 13" },
+    { tag: 'path', d: "M20 6V4a2 2 0 1 0-4 0v2" },
+    { tag: 'rect', x: 14, y: 6, width: 8, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }], 1100, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.9, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos signos se abren. Toman impulso hacia dentro porque hacia fuera solo queda 1. */
+export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 18 6-6-6-6" },
+    { tag: 'path', d: "m8 6-6 6 6 6" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(1.5px)', offset: 0.32 },
+          { transform: 'translateX(-0.9px)', offset: 0.72 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { easing: EASE }),
+        0: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(-1.5px)', offset: 0.32 },
+          { transform: 'translateX(0.9px)', offset: 0.72 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Lo mismo, y la barra de en medio se inclina un poco más. */
+export const codeXmlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 16 4-4-4-4" },
+    { tag: 'path', d: "m6 8-4 4 4 4" },
+    { tag: 'path', d: "m14.5 4-5 16" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(1.5px)', offset: 0.32 },
+          { transform: 'translateX(-0.9px)', offset: 0.72 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { easing: EASE }),
+        0: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(-1.5px)', offset: 0.32 },
+          { transform: 'translateX(0.9px)', offset: 0.72 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { easing: EASE }),
+        2: /* @__PURE__ */ track([
+          { transform: 'skewX(0deg)', offset: 0 },
+          { transform: 'skewX(-5deg)', offset: 0.5 },
+          { transform: 'skewX(0deg)', offset: 1 },
+        ], 520, { easing: EASE, delay: 80, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las líneas se acomodan de arriba abajo y las anillas botan al final. */
+export const notepadTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 2v4" },
+    { tag: 'path', d: "M12 2v4" },
+    { tag: 'path', d: "M16 2v4" },
+    { tag: 'rect', x: 4, y: 4, width: 16, height: 18, rx: 2 },
+    { tag: 'path', d: "M8 10h6" },
+    { tag: 'path', d: "M8 14h8" },
+    { tag: 'path', d: "M8 18h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT, delay: 90 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT, delay: 180 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 400, { easing: SPRING_OUT, delay: 240 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 400, { easing: SPRING_OUT, delay: 290 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0]), 400, { easing: SPRING_OUT, delay: 340 }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las líneas igual, y el contorno punteado se apaga dando la vuelta. */
+export const notepadTextDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 2v4" },
+    { tag: 'path', d: "M12 2v4" },
+    { tag: 'path', d: "M16 2v4" },
+    { tag: 'path', d: "M16 4h2a2 2 0 0 1 2 2v2" },
+    { tag: 'path', d: "M20 12v2" },
+    { tag: 'path', d: "M20 18v2a2 2 0 0 1-2 2h-1" },
+    { tag: 'path', d: "M13 22h-2" },
+    { tag: 'path', d: "M7 22H6a2 2 0 0 1-2-2v-2" },
+    { tag: 'path', d: "M4 14v-2" },
+    { tag: 'path', d: "M4 8V6a2 2 0 0 1 2-2h2" },
+    { tag: 'path', d: "M8 10h6" },
+    { tag: 'path', d: "M8 14h8" },
+    { tag: 'path', d: "M8 18h5" },
+  ],
+  {
+    default: {
+      shapes: {
+        10: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT, delay: 90 }),
+        12: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([-1.4, 0]), 420, { easing: SPRING_OUT, delay: 180 }),
+        3: /* @__PURE__ */ track(APAGA, 440, { delay: 140 }),
+        4: /* @__PURE__ */ track(APAGA, 440, { delay: 190 }),
+        5: /* @__PURE__ */ track(APAGA, 440, { delay: 240 }),
+        6: /* @__PURE__ */ track(APAGA, 440, { delay: 290 }),
+        7: /* @__PURE__ */ track(APAGA, 440, { delay: 340 }),
+        8: /* @__PURE__ */ track(APAGA, 440, { delay: 390 }),
+        9: /* @__PURE__ */ track(APAGA, 440, { delay: 440 }),
+      },
+    },
+    hold: {
+      shapes: {
+        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        12: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La varita da el golpe y las chispas salen después, no a la vez: primero se agita. */
+export const wandIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 4V2" },
+    { tag: 'path', d: "M15 16v-2" },
+    { tag: 'path', d: "M8 9h2" },
+    { tag: 'path', d: "M20 9h2" },
+    { tag: 'path', d: "M17.8 11.8 19 13" },
+    { tag: 'path', d: "M15 9h.01" },
+    { tag: 'path', d: "M17.8 6.2 19 5" },
+    { tag: 'path', d: "m3 21 9-9" },
+    { tag: 'path', d: "M12.2 6.2 11 5" },
+  ],
+  {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -8, 4, 0]), 560, { easing: EASE, origin: '3px 21px' }),
+        5: /* @__PURE__ */ track(CHISPA, 380, { easing: SPRING_OUT, delay: 200, origin: '15px 9px' }),
+        0: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 260, origin: '15px 3px' }),
+        1: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 300, origin: '15px 15px' }),
+        2: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 340, origin: '9px 9px' }),
+        3: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 380, origin: '21px 9px' }),
+        4: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 420, origin: '18.4px 12.4px' }),
+        6: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 460, origin: '18.4px 5.6px' }),
+        8: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 500, origin: '11.6px 5.6px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '3px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La varita cruza el lienzo entero, asi que no puede girar sin cortarse: se queda quieta y las chispas hacen la magia. */
+export const wandSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72",
+    },
+    { tag: 'path', d: "m14 7 3 3" },
+    { tag: 'path', d: "M5 6v4" },
+    { tag: 'path', d: "M19 14v4" },
+    { tag: 'path', d: "M10 2v2" },
+    { tag: 'path', d: "M7 8H3" },
+    { tag: 'path', d: "M21 16h-4" },
+    { tag: 'path', d: "M11 3H9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 520, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 520, { easing: EASE, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 160, origin: '5px 8px' }),
+        4: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 210, origin: '10px 3px' }),
+        5: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 260, origin: '5px 8px' }),
+        7: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 310, origin: '10px 3px' }),
+        3: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 360, origin: '19px 16px' }),
+        6: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 410, origin: '19px 16px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19px 16px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 3px' }),
+      },
+      reverseOnLeave: true,
+    },
+  }
+);
+
+/** El lazo se cierra y el nudo acusa el tirón. */
+export const lassoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3.704 14.467a10 8 0 1 1 3.115 2.375" },
+    { tag: 'path', d: "M7 22a5 5 0 0 1-2-3.994" },
+    { tag: 'circle', cx: 5, cy: 16, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 520, { easing: EASE, origin: '12px 11px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 520, { easing: EASE, origin: '12px 11px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 1]), 420, { easing: SPRING_OUT, delay: 160, origin: '5px 16px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 16px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Igual, y el puntero que selecciona da su clic. */
+export const lassoSelectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 22a5 5 0 0 1-2-4" },
+    { tag: 'path', d: "M7 16.93c.96.43 1.96.74 2.99.91" },
+    {
+      tag: 'path',
+      d: "M3.34 14A6.8 6.8 0 0 1 2 10c0-4.42 4.48-8 10-8s10 3.58 10 8a7.19 7.19 0 0 1-.33 2",
+    },
+    { tag: 'path', d: "M5 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
+    {
+      tag: 'path',
+      d: "M14.33 22h-.09a.35.35 0 0 1-.24-.32v-10a.34.34 0 0 1 .33-.34c.08 0 .15.03.21.08l7.34 6a.33.33 0 0 1-.21.59h-4.49l-2.57 3.85a.35.35 0 0 1-.28.14z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 520, { easing: EASE, origin: '12px 11px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 1]), 420, { easing: SPRING_OUT, delay: 120, origin: '5px 16px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.85, 0]), 440, { easing: SPRING_OUT, delay: 180 }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se aprieta y la juntura se marca. Rodar no cabe: la capsula cruza el lienzo de esquina a esquina. */
+export const pillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" },
+    { tag: 'path', d: "m8.5 8.5 7 7" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 520, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 460, { easing: SPRING_OUT, delay: 100, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.94)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.18)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  }
+);
+
+/** El tapón se despega: es lo único de un bote que se abre. */
+export const pillBottleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 11h-4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4" },
+    { tag: 'path', d: "M6 7v13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" },
+    { tag: 'rect', x: 4, y: 2, width: 16, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.85, 0]), 460, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1]), 420, { easing: EASE, delay: 120, origin: '15.5px 14.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Titila: se estira a lo alto y se recoge, desde su base. Una llama no se mueve de sitio. */
+export const flameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scale(1, 1)', offset: 0 },
+          { transform: 'scale(0.95, 1.06)', offset: 0.32 },
+          { transform: 'scale(1.04, 0.97)', offset: 0.66 },
+          { transform: 'scale(1, 1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '12px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.95, 1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La llama titila y los leños no se mueven: están debajo. */
+export const flameKindlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M12 2c1 3 2.5 3.5 3.5 4.5A5 5 0 0 1 17 10a5 5 0 1 1-10 0c0-.3 0-.6.1-.9a2 2 0 1 0 3.3-2C8 4.5 11 2 12 2Z",
+    },
+    { tag: 'path', d: "m5 22 14-4" },
+    { tag: 'path', d: "m5 18 14 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scale(1, 1)', offset: 0 },
+          { transform: 'scale(0.95, 1.06)', offset: 0.32 },
+          { transform: 'scale(1.04, 0.97)', offset: 0.66 },
+          { transform: 'scale(1, 1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '12px 15px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.95, 1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se asienta: cae, se aplasta al tocar y se recupera. */
+export const boxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z",
+    },
+    { tag: 'path', d: "m3.3 7 8.7 5 8.7-5" },
+    { tag: 'path', d: "M12 22V12" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'translateY(-0.85px) scale(1, 1)', offset: 0 },
+          { transform: 'translateY(0) scale(1.04, 0.94)', offset: 0.45 },
+          { transform: 'translateY(0) scale(0.99, 1.02)', offset: 0.72 },
+          { transform: 'translateY(0) scale(1, 1)', offset: 1 },
+        ], 580, { easing: EASE, origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.85, 0]), 580, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.85, 0]), 580, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se apilan en orden: primero las dos de abajo, y encima la última. */
+export const boxesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z",
+    },
+    { tag: 'path', d: "m7 16.5-4.74-2.85" },
+    { tag: 'path', d: "m7 16.5 5-3" },
+    { tag: 'path', d: "M7 16.5v5.17" },
+    {
+      tag: 'path',
+      d: "M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z",
+    },
+    { tag: 'path', d: "m17 16.5-5-3" },
+    { tag: 'path', d: "m17 16.5 4.74-2.85" },
+    { tag: 'path', d: "M17 16.5v5.17" },
+    {
+      tag: 'path',
+      d: "M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z",
+    },
+    { tag: 'path', d: "M12 8 7.26 5.15" },
+    { tag: 'path', d: "m12 8 4.74-2.85" },
+    { tag: 'path', d: "M12 13.5V8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 100 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 100 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 100 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 100 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 200 }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 200 }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 200 }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 460, { easing: SPRING_OUT, delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Dos árboles distintos, así que se mecen desfasados: a la vez serían uno solo con dos copas. */
+export const treesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" },
+    { tag: 'path', d: "M7 16v6" },
+    { tag: 'path', d: "M13 19v3" },
+    {
+      tag: 'path',
+      d: "M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(MECE_COPA, 720, { easing: EASE, origin: '7px 16px' }),
+        3: /* @__PURE__ */ track(MECE_COPA, 720, { easing: EASE, delay: 120, origin: '13px 19px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -13446,4 +14240,37 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'balloon': balloonIcon,
   'party-popper': partyPopperIcon,
   'gift': giftIcon,
+  'files': filesIcon,
+  'folders': foldersIcon,
+  'mails': mailsIcon,
+  'calendars': calendarsIcon,
+  'messages-square': messagesSquareIcon,
+  'tags': tagsIcon,
+  'logs': logsIcon,
+  'earth': earthIcon,
+  'earth-lock': earthLockIcon,
+  'code': codeIcon,
+  'code-xml': codeXmlIcon,
+  'notepad-text': notepadTextIcon,
+  'notepad-text-dashed': notepadTextDashedIcon,
+  'wand': wandIcon,
+  'wand-sparkles': wandSparklesIcon,
+  'lasso': lassoIcon,
+  'lasso-select': lassoSelectIcon,
+  'pill': pillIcon,
+  'pill-bottle': pillBottleIcon,
+  'flame': flameIcon,
+  'flame-kindling': flameKindlingIcon,
+  'box': boxIcon,
+  'boxes': boxesIcon,
+  'trees': treesIcon,
+  'test-tube': testTubeIcon,
+  'test-tubes': testTubesIcon,
+  'test-tube-diagonal': testTubeDiagonalIcon,
+  'wallet': walletIcon,
+  'wallet-cards': walletCardsIcon,
+  'wallet-minimal': walletMinimalIcon,
+  'tree-deciduous': treeDeciduousIcon,
+  'tree-pine': treePineIcon,
+  'tree-palm': treePalmIcon,
 };
