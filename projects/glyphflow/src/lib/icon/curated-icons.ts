@@ -1,5 +1,5 @@
 import { AnimatedIconDef } from './animated-icon.model';
-import { SHIELD_GEAR_SPIN, TRAZO_INVERSO, X_SNAP_DRAW } from './icons/_shared';
+import { SHIELD_GEAR_SPIN, SHOOT_OFF_KEYFRAMES, TRAZO_INVERSO, X_SNAP_DRAW } from './icons/_shared';
 import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
@@ -1362,20 +1362,6 @@ export const usersIcon: AnimatedIconDef = /* @__PURE__ */ icon(usersShapes, {
       },
     },
   });
-
-/** Camión que avanza CON las llantas girando. Sin las llantas, patina. */
-// Se resiste hacia la izquierda, sale disparado a la derecha y desaparece, y reaparece desde la
-// izquierda para retomar su lugar — sin las llantas girando.
-const SHOOT_OFF_KEYFRAMES: Keyframe[] = [
-  { transform: 'translateX(0)', opacity: '1', offset: 0 },
-  { transform: 'translateX(-3px)', opacity: '1', offset: 0.18 },
-  { transform: 'translateX(-3px)', opacity: '1', offset: 0.3 },
-  { transform: 'translateX(26px)', opacity: '1', offset: 0.46 },
-  { transform: 'translateX(26px)', opacity: '0', offset: 0.5 },
-  { transform: 'translateX(-26px)', opacity: '0', offset: 0.54 },
-  { transform: 'translateX(-26px)', opacity: '1', offset: 0.62 },
-  { transform: 'translateX(0)', opacity: '1', offset: 1 },
-];
 
 export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
     default: {
@@ -5820,6 +5806,10 @@ export * from './icons/bed';
 import { bedIcon, bedDoubleIcon, bedSingleIcon } from './icons/bed';
 export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
+export * from './icons/car';
+import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/train';
+import { trainFrontIcon, trainFrontTunnelIcon, trainTrackIcon } from './icons/train';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -14427,6 +14417,578 @@ export const mirrorRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Lo que rueda ───────────────────────────────────────────────────────────────────────────
+// Los `car-*` viven en icons/car.ts y los `train-*` en icons/train.ts. Aquí queda el resto.
+//
+// La regla del grupo: casi todas las ruedas de Lucide son `circle`, y un círculo girando es
+// INVISIBLE. Así que ninguno rueda — lo que se mueve es la carrocería sobre su suspensión,
+// mientras las ruedas siguen pegadas al suelo. Que además es lo fiel: al arrancar, lo que se
+// mueve respecto al asfalto es la carrocería, no el punto de contacto de la rueda.
+
+/** La carrocería se hunde sobre los amortiguadores y vuelve. */
+const SUSPENSION = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(0.7px)', offset: 0.45 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+/** Un faro, un piloto, un cartel: enciende y vuelve. */
+const DESTELLA = /* @__PURE__ */ [
+  { opacity: '1', offset: 0 },
+  { opacity: '0.25', offset: 0.4 },
+  { opacity: '1', offset: 1 },
+];
+
+/** El humo de un escape: sube y se deshace. */
+const HUMO = /* @__PURE__ */ [
+  { transform: 'translateY(0)', opacity: '1', offset: 0 },
+  { transform: 'translateY(-0.8px)', opacity: '0.35', offset: 0.6 },
+  { transform: 'translateY(0)', opacity: '1', offset: 1 },
+];
+/** Una marca de carretera que pasa por debajo. */
+const MARCA = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.2px)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/** La cruz destella —es lo que la hace ambulancia— y la caja se hunde. */
+export const ambulanceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10H6" },
+    { tag: 'path', d: "M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" },
+    {
+      tag: 'path',
+      d: "M19 18h2a1 1 0 0 0 1-1v-3.28a1 1 0 0 0-.684-.948l-1.923-.641a1 1 0 0 1-.578-.502l-1.539-3.076A1 1 0 0 0 16.382 8H14",
+    },
+    { tag: 'path', d: "M8 8v4" },
+    { tag: 'path', d: "M9 18h6" },
+    { tag: 'circle', cx: 17, cy: 18, r: 2 },
+    { tag: 'circle', cx: 7, cy: 18, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        0: /* @__PURE__ */ track(DESTELLA, 420),
+        3: /* @__PURE__ */ track(DESTELLA, 420),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+        4: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 10px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La caja se hunde con sus ventanas; las ruedas se quedan. */
+export const busIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M8 6v6" },
+    { tag: 'path', d: "M15 6v6" },
+    { tag: 'path', d: "M2 12h19.6" },
+    {
+      tag: 'path',
+      d: "M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3",
+    },
+    { tag: 'circle', cx: 7, cy: 18, r: 2 },
+    { tag: 'path', d: "M9 18h5" },
+    { tag: 'circle', cx: 16, cy: 18, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los retrovisores tiemblan y los pilotos encienden. */
+export const busFrontIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 6 2 7" },
+    { tag: 'path', d: "M10 6h4" },
+    { tag: 'path', d: "m22 7-2-1" },
+    { tag: 'rect', x: 4, y: 3, width: 16, height: 16, rx: 2 },
+    { tag: 'path', d: "M4 11h16" },
+    { tag: 'path', d: "M8 15h.01" },
+    { tag: 'path', d: "M16 15h.01" },
+    { tag: 'path', d: "M6 19v2" },
+    { tag: 'path', d: "M18 21v-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 460, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 460, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(DESTELLA, 420, { delay: 120 }),
+        6: /* @__PURE__ */ track(DESTELLA, 420, { delay: 180 }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 15px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 15px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se mece sobre su rueda única, que es lo que tiene de caravana. */
+export const caravanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 19V9a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v8a2 2 0 0 0 2 2h2" },
+    { tag: 'path', d: "M2 9h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2" },
+    { tag: 'path', d: "M22 17v1a1 1 0 0 1-1 1H10v-9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v9" },
+    { tag: 'circle', cx: 8, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La furgoneta se hunde por detrás, que es donde va la carga. */
+export const vanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M13 6v5a1 1 0 0 0 1 1h6.102a1 1 0 0 1 .712.298l.898.91a1 1 0 0 1 .288.702V17a1 1 0 0 1-1 1h-3",
+    },
+    { tag: 'path', d: "M5 18H3a1 1 0 0 1-1-1V8a2 2 0 0 1 2-2h12c1.1 0 2.1.8 2.4 1.8l1.176 4.2" },
+    { tag: 'path', d: "M9 18h5" },
+    { tag: 'circle', cx: 16, cy: 18, r: 2 },
+    { tag: 'circle', cx: 7, cy: 18, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El cuadro rebota entre las dos ruedas; ellas no se mueven. */
+export const bikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 18.5, cy: 17.5, r: 3.5 },
+    { tag: 'circle', cx: 5.5, cy: 17.5, r: 3.5 },
+    { tag: 'circle', cx: 15, cy: 5, r: 1 },
+    { tag: 'path', d: "M12 17.5V14l-3-3 4-3 2 3h2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Igual, con motor. */
+export const motorbikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m18 14-1-3" },
+    { tag: 'path', d: "m3 9 6 2a2 2 0 0 1 2-2h2a2 2 0 0 1 1.99 1.81" },
+    { tag: 'path', d: "M8 17h3a1 1 0 0 0 1-1 6 6 0 0 1 6-6 1 1 0 0 0 1-1v-.75A5 5 0 0 0 17 5" },
+    { tag: 'circle', cx: 19, cy: 17, r: 3 },
+    { tag: 'circle', cx: 5, cy: 17, r: 3 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Y aquí el patinete. */
+export const scooterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M21 4h-3.5l2 11.05" },
+    { tag: 'path', d: "M6.95 17h5.142c.523 0 .95-.406 1.063-.916a6.5 6.5 0 0 1 5.345-5.009" },
+    { tag: 'circle', cx: 19.5, cy: 17.5, r: 2.5 },
+    { tag: 'circle', cx: 4.5, cy: 17.5, r: 2.5 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Esta sí tiene algo mejor que la suspensión: LEVANTA la horquilla por su mástil. */
+export const forkliftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12H5a2 2 0 0 0-2 2v5" },
+    { tag: 'path', d: "M15 19h7" },
+    { tag: 'path', d: "M16 19V2" },
+    {
+      tag: 'path',
+      d: "M6 12V7a2 2 0 0 1 2-2h2.172a2 2 0 0 1 1.414.586l3.828 3.828A2 2 0 0 1 16 10.828",
+    },
+    { tag: 'path', d: "M7 19h4" },
+    { tag: 'circle', cx: 13, cy: 19, r: 2 },
+    { tag: 'circle', cx: 5, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 620, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 180 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Echa humo por el tubo y la cabina se mece sobre la rueda grande. */
+export const tractorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20" },
+    { tag: 'path', d: "M16 18h-5" },
+    { tag: 'path', d: "M18 5a1 1 0 0 0-1 1v5.573" },
+    { tag: 'path', d: "M3 4h8.129a1 1 0 0 1 .99.863L13 11.246" },
+    { tag: 'path', d: "M4 11V4" },
+    { tag: 'path', d: "M7 15h.01" },
+    { tag: 'path', d: "M8 10.1V4" },
+    { tag: 'circle', cx: 18, cy: 18, r: 2 },
+    { tag: 'circle', cx: 7, cy: 15, r: 5 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      shapes: {
+        4: /* @__PURE__ */ track(HUMO, 620, { easing: EASE }),
+        6: /* @__PURE__ */ track(HUMO, 620, { easing: EASE, delay: 100 }),
+        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 140 }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 140 }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los pilotos encienden y la caja se hunde sobre los raíles. */
+export const tramFrontIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 4, y: 3, width: 16, height: 16, rx: 2 },
+    { tag: 'path', d: "M4 11h16" },
+    { tag: 'path', d: "M12 3v8" },
+    { tag: 'path', d: "m8 19-2 3" },
+    { tag: 'path', d: "m18 22-2-3" },
+    { tag: 'path', d: "M8 15h.01" },
+    { tag: 'path', d: "M16 15h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(DESTELLA, 420),
+        6: /* @__PURE__ */ track(DESTELLA, 420, { delay: 90 }),
+        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 15px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 15px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La carretera pasa por debajo: las marcas del centro bajan una tras otra. */
+export const roadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M12 5V3" },
+    { tag: 'path', d: "M12 9v3" },
+    {
+      tag: 'path',
+      d: "M2.077 18.449A2 2 0 0 0 4 21h16a2 2 0 0 0 1.924-2.55l-4-14A2 2 0 0 0 16 3H8a2 2 0 0 0-1.924 1.45z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(MARCA, 480, { easing: EASE }),
+        2: /* @__PURE__ */ track(MARCA, 480, { easing: EASE, delay: 90 }),
+        0: /* @__PURE__ */ track(MARCA, 480, { easing: EASE, delay: 180 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Alguien lo rozó: se tambalea sobre su base y se endereza. */
+export const trafficConeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16.05 10.966a5 2.5 0 0 1-8.1 0" },
+    {
+      tag: 'path',
+      d: "m16.923 14.049 4.48 2.04a1 1 0 0 1 .001 1.831l-8.574 3.9a2 2 0 0 1-1.66 0l-8.574-3.91a1 1 0 0 1 0-1.83l4.484-2.04",
+    },
+    { tag: 'path', d: "M16.949 14.14a5 2.5 0 1 1-9.9 0L10.063 3.5a2 2 0 0 1 3.874 0z" },
+    { tag: 'path', d: "M9.194 6.57a5 2.5 0 0 0 5.61 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, -2, 0]), 700, { easing: EASE, origin: '12px 20px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, -2, 0]), 700, { easing: EASE, origin: '12px 20px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, -2, 0]), 700, { easing: EASE, origin: '12px 20px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, -2, 0]), 700, { easing: EASE, origin: '12px 20px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El cartel se columpia sobre el poste, que está clavado. */
+export const signpostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13v8" },
+    { tag: 'path', d: "M12 3v3" },
+    {
+      tag: 'path',
+      d: "M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3.5, -2.5, 0]), 700, { easing: EASE, origin: '12px 8px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Dos brazos, dos sentidos: cada uno se columpia hacia el suyo. */
+export const signpostBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 9H4L2 7l2-2h6" },
+    { tag: 'path', d: "M14 5h6l2 2-2 2h-6" },
+    { tag: 'path', d: "M10 22V4a2 2 0 1 1 4 0v18" },
+    { tag: 'path', d: "M8 22h8" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4, 2, 0]), 700, { easing: EASE, origin: '11px 7px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 4, -2, 0]), 700, { easing: EASE, origin: '13px 7px', delay: 90 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 7px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 7px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El banderín ondea con skewX; el mojón no se mueve. */
+export const milestoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 13v8" },
+    { tag: 'path', d: "M12 3v3" },
+    {
+      tag: 'path',
+      d: "M18.172 6a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([
+          { transform: 'skewX(0deg)', offset: 0 },
+          { transform: 'skewX(-6deg)', offset: 0.35 },
+          { transform: 'skewX(4deg)', offset: 0.7 },
+          { transform: 'skewX(0deg)', offset: 1 },
+        ], 720, { easing: EASE, origin: '12px 9px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Metes la moneda: la ranura destella y el contador se asienta. */
+export const parkingMeterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 15h2" },
+    { tag: 'path', d: "M12 12v3" },
+    { tag: 'path', d: "M12 19v3" },
+    {
+      tag: 'path',
+      d: "M15.282 19a1 1 0 0 0 .948-.68l2.37-6.988a7 7 0 1 0-13.2 0l2.37 6.988a1 1 0 0 0 .948.68z",
+    },
+    { tag: 'path', d: "M9 9a3 3 0 1 1 6 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(DESTELLA, 420),
+        1: /* @__PURE__ */ track(DESTELLA, 420, { delay: 80 }),
+        3: /* @__PURE__ */ track(SUSPENSION, 480, { easing: SPRING_OUT, delay: 140 }),
+        4: /* @__PURE__ */ track(SUSPENSION, 480, { easing: SPRING_OUT, delay: 140 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 13.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La manguera se descuelga del surtidor, que se queda plantado. */
+export const fuelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" },
+    { tag: 'path', d: "M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16" },
+    { tag: 'path', d: "M2 21h13" },
+    { tag: 'path', d: "M3 9h11" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 5, -3, 0]), 660, { easing: EASE, origin: '14px 13px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 13px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -15917,4 +16479,28 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'door-closed': doorClosedIcon,
   'door-open': doorOpenIcon,
   'door-closed-locked': doorClosedLockedIcon,
+  'ambulance': ambulanceIcon,
+  'bus': busIcon,
+  'bus-front': busFrontIcon,
+  'caravan': caravanIcon,
+  'van': vanIcon,
+  'bike': bikeIcon,
+  'motorbike': motorbikeIcon,
+  'scooter': scooterIcon,
+  'forklift': forkliftIcon,
+  'tractor': tractorIcon,
+  'tram-front': tramFrontIcon,
+  'road': roadIcon,
+  'traffic-cone': trafficConeIcon,
+  'signpost': signpostIcon,
+  'signpost-big': signpostBigIcon,
+  'milestone': milestoneIcon,
+  'parking-meter': parkingMeterIcon,
+  'fuel': fuelIcon,
+  'car': carIcon,
+  'car-front': carFrontIcon,
+  'car-taxi-front': carTaxiFrontIcon,
+  'train-front': trainFrontIcon,
+  'train-front-tunnel': trainFrontTunnelIcon,
+  'train-track': trainTrackIcon,
 };

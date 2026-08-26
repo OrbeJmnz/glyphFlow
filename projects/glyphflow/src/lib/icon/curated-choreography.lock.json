@@ -207,6 +207,15 @@
       "path:ea23593c3905",
       "path:2997e9a60f70"
     ],
+    "ambulance": [
+      "path:fcd963630b37",
+      "path:3d560e079839",
+      "path:e02ebdffe64c",
+      "path:d16ee75529bf",
+      "path:b840bd9bbaa6",
+      "circle:17055cda7b50",
+      "circle:644285f116c6"
+    ],
     "ampersand": [
       "path:8bf82f503a0b",
       "path:a600c9b55bdc"
@@ -862,6 +871,12 @@
       "path:e7b294aedc1f",
       "path:3d568a3b034b"
     ],
+    "bike": [
+      "circle:fb0dfb109165",
+      "circle:d345534c7342",
+      "circle:05934be1aa2c",
+      "path:18a0a047d9d1"
+    ],
     "binary": [
       "rect:80b4a83e9a27",
       "rect:76490ff86308",
@@ -1321,6 +1336,26 @@
       "path:635f65e2175c",
       "path:2d10683f321e"
     ],
+    "bus": [
+      "path:1fc6ce610c53",
+      "path:1109a76d9243",
+      "path:40b6ca322b86",
+      "path:e201d531e1f5",
+      "circle:644285f116c6",
+      "path:b940bf2ebba6",
+      "circle:94524451f036"
+    ],
+    "bus-front": [
+      "path:095d275e47de",
+      "path:a3ca94325b5d",
+      "path:e047fd9d45b4",
+      "rect:9d4de8d14e2c",
+      "path:7d800c0a06f5",
+      "path:ec83baead227",
+      "path:863f6fa97ba4",
+      "path:876f84f10b50",
+      "path:f416bf563833"
+    ],
     "cable": [
       "path:eadd965223b8",
       "path:72f03b5f8965",
@@ -1600,6 +1635,35 @@
       "path:378c27879c92",
       "path:94644ffc163e",
       "path:28a22d7338e3"
+    ],
+    "car": [
+      "path:376e431fbb63",
+      "circle:4ba65d98441e",
+      "path:54e3c34abc53",
+      "circle:bb95da1f6939"
+    ],
+    "car-front": [
+      "path:8299064acede",
+      "path:402e67fedba8",
+      "path:3ec5a7ff7d5c",
+      "rect:3cdc1cbf5b34",
+      "path:56531f35d041",
+      "path:f983872c4b0d"
+    ],
+    "car-taxi-front": [
+      "path:d8a2ee062684",
+      "path:8299064acede",
+      "path:402e67fedba8",
+      "path:3ec5a7ff7d5c",
+      "rect:3cdc1cbf5b34",
+      "path:56531f35d041",
+      "path:f983872c4b0d"
+    ],
+    "caravan": [
+      "path:9c116775e805",
+      "path:28913cb499ca",
+      "path:8765683c8d60",
+      "circle:193a8d737940"
     ],
     "card-sim": [
       "path:65cf35093d8a",
@@ -3732,6 +3796,15 @@
       "path:392d0a65e37a",
       "path:18e4363f8126"
     ],
+    "forklift": [
+      "path:31c467e32af6",
+      "path:fb0bbffa0844",
+      "path:3bc409a80c46",
+      "path:f406e01d609a",
+      "path:bb7af2343f80",
+      "circle:97661f95df00",
+      "circle:26f6f7589d92"
+    ],
     "forward": [
       "path:5842a4e0b4c7",
       "path:df9122dd6f6b"
@@ -3741,6 +3814,12 @@
       "line:17c9d7d0921b",
       "line:2bbff88c78e3",
       "line:bde17f50bd3f"
+    ],
+    "fuel": [
+      "path:414e160af516",
+      "path:94ab43171571",
+      "path:7d2afc6aac0d",
+      "path:f53da7c1c3e7"
     ],
     "funnel": [
       "path:e548f490c441"
@@ -5338,6 +5417,11 @@
       "path:876f84f10b50",
       "path:1850276aea01"
     ],
+    "milestone": [
+      "path:0a74c744e5c5",
+      "path:acf7516005b7",
+      "path:f461488218cd"
+    ],
     "milk": [
       "path:d001604d5d6c",
       "path:cc5ef9dfd532",
@@ -5480,6 +5564,13 @@
       "path:05601f5f469d",
       "path:f8adead0e318",
       "path:2dcf463a91e5"
+    ],
+    "motorbike": [
+      "path:216ec6cf49ca",
+      "path:fabb9c35e988",
+      "path:18d59a948a0e",
+      "circle:ec5d29faa9c5",
+      "circle:7afe7ffdf4ff"
     ],
     "mountain": [
       "path:94ea3a010939"
@@ -5947,6 +6038,13 @@
     ],
     "paperclip": [
       "path:9f6de73b2440"
+    ],
+    "parking-meter": [
+      "path:08952421a1fb",
+      "path:ea0238c6e579",
+      "path:d5a4d0a7fe9a",
+      "path:c5ca1552ac7d",
+      "path:17c71994f286"
     ],
     "party-popper": [
       "path:924339d334f5",
@@ -6495,6 +6593,12 @@
       "path:a981750469e5",
       "path:5dbd34d0e50e"
     ],
+    "road": [
+      "path:5c523d642661",
+      "path:db972d820b15",
+      "path:31c45bce8809",
+      "path:1b2836989f16"
+    ],
     "rocket": [
       "path:50e51c8e6147",
       "path:e91e8369e2cc",
@@ -6762,6 +6866,12 @@
       "path:6036d4d7804a",
       "path:49ad69c8c601",
       "path:2d9df39f8f99"
+    ],
+    "scooter": [
+      "path:c9969b046793",
+      "path:5d1953ec5682",
+      "circle:4657a024e67a",
+      "circle:67690f8059ba"
     ],
     "screen-share": [
       "path:67e9f12dafb3",
@@ -7108,6 +7218,17 @@
     "signature": [
       "path:5fab27e93c31",
       "path:40d8cc0488bc"
+    ],
+    "signpost": [
+      "path:0a74c744e5c5",
+      "path:acf7516005b7",
+      "path:0fdcdf17847d"
+    ],
+    "signpost-big": [
+      "path:66275a4bbcd3",
+      "path:dccf30bb2479",
+      "path:8cfb4cfa468e",
+      "path:c8dc82bd8235"
     ],
     "skip-back": [
       "path:0d2f2b3e0e6c",
@@ -8203,6 +8324,58 @@
       "path:6b810bb103b3",
       "path:61d5469e8039"
     ],
+    "tractor": [
+      "path:c6a301c1fb57",
+      "path:28f06f6bff67",
+      "path:dc9db4357d5e",
+      "path:19a49aa16cd1",
+      "path:60c2dca9245b",
+      "path:bab6af5129f1",
+      "path:dec9ebff1ef7",
+      "circle:1adf0e6ba362",
+      "circle:f987afbfeb18"
+    ],
+    "traffic-cone": [
+      "path:488e3df31d5b",
+      "path:9581b03a031d",
+      "path:4163bd12dec7",
+      "path:d1cd65f90245"
+    ],
+    "train-front": [
+      "path:1e676323c39b",
+      "path:31722cd27f6d",
+      "path:fd6a3d6e3a52",
+      "path:c53444c737ad",
+      "path:c01bbb35316f",
+      "path:aaeade1b560c"
+    ],
+    "train-front-tunnel": [
+      "path:c82863862f07",
+      "path:9e28a345c068",
+      "path:f82da36fbe3b",
+      "path:36f308cb7e86",
+      "path:7b59d95c485e",
+      "path:37eeb6540c39",
+      "path:f1857888d012"
+    ],
+    "train-track": [
+      "path:a3a7497324f6",
+      "path:9d2dfd6a7f91",
+      "path:2a753c067b7a",
+      "path:069213074e7e",
+      "path:76bdef8003d9",
+      "path:b9a096aeabf3",
+      "path:c5c017cf062b"
+    ],
+    "tram-front": [
+      "rect:9d4de8d14e2c",
+      "path:7d800c0a06f5",
+      "path:b7f762b110b7",
+      "path:c01bbb35316f",
+      "path:3889a34f1f7f",
+      "path:ec83baead227",
+      "path:863f6fa97ba4"
+    ],
     "trash": [
       "path:fcbffd502b93",
       "path:8d73c9199add",
@@ -8564,6 +8737,13 @@
       "path:3cb0dce0d2c9",
       "path:037e2551e611",
       "path:cad8716d8388"
+    ],
+    "van": [
+      "path:d82135d07ab8",
+      "path:9aac7c7cb6a8",
+      "path:b940bf2ebba6",
+      "circle:94524451f036",
+      "circle:644285f116c6"
     ],
     "variable": [
       "path:d34df7032abd",
@@ -9004,6 +9184,11 @@
     "align-vertical-space-between": {
       "default": "a6a2371faef8",
       "draw": "17c8398e8d34"
+    },
+    "ambulance": {
+      "default": "6fd8b3d3d800",
+      "draw": "17c8398e8d34",
+      "hold": "798b740aa533"
     },
     "ampersand": {
       "default": "86a1a9ee64f7",
@@ -9523,6 +9708,11 @@
       "draw": "17c8398e8d34",
       "hold": "cf6d6ff93fb3"
     },
+    "bike": {
+      "default": "d2813188afee",
+      "draw": "17c8398e8d34",
+      "hold": "33867e3089cf"
+    },
     "binary": {
       "default": "8035d30d64af",
       "draw": "17c8398e8d34"
@@ -9844,6 +10034,16 @@
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
     },
+    "bus": {
+      "default": "4419d21d9470",
+      "draw": "17c8398e8d34",
+      "hold": "15562b159d83"
+    },
+    "bus-front": {
+      "default": "b4602cf05f1a",
+      "draw": "17c8398e8d34",
+      "hold": "d57f4dd34d1f"
+    },
     "cable": {
       "default": "492c893f0bee",
       "draw": "17c8398e8d34"
@@ -10005,6 +10205,26 @@
     "captions-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "car": {
+      "default": "d58007557d8d",
+      "draw": "17c8398e8d34",
+      "hold": "069d2c2f6a06"
+    },
+    "car-front": {
+      "default": "c0d6336e0af1",
+      "draw": "17c8398e8d34",
+      "hold": "1d4ee2724898"
+    },
+    "car-taxi-front": {
+      "default": "bf59e4511878",
+      "draw": "17c8398e8d34",
+      "hold": "f343ffa26d2b"
+    },
+    "caravan": {
+      "default": "7f1037471cd9",
+      "draw": "17c8398e8d34",
+      "hold": "1e90fef37ea7"
     },
     "card-sim": {
       "default": "f085eaa07ec3",
@@ -11665,6 +11885,11 @@
       "draw": "17c8398e8d34",
       "hold": "56974d308657"
     },
+    "forklift": {
+      "default": "282050f3fabf",
+      "draw": "17c8398e8d34",
+      "hold": "f84f9b410fb6"
+    },
     "forward": {
       "default": "23c35283d7fc",
       "draw": "17c8398e8d34"
@@ -11672,6 +11897,11 @@
     "frame": {
       "default": "7699295b919a",
       "draw": "17c8398e8d34"
+    },
+    "fuel": {
+      "default": "b8fac592d059",
+      "draw": "17c8398e8d34",
+      "hold": "e6574edffadb"
     },
     "funnel": {
       "default": "793a03c93a29",
@@ -12862,6 +13092,11 @@
       "draw": "17c8398e8d34",
       "hold": "41ab52f0605b"
     },
+    "milestone": {
+      "default": "2a2e486618b9",
+      "draw": "17c8398e8d34",
+      "hold": "054ad7b14ba9"
+    },
     "milk": {
       "default": "108ebef72a45",
       "draw": "17c8398e8d34"
@@ -12956,6 +13191,11 @@
     "moon-star": {
       "default": "8cfbcb70107b",
       "draw": "17c8398e8d34"
+    },
+    "motorbike": {
+      "default": "7f1037471cd9",
+      "draw": "17c8398e8d34",
+      "hold": "1e90fef37ea7"
     },
     "mountain": {
       "default": "ce41b419c43d",
@@ -13325,6 +13565,11 @@
       "default": "d4ad12275809",
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
+    },
+    "parking-meter": {
+      "default": "5c3fb76b620d",
+      "draw": "17c8398e8d34",
+      "hold": "0dc6e2cdfa66"
     },
     "party-popper": {
       "default": "5affcb99cebc",
@@ -13739,6 +13984,11 @@
       "default": "34de2b5320b1",
       "draw": "17c8398e8d34"
     },
+    "road": {
+      "default": "a5d24031e80a",
+      "draw": "17c8398e8d34",
+      "hold": "4ef8b7335d6e"
+    },
     "rocket": {
       "default": "620e990b3f5f",
       "draw": "17c8398e8d34",
@@ -13918,6 +14168,11 @@
     "scissors-line-dashed": {
       "default": "9c3073e90bc5",
       "draw": "17c8398e8d34"
+    },
+    "scooter": {
+      "default": "601a5570dc53",
+      "draw": "17c8398e8d34",
+      "hold": "a8427fb03fc6"
     },
     "screen-share": {
       "default": "5960ee9cc69c",
@@ -14175,6 +14430,16 @@
     "signature": {
       "default": "d28641a6f204",
       "draw": "17c8398e8d34"
+    },
+    "signpost": {
+      "default": "599dfd7a3e38",
+      "draw": "17c8398e8d34",
+      "hold": "52d4a06e81fc"
+    },
+    "signpost-big": {
+      "default": "4509faf771b6",
+      "draw": "17c8398e8d34",
+      "hold": "34464a41723a"
     },
     "skip-back": {
       "default": "92df8b546a2d",
@@ -14967,6 +15232,36 @@
       "draw": "17c8398e8d34",
       "hold": "4ca0612e0eec"
     },
+    "tractor": {
+      "default": "535e9d5d9930",
+      "draw": "17c8398e8d34",
+      "hold": "61863071aa41"
+    },
+    "traffic-cone": {
+      "default": "e1dce6b3c9d5",
+      "draw": "17c8398e8d34",
+      "hold": "0133d06b1445"
+    },
+    "train-front": {
+      "default": "c0d6336e0af1",
+      "draw": "17c8398e8d34",
+      "hold": "1d4ee2724898"
+    },
+    "train-front-tunnel": {
+      "default": "5e67b21c44d6",
+      "draw": "17c8398e8d34",
+      "hold": "977d09ca85da"
+    },
+    "train-track": {
+      "default": "36dfa1f12c23",
+      "draw": "17c8398e8d34",
+      "hold": "b2493514ca00"
+    },
+    "tram-front": {
+      "default": "bc7b98889ad4",
+      "draw": "17c8398e8d34",
+      "hold": "d57f4dd34d1f"
+    },
     "trash": {
       "active": "c8898926da75",
       "default": "cdd9c71017c4",
@@ -15232,6 +15527,11 @@
       "default": "6b5340cff4c3",
       "draw": "17c8398e8d34",
       "hold": "a666f365d2de"
+    },
+    "van": {
+      "default": "7f1037471cd9",
+      "draw": "17c8398e8d34",
+      "hold": "1e90fef37ea7"
     },
     "variable": {
       "default": "9f0a2d525edd",

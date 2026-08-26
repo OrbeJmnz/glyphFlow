@@ -99,3 +99,21 @@ export const PANEL_DIVIDER_DOWN = /* @__PURE__ */ [
   { transform: 'translateY(2px)', offset: 0.75 },
   { transform: 'translateY(0)', offset: 1 },
 ];
+
+/**
+ * La salida de `truck`: se resiste hacia la izquierda, sale disparado a la derecha y desaparece,
+ * y reaparece por la izquierda para retomar su sitio.
+ *
+ * Vive aqui porque lo comparten `truck`, `truck-electric` y los catorce vehiculos con motor o de
+ * dos ruedas, repartidos entre curated-icons.ts, icons/car.ts e icons/train.ts.
+ */
+export const SHOOT_OFF_KEYFRAMES = /* @__PURE__ */ [
+  { transform: 'translateX(0)', opacity: '1', offset: 0 },
+  { transform: 'translateX(-3px)', opacity: '1', offset: 0.18 },
+  { transform: 'translateX(-3px)', opacity: '1', offset: 0.3 },
+  { transform: 'translateX(26px)', opacity: '1', offset: 0.46 },
+  { transform: 'translateX(26px)', opacity: '0', offset: 0.5 },
+  { transform: 'translateX(-26px)', opacity: '0', offset: 0.54 },
+  { transform: 'translateX(-26px)', opacity: '1', offset: 0.62 },
+  { transform: 'translateX(0)', opacity: '1', offset: 1 },
+];
