@@ -4,41 +4,8 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, moveXSeq, moveYSeq, track, icon } from '../choreography';
+import { PANEL_DIVIDER_DOWN, PANEL_DIVIDER_LEFT, PANEL_DIVIDER_RIGHT, PANEL_DIVIDER_UP } from './_shared';
 import { panelBottomCloseShapes, panelBottomDashedShapes, panelBottomOpenShapes, panelBottomShapes, panelLeftCloseShapes, panelLeftDashedShapes, panelLeftOpenShapes, panelLeftRightDashedShapes, panelLeftShapes, panelRightCloseShapes, panelRightDashedShapes, panelRightOpenShapes, panelRightShapes, panelTopBottomDashedShapes, panelTopCloseShapes, panelTopDashedShapes, panelTopOpenShapes, panelTopShapes } from '../animated-icons.shapes';
-
-/** Panel: el divisor se desliza a la izquierda — "left" es el nombre, no solo la etiqueta. */
-// Se mueve a la izquierda y se sostiene ahí la mayor parte del tiempo, en vez de un vaivén
-// parejo que se lee ambiguo. panel-left-close usa el mismo divisor: su flecha "<" ya apunta
-// y empuja hacia la izquierda, así que ambos van en la MISMA dirección.
-const PANEL_DIVIDER_LEFT: Keyframe[] = [
-  { transform: 'translateX(0)', offset: 0 },
-  { transform: 'translateX(-2px)', offset: 0.35 },
-  { transform: 'translateX(-2px)', offset: 0.75 },
-  { transform: 'translateX(0)', offset: 1 },
-];
-
-// Mismo criterio que panel-left, en cada orientación: el divisor se mueve HACIA donde apunta el
-// nombre y se sostiene ahí, con regreso rápido al final — nunca un vaivén parejo y ambiguo.
-const PANEL_DIVIDER_RIGHT: Keyframe[] = [
-  { transform: 'translateX(0)', offset: 0 },
-  { transform: 'translateX(2px)', offset: 0.35 },
-  { transform: 'translateX(2px)', offset: 0.75 },
-  { transform: 'translateX(0)', offset: 1 },
-];
-
-const PANEL_DIVIDER_UP: Keyframe[] = [
-  { transform: 'translateY(0)', offset: 0 },
-  { transform: 'translateY(-2px)', offset: 0.35 },
-  { transform: 'translateY(-2px)', offset: 0.75 },
-  { transform: 'translateY(0)', offset: 1 },
-];
-
-const PANEL_DIVIDER_DOWN: Keyframe[] = [
-  { transform: 'translateY(0)', offset: 0 },
-  { transform: 'translateY(2px)', offset: 0.35 },
-  { transform: 'translateY(2px)', offset: 0.75 },
-  { transform: 'translateY(0)', offset: 1 },
-];
 
 export const panelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550) } },

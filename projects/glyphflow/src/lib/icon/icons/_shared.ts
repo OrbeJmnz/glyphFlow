@@ -67,3 +67,35 @@ export const TRAZO_INVERSO = /* @__PURE__ */ [
   { strokeDasharray: '1', strokeDashoffset: '-1', opacity: '0' },
   { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' },
 ];
+
+/**
+ * El divisor de un panel se mueve HACIA donde apunta su nombre y se SOSTIENE ahí, con regreso
+ * rápido al final. Nunca un vaivén parejo: eso se lee ambiguo, no dice de qué lado está el panel.
+ *
+ * Vive aquí porque lo comparten `panel-*` (18 iconos) y `panels-*` (3). Duplicarlo era garantía
+ * de que alguien ajustara el timing en una sola copia y nadie se enterara.
+ */
+export const PANEL_DIVIDER_LEFT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-2px)', offset: 0.35 },
+  { transform: 'translateX(-2px)', offset: 0.75 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+export const PANEL_DIVIDER_RIGHT = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(2px)', offset: 0.35 },
+  { transform: 'translateX(2px)', offset: 0.75 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+export const PANEL_DIVIDER_UP = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-2px)', offset: 0.35 },
+  { transform: 'translateY(-2px)', offset: 0.75 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+export const PANEL_DIVIDER_DOWN = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(2px)', offset: 0.35 },
+  { transform: 'translateY(2px)', offset: 0.75 },
+  { transform: 'translateY(0)', offset: 1 },
+];

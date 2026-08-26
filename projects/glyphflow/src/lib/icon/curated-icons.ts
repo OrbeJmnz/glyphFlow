@@ -5788,6 +5788,14 @@ export * from './icons/trending';
 import { trendingUpIcon, trendingDownIcon, trendingUpDownIcon } from './icons/trending';
 export * from './icons/undo';
 import { undoIcon, undo2Icon, undoDotIcon } from './icons/undo';
+export * from './icons/rows';
+import { rows2Icon, rows3Icon, rows4Icon } from './icons/rows';
+export * from './icons/panels';
+import { panelsLeftBottomIcon, panelsRightBottomIcon, panelsTopLeftIcon } from './icons/panels';
+export * from './icons/rectangle';
+import { rectangleHorizontalIcon, rectangleVerticalIcon, rectangleEllipsisIcon, rectangleCircleIcon, rectangleGogglesIcon } from './icons/rectangle';
+export * from './icons/squares';
+import { squaresUniteIcon, squaresIntersectIcon, squaresSubtractIcon, squaresExcludeIcon } from './icons/squares';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -9867,6 +9875,489 @@ export const share2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Layout y formas ────────────────────────────────────────────────────────────────────────
+// Los espejos de familias ya curadas viven en sus módulos: icons/rows.ts (espejo de columns-*),
+// icons/panels.ts (de panel-*), icons/rectangle.ts y icons/squares.ts. Aquí queda lo que no
+// alcanza para módulo propio — familias de dos.
+
+/** Doblar: los dos lados se juntan. Desdoblar: se apartan. La dirección ES el icono. */
+const JUNTA_DER = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(2px)', offset: 0.5 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const JUNTA_IZQ = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-2px)', offset: 0.5 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const JUNTA_ABAJO = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(2px)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+const JUNTA_ARRIBA = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-2px)', offset: 0.5 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/**
+ * Desdoblar es hacia AFUERA, y afuera solo queda 1 de margen — medido: las líneas y los galones
+ * de `unfold-*` tocan 2 y 22. Así que primero se juntan y luego salen: 1.5 hacia adentro más 0.9
+ * hacia afuera dan 2.4 de recorrido visible sin que el trazo se corte contra el borde.
+ */
+const ABRE_DER = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(-1.5px)', offset: 0.32 },
+  { transform: 'translateX(0.9px)', offset: 0.72 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const ABRE_IZQ = /* @__PURE__ */ [
+  { transform: 'translateX(0)', offset: 0 },
+  { transform: 'translateX(1.5px)', offset: 0.32 },
+  { transform: 'translateX(-0.9px)', offset: 0.72 },
+  { transform: 'translateX(0)', offset: 1 },
+];
+const ABRE_ABAJO = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(-1.5px)', offset: 0.32 },
+  { transform: 'translateY(0.9px)', offset: 0.72 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+const ABRE_ARRIBA = /* @__PURE__ */ [
+  { transform: 'translateY(0)', offset: 0 },
+  { transform: 'translateY(1.5px)', offset: 0.32 },
+  { transform: 'translateY(-0.9px)', offset: 0.72 },
+  { transform: 'translateY(0)', offset: 1 },
+];
+
+/**
+ * Voltear: cada mitad se aplasta contra el eje hasta casi desaparecer y vuelve. Eso es lo que se
+ * ve cuando una figura gira de canto, y el pivote va en su borde INTERIOR — el que toca el eje —
+ * porque es el único punto que en un volteo real se queda quieto.
+ */
+const VOLTEA_X = /* @__PURE__ */ [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(0.12)', offset: 0.5 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+const VOLTEA_Y = /* @__PURE__ */ [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.12)', offset: 0.5 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
+/** Separador: los dos galones se apartan de la línea. La línea es lo que separa: no se mueve. */
+const APARTA_ARRIBA = /* @__PURE__ */ moveYSeq([0, -1.5, 0]);
+const APARTA_ABAJO = /* @__PURE__ */ moveYSeq([0, 1.5, 0]);
+const APARTA_IZQ = /* @__PURE__ */ moveXSeq([0, -1.5, 0]);
+const APARTA_DER = /* @__PURE__ */ moveXSeq([0, 1.5, 0]);
+
+/** `stretch-*`: las barras se estiran en el eje que el nombre dice, y hacia ahí queda 1. */
+const ESTIRA_BARRA_X = /* @__PURE__ */ [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(0.93)', offset: 0.32 },
+  { transform: 'scaleX(1.05)', offset: 0.7 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+const ESTIRA_BARRA_Y = /* @__PURE__ */ [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.93)', offset: 0.32 },
+  { transform: 'scaleY(1.05)', offset: 0.7 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
+
+/** El mismo apagado en cadena de `squares-*`, aquí dando la vuelta al anillo. */
+const GIRA_APAGADO = /* @__PURE__ */ [
+  { opacity: '1', offset: 0 },
+  { opacity: '0.25', offset: 0.4 },
+  { opacity: '1', offset: 1 },
+];
+
+/** Ni cuadrado ni círculo: se aplasta y se estira como algo blando. Eso es un squircle. */
+export const squircleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 3c7.2 0 9 1.8 9 9s-1.8 9-9 9-9-1.8-9-9 1.8-9 9-9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scale(1, 1)', offset: 0 },
+          { transform: 'scale(1.08, 0.94)', offset: 0.35 },
+          { transform: 'scale(0.96, 1.06)', offset: 0.65 },
+          { transform: 'scale(1, 1)', offset: 1 },
+        ], 560, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+  },
+);
+
+/** Los ocho trazos se apagan y encienden dando la vuelta, en el orden del reloj. */
+export const squircleDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.77 3.043a34 34 0 0 0-3.54 0" },
+    { tag: 'path', d: "M13.771 20.956a33 33 0 0 1-3.541.001" },
+    { tag: 'path', d: "M20.18 17.74c-.51 1.15-1.29 1.93-2.439 2.44" },
+    { tag: 'path', d: "M20.18 6.259c-.51-1.148-1.291-1.929-2.44-2.438" },
+    { tag: 'path', d: "M20.957 10.23a33 33 0 0 1 0 3.54" },
+    { tag: 'path', d: "M3.043 10.23a34 34 0 0 0 .001 3.541" },
+    { tag: 'path', d: "M6.26 20.179c-1.15-.508-1.93-1.29-2.44-2.438" },
+    { tag: 'path', d: "M6.26 3.82c-1.149.51-1.93 1.291-2.44 2.44" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(GIRA_APAGADO, 420),
+        3: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 60 }),
+        4: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 120 }),
+        2: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 180 }),
+        1: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 240 }),
+        6: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 300 }),
+        5: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 360 }),
+        7: /* @__PURE__ */ track(GIRA_APAGADO, 420, { delay: 420 }),
+      },
+    },
+  },
+);
+
+/** Los dos galones se apartan de la línea; la línea es lo que separa y no se mueve. */
+export const separatorHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m16 16-4 4-4-4" },
+    { tag: 'path', d: "M3 12h18" },
+    { tag: 'path', d: "m8 8 4-4 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(APARTA_ARRIBA, 460, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(APARTA_ABAJO, 460, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Lo mismo de canto. */
+export const separatorVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 3v18" },
+    { tag: 'path', d: "m16 16 4-4-4-4" },
+    { tag: 'path', d: "m8 8-4 4 4 4" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(APARTA_IZQ, 460, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(APARTA_DER, 460, { easing: SPRING_OUT }),
+      },
+    },
+  },
+);
+
+/** Las dos barras se estiran a lo ancho, una tras otra. */
+export const stretchHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 2, y: 4, width: 20, height: 6, rx: 2 },
+    { tag: 'rect', x: 2, y: 14, width: 20, height: 6, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_BARRA_X, 520, { origin: '12px 7px' }),
+        1: /* @__PURE__ */ track(ESTIRA_BARRA_X, 520, { delay: 90, origin: '12px 17px' }),
+      },
+    },
+  },
+);
+
+/** Y estas a lo alto. */
+export const stretchVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 4, y: 2, width: 6, height: 20, rx: 2 },
+    { tag: 'rect', x: 14, y: 2, width: 6, height: 20, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ESTIRA_BARRA_Y, 520, { origin: '7px 12px' }),
+        1: /* @__PURE__ */ track(ESTIRA_BARRA_Y, 520, { delay: 90, origin: '17px 12px' }),
+      },
+    },
+  },
+);
+
+/** Se dobla: cada lado se va hacia el centro con su galón. Las marcas del pliegue no se mueven. */
+export const foldHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M2 12h6" },
+    { tag: 'path', d: "M22 12h-6" },
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M12 8v2" },
+    { tag: 'path', d: "M12 14v2" },
+    { tag: 'path', d: "M12 20v2" },
+    { tag: 'path', d: "m19 9-3 3 3 3" },
+    { tag: 'path', d: "m5 15 3-3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(JUNTA_DER, 480, { easing: EASE }),
+        7: /* @__PURE__ */ track(JUNTA_DER, 480, { easing: EASE }),
+        1: /* @__PURE__ */ track(JUNTA_IZQ, 480, { easing: EASE }),
+        6: /* @__PURE__ */ track(JUNTA_IZQ, 480, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** Lo mismo en vertical: arriba baja y abajo sube. */
+export const foldVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22v-6" },
+    { tag: 'path', d: "M12 8V2" },
+    { tag: 'path', d: "M4 12H2" },
+    { tag: 'path', d: "M10 12H8" },
+    { tag: 'path', d: "M16 12h-2" },
+    { tag: 'path', d: "M22 12h-2" },
+    { tag: 'path', d: "m15 19-3-3-3 3" },
+    { tag: 'path', d: "m15 5-3 3-3-3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(JUNTA_ABAJO, 480, { easing: EASE }),
+        7: /* @__PURE__ */ track(JUNTA_ABAJO, 480, { easing: EASE }),
+        0: /* @__PURE__ */ track(JUNTA_ARRIBA, 480, { easing: EASE }),
+        6: /* @__PURE__ */ track(JUNTA_ARRIBA, 480, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** Se abre: cada lado sale hacia afuera. Toma impulso hacia adentro porque afuera solo queda 1. */
+export const unfoldHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 12h6" },
+    { tag: 'path', d: "M8 12H2" },
+    { tag: 'path', d: "M12 2v2" },
+    { tag: 'path', d: "M12 8v2" },
+    { tag: 'path', d: "M12 14v2" },
+    { tag: 'path', d: "M12 20v2" },
+    { tag: 'path', d: "m19 15 3-3-3-3" },
+    { tag: 'path', d: "m5 9-3 3 3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ABRE_DER, 520, { easing: EASE }),
+        6: /* @__PURE__ */ track(ABRE_DER, 520, { easing: EASE }),
+        1: /* @__PURE__ */ track(ABRE_IZQ, 520, { easing: EASE }),
+        7: /* @__PURE__ */ track(ABRE_IZQ, 520, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** Y este se abre a lo alto. */
+export const unfoldVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 22v-6" },
+    { tag: 'path', d: "M12 8V2" },
+    { tag: 'path', d: "M4 12H2" },
+    { tag: 'path', d: "M10 12H8" },
+    { tag: 'path', d: "M16 12h-2" },
+    { tag: 'path', d: "M22 12h-2" },
+    { tag: 'path', d: "m15 19-3 3-3-3" },
+    { tag: 'path', d: "m15 5-3-3-3 3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ABRE_ABAJO, 520, { easing: EASE }),
+        6: /* @__PURE__ */ track(ABRE_ABAJO, 520, { easing: EASE }),
+        1: /* @__PURE__ */ track(ABRE_ARRIBA, 520, { easing: EASE }),
+        7: /* @__PURE__ */ track(ABRE_ARRIBA, 520, { easing: EASE }),
+      },
+    },
+  },
+);
+
+/** Cada mitad gira de canto contra el eje. El pivote va en su borde interior: es lo único que en un volteo real se queda quieto. */
+export const flipHorizontal2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m3 7 5 5-5 5V7" },
+    { tag: 'path', d: "m21 7-5 5 5 5V7" },
+    { tag: 'path', d: "M12 20v2" },
+    { tag: 'path', d: "M12 14v2" },
+    { tag: 'path', d: "M12 8v2" },
+    { tag: 'path', d: "M12 2v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(VOLTEA_X, 560, { easing: EASE, origin: '8px 12px' }),
+        1: /* @__PURE__ */ track(VOLTEA_X, 560, { easing: EASE, origin: '16px 12px' }),
+      },
+    },
+  },
+);
+
+/** Y aquí el eje es horizontal. */
+export const flipVertical2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m17 3-5 5-5-5h10" },
+    { tag: 'path', d: "m17 21-5-5-5 5h10" },
+    { tag: 'path', d: "M4 12H2" },
+    { tag: 'path', d: "M10 12H8" },
+    { tag: 'path', d: "M16 12h-2" },
+    { tag: 'path', d: "M22 12h-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(VOLTEA_Y, 560, { easing: EASE, origin: '12px 8px' }),
+        1: /* @__PURE__ */ track(VOLTEA_Y, 560, { easing: EASE, origin: '12px 16px' }),
+      },
+    },
+  },
+);
+
+/** Cada pomo se mueve y sus dos tramos de riel se ajustan LO MISMO: uno crece lo que el otro encoge, así que el riel nunca se despega ni se solapa. */
+export const slidersHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 5H3" },
+    { tag: 'path', d: "M12 19H3" },
+    { tag: 'path', d: "M14 3v4" },
+    { tag: 'path', d: "M16 17v4" },
+    { tag: 'path', d: "M21 12h-9" },
+    { tag: 'path', d: "M21 19h-5" },
+    { tag: 'path', d: "M21 5h-7" },
+    { tag: 'path', d: "M8 10v4" },
+    { tag: 'path', d: "M8 12H3" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(1.2143)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '3px 5px' }),
+        6: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.7857)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '21px 5px' }),
+        2: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(1.5px)', offset: 0.5 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520),
+        8: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.7)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '3px 12px', delay: 90 }),
+        4: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(1.1667)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '21px 12px', delay: 90 }),
+        7: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(-1.5px)', offset: 0.5 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { delay: 90 }),
+        1: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(1.1667)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '3px 19px', delay: 180 }),
+        5: /* @__PURE__ */ track([
+          { transform: 'scaleX(1)', offset: 0 },
+          { transform: 'scaleX(0.7)', offset: 0.5 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ], 520, { origin: '21px 19px', delay: 180 }),
+        3: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(1.5px)', offset: 0.5 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 520, { delay: 180 }),
+      },
+    },
+  },
+);
+
+/** Lo mismo de pie. */
+export const slidersVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 8h4" },
+    { tag: 'path', d: "M12 21v-9" },
+    { tag: 'path', d: "M12 8V3" },
+    { tag: 'path', d: "M17 16h4" },
+    { tag: 'path', d: "M19 12V3" },
+    { tag: 'path', d: "M19 21v-5" },
+    { tag: 'path', d: "M3 14h4" },
+    { tag: 'path', d: "M5 10V3" },
+    { tag: 'path', d: "M5 21v-7" },
+  ],
+  {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(0.7857)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '5px 3px' }),
+        8: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(1.2143)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '5px 21px' }),
+        6: /* @__PURE__ */ track([
+          { transform: 'translateY(0)', offset: 0 },
+          { transform: 'translateY(-1.5px)', offset: 0.5 },
+          { transform: 'translateY(0)', offset: 1 },
+        ], 520),
+        2: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(1.3)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '12px 3px', delay: 90 }),
+        1: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(0.8333)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '12px 21px', delay: 90 }),
+        0: /* @__PURE__ */ track([
+          { transform: 'translateY(0)', offset: 0 },
+          { transform: 'translateY(1.5px)', offset: 0.5 },
+          { transform: 'translateY(0)', offset: 1 },
+        ], 520, { delay: 90 }),
+        4: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(0.8333)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '19px 3px', delay: 180 }),
+        5: /* @__PURE__ */ track([
+          { transform: 'scaleY(1)', offset: 0 },
+          { transform: 'scaleY(1.3)', offset: 0.5 },
+          { transform: 'scaleY(1)', offset: 1 },
+        ], 520, { origin: '19px 21px', delay: 180 }),
+        3: /* @__PURE__ */ track([
+          { transform: 'translateY(0)', offset: 0 },
+          { transform: 'translateY(-1.5px)', offset: 0.5 },
+          { transform: 'translateY(0)', offset: 1 },
+        ], 520, { delay: 180 }),
+      },
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -11148,4 +11639,33 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'arrows-up-from-line': arrowsUpFromLineIcon,
   'share': shareIcon,
   'share-2': share2Icon,
+  'rows-2': rows2Icon,
+  'rows-3': rows3Icon,
+  'rows-4': rows4Icon,
+  'panels-left-bottom': panelsLeftBottomIcon,
+  'panels-right-bottom': panelsRightBottomIcon,
+  'panels-top-left': panelsTopLeftIcon,
+  'rectangle-horizontal': rectangleHorizontalIcon,
+  'rectangle-vertical': rectangleVerticalIcon,
+  'rectangle-ellipsis': rectangleEllipsisIcon,
+  'rectangle-circle': rectangleCircleIcon,
+  'rectangle-goggles': rectangleGogglesIcon,
+  'squares-unite': squaresUniteIcon,
+  'squares-intersect': squaresIntersectIcon,
+  'squares-subtract': squaresSubtractIcon,
+  'squares-exclude': squaresExcludeIcon,
+  'squircle': squircleIcon,
+  'squircle-dashed': squircleDashedIcon,
+  'separator-horizontal': separatorHorizontalIcon,
+  'separator-vertical': separatorVerticalIcon,
+  'stretch-horizontal': stretchHorizontalIcon,
+  'stretch-vertical': stretchVerticalIcon,
+  'fold-horizontal': foldHorizontalIcon,
+  'fold-vertical': foldVerticalIcon,
+  'unfold-horizontal': unfoldHorizontalIcon,
+  'unfold-vertical': unfoldVerticalIcon,
+  'flip-horizontal-2': flipHorizontal2Icon,
+  'flip-vertical-2': flipVertical2Icon,
+  'sliders-horizontal': slidersHorizontalIcon,
+  'sliders-vertical': slidersVerticalIcon,
 };
