@@ -97,22 +97,6 @@ export const binocularsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const biohazardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 11.9, r: 2 },
-    { tag: 'path', d: "M6.7 3.4c-.9 2.5 0 5.2 2.2 6.7C6.5 9 3.7 9.6 2 11.6" },
-    { tag: 'path', d: "m8.9 10.1 1.4.8" },
-    { tag: 'path', d: "M17.3 3.4c.9 2.5 0 5.2-2.2 6.7 2.4-1.2 5.2-.6 6.9 1.5" },
-    { tag: 'path', d: "m15.1 10.1-1.4.8" },
-    { tag: 'path', d: "M16.7 20.8c-2.6-.4-4.6-2.6-4.7-5.3-.2 2.6-2.1 4.8-4.7 5.2" },
-    { tag: 'path', d: "M12 13.9v1.6" },
-    { tag: 'path', d: "M13.5 5.4c-1-.2-2-.2-3 0" },
-    { tag: 'path', d: "M17 16.4c.7-.7 1.2-1.6 1.5-2.5" },
-    { tag: 'path', d: "M5.5 13.9c.3.9.8 1.8 1.5 2.5" },
-  ],
-  {},
-);
-
 export const bowArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M17 3h4v4" },
@@ -225,14 +209,6 @@ export const cloudyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const clubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M17.28 9.05a5.5 5.5 0 1 0-10.56 0A5.5 5.5 0 1 0 12 17.66a5.5 5.5 0 1 0 5.28-8.6Z" },
-    { tag: 'path', d: "M12 17.66L12 22" },
-  ],
-  {},
-);
-
 export const coinsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M13.744 17.736a6 6 0 1 1-7.48-7.48" },
@@ -290,38 +266,6 @@ export const containerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m10 14 11.9-6.9" },
     { tag: 'path', d: "M14 19.8v-8.1" },
     { tag: 'path', d: "M18 17.5V9.4" },
-  ],
-  {},
-);
-
-export const copyleftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-    { tag: 'path', d: "M9.17 14.83a4 4 0 1 0 0-5.66" },
-  ],
-  {},
-);
-
-export const copyrightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-    { tag: 'path', d: "M14.83 14.83a4 4 0 1 1 0-5.66" },
-  ],
-  {},
-);
-
-export const creativeCommonsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 12, r: 10 },
-    { tag: 'path', d: "M10 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1" },
-    { tag: 'path', d: "M17 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1" },
-  ],
-  {},
-);
-
-export const crossIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M4 9a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a1 1 0 0 1 1 1v4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4a1 1 0 0 1 1-1h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4a1 1 0 0 1-1-1V4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a1 1 0 0 1-1 1z" },
   ],
   {},
 );
@@ -679,25 +623,6 @@ export const mailboxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const marsStrokeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m14 6 4 4" },
-    { tag: 'path', d: "M17 3h4v4" },
-    { tag: 'path', d: "m21 3-7.75 7.75" },
-    { tag: 'circle', cx: 9, cy: 15, r: 6 },
-  ],
-  {},
-);
-
-export const marsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 3h5v5" },
-    { tag: 'path', d: "m21 3-6.75 6.75" },
-    { tag: 'circle', cx: 10, cy: 14, r: 6 },
-  ],
-  {},
-);
-
 export const mergeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m8 6 4-4 4 4" },
@@ -713,16 +638,6 @@ export const newspaperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M18 14h-8" },
     { tag: 'path', d: "M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2" },
     { tag: 'rect', width: 8, height: 4, x: 10, y: 6, rx: 1 },
-  ],
-  {},
-);
-
-export const nonBinaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2v10" },
-    { tag: 'path', d: "m8.5 4 7 4" },
-    { tag: 'path', d: "m8.5 8 7-4" },
-    { tag: 'circle', cx: 12, cy: 17, r: 5 },
   ],
   {},
 );
@@ -822,16 +737,6 @@ export const pyramidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const radiationIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 12h.01" },
-    { tag: 'path', d: "M14 15.4641a4 4 0 0 1-4 0L7.52786 19.74597 A 1 1 0 0 0 7.99303 21.16211 10 10 0 0 0 16.00697 21.16211 1 1 0 0 0 16.47214 19.74597z" },
-    { tag: 'path', d: "M16 12a4 4 0 0 0-2-3.464l2.472-4.282a1 1 0 0 1 1.46-.305 10 10 0 0 1 4.006 6.94A1 1 0 0 1 21 12z" },
-    { tag: 'path', d: "M8 12a4 4 0 0 1 2-3.464L7.528 4.254a1 1 0 0 0-1.46-.305 10 10 0 0 0-4.006 6.94A1 1 0 0 0 3 12z" },
-  ],
-  {},
-);
-
 export const radiusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M20.34 17.52a10 10 0 1 0-2.82 2.82" },
@@ -846,18 +751,6 @@ export const ratioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 12, height: 20, x: 6, y: 2, rx: 2 },
     { tag: 'rect', width: 20, height: 12, x: 2, y: 6, rx: 2 },
-  ],
-  {},
-);
-
-export const recycleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" },
-    { tag: 'path', d: "M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12" },
-    { tag: 'path', d: "m14 16-3 3 3 3" },
-    { tag: 'path', d: "M8.293 13.596 7.196 9.5 3.1 10.598" },
-    { tag: 'path', d: "m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843" },
-    { tag: 'path', d: "m13.378 9.633 4.096 1.098 1.097-4.096" },
   ],
   {},
 );
@@ -963,14 +856,6 @@ export const sliceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const spaceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1" },
-  ],
-  {},
-);
-
-export const spadeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 18v4" },
-    { tag: 'path', d: "M2 14.499a5.5 5.5 0 0 0 9.591 3.675.6.6 0 0 1 .818.001A5.5 5.5 0 0 0 22 14.5c0-2.29-1.5-4-3-5.5l-5.492-5.312a2 2 0 0 0-3-.02L5 8.999c-1.5 1.5-3 3.2-3 5.5" },
   ],
   {},
 );
@@ -1123,20 +1008,6 @@ export const torusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const transgenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 16v6" },
-    { tag: 'path', d: "M14 20h-4" },
-    { tag: 'path', d: "M18 2h4v4" },
-    { tag: 'path', d: "m2 2 7.17 7.17" },
-    { tag: 'path', d: "M2 5.355V2h3.357" },
-    { tag: 'path', d: "m22 2-7.17 7.17" },
-    { tag: 'path', d: "M8 5 5 8" },
-    { tag: 'circle', cx: 12, cy: 12, r: 4 },
-  ],
-  {},
-);
-
 export const ungroupIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', x: 11, y: 14, width: 10, height: 7, rx: 2 },
@@ -1180,26 +1051,6 @@ export const venetianMaskIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M18 11c-1.5 0-2.5.5-3 2" },
     { tag: 'path', d: "M4 6a2 2 0 0 0-2 2v4a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V8a2 2 0 0 0-2-2h-3a8 8 0 0 0-5 2 8 8 0 0 0-5-2z" },
     { tag: 'path', d: "M6 11c1.5 0 2.5.5 3 2" },
-  ],
-  {},
-);
-
-export const venusAndMarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 20h4" },
-    { tag: 'path', d: "M12 16v6" },
-    { tag: 'path', d: "M17 2h4v4" },
-    { tag: 'path', d: "m21 2-5.46 5.46" },
-    { tag: 'circle', cx: 12, cy: 11, r: 5 },
-  ],
-  {},
-);
-
-export const venusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 15v7" },
-    { tag: 'path', d: "M9 19h6" },
-    { tag: 'circle', cx: 12, cy: 9, r: 6 },
   ],
   {},
 );
@@ -1331,121 +1182,6 @@ export const windIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const zodiacAquariusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m2 10 2.456-3.684a.7.7 0 0 1 1.106-.013l2.39 3.413a.7.7 0 0 0 1.096-.001l2.402-3.432a.7.7 0 0 1 1.098 0l2.402 3.432a.7.7 0 0 0 1.098 0l2.389-3.413a.7.7 0 0 1 1.106.013L22 10" },
-    { tag: 'path', d: "m2 18.002 2.456-3.684a.7.7 0 0 1 1.106-.013l2.39 3.413a.7.7 0 0 0 1.097 0l2.402-3.432a.7.7 0 0 1 1.098 0l2.402 3.432a.7.7 0 0 0 1.098 0l2.389-3.413a.7.7 0 0 1 1.106.013L22 18.002" },
-  ],
-  {},
-);
-
-export const zodiacAriesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 7.5a4.5 4.5 0 1 1 5 4.5" },
-    { tag: 'path', d: "M7 12a4.5 4.5 0 1 1 5-4.5V21" },
-  ],
-  {},
-);
-
-export const zodiacCancerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M21 14.5A9 6.5 0 0 1 5.5 19" },
-    { tag: 'path', d: "M3 9.5A9 6.5 0 0 1 18.5 5" },
-    { tag: 'circle', cx: 17.5, cy: 14.5, r: 3.5 },
-    { tag: 'circle', cx: 6.5, cy: 9.5, r: 3.5 },
-  ],
-  {},
-);
-
-export const zodiacCapricornIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 21a3 3 0 0 0 3-3V6.5a1 1 0 0 0-7 0" },
-    { tag: 'path', d: "M7 19V6a3 3 0 0 0-3-3h0" },
-    { tag: 'circle', cx: 17, cy: 17, r: 3 },
-  ],
-  {},
-);
-
-export const zodiacGeminiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M16 4.525v14.948" },
-    { tag: 'path', d: "M20 3A17 17 0 0 1 4 3" },
-    { tag: 'path', d: "M4 21a17 17 0 0 1 16 0" },
-    { tag: 'path', d: "M8 4.525v14.948" },
-  ],
-  {},
-);
-
-export const zodiacLeoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 16c0-4-3-4.5-3-8a5 5 0 0 1 10 0c0 3.466-3 6.196-3 10a3 3 0 0 0 6 0" },
-    { tag: 'circle', cx: 7, cy: 16, r: 3 },
-  ],
-  {},
-);
-
-export const zodiacLibraIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 16h6.857c.162-.012.19-.323.038-.38a6 6 0 1 1 4.212 0c-.153.057-.125.368.038.38H21" },
-    { tag: 'path', d: "M3 20h18" },
-  ],
-  {},
-);
-
-export const zodiacOphiuchusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 10A6.06 6.06 0 0 1 12 10 A6.06 6.06 0 0 0 21 10" },
-    { tag: 'path', d: "M6 3v12a6 6 0 0 0 12 0V3" },
-  ],
-  {},
-);
-
-export const zodiacPiscesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19 21a15 15 0 0 1 0-18" },
-    { tag: 'path', d: "M20 12H4" },
-    { tag: 'path', d: "M5 3a15 15 0 0 1 0 18" },
-  ],
-  {},
-);
-
-export const zodiacSagittariusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M15 3h6v6" },
-    { tag: 'path', d: "M21 3 3 21" },
-    { tag: 'path', d: "m9 9 6 6" },
-  ],
-  {},
-);
-
-export const zodiacScorpioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 19V5.5a1 1 0 0 1 5 0V17a2 2 0 0 0 2 2h5l-3-3" },
-    { tag: 'path', d: "m22 19-3 3" },
-    { tag: 'path', d: "M5 19V5.5a1 1 0 0 1 5 0" },
-    { tag: 'path', d: "M5 5.5A2.5 2.5 0 0 0 2.5 3" },
-  ],
-  {},
-);
-
-export const zodiacTaurusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'circle', cx: 12, cy: 15, r: 6 },
-    { tag: 'path', d: "M18 3A6 6 0 0 1 6 3" },
-  ],
-  {},
-);
-
-export const zodiacVirgoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 5.5a1 1 0 0 1 5 0V16a5 5 0 0 0 5 5" },
-    { tag: 'path', d: "M16 11.5a1 1 0 0 1 5 0V16a5 5 0 0 1-5 5" },
-    { tag: 'path', d: "M6 19V6a3 3 0 0 0-3-3h0" },
-    { tag: 'path', d: "M6 5.5a1 1 0 0 1 5 0V19" },
-  ],
-  {},
-);
-
 export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   accessibility: accessibilityIcon,
   ad: adIcon,
@@ -1456,7 +1192,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   astroid: astroidIcon,
   barrel: barrelIcon,
   binoculars: binocularsIcon,
-  biohazard: biohazardIcon,
   'bow-arrow': bowArrowIcon,
   brackets: bracketsIcon,
   'brick-wall-fire': brickWallFireIcon,
@@ -1467,17 +1202,12 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   calculator: calculatorIcon,
   'closed-caption': closedCaptionIcon,
   cloudy: cloudyIcon,
-  club: clubIcon,
   coins: coinsIcon,
   combine: combineIcon,
   component: componentIcon,
   'concierge-bell': conciergeBellIcon,
   cone: coneIcon,
   container: containerIcon,
-  copyleft: copyleftIcon,
-  copyright: copyrightIcon,
-  'creative-commons': creativeCommonsIcon,
-  cross: crossIcon,
   cuboid: cuboidIcon,
   cylinder: cylinderIcon,
   dam: damIcon,
@@ -1513,11 +1243,8 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'line-squiggle': lineSquiggleIcon,
   'line-style': lineStyleIcon,
   mailbox: mailboxIcon,
-  'mars-stroke': marsStrokeIcon,
-  mars: marsIcon,
   merge: mergeIcon,
   newspaper: newspaperIcon,
-  'non-binary': nonBinaryIcon,
   option: optionIcon,
   parasol: parasolIcon,
   parentheses: parenthesesIcon,
@@ -1529,10 +1256,8 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   presentation: presentationIcon,
   proportions: proportionsIcon,
   pyramid: pyramidIcon,
-  radiation: radiationIcon,
   radius: radiusIcon,
   ratio: ratioIcon,
-  recycle: recycleIcon,
   ribbon: ribbonIcon,
   'scale-3d': scale3dIcon,
   scale: scaleIcon,
@@ -1544,7 +1269,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   slash: slashIcon,
   slice: sliceIcon,
   space: spaceIcon,
-  spade: spadeIcon,
   split: splitIcon,
   spotlight: spotlightIcon,
   sticker: stickerIcon,
@@ -1558,13 +1282,10 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   theater: theaterIcon,
   timeline: timelineIcon,
   torus: torusIcon,
-  transgender: transgenderIcon,
   ungroup: ungroupIcon,
   vault: vaultIcon,
   'vector-square': vectorSquareIcon,
   'venetian-mask': venetianMaskIcon,
-  'venus-and-mars': venusAndMarsIcon,
-  venus: venusIcon,
   view: viewIcon,
   voicemail: voicemailIcon,
   watch: watchIcon,
@@ -1578,17 +1299,4 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   weight: weightIcon,
   'wind-arrow-down': windArrowDownIcon,
   wind: windIcon,
-  'zodiac-aquarius': zodiacAquariusIcon,
-  'zodiac-aries': zodiacAriesIcon,
-  'zodiac-cancer': zodiacCancerIcon,
-  'zodiac-capricorn': zodiacCapricornIcon,
-  'zodiac-gemini': zodiacGeminiIcon,
-  'zodiac-leo': zodiacLeoIcon,
-  'zodiac-libra': zodiacLibraIcon,
-  'zodiac-ophiuchus': zodiacOphiuchusIcon,
-  'zodiac-pisces': zodiacPiscesIcon,
-  'zodiac-sagittarius': zodiacSagittariusIcon,
-  'zodiac-scorpio': zodiacScorpioIcon,
-  'zodiac-taurus': zodiacTaurusIcon,
-  'zodiac-virgo': zodiacVirgoIcon,
 };

@@ -938,6 +938,18 @@
       "path:5c76153c2a55",
       "path:2792c8ae35fd"
     ],
+    "biohazard": [
+      "circle:24594737a8ca",
+      "path:598799a7e678",
+      "path:488d0919360b",
+      "path:9434b89a236f",
+      "path:9b4f6e64a1b3",
+      "path:64399f1f3700",
+      "path:8fd98a1293e3",
+      "path:59d8a6eb6e7e",
+      "path:dc94259193ca",
+      "path:16281c97d8d4"
+    ],
     "bird": [
       "path:8ae6d7ae37eb",
       "path:c98433523ed9",
@@ -2672,6 +2684,10 @@
       "path:73c817acc9f9",
       "path:d5a45fbd4915"
     ],
+    "club": [
+      "path:b65c19c72a2f",
+      "path:f96f32d94ba8"
+    ],
     "code": [
       "path:d4f38a8e18d3",
       "path:c7afcaa4f044"
@@ -2818,6 +2834,14 @@
       "rect:ea0fade9a490",
       "path:b3ffab0552a2"
     ],
+    "copyleft": [
+      "circle:1b306a76ecc0",
+      "path:4d9944c8a306"
+    ],
+    "copyright": [
+      "circle:1b306a76ecc0",
+      "path:36956a3ae686"
+    ],
     "corner-down-left": [
       "path:28c2b987b7b8",
       "path:f84e9cb87964"
@@ -2866,6 +2890,11 @@
       "rect:9e4dea64472c",
       "rect:93f189d5066b"
     ],
+    "creative-commons": [
+      "circle:1b306a76ecc0",
+      "path:dbc633cf38dc",
+      "path:5e1e7a4eabe2"
+    ],
     "credit-card": [
       "rect:1e419776da19",
       "line:a36ea600b35d"
@@ -2880,6 +2909,9 @@
     "crop": [
       "path:33f9ab84a2b9",
       "path:ebd633f14b63"
+    ],
+    "cross": [
+      "path:94fc8a6a028f"
     ],
     "crosshair": [
       "circle:1b306a76ecc0",
@@ -5529,6 +5561,17 @@
       "path:2ea17d7848b4",
       "path:5d142b14b658"
     ],
+    "mars": [
+      "path:a6a91ab920f6",
+      "path:1b2694a895ab",
+      "circle:45356b731c67"
+    ],
+    "mars-stroke": [
+      "path:522c0e9af272",
+      "path:26bfee36952f",
+      "path:1cbadbb62f9f",
+      "circle:60b9d1cc7d07"
+    ],
     "martini": [
       "path:8aa249a15b46",
       "path:cb7a51b02c94",
@@ -6138,6 +6181,12 @@
       "path:9b6a9d86b5bf",
       "path:7d610ce4dbbb",
       "path:f02c85f0bd27"
+    ],
+    "non-binary": [
+      "path:b9a3e20f0b80",
+      "path:2b422443859b",
+      "path:09dde73abb22",
+      "circle:8aeb62d1a235"
     ],
     "notebook": [
       "path:8e949e07fcdc",
@@ -6831,6 +6880,12 @@
       "circle:9f7fcbaf7380",
       "path:c7591fe4fea7"
     ],
+    "radiation": [
+      "path:eead8e585bc8",
+      "path:6a9b6ed52ae2",
+      "path:3b059a116792",
+      "path:b8c5cf883b07"
+    ],
     "radical": [
       "path:2bf403a74df2"
     ],
@@ -6950,6 +7005,14 @@
     ],
     "rectangle-vertical": [
       "rect:9a31a7759b7e"
+    ],
+    "recycle": [
+      "path:3236523c1640",
+      "path:805073619689",
+      "path:f1d492ca6e28",
+      "path:f63a9c0ffff6",
+      "path:f1256669857a",
+      "path:da69568c9f85"
     ],
     "redo": [
       "path:4f7ed88c3771",
@@ -7892,6 +7955,10 @@
       "path:02fa9c53ffb1",
       "path:05296371f34e",
       "path:62c97be538f6"
+    ],
+    "spade": [
+      "path:c132550de227",
+      "path:44105e962f6f"
     ],
     "sparkle": [
       "path:8b5d172dc737"
@@ -9054,6 +9121,16 @@
       "path:ec83baead227",
       "path:863f6fa97ba4"
     ],
+    "transgender": [
+      "path:3cb8a10916ee",
+      "path:65ad87af7c59",
+      "path:601867c44bff",
+      "path:97548429f09c",
+      "path:c0bf921dcd11",
+      "path:ccea1474b3b1",
+      "path:d0eeab0f091f",
+      "circle:9d7fc8897980"
+    ],
     "trash": [
       "path:fcbffd502b93",
       "path:8d73c9199add",
@@ -9460,6 +9537,18 @@
       "path:ea85de91c822",
       "path:a38ce2a65b29"
     ],
+    "venus": [
+      "path:83c75a874dfd",
+      "path:b95a6f1039bb",
+      "circle:b3dbed4ba339"
+    ],
+    "venus-and-mars": [
+      "path:19b7f0629816",
+      "path:3cb8a10916ee",
+      "path:efc2338dcde2",
+      "path:4955796df416",
+      "circle:ef1504ff28be"
+    ],
     "vibrate": [
       "path:f9faa4f5f9f3",
       "path:0125c265aa4e",
@@ -9741,6 +9830,69 @@
       "path:d308cd5064f5",
       "path:378c27879c92",
       "path:c2f1839db3f8"
+    ],
+    "zodiac-aquarius": [
+      "path:6b0021bb6976",
+      "path:261ed204d7fc"
+    ],
+    "zodiac-aries": [
+      "path:72e51abd346a",
+      "path:957f2c2af8fa"
+    ],
+    "zodiac-cancer": [
+      "path:2434f38ae97b",
+      "path:f398ca714920",
+      "circle:5b79f764dfd0",
+      "circle:373fdbb6963b"
+    ],
+    "zodiac-capricorn": [
+      "path:ff2ab2d00b63",
+      "path:6a43d3cd3b4c",
+      "circle:ba95d88c6839"
+    ],
+    "zodiac-gemini": [
+      "path:65241ed03a81",
+      "path:fff52cb9c6d7",
+      "path:c56044c1fc31",
+      "path:ccabf4e36511"
+    ],
+    "zodiac-leo": [
+      "path:6338b09b4dca",
+      "circle:c23f29dc6e27"
+    ],
+    "zodiac-libra": [
+      "path:d7d8fb1d413a",
+      "path:8d4fd0758edf"
+    ],
+    "zodiac-ophiuchus": [
+      "path:9bae84a8e43e",
+      "path:8315fb44e1fd"
+    ],
+    "zodiac-pisces": [
+      "path:fa34014ca3e5",
+      "path:fc789b8e95be",
+      "path:ab302d206c54"
+    ],
+    "zodiac-sagittarius": [
+      "path:c78685b083c9",
+      "path:ffd9de2139e4",
+      "path:029e593ffb58"
+    ],
+    "zodiac-scorpio": [
+      "path:19de9143692c",
+      "path:b62590ac20cc",
+      "path:6ca9f91f8a1b",
+      "path:99a96df5b099"
+    ],
+    "zodiac-taurus": [
+      "circle:cd3239363681",
+      "path:cfbd1ba8860f"
+    ],
+    "zodiac-virgo": [
+      "path:db09b86cee97",
+      "path:39b6d1e29b89",
+      "path:f959762c03b1",
+      "path:495618461093"
     ],
     "zoom-in": [
       "circle:6c5bffb15d7d",
@@ -10475,6 +10627,11 @@
     "binary": {
       "default": "8035d30d64af",
       "draw": "17c8398e8d34"
+    },
+    "biohazard": {
+      "default": "0da01e12bd47",
+      "draw": "17c8398e8d34",
+      "hold": "e75fedce4bda"
     },
     "bird": {
       "default": "3af2bf310e6a",
@@ -11719,6 +11876,11 @@
       "draw": "17c8398e8d34",
       "hold": "b6dadadad916"
     },
+    "club": {
+      "default": "c6408c1e54c7",
+      "draw": "17c8398e8d34",
+      "hold": "f149305cb930"
+    },
     "code": {
       "default": "f97ddb7aefbd",
       "draw": "17c8398e8d34",
@@ -11825,6 +11987,16 @@
       "draw": "17c8398e8d34",
       "peel": "be20847b7d0b"
     },
+    "copyleft": {
+      "default": "cc0f5f66e375",
+      "draw": "17c8398e8d34",
+      "hold": "472476e11b58"
+    },
+    "copyright": {
+      "default": "2555b1134533",
+      "draw": "17c8398e8d34",
+      "hold": "472476e11b58"
+    },
     "corner-down-left": {
       "default": "5d8f655f54df",
       "draw": "17c8398e8d34"
@@ -11861,6 +12033,11 @@
       "default": "ab3c15082793",
       "draw": "17c8398e8d34"
     },
+    "creative-commons": {
+      "default": "7347209a93cb",
+      "draw": "17c8398e8d34",
+      "hold": "472476e11b58"
+    },
     "credit-card": {
       "default": "787347aacadf",
       "draw": "17c8398e8d34",
@@ -11874,6 +12051,11 @@
     "crop": {
       "default": "0925bb7cbb41",
       "draw": "17c8398e8d34"
+    },
+    "cross": {
+      "default": "124623b173da",
+      "draw": "17c8398e8d34",
+      "hold": "c42c11670b8c"
     },
     "crosshair": {
       "default": "4fb21b1359c3",
@@ -13886,6 +14068,16 @@
       "default": "8657346536d4",
       "draw": "17c8398e8d34"
     },
+    "mars": {
+      "default": "45ae1f984b99",
+      "draw": "17c8398e8d34",
+      "hold": "ce296880583e"
+    },
+    "mars-stroke": {
+      "default": "599e80399aca",
+      "draw": "17c8398e8d34",
+      "hold": "ed534762a2f3"
+    },
     "martini": {
       "default": "e2f183403490",
       "draw": "17c8398e8d34",
@@ -14370,6 +14562,11 @@
     "nfc": {
       "default": "1485e43fe451",
       "draw": "17c8398e8d34"
+    },
+    "non-binary": {
+      "default": "8cf3b20a1b7a",
+      "draw": "17c8398e8d34",
+      "hold": "7f0b181143e5"
     },
     "notebook": {
       "default": "fe691d675434",
@@ -14895,6 +15092,11 @@
       "default": "561dc052b8ad",
       "draw": "17c8398e8d34"
     },
+    "radiation": {
+      "default": "a5fa1592b589",
+      "draw": "17c8398e8d34",
+      "hold": "fa46e0b32fd5"
+    },
     "radical": {
       "default": "78395ea4313c",
       "draw": "17c8398e8d34"
@@ -14993,6 +15195,11 @@
     "rectangle-vertical": {
       "default": "bcc11c22e185",
       "draw": "17c8398e8d34"
+    },
+    "recycle": {
+      "default": "85bf90959d62",
+      "draw": "17c8398e8d34",
+      "hold": "0d1e2faba423"
     },
     "redo": {
       "default": "29dea506962a",
@@ -15651,6 +15858,11 @@
       "default": "d6e937029523",
       "draw": "17c8398e8d34",
       "hold": "7208b2d35f0d"
+    },
+    "spade": {
+      "default": "a1e4d5f0f6e0",
+      "draw": "17c8398e8d34",
+      "hold": "e287ed3fef58"
     },
     "sparkle": {
       "default": "0256a3c5c781",
@@ -16496,6 +16708,11 @@
       "draw": "17c8398e8d34",
       "hold": "d57f4dd34d1f"
     },
+    "transgender": {
+      "default": "e939ed86ddd2",
+      "draw": "17c8398e8d34",
+      "hold": "4e40a7e74161"
+    },
     "trash": {
       "active": "c8898926da75",
       "default": "cdd9c71017c4",
@@ -16796,6 +17013,16 @@
       "draw": "17c8398e8d34",
       "hold": "d1283616b2ca"
     },
+    "venus": {
+      "default": "f9061d708761",
+      "draw": "17c8398e8d34",
+      "hold": "251e8f80889a"
+    },
+    "venus-and-mars": {
+      "default": "cb3749ed876c",
+      "draw": "17c8398e8d34",
+      "hold": "39bad2cc077e"
+    },
     "vibrate": {
       "default": "e4428158baf2",
       "draw": "17c8398e8d34"
@@ -16993,6 +17220,71 @@
     "zap-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "zodiac-aquarius": {
+      "default": "9f4b1e771095",
+      "draw": "17c8398e8d34",
+      "hold": "6913ffb46755"
+    },
+    "zodiac-aries": {
+      "default": "bd06c73cb102",
+      "draw": "17c8398e8d34",
+      "hold": "d1fa1898e5a5"
+    },
+    "zodiac-cancer": {
+      "default": "89f622168872",
+      "draw": "17c8398e8d34",
+      "hold": "19105a220171"
+    },
+    "zodiac-capricorn": {
+      "default": "39ed763fcf48",
+      "draw": "17c8398e8d34",
+      "hold": "ce4a47133ba4"
+    },
+    "zodiac-gemini": {
+      "default": "de140f072d77",
+      "draw": "17c8398e8d34",
+      "hold": "200adb1e6f0b"
+    },
+    "zodiac-leo": {
+      "default": "8eebe9e6cbb4",
+      "draw": "17c8398e8d34",
+      "hold": "60ad70045ade"
+    },
+    "zodiac-libra": {
+      "default": "507653ddd834",
+      "draw": "17c8398e8d34",
+      "hold": "c73233790155"
+    },
+    "zodiac-ophiuchus": {
+      "default": "f5f370fba023",
+      "draw": "17c8398e8d34",
+      "hold": "157485f55cd5"
+    },
+    "zodiac-pisces": {
+      "default": "51bbf75db333",
+      "draw": "17c8398e8d34",
+      "hold": "c30787d83814"
+    },
+    "zodiac-sagittarius": {
+      "default": "db3e9781476d",
+      "draw": "17c8398e8d34",
+      "hold": "12bef7a0fb6d"
+    },
+    "zodiac-scorpio": {
+      "default": "ccb0fecb953c",
+      "draw": "17c8398e8d34",
+      "hold": "f323a0d473fb"
+    },
+    "zodiac-taurus": {
+      "default": "cdeaecc87bf4",
+      "draw": "17c8398e8d34",
+      "hold": "d1fa1898e5a5"
+    },
+    "zodiac-virgo": {
+      "default": "3571e7a61539",
+      "draw": "17c8398e8d34",
+      "hold": "47b92b667314"
     },
     "zoom-in": {
       "default": "305f57d42870",

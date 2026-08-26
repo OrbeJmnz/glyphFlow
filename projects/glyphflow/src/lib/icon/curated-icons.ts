@@ -5808,6 +5808,8 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/zodiac';
+import { zodiacAriesIcon, zodiacTaurusIcon, zodiacGeminiIcon, zodiacCancerIcon, zodiacLeoIcon, zodiacVirgoIcon, zodiacLibraIcon, zodiacScorpioIcon, zodiacSagittariusIcon, zodiacCapricornIcon, zodiacAquariusIcon, zodiacPiscesIcon, zodiacOphiuchusIcon } from './icons/zodiac';
 export * from './icons/ruler';
 import { rulerIcon, rulerDimensionLineIcon } from './icons/ruler';
 export * from './icons/fishing';
@@ -17777,6 +17779,441 @@ export const ghostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de símbolos ────────────────────────────────────────────────────── */
+
+/**
+ * La flecha de Marte sale del círculo y vuelve. Punta y asta viajan JUNTAS —si el asta se queda,
+ * la flecha se parte— y el recorrido es de 0.6: hacia la esquina superior derecha no hay más sitio.
+ */
+const SALE_FLECHA = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)' },
+  { transform: 'translate(0.6px, -0.6px)' },
+  { transform: 'translate(0, 0)' },
+];
+
+/** La cruz de Venus se afirma hacia abajo. */
+const AFIRMA_CRUZ = /* @__PURE__ */ moveYSeq([0, 0.5, 0]);
+
+/** Un aspa de peligro: se enciende y se apaga. Va en cadena con las otras dos. */
+const AVISA = /* @__PURE__ */ scaleSeq([1, 1.06, 1]);
+
+/** La flecha sale del círculo; el círculo se queda donde está. */
+export const marsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 3h5v5" },
+    { tag: 'path', d: "m21 3-6.75 6.75" },
+    { tag: 'circle', cx: 10, cy: 14, r: 6 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+        0: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Lo mismo, pero el travesaño va montado en el asta: viaja con ella o se despega. */
+export const marsStrokeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m14 6 4 4" },
+    { tag: 'path', d: "M17 3h4v4" },
+    { tag: 'path', d: "m21 3-7.75 7.75" },
+    { tag: 'circle', cx: 9, cy: 15, r: 6 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+        0: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La cruz se afirma hacia abajo, con el travesaño pegado al asta. */
+export const venusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 15v7" },
+    { tag: 'path', d: "M9 19h6" },
+    { tag: 'circle', cx: 12, cy: 9, r: 6 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(AFIRMA_CRUZ, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(AFIRMA_CRUZ, 620, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos gestos del bloque en un icono: la flecha sale y la cruz se afirma, por turnos. */
+export const venusAndMarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 20h4" },
+    { tag: 'path', d: "M12 16v6" },
+    { tag: 'path', d: "M17 2h4v4" },
+    { tag: 'path', d: "m21 2-5.46 5.46" },
+    { tag: 'circle', cx: 12, cy: 11, r: 5 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(SALE_FLECHA, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(AFIRMA_CRUZ, 620, { easing: EASE, delay: 200 }),
+        0: /* @__PURE__ */ track(AFIRMA_CRUZ, 620, { easing: EASE, delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los tres brazos se afirman en cadena, cada uno hacia donde apunta. */
+export const transgenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 16v6" },
+    { tag: 'path', d: "M14 20h-4" },
+    { tag: 'path', d: "M18 2h4v4" },
+    { tag: 'path', d: "m2 2 7.17 7.17" },
+    { tag: 'path', d: "M2 5.355V2h3.357" },
+    { tag: 'path', d: "m22 2-7.17 7.17" },
+    { tag: 'path', d: "M8 5 5 8" },
+    { tag: 'circle', cx: 12, cy: 12, r: 4 },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(SALE_FLECHA, 560, { easing: EASE }),
+        2: /* @__PURE__ */ track(SALE_FLECHA, 560, { easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-0.6px, -0.6px)' }, { transform: 'translate(0, 0)' }], 560, { easing: EASE, delay: 130 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-0.6px, -0.6px)' }, { transform: 'translate(0, 0)' }], 560, { easing: EASE, delay: 130 }),
+        0: /* @__PURE__ */ track(AFIRMA_CRUZ, 560, { easing: EASE, delay: 260 }),
+        1: /* @__PURE__ */ track(AFIRMA_CRUZ, 560, { easing: EASE, delay: 260 }),
+      },
+    },
+    hold: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.1)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El asta y sus dos aspas se trazan de abajo arriba; el círculo late al final. */
+export const nonBinaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v10" },
+    { tag: 'path', d: "m8.5 4 7 4" },
+    { tag: 'path', d: "m8.5 8 7-4" },
+    { tag: 'circle', cx: 12, cy: 17, r: 5 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 400 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.08, 1]), 480, { easing: EASE, delay: 560, origin: '12px 17px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * Las tres aspas avisan por turnos, no a la vez. Girarlo no serviría: tiene simetría de tres, así
+ * que un tercio de vuelta lo deja idéntico —el problema del círculo invisible con otra simetría—.
+ */
+export const biohazardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 11.9, r: 2 },
+    { tag: 'path', d: "M6.7 3.4c-.9 2.5 0 5.2 2.2 6.7C6.5 9 3.7 9.6 2 11.6" },
+    { tag: 'path', d: "m8.9 10.1 1.4.8" },
+    { tag: 'path', d: "M17.3 3.4c.9 2.5 0 5.2-2.2 6.7 2.4-1.2 5.2-.6 6.9 1.5" },
+    { tag: 'path', d: "m15.1 10.1-1.4.8" },
+    { tag: 'path', d: "M16.7 20.8c-2.6-.4-4.6-2.6-4.7-5.3-.2 2.6-2.1 4.8-4.7 5.2" },
+    { tag: 'path', d: "M12 13.9v1.6" },
+    { tag: 'path', d: "M13.5 5.4c-1-.2-2-.2-3 0" },
+    { tag: 'path', d: "M17 16.4c.7-.7 1.2-1.6 1.5-2.5" },
+    { tag: 'path', d: "M5.5 13.9c.3.9.8 1.8 1.5 2.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, origin: '12px 11.9px' }),
+        3: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, delay: 140, origin: '12px 11.9px' }),
+        5: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, delay: 280, origin: '12px 11.9px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 1]), 480, { easing: EASE, delay: 420, origin: '12px 11.9px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11.9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los tres sectores se encienden en cadena y el núcleo remata. Misma simetría, mismo criterio. */
+export const radiationIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12h.01" },
+    {
+      tag: 'path',
+      d: "M14 15.4641a4 4 0 0 1-4 0L7.52786 19.74597 A 1 1 0 0 0 7.99303 21.16211 10 10 0 0 0 16.00697 21.16211 1 1 0 0 0 16.47214 19.74597z",
+    },
+    {
+      tag: 'path',
+      d: "M16 12a4 4 0 0 0-2-3.464l2.472-4.282a1 1 0 0 1 1.46-.305 10 10 0 0 1 4.006 6.94A1 1 0 0 1 21 12z",
+    },
+    {
+      tag: 'path',
+      d: "M8 12a4 4 0 0 1 2-3.464L7.528 4.254a1 1 0 0 0-1.46-.305 10 10 0 0 0-4.006 6.94A1 1 0 0 0 3 12z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, delay: 140, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(AVISA, 420, { easing: EASE, delay: 280, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(DESTELLA, 420, { delay: 420 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.6)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El ciclo se recorre: cada flecha se traza con su punta, una tras otra, y vuelve a empezar. */
+export const recycleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5",
+    },
+    {
+      tag: 'path',
+      d: "M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12",
+    },
+    { tag: 'path', d: "m14 16-3 3 3 3" },
+    { tag: 'path', d: "M8.293 13.596 7.196 9.5 3.1 10.598" },
+    {
+      tag: 'path',
+      d: "m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843",
+    },
+    { tag: 'path', d: "m13.378 9.633 4.096 1.098 1.097-4.096" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 260 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 400 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 660 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 780 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 1000 }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12.5px 19px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * La C se traza dentro de su aro. Y en `copyleft` se traza AL REVÉS, empezando por el otro
+ * extremo: es el mismo símbolo reflejado, y el dashoffset negativo es lo que invierte la mano.
+ */
+export const copyrightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M14.83 14.83a4 4 0 1 1 0-5.66" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.04, 1]), 520, { easing: EASE, delay: 300, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El reflejo de `copyright`, también en el trazo: su C se escribe desde el extremo contrario. */
+export const copyleftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M9.17 14.83a4 4 0 1 0 0-5.66" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(
+          /* @__PURE__ */ [
+            { strokeDasharray: '1', strokeDashoffset: '-1', opacity: '0' },
+            { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' },
+          ],
+          520,
+          { easing: 'ease-out' },
+        ),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.04, 1]), 520, { easing: EASE, delay: 300, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las dos C se escriben en fila, de izquierda a derecha, dentro del aro. */
+export const creativeCommonsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "M10 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1" },
+    { tag: 'path', d: "M17 9.3a2.8 2.8 0 0 0-3.5 1 3.1 3.1 0 0 0 0 3.4 2.7 2.7 0 0 0 3.5 1" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 200 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.04, 1]), 520, { easing: EASE, delay: 420, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Una sola figura: el gesto es el trazo, y termina cerrándose sobre sí mismo. */
+export const crossIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M4 9a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a1 1 0 0 1 1 1v4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4a1 1 0 0 1 1-1h4a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-4a1 1 0 0 1-1-1V4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a1 1 0 0 1-1 1z",
+    },
+  ],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 760, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El trébol late sobre su pie, que se queda clavado: es una carta, no una planta. */
+export const clubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M17.28 9.05a5.5 5.5 0 1 0-10.56 0A5.5 5.5 0 1 0 12 17.66a5.5 5.5 0 1 0 5.28-8.6Z",
+    },
+    { tag: 'path', d: "M12 17.66L12 22" },
+  ],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1, 1.04, 1]), 720, { easing: EASE, origin: '12px 17.66px' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17.66px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La pica se clava: cae sobre su punta y el pie acusa el golpe. */
+export const spadeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 18v4" },
+    {
+      tag: 'path',
+      d: "M2 14.499a5.5 5.5 0 0 0 9.591 3.675.6.6 0 0 1 .818.001A5.5 5.5 0 0 0 22 14.5c0-2.29-1.5-4-3-5.5l-5.492-5.312a2 2 0 0 0-3-.02L5 8.999c-1.5 1.5-3 3.2-3 5.5",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.8, 0]), 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.8)' }, { transform: 'scaleY(1)' }], 420, { easing: EASE, delay: 260, origin: '12px 22px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -19401,4 +19838,32 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'person-standing': personStandingIcon,
   'glasses': glassesIcon,
   'ghost': ghostIcon,
+  'zodiac-aries': zodiacAriesIcon,
+  'zodiac-taurus': zodiacTaurusIcon,
+  'zodiac-gemini': zodiacGeminiIcon,
+  'zodiac-cancer': zodiacCancerIcon,
+  'zodiac-leo': zodiacLeoIcon,
+  'zodiac-virgo': zodiacVirgoIcon,
+  'zodiac-libra': zodiacLibraIcon,
+  'zodiac-scorpio': zodiacScorpioIcon,
+  'zodiac-sagittarius': zodiacSagittariusIcon,
+  'zodiac-capricorn': zodiacCapricornIcon,
+  'zodiac-aquarius': zodiacAquariusIcon,
+  'zodiac-pisces': zodiacPiscesIcon,
+  'zodiac-ophiuchus': zodiacOphiuchusIcon,
+  'mars': marsIcon,
+  'mars-stroke': marsStrokeIcon,
+  'venus': venusIcon,
+  'venus-and-mars': venusAndMarsIcon,
+  'transgender': transgenderIcon,
+  'non-binary': nonBinaryIcon,
+  'biohazard': biohazardIcon,
+  'radiation': radiationIcon,
+  'recycle': recycleIcon,
+  'copyright': copyrightIcon,
+  'copyleft': copyleftIcon,
+  'creative-commons': creativeCommonsIcon,
+  'cross': crossIcon,
+  'club': clubIcon,
+  'spade': spadeIcon,
 };
