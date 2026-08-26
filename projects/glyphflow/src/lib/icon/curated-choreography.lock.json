@@ -241,6 +241,14 @@
       "path:6fd13e863248",
       "path:4712181392e3"
     ],
+    "amphora": [
+      "path:0f66ecd00bd5",
+      "path:f45e84425aa5",
+      "path:9eb6e8c78582",
+      "path:295329a07c11",
+      "path:0eb6397ab7fc",
+      "path:f52861d0fb10"
+    ],
     "anchor": [
       "path:4609b015831a",
       "path:0e875aaeda9c",
@@ -770,6 +778,13 @@
       "path:aab84d595b33",
       "path:174a8b8a0dbe"
     ],
+    "barrel": [
+      "path:cf7d0cc7c717",
+      "path:d8f9de84be29",
+      "path:ab6261a9140d",
+      "path:8cca4c271595",
+      "path:63bd7c104fb3"
+    ],
     "baseline": [
       "path:3657b812c257",
       "path:48c323eb89be",
@@ -970,6 +985,14 @@
       "path:fa37b35d5630",
       "path:5c76153c2a55",
       "path:2792c8ae35fd"
+    ],
+    "binoculars": [
+      "path:fe89b4a98ce8",
+      "path:e140e68769d4",
+      "path:fcbe5f6c1e22",
+      "path:18e084b318d9",
+      "path:433ec801bb95",
+      "path:4373eb53665a"
     ],
     "biohazard": [
       "circle:24594737a8ca",
@@ -1275,6 +1298,13 @@
       "path:3d7d1dda0696",
       "path:bef8bc3e2aeb"
     ],
+    "bow-arrow": [
+      "path:26bfee36952f",
+      "path:ccc5d8852c3c",
+      "path:21beab79ff1e",
+      "path:f5c28f667c49",
+      "path:80c806f9ece1"
+    ],
     "box": [
       "path:f07bfee634f1",
       "path:63b1f329941f",
@@ -1343,6 +1373,35 @@
       "path:aff49ef4dc91",
       "path:b05cd93eccb4",
       "circle:9e7fca1c7280"
+    ],
+    "brick-wall": [
+      "rect:d427f2bc2999",
+      "path:36c463ad8509",
+      "path:8df131a83ab7",
+      "path:e518b1a3590e",
+      "path:23130bc9b30b",
+      "path:ec3d9996cae7",
+      "path:6c8d5f031491",
+      "path:e33332fef929"
+    ],
+    "brick-wall-fire": [
+      "path:7804782fbb8c",
+      "path:50ce306276d2",
+      "path:983d0ea545a6",
+      "path:adcc1a6bdedd",
+      "path:faad642b9bec",
+      "path:6c8d5f031491",
+      "path:e33332fef929"
+    ],
+    "brick-wall-shield": [
+      "path:124f0835c744",
+      "path:ec86cea64322",
+      "path:5223fee95ad0",
+      "path:14506998c065",
+      "path:1d258ffd7fcb",
+      "path:5f49bdbf6b70",
+      "path:6c8d5f031491",
+      "path:e33332fef929"
     ],
     "briefcase": [
       "path:8cea74651b2b",
@@ -1530,6 +1589,18 @@
       "path:6c607487813b",
       "path:46ace71dbed9",
       "circle:fab18ed7b6bf"
+    ],
+    "calculator": [
+      "rect:2428eb83eaf8",
+      "line:725f4b1336a4",
+      "line:52cdf6a856c2",
+      "path:62de4c52231b",
+      "path:d120e0ee3194",
+      "path:c653caa1e45c",
+      "path:db602e4ae359",
+      "path:dba2dc3d9507",
+      "path:d38b9216eb2e",
+      "path:2b491369548e"
     ],
     "calendar": [
       "path:ccc0b43e5a8f",
@@ -2776,6 +2847,12 @@
       "circle:9f7fcbaf7380",
       "circle:a97fdb6d7d80"
     ],
+    "coins": [
+      "path:793bdf8d9f7a",
+      "path:b635e908a412",
+      "path:aa15454887db",
+      "circle:a6fbfa380475"
+    ],
     "columns-2": [
       "rect:d427f2bc2999",
       "path:2d5a671aff35"
@@ -2832,6 +2909,12 @@
       "path:20c93a049243",
       "path:af54caf9efe7"
     ],
+    "concierge-bell": [
+      "path:e8e72266583f",
+      "path:7d5f3dc8c4c8",
+      "path:f88077049fd6",
+      "path:c69bfa3c7e55"
+    ],
     "cone": [
       "path:23d66f5f0bd5",
       "ellipse:238af96b0a99"
@@ -2859,6 +2942,13 @@
       "path:cdc0b5d15b8f",
       "circle:ee15036c27be",
       "rect:d427f2bc2999"
+    ],
+    "container": [
+      "path:12e865810177",
+      "path:421a9c0aaa5e",
+      "path:616ac53aa15e",
+      "path:54f720362859",
+      "path:4900444ac1fd"
     ],
     "contrast": [
       "circle:1b306a76ecc0",
@@ -3309,6 +3399,16 @@
       "path:dc378d89ec93",
       "circle:8a98e0eb7ccb"
     ],
+    "drama": [
+      "path:ec597f6349c0",
+      "path:d277c79b20b4",
+      "path:670265efa600",
+      "path:6f27f0247a1c",
+      "path:4d7dab52f345",
+      "path:c94f27999917",
+      "path:fe56ae6e6866",
+      "path:f0f10d46d13f"
+    ],
     "drill": [
       "path:9e81e61fadff",
       "path:a8b6fa6d8e54",
@@ -3561,6 +3661,15 @@
       "path:38017e7cba8d",
       "path:d9666b8ca925",
       "path:5b6be30c96c2"
+    ],
+    "fence": [
+      "path:1a00707cbdd0",
+      "path:4fd65405f7d2",
+      "path:1ec936de9843",
+      "path:56ec363f350d",
+      "path:bf28c314335b",
+      "path:80ff3ad54c9f",
+      "path:8322ec4cf42b"
     ],
     "ferris-wheel": [
       "circle:9f7fcbaf7380",
@@ -4364,6 +4473,11 @@
       "path:c9829e4ebefc",
       "path:80ba57ae239e"
     ],
+    "gem": [
+      "path:619d0a61905b",
+      "path:f5a5c3ab092c",
+      "path:16d7e53cf7ab"
+    ],
     "georgian-lari": [
       "path:e10fb2bd1201",
       "path:62b6aff32460",
@@ -4702,6 +4816,17 @@
       "path:07b40dbf17dc",
       "path:1a43c0f4e177",
       "path:39b0bb448c6c"
+    ],
+    "handbag": [
+      "path:43c50bb4efea",
+      "path:59daf7b85b02"
+    ],
+    "handshake": [
+      "path:10e2a31e514e",
+      "path:6efc86e7d31e",
+      "path:e8c869ab47c0",
+      "path:ee4d2825bec1",
+      "path:f2eff1e62f78"
     ],
     "hard-drive": [
       "path:a02ed4c22ff8",
@@ -5327,6 +5452,17 @@
       "path:2ec666c8ba85",
       "path:df880414a903"
     ],
+    "lectern": [
+      "path:b5cba29b1bef",
+      "path:4aff0bc81576",
+      "rect:eb2aade3693b"
+    ],
+    "lens-concave": [
+      "path:707ad5e1a614"
+    ],
+    "lens-convex": [
+      "path:e8f554982f33"
+    ],
     "library": [
       "path:2b68f6ad4a6b",
       "path:4409acef811a",
@@ -5700,6 +5836,12 @@
       "path:aeb06f0bb330",
       "path:e06187a39a40",
       "path:7f4b7635fd4b"
+    ],
+    "mailbox": [
+      "path:5a70505a794c",
+      "polyline:efc6f5abd73f",
+      "path:9942ceb62229",
+      "line:40a044eb0565"
     ],
     "mails": [
       "path:be0e354a5b61",
@@ -6949,6 +7091,11 @@
       "path:d88c550bd345",
       "rect:4a4d65dd1d95"
     ],
+    "piggy-bank": [
+      "path:06c7c0649c3a",
+      "path:62de4c52231b",
+      "path:1b472eeece74"
+    ],
     "pilcrow": [
       "path:64a8fb264da8",
       "path:a06e0c0a0eb6",
@@ -7048,6 +7195,11 @@
       "path:b0f90fc38000",
       "path:da896e03eb0d",
       "path:6f29a1260943"
+    ],
+    "podium": [
+      "path:06bc3d12a3c8",
+      "path:d94501a61aaf",
+      "path:1ad4c5cd9c81"
     ],
     "pointer": [
       "path:c387ea6d4740",
@@ -7431,6 +7583,13 @@
     "rewind": [
       "path:a981750469e5",
       "path:5dbd34d0e50e"
+    ],
+    "ribbon": [
+      "path:e4873dbe900a",
+      "path:b15ed844f1d4",
+      "path:e9ce724093a2",
+      "path:656a67d6031b",
+      "path:ba920148198c"
     ],
     "road": [
       "path:5c523d642661",
@@ -8893,6 +9052,13 @@
       "path:b72f668da295",
       "circle:a6484da4b641"
     ],
+    "sticker": [
+      "path:1db87d1bc649",
+      "path:aa6c1625c361",
+      "path:2d4d60789f92",
+      "path:afcd56bfb020",
+      "path:3250528b075e"
+    ],
     "sticky-note": [
       "path:1db87d1bc649",
       "path:aa6c1625c361"
@@ -9043,6 +9209,12 @@
       "path:982a583642f7",
       "path:3e284f241c8e",
       "path:5b75975b8c5b"
+    ],
+    "swatch-book": [
+      "path:22b14ea8c464",
+      "path:002db1792a5f",
+      "path:64ad2541ff73",
+      "path:e288eb1dc5ff"
     ],
     "swiss-franc": [
       "path:ad75ef9230de",
@@ -9317,6 +9489,17 @@
       "path:5f1c36f0b6a8",
       "path:a794b5f6a129",
       "path:ffdf50fab745"
+    ],
+    "theater": [
+      "path:a54036dc9fe3",
+      "path:4b1f456255a7",
+      "path:a65019a2cb22",
+      "path:afb1c3824261",
+      "path:4ad5ec6841fc",
+      "path:f0efc6de731a",
+      "path:6e4cbad39e8b",
+      "path:e52062fdbc9c",
+      "path:d438af88e514"
     ],
     "thermometer": [
       "path:5df8fdc80db1"
@@ -9960,6 +10143,18 @@
       "line:d80838721362",
       "line:6b323e8a31fa"
     ],
+    "vault": [
+      "rect:d427f2bc2999",
+      "circle:0e09129bad7a",
+      "path:6fedd0bb42ae",
+      "circle:e373d03b8ddf",
+      "path:dc67f995441e",
+      "circle:dd8700871c21",
+      "path:2a030cfaa2e0",
+      "circle:ca0ba1a70b99",
+      "path:95ac5f13acd1",
+      "circle:9f7fcbaf7380"
+    ],
     "vector-square": [
       "path:4df9fd8ae1dc",
       "path:f949815763e7",
@@ -9974,6 +10169,11 @@
       "path:32d962b624bb",
       "path:ea85de91c822",
       "path:a38ce2a65b29"
+    ],
+    "venetian-mask": [
+      "path:5a3075e96776",
+      "path:483d108b7da1",
+      "path:2531d77d575d"
     ],
     "venus": [
       "path:83c75a874dfd",
@@ -10116,6 +10316,12 @@
       "rect:85334ed4a7c2",
       "circle:2ee708dd4778",
       "path:b3ac1ff106d3"
+    ],
+    "watch": [
+      "path:d455701f79fb",
+      "path:88a46d967e94",
+      "path:814a9891d25e",
+      "circle:9b7fc5637780"
     ],
     "waves-arrow-down": [
       "path:a091a9a0ffc0",
@@ -10586,6 +10792,11 @@
       "default": "8678f2802bc0",
       "draw": "17c8398e8d34"
     },
+    "amphora": {
+      "default": "bec7ebed54c1",
+      "draw": "17c8398e8d34",
+      "hold": "1bf72c64d9a5"
+    },
     "anchor": {
       "default": "58231af07f73",
       "draw": "17c8398e8d34",
@@ -11014,6 +11225,11 @@
       "draw": "17c8398e8d34",
       "hold": "0969a65601c2"
     },
+    "barrel": {
+      "default": "d9ed144d25f6",
+      "draw": "17c8398e8d34",
+      "hold": "b11dad9213f6"
+    },
     "baseline": {
       "default": "c9821f4389e2",
       "draw": "17c8398e8d34"
@@ -11164,6 +11380,11 @@
     "binary": {
       "default": "8035d30d64af",
       "draw": "17c8398e8d34"
+    },
+    "binoculars": {
+      "default": "7e4959612ec2",
+      "draw": "17c8398e8d34",
+      "hold": "0011b8d08966"
     },
     "biohazard": {
       "default": "0da01e12bd47",
@@ -11419,6 +11640,11 @@
       "draw": "17c8398e8d34",
       "hold": "8a2325dba780"
     },
+    "bow-arrow": {
+      "default": "231f7214fdae",
+      "draw": "17c8398e8d34",
+      "hold": "e7d9c687d0b0"
+    },
     "box": {
       "default": "55cae8d90a27",
       "draw": "17c8398e8d34",
@@ -11449,6 +11675,21 @@
     "brain-cog": {
       "default": "3bc85333153d",
       "draw": "17c8398e8d34"
+    },
+    "brick-wall": {
+      "default": "a46223d63600",
+      "draw": "17c8398e8d34",
+      "hold": "9f591f46f85f"
+    },
+    "brick-wall-fire": {
+      "default": "aa6187d94a82",
+      "draw": "17c8398e8d34",
+      "hold": "9af1ea1d4bbe"
+    },
+    "brick-wall-shield": {
+      "default": "320727f5d499",
+      "draw": "17c8398e8d34",
+      "hold": "9e8336bbe862"
     },
     "briefcase": {
       "alert": "6d5d68ce2ed7",
@@ -11548,6 +11789,11 @@
     "cake-slice": {
       "default": "948aab8535e4",
       "draw": "17c8398e8d34"
+    },
+    "calculator": {
+      "default": "b91db37b3ed2",
+      "draw": "17c8398e8d34",
+      "hold": "5b9b9c935099"
     },
     "calendar": {
       "default": "f79c41bdb3a1",
@@ -12462,6 +12708,11 @@
       "default": "7451c33ccee6",
       "draw": "17c8398e8d34"
     },
+    "coins": {
+      "default": "0236d28265a1",
+      "draw": "17c8398e8d34",
+      "hold": "3e194ba15d82"
+    },
     "columns-2": {
       "default": "d03dca345eb0",
       "draw": "17c8398e8d34"
@@ -12501,6 +12752,11 @@
       "draw": "17c8398e8d34",
       "hold": "eafd548a2061"
     },
+    "concierge-bell": {
+      "default": "26e8a81e25e1",
+      "draw": "17c8398e8d34",
+      "hold": "968ba58fe94c"
+    },
     "cone": {
       "default": "2ee6c67899a0",
       "draw": "17c8398e8d34",
@@ -12518,6 +12774,11 @@
     "contact-round": {
       "default": "7034b45d6dc4",
       "draw": "17c8398e8d34"
+    },
+    "container": {
+      "default": "10c2ccdc2012",
+      "draw": "17c8398e8d34",
+      "hold": "8c342514d871"
     },
     "contrast": {
       "default": "b1038258dbb4",
@@ -12866,6 +13127,11 @@
       "draw": "17c8398e8d34",
       "hold": "9f55f92d616e"
     },
+    "drama": {
+      "default": "2a55f21f8f3f",
+      "draw": "17c8398e8d34",
+      "hold": "868c7687b9d5"
+    },
     "drill": {
       "default": "a886ef062acf",
       "draw": "17c8398e8d34",
@@ -13057,6 +13323,11 @@
       "default": "42adf4fcfdc9",
       "draw": "17c8398e8d34",
       "hold": "53b149916a11"
+    },
+    "fence": {
+      "default": "148cbf576581",
+      "draw": "17c8398e8d34",
+      "hold": "21385ed68300"
     },
     "ferris-wheel": {
       "default": "07d89844bd7b",
@@ -13716,6 +13987,11 @@
       "default": "4f7c9db4f9e2",
       "draw": "17c8398e8d34"
     },
+    "gem": {
+      "default": "87d3e5f67d81",
+      "draw": "17c8398e8d34",
+      "hold": "13c521c530d9"
+    },
     "georgian-lari": {
       "default": "67ed1888b308",
       "draw": "17c8398e8d34"
@@ -13948,6 +14224,16 @@
     "hand-platter": {
       "default": "9ca46c97bbf8",
       "draw": "17c8398e8d34"
+    },
+    "handbag": {
+      "default": "3b61390bf230",
+      "draw": "17c8398e8d34",
+      "hold": "edda3d9b0830"
+    },
+    "handshake": {
+      "default": "f404e68f7c4a",
+      "draw": "17c8398e8d34",
+      "hold": "56ed0e88c8c7"
     },
     "hard-drive": {
       "default": "141d6ce19f83",
@@ -14427,6 +14713,21 @@
       "draw": "17c8398e8d34",
       "hold": "3ef79c5c03f2"
     },
+    "lectern": {
+      "default": "b6d1bf94a544",
+      "draw": "17c8398e8d34",
+      "hold": "a0616664bb6e"
+    },
+    "lens-concave": {
+      "default": "2dddbc1fca16",
+      "draw": "17c8398e8d34",
+      "hold": "232210ba6fc7"
+    },
+    "lens-convex": {
+      "default": "5c21104b2956",
+      "draw": "17c8398e8d34",
+      "hold": "72a63b073852"
+    },
     "library": {
       "default": "e99a5ff73c59",
       "draw": "17c8398e8d34"
@@ -14695,6 +14996,11 @@
       "default": "e52448352c94",
       "draw": "17c8398e8d34",
       "hold": "702f0120ccc4"
+    },
+    "mailbox": {
+      "default": "6d04627290a3",
+      "draw": "17c8398e8d34",
+      "hold": "9c396767ad33"
     },
     "mails": {
       "default": "e3a688507aea",
@@ -15683,6 +15989,11 @@
       "draw": "17c8398e8d34",
       "hold": "8337dd08b5e4"
     },
+    "piggy-bank": {
+      "default": "db3173547a3b",
+      "draw": "17c8398e8d34",
+      "hold": "2fa0c52883bb"
+    },
     "pilcrow": {
       "default": "8e043cd46397",
       "draw": "17c8398e8d34"
@@ -15770,6 +16081,11 @@
       "default": "15f39896e8bc",
       "draw": "17c8398e8d34",
       "hold": "d90bf0645c91"
+    },
+    "podium": {
+      "default": "87a3388a81f6",
+      "draw": "17c8398e8d34",
+      "hold": "36e814dc8d2c"
     },
     "pointer": {
       "default": "51fa9ff3a78a",
@@ -16051,6 +16367,11 @@
     "rewind": {
       "default": "34de2b5320b1",
       "draw": "17c8398e8d34"
+    },
+    "ribbon": {
+      "default": "4fcf75b67963",
+      "draw": "17c8398e8d34",
+      "hold": "8f6796e1c2ae"
     },
     "road": {
       "default": "a5d24031e80a",
@@ -17120,6 +17441,11 @@
       "draw": "17c8398e8d34",
       "hold": "4e61e44d6768"
     },
+    "sticker": {
+      "default": "8f931b5d7fc8",
+      "draw": "17c8398e8d34",
+      "hold": "6196413cc1a5"
+    },
     "sticky-note": {
       "default": "04c5b8cc75a6",
       "draw": "17c8398e8d34",
@@ -17219,6 +17545,11 @@
     "superscript": {
       "default": "5d6b2d2f8378",
       "draw": "17c8398e8d34"
+    },
+    "swatch-book": {
+      "default": "ddba5d40b218",
+      "draw": "17c8398e8d34",
+      "hold": "9ad17282e50d"
     },
     "swiss-franc": {
       "default": "0e52af558444",
@@ -17413,6 +17744,11 @@
     "text-wrap": {
       "default": "76c0e3bc3d07",
       "draw": "17c8398e8d34"
+    },
+    "theater": {
+      "default": "abc5c1503af8",
+      "draw": "17c8398e8d34",
+      "hold": "260a7001ca93"
     },
     "thermometer": {
       "default": "ddcf7d4a9eba",
@@ -17885,6 +18221,11 @@
       "default": "9f0a2d525edd",
       "draw": "17c8398e8d34"
     },
+    "vault": {
+      "default": "844171e73bf6",
+      "draw": "17c8398e8d34",
+      "hold": "29e5cb04bcba"
+    },
     "vector-square": {
       "default": "4cb38b8f4979",
       "draw": "17c8398e8d34",
@@ -17894,6 +18235,11 @@
       "default": "62bdfd1c7902",
       "draw": "17c8398e8d34",
       "hold": "d1283616b2ca"
+    },
+    "venetian-mask": {
+      "default": "18501c158d14",
+      "draw": "17c8398e8d34",
+      "hold": "281c0b611bd1"
     },
     "venus": {
       "default": "f9061d708761",
@@ -18004,6 +18350,11 @@
       "default": "e164a6511a99",
       "draw": "17c8398e8d34",
       "hold": "c6ef03491385"
+    },
+    "watch": {
+      "default": "465ae973e265",
+      "draw": "17c8398e8d34",
+      "hold": "8f2b2c2995fe"
     },
     "waves-arrow-down": {
       "default": "d665dc53b9b3",

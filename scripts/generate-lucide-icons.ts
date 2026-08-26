@@ -151,13 +151,19 @@ const composedEntries = entries
   })
   .join('\n');
 
+/**
+ * El import de `icon` solo se pone si queda algún icono que generar. Desde que el catálogo se curó
+ * ENTERO este archivo se escribe vacío, y un import sin usar rompe el lint —que solo se ve en
+ * `verify:clean`, así que el fallo aparecía a cinco minutos de distancia de su causa—.
+ *
+ * `AnimatedIconDef` se queda siempre: lo usa el tipo del registro, aunque el registro esté vacío.
+ */
 const header = `// AUTO-GENERADO por scripts/generate-lucide-icons.ts desde lucide-static@${LUCIDE_VERSION}.
 // NO EDITAR A MANO — un PR aquí se pierde en el siguiente \`npm run generate:icons\`. Si un icono
 // de este archivo necesita coreografía con intención, muévelo a curated-icons.ts (ver
 // CONTRIBUTING.md) — este archivo es solo geometría + draw automático.
 import { AnimatedIconDef } from './animated-icon.model';
-import { icon } from './choreography';
-
+${entries.length ? "import { icon } from './choreography';\n" : ''}
 `;
 
 const composed = `export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
