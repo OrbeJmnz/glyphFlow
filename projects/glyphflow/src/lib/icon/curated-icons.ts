@@ -5808,6 +5808,10 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/waves';
+import { wavesHorizontalIcon, wavesVerticalIcon, wavesArrowUpIcon, wavesArrowDownIcon, wavesLadderIcon } from './icons/waves';
+export * from './icons/wind';
+import { windIcon, windArrowDownIcon } from './icons/wind';
 export * from './icons/zodiac';
 import { zodiacAriesIcon, zodiacTaurusIcon, zodiacGeminiIcon, zodiacCancerIcon, zodiacLeoIcon, zodiacVirgoIcon, zodiacLibraIcon, zodiacScorpioIcon, zodiacSagittariusIcon, zodiacCapricornIcon, zodiacAquariusIcon, zodiacPiscesIcon, zodiacOphiuchusIcon } from './icons/zodiac';
 export * from './icons/ruler';
@@ -18214,6 +18218,489 @@ export const spadeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de agua, aire y luz ────────────────────────────────────────────── */
+
+/** Algo que deriva empujado por el aire. Corto: casi todo aquí toca los dos bordes. */
+const DERIVA = /* @__PURE__ */ moveXSeq([0, 0.6, 0]);
+
+/** Sube y vuelve: burbuja, sol, salvavidas. */
+const ASCIENDE = /* @__PURE__ */ moveYSeq([0, -0.6, 0]);
+
+/**
+ * Las dos nubes derivan, y la de atrás la mitad. Ese desfase es TODO el gesto: moviéndolas igual
+ * no hay viento, hay un icono deslizándose.
+ */
+export const cloudyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M17.5 12a1 1 0 1 1 0 9H9.006a7 7 0 1 1 6.702-9z" },
+    { tag: 'path', d: "M21.832 9A3 3 0 0 0 19 7h-2.207a5.5 5.5 0 0 0-10.72.61" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(DERIVA, 860, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.3, 0]), 860, { easing: EASE, delay: 90 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La niebla pasa por delante del sol, en dos bandas desfasadas. */
+export const hazeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m5.2 6.2 1.4 1.4" },
+    { tag: 'path', d: "M2 13h2" },
+    { tag: 'path', d: "M20 13h2" },
+    { tag: 'path', d: "m17.4 7.6 1.4-1.4" },
+    { tag: 'path', d: "M22 17H2" },
+    { tag: 'path', d: "M22 21H2" },
+    { tag: 'path', d: "M16 13a4 4 0 0 0-8 0" },
+    { tag: 'path', d: "M12 5V2.5" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(DERIVA, 860, { easing: EASE }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -0.6, 0]), 860, { easing: EASE, delay: 140 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.04, 1]), 720, { easing: EASE, delay: 80, origin: '12px 13px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.6px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.4px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.3' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El agua sale por las dos compuertas; el muro no se mueve, para eso es un muro. */
+export const damIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 11.31c1.17.56 1.54 1.69 3.5 1.69 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" },
+    { tag: 'path', d: "M11.75 18c.35.5 1.45 1 2.75 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" },
+    { tag: 'path', d: "M2 10h4" },
+    { tag: 'path', d: "M2 14h4" },
+    { tag: 'path', d: "M2 18h4" },
+    { tag: 'path', d: "M2 6h4" },
+    { tag: 'path', d: "M7 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1L10 4a1 1 0 0 0-1-1z" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(DERIVA, 820, { easing: EASE }),
+        1: /* @__PURE__ */ track(DERIVA, 820, { easing: EASE, delay: 160 }),
+        5: /* @__PURE__ */ track(DESTELLA, 400, { delay: 60 }),
+        2: /* @__PURE__ */ track(DESTELLA, 400, { delay: 140 }),
+        3: /* @__PURE__ */ track(DESTELLA, 400, { delay: 220 }),
+        4: /* @__PURE__ */ track(DESTELLA, 400, { delay: 300 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 70 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las dos gotas caen, la grande primero: pesa más. */
+export const dropletsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z",
+    },
+    {
+      tag: 'path',
+      d: "M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SE_POSA, 520, { easing: SPRING_OUT, delay: 150 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 70, origin: '7px 11px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Suben, la grande antes que la pequeña, y el brillo se enciende al final. */
+export const bubblesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7.001 15.085A1.5 1.5 0 0 1 9 16.5" },
+    { tag: 'circle', cx: 18.5, cy: 8.5, r: 3.5 },
+    { tag: 'circle', cx: 7.5, cy: 16.5, r: 5.5 },
+    { tag: 'circle', cx: 7.5, cy: 4.5, r: 2.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(ASCIENDE, 820, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.5, 0]), 820, { easing: EASE, delay: 140 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.4, 0]), 820, { easing: EASE, delay: 280 }),
+        0: /* @__PURE__ */ track(DESTELLA, 420, { delay: 260 }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.5px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.2px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 120 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Amanece: la flecha sube con su punta, el sol asoma detrás y los rayos se encienden. */
+export const sunriseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 2v8" },
+    { tag: 'path', d: "m4.93 10.93 1.41 1.41" },
+    { tag: 'path', d: "M2 18h2" },
+    { tag: 'path', d: "M20 18h2" },
+    { tag: 'path', d: "m19.07 10.93-1.41 1.41" },
+    { tag: 'path', d: "M22 22H2" },
+    { tag: 'path', d: "m8 6 4-4 4 4" },
+    { tag: 'path', d: "M16 18a4 4 0 0 0-8 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 620, { easing: EASE }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 620, { easing: EASE }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.4, 0]), 660, { easing: EASE, delay: 120 }),
+        1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 200 }),
+        4: /* @__PURE__ */ track(DESTELLA, 400, { delay: 280 }),
+        2: /* @__PURE__ */ track(DESTELLA, 400, { delay: 360 }),
+        3: /* @__PURE__ */ track(DESTELLA, 400, { delay: 440 }),
+      },
+    },
+    hold: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.4px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.14)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '12px 18px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.14)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '12px 18px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Anochece: exactamente lo contrario de `sunrise`, y por eso los dos van en pareja. */
+export const sunsetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 10V2" },
+    { tag: 'path', d: "m4.93 10.93 1.41 1.41" },
+    { tag: 'path', d: "M2 18h2" },
+    { tag: 'path', d: "M20 18h2" },
+    { tag: 'path', d: "m19.07 10.93-1.41 1.41" },
+    { tag: 'path', d: "M22 22H2" },
+    { tag: 'path', d: "m16 6-4 4-4-4" },
+    { tag: 'path', d: "M16 18a4 4 0 0 0-8 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.6, 0]), 620, { easing: EASE }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.6, 0]), 620, { easing: EASE }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.4, 0]), 660, { easing: EASE, delay: 120 }),
+        3: /* @__PURE__ */ track(DESTELLA, 400, { delay: 200 }),
+        2: /* @__PURE__ */ track(DESTELLA, 400, { delay: 280 }),
+        4: /* @__PURE__ */ track(DESTELLA, 400, { delay: 360 }),
+        1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 440 }),
+      },
+    },
+    hold: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.4px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.4px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.4px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.25' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.25' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.25' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.25' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El foco barre desde su montura y los destellos se encienden por donde va pasando. */
+export const spotlightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15.295 19.562 16 22" },
+    { tag: 'path', d: "m17 16 3.758 2.098" },
+    { tag: 'path', d: "m19 12.5 3.026-.598" },
+    {
+      tag: 'path',
+      d: "M7.61 6.3a3 3 0 0 0-3.92 1.3l-1.38 2.79a3 3 0 0 0 1.3 3.91l6.89 3.597a1 1 0 0 0 1.342-.447l3.106-6.211a1 1 0 0 0-.447-1.341z",
+    },
+    { tag: 'path', d: "M8 9V2" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4, 0]), 760, { easing: EASE, origin: '8px 10px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 160, origin: '20.5px 12.2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 260, origin: '18.9px 17px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 360, origin: '15.6px 20.8px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-9deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 10px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.5)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '20.5px 12.2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.5)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 110, origin: '18.9px 17px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.5)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 160, origin: '15.6px 20.8px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Suena: los cinco destellos giran alrededor en cadena y la luz late en el centro. */
+export const sirenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M7 18v-6a5 5 0 1 1 10 0v6" },
+    {
+      tag: 'path',
+      d: "M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z",
+    },
+    { tag: 'path', d: "M21 12h1" },
+    { tag: 'path', d: "M18.5 4.5 18 5" },
+    { tag: 'path', d: "M2 12h1" },
+    { tag: 'path', d: "M12 2v1" },
+    { tag: 'path', d: "m4.929 4.929.707.707" },
+    { tag: 'path', d: "M12 12v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(DESTELLA, 360),
+        6: /* @__PURE__ */ track(DESTELLA, 360, { delay: 90 }),
+        5: /* @__PURE__ */ track(DESTELLA, 360, { delay: 180 }),
+        3: /* @__PURE__ */ track(DESTELLA, 360, { delay: 270 }),
+        2: /* @__PURE__ */ track(DESTELLA, 360, { delay: 360 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.15)' }, { transform: 'scaleY(1)' }], 620, { easing: EASE, delay: 120, origin: '12px 18px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.3)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '12px 18px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se descuelga la manguera y el asa cede: es el gesto de usarlo, no de mirarlo. */
+export const fireExtinguisherIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 6.5V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3.5" },
+    { tag: 'path', d: "M9 18h8" },
+    { tag: 'path', d: "M18 3h-3" },
+    { tag: 'path', d: "M11 3a6 6 0 0 0-6 6v11" },
+    { tag: 'path', d: "M5 13h4" },
+    { tag: 'path', d: "M17 10a4 4 0 0 0-8 0v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2Z" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 4, -2, 0]), 760, { easing: EASE, origin: '11px 3px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.88)' }, { transform: 'scaleY(1)' }], 560, { easing: EASE, delay: 140, origin: '13px 6.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 3px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.8)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '13px 6.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Flota, y los cuatro cabos se encienden en cadena: el aro es un `circle`, girarlo no se vería. */
+export const lifeBuoyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 10 },
+    { tag: 'path', d: "m4.93 4.93 4.24 4.24" },
+    { tag: 'path', d: "m14.83 9.17 4.24-4.24" },
+    { tag: 'path', d: "m14.83 14.83 4.24 4.24" },
+    { tag: 'path', d: "m9.17 14.83-4.24 4.24" },
+    { tag: 'circle', cx: 12, cy: 12, r: 4 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.6, 0]), 940, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(DESTELLA, 360, { delay: 80 }),
+        2: /* @__PURE__ */ track(DESTELLA, 360, { delay: 180 }),
+        3: /* @__PURE__ */ track(DESTELLA, 360, { delay: 280 }),
+        4: /* @__PURE__ */ track(DESTELLA, 360, { delay: 380 }),
+      },
+    },
+    hold: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 80, origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se abre desde el mástil, que es lo único que una sombrilla sabe hacer. */
+export const parasolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.5 11.134 18.196 21" },
+    {
+      tag: 'path',
+      d: "M20.425 5.299a10 10 0 0 0-16.941 9.78c.183.563.843.774 1.355.478L20.16 6.711c.512-.296.66-.973.264-1.413",
+    },
+    { tag: 'path', d: "M21 21H3" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([0.92, 1.02, 1]), 620, { easing: SPRING_OUT, origin: '12px 11px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '18.196px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * Se voltea, y con un flip en Y —no con un giro—. Rotar 180 grados era lo obvio y la tira de
+ * fotogramas lo tumbó: a media vuelta el icono ocupa la diagonal de su caja, 1.41 veces su ancho,
+ * y en cualquier contenedor con recorte se corta. Un `scaleY(-1)` que pasa por 0.06 se lee igual
+ * de bien —el reloj se pone de canto y cae del otro lado— y NUNCA sale de su cuadro.
+ *
+ * Ojo con esto al medir: el chequeo de lienzo mira las figuras contra el viewBox, así que una
+ * animación en el ROOT se le escapa. El root no lo recorta el viewBox, lo recorta el contenedor.
+ */
+export const hourglassIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 22h14" },
+    { tag: 'path', d: "M5 2h14" },
+    {
+      tag: 'path',
+      d: "M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22",
+    },
+    {
+      tag: 'path',
+      d: "M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2",
+    },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(
+        /* @__PURE__ */ [
+          { transform: 'scaleY(1)' },
+          { transform: 'scaleY(0.06)' },
+          { transform: 'scaleY(-1)' },
+        ],
+        820,
+        { easing: EASE, origin: '50% 50%' },
+      ),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(-1)' }], 480, { origin: '50% 50%' }),
+  },
+);
+
+/** Cae y se asienta: pesa, así que el rebote es corto y la piedra no se deforma. */
+export const stoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M11.264 2.205A4 4 0 0 0 6.42 4.211l-4 8a4 4 0 0 0 1.359 5.117l6 4a4 4 0 0 0 4.438 0l6-4a4 4 0 0 0 1.576-4.592l-2-6a4 4 0 0 0-2.53-2.53z",
+    },
+    { tag: 'path', d: "M11.99 22 14 12l7.822 3.184" },
+    { tag: 'path', d: "M14 12 8.47 2.302" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-0.6, 0]), 460, { easing: SPRING_OUT }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 280 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 400 }),
+      },
+    },
+    hold: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '50% 50%' }),
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se mide la parcela: el banderín ondea y las dos diagonales se tienden después. */
+export const landPlotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m12 8 6-3-6-3v10" },
+    {
+      tag: 'path',
+      d: "m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12",
+    },
+    { tag: 'path', d: "m6.49 12.85 11.02 6.3" },
+    { tag: 'path', d: "M17.51 12.85 6.5 19.15" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.82)' }, { transform: 'scaleX(1)' }], 620, { easing: EASE, origin: '12px 5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out', delay: 240 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out', delay: 400 }),
+      },
+    },
+    hold: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '50% 50%' }),
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.72)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '12px 5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -19866,4 +20353,26 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'cross': crossIcon,
   'club': clubIcon,
   'spade': spadeIcon,
+  'cloudy': cloudyIcon,
+  'haze': hazeIcon,
+  'dam': damIcon,
+  'droplets': dropletsIcon,
+  'bubbles': bubblesIcon,
+  'sunrise': sunriseIcon,
+  'sunset': sunsetIcon,
+  'spotlight': spotlightIcon,
+  'siren': sirenIcon,
+  'fire-extinguisher': fireExtinguisherIcon,
+  'life-buoy': lifeBuoyIcon,
+  'parasol': parasolIcon,
+  'hourglass': hourglassIcon,
+  'stone': stoneIcon,
+  'land-plot': landPlotIcon,
+  'waves-horizontal': wavesHorizontalIcon,
+  'waves-vertical': wavesVerticalIcon,
+  'waves-arrow-up': wavesArrowUpIcon,
+  'waves-arrow-down': wavesArrowDownIcon,
+  'waves-ladder': wavesLadderIcon,
+  'wind': windIcon,
+  'wind-arrow-down': windArrowDownIcon,
 };

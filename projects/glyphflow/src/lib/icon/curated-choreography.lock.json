@@ -1369,6 +1369,12 @@
       "path:182e2952509d",
       "path:491dfaa34289"
     ],
+    "bubbles": [
+      "path:c5b2f063a775",
+      "circle:69cf78522274",
+      "circle:d7c729b335d6",
+      "circle:c4661dcb5be4"
+    ],
     "bug": [
       "path:1f6df5b09a5b",
       "path:9913b6273ccf",
@@ -2679,6 +2685,10 @@
       "path:ef8fcfc3c829",
       "path:59881d74e4a8"
     ],
+    "cloudy": [
+      "path:f9f9582097f4",
+      "path:780b22f14332"
+    ],
     "clover": [
       "path:87a5175a7671",
       "path:73c817acc9f9",
@@ -2936,6 +2946,15 @@
       "line:4be2757f5156",
       "line:d11683d955e5",
       "line:50f3a424d7f8"
+    ],
+    "dam": [
+      "path:615a9e3ed702",
+      "path:1240702a9b95",
+      "path:6bc015a25617",
+      "path:1ff9d536a3b9",
+      "path:14b2869aaf01",
+      "path:8e949e07fcdc",
+      "path:96def03ba3f8"
     ],
     "database": [
       "ellipse:22d490ea4115",
@@ -3222,6 +3241,10 @@
       "path:12df8c2d48f6",
       "path:378c27879c92",
       "path:0259764f05f1"
+    ],
+    "droplets": [
+      "path:bf6e4ff37dbc",
+      "path:d388bdd55c3b"
     ],
     "drum": [
       "path:0a0917875c0b",
@@ -3798,6 +3821,14 @@
       "path:fd923bea32bf",
       "path:2e9f79383a00",
       "path:31c5c5b28ed6"
+    ],
+    "fire-extinguisher": [
+      "path:17c7a10f460f",
+      "path:b640ba75b0a6",
+      "path:792c8eb7b00b",
+      "path:879d0a1615df",
+      "path:2f58a2a43182",
+      "path:4cd87002b8de"
     ],
     "fish": [
       "path:64bac92540c7",
@@ -4566,6 +4597,16 @@
       "circle:18055e6d7c50",
       "circle:6342845e15c6"
     ],
+    "haze": [
+      "path:d3b77566e9ae",
+      "path:0ad92cd15da7",
+      "path:deeba13f1059",
+      "path:1f688fabd17e",
+      "path:b159385dc2d5",
+      "path:5fa5f61445dc",
+      "path:92e583ba8da8",
+      "path:99fa68bc9fde"
+    ],
     "hdmi-port": [
       "path:f588e3e859f5",
       "path:996d85dad073"
@@ -4727,6 +4768,12 @@
       "path:56db478e018a",
       "path:d2c5db2f6062",
       "rect:2428eb83eaf8"
+    ],
+    "hourglass": [
+      "path:001f3e9998e6",
+      "path:4b4a54ef299a",
+      "path:90fbf38d2edf",
+      "path:deda8e526897"
     ],
     "house": [
       "path:1477bac52fac",
@@ -4978,6 +5025,12 @@
       "path:235df9b38654",
       "path:0c9dd320a43d"
     ],
+    "land-plot": [
+      "path:d3cd6ffa17ce",
+      "path:d7fa757986d2",
+      "path:dd2ccbb1ff4b",
+      "path:5a0404aa47d6"
+    ],
     "landmark": [
       "path:65e22a690ba0",
       "path:74d471fa373f",
@@ -5124,6 +5177,14 @@
       "rect:922527f016cd",
       "path:edbb71669e6c",
       "path:9357079c3a6e"
+    ],
+    "life-buoy": [
+      "circle:1b306a76ecc0",
+      "path:40faf7f7f2b2",
+      "path:beae8841b00b",
+      "path:4c4319c74856",
+      "path:5bc4cd8b7a25",
+      "circle:9d7fc8897980"
     ],
     "ligature": [
       "path:ed958d67a51e",
@@ -6518,6 +6579,11 @@
     "paperclip": [
       "path:9f6de73b2440"
     ],
+    "parasol": [
+      "path:2a6853e5a5a0",
+      "path:7873df0e5407",
+      "path:c59c4b007732"
+    ],
     "parking-meter": [
       "path:08952421a1fb",
       "path:ea0238c6e579",
@@ -7855,6 +7921,16 @@
       "path:8cfb4cfa468e",
       "path:c8dc82bd8235"
     ],
+    "siren": [
+      "path:db9174c686b1",
+      "path:85286bdd4eab",
+      "path:93a28724879b",
+      "path:562ec186b3e5",
+      "path:8b9176f3fdc0",
+      "path:ca69db252329",
+      "path:9005bf7f0210",
+      "path:ef0240a5e279"
+    ],
     "skip-back": [
       "path:0d2f2b3e0e6c",
       "path:01bda2060b3f"
@@ -8009,6 +8085,13 @@
       "path:712bdaa38537",
       "path:fa747e355c3a",
       "path:f89700c53e44"
+    ],
+    "spotlight": [
+      "path:3903f2d583a4",
+      "path:2f1eaa361215",
+      "path:72e0e4136ade",
+      "path:ce21eb370b76",
+      "path:e491af7c2306"
     ],
     "spray-can": [
       "path:c7cf2a86e7a2",
@@ -8566,6 +8649,11 @@
       "path:e70579403eaa",
       "path:7c05091b17b5"
     ],
+    "stone": [
+      "path:265771369d0c",
+      "path:058889a4b89d",
+      "path:bc333a6d522b"
+    ],
     "store": [
       "path:e44119132db3",
       "path:3b8fb7096709",
@@ -8641,6 +8729,26 @@
       "path:e663e369e353",
       "path:776259cfd8f1",
       "path:823709636528"
+    ],
+    "sunrise": [
+      "path:d169e62a1a29",
+      "path:5293912e9ad1",
+      "path:0eb27d28b101",
+      "path:7b9126e2dfd1",
+      "path:7c0851824fa1",
+      "path:e35aa0656c33",
+      "path:d6c0383cf5a2",
+      "path:464724cffcef"
+    ],
+    "sunset": [
+      "path:917a30f30d90",
+      "path:5293912e9ad1",
+      "path:0eb27d28b101",
+      "path:7b9126e2dfd1",
+      "path:7c0851824fa1",
+      "path:e35aa0656c33",
+      "path:ce451fa1a04c",
+      "path:464724cffcef"
     ],
     "superscript": [
       "path:982a583642f7",
@@ -9668,6 +9776,35 @@
       "circle:2ee708dd4778",
       "path:b3ac1ff106d3"
     ],
+    "waves-arrow-down": [
+      "path:a091a9a0ffc0",
+      "path:9fab393e6a61",
+      "path:2fa2378cd7be",
+      "path:bd2688da8255"
+    ],
+    "waves-arrow-up": [
+      "path:d169e62a1a29",
+      "path:69a04cfd0507",
+      "path:e765e68065f4",
+      "path:d6c0383cf5a2"
+    ],
+    "waves-horizontal": [
+      "path:b6fb0fccc023",
+      "path:fb5b37c148f2",
+      "path:91cb8736b3dc"
+    ],
+    "waves-ladder": [
+      "path:aede62946a19",
+      "path:93ec5f5ce35f",
+      "path:1a3e8d2bdac1",
+      "path:f66bca9a2171",
+      "path:d6bee775a8ac"
+    ],
+    "waves-vertical": [
+      "path:22354cf8029d",
+      "path:8ab2b675cc40",
+      "path:d238fe46eb0d"
+    ],
     "webcam": [
       "circle:2b71904f18bf",
       "circle:34719e7a21bf",
@@ -9781,6 +9918,17 @@
     ],
     "wifi-zero": [
       "path:b220a3996c02"
+    ],
+    "wind": [
+      "path:b03d42861491",
+      "path:23eb52c10501",
+      "path:7ddb164b0cea"
+    ],
+    "wind-arrow-down": [
+      "path:e093f01426b2",
+      "path:094052d72765",
+      "path:9a6a4ce05897",
+      "path:14753daabff3"
     ],
     "wine": [
       "path:c8dc82bd8235",
@@ -10948,6 +11096,11 @@
       "default": "d2d99ab205c5",
       "draw": "17c8398e8d34"
     },
+    "bubbles": {
+      "default": "db715b84f023",
+      "draw": "17c8398e8d34",
+      "hold": "5a978c23c8b1"
+    },
     "bug": {
       "default": "dacce9c4d955",
       "draw": "17c8398e8d34"
@@ -11871,6 +12024,11 @@
       "default": "bd7c6467fb67",
       "draw": "17c8398e8d34"
     },
+    "cloudy": {
+      "default": "0ee93874e91d",
+      "draw": "17c8398e8d34",
+      "hold": "cb8b52d23c4f"
+    },
     "clover": {
       "default": "9c63a19074aa",
       "draw": "17c8398e8d34",
@@ -12075,6 +12233,11 @@
       "default": "db9c5abb271c",
       "draw": "17c8398e8d34"
     },
+    "dam": {
+      "default": "c823ca39c61a",
+      "draw": "17c8398e8d34",
+      "hold": "cfbdfa70bad3"
+    },
     "database": {
       "default": "d407952cd444",
       "draw": "17c8398e8d34"
@@ -12271,6 +12434,11 @@
     "droplet-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "droplets": {
+      "default": "13883a28fb88",
+      "draw": "17c8398e8d34",
+      "hold": "90a8bb482fd5"
     },
     "drum": {
       "default": "85bb4cb32629",
@@ -12724,6 +12892,11 @@
       "default": "1b8503fb296f",
       "draw": "17c8398e8d34",
       "hold": "4f42e798071e"
+    },
+    "fire-extinguisher": {
+      "default": "b2e2932cec28",
+      "draw": "17c8398e8d34",
+      "hold": "7b9e049d3f9e"
     },
     "fish": {
       "default": "530bcaf4c2b0",
@@ -13316,6 +13489,11 @@
       "default": "22cf249476b1",
       "draw": "17c8398e8d34"
     },
+    "haze": {
+      "default": "4a0ac71562ad",
+      "draw": "17c8398e8d34",
+      "hold": "4fd34eba3fc8"
+    },
     "hdmi-port": {
       "default": "eb96f3aa9f45",
       "draw": "17c8398e8d34",
@@ -13433,6 +13611,11 @@
       "default": "629dfe094226",
       "draw": "17c8398e8d34",
       "hold": "49c55ad4542c"
+    },
+    "hourglass": {
+      "default": "e8ae7eb3c1e8",
+      "draw": "17c8398e8d34",
+      "hold": "f4b0a00c4f36"
     },
     "house": {
       "default": "9f23dbdc2278",
@@ -13621,6 +13804,11 @@
       "draw": "17c8398e8d34",
       "hold": "aee3f21b3a73"
     },
+    "land-plot": {
+      "default": "0c1481e45809",
+      "draw": "17c8398e8d34",
+      "hold": "6e92add54248"
+    },
     "landmark": {
       "alert": "1b856f16573a",
       "default": "9f13fff0ba83",
@@ -13747,6 +13935,11 @@
     "library-big": {
       "default": "bf6d27fd6ff2",
       "draw": "17c8398e8d34"
+    },
+    "life-buoy": {
+      "default": "531ee218d6ad",
+      "draw": "17c8398e8d34",
+      "hold": "38312aea5d93"
     },
     "ligature": {
       "default": "d2c070cf5584",
@@ -14812,6 +15005,11 @@
       "draw": "17c8398e8d34",
       "pulse": "5e2da2b81fe0"
     },
+    "parasol": {
+      "default": "347e24ddd275",
+      "draw": "17c8398e8d34",
+      "hold": "6e19d92a40e2"
+    },
     "parking-meter": {
       "default": "5c3fb76b620d",
       "draw": "17c8398e8d34",
@@ -15797,6 +15995,11 @@
       "draw": "17c8398e8d34",
       "hold": "34464a41723a"
     },
+    "siren": {
+      "default": "74dc311166a1",
+      "draw": "17c8398e8d34",
+      "hold": "82fe2855a661"
+    },
     "skip-back": {
       "default": "92df8b546a2d",
       "draw": "17c8398e8d34"
@@ -15907,6 +16110,11 @@
       "default": "a99eb6326a64",
       "draw": "17c8398e8d34",
       "hold": "59d301955a72"
+    },
+    "spotlight": {
+      "default": "4ad6cf8eadd0",
+      "draw": "17c8398e8d34",
+      "hold": "14c62ab69447"
     },
     "spray-can": {
       "default": "feb0876ca64a",
@@ -16322,6 +16530,11 @@
       "default": "383d8110f239",
       "draw": "17c8398e8d34"
     },
+    "stone": {
+      "default": "00aad807e04b",
+      "draw": "17c8398e8d34",
+      "hold": "39fc7a18971d"
+    },
     "store": {
       "default": "f34de6c2b177",
       "draw": "17c8398e8d34",
@@ -16363,6 +16576,16 @@
     "sun-snow": {
       "default": "dff5ddc8e699",
       "draw": "17c8398e8d34"
+    },
+    "sunrise": {
+      "default": "47a0ec0848b7",
+      "draw": "17c8398e8d34",
+      "hold": "23d4d04dfa9c"
+    },
+    "sunset": {
+      "default": "32044f815e72",
+      "draw": "17c8398e8d34",
+      "hold": "07a3319b10e8"
     },
     "superscript": {
       "default": "5d6b2d2f8378",
@@ -17113,6 +17336,31 @@
       "draw": "17c8398e8d34",
       "hold": "c6ef03491385"
     },
+    "waves-arrow-down": {
+      "default": "d665dc53b9b3",
+      "draw": "17c8398e8d34",
+      "hold": "cc066fc7f083"
+    },
+    "waves-arrow-up": {
+      "default": "6624533be93c",
+      "draw": "17c8398e8d34",
+      "hold": "d501923c8290"
+    },
+    "waves-horizontal": {
+      "default": "8b1959a343bc",
+      "draw": "17c8398e8d34",
+      "hold": "a67508bbe86b"
+    },
+    "waves-ladder": {
+      "default": "bdfd2acaac64",
+      "draw": "17c8398e8d34",
+      "hold": "38c89c40533e"
+    },
+    "waves-vertical": {
+      "default": "b5bffedead61",
+      "draw": "17c8398e8d34",
+      "hold": "ae117d6e30a1"
+    },
     "webcam": {
       "default": "46b5bfa00cc5",
       "draw": "17c8398e8d34"
@@ -17177,6 +17425,16 @@
       "default": "9d9cbfe91573",
       "draw": "17c8398e8d34",
       "reveal": "d80e0f8477da"
+    },
+    "wind": {
+      "default": "3b710eca93a2",
+      "draw": "17c8398e8d34",
+      "hold": "5bfd8bae156e"
+    },
+    "wind-arrow-down": {
+      "default": "63107813ac86",
+      "draw": "17c8398e8d34",
+      "hold": "5fb99bafb9ff"
     },
     "wine": {
       "default": "5467f7b8b872",
