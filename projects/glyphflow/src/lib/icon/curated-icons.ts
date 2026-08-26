@@ -5808,6 +5808,10 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/scale';
+import { scaleIcon, scale3dIcon } from './icons/scale';
+export * from './icons/weight';
+import { weightIcon, weightTildeIcon } from './icons/weight';
 export * from './icons/waves';
 import { wavesHorizontalIcon, wavesVerticalIcon, wavesArrowUpIcon, wavesArrowDownIcon, wavesLadderIcon } from './icons/waves';
 export * from './icons/wind';
@@ -18701,6 +18705,607 @@ export const landPlotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de geometría y medida ──────────────────────────────────────────── */
+
+/**
+ * Una figura pura no tiene partes que se muevan, así que su gesto es el trazo. Lo que se cura es
+ * el ORDEN —igual que en el zodiaco—, y aquí eso significa dibujar como se dibujaría a mano: el
+ * contorno antes que lo que va dentro, la base antes que lo que se apoya en ella.
+ *
+ * Y el `hold` NO es ese trazo congelado: es la figura DICIENDO SU MEDIDA. La elipse se redondea,
+ * el cilindro se estira, la balanza se inclina, el ángulo se abre. Una figura sostenida que no
+ * cambia de valor no aporta nada.
+ */
+const AFIRMA_FIG = /* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }];
+
+/** El vértice antes que el arco: sin los dos lados no hay ángulo que medir. */
+export const angleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
+    { tag: 'path', d: "M3 11a10 10 0 0 1 10 10" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 360 }),
+      },
+    },
+    // El ángulo se abre: el arco crece desde el vértice, que es lo que mide.
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.18)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '3px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Una sola figura: se traza. Sostenida, se recoge sobre sí misma. */
+export const astroidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203",
+    },
+  ],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 900, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.86)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La base antes que el cono: un cono se apoya en su elipse. Sostenido, se mira desde arriba. */
+export const coneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m20.9 18.55-8-15.98a1 1 0 0 0-1.8 0l-8 15.98" },
+    { tag: 'ellipse', cx: 12, cy: 19, rx: 9, ry: 3 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out', delay: 360 }),
+      },
+    },
+    // Bajar el punto de vista abre la elipse de la base: eso es ver el cono más desde arriba.
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.22)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El volumen antes que sus aristas internas, que son las que lo hacen sólido. */
+export const cuboidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 22v-8" },
+    { tag: 'path', d: "M2.336 8.89 10 14l11.715-7.029" },
+    {
+      tag: 'path',
+      d: "M22 14a2 2 0 0 1-.971 1.715l-10 6a2 2 0 0 1-2.138-.05l-6-4A2 2 0 0 1 2 16v-6a2 2 0 0 1 .971-1.715l10-6a2 2 0 0 1 2.138.05l6 4A2 2 0 0 1 22 8z",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 480 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 760 }),
+      },
+    },
+    // Sostenido: las aristas de dentro se marcan y el bloque se abre un punto.
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(AFIRMA_FIG, 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La tapa antes que el cuerpo. Sostenido: el cilindro CRECE, que es su única medida libre. */
+export const cylinderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'ellipse', cx: 12, cy: 5, rx: 9, ry: 3 },
+    { tag: 'path', d: "M3 5v14a9 3 0 0 0 18 0V5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out', delay: 360 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.84)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos arcos, la cuerda que los cruza y al final los extremos que la marcan. */
+export const diameterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 19, cy: 19, r: 2 },
+    { tag: 'circle', cx: 5, cy: 5, r: 2 },
+    { tag: 'path', d: "M6.48 3.66a10 10 0 0 1 13.86 13.86" },
+    { tag: 'path', d: "m6.41 6.41 11.18 11.18" },
+    { tag: 'path', d: "M3.66 6.48a10 10 0 0 0 13.86 13.86" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out', delay: 180 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 420 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 660, origin: '5px 5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 760, origin: '19px 19px' }),
+      },
+    },
+    // Sostenido: los dos extremos se agarran, que es lo que hace una medida.
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.4)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.4)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '19px 19px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Una elipse solo tiene una medida que cambiar: su excentricidad. Sostenida, se redondea. */
+export const ellipseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [{ tag: 'ellipse', cx: 12, cy: 12, rx: 10, ry: 6 }],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.6)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se traza, y sostenido gira MEDIO paso de su simetría: con un paso entero quedaría igual. */
+export const hexagonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z",
+    },
+  ],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 720, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(30deg)' }], 440, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Lo mismo con cinco lados: medio paso son 36 grados. */
+export const pentagonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10.83 2.38a2 2 0 0 1 2.34 0l8 5.74a2 2 0 0 1 .73 2.25l-3.04 9.26a2 2 0 0 1-1.9 1.37H7.04a2 2 0 0 1-1.9-1.37L2.1 10.37a2 2 0 0 1 .73-2.25z",
+    },
+  ],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 720, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(36deg)' }], 440, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El contorno y después la arista, que es la que la levanta del plano. Sostenida, crece. */
+export const pyramidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M2.5 16.88a1 1 0 0 1-.32-1.43l9-13.02a1 1 0 0 1 1.64 0l9 13.01a1 1 0 0 1-.32 1.44l-8.51 4.86a2 2 0 0 1-1.98 0Z",
+    },
+    { tag: 'path', d: "M12 2v20" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 460 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.03)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.03)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Del centro hacia afuera: centro, radio, extremo, y el arco al final. Sostenido, el radio crece. */
+export const radiusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20.34 17.52a10 10 0 1 0-2.82 2.82" },
+    { tag: 'circle', cx: 19, cy: 19, r: 2 },
+    { tag: 'path', d: "m13.41 13.41 4.18 4.18" },
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out', delay: 220 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 440, origin: '19px 19px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 560, { easing: 'ease-out', delay: 620 }),
+      },
+    },
+    // Sostenido: el extremo se aleja del centro y la línea llega hasta él. Eso es un radio mayor.
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.22)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los dos marcos se turnan, que es lo que hace una proporción: uno manda y el otro cede. */
+export const ratioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 12, height: 20, x: 6, y: 2, rx: 2 },
+    { tag: 'rect', width: 20, height: 12, x: 2, y: 6, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.88)' }, { transform: 'scaleX(1)' }], 620, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.88)' }, { transform: 'scaleY(1)' }], 620, { easing: EASE, delay: 160, origin: '12px 12px' }),
+      },
+    },
+    // Sostenido: la proporción se decide. El horizontal gana y el vertical se estrecha.
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.78)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.12)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El marco y después las divisiones. Sostenido, la división se corre: eso es reproporcionar. */
+export const proportionsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', width: 20, height: 16, x: 2, y: 4, rx: 2 },
+    { tag: 'path', d: "M12 9v11" },
+    { tag: 'path', d: "M2 9h13a2 2 0 0 1 2 2v9" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out', delay: 400 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 700 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.6px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La flecha sale de la esquina y el marco cede: escalar es eso, y el marco lo acusa. */
+export const scalingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" },
+    { tag: 'path', d: "M14 15H9v-5" },
+    { tag: 'path', d: "M16 3h5v5" },
+    { tag: 'path', d: "M21 3 9 15" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(0.6px, -0.6px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(0.6px, -0.6px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 560, { easing: EASE, delay: 140, origin: '9px 15px' }),
+      },
+    },
+    // Sostenido: escalado aplicado. La flecha se va a su esquina y el marco se encoge de verdad.
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.92)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '3px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las dos mitades de la ese, en el orden en que se escribe. Sostenida, se separan. */
+export const sectionIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M16 5a4 3 0 0 0-8 0c0 4 8 3 8 7a4 3 0 0 1-8 0" },
+    { tag: 'path', d: "M8 19a4 3 0 0 0 8 0c0-4-8-3-8-7a4 3 0 0 1 8 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out', delay: 380 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las tres aparecen por tamaño, de la grande a la pequeña. Sostenidas, se reparten el lienzo. */
+export const shapesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z",
+    },
+    { tag: 'rect', x: 3, y: 14, width: 7, height: 7, rx: 1 },
+    { tag: 'circle', cx: 17.5, cy: 17.5, r: 3.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, origin: '6.5px 17.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 150, origin: '12px 6.5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { easing: SPRING_OUT, delay: 300, origin: '17.5px 17.5px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 50 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 100 }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La curva, la recta que la toca y los dos puntos. Sostenida, la tangente rueda sobre la curva. */
+export const tangentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 17, cy: 4, r: 2 },
+    { tag: 'path', d: "M15.59 5.41 5.41 15.59" },
+    { tag: 'circle', cx: 4, cy: 17, r: 2 },
+    { tag: 'path', d: "M12 22s-4-9-1.5-11.5S22 12 22 12" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 480 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 780, origin: '17px 4px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 860, origin: '4px 17px' }),
+      },
+    },
+    // Sostenida: la recta gira sobre el punto donde toca. Es lo único que una tangente puede hacer.
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 10.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, 0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El contorno y luego el agujero. Sostenido, el agujero se abre: es lo que hace un toro. */
+export const torusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'ellipse', cx: 12, cy: 11, rx: 3, ry: 2 },
+    { tag: 'ellipse', cx: 12, cy: 12.5, rx: 10, ry: 8.5 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 620, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 380, { easing: 'ease-out', delay: 480 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.7)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Los cuatro nodos y después los lados que los unen. Sostenido, los nodos se agarran. */
+export const vectorSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19.5 7a24 24 0 0 1 0 10" },
+    { tag: 'path', d: "M4.5 7a24 24 0 0 0 0 10" },
+    { tag: 'path', d: "M7 19.5a24 24 0 0 0 10 0" },
+    { tag: 'path', d: "M7 4.5a24 24 0 0 1 10 0" },
+    { tag: 'rect', x: 17, y: 17, width: 5, height: 5, rx: 1 },
+    { tag: 'rect', x: 17, y: 2, width: 5, height: 5, rx: 1 },
+    { tag: 'rect', x: 2, y: 17, width: 5, height: 5, rx: 1 },
+    { tag: 'rect', x: 2, y: 2, width: 5, height: 5, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, origin: '4.5px 4.5px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 80, origin: '19.5px 4.5px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 160, origin: '19.5px 19.5px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 240, origin: '4.5px 19.5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 340 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 420 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 500 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 580 }),
+      },
+    },
+    // Sostenido: los nodos crecen —seleccionados— y los lados se abomban al tirar de ellos.
+    hold: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '4.5px 4.5px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '19.5px 4.5px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '19.5px 19.5px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.2)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '4.5px 19.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La barra espaciadora: se traza, y sostenida se pulsa y se queda hundida. */
+export const spaceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [{ tag: 'path', d: "M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1" }],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.4px) scaleX(1.04)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El cúter corta por su diagonal. Sostenido, se queda al final del corte. */
+export const sliceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M11 16.586V19a1 1 0 0 1-1 1H2L18.37 3.63a1 1 0 1 1 3 3l-9.663 9.663a1 1 0 0 1-1.414 0L8 14",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(0.7px, -0.7px)' }, { transform: 'translate(0, 0)' }], 620, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1px, 1px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La ruta se recorre nodo a nodo. Sostenida, el destino se marca y el resto se apaga. */
+export const waypointsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m10.586 5.414-5.172 5.172" },
+    { tag: 'path', d: "m18.586 13.414-5.172 5.172" },
+    { tag: 'path', d: "M6 12h12" },
+    { tag: 'circle', cx: 12, cy: 20, r: 2 },
+    { tag: 'circle', cx: 12, cy: 4, r: 2 },
+    { tag: 'circle', cx: 20, cy: 12, r: 2 },
+    { tag: 'circle', cx: 4, cy: 12, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, origin: '12px 4px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 180 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 340, origin: '4px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 480 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 680, origin: '20px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 820 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { easing: SPRING_OUT, delay: 900, origin: '12px 20px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.5)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.4' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.4' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.4' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Un punto solo puede hacer una cosa: marcarse. Y sostenido se queda grande. */
+export const dotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [{ tag: 'circle', cx: 12, cy: 12, r: 1 }],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 3.5, 1]), 620, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(4)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se traza de esquina a esquina. Sostenida, se endereza un poco: una barra inclinada solo eso. */
+export const slashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [{ tag: 'path', d: "M22 2 2 22" }],
+  {
+    default: {
+      shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }) },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -20375,4 +20980,32 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'waves-ladder': wavesLadderIcon,
   'wind': windIcon,
   'wind-arrow-down': windArrowDownIcon,
+  'angle': angleIcon,
+  'astroid': astroidIcon,
+  'cone': coneIcon,
+  'cuboid': cuboidIcon,
+  'cylinder': cylinderIcon,
+  'diameter': diameterIcon,
+  'ellipse': ellipseIcon,
+  'hexagon': hexagonIcon,
+  'pentagon': pentagonIcon,
+  'pyramid': pyramidIcon,
+  'radius': radiusIcon,
+  'ratio': ratioIcon,
+  'proportions': proportionsIcon,
+  'scaling': scalingIcon,
+  'section': sectionIcon,
+  'shapes': shapesIcon,
+  'tangent': tangentIcon,
+  'torus': torusIcon,
+  'vector-square': vectorSquareIcon,
+  'space': spaceIcon,
+  'slice': sliceIcon,
+  'waypoints': waypointsIcon,
+  'dot': dotIcon,
+  'slash': slashIcon,
+  'scale': scaleIcon,
+  'scale-3d': scale3dIcon,
+  'weight': weightIcon,
+  'weight-tilde': weightTildeIcon,
 };

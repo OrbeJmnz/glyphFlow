@@ -230,6 +230,10 @@
       "path:62eab0c8634c",
       "circle:c97188848670"
     ],
+    "angle": [
+      "path:b617e3a8ba86",
+      "path:c1fc93ca4c9e"
+    ],
     "antenna": [
       "path:889281ffb15e",
       "path:e804a06cd194",
@@ -515,6 +519,9 @@
       "path:4209a9c9871a",
       "path:28478aea2655",
       "path:5b8210d72bc2"
+    ],
+    "astroid": [
+      "path:fa64aac976bc"
     ],
     "at-sign": [
       "circle:9d7fc8897980",
@@ -2771,6 +2778,10 @@
       "path:20c93a049243",
       "path:af54caf9efe7"
     ],
+    "cone": [
+      "path:23d66f5f0bd5",
+      "ellipse:238af96b0a99"
+    ],
     "construction": [
       "rect:ee17841bc00d",
       "path:21acaf45af5f",
@@ -2934,6 +2945,11 @@
       "path:77260e716c90",
       "path:eeb36d422fd8"
     ],
+    "cuboid": [
+      "path:47ddb107645e",
+      "path:1ed7164e8e27",
+      "path:a9938292c9e7"
+    ],
     "cup-soda": [
       "path:0a864496de4e",
       "path:3092a2e5f3e7",
@@ -2946,6 +2962,10 @@
       "line:4be2757f5156",
       "line:d11683d955e5",
       "line:50f3a424d7f8"
+    ],
+    "cylinder": [
+      "ellipse:22d490ea4115",
+      "path:9a14638560fb"
     ],
     "dam": [
       "path:615a9e3ed702",
@@ -3048,6 +3068,13 @@
       "path:b04ca90e24b6",
       "path:0c7f452289b5",
       "circle:c97188848670"
+    ],
+    "diameter": [
+      "circle:f89b9c537f8b",
+      "circle:c22f71a94cc7",
+      "path:a2e8440262b6",
+      "path:288702b5cc7d",
+      "path:cf900b5fa228"
     ],
     "diamond": [
       "path:b98606776433"
@@ -3203,6 +3230,9 @@
       "path:13573aaa0416",
       "path:667cd9e7d96d"
     ],
+    "dot": [
+      "circle:a07fcd427480"
+    ],
     "download": [
       "path:00163c9b524d",
       "path:17b2f245dec9",
@@ -3310,6 +3340,9 @@
     "eject": [
       "path:03e6f188764c",
       "rect:2794446f1d9b"
+    ],
+    "ellipse": [
+      "ellipse:e37920d9eaf8"
     ],
     "ellipsis": [
       "circle:a07fcd427480",
@@ -4724,6 +4757,9 @@
       "path:d823690fcdf4",
       "path:612339cc6aeb",
       "path:0e04dc47c532"
+    ],
+    "hexagon": [
+      "path:bf22cd457005"
     ],
     "highlighter": [
       "path:ff9a8f5a485e",
@@ -6669,6 +6705,9 @@
       "path:23caf7f20f63",
       "path:796845f2e6c6"
     ],
+    "pentagon": [
+      "path:81e3dbcd36e3"
+    ],
     "percent": [
       "line:fdbbc69aae21",
       "circle:45505e0cf3f7",
@@ -6908,8 +6947,17 @@
       "path:f8c42e5c8cc4",
       "path:49590c7f80d5"
     ],
+    "proportions": [
+      "rect:41e980132aa8",
+      "path:cb1778db3640",
+      "path:d8323de16207"
+    ],
     "puzzle": [
       "path:7bafa269c17e"
+    ],
+    "pyramid": [
+      "path:4c433acc0e44",
+      "path:479c72d49978"
     ],
     "qr-code": [
       "rect:ff7cc9738b97",
@@ -6985,6 +7033,12 @@
       "path:d7a10ed94526",
       "path:661ae3c0c9c8"
     ],
+    "radius": [
+      "path:0f8646a0a974",
+      "circle:f89b9c537f8b",
+      "path:9fdd854995a7",
+      "circle:9f7fcbaf7380"
+    ],
     "rainbow": [
       "path:9f7be25583c6",
       "path:eb3b4b0016a2",
@@ -6996,6 +7050,10 @@
       "path:d980f71cce1f",
       "path:3c4e4e1fc486",
       "path:557782f4e3c6"
+    ],
+    "ratio": [
+      "rect:9a31a7759b7e",
+      "rect:9741cff5b177"
     ],
     "receipt": [
       "path:df0359bda912",
@@ -7421,6 +7479,25 @@
       "path:5badf604346b",
       "path:3e0eea9df583"
     ],
+    "scale": [
+      "path:2d5a671aff35",
+      "path:f9963b485f5c",
+      "path:cc3eccc3c105",
+      "path:f046cd416a6d",
+      "path:5d2333806eeb"
+    ],
+    "scale-3d": [
+      "path:2b05d0cc4114",
+      "path:fce400ed6bed",
+      "circle:f89b9c537f8b",
+      "circle:c22f71a94cc7"
+    ],
+    "scaling": [
+      "path:c7672d7328a4",
+      "path:47427ec36376",
+      "path:a6a91ab920f6",
+      "path:cd6867a0d5c6"
+    ],
     "scan": [
       "path:96ff372fadc2",
       "path:e4d5aeacd8b8",
@@ -7596,6 +7673,10 @@
       "circle:6c5bffb15d7d",
       "path:530dc70d3efc"
     ],
+    "section": [
+      "path:29802e418ef0",
+      "path:72d954921714"
+    ],
     "send": [
       "path:f35158134324",
       "path:f2de9a14c2f2"
@@ -7672,6 +7753,11 @@
       "path:0c28513c616f",
       "circle:ba95d88c6839",
       "circle:b6420222663b"
+    ],
+    "shapes": [
+      "path:1509c804c4f5",
+      "rect:38f85033b683",
+      "circle:b9c17299e1fa"
     ],
     "share": [
       "path:baa3e3a20c80",
@@ -7945,6 +8031,12 @@
       "circle:21526043d2ab",
       "circle:4c61a838a64f"
     ],
+    "slash": [
+      "path:afcae63f9ad1"
+    ],
+    "slice": [
+      "path:010557af5d19"
+    ],
     "sliders-horizontal": [
       "path:42335bae01ed",
       "path:55bd9f0deeee",
@@ -8031,6 +8123,9 @@
       "path:02fa9c53ffb1",
       "path:05296371f34e",
       "path:62c97be538f6"
+    ],
+    "space": [
+      "path:be731b3a19fc"
     ],
     "spade": [
       "path:c132550de227",
@@ -8907,6 +9002,12 @@
       "path:f2579d8ccc94",
       "path:d365b312773b"
     ],
+    "tangent": [
+      "circle:aa1dfd5d9bd8",
+      "path:7a36a82bf480",
+      "circle:72ca9d99ba26",
+      "path:f968e1e20b5a"
+    ],
     "target": [
       "circle:1b306a76ecc0",
       "circle:9b7fc5637780",
@@ -9144,6 +9245,10 @@
       "path:775bec9518a1",
       "path:3e62f8a81b29",
       "path:fa7eb5f44847"
+    ],
+    "torus": [
+      "ellipse:63c6a6fa7b4d",
+      "ellipse:099dd0396355"
     ],
     "touchpad": [
       "rect:41e980132aa8",
@@ -9640,6 +9745,16 @@
       "line:d80838721362",
       "line:6b323e8a31fa"
     ],
+    "vector-square": [
+      "path:4df9fd8ae1dc",
+      "path:f949815763e7",
+      "path:202122495097",
+      "path:956efe62312e",
+      "rect:bd69dbe577a2",
+      "rect:390cfc495e02",
+      "rect:0c1bdd3f261e",
+      "rect:9807af7f0422"
+    ],
     "vegan": [
       "path:32d962b624bb",
       "path:ea85de91c822",
@@ -9805,6 +9920,15 @@
       "path:8ab2b675cc40",
       "path:d238fe46eb0d"
     ],
+    "waypoints": [
+      "path:9ff4f3a69fc1",
+      "path:057311c37784",
+      "path:94d076f74108",
+      "circle:e2543d3e29e6",
+      "circle:c97188848670",
+      "circle:d24273c2c9c4",
+      "circle:4e316876c062"
+    ],
     "webcam": [
       "circle:2b71904f18bf",
       "circle:34719e7a21bf",
@@ -9833,6 +9957,15 @@
       "path:8c8458a245cb",
       "path:463daa8fb717",
       "path:378c27879c92"
+    ],
+    "weight": [
+      "circle:8998df587bcb",
+      "path:7b33d60be0a5"
+    ],
+    "weight-tilde": [
+      "path:5b50a984a039",
+      "path:af15b61767b4",
+      "circle:8998df587bcb"
     ],
     "wheat": [
       "path:68405ace491c",
@@ -10217,6 +10350,11 @@
       "draw": "17c8398e8d34",
       "hold": "b606feab3dd1"
     },
+    "angle": {
+      "default": "dac9af0907ce",
+      "draw": "17c8398e8d34",
+      "hold": "33d94bb8c6cc"
+    },
     "antenna": {
       "default": "3007be72c26d",
       "draw": "17c8398e8d34",
@@ -10439,6 +10577,11 @@
     "asterisk": {
       "default": "3cce0229461a",
       "draw": "17c8398e8d34"
+    },
+    "astroid": {
+      "default": "94c384f94e52",
+      "draw": "17c8398e8d34",
+      "hold": "46c0f9fb52d2"
     },
     "at-sign": {
       "default": "1379aab3315b",
@@ -12087,6 +12230,11 @@
       "draw": "17c8398e8d34",
       "hold": "eafd548a2061"
     },
+    "cone": {
+      "default": "2ee6c67899a0",
+      "draw": "17c8398e8d34",
+      "hold": "eba77a51d483"
+    },
     "construction": {
       "default": "b8cfb87aebb9",
       "draw": "17c8398e8d34",
@@ -12224,6 +12372,11 @@
       "default": "7b9ccdcc0ce5",
       "draw": "17c8398e8d34"
     },
+    "cuboid": {
+      "default": "9c12acc37a1a",
+      "draw": "17c8398e8d34",
+      "hold": "b275e1b175e0"
+    },
     "cup-soda": {
       "default": "f13565f821dd",
       "draw": "17c8398e8d34",
@@ -12232,6 +12385,11 @@
     "currency": {
       "default": "db9c5abb271c",
       "draw": "17c8398e8d34"
+    },
+    "cylinder": {
+      "default": "51f385c48c60",
+      "draw": "17c8398e8d34",
+      "hold": "5847ca33dc16"
     },
     "dam": {
       "default": "c823ca39c61a",
@@ -12299,6 +12457,11 @@
       "default": "c27cd1aa5d91",
       "draw": "17c8398e8d34",
       "hold": "c88cc94dc073"
+    },
+    "diameter": {
+      "default": "5fdf0afa90fc",
+      "draw": "17c8398e8d34",
+      "hold": "a48e0af9d2ae"
     },
     "diamond": {
       "default": "d21ae34e9b6f",
@@ -12407,6 +12570,11 @@
       "draw": "17c8398e8d34",
       "hold": "ce685d63f8e7"
     },
+    "dot": {
+      "default": "357cea39c6a8",
+      "draw": "17c8398e8d34",
+      "hold": "3c1902e511f6"
+    },
     "download": {
       "default": "c3fd9af1e1bd",
       "draw": "17c8398e8d34",
@@ -12491,6 +12659,11 @@
     "eject": {
       "default": "428232859634",
       "draw": "17c8398e8d34"
+    },
+    "ellipse": {
+      "default": "e8a886ca4428",
+      "draw": "17c8398e8d34",
+      "hold": "c91d31e3fc6a"
     },
     "ellipsis": {
       "default": "451e275224eb",
@@ -13589,6 +13762,11 @@
       "default": "fade2f5ce82a",
       "draw": "17c8398e8d34",
       "hold": "3d843673ed0a"
+    },
+    "hexagon": {
+      "default": "886023b5141f",
+      "draw": "17c8398e8d34",
+      "hold": "fce5c34bbccf"
     },
     "highlighter": {
       "default": "37cd22abcb97",
@@ -15076,6 +15254,11 @@
       "default": "4a2d0fc9aa9c",
       "draw": "17c8398e8d34"
     },
+    "pentagon": {
+      "default": "886023b5141f",
+      "draw": "17c8398e8d34",
+      "hold": "bcec30f1fd05"
+    },
     "percent": {
       "default": "dc5314d0116b",
       "draw": "17c8398e8d34"
@@ -15269,10 +15452,20 @@
       "draw": "17c8398e8d34",
       "hold": "d1066ebd964b"
     },
+    "proportions": {
+      "default": "8de4d6567260",
+      "draw": "17c8398e8d34",
+      "hold": "05ffeeab02d1"
+    },
     "puzzle": {
       "default": "3621b4af8ed3",
       "draw": "17c8398e8d34",
       "hold": "2c55e13e89db"
+    },
+    "pyramid": {
+      "default": "dd84d8acde4e",
+      "draw": "17c8398e8d34",
+      "hold": "4118b3964824"
     },
     "qr-code": {
       "default": "6a61afa23576",
@@ -15315,6 +15508,11 @@
       "default": "b4f52a183fc7",
       "draw": "17c8398e8d34"
     },
+    "radius": {
+      "default": "a4d387714fd2",
+      "draw": "17c8398e8d34",
+      "hold": "7106d125ae87"
+    },
     "rainbow": {
       "default": "8bf38e486945",
       "draw": "17c8398e8d34"
@@ -15323,6 +15521,11 @@
       "default": "4d63ffa45e92",
       "draw": "17c8398e8d34",
       "hold": "e0cc7908b5cb"
+    },
+    "ratio": {
+      "default": "c9056cbc7c79",
+      "draw": "17c8398e8d34",
+      "hold": "8c726cdb5915"
     },
     "receipt": {
       "default": "64687fbae828",
@@ -15637,6 +15840,21 @@
       "draw": "17c8398e8d34",
       "pop": "9ba37e4923ae"
     },
+    "scale": {
+      "default": "e5b9dd7215bd",
+      "draw": "17c8398e8d34",
+      "hold": "a4077d1601f1"
+    },
+    "scale-3d": {
+      "default": "821a1ad39290",
+      "draw": "17c8398e8d34",
+      "hold": "7ff87e48e216"
+    },
+    "scaling": {
+      "default": "0b5e5cbbb6f5",
+      "draw": "17c8398e8d34",
+      "hold": "88082d789f36"
+    },
     "scan": {
       "default": "8c96ef112cb1",
       "draw": "17c8398e8d34"
@@ -15753,6 +15971,11 @@
       "draw": "17c8398e8d34",
       "reveal": "97f14701ac2a"
     },
+    "section": {
+      "default": "7ffdcf070510",
+      "draw": "17c8398e8d34",
+      "hold": "1eb5ca80a44a"
+    },
     "send": {
       "default": "fc49d4ee07b1",
       "draw": "17c8398e8d34"
@@ -15807,6 +16030,11 @@
     "settings-2": {
       "default": "5fd71bdd0c4b",
       "draw": "17c8398e8d34"
+    },
+    "shapes": {
+      "default": "871fe087263e",
+      "draw": "17c8398e8d34",
+      "hold": "80edb98c4ab1"
     },
     "share": {
       "default": "5c91b3289d72",
@@ -16013,6 +16241,16 @@
       "draw": "17c8398e8d34",
       "hold": "7b2eb98154f2"
     },
+    "slash": {
+      "default": "decb80db2f71",
+      "draw": "17c8398e8d34",
+      "hold": "aab290db03ef"
+    },
+    "slice": {
+      "default": "fb00cfceb415",
+      "draw": "17c8398e8d34",
+      "hold": "79673b3a8782"
+    },
     "sliders-horizontal": {
       "default": "770ce144df71",
       "draw": "17c8398e8d34"
@@ -16061,6 +16299,11 @@
       "default": "d6e937029523",
       "draw": "17c8398e8d34",
       "hold": "7208b2d35f0d"
+    },
+    "space": {
+      "default": "decb80db2f71",
+      "draw": "17c8398e8d34",
+      "hold": "ce263dfa0ada"
     },
     "spade": {
       "default": "a1e4d5f0f6e0",
@@ -16697,6 +16940,11 @@
       "default": "ac7c35a70b2d",
       "draw": "17c8398e8d34"
     },
+    "tangent": {
+      "default": "e83f08809d0d",
+      "draw": "17c8398e8d34",
+      "hold": "5ff55dfbdd1e"
+    },
     "target": {
       "default": "e073e978b7dd",
       "draw": "17c8398e8d34",
@@ -16877,6 +17125,11 @@
     "tornado": {
       "default": "291778276863",
       "draw": "17c8398e8d34"
+    },
+    "torus": {
+      "default": "be2ea3f9e5b4",
+      "draw": "17c8398e8d34",
+      "hold": "e040b1467501"
     },
     "touchpad": {
       "default": "6ebb1cfbe015",
@@ -17231,6 +17484,11 @@
       "default": "9f0a2d525edd",
       "draw": "17c8398e8d34"
     },
+    "vector-square": {
+      "default": "4cb38b8f4979",
+      "draw": "17c8398e8d34",
+      "hold": "bcd91c412698"
+    },
     "vegan": {
       "default": "62bdfd1c7902",
       "draw": "17c8398e8d34",
@@ -17361,6 +17619,11 @@
       "draw": "17c8398e8d34",
       "hold": "ae117d6e30a1"
     },
+    "waypoints": {
+      "default": "da555663c3a7",
+      "draw": "17c8398e8d34",
+      "hold": "2f76fd7cb411"
+    },
     "webcam": {
       "default": "46b5bfa00cc5",
       "draw": "17c8398e8d34"
@@ -17377,6 +17640,16 @@
     "webhook-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "weight": {
+      "default": "ca1c79f648fe",
+      "draw": "17c8398e8d34",
+      "hold": "d00b43237b87"
+    },
+    "weight-tilde": {
+      "default": "15756124a78f",
+      "draw": "17c8398e8d34",
+      "hold": "77931f51b79d"
     },
     "wheat": {
       "default": "799e34614e4f",
