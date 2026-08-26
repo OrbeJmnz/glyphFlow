@@ -23,6 +23,12 @@
     "activity": [
       "path:702a722aaf15"
     ],
+    "air-vent": [
+      "path:246a897f4a2d",
+      "path:405a180ef984",
+      "path:e359c37c1184",
+      "path:33283c28faa3"
+    ],
     "airplay": [
       "path:65984acf7717",
       "path:d0e71c02962a"
@@ -254,6 +260,12 @@
       "path:3551ee6df4bc",
       "path:34ef44ba0da3",
       "path:9d1f47749369"
+    ],
+    "armchair": [
+      "path:d0a1fb47e253",
+      "path:7e3a1100bd20",
+      "path:56531f35d041",
+      "path:f983872c4b0d"
     ],
     "arrow-big-down": [
       "path:8919ba3d21b2"
@@ -673,6 +685,13 @@
       "path:48c323eb89be",
       "path:996d85dad073"
     ],
+    "bath": [
+      "path:1acc63e2b1eb",
+      "path:a6bcf8f9c30e",
+      "path:ff0106821348",
+      "path:a94db64045b6",
+      "path:e11798ee73e2"
+    ],
     "battery": [
       "path:f31245513d71",
       "rect:e8d8bf6cc89e"
@@ -724,6 +743,23 @@
       "path:7791bd69be3b",
       "path:469e80851869",
       "line:ed241e14c4ca"
+    ],
+    "bed": [
+      "path:76a0d2ee117f",
+      "path:e2bc588fd952",
+      "path:b84531a7a488",
+      "path:d720ca3c6709"
+    ],
+    "bed-double": [
+      "path:c9377c56b420",
+      "path:b4a41586ae8e",
+      "path:fa807a2aa1d6",
+      "path:3afaecc8d0f1"
+    ],
+    "bed-single": [
+      "path:eefb490d034b",
+      "path:5474353b09d0",
+      "path:d2aab7441a8d"
     ],
     "beef": [
       "path:74192bcd1b01",
@@ -840,6 +876,23 @@
     "blend": [
       "circle:92ccc502a543",
       "circle:0650ec949cf8"
+    ],
+    "blender": [
+      "path:0599339766ce",
+      "path:1761067c5d9b",
+      "path:2d5ef657d27e",
+      "path:b797e0c00844",
+      "path:aa034394615f",
+      "path:d38b9216eb2e"
+    ],
+    "blinds": [
+      "path:3778fcec1c3f",
+      "path:ce0f5f3e9774",
+      "path:0969bd772ad7",
+      "path:0ced82cff4f7",
+      "path:91db8f5ef15c",
+      "path:ea2bd06de7e7",
+      "circle:f83955a71287"
     ],
     "blocks": [
       "path:77eb5604756e",
@@ -1180,6 +1233,24 @@
       "path:48bcce95f0c5",
       "path:dc42ac4678d5",
       "rect:1d4195e3d919"
+    ],
+    "broom": [
+      "path:3f8a48a6e62b",
+      "path:2bc108aaff3e",
+      "path:4a974a2898a5",
+      "path:58a2a447d6ce"
+    ],
+    "broom-sparkles": [
+      "path:2519c6c1718c",
+      "path:de6ce5567d95",
+      "path:3f8a48a6e62b",
+      "path:2bc108aaff3e",
+      "path:df4c80915f8d",
+      "path:6a3e852c85ea",
+      "path:bdc70fe53aec",
+      "path:4a974a2898a5",
+      "path:a174db7d6d0d",
+      "path:58a2a447d6ce"
     ],
     "brush": [
       "path:971ce65c7606",
@@ -2817,6 +2888,25 @@
       "line:aae46a48bb36",
       "path:60dd5fc65ecc"
     ],
+    "door-closed": [
+      "path:b6a20ca60df9",
+      "path:bb708772ff94",
+      "path:3a9f4a2de11a"
+    ],
+    "door-closed-locked": [
+      "path:b6a20ca60df9",
+      "path:f23c26d51d0a",
+      "path:5c91eccdae99",
+      "path:dda889912b14",
+      "rect:b21f98211215"
+    ],
+    "door-open": [
+      "path:f57eae155348",
+      "path:63791b7da2b0",
+      "path:c397bae6d194",
+      "path:13573aaa0416",
+      "path:667cd9e7d96d"
+    ],
     "download": [
       "path:00163c9b524d",
       "path:17b2f245dec9",
@@ -3011,6 +3101,10 @@
       "path:869be482501c",
       "path:06e3cd556126",
       "path:41f25670cb06"
+    ],
+    "fan": [
+      "path:41479767e6e3",
+      "path:8e7e336271b8"
     ],
     "fast-forward": [
       "path:fdd09ea61e7e",
@@ -4146,6 +4240,18 @@
       "path:4e220319824d",
       "path:cadf1f7385c6"
     ],
+    "heater": [
+      "path:c6193de664fb",
+      "path:006226fb5aeb",
+      "path:d87d0bdb63db",
+      "path:57b54ec75807",
+      "path:6bd606163b1f",
+      "path:c929bd2a87b1",
+      "path:fbbaf42ece44",
+      "path:ba5bcdfb49a1",
+      "path:8e1295ea94a7",
+      "path:579f5c23fbab"
+    ],
     "highlighter": [
       "path:ff9a8f5a485e",
       "path:fe23e862ee2c"
@@ -4373,6 +4479,37 @@
       "path:ebca78a2f3e1",
       "path:1fa84cccf29a",
       "path:101f890beab1"
+    ],
+    "lamp": [
+      "path:ef0240a5e279",
+      "path:ad016f2b18b8",
+      "path:4720ea1da4e0"
+    ],
+    "lamp-ceiling": [
+      "path:c669d4d92729",
+      "path:92b84469009a",
+      "path:de121acb0997"
+    ],
+    "lamp-desk": [
+      "path:a5761b98be91",
+      "path:d8ec413378b3",
+      "path:21262f19a344",
+      "path:9724e77ebf36"
+    ],
+    "lamp-floor": [
+      "path:66953bbcc8ed",
+      "path:c74d1859661c",
+      "path:f68c49c21393"
+    ],
+    "lamp-wall-down": [
+      "path:171cdbb76a13",
+      "path:d477f31560a3",
+      "path:7568645238eb"
+    ],
+    "lamp-wall-up": [
+      "path:5e28de699cf4",
+      "path:235df9b38654",
+      "path:0c9dd320a43d"
     ],
     "landmark": [
       "path:65e22a690ba0",
@@ -5194,6 +5331,13 @@
       "path:ab92bb2700a4",
       "rect:9a31a7759b7e"
     ],
+    "microwave": [
+      "rect:7b7ac0469d53",
+      "rect:aad04cf8b17f",
+      "path:354722639fd9",
+      "path:876f84f10b50",
+      "path:1850276aea01"
+    ],
     "milk": [
       "path:d001604d5d6c",
       "path:cc5ef9dfd532",
@@ -5219,6 +5363,18 @@
     ],
     "minus": [
       "path:52f6eb0c4372"
+    ],
+    "mirror-rectangular": [
+      "path:41bac94640ea",
+      "path:b5638c3a8c5b",
+      "rect:2428eb83eaf8"
+    ],
+    "mirror-round": [
+      "path:bf1fc986266a",
+      "path:c132550de227",
+      "path:7d9907a32470",
+      "path:e0466143bf8c",
+      "circle:2b71904f18bf"
     ],
     "monitor": [
       "rect:20419a9cd419",
@@ -6260,6 +6416,11 @@
       "path:006e317a5f7c",
       "path:20d6939fac75"
     ],
+    "refrigerator": [
+      "path:b0f9921ae801",
+      "path:c3d5ef664089",
+      "path:227c1e4e138e"
+    ],
     "regex": [
       "path:ec733d0b592a",
       "path:988868f6c12a",
@@ -6747,6 +6908,15 @@
       "line:2ac9d3570289",
       "line:4e9dfdffc319"
     ],
+    "shelving-unit": [
+      "path:8c0e9f9996b9",
+      "path:b310a6a515bc",
+      "path:b51fde89d9ca",
+      "path:3a01242d74ba",
+      "path:3657b812c257",
+      "path:752e341fc9a5",
+      "path:d4a9a2a663cb"
+    ],
     "shield": [
       "path:f05a301203fa"
     ],
@@ -6882,6 +7052,18 @@
       "path:c7f7b05bc8cb",
       "path:caf69f589e23"
     ],
+    "shower-head": [
+      "path:b224b7833172",
+      "path:20f126fbb008",
+      "path:879f721758b8",
+      "path:78d1287b4143",
+      "path:005e2fb8551e",
+      "path:6bc385386775",
+      "path:7e24c4284841",
+      "path:a2e2f1146acf",
+      "path:0f27a35dfa13",
+      "path:2eb7384467a5"
+    ],
     "shrink": [
       "path:87c63ade81cd",
       "path:cd6e0c0c4b34",
@@ -6984,6 +7166,19 @@
       "path:39e3798d26fd",
       "path:624a6b5664b0",
       "path:8480cc704c62"
+    ],
+    "soap-dispenser-droplet": [
+      "path:062bdb6187c5",
+      "path:7cb71d0364fc",
+      "path:3c14370af789",
+      "path:d2ae248cef84"
+    ],
+    "sofa": [
+      "path:32253f70863d",
+      "path:4daecae43c98",
+      "path:0323fa30de6d",
+      "path:7ba0316ccfa4",
+      "path:ed8065b3acd7"
     ],
     "solar-panel": [
       "path:1d0aaf9fd991",
@@ -7974,6 +8169,10 @@
       "circle:23526369d4ab",
       "rect:6f3d0bb70149"
     ],
+    "toilet": [
+      "path:21cbfbe74342",
+      "path:d574687b692a"
+    ],
     "tornado": [
       "path:08bf2e0151fc",
       "path:343816468e40",
@@ -7993,6 +8192,11 @@
       "path:378c27879c92",
       "path:ebca78a2f3e1",
       "path:f197a9af631a"
+    ],
+    "towel-rack": [
+      "path:0ea9df8f5374",
+      "path:ba0dc52e33e1",
+      "path:bb0f40cb11e1"
     ],
     "toy-brick": [
       "rect:4628d300ae98",
@@ -8445,6 +8649,13 @@
       "path:3ec5a7ff7d5c",
       "path:24e514240a56"
     ],
+    "wallpaper": [
+      "path:5c523d642661",
+      "path:7d3dab3c346b",
+      "path:628e4a712b43",
+      "circle:394dfe104eeb",
+      "rect:20419a9cd419"
+    ],
     "wand": [
       "path:33d0801b3cbb",
       "path:0864b2831d46",
@@ -8471,6 +8682,13 @@
       "path:a32445519e0a",
       "path:695fd7e2ae95",
       "path:80e6860ed483"
+    ],
+    "washing-machine": [
+      "path:20c16941cd71",
+      "path:dc24e3064052",
+      "rect:85334ed4a7c2",
+      "circle:2ee708dd4778",
+      "path:b3ac1ff106d3"
     ],
     "webcam": [
       "circle:2b71904f18bf",
@@ -8660,6 +8878,11 @@
       "draw": "17c8398e8d34",
       "reveal": "24f6bf4be6db"
     },
+    "air-vent": {
+      "default": "6297040c845b",
+      "draw": "17c8398e8d34",
+      "hold": "07db5c5fe76b"
+    },
     "airplay": {
       "default": "b0d960baa955",
       "draw": "17c8398e8d34"
@@ -8818,6 +9041,11 @@
     "archive-x": {
       "default": "e09f30744573",
       "draw": "17c8398e8d34"
+    },
+    "armchair": {
+      "default": "5320c828f97e",
+      "draw": "17c8398e8d34",
+      "hold": "ce9ea52a43b3"
     },
     "arrow-big-down": {
       "default": "efa362a6c29a",
@@ -9162,6 +9390,11 @@
       "default": "c9821f4389e2",
       "draw": "17c8398e8d34"
     },
+    "bath": {
+      "default": "504860a7b297",
+      "draw": "17c8398e8d34",
+      "hold": "1d7c7218822d"
+    },
     "battery": {
       "default": "e6641968c2c3",
       "draw": "17c8398e8d34"
@@ -9197,6 +9430,21 @@
     "bean-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "bed": {
+      "default": "a44642891156",
+      "draw": "17c8398e8d34",
+      "hold": "7a39b22109cf"
+    },
+    "bed-double": {
+      "default": "998d3088375d",
+      "draw": "17c8398e8d34",
+      "hold": "43fc28e53566"
+    },
+    "bed-single": {
+      "default": "998d3088375d",
+      "draw": "17c8398e8d34",
+      "hold": "43fc28e53566"
     },
     "beef": {
       "default": "0aeb3ad4ea54",
@@ -9286,6 +9534,16 @@
     "blend": {
       "default": "7f459f8651aa",
       "draw": "17c8398e8d34"
+    },
+    "blender": {
+      "default": "949833d2dfe1",
+      "draw": "17c8398e8d34",
+      "hold": "05fb44668d66"
+    },
+    "blinds": {
+      "default": "7c8ce8f3fea5",
+      "draw": "17c8398e8d34",
+      "hold": "9b0959bb1efc"
     },
     "blocks": {
       "default": "63e759e1be51",
@@ -9545,6 +9803,16 @@
     "briefcase-medical": {
       "default": "6d5d68ce2ed7",
       "draw": "17c8398e8d34"
+    },
+    "broom": {
+      "default": "664d2f537ab0",
+      "draw": "17c8398e8d34",
+      "hold": "d9bd979bdec1"
+    },
+    "broom-sparkles": {
+      "default": "df46a16e8c35",
+      "draw": "17c8398e8d34",
+      "hold": "0a4c1fe28655"
     },
     "brush": {
       "default": "8d87c092d59a",
@@ -10700,6 +10968,21 @@
       "default": "1738a62cdb8d",
       "draw": "17c8398e8d34"
     },
+    "door-closed": {
+      "default": "80ea397888fb",
+      "draw": "17c8398e8d34",
+      "hold": "6af792648e25"
+    },
+    "door-closed-locked": {
+      "default": "cf599d39d09c",
+      "draw": "17c8398e8d34",
+      "hold": "48063af0d0f4"
+    },
+    "door-open": {
+      "default": "6f8661559516",
+      "draw": "17c8398e8d34",
+      "hold": "ce685d63f8e7"
+    },
     "download": {
       "default": "c3fd9af1e1bd",
       "draw": "17c8398e8d34",
@@ -10842,6 +11125,11 @@
     "face-slightly-smiling-plus": {
       "default": "d8e20ce24235",
       "draw": "17c8398e8d34"
+    },
+    "fan": {
+      "default": "57c19408b896",
+      "draw": "17c8398e8d34",
+      "hold": "b102a0ce4b4c"
     },
     "fast-forward": {
       "default": "f0f018b72b52",
@@ -11748,6 +12036,11 @@
       "draw": "17c8398e8d34",
       "pulse": "4c1f81594e5d"
     },
+    "heater": {
+      "default": "4b184985599f",
+      "draw": "17c8398e8d34",
+      "hold": "541911c8106d"
+    },
     "highlighter": {
       "default": "37cd22abcb97",
       "draw": "17c8398e8d34"
@@ -11901,6 +12194,36 @@
     "keyboard-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "lamp": {
+      "default": "8ac5944723ac",
+      "draw": "17c8398e8d34",
+      "hold": "166e7be12a4d"
+    },
+    "lamp-ceiling": {
+      "default": "661aec948104",
+      "draw": "17c8398e8d34",
+      "hold": "9ed8a7823efb"
+    },
+    "lamp-desk": {
+      "default": "0a7b636ac00e",
+      "draw": "17c8398e8d34",
+      "hold": "2f1a2f0620b3"
+    },
+    "lamp-floor": {
+      "default": "695fa2459e8c",
+      "draw": "17c8398e8d34",
+      "hold": "6f654277c642"
+    },
+    "lamp-wall-down": {
+      "default": "9cfc0d6ec390",
+      "draw": "17c8398e8d34",
+      "hold": "e3037bfcbbcf"
+    },
+    "lamp-wall-up": {
+      "default": "c65d4476e713",
+      "draw": "17c8398e8d34",
+      "hold": "aee3f21b3a73"
     },
     "landmark": {
       "alert": "1b856f16573a",
@@ -12534,6 +12857,11 @@
       "draw": "17c8398e8d34",
       "hold": "d4c6c95fa707"
     },
+    "microwave": {
+      "default": "3dd4e4777e06",
+      "draw": "17c8398e8d34",
+      "hold": "41ab52f0605b"
+    },
     "milk": {
       "default": "108ebef72a45",
       "draw": "17c8398e8d34"
@@ -12554,6 +12882,16 @@
       "default": "4fc6320724f7",
       "draw": "17c8398e8d34",
       "reveal": "b29a83b3984a"
+    },
+    "mirror-rectangular": {
+      "default": "3dcb3484df35",
+      "draw": "17c8398e8d34",
+      "hold": "0f2d6510f3c2"
+    },
+    "mirror-round": {
+      "default": "0cec59fb87fe",
+      "draw": "17c8398e8d34",
+      "hold": "b7fdf09dfdab"
     },
     "monitor": {
       "default": "ae1edcea7e29",
@@ -13352,6 +13690,11 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
     },
+    "refrigerator": {
+      "default": "9d9be70fb1dd",
+      "draw": "17c8398e8d34",
+      "hold": "7f5ed850c554"
+    },
     "regex": {
       "default": "3c2fc5fbeeee",
       "draw": "17c8398e8d34"
@@ -13684,6 +14027,11 @@
       "default": "01c29ae61cff",
       "draw": "17c8398e8d34"
     },
+    "shelving-unit": {
+      "default": "3e0e9fa2dca0",
+      "draw": "17c8398e8d34",
+      "hold": "d38bc5c403de"
+    },
     "shield": {
       "default": "6cd8791b2f8e",
       "draw": "17c8398e8d34",
@@ -13782,6 +14130,11 @@
       "default": "c6faa916055c",
       "draw": "17c8398e8d34"
     },
+    "shower-head": {
+      "default": "315fbf0defe9",
+      "draw": "17c8398e8d34",
+      "hold": "b70a90a72c79"
+    },
     "shrink": {
       "default": "7c7f7e31329a",
       "draw": "17c8398e8d34"
@@ -13854,6 +14207,16 @@
     "snowflake": {
       "default": "ddcf7d4a9eba",
       "draw": "17c8398e8d34"
+    },
+    "soap-dispenser-droplet": {
+      "default": "f38504006da1",
+      "draw": "17c8398e8d34",
+      "hold": "408e1eba6be7"
+    },
+    "sofa": {
+      "default": "216a1930fad2",
+      "draw": "17c8398e8d34",
+      "hold": "912a22ad25a1"
     },
     "solar-panel": {
       "default": "77b1f7d4dca3",
@@ -14577,6 +14940,11 @@
       "default": "f7a339c6ccfa",
       "draw": "17c8398e8d34"
     },
+    "toilet": {
+      "default": "a087817b11c9",
+      "draw": "17c8398e8d34",
+      "hold": "5fe915b38ba9"
+    },
     "tornado": {
       "default": "291778276863",
       "draw": "17c8398e8d34"
@@ -14588,6 +14956,11 @@
     "touchpad-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "towel-rack": {
+      "default": "62a1444a9ca4",
+      "draw": "17c8398e8d34",
+      "hold": "9c595b888356"
     },
     "toy-brick": {
       "default": "ecc1fabb993d",
@@ -14930,6 +15303,11 @@
       "draw": "17c8398e8d34",
       "hold": "ba145095fead"
     },
+    "wallpaper": {
+      "default": "f2e42b446ba1",
+      "draw": "17c8398e8d34",
+      "hold": "898a96c2c0ff"
+    },
     "wand": {
       "default": "4be4f4efdc10",
       "draw": "17c8398e8d34",
@@ -14943,6 +15321,11 @@
     "warehouse": {
       "default": "56751a4b4117",
       "draw": "17c8398e8d34"
+    },
+    "washing-machine": {
+      "default": "e164a6511a99",
+      "draw": "17c8398e8d34",
+      "hold": "c6ef03491385"
     },
     "webcam": {
       "default": "46b5bfa00cc5",

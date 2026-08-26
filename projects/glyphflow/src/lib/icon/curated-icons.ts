@@ -5814,6 +5814,12 @@ export * from './icons/tree';
 import { treeDeciduousIcon, treePineIcon, treePalmIcon } from './icons/tree';
 export * from './icons/plug';
 import { plugIcon, plug2Icon, plugZapIcon } from './icons/plug';
+export * from './icons/lamp';
+import { lampIcon, lampFloorIcon, lampCeilingIcon, lampWallDownIcon, lampWallUpIcon, lampDeskIcon } from './icons/lamp';
+export * from './icons/bed';
+import { bedIcon, bedDoubleIcon, bedSingleIcon } from './icons/bed';
+export * from './icons/door';
+import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/align';
 import { alignStartHorizontalIcon, alignEndHorizontalIcon, alignStartVerticalIcon, alignEndVerticalIcon, alignCenterHorizontalIcon, alignCenterVerticalIcon, alignHorizontalJustifyStartIcon, alignHorizontalJustifyEndIcon, alignHorizontalJustifyCenterIcon, alignVerticalJustifyStartIcon, alignVerticalJustifyEndIcon, alignVerticalJustifyCenterIcon, alignHorizontalDistributeStartIcon, alignHorizontalDistributeEndIcon, alignHorizontalDistributeCenterIcon, alignVerticalDistributeStartIcon, alignVerticalDistributeEndIcon, alignVerticalDistributeCenterIcon, alignHorizontalSpaceBetweenIcon, alignVerticalSpaceBetweenIcon, alignHorizontalSpaceAroundIcon, alignVerticalSpaceAroundIcon } from './icons/align';
 export * from './icons/square';
@@ -13766,6 +13772,661 @@ export const fingerprintPatternIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+// ── Casa y objetos ─────────────────────────────────────────────────────────────────────────
+// Las lámparas viven en icons/lamp.ts, las camas en icons/bed.ts y las puertas en icons/door.ts,
+// porque en las tres el gesto lo decide cómo está sujeta cada cosa. Aquí queda el resto.
+
+/** Se apaga y vuelve: testigos, mandos, luz de horno. */
+const APAGA_CASA = /* @__PURE__ */ [
+  { opacity: '1', offset: 0 },
+  { opacity: '0.3', offset: 0.42 },
+  { opacity: '1', offset: 1 },
+];
+
+/** Un asiento cede bajo el peso. Solo encoge, así que no necesita margen. */
+const CEDE = /* @__PURE__ */ [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.92)', offset: 0.45 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
+/** Una gota que cae y se repone. */
+const GOTA = /* @__PURE__ */ [
+  { transform: 'translateY(-0.8px)', opacity: '0.3', offset: 0 },
+  { transform: 'translateY(0.8px)', opacity: '1', offset: 0.6 },
+  { transform: 'translateY(0)', opacity: '1', offset: 1 },
+];
+
+/** El calor sube y se deshace. */
+const ONDA = /* @__PURE__ */ [
+  { transform: 'translateY(0)', opacity: '1', offset: 0 },
+  { transform: 'translateY(-0.8px)', opacity: '0.4', offset: 0.6 },
+  { transform: 'translateY(0)', opacity: '1', offset: 1 },
+];
+
+/** Un reflejo que cruza el cristal en diagonal. */
+const BRILLO = /* @__PURE__ */ [
+  { transform: 'translate(0, 0)', offset: 0 },
+  { transform: 'translate(0.8px, -0.8px)', offset: 0.5 },
+  { transform: 'translate(0, 0)', offset: 1 },
+];
+
+/** Alguien se sienta: el asiento cede y el respaldo lo acusa. Las patas aguantan. */
+export const armchairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" },
+    {
+      tag: 'path',
+      d: "M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z",
+    },
+    { tag: 'path', d: "M5 18v2" },
+    { tag: 'path', d: "M19 18v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(CEDE, 520, { easing: EASE, origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 500, { easing: SPRING_OUT, delay: 60 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.92)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Igual, con sitio para tres. */
+export const sofaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" },
+    {
+      tag: 'path',
+      d: "M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z",
+    },
+    { tag: 'path', d: "M4 18v2" },
+    { tag: 'path', d: "M20 18v2" },
+    { tag: 'path', d: "M12 4v9" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(CEDE, 520, { easing: EASE, origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 500, { easing: SPRING_OUT, delay: 60 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 500, { easing: SPRING_OUT, delay: 60 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.92)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Lo que se mueve son las cajas de los estantes; el mueble está fijo a la pared. */
+export const shelvingUnitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 12V9a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" },
+    { tag: 'path', d: "M16 20v-3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3" },
+    { tag: 'path', d: "M20 22V2" },
+    { tag: 'path', d: "M4 12h16" },
+    { tag: 'path', d: "M4 20h16" },
+    { tag: 'path', d: "M4 2v20" },
+    { tag: 'path', d: "M4 4h16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 460, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 460, { easing: SPRING_OUT, delay: 110 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El agua se mece dentro; la bañera no se mueve. */
+export const bathIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 4 8 6" },
+    { tag: 'path', d: "M17 19v2" },
+    { tag: 'path', d: "M2 12h20" },
+    { tag: 'path', d: "M7 19v2" },
+    {
+      tag: 'path',
+      d: "M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track([
+          { transform: 'translateY(0)', offset: 0 },
+          { transform: 'translateY(-0.6px)', offset: 0.35 },
+          { transform: 'translateY(0.4px)', offset: 0.7 },
+          { transform: 'translateY(0)', offset: 1 },
+        ], 620, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Las gotas caen en cadena, de la alcachofa hacia abajo. */
+export const showerHeadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "m4 4 2.5 2.5" },
+    { tag: 'path', d: "M13.5 6.5a4.95 4.95 0 0 0-7 7" },
+    { tag: 'path', d: "M15 5 5 15" },
+    { tag: 'path', d: "M14 17v.01" },
+    { tag: 'path', d: "M10 16v.01" },
+    { tag: 'path', d: "M13 13v.01" },
+    { tag: 'path', d: "M16 10v.01" },
+    { tag: 'path', d: "M11 20v.01" },
+    { tag: 'path', d: "M17 14v.01" },
+    { tag: 'path', d: "M20 11v.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT }),
+        9: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 70 }),
+        5: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 140 }),
+        8: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 210 }),
+        4: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 280 }),
+        3: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 350 }),
+        7: /* @__PURE__ */ track(GOTA, 420, { easing: SPRING_OUT, delay: 420 }),
+      },
+    },
+    hold: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Tira de la cisterna y la taza acusa la descarga. */
+export const toiletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M7 12h13a1 1 0 0 1 1 1 5 5 0 0 1-5 5h-.598a.5.5 0 0 0-.424.765l1.544 2.47a.5.5 0 0 1-.424.765H5.402a.5.5 0 0 1-.424-.765L7 18",
+    },
+    { tag: 'path', d: "M8 18a5 5 0 0 1-5-5V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.5, 0]), 400, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.05, 1]), 480, { easing: SPRING_OUT, origin: '14px 16px', delay: 140 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La toalla se mece colgada de su barra. */
+export const towelRackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 7h-2" },
+    {
+      tag: 'path',
+      d: "M6.5 3h11A2.5 2.5 0 0 1 20 5.5V20a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V5.5a1 1 0 0 0-5 0V17a1 1 0 0 0 1 1h4",
+    },
+    { tag: 'path', d: "M9 7H2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 2.5, -1.8, 0]), 700, { easing: EASE, origin: '13px 3px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(2.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 3px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Aprietas el pulsador y cae la gota. En ese orden, que es como funciona. */
+export const soapDispenserDropletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10.5 2v4" },
+    { tag: 'path', d: "M14 2H7a2 2 0 0 0-2 2" },
+    {
+      tag: 'path',
+      d: "M19.29 14.76A6.67 6.67 0 0 1 17 11a6.6 6.6 0 0 1-2.29 3.76c-1.15.92-1.71 2.04-1.71 3.19 0 2.22 1.8 4.05 4 4.05s4-1.83 4-4.05c0-1.16-.57-2.26-1.71-3.19",
+    },
+    {
+      tag: 'path',
+      d: "M9.607 21H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h7V7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.8, 0]), 400, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.8, 0]), 400, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 460, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Centrifuga: el remolino de dentro SÍ puede girar, porque es un trazo y no un círculo. */
+export const washingMachineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 6h3" },
+    { tag: 'path', d: "M17 6h.01" },
+    { tag: 'rect', x: 3, y: 2, width: 18, height: 20, rx: 2 },
+    { tag: 'circle', cx: 12, cy: 13, r: 5 },
+    { tag: 'path', d: "M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: 'linear', origin: '12px 13px' }),
+        1: /* @__PURE__ */ track(APAGA_CASA, 440, { delay: 200 }),
+      },
+    },
+    hold: {
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(180deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 13px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se tira del tirador y la puerta cede un pelo. */
+export const refrigeratorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M5 6a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6Z" },
+    { tag: 'path', d: "M5 10h14" },
+    { tag: 'path', d: "M15 7v6" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.8, 0]), 460, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.98)' }, { transform: 'scaleX(1)' }], 480, { easing: EASE, delay: 80, origin: '5px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Está funcionando: la luz de dentro y el panel parpadean. */
+export const microwaveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 2, y: 4, width: 20, height: 15, rx: 2 },
+    { tag: 'rect', x: 6, y: 8, width: 8, height: 7, rx: 1 },
+    { tag: 'path', d: "M18 8v7" },
+    { tag: 'path', d: "M6 19v2" },
+    { tag: 'path', d: "M18 19v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(APAGA_CASA, 440),
+        2: /* @__PURE__ */ track(APAGA_CASA, 440, { delay: 160 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 11.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Bate: lo de dentro se agita de lado a lado y el botón parpadea. */
+export const blenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M8 14a2 2 0 0 0-1.963 1.615l-1.018 5.193A1 1 0 0 0 6 22h12a1 1 0 0 0 .981-1.192l-1.018-5.193A2 2 0 0 0 16 14z",
+    },
+    { tag: 'path', d: "m17 2-1 12" },
+    { tag: 'path', d: "M8.006 14 7 2" },
+    { tag: 'path', d: "M7.565 8.787A5 5 0 0 0 12 8a5 5 0 0 1 4.56-.75" },
+    { tag: 'path', d: "M19 2H5a2 2 0 0 0-2 2v5a2 2 0 0 0 .688 1.5" },
+    { tag: 'path', d: "M12 18h.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track([
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(-0.9px)', offset: 0.28 },
+          { transform: 'translateX(0.9px)', offset: 0.62 },
+          { transform: 'translateX(0)', offset: 1 },
+        ], 620, { easing: EASE }),
+        5: /* @__PURE__ */ track(APAGA_CASA, 440, { delay: 120 }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El calor sube: las dos ondas primero, y las aletas se quedan donde están. */
+export const heaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 8c2-3-2-3 0-6" },
+    { tag: 'path', d: "M15.5 8c2-3-2-3 0-6" },
+    { tag: 'path', d: "M6 10h.01" },
+    { tag: 'path', d: "M6 14h.01" },
+    { tag: 'path', d: "M10 16v-4" },
+    { tag: 'path', d: "M14 16v-4" },
+    { tag: 'path', d: "M18 16v-4" },
+    { tag: 'path', d: "M20 6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3" },
+    { tag: 'path', d: "M5 20v2" },
+    { tag: 'path', d: "M19 20v2" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(ONDA, 620, { easing: EASE }),
+        1: /* @__PURE__ */ track(ONDA, 620, { easing: EASE, delay: 120 }),
+        2: /* @__PURE__ */ track(APAGA_CASA, 440, { delay: 200 }),
+        3: /* @__PURE__ */ track(APAGA_CASA, 440, { delay: 250 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Sale aire: los dos remolinos giran, y esos sí son trazos. */
+export const airVentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 17.5a2.5 2.5 0 1 1-4 2.03V12" },
+    { tag: 'path', d: "M6 12H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" },
+    { tag: 'path', d: "M6 8h12" },
+    { tag: 'path', d: "M6.6 15.572A2 2 0 1 0 10 17v-5" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 14, -6, 0]), 720, { easing: EASE, origin: '16px 17.5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 14, -6, 0]), 720, { easing: EASE, origin: '8px 17.5px', delay: 120 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(14deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17.5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(14deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 17.5px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Gira de verdad: sus aspas son un trazo, así que la vuelta entera se ve. */
+export const fanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    {
+      tag: 'path',
+      d: "M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z",
+    },
+    { tag: 'path', d: "M12 12v.01" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: 'linear', origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(120deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Barre: gira desde el puño, que es de donde se agarra. */
+export const broomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M13.5 10.5 22 2" },
+    {
+      tag: 'path',
+      d: "M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z",
+    },
+    { tag: 'path', d: "m5 18 2-2" },
+    { tag: 'path', d: "m7.699 10.7 5.602 5.601" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Barre igual, y los destellos salen después del barrido. */
+export const broomSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 2v2" },
+    { tag: 'path', d: "M12 3h-2" },
+    { tag: 'path', d: "M13.5 10.5 22 2" },
+    {
+      tag: 'path',
+      d: "M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z",
+    },
+    { tag: 'path', d: "M20 15v4" },
+    { tag: 'path', d: "M22 17h-4" },
+    { tag: 'path', d: "M4 4v4" },
+    { tag: 'path', d: "m5 18 2-2" },
+    { tag: 'path', d: "M6 6H2" },
+    { tag: 'path', d: "m7.699 10.7 5.602 5.601" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 3, 0]), 620, { easing: EASE, origin: '22px 2px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '4px 6px', delay: 180 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '4px 6px', delay: 225 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '11px 3px', delay: 270 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '11px 3px', delay: 315 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '20px 17px', delay: 360 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.4, 1]), 380, { easing: SPRING_OUT, origin: '20px 17px', delay: 405 }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '22px 2px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se cierran: cada lama bascula desde su extremo izquierdo, de arriba abajo. */
+export const blindsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M3 3h18" },
+    { tag: 'path', d: "M20 7H8" },
+    { tag: 'path', d: "M20 11H8" },
+    { tag: 'path', d: "M10 19h10" },
+    { tag: 'path', d: "M8 15h12" },
+    { tag: 'path', d: "M4 3v14" },
+    { tag: 'circle', cx: 4, cy: 19, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 520, { easing: EASE, origin: '8px 7px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 520, { easing: EASE, origin: '8px 11px', delay: 80 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 520, { easing: EASE, origin: '8px 15px', delay: 160 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -5, 0]), 520, { easing: EASE, origin: '10px 19px', delay: 240 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1, 0]), 460, { easing: SPRING_OUT, delay: 220 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 7px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 11px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 15px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 19px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El motivo se compone: primero el sol, después el monte. */
+export const wallpaperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 17v4" },
+    { tag: 'path', d: "M8 21h8" },
+    { tag: 'path', d: "m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15" },
+    { tag: 'circle', cx: 8, cy: 9, r: 2 },
+    { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.3, 1]), 420, { easing: SPRING_OUT, origin: '8px 9px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([1.2, 0]), 460, { easing: SPRING_OUT, delay: 140, fill: 'backwards' }),
+      },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El brillo cruza el cristal: dos reflejos, uno detrás del otro. */
+export const mirrorRectangularIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 6 8 9" },
+    { tag: 'path', d: "m16 7-8 8" },
+    { tag: 'rect', x: 4, y: 2, width: 16, height: 20, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(BRILLO, 520, { easing: EASE }),
+        1: /* @__PURE__ */ track(BRILLO, 520, { easing: EASE, delay: 110 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Lo mismo, en el redondo. */
+export const mirrorRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 6.6 8.6 8" },
+    { tag: 'path', d: "M12 18v4" },
+    { tag: 'path', d: "M15 7.5 9.5 13" },
+    { tag: 'path', d: "M7 22h10" },
+    { tag: 'circle', cx: 12, cy: 10, r: 8 },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(BRILLO, 520, { easing: EASE }),
+        2: /* @__PURE__ */ track(BRILLO, 520, { easing: EASE, delay: 110 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -15223,4 +15884,37 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'plug': plugIcon,
   'plug-2': plug2Icon,
   'plug-zap': plugZapIcon,
+  'armchair': armchairIcon,
+  'sofa': sofaIcon,
+  'shelving-unit': shelvingUnitIcon,
+  'bath': bathIcon,
+  'shower-head': showerHeadIcon,
+  'toilet': toiletIcon,
+  'towel-rack': towelRackIcon,
+  'soap-dispenser-droplet': soapDispenserDropletIcon,
+  'washing-machine': washingMachineIcon,
+  'refrigerator': refrigeratorIcon,
+  'microwave': microwaveIcon,
+  'blender': blenderIcon,
+  'heater': heaterIcon,
+  'air-vent': airVentIcon,
+  'fan': fanIcon,
+  'broom': broomIcon,
+  'broom-sparkles': broomSparklesIcon,
+  'blinds': blindsIcon,
+  'wallpaper': wallpaperIcon,
+  'mirror-rectangular': mirrorRectangularIcon,
+  'mirror-round': mirrorRoundIcon,
+  'lamp': lampIcon,
+  'lamp-floor': lampFloorIcon,
+  'lamp-ceiling': lampCeilingIcon,
+  'lamp-wall-down': lampWallDownIcon,
+  'lamp-wall-up': lampWallUpIcon,
+  'lamp-desk': lampDeskIcon,
+  'bed': bedIcon,
+  'bed-double': bedDoubleIcon,
+  'bed-single': bedSingleIcon,
+  'door-closed': doorClosedIcon,
+  'door-open': doorOpenIcon,
+  'door-closed-locked': doorClosedLockedIcon,
 };

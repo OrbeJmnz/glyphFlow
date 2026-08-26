@@ -26,16 +26,6 @@ export const adIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const airVentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M18 17.5a2.5 2.5 0 1 1-4 2.03V12" },
-    { tag: 'path', d: "M6 12H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" },
-    { tag: 'path', d: "M6 8h12" },
-    { tag: 'path', d: "M6.6 15.572A2 2 0 1 0 10 17v-5" },
-  ],
-  {},
-);
-
 export const albumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2, ry: 2 },
@@ -104,16 +94,6 @@ export const appleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 6.528V3a1 1 0 0 1 1-1h0" },
     { tag: 'path', d: "M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21" },
-  ],
-  {},
-);
-
-export const armchairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" },
-    { tag: 'path', d: "M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" },
-    { tag: 'path', d: "M5 18v2" },
-    { tag: 'path', d: "M19 18v2" },
   ],
   {},
 );
@@ -198,51 +178,11 @@ export const barrelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const bathIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 4 8 6" },
-    { tag: 'path', d: "M17 19v2" },
-    { tag: 'path', d: "M2 12h20" },
-    { tag: 'path', d: "M7 19v2" },
-    { tag: 'path', d: "M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5" },
-  ],
-  {},
-);
-
 export const beakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M4.5 3h15" },
     { tag: 'path', d: "M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3" },
     { tag: 'path', d: "M6 14h12" },
-  ],
-  {},
-);
-
-export const bedDoubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" },
-    { tag: 'path', d: "M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" },
-    { tag: 'path', d: "M12 4v6" },
-    { tag: 'path', d: "M2 18h20" },
-  ],
-  {},
-);
-
-export const bedSingleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 20v-8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8" },
-    { tag: 'path', d: "M5 10V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" },
-    { tag: 'path', d: "M3 18h18" },
-  ],
-  {},
-);
-
-export const bedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M2 4v16" },
-    { tag: 'path', d: "M2 8h18a2 2 0 0 1 2 2v10" },
-    { tag: 'path', d: "M2 17h20" },
-    { tag: 'path', d: "M6 8v9" },
   ],
   {},
 );
@@ -305,31 +245,6 @@ export const birdhouseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M4 18h16" },
     { tag: 'path', d: "M7 18 5.044 6.532" },
     { tag: 'circle', cx: 12, cy: 10, r: 2 },
-  ],
-  {},
-);
-
-export const blenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M8 14a2 2 0 0 0-1.963 1.615l-1.018 5.193A1 1 0 0 0 6 22h12a1 1 0 0 0 .981-1.192l-1.018-5.193A2 2 0 0 0 16 14z" },
-    { tag: 'path', d: "m17 2-1 12" },
-    { tag: 'path', d: "M8.006 14 7 2" },
-    { tag: 'path', d: "M7.565 8.787A5 5 0 0 0 12 8a5 5 0 0 1 4.56-.75" },
-    { tag: 'path', d: "M19 2H5a2 2 0 0 0-2 2v5a2 2 0 0 0 .688 1.5" },
-    { tag: 'path', d: "M12 18h.01" },
-  ],
-  {},
-);
-
-export const blindsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 3h18" },
-    { tag: 'path', d: "M20 7H8" },
-    { tag: 'path', d: "M20 11H8" },
-    { tag: 'path', d: "M10 19h10" },
-    { tag: 'path', d: "M8 15h12" },
-    { tag: 'path', d: "M4 3v14" },
-    { tag: 'circle', cx: 4, cy: 19, r: 2 },
   ],
   {},
 );
@@ -417,32 +332,6 @@ export const broccoliIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15.606 14.204c-3.5 1.5-5.899 4.503-8.899 7.503A1 1 0 0 1 6 22c-2 0-4-2-4-4a1 1 0 0 1 .293-.707c1.911-1.911 3.823-3.578 5.347-5.441" },
     { tag: 'path', d: "M16.573 14.737A4 4 0 0 1 14 11" },
     { tag: 'path', d: "M7.14 10.907a4 4 0 1 1 2.756-7.43A4 4 0 0 1 16.7 4.48a2 2 0 0 1 2.82 2.82 4 4 0 0 1 1.002 6.805A4 4 0 1 1 13 16" },
-  ],
-  {},
-);
-
-export const broomSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 2v2" },
-    { tag: 'path', d: "M12 3h-2" },
-    { tag: 'path', d: "M13.5 10.5 22 2" },
-    { tag: 'path', d: "M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z" },
-    { tag: 'path', d: "M20 15v4" },
-    { tag: 'path', d: "M22 17h-4" },
-    { tag: 'path', d: "M4 4v4" },
-    { tag: 'path', d: "m5 18 2-2" },
-    { tag: 'path', d: "M6 6H2" },
-    { tag: 'path', d: "m7.699 10.7 5.602 5.601" },
-  ],
-  {},
-);
-
-export const broomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M13.5 10.5 22 2" },
-    { tag: 'path', d: "M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z" },
-    { tag: 'path', d: "m5 18 2-2" },
-    { tag: 'path', d: "m7.699 10.7 5.602 5.601" },
   ],
   {},
 );
@@ -889,37 +778,6 @@ export const donutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const doorClosedLockedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 12h.01" },
-    { tag: 'path', d: "M18 9V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14" },
-    { tag: 'path', d: "M2 20h8" },
-    { tag: 'path', d: "M20 17v-2a2 2 0 1 0-4 0v2" },
-    { tag: 'rect', x: 14, y: 17, width: 8, height: 5, rx: 1 },
-  ],
-  {},
-);
-
-export const doorClosedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 12h.01" },
-    { tag: 'path', d: "M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14" },
-    { tag: 'path', d: "M2 20h20" },
-  ],
-  {},
-);
-
-export const doorOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 20H2" },
-    { tag: 'path', d: "M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.561z" },
-    { tag: 'path', d: "M11 4H8a2 2 0 0 0-2 2v14" },
-    { tag: 'path', d: "M14 12h.01" },
-    { tag: 'path', d: "M22 20h-3" },
-  ],
-  {},
-);
-
 export const dotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'circle', cx: 12, cy: 12, r: 1 },
@@ -1030,14 +888,6 @@ export const factoryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M16 16h.01" },
     { tag: 'path', d: "M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" },
     { tag: 'path', d: "M8 16h.01" },
-  ],
-  {},
-);
-
-export const fanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z" },
-    { tag: 'path', d: "M12 12v.01" },
   ],
   {},
 );
@@ -1343,22 +1193,6 @@ export const hdIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const heaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 8c2-3-2-3 0-6" },
-    { tag: 'path', d: "M15.5 8c2-3-2-3 0-6" },
-    { tag: 'path', d: "M6 10h.01" },
-    { tag: 'path', d: "M6 14h.01" },
-    { tag: 'path', d: "M10 16v-4" },
-    { tag: 'path', d: "M14 16v-4" },
-    { tag: 'path', d: "M18 16v-4" },
-    { tag: 'path', d: "M20 6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3" },
-    { tag: 'path', d: "M5 20v2" },
-    { tag: 'path', d: "M19 20v2" },
-  ],
-  {},
-);
-
 export const helicopterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 17v4" },
@@ -1450,61 +1284,6 @@ export const kayakIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20.97 3.61a.45.45 0 0 0-.58-.58C10.2 6.6 6.6 10.2 3.03 20.39a.45.45 0 0 0 .58.58C13.8 17.4 17.4 13.8 20.97 3.61" },
     { tag: 'path', d: "m6.707 6.707 10.586 10.586" },
     { tag: 'path', d: "M7 5a2 2 0 1 0-2 2h1a1 1 0 0 0 1-1z" },
-  ],
-  {},
-);
-
-export const lampCeilingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 2v5" },
-    { tag: 'path', d: "M14.829 15.998a3 3 0 1 1-5.658 0" },
-    { tag: 'path', d: "M20.92 14.606A1 1 0 0 1 20 16H4a1 1 0 0 1-.92-1.394l3-7A1 1 0 0 1 7 7h10a1 1 0 0 1 .92.606z" },
-  ],
-  {},
-);
-
-export const lampDeskIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.293 2.293a1 1 0 0 1 1.414 0l2.5 2.5 5.994 1.227a1 1 0 0 1 .506 1.687l-7 7a1 1 0 0 1-1.687-.506l-1.227-5.994-2.5-2.5a1 1 0 0 1 0-1.414z" },
-    { tag: 'path', d: "m14.207 4.793-3.414 3.414" },
-    { tag: 'path', d: "M3 20a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" },
-    { tag: 'path', d: "m9.086 6.5-4.793 4.793a1 1 0 0 0-.18 1.17L7 18" },
-  ],
-  {},
-);
-
-export const lampFloorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 10v12" },
-    { tag: 'path', d: "M17.929 7.629A1 1 0 0 1 17 9H7a1 1 0 0 1-.928-1.371l2-5A1 1 0 0 1 9 2h6a1 1 0 0 1 .928.629z" },
-    { tag: 'path', d: "M9 22h6" },
-  ],
-  {},
-);
-
-export const lampWallDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.929 18.629A1 1 0 0 1 19 20H9a1 1 0 0 1-.928-1.371l2-5A1 1 0 0 1 11 13h6a1 1 0 0 1 .928.629z" },
-    { tag: 'path', d: "M6 3a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" },
-    { tag: 'path', d: "M8 6h4a2 2 0 0 1 2 2v5" },
-  ],
-  {},
-);
-
-export const lampWallUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M19.929 9.629A1 1 0 0 1 19 11H9a1 1 0 0 1-.928-1.371l2-5A1 1 0 0 1 11 4h6a1 1 0 0 1 .928.629z" },
-    { tag: 'path', d: "M6 15a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" },
-    { tag: 'path', d: "M8 18h4a2 2 0 0 0 2-2v-5" },
-  ],
-  {},
-);
-
-export const lampIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 12v6" },
-    { tag: 'path', d: "M4.077 10.615A1 1 0 0 0 5 12h14a1 1 0 0 0 .923-1.385l-3.077-7.384A2 2 0 0 0 15 2H9a2 2 0 0 0-1.846 1.23Z" },
-    { tag: 'path', d: "M8 20a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z" },
   ],
   {},
 );
@@ -1685,42 +1464,11 @@ export const microscopeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const microwaveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'rect', width: 20, height: 15, x: 2, y: 4, rx: 2 },
-    { tag: 'rect', width: 8, height: 7, x: 6, y: 8, rx: 1 },
-    { tag: 'path', d: "M18 8v7" },
-    { tag: 'path', d: "M6 19v2" },
-    { tag: 'path', d: "M18 19v2" },
-  ],
-  {},
-);
-
 export const milestoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 13v8" },
     { tag: 'path', d: "M12 3v3" },
     { tag: 'path', d: "M18.172 6a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z" },
-  ],
-  {},
-);
-
-export const mirrorRectangularIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M11 6 8 9" },
-    { tag: 'path', d: "m16 7-8 8" },
-    { tag: 'rect', x: 4, y: 2, width: 16, height: 20, rx: 2 },
-  ],
-  {},
-);
-
-export const mirrorRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10 6.6 8.6 8" },
-    { tag: 'path', d: "M12 18v4" },
-    { tag: 'path', d: "M15 7.5 9.5 13" },
-    { tag: 'path', d: "M7 22h10" },
-    { tag: 'circle', cx: 12, cy: 10, r: 8 },
   ],
   {},
 );
@@ -2042,15 +1790,6 @@ export const recycleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const refrigeratorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M5 6a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6Z" },
-    { tag: 'path', d: "M5 10h14" },
-    { tag: 'path', d: "M15 7v6" },
-  ],
-  {},
-);
-
 export const ribbonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 11.22C11 9.997 10 9 10 8a2 2 0 0 1 4 0c0 1-.998 2.002-2.01 3.22" },
@@ -2240,35 +1979,6 @@ export const shellIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const shelvingUnitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 12V9a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" },
-    { tag: 'path', d: "M16 20v-3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3" },
-    { tag: 'path', d: "M20 22V2" },
-    { tag: 'path', d: "M4 12h16" },
-    { tag: 'path', d: "M4 20h16" },
-    { tag: 'path', d: "M4 2v20" },
-    { tag: 'path', d: "M4 4h16" },
-  ],
-  {},
-);
-
-export const showerHeadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "m4 4 2.5 2.5" },
-    { tag: 'path', d: "M13.5 6.5a4.95 4.95 0 0 0-7 7" },
-    { tag: 'path', d: "M15 5 5 15" },
-    { tag: 'path', d: "M14 17v.01" },
-    { tag: 'path', d: "M10 16v.01" },
-    { tag: 'path', d: "M13 13v.01" },
-    { tag: 'path', d: "M16 10v.01" },
-    { tag: 'path', d: "M11 20v.01" },
-    { tag: 'path', d: "M17 14v.01" },
-    { tag: 'path', d: "M20 11v.01" },
-  ],
-  {},
-);
-
 export const shredderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M4 13V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5" },
@@ -2366,27 +2076,6 @@ export const snailIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M2 21h12c4.4 0 8-3.6 8-8V7a2 2 0 1 0-4 0v6" },
     { tag: 'path', d: "M18 3 19.1 5.2" },
     { tag: 'path', d: "M22 3 20.9 5.2" },
-  ],
-  {},
-);
-
-export const soapDispenserDropletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M10.5 2v4" },
-    { tag: 'path', d: "M14 2H7a2 2 0 0 0-2 2" },
-    { tag: 'path', d: "M19.29 14.76A6.67 6.67 0 0 1 17 11a6.6 6.6 0 0 1-2.29 3.76c-1.15.92-1.71 2.04-1.71 3.19 0 2.22 1.8 4.05 4 4.05s4-1.83 4-4.05c0-1.16-.57-2.26-1.71-3.19" },
-    { tag: 'path', d: "M9.607 21H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h7V7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" },
-  ],
-  {},
-);
-
-export const sofaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" },
-    { tag: 'path', d: "M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" },
-    { tag: 'path', d: "M4 18v2" },
-    { tag: 'path', d: "M20 18v2" },
-    { tag: 'path', d: "M12 4v9" },
   ],
   {},
 );
@@ -2675,14 +2364,6 @@ export const timelineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const toiletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M7 12h13a1 1 0 0 1 1 1 5 5 0 0 1-5 5h-.598a.5.5 0 0 0-.424.765l1.544 2.47a.5.5 0 0 1-.424.765H5.402a.5.5 0 0 1-.424-.765L7 18" },
-    { tag: 'path', d: "M8 18a5 5 0 0 1-5-5V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8" },
-  ],
-  {},
-);
-
 export const toolCaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10 15h4" },
@@ -2708,15 +2389,6 @@ export const torusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'ellipse', cx: 12, cy: 11, rx: 3, ry: 2 },
     { tag: 'ellipse', cx: 12, cy: 12.5, rx: 10, ry: 8.5 },
-  ],
-  {},
-);
-
-export const towelRackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M22 7h-2" },
-    { tag: 'path', d: "M6.5 3h11A2.5 2.5 0 0 1 20 5.5V20a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V5.5a1 1 0 0 0-5 0V17a1 1 0 0 0 1 1h4" },
-    { tag: 'path', d: "M9 7H2" },
   ],
   {},
 );
@@ -2972,28 +2644,6 @@ export const voicemailIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {},
 );
 
-export const wallpaperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M12 17v4" },
-    { tag: 'path', d: "M8 21h8" },
-    { tag: 'path', d: "m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15" },
-    { tag: 'circle', cx: 8, cy: 9, r: 2 },
-    { tag: 'rect', x: 2, y: 3, width: 20, height: 14, rx: 2 },
-  ],
-  {},
-);
-
-export const washingMachineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
-  [
-    { tag: 'path', d: "M3 6h3" },
-    { tag: 'path', d: "M17 6h.01" },
-    { tag: 'rect', width: 18, height: 20, x: 3, y: 2, rx: 2 },
-    { tag: 'circle', cx: 12, cy: 13, r: 5 },
-    { tag: 'path', d: "M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5" },
-  ],
-  {},
-);
-
 export const watchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 10v2.2l1.6 1" },
@@ -3229,7 +2879,6 @@ export const zodiacVirgoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   accessibility: accessibilityIcon,
   ad: adIcon,
-  'air-vent': airVentIcon,
   album: albumIcon,
   ambulance: ambulanceIcon,
   amphora: amphoraIcon,
@@ -3237,7 +2886,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   angle: angleIcon,
   aperture: apertureIcon,
   apple: appleIcon,
-  armchair: armchairIcon,
   astroid: astroidIcon,
   atom: atomIcon,
   baby: babyIcon,
@@ -3246,18 +2894,12 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   banana: bananaIcon,
   bandage: bandageIcon,
   barrel: barrelIcon,
-  bath: bathIcon,
   beaker: beakerIcon,
-  'bed-double': bedDoubleIcon,
-  'bed-single': bedSingleIcon,
-  bed: bedIcon,
   bike: bikeIcon,
   binoculars: binocularsIcon,
   biohazard: biohazardIcon,
   bird: birdIcon,
   birdhouse: birdhouseIcon,
-  blender: blenderIcon,
-  blinds: blindsIcon,
   'bottle-wine': bottleWineIcon,
   'bow-arrow': bowArrowIcon,
   brackets: bracketsIcon,
@@ -3266,8 +2908,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'brick-wall': brickWallIcon,
   'bring-to-front': bringToFrontIcon,
   broccoli: broccoliIcon,
-  'broom-sparkles': broomSparklesIcon,
-  broom: broomIcon,
   bubbles: bubblesIcon,
   'bus-front': busFrontIcon,
   bus: busIcon,
@@ -3311,9 +2951,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   dock: dockIcon,
   dog: dogIcon,
   donut: donutIcon,
-  'door-closed-locked': doorClosedLockedIcon,
-  'door-closed': doorClosedIcon,
-  'door-open': doorOpenIcon,
   dot: dotIcon,
   'drafting-compass': draftingCompassIcon,
   drama: dramaIcon,
@@ -3325,7 +2962,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   eraser: eraserIcon,
   expand: expandIcon,
   factory: factoryIcon,
-  fan: fanIcon,
   feather: featherIcon,
   fence: fenceIcon,
   'ferris-wheel': ferrisWheelIcon,
@@ -3353,7 +2989,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   handshake: handshakeIcon,
   haze: hazeIcon,
   hd: hdIcon,
-  heater: heaterIcon,
   helicopter: helicopterIcon,
   hexagon: hexagonIcon,
   hospital: hospitalIcon,
@@ -3363,12 +2998,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   'ice-cream-cone': iceCreamConeIcon,
   import: importIcon,
   kayak: kayakIcon,
-  'lamp-ceiling': lampCeilingIcon,
-  'lamp-desk': lampDeskIcon,
-  'lamp-floor': lampFloorIcon,
-  'lamp-wall-down': lampWallDownIcon,
-  'lamp-wall-up': lampWallUpIcon,
-  lamp: lampIcon,
   'land-plot': landPlotIcon,
   leaf: leafIcon,
   'leafy-green': leafyGreenIcon,
@@ -3388,10 +3017,7 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   martini: martiniIcon,
   merge: mergeIcon,
   microscope: microscopeIcon,
-  microwave: microwaveIcon,
   milestone: milestoneIcon,
-  'mirror-rectangular': mirrorRectangularIcon,
-  'mirror-round': mirrorRoundIcon,
   mosque: mosqueIcon,
   motorbike: motorbikeIcon,
   newspaper: newspaperIcon,
@@ -3425,7 +3051,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   rat: ratIcon,
   ratio: ratioIcon,
   recycle: recycleIcon,
-  refrigerator: refrigeratorIcon,
   ribbon: ribbonIcon,
   road: roadIcon,
   'roller-coaster': rollerCoasterIcon,
@@ -3444,8 +3069,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   shapes: shapesIcon,
   sheet: sheetIcon,
   shell: shellIcon,
-  'shelving-unit': shelvingUnitIcon,
-  'shower-head': showerHeadIcon,
   shredder: shredderIcon,
   shrimp: shrimpIcon,
   shrub: shrubIcon,
@@ -3456,8 +3079,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   slash: slashIcon,
   slice: sliceIcon,
   snail: snailIcon,
-  'soap-dispenser-droplet': soapDispenserDropletIcon,
-  sofa: sofaIcon,
   soup: soupIcon,
   space: spaceIcon,
   spade: spadeIcon,
@@ -3484,11 +3105,9 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   tent: tentIcon,
   theater: theaterIcon,
   timeline: timelineIcon,
-  toilet: toiletIcon,
   'tool-case': toolCaseIcon,
   toolbox: toolboxIcon,
   torus: torusIcon,
-  'towel-rack': towelRackIcon,
   'tower-control': towerControlIcon,
   tractor: tractorIcon,
   'traffic-cone': trafficConeIcon,
@@ -3511,8 +3130,6 @@ export const GENERATED_ICONS: Record<string, AnimatedIconDef> = {
   venus: venusIcon,
   view: viewIcon,
   voicemail: voicemailIcon,
-  wallpaper: wallpaperIcon,
-  'washing-machine': washingMachineIcon,
   watch: watchIcon,
   'waves-arrow-down': wavesArrowDownIcon,
   'waves-arrow-up': wavesArrowUpIcon,
