@@ -5808,6 +5808,8 @@ export * from './icons/door';
 import { doorClosedIcon, doorOpenIcon, doorClosedLockedIcon } from './icons/door';
 export * from './icons/car';
 import { carIcon, carFrontIcon, carTaxiFrontIcon } from './icons/car';
+export * from './icons/tent';
+import { tentIcon, tentTreeIcon } from './icons/tent';
 export * from './icons/train';
 import { trainFrontIcon, trainFrontTunnelIcon, trainTrackIcon } from './icons/train';
 export * from './icons/align';
@@ -14989,6 +14991,665 @@ export const fuelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
+
+/* ── Vocabulario de la tanda de aire, agua y lugares ────────────────────────────────────────── */
+
+/**
+ * Una pala vista DE PERFIL no gira: parpadea. Girarla de verdad la sacaría del lienzo (8 unidades
+ * de radio desde un eje que está en y=3), y de canto es como se ve un rotor en marcha.
+ */
+const PALA_DE_CANTO = /* @__PURE__ */ [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(0.12)', offset: 0.25 },
+  { transform: 'scaleX(1)', offset: 0.5 },
+  { transform: 'scaleX(0.12)', offset: 0.75 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+
+/** Lo mismo para una pala vertical: el rotor de cola. */
+const PALA_DE_CANTO_Y = /* @__PURE__ */ [
+  { transform: 'scaleY(1)', offset: 0 },
+  { transform: 'scaleY(0.12)', offset: 0.25 },
+  { transform: 'scaleY(1)', offset: 0.5 },
+  { transform: 'scaleY(0.12)', offset: 0.75 },
+  { transform: 'scaleY(1)', offset: 1 },
+];
+
+/**
+ * Una puerta gira sobre sus bisagras y en plano eso se ve como que se estrecha. Es EL MISMO gesto
+ * de `icons/door.ts`, a propósito: los seis edificios de esta tanda comparten la puerta —es
+ * literalmente la misma figura en todos—, así que lo que los distingue es su seña, no la entrada.
+ */
+const PUERTA_ABRE = /* @__PURE__ */ [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(0.86)', offset: 0.5 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+
+/** Dos golpes: un pulso, un timbre. No es un latido simple, y esa es la diferencia. */
+const LATIDO_DOBLE = /* @__PURE__ */ scaleSeq([1, 1.2, 1, 1.12, 1]);
+
+/** Un trazo que crece desde su base. */
+const CRECE_Y = /* @__PURE__ */ [{ transform: 'scaleY(0.45)' }, { transform: 'scaleY(1)' }];
+
+/** El helicóptero despega: sube y vuelve. El margen del lienzo da 1 unidad, no más. */
+const DESPEGUE = /* @__PURE__ */ moveYSeq([0, -0.9, 0]);
+
+/**
+ * El rotor de perfil parpadea, la cola hace lo mismo en vertical y el aparato despega. Nada gira:
+ * un rotor de canto no se ve girar, se ve titilar.
+ */
+export const helicopterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M11 17v4" },
+    { tag: 'path', d: "M14 3v8a2 2 0 0 0 2 2h5.865" },
+    { tag: 'path', d: "M17 17v4" },
+    { tag: 'path', d: "M18 17a4 4 0 0 0 4-4 8 6 0 0 0-8-6 6 5 0 0 0-6 5v3a2 2 0 0 0 2 2z" },
+    { tag: 'path', d: "M2 10v5" },
+    { tag: 'path', d: "M6 3h16" },
+    { tag: 'path', d: "M7 21h14" },
+    { tag: 'path', d: "M8 13H2" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(DESPEGUE, 780, { easing: EASE, delay: 140 }),
+      shapes: {
+        5: /* @__PURE__ */ track(PALA_DE_CANTO, 620, { easing: EASE, origin: '14px 3px' }),
+        4: /* @__PURE__ */ track(PALA_DE_CANTO_Y, 620, { easing: EASE, origin: '2px 12.5px' }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320),
+  },
+);
+
+/**
+ * Las cuatro hélices de `drone` SÍ giran, y es la excepción que confirma la regla del círculo
+ * invisible: son medios arcos (la cuerda entre sus extremos mide 8, o sea el diámetro), no
+ * círculos cerrados. Un semicírculo girando se ve perfectamente. Los centros están medidos, no
+ * supuestos: el punto medio de esa cuerda.
+ */
+export const droneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 10 7 7" },
+    { tag: 'path', d: "m10 14-3 3" },
+    { tag: 'path', d: "m14 10 3-3" },
+    { tag: 'path', d: "m14 14 3 3" },
+    { tag: 'path', d: "M14.205 4.139a4 4 0 1 1 5.439 5.863" },
+    { tag: 'path', d: "M19.637 14a4 4 0 1 1-5.432 5.868" },
+    { tag: 'path', d: "M4.367 10a4 4 0 1 1 5.438-5.862" },
+    { tag: 'path', d: "M9.795 19.862a4 4 0 1 1-5.429-5.873" },
+    { tag: 'rect', x: 10, y: 8, width: 4, height: 8, rx: 1 },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: EASE, origin: '7.09px 7.07px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: EASE, delay: 70, origin: '16.92px 7.07px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: EASE, delay: 140, origin: '7.08px 16.93px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 900, { easing: EASE, delay: 210, origin: '16.92px 16.93px' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.7, 0]), 860, { easing: EASE, delay: 120 }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320),
+  },
+);
+
+/**
+ * La torre de control barre: los dos cristales se encienden en cadena —que es como se lee un haz
+ * girando— y la antena emite. Al estirarse la antena, su remate sube CON ella: 12% de 4 unidades
+ * son 0.48, y sin ese traslado el palo se le despega.
+ */
+export const towerControlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18.2 12.27 20 6H4l1.8 6.27a1 1 0 0 0 .95.73h10.5a1 1 0 0 0 .96-.73Z" },
+    { tag: 'path', d: "M8 13v9" },
+    { tag: 'path', d: "M16 22v-9" },
+    { tag: 'path', d: "m9 6 1 7" },
+    { tag: 'path', d: "m15 6-1 7" },
+    { tag: 'path', d: "M12 6V2" },
+    { tag: 'path', d: "M13 2h-2" },
+  ],
+  {
+    default: {
+      shapes: {
+        3: /* @__PURE__ */ track(DESTELLA, 420),
+        4: /* @__PURE__ */ track(DESTELLA, 420, { delay: 160 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.12)' }, { transform: 'scaleY(1)' }], 640, { easing: EASE, origin: '12px 6px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.48, 0]), 640, { easing: EASE }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.48px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * Rema. El remo y sus dos palas son UNA pieza rígida —giran juntos sobre el mismo pivote, porque
+ * separarlos rompería el remo— y el casco responde después, que es donde está la coreografía.
+ */
+export const kayakIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M18 17a1 1 0 0 0-1 1v1a2 2 0 1 0 2-2z" },
+    {
+      tag: 'path',
+      d: "M20.97 3.61a.45.45 0 0 0-.58-.58C10.2 6.6 6.6 10.2 3.03 20.39a.45.45 0 0 0 .58.58C13.8 17.4 17.4 13.8 20.97 3.61",
+    },
+    { tag: 'path', d: "m6.707 6.707 10.586 10.586" },
+    { tag: 'path', d: "M7 5a2 2 0 1 0-2 2h1a1 1 0 0 0 1-1z" },
+  ],
+  {
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -13, 9, 0]), 760, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -13, 9, 0]), 760, { easing: EASE, origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -13, 9, 0]), 760, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 2.5, -1.5, 0]), 760, { easing: EASE, delay: 120, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-13deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-13deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-13deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La vela se hincha desde el mástil y el casco escora sobre su línea de flotación. */
+export const sailboatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 2v15" },
+    { tag: 'path', d: "M7 22a4 4 0 0 1-4-4 1 1 0 0 1 1-1h16a1 1 0 0 1 1 1 4 4 0 0 1-4 4z" },
+    { tag: 'path', d: "M9.159 2.46a1 1 0 0 1 1.521-.193l9.977 8.98A1 1 0 0 1 20 13H4a1 1 0 0 1-.824-1.567z" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 2.5, -2, 0]), 980, { easing: EASE, origin: '12px 22px' }),
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.05)' }, { transform: 'scaleX(1)' }], 900, { easing: EASE, delay: 100, origin: '10px 13px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 13px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Cuelga de su argolla: péndulo amortiguado. El pivote es la argolla, no el centro. */
+export const anchorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 6v16" },
+    { tag: 'path', d: "m19 13 2-1a9 9 0 0 1-18 0l2 1" },
+    { tag: 'path', d: "M9 11h6" },
+    { tag: 'circle', cx: 12, cy: 4, r: 2 },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 3, -1.5, 0]), 1000, { easing: EASE, origin: '12px 4px' }),
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { origin: '12px 4px' }),
+  },
+);
+
+/**
+ * Giran los radios, NO el aro: Lucide lo dibuja abierto por abajo para que pasen las patas, y
+ * girándolo ese hueco aparecería arriba. Los cinco radios están todos a radio ~10 del centro, así
+ * que una vuelta entera cabe justa en el lienzo. El eje es un `circle`: girarlo no se vería.
+ */
+export const ferrisWheelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'circle', cx: 12, cy: 12, r: 2 },
+    { tag: 'path', d: "M12 2v4" },
+    { tag: 'path', d: "m6.8 15-3.5 2" },
+    { tag: 'path', d: "m20.7 7-3.5 2" },
+    { tag: 'path', d: "M6.8 9 3.3 7" },
+    { tag: 'path', d: "m20.7 17-3.5-2" },
+    { tag: 'path', d: "m9 22 3-8 3 8" },
+    { tag: 'path', d: "M8 22h8" },
+    { tag: 'path', d: "M18 18.7a9 9 0 1 0-12 0" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1100, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+    hold: {
+      // Un paso de cabina: 72°, que es lo que hay entre dos de los cinco radios.
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(72deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(72deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(72deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(72deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(72deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/**
+ * No hay carrito dibujado, así que el carrito ES el trazo: la vía se dibuja de izquierda a derecha
+ * y los soportes se estiran detrás, en el orden en que los va dejando atrás. Mismo truco que
+ * `road` y `train-track`: animar lo que el vehículo recorre cuando el vehículo no está.
+ */
+export const rollerCoasterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 19V5" },
+    { tag: 'path', d: "M10 19V6.8" },
+    { tag: 'path', d: "M14 19v-7.8" },
+    { tag: 'path', d: "M18 5v4" },
+    { tag: 'path', d: "M18 19v-6" },
+    { tag: 'path', d: "M22 19V9" },
+    { tag: 'path', d: "M2 19V9a4 4 0 0 1 4-4c2 0 4 1.33 6 4s4 4 6 4a4 4 0 1 0-3-6.65" },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 820, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 140, origin: '6px 19px' }),
+        1: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 220, origin: '10px 19px' }),
+        2: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 300, origin: '14px 19px' }),
+        4: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 380, origin: '18px 19px' }),
+        3: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 380, origin: '18px 9px' }),
+        5: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 460, origin: '22px 19px' }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.05)' }], 320, { origin: '12px 19px' }),
+  },
+);
+
+/** El almenado se alza de izquierda a derecha, asomando del muro, y el rastrillo abre detrás. */
+export const castleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 5V3" },
+    { tag: 'path', d: "M14 5V3" },
+    { tag: 'path', d: "M15 21v-3a3 3 0 0 0-6 0v3" },
+    { tag: 'path', d: "M18 3v8" },
+    { tag: 'path', d: "M18 5H6" },
+    { tag: 'path', d: "M22 11H2" },
+    { tag: 'path', d: "M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9" },
+    { tag: 'path', d: "M6 3v8" },
+  ],
+  {
+    default: {
+      shapes: {
+        7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([1.6, 0]), 460, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([1.6, 0]), 460, { easing: SPRING_OUT, delay: 70 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([1.6, 0]), 460, { easing: SPRING_OUT, delay: 140 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([1.6, 0]), 460, { easing: SPRING_OUT, delay: 210 }),
+        2: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 300, origin: '9px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.86)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La cruz se traza: primero el palo, después el travesaño. Y la puerta abre. */
+export const churchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 9h4" },
+    { tag: 'path', d: "M12 7v5" },
+    { tag: 'path', d: "M14 21v-3a2 2 0 0 0-4 0v3" },
+    {
+      tag: 'path',
+      d: "m18 9 3.52 2.147a1 1 0 0 1 .48.854V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6.999a1 1 0 0 1 .48-.854L6 9",
+    },
+    {
+      tag: 'path',
+      d: "M6 21V7a1 1 0 0 1 .376-.782l5-3.999a1 1 0 0 1 1.249.001l5 4A1 1 0 0 1 18 7v14",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 240 }),
+        2: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 420, origin: '10px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.86)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 21px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La media luna se enciende sobre el minarete, la cúpula respira y la puerta abre. */
+export const mosqueIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12.268 2a2 2 0 003.465 2" },
+    { tag: 'path', d: "M14 5 L14 8" },
+    { tag: 'path', d: "M16 22v-3a2 2 0 00-4 0v3" },
+    {
+      tag: 'path',
+      d: "M21 13c-.662-1.497-1.666-2.753-2.9-3.63C16.825 8.47 15.422 8 14 8s-2.826.47-4.1 1.37C8.668 10.248 7.663 11.504 7 13z",
+    },
+    { tag: 'path', d: "M3 9h4" },
+    {
+      tag: 'path',
+      d: "M7 22V6a5 5 0 00-2-4 5 5 0 00-2 4v14a2 2 0 002 2h14a2 2 0 002-2v-7",
+    },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 520, { easing: SPRING_OUT, origin: '14px 3px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.04, 1]), 700, { easing: EASE, delay: 180, origin: '14px 13px' }),
+        2: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 380, origin: '12px 22px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.18)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 3px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La cruz da DOS golpes —un pulso, no un latido— y la puerta abre después. */
+export const hospitalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 7v4" },
+    { tag: 'path', d: "M14 21v-3a2 2 0 0 0-4 0v3" },
+    { tag: 'path', d: "M14 9h-4" },
+    {
+      tag: 'path',
+      d: "M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2",
+    },
+    { tag: 'path', d: "M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16" },
+  ],
+  {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(LATIDO_DOBLE, 720, { easing: EASE, origin: '12px 9px' }),
+        2: /* @__PURE__ */ track(LATIDO_DOBLE, 720, { easing: EASE, origin: '12px 9px' }),
+        1: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 380, origin: '10px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Se van encendiendo los cuartos, uno por uno, de arriba abajo y de izquierda a derecha. */
+export const hotelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M10 22v-6.57" },
+    { tag: 'path', d: "M12 11h.01" },
+    { tag: 'path', d: "M12 7h.01" },
+    { tag: 'path', d: "M14 15.43V22" },
+    { tag: 'path', d: "M15 16a5 5 0 0 0-6 0" },
+    { tag: 'path', d: "M16 11h.01" },
+    { tag: 'path', d: "M16 7h.01" },
+    { tag: 'path', d: "M8 11h.01" },
+    { tag: 'path', d: "M8 7h.01" },
+    { tag: 'rect', x: 4, y: 2, width: 16, height: 20, rx: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        8: /* @__PURE__ */ track(DESTELLA, 420),
+        2: /* @__PURE__ */ track(DESTELLA, 420, { delay: 90 }),
+        6: /* @__PURE__ */ track(DESTELLA, 420, { delay: 180 }),
+        7: /* @__PURE__ */ track(DESTELLA, 420, { delay: 270 }),
+        1: /* @__PURE__ */ track(DESTELLA, 420, { delay: 360 }),
+        5: /* @__PURE__ */ track(DESTELLA, 420, { delay: 450 }),
+      },
+    },
+    hold: {
+      // La cama se mulle. Es lo único de este icono que no es fachada.
+      shapes: {
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.35)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 16px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** Suena el timbre: el reloj da dos golpes y la puerta abre. */
+export const schoolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 21v-3a2 2 0 0 0-4 0v3" },
+    { tag: 'path', d: "M18 4.933V21" },
+    { tag: 'path', d: "m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6" },
+    {
+      tag: 'path',
+      d: "m6 11-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11",
+    },
+    { tag: 'path', d: "M6 4.933V21" },
+    { tag: 'circle', cx: 12, cy: 9, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(LATIDO_DOBLE, 720, { easing: EASE, origin: '12px 9px' }),
+        0: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 360, origin: '10px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.15)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El emblema aparece primero, las cuatro ventanas se encienden detrás y la puerta abre. */
+export const universityIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M14 21v-3a2 2 0 0 0-4 0v3" },
+    { tag: 'path', d: "M18 12h.01" },
+    { tag: 'path', d: "M18 16h.01" },
+    {
+      tag: 'path',
+      d: "M22 7a1 1 0 0 0-1-1h-2a2 2 0 0 1-1.143-.359L13.143 2.36a2 2 0 0 0-2.286-.001L6.143 5.64A2 2 0 0 1 5 6H3a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2z",
+    },
+    { tag: 'path', d: "M6 12h.01" },
+    { tag: 'path', d: "M6 16h.01" },
+    { tag: 'circle', cx: 12, cy: 10, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 520, { easing: SPRING_OUT, origin: '12px 10px' }),
+        4: /* @__PURE__ */ track(DESTELLA, 400, { delay: 220 }),
+        1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 260 }),
+        5: /* @__PURE__ */ track(DESTELLA, 400, { delay: 300 }),
+        2: /* @__PURE__ */ track(DESTELLA, 400, { delay: 340 }),
+        0: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 420, origin: '10px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.18)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El toldo es lo que hace tienda: se despliega desde su barra y el mostrador abre debajo. */
+export const storeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" },
+    {
+      tag: 'path',
+      d: "M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244",
+    },
+    { tag: 'path', d: "M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.08)' }, { transform: 'scaleY(0.98)' }, { transform: 'scaleY(1)' }], 820, { easing: EASE, origin: '12px 2px' }),
+        0: /* @__PURE__ */ track(PUERTA_ABRE, 560, { easing: EASE, delay: 240, origin: '10px 21px' }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La maquinaria trepida y las ventanas laten con ella, de izquierda a derecha. */
+export const factoryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M12 16h.01" },
+    { tag: 'path', d: "M16 16h.01" },
+    {
+      tag: 'path',
+      d: "M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z",
+    },
+    { tag: 'path', d: "M8 16h.01" },
+  ],
+  {
+    default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.35, 0, -0.35, 0, 0.2, 0]), 620, { easing: EASE }),
+      shapes: {
+        3: /* @__PURE__ */ track(DESTELLA, 400),
+        0: /* @__PURE__ */ track(DESTELLA, 400, { delay: 110 }),
+        1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 220 }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320),
+  },
+);
+
+/** Las franjas se pintan en cadena, de izquierda a derecha, y los postes se clavan al final. */
+export const constructionIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'rect', x: 2, y: 6, width: 20, height: 8, rx: 1 },
+    { tag: 'path', d: "M17 14v7" },
+    { tag: 'path', d: "M7 14v7" },
+    { tag: 'path', d: "M17 3v3" },
+    { tag: 'path', d: "M7 3v3" },
+    { tag: 'path', d: "M10 14 2.3 6.3" },
+    { tag: 'path', d: "m14 6 7.7 7.7" },
+    { tag: 'path', d: "m8 6 8 8" },
+  ],
+  {
+    default: {
+      shapes: {
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 140 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 280 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 380, { easing: SPRING_OUT, delay: 420 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1, 0]), 380, { easing: SPRING_OUT, delay: 470 }),
+      },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.03)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** La cuelgan de su asa: sube, rebota y la tapa se separa un momento. */
+export const backpackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" },
+    { tag: 'path', d: "M8 10h8" },
+    { tag: 'path', d: "M8 18h8" },
+    { tag: 'path', d: "M8 22v-6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6" },
+    { tag: 'path', d: "M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" },
+  ],
+  {
+    default: {
+      // El asa ya toca el borde de arriba: el recorrido hacia AFUERA es de 1 unidad, no más.
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.8, 0.3, 0]), 760, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.7, 0]), 560, { easing: EASE, delay: 180 }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320),
+  },
+);
+
+/**
+ * La maleta se posa en el carro y el carro acusa el golpe. Las ruedas son `circle`: girarlas no se
+ * vería, así que se quedan donde están —que además es lo que hacen cuando cargas algo.
+ */
+export const baggageClaimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M22 18H6a2 2 0 0 1-2-2V7a2 2 0 0 0-2-2" },
+    { tag: 'path', d: "M17 14V4a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v10" },
+    { tag: 'rect', width: 13, height: 8, x: 8, y: 6, rx: 1 },
+    { tag: 'circle', cx: 18, cy: 20, r: 2 },
+    { tag: 'circle', cx: 9, cy: 20, r: 2 },
+  ],
+  {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.2, 0]), 620, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.2, 0]), 620, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 480, { easing: SPRING_OUT, delay: 420 }),
+      },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
+    },
+  },
+);
+
+/** El asa telescópica se extiende y la maleta se vuelca sobre su rueda, como cuando tiras de ella. */
+export const luggageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
+  [
+    { tag: 'path', d: "M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" },
+    { tag: 'path', d: "M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" },
+    { tag: 'path', d: "M10 20h4" },
+    { tag: 'circle', cx: 16, cy: 20, r: 2 },
+    { tag: 'circle', cx: 8, cy: 20, r: 2 },
+  ],
+  {
+    default: {
+      // El pivote es la rueda de atrás, no el centro: una maleta se vuelca sobre la rueda.
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4, 0]), 720, { easing: EASE, delay: 380, origin: '8px 20px' }),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.72)' }, { transform: 'scaleY(1)' }], 520, { easing: SPRING_OUT, origin: '12px 18px' }),
+      },
+    },
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { origin: '8px 20px' }),
+  },
+);
+
 export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'alarm-smoke': alarmSmokeIcon,
   'app-window-mac': appWindowMacIcon,
@@ -16503,4 +17164,27 @@ export const CURATED_ICONS: Record<string, AnimatedIconDef> = {
   'train-front': trainFrontIcon,
   'train-front-tunnel': trainFrontTunnelIcon,
   'train-track': trainTrackIcon,
+  'helicopter': helicopterIcon,
+  'drone': droneIcon,
+  'tower-control': towerControlIcon,
+  'kayak': kayakIcon,
+  'sailboat': sailboatIcon,
+  'anchor': anchorIcon,
+  'ferris-wheel': ferrisWheelIcon,
+  'roller-coaster': rollerCoasterIcon,
+  'castle': castleIcon,
+  'church': churchIcon,
+  'mosque': mosqueIcon,
+  'hospital': hospitalIcon,
+  'hotel': hotelIcon,
+  'school': schoolIcon,
+  'university': universityIcon,
+  'store': storeIcon,
+  'factory': factoryIcon,
+  'construction': constructionIcon,
+  'tent': tentIcon,
+  'tent-tree': tentTreeIcon,
+  'backpack': backpackIcon,
+  'baggage-claim': baggageClaimIcon,
+  'luggage': luggageIcon,
 };

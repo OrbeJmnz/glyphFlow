@@ -224,6 +224,12 @@
       "path:6fd13e863248",
       "path:4712181392e3"
     ],
+    "anchor": [
+      "path:4609b015831a",
+      "path:0e875aaeda9c",
+      "path:62eab0c8634c",
+      "circle:c97188848670"
+    ],
     "antenna": [
       "path:889281ffb15e",
       "path:e804a06cd194",
@@ -545,6 +551,13 @@
       "path:90495e681abf",
       "path:4881ae33f798"
     ],
+    "backpack": [
+      "path:e5d5bbeb0b38",
+      "path:b9eb9254f344",
+      "path:d32cd27c8cd5",
+      "path:6a938933cd94",
+      "path:f0e226076948"
+    ],
     "badge": [
       "path:65bb74b0896e"
     ],
@@ -636,6 +649,13 @@
       "path:65bb74b0896e",
       "line:d80838721362",
       "line:6b323e8a31fa"
+    ],
+    "baggage-claim": [
+      "path:ae11c8483ef8",
+      "path:30a117481640",
+      "rect:d35a1fbb4170",
+      "circle:2f8112b0f579",
+      "circle:6ec126d0420f"
     ],
     "balloon": [
       "path:7feeddb1ae06",
@@ -1701,6 +1721,16 @@
       "path:86dc7a929b5c",
       "line:95eff7e77897"
     ],
+    "castle": [
+      "path:3a24448c69f2",
+      "path:b595df50cbbb",
+      "path:549fb0bf91d5",
+      "path:17266bd3f9b9",
+      "path:87113a25c84e",
+      "path:4f8bfddb5700",
+      "path:ed3ae029528e",
+      "path:70c64b264331"
+    ],
     "cctv": [
       "path:994a1eb7e731",
       "path:ce9f81c568d2",
@@ -1973,6 +2003,13 @@
     "chevrons-up-down": [
       "path:fe29b60dfd27",
       "path:82e027c032cb"
+    ],
+    "church": [
+      "path:03250843d12e",
+      "path:80fca39635b1",
+      "path:a523387ec93a",
+      "path:ef02f79c59c9",
+      "path:1a66c06662cf"
     ],
     "cigarette": [
       "path:1ea76f915499",
@@ -2617,6 +2654,16 @@
       "path:20c93a049243",
       "path:af54caf9efe7"
     ],
+    "construction": [
+      "rect:ee17841bc00d",
+      "path:21acaf45af5f",
+      "path:3636fd1cd3e0",
+      "path:3db0de73d3c9",
+      "path:f0c4bdd44a77",
+      "path:01250199d702",
+      "path:9eebad1a239e",
+      "path:7fe964892a0f"
+    ],
     "contact": [
       "path:028b3b686e81",
       "path:6576cb1fa946",
@@ -2976,6 +3023,17 @@
       "path:17b2f245dec9",
       "path:2f8a5f6a8f76"
     ],
+    "drone": [
+      "path:4d1d767d27f0",
+      "path:ef10156c25d9",
+      "path:934a7fdc3d90",
+      "path:6b7bd1a5f1d8",
+      "path:85cb7fcc9d94",
+      "path:e47b9c2dd7c3",
+      "path:692629d7b6c2",
+      "path:5f49d0c947ca",
+      "rect:bc1a8a4cd418"
+    ],
     "droplet": [
       "path:19fb41e736d1"
     ],
@@ -3166,6 +3224,12 @@
       "path:06e3cd556126",
       "path:41f25670cb06"
     ],
+    "factory": [
+      "path:04796774ada1",
+      "path:5107cbe06319",
+      "path:7e28a1b4de4a",
+      "path:a84a55b76b79"
+    ],
     "fan": [
       "path:41479767e6e3",
       "path:8e7e336271b8"
@@ -3173,6 +3237,17 @@
     "fast-forward": [
       "path:fdd09ea61e7e",
       "path:9a9b3726e785"
+    ],
+    "ferris-wheel": [
+      "circle:9f7fcbaf7380",
+      "path:c569d3462629",
+      "path:50ef2670300e",
+      "path:33cf57aa0c42",
+      "path:77fa97e7ba06",
+      "path:b75c07e23aa7",
+      "path:baef121d750d",
+      "path:c8dc82bd8235",
+      "path:59970e182065"
     ],
     "file": [
       "path:ed539cad8550",
@@ -4331,6 +4406,16 @@
       "path:8e1295ea94a7",
       "path:579f5c23fbab"
     ],
+    "helicopter": [
+      "path:d5e9dbb30510",
+      "path:5eb7c36eb55e",
+      "path:c8290b11c389",
+      "path:63582b3bdeeb",
+      "path:789d97d752e0",
+      "path:d823690fcdf4",
+      "path:612339cc6aeb",
+      "path:0e04dc47c532"
+    ],
     "highlighter": [
       "path:ff9a8f5a485e",
       "path:fe23e862ee2c"
@@ -4355,6 +4440,25 @@
       "path:f1b688bd1caf",
       "path:21dad7f5e36f",
       "path:378c27879c92"
+    ],
+    "hospital": [
+      "path:81fca52936b1",
+      "path:a523387ec93a",
+      "path:8e327f80e528",
+      "path:5e7a4660dd60",
+      "path:5baba7c65da0"
+    ],
+    "hotel": [
+      "path:c51f0305f017",
+      "path:b5303e013f6f",
+      "path:711435ea26df",
+      "path:d673baf5ceac",
+      "path:051f77d43db8",
+      "path:6f7c85e59294",
+      "path:8ae6d7ae37eb",
+      "path:56db478e018a",
+      "path:d2c5db2f6062",
+      "rect:2428eb83eaf8"
     ],
     "house": [
       "path:1477bac52fac",
@@ -4510,6 +4614,12 @@
       "path:dae945700399",
       "path:b7f762b110b7",
       "path:dfd4aa75996e"
+    ],
+    "kayak": [
+      "path:87d264dc622b",
+      "path:a4e118515999",
+      "path:0c0b8547f13b",
+      "path:546446e58b3c"
     ],
     "key": [
       "path:87569408b7c7",
@@ -4996,6 +5106,13 @@
       "path:c4c320068d89",
       "path:6794259018da",
       "path:9c1c7409cb86"
+    ],
+    "luggage": [
+      "path:a9f8658d6b5a",
+      "path:0bbad6526def",
+      "path:19b7f0629816",
+      "circle:ebb8191a369e",
+      "circle:ad349ac78cd5"
     ],
     "mail": [
       "path:5e4902aa4f77",
@@ -5564,6 +5681,14 @@
       "path:05601f5f469d",
       "path:f8adead0e318",
       "path:2dcf463a91e5"
+    ],
+    "mosque": [
+      "path:6b44306b2059",
+      "path:a0a6d0d648db",
+      "path:cf6892a9d0f3",
+      "path:6f980fc8e66a",
+      "path:087fd131f6f0",
+      "path:488f992d3531"
     ],
     "motorbike": [
       "path:216ec6cf49ca",
@@ -6611,6 +6736,15 @@
       "path:83db1b4b0cc4",
       "path:6b747cfbbb8a"
     ],
+    "roller-coaster": [
+      "path:881fd4a40400",
+      "path:81633050b0ba",
+      "path:e687b226000e",
+      "path:99790d41daca",
+      "path:1435650fba34",
+      "path:66b63ebcdd01",
+      "path:3658f7748b5e"
+    ],
     "rotate-3d": [
       "path:7b115e4a7e1b",
       "path:0958911c27ef",
@@ -6703,6 +6837,11 @@
     "russian-ruble": [
       "path:fd9f84e98ef4",
       "path:b36eafe960f4"
+    ],
+    "sailboat": [
+      "path:bdd1da4ee37c",
+      "path:140209f9d58a",
+      "path:3eaf1e7ed7bd"
     ],
     "satellite": [
       "path:3c6d7b1b487d",
@@ -6850,6 +6989,14 @@
       "path:b501e17ee172",
       "path:f412b7da9f87",
       "path:22b2f4eb3df6"
+    ],
+    "school": [
+      "path:a523387ec93a",
+      "path:66a71a46f1ab",
+      "path:416b99071393",
+      "path:07af26a3228f",
+      "path:3049cb2d85b3",
+      "circle:b7dbf3979f39"
     ],
     "scissors": [
       "circle:5a150a8c86b8",
@@ -7877,6 +8024,11 @@
       "path:e70579403eaa",
       "path:7c05091b17b5"
     ],
+    "store": [
+      "path:e44119132db3",
+      "path:3b8fb7096709",
+      "path:ac35537445c8"
+    ],
     "stretch-horizontal": [
       "rect:00aec978072f",
       "rect:55339ed955b6"
@@ -8105,6 +8257,21 @@
       "path:eab283ab64f1",
       "circle:27e6fdd84878"
     ],
+    "tent": [
+      "path:ac277934c17e",
+      "path:db5d38fd8887",
+      "path:890df66f64b5",
+      "path:ea23593c3905"
+    ],
+    "tent-tree": [
+      "circle:f176ce1f920e",
+      "path:023ccdd218ad",
+      "path:5b82fc644609",
+      "path:1cfc5946b20f",
+      "path:811c9e83c62b",
+      "path:83ffdf563189",
+      "path:edb6c4121005"
+    ],
     "terminal": [
       "path:ca6ea55cf39e",
       "path:e0e02d6803a3"
@@ -8318,6 +8485,15 @@
       "path:0ea9df8f5374",
       "path:ba0dc52e33e1",
       "path:bb0f40cb11e1"
+    ],
+    "tower-control": [
+      "path:2cdc5eda3812",
+      "path:fb3ad858c205",
+      "path:5d50ad223bb5",
+      "path:6dd0659ce0d1",
+      "path:6f671172bd58",
+      "path:1d204368ca73",
+      "path:ce43029e2159"
     ],
     "toy-brick": [
       "rect:4628d300ae98",
@@ -8548,6 +8724,15 @@
       "path:2d9df39f8f99",
       "path:4cacf8fe84ed",
       "path:56d854691433"
+    ],
+    "university": [
+      "path:a523387ec93a",
+      "path:f41b999e53c6",
+      "path:237ec77abdfb",
+      "path:e496ebb78dce",
+      "path:020af2f1dd37",
+      "path:5160390d0e0e",
+      "circle:3571a00d22bf"
     ],
     "unlink": [
       "path:5a25a512d8d9",
@@ -9198,6 +9383,11 @@
       "default": "8678f2802bc0",
       "draw": "17c8398e8d34"
     },
+    "anchor": {
+      "default": "58231af07f73",
+      "draw": "17c8398e8d34",
+      "hold": "b606feab3dd1"
+    },
     "antenna": {
       "default": "3007be72c26d",
       "draw": "17c8398e8d34",
@@ -9444,6 +9634,11 @@
       "default": "7c0db8fe2713",
       "draw": "17c8398e8d34"
     },
+    "backpack": {
+      "default": "765072a6bee1",
+      "draw": "17c8398e8d34",
+      "hold": "c1bdcae8d1d4"
+    },
     "badge": {
       "default": "d6bda53924df",
       "draw": "17c8398e8d34",
@@ -9536,6 +9731,11 @@
       "default": "2852240d7c1e",
       "draw": "17c8398e8d34",
       "drop": "1c80ba7c5fea"
+    },
+    "baggage-claim": {
+      "default": "a99a38fe56e4",
+      "draw": "17c8398e8d34",
+      "hold": "8c56c4ba3b2a"
     },
     "balloon": {
       "default": "fac1bb06434b",
@@ -10252,6 +10452,11 @@
       "default": "8fa557c060f7",
       "draw": "17c8398e8d34"
     },
+    "castle": {
+      "default": "ccb13a4e86af",
+      "draw": "17c8398e8d34",
+      "hold": "dc293de42eb8"
+    },
     "cctv": {
       "alert": "34c2bfe29b34",
       "default": "03803f772edb",
@@ -10466,6 +10671,11 @@
       "active": "69049ef3d71d",
       "default": "b27e01f1ed7f",
       "draw": "17c8398e8d34"
+    },
+    "church": {
+      "default": "0857bd17bce4",
+      "draw": "17c8398e8d34",
+      "hold": "57a7efd81790"
     },
     "cigarette": {
       "default": "085a0189abb0",
@@ -10948,6 +11158,11 @@
       "draw": "17c8398e8d34",
       "hold": "eafd548a2061"
     },
+    "construction": {
+      "default": "b8cfb87aebb9",
+      "draw": "17c8398e8d34",
+      "hold": "091f0de0b4f3"
+    },
     "contact": {
       "default": "a1837b08902f",
       "draw": "17c8398e8d34"
@@ -11208,6 +11423,11 @@
       "draw": "17c8398e8d34",
       "hold": "bfbcfef9af04"
     },
+    "drone": {
+      "default": "a427e0a9ad96",
+      "draw": "17c8398e8d34",
+      "hold": "3d843673ed0a"
+    },
     "droplet": {
       "default": "826da5c1569d",
       "draw": "17c8398e8d34"
@@ -11346,6 +11566,11 @@
       "default": "d8e20ce24235",
       "draw": "17c8398e8d34"
     },
+    "factory": {
+      "default": "8f2802e00b4b",
+      "draw": "17c8398e8d34",
+      "hold": "0d84894ce9ca"
+    },
     "fan": {
       "default": "57c19408b896",
       "draw": "17c8398e8d34",
@@ -11354,6 +11579,11 @@
     "fast-forward": {
       "default": "f0f018b72b52",
       "draw": "17c8398e8d34"
+    },
+    "ferris-wheel": {
+      "default": "07d89844bd7b",
+      "draw": "17c8398e8d34",
+      "hold": "a9429d98a499"
     },
     "file": {
       "default": "8bda1c5c53be",
@@ -12271,6 +12501,11 @@
       "draw": "17c8398e8d34",
       "hold": "541911c8106d"
     },
+    "helicopter": {
+      "default": "fade2f5ce82a",
+      "draw": "17c8398e8d34",
+      "hold": "3d843673ed0a"
+    },
     "highlighter": {
       "default": "37cd22abcb97",
       "draw": "17c8398e8d34"
@@ -12282,6 +12517,16 @@
     "hop-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34"
+    },
+    "hospital": {
+      "default": "6346aedbb0fb",
+      "draw": "17c8398e8d34",
+      "hold": "9ab53aa9c8e1"
+    },
+    "hotel": {
+      "default": "629dfe094226",
+      "draw": "17c8398e8d34",
+      "hold": "49c55ad4542c"
     },
     "house": {
       "default": "9f23dbdc2278",
@@ -12398,6 +12643,11 @@
     "kanban": {
       "default": "4decc6acc7b4",
       "draw": "17c8398e8d34"
+    },
+    "kayak": {
+      "default": "85793aac0178",
+      "draw": "17c8398e8d34",
+      "hold": "7d26ab9bb239"
     },
     "key": {
       "active": "ff92dad4b799",
@@ -12748,6 +12998,11 @@
       "default": "d2136f17c66c",
       "draw": "17c8398e8d34",
       "hold": "8588a0b5d915"
+    },
+    "luggage": {
+      "default": "f1792e4b2443",
+      "draw": "17c8398e8d34",
+      "hold": "b329e262bd85"
     },
     "mail": {
       "default": "1d76008320ad",
@@ -13191,6 +13446,11 @@
     "moon-star": {
       "default": "8cfbcb70107b",
       "draw": "17c8398e8d34"
+    },
+    "mosque": {
+      "default": "de5d6547a74f",
+      "draw": "17c8398e8d34",
+      "hold": "9efcd2aa6a7f"
     },
     "motorbike": {
       "default": "7f1037471cd9",
@@ -13998,6 +14258,11 @@
       "default": "3dc888da043a",
       "draw": "17c8398e8d34"
     },
+    "roller-coaster": {
+      "default": "48891e4ebdd1",
+      "draw": "17c8398e8d34",
+      "hold": "a157b2ecd45a"
+    },
     "rotate-3d": {
       "default": "8a3735570edf",
       "draw": "17c8398e8d34"
@@ -14063,6 +14328,11 @@
     "russian-ruble": {
       "default": "cd0ae2d6d223",
       "draw": "17c8398e8d34"
+    },
+    "sailboat": {
+      "default": "0747b4cf19e9",
+      "draw": "17c8398e8d34",
+      "hold": "2dd6d2a8ea41"
     },
     "satellite": {
       "default": "4a67aae73d7f",
@@ -14160,6 +14430,11 @@
       "default": "37998dd8dabc",
       "draw": "17c8398e8d34",
       "hold": "ff437569085c"
+    },
+    "school": {
+      "default": "08453f705ac0",
+      "draw": "17c8398e8d34",
+      "hold": "977f423046ca"
     },
     "scissors": {
       "default": "7ee4f2c18b75",
@@ -14916,6 +15191,11 @@
       "default": "383d8110f239",
       "draw": "17c8398e8d34"
     },
+    "store": {
+      "default": "f34de6c2b177",
+      "draw": "17c8398e8d34",
+      "hold": "7cdea45828e3"
+    },
     "stretch-horizontal": {
       "default": "c7c4b0c0f57b",
       "draw": "17c8398e8d34"
@@ -15061,6 +15341,16 @@
     "telescope": {
       "default": "9f964837b627",
       "draw": "17c8398e8d34"
+    },
+    "tent": {
+      "default": "96bda0554922",
+      "draw": "17c8398e8d34",
+      "hold": "e781e3ba3590"
+    },
+    "tent-tree": {
+      "default": "953c0e92aec6",
+      "draw": "17c8398e8d34",
+      "hold": "b562e4c4c39a"
     },
     "terminal": {
       "default": "59448cc0cd3b",
@@ -15226,6 +15516,11 @@
       "default": "62a1444a9ca4",
       "draw": "17c8398e8d34",
       "hold": "9c595b888356"
+    },
+    "tower-control": {
+      "default": "bf5fbc30009a",
+      "draw": "17c8398e8d34",
+      "hold": "a66dbb484005"
     },
     "toy-brick": {
       "default": "ecc1fabb993d",
@@ -15395,6 +15690,11 @@
     "unfold-vertical": {
       "default": "1b17593fa1c1",
       "draw": "17c8398e8d34"
+    },
+    "university": {
+      "default": "7b4646981ba7",
+      "draw": "17c8398e8d34",
+      "hold": "538663fed27e"
     },
     "unlink": {
       "default": "3d66d0ae2882",
