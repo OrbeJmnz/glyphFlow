@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: min(480px, 100vw);
+  width: min(var(--gf-panel-ancho), 100vw);
   /* Vertical de 3rem (equivalente a `my-12`): con `top`/`bottom` fijos, el margen no lo mueve —
      lo encoge desde adentro, así que el panel deja de tocar el borde de arriba y abajo del
      viewport. */

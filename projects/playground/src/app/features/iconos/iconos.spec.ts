@@ -99,6 +99,11 @@ describe('Iconos', () => {
     expect(html.querySelector('.scrim')).toBeNull();
     expect(html.querySelector('[aria-modal]')).toBeNull();
     expect(document.body.style.overflow).not.toBe('hidden');
+
+    // Y la rejilla le hace HUECO en vez de dejar iconos debajo: sin esto, 3 de cada 7 columnas
+    // quedaban permanentemente tapadas por el panel (medido a 1280px).
+    expect(html.querySelector('.grid')?.classList.contains('con-panel')).toBe(true);
+    expect(html.querySelector('.barra')?.classList.contains('con-panel')).toBe(true);
   });
 
   it('el hero conserva un h1 real, escondido solo a la vista', async () => {

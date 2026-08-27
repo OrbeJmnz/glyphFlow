@@ -217,7 +217,7 @@
   }
 </ul>
 
-<div class="barra" #barraCatalogo>
+<div class="barra" [class.con-panel]="inspeccionado()" #barraCatalogo>
   <button type="button" app-boton compacto (click)="repetirVisibles()">
     {{ 'iconos.barra.repetirVisibles' | transloco }}
   </button>
@@ -299,9 +299,17 @@
 }
 
 <!--
-  Sin `con-panel`: el panel es un overlay, así que la rejilla NO se reacomoda al abrirlo. Antes
-  le hacía sitio con `padding-right` y un número de columnas fijo por breakpoint, y cada tarjeta
-  cambiaba de posición — al cerrar, nadie encontraba dónde iba.
+  `con-panel` le hace sitio al drawer. Se había quitado, y con razón para lo que era entonces: un
+  modal que se abría, se miraba y se cerraba, así que reacomodar la rejilla movía cada tarjeta de
+  su posición y al cerrar nadie encontraba dónde iba.
+
+  Ahora el panel se queda abierto mientras se navega —se pulsa un icono tras otro sin cerrarlo— y
+  la cuenta cambia: sin hueco, 3 de cada 7 columnas quedan permanentemente debajo del panel
+  (medido a 1280px; a 1024 es la mitad de la rejilla). El reacomodo pasa dos veces por sesión, al
+  abrir y al cerrar; las tarjetas tapadas, todo el rato.
+
+  Y la objeción de entonces la resuelve `conTransicion`, que es lo que ya hace el filtro de
+  insignias: las tarjetas VIAJAN a su sitio nuevo en vez de que la cuadrícula se re-arme de golpe.
 -->
 <!--
   `role="group"` y no `role="grid"`: un `grid` de ARIA exige `role="row"` en medio, y aquí las filas
@@ -310,6 +318,7 @@
 -->
 <div
   class="grid"
+  [class.con-panel]="inspeccionado()"
   appRejillaTeclado
   role="group"
   [attr.aria-label]="'iconos.grid.rejillaAria' | transloco: { n: entries().length }"

@@ -417,6 +417,29 @@
   margin: 0 auto;
 }
 
+/*
+ * El hueco del drawer. `--gf-panel-ancho` es el ancho del propio panel (`icon-detail-panel.css`):
+ * un número copiado se despega del otro en cuanto alguien toca uno.
+ *
+ * Sólo a partir de 769px, que es donde el panel va al LADO. Por debajo ancla abajo y ocupa el
+ * ancho completo, así que un hueco a la derecha no taparía nada — dejaría la rejilla estrecha sin
+ * motivo.
+ */
+@media (min-width: 769px) {
+  .grid.con-panel,
+  .barra.con-panel {
+    /* `margin-right` y no `padding-right`: el padding deja la CAJA igual de ancha, así que la
+       barra —un flex con hijos que no encogen— seguía desbordándose por debajo del panel. El
+       margen sí recorta el elemento, y con él la rejilla recalcula sus columnas. */
+    margin-right: calc(var(--gf-panel-ancho) + 16px);
+  }
+
+  /* La barra ya trae su propio margen vertical; sólo se le añade el lateral. */
+  .barra.con-panel {
+    margin: 64px calc(var(--gf-panel-ancho) + 16px) 24px 0;
+  }
+}
+
 .grid.comoda {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }

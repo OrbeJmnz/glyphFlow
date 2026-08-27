@@ -148,6 +148,9 @@
   --gf-radio: 24px;
   --gf-radio-chico: 12px;
   --gf-ancho: 1240px;
+  /* El ancho del drawer de detalle. Vive aquí y no en su CSS porque la rejilla le hace hueco con
+     este mismo número: dos copias se despegan en cuanto alguien toca una. */
+  --gf-panel-ancho: 480px;
 
   /*
    * La altura del header. Es la FUENTE, no una copia: `.shell-head` toma su `min-height` de aquí,

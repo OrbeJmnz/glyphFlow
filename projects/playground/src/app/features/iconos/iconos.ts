@@ -649,11 +649,21 @@ export class Iconos implements OnDestroy {
 
   protected inspeccionar(entry: CuratedEntry, ev?: Event): void {
     this.origenFoco = (ev?.currentTarget as HTMLElement) ?? null;
-    this.inspeccionado.set(entry);
+    // La transición SOLO cuando el panel pasa de cerrado a abierto, que es cuando la rejilla se
+    // estrecha para hacerle hueco. Con el panel ya abierto, pulsar otro icono no mueve nada y
+    // animar la cuadrícula entera sería ruido.
+    if (this.inspeccionado()) {
+      this.inspeccionado.set(entry);
+      return;
+    }
+    conTransicion(() => this.inspeccionado.set(entry));
   }
 
   protected cerrarDetalle(): void {
-    this.inspeccionado.set(null);
+    // Al cerrar, la rejilla recupera su ancho: las tarjetas VIAJAN a su sitio en vez de que la
+    // cuadrícula se re-arme de golpe. Es lo que responde a la objeción por la que este hueco se
+    // había quitado — «al cerrar, nadie encontraba dónde iba».
+    conTransicion(() => this.inspeccionado.set(null));
     this.origenFoco?.focus();
     this.origenFoco = null;
   }
