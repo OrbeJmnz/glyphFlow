@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { alternarTema, conectarTema, tema } from './tema';
+import { alternarTema, conectarTema, semilla, tema } from './tema';
 
 @Component({ template: '' })
 class Anfitrion {
@@ -24,6 +24,43 @@ describe('tema', () => {
     fixture.detectChanges();
     return fixture;
   }
+
+  /*
+   * El parpadeo de arrancar oscuro y saltar a claro, que Orbe vio el 2026-08-27.
+   *
+   * `semilla()` decidía SIEMPRE por su cuenta, y en el prerender —Node, sin `matchMedia`— caía al
+   * `catch` y devolvía oscuro. Ese valor se horneaba en el `data-theme` de las 19 rutas estáticas,
+   * así que todo visitante recibía HTML que decía «dark»; al hidratar, el módulo se re-evaluaba en
+   * el navegador, ahí `matchMedia` sí existe, y quien prefiere claro veía el salto.
+   *
+   * El arreglo es que la semilla RESPETE lo que ya está puesto en el <html>: un script diminuto en
+   * el `<head>` lo escribe antes del primer pintado, y el cliente lo hereda en vez de volver a
+   * decidir. Este test es el contrato de esa herencia.
+   */
+  it('hereda el tema que ya está puesto en <html> en vez de volver a decidirlo', () => {
+    document.documentElement.setAttribute('data-theme', 'light');
+    expect(semilla()).toBe('claro');
+
+    document.documentElement.setAttribute('data-theme', 'dark');
+    expect(semilla()).toBe('oscuro');
+  });
+
+  it('sin atributo puesto, decide con la preferencia del sistema', () => {
+    document.documentElement.removeAttribute('data-theme');
+    const original = window.matchMedia;
+    window.matchMedia = ((q: string) =>
+      ({
+        matches: q.includes('light'),
+        media: q,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }) as unknown as MediaQueryList) as typeof window.matchMedia;
+    try {
+      expect(semilla()).toBe('claro');
+    } finally {
+      window.matchMedia = original;
+    }
+  });
 
   it('alterna en los dos sentidos', () => {
     // Sin origen no hay transición que animar: cambia y ya. Es también el camino de los navegadores

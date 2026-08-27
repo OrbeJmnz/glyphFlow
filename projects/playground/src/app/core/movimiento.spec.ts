@@ -12,8 +12,10 @@ async function cargar(opciones: { reducido: boolean; guardado?: string }) {
 
   vi.stubGlobal('matchMedia', (consulta: string) => ({
     matches: consulta.includes('prefers-reduced-motion') && opciones.reducido,
-    addEventListener: () => {},
-    removeEventListener: () => {},
+    // `vi.fn()` y no `() => {}`: el lint prohíbe funciones vacías, y además así se puede
+    // afirmar si el módulo se suscribió al cambio de preferencia.
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
   }));
 
   return import('./movimiento');
@@ -65,8 +67,8 @@ describe('movimiento', () => {
     vi.resetModules();
     vi.stubGlobal('matchMedia', () => ({
       matches: false,
-      addEventListener: () => {},
-      removeEventListener: () => {},
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     }));
     const trasRecargar = await import('./movimiento');
     expect(trasRecargar.hayMovimiento()).toBe(false);

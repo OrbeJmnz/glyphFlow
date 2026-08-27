@@ -23,6 +23,63 @@
       sobre una página negra. `core/tema.ts` reescribe este `content` en cada cambio.
     -->
     <meta name="theme-color" content="#121212" />
+
+    <!--
+      El tema y el movimiento, DECIDIDOS ANTES DEL PRIMER PINTADO.
+
+      Tiene que ser un script en línea y bloqueante aquí arriba, no código de la aplicación: el
+      prerender corre en Node, donde `matchMedia` no existe, así que la aplicación caía a su
+      respuesta por defecto —oscuro, con movimiento— y ESE valor quedaba horneado en el
+      `data-theme` de las 19 rutas estáticas. El visitante recibía HTML que decía «dark», el
+      navegador lo pintaba, y al hidratar la aplicación volvía a decidir con el `matchMedia` de
+      verdad: quien prefiere claro veía el salto de oscuro a claro. Aquí no hay prerender que valga
+      —esto corre en el navegador de cada quien, antes de que se pinte un solo píxel—.
+
+      `core/tema.ts` y `core/movimiento.ts` LEEN estos atributos como semilla en vez de volver a
+      decidir, así que la regla vive en un solo sitio aunque se escriba dos veces. Lo ancla
+      `tema.spec.ts`.
+
+      Y va sin `defer` ni `async` a propósito: los dos lo aplazarían hasta después del parseo, que
+      es exactamente lo que hay que evitar.
+    -->
+    <script>
+      (function () {
+        var raiz = document.documentElement;
+        function elegir(clave, valores, consulta, siCasa) {
+          try {
+            var v = localStorage.getItem(clave);
+            if (valores.indexOf(v) >= 0) return v;
+          } catch (e) {
+            /* Modo privado o cookies bloqueadas: manda el sistema y no se persiste. */
+          }
+          try {
+            return matchMedia(consulta).matches ? siCasa : valores[0];
+          } catch (e) {
+            return valores[0];
+          }
+        }
+        // `gf:tema` es la clave de antes de T19; se mira para no tirarle el tema a quien ya venía.
+        var guardadoViejo = null;
+        try {
+          guardadoViejo = localStorage.getItem('gf:tema');
+        } catch (e) {
+          /* sin storage */
+        }
+        var tema =
+          guardadoViejo === 'claro'
+            ? 'light'
+            : guardadoViejo === 'oscuro'
+              ? 'dark'
+              : elegir('gf:theme', ['dark', 'light'], '(prefers-color-scheme: light)', 'light');
+        raiz.setAttribute('data-theme', tema);
+        raiz.setAttribute(
+          'data-motion',
+          elegir('gf:motion', ['on', 'off'], '(prefers-reduced-motion: reduce)', 'off'),
+        );
+        var barra = document.querySelector('meta[name="theme-color"]');
+        if (barra) barra.setAttribute('content', tema === 'light' ? '#ffffff' : '#121212');
+      })();
+    </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <!--

@@ -36,12 +36,21 @@ function guardado(): Tema | null {
 }
 
 /**
- * Semilla: primero lo que el visitante eligió alguna vez, y si nunca eligió, lo que pide su sistema.
+ * Semilla: lo PRIMERO que se mira es el atributo que ya está en el `<html>`.
  *
- * Se lee AQUÍ, en el módulo, y no dentro de un efecto: el valor tiene que estar puesto antes del
- * primer pintado o se ve el parpadeo de arrancar oscuro y saltar a claro.
+ * Ese atributo lo escribe el script del `<head>` (ver `index.html`) antes del primer pintado, con
+ * esta misma regla — elección guardada, y si no, la del sistema. Heredarlo en vez de volver a
+ * decidir es lo que mata el parpadeo, y la razón es el PRERENDER: corre en Node, donde
+ * `matchMedia` no existe, así que este módulo caía al `catch`, devolvía oscuro y ese valor se
+ * horneaba en el `data-theme` de las 19 rutas estáticas. Todo visitante recibía HTML que decía
+ * «dark»; al hidratar, aquí sí hay `matchMedia`, y quien prefiere claro veía el salto.
+ *
+ * El orden de abajo solo aplica cuando NO hay atributo: en el prerender, y en el navegador si
+ * alguien sirve el `index.csr.html` pelado.
  */
-function semilla(): Tema {
+export function semilla(): Tema {
+  const puesto = leerAtributo();
+  if (puesto) return puesto;
   const elegido = guardado();
   if (elegido) return elegido;
   try {
@@ -51,7 +60,33 @@ function semilla(): Tema {
   }
 }
 
+/**
+ * Lo que el script del `<head>` dejó puesto. `globalThis.document` y no `inject(DOCUMENT)` porque
+ * esto corre al evaluar el módulo, mucho antes de que exista un inyector — y en el prerender no
+ * hay ninguno, que es justo el caso que devuelve `null`.
+ */
+function leerAtributo(): Tema | null {
+  const html = (globalThis as { document?: Document }).document?.documentElement;
+  const v = html?.getAttribute('data-theme');
+  if (v === 'dark') return 'oscuro';
+  if (v === 'light') return 'claro';
+  return null;
+}
+
 export const tema = signal<Tema>(semilla());
+
+/**
+ * `true` mientras nadie haya tocado el interruptor — o sea, mientras mande `prefers-color-scheme`.
+ *
+ * Existe para el `<picture>` del hero: cuando manda el sistema, el logo se elige con un
+ * `<source media>` que el navegador resuelve ANTES de pintar y sin bajar la fuente que no casa.
+ * En cuanto alguien elige a mano, esa media query dejaría de valer —siempre le ganaría al
+ * visitante— y el `<source>` se retira. Mismo criterio y misma señal que `movimiento.ts`.
+ *
+ * Se siembra de `guardado()` y no de `tema()`: lo que importa no es qué tema hay, es si alguien
+ * lo eligió.
+ */
+export const temaSiguiendoAlSistema = signal(guardado() === null);
 
 function aplicar(t: Tema): void {
   if (!doc) return;
@@ -95,6 +130,8 @@ export function alternarTema(origen?: Origen): void {
 
   const cambiar = (): void => {
     tema.set(siguiente);
+    // A partir de aquí manda el visitante, no su sistema.
+    temaSiguiendoAlSistema.set(false);
     // Se aplica a mano y no se espera al efecto: el callback tiene que dejar el DOM ya cambiado
     // cuando retorna, y con Angular sin zonas el efecto todavía no corrió.
     aplicar(siguiente);

@@ -34,7 +34,17 @@ function guardada(): EleccionMovimiento | null {
 /** Lo que pide el sistema. Va por señal porque se puede cambiar con el sitio abierto. */
 const prefiereReducido = signal(leerPreferenciaDelSistema());
 
+/**
+ * Mismo criterio que `tema.ts`: primero lo que el script del `<head>` dejó en el `<html>`, porque
+ * el prerender no tiene `matchMedia` y su respuesta se hornea en las rutas estáticas. Sin esto,
+ * quien pide movimiento reducido recibe HTML con `data-motion="on"` y ve animarse el sitio hasta
+ * que hidrata.
+ */
 function leerPreferenciaDelSistema(): boolean {
+  const html = (globalThis as { document?: Document }).document?.documentElement;
+  const puesto = html?.getAttribute('data-motion');
+  if (puesto === 'on') return false;
+  if (puesto === 'off') return true;
   try {
     return matchMedia('(prefers-reduced-motion: reduce)').matches;
   } catch {
