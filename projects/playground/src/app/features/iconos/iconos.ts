@@ -11,6 +11,7 @@ import {
   effect,
   inject,
   OnDestroy,
+  PendingTasks,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
@@ -19,7 +20,7 @@ import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/
 import iconosEn from '../../../i18n/iconos/en.json';
 import {
   GfIconComponent,
-  CURATED_ICONS,
+  sparklesIcon,
   AnimatedIconDef,
   circleIcon,
   squareIcon,
@@ -52,6 +53,7 @@ import { Copiador } from '../../shared/ui/copiar';
 import { normalizar, ordenarPorRelevancia } from './buscador';
 import { Rutas } from '../../core/rutas.service';
 import { tema, temaSiguiendoAlSistema } from '../../core/tema';
+import { cargarCurados } from '../../core/catalogo';
 import { Visible } from '../../shared/ui/visible';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
@@ -210,16 +212,27 @@ export class Iconos implements OnDestroy {
     void this.copiador.copiar(SNIPPET_PORTADA);
   }
 
-  private readonly todos: CuratedEntry[] = Object.entries(CURATED_ICONS)
-    .map(([name, def]) => ({
-      name,
-      def,
-      insignias: insigniasDe(name, def),
-      numAnimaciones: Object.keys(def.animations).length,
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  /**
+   * El catálogo llega DIFERIDO, en su propio chunk.
+   *
+   * Importar `CURATED_ICONS` de forma estática desde una ruta diferida lo mete en el bundle
+   * INICIAL: esbuild sube a la entrada lo que alcanzan varios chunks, y el catálogo curado entero
+   * son más de un megabyte que bajaba también quien sólo abría Docs. Medido en `ng build`:
+   * 1.43 MB de entrada con él, 373 KB sin él.
+   *
+   * Es la página que PINTA el catálogo, así que diferirlo aquí no ahorra la descarga a quien entra
+   * a la portada: la mueve fuera del arranque, para que no la paguen las otras rutas. La rejilla
+   * arranca vacía un instante, que es lo mismo que ya pasaba mientras bajaba el chunk de la página.
+   */
+  private readonly todos = signal<CuratedEntry[]>([]);
 
-  protected readonly total = this.todos.length;
+  /**
+   * El total ANUNCIADO. Sale de `CIFRAS` y no de `todos()` a propósito: es lo que el título y el
+   * marcador del buscador interpolan, y tiene que decir la verdad desde el primer fotograma —antes
+   * de que llegue el catálogo—, no empezar en cero y saltar. `cifras.spec.ts` lo ancla contra el
+   * registro real, así que no puede quedarse atrás en silencio.
+   */
+  protected readonly total = CIFRAS.curados;
 
   /**
    * El conteo del título sale del catálogo, y se pone DESDE AQUÍ y no desde la ruta.
@@ -257,9 +270,11 @@ export class Iconos implements OnDestroy {
    * llegar al catálogo completo. Nombres fijos y no un `slice` al azar: se eligieron por variedad de
    * coreografía (giro, resorte, trazo, rebote), no porque quedaran primero alfabéticamente.
    */
-  protected readonly demo: CuratedEntry[] = ['sparkles', 'bell', 'settings', 'star', 'zap', 'send']
-    .map((name) => this.todos.find((e) => e.name === name))
-    .filter((e): e is CuratedEntry => !!e);
+  protected readonly demo = computed<CuratedEntry[]>(() =>
+    ['sparkles', 'bell', 'settings', 'star', 'zap', 'send']
+      .map((name) => this.todos().find((e) => e.name === name))
+      .filter((e): e is CuratedEntry => !!e),
+  );
 
   /**
    * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
@@ -375,13 +390,34 @@ export class Iconos implements OnDestroy {
       texto: 'iconos.argumentos.api.texto',
     },
     {
-      icono: CURATED_ICONS['sparkles'],
+      icono: sparklesIcon,
       titulo: 'iconos.argumentos.movimiento.titulo',
       texto: 'iconos.argumentos.movimiento.texto',
     },
   ];
 
   constructor() {
+    // El catálogo, por su propio chunk. La rejilla arranca vacía un instante —el mismo que ya
+    // pasaba mientras bajaba el chunk de esta página— y el conteo del hero no espera a nadie
+    // porque sale de `CIFRAS`.
+    // `PendingTasks.run` y no un `then` suelto: registra la carga como trabajo pendiente de la
+    // aplicación, y de eso dependen dos cosas que si no fallan en silencio — el PRERENDER, que
+    // serializaría el HTML antes de que llegue el catálogo y publicaría la rejilla vacía, y el
+    // `whenStable()` de los tests, que daría por estable un componente a medio llenar.
+    inject(PendingTasks).run(() =>
+      cargarCurados().then((catalogo) => {
+        this.todos.set(
+          Object.entries(catalogo)
+            .map(([name, def]) => ({
+              name,
+              def,
+              insignias: insigniasDe(name, def),
+              numAnimaciones: Object.keys(def.animations).length,
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        );
+      }),
+    );
     afterNextRender(() => this.enfocarBuscadorSiProcede());
 
     // `?q=` de la URL, para que un enlace de búsqueda compartido abra ya filtrado. Se lee del
@@ -485,24 +521,30 @@ export class Iconos implements OnDestroy {
   /**
    * Cuántos iconos trae cada insignia — el número va en el propio botón del filtro.
    *
-   * Campo plano, no `computed`: el catálogo es estático, así que esto se calcula una vez y no
-   * depende de ninguna señal. Envolverlo en `computed` fingiría una reactividad que no existe —
-   * `entries` sí la tiene, y el contraste entre los dos es la señal de cuál reacciona a qué.
+   * `computed` y no un campo plano, aunque el catálogo sea estático: desde que llega por su propio
+   * chunk, `todos()` está VACÍO cuando se construye el componente. Como campo, los tres conteos
+   * salían 0, el `.filter(n > 0)` los borraba y la barra de filtros no llegaba a pintarse nunca.
    */
-  protected readonly conteos: { clave: ClaveInsignia; etiqueta: string; n: number }[] = (
-    [
-      { clave: 'extras', etiqueta: 'iconos.barra.insignias.extras' },
-      { clave: 'held', etiqueta: 'iconos.barra.insignias.held' },
-      { clave: 'solo-draw', etiqueta: 'iconos.barra.insignias.soloDraw' },
-    ] as { clave: ClaveInsignia; etiqueta: string }[]
-  )
-    .map((o) => ({ ...o, n: this.todos.filter((e) => tiene(e, o.clave)).length }))
-    .filter((o) => o.n > 0);
+  protected readonly conteos = computed<{ clave: ClaveInsignia; etiqueta: string; n: number }[]>(
+    () => {
+      const todos = this.todos();
+      return (
+        [
+          { clave: 'extras', etiqueta: 'iconos.barra.insignias.extras' },
+          { clave: 'held', etiqueta: 'iconos.barra.insignias.held' },
+          { clave: 'solo-draw', etiqueta: 'iconos.barra.insignias.soloDraw' },
+        ] as { clave: ClaveInsignia; etiqueta: string }[]
+      )
+        .map((o) => ({ ...o, n: todos.filter((e) => tiene(e, o.clave)).length }))
+        .filter((o) => o.n > 0);
+    },
+  );
 
   protected readonly entries = computed<CuratedEntry[]>(() => {
     const f = this.filtro();
     const q = this.busqueda().trim();
-    const base = f ? this.todos.filter((e) => tiene(e, f)) : this.todos;
+    const todos = this.todos();
+    const base = f ? todos.filter((e) => tiene(e, f)) : todos;
     if (!q) return base;
     const tags = this.tagsNormalizados();
     return ordenarPorRelevancia(base, q, (e) => e.name, tags ? (e) => tags[e.name] : undefined);

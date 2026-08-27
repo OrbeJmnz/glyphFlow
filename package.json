@@ -12,6 +12,8 @@
     "gen:examples:check": "tsx scripts/gen-examples.ts --check",
     "gen:docs-index": "tsx scripts/gen-docs-index.ts",
     "gen:docs-index:check": "tsx scripts/gen-docs-index.ts --check",
+    "gen:catalogo": "tsx scripts/gen-catalogo-json.ts",
+    "gen:catalogo:check": "tsx scripts/gen-catalogo-json.ts --check",
     "gen:playground-tags": "tsx scripts/gen-playground-tags.ts",
     "gen:sitemap": "tsx scripts/gen-sitemap.ts",
     "gen:sitemap:check": "tsx scripts/gen-sitemap.ts --check",

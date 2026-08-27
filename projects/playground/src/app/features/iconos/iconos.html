@@ -73,7 +73,7 @@
     teclado y anunciarse como lo que son.
   -->
   <ul class="demo">
-    @for (d of demo; track d.name) {
+    @for (d of demo(); track d.name) {
       <li>
         <button
           type="button"
@@ -239,7 +239,7 @@
     >
       {{ 'iconos.barra.todos' | transloco }} <em>{{ total }}</em>
     </button>
-    @for (c of conteos; track c.clave) {
+    @for (c of conteos(); track c.clave) {
       <button
         type="button"
         app-chip

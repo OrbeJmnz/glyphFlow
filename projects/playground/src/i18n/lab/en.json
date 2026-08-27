@@ -32,7 +32,8 @@
       "reposo": "▶ play sequence",
       "corriendo": "running…"
     },
-    "limpiar": "clear"
+    "limpiar": "clear",
+    "montarMas": "Show {{n}} more"
   },
   "morphBench": {
     "titulo": "Morph benchmark",
@@ -55,20 +56,59 @@
       "vuelta": "<strong>Hover in, then pull out</strong> — that's the real case (<code>reverseOnLeave</code>). <em>reverse()</em> walks the offsets in mirror and lands abruptly; <em>Round trip</em> carries its own spring on each leg and doesn't need you to pull out."
     },
     "variantes": {
-      "p10": { "titulo": "10 steps" },
-      "p15": { "titulo": "15 steps" },
-      "p20": { "titulo": "20 steps", "nota": "default" },
-      "p30": { "titulo": "30 steps" },
-      "v-alternate": { "titulo": "reverse()", "nota": "current" },
-      "v-ida-vuelta": { "titulo": "Round trip", "nota": "spring per leg" },
-      "s-smooth": { "titulo": "smooth", "nota": "ζ=1.00, no bounce" },
-      "s-073-sin": { "titulo": "snappy, undrawn", "nota": "sobrepaso: false" },
-      "s-073-con": { "titulo": "snappy", "nota": "ζ=0.73, default" },
-      "s-040-con": { "titulo": "bouncy", "nota": "ζ=0.40, clamped to viewBox" },
-      "completa": { "titulo": "Full tail", "nota": "current" },
-      "corta": { "titulo": "Short tail", "nota": "|1−x| < 0.01" },
-      "recorte": { "titulo": "Trimmed to 99%", "nota": "physics unchanged" },
-      "reinicio": { "titulo": "No reverse", "nota": "restarts from origin" }
+      "p10": {
+        "titulo": "10 steps"
+      },
+      "p15": {
+        "titulo": "15 steps"
+      },
+      "p20": {
+        "titulo": "20 steps",
+        "nota": "default"
+      },
+      "p30": {
+        "titulo": "30 steps"
+      },
+      "v-alternate": {
+        "titulo": "reverse()",
+        "nota": "current"
+      },
+      "v-ida-vuelta": {
+        "titulo": "Round trip",
+        "nota": "spring per leg"
+      },
+      "s-smooth": {
+        "titulo": "smooth",
+        "nota": "ζ=1.00, no bounce"
+      },
+      "s-073-sin": {
+        "titulo": "snappy, undrawn",
+        "nota": "sobrepaso: false"
+      },
+      "s-073-con": {
+        "titulo": "snappy",
+        "nota": "ζ=0.73, default"
+      },
+      "s-040-con": {
+        "titulo": "bouncy",
+        "nota": "ζ=0.40, clamped to viewBox"
+      },
+      "completa": {
+        "titulo": "Full tail",
+        "nota": "current"
+      },
+      "corta": {
+        "titulo": "Short tail",
+        "nota": "|1−x| < 0.01"
+      },
+      "recorte": {
+        "titulo": "Trimmed to 99%",
+        "nota": "physics unchanged"
+      },
+      "reinicio": {
+        "titulo": "No reverse",
+        "nota": "restarts from origin"
+      }
     },
     "envoltorio": {
       "descripcion": "The thin wrapper. A single <code>[icon]</code>: changing it triggers the morph from the previous value. The first render paints static — there's nowhere to transition from.",

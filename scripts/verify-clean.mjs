@@ -50,6 +50,9 @@ const steps = [
   ['Snippets copiables del sitio', 'npm', ['run', 'snippets:check']],
   ['Drift de examples/ contra los snippets', 'npm', ['run', 'gen:examples:check']],
   ['Drift del índice de búsqueda de Docs', 'npm', ['run', 'gen:docs-index:check']],
+  // El catálogo que el sitio importa como JSON. Si no se regenera tras curar iconos, la rejilla
+  // enseña el catálogo de ayer sin que nada truene — es un archivo, no una dependencia.
+  ['Drift del catálogo JSON del sitio', 'npm', ['run', 'gen:catalogo:check']],
   ['Los ejemplos compilan contra el paquete PUBLICADO', 'npx', ['tsc', '-p', 'examples/tsconfig.check.json']],
   ['Unit tests (glyphflow)', 'npx', ['ng', 'test', 'glyphflow', '--watch=false']],
   ['Unit tests (playground)', 'npx', ['ng', 'test', 'playground', '--watch=false']],

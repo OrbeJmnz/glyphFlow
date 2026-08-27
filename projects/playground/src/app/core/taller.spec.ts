@@ -94,7 +94,10 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     const pieza = taller.recoger()!;
     expect(pieza.nombre).toBe(nombre);
     // Las animaciones viajan intactas: sin ellas el traspaso no serviría de nada.
-    expect(pieza.def.animations).toBe(CURATED_ICONS[nombre].animations);
+    // `toStrictEqual` y no `toBe`: desde que el sitio carga el catálogo como JSON, el `def` que
+    // maneja el editor ya no es el MISMO objeto que exporta el paquete, sino su copia — y lo que
+    // el traspaso promete es que la coreografía viaja intacta, no que comparta referencia.
+    expect(pieza.def.animations).toStrictEqual(CURATED_ICONS[nombre].animations);
     // Y las figuras conservan su ORDEN y su cantidad: los tracks apuntan a `shapes[i]` por índice,
     // así que reordenarlas rompería en silencio la animación que se quiere conservar.
     const originales = CURATED_ICONS[nombre].shapes;

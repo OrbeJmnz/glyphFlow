@@ -32,7 +32,8 @@
       "reposo": "▶ reproducir secuencia",
       "corriendo": "corriendo…"
     },
-    "limpiar": "limpiar"
+    "limpiar": "limpiar",
+    "montarMas": "Ver {{n}} más"
   },
   "morphBench": {
     "titulo": "Benchmark de morph",
@@ -55,20 +56,59 @@
       "vuelta": "<strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques."
     },
     "variantes": {
-      "p10": { "titulo": "10 pasos" },
-      "p15": { "titulo": "15 pasos" },
-      "p20": { "titulo": "20 pasos", "nota": "default" },
-      "p30": { "titulo": "30 pasos" },
-      "v-alternate": { "titulo": "reverse()", "nota": "hoy" },
-      "v-ida-vuelta": { "titulo": "Ida y vuelta", "nota": "resorte por tramo" },
-      "s-smooth": { "titulo": "smooth", "nota": "ζ=1.00, no rebota" },
-      "s-073-sin": { "titulo": "snappy sin dibujarlo", "nota": "sobrepaso: false" },
-      "s-073-con": { "titulo": "snappy", "nota": "ζ=0.73, default" },
-      "s-040-con": { "titulo": "bouncy", "nota": "ζ=0.40, topado al viewBox" },
-      "completa": { "titulo": "Cola completa", "nota": "hoy" },
-      "corta": { "titulo": "Cola corta", "nota": "|1−x| < 0.01" },
-      "recorte": { "titulo": "Recorte al 99%", "nota": "física intacta" },
-      "reinicio": { "titulo": "Sin reversa", "nota": "reinicia desde el origen" }
+      "p10": {
+        "titulo": "10 pasos"
+      },
+      "p15": {
+        "titulo": "15 pasos"
+      },
+      "p20": {
+        "titulo": "20 pasos",
+        "nota": "default"
+      },
+      "p30": {
+        "titulo": "30 pasos"
+      },
+      "v-alternate": {
+        "titulo": "reverse()",
+        "nota": "hoy"
+      },
+      "v-ida-vuelta": {
+        "titulo": "Ida y vuelta",
+        "nota": "resorte por tramo"
+      },
+      "s-smooth": {
+        "titulo": "smooth",
+        "nota": "ζ=1.00, no rebota"
+      },
+      "s-073-sin": {
+        "titulo": "snappy sin dibujarlo",
+        "nota": "sobrepaso: false"
+      },
+      "s-073-con": {
+        "titulo": "snappy",
+        "nota": "ζ=0.73, default"
+      },
+      "s-040-con": {
+        "titulo": "bouncy",
+        "nota": "ζ=0.40, topado al viewBox"
+      },
+      "completa": {
+        "titulo": "Cola completa",
+        "nota": "hoy"
+      },
+      "corta": {
+        "titulo": "Cola corta",
+        "nota": "|1−x| < 0.01"
+      },
+      "recorte": {
+        "titulo": "Recorte al 99%",
+        "nota": "física intacta"
+      },
+      "reinicio": {
+        "titulo": "Sin reversa",
+        "nota": "reinicia desde el origen"
+      }
     },
     "envoltorio": {
       "descripcion": "El envoltorio delgado. Un solo <code>[icon]</code>: cambiarlo dispara el morph desde el valor anterior. El primer render se pinta estático — no hay desde dónde transicionar.",

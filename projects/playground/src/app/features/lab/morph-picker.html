@@ -8,11 +8,11 @@
     <div class="col-buscar">
       <app-campo-busqueda
         [(texto)]="filtro"
-        [marcador]="'lab.morphPicker.buscar.marcador' | transloco: { total: totalCurados }"
+        [marcador]="'lab.morphPicker.buscar.marcador' | transloco: { total: totalCurados() }"
         [etiqueta]="'lab.morphPicker.buscar.etiqueta' | transloco"
       />
       <div class="resultados">
-        @for (item of resultados(); track item.nombre) {
+        @for (item of visibles(); track item.nombre) {
           <app-tooltip [texto]="item.nombre" [abajo]="true">
             <button
               type="button"
@@ -27,6 +27,12 @@
           <p class="vacio">
             {{ 'lab.morphPicker.buscar.sinResultados' | transloco: { filtro: filtro() } }}
           </p>
+        }
+        <!-- El botón es la única vía con teclado: tabulando no se dispara un observador. -->
+        @if (hayMas()) {
+          <button type="button" app-boton compacto appVisible (visible)="montarMas()">
+            {{ 'lab.morphPicker.montarMas' | transloco: { n: resultados().length - visibles().length } }}
+          </button>
         }
       </div>
     </div>

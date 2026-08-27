@@ -7,17 +7,21 @@ import {
   inject,
   linkedSignal,
   signal,
+  PendingTasks,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import editorEn from '../../../i18n/editor/en.json';
 import {
-  CURATED_ICONS,
-  ICON_ALIASES,
   GfIconComponent,
+  // Sueltos y NO desde el registro: cada icono es su propio export y se poda solo. El registro
+  // completo llega diferido (ver `curados` más abajo); estos dos hacen falta ya, al construir.
+  heartIcon,
+  playIcon,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
+import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
   dDeSubpath,
@@ -121,7 +125,7 @@ export class Editor implements OnDestroy {
   ] as const;
   protected readonly zoomMax = ZOOM_MAX;
   /** El glifo del CTA. Va por `iconDef` y no por `name=`: el playground no registra el catálogo. */
-  protected readonly iconoPlay = CURATED_ICONS['play'];
+  protected readonly iconoPlay = playIcon;
 
   /**
    * Coordenada para leer, no para calcular. Dos decimales y sin ceros de relleno: la cifra cambia
@@ -131,16 +135,27 @@ export class Editor implements OnDestroy {
     return String(Math.round(v * 100) / 100);
   }
 
-  private readonly curados: Curado[] = Object.entries(CURATED_ICONS)
-    .map(([nombre, def]) => ({ nombre, def }))
-    .sort((a, b) => a.nombre.localeCompare(b.nombre));
+  /**
+   * El catálogo llega DIFERIDO, no en el chunk de esta página.
+   *
+   * `CURATED_ICONS` importado de forma estática desde una ruta diferida acaba en el bundle
+   * INICIAL —esbuild sube a la entrada lo que alcanzan varios chunks—, y con el catálogo curado
+   * entero eso es más de un megabyte que baja hasta quien sólo abre Docs. Medido: 1.43 MB de
+   * entrada contra 373 KB sin él.
+   *
+   * Arranca vacío y se llena al resolver. El editor no se queda en blanco mientras tanto porque
+   * `elegido` se siembra con `heartIcon`, que es un export suelto y se poda solo — o sea, se puede
+   * editar desde el primer fotograma aunque la LISTA de la izquierda tarde un instante.
+   */
+  private readonly curados = signal<Curado[]>([]);
+
 
   /**
    * Nombre viejo de Lucide → nombre actual. Quien llega con `alert-triangle` en la cabeza no tiene
    * por qué saber que ahora se llama `triangle-alert`; sin esto la búsqueda le devuelve una
    * pantalla vacía y concluye que el icono no existe.
    */
-  private readonly porAlias = new Map<string, string>(Object.entries(ICON_ALIASES));
+  private readonly porAlias = signal(new Map<string, string>());
 
   protected readonly filtro = signal('');
 
@@ -154,14 +169,15 @@ export class Editor implements OnDestroy {
    * lugar afuera. Un editor al que no se le puede pedir un icono del catálogo no es un editor.
    */
   protected readonly candidatos = computed(() => {
+    const curados = this.curados();
     const q = this.filtro().trim().toLowerCase();
-    if (!q) return this.curados;
-    const canonico = this.porAlias.get(q);
-    return this.curados.filter((c) => c.nombre.includes(q) || (canonico && c.nombre === canonico));
+    if (!q) return curados;
+    const canonico = this.porAlias().get(q);
+    return curados.filter((c) => c.nombre.includes(q) || (canonico && c.nombre === canonico));
   });
 
   /** Para que la lista diga cuántos hay: un corte silencioso se lee como "esto es todo". */
-  protected readonly totalCurados = this.curados.length;
+  protected readonly totalCurados = computed(() => this.curados().length);
 
   /**
    * El selector monta un TRAMO de `candidatos()`, no la lista entera.
@@ -193,7 +209,10 @@ export class Editor implements OnDestroy {
     const tramo = this.candidatos().slice(0, this.montados());
     const actual = this.elegido();
     if (!actual || tramo.some((c) => c.nombre === actual.nombre)) return tramo;
-    return this.candidatos().includes(actual) ? [actual, ...tramo] : tramo;
+    // Por NOMBRE y no por identidad: mientras el catálogo no ha llegado, `elegido` es un objeto
+    // propio con `heartIcon` dentro, y `includes` diría que no está aunque el icono sí exista.
+    const enLista = this.candidatos().find((c) => c.nombre === actual.nombre);
+    return enLista ? [enLista, ...tramo] : tramo;
   });
   protected readonly hayMas = computed(() => this.candidatos().length > this.montados());
 
@@ -201,9 +220,13 @@ export class Editor implements OnDestroy {
     this.montados.update((n) => n + Editor.TRAMO);
   }
 
-  protected readonly elegido = signal<Curado>(
-    this.curados.find((c) => c.nombre === 'heart') ?? this.curados[0],
-  );
+  /**
+   * `heartIcon` suelto y no `curados().find(...)`: el catálogo llega diferido, y esta señal tiene
+   * que valer DESDE EL PRIMER FOTOGRAMA — la mitad del componente la lee para calcular nodos,
+   * manijas y la salida. Sembrarla con un import podable evita hacerla nullable y guardar en los
+   * trece sitios que la usan.
+   */
+  protected readonly elegido = signal<Curado>({ nombre: 'heart', def: heartIcon });
 
   /**
    * Las figuras que NO son `path` se pintan pero no se editan. Decirlo es más honesto que
@@ -483,6 +506,28 @@ export class Editor implements OnDestroy {
 
   constructor() {
     this.cargar();
+    // El catálogo y los alias llegan por su propio chunk. No se espera a ellos para nada de lo de
+    // arriba: `elegido` ya trae `heartIcon`, así que se puede editar desde el primer fotograma y lo
+    // único que aparece más tarde es la LISTA de la izquierda.
+    // `PendingTasks.run` y no un `then` suelto: registra la carga como trabajo pendiente de la
+    // aplicación, y de eso dependen el PRERENDER —que serializaría antes de que llegue el
+    // catálogo— y el `whenStable()` de los tests.
+    const pendientes = inject(PendingTasks);
+    pendientes.run(() =>
+      cargarCurados().then((catalogo) => {
+        const lista = Object.entries(catalogo)
+          .map(([nombre, def]) => ({ nombre, def }))
+          .sort((a, b) => a.nombre.localeCompare(b.nombre));
+        this.curados.set(lista);
+        // Y se re-siembra `elegido` con la entrada REAL del catálogo: hasta aquí era un objeto
+        // propio con `heartIcon` dentro, y aunque el `def` sea el mismo, no es la MISMA entrada.
+        const real = lista.find((c) => c.nombre === this.elegido().nombre);
+        if (real) this.elegido.set(real);
+      }),
+    );
+    pendientes.run(() =>
+      cargarAlias().then((alias) => this.porAlias.set(new Map(Object.entries(alias)))),
+    );
   }
 
   protected elegir(c: Curado): void {
