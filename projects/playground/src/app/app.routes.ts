@@ -13,8 +13,15 @@ import { slug, traducirRuta } from './core/rutas';
  * la entrada lo que comparten varios chunks en vez de emitir un chunk común. Por eso `main` creció
  * de 261KB a 306KB al meter el router: el router se suma, y el catálogo no se fue.
  *
- * Sacarlo pide `await import('glyphflow')` en ambos consumidores — un slice aparte, no un efecto
- * colateral de partir las páginas.
+ * Sacarlo NO se puede desde aquí, y está medido: `import('glyphflow')` dinámico lo empeora a
+ * 1.61 MB —al pedir el módulo entero se conserva su namespace y deja de podarse—, y un módulo
+ * intermedio que re-exporte sólo `CURATED_ICONS` da 1.44 MB porque su chunk se fusiona en `main`
+ * igual. Con NADIE pidiendo el registro la entrada baja a 0.37 MB, así que el peso es él.
+ *
+ * La causa es la forma del paquete: `fesm2022/glyphflow.mjs` es un solo archivo de 2.27 MB donde
+ * el registro convive con el motor. La salida real es de la LIBRERÍA —un entry point secundario
+ * para el catálogo, como ya lo es `glyphflow/morph`— o servirlo como asset JSON, igual que ya se
+ * hace con `tags-catalogo.json`. Las dos son un slice propio y una decisión de Orbe.
  *
  * Las traducciones siguen la MISMA frontera lazy, pero su scope NO se declara aquí: va en el
  * `providers` de cada componente diferido. Este archivo es eager, así que un loader puesto aquí se

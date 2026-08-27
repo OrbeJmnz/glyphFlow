@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CURATED_ICONS } from 'glyphflow';
 import { CIFRAS } from '../../core/cifras';
 import { API_TIPOS, API_VALORES, type Clase, type Entrada } from './api-surface';
 
@@ -30,12 +29,13 @@ export class Api {
    * restantes") y quedaron cinco veces atrás de la realidad, contradiciendo al hero de la misma
    * sesión, que sí los deriva. Van como parámetros para que no puedan volver a desfasarse.
    *
-   * `generados` se calcula restando en vez de leer `GENERATED_ICONS`: ese registro arrastraría los
-   * 868 generados al bundle del sitio solo para pintar un número.
+   * Y NINGUNO de los dos lee su registro: pedirlos arrastra la geometría entera al bundle sólo
+   * para pintar un número. `CIFRAS` ya los tiene escritos a mano, y `cifras.spec.ts` —que corre en
+   * Node y no viaja al cliente— es quien impide que se queden atrás.
    */
   protected readonly conteos = {
-    curados: Object.keys(CURATED_ICONS).length,
-    generados: CIFRAS.catalogo - Object.keys(CURATED_ICONS).length,
+    curados: CIFRAS.curados,
+    generados: CIFRAS.catalogo - CIFRAS.curados,
   };
 
   protected valoresDe(entrada: Entrada) {

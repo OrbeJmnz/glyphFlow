@@ -1,20 +1,22 @@
-import { CURATED_ICONS } from 'glyphflow';
-
 /**
- * Las cifras de portada — las mismas en el hero y en el menú móvil. Solo `curados` sale del
- * catálogo en vivo; el resto son hechos de build (tamaño del bundle, catálogo completo de Lucide,
- * cero deps de animación) que no hay de dónde leerlos en el cliente.
+ * Las cifras de portada — las mismas en el hero y en el menú móvil. TODAS escritas a mano: son
+ * hechos de build (tamaño del bundle, catálogo de Lucide, cero deps de animación) y no hay de
+ * dónde leerlos en el cliente sin pagarlo caro.
  *
- * `catalogo` NO se deriva de `ANIMATED_ICONS` a propósito, aunque sería lo obvio: ese registro
- * arrastra los 868 generados al bundle del sitio, y evitarlo es una decisión deliberada del
- * proyecto (ver el mismo criterio en `morph-picker.ts` y `morph-bench.ts`). Pagar ~100KB de
- * catálogo para pintar un número de cuatro dígitos sería un mal negocio.
+ * Ningún registro se importa aquí, y eso es una decisión deliberada del proyecto (mismo criterio
+ * en `morph-picker.ts` y `morph-bench.ts`): pedirlo arrastra la geometría entera al bundle del
+ * sitio para pintar un número de cuatro dígitos.
  *
- * Que el número no se quede atrás lo cuida `cifras.spec.ts`, que sí puede importar el registro
- * completo porque corre en Node y no viaja al cliente.
+ * `curados` SÍ se derivaba de `CURATED_ICONS`, y funcionó mientras el catálogo curado era la
+ * parte pequeña. Dejó de funcionar el 2026-08-27, cuando se curó entero: este archivo lo usa el
+ * shell —hero y menú móvil—, así que los 1767 iconos con su geometría acabaron en el bundle
+ * INICIAL y el build de producción se cayó por presupuesto, 1.43 MB contra un tope de 1.00 MB.
+ *
+ * Que ninguno se quede atrás lo cuida `cifras.spec.ts`, que sí puede importar los registros
+ * porque corre en Node y no viaja al cliente.
  */
 export const CIFRAS = {
-  curados: Object.keys(CURATED_ICONS).length,
+  curados: 1767,
   catalogo: 1767,
   /**
    * Escrito a mano por la misma razón que `catalogo`, pero con una trampa propia: **nada lo
