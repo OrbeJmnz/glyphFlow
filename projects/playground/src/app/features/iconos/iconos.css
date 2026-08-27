@@ -444,6 +444,39 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
+/*
+ * En ESCRITORIO el número de columnas es fijo — 8 compacta, 6 cómoda — en vez de dejarlo a
+ * `auto-fill`. La diferencia importa: con `auto-fill` la rejilla trae las columnas que quepan, así
+ * que entre 1025 y 1440px el conteo iba saltando y la misma pantalla enseñaba tarjetas de tamaños
+ * distintos según el ancho de la ventana. Fijándolo, la tarjeta crece con la pantalla y la lectura
+ * es la misma en todas.
+ *
+ * `minmax(0, 1fr)` y no `1fr` a secas: el mínimo por defecto de una columna es `auto`, o sea el
+ * contenido, y un nombre largo sin cortar la ensancharía por encima de su parte.
+ *
+ * Con el panel abierto bajan a 6 y 4. El `margin-right` ya recorta la rejilla, pero mantener el
+ * conteo dejaba la tarjeta compacta en 86px —medido a 1440— por debajo de los 104 de diseño: el
+ * glifo de 32 se queda flotando y el nombre se corta casi siempre. El reacomodo va dentro de la
+ * misma transición que ya anima abrir el panel, así que se ve una vez y viajando.
+ */
+@media (min-width: 1025px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .grid.comoda {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .grid.con-panel {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .grid.comoda.con-panel {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 /* A 375px de ancho quedan 327px útiles: con el mínimo en 104 solo entran DOS columnas y la tarjeta
    se estira a 155 con el glifo clavado en 32 — se ve vacía, justo lo contrario de "compacta". Ocho
    píxeles menos de mínimo dejan entrar tres, y ahí la tarjeta mide casi exactamente los 104 de
@@ -482,11 +515,29 @@
     border-color 0.15s ease;
 }
 
+/*
+ * En cómoda la tarjeta es CUADRADA, y ahí `space-between` deja el icono pegado arriba: medido,
+ * 36px por encima del centro, con 25px de hueco arriba contra 68 debajo. Se centra de verdad
+ * poniendo el icono en el medio y sacando el nombre del flujo — que es lo único que puede hacerlo,
+ * porque mientras el nombre ocupe altura el icono se centra en lo que sobra, no en la tarjeta.
+ *
+ * En compacta no hace falta: con 96px de alto y el glifo a 32, `space-between` ya reparte parejo.
+ */
 .grid.comoda .card {
   height: auto;
   aspect-ratio: 1;
-  padding: 24px 12px 14px;
+  justify-content: center;
+  /* Vertical SIMÉTRICO: el nombre ya no ocupa altura, así que un padding desigual desplazaría el
+     icono del centro — con 24/14 se quedaba a 5px. */
+  padding: 24px 12px;
   border-radius: var(--gf-radio);
+}
+
+.grid.comoda .nombre {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  left: 12px;
 }
 
 /*
@@ -509,6 +560,7 @@
 .grid.comoda .nombre {
   font-size: 12px;
 }
+
 
 .card:hover .nombre {
   color: var(--gf-texto-medio);

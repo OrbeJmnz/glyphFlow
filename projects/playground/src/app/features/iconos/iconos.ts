@@ -179,7 +179,10 @@ export class Iconos implements OnDestroy {
   protected readonly tamGlifo = computed(() => (densidad() === 'comoda' ? 48 : 32));
 
   protected cambiarDensidad(d: Densidad): void {
-    elegirDensidad(d);
+    // Dentro de una transición de vista, igual que el filtro de insignias: cambiar de densidad
+    // reordena la rejilla entera —de 8 columnas a 6, y cada tarjeta de tamaño—, así que las
+    // tarjetas VIAJAN a su sitio nuevo en vez de que la cuadrícula se re-arme de golpe.
+    conTransicion(() => elegirDensidad(d));
   }
 
   protected readonly snippet = SNIPPET_PORTADA;
