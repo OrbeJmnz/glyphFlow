@@ -5,6 +5,8 @@ import {
   GfIconComponent,
   menuIcon,
   moonIcon,
+  pauseIcon,
+  playIcon,
   sunIcon,
   workflowIcon,
   xIcon,
@@ -22,6 +24,7 @@ import { conectarIdiomaDelDocumento } from './core/i18n';
 import { recordarIdioma, type Idioma } from './core/idioma';
 import { traducirRuta } from './core/rutas';
 import { Rutas } from './core/rutas.service';
+import { alternarMovimiento, conectarMovimiento, hayMovimiento } from './core/movimiento';
 import { conectarPausaOculta } from './core/pausa-oculta';
 import { alternarTema, conectarTema, tema } from './core/tema';
 import { conectarTransiciones } from './core/transicion';
@@ -142,6 +145,29 @@ export class App {
   );
   protected readonly etiquetaTema = translateSignal(this.claveTema);
 
+  /*
+   * ── Movimiento ────────────────────────────────────────────────────────────────────────────
+   *
+   * Mismo criterio que el tema: el icono dice A DÓNDE vas. Con movimiento se ofrece la pausa; sin
+   * movimiento, el play.
+   *
+   * `aria-pressed` y no `role="switch"`: es UN control que enciende y apaga una sola cosa, que es
+   * exactamente lo que `aria-pressed` describe. El carril de velocidad usa radios porque ahí se
+   * elige entre cuatro.
+   */
+  protected readonly hayMovimiento = hayMovimiento;
+  protected readonly iconoMovimiento = computed<MorphIcon>(() =>
+    hayMovimiento() ? pauseIcon : playIcon,
+  );
+  protected readonly claveMovimiento = computed(() =>
+    hayMovimiento() ? 'shell.movimiento.pausar' : 'shell.movimiento.reanudar',
+  );
+  protected readonly etiquetaMovimiento = translateSignal(this.claveMovimiento);
+
+  protected alternarMovimiento(): void {
+    alternarMovimiento();
+  }
+
   /**
    * Los enlaces del nav se piden por ID, no por ruta: el slug cambia con el idioma (`/en/patterns`
    * ↔ `/es/patrones`) y `Rutas` lo resuelve leyendo el idioma activo por señal. Escribirlos duros
@@ -201,6 +227,7 @@ export class App {
     // Antes que `conectarTema()`: el tema ya pide transiciones al alternar.
     conectarTransiciones();
     conectarTema();
+    conectarMovimiento();
     conectarIdiomaDelDocumento();
     // `hreflang` recíproco + `canonical` en cada navegación: sin eso las dos ramas de idioma se
     // leen como contenido duplicado. Ver `core/enlaces-idioma.ts`.

@@ -38,6 +38,7 @@ import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
+import { hayMovimiento, siguiendoAlSistema } from '../../core/movimiento';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
 import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
@@ -268,9 +269,18 @@ export class Iconos implements OnDestroy {
       : '/images/glyphflow-anim-preview.gif',
   );
 
-  /** Con movimiento reducido se sirve quieto — y también tiene que seguir al tema. */
+  /** Sin movimiento se sirve quieto — y también tiene que seguir al tema. */
   protected readonly logoQuieto = computed(() =>
     tema() === 'claro' ? '/images/glyphflow-logo-light.svg' : '/images/glyphflow-logo.svg',
+  );
+
+  /*
+   * El que acaba en el `src` del `<img>`. Sale de la preferencia EFECTIVA, no de la del sistema:
+   * el `<source>` de al lado cubre el caso por defecto, y esto cubre el de quien eligió a mano.
+   */
+  protected readonly siguiendoAlSistema = siguiendoAlSistema;
+  protected readonly logoHero = computed(() =>
+    hayMovimiento() ? this.logoAnimado() : this.logoQuieto(),
   );
 
   /** El resto de las cifras del hero. */

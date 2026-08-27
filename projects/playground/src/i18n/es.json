@@ -29,6 +29,10 @@
       "aClaro": "Cambiar a tema claro",
       "aOscuro": "Cambiar a tema oscuro"
     },
+    "movimiento": {
+      "pausar": "Apagar las animaciones",
+      "reanudar": "Volver a animar"
+    },
     "idioma": {
       "cambiar": "Cambiar idioma"
     },

@@ -576,6 +576,40 @@ code {
 }
 
 /*
+ * ── El apagador manual (`core/movimiento.ts`) ────────────────────────────────────────────────
+ *
+ * Las MISMAS reglas de arriba, disparadas por atributo en vez de por media query. Van duplicadas y
+ * no unificadas en una lista de selectores a propósito: `@media` y `[data-motion]` no se pueden
+ * combinar en un solo bloque sin envolver todo el sitio en tokens de duración, que es un refactor
+ * de otro tamaño. Y NO se hace con `* { transition-duration: 0 !important }`: eso tiraría también
+ * el cambio de color del hover y del foco, que el bloque de arriba conserva a propósito.
+ *
+ * Lo que no está aquí porque no hace falta: los iconos. Los apaga el interruptor de la librería
+ * (`animationsEnabled`), que impide que la animación EMPIECE en vez de esconderla con CSS.
+ */
+[data-motion='off'] .degradado-texto {
+  animation: none;
+}
+
+[data-motion='off'] .chip,
+[data-motion='off'] .chip:active:not(:disabled),
+[data-motion='off'] .ui-boton,
+[data-motion='off'] .ui-boton:hover:not(:disabled),
+[data-motion='off'] .ui-boton:active:not(:disabled) {
+  scale: 1;
+  transition-duration: 0.12s;
+}
+
+/*
+ * La barra de progreso se apaga entera, no se congela: la anima el scroll del documento, así que
+ * «pausarla» la dejaría clavada a media página mintiendo sobre dónde estás. Ausente no miente —
+ * es el mismo estado en el que ya se queda en los navegadores sin `scroll-timeline`.
+ */
+[data-motion='off'] .shell-progreso {
+  display: none;
+}
+
+/*
  * Esconde a la vista SIN esconder del lector de pantalla. `display:none` o `visibility:hidden`
  * harían lo contrario: sacarlo también del árbol de accesibilidad, que es justo lo que no se busca.
  */

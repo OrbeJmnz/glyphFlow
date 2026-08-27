@@ -16,9 +16,21 @@
     ignoraría la elección manual, que es justo lo que el toggle existe para respetar.
   -->
   <picture class="marca-hero">
-    <source media="(prefers-reduced-motion: reduce)" [srcset]="logoQuieto()" />
+    <!--
+      El `<source>` solo mientras mande el sistema. Si el visitante eligió a mano, su elección tiene
+      que poder CONTRADECIR a `prefers-reduced-motion`, y una media query siempre ganaría: el
+      navegador resuelve `<picture>` antes de mirar el `src` del `<img>`.
+
+      Y se queda para el caso por defecto en vez de resolverlo todo desde la señal, porque el sitio
+      se prerenderiza: en el servidor no hay `matchMedia`, así que el HTML sale con el GIF. Con el
+      `<source>` puesto, quien pide movimiento reducido ve el logo quieto desde el primer pintado,
+      sin esperar a que hidrate.
+    -->
+    @if (siguiendoAlSistema()) {
+      <source media="(prefers-reduced-motion: reduce)" [srcset]="logoQuieto()" />
+    }
     <img
-      [src]="logoAnimado()"
+      [src]="logoHero()"
       width="780"
       height="264"
       alt=""
