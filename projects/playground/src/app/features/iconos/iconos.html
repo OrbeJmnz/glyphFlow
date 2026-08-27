@@ -288,11 +288,13 @@
 
 @if (inspeccionado(); as sel) {
   <!--
-    El scrim tapa TODO, header incluido. Con `aria-modal="true"` en el panel, dejar el header
-    clickeable sería mentirle al lector de pantalla: le decimos que lo de fuera está inerte y no
-    lo estaría. O es modal de verdad o no lleva el atributo.
+    SIN scrim. Lo hubo, con `aria-modal="true"` y el scroll del `<body>` bloqueado, y eso convertía
+    el panel en un modal: para mirar otro icono había que cerrarlo, volver a buscar dónde estabas y
+    abrir el siguiente. Ahora la rejilla sigue viva debajo — se baja por ella y se pulsa otro icono,
+    y el panel cambia de contenido sin cerrarse.
+    Y como el panel ya no deja nada inerte, tampoco lleva `aria-modal`: decirlo sin serlo le
+    mentiría al lector de pantalla. Se cierra con su botón o con `Esc`.
   -->
-  <div class="scrim" (click)="cerrarDetalle()" aria-hidden="true"></div>
   <app-icon-detail-panel [nombre]="sel.name" [def]="sel.def" (cerrar)="cerrarDetalle()" />
 }
 

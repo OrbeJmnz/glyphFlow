@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   HostListener,
-  OnDestroy,
   Signal,
   ViewChild,
   afterNextRender,
@@ -56,7 +55,7 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
   templateUrl: './icon-detail-panel.html',
   styleUrl: './icon-detail-panel.css',
 })
-export class IconDetailPanel implements OnDestroy {
+export class IconDetailPanel {
   /** Los enlaces se piden por ID: el slug cambia con el idioma. Ver `core/rutas.ts`. */
   protected readonly rutas = inject(Rutas);
 
@@ -65,21 +64,13 @@ export class IconDetailPanel implements OnDestroy {
 
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
-  /* Lo que el `<body>` tenía antes de bloquearlo. Se restaura tal cual: escribir `''` daría por
-     hecho que nadie más lo había tocado. */
-  private readonly overflowPrevio = document.body.style.overflow;
-  private readonly paddingPrevio = document.body.style.paddingRight;
 
-  ngOnDestroy(): void {
-    document.body.style.overflow = this.overflowPrevio;
-    document.body.style.paddingRight = this.paddingPrevio;
-  }
 
-  /**
-   * Trampa de foco. `Tab` cicla dentro del panel en vez de salirse a una página que, para quien
-   * usa ratón, está tapada por el scrim. Se recalcula en cada pulsación a propósito: las tabs
-   * cambian qué controles existen, así que una lista cacheada en el constructor apuntaría a
-   * botones que ya no están en el DOM.
+/**
+   * `Escape` cierra. `Tab` NO se atrapa: había una trampa de foco que ciclaba dentro del panel,
+   * y tenía sentido mientras esto se comportaba como un modal — pero la página de detrás no está
+   * tapada por nada, así que atrapar el tabulador dejaba fuera del teclado una rejilla que el
+   * ratón sí alcanza.
    */
   @HostListener('keydown', ['$event'])
   protected alTeclado(ev: KeyboardEvent): void {
@@ -87,22 +78,6 @@ export class IconDetailPanel implements OnDestroy {
       ev.preventDefault();
       this.cerrar.emit();
       return;
-    }
-    if (ev.key !== 'Tab') return;
-
-    const focos = this.enfocables();
-    if (focos.length === 0) return;
-
-    const primero = focos[0];
-    const ultimo = focos[focos.length - 1];
-    const activo = document.activeElement;
-
-    if (ev.shiftKey && (activo === primero || !this.host.nativeElement.contains(activo))) {
-      ev.preventDefault();
-      ultimo.focus();
-    } else if (!ev.shiftKey && activo === ultimo) {
-      ev.preventDefault();
-      primero.focus();
     }
   }
 
@@ -179,18 +154,18 @@ export class IconDetailPanel implements OnDestroy {
     });
 
     /*
-     * Bloquear el scroll del `<body>` esconde la barra, y eso ENSANCHA el viewport: la rejilla
-     * centrada se correría unos píxeles justo al abrir el panel — exactamente lo que este ticket
-     * venía a impedir. El padding compensa el ancho que la barra deja libre, así que nada se mueve.
+     * NO se bloquea el scroll del `<body>`, y eso es el punto: esto es un drawer, no un modal.
+     *
+     * Lo bloqueaba —con su padding para compensar la barra— y el CSS de al lado lleva desde
+     * entonces diciendo lo contrario en su primera línea: «Drawer fijo, NO modal: sin backdrop y
+     * sin bloquear el scroll del body». Ganó el TypeScript, y el resultado era que con el panel
+     * abierto no se podía ni bajar por la rejilla ni pulsar otro icono: había que cerrarlo para
+     * cada uno. Tampoco existe el «scrim» que este comentario mencionaba — la rejilla se ve y se
+     * usa entera.
+     *
+     * El foco SÍ entra al panel, que es distinto: sirve a quien usa lector de pantalla y no le
+     * quita nada a quien usa ratón.
      */
-    const anchoBarra = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = 'hidden';
-    if (anchoBarra > 0) {
-      document.body.style.paddingRight = `${anchoBarra}px`;
-    }
-
-    // El foco entra al panel: si se queda en la tarjeta, el primer `Tab` se va al resto de la
-    // rejilla, que está detrás del scrim y es inalcanzable con ratón.
     afterNextRender(() => this.enfocables()[0]?.focus());
   }
 
@@ -237,8 +212,20 @@ export class IconDetailPanel implements OnDestroy {
     ),
   );
 
+  /**
+   * Elegir una variante la REPRODUCE, no sólo la selecciona.
+   *
+   * Antes había que elegirla y luego ir a picar el icono grande, y eso hacía invisible justo lo
+   * que la lista sirve para comparar: cómo se mueve cada una. El `setTimeout` de un tick espera a
+   * que Angular pinte con la variante nueva — disparar antes reproduce la anterior.
+   */
   protected elegirVariante(v: string): void {
+    if (v === this.varianteActiva()) {
+      this.reproducir();
+      return;
+    }
     this.varianteActiva.set(v);
+    setTimeout(() => this.reproducir());
   }
 
   protected elegirTab(t: TabDetalle): void {

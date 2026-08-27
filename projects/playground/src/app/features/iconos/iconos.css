@@ -673,32 +673,6 @@
 
 /* ── Scrim del panel de detalle ──────────────────────────────────────────────── */
 
-/* Por ENCIMA del header (que llega a 31), no solo del contenido. El panel declara
-   `aria-modal="true"`: si el header siguiera clickeable, el atributo estaría mintiendo.
-   Cerrar al hacer clic aquí es la salida con ratón; `Esc` es la de teclado. */
-.scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 32;
-  background: var(--gf-fondo);
-  opacity: 0.72;
-}
-
-/* Aparecer de golpe a pantalla completa es un fogonazo. Quien pidió menos movimiento no lo ve. */
-@media (prefers-reduced-motion: no-preference) {
-  .scrim {
-    animation: scrim-entra 0.18s ease both;
-  }
-}
-
-@keyframes scrim-entra {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.72;
-  }
-}
 
 /* ── Las sugerencias del héroe ───────────────────────────────────────────────── */
 

@@ -78,6 +78,29 @@ describe('Iconos', () => {
     expect(html.querySelector('.hay-mas button')).toBeTruthy();
   });
 
+  /*
+   * El panel de detalle es un DRAWER, no un modal, y eso es reversible sin querer: basta con
+   * volver a poner un scrim «para que se vea mejor» o un `aria-modal` «porque es un diálogo».
+   *
+   * Lo era hasta el 2026-08-27 —scrim opaco, `aria-modal="true"`, scroll del `<body>` bloqueado y
+   * trampa de foco— y el efecto era que para mirar dos iconos había que abrir, cerrar, buscar
+   * dónde estabas y volver a abrir. Ahora la rejilla sigue viva debajo: se baja por ella y se
+   * pulsa otro icono sin cerrar nada.
+   */
+  it('el panel abierto deja la rejilla usable: ni scrim ni aria-modal ni scroll bloqueado', async () => {
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    html.querySelector<HTMLElement>('.card')!.click();
+    await fixture.whenStable();
+
+    expect(html.querySelector('app-icon-detail-panel')).toBeTruthy();
+    expect(html.querySelector('.scrim')).toBeNull();
+    expect(html.querySelector('[aria-modal]')).toBeNull();
+    expect(document.body.style.overflow).not.toBe('hidden');
+  });
+
   it('el hero conserva un h1 real, escondido solo a la vista', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();

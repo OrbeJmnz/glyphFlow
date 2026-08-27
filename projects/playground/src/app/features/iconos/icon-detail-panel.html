@@ -1,6 +1,6 @@
 <!-- `aria-labelledby` al nombre del icono y no un `aria-label` genérico: el lector anuncia
      "bell, diálogo" en vez de "detalle del icono", que es lo que la persona vino a oír. -->
-<section class="detalle" role="dialog" aria-modal="true" [attr.aria-labelledby]="ID_TITULO">
+<section class="detalle" role="dialog" [attr.aria-labelledby]="ID_TITULO">
   <header class="detalle-head">
     <div class="titulo">
       <h2 [id]="ID_TITULO">{{ nombre() }}</h2>
