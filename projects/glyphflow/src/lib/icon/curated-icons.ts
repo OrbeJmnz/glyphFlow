@@ -11302,12 +11302,8 @@ const ANILLO_GRANDE = /* @__PURE__ */ scaleSeq([1, 1.06, 1]);
  * Así que el recorrido se queda en lo que cabe y el peso del paso lo pone la compresión, que
  * solo encoge y por eso no necesita espacio.
  */
-const PASO_ZAPATO = /* @__PURE__ */ [
-  { transform: 'translate(0, 0) scale(1)', offset: 0 },
-  { transform: 'translate(-0.85px, 0.55px) scale(0.95)', offset: 0.32 },
-  { transform: 'translate(0.85px, -0.55px) scale(0.98)', offset: 0.7 },
-  { transform: 'translate(0, 0) scale(1)', offset: 1 },
-];
+// El pivote es el TALÓN (5, 22), no el centro: es el punto que no se despega del suelo.
+const PASO_ZAPATO = /* @__PURE__ */ rotateSeq([0, -8, 2, 0]);
 
 /** La palanca se inclina desde su base y la bola va con ella, que es lo único que puede pasar si están soldadas. */
 export const joystickIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -11717,34 +11713,34 @@ export const dumbbellIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track([
           { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-5deg)', offset: 0.35 },
-          { transform: 'rotate(5deg)', offset: 0.7 },
+          { transform: 'rotate(-10deg)', offset: 0.3333333333333333 },
+          { transform: 'rotate(10deg)', offset: 0.6666666666666666 },
           { transform: 'rotate(0deg)', offset: 1 },
-        ], 640, { easing: EASE, origin: '12px 12px' }),
+        ], 660, { easing: EASE, origin: '12px 12px' }),
         3: /* @__PURE__ */ track([
           { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-5deg)', offset: 0.35 },
-          { transform: 'rotate(5deg)', offset: 0.7 },
+          { transform: 'rotate(-10deg)', offset: 0.3333333333333333 },
+          { transform: 'rotate(10deg)', offset: 0.6666666666666666 },
           { transform: 'rotate(0deg)', offset: 1 },
-        ], 640, { easing: EASE, origin: '12px 12px' }),
+        ], 660, { easing: EASE, origin: '12px 12px' }),
         4: /* @__PURE__ */ track([
           { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-5deg)', offset: 0.35 },
-          { transform: 'rotate(5deg)', offset: 0.7 },
+          { transform: 'rotate(-10deg)', offset: 0.3333333333333333 },
+          { transform: 'rotate(10deg)', offset: 0.6666666666666666 },
           { transform: 'rotate(0deg)', offset: 1 },
-        ], 640, { easing: EASE, origin: '12px 12px' }),
+        ], 660, { easing: EASE, origin: '12px 12px' }),
         1: /* @__PURE__ */ track([
           { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-5deg)', offset: 0.35 },
-          { transform: 'rotate(5deg)', offset: 0.7 },
+          { transform: 'rotate(-10deg)', offset: 0.3333333333333333 },
+          { transform: 'rotate(10deg)', offset: 0.6666666666666666 },
           { transform: 'rotate(0deg)', offset: 1 },
-        ], 640, { easing: EASE, origin: '12px 12px' }),
+        ], 660, { easing: EASE, origin: '12px 12px' }),
         2: /* @__PURE__ */ track([
           { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-5deg)', offset: 0.35 },
-          { transform: 'rotate(5deg)', offset: 0.7 },
+          { transform: 'rotate(-10deg)', offset: 0.3333333333333333 },
+          { transform: 'rotate(10deg)', offset: 0.6666666666666666 },
           { transform: 'rotate(0deg)', offset: 1 },
-        ], 640, { easing: EASE, origin: '12px 12px' }),
+        ], 660, { easing: EASE, origin: '12px 12px' }),
       },
     },
     hold: {
@@ -11793,7 +11789,7 @@ export const bicepsFlexedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** Un paso: la punta se levanta sobre el talón, que es el que se queda pegado al suelo. */
+/** Un paso: el talón queda clavado en el suelo y la punta se levanta sobre él. */
 export const sportShoeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m15 10.42 4.8-5.07" },
@@ -11806,16 +11802,16 @@ export const sportShoeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        2: /* @__PURE__ */ track(PASO_ZAPATO, 580, { easing: EASE }),
-        0: /* @__PURE__ */ track(PASO_ZAPATO, 580, { easing: EASE }),
-        1: /* @__PURE__ */ track(PASO_ZAPATO, 580, { easing: EASE }),
+        2: /* @__PURE__ */ track(PASO_ZAPATO, 620, { easing: EASE, origin: '5px 22px' }),
+        0: /* @__PURE__ */ track(PASO_ZAPATO, 620, { easing: EASE, origin: '5px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.9, 0]), 620, { easing: EASE }),
       },
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.85px, -0.55px) scale(0.98)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.85px, -0.55px) scale(0.98)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.85px, -0.55px) scale(0.98)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 22px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12018,7 +12014,17 @@ export const balloonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** Revienta: el cono da el tirón y lo que sale vuela hacia afuera, en cadena. */
+/**
+ * Revienta: el cono da el tirón y lo que sale vuela hacia afuera, en cadena.
+ *
+ * El tirón lo acusa el ICONO ENTERO desde la raíz, no solo el cono: si el cono se dobla y el
+ * confeti se queda clavado en el aire, parece que el confeti salió por su cuenta. Seis grados de
+ * raíz y diez de cono se suman donde importa, y el confeti sigue reventando desde su propio sitio.
+ *
+ * `origin` de la RAÍZ va en píxeles CSS, no en unidades del viewBox — de ahí el `50% 50%`. Y la
+ * raíz no la recorta el viewBox sino el cuadro de layout, así que el chequeo de lienzo por figuras
+ * no la ve: ésta se midió aparte, contra la caja del elemento.
+ */
 export const partyPopperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M5.8 11.3 2 22l10.7-3.79" },
@@ -12039,13 +12045,9 @@ export const partyPopperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 2.4, 0]), 600, { easing: EASE, origin: '50% 50%' }),
       shapes: {
-        0: /* @__PURE__ */ track([
-          { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(-4deg)', offset: 0.3 },
-          { transform: 'rotate(2deg)', offset: 0.6 },
-          { transform: 'rotate(0deg)', offset: 1 },
-        ], 560, { easing: EASE, origin: '3px 22px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -10, 4, 0]), 600, { easing: EASE, origin: '3px 22px' }),
         8: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.12, 1]), 460, { easing: SPRING_OUT, origin: '11px 15px' }),
         7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 120, origin: '10px 4.5px' }),
         5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { easing: SPRING_OUT, delay: 180, origin: '18px 6px' }),
@@ -12057,9 +12059,10 @@ export const partyPopperIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     hold: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '50% 50%' }),
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '3px 22px' }),
-        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.1)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 15px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '3px 22px' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -12263,14 +12266,14 @@ export const tagsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 2, 0]), 700, { origin: '10.5px 6.5px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 2, 0]), 700, { origin: '10.5px 6.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 16, -12, 5.28, 0]), 700, { origin: '10.5px 6.5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 16, -12, 5.28, 0]), 700, { origin: '10.5px 6.5px' }),
       },
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(13deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(13deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 6.5px' }),
       },
       reverseOnLeave: true,
     },
@@ -12564,7 +12567,7 @@ export const wandIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** La varita cruza el lienzo entero, asi que no puede girar sin cortarse: se queda quieta y las chispas hacen la magia. */
+/** Se agita y las chispas salen detrás, en cadena. Nueve grados es todo lo que cabe cruzando el lienzo entero. */
 export const wandSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -12582,8 +12585,8 @@ export const wandSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 520, { easing: EASE, origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.97, 1]), 520, { easing: EASE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 3.85, 0]), 600, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 3.85, 0]), 600, { easing: EASE, origin: '12px 12px' }),
         2: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 160, origin: '5px 8px' }),
         4: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 210, origin: '10px 3px' }),
         5: /* @__PURE__ */ track(CHISPA, 340, { easing: SPRING_OUT, delay: 260, origin: '5px 8px' }),
@@ -12594,9 +12597,14 @@ export const wandSparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 8px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19px 16px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.25)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 3px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19px 16px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 3px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 8px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '19px 16px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.3)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 3px' }),
       },
       reverseOnLeave: true,
     },
@@ -12659,7 +12667,7 @@ export const lassoSelectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** Se aprieta y la juntura se marca. Rodar no cabe: la capsula cruza el lienzo de esquina a esquina. */
+/** Rueda de canto, que es lo que hace una cápsula suelta. Sí cabe: la diagonal deja 28 grados de holgura. */
 export const pillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" },
@@ -12668,14 +12676,14 @@ export const pillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 520, { easing: EASE, origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 460, { easing: SPRING_OUT, delay: 100, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -12, 6, 0]), 660, { easing: EASE, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -12, 6, 0]), 660, { easing: EASE, origin: '12px 12px' }),
       },
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.94)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.18)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-12deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-12deg) scale(1.14)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },

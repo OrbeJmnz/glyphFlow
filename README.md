@@ -33,7 +33,7 @@ Measured in CI on every push, not promised — `npm run bundle-check`:
 | --------------------------------- | ------------- |
 | The component alone, no icons     | **4.57 KB**   |
 | One icon (`[iconDef]="bellIcon"`) | **4.83 KB**   |
-| The whole catalog (`name="bell"`) | **152.88 KB** |
+| The whole catalog (`name="bell"`) | **152.89 KB** |
 
 An icon costs about 0.26 KB on top of the runtime. Looking one up by name forces the bundler to keep
 all 1767, because it cannot know which one you will ask for — so that route is opt-in via
