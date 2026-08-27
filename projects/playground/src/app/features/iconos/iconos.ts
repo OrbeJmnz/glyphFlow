@@ -50,7 +50,7 @@ import { CIFRAS } from '../../core/cifras';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { Copiador } from '../../shared/ui/copiar';
-import { normalizar, ordenarPorRelevancia } from './buscador';
+import { normalizar, ordenarPorRelevancia, sugerencias } from './buscador';
 import { Rutas } from '../../core/rutas.service';
 import { tema, temaSiguiendoAlSistema } from '../../core/tema';
 import { cargarCurados } from '../../core/catalogo';
@@ -592,6 +592,34 @@ export class Iconos implements OnDestroy {
     this.montadas.update((n) => n + Iconos.TRAMO);
   }
 
+  /**
+   * Los nombres más parecidos a una búsqueda que no encontró nada (T10).
+   *
+   * Se calcula SOLO con la rejilla vacía: recorrer 1767 nombres midiendo distancia de edición en
+   * cada pulsación sería trabajo tirado el 99% de las veces, porque el 99% de las veces hay
+   * resultados. Aquí el usuario ya está parado.
+   *
+   * Mira también los tags —`delet` llega a `trash-2` por su sinónimo `delete`— pero devuelve
+   * siempre el NOMBRE: sugerir el sinónimo mandaría a buscar algo que tampoco existe.
+   */
+  protected readonly sugerencias = computed<string[]>(() => {
+    const q = this.busqueda().trim();
+    if (!q || this.entries().length) return [];
+    const tags = this.tagsNormalizados();
+    return sugerencias(
+      q,
+      this.todos().map((e) => e.name),
+      tags ? (n) => tags[n] : undefined,
+    );
+  });
+
+  /** El enlace para pedir un icono que no está. Prellenado: quien lo abre no escribe de cero. */
+  protected readonly urlPedirIcono = computed(() => {
+    const q = this.busqueda().trim();
+    const titulo = encodeURIComponent(`Icon request: ${q}`);
+    return `https://github.com/OrbeJmnz/glyphFlow/issues/new?title=${titulo}`;
+  });
+
   /** Icono bajo inspección en el Motion Inspector. `null` = panel cerrado. */
   protected readonly inspeccionado = signal<CuratedEntry | null>(null);
 
@@ -600,6 +628,11 @@ export class Iconos implements OnDestroy {
    * `null`, así que cada botón de insignia siempre ACTIVA la suya — sin el "click de nuevo para
    * quitar" que antes era la única salida y no se anunciaba en ningún lado.
    */
+  /** Desde el estado vacío: se busca la sugerencia tal cual, como si la hubiera tecleado. */
+  protected buscarSugerencia(nombre: string): void {
+    this.buscarDesdeHero(nombre);
+  }
+
   protected elegirFiltro(clave: ClaveInsignia | null): void {
     // Dentro de una transición de vista: las tarjetas que sobreviven al filtro VIAJAN a su sitio
     // nuevo en vez de que la cuadrícula se re-arme de golpe. Es el propio sitio demostrando lo que

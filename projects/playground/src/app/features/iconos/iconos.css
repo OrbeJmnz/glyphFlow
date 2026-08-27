@@ -791,3 +791,59 @@
   max-width: var(--gf-ancho);
   margin: 24px auto 0;
 }
+
+/*
+ * Cero resultados (T10). Centrado y con aire: es una parada, no una fila más de la rejilla, y si
+ * se pegara al borde izquierdo se leería como si la lista siguiera abajo.
+ */
+.vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: var(--gf-ancho);
+  margin: 48px auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.vacio-titulo {
+  margin: 0;
+  color: var(--gf-texto);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.vacio-nota {
+  margin: 0;
+  color: var(--gf-texto-tenue);
+  font-size: 0.85rem;
+}
+
+.vacio-sugerencias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.vacio-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  margin-top: 6px;
+}
+
+.vacio-pedir {
+  color: var(--gf-texto-medio);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gf-borde-vivo);
+  transition: color 0.15s ease;
+}
+
+.vacio-pedir:hover {
+  color: var(--gf-texto);
+}

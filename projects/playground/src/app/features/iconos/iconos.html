@@ -356,6 +356,40 @@
 </div>
 
 <!--
+  Cero resultados no es una pantalla en blanco (T10). Las cuatro salidas, en el orden en que sirven:
+  la sugerencia más cercana —que resuelve el dedo torcido, que es la causa más común—, quitar el
+  filtro —la segunda causa, y sólo se ofrece si de verdad hay uno puesto—, y pedir el icono, que es
+  la única salida cuando el icono no existe.
+-->
+@if (busqueda().trim() && !entries().length) {
+  <section class="vacio">
+    <p class="vacio-titulo">
+      {{ 'iconos.vacio.titulo' | transloco: { q: busqueda().trim() } }}
+    </p>
+
+    @if (sugerencias().length) {
+      <p class="vacio-nota">{{ 'iconos.vacio.quizas' | transloco }}</p>
+      <div class="vacio-sugerencias">
+        @for (s of sugerencias(); track s) {
+          <button type="button" app-chip (click)="buscarSugerencia(s)">{{ s }}</button>
+        }
+      </div>
+    }
+
+    <div class="vacio-acciones">
+      @if (filtro()) {
+        <button type="button" app-boton compacto (click)="elegirFiltro(null)">
+          {{ 'iconos.vacio.limpiarFiltro' | transloco }}
+        </button>
+      }
+      <a [href]="urlPedirIcono()" target="_blank" rel="noopener" class="vacio-pedir">
+        {{ 'iconos.vacio.pedir' | transloco }}
+      </a>
+    </div>
+  </section>
+}
+
+<!--
   El final de la lista. La rejilla monta un tramo y crece al llegar aquí, porque montar los 1767 de
   golpe bloqueaba el hilo principal 18 segundos: `<gf-icon trigger="group">` dibuja al montarse, y
   para dibujar mide `getTotalLength()` de cada figura, que fuerza layout.

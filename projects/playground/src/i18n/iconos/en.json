@@ -106,5 +106,11 @@
       "titulo": "Icon: {{nombre}}",
       "cuerpo": "Choreography for `{{constName}}` (variant `{{variante}}`).\n\n<!-- What you expected to see vs. what happened -->\n"
     }
+  },
+  "vacio": {
+    "titulo": "No icons for “{{q}}”.",
+    "quizas": "Did you mean:",
+    "limpiarFiltro": "Clear the filter",
+    "pedir": "Ask for this icon →"
   }
 }

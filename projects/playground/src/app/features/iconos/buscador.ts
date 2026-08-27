@@ -110,3 +110,110 @@ export function ordenarPorRelevancia<T>(
   );
   return conNivel.map((c) => c.item);
 }
+
+/**
+ * Distancia de edición entre dos cadenas, con corte temprano.
+ *
+ * Es Levenshtein por filas —una sola fila viva en vez de la matriz entera— y abandona en cuanto la
+ * mejor distancia posible de la fila supera `tope`. Eso importa porque esto se llama contra los
+ * 1767 nombres del catálogo: sin el corte, una consulta larga recorre la matriz completa de cada
+ * uno para descubrir al final que ninguno estaba cerca.
+ */
+export function distancia(a: string, b: string, tope: number): number {
+  if (a === b) return 0;
+  // Dos palabras cuya longitud ya difiere más que el tope no pueden acercarse: cada carácter de
+  // más es al menos una edición.
+  if (Math.abs(a.length - b.length) > tope) return tope + 1;
+
+  const fila = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let anterior = fila[0];
+    fila[0] = i;
+    let mejorDeLaFila = fila[0];
+    for (let j = 1; j <= b.length; j++) {
+      const sustituir = anterior + (a[i - 1] === b[j - 1] ? 0 : 1);
+      anterior = fila[j];
+      fila[j] = Math.min(fila[j] + 1, fila[j - 1] + 1, sustituir);
+      if (fila[j] < mejorDeLaFila) mejorDeLaFila = fila[j];
+    }
+    if (mejorDeLaFila > tope) return tope + 1;
+  }
+  return fila[b.length];
+}
+
+/**
+ * Cuánta distancia se tolera según lo que se escribió. Una consulta de tres letras con dos errores
+ * ya no se parece a nada —`arw` estaría igual de "cerca" de media docena de palabras—, mientras
+ * que en una de doce un dedo torcido no debería costar la sugerencia.
+ */
+function topeSegunLargo(largo: number): number {
+  if (largo <= 4) return 1;
+  if (largo <= 8) return 2;
+  return 3;
+}
+
+/**
+ * Los nombres más parecidos a una consulta que NO encontró nada.
+ *
+ * Mira el nombre y sus etiquetas, y devuelve siempre el NOMBRE: una sugerencia que devolviera
+ * `delete` porque es sinónimo de `trash-2` mandaría a buscar algo que tampoco existe.
+ *
+ * También compara contra cada segmento del nombre por separado (`arrow` de `arrow-up-right`),
+ * porque quien escribe mal una palabra rara vez escribe mal el compuesto entero.
+ */
+export function sugerencias(
+  q: string,
+  nombres: readonly string[],
+  tagsDe?: (nombre: string) => readonly string[] | undefined,
+  max = 5,
+): string[] {
+  const consulta = normalizar(q).trim();
+  if (consulta.length < 2) return [];
+  const tope = topeSegunLargo(consulta.length);
+
+  // DE DÓNDE viene el parecido, y no sólo cuánto: a igual distancia, un icono que se parece por su
+  // nombre gana a otro que se parece por un sinónimo. Sin esto, `arrw` devolvía `log-in` antes que
+  // `arrow-up` — los dos a distancia 1, pero uno por su tag «arrow» y el otro por su propio nombre.
+  const NOMBRE = 0;
+  const SEGMENTO = 1;
+  const TAG = 2;
+
+  const cerca: { nombre: string; d: number; via: number }[] = [];
+  for (const nombre of nombres) {
+    const n = normalizar(nombre);
+    let mejor = distancia(consulta, n, tope);
+    let via = NOMBRE;
+    if (mejor > tope) {
+      for (const seg of n.split('-')) {
+        const d = distancia(consulta, seg, tope);
+        if (d < mejor) {
+          mejor = d;
+          via = SEGMENTO;
+        }
+        if (mejor === 0) break;
+      }
+    }
+    if (mejor > tope) {
+      for (const tag of tagsDe?.(nombre) ?? []) {
+        const d = distancia(consulta, normalizar(tag), tope);
+        if (d < mejor) {
+          mejor = d;
+          via = TAG;
+        }
+        if (mejor === 0) break;
+      }
+    }
+    if (mejor <= tope) cerca.push({ nombre, d: mejor, via });
+  }
+
+  // Más cerca primero; luego lo que casó por el nombre antes que lo que casó por un sinónimo; y a
+  // igualdad, el nombre más corto — es el más probable y el que se lee antes en una fila.
+  cerca.sort(
+    (a, b) =>
+      a.d - b.d ||
+      a.via - b.via ||
+      a.nombre.length - b.nombre.length ||
+      a.nombre.localeCompare(b.nombre),
+  );
+  return cerca.slice(0, max).map((c) => c.nombre);
+}

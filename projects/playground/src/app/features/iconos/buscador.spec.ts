@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { NIVELES, nivelDe, normalizar, ordenarPorRelevancia } from './buscador';
+import { NIVELES, distancia, nivelDe, normalizar, ordenarPorRelevancia, sugerencias } from './buscador';
 
 describe('normalizar', () => {
   it('quita acentos y mayúsculas', () => {
@@ -122,5 +122,55 @@ describe('ordenarPorRelevancia', () => {
   it('consulta vacía devuelve todo, sin reordenar', () => {
     const items = ['zeta', 'alfa'];
     expect(ordenarPorRelevancia(items, '   ', nombre)).toEqual(items);
+  });
+});
+
+describe('sugerencias', () => {
+  const CATALOGO = ['arrow-up', 'arrow-down', 'arrow-up-right', 'trash-2', 'bell', 'bell-ring', 'circle'];
+
+  it('acerca un dedo torcido al nombre que se quería', () => {
+    // El caso literal del criterio de aceptación de T10.
+    expect(sugerencias('arrw', CATALOGO)).toContain('arrow-up');
+  });
+
+  it('el parecido por NOMBRE gana al parecido por sinónimo', () => {
+    // Medido contra el catálogo real: `arrw` devolvía `log-in` antes que `arrow-up`. Los dos a
+    // distancia 1 — pero uno por su tag «arrow» y el otro por su propio nombre.
+    const tags = (n: string) => (n === 'circle' ? ['arrow'] : undefined);
+    expect(sugerencias('arrw', CATALOGO, tags)[0]).toBe('arrow-up');
+  });
+
+  it('compara también contra cada SEGMENTO del nombre', () => {
+    // Quien escribe mal una palabra rara vez escribe mal el compuesto entero: sin partir por
+    // guiones, `arow` no se acerca a `arrow-up-right` — son diez ediciones de diferencia.
+    expect(sugerencias('arow', CATALOGO).length).toBeGreaterThan(0);
+  });
+
+  it('devuelve el NOMBRE aunque el parecido lo haya dado una etiqueta', () => {
+    // Sugerir `delete` porque es sinónimo de `trash-2` mandaría a buscar algo que tampoco existe.
+    const tags = (n: string) => (n === 'trash-2' ? ['delete'] : undefined);
+    expect(sugerencias('delet', CATALOGO, tags)).toEqual(['trash-2']);
+  });
+
+  it('no sugiere nada cuando de verdad no se parece a nada', () => {
+    expect(sugerencias('xyzabc', CATALOGO)).toEqual([]);
+  });
+
+  it('con dos letras o menos se calla: todo está cerca de todo', () => {
+    expect(sugerencias('a', CATALOGO)).toEqual([]);
+  });
+
+  it('devuelve como mucho las que se le piden, y las más cercanas primero', () => {
+    const cinco = sugerencias('bel', CATALOGO, undefined, 5);
+    expect(cinco.length).toBeLessThanOrEqual(5);
+    expect(cinco[0]).toBe('bell');
+  });
+
+  it('la distancia corta por longitud antes de recorrer la matriz', () => {
+    // Con el tope en 2, dos palabras que difieren en 6 caracteres no pueden acercarse — y el corte
+    // es lo que hace viable llamar a esto contra los 1767 nombres del catálogo.
+    expect(distancia('bell', 'circle-dashed', 2)).toBeGreaterThan(2);
+    expect(distancia('bell', 'belt', 2)).toBe(1);
+    expect(distancia('bell', 'bell', 2)).toBe(0);
   });
 });
