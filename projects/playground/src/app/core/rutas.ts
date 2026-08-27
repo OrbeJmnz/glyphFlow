@@ -35,7 +35,7 @@ export type RutaId =
  */
 export const SLUGS: Record<RutaId, Record<Idioma, string>> = {
   iconos: { en: '', es: '' },
-  patrones: { en: 'patterns', es: 'patrones' },
+  patrones: { en: 'examples', es: 'ejemplos' },
   editor: { en: 'editor', es: 'editor' },
   lab: { en: 'lab', es: 'lab' },
   docs: { en: 'docs', es: 'docs' },

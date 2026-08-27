@@ -12,8 +12,8 @@
   },
   "nav": {
     "iconos": "Icons",
-    "patrones": "Patterns",
-    "editor": "Editor",
+    "patrones": "Examples",
+    "editor": "Path editor",
     "lab": "Lab",
     "docs": "Docs"
   },
@@ -63,10 +63,10 @@
       "tituloConConteo": "glyphflow — {{n}} animated icons"
     },
     "patrones": {
-      "title": "Patterns — glyphflow"
+      "title": "Examples — glyphflow"
     },
     "editor": {
-      "title": "Node editor — glyphflow"
+      "title": "Path editor — glyphflow"
     },
     "lab": {
       "title": "Lab — glyphflow"
@@ -115,5 +115,12 @@
     "caso": "Edge case",
     "nota": "Note",
     "regla": "Rule"
+  },
+  "navDesc": {
+    "iconos": "The whole catalog — search it, watch it move, copy it.",
+    "patrones": "Real controls, with the code that makes them next to them.",
+    "editor": "Edit an icon's outline point by point.",
+    "lab": "Authoring benches — where the library's defaults get decided.",
+    "docs": "API reference, guides and migration."
   }
 }

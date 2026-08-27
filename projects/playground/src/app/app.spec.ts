@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, type Route } from '@angular/router';
+import { Router, provideRouter, type Route } from '@angular/router';
 import { vi } from 'vitest';
 import { App } from './app';
 import { routes } from './app.routes';
@@ -49,7 +49,7 @@ describe('App (shell)', () => {
     expect(html.querySelector('.marca')?.getAttribute('aria-label')).toContain('glyphflow');
     // Inglés por default (i18n, tráfico) — no español. Ver `core/i18n.ts`.
     const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
-    expect(rutas).toEqual(['Icons', 'Patterns', 'Editor', 'Lab', 'Docs']);
+    expect(rutas).toEqual(['Icons', 'Examples', 'Path editor', 'Lab', 'Docs']);
     // El glifo junto al logotipo: el sitio animando su propio producto en el header.
     expect(html.querySelector('.marca gf-icon')).not.toBeNull();
     // El botón del repo está cableado (lo suyo se prueba en su propia spec).
@@ -63,7 +63,56 @@ describe('App (shell)', () => {
     // Escritos duros (`/patrones`) mandarían al visitante en español a la rama en inglés — y peor,
     // sin prefijo caería en el comodín, que lo devuelve a la portada.
     const hrefs = [...html.querySelectorAll('.nav a')].map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/en', '/en/patterns', '/en/editor', '/en/lab', '/en/docs']);
+    expect(hrefs).toEqual(['/en', '/en/examples', '/en/editor', '/en/lab', '/en/docs']);
+  });
+
+  /*
+   * Los tres criterios de aceptación de T15, que si no se caen sin ruido: un nombre se puede
+   * revertir en un `en.json` y nadie lo nota hasta que alguien vuelve a preguntar a dónde lleva
+   * cada pestaña.
+   */
+  it('cada sección del nav dice a dónde lleva, y la activa se anuncia', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    // 1. Descripción de una línea por sección. En escritorio va en el tooltip, en el menú visible.
+    const conDescripcion = [...html.querySelectorAll('.nav app-tooltip')];
+    expect(conDescripcion.length).toBe(5);
+    for (const t of conDescripcion) {
+      expect(t.getAttribute('ng-reflect-texto') ?? t.textContent).toBeTruthy();
+    }
+    expect(html.querySelectorAll('.menu-nav a small').length).toBe(5);
+
+    // 2. Y ningún par de nombres se confunde entre sí.
+    const nombres = [...html.querySelectorAll('.nav a')].map((a) => a.textContent!.trim());
+    expect(new Set(nombres).size).toBe(nombres.length);
+  });
+
+  /*
+   * El tercer criterio de T15 va aparte porque necesita una ruta ACTIVA, y el `beforeEach` de
+   * arriba monta `provideRouter([])` — sin rutas ningún enlace se activa nunca, así que el
+   * atributo no aparecería y el test pasaría por el motivo equivocado.
+   */
+  it('la sección activa se anuncia con aria-current, no sólo con color', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [App, providersI18nTest()],
+      providers: [provideRouter(routes)],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/en');
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const activos = [
+      ...(fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>(
+        '.nav a[aria-current="page"]',
+      ),
+    ];
+    expect(activos.length).toBe(1);
+    expect(activos[0].getAttribute('href')).toBe('/en');
   });
 
   it('el botón de tema dice a dónde lleva, no dónde estás', async () => {

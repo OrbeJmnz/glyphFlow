@@ -39,7 +39,7 @@ import { slug, traducirRuta } from './core/rutas';
  */
 
 /**
- * El idioma lo manda la URL, no lo que quedó guardado. Es lo que hace que `/es/patrones` compartido
+ * El idioma lo manda la URL, no lo que quedó guardado. Es lo que hace que `/es/ejemplos` compartido
  * por chat se abra en español aunque quien lo reciba haya usado el sitio en inglés — sin esto, el
  * contenido y la URL dirían cosas distintas, que es justo lo que T19 viene a matar.
  *
@@ -162,7 +162,7 @@ export const routes: Routes = [
   // que la contradiga. Sin nada guardado cae en inglés, que es el default por tráfico.
   { path: '', pathMatch: 'full', redirectTo: () => `/${idiomaPreferido()}` },
   /*
-   * Las rutas viejas sin prefijo (`/patterns`, `/docs/api`…) las atiende Vercel con un 301 de
+   * Las rutas viejas sin prefijo (`/patrones`, `/docs/api`…) las atiende Vercel con un 301 de
    * verdad — ver `vercel.json`. Esto es la red de abajo: en `ng serve` no hay redirecciones de
    * servidor, y sin esto el dev vería un comportamiento distinto al de producción justo en las
    * URLs que más se van a teclear a mano.

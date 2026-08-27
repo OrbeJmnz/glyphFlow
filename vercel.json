@@ -4,7 +4,9 @@
   "buildCommand": "ng build playground",
   "outputDirectory": "dist/playground/browser",
   "redirects": [
-    { "source": "/patrones", "destination": "/en/patterns", "statusCode": 301 },
+    { "source": "/patrones", "destination": "/en/examples", "statusCode": 301 },
+    { "source": "/en/patterns", "destination": "/en/examples", "statusCode": 301 },
+    { "source": "/es/patrones", "destination": "/es/ejemplos", "statusCode": 301 },
     { "source": "/docs/empezando", "destination": "/en/docs/getting-started", "statusCode": 301 },
     {
       "source": "/docs/accesibilidad",

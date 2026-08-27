@@ -3,7 +3,7 @@
   "verEnApi": "See both in the API reference →",
   "notaSpring": "spring takes a preset name. The full list, with the damping value behind each one, is in the API reference — it isn't copied here so the two can't drift apart.",
   "verPresets": "See the spring presets →",
-  "titulo": "Patterns",
+  "titulo": "Examples",
   "intro": "The icon grid shows what's there. This shows what it's for: controls that actually do what they say — the copy one copies, the theme one changes colors, the send one has its three states. Each one's code sits right next to it.",
   "copiar": {
     "titulo": "Copy to clipboard",

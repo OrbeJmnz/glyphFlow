@@ -1,5 +1,5 @@
 {
-  "titulo": "Node editor",
+  "titulo": "Path editor",
   "intro": "Drag the points along the outline and watch <code>d</code> change. What you don't touch gets rewritten exactly as it was — that's why the result stays readable instead of turning into a wall of cubics.",
   "trazos": "This icon has {{n}} strokes. Click one to edit its nodes.",
   "busqueda": {

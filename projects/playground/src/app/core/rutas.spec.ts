@@ -38,8 +38,8 @@ describe('ruta()', () => {
   it('prefija el idioma', () => {
     expect(ruta('en')).toBe('/en');
     expect(ruta('es')).toBe('/es');
-    expect(ruta('en', 'patrones')).toBe('/en/patterns');
-    expect(ruta('es', 'patrones')).toBe('/es/patrones');
+    expect(ruta('en', 'patrones')).toBe('/en/examples');
+    expect(ruta('es', 'patrones')).toBe('/es/ejemplos');
     expect(ruta('en', 'docs', 'empezando')).toBe('/en/docs/getting-started');
     expect(ruta('es', 'docs', 'empezando')).toBe('/es/docs/empezando');
   });
@@ -53,11 +53,11 @@ describe('ruta()', () => {
 
 describe('idiomaDeLaRuta()', () => {
   it('lee el prefijo, y null cuando no lo hay', () => {
-    expect(idiomaDeLaRuta('/es/patrones')).toBe('es');
+    expect(idiomaDeLaRuta('/es/ejemplos')).toBe('es');
     expect(idiomaDeLaRuta('/en')).toBe('en');
     expect(idiomaDeLaRuta('/')).toBeNull();
     // Una ruta vieja, de antes del prefijo: no declara idioma aunque su slug esté en español.
-    expect(idiomaDeLaRuta('/patrones')).toBeNull();
+    expect(idiomaDeLaRuta('/ejemplos')).toBeNull();
   });
 });
 
@@ -65,7 +65,7 @@ describe('traducirRuta()', () => {
   it('conserva la página, el query y el fragmento', () => {
     expect(traducirRuta('/en/docs/getting-started', 'es')).toBe('/es/docs/empezando');
     expect(traducirRuta('/es/docs/accesibilidad#api-x', 'en')).toBe('/en/docs/accessibility#api-x');
-    expect(traducirRuta('/en/patterns?q=bell', 'es')).toBe('/es/patrones?q=bell');
+    expect(traducirRuta('/en/examples?q=bell', 'es')).toBe('/es/ejemplos?q=bell');
   });
 
   it('la portada de un idioma es la portada del otro', () => {
@@ -74,7 +74,7 @@ describe('traducirRuta()', () => {
 
   it('adopta una ruta vieja sin prefijo', () => {
     // Lo que hace el comodín del router en `ng serve`, donde no hay 301 de servidor.
-    expect(traducirRuta('/patrones', 'en')).toBe('/en/patterns');
+    expect(traducirRuta('/ejemplos', 'en')).toBe('/en/examples');
     expect(traducirRuta('/docs/api', 'es')).toBe('/es/docs/api');
   });
 

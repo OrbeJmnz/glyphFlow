@@ -7,10 +7,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en"/>
   </url>
   <url>
-    <loc>https://glyph-flow-zeta.vercel.app/en/patterns</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/patrones"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+    <loc>https://glyph-flow-zeta.vercel.app/en/examples</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/examples"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/ejemplos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/examples"/>
   </url>
   <url>
     <loc>https://glyph-flow-zeta.vercel.app/en/editor</loc>
@@ -85,10 +85,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en"/>
   </url>
   <url>
-    <loc>https://glyph-flow-zeta.vercel.app/es/patrones</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/patrones"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/patterns"/>
+    <loc>https://glyph-flow-zeta.vercel.app/es/ejemplos</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/examples"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/ejemplos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/examples"/>
   </url>
   <url>
     <loc>https://glyph-flow-zeta.vercel.app/es/editor</loc>

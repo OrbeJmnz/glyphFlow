@@ -33,6 +33,7 @@ import { Logo } from './shared/marca/logo';
 import { Boton } from './shared/ui/boton';
 import { CarrilActivo } from './shared/ui/carril-activo';
 import { Chip } from './shared/ui/chip';
+import { Tooltip } from './shared/ui/tooltip';
 import { Grupo } from './shared/ui/grupo';
 
 /**
@@ -57,6 +58,7 @@ import { Grupo } from './shared/ui/grupo';
     CarrilActivo,
     Chip,
     Grupo,
+    Tooltip,
     TranslocoPipe,
   ],
   templateUrl: './app.html',
@@ -169,8 +171,8 @@ export class App {
   }
 
   /**
-   * Los enlaces del nav se piden por ID, no por ruta: el slug cambia con el idioma (`/en/patterns`
-   * ↔ `/es/patrones`) y `Rutas` lo resuelve leyendo el idioma activo por señal. Escribirlos duros
+   * Los enlaces del nav se piden por ID, no por ruta: el slug cambia con el idioma (`/en/examples`
+   * ↔ `/es/ejemplos`) y `Rutas` lo resuelve leyendo el idioma activo por señal. Escribirlos duros
    * dejaría al visitante en español navegando a URLs en inglés.
    */
   protected readonly rutas = inject(Rutas);
@@ -181,7 +183,7 @@ export class App {
    * pastilla de 2 opciones: con solo 2 idiomas, alternar es más rápido que elegir.
    *
    * Ya no cambia el idioma: NAVEGA. Con el idioma en la URL, cambiarlo sin moverse dejaría a
-   * `/en/patterns` pintado en español — contenido y dirección diciendo cosas distintas, que es el
+   * `/en/examples` pintado en español — contenido y dirección diciendo cosas distintas, que es el
    * bug que T19 vino a cerrar. Quien recibe el enlace tiene que ver lo mismo que quien lo mandó.
    *
    * Conserva la página, el query y el fragmento (`traducirRuta`): mandar a la portada por cambiar

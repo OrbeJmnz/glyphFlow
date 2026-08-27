@@ -12,8 +12,8 @@
   },
   "nav": {
     "iconos": "Iconos",
-    "patrones": "Patrones",
-    "editor": "Editor",
+    "patrones": "Ejemplos",
+    "editor": "Editor de trazos",
     "lab": "Lab",
     "docs": "Docs"
   },
@@ -63,10 +63,10 @@
       "tituloConConteo": "glyphflow — {{n}} iconos animados"
     },
     "patrones": {
-      "title": "Patrones — glyphflow"
+      "title": "Ejemplos — glyphflow"
     },
     "editor": {
-      "title": "Editor de nodos — glyphflow"
+      "title": "Editor de trazos — glyphflow"
     },
     "lab": {
       "title": "Lab — glyphflow"
@@ -115,5 +115,12 @@
     "caso": "Caso límite",
     "nota": "Nota",
     "regla": "Regla"
+  },
+  "navDesc": {
+    "iconos": "El catálogo entero: búscalo, míralo moverse, cópialo.",
+    "patrones": "Controles de verdad, con el código que los hace al lado.",
+    "editor": "Edita el contorno de un icono punto por punto.",
+    "lab": "Bancos de autoría: aquí se deciden los valores por defecto.",
+    "docs": "Referencia de API, guías y migración."
   }
 }

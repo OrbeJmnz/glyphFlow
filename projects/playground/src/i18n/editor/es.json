@@ -1,5 +1,5 @@
 {
-  "titulo": "Editor de nodos",
+  "titulo": "Editor de trazos",
   "intro": "Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.",
   "trazos": "Este icono tiene {{n}} trazos. Da click en uno para editar sus nodos.",
   "busqueda": {
