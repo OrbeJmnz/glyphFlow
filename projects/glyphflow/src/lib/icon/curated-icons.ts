@@ -20475,7 +20475,7 @@ export const handbagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.22)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.1)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
       },
       reverseOnLeave: true,
@@ -20530,7 +20530,7 @@ export const gemIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.05)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
       },
       reverseOnLeave: true,
@@ -20828,14 +20828,14 @@ export const dramaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -20869,12 +20869,12 @@ export const theaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.2px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

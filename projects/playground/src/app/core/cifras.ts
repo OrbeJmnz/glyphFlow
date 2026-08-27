@@ -34,7 +34,7 @@ export const CIFRAS = {
    * juntos, `bundle-size-check.ts` los verifica de una y no hay dónde esconder una copia.
    */
   bundleCoreKb: 4.57,
-  bundleCatalogoKb: 151.74,
+  bundleCatalogoKb: 152.88,
   depsAnimacion: 0,
   /**
    * El rango de Angular que el paquete declara. Escrito a mano por la MISMA razón que
