@@ -7,6 +7,7 @@ import {
   afterNextRender,
   signal,
   computed,
+  linkedSignal,
   effect,
   inject,
   OnDestroy,
@@ -45,13 +46,13 @@ import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { CIFRAS } from '../../core/cifras';
-import { NOMBRES_GENERADOS } from './nombres-generados';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { Copiador } from '../../shared/ui/copiar';
 import { normalizar, ordenarPorRelevancia } from './buscador';
 import { Rutas } from '../../core/rutas.service';
-import { tema } from '../../core/tema';
+import { tema, temaSiguiendoAlSistema } from '../../core/tema';
+import { Visible } from '../../shared/ui/visible';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
 /**
@@ -113,6 +114,7 @@ interface CuratedEntry {
     RejillaTeclado,
     TituloSiTruncado,
     TranslocoPipe,
+    Visible,
   ],
   // El scope vive aquí y no en la ruta a propósito: `app.routes.ts` es eager, así que su loader
   // se resuelve en un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas
@@ -273,6 +275,52 @@ export class Iconos implements OnDestroy {
   protected readonly logoQuieto = computed(() =>
     tema() === 'claro' ? '/images/glyphflow-logo-light.svg' : '/images/glyphflow-logo.svg',
   );
+
+  /**
+   * Los `<source>` del `<picture>`, en el orden en que el navegador los prueba: gana el PRIMERO
+   * que casa, así que lo más específico va arriba.
+   *
+   * Existen porque el sitio se prerenderiza y el `src` del `<img>` se hornea en el HTML estático.
+   * En el servidor no hay `matchMedia`, así que salía siempre el par por defecto —animado y
+   * oscuro— y quien prefiere claro se bajaba el GIF oscuro de 425 KB para verlo cambiar al claro
+   * de 50 en cuanto hidrataba. Una media query la resuelve el navegador antes de pintar y solo
+   * descarga la fuente que casa, así que no hay ni salto ni descarga tirada.
+   *
+   * Cada dimensión aporta su `<source>` SOLO mientras la mande el sistema: en cuanto alguien
+   * elige a mano, la media query siempre le ganaría —el navegador resuelve el `<picture>` antes
+   * de mirar el `src`— y por eso se retira y manda la señal.
+   */
+  protected readonly fuentesLogo = computed<{ media: string; srcset: string }[]>(() => {
+    const sistemaTema = temaSiguiendoAlSistema();
+    const sistemaMovimiento = siguiendoAlSistema();
+    const fuentes: { media: string; srcset: string }[] = [];
+
+    if (sistemaMovimiento && sistemaTema) {
+      fuentes.push({
+        media: '(prefers-reduced-motion: reduce) and (prefers-color-scheme: light)',
+        srcset: '/images/glyphflow-logo-light.svg',
+      });
+    }
+    if (sistemaMovimiento) {
+      // Quieto. Con el tema a mano ya viene resuelto en `logoQuieto()`; con el tema del sistema,
+      // el caso claro lo agarró la línea de arriba y aquí solo queda el oscuro.
+      fuentes.push({
+        media: '(prefers-reduced-motion: reduce)',
+        srcset: sistemaTema ? '/images/glyphflow-logo.svg' : this.logoQuieto(),
+      });
+    }
+    if (sistemaTema) {
+      // Claro. Si el movimiento lo eligió el visitante, se respeta cuál de los dos claros toca.
+      fuentes.push({
+        media: '(prefers-color-scheme: light)',
+        srcset:
+          sistemaMovimiento || hayMovimiento()
+            ? '/images/glyphflow-anim-preview-light.gif'
+            : '/images/glyphflow-logo-light.svg',
+      });
+    }
+    return fuentes;
+  });
 
   /*
    * El que acaba en el `src` del `<img>`. Sale de la preferencia EFECTIVA, no de la del sistema:
@@ -461,24 +509,43 @@ export class Iconos implements OnDestroy {
   });
 
   /**
-   * Los generados que casan con la búsqueda.
+   * Cuántas tarjetas hay montadas ahora mismo. Crece al llegar al final de la lista.
    *
-   * El catálogo del paquete tiene 1767 iconos y esta rejilla enseña 911: los otros 856 existen, se
-   * pueden usar, y hasta ahora quien buscaba uno concluía que no estaba. Eso es lo que arregla
-   * esto — decirlo, no pintarlos. Pintarlos costaba +224 kB en el bundle inicial (medido), y este
-   * sitio vende tree-shaking real en su propia portada.
+   * NO es paginación de la búsqueda: `entries()` sigue siendo el resultado COMPLETO —el conteo, el
+   * filtro y la relevancia se calculan sobre todo el catálogo— y esto solo decide cuántas de esas
+   * tarjetas existen en el DOM. Quien busca «arrow» ve las 145 que hay, no un tramo de ellas.
    *
-   * Solo los NOMBRES, que es lo que hace falta para responder "sí existe": la geometría no.
+   * Existe por una medición: con los 1767 curados montados de golpe, el hilo principal se quedaba
+   * bloqueado 18 segundos. La culpa no la tiene el número de nodos sino el modo `group` de
+   * `<gf-icon>`, que DIBUJA AL MONTARSE — y para dibujar mide `getTotalLength()` de cada figura,
+   * que fuerza layout. Eran 7 097 mediciones seguidas en el mismo tick.
+   *
+   * El tramo se recalcula, no se acumula ciegamente: al filtrar o buscar vuelve al inicial, porque
+   * si no, quien viene de mirar 900 iconos monta 900 de la lista nueva.
    */
-  protected readonly generadosCoincidentes = computed<string[]>(() => {
-    const q = this.busqueda().trim();
-    if (q.length < 2) return [];
-    const tags = this.tagsNormalizados();
-    return ordenarPorRelevancia(NOMBRES_GENERADOS, q, (n) => n, tags ? (n) => tags[n] : undefined);
+  private static readonly TRAMO = 120;
+  protected readonly montadas = linkedSignal({
+    source: this.entries,
+    // `linkedSignal` y no un `effect` que escriba la señal: volver al tramo inicial ES parte de la
+    // definición del tramo —al filtrar, la lista de detrás es otra— y no un efecto secundario que
+    // alguien pueda olvidar al añadir un filtro nuevo. Sin esto, quien viene de mirar 900 iconos
+    // monta 900 de la lista siguiente.
+    computation: () => Iconos.TRAMO,
   });
 
-  /** Una muestra, no los 856: la lista es una pista, no un segundo catálogo. */
-  protected readonly muestraGenerados = computed(() => this.generadosCoincidentes().slice(0, 10));
+  /** Lo que de verdad se pinta: el principio de `entries()`, hasta donde se haya ampliado. */
+  protected readonly visibles = computed(() => this.entries().slice(0, this.montadas()));
+
+  /** `true` mientras quede algo por montar — lo que decide si el centinela sigue en el DOM. */
+  protected readonly hayMas = computed(() => this.entries().length > this.montadas());
+
+  /**
+   * Amplía el tramo. Lo llama el centinela del final de la rejilla y también el botón de al lado,
+   * que existe para quien navega con teclado y nunca dispara un `IntersectionObserver`.
+   */
+  protected montarMas(): void {
+    this.montadas.update((n) => n + Iconos.TRAMO);
+  }
 
   /** Icono bajo inspección en el Motion Inspector. `null` = panel cerrado. */
   protected readonly inspeccionado = signal<CuratedEntry | null>(null);

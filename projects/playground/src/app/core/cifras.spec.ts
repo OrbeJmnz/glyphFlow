@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ANIMATED_ICONS, CURATED_ICONS } from 'glyphflow';
+import { ANIMATED_ICONS, CURATED_ICONS, GENERATED_ICONS } from 'glyphflow';
 import { CIFRAS } from './cifras';
 
 /**
@@ -43,5 +43,20 @@ describe('CIFRAS', () => {
   it('curados y catálogo son coherentes entre sí', () => {
     expect(CIFRAS.curados).toBeGreaterThan(0);
     expect(CIFRAS.curados).toBeLessThanOrEqual(CIFRAS.catalogo);
+  });
+
+  /*
+   * Hereda el trabajo de `nombres-generados.spec.ts`, que se borró con su lista: mientras hubo
+   * iconos sin coreografía, el sitio llevaba una copia de sus nombres para poder decir «sí existe»
+   * sin pagar su geometría. Desde que el catálogo se curó entero esa lista sobra — pero la red no:
+   * si un día `generate:icons` trae una versión de Lucide con iconos nuevos, vuelven a existir
+   * iconos que el sitio no anuncia, y ese es justo el bug que la lista venía a arreglar.
+   *
+   * Si esto truena, la decisión es de persona: o se curan los nuevos, o el sitio vuelve a
+   * anunciarlos. Lo que no puede pasar es que nadie se entere.
+   */
+  it('el catálogo está entero — ningún icono se queda sin coreografía', () => {
+    expect(Object.keys(GENERATED_ICONS)).toEqual([]);
+    expect(CIFRAS.curados).toBe(CIFRAS.catalogo);
   });
 });

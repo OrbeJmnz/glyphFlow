@@ -57,16 +57,11 @@
     },
     "aviso": "{{n}} de {{total}}."
   },
-  "generados": {
-    "hay": "Hay {{n}} más en el catálogo como iconos generados. Aquí no se dibujan, pero viajan en el paquete y ya se pueden usar:",
-    "yMas": "…y {{n}} más",
-    "queLesFalta": "Un icono generado trae la geometría de Lucide y un trazo automático — sin coreografía a mano, así que sin variantes de hover ni de estado.",
-    "comoPedirla": "Pedir que se le escriba coreografía →"
-  },
   "grid": {
     "variantesAria": "{{n}} variantes de animación",
     "inspeccionarAria": "Inspeccionar {{nombre}}",
-    "rejillaAria": "Catálogo de iconos, {{n}} iconos. Usa las flechas para moverte entre ellos."
+    "rejillaAria": "Catálogo de iconos, {{n}} iconos. Usa las flechas para moverte entre ellos.",
+    "montarMas": "Ver {{n}} más"
   },
   "scrubber": {
     "progresoEtiqueta": "Progreso de la coreografía",

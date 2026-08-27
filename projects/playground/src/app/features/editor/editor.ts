@@ -5,6 +5,7 @@ import {
   ViewChild,
   computed,
   inject,
+  linkedSignal,
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -36,6 +37,7 @@ import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Tooltip } from '../../shared/ui/tooltip';
+import { Visible } from '../../shared/ui/visible';
 
 const LADO = 24;
 
@@ -70,7 +72,7 @@ interface NodoVista extends Nodo {
  */
 @Component({
   selector: 'app-editor',
-  imports: [Boton, CampoBusqueda, Chip, GfIconComponent, Tooltip, TranslocoPipe],
+  imports: [Boton, CampoBusqueda, Chip, GfIconComponent, Tooltip, TranslocoPipe, Visible],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -160,6 +162,44 @@ export class Editor implements OnDestroy {
 
   /** Para que la lista diga cuántos hay: un corte silencioso se lee como "esto es todo". */
   protected readonly totalCurados = this.curados.length;
+
+  /**
+   * El selector monta un TRAMO de `candidatos()`, no la lista entera.
+   *
+   * Medido el 2026-08-27 con los 1767 curados: 16 184 nodos y 3 732 ms de hilo principal
+   * bloqueado solo por instanciar 1 772 `<gf-icon>`. Aquí no son las animaciones —`trigger="manual"`
+   * no dibuja al montarse, y en toda la página hay UNA animación viva— es el coste de crear los
+   * componentes y sus SVG.
+   *
+   * El conteo de al lado sigue diciendo la verdad (`candidatos().length` sobre el total), que es
+   * justo lo que el comentario de arriba pedía: nada de cortes silenciosos.
+   */
+  private static readonly TRAMO = 120;
+  protected readonly montados = linkedSignal({
+    source: this.candidatos,
+    // Al filtrar, la lista de detrás es otra: el tramo vuelve al principio en vez de arrastrar lo
+    // que hubiera montado de la anterior.
+    computation: () => Editor.TRAMO,
+  });
+
+  /**
+   * El tramo, MÁS el icono que se está editando aunque caiga fuera.
+   *
+   * Sin eso, elegir uno del final y recargar deja la lista sin chip activo: el usuario no ve cuál
+   * está editando, y el `heart` de arranque —que va por la posición 700 de 1767— ya salía sin
+   * marcar. Va DELANTE porque es lo que se busca con la vista, no perdido en su sitio alfabético.
+   */
+  protected readonly visibles = computed(() => {
+    const tramo = this.candidatos().slice(0, this.montados());
+    const actual = this.elegido();
+    if (!actual || tramo.some((c) => c.nombre === actual.nombre)) return tramo;
+    return this.candidatos().includes(actual) ? [actual, ...tramo] : tramo;
+  });
+  protected readonly hayMas = computed(() => this.candidatos().length > this.montados());
+
+  protected montarMas(): void {
+    this.montados.update((n) => n + Editor.TRAMO);
+  }
 
   protected readonly elegido = signal<Curado>(
     this.curados.find((c) => c.nombre === 'heart') ?? this.curados[0],

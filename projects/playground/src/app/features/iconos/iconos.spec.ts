@@ -50,11 +50,32 @@ describe('Iconos', () => {
     vi.unstubAllGlobals();
   });
 
-  it('pinta una tarjeta por icono curado del paquete publicado', async () => {
+  /*
+   * Antes afirmaba que se pintaba UNA tarjeta por icono curado. Dejó de ser cierto a propósito el
+   * 2026-08-27: montar los 1767 de golpe bloqueaba el hilo principal 18 segundos, porque
+   * `<gf-icon trigger="group">` dibuja al montarse y para dibujar mide `getTotalLength()` de cada
+   * figura. Ahora se monta un tramo que crece al llegar al final.
+   *
+   * Lo que sí tiene que seguir siendo cierto, y es lo que se prueba: el catálogo COMPLETO está
+   * disponible —el conteo que se anuncia es el de verdad— y lo montado es un prefijo suyo, no una
+   * muestra suelta.
+   */
+  it('monta un tramo del catálogo y anuncia el total de verdad', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    expect(html.querySelectorAll('.card').length).toBe(Object.keys(CURATED_ICONS).length);
+    const curados = Object.keys(CURATED_ICONS).length;
+
+    const montadas = html.querySelectorAll('.card').length;
+    expect(montadas).toBeGreaterThan(0);
+    expect(montadas).toBeLessThan(curados);
+
+    // El total anunciado es el del catálogo entero, no el de lo montado.
+    expect(html.querySelector('.grid')?.getAttribute('aria-label')).toContain(String(curados));
+
+    // Y queda por dónde seguir: el botón es la única vía para quien navega con teclado, porque
+    // tabulando entre tarjetas nunca se dispara un `IntersectionObserver`.
+    expect(html.querySelector('.hay-mas button')).toBeTruthy();
   });
 
   it('el hero conserva un h1 real, escondido solo a la vista', async () => {
@@ -71,11 +92,24 @@ describe('Iconos', () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    const fuente = html.querySelector('picture source');
+    const fuentes = [...html.querySelectorAll('picture source')];
+    const media = fuentes.map((f) => f.getAttribute('media'));
+
     // La librería promete respetar `prefers-reduced-motion` y le dedica una página de docs. Un GIF
     // no se puede pausar por CSS, así que la única salida honesta es servir el logotipo quieto.
-    expect(fuente?.getAttribute('media')).toBe('(prefers-reduced-motion: reduce)');
-    expect(fuente?.getAttribute('srcset')).toContain('.svg');
+    const quieto = fuentes.find((f) => f.getAttribute('media') === '(prefers-reduced-motion: reduce)');
+    expect(quieto?.getAttribute('srcset')).toContain('.svg');
+
+    // Y desde el 2026-08-27, el TEMA va por la misma vía y por el mismo motivo: el `src` lo hornea
+    // el prerender, donde no hay `matchMedia`, así que salía siempre el GIF oscuro de 425 KB y
+    // quien prefiere claro se lo bajaba entero para verlo cambiar al de 50 al hidratar.
+    expect(media).toContain('(prefers-color-scheme: light)');
+    const claro = fuentes.find((f) => f.getAttribute('media') === '(prefers-color-scheme: light)');
+    expect(claro?.getAttribute('srcset')).toContain('-light.');
+
+    // Lo más específico va primero: gana el PRIMER `<source>` que casa.
+    expect(media[0]).toBe('(prefers-reduced-motion: reduce) and (prefers-color-scheme: light)');
+
     expect(html.querySelector('picture img')?.getAttribute('src')).toContain('.gif');
     // Con dimensiones explícitas para que la portada no salte al cargar.
     expect(html.querySelector('picture img')?.getAttribute('width')).toBe('780');
@@ -85,7 +119,13 @@ describe('Iconos', () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    const total = html.querySelectorAll('.card').length;
+
+    // El TOTAL ANUNCIADO, no las tarjetas montadas: desde que la rejilla monta un tramo, con y sin
+    // filtro puede haber el mismo número de tarjetas en el DOM aunque la lista de detrás sea muy
+    // distinta. El conteo del `aria-label` sí es el de verdad.
+    const anunciado = (): number =>
+      Number(html.querySelector('.grid')?.getAttribute('aria-label')?.match(/\d+/)?.[0] ?? 0);
+    const total = anunciado();
 
     // El grupo de filtros, no el primer botón de la barra: ese es «Repetir todo». Se apunta al
     // componente `app-grupo` y no a una clase, porque el componente es el contrato y la clase es
@@ -102,12 +142,13 @@ describe('Iconos', () => {
 
     const filtrado = html.querySelectorAll('.card').length;
     expect(filtrado).toBeGreaterThan(0);
-    expect(filtrado).toBeLessThan(total);
+    expect(anunciado()).toBeGreaterThan(0);
+    expect(anunciado()).toBeLessThan(total);
 
     // Volver a todos es la propia cápsula «Todos»: el enlace «quitar filtro» que había antes
     // desapareció justamente porque duplicaba esto.
     html.querySelector<HTMLButtonElement>('.barra app-grupo button')!.click();
     await fixture.whenStable();
-    expect(html.querySelectorAll('.card').length).toBe(total);
+    expect(anunciado()).toBe(total);
   });
 });

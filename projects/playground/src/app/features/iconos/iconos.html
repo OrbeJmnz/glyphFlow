@@ -11,23 +11,23 @@
   -->
   <h1 class="visualmente-oculto">{{ 'iconos.hero.h1' | transloco }}</h1>
   <!--
-    Las dos fuentes van por SEÑAL y no por `<source media>`: el tema del sitio lo manda
-    `data-theme`, y una media query no puede leer un atributo. Con `prefers-color-scheme` se
-    ignoraría la elección manual, que es justo lo que el toggle existe para respetar.
+    Los `<source>` cubren lo que mande el SISTEMA y la señal del `[src]` cubre lo que el visitante
+    haya elegido a mano. Los dos hacen falta y no son redundantes.
+
+    El motivo es el prerender: en el servidor no hay `matchMedia`, así que el `src` se hornea
+    siempre con el par por defecto —animado y oscuro— y el HTML estático se lo sirve a todo el
+    mundo. Sin los `<source>`, quien prefiere claro se bajaba el GIF oscuro de 425 KB entero y lo
+    veía cambiar al claro de 50 en cuanto hidrataba. Una media query la resuelve el navegador
+    ANTES de pintar y solo descarga la fuente que casa: ni salto ni descarga tirada.
+
+    Cada dimensión aporta su `<source>` sólo mientras la mande el sistema, y `fuentesLogo()` los
+    ordena de más específico a menos porque gana el PRIMERO que casa. En cuanto alguien elige a
+    mano, su `<source>` se retira: una media query siempre le ganaría al visitante, porque el
+    navegador resuelve el `<picture>` antes de mirar el `src` del `<img>`.
   -->
   <picture class="marca-hero">
-    <!--
-      El `<source>` solo mientras mande el sistema. Si el visitante eligió a mano, su elección tiene
-      que poder CONTRADECIR a `prefers-reduced-motion`, y una media query siempre ganaría: el
-      navegador resuelve `<picture>` antes de mirar el `src` del `<img>`.
-
-      Y se queda para el caso por defecto en vez de resolverlo todo desde la señal, porque el sitio
-      se prerenderiza: en el servidor no hay `matchMedia`, así que el HTML sale con el GIF. Con el
-      `<source>` puesto, quien pide movimiento reducido ve el logo quieto desde el primer pintado,
-      sin esperar a que hidrate.
-    -->
-    @if (siguiendoAlSistema()) {
-      <source media="(prefers-reduced-motion: reduce)" [srcset]="logoQuieto()" />
+    @for (f of fuentesLogo(); track f.media) {
+      <source [media]="f.media" [srcset]="f.srcset" />
     }
     <img
       [src]="logoHero()"
@@ -313,7 +313,7 @@
   [attr.aria-label]="'iconos.grid.rejillaAria' | transloco: { n: entries().length }"
   [class.comoda]="densidad() === 'comoda'"
 >
-  @for (entry of entries(); track entry.name) {
+  @for (entry of visibles(); track entry.name) {
     <article
       class="card"
       appTituloSiTruncado
@@ -345,35 +345,19 @@
 </div>
 
 <!--
-  Los 856 generados NO se pintan: su geometría cuesta +224 kB en el bundle inicial (medido) y este
-  sitio vende tree-shaking real en la portada. Pero existir, existen — y quien los buscaba concluía
-  que no. Esto responde "sí está, y así es", que es lo que hacía falta.
+  El final de la lista. La rejilla monta un tramo y crece al llegar aquí, porque montar los 1767 de
+  golpe bloqueaba el hilo principal 18 segundos: `<gf-icon trigger="group">` dibuja al montarse, y
+  para dibujar mide `getTotalLength()` de cada figura, que fuerza layout.
+
+  El BOTÓN no es un respaldo por si falla el observador: es la única forma de llegar al resto
+  navegando con teclado, porque quien tabula por las tarjetas nunca dispara un
+  `IntersectionObserver`. Por eso está siempre, y no sólo cuando el observador no existe.
 -->
-@if (generadosCoincidentes().length) {
-  <aside class="hay-generados">
-    <p>
-      {{ 'iconos.generados.hay' | transloco: { n: generadosCoincidentes().length } }}
-    </p>
-    <ul>
-      @for (n of muestraGenerados(); track n) {
-        <li>
-          <code>{{ n }}</code>
-        </li>
-      }
-      @if (generadosCoincidentes().length > muestraGenerados().length) {
-        <li class="resto">
-          {{
-            'iconos.generados.yMas'
-              | transloco: { n: generadosCoincidentes().length - muestraGenerados().length }
-          }}
-        </li>
-      }
-    </ul>
-    <p class="como">
-      {{ 'iconos.generados.queLesFalta' | transloco }}
-      <a href="https://github.com/OrbeJmnz/glyphFlow/blob/main/CONTRIBUTING.md" rel="noopener">{{
-        'iconos.generados.comoPedirla' | transloco
-      }}</a>
-    </p>
-  </aside>
+@if (hayMas()) {
+  <div class="hay-mas" appVisible (visible)="montarMas()">
+    <button type="button" app-boton (click)="montarMas()">
+      {{ 'iconos.grid.montarMas' | transloco: { n: entries().length - visibles().length } }}
+    </button>
+  </div>
 }
+

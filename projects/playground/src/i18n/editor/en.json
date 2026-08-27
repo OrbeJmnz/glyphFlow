@@ -7,7 +7,8 @@
     "etiqueta": "Search icon to edit"
   },
   "lista": {
-    "editarAria": "Edit {{nombre}}"
+    "editarAria": "Edit {{nombre}}",
+    "montarMas": "Show {{n}} more"
   },
   "lienzo": {
     "nodos": "{{n}} nodes",

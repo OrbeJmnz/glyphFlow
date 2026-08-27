@@ -266,10 +266,36 @@ describe('Editor', () => {
    * posible (`x`) tiene 61 coincidencias y `x` cae en la posición 60 — un lugar fuera del corte.
    * Un editor al que no se le puede pedir un icono del catálogo no cumple su trabajo.
    */
-  it('ofrece el catálogo completo, sin corte silencioso', async () => {
+  /*
+   * Antes afirmaba que se montaban los 1767 chips. Dejó de ser cierto a propósito el 2026-08-27:
+   * instanciar 1 772 `<gf-icon>` costaba 3 732 ms de hilo principal bloqueado. Ahora se monta un
+   * tramo.
+   *
+   * Lo que NO puede volver es el corte silencioso — el de 60 que dejaba `x` fuera para siempre, y
+   * que el test de abajo sigue vigilando. Un corte es aceptable sólo si se ve, se puede deshacer y
+   * el buscador sigue alcanzando lo que no está montado. Eso es lo que se prueba aquí.
+   */
+  it('corta la lista, pero lo dice y se puede deshacer', async () => {
     const { html } = await montar();
+    const total = Object.keys(CURATED_ICONS).length;
     const chips = html.querySelectorAll('.lista .chip').length;
-    expect(chips).toBe(Object.keys(CURATED_ICONS).length);
+
+    expect(chips).toBeGreaterThan(0);
+    expect(chips).toBeLessThan(total);
+
+    // El conteo sigue anunciando el catálogo entero, no lo montado.
+    expect(html.querySelector('.conteo')?.textContent).toContain(String(total));
+
+    // Y hay por dónde seguir sin depender de un `IntersectionObserver`, que tabulando no se
+    // dispara nunca.
+    expect(html.querySelector('.lista button[app-boton]')).toBeTruthy();
+  });
+
+  it('el icono que se está editando siempre está montado, caiga donde caiga', async () => {
+    const { html } = await montar();
+    // `heart`, el de arranque, va por la posición 700 de 1767: fuera de cualquier tramo inicial.
+    // Sin la excepción del elegido, la lista salía sin chip activo y no se veía qué se editaba.
+    expect(html.querySelector('.lista .chip.activo')).toBeTruthy();
   });
 
   it('se puede llegar a `x`, que el corte de 60 dejaba fuera para siempre', async () => {
