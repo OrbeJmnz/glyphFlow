@@ -4,12 +4,14 @@ import {
   OnDestroy,
   ViewChild,
   computed,
+  effect,
   inject,
   linkedSignal,
   signal,
   PendingTasks,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import editorEn from '../../../i18n/editor/en.json';
 import {
@@ -22,6 +24,8 @@ import {
   type IconShape,
 } from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
+import { TOPE_URL, aFragmento, deFragmento } from '../../core/estado-url';
+import { Copiador } from '../../shared/ui/copiar';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
   dDeSubpath,
@@ -175,6 +179,93 @@ export class Editor implements OnDestroy {
     const canonico = this.porAlias().get(q);
     return curados.filter((c) => c.nombre.includes(q) || (canonico && c.nombre === canonico));
   });
+
+  private readonly ubicacion = inject(Location);
+  private temporizadorUrl?: ReturnType<typeof setTimeout>;
+
+  /*
+   * La URL sigue a lo que se comparte —el icono y sus trazos— y a nada más. Un `effect` y no una
+   * llamada dentro de cada gesto: hay una docena de sitios que tocan `modelos` (arrastrar, partir
+   * un tramo, deshacer, rehacer, restablecer…) y el que se olvide de avisar deja el enlace
+   * mintiendo, sin que nada truene.
+   */
+  private readonly urlAlDia = effect(() => {
+    this.modelos();
+    this.elegido();
+    this.sincronizarUrl();
+  });
+  private readonly copiadorEnlace = new Copiador();
+
+  /** El acuse del botón de enlace, para el rótulo y el icono. */
+  protected readonly enlaceCopiado = this.copiadorEnlace.copiado;
+
+  /**
+   * `true` cuando el estado ya no cabe en una URL de fiar. Entonces el botón deja de ofrecer el
+   * enlace y ofrece el archivo, que es lo que pide el ticket: avisar en vez de dar un enlace que
+   * unos clientes recortan y otros no.
+   */
+  protected readonly enlaceDemasiadoLargo = signal(false);
+
+  /**
+   * Escribe el estado en el hash SIN navegar.
+   *
+   * `Location.replaceState` y no `router.navigate`, por lo mismo que el buscador del catálogo: el
+   * router lleva `withViewTransitions`, así que navegar animaría la página entera — y arrastrar un
+   * nodo dispararía una transición de vista por cada píxel del arrastre.
+   *
+   * `replaceState` y no `pushState`: mover un punto no es un paso del historial. Con push, salir
+   * del editor pediría tantos «atrás» como gestos se hubieran hecho.
+   *
+   * Los 400 ms son de la ESCRITURA, no del dibujo: el lienzo va inmediato. Serializar comprime, y
+   * hacerlo en cada `pointermove` sería trabajo tirado sesenta veces por segundo.
+   */
+  private sincronizarUrl(): void {
+    clearTimeout(this.temporizadorUrl);
+    this.temporizadorUrl = setTimeout(() => {
+      void this.escribirHash();
+    }, 400);
+  }
+
+  private async escribirHash(): Promise<void> {
+    const paths = this.dPorPath();
+    const base = this.ubicacion.path().split('#')[0];
+    if (!paths.length) {
+      this.ubicacion.replaceState(base);
+      return;
+    }
+    const fragmento = await aFragmento({ icono: this.elegido().nombre, paths });
+    const cabe = fragmento.length <= TOPE_URL;
+    this.enlaceDemasiadoLargo.set(!cabe);
+    // Un hash que no sirve es peor que ninguno: se deja la URL limpia y el botón pasa a ofrecer
+    // el archivo.
+    this.ubicacion.replaceState(cabe && fragmento ? `${base}#${fragmento}` : base);
+  }
+
+  /**
+   * Restaura desde el hash al abrir. Sólo una vez, en el arranque: releerlo después pisaría lo que
+   * el usuario esté editando cada vez que la URL se pone al día con su propio trabajo.
+   */
+  private async restaurarDesdeHash(): Promise<void> {
+    const hash = this.ubicacion.path(true).split('#')[1];
+    if (!hash) return;
+    const estado = await deFragmento(hash);
+    if (!estado) return;
+    const suyo = this.curados().find((c) => c.nombre === estado.icono);
+    if (suyo) this.elegido.set(suyo);
+    // Los `d` del enlace mandan sobre los del catálogo: son justamente lo que alguien quiso
+    // compartir. Se parsean con el mismo camino que `cargar()`, así que un `d` corrupto acaba en
+    // un modelo vacío y no en una excepción durante el arranque.
+    this.modelos.set(estado.paths.map((d) => parseD(d)));
+    this.tocado.set(true);
+    this.reencuadrar();
+    this.historial.limpiar();
+    this.sincronizarPila();
+  }
+
+  /** El enlace completo, para copiar. Se lee en el momento: la URL ya está al día. */
+  protected copiarEnlace(): void {
+    void this.copiadorEnlace.copiar(location.href);
+  }
 
   /** Para que la lista diga cuántos hay: un corte silencioso se lee como "esto es todo". */
   protected readonly totalCurados = computed(() => this.curados().length);
@@ -523,6 +614,9 @@ export class Editor implements OnDestroy {
         // propio con `heartIcon` dentro, y aunque el `def` sea el mismo, no es la MISMA entrada.
         const real = lista.find((c) => c.nombre === this.elegido().nombre);
         if (real) this.elegido.set(real);
+        // Y AQUÍ el enlace compartido, no antes: el hash trae el NOMBRE del icono, así que hasta
+        // que el catálogo no llega no hay con qué resolverlo.
+        void this.restaurarDesdeHash();
       }),
     );
     pendientes.run(() =>
@@ -739,5 +833,6 @@ export class Editor implements OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this.avisoCopiado);
+    clearTimeout(this.temporizadorUrl);
   }
 }

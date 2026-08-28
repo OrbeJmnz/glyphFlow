@@ -63,7 +63,10 @@
     "copiarD": "copiar d",
     "copiarJson": "copiar JSON",
     "descargar": "descargar .json",
-    "plegarAria": "Mostrar u ocultar {{que}}"
+    "plegarAria": "Mostrar u ocultar {{que}}",
+    "enlace": "copiar enlace",
+    "enlaceCopiado": "enlace copiado",
+    "enlaceLargo": "Esta forma no cabe en un enlace — usa el archivo .json."
   },
   "coreografiar": {
     "boton": "Coreografiar esta forma",

@@ -63,7 +63,10 @@
     "copiarD": "copy d",
     "copiarJson": "copy JSON",
     "descargar": "download .json",
-    "plegarAria": "Show or hide {{que}}"
+    "plegarAria": "Show or hide {{que}}",
+    "enlace": "copy link",
+    "enlaceCopiado": "link copied",
+    "enlaceLargo": "This shape is too big for a link — use the .json file instead."
   },
   "coreografiar": {
     "boton": "Choreograph this shape",

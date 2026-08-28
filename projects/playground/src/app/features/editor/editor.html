@@ -439,6 +439,22 @@
         <button type="button" app-boton compacto variante="fantasma" (click)="descargarJson()">
           {{ 'editor.salida.descargar' | transloco }}
         </button>
+        <!--
+          El enlace lleva el estado en el hash (T31 · nivel 1): quien lo abra ve ESTA forma, no el
+          icono de partida. Sirve para pedir opinión y para reportar un fallo con la pieza dentro.
+
+          Si el estado no cabe en una URL de fiar, el botón lo dice y manda al archivo en vez de
+          dar un enlace que unos clientes recortan y otros no.
+        -->
+        @if (enlaceDemasiadoLargo()) {
+          <p class="aviso-enlace">{{ 'editor.salida.enlaceLargo' | transloco }}</p>
+        } @else {
+          <button type="button" app-boton compacto variante="fantasma" (click)="copiarEnlace()">
+            {{
+              (enlaceCopiado() ? 'editor.salida.enlaceCopiado' : 'editor.salida.enlace') | transloco
+            }}
+          </button>
+        }
       </div>
     </section>
 
