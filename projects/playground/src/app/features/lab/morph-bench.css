@@ -9,7 +9,7 @@
 
 .bench-head h2 {
   margin: 0 0 0.4rem;
-  font-size: 1.25rem;
+  font-size: var(--gf-tit-seccion);
   font-weight: 600;
 }
 

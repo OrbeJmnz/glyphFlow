@@ -258,8 +258,8 @@
 
 .showcase-texto h2 {
   margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--gf-tit-seccion);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 
@@ -370,8 +370,8 @@
 
 .argumentos h3 {
   margin: 0 0 4px;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--gf-tit-sub);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 
@@ -694,8 +694,8 @@
 
 .api-cabecera h2 {
   margin: 0;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: var(--gf-tit-seccion);
+  font-weight: var(--gf-tit-peso);
 }
 
 /* Lleva rótulo y no solo el glifo: es la acción de la sección, no un icono de barra apretada.

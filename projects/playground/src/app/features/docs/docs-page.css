@@ -12,8 +12,8 @@
 
 h1 {
   margin: 0 0 0.4rem;
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: var(--gf-tit-pagina);
+  font-weight: var(--gf-tit-peso);
   letter-spacing: -0.02em;
   color: var(--gf-texto);
 }
@@ -26,15 +26,15 @@ h1 {
 
 h2 {
   margin: 2.5rem 0 0.75rem;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: var(--gf-tit-seccion);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 
 h3 {
   margin: 1.75rem 0 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: var(--gf-tit-sub);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 

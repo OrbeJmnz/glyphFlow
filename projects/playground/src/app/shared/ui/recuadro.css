@@ -38,7 +38,7 @@
 }
 
 .es-caso .etiqueta {
-  color: var(--gf-aviso, #d9822b);
+  color: var(--gf-aviso-texto, #96530c);
 }
 
 /* Nota: alcance o aclaración. La más neutra de las tres, a propósito. */
@@ -55,6 +55,8 @@
   border-left-color: var(--gf-marca-2);
 }
 
+/* El BORDE lleva el azul pleno y la etiqueta su variante para texto: a 11px sobre el panel claro,
+   el pleno da 2.96 — el color de identidad vale para el filete, no para la letra (T14 · 6). */
 .es-regla .etiqueta {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-texto);
 }

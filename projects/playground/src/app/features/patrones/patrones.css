@@ -157,8 +157,8 @@
 
 .texto h2 {
   margin: 0 0 0.6rem;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: var(--gf-tit-seccion);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 
@@ -208,7 +208,7 @@ pre code {
  * propio del componente, más específico, gana sin tocar la utilidad global.
  */
 pre code.degradado-texto-sutil {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-texto);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
@@ -261,7 +261,7 @@ pre code.degradado-texto-sutil {
 /* El contraejemplo se marca distinto a propósito: si los tres rótulos se vieran igual, la página
    diría que rotar con CSS es "otro motor más" en vez de la ausencia de uno. */
 .motor-coreografia {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-texto);
 }
 
 .motor-ninguno {
@@ -383,7 +383,9 @@ pre code.degradado-texto-sutil {
 
 .decision > h2 {
   margin: 0 0 1rem;
-  font-size: 1.05rem;
+  font-size: var(--gf-tit-seccion);
+  /* Hereda el 700 de la caja si no se dice: el mismo rol pesaba 700 aquí y 600 en el resto. */
+  font-weight: var(--gf-tit-peso);
 }
 
 .columnas {
@@ -420,7 +422,8 @@ pre code.degradado-texto-sutil {
 
 .columna h3 {
   margin: 0 0 0.35rem;
-  font-size: 0.9rem;
+  font-size: var(--gf-tit-sub);
+  font-weight: var(--gf-tit-peso);
   color: var(--gf-texto);
 }
 
@@ -433,7 +436,7 @@ pre code.degradado-texto-sutil {
 }
 
 .columna.columna-coreografia .responde {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-texto);
 }
 
 .columna.columna-bucle .responde {
