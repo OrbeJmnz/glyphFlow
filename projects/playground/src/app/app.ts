@@ -33,7 +33,6 @@ import { Logo } from './shared/marca/logo';
 import { Boton } from './shared/ui/boton';
 import { CarrilActivo } from './shared/ui/carril-activo';
 import { Chip } from './shared/ui/chip';
-import { Tooltip } from './shared/ui/tooltip';
 import { Grupo } from './shared/ui/grupo';
 
 /**
@@ -58,7 +57,6 @@ import { Grupo } from './shared/ui/grupo';
     CarrilActivo,
     Chip,
     Grupo,
-    Tooltip,
     TranslocoPipe,
   ],
   templateUrl: './app.html',

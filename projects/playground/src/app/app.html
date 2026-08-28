@@ -22,60 +22,51 @@
     </a>
 
     <!--
-      Cada sección lleva su descripción de una línea (T15). En escritorio va en el tooltip, que es
-      donde cabe sin convertir el header en un menú; en el menú móvil va VISIBLE debajo del nombre,
-      porque ahí hay sitio y porque un tooltip no existe para quien entra con el dedo.
+      SIN tooltip por sección. Lo hubo un rato, para cumplir el punto 2 de T15 también en
+      escritorio, y sobraba por los dos lados: metía una capa entre el carril y sus enlaces —que es
+      lo que descuadró el indicador del activo— a cambio de una glosa que en una barra de cinco
+      chips nadie va a pasar a leer. La descripción vive donde sí se lee sin buscarla: el menú.
 
       `ariaCurrentWhenActive` y no un `aria-current` a mano: el router ya sabe cuál está activa, y
       escribirlo aparte sería un segundo estado que se despega del primero.
     -->
     <nav class="nav" appCarrilActivo aria-label="Secciones">
-      <app-tooltip [texto]="'navDesc.iconos' | transloco" [abajo]="true">
-        <a
-          app-chip
-          [routerLink]="rutas.a()"
-          routerLinkActive="activo"
-          ariaCurrentWhenActive="page"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >{{ 'nav.iconos' | transloco }}</a
-        >
-      </app-tooltip>
-      <app-tooltip [texto]="'navDesc.patrones' | transloco" [abajo]="true">
-        <a
-          app-chip
-          [routerLink]="rutas.a('patrones')"
-          routerLinkActive="activo"
-          ariaCurrentWhenActive="page"
-          >{{ 'nav.patrones' | transloco }}</a
-        >
-      </app-tooltip>
-      <app-tooltip [texto]="'navDesc.editor' | transloco" [abajo]="true">
-        <a
-          app-chip
-          [routerLink]="rutas.a('editor')"
-          routerLinkActive="activo"
-          ariaCurrentWhenActive="page"
-          >{{ 'nav.editor' | transloco }}</a
-        >
-      </app-tooltip>
-      <app-tooltip [texto]="'navDesc.lab' | transloco" [abajo]="true">
-        <a
-          app-chip
-          [routerLink]="rutas.a('lab')"
-          routerLinkActive="activo"
-          ariaCurrentWhenActive="page"
-          >{{ 'nav.lab' | transloco }}</a
-        >
-      </app-tooltip>
-      <app-tooltip [texto]="'navDesc.docs' | transloco" [abajo]="true">
-        <a
-          app-chip
-          [routerLink]="rutas.a('docs')"
-          routerLinkActive="activo"
-          ariaCurrentWhenActive="page"
-          >{{ 'nav.docs' | transloco }}</a
-        >
-      </app-tooltip>
+      <a
+        app-chip
+        [routerLink]="rutas.a()"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >{{ 'nav.iconos' | transloco }}</a
+      >
+      <a
+        app-chip
+        [routerLink]="rutas.a('patrones')"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.patrones' | transloco }}</a
+      >
+      <a
+        app-chip
+        [routerLink]="rutas.a('editor')"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.editor' | transloco }}</a
+      >
+      <a
+        app-chip
+        [routerLink]="rutas.a('lab')"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.lab' | transloco }}</a
+      >
+      <a
+        app-chip
+        [routerLink]="rutas.a('docs')"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.docs' | transloco }}</a
+      >
     </nav>
 
     <!--

@@ -76,13 +76,17 @@ describe('App (shell)', () => {
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
 
-    // 1. Descripción de una línea por sección. En escritorio va en el tooltip, en el menú visible.
-    const conDescripcion = [...html.querySelectorAll('.nav app-tooltip')];
-    expect(conDescripcion.length).toBe(5);
-    for (const t of conDescripcion) {
-      expect(t.getAttribute('ng-reflect-texto') ?? t.textContent).toBeTruthy();
-    }
-    expect(html.querySelectorAll('.menu-nav a small').length).toBe(5);
+    // 1. Descripción de una línea por sección, en el MENÚ. El punto 2 de T15 admite «su menú o
+    //    tooltip»; el tooltip en el header duró poco — metía una capa entre el carril y sus
+    //    enlaces, que fue lo que descuadró el indicador del activo, a cambio de una glosa que en
+    //    una barra de cinco chips nadie pasa a leer.
+    const descripciones = [...html.querySelectorAll('.menu-nav a small')];
+    expect(descripciones.length).toBe(5);
+    for (const d of descripciones) expect(d.textContent!.trim()).toBeTruthy();
+
+    // Y el header se queda con sus enlaces DIRECTOS: el carril mide contra el contenedor, y aunque
+    // ya aguanta envoltorios, no hay motivo para volver a meter uno.
+    expect(html.querySelectorAll('.nav > a').length).toBe(5);
 
     // 2. Y ningún par de nombres se confunde entre sí.
     const nombres = [...html.querySelectorAll('.nav a')].map((a) => a.textContent!.trim());
