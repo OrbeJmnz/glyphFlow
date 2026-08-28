@@ -561,8 +561,13 @@ const CLOUD_SYNC_PIVOT = '12px 16px';
  * la vuelta actual hasta 0° en vez de cortarla en seco a mitad de giro.
  */
 const CLOUD_HOLD_SPIN_MS = 24000;
-const CLOUD_HOLD_SPIN_CW = /* @__PURE__ */ rotateSeq([0, 20 * 360]);
-const CLOUD_HOLD_SPIN_CCW = /* @__PURE__ */ rotateSeq([0, -20 * 360]);
+// `20 * 360` resuelto aquí y no dentro de `rotateSeq([0, 20 * 360])`: una expresión aritmética
+// como argumento de una llamada ya anotada /* @__PURE__ */ rompe el tree-shaking de Rollup al
+// empaquetar el FESM — mismo mecanismo que `BOOK_AFTER_STAGGER` en `book.ts`.
+const CLOUD_HOLD_TURNS_DEG = 20 * 360;
+const CLOUD_HOLD_TURNS_DEG_NEG = -CLOUD_HOLD_TURNS_DEG; // mismo motivo: nada de `-X` inline en el argumento.
+const CLOUD_HOLD_SPIN_CW = /* @__PURE__ */ rotateSeq([0, CLOUD_HOLD_TURNS_DEG]);
+const CLOUD_HOLD_SPIN_CCW = /* @__PURE__ */ rotateSeq([0, CLOUD_HOLD_TURNS_DEG_NEG]);
 
 export const cloudSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [

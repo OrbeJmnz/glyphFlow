@@ -59,6 +59,43 @@ const CURSOR_WANDER_TRACK = /* @__PURE__ */ [
   { transform: 'translate(0, 0)', offset: 1 },
 ];
 
+/**
+ * La cola de `CURSOR_WANDER_TRACK` desde que empieza la deriva (offset ≥ 0.3), precalculada.
+ * Un `.filter(...)` escrito INLINE dentro del argumento de `track(...)` rompe el tree-shaking de
+ * Rollup al empaquetar el FESM — el mismo mecanismo que `BOOK_AFTER_STAGGER` en `book.ts`: una
+ * llamada sin anotar ahí hace que el `icon(...)` completo se quede sin poder eliminarse en ningún
+ * bundle. Con el `.filter()` resuelto aquí arriba, en el sitio de la llamada vuelve a ser un
+ * identificador (via spread).
+ */
+const CURSOR_WANDER_TRACK_TAIL = /* @__PURE__ */ CURSOR_WANDER_TRACK.filter((k) => k.offset >= 0.3);
+
+/**
+ * Mismo problema, un paso más allá: el `.filter()` ya se resolvió arriba, pero un spread
+ * (`...CURSOR_WANDER_TRACK_TAIL`) escrito INLINE dentro del array-argumento de `track(...)` le
+ * pega el mismo golpe al tree-shaking — Rollup tampoco lo acepta como argumento "simple" ahí.
+ * Con el array ya fusionado en su propia constante, en el sitio de la llamada vuelve a ser un
+ * identificador.
+ */
+const MOUSE_POINTER_WANDER_DRAW = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0.088 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translate(0, 0)', offset: 0.153 },
+  ...CURSOR_WANDER_TRACK_TAIL,
+];
+const MOUSE_POINTER_BAN_WANDER_BADGE = /* @__PURE__ */ [
+  { transform: 'scale(0.3) translate(0, 0)', opacity: '0', offset: 0 },
+  { transform: 'scale(0.3) translate(0, 0)', opacity: '0', offset: 0.076 },
+  { transform: 'scale(1.12) translate(0, 0)', opacity: '1', offset: 0.11 },
+  { transform: 'scale(1) translate(0, 0)', opacity: '1', offset: 0.135 },
+  ...CURSOR_WANDER_TRACK_TAIL,
+];
+const MOUSE_POINTER_BAN_WANDER_DRAW = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0.135 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translate(0, 0)', offset: 0.2 },
+  ...CURSOR_WANDER_TRACK_TAIL,
+];
+
 const MOUSE_PRESS = /* @__PURE__ */ track(MOUSE_CLICK, 560, { easing: EASE });
 
 // Después del hundimiento, el mouse deriva solo — fluido y lento, como reposando sobre el escritorio.
@@ -98,15 +135,7 @@ export const mousePointerIcon: AnimatedIconDef = /* @__PURE__ */ icon(mousePoint
     wander: {
       shapes: {
         1: /* @__PURE__ */ track(CURSOR_WANDER_CLICK, 3400, { origin: '10px 10px' }),
-        0: /* @__PURE__ */ track(
-          [
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0 },
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0.088 },
-            { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translate(0, 0)', offset: 0.153 },
-            ...CURSOR_WANDER_TRACK.filter((k) => k.offset >= 0.3),
-          ],
-          3400,
-        ),
+        0: /* @__PURE__ */ track(MOUSE_POINTER_WANDER_DRAW, 3400),
       },
     },
     nudge: {
@@ -150,25 +179,8 @@ export const mousePointerBanIcon: AnimatedIconDef = /* @__PURE__ */ icon(mousePo
     wander: {
       shapes: {
         0: /* @__PURE__ */ track(CURSOR_WANDER_CLICK, 3400, { origin: '5px 5px' }),
-        1: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(0.3) translate(0, 0)', opacity: '0', offset: 0 },
-            { transform: 'scale(0.3) translate(0, 0)', opacity: '0', offset: 0.076 },
-            { transform: 'scale(1.12) translate(0, 0)', opacity: '1', offset: 0.11 },
-            { transform: 'scale(1) translate(0, 0)', opacity: '1', offset: 0.135 },
-            ...CURSOR_WANDER_TRACK.filter((k) => k.offset >= 0.3),
-          ],
-          3400,
-        ),
-        2: /* @__PURE__ */ track(
-          [
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0 },
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translate(0, 0)', offset: 0.135 },
-            { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translate(0, 0)', offset: 0.2 },
-            ...CURSOR_WANDER_TRACK.filter((k) => k.offset >= 0.3),
-          ],
-          3400,
-        ),
+        1: /* @__PURE__ */ track(MOUSE_POINTER_BAN_WANDER_BADGE, 3400),
+        2: /* @__PURE__ */ track(MOUSE_POINTER_BAN_WANDER_DRAW, 3400),
       },
     },
   });

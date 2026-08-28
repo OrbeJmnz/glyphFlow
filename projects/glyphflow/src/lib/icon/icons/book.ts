@@ -26,6 +26,17 @@ const BOOK_AFTER = 620;
 const BOOK_STAGGER = 130;
 
 /**
+ * `BOOK_AFTER + N` sumado INLINE dentro del argumento de `track(...)` rompe el tree-shaking de
+ * Rollup al empaquetar el FESM: una expresión binaria ahí (no un identificador simple) hace que
+ * ESE `icon(...)` completo se quede sin usarse en NINGÚN bundle, ni siquiera en "el componente
+ * solo, sin iconos" — medido: 4.65 → 5.31 KB gzip por seis iconos de `book` nada más. Precalcular
+ * la suma en su propia constante lo resuelve: en el sitio de la llamada vuelve a ser un identificador.
+ */
+const BOOK_AFTER_STAGGER = BOOK_AFTER + BOOK_STAGGER;
+const BOOK_AFTER_90 = BOOK_AFTER + 90;
+const BOOK_AFTER_180 = BOOK_AFTER + 180;
+
+/**
  * Las tres barras de `book-audio` bailan como un ecualizador. Comparten centro (y = 9.5), así que
  * lo único que las separa es el desfase — que es justo lo que las hace ver vivas y no un bloque.
  */
@@ -174,7 +185,7 @@ export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 11px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 11px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     reveal: {
@@ -199,8 +210,8 @@ export const bookAudioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         3: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '8px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '16px 9.5px', delay: BOOK_AFTER + 180, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '16px 9.5px', delay: BOOK_AFTER_180, fill: 'backwards' }),
       },
     },
     reveal: {
@@ -497,7 +508,7 @@ export const bookPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     reveal: {
@@ -546,8 +557,8 @@ export const bookTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 7px', delay: BOOK_AFTER, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 13px', delay: BOOK_AFTER + 180, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 13px', delay: BOOK_AFTER_180, fill: 'backwards' }),
       },
     },
     reveal: {
@@ -624,7 +635,7 @@ export const bookUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 8px', delay: BOOK_AFTER, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 12px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 12px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     reveal: {
@@ -648,7 +659,7 @@ export const bookXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
       shapes: {
         0: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
       },
     },
     reveal: {
