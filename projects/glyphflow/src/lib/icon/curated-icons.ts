@@ -356,9 +356,6 @@ const E1_BLINK = /* @__PURE__ */ [
   { opacity: 1, offset: 1 },
 ];
 
-/** Se despliega desde su borde de arriba: divisiones de rejilla, columnas. */
-const E1_UNFOLD_Y = /* @__PURE__ */ [{ transform: 'scaleY(0.15)' }, { transform: 'scaleY(1)' }];
-
 /** Y desde el borde izquierdo. */
 const E1_UNFOLD_X = /* @__PURE__ */ [{ transform: 'scaleX(0.15)' }, { transform: 'scaleX(1)' }];
 

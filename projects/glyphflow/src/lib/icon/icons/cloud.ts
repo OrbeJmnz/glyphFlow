@@ -4,7 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { puntaCompas, astaCompas, REFRESH_SPIN } from './_shared';
-import { EASE, moveYSeq, rotateSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { EASE, rotateSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { cloudUploadShapes } from '../animated-icons.shapes';
 import { SHIELD_GEAR_SPIN } from './_shared';
 
