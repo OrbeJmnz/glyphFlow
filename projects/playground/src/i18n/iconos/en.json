@@ -51,7 +51,7 @@
     "densidadEtiqueta": "Grid density",
     "densidadComoda": "Comfortable",
     "densidadCompacta": "Compact",
-    "leyendaInsignia": "The number on each card is how many animation variants that icon has.",
+    "leyendaInsignia": "The number on each card is how many animation variants the icon has. The hold mark means one of them stays put while the pointer is on it.",
     "todos": "All",
     "insignias": {
       "extras": "+ variants",
@@ -64,7 +64,9 @@
     "variantesAria": "{{n}} animation variants",
     "inspeccionarAria": "Inspect {{nombre}}",
     "rejillaAria": "Icon catalog, {{n}} icons. Use the arrow keys to move between them.",
-    "montarMas": "Show {{n}} more"
+    "montarMas": "Show {{n}} more",
+    "hold": "hold",
+    "holdTitulo": "Has a hold variant: keep the pointer on it and the pose stays"
   },
   "scrubber": {
     "progresoEtiqueta": "Choreography progress",

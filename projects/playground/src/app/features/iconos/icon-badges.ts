@@ -8,14 +8,18 @@ import { analizarIcono } from './motion-inspector';
  * Se calcula del MISMO `analizarIcono` que alimenta al Motion Inspector — el grid y el panel de
  * detalle no pueden discrepar sobre lo que hace un icono porque leen el mismo análisis.
  *
- * NACIÓ como insignias pintadas en cada tarjeta, y de ahí el nombre. Ya no se pintan: la tarjeta
- * muestra el conteo de animaciones, que dice lo mismo con más precisión que un `+1` constante. Lo
- * que queda es filtrar, y el criterio pasó de «esto DESTACA» a «esto ACOTA».
+ * NACIÓ como insignias pintadas en cada tarjeta, y de ahí el nombre. Casi ninguna se pinta ya: la
+ * tarjeta muestra el conteo de animaciones, que dice lo mismo con más precisión que un `+1`
+ * constante. Las demás solo FILTRAN, y ahí el criterio es «esto ACOTA», no «esto DESTACA».
+ *
+ * La excepción es `hold`, que sí vuelve a la tarjeta. Es la única que anuncia algo que se puede
+ * HACER —dejá el puntero encima y la pose se queda— y sin marcarla no hay forma de saber cuál de
+ * los 1767 la tiene sin abrirlos uno por uno.
  *
  * `draw` no entra: lo trae cualquier curado (lo inyecta el registro), así que filtrar por él
  * devolvería el catálogo entero.
  */
-export type ClaveInsignia = 'extras' | 'held' | 'solo-draw';
+export type ClaveInsignia = 'extras' | 'hold' | 'held' | 'solo-draw';
 
 export interface Insignia {
   clave: ClaveInsignia;
@@ -37,6 +41,17 @@ export function insigniasDe(nombre: string, def: AnimatedIconDef): Insignia[] {
       clave: 'extras',
       etiqueta: `+${extras.length}`,
       titulo: `Variante extra: ${extras.join(', ')} — pásala por el panel de detalle`,
+    });
+  }
+
+  // `hold` y `held` NO son lo mismo, y por eso conviven: `hold` es una variante APARTE que
+  // sostiene su pose; `held` es que el propio `default` se queda mientras el puntero siga encima.
+  // Medido sobre el catálogo: 473 y 128, y CERO en común.
+  if (reporte.variantes.some((v) => v.variante === 'hold')) {
+    salida.push({
+      clave: 'hold',
+      etiqueta: 'hold',
+      titulo: 'Tiene variante `hold`: deja el puntero encima y la pose se queda',
     });
   }
 

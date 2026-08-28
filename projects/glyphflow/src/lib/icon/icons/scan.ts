@@ -49,6 +49,34 @@ export const scanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // Sostener = el marco se ABRE: las cuatro esquinas salen en diagonal, cada una hacia la suya.
+    // Las cuatro y no las dos de arriba — un escáner que solo despega media caja se lee como un
+    // fallo de dibujo, no como un gesto.
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, -2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        1: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, -2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, 2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, 2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+      },
+      reverseOnLeave: true,
+    },
   },
 );
 
@@ -576,6 +604,34 @@ export const scanBoxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track(E1_POP, 380, { easing: EASE, origin: '12px 10.6px', delay: 420, fill: 'backwards' }),
         6: /* @__PURE__ */ track(E1_POP, 380, { easing: EASE, origin: '12px 12px', delay: 360, fill: 'backwards' }),
       },
+    },
+    // Las mismas cuatro esquinas que en `scan`, pero aquí los índices NO van en orden de reloj:
+    // 1 y 2 son las de la derecha, 3 y 4 las de la izquierda. Copiar el bloque tal cual mandaría
+    // cada esquina al lado contrario.
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, -2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(2px, 2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, -2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+        4: /* @__PURE__ */ track(
+          [{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-2px, 2px)' }],
+          300,
+          { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' },
+        ),
+      },
+      reverseOnLeave: true,
     },
   },
 );

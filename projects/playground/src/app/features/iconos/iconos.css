@@ -628,6 +628,60 @@
   cursor: help;
 }
 
+/*
+ * La marca de `hold`, en la esquina de enfrente del contador.
+ *
+ * Contorno y no relleno, que es lo que la distingue del número sin gastar color: en un catálogo
+ * monocromo, 473 tarjetas con un chip de color serían el color mandando sobre los iconos, que son
+ * lo que se vino a ver. El par de tokens es el mismo que ya usa `.cuenta`, con su contraste ya
+ * auditado.
+ *
+ * `pointer-events: none` porque la tarjeta ENTERA es el botón: sin esto la marca se come el clic
+ * en su esquina y hay un rincón de la tarjeta que no abre el panel.
+ */
+.marca-hold {
+  position: absolute;
+  top: 0.4375rem;
+  left: 0.4375rem;
+  display: grid;
+  place-items: center;
+  /*
+   * Las medidas salen de una cuenta, no del ojo. En la tarjeta más estrecha —105px— quedan 89
+   * útiles tras el padding, y el glifo de 32 se centra en 36.5..68.5: para no invadirlo, la marca
+   * tiene que caber en los 28.5 que hay a su izquierda. A 0.625rem medía 34 y se metía 6px dentro,
+   * que en los iconos que llenan su viewBox (`ad` es un rectángulo) se veía como un roce.
+   *
+   * El tamaño se compensa con contraste, no se deja al azar: 7.4:1 en oscuro y 6.8:1 en claro
+   * contra el fondo de la tarjeta, o sea muy por encima del 4.5 que pide AA para texto normal.
+   */
+  height: 1rem;
+  padding: 0 0.25rem;
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 999px;
+  color: var(--gf-texto-tenue);
+  font-size: 0.5625rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* En cómoda la tarjeta es el doble de ancha y la cuenta de arriba deja sitio de sobra: ahí la
+   marca recupera el tamaño del contador, con el que hace pareja. */
+.grid.comoda .marca-hold {
+  top: 0.5rem;
+  left: 0.5rem;
+  height: 1.25rem;
+  padding: 0 0.4rem;
+  font-size: 0.625rem;
+}
+
+/* En la tarjeta inspeccionada la marca sube con el resto del contraste: si no, el borde tenue se
+   pierde justo sobre el único fondo que cambia. */
+.card.inspeccionado .marca-hold {
+  border-color: var(--gf-acento);
+  color: var(--gf-texto-medio);
+}
+
 /* ── Revelado al entrar en pantalla ─────────────────────────────────────────── */
 
 /*

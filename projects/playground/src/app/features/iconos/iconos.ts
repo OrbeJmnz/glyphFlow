@@ -89,6 +89,21 @@ interface CuratedEntry {
   insignias: Insignia[];
   /** `draw` + `default` + extras — el indicador numérico de la tarjeta, no el detalle de cuáles. */
   numAnimaciones: number;
+  /**
+   * Booleano precalculado y no un `tiene(entry, 'hold')` en la plantilla: con zoneless la función
+   * correría por tarjeta en cada detección, y son 1767.
+   */
+  tieneHold: boolean;
+}
+
+/** El sitio de la lista al que se vuelve tras cerrar el panel. Ver `regreso`. */
+interface PuntoDeRegreso {
+  /** La tarjeta que estaba pegada al borde de arriba. `null` si no había ninguna montada. */
+  ancla: string | null;
+  /** Su distancia al borde superior del viewport, para reponerla exactamente igual. */
+  desfase: number;
+  /** Respaldo para cuando el ancla ya no exista. */
+  scrollY: number;
 }
 
 /**
@@ -481,6 +496,7 @@ export class Iconos implements OnDestroy {
               def,
               insignias: insigniasDe(name, def),
               numAnimaciones: Object.keys(def.animations).length,
+              tieneHold: !!def.animations['hold'],
             }))
             .sort((a, b) => a.name.localeCompare(b.name)),
         );
@@ -752,25 +768,148 @@ export class Iconos implements OnDestroy {
     this.host.nativeElement.querySelector<HTMLInputElement>('.busqueda-hero input')?.focus();
   }
 
+  /**
+   * Dónde estaba la lista antes de abrir el panel, para poder devolverla ahí al cerrarlo.
+   *
+   * No es un `scrollY` a secas: con el panel abierto se pueden montar más tramos, y entonces ese
+   * número apunta a otro sitio de la lista. Se ancla a una TARJETA —la primera pegada al borde de
+   * arriba— y a su desfase, que sobreviven a que la rejilla crezca por debajo. El `scrollY` queda
+   * de respaldo para cuando esa tarjeta ya no esté (otro filtro, otra búsqueda).
+   */
+  private regreso: PuntoDeRegreso | null = null;
+
   protected inspeccionar(entry: CuratedEntry, ev?: Event): void {
-    this.origenFoco = (ev?.currentTarget as HTMLElement) ?? null;
+    const celda = (ev?.currentTarget as HTMLElement) ?? null;
+    this.origenFoco = celda;
     // La transición SOLO cuando el panel pasa de cerrado a abierto, que es cuando la rejilla se
-    // estrecha para hacerle hueco. Con el panel ya abierto, pulsar otro icono no mueve nada y
-    // animar la cuadrícula entera sería ruido.
+    // estrecha para hacerle hueco. Con el panel ya abierto, pulsar otro icono no mueve nada —ni
+    // hay scroll que corregir, ni punto de regreso que pisar.
     if (this.inspeccionado()) {
       this.inspeccionado.set(entry);
       return;
     }
-    conTransicion(() => this.inspeccionado.set(entry));
+
+    this.regreso = this.puntoDeRegreso();
+    // La posición EN PANTALLA de la tarjeta antes del recolumnado. Es la referencia de todo lo que
+    // viene: el objetivo no es llevarla a un sitio bonito, es que no se mueva de donde ya estaba.
+    const topAntes = celda?.getBoundingClientRect().top ?? null;
+
+    conTransicion(() => this.inspeccionado.set(entry), {
+      // La tarjeta, no su nombre: el `@for` traquea por `entry.name`, así que recolumnar reusa el
+      // MISMO nodo y no hay nada que volver a buscar.
+      trasPintar: () => this.seguirLaTarjeta(celda, topAntes),
+    });
   }
 
   protected cerrarDetalle(): void {
+    const destino = this.regreso;
+    this.regreso = null;
     // Al cerrar, la rejilla recupera su ancho: las tarjetas VIAJAN a su sitio en vez de que la
     // cuadrícula se re-arme de golpe. Es lo que responde a la objeción por la que este hueco se
     // había quitado — «al cerrar, nadie encontraba dónde iba».
-    conTransicion(() => this.inspeccionado.set(null));
+    conTransicion(() => this.inspeccionado.set(null), {
+      trasPintar: () => this.volverAlPunto(destino),
+    });
     this.origenFoco?.focus();
     this.origenFoco = null;
+  }
+
+  // ── Que la lista no pierda a nadie al abrir ni al cerrar ─────────────────────
+  //
+  // Abrir el panel recorta las columnas —8→6 en compacta, 6→4 en cómoda— y eso baja a cada tarjeta
+  // un tercio de las filas que tenía encima. En el icono 800 son más de treinta filas: quien lo
+  // pulsa lo pierde de vista con el mismo gesto con el que lo eligió.
+  //
+  // Todo esto corre en `trasPintar`, o sea DENTRO de la transición y con el layout nuevo ya
+  // aplicado. Corregir el scroll después sería un salto encima de la animación; corregirlo ahí
+  // entra en la foto final, y las tarjetas viajan una sola vez y ya al sitio bueno.
+
+  private get ventana(): (Window & typeof globalThis) | null {
+    return this.host.nativeElement.ownerDocument.defaultView;
+  }
+
+  /** El borde de abajo del header pegajoso: lo que quede por encima no se ve. */
+  private altoHeader(): number {
+    const head = this.host.nativeElement.ownerDocument.querySelector('.shell-head');
+    return head ? head.getBoundingClientRect().bottom : 0;
+  }
+
+  /**
+   * Recorriendo y comparando, no con un selector de atributo: construirlo pide `CSS.escape`, que
+   * NO existe ni en jsdom ni en el render de servidor —lo destapó su propio test— y meter el
+   * nombre crudo en un selector es la otra mitad del mismo problema.
+   */
+  private celda(nombre: string): HTMLElement | null {
+    const celdas = this.host.nativeElement.querySelectorAll<HTMLElement>('[data-celda]');
+    for (const celda of celdas) if (celda.dataset['icono'] === nombre) return celda;
+    return null;
+  }
+
+  private puntoDeRegreso(): PuntoDeRegreso {
+    const limite = this.altoHeader();
+    const celdas = this.host.nativeElement.querySelectorAll<HTMLElement>('[data-celda]');
+    // En orden de documento, o sea el de la rejilla: la primera que asome bajo el header es la de
+    // arriba a la izquierda de la primera fila visible.
+    for (const celda of celdas) {
+      const top = celda.getBoundingClientRect().top;
+      if (top >= limite - 1) {
+        return {
+          ancla: celda.dataset['icono'] ?? null,
+          desfase: top,
+          scrollY: this.ventana?.scrollY ?? 0,
+        };
+      }
+    }
+    return { ancla: null, desfase: 0, scrollY: this.ventana?.scrollY ?? 0 };
+  }
+
+  private seguirLaTarjeta(celda: HTMLElement | null, topAntes: number | null): void {
+    const ventana = this.ventana;
+    if (!celda || !ventana) return;
+
+    // 1. Que se quede donde estaba, pese al recolumnado.
+    if (topAntes !== null) {
+      const delta = celda.getBoundingClientRect().top - topAntes;
+      if (delta) ventana.scrollBy({ top: delta, behavior: 'instant' });
+    }
+    // 2. Y si aun así queda fuera de lo que se ve, traérsela.
+    this.asegurarVisible(celda);
+  }
+
+  /**
+   * La banda útil no es el viewport entero: arriba la recorta el header, y en móvil el panel ancla
+   * ABAJO a ancho completo hasta 80vh, así que centrar contra el viewport dejaría la tarjeta detrás
+   * del panel que se acaba de abrir. Al lado (≥769px) no quita altura y la banda llega al suelo.
+   */
+  private asegurarVisible(celda: HTMLElement): void {
+    const ventana = this.ventana;
+    if (!ventana) return;
+    const arriba = this.altoHeader();
+    const alto = ventana.innerHeight;
+    const panel = this.host.nativeElement.ownerDocument
+      .querySelector('.detalle')
+      ?.getBoundingClientRect();
+    // Ancla abajo, no al lado: pegado al borde izquierdo Y al de abajo. Medido, no supuesto — el
+    // breakpoint vive en el CSS del panel y copiarlo aquí sería un número que se despega del otro.
+    const anclaAbajo = !!panel && panel.left <= 1 && panel.bottom >= alto - 1;
+    const abajo = anclaAbajo ? panel.top : alto;
+
+    const r = celda.getBoundingClientRect();
+    if (r.top >= arriba && r.bottom <= abajo) return;
+    const centro = arriba + (abajo - arriba) / 2;
+    ventana.scrollBy({ top: r.top + r.height / 2 - centro, behavior: 'instant' });
+  }
+
+  private volverAlPunto(destino: PuntoDeRegreso | null): void {
+    const ventana = this.ventana;
+    if (!destino || !ventana) return;
+    const ancla = destino.ancla ? this.celda(destino.ancla) : null;
+    if (!ancla) {
+      ventana.scrollTo({ top: destino.scrollY, behavior: 'instant' });
+      return;
+    }
+    const delta = ancla.getBoundingClientRect().top - destino.desfase;
+    if (delta) ventana.scrollBy({ top: delta, behavior: 'instant' });
   }
 }
 

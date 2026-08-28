@@ -47,6 +47,16 @@ export interface OpcionesTransicion {
    * círculo del tema, por ejemplo — en vez del cruce que el navegador hace por default.
    */
   alEstarLista?: (transicion: ViewTransition) => void;
+  /**
+   * Corre DENTRO del callback de la transición, con el DOM nuevo ya pintado y antes de que el
+   * navegador tome la foto final. Es el único sitio donde se puede corregir el SCROLL sin que se
+   * vea un salto: lo que se haga aquí entra en la foto «después», así que las piezas viajan una
+   * sola vez, de su sitio viejo en pantalla al nuevo.
+   *
+   * Hacerlo en `alEstarLista` no sirve: para entonces la foto final ya está tomada y mover el
+   * scroll deja a las piezas aterrizando donde ya no están.
+   */
+  trasPintar?: () => void;
 }
 
 /**
@@ -71,6 +81,13 @@ export function conTransicion(cambio: () => void, opciones?: OpcionesTransicion)
     ventana.matchMedia('(prefers-reduced-motion: reduce)').matches
   ) {
     cambio();
+    // Sin transición el `tick` no es opcional si alguien va a MEDIR: `trasPintar` lee el layout
+    // nuevo, y una señal recién puesta todavía no ha pintado nada. Se pide solo cuando hay quien
+    // mire, para no meterle un ciclo extra a los llamadores que no lo necesitan.
+    if (opciones?.trasPintar) {
+      appRef?.tick();
+      opciones.trasPintar();
+    }
     return;
   }
 
@@ -84,6 +101,7 @@ export function conTransicion(cambio: () => void, opciones?: OpcionesTransicion)
   const transicion = doc.startViewTransition(() => {
     cambio();
     appRef?.tick();
+    opciones?.trasPintar?.();
   });
   enCurso = transicion;
 

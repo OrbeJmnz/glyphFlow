@@ -272,36 +272,23 @@ const SWAP_UPPER = /* @__PURE__ */ [
 ];
 
 /**
- * Un elemento se ARRASTRA hasta el sitio del otro y vuelve. La anticipación no es adorno: las
- * puntas de `repeat` terminan en x=21 y x=3, así que sin retroceder primero el recorrido visible
- * sería de 1 y no se leería como un intercambio.
+ * Los dos brazos INTERCAMBIAN su sitio de verdad. `repeat` y `repeat-2` son simétricos a 180° —la
+ * punta de arriba cae exactamente sobre la de abajo, el asta sobre la otra asta—, así que media
+ * vuelta deja cada flecha donde estaba su pareja y la pose final es idéntica al reposo.
+ *
+ * Los 9° de anticipación y el encogimiento a mitad de vuelta son el arrastre: sin ellos es la
+ * manecilla de un reloj, no dos piezas que se llevan una a otra.
+ *
+ * Y el `scale` tampoco es adorno: la punta de `repeat` está a 11.2 del centro, así que al pasar
+ * por lo alto llegaría a y=0.8 y con su propio trazo encima se saldría del lienzo de 24.
  */
-const DRAG_RIGHT = /* @__PURE__ */ [
-  { transform: 'translateX(0)', offset: 0 },
-  { transform: 'translateX(-1px)', offset: 0.25 },
-  { transform: 'translateX(1px)', offset: 0.68 },
-  { transform: 'translateX(0)', offset: 1 },
-];
-
-const DRAG_LEFT = /* @__PURE__ */ [
-  { transform: 'translateX(0)', offset: 0 },
-  { transform: 'translateX(1px)', offset: 0.25 },
-  { transform: 'translateX(-1px)', offset: 0.68 },
-  { transform: 'translateX(0)', offset: 1 },
-];
-
-const DRAG_UP = /* @__PURE__ */ [
-  { transform: 'translateY(0)', offset: 0 },
-  { transform: 'translateY(1px)', offset: 0.25 },
-  { transform: 'translateY(-1.5px)', offset: 0.68 },
-  { transform: 'translateY(0)', offset: 1 },
-];
-
-const DRAG_DOWN = /* @__PURE__ */ [
-  { transform: 'translateY(0)', offset: 0 },
-  { transform: 'translateY(-1px)', offset: 0.25 },
-  { transform: 'translateY(1.5px)', offset: 0.68 },
-  { transform: 'translateY(0)', offset: 1 },
+const SWAP_DRAG = /* @__PURE__ */ [
+  { transform: 'rotate(0deg) scale(1)', offset: 0 },
+  { transform: 'rotate(9deg) scale(0.98)', offset: 0.12 },
+  { transform: 'rotate(-30deg) scale(0.92)', offset: 0.34 },
+  { transform: 'rotate(-104deg) scale(0.92)', offset: 0.62 },
+  { transform: 'rotate(-186deg) scale(0.97)', offset: 0.86 },
+  { transform: 'rotate(-180deg) scale(1)', offset: 1 },
 ];
 
 /** Un rayo del spinner se apaga y vuelve. El desfase de cada uno da la vuelta. */
@@ -502,15 +489,6 @@ const E2_EQ = /* @__PURE__ */ [
   { transform: 'scaleY(0.45)', offset: 0.25 },
   { transform: 'scaleY(1.15)', offset: 0.6 },
   { transform: 'scaleY(1)', offset: 1 },
-];
-
-/** Lo que vibra al sonar: una campana, un megáfono. Corto y rápido, o parece que se cae. */
-const E2_RING = /* @__PURE__ */ [
-  { transform: 'rotate(0deg)', offset: 0 },
-  { transform: 'rotate(-8deg)', offset: 0.2 },
-  { transform: 'rotate(7deg)', offset: 0.45 },
-  { transform: 'rotate(-4deg)', offset: 0.7 },
-  { transform: 'rotate(0deg)', offset: 1 },
 ];
 
 /** Lo que cuelga se balancea sobre su punto de anclaje, no sobre su centro. */
@@ -3786,17 +3764,17 @@ export const mailCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      root: /* @__PURE__ */ track(MAIL_BREATH, 500, { easing: EASE, origin: 'center' }),
       shapes: {
-        2: /* @__PURE__ */ track(
-          [
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 },
-            { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 },
-            { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 },
-          ],
-          500,
-          { easing: 'ease-out' },
-        ),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 500, { easing: 'ease-out', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_GROW, 900, { easing: EASE, origin: '19px 19px' }),
       },
+    },
+    hold: {
+      shapes: {
+        2: /* @__PURE__ */ track(HOLD_GROW, 320, { easing: SPRING_OUT, origin: '19px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
     pulse: {
       root: /* @__PURE__ */ track(
@@ -7934,7 +7912,18 @@ export const mailXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   },
 );
 
-/** Grita: el cono se mece desde el mango —que es por donde se sujeta— y su boca se abre. */
+/**
+ * Grita barriendo: el megáfono pivota sobre su BOCA —el lado derecho, por donde sale el sonido— y
+ * la línea que la marca se abre.
+ *
+ * El giro es de `root` y no del cono solo: con el pivote a la derecha, la punta estrecha describe
+ * un arco de 15 unidades, y dejar el mango y la línea quietos mientras el cono se va no lee como
+ * un barrido, lee como un icono roto. Moviéndose entero se mantiene rígido, que es lo que hace un
+ * megáfono de verdad.
+ *
+ * `origin` de `root` va en porcentaje porque son píxeles del host, no unidades del viewBox:
+ * `88% 42%` es (21.1, 10.1) en un lienzo de 24, o sea la boca.
+ */
 export const megaphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" },
@@ -7943,8 +7932,8 @@ export const megaphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -4, 3, -1.5, 0]), 620, { easing: EASE, origin: '88% 42%' }),
       shapes: {
-        0: /* @__PURE__ */ track(E2_RING, 620, { easing: EASE, origin: '7px 10px' }),
         2: /* @__PURE__ */ track(E2_BEAM, 480, { easing: EASE, origin: '8px 10px', delay: 160, fill: 'backwards' }),
         1: /* @__PURE__ */ track(E2_PULSE, 460, { easing: EASE, origin: '9px 18px', delay: 240, fill: 'backwards' }),
       },
@@ -8487,17 +8476,12 @@ export const repeatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      shapes: {
-        0: /* @__PURE__ */ track(DRAG_RIGHT, 700, { easing: EASE }),
-        1: /* @__PURE__ */ track(DRAG_RIGHT, 700, { easing: EASE }),
-        2: /* @__PURE__ */ track(DRAG_LEFT, 700, { easing: EASE, delay: 90, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(DRAG_LEFT, 700, { easing: EASE, delay: 90, fill: 'backwards' }),
-      },
+      root: /* @__PURE__ */ track(SWAP_DRAG, 760, { easing: EASE, origin: '50% 50%' }),
     },
   },
 );
 
-/** El mismo intercambio, aquí en vertical. */
+/** El mismo intercambio, aquí en vertical: también es simétrico a 180°, punto por punto. */
 export const repeat2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m2 9 3-3 3 3" },
@@ -8507,12 +8491,7 @@ export const repeat2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      shapes: {
-        0: /* @__PURE__ */ track(DRAG_UP, 700, { easing: EASE }),
-        1: /* @__PURE__ */ track(DRAG_UP, 700, { easing: EASE }),
-        2: /* @__PURE__ */ track(DRAG_DOWN, 700, { easing: EASE, delay: 90, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(DRAG_DOWN, 700, { easing: EASE, delay: 90, fill: 'backwards' }),
-      },
+      root: /* @__PURE__ */ track(SWAP_DRAG, 760, { easing: EASE, origin: '50% 50%' }),
     },
   },
 );

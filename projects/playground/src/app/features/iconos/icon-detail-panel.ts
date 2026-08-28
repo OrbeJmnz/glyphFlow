@@ -98,6 +98,9 @@ export class IconDetailPanel {
 
   protected readonly tabActiva = signal<TabDetalle>('preview');
 
+  /** Se calcula del `def` que ya llega: pasarlo como input sería un segundo sitio del que dudar. */
+  protected readonly tieneHold = computed(() => !!this.def().animations['hold']);
+
   protected readonly variantes: Signal<string[]> = computed(() =>
     Object.keys(this.def().animations),
   );

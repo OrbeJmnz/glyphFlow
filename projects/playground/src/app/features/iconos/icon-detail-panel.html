@@ -3,7 +3,16 @@
 <section class="detalle" role="dialog" [attr.aria-labelledby]="ID_TITULO">
   <header class="detalle-head">
     <div class="titulo">
-      <h2 [id]="ID_TITULO">{{ nombre() }}</h2>
+      <h2 [id]="ID_TITULO">
+        {{ nombre() }}
+        <!-- La misma marca que en la tarjeta: quien la reconoció ahí la vuelve a encontrar aquí,
+             y no tiene que leer la lista de variantes para saber que este icono se sostiene. -->
+        @if (tieneHold()) {
+          <span class="marca-hold" [attr.title]="'iconos.grid.holdTitulo' | transloco">
+            {{ 'iconos.grid.hold' | transloco }}
+          </span>
+        }
+      </h2>
       <span class="const"
         ><code>{{ constName() }}</code> · {{ varianteActiva() }}</span
       >

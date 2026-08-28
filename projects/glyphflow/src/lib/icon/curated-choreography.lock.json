@@ -12948,13 +12948,15 @@
       "hold": "2b72a110c644"
     },
     "database-check": {
-      "default": "3e0254bb9f3f",
+      "default": "cbfe3e4128c9",
       "draw": "17c8398e8d34",
+      "hold": "9d7884f64322",
       "pulse": "5e2da2b81fe0"
     },
     "database-minus": {
-      "default": "dfe5358a4967",
+      "default": "c5c5b0bf6e12",
       "draw": "17c8398e8d34",
+      "hold": "87dd32ed1953",
       "pulse": "5e2da2b81fe0"
     },
     "database-plus": {
@@ -14959,8 +14961,9 @@
       "hold": "2a5a57b6628b"
     },
     "mail-check": {
-      "default": "9573814eb6cf",
+      "default": "fbd7c7017e14",
       "draw": "17c8398e8d34",
+      "hold": "d34f9964090d",
       "pulse": "5e2da2b81fe0"
     },
     "mail-minus": {
@@ -15110,7 +15113,7 @@
       "hold": "c4613e4021da"
     },
     "megaphone": {
-      "default": "5cc00626a3d8",
+      "default": "69d30eb0a31f",
       "draw": "17c8398e8d34"
     },
     "megaphone-off": {
@@ -16333,7 +16336,7 @@
       "draw": "17c8398e8d34"
     },
     "repeat": {
-      "default": "7d05b441587d",
+      "default": "3cbc30c2f118",
       "draw": "17c8398e8d34"
     },
     "repeat-1": {
@@ -16341,7 +16344,7 @@
       "draw": "17c8398e8d34"
     },
     "repeat-2": {
-      "default": "c178d91d6493",
+      "default": "3cbc30c2f118",
       "draw": "17c8398e8d34"
     },
     "repeat-off": {
@@ -16549,7 +16552,8 @@
     },
     "scan": {
       "default": "8c96ef112cb1",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "hold": "ff437569085c"
     },
     "scan-barcode": {
       "default": "19851c6d9fa8",
@@ -16558,7 +16562,8 @@
     },
     "scan-box": {
       "default": "361b626f0f5a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "hold": "5a036b771269"
     },
     "scan-eye": {
       "default": "91c592b71b66",

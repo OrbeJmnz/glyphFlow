@@ -386,6 +386,7 @@
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
       data-celda
+      [attr.data-icono]="entry.name"
       [attr.tabindex]="$first ? 0 : -1"
       [attr.aria-label]="'iconos.grid.inspeccionarAria' | transloco: { nombre: entry.name }"
       (click)="inspeccionar(entry, $event)"
@@ -397,6 +398,17 @@
         [attr.aria-label]="'iconos.grid.variantesAria' | transloco: { n: entry.numAnimaciones }"
         >{{ entry.numAnimaciones }}</span
       >
+
+      <!--
+        La única insignia que vuelve a la tarjeta. El número de al lado dice CUÁNTAS variantes hay;
+        esta dice que una de ellas se puede sostener, que es lo único del catálogo que cambia lo
+        que se puede HACER con el icono. Son 473 de 1767, así que acota de verdad.
+      -->
+      @if (entry.tieneHold) {
+        <span class="marca-hold" [attr.title]="'iconos.grid.holdTitulo' | transloco">
+          {{ 'iconos.grid.hold' | transloco }}
+        </span>
+      }
 
       <gf-icon [iconDef]="entry.def" [size]="tamGlifo()" trigger="group" />
 

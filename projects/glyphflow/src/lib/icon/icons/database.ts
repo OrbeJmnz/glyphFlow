@@ -3,8 +3,42 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, SPRING_OUT, moveYSeq, track, strokeDraw, icon } from '../choreography';
+import { EASE, SPRING_OUT, moveYSeq, track, icon } from '../choreography';
 import { databaseShapes } from '../animated-icons.shapes';
+
+/*
+ * Vocabulario de los dos mini iconos que faltaban. Va aquí arriba y no junto a `DB_TURN`, más
+ * abajo, porque `databaseCheckIcon` es el PRIMER export del archivo: una constante declarada
+ * después de él se lee en zona muerta temporal y truena al cargar el módulo, no al lintar.
+ */
+
+/**
+ * El visto se SELLA: crece y vuelve, encadenado al asentamiento de la pila como el resto de la
+ * familia. No gira —un visto de lado no significa nada— y no se dibuja, que es justo lo que la
+ * variante `draw` ya hace.
+ */
+const DB_STAMP = /* @__PURE__ */ [
+  { transform: 'scale(1)', offset: 0 },
+  { transform: 'scale(1)', offset: 0.35 },
+  { transform: 'scale(1.3)', offset: 0.72 },
+  { transform: 'scale(1)', offset: 1 },
+];
+
+/**
+ * El menos se RECOGE sobre su eje. Encoge en X en vez de girar: a 90° la barra queda vertical, y
+ * en `hold` esa pose se congela ahí —una raya de pie dentro de un cilindro no se lee como «menos»,
+ * se lee como otro icono.
+ */
+const DB_SHRINK = /* @__PURE__ */ [
+  { transform: 'scaleX(1)', offset: 0 },
+  { transform: 'scaleX(1)', offset: 0.35 },
+  { transform: 'scaleX(0.4)', offset: 0.72 },
+  { transform: 'scaleX(1)', offset: 1 },
+];
+
+/** Las poses que cada uno SOSTIENE: el mismo gesto sin el regreso. */
+const DB_HOLD_STAMP = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.3)' }];
+const DB_HOLD_SHRINK = /* @__PURE__ */ [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.4)' }];
 
 export const databaseCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -17,8 +51,18 @@ export const databaseCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(DB_STAMP, 900, { easing: EASE, origin: '19px 19px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 90, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 270, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT }),
       },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(DB_HOLD_STAMP, 320, { easing: SPRING_OUT, origin: '19px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
     pulse: {
       root: /* @__PURE__ */ track(
@@ -47,18 +91,18 @@ export const databaseMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
-          easing: 'ease-out',
-          delay: 150,
-          fill: 'backwards',
-        }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, {
-          easing: 'ease-out',
-          delay: 300,
-          fill: 'backwards',
-        }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 90, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(DB_SHRINK, 900, { easing: EASE, origin: '19px 19px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT, delay: 270, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-1.5, 0]), 450, { easing: SPRING_OUT }),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(DB_HOLD_SHRINK, 320, { easing: SPRING_OUT, origin: '19px 19px', fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
     pulse: {
       root: /* @__PURE__ */ track(

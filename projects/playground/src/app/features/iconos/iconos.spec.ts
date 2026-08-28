@@ -1,6 +1,8 @@
+import { vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { CURATED_ICONS } from 'glyphflow';
+import { cargarCurados } from '../../core/catalogo';
 import { providersI18nTest } from '../../core/i18n-testing';
 import { Iconos, SNIPPET_PORTADA } from './iconos';
 import iconosEn from '../../../i18n/iconos/en.json';
@@ -104,6 +106,78 @@ describe('Iconos', () => {
     // quedaban permanentemente tapadas por el panel (medido a 1280px).
     expect(html.querySelector('.grid')?.classList.contains('con-panel')).toBe(true);
     expect(html.querySelector('.barra')?.classList.contains('con-panel')).toBe(true);
+  });
+
+  /*
+   * La marca `hold` es la única insignia que vuelve a la tarjeta, y va SOLO donde toca: son 473 de
+   * 1767, así que pintarla de más la convertiría en ruido y de menos la haría mentir.
+   *
+   * `hold` y `held` no son lo mismo y por eso conviven — uno es una variante aparte que sostiene su
+   * pose, el otro es que el propio `default` se quede mientras el puntero siga encima. Medido sobre
+   * el catálogo el día que se separaron: 473 y 128, y CERO en común. Si algún día se solapan, es
+   * que uno de los dos cambió de significado y hay que volver a mirar la taxonomía.
+   */
+  it('la marca hold sale solo en los iconos que tienen esa variante', async () => {
+    // Contra el MISMO catálogo que alimenta la rejilla, no contra `CURATED_ICONS` del paquete
+    // publicado: son dos fuentes distintas a propósito —el sitio sirve su JSON generado del
+    // fuente— y compararlas cruzadas sólo funcionaba mientras los iconos que difieren cayeran
+    // fuera del primer tramo de 120.
+    const catalogo = await cargarCurados();
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    const tarjetas = [...html.querySelectorAll<HTMLElement>('.card')];
+    expect(tarjetas.length).toBeGreaterThan(0);
+    // Que la muestra CONTENGA de los dos tipos: si el tramo trajera solo iconos sin `hold`, el
+    // bucle pasaría con la marca desconectada de todo.
+    const conHold = tarjetas.filter((t) => !!catalogo[t.dataset['icono']!]?.animations['hold']);
+    expect(conHold.length).toBeGreaterThan(0);
+    expect(conHold.length).toBeLessThan(tarjetas.length);
+
+    for (const tarjeta of tarjetas) {
+      const nombre = tarjeta.dataset['icono']!;
+      const conMarca = !!tarjeta.querySelector('.marca-hold');
+      const conVariante = !!catalogo[nombre]?.animations['hold'];
+      expect(conMarca, `${nombre}: la marca y la variante no coinciden`).toBe(conVariante);
+    }
+  });
+
+  /*
+   * Abrir el panel recorta las columnas y eso empuja a cada tarjeta un tercio de las filas que
+   * tenía encima — medido en el navegador, 2226px en compacta y 6278px en cómoda para el icono
+   * 500. Sin corregir el scroll, quien pulsa un icono lo pierde de vista con el mismo gesto.
+   *
+   * jsdom no hace layout, así que lo que se blinda aquí no es el cálculo sino sus PIEZAS: que la
+   * tarjeta lleve el ancla que el regreso necesita, y que abrir y cerrar no truene. Lo segundo no
+   * es teórico: la primera versión usaba `CSS.escape`, que no existe fuera del navegador, y el run
+   * seguía en verde porque el fallo salía como error no capturado en vez de como test roto.
+   */
+  it('cada tarjeta lleva su ancla, y abrir y cerrar el panel no truena fuera del navegador', async () => {
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    const tarjetas = [...html.querySelectorAll<HTMLElement>('.card')];
+    for (const tarjeta of tarjetas) {
+      expect(tarjeta.dataset['icono'], 'una tarjeta sin ancla es una tarjeta a la que no se vuelve')
+        .toBeTruthy();
+    }
+
+    const volver = vi.spyOn(window, 'scrollTo');
+
+    tarjetas[0].click();
+    await fixture.whenStable();
+    expect(html.querySelector('app-icon-detail-panel')).toBeTruthy();
+
+    html.querySelector<HTMLElement>('.detalle .cerrar')!.click();
+    await fixture.whenStable();
+    expect(html.querySelector('app-icon-detail-panel')).toBeNull();
+
+    // Con rects a cero el ancla se reencuentra en su sitio y no hay nada que mover; el respaldo
+    // por `scrollY` solo entra cuando esa tarjeta ya no existe. Lo que importa es que el camino
+    // se recorrió entero sin lanzar — que es lo que `CSS.escape` rompía.
+    volver.mockRestore();
   });
 
   /*

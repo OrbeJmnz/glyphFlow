@@ -6,6 +6,26 @@
  * `display: flex; column` para que SOLO `.tab-cuerpo` scrollee — header, scrubber, tabs y acciones
  * quedan fijos en su sitio mientras el contenido de la tab activa se desplaza por separado.
  */
+/*
+ * La marca de `hold` junto al nombre. Mismo contorno que en la tarjeta —quien la reconoció en la
+ * rejilla la vuelve a encontrar aquí— pero alineada al texto: `vertical-align` y no `absolute`,
+ * porque aquí forma parte del título, no de una esquina.
+ */
+.titulo h2 .marca-hold {
+  display: inline-grid;
+  place-items: center;
+  height: 1.125rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 999px;
+  color: var(--gf-texto-tenue);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  vertical-align: 0.15em;
+}
+
 .detalle {
   position: fixed;
   top: 78px;
