@@ -631,3 +631,81 @@ button:disabled kbd {
     transition: none;
   }
 }
+
+/* ── Mis borradores (T31 · nivel 2) ─────────────────────────────────────────── */
+
+/*
+ * «Llevárselo» va en su propia fila y no mezclado con copiar/descargar: el `.json` de arriba
+ * vuelve al Lab, y esto SALE del sitio. Son dos preguntas distintas y el filete lo dice.
+ */
+.llevar {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+.lista-borradores {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista-borradores li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+}
+
+.lista-borradores li:hover {
+  background: var(--gf-velo-activo);
+}
+
+/* El nombre ocupa lo que sobra: es el destino del clic, y un objetivo de 40px de ancho en una
+   fila de 240 obliga a apuntar. */
+.lista-borradores .abrir {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gf-texto-medio);
+  font-size: 0.8rem;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.lista-borradores .abrir:hover {
+  color: var(--gf-texto);
+}
+
+.lista-borradores .mini {
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.lista-borradores .mini:hover {
+  color: var(--gf-texto);
+  background: var(--gf-panel-alto);
+}
+
+/* Se dice SIEMPRE, no sólo cuando hay borradores: quien va a guardar el primero es justo quien
+   necesita saber dónde va a quedar. */
+.nota-local {
+  margin: 10px 0 0;
+  color: var(--gf-texto-tenue);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}

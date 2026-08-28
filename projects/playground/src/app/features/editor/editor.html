@@ -456,6 +456,73 @@
           </button>
         }
       </div>
+
+      <!--
+        Llevárselo de verdad. El `.json` de arriba vuelve al Lab; esto SALE del sitio: un módulo
+        `.ts` que se importa como cualquier otro icono de la librería, y un issue con ese módulo
+        dentro para que el mantenedor lo convierta en commit.
+      -->
+      <div class="salida-acciones llevar">
+        <button type="button" app-boton variante="primario" (click)="exportarAMiProyecto()">
+          {{ 'editor.salida.exportar' | transloco }}
+        </button>
+        <button type="button" app-boton compacto variante="fantasma" (click)="contribuir()">
+          {{ 'editor.salida.contribuir' | transloco }}
+        </button>
+      </div>
+    </section>
+
+    <!--
+      Mis borradores (T31 · nivel 2). El alcance se DICE, no se supone: viven en este navegador y
+      se van al limpiar los datos del sitio. Un «guardado» que el usuario entiende como permanente
+      y no lo es se descubre cuando ya no está.
+    -->
+    <section class="seccion borradores">
+      <h2 class="grupo-tit">{{ 'editor.borradores.titulo' | transloco }}</h2>
+
+      <button type="button" app-boton compacto (click)="guardarComoBorrador()">
+        {{ 'editor.borradores.guardar' | transloco }}
+      </button>
+
+      @if (hayBorradores()) {
+        <ul class="lista-borradores">
+          @for (b of borradores(); track b.id) {
+            <li>
+              @if (renombrando() === b.id) {
+                <input
+                  class="ui-campo"
+                  [value]="b.nombre"
+                  [attr.aria-label]="'editor.borradores.nombreAria' | transloco"
+                  (keydown.enter)="renombrar(b.id, $any($event.target).value)"
+                  (blur)="renombrar(b.id, $any($event.target).value)"
+                />
+              } @else {
+                <button type="button" class="abrir" (click)="abrirBorrador(b)">
+                  {{ b.nombre }}
+                </button>
+                <button
+                  type="button"
+                  class="mini"
+                  [attr.aria-label]="'editor.borradores.renombrarAria' | transloco: { n: b.nombre }"
+                  (click)="renombrando.set(b.id)"
+                >
+                  {{ 'editor.borradores.renombrar' | transloco }}
+                </button>
+                <button
+                  type="button"
+                  class="mini"
+                  [attr.aria-label]="'editor.borradores.borrarAria' | transloco: { n: b.nombre }"
+                  (click)="borrar(b.id)"
+                >
+                  {{ 'editor.borradores.borrar' | transloco }}
+                </button>
+              }
+            </li>
+          }
+        </ul>
+      }
+
+      <p class="nota-local">{{ 'editor.borradores.soloAqui' | transloco }}</p>
     </section>
 
     <!--

@@ -66,10 +66,22 @@
     "plegarAria": "Show or hide {{que}}",
     "enlace": "copy link",
     "enlaceCopiado": "link copied",
-    "enlaceLargo": "This shape is too big for a link — use the .json file instead."
+    "enlaceLargo": "This shape is too big for a link — use the .json file instead.",
+    "exportar": "Export to my project",
+    "contribuir": "Contribute this icon"
   },
   "coreografiar": {
     "boton": "Choreograph this shape",
     "nota": "Carries the edited geometry to the Lab <strong>with the original choreography</strong>: the tracks point at the same shapes, so the animation that already existed runs on the new form."
+  },
+  "borradores": {
+    "titulo": "my drafts",
+    "guardar": "Save draft",
+    "renombrar": "rename",
+    "borrar": "delete",
+    "nombreAria": "Draft name",
+    "renombrarAria": "Rename {{n}}",
+    "borrarAria": "Delete {{n}}",
+    "soloAqui": "Drafts live in this browser only. Clearing site data removes them."
   }
 }

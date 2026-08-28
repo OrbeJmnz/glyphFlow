@@ -24,7 +24,16 @@ import {
   type IconShape,
 } from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
-import { TOPE_URL, aFragmento, deFragmento } from '../../core/estado-url';
+import { TOPE_URL, aFragmento, deFragmento, type EstadoEditor } from '../../core/estado-url';
+import {
+  actualizarBorrador,
+  borradores,
+  borrarBorrador,
+  guardarBorrador,
+  hayBorradores,
+  renombrarBorrador,
+  type Borrador,
+} from '../../core/borradores';
 import { Copiador } from '../../shared/ui/copiar';
 import { parseD, type SubPath } from './geometria/path-model';
 import {
@@ -265,6 +274,99 @@ export class Editor implements OnDestroy {
   /** El enlace completo, para copiar. Se lee en el momento: la URL ya está al día. */
   protected copiarEnlace(): void {
     void this.copiadorEnlace.copiar(location.href);
+  }
+
+  // ── Borradores (T31 · nivel 2) ────────────────────────────────────────────────
+
+  protected readonly borradores = borradores;
+  protected readonly hayBorradores = hayBorradores;
+
+  /** El borrador que se está editando, si esto salió de uno. Decide guardar vs. actualizar. */
+  private readonly borradorActual = signal<string | null>(null);
+  protected readonly renombrando = signal<string | null>(null);
+
+  /** El estado que se guarda es el MISMO que viaja en el enlace: un dato, dos formas de llegar. */
+  private estadoActual(): EstadoEditor {
+    return { icono: this.elegido().nombre, paths: this.dPorPath() };
+  }
+
+  protected guardarComoBorrador(): void {
+    const id = this.borradorActual();
+    if (id) {
+      actualizarBorrador(id, this.estadoActual());
+      return;
+    }
+    this.borradorActual.set(guardarBorrador(this.estadoActual()));
+  }
+
+  protected abrirBorrador(b: Borrador): void {
+    const suyo = this.curados().find((c) => c.nombre === b.icono);
+    if (suyo) this.elegido.set(suyo);
+    this.modelos.set(b.paths.map((d) => parseD(d)));
+    this.borradorActual.set(b.id);
+    this.tocado.set(true);
+    this.reencuadrar();
+    this.historial.limpiar();
+    this.sincronizarPila();
+  }
+
+  protected renombrar(id: string, nombre: string): void {
+    renombrarBorrador(id, nombre);
+    this.renombrando.set(null);
+  }
+
+  protected borrar(id: string): void {
+    borrarBorrador(id);
+    // Si era el que se estaba editando, deja de serlo: guardar otra vez crearía uno nuevo en vez
+    // de escribir sobre un id que ya no existe.
+    if (this.borradorActual() === id) this.borradorActual.set(null);
+  }
+
+  // ── Llevárselo (T31 · los dos criterios que no son niveles) ───────────────────
+
+  /**
+   * El archivo listo para PEGAR EN UN PROYECTO, que es lo que el ticket llama «exportar a mi
+   * proyecto»: no la geometría suelta, sino el módulo `.ts` que se importa como cualquier otro
+   * icono de la librería.
+   *
+   * Es distinto del `.json`, que es el formato de ida y vuelta con el Lab. Los dos siguen ahí
+   * porque responden a preguntas distintas: uno vuelve al editor, el otro entra en un `npm i`.
+   */
+  protected readonly moduloTs = computed(() => {
+    const nombre = this.elegido().nombre;
+    const constante = nombre.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase()) + 'Icon';
+    const def = this.defEditado();
+    return (
+      `import type { AnimatedIconDef } from 'glyphflow';\n\n` +
+      `export const ${constante}: AnimatedIconDef = ${JSON.stringify(def, null, 2)};\n`
+    );
+  });
+
+  protected exportarAMiProyecto(): void {
+    const nombre = this.elegido().nombre;
+    this.descargar(`${nombre}.icon.ts`, this.moduloTs(), 'text/typescript');
+  }
+
+  /**
+   * Abre un issue con el icono dentro (T31 · «contribuir»).
+   *
+   * Un ISSUE y no un PR pre-rellenado: la API de GitHub no permite crear un pull request desde una
+   * URL —hace falta una rama con el commit ya hecho, y para eso un token del usuario y un fork—,
+   * así que el «PR pre-rellenado» del ticket, tal cual, no existe sin backend. Lo que sí se puede
+   * es dejar el trabajo hecho: el cuerpo trae el módulo listo para pegar y el mantenedor lo
+   * convierte en commit. Git sigue siendo la capa de autorización, que era el punto.
+   */
+  protected contribuir(): void {
+    const nombre = this.elegido().nombre;
+    const titulo = `Choreography: ${nombre}`;
+    const cuerpo =
+      `Edited with the path editor.\n\n` +
+      `\`\`\`ts\n${this.moduloTs()}\`\`\`\n\n` +
+      `Link with the exact shape: ${location.href}\n`;
+    const url =
+      `https://github.com/OrbeJmnz/glyphFlow/issues/new` +
+      `?title=${encodeURIComponent(titulo)}&body=${encodeURIComponent(cuerpo)}`;
+    window.open(url, '_blank', 'noopener');
   }
 
   /** Para que la lista diga cuántos hay: un corte silencioso se lee como "esto es todo". */
@@ -818,11 +920,16 @@ export class Editor implements OnDestroy {
    * mismo turno puede cancelar la descarga antes de que el navegador la haya tomado.
    */
   protected descargarJson(): void {
+    this.descargar(`${this.elegido().nombre}.json`, this.json(), 'application/json');
+  }
+
+  /** El mecanismo, en un sitio: dos formatos que se bajan igual no son dos funciones. */
+  private descargar(archivo: string, contenido: string, tipo: string): void {
     const doc = this.lienzo.nativeElement.ownerDocument;
-    const url = URL.createObjectURL(new Blob([this.json()], { type: 'application/json' }));
+    const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
     const enlace = doc.createElement('a');
     enlace.href = url;
-    enlace.download = `${this.elegido().nombre}.json`;
+    enlace.download = archivo;
     enlace.click();
     setTimeout(() => URL.revokeObjectURL(url));
   }

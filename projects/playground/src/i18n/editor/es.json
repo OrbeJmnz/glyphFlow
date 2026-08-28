@@ -66,10 +66,22 @@
     "plegarAria": "Mostrar u ocultar {{que}}",
     "enlace": "copiar enlace",
     "enlaceCopiado": "enlace copiado",
-    "enlaceLargo": "Esta forma no cabe en un enlace — usa el archivo .json."
+    "enlaceLargo": "Esta forma no cabe en un enlace — usa el archivo .json.",
+    "exportar": "Exportar a mi proyecto",
+    "contribuir": "Contribuir este icono"
   },
   "coreografiar": {
     "boton": "Coreografiar esta forma",
     "nota": "Se lleva la geometría editada al Lab <strong>con la coreografía original</strong>: los tracks apuntan a las mismas figuras, así que la animación que ya existía corre sobre la forma nueva."
+  },
+  "borradores": {
+    "titulo": "mis borradores",
+    "guardar": "Guardar borrador",
+    "renombrar": "renombrar",
+    "borrar": "borrar",
+    "nombreAria": "Nombre del borrador",
+    "renombrarAria": "Renombrar {{n}}",
+    "borrarAria": "Borrar {{n}}",
+    "soloAqui": "Los borradores viven solo en este navegador. Se van al limpiar los datos del sitio."
   }
 }
