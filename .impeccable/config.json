@@ -47,6 +47,12 @@
         ],
         "createdAt": "2026-08-24T15:21:52.867Z",
         "reason": "Falso positivo del detector: el <img> del hero usa [src]=\"logoAnimado()\" (binding de Angular), no un src estatico. Verificado: los 4 archivos referenciados existen en projects/playground/public/images/."
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
+        "createdAt": "2026-08-28T17:51:02.045Z",
+        "reason": "preexistente en cloudDownloadIcon/cloudUploadIcon.active, no tocado en esta sesion; el proyecto usa overshoot/spring a proposito en todo el catalogo (SPRING_OUT/SPRING_SNAPPY/SPRING_BOUNCY)"
       }
     ]
   }
