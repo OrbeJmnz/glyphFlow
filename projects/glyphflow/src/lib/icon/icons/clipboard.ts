@@ -5,7 +5,7 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { clipboardCheckShapes, clipboardClockShapes, clipboardCopyShapes, clipboardListShapes, clipboardMinusShapes, clipboardPasteShapes, clipboardPenLineShapes, clipboardPenShapes, clipboardPlusShapes, clipboardTypeShapes, clipboardXShapes } from '../animated-icons.shapes';
-import { COPY_PEEL, BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN } from './_shared';
+import { BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN, puntaTrazoYCompas, astaTrazoYCompas } from './_shared';
 
 // Igual que el `translate` de reposo de pencil/pen/square-pen.
 const PEN_WRITE_SQUIGGLE = /* @__PURE__ */ [
@@ -67,22 +67,45 @@ export const clipboardClockIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboar
     },
   });
 
-/** `peel`: la flecha "despega" con la misma separación de `copy-*:peel`. */
+/**
+ * `peel`: antes la punta ("<", figura 4) viajaba sola en diagonal mientras el asta (figura 3) se
+ * quedaba clavada dibujándose — se partía la flecha en dos. Ahora dibujan JUNTAS y viajan JUNTAS,
+ * hacia la izquierda —el sentido en el que la propia punta "<" apunta—, compartiendo los mismos
+ * offsets: el mismo criterio de "LA INSIGNIA VA MONTADA EN LA HOJA" de `copy.ts`, dos figuras con
+ * los mismos offsets interpolan idéntico y no se pueden desincronizar.
+ */
+const CLIP_ARROW_PEEL_MS = 650;
+const CLIP_ARROW_SALE = 0.34; // Termina de dibujarse y ENTONCES la flecha entera se desliza.
+const clipArrowPeel = (): Keyframe[] => [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'translateX(0)', offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translateX(0)', offset: CLIP_ARROW_SALE },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translateX(-2.5px)', offset: 0.78 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translateX(-2.5px)', offset: 0.9 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'translateX(0)', offset: 1 },
+];
+
 export const clipboardCopyIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardCopyShapes, {
     default: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: 'ease-in-out' }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 230 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ astaTrazoYCompas('X', 10), 900, { origin: '21px 14px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ puntaTrazoYCompas('X', -1), 900),
       },
     },
     peel: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 150 }),
-        4: /* @__PURE__ */ track(COPY_PEEL, 500, { delay: 150, easing: EASE }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ clipArrowPeel(), CLIP_ARROW_PEEL_MS, { easing: EASE }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ clipArrowPeel(), CLIP_ARROW_PEEL_MS, { easing: EASE }),
       },
+    },
+    hold: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   });
 

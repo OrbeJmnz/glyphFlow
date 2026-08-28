@@ -4,6 +4,10 @@
 // se apartan, así que nunca se despega de ninguno. Es la misma soldadura de los sliders — el
 // factor sale del ancho real de la barra, no de un valor bonito.
 //
+// Cada palo se aparta 1.6 (antes 0.8, que casi no se notaba), o sea 3.2 de apertura total: la
+// barra de 8 escala 11.2/8 = 1.4 y la de 12, 15.2/12 = 1.2667. Cabe: el palo izquierdo está en
+// x=4 y con su trazo llega a 3, así que le quedan tres unidades antes del borde.
+//
 // La H es lo que estos siete tienen en común y el número lo que los distingue, así que la H hace
 // de base y el número de insignia: cae desde arriba y se asienta, siempre después.
 //
@@ -12,8 +16,16 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, track, icon } from '../choreography';
 
-/** El número cae desde arriba y se asienta. */
-const CAE = /* @__PURE__ */ [{ transform: 'translateY(-1.5px)' }, { transform: 'translateY(0)' }];
+/**
+ * El número cae desde arriba y se asienta, ahora con un rebote. 1.5 de caída no se veía; con 3 sí,
+ * y arriba hay de sobra — el número más alto de la familia arranca en y=6.
+ */
+const CAE = /* @__PURE__ */ [
+  { transform: 'translateY(-3px)', offset: 0 },
+  { transform: 'translateY(0)', offset: 0.66 },
+  { transform: 'translateY(-0.7px)', offset: 0.84 },
+  { transform: 'translateY(0)', offset: 1 },
+];
 
 /** Los dos palos se abren y la barra crece con ellos, sin despegarse. */
 export const headingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -27,17 +39,17 @@ export const headingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.1333)', offset: 0.5 },
+          { transform: 'scaleX(1.2667)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '12px 12px' }),
       },
@@ -58,17 +70,17 @@ export const heading1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         3: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
@@ -90,17 +102,17 @@ export const heading2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         3: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
@@ -123,17 +135,17 @@ export const heading3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         3: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
@@ -157,17 +169,17 @@ export const heading4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         4: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         3: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         1: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
@@ -191,17 +203,17 @@ export const heading5Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         3: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),
@@ -225,17 +237,17 @@ export const heading6Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(-0.8px)', offset: 0.5 },
+          { transform: 'translateX(-1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         2: /* @__PURE__ */ track([
           { transform: 'translateX(0)', offset: 0 },
-          { transform: 'translateX(0.8px)', offset: 0.5 },
+          { transform: 'translateX(1.6px)', offset: 0.5 },
           { transform: 'translateX(0)', offset: 1 },
         ], 500, { easing: SPRING_OUT }),
         0: /* @__PURE__ */ track([
           { transform: 'scaleX(1)', offset: 0 },
-          { transform: 'scaleX(1.2)', offset: 0.5 },
+          { transform: 'scaleX(1.4)', offset: 0.5 },
           { transform: 'scaleX(1)', offset: 1 },
         ], 500, { easing: SPRING_OUT, origin: '8px 12px' }),
         3: /* @__PURE__ */ track(CAE, 420, { easing: SPRING_OUT, delay: 160, fill: 'backwards' }),

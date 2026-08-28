@@ -43,6 +43,121 @@ export const X_SNAP_DRAW = /* @__PURE__ */ [
 
 export const REFRESH_SPIN = /* @__PURE__ */ rotateSeq([0, 360]);
 
+/**
+ * VAIVÉN "ALEATORIO" DE UNA LÍNEA INTERIOR (rejillas y columnas).
+ *
+ * Aleatorio de verdad no se puede: los keyframes se construyen una sola vez, al cargar el módulo,
+ * y tienen que ser IDÉNTICOS en cada render — si no, el server-side y el cliente pintan distinto y
+ * Angular truena la hidratación. Lo que se busca no es azar sino que NO SE VEA UN PATRÓN, y eso se
+ * consigue con tres semillas: distinta amplitud, distinto sentido de arranque y distintos tiempos.
+ * Dos líneas con semillas distintas nunca se leen como un bloque.
+ *
+ * `amp` va en unidades del viewBox y se mide contra el hueco disponible: una línea no puede salirse
+ * del marco ni cruzarse con su vecina.
+ */
+const SEMILLAS: { a: number; o: number }[][] = [
+  [{ a: 0, o: 0 }, { a: 1, o: 0.22 }, { a: -0.55, o: 0.48 }, { a: 0.7, o: 0.72 }, { a: -0.23, o: 0.88 }, { a: 0, o: 1 }],
+  [{ a: 0, o: 0 }, { a: -0.85, o: 0.3 }, { a: 0.62, o: 0.55 }, { a: -0.4, o: 0.78 }, { a: 0.2, o: 0.92 }, { a: 0, o: 1 }],
+  [{ a: 0, o: 0 }, { a: 0.5, o: 0.16 }, { a: -1, o: 0.44 }, { a: 0.38, o: 0.7 }, { a: -0.55, o: 0.86 }, { a: 0, o: 1 }],
+];
+
+export const lineaVaga = (eje: 'X' | 'Y', amp: number, semilla: 0 | 1 | 2): Keyframe[] =>
+  SEMILLAS[semilla].map(({ a, o }) => ({
+    transform: `translate${eje}(${Number((a * amp).toFixed(3))}px)`,
+    offset: o,
+  }));
+
+/**
+ * El mismo vaivén DESPUÉS de que la línea se despliegue desde su borde — que es la animación que
+ * estas familias ya tenían. Van fundidos en un solo track porque `shapes` admite uno por figura.
+ *
+ * El orden `scaleY(...) translateX(...)` no es intercambiable pero aquí es inofensivo: un escalado
+ * en un eje no toca el desplazamiento del OTRO. Por eso el despliegue y el vaivén son siempre ejes
+ * cruzados (línea vertical: se despliega en Y, vaga en X).
+ */
+export const lineaDespliegaYVaga = (
+  ejeDespliegue: 'X' | 'Y',
+  eje: 'X' | 'Y',
+  amp: number,
+  semilla: 0 | 1 | 2,
+): Keyframe[] => {
+  const DESPLIEGUE = 0.32;
+  const s = (v: number) => `scale${ejeDespliegue}(${v})`;
+  return [
+    { transform: `${s(0.15)} translate${eje}(0px)`, offset: 0 },
+    { transform: `${s(1)} translate${eje}(0px)`, offset: DESPLIEGUE },
+    ...lineaVaga(eje, amp, semilla)
+      .slice(1)
+      .map((k) => ({
+        transform: `${s(1)} ${k['transform']}`,
+        offset: Number((DESPLIEGUE + (1 - DESPLIEGUE) * (k.offset as number)).toFixed(4)),
+      })),
+  ];
+};
+
+/**
+ * EL COMPÁS DE UNA FLECHA. Se agacha hacia adentro, sale, y regresa rebotando.
+ *
+ * La punta y el asta son DOS figuras que tienen que leerse como una sola: si se traslada la punta
+ * y el asta se queda, la flecha se parte por la mitad. Y trasladar las dos tampoco sirve cuando el
+ * asta nace pegada a otra cosa (el aro de `circle-arrow-*`, el marco de `square-arrow-*`): ahí lo
+ * que hace el asta es ESTIRARSE lo mismo que la punta viaja, con el `origin` en su extremo fijo.
+ *
+ * De ahí que sean dos helpers y no uno: `puntaCompas` traslada, `astaCompas` escala, y los dos
+ * comparten offsets para que el estirón caiga en el MISMO cuadro que el viaje. Si se desincronizan
+ * los offsets, la flecha se ve de goma.
+ *
+ * `dir`: +1 sale hacia abajo/derecha, -1 hacia arriba/izquierda.
+ * `salida`: cuánto viaja la punta hacia afuera, en unidades del viewBox.
+ * `agache`: cuánto se mete antes — es lo que hace legible una salida corta (ver cicatriz del
+ * margen: hacia afuera casi nunca hay más de 1 unidad).
+ */
+export const puntaCompas = (eje: 'X' | 'Y', dir: 1 | -1, salida = 2, agache = 1): Keyframe[] => [
+  { transform: `translate${eje}(0px)`, offset: 0 },
+  { transform: `translate${eje}(${-agache * dir}px)`, offset: 0.22 },
+  { transform: `translate${eje}(${salida * dir}px)`, offset: 0.6 },
+  { transform: `translate${eje}(${salida * 0.2 * dir}px)`, offset: 0.82 },
+  { transform: `translate${eje}(0px)`, offset: 1 },
+];
+
+/**
+ * El mismo compás, pero DIBUJÁNDOSE primero. Existe porque `shapes` admite UN track por figura:
+ * no se pueden encadenar "primero el trazo, luego el gesto" como dos animaciones, hay que fundirlos
+ * en una sola lista de keyframes. Los offsets se calculan a partir de los del compás (no copiados a
+ * mano) justo para que punta y asta no se puedan desincronizar.
+ */
+const CON_TRAZO = 0.55;
+const conTrazo = (kf: Keyframe[]): Keyframe[] => [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: kf[0]['transform'], offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: kf[0]['transform'], offset: 0.17 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: kf[0]['transform'], offset: 0.42 },
+  ...kf.map((k) => ({
+    strokeDasharray: '1',
+    strokeDashoffset: '0',
+    opacity: '1',
+    transform: k['transform'],
+    offset: Number((CON_TRAZO + (1 - CON_TRAZO) * (k.offset as number)).toFixed(4)),
+  })),
+];
+
+export const puntaTrazoYCompas = (eje: 'X' | 'Y', dir: 1 | -1, salida = 2, agache = 1): Keyframe[] =>
+  conTrazo(puntaCompas(eje, dir, salida, agache));
+
+export const astaTrazoYCompas = (eje: 'X' | 'Y', largo: number, salida = 2, agache = 1): Keyframe[] =>
+  conTrazo(astaCompas(eje, largo, salida, agache));
+
+/** `largo` = cuánto mide el asta en unidades del viewBox. Los offsets son los de `puntaCompas`. */
+export const astaCompas = (eje: 'X' | 'Y', largo: number, salida = 2, agache = 1): Keyframe[] => {
+  const f = (d: number) => `scale${eje}(${Number(((largo + d) / largo).toFixed(4))})`;
+  return [
+    { transform: f(0), offset: 0 },
+    { transform: f(-agache), offset: 0.22 },
+    { transform: f(salida), offset: 0.6 },
+    { transform: f(salida * 0.2), offset: 0.82 },
+    { transform: f(0), offset: 1 },
+  ];
+};
+
 export const SHIELD_GEAR_SPIN = /* @__PURE__ */ [
   { transform: 'scale(1) rotate(0deg)' },
   { transform: 'scale(1.15) rotate(360deg)' },

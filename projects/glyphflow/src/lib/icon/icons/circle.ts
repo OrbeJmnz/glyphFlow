@@ -4,7 +4,67 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { puntaCompas, astaCompas } from './_shared';
 import { circleAlertShapes, circleCheckShapes, circlePlusShapes, circleQuestionMarkShapes, circleShapes, circleXShapes } from '../animated-icons.shapes';
+
+/**
+ * `circle-arrow-*` · el asta mide 8 unidades y la punta sale 2. Antes esto era la variante `hold`
+ * haciendo de `default`: un desplazamiento con `fill: 'forwards'`, o sea un estado y no un gesto.
+ * El estado sigue existiendo — se mudó a `hold`.
+ */
+const ARROW_BEAT_MS = 520;
+const ARROW_SHAFT_LEN = 8;
+
+/**
+ * `circle-chevron-*`: el mismo compás que las flechas, sin asta que seguir. Lo que lo hace suyo es
+ * que el aro RESPONDE — un latido chico y desfasado. Con las dos figuras moviéndose a la vez sería
+ * un bloque; el desfase es lo que se siente vivo.
+ */
+const chevronAdvance = (eje: 'X' | 'Y', dir: 1 | -1): Keyframe[] => [
+  { transform: `translate${eje}(0px)`, offset: 0 },
+  { transform: `translate${eje}(${-1 * dir}px)`, offset: 0.22 },
+  { transform: `translate${eje}(${3 * dir}px)`, offset: 0.6 },
+  { transform: `translate${eje}(${0.6 * dir}px)`, offset: 0.82 },
+  { transform: `translate${eje}(0px)`, offset: 1 },
+];
+
+/** El aro a 1.06 con r=10 llega a 23.6 con su trazo: cabe en la caja, pero por poco. */
+const RING_TAP = /* @__PURE__ */ [
+  { transform: 'scale(1)', offset: 0 },
+  { transform: 'scale(1)', offset: 0.2 },
+  { transform: 'scale(1.06)', offset: 0.45 },
+  { transform: 'scale(1)', offset: 1 },
+];
+
+const CHEVRON_BEAT_MS = 560;
+
+/**
+ * `circle-arrow-out-*`: la diagonal NO se traslada —se separaría del aro, que la sujeta en
+ * (12,12)— sino que se estira desde ahí. Mide 14.142 (10²+10² bajo raíz) y crece 1.414 en
+ * diagonal, que es exactamente 1 en cada eje: (14.142+1.414)/14.142 = 1.1.
+ *
+ * Y sale 1, no 2: el vértice ya está en la esquina del viewBox y con `stroke-width: 2` su trazo
+ * llega al borde. Con 2 se recortaba.
+ */
+const OUT_DIAGONAL = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(1.1)' },
+  { transform: 'scale(1)' },
+];
+const OUT_DIAGONAL_HOLD = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.1)' }];
+
+/**
+ * Los seis círculos CAEN a su sitio, de abajo hacia arriba: primero la fila que apoya en el piso,
+ * después la de en medio y hasta el final la cima. Aparecer todos desde el centro (el `burst` que
+ * traía) no contaba esa historia — una pila se apila.
+ */
+const PILE_DROP = /* @__PURE__ */ [
+  { transform: 'translateY(-10px)', opacity: '0', offset: 0 },
+  { transform: 'translateY(-6px)', opacity: '1', offset: 0.25 },
+  { transform: 'translateY(0)', opacity: '1', offset: 0.68 },
+  { transform: 'translateY(-1.5px)', opacity: '1', offset: 0.84 },
+  { transform: 'translateY(0)', opacity: '1', offset: 1 },
+];
 
 export const circleDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
@@ -172,6 +232,12 @@ export const circleArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1), ARROW_BEAT_MS),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN), ARROW_BEAT_MS, { origin: '12px 8px' }),
+      },
+    },
+    hold: {
+      shapes: {
         1: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 8px' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
       },
@@ -188,6 +254,12 @@ export const circleArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1), ARROW_BEAT_MS),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN), ARROW_BEAT_MS, { origin: '16px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '16px 12px' }),
@@ -206,9 +278,16 @@ export const circleArrowOutDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track(OUT_DIAGONAL, 500, { origin: '12px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(OUT_DIAGONAL_HOLD, 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -222,9 +301,16 @@ export const circleArrowOutDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track(OUT_DIAGONAL, 500, { origin: '12px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, 1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(OUT_DIAGONAL_HOLD, 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, 1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -238,9 +324,16 @@ export const circleArrowOutUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
+        1: /* @__PURE__ */ track(OUT_DIAGONAL, 500, { origin: '12px 12px' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(OUT_DIAGONAL_HOLD, 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, -1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -254,9 +347,16 @@ export const circleArrowOutUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
+        1: /* @__PURE__ */ track(OUT_DIAGONAL, 500, { origin: '12px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, -1px)' }, { transform: 'translate(0, 0)' }], 500),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(OUT_DIAGONAL_HOLD, 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(1px, -1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -269,6 +369,12 @@ export const circleArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1), ARROW_BEAT_MS),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN), ARROW_BEAT_MS, { origin: '8px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '8px 12px' }),
@@ -286,6 +392,12 @@ export const circleArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1), ARROW_BEAT_MS),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN), ARROW_BEAT_MS, { origin: '12px 16px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }], 220, { easing: 'ease-out', fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 16px' }),
@@ -317,8 +429,15 @@ export const circleChevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ chevronAdvance('Y', 1), CHEVRON_BEAT_MS),
+        0: /* @__PURE__ */ track(RING_TAP, CHEVRON_BEAT_MS),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -331,8 +450,15 @@ export const circleChevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ chevronAdvance('X', -1), CHEVRON_BEAT_MS),
+        0: /* @__PURE__ */ track(RING_TAP, CHEVRON_BEAT_MS),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -345,8 +471,15 @@ export const circleChevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(2px)', offset: 0.4 }, { transform: 'translateX(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ chevronAdvance('X', 1), CHEVRON_BEAT_MS),
+        0: /* @__PURE__ */ track(RING_TAP, CHEVRON_BEAT_MS),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -359,8 +492,15 @@ export const circleChevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.4 }, { transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ chevronAdvance('Y', -1), CHEVRON_BEAT_MS),
+        0: /* @__PURE__ */ track(RING_TAP, CHEVRON_BEAT_MS),
       },
+    },
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
@@ -685,12 +825,12 @@ export const circlePileIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 70, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 380, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 290, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 220, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(PILE_DROP, 460, { fill: 'backwards' }),
+        0: /* @__PURE__ */ track(PILE_DROP, 460, { delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(PILE_DROP, 460, { delay: 120, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(PILE_DROP, 460, { delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(PILE_DROP, 460, { delay: 280, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(PILE_DROP, 460, { delay: 380, fill: 'backwards' }),
       },
     },
   },

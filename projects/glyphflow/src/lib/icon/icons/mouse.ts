@@ -3,10 +3,27 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, SPRING_OUT, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { EASE, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { mouseLeftShapes, mouseOffShapes, mousePointer2OffShapes, mousePointer2Shapes, mousePointerBanShapes, mousePointerClickShapes, mousePointerShapes, mouseRightShapes, mouseShapes } from '../animated-icons.shapes';
 
-const CURSOR_PRESS = /* @__PURE__ */ scaleSeq([1, 0.85, 1]);
+/**
+ * El cursor CLICA: se hunde y rebota. Antes era un solo 0.85 de ida y vuelta, y un hundimiento sin
+ * rebote se lee como un parpadeo, no como un clic — lo que hace visible el gesto es el 1.08 de
+ * vuelta, no lo hondo que baje.
+ */
+const CURSOR_PRESS = /* @__PURE__ */ scaleSeq([1, 0.78, 1.08, 1]);
+
+/**
+ * El mouse se aprieta: baja y SE APLASTA a la vez. Antes solo bajaba 1.5, y un cuerpo rígido que
+ * se desplaza no dice "lo apretaron". No baja más de 1.4 porque su base ya está en y=22.
+ */
+const MOUSE_CLICK = /* @__PURE__ */ [
+  { transform: 'translateY(0) scaleY(1)', offset: 0 },
+  { transform: 'translateY(1.4px) scaleY(0.93)', offset: 0.3 },
+  { transform: 'translateY(0) scaleY(1.03)', offset: 0.62 },
+  { transform: 'translateY(0.3px) scaleY(0.99)', offset: 0.82 },
+  { transform: 'translateY(0) scaleY(1)', offset: 1 },
+];
 
 // Deriva orgánica del cursor tras el hundimiento, con dos "clics" — rebotes de escala cortos y
 // visibles pero rápidos — mientras se mueve. offsets absolutos sobre una duración larga (3400ms):
@@ -42,7 +59,7 @@ const CURSOR_WANDER_TRACK = /* @__PURE__ */ [
   { transform: 'translate(0, 0)', offset: 1 },
 ];
 
-const MOUSE_PRESS = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 420, { easing: SPRING_OUT });
+const MOUSE_PRESS = /* @__PURE__ */ track(MOUSE_CLICK, 560, { easing: EASE });
 
 // Después del hundimiento, el mouse deriva solo — fluido y lento, como reposando sobre el escritorio.
 // `ease-in-out` a propósito, no un resorte: un rebote aquí se vería mecánico, no orgánico.
@@ -60,7 +77,7 @@ const MOUSE_WANDER = /* @__PURE__ */ [
 export const mousePointerClickIcon: AnimatedIconDef = /* @__PURE__ */ icon(mousePointerClickShapes, {
     default: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.85, 1]), 400, { origin: '10px 10px' }),
+        4: /* @__PURE__ */ track(CURSOR_PRESS, 400, { origin: '10px 10px' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { delay: 200 }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { delay: 240 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { delay: 280 }),
@@ -157,7 +174,7 @@ export const mousePointerBanIcon: AnimatedIconDef = /* @__PURE__ */ icon(mousePo
   });
 
 export const mouseIcon: AnimatedIconDef = /* @__PURE__ */ icon(mouseShapes, {
-    default: { root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 420, { easing: SPRING_OUT }) },
+    default: { root: MOUSE_PRESS },
   });
 
 /** Clic izquierdo: mismo hundimiento de `mouse`; el punto activo late del lado izquierdo. */

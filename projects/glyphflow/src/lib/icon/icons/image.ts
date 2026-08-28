@@ -3,6 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
+import { puntaCompas } from './_shared';
 import { EASE, SPRING_OUT, track, burst, strokeDraw, icon } from '../choreography';
 import { imageDownShapes, imageMinusShapes, imageOffShapes, imagePlayShapes, imagePlusShapes, imageShapes, imageUpShapes, imageUpscaleShapes } from '../animated-icons.shapes';
 
@@ -33,15 +34,14 @@ export const imageDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(imageDownShap
     default: {
       shapes: {
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 400, { delay: 100 }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 220 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 380 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1, 1.5), 560, { delay: 220, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1, 1.5), 560, { delay: 220, fill: 'backwards' }),
       },
     },
     active: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

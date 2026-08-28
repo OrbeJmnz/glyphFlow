@@ -5,6 +5,7 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 import { bookOpenShapes } from '../animated-icons.shapes';
+import { BADGE_BOUNCE_DRAW, X_SNAP_DRAW, HEART_QUAD_PULSE } from './_shared';
 
 /**
  * El meneo con el que abre TODA la familia: el libro se ladea a un lado y al otro y se asienta.
@@ -20,6 +21,33 @@ const BOOK_WIGGLE = /* @__PURE__ */ [
 
 /** Lo que pasa "al final" arranca cuando el meneo ya terminó. El mismo número que usa `reveal`. */
 const BOOK_AFTER = 620;
+
+/** El desfase entre dos piezas de la MISMA insignia. El mismo que usa `reveal` (620 → 750). */
+const BOOK_STAGGER = 130;
+
+/**
+ * Las tres barras de `book-audio` bailan como un ecualizador. Comparten centro (y = 9.5), así que
+ * lo único que las separa es el desfase — que es justo lo que las hace ver vivas y no un bloque.
+ */
+const BOOK_EQ = /* @__PURE__ */ [
+  { transform: 'scaleY(1)' },
+  { transform: 'scaleY(0.45)' },
+  { transform: 'scaleY(1.35)' },
+  { transform: 'scaleY(0.7)' },
+  { transform: 'scaleY(1)' },
+];
+
+/**
+ * El listón de `book-marked` se estira hacia abajo y se recoge, como si acabaran de meterlo entre
+ * las hojas. Pivota en y=2 —el borde de arriba, que es por donde el listón está cosido al libro—
+ * porque desde el centro parecería que flota.
+ */
+const BOOK_RIBBON_TUCK = /* @__PURE__ */ [
+  { transform: 'scaleY(1)' },
+  { transform: 'scaleY(1.22)' },
+  { transform: 'scaleY(0.92)' },
+  { transform: 'scaleY(1)' },
+];
 
 /** La flecha baja y vuelve. Asta y punta comparten track: si solo bajara una, se partirían. */
 const BOOK_ARROW_DIP = /* @__PURE__ */ [
@@ -144,6 +172,10 @@ export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 11px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -165,6 +197,11 @@ export const bookAudioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        3: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '8px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BOOK_EQ, 640, { easing: EASE, origin: '16px 9.5px', delay: BOOK_AFTER + 180, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -257,6 +294,8 @@ export const bookHeadphonesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
       },
     },
   },
@@ -271,6 +310,9 @@ export const bookHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(HEART_QUAD_PULSE, 900, { easing: EASE, origin: '12px 9.4px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -298,6 +340,7 @@ export const bookImageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
       },
     },
   },
@@ -324,8 +367,9 @@ export const bookKeyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
-        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 880, fill: 'backwards' }),
       },
     },
   },
@@ -348,7 +392,8 @@ export const bookLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
       },
     },
   },
@@ -362,6 +407,9 @@ export const bookMarkedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BOOK_RIBBON_TUCK, 520, { easing: EASE, origin: '13px 2px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -380,6 +428,9 @@ export const bookMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -444,6 +495,10 @@ export const bookPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -489,6 +544,11 @@ export const bookTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 7px', delay: BOOK_AFTER, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 13px', delay: BOOK_AFTER + 180, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
@@ -562,11 +622,16 @@ export const bookUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 8px', delay: BOOK_AFTER, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 12px', delay: BOOK_AFTER + BOOK_STAGGER, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 320, { easing: 'ease-out', delay: 750, fill: 'backwards' }),
       },
     },
   },
@@ -581,6 +646,10 @@ export const bookXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      shapes: {
+        0: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER + 90, fill: 'backwards' }),
+      },
     },
     reveal: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: 'ease' }),

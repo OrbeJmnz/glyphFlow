@@ -3,7 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, SPRING_OUT, SPRING_BOUNCY, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { calendar1Shapes, calendarArrowDownShapes, calendarArrowUpShapes, calendarCheck2Shapes, calendarCheckShapes, calendarClockShapes, calendarCogShapes, calendarDaysShapes, calendarFoldShapes, calendarHeartShapes, calendarMinus2Shapes, calendarMinusShapes, calendarOffShapes, calendarPlus2Shapes, calendarPlusShapes, calendarRangeShapes, calendarSearchShapes, calendarShapes, calendarSyncShapes, calendarX2Shapes, calendarXShapes } from '../animated-icons.shapes';
 import { HEART_QUAD_PULSE, FOLD_CHIDA, BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN, SHIELD_GEAR_SPIN } from './_shared';
 
@@ -18,17 +18,59 @@ const SEARCH_TILT = /* @__PURE__ */ rotateSeq([0, 17, -10, 5, -1, 0]);
 
 const CALENDAR_PIN = /* @__PURE__ */ moveYSeq([0, -1.5, 0]);
 
-/** El asta baja primero, la punta llega al final — como si la fecha aterrizara. */
-const ARROW_DOWN_NUDGE = /* @__PURE__ */ [
-  { transform: 'translate(0, 0)' },
-  { transform: 'translate(0, 3px)' },
-  { transform: 'translate(0, 0)' },
+/**
+ * La punta viaja y el asta LA ACOMPAÑA. Trasladar solo la punta parte la flecha en dos (cicatriz
+ * general de las flechas): el asta se estira exactamente lo que la punta se aleja, con el
+ * `origin` en el extremo que NO se mueve. Asta de 8 unidades, punta que viaja 1 → 9/8 = 1.125.
+ *
+ * Y hacia AFUERA solo hay 1 unidad de recorrido: la punta ya está pegada al borde del viewBox.
+ * Lo que hace legible el gesto es la agachada previa de 1.5 hacia adentro ((8-1.5)/8 = 0.8125),
+ * el mismo truco de `book-up-2`.
+ *
+ * `dir`: +1 la punta sale hacia abajo, -1 hacia arriba.
+ */
+const arrowTipTravel = (dir: 1 | -1): Keyframe[] => [
+  { transform: 'translate(0, 0) scale(0.3)', opacity: '0', offset: 0 },
+  { transform: 'translate(0, 0) scale(0.3)', opacity: '0', offset: 0.38 },
+  { transform: 'translate(0, 0) scale(1.12)', opacity: '1', offset: 0.51 },
+  { transform: 'translate(0, 0) scale(1)', opacity: '1', offset: 0.62 },
+  { transform: `translate(0, ${-1.5 * dir}px) scale(1)`, opacity: '1', offset: 0.75 },
+  { transform: `translate(0, ${1 * dir}px) scale(1)`, opacity: '1', offset: 0.89 },
+  { transform: 'translate(0, 0) scale(1)', opacity: '1', offset: 1 },
 ];
 
-const ARROW_UP_NUDGE = /* @__PURE__ */ [
-  { transform: 'translate(0, 0)' },
-  { transform: 'translate(0, -3px)' },
-  { transform: 'translate(0, 0)' },
+/** El asta: se dibuja, y después se estira/encoge al ritmo EXACTO de la punta. */
+const ARROW_SHAFT_TRAVEL: Keyframe[] = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'scaleY(1)', offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'scaleY(1)', offset: 0.24 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 0.44 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 0.62 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(0.8125)', offset: 0.75 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1.125)', offset: 0.89 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 1 },
+];
+
+/** `nudge` = el mismo viaje, con más recorrido y un rebote de vuelta. */
+const arrowTipNudge = (dir: 1 | -1): Keyframe[] => [
+  { transform: 'translate(0, 0) scale(0.3)', opacity: '0', offset: 0 },
+  { transform: 'translate(0, 0) scale(0.3)', opacity: '0', offset: 0.38 },
+  { transform: 'translate(0, 0) scale(1.12)', opacity: '1', offset: 0.51 },
+  { transform: 'translate(0, 0) scale(1)', opacity: '1', offset: 0.6 },
+  { transform: `translate(0, ${-2 * dir}px) scale(1)`, opacity: '1', offset: 0.72 },
+  { transform: `translate(0, ${1 * dir}px) scale(1)`, opacity: '1', offset: 0.84 },
+  { transform: `translate(0, ${-0.6 * dir}px) scale(1)`, opacity: '1', offset: 0.93 },
+  { transform: 'translate(0, 0) scale(1)', opacity: '1', offset: 1 },
+];
+
+const ARROW_SHAFT_NUDGE: Keyframe[] = /* @__PURE__ */ [
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'scaleY(1)', offset: 0 },
+  { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', transform: 'scaleY(1)', offset: 0.24 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 0.44 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 0.6 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(0.75)', offset: 0.72 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1.125)', offset: 0.84 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(0.925)', offset: 0.93 },
+  { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', transform: 'scaleY(1)', offset: 1 },
 ];
 
 /** Mismo criterio que `server-cog`/`shield-cog`: el engrane gira, el calendario se queda quieto. */
@@ -140,16 +182,16 @@ export const calendarArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(calen
       shapes: {
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 280, { delay: 420 }),
+        2: /* @__PURE__ */ track(ARROW_SHAFT_TRAVEL, 1100, { origin: '18px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipTravel(1), 1100),
       },
     },
     nudge: {
       shapes: {
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
-        0: /* @__PURE__ */ track(ARROW_DOWN_NUDGE, 400, { delay: 480, easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(ARROW_SHAFT_NUDGE, 1100, { origin: '18px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipNudge(1), 1100),
       },
     },
   });
@@ -159,16 +201,16 @@ export const calendarArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(calenda
       shapes: {
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 280, { delay: 420 }),
+        2: /* @__PURE__ */ track(ARROW_SHAFT_TRAVEL, 1100, { origin: '18px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipTravel(-1), 1100),
       },
     },
     nudge: {
       shapes: {
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
-        0: /* @__PURE__ */ track(ARROW_UP_NUDGE, 400, { delay: 480, easing: SPRING_BOUNCY }),
+        2: /* @__PURE__ */ track(ARROW_SHAFT_NUDGE, 1100, { origin: '18px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipNudge(-1), 1100),
       },
     },
   });

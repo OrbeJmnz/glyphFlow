@@ -193,10 +193,19 @@ export const mapPinXInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinXIn
 /** Mapa desdoblándose. */
 export const mapIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapShapes, {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scaleX(0.88)' }, { transform: 'scaleX(1)' }], 500, {
-        easing: SPRING_OUT,
-        origin: 'center',
-      }),
+      // Se despliega de verdad: 0.72 → 1.05 → 1. El 0.88 de antes es un 12% de recorrido y en un
+      // icono de 18 de ancho eso son dos unidades — no se ve. El tope de salida es 1.05: el mapa
+      // llega a x=21 y con su trazo a 22, así que 12 + 9·1.05 = 21.45 es lo último que cabe.
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'scaleX(0.72)', offset: 0 },
+          { transform: 'scaleX(1.05)', offset: 0.62 },
+          { transform: 'scaleX(0.98)', offset: 0.82 },
+          { transform: 'scaleX(1)', offset: 1 },
+        ],
+        620,
+        { easing: EASE, origin: 'center' },
+      ),
     },
   });
 

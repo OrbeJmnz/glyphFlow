@@ -3,7 +3,8 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { puntaCompas, astaCompas, REFRESH_SPIN } from './_shared';
+import { EASE, moveYSeq, rotateSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { cloudUploadShapes } from '../animated-icons.shapes';
 import { SHIELD_GEAR_SPIN } from './_shared';
 
@@ -321,12 +322,16 @@ export const cloudOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 
 /** Subir a la nube: la flecha se va para arriba. */
 export const cloudUploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(cloudUploadShapes, {
-    default: { shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 550) } },
+    default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2, 1), 560),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 8, 2, 1), 560, { origin: '12px 21px' }),
+      },
+    },
     active: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
-        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.25)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards', origin: '12px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -543,6 +548,22 @@ export const cloudSunIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 );
 
 /** Las dos flechas del ciclo: cada arco primero y su punta después, o la punta se despega. */
+/** `cloud-sync` son dos flechas que ya forman un círculo: caja x 7–17, y 10–22 → pivote (12, 16). */
+const CLOUD_SYNC_PIVOT = '12px 16px';
+
+/**
+ * `hold`: mientras el puntero se queda encima, el lazo NO se detiene tras una vuelta — sigue
+ * girando a la MISMA velocidad angular que el lap único de `default` (360° en 1200ms = 300°/s)
+ * hasta que el puntero se va. WAAPI no tiene un `iterations` por figura (`track()`/`TrackOpts` solo
+ * exponen `delay`/`easing`/`origin`/`fill` — "sin fin" real es del componente entero, vía el
+ * input `loop`, no de una variante suelta). Se resuelve con muchas vueltas de sobra —20, unos
+ * 24s— y `fill: 'forwards'` + `reverseOnLeave`: al salir el puntero, `reverse()` frena y devuelve
+ * la vuelta actual hasta 0° en vez de cortarla en seco a mitad de giro.
+ */
+const CLOUD_HOLD_SPIN_MS = 24000;
+const CLOUD_HOLD_SPIN_CW = /* @__PURE__ */ rotateSeq([0, 20 * 360]);
+const CLOUD_HOLD_SPIN_CCW = /* @__PURE__ */ rotateSeq([0, -20 * 360]);
+
 export const cloudSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m17 18-1.535 1.605a5 5 0 0 1-8-1.5" },
@@ -554,15 +575,32 @@ export const cloudSyncIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 480, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 620, fill: 'backwards' }),
         2: /* @__PURE__ */ track(CLOUD_DRIFT, 1400, { easing: 'ease-in-out' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 340, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(REFRESH_SPIN, 1200, { origin: CLOUD_SYNC_PIVOT }),
+        1: /* @__PURE__ */ track(REFRESH_SPIN, 1200, { origin: CLOUD_SYNC_PIVOT }),
+        3: /* @__PURE__ */ track(REFRESH_SPIN, 1200, { origin: CLOUD_SYNC_PIVOT }),
+        4: /* @__PURE__ */ track(REFRESH_SPIN, 1200, { origin: CLOUD_SYNC_PIVOT }),
       },
+    },
+    hold: {
+      shapes: {
+        0: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_SYNC_PIVOT }),
+        1: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_SYNC_PIVOT }),
+        3: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_SYNC_PIVOT }),
+        4: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_SYNC_PIVOT }),
+      },
+      reverseOnLeave: true,
     },
   },
 );
+
+/**
+ * El lazo de `cloud-backup` (arco + punta) da UNA vuelta completa sobre su propio centro. Su caja
+ * real es x 7–17, y 11.5–19 → pivote (12.2, 15.4). Gira en CONTRARREL0J porque es el sentido en el
+ * que su propia punta apunta: al revés se lee como si rebobinara al derecho.
+ */
+const CLOUD_SPIN_CCW = /* @__PURE__ */ rotateSeq([0, -360]);
+const CLOUD_BACKUP_PIVOT = '12.2px 15.4px';
 
 /** El arco da la vuelta y la punta lo cierra. */
 export const cloudBackupIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -575,9 +613,17 @@ export const cloudBackupIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         0: /* @__PURE__ */ track(CLOUD_DRIFT, 1400, { easing: 'ease-in-out' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 400, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(CLOUD_SPIN_CCW, 1200, { origin: CLOUD_BACKUP_PIVOT }),
+        2: /* @__PURE__ */ track(CLOUD_SPIN_CCW, 1200, { origin: CLOUD_BACKUP_PIVOT }),
       },
+    },
+    /** Mismo criterio de "sin fin hasta soltar" que `cloud-sync:hold`, en contrarreloj. */
+    hold: {
+      shapes: {
+        1: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CCW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_BACKUP_PIVOT }),
+        2: /* @__PURE__ */ track(CLOUD_HOLD_SPIN_CCW, CLOUD_HOLD_SPIN_MS, { easing: 'linear', fill: 'forwards', origin: CLOUD_BACKUP_PIVOT }),
+      },
+      reverseOnLeave: true,
     },
   },
 );

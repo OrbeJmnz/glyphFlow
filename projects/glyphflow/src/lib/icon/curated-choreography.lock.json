@@ -11465,7 +11465,7 @@
       "draw": "17c8398e8d34"
     },
     "book-a": {
-      "default": "4df4a48c8083",
+      "default": "2ec016b1494f",
       "draw": "17c8398e8d34",
       "reveal": "b19e1974e5ef"
     },
@@ -11474,7 +11474,7 @@
       "draw": "17c8398e8d34"
     },
     "book-audio": {
-      "default": "4df4a48c8083",
+      "default": "a7cd3b3a33e2",
       "draw": "17c8398e8d34",
       "reveal": "9845652b9bbc"
     },
@@ -11498,35 +11498,35 @@
     "book-headphones": {
       "default": "f3c580d9ecd3",
       "draw": "17c8398e8d34",
-      "reveal": "e05a65a2ad47"
+      "reveal": "3d7d3f3d9c96"
     },
     "book-heart": {
-      "default": "4df4a48c8083",
+      "default": "c3001ce8ce65",
       "draw": "17c8398e8d34",
       "reveal": "e05a65a2ad47"
     },
     "book-image": {
       "default": "f43de6b23ee0",
       "draw": "17c8398e8d34",
-      "reveal": "1073d5cd28a5"
+      "reveal": "a490ef7b7e3c"
     },
     "book-key": {
       "default": "c73cd4436991",
       "draw": "17c8398e8d34",
-      "reveal": "b19e1974e5ef"
+      "reveal": "e4886f80ab3c"
     },
     "book-lock": {
       "default": "748e093153c3",
       "draw": "17c8398e8d34",
-      "reveal": "1073d5cd28a5"
+      "reveal": "3061361c7239"
     },
     "book-marked": {
-      "default": "4df4a48c8083",
+      "default": "7f6440842d18",
       "draw": "17c8398e8d34",
       "reveal": "1073d5cd28a5"
     },
     "book-minus": {
-      "default": "4df4a48c8083",
+      "default": "fc10569850ec",
       "draw": "17c8398e8d34",
       "reveal": "e05a65a2ad47"
     },
@@ -11545,7 +11545,7 @@
       "draw": "17c8398e8d34"
     },
     "book-plus": {
-      "default": "4df4a48c8083",
+      "default": "b6858f5423af",
       "draw": "17c8398e8d34",
       "reveal": "a490ef7b7e3c"
     },
@@ -11559,7 +11559,7 @@
       "reveal": "b19e1974e5ef"
     },
     "book-type": {
-      "default": "4df4a48c8083",
+      "default": "86db6862ccb5",
       "draw": "17c8398e8d34",
       "reveal": "4798916c79be"
     },
@@ -11574,12 +11574,12 @@
       "reveal": "76a3a8f8b813"
     },
     "book-user": {
-      "default": "4df4a48c8083",
+      "default": "8c32ac3188cd",
       "draw": "17c8398e8d34",
-      "reveal": "1073d5cd28a5"
+      "reveal": "23eae1bf819e"
     },
     "book-x": {
-      "default": "4df4a48c8083",
+      "default": "ffe0db1a8c54",
       "draw": "17c8398e8d34",
       "reveal": "a490ef7b7e3c"
     },
@@ -11806,14 +11806,14 @@
       "quick": "5eaa5c1f1279"
     },
     "calendar-arrow-down": {
-      "default": "0756dd509eb8",
+      "default": "deac980ba1d1",
       "draw": "17c8398e8d34",
-      "nudge": "2214306e27c0"
+      "nudge": "f28c357cafac"
     },
     "calendar-arrow-up": {
-      "default": "0756dd509eb8",
+      "default": "2fc757926cdc",
       "draw": "17c8398e8d34",
-      "nudge": "fd545e6bc0a1"
+      "nudge": "219f75000925"
     },
     "calendar-check": {
       "default": "b8501868e867",
@@ -12244,36 +12244,44 @@
       "draw": "17c8398e8d34"
     },
     "circle-arrow-down": {
-      "default": "0ee8aefe6f88",
-      "draw": "17c8398e8d34"
+      "default": "a65c1205dd41",
+      "draw": "17c8398e8d34",
+      "hold": "0ee8aefe6f88"
     },
     "circle-arrow-left": {
-      "default": "8b77022a64d0",
-      "draw": "17c8398e8d34"
+      "default": "179d9b9992ca",
+      "draw": "17c8398e8d34",
+      "hold": "8b77022a64d0"
     },
     "circle-arrow-out-down-left": {
-      "default": "2508b5b2dc4b",
-      "draw": "17c8398e8d34"
+      "default": "69d168d5164b",
+      "draw": "17c8398e8d34",
+      "hold": "a48526401ddd"
     },
     "circle-arrow-out-down-right": {
-      "default": "c4fedbba8f1d",
-      "draw": "17c8398e8d34"
+      "default": "2b4d6d9eab19",
+      "draw": "17c8398e8d34",
+      "hold": "274e109b46d4"
     },
     "circle-arrow-out-up-left": {
-      "default": "76b29b540935",
-      "draw": "17c8398e8d34"
+      "default": "ae36f56a4fcc",
+      "draw": "17c8398e8d34",
+      "hold": "4cf7861fc1da"
     },
     "circle-arrow-out-up-right": {
-      "default": "2400be42362a",
-      "draw": "17c8398e8d34"
+      "default": "e799cb0df2ec",
+      "draw": "17c8398e8d34",
+      "hold": "6bda17c806e8"
     },
     "circle-arrow-right": {
-      "default": "3c05fa121b81",
-      "draw": "17c8398e8d34"
+      "default": "b4bf840d82c1",
+      "draw": "17c8398e8d34",
+      "hold": "3c05fa121b81"
     },
     "circle-arrow-up": {
-      "default": "600accb6d91f",
-      "draw": "17c8398e8d34"
+      "default": "d5ca43b7e342",
+      "draw": "17c8398e8d34",
+      "hold": "600accb6d91f"
     },
     "circle-check": {
       "default": "3c62dd4dedb5",
@@ -12285,20 +12293,24 @@
       "draw": "17c8398e8d34"
     },
     "circle-chevron-down": {
-      "default": "ac182bfd9cf8",
-      "draw": "17c8398e8d34"
+      "default": "f82807ed8d48",
+      "draw": "17c8398e8d34",
+      "hold": "de4c6bfd8d9a"
     },
     "circle-chevron-left": {
-      "default": "5095f2b946ba",
-      "draw": "17c8398e8d34"
+      "default": "af63f311cd4b",
+      "draw": "17c8398e8d34",
+      "hold": "037bdd0a4183"
     },
     "circle-chevron-right": {
-      "default": "cfeb805465c7",
-      "draw": "17c8398e8d34"
+      "default": "e3f8738e242a",
+      "draw": "17c8398e8d34",
+      "hold": "6beecaad4984"
     },
     "circle-chevron-up": {
-      "default": "4787b6284424",
-      "draw": "17c8398e8d34"
+      "default": "d9638fe01ad2",
+      "draw": "17c8398e8d34",
+      "hold": "507bd3faf0e9"
     },
     "circle-dashed": {
       "default": "989947559b6f",
@@ -12369,7 +12381,7 @@
       "draw": "17c8398e8d34"
     },
     "circle-pile": {
-      "default": "f88d682ab13a",
+      "default": "469b9adf7fc6",
       "draw": "17c8398e8d34"
     },
     "circle-play": {
@@ -12456,9 +12468,10 @@
       "spin": "f7204306d641"
     },
     "clipboard-copy": {
-      "default": "9abc22d188ff",
+      "default": "d54cba53003a",
       "draw": "17c8398e8d34",
-      "peel": "bbc0401d06ed"
+      "hold": "8d3f960cdac5",
+      "peel": "fc36525ee93c"
     },
     "clipboard-list": {
       "active": "3235a750051a",
@@ -12561,20 +12574,24 @@
       "draw": "17c8398e8d34"
     },
     "clock-arrow-down": {
-      "default": "0dc26f2ea3e1",
-      "draw": "17c8398e8d34"
+      "default": "70638aea4bed",
+      "draw": "17c8398e8d34",
+      "hold": "a3066c958368"
     },
     "clock-arrow-left": {
-      "default": "44dccb0e7dfa",
-      "draw": "17c8398e8d34"
+      "default": "594ad8305288",
+      "draw": "17c8398e8d34",
+      "hold": "b2485df76914"
     },
     "clock-arrow-right": {
-      "default": "13c3c7ad1045",
-      "draw": "17c8398e8d34"
+      "default": "30db11d1169f",
+      "draw": "17c8398e8d34",
+      "hold": "1bd8978193f9"
     },
     "clock-arrow-up": {
-      "default": "0dc26f2ea3e1",
-      "draw": "17c8398e8d34"
+      "default": "5b0c4b585eba",
+      "draw": "17c8398e8d34",
+      "hold": "8044a78727e0"
     },
     "clock-check": {
       "default": "d19836e143c1",
@@ -12602,8 +12619,9 @@
       "draw": "17c8398e8d34"
     },
     "cloud-backup": {
-      "default": "dbf4924a1fb5",
-      "draw": "17c8398e8d34"
+      "default": "ab47b31202cb",
+      "draw": "17c8398e8d34",
+      "hold": "3ad4f6164fc6"
     },
     "cloud-check": {
       "default": "e179a932e0e8",
@@ -12666,12 +12684,13 @@
       "draw": "17c8398e8d34"
     },
     "cloud-sync": {
-      "default": "04fe98f081e9",
-      "draw": "17c8398e8d34"
+      "default": "6b1507e7a5bf",
+      "draw": "17c8398e8d34",
+      "hold": "3eeed98398b4"
     },
     "cloud-upload": {
-      "active": "866eb285b8f1",
-      "default": "bd7c6467fb67",
+      "active": "fbdfb7d1d96c",
+      "default": "89836b702da3",
       "draw": "17c8398e8d34"
     },
     "cloudy": {
@@ -12714,11 +12733,11 @@
       "hold": "3e194ba15d82"
     },
     "columns-2": {
-      "default": "d03dca345eb0",
+      "default": "acd6b3302f35",
       "draw": "17c8398e8d34"
     },
     "columns-3": {
-      "default": "438da399d6d2",
+      "default": "fdb1d5960a87",
       "draw": "17c8398e8d34"
     },
     "columns-3-cog": {
@@ -12726,7 +12745,7 @@
       "draw": "17c8398e8d34"
     },
     "columns-4": {
-      "default": "55eb1edb96eb",
+      "default": "3d600b6e9e5a",
       "draw": "17c8398e8d34"
     },
     "combine": {
@@ -12800,30 +12819,30 @@
       "draw": "17c8398e8d34"
     },
     "copy-check": {
-      "default": "0272a56c14d8",
+      "default": "b47da84b418b",
       "draw": "17c8398e8d34",
-      "peel": "b741469f7845",
+      "peel": "f53cdb2747e6",
       "reveal": "100d9decc6df"
     },
     "copy-minus": {
-      "default": "a7c071da7bb8",
+      "default": "86883dfc3baf",
       "draw": "17c8398e8d34",
-      "peel": "4dc92af997fd"
+      "peel": "bd932734acd9"
     },
     "copy-plus": {
-      "default": "9b3f5ea7d0cb",
+      "default": "a8c1c56689ce",
       "draw": "17c8398e8d34",
-      "peel": "86617f8cd358"
+      "peel": "a633db187d32"
     },
     "copy-slash": {
-      "default": "8302a94893fd",
+      "default": "c60f8cfdd682",
       "draw": "17c8398e8d34",
-      "peel": "f3c1909bab7e"
+      "peel": "dd5e6dfabd84"
     },
     "copy-x": {
-      "default": "d0906e28860e",
+      "default": "5e796a03de48",
       "draw": "17c8398e8d34",
-      "peel": "be20847b7d0b"
+      "peel": "52afad32d3bf"
     },
     "copyleft": {
       "default": "cc0f5f66e375",
@@ -13019,27 +13038,27 @@
       "draw": "17c8398e8d34"
     },
     "dice-1": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dice-2": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dice-3": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dice-4": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dice-5": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dice-6": {
-      "default": "9379473bebd8",
+      "default": "5c855624fd7c",
       "draw": "17c8398e8d34"
     },
     "dices": {
@@ -13235,7 +13254,7 @@
       "draw": "17c8398e8d34"
     },
     "eraser": {
-      "default": "c6371da7f4c6",
+      "default": "b8c77f48ab74",
       "draw": "17c8398e8d34",
       "hold": "418cc4b986cd"
     },
@@ -13260,7 +13279,8 @@
     },
     "external-link": {
       "default": "f2f07b404897",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "hold": "b964cd84adf4"
     },
     "eye": {
       "default": "7c5a435375e6",
@@ -13318,8 +13338,9 @@
       "hold": "b102a0ce4b4c"
     },
     "fast-forward": {
-      "default": "f0f018b72b52",
-      "draw": "17c8398e8d34"
+      "default": "11f9616ec7c6",
+      "draw": "17c8398e8d34",
+      "hold": "b25985bdc12f"
     },
     "feather": {
       "default": "42adf4fcfdc9",
@@ -14077,9 +14098,9 @@
       "draw": "17c8398e8d34"
     },
     "glass-water": {
-      "default": "6ec6aaf84c7c",
+      "default": "87f9335269e4",
       "draw": "17c8398e8d34",
-      "hold": "5fe915b38ba9"
+      "hold": "5e5bbeb9b19b"
     },
     "glasses": {
       "default": "6070e87019fd",
@@ -14151,11 +14172,11 @@
       "flash": "99d5c974e8ef"
     },
     "grid-3x2": {
-      "default": "ac7494c94355",
+      "default": "b2095a9695b6",
       "draw": "17c8398e8d34"
     },
     "grid-3x3": {
-      "default": "f2df09da64e1",
+      "default": "a566568bbed6",
       "draw": "17c8398e8d34"
     },
     "grip": {
@@ -14177,9 +14198,9 @@
       "hold": "5aa2dfeeef84"
     },
     "guitar": {
-      "default": "cddad0245a6c",
+      "default": "7e1d105b41fa",
       "draw": "17c8398e8d34",
-      "hold": "33956fad3202"
+      "hold": "c64fd00e1056"
     },
     "ham": {
       "default": "3246aa74f7c5",
@@ -14277,31 +14298,31 @@
       "hold": "e287ed3fef58"
     },
     "heading": {
-      "default": "5a9bf3d1c865",
+      "default": "77dbc268ed24",
       "draw": "17c8398e8d34"
     },
     "heading-1": {
-      "default": "d33970bd5c3a",
+      "default": "f0c149c70470",
       "draw": "17c8398e8d34"
     },
     "heading-2": {
-      "default": "d33970bd5c3a",
+      "default": "f0c149c70470",
       "draw": "17c8398e8d34"
     },
     "heading-3": {
-      "default": "749c1bbf8e8c",
+      "default": "7c074dc72114",
       "draw": "17c8398e8d34"
     },
     "heading-4": {
-      "default": "d64d578d0903",
+      "default": "004a1f8d13f8",
       "draw": "17c8398e8d34"
     },
     "heading-5": {
-      "default": "749c1bbf8e8c",
+      "default": "7c074dc72114",
       "draw": "17c8398e8d34"
     },
     "heading-6": {
-      "default": "749c1bbf8e8c",
+      "default": "7c074dc72114",
       "draw": "17c8398e8d34"
     },
     "headphone-off": {
@@ -14443,8 +14464,8 @@
       "draw": "17c8398e8d34"
     },
     "image-down": {
-      "active": "0cf448823338",
-      "default": "b6ec0029f827",
+      "active": "a13571825586",
+      "default": "0d23ca8fddc7",
       "draw": "17c8398e8d34"
     },
     "image-minus": {
@@ -14510,11 +14531,11 @@
       "draw": "17c8398e8d34"
     },
     "iteration-ccw": {
-      "default": "d7a51dec3bb1",
+      "default": "e6a7e73536e0",
       "draw": "17c8398e8d34"
     },
     "iteration-cw": {
-      "default": "c3f73d7c5a62",
+      "default": "b2cf40c11973",
       "draw": "17c8398e8d34"
     },
     "japanese-yen": {
@@ -14606,7 +14627,7 @@
       "draw": "17c8398e8d34"
     },
     "laptop": {
-      "default": "637886098344",
+      "default": "1671f99acf61",
       "draw": "17c8398e8d34"
     },
     "laptop-minimal": {
@@ -14926,9 +14947,10 @@
       "draw": "17c8398e8d34"
     },
     "log-out": {
-      "default": "021ff3fc2560",
+      "default": "95bbf3e944de",
       "draw": "17c8398e8d34",
-      "nudge": "cd75c9e7b02d"
+      "hold": "097e11447efe",
+      "nudge": "fd1462a0131a"
     },
     "logs": {
       "default": "d2136f17c66c",
@@ -15011,7 +15033,7 @@
       "hold": "8c82b911168a"
     },
     "map": {
-      "default": "ecece17e15d6",
+      "default": "b7b6294f2591",
       "draw": "17c8398e8d34"
     },
     "map-minus": {
@@ -15443,11 +15465,11 @@
       "draw": "17c8398e8d34"
     },
     "mouse": {
-      "default": "e445e363d77c",
+      "default": "d4b5a1b838c7",
       "draw": "17c8398e8d34"
     },
     "mouse-left": {
-      "default": "e31e0b1477c0",
+      "default": "98d902038dbb",
       "draw": "17c8398e8d34",
       "wander": "d144da02da60"
     },
@@ -15457,13 +15479,13 @@
       "draw": "17c8398e8d34"
     },
     "mouse-pointer": {
-      "default": "b81bf7adaf96",
+      "default": "b88e7cbd03b1",
       "draw": "17c8398e8d34",
       "nudge": "51cc4649cd28",
       "wander": "2045b4d11bc2"
     },
     "mouse-pointer-2": {
-      "default": "577e06d24b21",
+      "default": "baca3f5287da",
       "draw": "17c8398e8d34",
       "nudge": "51cc4649cd28",
       "wander": "d54ea66981e3"
@@ -15473,16 +15495,16 @@
       "draw": "17c8398e8d34"
     },
     "mouse-pointer-ban": {
-      "default": "f483e4fb1726",
+      "default": "2f4b6d7b9b7e",
       "draw": "17c8398e8d34",
       "wander": "7c010199e743"
     },
     "mouse-pointer-click": {
-      "default": "1d0c20df398c",
+      "default": "c38683bf4007",
       "draw": "17c8398e8d34"
     },
     "mouse-right": {
-      "default": "e31e0b1477c0",
+      "default": "98d902038dbb",
       "draw": "17c8398e8d34",
       "wander": "d144da02da60"
     },
@@ -15557,7 +15579,7 @@
       "draw": "17c8398e8d34"
     },
     "music-4": {
-      "default": "f5ebc25a1f63",
+      "default": "41e444ac3a58",
       "draw": "17c8398e8d34"
     },
     "navigation": {
@@ -16081,9 +16103,9 @@
       "turn": "c9590aa809d0"
     },
     "pocket-knife": {
-      "default": "15f39896e8bc",
+      "default": "c62d35e6f468",
       "draw": "17c8398e8d34",
-      "hold": "d90bf0645c91"
+      "hold": "de22dd64f651"
     },
     "podium": {
       "default": "87a3388a81f6",
@@ -17439,7 +17461,8 @@
     },
     "step-forward": {
       "default": "c28c59a69cd9",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "hold": "5462b17a46e1"
     },
     "stethoscope": {
       "default": "712ab09381a5",
