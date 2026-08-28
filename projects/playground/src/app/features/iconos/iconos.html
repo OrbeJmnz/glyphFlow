@@ -54,10 +54,36 @@
     [etiqueta]="'iconos.hero.buscarEtiqueta' | transloco"
   />
 
+  <!--
+    El comando de instalación es un BOTÓN que copia, no un enlace a npmjs.
+
+    Era un enlace, y el botón de copiar tenía que ir dentro — un `<button>` dentro de un `<a>` es
+    markup inválido y un destino de clic ambiguo. Cambiarlo de función además lo mejora: lo que
+    alguien quiere de la portada de una librería es el comando en el portapapeles, no otra pestaña
+    con la ficha de npm. El enlace a npm sigue en el pie, que es donde se busca.
+
+    El icono hace `copy → check` con morph, como el resto de las acciones de copiado del sitio.
+  -->
   <div class="acciones">
-    <a app-boton variante="primario" href="https://www.npmjs.com/package/glyphflow" rel="noopener">
-      <span class="mono degradado-comando">npm i glyphflow</span>
-    </a>
+    <button
+      type="button"
+      app-boton
+      variante="primario"
+      class="instalar"
+      [class.copiado]="copiadoInstalar()"
+      [attr.aria-label]="etiquetaCopiarInstalacion()"
+      (click)="copiarInstalacion()"
+    >
+      <span class="mono degradado-comando">{{ COMANDO_INSTALAR }}</span>
+      <!--
+        La copia va en su propia zona, separada por un filete y sobre un fondo más claro: el botón
+        entero es la acción, pero el ojo necesita ver DÓNDE está el gesto — sin eso, un comando y
+        un icono sueltos en la misma caja se leen como una etiqueta con adorno.
+      -->
+      <span class="instalar-copia" aria-hidden="true">
+        <gf-icon-morph [icon]="iconoCopiarInstalacion()" [size]="15" spring="bouncy" />
+      </span>
+    </button>
     <a app-boton [routerLink]="rutas.a('docs')">{{ 'iconos.hero.empezar' | transloco }}</a>
   </div>
 

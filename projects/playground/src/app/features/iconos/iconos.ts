@@ -293,6 +293,40 @@ export class Iconos implements OnDestroy {
   /** Cuántos resultados quedan fuera de los seis del hero — lo que anuncia el botón de bajar. */
   protected readonly restantes = computed(() => Math.max(0, this.entries().length - 6));
 
+  /**
+   * El comando que la portada ofrece copiar. Constante y no traducible: es literalmente lo que hay
+   * que teclear, igual en los dos idiomas.
+   */
+  protected readonly COMANDO_INSTALAR = 'npm i glyphflow';
+
+  /**
+   * Su propio `Copiador`, y no el de la sección de API: son dos botones que pueden estar en
+   * acuse a la vez, y compartir el estado haría que copiar uno pusiera el otro en «copiado».
+   * La CLASE sí se comparte — la lógica del portapapeles y su temporizador viven en un solo sitio.
+   */
+  private readonly copiadorInstalar = new Copiador();
+
+  /** `copy → check` con morph, el mismo gesto que el resto de las acciones de copiado del sitio. */
+  protected readonly iconoCopiarInstalacion = computed<MorphIcon>(() =>
+    this.copiadorInstalar.copiado() ? checkIcon : this.copyIconPlano,
+  );
+
+  /** El nombre accesible cambia con el estado: sin eso, un lector de pantalla no se entera. */
+  protected readonly etiquetaCopiarInstalacion = translateSignal(
+    computed(() =>
+      this.copiadorInstalar.copiado()
+        ? 'iconos.hero.instalarCopiado'
+        : 'iconos.hero.instalarCopiar',
+    ),
+  );
+
+  /** Lo lee la plantilla para el acuse visual, que es distinto del rótulo accesible. */
+  protected readonly copiadoInstalar = this.copiadorInstalar.copiado;
+
+  protected copiarInstalacion(): void {
+    void this.copiadorInstalar.copiar(this.COMANDO_INSTALAR);
+  }
+
   /** La cara del bloque de «no hay nada». Suelta y no del registro: es un export podable. */
   protected readonly caraTriste = faceSlightlyFrowningIcon;
 

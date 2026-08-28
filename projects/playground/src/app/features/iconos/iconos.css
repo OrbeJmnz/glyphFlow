@@ -857,3 +857,45 @@
 .hero-vacio {
   margin: 8px auto 0;
 }
+
+/*
+ * El comando de instalación: a la izquierda lo que se lleva, a la derecha el gesto que lo lleva.
+ *
+ * El botón entero copia —el filete NO parte la zona pulsable— pero el ojo necesita ver dónde está
+ * la acción: un comando y un icono sueltos en la misma caja se leen como una etiqueta con adorno,
+ * no como algo que se pulsa.
+ */
+.instalar {
+  gap: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+/* En BOLD: es lo único de la portada que hay que teclear, y compite con un botón secundario al
+   lado que no es más importante que él. */
+.instalar .degradado-comando {
+  padding-right: 0.7rem;
+  font-weight: 600;
+}
+
+.instalar-copia {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  padding: 0 0.7rem;
+  /* El filete y el fondo salen del color del propio texto, con alfa: así valen igual en los dos
+     temas sin un token por cada uno — el botón primario invierte el contraste, y un gris fijo
+     acertaría en uno y desentonaría en el otro. */
+  border-left: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  transition: background 0.15s ease;
+}
+
+.instalar:hover .instalar-copia {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+/* El acuse dura lo que el temporizador del `Copiador`: se enciende la zona, no el botón entero. */
+.instalar.copiado .instalar-copia {
+  background: color-mix(in srgb, currentColor 24%, transparent);
+}

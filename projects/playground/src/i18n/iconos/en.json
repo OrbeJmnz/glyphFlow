@@ -12,7 +12,9 @@
       "pesoIcono": "one icon, gzip",
       "depsAnimacion": "animation deps"
     },
-    "verElResto": "See the other {{n}} below"
+    "verElResto": "See the other {{n}} below",
+    "instalarCopiar": "Copy npm i glyphflow",
+    "instalarCopiado": "Copied"
   },
   "showcase": {
     "titulo": "Morph between shapes",
