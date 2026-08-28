@@ -29,7 +29,15 @@ export class Contador {
     const decimales = this.decimales();
     const sufijo = this.sufijo();
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Mismo criterio que `movimiento.ts`: sin `matchMedia` (entorno de test, navegador viejo) se
+    // asume que sí hay movimiento, en vez de dejar que la llamada truene sin capturar.
+    let reducido = false;
+    try {
+      reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch {
+      // sin cambios: reducido se queda en false
+    }
+    if (reducido) {
       this.texto.set(formatear(destino, decimales, sufijo));
       return;
     }

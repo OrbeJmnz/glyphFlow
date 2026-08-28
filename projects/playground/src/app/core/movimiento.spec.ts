@@ -22,10 +22,18 @@ async function cargar(opciones: { reducido: boolean; guardado?: string }) {
 }
 
 describe('movimiento', () => {
-  beforeEach(() => localStorage.clear());
+  // Mismo criterio que `tema.spec.ts`: `document.documentElement` es compartido entre specs, y
+  // `leerPreferenciaDelSistema()` mira `data-motion` ANTES que `matchMedia` — un valor que dejó
+  // pegado otra prueba (o el `conectarMovimiento()` real de `app.ts` en un spec que monta el shell)
+  // secuestra el resultado sin que el mock de `matchMedia` de aquí importe para nada.
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.removeAttribute('data-motion');
+  });
   afterEach(() => {
     vi.unstubAllGlobals();
     localStorage.clear();
+    document.documentElement.removeAttribute('data-motion');
   });
 
   it('sin elección previa, manda el sistema', async () => {

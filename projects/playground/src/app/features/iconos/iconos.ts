@@ -764,8 +764,18 @@ export class Iconos implements OnDestroy {
    */
   private enfocarBuscadorSiProcede(): void {
     if (location.hash) return;
-    if (!matchMedia('(min-width: 768px) and (pointer: fine)').matches) return;
+    // Sin `matchMedia` (entorno de test, navegador viejo) no hay cómo saber si es escritorio —
+    // mejor no robarle el foco a nadie que dejar que la llamada truene sin capturar.
+    if (!this.esEscritorio()) return;
     this.host.nativeElement.querySelector<HTMLInputElement>('.busqueda-hero input')?.focus();
+  }
+
+  private esEscritorio(): boolean {
+    try {
+      return matchMedia('(min-width: 768px) and (pointer: fine)').matches;
+    } catch {
+      return false;
+    }
   }
 
   /**
