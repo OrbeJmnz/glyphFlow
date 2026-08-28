@@ -5,10 +5,23 @@ import { CarrilActivo } from './carril-activo';
 
 @Component({
   imports: [CarrilActivo],
+  /*
+   * Los botones van ENVUELTOS a propósito, y el envoltorio está posicionado.
+   *
+   * Es el caso que rompió la directiva en producción: medía con `offsetLeft`, que es relativo al
+   * ancestro POSICIONADO y no al carril. Mientras los hijos fueron directos coincidían; al
+   * envolverlos —un tooltip que le puso su descripción a cada sección del nav— el `offsetParent`
+   * pasó a ser el envoltorio, la medida dio 0 con el enlace a 66px, y el indicador se quedó bajo
+   * el primer elemento mientras el activo era otro.
+   */
   template: `
     <div appCarrilActivo class="carril">
-      <button type="button" [class.activo]="cual() === 0">uno</button>
-      <button type="button" [class.activo]="cual() === 1">dos</button>
+      <span style="position: relative">
+        <button type="button" [class.activo]="cual() === 0">uno</button>
+      </span>
+      <span style="position: relative">
+        <button type="button" [class.activo]="cual() === 1">dos</button>
+      </span>
     </div>
   `,
 })
@@ -36,6 +49,13 @@ describe('CarrilActivo', () => {
     // `whenStable()`. Sin esta espera se afirma contra un host que aún no ha medido nada.
     await esperarObservador();
     carril = fixture.nativeElement.querySelector('.carril');
+  });
+
+  it('encuentra al activo aunque esté envuelto en algo posicionado', () => {
+    // No mide píxeles —en el entorno de pruebas no hay layout— sino que la directiva SIGUE
+    // encontrando y publicando al activo a través del envoltorio.
+    expect(carril.querySelector('span > .activo')).toBeTruthy();
+    expect(carril.style.getPropertyValue('--ind-o')).toBe('1');
   });
 
   it('publica las variables del hijo activo', () => {

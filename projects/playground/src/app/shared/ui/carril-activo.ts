@@ -75,10 +75,22 @@ export class CarrilActivo {
       return;
     }
 
-    // `offsetLeft` es relativo al ancestro posicionado, y el contenedor lo es (lo necesita igual
-    // para colocar el indicador). Por eso no hace falta restar rectángulos.
-    el.style.setProperty('--ind-x', `${activo.offsetLeft}px`);
-    el.style.setProperty('--ind-w', `${activo.offsetWidth}px`);
+    /*
+     * Se RESTAN RECTÁNGULOS, y no vale `offsetLeft`.
+     *
+     * `offsetLeft` es relativo al ancestro POSICIONADO, no al contenedor — y coincidían sólo
+     * mientras los enlaces fueron hijos directos. En cuanto uno se envolvió en algo con
+     * `position: relative` (el tooltip que le puso su descripción a cada sección), el
+     * `offsetParent` pasó a ser ese envoltorio: la medida daba 0 con el enlace a 66px, y el
+     * indicador se quedaba clavado bajo el primer elemento mientras el activo era otro.
+     *
+     * Con los rectángulos da igual cuántos envoltorios haya en medio, que es lo que esta
+     * directiva necesita para no volver a romperse por un cambio de markup.
+     */
+    const caja = el.getBoundingClientRect();
+    const suya = activo.getBoundingClientRect();
+    el.style.setProperty('--ind-x', `${suya.left - caja.left + el.scrollLeft}px`);
+    el.style.setProperty('--ind-w', `${suya.width}px`);
     el.style.setProperty('--ind-o', '1');
   }
 }
