@@ -54,7 +54,7 @@
     "leyendaInsignia": "The number on each card is how many animation variants that icon has.",
     "todos": "All",
     "insignias": {
-      "extras": "with extra variant",
+      "extras": "+ variants",
       "held": "held",
       "soloDraw": "draw only"
     },

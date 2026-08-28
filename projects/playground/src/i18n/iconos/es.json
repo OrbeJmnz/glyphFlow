@@ -54,9 +54,9 @@
     "leyendaInsignia": "El número de cada tarjeta indica cuántas variantes de animación tiene el icono.",
     "todos": "Todos",
     "insignias": {
-      "extras": "con variante extra",
+      "extras": "+ variantes",
       "held": "held",
-      "soloDraw": "solo trazo"
+      "soloDraw": "solo draw"
     },
     "aviso": "{{n}} de {{total}}."
   },
