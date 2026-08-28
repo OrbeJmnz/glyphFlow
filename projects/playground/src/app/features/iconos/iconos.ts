@@ -57,6 +57,7 @@ import { tema, temaSiguiendoAlSistema } from '../../core/tema';
 import { cargarCurados } from '../../core/catalogo';
 import { Visible } from '../../shared/ui/visible';
 import { SinResultados } from '../../shared/ui/sin-resultados';
+import { Tooltip } from '../../shared/ui/tooltip';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
 /**
@@ -120,6 +121,7 @@ interface CuratedEntry {
     TranslocoPipe,
     Visible,
     SinResultados,
+    Tooltip,
   ],
   // El scope vive aquí y no en la ruta a propósito: `app.routes.ts` es eager, así que su loader
   // se resuelve en un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas
@@ -322,6 +324,18 @@ export class Iconos implements OnDestroy {
 
   /** Lo lee la plantilla para el acuse visual, que es distinto del rótulo accesible. */
   protected readonly copiadoInstalar = this.copiadorInstalar.copiado;
+
+  /**
+   * El rótulo del tooltip: «Copy» y «Copied», cortos. Reusa las claves del botón de la sección de
+   * API en vez de un par nuevo — dicen exactamente lo mismo, y dos textos separados para la misma
+   * acción acaban divergiendo en cuanto alguien retoca uno.
+   *
+   * Es distinto del `aria-label`, que dice «Copy npm i glyphflow»: el tooltip lo lee quien YA ve
+   * el comando al lado, y un lector de pantalla no.
+   */
+  protected readonly rotuloCopiarInstalacion = translateSignal(
+    computed(() => (this.copiadorInstalar.copiado() ? 'iconos.api.copiado' : 'iconos.api.copiar')),
+  );
 
   protected copiarInstalacion(): void {
     void this.copiadorInstalar.copiar(this.COMANDO_INSTALAR);

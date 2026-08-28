@@ -65,25 +65,27 @@
     El icono hace `copy → check` con morph, como el resto de las acciones de copiado del sitio.
   -->
   <div class="acciones">
-    <button
-      type="button"
-      app-boton
-      variante="primario"
-      class="instalar"
-      [class.copiado]="copiadoInstalar()"
-      [attr.aria-label]="etiquetaCopiarInstalacion()"
-      (click)="copiarInstalacion()"
-    >
-      <span class="mono degradado-comando">{{ COMANDO_INSTALAR }}</span>
-      <!--
+    <app-tooltip [texto]="rotuloCopiarInstalacion()" [abajo]="true">
+      <button
+        type="button"
+        app-boton
+        variante="primario"
+        class="instalar"
+        [class.copiado]="copiadoInstalar()"
+        [attr.aria-label]="etiquetaCopiarInstalacion()"
+        (click)="copiarInstalacion()"
+      >
+        <span class="mono degradado-comando">{{ COMANDO_INSTALAR }}</span>
+        <!--
         La copia va en su propia zona, separada por un filete y sobre un fondo más claro: el botón
         entero es la acción, pero el ojo necesita ver DÓNDE está el gesto — sin eso, un comando y
         un icono sueltos en la misma caja se leen como una etiqueta con adorno.
       -->
-      <span class="instalar-copia" aria-hidden="true">
-        <gf-icon-morph [icon]="iconoCopiarInstalacion()" [size]="15" spring="bouncy" />
-      </span>
-    </button>
+        <span class="instalar-copia" aria-hidden="true">
+          <gf-icon-morph [icon]="iconoCopiarInstalacion()" [size]="15" spring="bouncy" />
+        </span>
+      </button>
+    </app-tooltip>
     <a app-boton [routerLink]="rutas.a('docs')">{{ 'iconos.hero.empezar' | transloco }}</a>
   </div>
 

@@ -155,6 +155,25 @@ describe('Iconos', () => {
     expect(html.querySelector('.ver-resto')).toBeNull();
   });
 
+  it('el comando de instalación se copia, y lo dice', async () => {
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    const boton = html.querySelector<HTMLButtonElement>('.instalar')!;
+    // Un BOTÓN, no un enlace: el de copiar dentro de un `<a>` sería markup inválido, y de paso
+    // lo que se quiere de la portada es el comando en el portapapeles, no otra pestaña.
+    expect(boton.tagName).toBe('BUTTON');
+    expect(boton.textContent).toContain('npm i glyphflow');
+
+    // La zona de copia va aparte para que se vea DÓNDE está el gesto.
+    expect(boton.querySelector('.instalar-copia gf-icon-morph')).toBeTruthy();
+
+    // Y el tooltip dice en qué punto está.
+    const burbuja = html.querySelector('.acciones .burbuja');
+    expect(burbuja?.textContent?.trim()).toBe('Copy');
+  });
+
   it('el hero conserva un h1 real, escondido solo a la vista', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
