@@ -7,6 +7,7 @@
   <div class="cuerpo">
     <div class="col-buscar">
       <app-campo-busqueda
+    [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
         [(texto)]="filtro"
         [marcador]="'lab.morphPicker.buscar.marcador' | transloco: { total: totalCurados() }"
         [etiqueta]="'lab.morphPicker.buscar.etiqueta' | transloco"

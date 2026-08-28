@@ -106,6 +106,55 @@ describe('Iconos', () => {
     expect(html.querySelector('.barra')?.classList.contains('con-panel')).toBe(true);
   });
 
+  /*
+   * Los seis del hero son la RESPUESTA a lo que se acaba de escribir, no seis iconos decorativos
+   * que ya no vienen a cuento. Y son los mismos seis primeros de la rejilla: dos listas ordenadas
+   * por criterios distintos en la misma pantalla se leen como un error.
+   */
+  it('los seis del hero pasan a ser los seis primeros resultados', async () => {
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    const muestra = [...html.querySelectorAll('.demo li span')].map((s) => s.textContent!.trim());
+    expect(muestra).toEqual(['sparkles', 'bell', 'settings', 'star', 'zap', 'send']);
+
+    const input = html.querySelector<HTMLInputElement>('.busqueda-hero input')!;
+    input.value = 'arrow';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+
+    const buscando = [...html.querySelectorAll('.demo li span')].map((s) => s.textContent!.trim());
+    expect(buscando.length).toBe(6);
+    expect(buscando.every((n) => n.includes('arrow'))).toBe(true);
+    // Los mismos que abre la rejilla, en el mismo orden.
+    const rejilla = [...html.querySelectorAll('.card [data-name]')]
+      .slice(0, 6)
+      .map((s) => s.textContent!.trim());
+    expect(buscando).toEqual(rejilla);
+
+    // Y el puente al resto, que sólo aparece si de verdad sobra algo.
+    expect(html.querySelector('.ver-resto')).toBeTruthy();
+  });
+
+  it('sin resultados aparece el bloque con cara, y no una fila vacía', async () => {
+    const fixture = TestBed.createComponent(Iconos);
+    await fixture.whenStable();
+    const html = fixture.nativeElement as HTMLElement;
+
+    const input = html.querySelector<HTMLInputElement>('.busqueda-hero input')!;
+    input.value = 'zzzzqq';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+
+    expect(html.querySelector('.demo')).toBeNull();
+    expect(html.querySelector('app-sin-resultados')).toBeTruthy();
+    // La cara es un icono del catálogo con su SVG, no un emoji: la regla del proyecto es que
+    // ningún emoji hace de icono, y aquí sería además el peor sitio para romperla.
+    expect(html.querySelector('app-sin-resultados gf-icon svg')).toBeTruthy();
+    expect(html.querySelector('.ver-resto')).toBeNull();
+  });
+
   it('el hero conserva un h1 real, escondido solo a la vista', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();

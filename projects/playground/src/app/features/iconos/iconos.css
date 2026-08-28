@@ -847,3 +847,13 @@
 .vacio-pedir:hover {
   color: var(--gf-texto);
 }
+
+/* El puente entre los seis del héroe y el resto de lo encontrado. */
+.ver-resto {
+  margin: 4px auto 0;
+}
+
+/* El bloque de «no hay nada» ocupa el sitio de la fila de muestras, así que hereda su respiro. */
+.hero-vacio {
+  margin: 8px auto 0;
+}

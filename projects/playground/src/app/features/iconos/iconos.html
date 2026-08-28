@@ -46,6 +46,7 @@
     porque SOLO este campo arrastra la página al catálogo — el de abajo ya está ahí.
   -->
   <app-campo-busqueda
+    [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
     class="busqueda-hero"
     [texto]="busqueda()"
     (textoChange)="buscarDesdeHero($event)"
@@ -68,24 +69,48 @@
     única razón por la que alguien mira un catálogo de iconos.
   -->
   <!--
-    Dejan de ser decoración: al pulsarlos rellenan el buscador con su nombre. Son `<button>` de
-    verdad y no `<li>` con un `click` encima — si hacen algo, tienen que poder pulsarse con
-    teclado y anunciarse como lo que son.
+    Los seis del héroe RESPONDEN a la búsqueda: sin ella son una muestra elegida a mano, y en
+    cuanto alguien teclea pasan a ser los seis primeros resultados. Son `<button>` de verdad y no
+    `<li>` con un `click` encima — si hacen algo, tienen que poder pulsarse con teclado y
+    anunciarse como lo que son.
   -->
-  <ul class="demo">
-    @for (d of demo(); track d.name) {
-      <li>
-        <button
-          type="button"
-          [attr.aria-label]="'iconos.hero.sugerenciaAria' | transloco: { nombre: d.name }"
-          (click)="buscarDesdeHero(d.name)"
-        >
-          <gf-icon [iconDef]="d.def" [size]="48" trigger="group" />
-          <span>{{ d.name }}</span>
-        </button>
-      </li>
+  @if (demo().length) {
+    <ul class="demo">
+      @for (d of demo(); track d.name) {
+        <li>
+          <button
+            type="button"
+            [attr.aria-label]="'iconos.hero.sugerenciaAria' | transloco: { nombre: d.name }"
+            (click)="buscarDesdeHero(d.name)"
+          >
+            <gf-icon [iconDef]="d.def" [size]="48" trigger="group" />
+            <span>{{ d.name }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    <!-- Sólo si de verdad hay más: con seis resultados o menos, el héroe ya los enseña todos. -->
+    @if (busqueda().trim() && restantes()) {
+      <button type="button" class="ver-resto" app-boton compacto (click)="verElResto()">
+        {{ 'iconos.hero.verElResto' | transloco: { n: restantes() } }}
+      </button>
     }
-  </ul>
+  } @else if (busqueda().trim()) {
+    <app-sin-resultados
+      class="hero-vacio"
+      [icono]="caraTriste"
+      [titulo]="'iconos.vacio.titulo' | transloco: { q: busqueda().trim() }"
+      [nota]="'iconos.vacio.nota' | transloco"
+      [sugerencias]="sugerencias()"
+      [etiquetaSugerencias]="'iconos.vacio.quizas' | transloco"
+      [etiquetaLimpiar]="filtro() ? ('iconos.vacio.limpiarFiltro' | transloco) : ''"
+      [urlPedir]="urlPedirIcono()"
+      [etiquetaPedir]="'iconos.vacio.pedir' | transloco"
+      (elegir)="buscarSugerencia($event)"
+      (limpiar)="elegirFiltro(null)"
+    />
+  }
 
   <dl class="cifras">
     <div class="destaca">
@@ -223,6 +248,7 @@
   </button>
 
   <app-campo-busqueda
+    [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
     [(texto)]="busqueda"
     [marcador]="'iconos.barra.buscarMarcador' | transloco"
     [etiqueta]="'iconos.barra.buscarEtiqueta' | transloco"
@@ -354,40 +380,6 @@
     </article>
   }
 </div>
-
-<!--
-  Cero resultados no es una pantalla en blanco (T10). Las cuatro salidas, en el orden en que sirven:
-  la sugerencia más cercana —que resuelve el dedo torcido, que es la causa más común—, quitar el
-  filtro —la segunda causa, y sólo se ofrece si de verdad hay uno puesto—, y pedir el icono, que es
-  la única salida cuando el icono no existe.
--->
-@if (busqueda().trim() && !entries().length) {
-  <section class="vacio">
-    <p class="vacio-titulo">
-      {{ 'iconos.vacio.titulo' | transloco: { q: busqueda().trim() } }}
-    </p>
-
-    @if (sugerencias().length) {
-      <p class="vacio-nota">{{ 'iconos.vacio.quizas' | transloco }}</p>
-      <div class="vacio-sugerencias">
-        @for (s of sugerencias(); track s) {
-          <button type="button" app-chip (click)="buscarSugerencia(s)">{{ s }}</button>
-        }
-      </div>
-    }
-
-    <div class="vacio-acciones">
-      @if (filtro()) {
-        <button type="button" app-boton compacto (click)="elegirFiltro(null)">
-          {{ 'iconos.vacio.limpiarFiltro' | transloco }}
-        </button>
-      }
-      <a [href]="urlPedirIcono()" target="_blank" rel="noopener" class="vacio-pedir">
-        {{ 'iconos.vacio.pedir' | transloco }}
-      </a>
-    </div>
-  </section>
-}
 
 <!--
   El final de la lista. La rejilla monta un tramo y crece al llegar aquí, porque montar los 1767 de

@@ -21,6 +21,7 @@ import iconosEn from '../../../i18n/iconos/en.json';
 import {
   GfIconComponent,
   sparklesIcon,
+  faceSlightlyFrowningIcon,
   AnimatedIconDef,
   circleIcon,
   squareIcon,
@@ -55,6 +56,7 @@ import { Rutas } from '../../core/rutas.service';
 import { tema, temaSiguiendoAlSistema } from '../../core/tema';
 import { cargarCurados } from '../../core/catalogo';
 import { Visible } from '../../shared/ui/visible';
+import { SinResultados } from '../../shared/ui/sin-resultados';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
 /**
@@ -117,6 +119,7 @@ interface CuratedEntry {
     TituloSiTruncado,
     TranslocoPipe,
     Visible,
+    SinResultados,
   ],
   // El scope vive aquí y no en la ruta a propósito: `app.routes.ts` es eager, así que su loader
   // se resuelve en un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas
@@ -146,22 +149,17 @@ export class Iconos implements OnDestroy {
   @ViewChild('barraCatalogo') private barraCatalogo?: ElementRef<HTMLElement>;
 
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
-  private temporizadorScroll?: ReturnType<typeof setTimeout>;
 
   /**
-   * Escribir arriba filtra abajo y ARRASTRA la página hasta el catálogo. Solo desde el héroe: el
-   * campo de abajo ya está en el catálogo, y moverle el suelo a alguien mientras teclea es
-   * exactamente lo que no debe pasar.
+   * Teclear ya NO arrastra la página al catálogo.
    *
-   * Los 300 ms no son un debounce del filtrado —ese es inmediato, la señal se escribe ya— sino
-   * del SCROLL: arrastrar la página en la primera letra le quitaría el campo de debajo del dedo
-   * a quien todavía está escribiendo.
+   * Lo hacía a los 300ms, y tenía sentido mientras el hero enseñaba seis iconos de muestra que no
+   * respondían a nada: lo único que había que ver estaba abajo. Desde que los seis SON los seis
+   * primeros resultados, bajar solo se lleva al visitante justo cuando el hero acaba de contestar
+   * — y con el cursor todavía en el campo. Para el resto está el botón, que lo pide él.
    */
   protected buscarDesdeHero(texto: string): void {
     this.busqueda.set(texto);
-    clearTimeout(this.temporizadorScroll);
-    if (texto.trim().length < 2) return;
-    this.temporizadorScroll = setTimeout(() => this.irAlCatalogo(), 300);
   }
 
   private irAlCatalogo(): void {
@@ -273,11 +271,30 @@ export class Iconos implements OnDestroy {
    * llegar al catálogo completo. Nombres fijos y no un `slice` al azar: se eligieron por variedad de
    * coreografía (giro, resorte, trazo, rebote), no porque quedaran primero alfabéticamente.
    */
-  protected readonly demo = computed<CuratedEntry[]>(() =>
-    ['sparkles', 'bell', 'settings', 'star', 'zap', 'send']
-      .map((name) => this.todos().find((e) => e.name === name))
-      .filter((e): e is CuratedEntry => !!e),
-  );
+  /**
+   * Los seis del hero. Sin búsqueda son una MUESTRA elegida a mano —cada una enseña una
+   * coreografía distinta: giro, resorte, trazo, rebote— y en cuanto alguien teclea pasan a ser los
+   * seis primeros resultados.
+   *
+   * Que respondan es lo que convierte la fila en la respuesta a la pregunta que el visitante acaba
+   * de escribir, en vez de en seis iconos decorativos que ya no vienen a cuento. Y son los MISMOS
+   * seis primeros de la rejilla, no otra selección: dos listas ordenadas por criterios distintos
+   * en la misma pantalla se leen como un error.
+   */
+  private readonly MUESTRA = ['sparkles', 'bell', 'settings', 'star', 'zap', 'send'];
+
+  protected readonly demo = computed<CuratedEntry[]>(() => {
+    if (this.busqueda().trim()) return this.entries().slice(0, 6);
+    return this.MUESTRA.map((name) => this.todos().find((e) => e.name === name)).filter(
+      (e): e is CuratedEntry => !!e,
+    );
+  });
+
+  /** Cuántos resultados quedan fuera de los seis del hero — lo que anuncia el botón de bajar. */
+  protected readonly restantes = computed(() => Math.max(0, this.entries().length - 6));
+
+  /** La cara del bloque de «no hay nada». Suelta y no del registro: es un export podable. */
+  protected readonly caraTriste = faceSlightlyFrowningIcon;
 
   /**
    * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
@@ -468,7 +485,6 @@ export class Iconos implements OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.reloj);
-    clearTimeout(this.temporizadorScroll);
     clearTimeout(this.temporizadorUrl);
   }
 
@@ -628,6 +644,11 @@ export class Iconos implements OnDestroy {
    * `null`, así que cada botón de insignia siempre ACTIVA la suya — sin el "click de nuevo para
    * quitar" que antes era la única salida y no se anunciaba en ningún lado.
    */
+  /** Baja a la rejilla. Reusa `irAlCatalogo`, que ya sabe respetar el movimiento reducido. */
+  protected verElResto(): void {
+    this.irAlCatalogo();
+  }
+
   /** Desde el estado vacío: se busca la sugerencia tal cual, como si la hubiera tecleado. */
   protected buscarSugerencia(nombre: string): void {
     this.buscarDesdeHero(nombre);

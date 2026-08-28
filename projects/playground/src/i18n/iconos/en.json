@@ -11,7 +11,8 @@
       "catalogo": "in the catalog",
       "pesoIcono": "one icon, gzip",
       "depsAnimacion": "animation deps"
-    }
+    },
+    "verElResto": "See the other {{n}} below"
   },
   "showcase": {
     "titulo": "Morph between shapes",
@@ -111,6 +112,7 @@
     "titulo": "No icons for “{{q}}”.",
     "quizas": "Did you mean:",
     "limpiarFiltro": "Clear the filter",
-    "pedir": "Ask for this icon →"
+    "pedir": "Ask for this icon →",
+    "nota": "It may not exist yet — or it may go by another name. Lucide's own synonyms are searched too."
   }
 }

@@ -11,7 +11,8 @@
       "catalogo": "en el catálogo",
       "pesoIcono": "un icono, gzip",
       "depsAnimacion": "deps de animación"
-    }
+    },
+    "verElResto": "Ver los otros {{n}} abajo"
   },
   "showcase": {
     "titulo": "Morph entre formas",
@@ -111,6 +112,7 @@
     "titulo": "Ningún icono para «{{q}}».",
     "quizas": "¿Querías decir:",
     "limpiarFiltro": "Quitar el filtro",
-    "pedir": "Pedir este icono →"
+    "pedir": "Pedir este icono →",
+    "nota": "Puede que aún no exista, o que se llame de otra forma. También se buscan los sinónimos de Lucide."
   }
 }

@@ -55,7 +55,8 @@
       "licencia": "Licencia MIT",
       "version": "v{{ v }}",
       "lucide": "La geometría de los iconos es de <a href=\"https://lucide.dev\" rel=\"noopener\">Lucide</a>, usada bajo la <a href=\"https://github.com/lucide-icons/lucide/blob/main/LICENSE\" rel=\"noopener\">Licencia ISC</a>."
-    }
+    },
+    "limpiarBusqueda": "Limpiar la búsqueda"
   },
   "routes": {
     "iconos": {
