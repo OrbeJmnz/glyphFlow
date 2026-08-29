@@ -26,6 +26,7 @@
     },
     "agregarAria": "Agregar {{nombre}}",
     "quitarAria": "Quitar {{nombre}}",
+    "verTramoAria": "Recorrer a mano el morph de {{desde}} a {{hasta}}",
     "previewLabel": "Previsualización del morph",
     "vacioLienzo": "Elige al menos 2 iconos para armar una secuencia.",
     "reproducir": {
@@ -33,7 +34,11 @@
       "corriendo": "corriendo…"
     },
     "limpiar": "limpiar",
-    "montarMas": "Ver {{n}} más"
+    "montarMas": "Ver {{n}} más",
+    "scrubber": {
+      "etiqueta": "Progreso del morph",
+      "valor": "{{actual}} de {{total}} milisegundos"
+    }
   },
   "morphBench": {
     "titulo": "Benchmark de morph",

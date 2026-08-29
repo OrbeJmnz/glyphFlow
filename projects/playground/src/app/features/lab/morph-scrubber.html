@@ -1,0 +1,28 @@
+<div class="scrubber">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="origen().viewBox ?? '0 0 24 24'"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path #figura />
+  </svg>
+
+  <div class="control">
+    <app-deslizador
+      [min]="0"
+      [max]="1000"
+      [valor]="progreso() * 1000"
+      (valorChange)="mover($event)"
+      [etiqueta]="'lab.morphPicker.scrubber.etiqueta' | transloco"
+      [textoValor]="
+        'lab.morphPicker.scrubber.valor' | transloco: { actual: tiempoActualMs(), total: duracionMs() }
+      "
+    />
+    <span class="tiempo">{{ tiempoActualMs() }} / {{ duracionMs() }} ms</span>
+  </div>
+</div>

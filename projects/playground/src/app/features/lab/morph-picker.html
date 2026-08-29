@@ -40,7 +40,9 @@
 
     <div class="col-secuencia">
       <div class="lienzo">
-        @if (iconoActual(); as icono) {
+        @if (tramoActivo(); as tramo) {
+          <app-morph-scrubber [origen]="tramo.origen.def" [destino]="tramo.destino.def" />
+        } @else if (iconoActual(); as icono) {
           <gf-icon-morph
             [icon]="icono"
             [size]="96"
@@ -61,8 +63,28 @@
               táctil, la cadena era una fila de iconos sin identificar. Y con el nombre aquí, el
               renglón de pares que iba debajo pasa a ser una repetición — por eso se fue.
             -->
-            <li [class.activo]="$index === indiceActual()">
-              <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+            <li [class.activo]="$index === indiceActual()" [class.tramo-activo]="tramoActivo()?.destino === item">
+              <!--
+                A partir del segundo icono, el propio glifo es el botón que elige el tramo a
+                scrubbear (indice-1 -> indice). El primero no tiene "antes": se queda sin este
+                gesto, mismo criterio que ya usa `[disabled]` en otros picks de la cadena.
+              -->
+              @if ($index === 0) {
+                <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+              } @else {
+                <button
+                  type="button"
+                  class="miniatura"
+                  [attr.aria-pressed]="tramoActivo()?.destino === item"
+                  [attr.aria-label]="
+                    'lab.morphPicker.verTramoAria'
+                      | transloco: { desde: secuencia()[$index - 1].nombre, hasta: item.nombre }
+                  "
+                  (click)="elegirTramo($index)"
+                >
+                  <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
+                </button>
+              }
               <span class="nombre">{{ item.nombre }}</span>
               <button
                 type="button"

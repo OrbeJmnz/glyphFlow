@@ -11,8 +11,9 @@ import {
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { AnimatedIconDef, GfIconComponent } from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
-import { GfIconMorphComponent, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
+import { GfIconMorphComponent, morphKeyframes } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
+import { MorphScrubber, RESORTE_LENTO } from './morph-scrubber';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Boton } from '../../shared/ui/boton';
 import { Tooltip } from '../../shared/ui/tooltip';
@@ -38,6 +39,7 @@ interface Elegido {
   imports: [
     GfIconComponent,
     GfIconMorphComponent,
+    MorphScrubber,
     CampoBusqueda,
     Boton,
     Tooltip,
@@ -50,12 +52,10 @@ interface Elegido {
 })
 export class MorphPicker implements OnDestroy {
   /**
-   * Mismo amortiguamiento crítico que `smooth` (ζ = c/(2√k) ≈ 1, sin rebote) pero con la rigidez a
-   * un cuarto: el tiempo de asentamiento de un resorte crítico escala con 1/√k, así que k/4 ≈ el
-   * doble de lento, MISMO carácter. Se pide "más lenta", no "más rebote" — `bouncy`/`snappy` habrían
-   * cambiado la forma de la curva, no solo su duración.
+   * Mismo resorte que usa `MorphScrubber` — compartido desde ahí para que arrastrar el deslizador
+   * de un tramo se sienta igual de lento que reproducir la cadena completa del mismo par.
    */
-  protected readonly resorteLento: SpringConfig = { k: 42, c: 13 };
+  protected readonly resorteLento = RESORTE_LENTO;
 
   /**
    * El catálogo llega DIFERIDO, no en el chunk de esta página.
@@ -154,6 +154,26 @@ export class MorphPicker implements OnDestroy {
     return s.length ? s[Math.min(this.indiceActual(), s.length - 1)].def : null;
   });
 
+  /**
+   * El tramo (par consecutivo) que se está recorriendo a mano con el scrubber, en vez de
+   * reproducirse solo. `null` = lienzo en vivo de siempre.
+   */
+  protected readonly tramoActivo = signal<{ origen: Elegido; destino: Elegido } | null>(null);
+
+  /**
+   * Clic en un icono de la cadena en posición `indice` lo vuelve el DESTINO del tramo activo
+   * (`indice-1 → indice`); el índice 0 no tiene "antes" y no hace nada. Clic otra vez sobre el
+   * mismo destino lo CIERRA — toggle, no acumulación de tramos.
+   */
+  protected elegirTramo(indice: number): void {
+    if (indice === 0) return;
+    const s = this.secuencia();
+    const destino = s[indice];
+    const yaActivo = this.tramoActivo()?.destino === destino;
+    this.detener();
+    this.tramoActivo.set(yaActivo ? null : { origen: s[indice - 1], destino });
+  }
+
   protected agregar(item: Elegido): void {
     this.detener();
     this.secuencia.update((s) => [...s, item]);
@@ -207,6 +227,9 @@ export class MorphPicker implements OnDestroy {
     for (const t of this.temporizadores) clearTimeout(t);
     this.temporizadores = [];
     this.corriendo.set(false);
+    // Cierra el scrubber de tramo: "Reproducir" juega la cadena por el lienzo en vivo, no por
+    // ahí, y agregar/quitar/limpiar pueden dejarlo apuntando a un índice que ya no existe.
+    this.tramoActivo.set(null);
   }
 
   ngOnDestroy(): void {

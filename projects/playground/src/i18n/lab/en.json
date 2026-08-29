@@ -26,6 +26,7 @@
     },
     "agregarAria": "Add {{nombre}}",
     "quitarAria": "Remove {{nombre}}",
+    "verTramoAria": "Scrub the morph from {{desde}} to {{hasta}}",
     "previewLabel": "Morph preview",
     "vacioLienzo": "Choose at least 2 icons to build a sequence.",
     "reproducir": {
@@ -33,7 +34,11 @@
       "corriendo": "running…"
     },
     "limpiar": "clear",
-    "montarMas": "Show {{n}} more"
+    "montarMas": "Show {{n}} more",
+    "scrubber": {
+      "etiqueta": "Morph progress",
+      "valor": "{{actual}} of {{total}} milliseconds"
+    }
   },
   "morphBench": {
     "titulo": "Morph benchmark",
