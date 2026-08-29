@@ -227,7 +227,8 @@
       "decorative": "Mismo contrato que <gf-icon>.",
       "label": "Con label el icono es semántico.",
       "respectReducedMotion": "Aquí SALTA al destino en vez de quedarse quieto.",
-      "spring": "smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría."
+      "spring": "smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría.",
+      "live": "Horneado (WAAPI, default) vs en vivo (resorte real por requestAnimationFrame). Fijo desde el primer uso — cambiarlo después no tiene efecto."
     },
     "obsoleto": "obsoleto",
     "usaEnSuLugar": "Usa {{nuevo}} en su lugar.",

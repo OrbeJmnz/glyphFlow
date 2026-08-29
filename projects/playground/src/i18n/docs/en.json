@@ -227,7 +227,8 @@
       "decorative": "Same contract as <gf-icon>.",
       "label": "With label, the icon is semantic.",
       "respectReducedMotion": "Here it JUMPS to the destination instead of staying still.",
-      "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry."
+      "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry.",
+      "live": "Baked (WAAPI, default) vs live (a real spring via requestAnimationFrame). Fixed after the first use — changing it later has no effect."
     },
     "obsoleto": "deprecated",
     "usaEnSuLugar": "Use {{nuevo}} instead.",
