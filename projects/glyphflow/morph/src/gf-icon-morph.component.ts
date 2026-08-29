@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   SimpleChanges,
@@ -146,6 +147,7 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
 
   /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
+  private readonly zona = inject(NgZone);
 
   private anterior?: MorphIcon;
   private modoVivo: boolean | null = null;
@@ -216,10 +218,19 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
 
     const durationScale = this.config?.durationScale ?? 1;
     if (this.modoVivo) {
-      this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
-      this.motorVivo.morphTo(aIconInput(nuevo), {
-        durationScale,
-        ...(this.spring ? { spring: this.spring } : {}),
+      // `runOutsideAngular`: el scheduler de `live-morph.ts` se registra con `requestAnimationFrame`
+      // desde AQUÍ. Con zone.js cargado (la app de un consumidor real, no este workspace zoneless),
+      // ese `requestAnimationFrame` queda parchado como macrotarea — sin este envoltorio, cada frame
+      // del morph dispararía un ciclo de detección de cambios de TODA la app, no solo de este
+      // componente. WAAPI nunca pagó este costo porque no agenda ninguna tarea de zona; el modo en
+      // vivo sí, y es la propia librería quien la agenda desde su ciclo de vida — ningún consumidor
+      // puede evitarlo por su cuenta si esto no lo hace.
+      this.zona.runOutsideAngular(() => {
+        this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
+        this.motorVivo.morphTo(aIconInput(nuevo), {
+          durationScale,
+          ...(this.spring ? { spring: this.spring } : {}),
+        });
       });
       return;
     }
