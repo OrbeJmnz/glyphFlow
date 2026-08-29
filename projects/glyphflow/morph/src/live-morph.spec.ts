@@ -1,6 +1,6 @@
 import { bellIcon, bellRingIcon, starIcon, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { createLiveMorph } from './live-morph';
-import { canonicalD, SPRING_PRESETS } from './morph-keyframes';
+import { canonicalD } from './morph-keyframes';
 
 /**
  * El entorno de tests SÍ trae `requestAnimationFrame` (jsdom lo implementa, a diferencia de
@@ -108,7 +108,14 @@ describe('createLiveMorph — morphTo()', () => {
     expect(raf.llamadasRaf).toBe(1);
 
     const antes = p.d;
+    // Timestamps ESTRICTAMENTE crecientes, no el mismo dos veces: `agregarTicker` resetea
+    // `ultimo = -1` al registrar, así que el PRIMER frame SIEMPRE calcula dt=0 sin importar qué
+    // timestamp se le pase. Con un solo frame (o el mismo repetido) el resorte nunca se mueve de
+    // x=0, y la aserción de abajo pasaría solo por diferencia de FORMATO (polilínea vs. curva
+    // canónica) — no porque haya avanzado de verdad.
     raf.avanzar(16);
+    raf.avanzar(32);
+    raf.avanzar(48);
     expect(p.d).not.toBe(antes); // se movió
     expect(p.d).not.toBe(canonicalD(bell)); // ya no es la pose de reposo original
     // El scheduler es un singleton de MÓDULO compartido por todo el archivo: si este morph se deja
@@ -140,13 +147,22 @@ describe('createLiveMorph — morphTo()', () => {
     const p = pathFalso();
     const morph = createLiveMorph(p.el, bell);
     morph.morphTo(bellRing, { spring: 'smooth' });
+    // Timestamps crecientes — ver la nota del test anterior: con el mismo `ts` dos veces el resorte
+    // nunca sale de x=0 y la interrupción "continúa" desde ahí sin que la prueba diga nada.
     raf.avanzar(16);
-    raf.avanzar(16);
+    raf.avanzar(32);
+    raf.avanzar(48);
     const poseAlInterrumpir = p.d;
 
     morph.morphTo(star, { spring: 'smooth' });
-    // Primer frame tras interrumpir: t=0 del NUEVO plan, cuyo origen ES la pose intermedia — debe
-    // seguir viéndose exactamente esa pose, no saltar al icono `bell` completo.
+    // `morphTo` no pinta síncrono — el `setAttribute` del plan nuevo ocurre en el SIGUIENTE tick, no
+    // al llamarlo. Sin avanzar un frame más, la aserción de abajo pasaría trivialmente ("no se
+    // escribió nada") sin decir nada sobre si el replanteo es correcto. Se avanza EN EL MISMO
+    // timestamp donde se interrumpió: como el ticker sigue vivo, `morphTo` no vuelve a pasar por
+    // `agregarTicker` y `ultimo` no se resetea, así que este frame calcula dt=0 — pinta exactamente
+    // t=0 del plan NUEVO. Si el replanteo arranca de la pose EN PANTALLA (y no del icono `bell`
+    // completo), ese t=0 tiene que reproducirla byte a byte.
+    raf.avanzar(48);
     expect(p.d).toBe(poseAlInterrumpir);
     morph.destroy(); // limpia el scheduler compartido — ver la nota del test anterior
     raf.restaurar();

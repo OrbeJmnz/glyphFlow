@@ -160,9 +160,16 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
         saltar(icon); // SSR / sin DOM: sin rAF no hay a dónde volar
         return;
       }
+      const s = opts?.durationScale ?? 1;
+      if (!(s > 0)) {
+        // 0, negativo o NaN: no hay reloj que integrar — mismo criterio que WAAPI, donde
+        // `duration * 0` aterriza instantáneo. `!(s > 0)` atrapa también NaN sin un caso aparte.
+        saltar(icon);
+        return;
+      }
       const { k, c } = resolverResorte(opts?.spring);
       spring.config(k, c);
-      escala = opts?.durationScale ?? 1;
+      escala = s;
       replanear(icon);
       spring.start(); // conserva velocidad si venía volando
       if (!volando) {
