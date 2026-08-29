@@ -4,6 +4,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
   ViewChild,
   inject,
@@ -15,6 +16,7 @@ import {
 import { GF_ICONS_CONFIG, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
+import { createLiveMorph, type LiveMorph } from './live-morph';
 import type { IconInput } from './core/types';
 
 /**
@@ -96,7 +98,7 @@ function aIconInput(icono: MorphIcon): IconInput {
     '[style.--ai-size.px]': 'size',
   },
 })
-export class GfIconMorphComponent implements OnChanges {
+export class GfIconMorphComponent implements OnChanges, OnDestroy {
   @ViewChild('figura', { static: true }) private figura!: ElementRef<SVGPathElement>;
 
   /**
@@ -131,10 +133,23 @@ export class GfIconMorphComponent implements OnChanges {
    */
   @Input() spring?: SpringPreset | SpringConfig;
 
+  /**
+   * Motor de render: `false` (default) usa keyframes precalculados de WAAPI — barato, corre en el
+   * compositor, pero aproxima con ~20 poses fijas (ver `STEPS_DEFAULT`). `true` usa el motor en
+   * vivo (`createLiveMorph`): resorte real por `requestAnimationFrame`, exacto en cada frame, a
+   * costa de trabajo en el hilo principal mientras el morph se mueve. Pensado para los pocos
+   * morphs que son la vitrina (un hero, el Lab) — no para un grid con cientos de iconos con hover.
+   *
+   * **Fijo desde el primer uso**: se lee una vez; cambiarlo después no tiene efecto.
+   */
+  @Input() live = false;
+
   /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
 
   private anterior?: MorphIcon;
+  private modoVivo: boolean | null = null;
+  private motorVivo?: LiveMorph;
 
   protected get ariaHidden(): 'true' | 'false' {
     return this.decorative && !this.label ? 'true' : 'false';
@@ -142,6 +157,7 @@ export class GfIconMorphComponent implements OnChanges {
 
   ngOnChanges(cambios: SimpleChanges): void {
     if (!cambios['icon']) return;
+    this.modoVivo ??= this.live;
 
     const nuevo = this.icon;
     const anterior = this.anterior;
@@ -153,8 +169,10 @@ export class GfIconMorphComponent implements OnChanges {
     }
 
     // Primer valor, sin nada previo: se pinta y ya. Morphear "desde nada" no existe.
-    // También cae aquí el SSR y cualquier navegador sin WAAPI: se ve el icono, no se anima.
-    const puedeAnimar = typeof this.figura.nativeElement.animate === 'function';
+    // También cae aquí el SSR y cualquier navegador sin WAAPI/rAF: se ve el icono, no se anima.
+    const puedeAnimar = this.modoVivo
+      ? typeof requestAnimationFrame === 'function'
+      : typeof this.figura.nativeElement.animate === 'function';
     // `animationsEnabled` en `false` cae aquí a propósito: la figura nueva se PINTA, solo no se
     // interpola. Saltarse la escritura dejaría el icono anterior en pantalla, que es peor que no
     // animar — el valor habría cambiado y el usuario vería el de antes.
@@ -181,10 +199,24 @@ export class GfIconMorphComponent implements OnChanges {
       return;
     }
 
+    const durationScale = this.config?.durationScale ?? 1;
+    if (this.modoVivo) {
+      this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
+      this.motorVivo.morphTo(aIconInput(nuevo), {
+        durationScale,
+        ...(this.spring ? { spring: this.spring } : {}),
+      });
+      return;
+    }
+
     runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
-      durationScale: this.config?.durationScale ?? 1,
+      durationScale,
       ...(this.spring ? { spring: this.spring } : {}),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.motorVivo?.destroy();
   }
 
   private get movimientoReducido(): boolean {
