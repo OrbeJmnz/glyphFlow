@@ -31,7 +31,7 @@
     "vacioLienzo": "Choose at least 2 icons to build a sequence.",
     "reproducir": {
       "reposo": "▶ play sequence",
-      "corriendo": "running…"
+      "corriendo": "■ stop"
     },
     "limpiar": "clear",
     "montarMas": "Show {{n}} more",
