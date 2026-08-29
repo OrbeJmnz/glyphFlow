@@ -123,6 +123,14 @@
       "demoLabel": "Demo de morph",
       "siguiente": "siguiente: {{nombre}}"
     },
+    "comparacion": {
+      "titulo": "Horneado vs en vivo",
+      "descripcion": "El mismo par, dos motores. <strong>Horneado</strong> precalcula ~20 poses y WAAPI interpola en línea recta entre ellas. <strong>En vivo</strong> recalcula la posición exacta en cada frame — la diferencia se nota más en pares con rotación real.",
+      "horneado": "horneado (WAAPI)",
+      "horneadoLabel": "Morph horneado",
+      "vivo": "en vivo (rAF)",
+      "vivoLabel": "Morph en vivo"
+    },
     "tabla": {
       "keyframes": "keyframes",
       "peso": "peso",

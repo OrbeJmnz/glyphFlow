@@ -123,6 +123,14 @@
       "demoLabel": "Morph demo",
       "siguiente": "next: {{nombre}}"
     },
+    "comparacion": {
+      "titulo": "Baked vs live",
+      "descripcion": "Same pair, two engines. <strong>Baked</strong> precomputes ~20 poses and WAAPI interpolates linearly between them. <strong>Live</strong> recomputes the exact position every frame — the difference shows most on pairs with real rotation.",
+      "horneado": "baked (WAAPI)",
+      "horneadoLabel": "Baked morph",
+      "vivo": "live (rAF)",
+      "vivoLabel": "Live morph"
+    },
     "tabla": {
       "keyframes": "keyframes",
       "peso": "weight",

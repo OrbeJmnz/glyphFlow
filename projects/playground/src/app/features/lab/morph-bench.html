@@ -141,6 +141,32 @@
     </button>
   </div>
 
+  <div class="comparacion">
+    <div class="comparacion-txt">
+      <h3>{{ 'lab.morphBench.comparacion.titulo' | transloco }}</h3>
+      <p [innerHTML]="'lab.morphBench.comparacion.descripcion' | transloco"></p>
+    </div>
+    <div class="comparacion-par">
+      <gf-icon-morph
+        [icon]="iconoDemo()"
+        [spring]="resorte()"
+        [size]="72"
+        [label]="'lab.morphBench.comparacion.horneadoLabel' | transloco"
+      />
+      <span>{{ 'lab.morphBench.comparacion.horneado' | transloco }}</span>
+    </div>
+    <div class="comparacion-par">
+      <gf-icon-morph
+        [icon]="iconoDemo()"
+        [spring]="resorte()"
+        [live]="true"
+        [size]="72"
+        [label]="'lab.morphBench.comparacion.vivoLabel' | transloco"
+      />
+      <span>{{ 'lab.morphBench.comparacion.vivo' | transloco }}</span>
+    </div>
+  </div>
+
   <div class="lienzos" #lienzos>
     @for (m of tabla(); track m.id) {
       <article

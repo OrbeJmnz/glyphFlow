@@ -212,3 +212,49 @@ button button.primario:hover {
   font-size: 0.8125rem;
   color: var(--gf-texto-tenue);
 }
+
+.comparacion {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.75rem;
+  background: var(--gf-panel);
+}
+
+.comparacion-txt {
+  flex: 1;
+}
+
+.comparacion-txt h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--gf-texto-medio);
+}
+
+.comparacion-txt p {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--gf-texto-tenue);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.comparacion-par {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.comparacion-par gf-icon-morph {
+  color: var(--gf-texto);
+}
+
+.comparacion-par span {
+  font-size: 0.6875rem;
+  color: var(--gf-texto-apagado);
+}
