@@ -103,7 +103,7 @@
           <button
             type="button"
             class="primario"
-            [disabled]="secuencia().length < 2 || corriendo()"
+            [disabled]="secuencia().length < 2"
             (click)="reproducir()"
           >
             {{ etiquetaReproducir() }}

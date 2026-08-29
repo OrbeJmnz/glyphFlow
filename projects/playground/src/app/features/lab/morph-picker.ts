@@ -9,7 +9,18 @@ import {
   signal,
 } from '@angular/core';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { AnimatedIconDef, GfIconComponent } from 'glyphflow';
+import {
+  AnimatedIconDef,
+  GfIconComponent,
+  bellIcon,
+  bellRingIcon,
+  circleIcon,
+  heartIcon,
+  squareIcon,
+  starIcon,
+  userIcon,
+  userRoundIcon,
+} from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { GfIconMorphComponent, morphKeyframes } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
@@ -23,6 +34,23 @@ interface Elegido {
   nombre: string;
   def: AnimatedIconDef;
 }
+
+/**
+ * Cadena de arranque: los mismos 8 iconos (4 pares) que el benchmark ya valida, no una
+ * combinación arbitraria. Mismo criterio que la referencia (morphicons.com): el picker no arranca
+ * vacío — muestra de entrada que se puede quitar icono por icono, sin ocultar que también se arma
+ * la propia desde cero con el buscador.
+ */
+const SECUENCIA_INICIAL: Elegido[] = [
+  { nombre: 'bell', def: bellIcon },
+  { nombre: 'bell-ring', def: bellRingIcon },
+  { nombre: 'heart', def: heartIcon },
+  { nombre: 'star', def: starIcon },
+  { nombre: 'circle', def: circleIcon },
+  { nombre: 'square', def: squareIcon },
+  { nombre: 'user', def: userIcon },
+  { nombre: 'user-round', def: userRoundIcon },
+];
 
 /**
  * Picker + secuencias de morph: elige cualquier par (o cadena de 3+) y corre el core sobre ESA
@@ -71,7 +99,7 @@ export class MorphPicker implements OnDestroy {
   private readonly todos = signal<Elegido[]>([]);
 
   protected readonly filtro = signal('');
-  protected readonly secuencia = signal<Elegido[]>([]);
+  protected readonly secuencia = signal<Elegido[]>(SECUENCIA_INICIAL);
   protected readonly indiceActual = signal(0);
   protected readonly corriendo = signal(false);
   /** Reposo → corriendo, cada uno su clave — mismo patrón que el botón de enviar de patrones.ts. */
@@ -193,25 +221,48 @@ export class MorphPicker implements OnDestroy {
   }
 
   /**
+   * Mismo botón hace de play y de stop: si ya está corriendo, un segundo clic la detiene. Con la
+   * secuencia en loop (ver `programarVuelta`) no hay un final natural que la apague sola — sin
+   * esto, la única forma de pararla sería "limpiar", que además borra toda la cadena.
+   */
+  protected reproducir(): void {
+    if (this.corriendo()) {
+      this.detener();
+      return;
+    }
+    const s = this.secuencia();
+    if (s.length < 2) return;
+    this.corriendo.set(true);
+    this.programarVuelta(s);
+  }
+
+  /**
    * Encadena los pares consecutivos en SERIE — mismo patrón de orquestación que "Repetir todo"
    * del grid, solo que en serie en vez de en paralelo. El tiempo de cada salto sale de
    * `morphKeyframes().duration` (el resorte manda, aquí `resorteLento`), no de un número inventado.
    * Mismo resorte que el `<gf-icon-morph>` del lienzo — si no calzaran, el temporizador dispararía
    * el siguiente paso antes o después de que la animación real termine.
+   *
+   * Al llegar al final se vuelve a llamar a sí misma: la secuencia gira en loop (último → primero
+   * → …) hasta que el usuario la detiene, no hasta que se acaba.
+   *
+   * Si el lienzo no estaba ya en el primer icono —la cadena recién armada con `agregar()` deja
+   * viendo el ÚLTIMO agregado, y cada vuelta del loop termina en el último— el regreso a él TAMBIÉN
+   * es un morph real, con su propia duración. Cicatriz real: tratarlo como gratis (retraso 0 para
+   * el primer paso) hacía que el siguiente tramo lo interrumpiera de inmediato — el regreso al
+   * primer icono, y con él el primer tramo de la secuencia, nunca llegaban a verse.
    */
-  protected reproducir(): void {
-    const s = this.secuencia();
-    if (s.length < 2) return;
-    this.detener();
-    this.corriendo.set(true);
+  private programarVuelta(s: Elegido[]): void {
+    this.temporizadores = [];
+    const previo = this.indiceActual();
+    let acumulado = 0;
+    if (previo !== 0) {
+      acumulado = morphKeyframes(aIconNode(s[previo].def), aIconNode(s[0].def), {
+        spring: this.resorteLento,
+      }).duracion;
+    }
     this.indiceActual.set(0);
 
-    // Dos relojes distintos y por eso van en timers separados: cada paso se DISPARA cuando arranca
-    // su tramo (`acumulado - duracion`), pero la secuencia TERMINA cuando el último tramo acaba
-    // (`acumulado`). Apagar `corriendo` en el disparo del último paso —como estaba— soltaba el
-    // botón una duración completa antes de tiempo: la etiqueta volvía a «play» con el morph a media
-    // máquina y dejaba re-disparar encima de la animación en curso.
-    let acumulado = 0;
     for (let i = 1; i < s.length; i++) {
       const { duracion } = morphKeyframes(aIconNode(s[i - 1].def), aIconNode(s[i].def), {
         spring: this.resorteLento,
@@ -220,7 +271,7 @@ export class MorphPicker implements OnDestroy {
       const paso = i;
       this.temporizadores.push(setTimeout(() => this.indiceActual.set(paso), acumulado - duracion));
     }
-    this.temporizadores.push(setTimeout(() => this.corriendo.set(false), acumulado));
+    this.temporizadores.push(setTimeout(() => this.programarVuelta(s), acumulado));
   }
 
   protected detener(): void {

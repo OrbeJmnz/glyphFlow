@@ -31,7 +31,7 @@
     "vacioLienzo": "Elige al menos 2 iconos para armar una secuencia.",
     "reproducir": {
       "reposo": "▶ reproducir secuencia",
-      "corriendo": "corriendo…"
+      "corriendo": "■ detener"
     },
     "limpiar": "limpiar",
     "montarMas": "Ver {{n}} más",
