@@ -147,7 +147,11 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
 
   /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
-  private readonly zona = inject(NgZone);
+  /** Opcional a propósito: `pack-check` (y cualquier consumidor que arme el componente por fuera
+   *  de una app de Angular completa, ej. en un test unitario con un injector a medida) no siempre
+   *  tiene `NgZone` disponible. Sin ella, `runFueraDeLaZona` simplemente no envuelve nada — mismo
+   *  comportamiento que antes de este cambio, no un error. */
+  private readonly zona = inject(NgZone, { optional: true });
 
   private anterior?: MorphIcon;
   private modoVivo: boolean | null = null;
@@ -225,7 +229,7 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       // componente. WAAPI nunca pagó este costo porque no agenda ninguna tarea de zona; el modo en
       // vivo sí, y es la propia librería quien la agenda desde su ciclo de vida — ningún consumidor
       // puede evitarlo por su cuenta si esto no lo hace.
-      this.zona.runOutsideAngular(() => {
+      this.runFueraDeLaZona(() => {
         this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
         this.motorVivo.morphTo(aIconInput(nuevo), {
           durationScale,
@@ -243,6 +247,13 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.motorVivo?.destroy();
+  }
+
+  /** `NgZone.runOutsideAngular` si hay zona; si no (`inject` opcional sin proveedor), corre la
+   *  función directo — mismo resultado que antes de este cambio, no un error. */
+  private runFueraDeLaZona(fn: () => void): void {
+    if (this.zona) this.zona.runOutsideAngular(fn);
+    else fn();
   }
 
   private get movimientoReducido(): boolean {
