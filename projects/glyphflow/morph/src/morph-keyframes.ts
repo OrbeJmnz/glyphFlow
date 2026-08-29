@@ -506,6 +506,29 @@ export function canonicalD(icono: IconInput): string {
   return cubicsToPathD(iconToCubics(icono));
 }
 
+/**
+ * Pose exacta del morph en un `t` arbitrario (0-1), SIN animación ni resorte de por medio.
+ *
+ * Existe para consumidores que necesitan control de tiempo exacto (un scrubber manual) en vez de
+ * reproducir con física — a diferencia de `morphKeyframes`, que muestrea un puñado de poses para
+ * WAAPI, esto calcula `interpPolar` directo en el `t` pedido. En los extremos devuelve el `d`
+ * CANÓNICO exacto (curvas reales), no una interpolación — mismo criterio que usa `runMorph` al
+ * aterrizar.
+ *
+ * Recalcula el plan en cada llamada, sin cache: `buildPlan` está medido como sub-ms en el
+ * benchmark de este repo. Si algún consumidor lo llama muy seguido (arrastrar un slider) y se
+ * siente lento, la salida es memoizar por referencia — no se construye sin medir que hace falta.
+ */
+export function morphAt(origen: IconInput, destino: IconInput, t: number): string {
+  if (t <= 0) return canonicalD(origen);
+  if (t >= 1) return canonicalD(destino);
+  const plan = buildPlan(resampleIcon(origen), resampleIcon(destino));
+  const out = allocOutputs(plan);
+  const cerrados = plan.items.map((it) => it.closed);
+  interpPolar(plan, t, out);
+  return serialize(out, cerrados);
+}
+
 interface MorphEnCurso {
   marca: object;
   animation: Animation;

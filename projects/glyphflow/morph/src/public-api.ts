@@ -11,6 +11,7 @@ export {
   morphKeyframes,
   runMorph,
   canonicalD,
+  morphAt,
   STEPS_DEFAULT,
   RESOLUTION_DEFAULT,
   SPRING_TAIL_DEFAULT,
