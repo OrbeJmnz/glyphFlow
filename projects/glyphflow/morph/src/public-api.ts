@@ -30,6 +30,8 @@ export type {
   SpringTailLegacy,
 } from './morph-keyframes';
 export { GfIconMorphComponent } from './gf-icon-morph.component';
+export { createLiveMorph } from './live-morph';
+export type { LiveMorph, LiveMorphOpts } from './live-morph';
 
 /**
  * @deprecated Renombrado a `GfIconMorphComponent`. Sale en la proxima major.
