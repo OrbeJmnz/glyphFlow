@@ -26,6 +26,7 @@
     },
     "agregarAria": "Add {{nombre}}",
     "quitarAria": "Remove {{nombre}}",
+    "verTramoAria": "Scrub the morph from {{desde}} to {{hasta}}",
     "previewLabel": "Morph preview",
     "vacioLienzo": "Choose at least 2 icons to build a sequence.",
     "reproducir": {
@@ -33,7 +34,11 @@
       "corriendo": "running…"
     },
     "limpiar": "clear",
-    "montarMas": "Show {{n}} more"
+    "montarMas": "Show {{n}} more",
+    "scrubber": {
+      "etiqueta": "Morph progress",
+      "valor": "{{actual}} of {{total}} milliseconds"
+    }
   },
   "morphBench": {
     "titulo": "Morph benchmark",
@@ -117,6 +122,14 @@
       "avisoChico": "Underdamped springs <strong>overshoot the target and come back</strong>. Hit \"next\" with <code>bouncy</code> and watch the overshoot — that's what didn't used to render.",
       "demoLabel": "Morph demo",
       "siguiente": "next: {{nombre}}"
+    },
+    "comparacion": {
+      "titulo": "Baked vs live",
+      "descripcion": "Same pair, two engines. <strong>Baked</strong> precomputes ~20 poses and WAAPI interpolates linearly between them. <strong>Live</strong> recomputes the exact position every frame — the difference shows most on pairs with real rotation.",
+      "horneado": "baked (WAAPI)",
+      "horneadoLabel": "Baked morph",
+      "vivo": "live (rAF)",
+      "vivoLabel": "Live morph"
     },
     "tabla": {
       "keyframes": "keyframes",

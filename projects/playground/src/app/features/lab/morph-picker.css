@@ -143,6 +143,29 @@
   color: var(--gf-texto);
 }
 
+/* Distinto de `.activo` (posición de reproducción): esto marca el tramo que el scrubber tiene
+   abierto — pueden darse los dos a la vez y hay que distinguirlos. */
+.cadena li.tramo-activo {
+  border-color: var(--gf-borde-vivo);
+}
+
+.cadena li .miniatura {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+
+.cadena li .miniatura[aria-pressed='true'] {
+  outline: 1.5px solid var(--gf-borde-vivo);
+  outline-offset: 2px;
+}
+
 .cadena li button {
   border: none;
   background: transparent;

@@ -26,6 +26,7 @@
     },
     "agregarAria": "Agregar {{nombre}}",
     "quitarAria": "Quitar {{nombre}}",
+    "verTramoAria": "Recorrer a mano el morph de {{desde}} a {{hasta}}",
     "previewLabel": "Previsualización del morph",
     "vacioLienzo": "Elige al menos 2 iconos para armar una secuencia.",
     "reproducir": {
@@ -33,7 +34,11 @@
       "corriendo": "corriendo…"
     },
     "limpiar": "limpiar",
-    "montarMas": "Ver {{n}} más"
+    "montarMas": "Ver {{n}} más",
+    "scrubber": {
+      "etiqueta": "Progreso del morph",
+      "valor": "{{actual}} de {{total}} milisegundos"
+    }
   },
   "morphBench": {
     "titulo": "Benchmark de morph",
@@ -117,6 +122,14 @@
       "avisoChico": "Los subamortiguados <strong>se pasan del destino y regresan</strong>. Dale a «siguiente» con <code>bouncy</code> y mira el sobrepaso: eso es lo que antes no se dibujaba.",
       "demoLabel": "Demo de morph",
       "siguiente": "siguiente: {{nombre}}"
+    },
+    "comparacion": {
+      "titulo": "Horneado vs en vivo",
+      "descripcion": "El mismo par, dos motores. <strong>Horneado</strong> precalcula ~20 poses y WAAPI interpola en línea recta entre ellas. <strong>En vivo</strong> recalcula la posición exacta en cada frame — la diferencia se nota más en pares con rotación real.",
+      "horneado": "horneado (WAAPI)",
+      "horneadoLabel": "Morph horneado",
+      "vivo": "en vivo (rAF)",
+      "vivoLabel": "Morph en vivo"
     },
     "tabla": {
       "keyframes": "keyframes",
