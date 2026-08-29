@@ -164,6 +164,12 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
     this.anterior = nuevo;
 
     if (!nuevo) {
+      // Si quedara un morph en vuelo, el ticker del motor en vivo repintaría `d` en el SIGUIENTE
+      // frame y el icono "reaparecería" a medio morph — se destruye ANTES de limpiar el atributo,
+      // no después. `this.anterior` ya quedó en `undefined` arriba: el siguiente icono real entra
+      // por la rama de "primer valor" y `motorVivo` se recrea desde ahí, sembrado correctamente.
+      this.motorVivo?.destroy();
+      this.motorVivo = undefined;
       this.figura.nativeElement.removeAttribute('d');
       return;
     }
@@ -195,7 +201,16 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       !animacionesActivas ||
       (this.respectReducedMotion && this.movimientoReducido)
     ) {
-      this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
+      // Si `motorVivo` ya existe, escribir el atributo a mano lo desincroniza de su `objetivo`
+      // interno: el PRÓXIMO `morphTo` replanea desde el último vuelo en vivo (p. ej. B), no desde
+      // lo que está pintado ahora mismo (p. ej. C) — la figura saltaría hacia atrás al reanudar el
+      // movimiento. `set()` ya escribe el `d` canónico Y actualiza `objetivo`/`reposo`: mismo
+      // resultado en pantalla, motor sincronizado.
+      if (this.motorVivo) {
+        this.motorVivo.set(aIconInput(nuevo));
+      } else {
+        this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
+      }
       return;
     }
 
