@@ -44,10 +44,17 @@ cubic normalization, arc-length resampling, closed-form 2D Procrustes matching,
 polar interpolation and the damped-spring solver).
 
 Vendored, not depended on: the upstream package ships framework bindings and a
-DOM layer that drive their own animation loop. glyphflow keeps the maths and
-replaces that layer with discrete WAAPI keyframes, so the core is copied in and
-carries its MIT notice in each file header. Upstream's `dom/`, `react/`, `vue/`,
-`svelte/` and `adapters/` are NOT included.
+DOM layer that drive their own animation loop. glyphflow keeps the maths and,
+by default, replaces that layer with discrete WAAPI keyframes, so the core is
+copied in and carries its MIT notice in each file header. Upstream's `dom/`,
+`react/`, `vue/`, `svelte/` and `adapters/` are NOT included verbatim.
+
+An optional "live" render mode (`live-morph.ts`, opt-in via `<gf-icon-morph
+live>`) is structurally INSPIRED by upstream's `src/dom/index.ts` — a
+requestAnimationFrame scheduler driving the same spring over the same
+`interpPolar` primitive, every frame. It is not a verbatim copy: it is
+rewritten over glyphflow's own already-vendored `core/` primitives, without
+upstream's multi-framework `PathEl` abstraction or its WeakMap-based caches.
 
 The MIT permission notice reproduced in full: see LICENSE-morphicons.
 
