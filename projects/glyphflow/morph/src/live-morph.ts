@@ -13,7 +13,7 @@ import { buildPlan, type MorphPlan } from './core/plan';
 import { resampleIcon } from './core/resample';
 import { serialize } from './core/serialize';
 import { Spring } from './core/spring';
-import type { IconInput } from './core/types';
+import type { IconInput, Sampled } from './core/types';
 import { canonicalD, SPRING_PRESETS } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
 
@@ -94,6 +94,13 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
   let volando = false;
   let muerta = false;
   let escala = 1;
+  // La figura que se usó como ORIGEN del plan actual, y si ese plan ya pintó al menos un frame.
+  // Sin esto, interrumpir dos veces seguidas sin que corra ningún tick (una pestaña oculta no
+  // corre rAF; dos cambios de `[icon]` en el mismo ciclo de detección) hacía que `figuraActual()`
+  // leyera `out` — los Float64Array en CERO de `allocOutputs`, nunca pintados — y replaneara
+  // desde un buffer vacío en vez de la figura real.
+  let fuente: Sampled[] | null = null;
+  let pintado = false;
 
   el.setAttribute('d', canonicalD(iconoInicial));
 
@@ -101,6 +108,7 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
     if (!plan || !out || !cerrados) return;
     interpPolar(plan, t, out);
     el.setAttribute('d', serialize(out, cerrados));
+    pintado = true;
   };
 
   const detener = (): void => {
@@ -114,6 +122,8 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
     plan = null;
     out = null;
     cerrados = null;
+    fuente = null;
+    pintado = false;
     spring.x = 1;
     spring.v = 0;
     el.setAttribute('d', canonicalD(objetivo));
@@ -128,20 +138,23 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
     }
   };
 
-  /** La figura actual como fuente del plan: el icono en reposo, o los buffers ya pintados (N
-   *  puntos por subpath, listos para servir de origen sin volver a muestrear el `d`). */
-  const figuraActual = () => {
-    if (reposo || !plan || !out) return resampleIcon(objetivo);
+  /** La figura actual como fuente del PRÓXIMO plan: el icono en reposo, los buffers ya pintados (N
+   *  puntos por subpath, listos para servir de origen sin volver a muestrear el `d`), o —si nada
+   *  pintó todavía— la MISMA fuente que se usó para construir el plan en curso, porque en pantalla
+   *  sigue esa figura, no el destino a medio calcular. */
+  const figuraActual = (): Sampled[] => {
+    if (reposo || !plan || !out || !pintado) return fuente ?? resampleIcon(objetivo);
     const p = plan;
     return out.map((buf, i) => ({ pts: Float64Array.from(buf), closed: p.items[i].closed }));
   };
 
   const replanear = (icon: IconInput): void => {
-    plan = reposo
-      ? buildPlan(resampleIcon(objetivo), resampleIcon(icon))
-      : buildPlan(figuraActual(), resampleIcon(icon));
+    const partida = reposo ? resampleIcon(objetivo) : figuraActual();
+    plan = buildPlan(partida, resampleIcon(icon));
     out = allocOutputs(plan);
     cerrados = plan.items.map((it) => it.closed);
+    fuente = partida;
+    pintado = false;
     objetivo = icon;
     reposo = false;
   };

@@ -1,6 +1,11 @@
 import { bellIcon, bellRingIcon, starIcon, type AnimatedIconDef, type IconShape } from 'glyphflow';
 import { createLiveMorph } from './live-morph';
 import { canonicalD } from './morph-keyframes';
+import { allocOutputs, interpPolar } from './core/interpolate';
+import { buildPlan } from './core/plan';
+import { resampleIcon } from './core/resample';
+import { serialize } from './core/serialize';
+import type { IconInput } from './core/types';
 
 /**
  * El entorno de tests SÍ trae `requestAnimationFrame` (jsdom lo implementa, a diferencia de
@@ -58,6 +63,18 @@ function aIconNode(def: AnimatedIconDef): [string, Record<string, string | numbe
 const bell = aIconNode(bellIcon);
 const bellRing = aIconNode(bellRingIcon);
 const star = aIconNode(starIcon);
+
+/** Pose exacta en t=0 de un plan desde→hacia, calculada aparte del motor — para comparar contra lo
+ *  que de verdad pintó `createLiveMorph`, sin confiar en su propia matemática. */
+function poseInicialDe(desde: IconInput, hacia: IconInput): string {
+  const plan = buildPlan(resampleIcon(desde), resampleIcon(hacia));
+  const out = allocOutputs(plan);
+  interpPolar(plan, 0, out);
+  return serialize(
+    out,
+    plan.items.map((it) => it.closed),
+  );
+}
 
 /** `<path>` falso: solo necesita `setAttribute`, igual que `pathFalso()` en `morph-keyframes.spec.ts`.
  *
@@ -166,6 +183,38 @@ describe('createLiveMorph — morphTo()', () => {
     expect(p.d).toBe(poseAlInterrumpir);
     morph.destroy(); // limpia el scheduler compartido — ver la nota del test anterior
     raf.restaurar();
+  });
+
+  it('interrumpir ANTES de que pinte ningún frame no replanea desde un buffer vacío', () => {
+    // `figuraActual()` leía `out` para replanear desde "la pose en pantalla" — pero si NINGÚN
+    // frame pintó todavía, `out` sigue siendo los Float64Array en cero de `allocOutputs`, no una
+    // figura real. Dos `morphTo` seguidos sin que corra un tick (posible en la vida real: una
+    // pestaña oculta no corre rAF, o dos cambios de `[icon]` en el mismo ciclo de detección) debe
+    // seguir replaneando desde el ORIGEN real (`bell`), no desde ceros.
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, bell);
+    // try/finally a propósito: si la aserción de abajo truena (que es justo lo que hace este test
+    // MIENTRAS el bug sigue vivo), un `restaurar()`/`destroy()` al final del cuerpo nunca correría
+    // y dejaría el mock de rAF y el ticker del scheduler compartido corruptos para TODOS los tests
+    // que corran después en este archivo — no solo este falla, fallan otros por una razón que no
+    // tiene nada que ver. Ver la nota de higiene en `describe('createLiveMorph — destroy()', …)`.
+    try {
+      morph.morphTo(bellRing, { spring: 'smooth' }); // registra el ticker, todavía no pinta nada
+      morph.morphTo(star, { spring: 'smooth' }); // interrumpe ANTES de que corra el primer tick
+
+      // Primer tick real: `ultimo` sigue en -1 (ningún `agregarTicker` se repitió, `volando` ya
+      // era `true`), así que este frame pinta exactamente t=0 del plan bell→star.
+      raf.avanzar(16);
+
+      expect(p.d).toBe(poseInicialDe(bell, star));
+      // Control cruzado: si el bug estuviera de vuelta, la fuente sería el buffer en cero del
+      // plan bell→bellRing, no bell — y esa pose NO coincide con la correcta.
+      expect(p.d).not.toBe(poseInicialDe(bellRing, star));
+    } finally {
+      morph.destroy();
+      raf.restaurar();
+    }
   });
 
   it('sin requestAnimationFrame (SSR) salta directo, como set()', () => {
