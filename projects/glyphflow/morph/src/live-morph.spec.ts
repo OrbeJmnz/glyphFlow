@@ -179,6 +179,23 @@ describe('createLiveMorph — morphTo()', () => {
     globalThis.requestAnimationFrame = original;
   });
 
+  it('durationScale ≤ 0 (o negativo) salta directo, sin ticker ni `d` corrompido por NaN', () => {
+    // Regresión del guard en `morphTo`: `spring.step(dt / escala)` con `escala <= 0` produce NaN al
+    // segundo frame (dt/0 = Infinity → v = NaN → x = NaN), y el criterio de asentamiento
+    // `|1-x| < 0.001` queda permanentemente falso — el ticker nunca suelta y cada frame pinta un `d`
+    // corrompido. `durationScale: 0` es el mismo valor que usa `provideGfIcons` para "sin
+    // animación", y WAAPI lo resuelve con un salto instantáneo (`duration * 0`); el motor en vivo
+    // tiene que dar el mismo resultado observable, no un loop infinito.
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, bell);
+    morph.morphTo(bellRing, { durationScale: 0 });
+    expect(raf.llamadasRaf).toBe(0); // no llegó a pedir ni un solo frame
+    expect(raf.activo).toBe(false); // no quedó ningún ticker pendiente
+    expect(p.d).toBe(canonicalD(bellRing)); // salto instantáneo y exacto, no un `d` con NaN
+    raf.restaurar();
+  });
+
   it('durationScale mayor tarda más frames simulados en asentar', () => {
     const contarFrames = (durationScale: number): number => {
       const raf = espiarRaf();
