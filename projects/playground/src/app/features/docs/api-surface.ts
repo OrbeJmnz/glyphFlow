@@ -176,6 +176,18 @@ export const API_VALORES: SimboloApi[] = [
     resumen: 'docs.api.simbolos.canonicalD',
   },
   {
+    nombre: 'morphAt',
+    entrada: 'glyphflow/morph',
+    clase: 'función',
+    resumen: 'docs.api.simbolos.morphAt',
+  },
+  {
+    nombre: 'createLiveMorph',
+    entrada: 'glyphflow/morph',
+    clase: 'función',
+    resumen: 'docs.api.simbolos.createLiveMorph',
+  },
+  {
     nombre: 'SPRING_PRESETS',
     entrada: 'glyphflow/morph',
     clase: 'constante',
@@ -287,5 +299,15 @@ export const API_TIPOS: { nombre: string; entrada: Entrada; resumen: string }[] 
     nombre: 'SpringPreset',
     entrada: 'glyphflow/morph',
     resumen: 'docs.api.tipos.SpringPreset',
+  },
+  {
+    nombre: 'LiveMorph',
+    entrada: 'glyphflow/morph',
+    resumen: 'docs.api.tipos.LiveMorph',
+  },
+  {
+    nombre: 'LiveMorphOpts',
+    entrada: 'glyphflow/morph',
+    resumen: 'docs.api.tipos.LiveMorphOpts',
   },
 ];
