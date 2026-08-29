@@ -1,0 +1,66 @@
+.pagina {
+  position: relative;
+  display: flex;
+  min-height: 60vh;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  overflow: hidden;
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gf-texto);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.contenido {
+  position: relative;
+  z-index: 1;
+  max-width: 32rem;
+  text-align: center;
+}
+
+.contenido h1 {
+  margin: 0 0 0.75rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+.contenido > p {
+  margin: 0 0 2rem;
+  color: var(--gf-texto-tenue);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.buscador {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.buscador app-campo-busqueda {
+  flex: 1;
+  max-width: 20rem;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.acciones [app-boton] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}

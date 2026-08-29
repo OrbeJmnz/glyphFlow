@@ -1,0 +1,31 @@
+<section class="pagina">
+  <gf-icon [iconDef]="fondo" [size]="480" trigger="auto" class="fondo" />
+
+  <div class="contenido">
+    <h1>{{ 'noEncontrado.titulo' | transloco }}</h1>
+    <p>{{ 'noEncontrado.descripcion' | transloco }}</p>
+
+    <form class="buscador" (submit)="buscar($event)">
+      <app-campo-busqueda
+        [(texto)]="termino"
+        [marcador]="'noEncontrado.buscarMarcador' | transloco"
+        [etiqueta]="'noEncontrado.buscarEtiqueta' | transloco"
+        [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
+      />
+      <button type="submit" app-boton variante="primario">
+        {{ 'noEncontrado.buscarBoton' | transloco }}
+      </button>
+    </form>
+
+    <div class="acciones">
+      <button type="button" app-boton variante="fantasma" (click)="volver()">
+        <gf-icon [iconDef]="flechaAtras" [size]="16" trigger="manual" />
+        {{ 'noEncontrado.volver' | transloco }}
+      </button>
+      <a app-boton variante="primario" [routerLink]="inicioHref()">
+        <gf-icon [iconDef]="casa" [size]="16" trigger="manual" />
+        {{ 'noEncontrado.inicio' | transloco }}
+      </a>
+    </div>
+  </div>
+</section>

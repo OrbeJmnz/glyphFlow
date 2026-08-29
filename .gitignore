@@ -50,6 +50,7 @@ Thumbs.db
 
 # Documentación de planeación interna — no se publica
 /docs/planning/
+/docs/superpowers/
 
 # Configuración de agentes IA — local, no se publica
 .claude/

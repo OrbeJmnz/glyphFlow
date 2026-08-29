@@ -25,6 +25,8 @@ import type {
   RunMorphOpts,
   SpringConfig,
   SpringPreset,
+  LiveMorph,
+  LiveMorphOpts,
 } from 'glyphflow/morph';
 
 /** Referenciarlos evita que el linter los borre por "no usados" y convierta el check en nada. */
@@ -43,6 +45,8 @@ type TiposImportados = [
   RunMorphOpts,
   SpringConfig,
   SpringPreset,
+  LiveMorph,
+  LiveMorphOpts,
 ];
 
 const MODULOS: Record<Entrada, Record<string, unknown>> = {

@@ -139,8 +139,17 @@ function paginas(idioma: Idioma): Routes {
         },
       ],
     },
-    // Relativo al prefijo: `/en/basura` cae en `/en`, no en la portada del otro idioma.
-    { path: '**', redirectTo: '' },
+    /*
+     * Antes: `redirectTo: ''` — cualquier URL desconocida caía en la portada, silenciosa. Una URL
+     * rota se veía como si fuera la portada, no como rota. Esto NO toca el otro comodín de abajo
+     * (`export const routes`), que sigue siendo la red de migración de URLs viejas sin prefijo —
+     * ese SÍ debe seguir redirigiendo con un 301 real, no mostrar un 404.
+     */
+    {
+      path: '**',
+      title: 'routes.noEncontrado.title',
+      loadComponent: () => import('./features/no-encontrado/no-encontrado').then((m) => m.NoEncontrado),
+    },
   ];
 }
 

@@ -12,6 +12,10 @@ const FESM = new URL('../dist/glyphflow/fesm2022/glyphflow.mjs', import.meta.url
   /^\/([A-Za-z]):/,
   '$1:',
 );
+const FESM_MORPH = new URL(
+  '../dist/glyphflow/fesm2022/glyphflow-morph.mjs',
+  import.meta.url,
+).pathname.replace(/^\/([A-Za-z]):/, '$1:');
 
 const CASES = [
   {
@@ -39,6 +43,18 @@ const CASES = [
     entry: `import { MaxIconComponent, provideIconCatalog, ANIMATED_ICONS } from '${FESM.replace(/\\/g, '/')}'; console.log(MaxIconComponent, provideIconCatalog, ANIMATED_ICONS);`,
     // Sin presupuesto estricto — se ACEPTA que cargue todo, solo se reporta para tener el número.
     maxGzipBytes: null as number | null,
+  },
+  {
+    name: 'morph — GfIconMorphComponent, live=false por default',
+    // Sin fila en el README: esto es un budget de CI, no una cifra publicada — ver la nota de
+    // `filaReadme?` abajo. Existe porque el motor "en vivo" (`live-morph.ts`) se importa ESTÁTICO
+    // desde el componente, así que hasta quien nunca pone `live=true` paga por él. Medido a mano
+    // (esbuild+gzip) al agregar ese motor: 11.99KB → 12.56KB (+0.57KB, ~5%). 15KB deja margen para
+    // crecimiento normal sin dejar de cazar una regresión real (ej. que el motor en vivo empiece a
+    // arrastrar algo que no debería).
+    filaReadme: null as string | null,
+    entry: `import { GfIconMorphComponent } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent);`,
+    maxGzipBytes: 15 * 1024,
   },
 ];
 
@@ -145,7 +161,9 @@ async function main() {
       failed = true;
     }
 
-    medidos.set(c.filaReadme, gzip / 1024);
+    // `filaReadme: null` = presupuesto de CI sin fila publicada (ver el caso `morph` arriba) — no
+    // entra a `verificarDocs`, que solo compara lo que el README/cifras.ts prometen de verdad.
+    if (c.filaReadme) medidos.set(c.filaReadme, gzip / 1024);
   }
 
   if (!verificarDocs(medidos)) failed = true;

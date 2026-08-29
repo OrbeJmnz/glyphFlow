@@ -227,7 +227,8 @@
       "decorative": "Mismo contrato que <gf-icon>.",
       "label": "Con label el icono es semántico.",
       "respectReducedMotion": "Aquí SALTA al destino en vez de quedarse quieto.",
-      "spring": "smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría."
+      "spring": "smooth / snappy / bouncy, o un { k, c } propio. Solo decide el tiempo, nunca la geometría.",
+      "live": "Horneado (WAAPI, default) vs en vivo (resorte real por requestAnimationFrame). Fijo desde el primer uso — cambiarlo después no tiene efecto."
     },
     "obsoleto": "obsoleto",
     "usaEnSuLugar": "Usa {{nuevo}} en su lugar.",
@@ -249,6 +250,8 @@
       "morphKeyframes": "Calcula los keyframes discretos de `d` entre dos iconos. No anima nada.",
       "runMorph": "morphKeyframes + element.animate(). Devuelve la Animation para que la controles.",
       "canonicalD": "El `d` de un icono ya resuelto — lo que se pinta cuando no hay transición.",
+      "morphAt": "La pose exacta del morph en cualquier t (0-1), sin animar — para scrubbers y control manual.",
+      "createLiveMorph": "El motor en vivo: un resorte movido por requestAnimationFrame, en vez de keyframes precalculados de WAAPI.",
       "SPRING_PRESETS": "smooth (ζ=1.00), snappy (ζ=0.73) y bouncy (ζ=0.40). Los dos últimos rebotan de verdad.",
       "STEPS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
       "RESOLUTION_DEFAULT": "64 puntos por subpath.",
@@ -271,7 +274,9 @@
       "MorphKeyframesOpts": "Pasos, resolución, cola, resorte, sobrepaso.",
       "RunMorphOpts": "Lo anterior + loop, dirección y durationScale.",
       "SpringConfig": "Resorte crudo: rigidez y amortiguamiento.",
-      "SpringPreset": "Los nombres de SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'."
+      "SpringPreset": "Los nombres de SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'.",
+      "LiveMorph": "El manejador de createLiveMorph: morphTo, set, destroy.",
+      "LiveMorphOpts": "spring y durationScale, mismo vocabulario que el motor horneado."
     },
     "clases": {
       "componente": "componente",

@@ -3,7 +3,9 @@ import {
   Component,
   ElementRef,
   Input,
+  NgZone,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
   ViewChild,
   inject,
@@ -15,6 +17,7 @@ import {
 import { GF_ICONS_CONFIG, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
+import { createLiveMorph, type LiveMorph } from './live-morph';
 import type { IconInput } from './core/types';
 
 /**
@@ -96,7 +99,7 @@ function aIconInput(icono: MorphIcon): IconInput {
     '[style.--ai-size.px]': 'size',
   },
 })
-export class GfIconMorphComponent implements OnChanges {
+export class GfIconMorphComponent implements OnChanges, OnDestroy {
   @ViewChild('figura', { static: true }) private figura!: ElementRef<SVGPathElement>;
 
   /**
@@ -131,10 +134,28 @@ export class GfIconMorphComponent implements OnChanges {
    */
   @Input() spring?: SpringPreset | SpringConfig;
 
+  /**
+   * Motor de render: `false` (default) usa keyframes precalculados de WAAPI — barato, corre en el
+   * compositor, pero aproxima con ~20 poses fijas (ver `STEPS_DEFAULT`). `true` usa el motor en
+   * vivo (`createLiveMorph`): resorte real por `requestAnimationFrame`, exacto en cada frame, a
+   * costa de trabajo en el hilo principal mientras el morph se mueve. Pensado para los pocos
+   * morphs que son la vitrina (un hero, el Lab) — no para un grid con cientos de iconos con hover.
+   *
+   * **Fijo desde el primer uso**: se lee una vez; cambiarlo después no tiene efecto.
+   */
+  @Input() live = false;
+
   /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
+  /** Opcional a propósito: `pack-check` (y cualquier consumidor que arme el componente por fuera
+   *  de una app de Angular completa, ej. en un test unitario con un injector a medida) no siempre
+   *  tiene `NgZone` disponible. Sin ella, `runFueraDeLaZona` simplemente no envuelve nada — mismo
+   *  comportamiento que antes de este cambio, no un error. */
+  private readonly zona = inject(NgZone, { optional: true });
 
   private anterior?: MorphIcon;
+  private modoVivo: boolean | null = null;
+  private motorVivo?: LiveMorph;
 
   protected get ariaHidden(): 'true' | 'false' {
     return this.decorative && !this.label ? 'true' : 'false';
@@ -142,19 +163,28 @@ export class GfIconMorphComponent implements OnChanges {
 
   ngOnChanges(cambios: SimpleChanges): void {
     if (!cambios['icon']) return;
+    this.modoVivo ??= this.live;
 
     const nuevo = this.icon;
     const anterior = this.anterior;
     this.anterior = nuevo;
 
     if (!nuevo) {
+      // Si quedara un morph en vuelo, el ticker del motor en vivo repintaría `d` en el SIGUIENTE
+      // frame y el icono "reaparecería" a medio morph — se destruye ANTES de limpiar el atributo,
+      // no después. `this.anterior` ya quedó en `undefined` arriba: el siguiente icono real entra
+      // por la rama de "primer valor" y `motorVivo` se recrea desde ahí, sembrado correctamente.
+      this.motorVivo?.destroy();
+      this.motorVivo = undefined;
       this.figura.nativeElement.removeAttribute('d');
       return;
     }
 
     // Primer valor, sin nada previo: se pinta y ya. Morphear "desde nada" no existe.
-    // También cae aquí el SSR y cualquier navegador sin WAAPI: se ve el icono, no se anima.
-    const puedeAnimar = typeof this.figura.nativeElement.animate === 'function';
+    // También cae aquí el SSR y cualquier navegador sin WAAPI/rAF: se ve el icono, no se anima.
+    const puedeAnimar = this.modoVivo
+      ? typeof requestAnimationFrame === 'function'
+      : typeof this.figura.nativeElement.animate === 'function';
     // `animationsEnabled` en `false` cae aquí a propósito: la figura nueva se PINTA, solo no se
     // interpola. Saltarse la escritura dejaría el icono anterior en pantalla, que es peor que no
     // animar — el valor habría cambiado y el usuario vería el de antes.
@@ -177,14 +207,53 @@ export class GfIconMorphComponent implements OnChanges {
       !animacionesActivas ||
       (this.respectReducedMotion && this.movimientoReducido)
     ) {
-      this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
+      // Si `motorVivo` ya existe, escribir el atributo a mano lo desincroniza de su `objetivo`
+      // interno: el PRÓXIMO `morphTo` replanea desde el último vuelo en vivo (p. ej. B), no desde
+      // lo que está pintado ahora mismo (p. ej. C) — la figura saltaría hacia atrás al reanudar el
+      // movimiento. `set()` ya escribe el `d` canónico Y actualiza `objetivo`/`reposo`: mismo
+      // resultado en pantalla, motor sincronizado.
+      if (this.motorVivo) {
+        this.motorVivo.set(aIconInput(nuevo));
+      } else {
+        this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
+      }
+      return;
+    }
+
+    const durationScale = this.config?.durationScale ?? 1;
+    if (this.modoVivo) {
+      // `runOutsideAngular`: el scheduler de `live-morph.ts` se registra con `requestAnimationFrame`
+      // desde AQUÍ. Con zone.js cargado (la app de un consumidor real, no este workspace zoneless),
+      // ese `requestAnimationFrame` queda parchado como macrotarea — sin este envoltorio, cada frame
+      // del morph dispararía un ciclo de detección de cambios de TODA la app, no solo de este
+      // componente. WAAPI nunca pagó este costo porque no agenda ninguna tarea de zona; el modo en
+      // vivo sí, y es la propia librería quien la agenda desde su ciclo de vida — ningún consumidor
+      // puede evitarlo por su cuenta si esto no lo hace.
+      this.runFueraDeLaZona(() => {
+        this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
+        this.motorVivo.morphTo(aIconInput(nuevo), {
+          durationScale,
+          ...(this.spring ? { spring: this.spring } : {}),
+        });
+      });
       return;
     }
 
     runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
-      durationScale: this.config?.durationScale ?? 1,
+      durationScale,
       ...(this.spring ? { spring: this.spring } : {}),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.motorVivo?.destroy();
+  }
+
+  /** `NgZone.runOutsideAngular` si hay zona; si no (`inject` opcional sin proveedor), corre la
+   *  función directo — mismo resultado que antes de este cambio, no un error. */
+  private runFueraDeLaZona(fn: () => void): void {
+    if (this.zona) this.zona.runOutsideAngular(fn);
+    else fn();
   }
 
   private get movimientoReducido(): boolean {
