@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnDestroy,
   ViewChild,
   computed,
   effect,
@@ -11,24 +10,28 @@ import {
 } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AnimatedIconDef } from 'glyphflow';
-import { morphKeyframes, type SpringConfig } from 'glyphflow/morph';
+import { morphAt, morphKeyframes, type SpringConfig } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 import { Deslizador } from '../../shared/ui/deslizador';
 
 /**
- * Mismo amortiguamiento crítico que `smooth` (ζ ≈ 1, sin rebote) con la rigidez a un cuarto —
- * el tiempo de asentamiento de un resorte crítico escala con 1/√k, así que k/4 ≈ el doble de
- * lento, mismo carácter. La comparte `MorphScrubber` y `MorphPicker`: si divergiera, arrastrar el
- * deslizador se sentiría a otra velocidad que reproducir la cadena del mismo par.
+ * Mismo amortiguamiento crítico que `smooth` con la rigidez a un cuarto (el doble de lento, mismo
+ * carácter) — compartido con `MorphPicker`, que reproduce la cadena completa con este resorte.
  */
 export const RESORTE_LENTO: SpringConfig = { k: 42, c: 13 };
 
 /**
  * Scrubber manual (t = 0 → 1) sobre el morph de UN par de iconos.
  *
- * `<gf-icon-morph>` no sirve aquí: anima sola y no expone control de tiempo. Este componente pinta
- * su PROPIO `<path>` con `morphKeyframes()` y controla el `Animation` en pausa, moviendo
- * `currentTime` a mano — mismo patrón que ya usa `IconScrubber` para la coreografía de `<gf-icon>`.
+ * Pinta la pose EXACTA en cada `t` con `morphAt()` — sin animación, sin `Animation` de WAAPI de
+ * por medio. Antes arrastraba `currentTime` sobre una animación pausada con ~20 poses
+ * precalculadas, que interpolaba linealmente entre ellas (el mismo problema de "corta esquinas"
+ * diagnosticado en `docs/superpowers/specs/2026-08-28-morph-live-render-design.md`); `morphAt`
+ * calcula la posición matemáticamente correcta en cualquier punto, así que ya no hay nada que
+ * aproximar.
+ *
+ * El contador en milisegundos es solo INFORMATIVO: usa `morphKeyframes(...).duration` para decir
+ * cuánto tardaría `resorteLento` si se reprodujera solo — no es lo que se está pintando.
  */
 @Component({
   selector: 'app-morph-scrubber',
@@ -37,7 +40,7 @@ export const RESORTE_LENTO: SpringConfig = { k: 42, c: 13 };
   templateUrl: './morph-scrubber.html',
   styleUrl: './morph-scrubber.css',
 })
-export class MorphScrubber implements OnDestroy {
+export class MorphScrubber {
   @ViewChild('figura', { static: true }) private figura!: ElementRef<SVGPathElement>;
 
   readonly origen = input.required<AnimatedIconDef>();
@@ -45,48 +48,38 @@ export class MorphScrubber implements OnDestroy {
 
   protected readonly progreso = signal(0);
 
-  private readonly medidas = computed(() =>
-    morphKeyframes(aIconNode(this.origen()), aIconNode(this.destino()), {
-      spring: RESORTE_LENTO,
-    }),
+  protected readonly duracionMs = computed(() =>
+    Math.round(
+      morphKeyframes(aIconNode(this.origen()), aIconNode(this.destino()), {
+        spring: RESORTE_LENTO,
+      }).duration,
+    ),
   );
-  protected readonly duracionMs = computed(() => Math.round(this.medidas().duration));
   protected readonly tiempoActualMs = computed(() =>
     Math.round(this.progreso() * this.duracionMs()),
   );
 
-  private animacion?: Animation;
-
   constructor() {
-    // Se leen aquí (no dentro del microtask) para que el effect SÍ dependa de ellas — mismo
-    // motivo que `IconScrubber`.
     effect(() => {
       this.origen();
       this.destino();
-      queueMicrotask(() => this.reconstruir());
+      queueMicrotask(() => {
+        this.progreso.set(0);
+        this.pintar(0);
+      });
     });
   }
 
   protected mover(valor: number): void {
     const t = valor / 1000;
     this.progreso.set(t);
-    if (this.animacion) this.animacion.currentTime = t * this.duracionMs();
+    this.pintar(t);
   }
 
-  private reconstruir(): void {
-    this.animacion?.cancel();
-    this.animacion = undefined;
-    this.progreso.set(0);
-
-    const el = this.figura.nativeElement;
-    if (typeof el.animate !== 'function') return;
-
-    const { keyframes, duration } = this.medidas();
-    this.animacion = el.animate(keyframes, { duration, easing: 'linear', fill: 'forwards' });
-    this.animacion.pause();
-  }
-
-  ngOnDestroy(): void {
-    this.animacion?.cancel();
+  private pintar(t: number): void {
+    this.figura.nativeElement.setAttribute(
+      'd',
+      morphAt(aIconNode(this.origen()), aIconNode(this.destino()), t),
+    );
   }
 }
