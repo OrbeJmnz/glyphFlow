@@ -2,6 +2,7 @@ import {
   morphKeyframes,
   runMorph,
   canonicalD,
+  morphAt,
   STEPS_DEFAULT,
   RESOLUTION_DEFAULT,
   SPRING_TAIL_DEFAULT,
@@ -405,5 +406,27 @@ describe('alias de la v1 — siguen funcionando una minor', () => {
   it('`duracion` sigue rellenándose con el mismo número que `duration`', () => {
     const m = morphKeyframes(bell, bellRing, { steps: 10 });
     expect(m.duracion).toBe(m.duration);
+  });
+});
+
+describe('morphAt — pose exacta sin animación', () => {
+  it('en los extremos devuelve el `d` canónico, no una interpolación', () => {
+    expect(morphAt(bell, bellRing, 0)).toBe(canonicalD(bell));
+    expect(morphAt(bell, bellRing, 1)).toBe(canonicalD(bellRing));
+  });
+
+  it('en un punto intermedio no es ninguno de los dos extremos, y es determinista', () => {
+    const t = 0.37;
+    const a = morphAt(bell, bellRing, t);
+    const b = morphAt(bell, bellRing, t);
+    expect(a).toBe(b);
+    expect(a).not.toBe(canonicalD(bell));
+    expect(a).not.toBe(canonicalD(bellRing));
+  });
+
+  it('es pura: mismo par y mismo t siempre dan el mismo resultado, sin estado previo', () => {
+    const primero = morphAt(bell, star, 0.5);
+    const segundo = morphAt(bell, star, 0.5);
+    expect(primero).toBe(segundo);
   });
 });

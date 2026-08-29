@@ -227,7 +227,8 @@
       "decorative": "Same contract as <gf-icon>.",
       "label": "With label, the icon is semantic.",
       "respectReducedMotion": "Here it JUMPS to the destination instead of staying still.",
-      "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry."
+      "spring": "smooth / snappy / bouncy, or your own { k, c }. Only decides timing, never geometry.",
+      "live": "Baked (WAAPI, default) vs live (a real spring via requestAnimationFrame). Fixed after the first use — changing it later has no effect."
     },
     "obsoleto": "deprecated",
     "usaEnSuLugar": "Use {{nuevo}} instead.",
@@ -249,6 +250,8 @@
       "morphKeyframes": "Computes the discrete `d` keyframes between two icons. Doesn't animate anything.",
       "runMorph": "morphKeyframes + element.animate(). Returns the Animation so you can control it.",
       "canonicalD": "The already-resolved `d` of an icon — what renders when there's no transition.",
+      "morphAt": "The exact morph pose at any t (0-1), with no animation — for scrubbers and manual control.",
+      "createLiveMorph": "The live engine: a spring driven by requestAnimationFrame, instead of precomputed WAAPI keyframes.",
       "SPRING_PRESETS": "smooth (ζ=1.00), snappy (ζ=0.73), and bouncy (ζ=0.40). The last two actually overshoot.",
       "STEPS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
       "RESOLUTION_DEFAULT": "64 points per subpath.",
@@ -271,7 +274,9 @@
       "MorphKeyframesOpts": "Steps, resolution, tail, spring, overshoot.",
       "RunMorphOpts": "The above + loop, direction, and durationScale.",
       "SpringConfig": "Raw spring: stiffness and damping.",
-      "SpringPreset": "The names in SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'."
+      "SpringPreset": "The names in SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'.",
+      "LiveMorph": "createLiveMorph's handle: morphTo, set, destroy.",
+      "LiveMorphOpts": "spring and durationScale, same vocabulary as the baked engine."
     },
     "clases": {
       "componente": "component",

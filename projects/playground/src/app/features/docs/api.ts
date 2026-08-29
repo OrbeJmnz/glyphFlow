@@ -172,5 +172,11 @@ export class Api {
       porDefecto: "'smooth'",
       nota: 'docs.api.inputsMorph.spring',
     },
+    {
+      nombre: 'live',
+      tipo: 'boolean',
+      porDefecto: 'false',
+      nota: 'docs.api.inputsMorph.live',
+    },
   ];
 }
