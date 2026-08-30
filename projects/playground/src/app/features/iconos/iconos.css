@@ -382,25 +382,46 @@
   color: var(--gf-texto-tenue);
 }
 
-/* ── Barra de filtros ───────────────────────────────────────────────────────── */
-
+/* ── Barra de filtros ─────────────────────────────────────────────────────────
+ *
+ * Tres grupos visuales, dos hijos flex reales: `.barra-buscar` (SEARCH) y `.barra-controles`
+ * (la acción de repetir + FILTERS + VIEW). Con solo dos items, el propio `flex-wrap` decide cuándo
+ * bajan a su fila — reacciona al ancho REAL de `.barra` (venga de un viewport angosto o del panel
+ * abierto restándole `margin-right`), sin ninguna media query nueva que mantener.
+ */
 .barra {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 4px 10px;
+  gap: 10px 16px;
   margin: 64px 0 24px;
   padding: 3px;
 }
 
-/* Ancho propio: `.ui-campo` es 100% de SU contenedor, y en una fila flex sin esto el envoltorio
-   se encoge a cero — el input quedaría invisible, no roto pero sin caja. */
-.busqueda {
-  flex: 0 1 200px;
+.barra-buscar {
+  flex: 1 1 260px;
+  min-width: 220px;
+}
+
+.barra-controles {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+/* El filete entre "Repetir visibles" (acción) y los grupos de filtro/vista: sin él, la acción se
+   lee como un chip más y compite con lo que sí recorta la rejilla. */
+.barra-separador {
+  align-self: stretch;
+  width: 1px;
+  margin: 4px 2px;
+  background: var(--gf-borde-suave);
 }
 
 .aviso {
+  flex-basis: 100%;
   font-size: 13px;
   color: var(--gf-texto-tenue);
 }
@@ -533,7 +554,18 @@
   border-radius: var(--gf-radio);
 }
 
-.grid.comoda .nombre {
+/*
+ * El envoltorio del nombre (`<app-tooltip>`) es quien se posiciona/encoge dentro de la tarjeta
+ * ahora; el `<span class="nombre">` de adentro solo corta su propio texto. `.ui-tooltip` es
+ * `inline-flex` por su cuenta (ver `styles.css`) y sin este freno crecería a lo ancho del nombre
+ * SIN cortar — el corte de abajo pasaría a resolverse contra un contenedor que ya se estiró de más.
+ */
+.card .nombre-tooltip {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.grid.comoda .nombre-tooltip {
   position: absolute;
   right: 12px;
   bottom: 14px;
@@ -541,11 +573,13 @@
 }
 
 /*
- * Una sola línea con elipsis. El `min-width: 0` es el que hace el trabajo: sin él, un hijo flex
- * se niega a encogerse por debajo de su contenido y el nombre desborda la tarjeta en vez de
- * cortarse. El `title` completo lo pone `appTituloSiTruncado`, y SOLO cuando de verdad corta.
+ * Una sola línea con elipsis. `flex: 1 1 auto` + `min-width: 0` son los que hacen el trabajo:
+ * sin ellos, un hijo flex del `<app-tooltip>` envoltorio se niega a encogerse por debajo de su
+ * contenido y el nombre desborda en vez de cortarse. La burbuja de `app-tooltip` la muestra
+ * `appNombreTruncado`, y SOLO cuando de verdad corta — ver la regla en `styles.css`.
  */
 .nombre {
+  flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
@@ -566,13 +600,28 @@
   color: var(--gf-texto-medio);
 }
 
-/* Leyenda de la insignia: discreta, pero en el DOM y sin hover de por medio. */
-.leyenda-insignia {
+/* Disclosure con el porqué del número y del `hold` — ver `.explicacion` más abajo, junto a la
+   API, o busca `<details class="explicacion">` en el HTML. Reemplaza a la vieja leyenda siempre
+   visible: discreta a propósito, pero accesible por click/tap/foco y no solo por hover. */
+.explicacion {
   max-width: var(--gf-ancho);
   margin: 0 auto 12px;
   padding: 0 24px;
-  color: var(--gf-texto-apagado);
   font-size: 12px;
+  color: var(--gf-texto-apagado);
+}
+
+.explicacion summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.explicacion p {
+  margin: 6px 0 0;
+  color: var(--gf-texto-tenue);
 }
 
 /*
@@ -844,6 +893,25 @@
   justify-content: center;
   max-width: var(--gf-ancho);
   margin: 24px auto 0;
+}
+
+/* ── Pie de paginación ────────────────────────────────────────────────────────
+ *
+ * Solo existe con más de una página — el `@if` del HTML ya lo decide, esto es puro layout.
+ */
+.pie-paginacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: var(--gf-ancho);
+  margin: 32px auto 0;
+}
+
+.pie-rango {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gf-texto-tenue);
 }
 
 /*

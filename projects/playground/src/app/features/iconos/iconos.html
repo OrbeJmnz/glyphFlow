@@ -271,61 +271,69 @@
 </ul>
 
 <div class="barra" [class.con-panel]="inspeccionado()" #barraCatalogo>
-  <button type="button" app-boton compacto (click)="repetirVisibles()">
-    {{ 'iconos.barra.repetirVisibles' | transloco }}
-  </button>
+  <div class="barra-buscar">
+    <app-campo-busqueda
+      [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
+      [(texto)]="busqueda"
+      [marcador]="'iconos.barra.buscarMarcador' | transloco"
+      [etiqueta]="'iconos.barra.buscarEtiqueta' | transloco"
+      class="busqueda"
+    />
+  </div>
 
-  <app-campo-busqueda
-    [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
-    [(texto)]="busqueda"
-    [marcador]="'iconos.barra.buscarMarcador' | transloco"
-    [etiqueta]="'iconos.barra.buscarEtiqueta' | transloco"
-    class="busqueda"
-  />
-
-  <app-grupo [etiqueta]="'iconos.barra.filtrarInsigniaEtiqueta' | transloco">
-    <button
-      type="button"
-      app-chip
-      [activo]="filtro() === null"
-      [attr.aria-pressed]="filtro() === null"
-      (click)="elegirFiltro(null)"
-    >
-      {{ 'iconos.barra.todos' | transloco }} <em>{{ total }}</em>
+  <div class="barra-controles">
+    <!-- Es una ACCIÓN, no un filtro: `fantasma` + el filete de al lado la separan visualmente de
+         los grupos que sí recortan la rejilla. -->
+    <button type="button" app-boton variante="fantasma" compacto (click)="repetirVisibles()">
+      {{ 'iconos.barra.repetirVisibles' | transloco }}
     </button>
-    @for (c of conteos(); track c.clave) {
+
+    <span class="barra-separador" aria-hidden="true"></span>
+
+    <app-grupo [etiqueta]="'iconos.barra.filtrarInsigniaEtiqueta' | transloco">
       <button
         type="button"
         app-chip
-        [activo]="filtro() === c.clave"
-        [attr.aria-pressed]="filtro() === c.clave"
-        (click)="elegirFiltro(c.clave)"
+        [activo]="filtro() === null"
+        [attr.aria-pressed]="filtro() === null"
+        (click)="elegirFiltro(null)"
       >
-        {{ c.etiqueta | transloco }} <em>{{ c.n }}</em>
+        {{ 'iconos.barra.todos' | transloco }} <em>{{ total }}</em>
       </button>
-    }
-  </app-grupo>
+      @for (c of conteos(); track c.clave) {
+        <button
+          type="button"
+          app-chip
+          [activo]="filtro() === c.clave"
+          [attr.aria-pressed]="filtro() === c.clave"
+          (click)="elegirFiltro(c.clave)"
+        >
+          {{ c.etiqueta | transloco }} <em>{{ c.n }}</em>
+        </button>
+      }
+    </app-grupo>
 
-  <app-grupo [etiqueta]="'iconos.barra.densidadEtiqueta' | transloco">
-    <button
-      type="button"
-      app-chip
-      [activo]="densidad() === 'comoda'"
-      [attr.aria-pressed]="densidad() === 'comoda'"
-      (click)="cambiarDensidad('comoda')"
-    >
-      {{ 'iconos.barra.densidadComoda' | transloco }}
-    </button>
-    <button
-      type="button"
-      app-chip
-      [activo]="densidad() === 'compacta'"
-      [attr.aria-pressed]="densidad() === 'compacta'"
-      (click)="cambiarDensidad('compacta')"
-    >
-      {{ 'iconos.barra.densidadCompacta' | transloco }}
-    </button>
-  </app-grupo>
+    <app-grupo [etiqueta]="'iconos.barra.densidadEtiqueta' | transloco">
+      <button
+        type="button"
+        app-chip
+        [activo]="densidad() === 'comoda'"
+        [attr.aria-pressed]="densidad() === 'comoda'"
+        (click)="cambiarDensidad('comoda')"
+      >
+        {{ 'iconos.barra.densidadComoda' | transloco }}
+      </button>
+      <button
+        type="button"
+        app-chip
+        [activo]="densidad() === 'compacta'"
+        [attr.aria-pressed]="densidad() === 'compacta'"
+        (click)="cambiarDensidad('compacta')"
+      >
+        {{ 'iconos.barra.densidadCompacta' | transloco }}
+      </button>
+    </app-grupo>
+  </div>
 
   @if (filtro() || busqueda()) {
     <span class="aviso">{{
@@ -335,10 +343,17 @@
 </div>
 
 <!--
-  La leyenda va en el DOM siempre, no tras un hover: el número de la esquina de cada tarjeta no se
-  explica solo, y lo que solo aparece al pasar el ratón no existe para quien entra desde el móvil.
+  Disclosure y no un párrafo permanente: son dos datos que quien ya conoce el catálogo no necesita
+  releer en cada visita. `<summary>` es nativo de teclado (Enter/Space, `aria-expanded` lo pone
+  solo el navegador) y responde a click/tap igual que a foco — no depende de hover.
 -->
-<p class="leyenda-insignia">{{ 'iconos.barra.leyendaInsignia' | transloco }}</p>
+<details class="explicacion">
+  <summary>
+    <gf-icon [iconDef]="infoIcon" [size]="14" trigger="view" />
+    {{ 'iconos.explicacion.titulo' | transloco }}
+  </summary>
+  <p>{{ 'iconos.explicacion.texto' | transloco }}</p>
+</details>
 
 @if (inspeccionado(); as sel) {
   <!--
@@ -375,13 +390,19 @@
   [class.con-panel]="inspeccionado()"
   appRejillaTeclado
   role="group"
-  [attr.aria-label]="'iconos.grid.rejillaAria' | transloco: { n: entries().length }"
+  #rejillaCatalogo
+  [attr.aria-label]="
+    totalPaginas() > 1
+      ? ('iconos.grid.rejillaAriaPaginada'
+        | transloco: { n: entries().length, desde: rangoPagina().desde, hasta: rangoPagina().hasta })
+      : ('iconos.grid.rejillaAria' | transloco: { n: entries().length })
+  "
   [class.comoda]="densidad() === 'comoda'"
 >
   @for (entry of visibles(); track entry.name) {
     <article
       class="card"
-      appTituloSiTruncado
+      appNombreTruncado
       [class.inspeccionado]="inspeccionado()?.name === entry.name"
       [appNombreTransicion]="'gf-' + entry.name"
       role="button"
@@ -415,8 +436,14 @@
       <!--
         Texto REAL en el DOM, no un pseudo-elemento ni un atributo: tiene que encontrarlo el
         `Ctrl+F` del navegador, que es media razón de que el nombre esté visible.
+
+        Envuelto en `app-tooltip`: montarlo siempre es barato (no confundir con el costo de
+        `<gf-icon trigger="group">`, que sí dibuja). La burbuja solo se muestra cuando la propia
+        tarjeta lleva `.nombre-truncado` — la regla vive en el CSS global, ver `styles.css`.
       -->
-      <span class="nombre" data-name>{{ entry.name }}</span>
+      <app-tooltip [texto]="entry.name" class="nombre-tooltip">
+        <span class="nombre" data-name>{{ entry.name }}</span>
+      </app-tooltip>
     </article>
   }
 </div>
@@ -433,8 +460,32 @@
 @if (hayMas()) {
   <div class="hay-mas" appVisible (visible)="montarMas()">
     <button type="button" app-boton (click)="montarMas()">
-      {{ 'iconos.grid.montarMas' | transloco: { n: entries().length - visibles().length } }}
+      {{ 'iconos.grid.montarMas' | transloco: { n: entriesPagina().length - visibles().length } }}
     </button>
+  </div>
+}
+
+<!--
+  El pie de paginación. Invisible con ≤200 resultados —una sola página no tiene nada que decidir—,
+  y siempre DESPUÉS del grid, nunca antes: es la navegación de "qué sigue", no un adorno de arriba.
+-->
+@if (totalPaginas() > 1) {
+  <div class="pie-paginacion">
+    <p class="pie-rango">
+      {{
+        'iconos.paginacion.rango'
+          | transloco: { desde: rangoPagina().desde, hasta: rangoPagina().hasta, total: rangoPagina().total }
+      }}
+    </p>
+    <app-paginador
+      [pagina]="paginaEfectiva()"
+      [totalPaginas]="totalPaginas()"
+      [etiqueta]="'iconos.paginacion.navAria' | transloco"
+      [etiquetaAnterior]="'iconos.paginacion.anterior' | transloco"
+      [etiquetaSiguiente]="'iconos.paginacion.siguiente' | transloco"
+      [etiquetaPagina]="'iconos.paginacion.pagina' | transloco"
+      (cambiar)="irAPagina($event)"
+    />
   </div>
 }
 

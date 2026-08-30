@@ -912,6 +912,96 @@ code {
   }
 }
 
+/* ── Paginador ────────────────────────────────────────────────────────────────
+ *
+ * Solo aparece con más de una página — con ≤200 resultados no hay nada que decidir. Los números
+ * salen de `rangoPaginas()` (`features/iconos/paginacion.ts`): primera, última, vecinas de la
+ * actual, con un salto donde el hueco lo pida.
+ */
+.ui-paginador {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.paginador-flecha,
+.paginador-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--gf-radio-chico);
+  background: transparent;
+  color: var(--gf-texto-suave);
+  font: inherit;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.paginador-flecha:hover:not(:disabled),
+.paginador-num:hover:not(:disabled) {
+  color: var(--gf-texto);
+  background: var(--gf-velo);
+}
+
+.paginador-flecha:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+/* Misma idea que `.chip.activo`: sube de contraste en vez de un color nuevo, para no competir con
+   el degradado que el sitio reserva para selección/branding. */
+.paginador-num.activo {
+  background: var(--gf-velo-activo);
+  color: var(--gf-texto);
+  font-weight: 600;
+}
+
+.paginador-salto {
+  min-width: 20px;
+  text-align: center;
+  color: var(--gf-texto-apagado);
+}
+
+@media (pointer: coarse) {
+  .paginador-flecha,
+  .paginador-num {
+    min-width: 44px;
+    height: 44px;
+  }
+}
+
+/*
+ * El tooltip de nombre truncado del catálogo (`.card` en `iconos.css`) reusa `app-tooltip`, pero
+ * la burbuja (`.burbuja`) es un elemento del PROPIO template de `Tooltip` — la encapsulación
+ * emulada de `Iconos` no lo alcanza, mismo motivo por el que `.shell-head .grupo-tit` de aquí
+ * abajo vive en este archivo y no en `app.css`. Por eso, aunque `.card`/`.nombre-truncado` son
+ * conceptos del catálogo, la regla que los conecta con `.burbuja` tiene que ser global.
+ *
+ * Oculta por defecto y no solo por `opacity` heredado: si un nombre CABE, mostrar la burbuja al
+ * pasar el mouse repetiría en un tooltip lo que ya se lee en la tarjeta — la misma razón por la
+ * que la vieja directiva de `title` nativo tampoco lo ponía siempre.
+ */
+.card:not(.nombre-truncado) .burbuja {
+  display: none;
+}
+
+/* Card entera como disparador, no solo el envoltorio angosto del nombre: `appNombreTruncado` mide
+   y marca el HOST (`.card`), así que el hover/foco que importa es el de la tarjeta completa —
+   igual que hacía el `title` nativo, que respondía en cualquier punto de la tarjeta. */
+.card.nombre-truncado:hover .burbuja,
+.card.nombre-truncado:focus-visible .burbuja {
+  opacity: 1;
+  transform: translate(var(--burbuja-x), 0);
+}
+
 /* ── Footer: lo que llega por `[innerHTML]` ──────────────────────────────────── */
 
 /* Estas reglas viven aquí y NO en `app.css` por una razón que no se ve leyendo el componente:

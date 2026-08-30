@@ -51,7 +51,6 @@
     "densidadEtiqueta": "Grid density",
     "densidadComoda": "Comfortable",
     "densidadCompacta": "Compact",
-    "leyendaInsignia": "The number on each card is how many animation variants the icon has. The hold mark means one of them stays put while the pointer is on it.",
     "todos": "All",
     "insignias": {
       "extras": "+ variants",
@@ -64,9 +63,21 @@
     "variantesAria": "{{n}} animation variants",
     "inspeccionarAria": "Inspect {{nombre}}",
     "rejillaAria": "Icon catalog, {{n}} icons. Use the arrow keys to move between them.",
+    "rejillaAriaPaginada": "Icon catalog, {{n}} icons, showing {{desde}}–{{hasta}}. Use the arrow keys to move between them.",
     "montarMas": "Show {{n}} more",
     "hold": "hold",
     "holdTitulo": "Has a hold variant: keep the pointer on it and the pose stays"
+  },
+  "explicacion": {
+    "titulo": "How the catalog works",
+    "texto": "The number on each card is how many animation variants the icon has. The hold mark means one of them stays put while the pointer is on it."
+  },
+  "paginacion": {
+    "navAria": "Catalog pagination",
+    "anterior": "Previous page",
+    "siguiente": "Next page",
+    "pagina": "Page",
+    "rango": "Showing {{desde}}–{{hasta}} of {{total}}"
   },
   "scrubber": {
     "progresoEtiqueta": "Choreography progress",
