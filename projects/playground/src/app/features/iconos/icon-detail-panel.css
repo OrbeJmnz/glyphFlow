@@ -99,14 +99,22 @@
   color: var(--gf-texto-medio);
 }
 
+/*
+ * El glifo mide igual que antes (0.8rem); lo que crece es el ÁREA — 28px se quedaba corto del
+ * mínimo táctil de 36px/44px que el resto del chrome ya respeta (`.tema`/`.idioma` en 36,
+ * `.movimiento` en 40). Mismo criterio para `.copiar` y `.transporte-btn` del scrubber.
+ */
 .cerrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-left: auto;
   border: 1px solid var(--gf-borde);
   border-radius: 0.4rem;
   background: transparent;
   color: var(--gf-texto-tenue);
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   cursor: pointer;
   font-size: 0.8rem;
   transition:
@@ -134,7 +142,10 @@
 }
 
 .tabs-nav button {
-  padding: 0.6rem 0.1rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.1rem;
   border: 0;
   border-bottom: 2px solid transparent;
   background: none;
@@ -267,8 +278,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border: 1px solid var(--gf-borde);
   border-radius: 0.4rem;
   background: transparent;
@@ -478,4 +489,17 @@ textarea.codigo.json {
   border: 1px solid var(--gf-borde-suave);
   border-radius: 0.6rem;
   background: var(--gf-panel);
+}
+
+/* Objetivo táctil: en dispositivos sin hover de verdad, el área sube otro poco. */
+@media (pointer: coarse) {
+  .cerrar,
+  .copiar {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .tabs-nav button {
+    min-height: 2.75rem;
+  }
 }

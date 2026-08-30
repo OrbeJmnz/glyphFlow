@@ -809,6 +809,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: 2.25rem;
   padding: 0.35rem 0.7rem;
   border: 1px solid var(--gf-borde);
   border-radius: 0.4rem;
@@ -820,6 +821,12 @@
     color 0.15s ease,
     border-color 0.15s ease,
     transform 0.1s ease;
+}
+
+@media (pointer: coarse) {
+  .copiar-snippet {
+    min-height: 2.75rem;
+  }
 }
 
 .copiar-snippet:hover {
