@@ -321,4 +321,62 @@ describe('Iconos', () => {
     await fixture.whenStable();
     expect(anunciado()).toBe(total);
   });
+
+  /*
+   * PAGE_SIZE = 200: el catálogo completo (más de 1700 curados) tiene que pedir varias páginas, y
+   * una búsqueda que devuelve pocas decenas no debería mostrar controles que no sirven para nada.
+   */
+  describe('paginación', () => {
+    it('con pocos resultados, el pie de paginación ni existe', async () => {
+      const fixture = TestBed.createComponent(Iconos);
+      await fixture.whenStable();
+      const html = fixture.nativeElement as HTMLElement;
+
+      const input = html.querySelector<HTMLInputElement>('.busqueda-hero input')!;
+      input.value = 'arrow';
+      input.dispatchEvent(new Event('input'));
+      await fixture.whenStable();
+
+      expect(html.querySelector('.pie-paginacion')).toBeNull();
+    });
+
+    it('con el catálogo completo aparece el paginador, y filtrar vuelve a la página 1', async () => {
+      const fixture = TestBed.createComponent(Iconos);
+      await fixture.whenStable();
+      const html = fixture.nativeElement as HTMLElement;
+
+      expect(html.querySelector('.pie-paginacion app-paginador')).toBeTruthy();
+
+      // La segunda flecha es «Siguiente»: avanza a la página 2.
+      const flechas = () => [...html.querySelectorAll<HTMLButtonElement>('.paginador-flecha')];
+      flechas()[1].click();
+      await fixture.whenStable();
+      expect(html.querySelector('.paginador-num.activo')?.textContent?.trim()).toBe('2');
+
+      // Filtrar por insignia resetea la página, igual que resetea el tramo montado.
+      html.querySelector<HTMLButtonElement>('.barra app-grupo button[aria-pressed="false"]')!.click();
+      await fixture.whenStable();
+      expect(html.querySelector('.paginador-num.activo')?.textContent?.trim()).toBe('1');
+    });
+
+    it('cambiar Cómodo/Compacto no resetea la página', async () => {
+      const fixture = TestBed.createComponent(Iconos);
+      await fixture.whenStable();
+      const html = fixture.nativeElement as HTMLElement;
+
+      const flechas = () => [...html.querySelectorAll<HTMLButtonElement>('.paginador-flecha')];
+      flechas()[1].click();
+      await fixture.whenStable();
+      expect(html.querySelector('.paginador-num.activo')?.textContent?.trim()).toBe('2');
+
+      // El segundo `app-grupo` de la barra es el de densidad; se pulsa el que NO está activo.
+      const botonesDensidad = [
+        ...html.querySelectorAll<HTMLButtonElement>('.barra-controles app-grupo:nth-of-type(2) button'),
+      ];
+      botonesDensidad.find((b) => b.getAttribute('aria-pressed') === 'false')!.click();
+      await fixture.whenStable();
+
+      expect(html.querySelector('.paginador-num.activo')?.textContent?.trim()).toBe('2');
+    });
+  });
 });

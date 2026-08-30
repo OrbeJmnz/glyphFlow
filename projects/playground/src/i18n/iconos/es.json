@@ -51,7 +51,6 @@
     "densidadEtiqueta": "Densidad de la rejilla",
     "densidadComoda": "Cómodo",
     "densidadCompacta": "Compacto",
-    "leyendaInsignia": "El número de cada tarjeta indica cuántas variantes de animación tiene el icono. La marca hold señala que una de ellas se queda puesta mientras el puntero siga encima.",
     "todos": "Todos",
     "insignias": {
       "extras": "+ variantes",
@@ -64,9 +63,21 @@
     "variantesAria": "{{n}} variantes de animación",
     "inspeccionarAria": "Inspeccionar {{nombre}}",
     "rejillaAria": "Catálogo de iconos, {{n}} iconos. Usa las flechas para moverte entre ellos.",
+    "rejillaAriaPaginada": "Catálogo de iconos, {{n}} iconos, mostrando {{desde}}–{{hasta}}. Usa las flechas para moverte entre ellos.",
     "montarMas": "Ver {{n}} más",
     "hold": "hold",
     "holdTitulo": "Tiene variante hold: deja el puntero encima y la pose se queda"
+  },
+  "explicacion": {
+    "titulo": "Cómo funciona el catálogo",
+    "texto": "El número de cada tarjeta indica cuántas variantes de animación tiene el icono. La marca hold señala que una de ellas se queda puesta mientras el puntero siga encima."
+  },
+  "paginacion": {
+    "navAria": "Paginación del catálogo",
+    "anterior": "Página anterior",
+    "siguiente": "Página siguiente",
+    "pagina": "Página",
+    "rango": "Mostrando {{desde}}–{{hasta}} de {{total}}"
   },
   "scrubber": {
     "progresoEtiqueta": "Progreso de la coreografía",

@@ -31,6 +31,7 @@ import {
   codeIcon,
   checkIcon,
   copyIcon,
+  infoIcon,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
@@ -44,9 +45,10 @@ import { Grupo } from '../../shared/ui/grupo';
 import { hayMovimiento, siguiendoAlSistema } from '../../core/movimiento';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
-import { TituloSiTruncado } from '../../shared/ui/titulo-si-truncado';
+import { NombreTruncado } from '../../shared/ui/nombre-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
+import { Paginador } from './paginador';
 import { CIFRAS } from '../../core/cifras';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
@@ -132,7 +134,8 @@ interface PuntoDeRegreso {
     Grupo,
     NombreTransicion,
     RejillaTeclado,
-    TituloSiTruncado,
+    NombreTruncado,
+    Paginador,
     TranslocoPipe,
     Visible,
     SinResultados,
@@ -164,6 +167,8 @@ export class Iconos implements OnDestroy {
   @ViewChildren(GfIconComponent, { read: ElementRef })
   private iconEls!: QueryList<ElementRef<HTMLElement>>;
   @ViewChild('barraCatalogo') private barraCatalogo?: ElementRef<HTMLElement>;
+  /** El inicio de la rejilla: adónde se vuelve al cambiar de página. */
+  @ViewChild('rejillaCatalogo') private rejillaCatalogo?: ElementRef<HTMLElement>;
 
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
@@ -359,6 +364,9 @@ export class Iconos implements OnDestroy {
   /** La cara del bloque de «no hay nada». Suelta y no del registro: es un export podable. */
   protected readonly caraTriste = faceSlightlyFrowningIcon;
 
+  /** El disclosure que explica número/hold. Suelto y no del registro, mismo criterio que arriba. */
+  protected readonly infoIcon = infoIcon;
+
   /**
    * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
    * mismo con otro color: el claro pesa 50 KB contra 425 del oscuro.
@@ -519,7 +527,7 @@ export class Iconos implements OnDestroy {
     effect(() => {
       const q = this.busqueda().trim();
       if (q.length >= 2) this.asegurarTags();
-      this.sincronizarUrl(q);
+      this.sincronizarUrl();
     });
   }
 
@@ -528,9 +536,9 @@ export class Iconos implements OnDestroy {
   private temporizadorUrl?: ReturnType<typeof setTimeout>;
 
   /**
-   * Escribe `?q=` sin navegar. `Location.replaceState` y NO `router.navigate`: el router tiene
-   * `withViewTransitions` puesto, así que navegar por cada tecla animaría la página entera en cada
-   * pulsación. Esto no es una navegación, es la URL poniéndose al día con un filtro de interfaz.
+   * Escribe `?q=`/`?page=` sin navegar. `Location.replaceState` y NO `router.navigate`: el router
+   * tiene `withViewTransitions` puesto, así que navegar por cada tecla animaría la página entera en
+   * cada pulsación. Esto no es una navegación, es la URL poniéndose al día con la interfaz.
    *
    * Los 150 ms son del ticket y aquí sí ganan algo: sin ellos el historial recibe una reescritura
    * por letra. El FILTRADO en cambio sigue siendo inmediato — ver la nota de `buscarDesdeHero`.
@@ -538,12 +546,21 @@ export class Iconos implements OnDestroy {
    * `replaceState`, no `pushState`: teclear no debería llenar el botón de atrás de estados
    * intermedios. Y el `canonical` de `core/enlaces-idioma.ts` ignora el query a propósito, así que
    * esto no parte el showcase en tantas URLs como búsquedas haga la gente.
+   *
+   * `q`/`pagina` se leen AQUÍ, fuera del `setTimeout`: el `effect` que llama a este método solo
+   * seguirá disparándose cuando cambien señales leídas de forma SÍNCRONA durante su ejecución —
+   * leerlas dentro del temporizador las dejaría fuera del rastreo de dependencias.
    */
-  private sincronizarUrl(q: string): void {
+  private sincronizarUrl(): void {
+    const q = this.busqueda().trim();
+    const pagina = this.paginaEfectiva();
     clearTimeout(this.temporizadorUrl);
     this.temporizadorUrl = setTimeout(() => {
+      const partes: string[] = [];
+      if (q) partes.push(`q=${encodeURIComponent(q)}`);
+      if (pagina > 1) partes.push(`page=${pagina}`);
       const base = this.ubicacion.path().split(/[?#]/)[0];
-      this.ubicacion.replaceState(base + (q ? `?q=${encodeURIComponent(q)}` : ''));
+      this.ubicacion.replaceState(base + (partes.length ? `?${partes.join('&')}` : ''));
     }, 150);
   }
 
@@ -634,35 +651,108 @@ export class Iconos implements OnDestroy {
   });
 
   /**
-   * Cuántas tarjetas hay montadas ahora mismo. Crece al llegar al final de la lista.
+   * Cuántos iconos por página. Filtro y búsqueda siguen operando sobre `entries()` — el catálogo
+   * COMPLETO filtrado— esto solo decide qué TAJADA de ese resultado llega a existir en el DOM.
+   */
+  private static readonly TAMANO_PAGINA = 200;
+
+  /**
+   * Lo que decide si la página vuelve a 1. Deliberadamente NO es `entries` entero: `entries()`
+   * también cambia de referencia cuando `todos()` termina de cargar (de `[]` al catálogo real), y
+   * ese cambio no debería pisar una página que venga de la URL. Filtro y búsqueda sí la resetean.
+   */
+  private readonly claveReset = computed(() => `${this.filtro() ?? ''}|${this.busqueda().trim()}`);
+
+  /** `?page=` de la URL, leído UNA sola vez — se consume en el primer cálculo de `pagina`. */
+  private paginaInicialUrl = this.leerPaginaDeUrl();
+
+  private leerPaginaDeUrl(): number | null {
+    const p = Number(this.ruta.snapshot.queryParamMap.get('page'));
+    return Number.isInteger(p) && p > 1 ? p : null;
+  }
+
+  protected readonly pagina = linkedSignal({
+    source: this.claveReset,
+    // Mismo criterio que `montadas` de aquí abajo: volver a la página 1 ES parte de la definición
+    // de cambiar de filtro o de búsqueda, no un efecto secundario que alguien pueda olvidar.
+    computation: () => {
+      const p = this.paginaInicialUrl;
+      this.paginaInicialUrl = null;
+      return p ?? 1;
+    },
+  });
+
+  protected readonly totalPaginas = computed(() =>
+    Math.max(1, Math.ceil(this.entries().length / Iconos.TAMANO_PAGINA)),
+  );
+
+  /** Cubre un `?page=` fuera de rango sin tocar `pagina` en sí — por si el catálogo encogió. */
+  protected readonly paginaEfectiva = computed(() =>
+    Math.min(Math.max(1, this.pagina()), this.totalPaginas()),
+  );
+
+  protected readonly entriesPagina = computed<CuratedEntry[]>(() => {
+    const inicio = (this.paginaEfectiva() - 1) * Iconos.TAMANO_PAGINA;
+    return this.entries().slice(inicio, inicio + Iconos.TAMANO_PAGINA);
+  });
+
+  /** Lo que pinta el pie de página: «Mostrando 401–600 de 1767». */
+  protected readonly rangoPagina = computed(() => {
+    const total = this.entries().length;
+    const desde = total ? (this.paginaEfectiva() - 1) * Iconos.TAMANO_PAGINA + 1 : 0;
+    const hasta = Math.min(this.paginaEfectiva() * Iconos.TAMANO_PAGINA, total);
+    return { desde, hasta, total };
+  });
+
+  protected irAPagina(n: number): void {
+    this.pagina.set(n);
+    this.desplazarAlGrid();
+  }
+
+  /**
+   * Al inicio de la rejilla, no de la página entera — el header y el hero no se mueven al paginar.
    *
-   * NO es paginación de la búsqueda: `entries()` sigue siendo el resultado COMPLETO —el conteo, el
-   * filtro y la relevancia se calculan sobre todo el catálogo— y esto solo decide cuántas de esas
-   * tarjetas existen en el DOM. Quien busca «arrow» ve las 145 que hay, no un tramo de ellas.
+   * `scrollIntoView` no existe en jsdom (entorno de test): sin la guarda, cada test que cambia de
+   * página truena con un método indefinido en vez de probar lo que de verdad importa.
+   */
+  private desplazarAlGrid(): void {
+    const destino = this.rejillaCatalogo?.nativeElement;
+    if (!destino || typeof destino.scrollIntoView !== 'function') return;
+    destino.scrollIntoView({ behavior: hayMovimiento() ? 'smooth' : 'auto', block: 'start' });
+  }
+
+  /**
+   * Cuántas tarjetas hay montadas ahora mismo DENTRO de la página. Crece al llegar al final.
+   *
+   * NO es paginación de la búsqueda —eso ya lo hace `entriesPagina` de arriba, que sigue operando
+   * sobre el catálogo COMPLETO filtrado— esto solo decide cuántas de las hasta 200 tarjetas de la
+   * página existen en el DOM.
    *
    * Existe por una medición: con los 1767 curados montados de golpe, el hilo principal se quedaba
    * bloqueado 18 segundos. La culpa no la tiene el número de nodos sino el modo `group` de
    * `<gf-icon>`, que DIBUJA AL MONTARSE — y para dibujar mide `getTotalLength()` de cada figura,
-   * que fuerza layout. Eran 7 097 mediciones seguidas en el mismo tick.
+   * que fuerza layout. Eran 7 097 mediciones seguidas en el mismo tick — proyectado a 200 (el
+   * tamaño de una página) siguen siendo ~2 segundos, muy por encima del techo de 50ms que se cita
+   * más abajo para `repetirVisibles`. Por eso el tramo se mantiene DENTRO de la página en vez de
+   * asumir sin medir que 200 ya es poco.
    *
-   * El tramo se recalcula, no se acumula ciegamente: al filtrar o buscar vuelve al inicial, porque
-   * si no, quien viene de mirar 900 iconos monta 900 de la lista nueva.
+   * El tramo se recalcula, no se acumula ciegamente: al cambiar de página, de filtro o de búsqueda
+   * vuelve al inicial, porque si no, quien viene de mirar 180 iconos monta 180 de la lista nueva.
    */
   private static readonly TRAMO = 120;
   protected readonly montadas = linkedSignal({
-    source: this.entries,
+    source: this.entriesPagina,
     // `linkedSignal` y no un `effect` que escriba la señal: volver al tramo inicial ES parte de la
-    // definición del tramo —al filtrar, la lista de detrás es otra— y no un efecto secundario que
-    // alguien pueda olvidar al añadir un filtro nuevo. Sin esto, quien viene de mirar 900 iconos
-    // monta 900 de la lista siguiente.
+    // definición del tramo —al cambiar de página la lista de detrás es otra— y no un efecto
+    // secundario que alguien pueda olvidar al añadir un filtro nuevo.
     computation: () => Iconos.TRAMO,
   });
 
-  /** Lo que de verdad se pinta: el principio de `entries()`, hasta donde se haya ampliado. */
-  protected readonly visibles = computed(() => this.entries().slice(0, this.montadas()));
+  /** Lo que de verdad se pinta: el principio de `entriesPagina()`, hasta donde se haya ampliado. */
+  protected readonly visibles = computed(() => this.entriesPagina().slice(0, this.montadas()));
 
-  /** `true` mientras quede algo por montar — lo que decide si el centinela sigue en el DOM. */
-  protected readonly hayMas = computed(() => this.entries().length > this.montadas());
+  /** `true` mientras quede algo por montar EN ESTA PÁGINA — decide si el centinela sigue en el DOM. */
+  protected readonly hayMas = computed(() => this.entriesPagina().length > this.montadas());
 
   /**
    * Amplía el tramo. Lo llama el centinela del final de la rejilla y también el botón de al lado,
