@@ -46,15 +46,13 @@ export interface PresetVelocidad {
   /** Multiplicador de VELOCIDAD, no de duración: 2 corre el doble de rápido. */
   valor: number;
   etiqueta: string;
-  /** Clave de traducción (`i18n/{en,es}.json`, bajo `shell.velocidad.*`) — no texto suelto. */
-  notaClave: string;
 }
 
 export const PRESETS_VELOCIDAD: PresetVelocidad[] = [
-  { valor: 0.5, etiqueta: '0.5×', notaClave: 'shell.velocidad.notaLento' },
-  { valor: 1, etiqueta: '1×', notaClave: 'shell.velocidad.notaNormal' },
-  { valor: 1.5, etiqueta: '1.5×', notaClave: 'shell.velocidad.notaMasRapido' },
-  { valor: 2, etiqueta: '2×', notaClave: 'shell.velocidad.notaDoble' },
+  { valor: 0.5, etiqueta: '0.5×' },
+  { valor: 1, etiqueta: '1×' },
+  { valor: 1.5, etiqueta: '1.5×' },
+  { valor: 2, etiqueta: '2×' },
 ];
 
 /**

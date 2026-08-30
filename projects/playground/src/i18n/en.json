@@ -37,13 +37,8 @@
       "cambiar": "Switch language"
     },
     "velocidad": {
-      "afecta": "Affects every animation on the site.",
-      "titulo": "speed",
-      "etiqueta": "Global animation speed",
-      "notaLento": "to see the detail",
-      "notaNormal": "default",
-      "notaMasRapido": "a bit faster",
-      "notaDoble": "twice as fast"
+      "botonAria": "Animation speed: {{actual}}. Tap to switch to {{siguiente}}.",
+      "botonTooltip": "Switch to {{siguiente}}"
     },
     "aviso": "Speed {{n}}× — applies from the next playback; anything already running keeps its own.",
     "footer": {

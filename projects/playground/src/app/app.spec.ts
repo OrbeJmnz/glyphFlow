@@ -137,21 +137,34 @@ describe('App (shell)', () => {
     expect(boton.getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('los chips de velocidad mueven la escala global', async () => {
+  it('el botón de velocidad cicla la escala global: 0.5 → 1 → 1.5 → 2 → 0.5', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    // Acotado al HEADER: el control de velocidad se repite en el menú móvil, así que `.velocidad`
-    // a secas ahora casa con los dos juegos y devolvía ocho píldoras. Se pide el del chrome, que es
-    // el que esta prueba dice comprobar.
-    const chips = [...html.querySelectorAll<HTMLButtonElement>('.shell-head .velocidad .chip')];
-    expect(chips.map((c) => c.textContent?.trim())).toEqual(['0.5×', '1×', '1.5×', '2×']);
+    // Acotado al HEADER: el control se repite en el menú móvil (misma señal, mismo componente), así
+    // que `.velocidad` a secas casaría con las dos instancias.
+    const boton = html.querySelector<HTMLButtonElement>(
+      '.shell-head .velocidad .ui-boton-velocidad',
+    )!;
+    expect(boton.textContent?.trim()).toBe('1×');
 
-    chips[3].click();
-    expect(velocidadGlobal()).toBe(2);
+    boton.click();
     await fixture.whenStable();
+    expect(velocidadGlobal()).toBe(1.5);
+    expect(boton.textContent?.trim()).toBe('1.5×');
+
+    boton.click();
+    await fixture.whenStable();
+    expect(velocidadGlobal()).toBe(2);
+    expect(boton.textContent?.trim()).toBe('2×');
     // El aviso solo aparece fuera de 1×: en el default no hay nada que advertir.
     expect(html.querySelector('.shell-aviso')?.textContent).toContain('2×');
+
+    // Envuelve por los dos lados: de 2× no se queda clavado, vuelve al principio.
+    boton.click();
+    await fixture.whenStable();
+    expect(velocidadGlobal()).toBe(0.5);
+    expect(boton.textContent?.trim()).toBe('0.5×');
   });
 
   it('el aviso de velocidad no existe en 1×', async () => {

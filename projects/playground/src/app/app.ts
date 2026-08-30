@@ -10,12 +10,11 @@ import {
   sunIcon,
   workflowIcon,
   xIcon,
-  zapIcon,
   type AnimatedIconDef,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { velocidadGlobal, elegirVelocidad, PRESETS_VELOCIDAD } from './core/duration-scale';
+import { velocidadGlobal } from './core/duration-scale';
 import { conectarEnlacesDeIdioma } from './core/enlaces-idioma';
 import { CIFRAS } from './core/cifras';
 import { cargarEstrellas } from './core/github';
@@ -31,9 +30,9 @@ import { conectarTransiciones } from './core/transicion';
 import { BotonGithub } from './shared/marca/boton-github';
 import { Logo } from './shared/marca/logo';
 import { Boton } from './shared/ui/boton';
+import { BotonVelocidad } from './shared/ui/boton-velocidad';
 import { CarrilActivo } from './shared/ui/carril-activo';
 import { Chip } from './shared/ui/chip';
-import { Grupo } from './shared/ui/grupo';
 
 /**
  * Shell del playground: navegación, control global de velocidad, acciones y el outlet. Nada de
@@ -54,9 +53,9 @@ import { Grupo } from './shared/ui/grupo';
     BotonGithub,
     Logo,
     Boton,
+    BotonVelocidad,
     CarrilActivo,
     Chip,
-    Grupo,
     TranslocoPipe,
   ],
   templateUrl: './app.html',
@@ -68,49 +67,8 @@ import { Grupo } from './shared/ui/grupo';
   },
 })
 export class App {
-  protected readonly presets = PRESETS_VELOCIDAD;
+  /** Solo para el aviso de "velocidad ≠ 1×" del pie — el control en sí vive en `BotonVelocidad`. */
   protected readonly velocidad = velocidadGlobal;
-
-  protected elegirVelocidad(v: number): void {
-    elegirVelocidad(v);
-  }
-
-  /**
-   * Flechas dentro del `radiogroup`. Es lo que el rol PROMETE: sin esto, anunciar "1 de 4" y que
-   * las flechas no hagan nada es peor que no haberlo anunciado.
-   *
-   * Mueve la selección Y el foco a la vez, que es como se comporta un grupo de radios nativo —
-   * no un recorrido de foco separado del valor.
-   */
-  protected teclaVelocidad(ev: KeyboardEvent): void {
-    const pasos: Record<string, number> = {
-      ArrowRight: 1,
-      ArrowDown: 1,
-      ArrowLeft: -1,
-      ArrowUp: -1,
-    };
-    const paso = pasos[ev.key];
-    if (paso === undefined) return;
-    ev.preventDefault();
-
-    const i = PRESETS_VELOCIDAD.findIndex((p) => p.valor === velocidadGlobal());
-    // Envuelve por los dos lados: llegar al final y quedarse clavado obliga a desandar el camino.
-    const siguiente = (i + paso + PRESETS_VELOCIDAD.length) % PRESETS_VELOCIDAD.length;
-    elegirVelocidad(PRESETS_VELOCIDAD[siguiente].valor);
-
-    // Desde el botón que recibió la tecla, no desde el contenedor: el evento llega al elemento
-    // enfocado, y sus hermanos son las otras opciones del mismo carril.
-    const boton = ev.currentTarget as HTMLElement;
-    boton.parentElement?.querySelectorAll<HTMLElement>('[role="radio"]')[siguiente]?.focus();
-  }
-  /** Qué píldora está puesta. Lo consume el CSS como `--i` para desplazar el indicador. */
-  protected readonly indiceVelocidad = computed(() =>
-    Math.max(
-      0,
-      PRESETS_VELOCIDAD.findIndex((p) => p.valor === velocidadGlobal()),
-    ),
-  );
-  protected readonly iconoVelocidad: AnimatedIconDef = zapIcon;
 
   /**
    * En móvil el header solo enseña el disparador del menú y el tema — nav, velocidad y GitHub se

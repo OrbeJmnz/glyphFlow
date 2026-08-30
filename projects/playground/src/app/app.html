@@ -76,44 +76,10 @@
     <div class="controles">
       <!--
         Global a propósito: `durationScale` escala <gf-icon> y <gf-icon-morph> con el mismo valor,
-        así que el control pertenece al chrome, no a una página.
+        así que el control pertenece al chrome, no a una página. Un solo botón que cicla —ver
+        `BotonVelocidad`— en vez de cuatro píldoras siempre visibles.
       -->
-      <app-grupo
-        rol="radiogroup"
-        [titulo]="'shell.velocidad.titulo' | transloco"
-        [etiqueta]="'shell.velocidad.etiqueta' | transloco"
-        [title]="'shell.velocidad.afecta' | transloco"
-        class="velocidad"
-      >
-        <!-- El carril envuelve SOLO las píldoras: el indicador que se desliza se ancla aquí, y
-             el rótulo del grupo queda fuera para que su ancho no corra el origen. -->
-        <!--
-          `role="radio"` + `aria-checked`, no `aria-pressed`: cuatro botones de los que SIEMPRE
-          hay exactamente uno puesto no son cuatro interruptores, son una elección. Con
-          `aria-pressed` el lector dice "presionado / no presionado" cuatro veces; con radio dice
-          "1 de 4".
-
-          Y tabindex rodante: el grupo entero es UNA parada de `Tab`, y dentro se mueve con
-          flechas. Cuatro paradas para elegir una cosa es exactamente lo que el rol promete evitar.
-        -->
-        <span class="carril" [style.--i]="indiceVelocidad()">
-          @for (p of presets; track p.valor) {
-            <button
-              type="button"
-              app-chip
-              role="radio"
-              [activo]="velocidad() === p.valor"
-              [attr.aria-checked]="velocidad() === p.valor"
-              [attr.tabindex]="velocidad() === p.valor ? 0 : -1"
-              [title]="p.notaClave | transloco"
-              (click)="elegirVelocidad(p.valor)"
-              (keydown)="teclaVelocidad($event)"
-            >
-              {{ p.etiqueta }}
-            </button>
-          }
-        </span>
-      </app-grupo>
+      <app-boton-velocidad class="velocidad" />
 
       <!--
         Pegado a la velocidad porque son la misma familia: los dos gobiernan el movimiento de todo
@@ -267,37 +233,12 @@
   <app-boton-github class="menu-github" />
 
   <!-- Empuja la velocidad al fondo del panel — separada del resto, es la de menos uso de las
-       tres. La raya de arriba es lo único que la distingue del resto, no una caja aparte. -->
-  <!--
-    Es la MISMA elección que la del header, escrita dos veces porque una vive en la barra y otra en
-    el panel. Las dos tienen que decir lo mismo: cuando solo se actualizó la de arriba, esta se
-    quedó anunciando "presionado" mientras la otra decía "1 de 4".
-  -->
-  <app-grupo
-    rol="radiogroup"
-    [titulo]="'shell.velocidad.titulo' | transloco"
-    [etiqueta]="'shell.velocidad.etiqueta' | transloco"
-    [title]="'shell.velocidad.afecta' | transloco"
-    class="velocidad menu-velocidad"
-  >
-    <span class="carril" [style.--i]="indiceVelocidad()">
-      @for (p of presets; track p.valor) {
-        <button
-          type="button"
-          app-chip
-          role="radio"
-          [activo]="velocidad() === p.valor"
-          [attr.aria-checked]="velocidad() === p.valor"
-          [attr.tabindex]="velocidad() === p.valor ? 0 : -1"
-          [title]="p.notaClave | transloco"
-          (click)="elegirVelocidad(p.valor)"
-          (keydown)="teclaVelocidad($event)"
-        >
-          {{ p.etiqueta }}
-        </button>
-      }
-    </span>
-  </app-grupo>
+       tres. La raya de arriba es lo único que la distingue del resto, no una caja aparte.
+
+       Es el MISMO componente que el de la barra, no una copia: leyendo la misma señal global las
+       dos veces, las dos instancias quedan sincronizadas sin código adicional — ver el porqué en
+       `BotonVelocidad`. -->
+  <app-boton-velocidad class="menu-velocidad" />
 </aside>
 
 @if (velocidad() !== 1) {

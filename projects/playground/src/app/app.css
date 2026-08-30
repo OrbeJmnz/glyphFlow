@@ -176,59 +176,6 @@
   pointer-events: none;
 }
 
-/* ── Carril de velocidad ─────────────────────────────────────────────────────── */
-
-/*
- * La píldora de la velocidad activa SE DESLIZA entre posiciones en vez de aparecer y desaparecer.
- *
- * El indicador es un solo elemento sobre el carril y se mueve con `translateX`, así que el navegador
- * lo compone sin recalcular layout. La cuenta es posible porque las cuatro píldoras miden LO MISMO
- * (`width` fijo, no `min-width`): el desplazamiento es índice × paso, y el índice lo pasa la
- * plantilla en `--i`. Con anchos distintos habría que medir el DOM y observar cambios de tamaño.
- *
- * Va sobre `.carril` y no sobre el grupo entero porque el rótulo «VELOCIDAD» corre el origen — y su
- * ancho cambia con el idioma, así que anclarse a él se rompería solo al traducir.
- */
-.velocidad .carril {
-  position: relative;
-  display: flex;
-  gap: var(--gf-hueco-pildora);
-  isolation: isolate;
-}
-
-.velocidad .carril::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset-block: 0;
-  left: 0;
-  width: var(--gf-ancho-pildora);
-  border-radius: 999px;
-  background: var(--gf-velo-activo);
-  box-shadow: 0 1px 2px var(--gf-sombra);
-  transform: translateX(calc(var(--i, 1) * (var(--gf-ancho-pildora) + var(--gf-hueco-pildora))));
-  transition: transform 0.42s var(--gf-resorte);
-}
-
-.velocidad .chip {
-  width: var(--gf-ancho-pildora);
-  padding: 0;
-  justify-content: center;
-}
-
-/* El fondo lo pinta el indicador; si además lo pintara la píldora se verían dos capas al deslizar. */
-.velocidad .chip.activo {
-  background: transparent;
-  box-shadow: none;
-}
-
-/* Quien pidió menos movimiento no necesita ver viajar la píldora: aparece donde toca. */
-@media (prefers-reduced-motion: reduce) {
-  .velocidad .carril::before {
-    transition: none;
-  }
-}
-
 /*
  * El disparador del menú y el panel mismo solo existen para móvil (ver la media query de abajo)
  * — en escritorio nav/velocidad/GitHub ya están siempre visibles en el header.

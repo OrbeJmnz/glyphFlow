@@ -37,13 +37,8 @@
       "cambiar": "Cambiar idioma"
     },
     "velocidad": {
-      "afecta": "Afecta a todas las animaciones del sitio.",
-      "titulo": "velocidad",
-      "etiqueta": "Velocidad global de las animaciones",
-      "notaLento": "para ver el detalle",
-      "notaNormal": "default",
-      "notaMasRapido": "un poco más rápido",
-      "notaDoble": "el doble de rápido"
+      "botonAria": "Velocidad de animación: {{actual}}. Toca para cambiar a {{siguiente}}.",
+      "botonTooltip": "Cambiar a {{siguiente}}"
     },
     "aviso": "Velocidad {{n}}× — aplica desde la siguiente reproducción; lo que ya está corriendo conserva la suya.",
     "footer": {

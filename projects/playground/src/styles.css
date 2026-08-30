@@ -155,13 +155,9 @@
     1
   );
 
-  /* Medidas del carril de velocidad. Las píldoras van todas iguales para que el indicador se
-     mueva por aritmética (índice × paso) en vez de medir el DOM. */
   /* Sangría del separador del header: el hueco entre controles es el doble, así la raya
      queda centrada en el aire en vez de pegada a uno de los dos. */
   --gf-sangria-sep: 0.7rem;
-  --gf-ancho-pildora: 46px;
-  --gf-hueco-pildora: 2px;
 
   /* Radios: 24px en tarjetas y píldora completa en controles. */
   --gf-radio: 24px;
@@ -745,6 +741,61 @@ code {
   height: 28px;
   padding: 0 12px;
   font-size: 12px;
+}
+
+/* ── Botón de velocidad ───────────────────────────────────────────────────────
+ *
+ * Un solo control que CICLA en vez de un carril con las 4 opciones siempre visibles: bastante
+ * menos ancho, y el valor activo ya dice lo que hay que saber sin desplegar nada.
+ */
+.ui-boton-velocidad {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  height: 40px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-medio);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    scale 0.24s var(--gf-resorte);
+}
+
+.ui-boton-velocidad:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.ui-boton-velocidad:active {
+  scale: 0.94;
+}
+
+/* Feedback breve al ciclar: un pulso de fondo que se apaga solo, sin JS de por medio. */
+.ui-boton-velocidad.pulso {
+  background: var(--gf-velo-activo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-boton-velocidad,
+  .ui-boton-velocidad:active {
+    scale: 1;
+  }
+}
+
+@media (pointer: coarse) {
+  .ui-boton-velocidad {
+    height: 44px;
+  }
 }
 
 /* ── Grupo de controles ──────────────────────────────────────────────────────── */
