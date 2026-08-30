@@ -572,7 +572,8 @@
   padding: 32px 24px 48px;
   border-top: 1px solid var(--gf-borde-suave);
   font-size: 13px;
-  color: var(--gf-texto-apagado);
+  /* `--gf-texto-tenue`, no `--gf-texto-apagado`: mismo ajuste de jerarquía que `.api-compat`. */
+  color: var(--gf-texto-tenue);
 }
 
 /* Ocupa la fila entera —el footer es flex-wrap— para no competir con los créditos: es la
@@ -642,4 +643,10 @@
   border-radius: 50%;
   background: var(--gf-borde-vivo);
   vertical-align: middle;
+}
+
+/* Aire extra antes de "Docs": separa identidad del paquete (versión/npm/GitHub) de uso/legal
+   (Docs/Licencia) sin una caja ni columna nueva — el mismo punto sigue marcando la frontera. */
+.shell-foot-enlaces a:nth-child(4) {
+  margin-left: 0.5rem;
 }

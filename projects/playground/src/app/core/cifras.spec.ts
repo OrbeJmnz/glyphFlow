@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { ANIMATED_ICONS, CURATED_ICONS, GENERATED_ICONS } from 'glyphflow';
+import { ANIMATED_ICONS, CURATED_ICONS, GENERATED_ICONS, type AnimatedIconDef } from 'glyphflow';
+import { insigniasDe } from '../features/iconos/icon-badges';
 import { CIFRAS } from './cifras';
 
 /**
@@ -38,6 +39,23 @@ describe('CIFRAS', () => {
     const pkg = (await import('glyphflow-published/package.json', { with: { type: 'json' } }))
       .default as { version: string };
     expect(CIFRAS.version).toBe(pkg.version);
+  });
+
+  /*
+   * `conVariantes`/`conHold` son la MISMA cuenta que ya decide los chips de filtro del catálogo
+   * (`iconos.ts`, `conteos`) y el badge de cada tarjeta — corriendo `insigniasDe()` aquí, en Node,
+   * contra el registro real, así que no se puede inventar un número ni quedarse atrás en silencio.
+   */
+  it('conVariantes y conHold coinciden con insigniasDe() sobre el catálogo real', () => {
+    let conVariantes = 0;
+    let conHold = 0;
+    for (const [nombre, def] of Object.entries(CURATED_ICONS)) {
+      const insignias = insigniasDe(nombre, def as AnimatedIconDef);
+      if (insignias.some((i) => i.clave === 'extras')) conVariantes++;
+      if (insignias.some((i) => i.clave === 'hold')) conHold++;
+    }
+    expect(CIFRAS.conVariantes).toBe(conVariantes);
+    expect(CIFRAS.conHold).toBe(conHold);
   });
 
   it('curados y catálogo son coherentes entre sí', () => {
