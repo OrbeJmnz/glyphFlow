@@ -167,8 +167,16 @@
  * como `auto` igual que el eje Y (así lo define la spec cuando un eje es `visible` y el otro no),
  * y el hueco que reserva la scrollbar vertical basta para disparar una horizontal espuria.
  */
+/*
+ * `display: flex; column` (y no solo el bloque de siempre): la tab `preview` es la única con un
+ * hijo que necesita CRECER con el espacio disponible (`.panel-preview`, ver abajo). Para las otras
+ * dos tabs (`codigo`/`inspector`) no cambia nada — su único hijo sigue ocupando su alto natural,
+ * como ya hacía en flujo normal.
+ */
 .tab-cuerpo {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-height: 0;
   padding: 1rem 0;
   overflow-y: auto;
@@ -177,8 +185,14 @@
 
 /* ── Tab: Vista previa ─────────────────────────────────────────────────────── */
 
+/*
+ * `flex: 1` es lo que resuelve el hueco muerto: antes el escenario medía un `min-height` fijo y el
+ * resto del panel —que puede pasar de 600px en escritorio— quedaba vacío debajo de las variantes.
+ * Ahora el icono ocupa TODO el alto disponible del panel, con 12rem como piso, no como techo.
+ */
 .panel-preview {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
@@ -186,6 +200,7 @@
 
 .escenario {
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -203,40 +218,47 @@
   background: var(--gf-panel-alto);
 }
 
+/*
+ * Segmented control medido — mismo patrón que `.nav` del header (`app.css`), con `appCarrilActivo`
+ * en vez de aritmética: los nombres de variante son de ancho variable (`default`, `hover`, `hold`…),
+ * así que el indicador tiene que medirse contra el DOM, no calcularse por índice.
+ */
 .variantes-nav {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.4rem;
+  isolation: isolate;
 }
 
-.pill {
-  padding: 0.25rem 0.65rem;
-  border: 1px solid var(--gf-borde);
+.variantes-nav::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 0;
+  width: var(--ind-w, 0);
+  translate: var(--ind-x, 0) 0;
+  opacity: var(--ind-o, 0);
   border-radius: 999px;
-  background: var(--gf-panel);
-  color: var(--gf-texto-tenue);
-  font-size: 0.75rem;
-  cursor: pointer;
+  background: var(--gf-acento-fondo);
   transition:
-    color 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.1s ease;
+    translate 0.28s var(--gf-resorte),
+    width 0.28s var(--gf-resorte),
+    opacity 0.2s ease;
 }
 
-.pill:hover {
-  border-color: var(--gf-borde-vivo);
-  color: var(--gf-texto-medio);
+/* El fondo lo pinta el indicador de arriba; pintado también por la píldora se verían dos capas. */
+.variantes-nav .chip.es-contorno.activo {
+  background: transparent;
+  box-shadow: none;
 }
 
-.pill.activa {
-  border-color: var(--gf-acento);
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto);
-}
-
-.pill:active {
-  transform: scale(0.94);
+@media (prefers-reduced-motion: reduce) {
+  .variantes-nav::before {
+    transition: opacity 0.2s ease;
+  }
 }
 
 /* ── Copiar ─────────────────────────────────────────────────────────────────── */

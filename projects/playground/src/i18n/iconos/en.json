@@ -82,7 +82,10 @@
   "scrubber": {
     "progresoEtiqueta": "Choreography progress",
     "progresoValor": "{{actual}} of {{total}} milliseconds",
-    "sinScrubNota": "This variant has no fixed tracks to scrub by hand — its duration is computed live by the component with <code>getTotalLength()</code> (autoDraw)."
+    "sinScrubNota": "This variant has no fixed tracks to scrub by hand — its duration is computed live by the component with <code>getTotalLength()</code> (autoDraw).",
+    "reproducir": "Play",
+    "pausar": "Pause",
+    "reiniciar": "Restart"
   },
   "detalle": {
     "seccionAria": "Icon detail",

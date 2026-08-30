@@ -21,6 +21,9 @@ import { analizarIcono } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
 import { IconScrubber } from './icon-scrubber';
 import { Boton } from '../../shared/ui/boton';
+import { Chip } from '../../shared/ui/chip';
+import { Grupo } from '../../shared/ui/grupo';
+import { CarrilActivo } from '../../shared/ui/carril-activo';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { URL_REPO } from '../../core/github';
 import { iconoPlano } from '../../core/morph-icon-plano';
@@ -47,6 +50,9 @@ type TabDetalle = 'preview' | 'codigo' | 'inspector';
     GfIconMorphComponent,
     IconScrubber,
     Boton,
+    Chip,
+    Grupo,
+    CarrilActivo,
     Tooltip,
     RouterLink,
     TranslocoPipe,
@@ -229,6 +235,31 @@ export class IconDetailPanel {
     }
     this.varianteActiva.set(v);
     setTimeout(() => this.reproducir());
+  }
+
+  /**
+   * Flechas dentro del `radiogroup` de variantes. Calcado de `teclaVelocidad()` (`app.ts`, que
+   * dejó de necesitarlo al pasar la velocidad a un botón cíclico) — es el mismo contrato de
+   * `role="radio"`: sin flechas, anunciar "1 de N" y que no respondan es peor que no anunciarlo.
+   */
+  protected teclaVariante(ev: KeyboardEvent): void {
+    const pasos: Record<string, number> = {
+      ArrowRight: 1,
+      ArrowDown: 1,
+      ArrowLeft: -1,
+      ArrowUp: -1,
+    };
+    const paso = pasos[ev.key];
+    if (paso === undefined) return;
+    ev.preventDefault();
+
+    const vs = this.variantes();
+    const i = vs.indexOf(this.varianteActiva());
+    const siguiente = (i + paso + vs.length) % vs.length;
+    this.elegirVariante(vs[siguiente]);
+
+    const boton = ev.currentTarget as HTMLElement;
+    boton.parentElement?.querySelectorAll<HTMLElement>('[role="radio"]')[siguiente]?.focus();
   }
 
   protected elegirTab(t: TabDetalle): void {
