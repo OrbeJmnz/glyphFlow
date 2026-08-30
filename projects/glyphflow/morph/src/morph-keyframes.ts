@@ -5,6 +5,7 @@ import { serialize, cubicsToPathD } from './core/serialize';
 import { iconToCubics } from './core/normalize';
 import { Spring, SPRING_PRESETS as PRESETS_UPSTREAM } from './core/spring';
 import type { IconInput, Sampled } from './core/types';
+import { findCuratedMorph } from './curated-morphs';
 
 /**
  * Capa mínima morphicons → WAAPI. La frontera es dura y es el punto entero del diseño:
@@ -39,6 +40,68 @@ export type SpringTailLegacy = 'completa' | 'corta' | 'recorte';
  * desviación con 10 pasos contra 0.28 con 20, sobre un lienzo de 24.
  */
 export const STEPS_DEFAULT = 20;
+
+/**
+ * Piso y techo del esquema adaptativo de pasos (ver `pasosAdaptativos`). El mismo rango que
+ * `morph-bench.ts` ya compara a ojo (`VARIANTES_PASOS`: 10/15/20/30) — no hay franja del rango sin
+ * validar visualmente.
+ */
+export const STEPS_MIN = 10;
+export const STEPS_MAX = 30;
+
+/**
+ * Pasos extra por radián de rotación máxima entre los items del plan. El error de interpolar
+ * LINEALMENTE (lo que hace WAAPI entre poses vecinas) una rotación real es una sagita que escala
+ * como `R·Δθ²/8` — a desviación objetivo fija, los pasos necesarios escalan LINEAL en θ, no
+ * cuadrático. Calibrado con el único dato medido en este repo (ver el comentario de
+ * `STEPS_DEFAULT`): con `K_THETA = 10`, `bell→bell-ring` (θ_max≈1.8953 rad, el caso más exigente)
+ * sigue cayendo en exactamente 20.
+ */
+const K_THETA = 10;
+
+/**
+ * Pasos por par, derivados de CUÁNTO ROTA — no un número parejo para los 1767 iconos. La mayoría
+ * de los pares no rotan de verdad (θ≈0): ahí el blend `aC→bT` ya es una recta, así que WAAPI la
+ * reproduce EXACTA sin importar los pasos — `STEPS_MIN` es un piso de seguridad, no un requisito de
+ * fidelidad. Usa el θ del item MÁS rotado, no un promedio: basta que UNA parte del icono gire
+ * fuerte (el badajo de una campana) para que el ojo note el corte de esquina, aunque el resto del
+ * icono no se mueva.
+ */
+function pasosAdaptativos(plan: MorphPlan): number {
+  let thetaMax = 0;
+  for (const it of plan.items) {
+    const a = Math.abs(it.theta);
+    if (a > thetaMax) thetaMax = a;
+  }
+  return Math.min(STEPS_MAX, Math.max(STEPS_MIN, Math.round(1 + K_THETA * thetaMax)));
+}
+
+/**
+ * Umbrales de "correspondencia mala" (ver `correspondenceIsPoor`), calibrados con
+ * `scripts/morph-quality-report.ts` contra los 4 pares del benchmark (deben quedar muy por debajo)
+ * y una lista de pares deliberadamente incompatibles (deben quedar por encima).
+ *
+ * PLACEHOLDER a confirmar con un pase visual en el lab (regla de CLAUDE.md: esto cambia cómo SE VE
+ * el morph, un número que "separa bien" en la métrica no garantiza que el corte quede donde el ojo
+ * lo pondría). El reporte real (corrido contra el catálogo de 1767) mostró algo importante: la
+ * MAYORÍA de pares arbitrarios del catálogo ya tiene residual/fragmentación moderados solo por ser
+ * iconos distintos entre sí — eso no implica que el morph se vea roto. Por eso estos umbrales están
+ * puestos altos (p90-p99 de una muestra aleatoria de 5000 pares, no el punto medio entre benchmark y
+ * la lista curada de "feos"): la intención es que el crossfade sea la excepción para casos extremos,
+ * no el camino común para "iconos simplemente distintos".
+ */
+export const QUALITY_RESIDUAL_MAX = 0.75;
+export const QUALITY_FRAGMENTATION_MAX = 4;
+
+/**
+ * `true` cuando ningún algoritmo de correspondencia salvaría este par — el residuo de Procrustes o
+ * la fragmentación de subpaths están tan altos que forzar la interpolación geométrica se vería peor
+ * que un fundido. Un único export para que el motor horneado (`morphKeyframes`) y el en vivo
+ * (`createLiveMorph`) compartan el mismo criterio y no diverjan en cuándo activar el fallback.
+ */
+export function correspondenceIsPoor(plan: MorphPlan): boolean {
+  return plan.quality.residual > QUALITY_RESIDUAL_MAX || plan.quality.fragmentation > QUALITY_FRAGMENTATION_MAX;
+}
 
 /**
  * Puntos por subpath con los que se muestrea la geometría.
@@ -384,6 +447,114 @@ function offsetPara(objetivo: number, tiempos: number[], progreso: number[]): nu
   return 1;
 }
 
+/** Cuántas poses lleva el fundido de `crossfadeKeyframes`. Fijo, no depende de rotación ni de
+ *  `pasosAdaptativos`: no hay geometría que muestrear, solo una curva analítica de opacidad/escala
+ *  — WAAPI la interpola linealmente sin que se note, igual que interpola cualquier número. */
+const CROSSFADE_STEPS = 16;
+
+/** Cuánto se encoge el icono en el punto medio del fundido — puramente estético, ajustar a ojo en
+ *  el lab (Parte E del plan): sin esto el swap de `d` se siente como un "parpadeo" plano.
+ *  Exportada (no solo interna a este archivo) porque `live-morph.ts` la reusa: los dos motores
+ *  deben fundir con la MISMA magnitud, o un mismo par se vería distinto según el motor. */
+export const CROSSFADE_DIP_ESCALA = 0.05;
+
+/**
+ * Camino de FALLBACK cuando `correspondenceIsPoor(plan)`: en vez de forzar una interpolación
+ * geométrica entre subpaths que no corresponden entre sí, funde el `d` de un salto justo en el
+ * instante en que la opacidad toca cero — reutiliza a propósito la garantía que ya usa `runMorph`
+ * al aterrizar ("mezclar arcos con líneas degrada a salto discreto, verificado en navegador") en
+ * vez de pelearla. `overshoot` no aplica aquí: no hay rebote de una forma que no se interpola.
+ */
+function crossfadeKeyframes(
+  origen: IconInput,
+  destino: IconInput,
+  opts: MorphKeyframesOpts,
+  plan: MorphPlan,
+): MorphKeyframes {
+  const dOrigen = canonicalD(origen);
+  const dDestino = canonicalD(destino);
+  const { tiempos, progreso } = curvaDelSpring(
+    opts.spring ?? 'smooth',
+    normalizarCola(opts.tail ?? opts.cola ?? SPRING_TAIL_DEFAULT),
+  );
+  const roundTrip = opts.roundTrip ?? opts.idaYVuelta ?? false;
+
+  const tramo = (dA: string, dB: string): Keyframe[] =>
+    Array.from({ length: CROSSFADE_STEPS }, (_, i) => {
+      const t = i / (CROSSFADE_STEPS - 1);
+      const dip = Math.sin(Math.PI * t);
+      return {
+        d: `path("${t < 0.5 ? dA : dB}")`,
+        opacity: 1 - dip,
+        transform: `scale(${1 - CROSSFADE_DIP_ESCALA * dip})`,
+      };
+    });
+  const offsetsDeTramo = Array.from({ length: CROSSFADE_STEPS }, (_, i) =>
+    offsetPara(i / (CROSSFADE_STEPS - 1), tiempos, progreso),
+  );
+
+  const ida = tramo(dOrigen, dDestino);
+  const keyframes: Keyframe[] = [];
+  if (roundTrip) {
+    for (let i = 0; i < CROSSFADE_STEPS; i++) {
+      keyframes.push({ ...ida[i], offset: offsetsDeTramo[i] / 2 });
+    }
+    for (let i = 1; i < CROSSFADE_STEPS; i++) {
+      keyframes.push({ ...ida[CROSSFADE_STEPS - 1 - i], offset: 0.5 + offsetsDeTramo[i] / 2 });
+    }
+  } else {
+    for (let i = 0; i < CROSSFADE_STEPS; i++) {
+      keyframes.push({ ...ida[i], offset: offsetsDeTramo[i] });
+    }
+  }
+
+  const duracionDeTramo = tiempos[tiempos.length - 1] * 1000;
+  const bytes = new TextEncoder().encode(JSON.stringify(keyframes)).length;
+  const duracion = roundTrip ? duracionDeTramo * 2 : duracionDeTramo;
+  return { keyframes, duration: duracion, duracion, bytes, plan };
+}
+
+/**
+ * Camino CURADO: un par con coreografía hecha a mano (ver `curated-morphs.ts`, hoy solo
+ * `sun↔moon`). Prioridad máxima — se chequea antes que el genérico, así que ni siquiera construye
+ * el `MorphPlan` de la forma completa. Sin sobrepaso: la coreografía curada no define t > 1, mismo
+ * motivo que el fundido — no es una similaridad extrapolable.
+ */
+function curatedKeyframes(
+  opts: MorphKeyframesOpts,
+  curado: { plan: MorphPlan; pose: (t: number) => string },
+): MorphKeyframes {
+  const pasos = Math.max(2, Math.floor(opts.steps ?? opts.pasos ?? pasosAdaptativos(curado.plan)));
+  const { tiempos, progreso } = curvaDelSpring(
+    opts.spring ?? 'smooth',
+    normalizarCola(opts.tail ?? opts.cola ?? SPRING_TAIL_DEFAULT),
+  );
+  const roundTrip = opts.roundTrip ?? opts.idaYVuelta ?? false;
+
+  const poses: string[] = [];
+  const offsetsDeTramo: number[] = [];
+  for (let i = 0; i < pasos; i++) {
+    const t = i / (pasos - 1);
+    poses.push(`path("${curado.pose(t)}")`);
+    offsetsDeTramo.push(offsetPara(t, tiempos, progreso));
+  }
+
+  const keyframes: Keyframe[] = [];
+  if (roundTrip) {
+    for (let i = 0; i < pasos; i++) keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] / 2 });
+    for (let i = 1; i < pasos; i++) {
+      keyframes.push({ d: poses[pasos - 1 - i], offset: 0.5 + offsetsDeTramo[i] / 2 });
+    }
+  } else {
+    for (let i = 0; i < pasos; i++) keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] });
+  }
+
+  const duracionDeTramo = tiempos[tiempos.length - 1] * 1000;
+  const bytes = new TextEncoder().encode(JSON.stringify(keyframes)).length;
+  const duracion = roundTrip ? duracionDeTramo * 2 : duracionDeTramo;
+  return { keyframes, duration: duracion, duracion, bytes, plan: curado.plan };
+}
+
 /**
  * Construye los keyframes de un morph entre dos iconos.
  *
@@ -395,11 +566,15 @@ export function morphKeyframes(
   destino: IconInput,
   opts: MorphKeyframesOpts = {},
 ): MorphKeyframes {
-  const pasos = Math.max(2, Math.floor(opts.steps ?? opts.pasos ?? STEPS_DEFAULT));
+  const curado = findCuratedMorph(origen, destino);
+  if (curado) return curatedKeyframes(opts, curado);
+
   const resolucion = Math.max(8, Math.floor(opts.resolution ?? opts.resolucion ?? RESOLUTION_DEFAULT));
   const a: Sampled[] = resampleIcon(origen, resolucion);
   const b: Sampled[] = resampleIcon(destino, resolucion);
   const plan = buildPlan(a, b);
+  if (correspondenceIsPoor(plan)) return crossfadeKeyframes(origen, destino, opts, plan);
+  const pasos = Math.max(2, Math.floor(opts.steps ?? opts.pasos ?? pasosAdaptativos(plan)));
   const out = allocOutputs(plan);
   const cerrados = a.map((s) => s.closed);
 

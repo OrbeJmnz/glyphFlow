@@ -22,6 +22,8 @@
     "generate:icons": "tsx scripts/generate-lucide-icons.ts",
     "lint": "ng lint",
     "lucide:diff": "tsx scripts/lucide-diff-report.mjs",
+    "morph-quality-report": "tsx scripts/morph-quality-report.ts",
+    "morph-quality-report:check": "tsx scripts/morph-quality-report.ts --check",
     "motion-lint": "tsx scripts/motion-lint.ts",
     "ng": "ng",
     "notice-check": "node scripts/notice-check.mjs",

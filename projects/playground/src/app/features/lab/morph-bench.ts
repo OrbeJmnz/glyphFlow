@@ -3,13 +3,27 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import {
   AnimatedIconDef,
   bellIcon,
+  bellOffIcon,
   bellRingIcon,
+  checkIcon,
   circleIcon,
+  copyIcon,
+  eyeIcon,
+  eyeClosedIcon,
+  eyeOffIcon,
   heartIcon,
+  heartOffIcon,
+  moonIcon,
+  pinIcon,
+  pinOffIcon,
   squareIcon,
   starIcon,
+  starOffIcon,
+  sunIcon,
   userIcon,
   userRoundIcon,
+  volumeIcon,
+  volumeOffIcon,
 } from 'glyphflow';
 import {
   morphKeyframes,
@@ -19,6 +33,7 @@ import {
   type SpringTail,
   RESOLUTION_DEFAULT,
   SPRING_PRESETS,
+  maxLinearDeviation,
   type MorphKeyframes,
   type MorphIcon,
   type SpringPreset,
@@ -53,6 +68,25 @@ const PARES: Par[] = [
   { id: 'heart → star', origen: heartIcon, destino: starIcon },
   { id: 'circle → square', origen: circleIcon, destino: squareIcon },
   { id: 'user → user-round', origen: userIcon, destino: userRoundIcon },
+  // Pares CURADOS a mano (ver `curated-morphs.ts`) — acá se ve la coreografía real, no el genérico.
+  // sun→moon: el genérico manda a fundido (fragmentación 9, círculo + 8 rayos contra 1 medialuna).
+  { id: 'sun → moon', origen: sunIcon, destino: moonIcon },
+  // copy→check: el genérico SÍ morfea (no cae en fundido), pero mediocre — el cuadrado cerrado
+  // forzado a la V de check daba residual 0.676, visible a ojo.
+  { id: 'copy → check', origen: copyIcon, destino: checkIcon },
+  // volume-off→volume: el parlante (cuerpo) es casi idéntico a volume; ondas cortadas + raya + arco
+  // chico son satélites. El genérico caía en fundido (fragmentación 5).
+  { id: 'volume-off → volume', origen: volumeOffIcon, destino: volumeIcon },
+  // Patrón "-off" de Lucide (base intacta + raya creciendo) — el genérico da 0.67-0.73 de residuo
+  // en los 5, porque parte el trazo base en piezas alrededor de la raya.
+  { id: 'eye → eye-off', origen: eyeIcon, destino: eyeOffIcon },
+  { id: 'bell → bell-off', origen: bellIcon, destino: bellOffIcon },
+  { id: 'pin → pin-off', origen: pinIcon, destino: pinOffIcon },
+  { id: 'star → star-off', origen: starIcon, destino: starOffIcon },
+  { id: 'heart → heart-off', origen: heartIcon, destino: heartOffIcon },
+  // eye→eye-closed: sin raya, diseño de párpado+pestañas totalmente distinto — el genérico daba
+  // fundido (fragmentación 2.5). Converge/emerge desde el centro del lienzo.
+  { id: 'eye → eye-closed', origen: eyeIcon, destino: eyeClosedIcon },
 ];
 
 type Cola = SpringTail;
@@ -69,7 +103,9 @@ interface Variante {
   id: string;
   tieneNota?: boolean;
   porDefecto?: boolean;
-  pasos: number;
+  /** `undefined` = esquema adaptativo (ver `pasosAdaptativos` en `morph-keyframes.ts`) — no un
+   *  número fijo. Es el caso de la variante `p-adapt`. */
+  pasos?: number;
   cola: Cola;
   /** `alternate` regresa por la trayectoria; `normal` reinicia desde el origen. */
   direccion: 'alternate' | 'normal';
@@ -81,14 +117,18 @@ interface Variante {
   sobrepaso?: boolean;
 }
 
-const VARIANTES_PASOS: Variante[] = [10, 15, 20, 30].map((n) => ({
-  id: `p${n}`,
-  tieneNota: n === STEPS_DEFAULT,
-  porDefecto: n === STEPS_DEFAULT,
-  pasos: n,
-  cola: 'full',
-  direccion: 'alternate',
-}));
+const VARIANTES_PASOS: Variante[] = [
+  ...[10, 15, 20, 30].map((n) => ({
+    id: `p${n}`,
+    pasos: n,
+    cola: 'full' as Cola,
+    direccion: 'alternate' as const,
+  })),
+  // Sin `pasos`: cae en `pasosAdaptativos(plan)`, el default real desde que dejó de ser un número
+  // parejo para los 1767 iconos. Al cambiar de par arriba, esta ficha muestra EN VIVO cuántos
+  // pasos eligió el esquema para ESE par — la demostración más directa de que es adaptativo.
+  { id: 'p-adapt', tieneNota: true, porDefecto: true, cola: 'full' as Cola, direccion: 'alternate' as const },
+];
 
 const VARIANTES_VUELTA: Variante[] = [
   {
@@ -186,6 +226,9 @@ interface Medida extends Variante {
   keyframes: number;
   /** Porcentaje de la duración que se lleva el ÚLTIMO tramo entre keyframes. El síntoma. */
   colaPct: number;
+  /** Cuánto se aleja la interpolación lineal de WAAPI entre esas poses de la trayectoria polar
+   *  real (lienzo 24×24) — la métrica detrás de `pasosAdaptativos`. */
+  desviacion: number;
 }
 
 @Component({
@@ -287,6 +330,7 @@ export class MorphBench {
         duracion: Math.round(m.duration),
         keyframes: m.keyframes.length,
         colaPct: Math.round((1 - offs[offs.length - 2]) * 100),
+        desviacion: maxLinearDeviation(m.plan, m.keyframes.length),
       };
     }),
   );

@@ -256,6 +256,10 @@
       "STEPS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
       "RESOLUTION_DEFAULT": "64 puntos por subpath.",
       "SPRING_TAIL_DEFAULT": "Qué hacer con la cola asintótica del resorte.",
+      "correspondenceIsPoor": "`true` cuando ningún algoritmo de correspondencia salvaría el par — el motor funde en vez de deformar.",
+      "QUALITY_RESIDUAL_MAX": "Umbral de residuo de Procrustes por encima del cual la correspondencia se considera mala.",
+      "QUALITY_FRAGMENTATION_MAX": "Umbral de fragmentación de subpaths por encima del cual la correspondencia se considera mala.",
+      "maxLinearDeviation": "Cuánto se aleja la interpolación lineal de WAAPI entre las poses horneadas de la trayectoria polar real.",
       "PASOS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 puntos por subpath.",
       "COLA_DEFAULT": "Qué hacer con la cola asintótica del resorte."

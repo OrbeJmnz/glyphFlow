@@ -15,11 +15,17 @@ export {
   STEPS_DEFAULT,
   RESOLUTION_DEFAULT,
   SPRING_TAIL_DEFAULT,
+  correspondenceIsPoor,
+  QUALITY_RESIDUAL_MAX,
+  QUALITY_FRAGMENTATION_MAX,
   // Los nombres de la v1, vivos una minor. Ver el bloque «Alias de la v1» en morph-keyframes.ts.
   PASOS_DEFAULT,
   RESOLUCION_DEFAULT,
   COLA_DEFAULT,
 } from './morph-keyframes';
+// El lab del playground lo usa para mostrar cuánto se aleja el morph horneado de la trayectoria
+// polar real (columna "desviación" de morph-bench) — nunca código interno, solo esta función pura.
+export { maxLinearDeviation } from './linear-deviation';
 export type {
   MorphKeyframes,
   MorphKeyframesOpts,
