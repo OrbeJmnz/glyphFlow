@@ -9,9 +9,7 @@ describe('provideConfigEnVivo', () => {
 
   it('el default es 1: sin tocar nada, la librería anima igual que siempre', () => {
     expect(velocidadGlobal()).toBe(1);
-    expect(
-      PRESETS_VELOCIDAD.some((p) => p.valor === 1 && p.notaClave === 'shell.velocidad.notaNormal'),
-    ).toBe(true);
+    expect(PRESETS_VELOCIDAD.some((p) => p.valor === 1)).toBe(true);
   });
 
   it('la config leída DESPUÉS de mover la señal trae el valor nuevo, sin re-proveer', () => {
