@@ -90,9 +90,11 @@
   color: var(--gf-texto);
 }
 
+/* `--gf-texto-tenue` y no `--gf-texto-apagado`: mismo ajuste de jerarquía que ya se hizo en
+   `.api-compat`/el footer -- era el token de menos margen de contraste del panel. */
 .const {
   font-size: 0.6875rem;
-  color: var(--gf-texto-apagado);
+  color: var(--gf-texto-tenue);
 }
 
 .const code {
@@ -428,7 +430,7 @@ textarea.codigo.json {
 }
 
 .variante dt {
-  color: var(--gf-texto-apagado);
+  color: var(--gf-texto-tenue);
 }
 
 .variante dd {
@@ -471,7 +473,7 @@ textarea.codigo.json {
 .nota {
   flex: none;
   margin: 0 0 0.75rem;
-  color: var(--gf-texto-apagado);
+  color: var(--gf-texto-tenue);
   font-size: 0.6875rem;
 }
 

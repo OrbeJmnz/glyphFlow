@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { translateSignal } from '@jsverse/transloco';
 import { elegirVelocidad, PRESETS_VELOCIDAD, velocidadGlobal } from '../../core/duration-scale';
 import { Tooltip } from './tooltip';
@@ -17,7 +17,7 @@ import { Tooltip } from './tooltip';
   imports: [Tooltip],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-tooltip [texto]="tooltipTexto()">
+    <app-tooltip [texto]="tooltipTexto()" [abajo]="abajo()">
       <button
         type="button"
         class="ui-boton-velocidad"
@@ -31,6 +31,13 @@ import { Tooltip } from './tooltip';
   `,
 })
 export class BotonVelocidad {
+  /**
+   * `true` en el header: ahí el botón vive pegado arriba de todo, y el tooltip centrado-arriba de
+   * `Tooltip` se cortaría contra el borde del viewport. En el panel móvil se deja en `false` — el
+   * control está pegado ABAJO del todo ahí (`margin-top:auto`), así que arriba es lo que sí cabe.
+   */
+  readonly abajo = input(false);
+
   private readonly indice = computed(() =>
     Math.max(
       0,

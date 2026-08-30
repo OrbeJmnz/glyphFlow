@@ -580,12 +580,15 @@
  * contenido y el nombre desborda en vez de cortarse. La burbuja de `app-tooltip` la muestra
  * `appNombreTruncado`, y SOLO cuando de verdad corta — ver la regla en `styles.css`.
  */
+/* `--gf-texto-tenue` subió a `--gf-texto-medio`: es el nombre de 1767 tarjetas, no una nota al
+   pie — merece el mismo escalón que ya se le dio a otros textos secundarios del sitio. El hover
+   sube un escalón más (ver abajo) para conservar la jerarquía entre reposo y hover. */
 .nombre {
   flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  color: var(--gf-texto-tenue);
+  color: var(--gf-texto-medio);
   font-size: 11px;
   line-height: 1.2;
   text-align: center;
@@ -599,7 +602,7 @@
 
 
 .card:hover .nombre {
-  color: var(--gf-texto-medio);
+  color: var(--gf-texto);
 }
 
 /* Disclosure con el porqué del número y del `hold` — ver `.explicacion` más abajo, junto a la
@@ -663,6 +666,9 @@
  * de tres categorías en prosa. El nombre se fue a un tooltip — `.insignia`/`.insignias` ya no
  * pintan nada, por eso salieron de aquí.
  */
+/* `pointer-events: none`, mismo motivo que `.marca-hold` de abajo: sin esto, un click certero
+   sobre el círculo no abría el panel — la tarjeta ENTERA es el botón, y esta esquina se comía el
+   clic. Confirmado con un click real sobre el centro del badge antes de este cambio. */
 .cuenta {
   position: absolute;
   top: 0.5rem;
@@ -677,6 +683,7 @@
   font-size: 0.625rem;
   font-variant-numeric: tabular-nums;
   cursor: help;
+  pointer-events: none;
 }
 
 /*
@@ -692,20 +699,30 @@
  */
 .marca-hold {
   position: absolute;
-  top: 0.4375rem;
+  /* Mismo `top` que `.cuenta` (0.5rem): antes eran 0.4375rem contra 0.5rem, un desalineado de 1px
+     entre las dos esquinas que se nota apenas se buscan una junto a la otra. */
+  top: 0.5rem;
   left: 0.4375rem;
   display: grid;
   place-items: center;
   /*
-   * Las medidas salen de una cuenta, no del ojo. En la tarjeta más estrecha —105px— quedan 89
-   * útiles tras el padding, y el glifo de 32 se centra en 36.5..68.5: para no invadirlo, la marca
-   * tiene que caber en los 28.5 que hay a su izquierda. A 0.625rem medía 34 y se metía 6px dentro,
-   * que en los iconos que llenan su viewBox (`ad` es un rectángulo) se veía como un roce.
+   * El ANCHO sigue calibrado a mano, no del ojo, y es lo único que NO se tocó al alinear el alto
+   * con `.cuenta`: en la tarjeta más estrecha —105px— quedan 89 útiles tras el padding, y el glifo
+   * de 32 se centra en 36.5..68.5 — para no invadirlo, la marca tiene que caber en los 28.5 que hay
+   * a su izquierda. A 0.625rem medía 34 y se metía 6px dentro, que en los iconos que llenan su
+   * viewBox (`ad` es un rectángulo) se veía como un roce. Por eso el `font-size`/`padding`
+   * horizontal se quedan como estaban — solo el ALTO (que no compite por ese ancho) sube a 1.25rem
+   * para hacer pareja de verdad con `.cuenta` en la misma fila.
    *
    * El tamaño se compensa con contraste, no se deja al azar: 7.4:1 en oscuro y 6.8:1 en claro
    * contra el fondo de la tarjeta, o sea muy por encima del 4.5 que pide AA para texto normal.
+   *
+   * `box-sizing: border-box`: sin esto el `border` de 1px se SUMA al `height`, y la marca acaba
+   * midiendo 22px contra los 20px de `.cuenta` —que no tiene borde— pese a que ambos dicen
+   * `height: 1.25rem`.
    */
-  height: 1rem;
+  box-sizing: border-box;
+  height: 1.25rem;
   padding: 0 0.25rem;
   border: 1px solid var(--gf-borde-vivo);
   border-radius: 999px;
@@ -717,11 +734,10 @@
 }
 
 /* En cómoda la tarjeta es el doble de ancha y la cuenta de arriba deja sitio de sobra: ahí la
-   marca recupera el tamaño del contador, con el que hace pareja. */
+   marca recupera el mismo tamaño de fuente/padding que `.cuenta` (el alto ya hace pareja siempre,
+   ver arriba). */
 .grid.comoda .marca-hold {
-  top: 0.5rem;
   left: 0.5rem;
-  height: 1.25rem;
   padding: 0 0.4rem;
   font-size: 0.625rem;
 }
