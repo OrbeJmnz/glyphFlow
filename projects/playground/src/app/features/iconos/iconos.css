@@ -72,7 +72,9 @@
   font-size: 17px;
   font-weight: 400;
   line-height: 25px;
-  color: var(--gf-texto-tenue);
+  /* Un escalón más oscuro que `--gf-texto-tenue`: sigue siendo secundario al titular, pero deja de
+     competir por legibilidad con él — ya pasaba AA con margen, esto es jerarquía, no accesibilidad. */
+  color: var(--gf-texto-medio);
 }
 
 .acciones {
@@ -81,7 +83,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 /* El comando se lee como comando: es lo único que esa acción necesita encima de la primitiva. */
@@ -138,7 +140,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 12px 40px;
-  margin: 56px 0 0;
+  margin: 36px 0 0;
   padding: 0;
   list-style: none;
   color: var(--gf-texto);
@@ -162,7 +164,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  margin: 40px 0 0;
+  margin: 28px 0 0;
 }
 
 .cifras > div {
@@ -212,7 +214,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 /*
@@ -846,7 +848,9 @@
 .api-compat {
   margin: 0.6rem 0 0;
   font-size: 12px;
-  color: var(--gf-texto-apagado);
+  /* `--gf-texto-tenue` y no `--gf-texto-apagado`: era el token de MENOS margen de contraste de
+     todo el hero — subir un escalón lo deja legible sin gritarlo. */
+  color: var(--gf-texto-tenue);
 }
 
 /* ── Scrim del panel de detalle ──────────────────────────────────────────────── */

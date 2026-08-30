@@ -7,8 +7,9 @@
     "sugerenciaAria": "Search for {{nombre}}",
     "empezar": "Get started",
     "cifras": {
-      "curados": "hand-curated",
-      "catalogo": "in the catalog",
+      "total": "icons",
+      "conVariantes": "with variants",
+      "conHold": "with hold",
       "pesoIcono": "one icon, gzip",
       "depsAnimacion": "animation deps"
     },

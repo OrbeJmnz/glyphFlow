@@ -7,8 +7,9 @@
     "sugerenciaAria": "Buscar {{nombre}}",
     "empezar": "Empezar",
     "cifras": {
-      "curados": "curados a mano",
-      "catalogo": "en el catálogo",
+      "total": "iconos",
+      "conVariantes": "con variantes",
+      "conHold": "con hold",
       "pesoIcono": "un icono, gzip",
       "depsAnimacion": "deps de animación"
     },

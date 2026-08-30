@@ -143,11 +143,15 @@
   <dl class="cifras">
     <div class="destaca">
       <dt><app-contador [valor]="total" /></dt>
-      <dd>{{ 'iconos.hero.cifras.curados' | transloco }}</dd>
+      <dd>{{ 'iconos.hero.cifras.total' | transloco }}</dd>
     </div>
     <div>
-      <dt><app-contador [valor]="cifras.catalogo" /></dt>
-      <dd>{{ 'iconos.hero.cifras.catalogo' | transloco }}</dd>
+      <dt><app-contador [valor]="cifras.conVariantes" /></dt>
+      <dd>{{ 'iconos.hero.cifras.conVariantes' | transloco }}</dd>
+    </div>
+    <div>
+      <dt><app-contador [valor]="cifras.conHold" /></dt>
+      <dd>{{ 'iconos.hero.cifras.conHold' | transloco }}</dd>
     </div>
     <!-- El degradado va SOLO en esta. Es la cifra que decide si alguien instala la librería, y en
          cuanto hay dos números pintados ninguno destaca. -->

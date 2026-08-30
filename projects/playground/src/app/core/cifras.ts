@@ -19,6 +19,18 @@ export const CIFRAS = {
   curados: 1767,
   catalogo: 1767,
   /**
+   * Cuántos curados traen alguna variante además de `draw`/`default` (badge `extras`), y cuántos
+   * traen `hold` (se sostiene mientras el puntero siga encima). Escritos a mano por la MISMA razón
+   * que `catalogo`: derivarlos en el cliente exigiría el registro completo — `insigniasDe()`
+   * necesita `def.animations` de cada icono, y eso es la geometría entera otra vez.
+   *
+   * Se calculan con `insigniasDe()` (`features/iconos/icon-badges.ts`) sobre `CURATED_ICONS`, y lo
+   * ancla `cifras.spec.ts` corriendo esa MISMA función en Node — así que no pueden quedarse atrás
+   * en silencio si el catálogo cambia.
+   */
+  conVariantes: 846,
+  conHold: 468,
+  /**
    * Escrito a mano por la misma razón que `catalogo`, pero con una trampa propia: **nada lo
    * ancla**, y por eso derivó. Decía 4.09 desde que el catálogo tenía 180 curados; con 911 el
    * `bundle-check` mide 4.83, o sea el hero llevaba meses presumiendo un número que el CI ya no
