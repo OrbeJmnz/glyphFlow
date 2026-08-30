@@ -189,6 +189,16 @@
   letter-spacing: 0.01em;
 }
 
+/* Mismo ámbar que `.expectativa`: es la misma señal ("el fallback se activó aquí"), a otra escala. */
+.fundido-marca {
+  padding: 0.05rem 0.35rem;
+  border-radius: 0.75rem;
+  background: var(--gf-ambar-fondo);
+  color: var(--gf-ambar-tenue);
+  font-size: 0.625rem;
+  letter-spacing: 0.01em;
+}
+
 .acciones {
   display: flex;
   gap: 0.5rem;

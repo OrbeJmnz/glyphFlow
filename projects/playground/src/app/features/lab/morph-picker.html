@@ -86,6 +86,11 @@
                 </button>
               }
               <span class="nombre">{{ item.nombre }}</span>
+              @if (calidadCadena()[$index]) {
+                <app-tooltip [texto]="'lab.morphPicker.fundidoTooltip' | transloco">
+                  <span class="fundido-marca">{{ 'lab.morphPicker.fundidoBadge' | transloco }}</span>
+                </app-tooltip>
+              }
               <button
                 type="button"
                 (click)="quitar($index)"

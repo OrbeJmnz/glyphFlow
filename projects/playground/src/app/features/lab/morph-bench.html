@@ -224,6 +224,10 @@
             <dt>{{ 'lab.morphBench.tabla.ultimoTramo' | transloco }}</dt>
             <dd>{{ m.colaPct }}%</dd>
           </div>
+          <div>
+            <dt>{{ 'lab.morphBench.tabla.desviacion' | transloco }}</dt>
+            <dd>{{ m.desviacion.toFixed(3) }}</dd>
+          </div>
         </dl>
         <button type="button" app-boton variante="fantasma" compacto (click)="reproducir(m)">
           {{ 'lab.morphBench.reproducirSolo' | transloco }}

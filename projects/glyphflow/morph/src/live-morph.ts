@@ -14,8 +14,9 @@ import { resampleIcon } from './core/resample';
 import { serialize } from './core/serialize';
 import { Spring } from './core/spring';
 import type { IconInput, Sampled } from './core/types';
-import { canonicalD, SPRING_PRESETS } from './morph-keyframes';
+import { canonicalD, correspondenceIsPoor, CROSSFADE_DIP_ESCALA, SPRING_PRESETS } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
+import { findCuratedMorph, type CuratedMorph } from './curated-morphs';
 
 // ── Scheduler singleton ─────────────────────────────────────────────────────
 // Un Set de tickers y un solo rAF compartido mientras exista al menos uno vivo — varias
@@ -101,10 +102,31 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
   // desde un buffer vacío en vez de la figura real.
   let fuente: Sampled[] | null = null;
   let pintado = false;
+  // Fallback cuando `correspondenceIsPoor`: swap de `d` con un fundido de opacidad, en vez de
+  // interpolar puntos que no corresponden entre sí. Mismo criterio que `morphKeyframes` — ver
+  // `correspondenceIsPoor` — para que los dos motores no diverjan en cuándo activarlo.
+  let fundido: { origenD: string; destinoD: string } | null = null;
+  // Prioridad máxima (ver curated-morphs.ts): coreografía a mano para pares específicos. Solo se
+  // intenta arrancando en reposo — mid-vuelo la pose en pantalla ya no es la forma original, y la
+  // coreografía curada no sabe posar nada que no sea sol(0)/luna(1) exactos.
+  let curado: CuratedMorph | null = null;
 
   el.setAttribute('d', canonicalD(iconoInicial));
 
   const pintar = (t: number): void => {
+    if (curado) {
+      el.setAttribute('d', curado.pose(Math.min(1, Math.max(0, t))));
+      pintado = true;
+      return;
+    }
+    if (fundido) {
+      const dip = Math.sin(Math.PI * Math.min(1, Math.max(0, t)));
+      el.setAttribute('d', t < 0.5 ? fundido.origenD : fundido.destinoD);
+      el.style.opacity = String(1 - dip);
+      el.style.transform = `scale(${1 - CROSSFADE_DIP_ESCALA * dip})`;
+      pintado = true;
+      return;
+    }
     if (!plan || !out || !cerrados) return;
     interpPolar(plan, t, out);
     el.setAttribute('d', serialize(out, cerrados));
@@ -124,9 +146,15 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
     cerrados = null;
     fuente = null;
     pintado = false;
+    fundido = null;
+    curado = null;
     spring.x = 1;
     spring.v = 0;
     el.setAttribute('d', canonicalD(objetivo));
+    // Sin esto, un icono que voló en modo fundido queda con opacidad/escala del último frame en
+    // vez de volver al estilo que le imponga el consumidor (CSS, otro `[style]`, etc).
+    el.style.opacity = '';
+    el.style.transform = '';
   };
 
   const tick: Ticker = (dt) => {
@@ -150,9 +178,31 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
 
   const replanear = (icon: IconInput): void => {
     const partida = reposo ? resampleIcon(objetivo) : figuraActual();
-    plan = buildPlan(partida, resampleIcon(icon));
-    out = allocOutputs(plan);
-    cerrados = plan.items.map((it) => it.closed);
+    const curadoNuevo = reposo ? findCuratedMorph(objetivo, icon) : null;
+    if (curadoNuevo) {
+      curado = curadoNuevo;
+      fundido = null;
+      plan = null;
+      out = null;
+      cerrados = null;
+    } else {
+      curado = null;
+      const nuevoPlan = buildPlan(partida, resampleIcon(icon));
+      if (correspondenceIsPoor(nuevoPlan)) {
+        // La pose EN PANTALLA ahora, no el icono completo de origen: si esto nace de una
+        // interrupción a medio vuelo (geométrico o ya en fundido), el fundido nuevo parte de lo que
+        // se ve, mismo criterio que usa el motor horneado al interrumpir.
+        fundido = { origenD: el.getAttribute('d') ?? canonicalD(objetivo), destinoD: canonicalD(icon) };
+        plan = null;
+        out = null;
+        cerrados = null;
+      } else {
+        fundido = null;
+        plan = nuevoPlan;
+        out = allocOutputs(plan);
+        cerrados = plan.items.map((it) => it.closed);
+      }
+    }
     fuente = partida;
     pintado = false;
     objetivo = icon;

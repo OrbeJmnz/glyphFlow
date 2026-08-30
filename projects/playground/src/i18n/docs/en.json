@@ -256,6 +256,10 @@
       "STEPS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
       "RESOLUTION_DEFAULT": "64 points per subpath.",
       "SPRING_TAIL_DEFAULT": "What to do with the spring's asymptotic tail.",
+      "correspondenceIsPoor": "`true` when no matching algorithm would save the pair — the engine fades instead of deforming.",
+      "QUALITY_RESIDUAL_MAX": "Procrustes residual threshold above which the correspondence counts as poor.",
+      "QUALITY_FRAGMENTATION_MAX": "Subpath fragmentation threshold above which the correspondence counts as poor.",
+      "maxLinearDeviation": "How far WAAPI's linear interpolation between baked poses strays from the real polar trajectory.",
       "PASOS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 points per subpath.",
       "COLA_DEFAULT": "What to do with the spring's asymptotic tail."

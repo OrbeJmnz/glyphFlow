@@ -49,12 +49,19 @@ const CASES = [
     // Sin fila en el README: esto es un budget de CI, no una cifra publicada — ver la nota de
     // `filaReadme?` abajo. Existe porque el motor "en vivo" (`live-morph.ts`) se importa ESTÁTICO
     // desde el componente, así que hasta quien nunca pone `live=true` paga por él. Medido a mano
-    // (esbuild+gzip) al agregar ese motor: 11.99KB → 12.56KB (+0.57KB, ~5%). 15KB deja margen para
-    // crecimiento normal sin dejar de cazar una regresión real (ej. que el motor en vivo empiece a
-    // arrastrar algo que no debería).
+    // (esbuild+gzip) al agregar ese motor: 11.99KB → 12.56KB (+0.57KB, ~5%).
+    //
+    // Subido de 15KB a 21KB al agregar `curated-morphs.ts` (9 pares curados: sun/moon, copy/check,
+    // volume/volume-off, y el patrón "-off" de eye/bell/pin/star/heart + eye/eye-closed). Estos
+    // pares NO son tree-shakeables entre sí — `findCuratedMorph` compara el `d` canónico de
+    // CUALQUIER llamada contra TODO el registro en runtime, así que un consumidor que solo usa
+    // bell→bell-ring paga igual por los 9. Medido: 14.51KB → 18.20KB (+3.69KB por los 6 pares
+    // nuevos, ~0.6KB c/u). 21KB deja margen para el crecimiento normal del registro sin dejar de
+    // cazar una regresión real — agregar el DÉCIMO par curado probablemente vuelva a acercarse al
+    // límite, y en ese punto toca decidir de nuevo, no ampliar en silencio.
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent);`,
-    maxGzipBytes: 15 * 1024,
+    maxGzipBytes: 21 * 1024,
   },
 ];
 

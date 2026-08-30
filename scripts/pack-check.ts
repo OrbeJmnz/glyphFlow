@@ -54,7 +54,11 @@ if (resolveIconName('alert-triangle') !== 'triangle-alert') throw new Error('res
 import { GfIconMorphComponent, runMorph, morphKeyframes, STEPS_DEFAULT } from 'glyphflow/morph';
 if (typeof GfIconMorphComponent !== 'function') throw new Error('GfIconMorphComponent no resolvió desde glyphflow/morph');
 if (typeof runMorph !== 'function' || typeof morphKeyframes !== 'function') throw new Error('la API de morph no resolvió');
-if (morphKeyframes(bellIcon.shapes.map(({ tag, ...a }) => [tag, a]), bellIcon.shapes.map(({ tag, ...a }) => [tag, a])).keyframes.length !== STEPS_DEFAULT) {
+// \`steps\` explícito, no el default: desde que es adaptativo (\`pasosAdaptativos\`), bell→bell (el
+// MISMO icono, sin rotación) cae en STEPS_MIN, no en STEPS_DEFAULT. Lo que este smoke test verifica
+// es que la OPCIÓN se resuelve bien desde el paquete instalado, no la fórmula del default — eso ya
+// lo cubre la suite de la librería.
+if (morphKeyframes(bellIcon.shapes.map(({ tag, ...a }) => [tag, a]), bellIcon.shapes.map(({ tag, ...a }) => [tag, a]), { steps: STEPS_DEFAULT }).keyframes.length !== STEPS_DEFAULT) {
   throw new Error('morphKeyframes no produjo los keyframes esperados desde el paquete instalado');
 }
 

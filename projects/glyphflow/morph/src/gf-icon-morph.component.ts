@@ -94,6 +94,10 @@ function aIconInput(icono: MorphIcon): IconInput {
     // con utilidades en capas).
     ':host { display: inline-flex; align-items: center; justify-content: center; flex: none; line-height: 0; }',
     'svg { width: var(--ai-size); height: var(--ai-size); max-width: 100%; max-height: 100%; }',
+    // Sin esto, el `scale()` del fallback de crossfade (pares sin correspondencia razonable, ver
+    // `correspondenceIsPoor`) derivaría desde la esquina del viewBox en vez del centro del propio
+    // trazo — el icono se vería "arrastrarse" hacia una esquina en vez de encogerse en su sitio.
+    'path { transform-box: fill-box; transform-origin: center; }',
   ],
   host: {
     '[style.--ai-size.px]': 'size',

@@ -22,7 +22,7 @@ import {
   userRoundIcon,
 } from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
-import { GfIconMorphComponent, morphKeyframes } from 'glyphflow/morph';
+import { GfIconMorphComponent, morphKeyframes, correspondenceIsPoor } from 'glyphflow/morph';
 import { aIconNode } from './icon-node';
 import { MorphScrubber, RESORTE_LENTO } from './morph-scrubber';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
@@ -180,6 +180,22 @@ export class MorphPicker implements OnDestroy {
   protected readonly iconoActual = computed<AnimatedIconDef | null>(() => {
     const s = this.secuencia();
     return s.length ? s[Math.min(this.indiceActual(), s.length - 1)].def : null;
+  });
+
+  /**
+   * Por cada tramo de la cadena (posición 0 no tiene "antes", siempre `false`), si ESE par cae en
+   * modo fundido — mismo criterio (`correspondenceIsPoor`) que ya decide `morphKeyframes`/
+   * `createLiveMorph`, no un cálculo aparte. `buildPlan` está medido sub-ms (ver `morphAt`), así
+   * que recalcularlo en cada cambio de la cadena no pesa.
+   */
+  protected readonly calidadCadena = computed<boolean[]>(() => {
+    const s = this.secuencia();
+    const out: boolean[] = [false];
+    for (let i = 1; i < s.length; i++) {
+      const { plan } = morphKeyframes(aIconNode(s[i - 1].def), aIconNode(s[i].def));
+      out.push(correspondenceIsPoor(plan));
+    }
+    return out;
   });
 
   /**

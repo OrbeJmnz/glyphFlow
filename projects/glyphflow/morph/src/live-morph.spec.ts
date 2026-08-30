@@ -1,6 +1,20 @@
-import { bellIcon, bellRingIcon, starIcon, type AnimatedIconDef, type IconShape } from 'glyphflow';
+import {
+  bellIcon,
+  bellRingIcon,
+  starIcon,
+  circleIcon,
+  gripIcon,
+  sunIcon,
+  moonIcon,
+  copyIcon,
+  checkIcon,
+  eyeIcon,
+  eyeOffIcon,
+  type AnimatedIconDef,
+  type IconShape,
+} from 'glyphflow';
 import { createLiveMorph } from './live-morph';
-import { canonicalD } from './morph-keyframes';
+import { canonicalD, correspondenceIsPoor } from './morph-keyframes';
 import { allocOutputs, interpPolar } from './core/interpolate';
 import { buildPlan } from './core/plan';
 import { resampleIcon } from './core/resample';
@@ -63,6 +77,14 @@ function aIconNode(def: AnimatedIconDef): [string, Record<string, string | numbe
 const bell = aIconNode(bellIcon);
 const bellRing = aIconNode(bellRingIcon);
 const star = aIconNode(starIcon);
+const circle = aIconNode(circleIcon);
+const grip = aIconNode(gripIcon);
+const sun = aIconNode(sunIcon);
+const moon = aIconNode(moonIcon);
+const copy = aIconNode(copyIcon);
+const check = aIconNode(checkIcon);
+const eyeAbierto = aIconNode(eyeIcon);
+const eyeOff = aIconNode(eyeOffIcon);
 
 /** Pose exacta en t=0 de un plan desde→hacia, calculada aparte del motor — para comparar contra lo
  *  que de verdad pintó `createLiveMorph`, sin confiar en su propia matemática. */
@@ -85,10 +107,19 @@ function poseInicialDe(desde: IconInput, hacia: IconInput): string {
  * cada assert. */
 function pathFalso() {
   let d = '';
+  // Igual que `CSSStyleDeclaration` real: una propiedad nunca tocada lee `''`, no `undefined`.
+  const style: Record<string, string> = { opacity: '', transform: '' };
   return {
-    el: { setAttribute: (_: string, valor: string) => (d = valor) } as unknown as SVGPathElement,
+    el: {
+      setAttribute: (_: string, valor: string) => (d = valor),
+      getAttribute: (nombre: string) => (nombre === 'd' ? d : null),
+      style,
+    } as unknown as SVGPathElement,
     get d() {
       return d;
+    },
+    get style() {
+      return style;
     },
   };
 }
@@ -302,6 +333,115 @@ describe('createLiveMorph — destroy()', () => {
     // llamar de nuevo tras destroy no hace nada
     morph.morphTo(star);
     expect(p.d).toBe(trasDestruir);
+    raf.restaurar();
+  });
+});
+
+describe('createLiveMorph — fundido cuando la correspondencia es mala', () => {
+  it('circle→grip fuerza el modo fundido: opacidad/transform en vuelo, nunca una polilínea a medias', () => {
+    expect(correspondenceIsPoor(buildPlan(resampleIcon(circle), resampleIcon(grip)))).toBe(true);
+
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, circle);
+    morph.morphTo(grip, { spring: 'smooth' });
+    raf.avanzar(16);
+    expect(p.style['opacity']).not.toBe('');
+    expect(p.style['transform']).not.toBe('');
+    // En vuelo el `d` es SIEMPRE uno de los dos canónicos exactos — un swap, no una interpolación.
+    expect([canonicalD(circle), canonicalD(grip)]).toContain(p.d);
+    morph.destroy();
+    raf.restaurar();
+  });
+
+  it('asienta en el destino exacto y limpia opacidad/transform, mismo criterio que el camino geométrico', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, circle);
+    morph.morphTo(grip, { spring: 'smooth' });
+    let ts = 0;
+    while (raf.activo && ts < 5000) {
+      ts += 16;
+      raf.avanzar(ts);
+    }
+    expect(raf.activo).toBe(false);
+    expect(p.d).toBe(canonicalD(grip));
+    expect(p.style['opacity']).toBe('');
+    expect(p.style['transform']).toBe('');
+    raf.restaurar();
+  });
+});
+
+describe('createLiveMorph — curado (sun↔moon) tiene prioridad sobre fundido y geométrico', () => {
+  it('sun→moon en vivo NO usa fundido: nunca escribe opacity/transform durante el vuelo', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, sun);
+    morph.morphTo(moon, { spring: 'smooth' });
+    raf.avanzar(16);
+    raf.avanzar(32);
+    expect(p.style['opacity']).toBe('');
+    expect(p.style['transform']).toBe('');
+    // 9 subpaths en la pose intermedia: disco/medialuna + los 8 rayos, igual que el motor horneado.
+    expect((p.d.match(/M/g) ?? []).length).toBe(9);
+    morph.destroy();
+    raf.restaurar();
+  });
+
+  it('asienta en el `d` canónico exacto de la luna', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, sun);
+    morph.morphTo(moon, { spring: 'smooth' });
+    let ts = 0;
+    while (raf.activo && ts < 5000) {
+      ts += 16;
+      raf.avanzar(ts);
+    }
+    expect(p.d).toBe(canonicalD(moon));
+    raf.restaurar();
+  });
+
+  it('interrumpir a medio vuelo (sun→moon) cae al camino genérico, no reintenta lo curado a medias', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, sun);
+    morph.morphTo(moon, { spring: 'smooth' });
+    raf.avanzar(16);
+    raf.avanzar(32);
+    // Interrumpir hacia un tercer icono desde una pose a medio camino (ni sol ni luna exactos): no
+    // hay coreografía curada que sepa posar eso, así que debe seguir funcionando sin tronar.
+    expect(() => morph.morphTo(bell, { spring: 'smooth' })).not.toThrow();
+    raf.avanzar(48);
+    morph.destroy();
+    raf.restaurar();
+  });
+
+  it('copy→check también usa lo curado en vivo (el registro no es solo sun/moon)', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, copy);
+    morph.morphTo(check, { spring: 'smooth' });
+    let ts = 0;
+    while (raf.activo && ts < 5000) {
+      ts += 16;
+      raf.avanzar(ts);
+    }
+    expect(p.d).toBe(canonicalD(check));
+    raf.restaurar();
+  });
+
+  it('eye→eye-off (patrón "-off", base+raya) también asienta en el `d` canónico exacto', () => {
+    const raf = espiarRaf();
+    const p = pathFalso();
+    const morph = createLiveMorph(p.el, eyeAbierto);
+    morph.morphTo(eyeOff, { spring: 'smooth' });
+    let ts = 0;
+    while (raf.activo && ts < 5000) {
+      ts += 16;
+      raf.avanzar(ts);
+    }
+    expect(p.d).toBe(canonicalD(eyeOff));
     raf.restaurar();
   });
 });

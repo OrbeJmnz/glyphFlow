@@ -76,6 +76,15 @@ export interface PlanItem {
 export interface MorphPlan {
   items: PlanItem[];
   n: number;
+  /** DIVERGENCIA DELIBERADA del upstream: señal de qué tan de fiar es la correspondencia elegida
+   *  (no si el icono es congruente como bloque — eso ya lo decide GLOBAL_EPS). No decide nada por
+   *  sí sola; la política de qué hacer con estos números vive en la capa propia (morph-keyframes.ts). */
+  quality: {
+    /** Media de `it.res` ponderada por longitud de arco. 0 = formas congruentes salvo escala/rotación. */
+    residual: number;
+    /** max(p,q)/min(p,q) subpaths — cuánta "cell division" hizo bestSurjection. 1 = permutación 1 a 1. */
+    fragmentation: number;
+  };
 }
 
 export function centroid(p: Float64Array): [number, number] {
@@ -416,5 +425,16 @@ export function buildPlan(
     };
   });
   if (items.length > 1) applyGlobal(items, n);
-  return { items, n };
+  let wsum = 0;
+  let rsum = 0;
+  for (const it of items) {
+    const w = (polyLen(it.a) + polyLen(it.bO)) / 2 || 1e-9;
+    wsum += w;
+    rsum += w * it.res;
+  }
+  return {
+    items,
+    n,
+    quality: { residual: rsum / (wsum || 1), fragmentation: Math.max(p, q) / Math.min(p, q) },
+  };
 }

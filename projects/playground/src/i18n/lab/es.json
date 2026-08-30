@@ -18,7 +18,7 @@
   },
   "morphPicker": {
     "titulo": "Morph libre — elige tu secuencia",
-    "expectativa": "⚠ Solo los 4 pares del benchmark están validados a fondo. Combinaciones arbitrarias entre iconos muy distintos <strong>pueden verse mal</strong> — es un límite real de la interpolación de formas, no un bug: el core empareja subpaths por cercanía, y si dos iconos no tienen nada en común, no hay correspondencia buena que encontrar.",
+    "expectativa": "El core empareja subpaths por cercanía — si dos iconos no tienen nada en común, no hay correspondencia geométrica buena que encontrar. Cuando eso pasa, el motor lo detecta solo y usa un <strong>fundido</strong> (opacidad, sin puntos que interpolar) en vez de forzar una deformación que se vería peor. Los tramos marcados <span class=\"fundido-marca\">fundido</span> en la cadena son esos casos — no es un error, es el fallback funcionando.",
     "buscar": {
       "marcador": "filtrar entre los {{total}} curados…",
       "etiqueta": "Filtrar iconos",
@@ -27,6 +27,8 @@
     "agregarAria": "Agregar {{nombre}}",
     "quitarAria": "Quitar {{nombre}}",
     "verTramoAria": "Recorrer a mano el morph de {{desde}} a {{hasta}}",
+    "fundidoBadge": "fundido",
+    "fundidoTooltip": "Este tramo no tiene correspondencia geométrica razonable — el motor funde en vez de deformar.",
     "previewLabel": "Previsualización del morph",
     "vacioLienzo": "Elige al menos 2 iconos para armar una secuencia.",
     "reproducir": {
@@ -55,7 +57,7 @@
       "resolucionNota": "<strong>res</strong> es la resolución de muestreo: a cuántos puntos se remuestrea cada subtrazo antes de emparejar las dos figuras. Muestrea el CONTORNO, no el tiempo — cambia con cuánta fidelidad se sigue la curva, nunca cuántos cuadros se reproducen."
     },
     "avisos": {
-      "pasos": "Más pasos son más poses intermedias, así que el trazo se sigue más de cerca — y el arreglo de keyframes crece. Lo que se compara aquí es fidelidad contra peso.",
+      "pasos": "Más pasos son más poses intermedias, así que el trazo se sigue más de cerca — y el arreglo de keyframes crece. Lo que se compara aquí es fidelidad contra peso. <strong>Adaptativo</strong> es el default real: no reparte un número parejo para los 1767 iconos, se los da solo a los pares que de verdad rotan — compáralo contra 20 pasos en <em>bell → bell-ring</em> (debería verse idéntico) y contra 10 en <em>circle → square</em> (menos pasos, misma fidelidad porque casi no rota).",
       "cola": "La cola solo se nota <strong>de regreso</strong>: prende <em>Loop</em> y mira el aterrizaje. «Sin reversa» no vuelve — reinicia desde el origen en cada vuelta.",
       "sobrepaso": "Un resorte subamortiguado <strong>se pasa</strong> del destino y regresa. Eso antes solo alargaba el reloj: el icono llegaba y se quedaba quieto. Ahora las poses del rebote se dibujan por default — la comparación que importa es <em>snappy sin dibujarlo</em> (<code>sobrepaso: false</code>) contra <em>snappy</em>. <code>bouncy</code> va topado: extrapolar más lo sacaría del lienzo y el SVG lo recortaría.",
       "vuelta": "<strong>Pasa el puntero por encima y sácalo</strong> — es el caso real (<code>reverseOnLeave</code>). <em>reverse()</em> recorre los offsets en espejo y aterriza de golpe; <em>Ida y vuelta</em> trae resorte propio en cada tramo y no necesita que la saques."
@@ -68,11 +70,14 @@
         "titulo": "15 pasos"
       },
       "p20": {
-        "titulo": "20 pasos",
-        "nota": "default"
+        "titulo": "20 pasos"
       },
       "p30": {
         "titulo": "30 pasos"
+      },
+      "p-adapt": {
+        "titulo": "Adaptativo",
+        "nota": "default"
       },
       "v-alternate": {
         "titulo": "reverse()",
@@ -136,7 +141,8 @@
       "peso": "peso",
       "duracion": "duración",
       "ultimoTramo": "último tramo",
-      "leyenda": "<strong>keyframes</strong> — cuántas poses interpola el navegador. <strong>peso</strong> — lo que ocupa ese arreglo de keyframes en memoria, en bytes UTF-8. <em>No es peso del bundle.</em> Estos keyframes se calculan en tu navegador cuando corre el morph; ninguno viaja dentro del paquete. <strong>duración</strong> — lo que dura un tramo del morph. <strong>último tramo</strong> — qué porcentaje de esa duración se lleva el último salto entre dos keyframes. Cuanto más alto, más se ve el icono arrastrándose hasta parar."
+      "desviacion": "desviación",
+      "leyenda": "<strong>keyframes</strong> — cuántas poses interpola el navegador. <strong>peso</strong> — lo que ocupa ese arreglo de keyframes en memoria, en bytes UTF-8. <em>No es peso del bundle.</em> Estos keyframes se calculan en tu navegador cuando corre el morph; ninguno viaja dentro del paquete. <strong>duración</strong> — lo que dura un tramo del morph. <strong>último tramo</strong> — qué porcentaje de esa duración se lleva el último salto entre dos keyframes. Cuanto más alto, más se ve el icono arrastrándose hasta parar. <strong>desviación</strong> — cuánto se aleja la interpolación lineal de WAAPI entre esas poses de la trayectoria polar real (lienzo 24×24). Es la métrica detrás de <em>Adaptativo</em>: el default ya no reparte los mismos pasos parejo, se los da solo a los pares que realmente rotan."
     },
     "reproducirSolo": "Reproducir solo este"
   }

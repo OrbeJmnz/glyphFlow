@@ -211,6 +211,30 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.SPRING_TAIL_DEFAULT',
   },
+  {
+    nombre: 'correspondenceIsPoor',
+    entrada: 'glyphflow/morph',
+    clase: 'función',
+    resumen: 'docs.api.simbolos.correspondenceIsPoor',
+  },
+  {
+    nombre: 'QUALITY_RESIDUAL_MAX',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.QUALITY_RESIDUAL_MAX',
+  },
+  {
+    nombre: 'QUALITY_FRAGMENTATION_MAX',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.QUALITY_FRAGMENTATION_MAX',
+  },
+  {
+    nombre: 'maxLinearDeviation',
+    entrada: 'glyphflow/morph',
+    clase: 'función',
+    resumen: 'docs.api.simbolos.maxLinearDeviation',
+  },
   // Los nombres de la v1. Se documentan porque siguen exportados —el spec exige que TODO export
   // esté documentado— y porque quien llegue con código viejo tiene que encontrar a qué migrar.
   {
