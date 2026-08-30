@@ -10,6 +10,7 @@ import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import { checkIcon, copyIcon } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { Copiador } from './copiar';
+import { resaltarCodigo } from './resaltado-codigo';
 
 /** Las dos vistas del mismo código. Tipo aparte: `typeof this.X` no es válido en posición de tipo. */
 type Vista = 'fragmento' | 'completo';
@@ -72,6 +73,12 @@ export class BloqueCodigo implements OnDestroy {
   protected readonly mostrado = computed(() =>
     this.vista() === 'completo' ? (this.completo() ?? this.codigo()) : this.codigo(),
   );
+
+  /**
+   * Solo para pintar. El copiado (`copiar()` más abajo) sigue leyendo `mostrado()` en texto plano
+   * -- nunca este HTML -- porque lo que se pega en el editor del usuario no puede llevar `<span>`.
+   */
+  protected readonly resaltado = computed(() => resaltarCodigo(this.mostrado()));
 
   /** Flechas dentro del radiogroup — es lo que el rol PROMETE. Mismo trato que la velocidad del shell. */
   protected teclaVista(ev: KeyboardEvent): void {

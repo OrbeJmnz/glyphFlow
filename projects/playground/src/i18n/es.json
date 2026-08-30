@@ -2,6 +2,7 @@
   "codigo": {
     "copiar": "Copiar código",
     "stackblitz": "Abrir en StackBlitz",
+    "stackblitzPestana": "(se abre en una pestaña nueva)",
     "vistas": "Versión del código",
     "vista": {
       "fragmento": "Fragmento",

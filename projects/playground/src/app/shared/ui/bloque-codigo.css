@@ -1,9 +1,12 @@
 /*
- * El bloque y su botón. El `position: relative` vive aquí y no en el `<pre>`: el `pre` tiene
- * `overflow-x: auto`, y un botón absoluto dentro de un contenedor con scroll se desplaza con el
- * contenido — al arrastrar una línea larga, el botón se iba de viaje.
+ * `.area-codigo` envuelve el `<pre>` Y el botón de copiar -- y el `position: relative` vive AHÍ,
+ * no en `.bloque` entero. Antes vivía en `.bloque`, y el botón (`top: 0.5rem; right: 0.5rem`)
+ * quedaba anclado a la esquina del BLOQUE completo: cuando había fila de conmutador/StackBlitz
+ * encima, el botón flotaba sobre esa fila en vez de sobre el código. Tampoco puede vivir en el
+ * propio `<pre>`: tiene `overflow-x: auto`, y un botón absoluto ahí se desplaza con el contenido
+ * al arrastrar una línea larga.
  */
-.bloque {
+.area-codigo {
   position: relative;
 }
 
@@ -23,7 +26,7 @@
   gap: 0 0.75rem;
 }
 
-.bloque:has(.vistas, .ejemplo) pre {
+.bloque:has(.vistas, .ejemplo) .area-codigo {
   grid-column: 1 / -1;
 }
 
@@ -34,6 +37,9 @@
 }
 
 .ejemplo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
   justify-self: end;
   margin-bottom: 0.4rem;
   color: var(--gf-texto-tenue);
@@ -90,6 +96,11 @@ pre code {
   font-size: 0.8125rem;
   line-height: 1.6;
 }
+
+/*
+ * El resaltado de sintaxis (`.tok-*`) va en `styles.css`, GLOBAL, no aquí -- ver el comentario de
+ * ese bloque para el porqué (encapsulación emulada + `[innerHTML]`).
+ */
 
 .copiar {
   position: absolute;
@@ -177,15 +188,24 @@ pre code {
 }
 
 .vistas button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.6rem;
   padding: 0.2rem 0.55rem;
   border: 0;
   border-radius: 0.32rem;
   background: none;
+  /* Underline propio y no solo el fondo de `.activa`: en `focus-visible` el anillo ya usa el
+     mismo espacio visual, y dos señales de "esto está activo/enfocado" que compiten por el mismo
+     borde se leen peor que una que se apila. */
+  box-shadow: inset 0 -2px transparent;
   color: var(--gf-texto-tenue);
   font: inherit;
   font-size: 0.72rem;
   cursor: pointer;
-  transition: color 140ms ease-out;
+  transition:
+    color 140ms ease-out,
+    box-shadow 140ms ease-out;
 }
 
 .vistas button:hover {
@@ -194,7 +214,20 @@ pre code {
 
 .vistas button.activa {
   background: var(--gf-velo-activo);
+  box-shadow: inset 0 -2px var(--gf-acento-claro);
   color: var(--gf-texto);
+}
+
+.vistas button:focus-visible {
+  outline: 2px solid var(--gf-acento-claro);
+  outline-offset: 1px;
+}
+
+@media (pointer: coarse) {
+  .vistas button {
+    min-height: 2.75rem;
+    padding: 0.2rem 0.7rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

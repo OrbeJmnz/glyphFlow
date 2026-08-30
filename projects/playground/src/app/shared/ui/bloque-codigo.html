@@ -29,20 +29,24 @@
     -->
     <a class="ejemplo" [href]="url" target="_blank" rel="noopener noreferrer">
       {{ 'codigo.stackblitz' | transloco }}
+      <span aria-hidden="true">↗</span>
+      <span class="visualmente-oculto">{{ 'codigo.stackblitzPestana' | transloco }}</span>
     </a>
   }
 
-  <pre><code>{{ mostrado() }}</code></pre>
-  <button
-    type="button"
-    class="copiar"
-    [class.hecho]="copiador.copiado()"
-    [class.fallo]="copiador.fallo()"
-    [attr.aria-label]="etiqueta()"
-    (click)="copiar()"
-  >
-    <gf-icon-morph [icon]="icono()" [size]="15" spring="bouncy" />
-  </button>
+  <div class="area-codigo">
+    <pre><code [innerHTML]="resaltado()"></code></pre>
+    <button
+      type="button"
+      class="copiar"
+      [class.hecho]="copiador.copiado()"
+      [class.fallo]="copiador.fallo()"
+      [attr.aria-label]="etiqueta()"
+      (click)="copiar()"
+    >
+      <gf-icon-morph [icon]="icono()" [size]="15" spring="bouncy" />
+    </button>
+  </div>
 
   <!--
     El acuse para lectores de pantalla. La región viva va sobre un nodo que YA existe en el

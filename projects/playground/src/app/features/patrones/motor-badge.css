@@ -1,0 +1,39 @@
+/*
+ * Pill pequeño, no la card completa -- el 80-90% de la página sigue neutral, esto es un acento de
+ * información, no decoración. `color-mix(in srgb, currentColor X%, transparent)` para fondo/borde
+ * de baja opacidad es la MISMA técnica que ya usa `iconos.css` (botón de instalar): un solo color
+ * por variante, sin un token de fondo separado por cada una.
+ *
+ * Sin `text-transform: uppercase`: el copy de "ninguno" ya trae mayúscula intencional en "CSS"
+ * ("sin motor — CSS"), forzar mayúsculas en todo aplanaría ese contraste tipográfico.
+ */
+:host {
+  display: inline-block;
+}
+
+.motor-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: -0.1rem 0 0.6rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.motor-badge.es-morph {
+  color: var(--gf-motor-morph);
+}
+
+.motor-badge.es-coreografia {
+  color: var(--gf-motor-coreografia);
+}
+
+.motor-badge.es-ninguno,
+.motor-badge.es-mixto {
+  color: var(--gf-motor-ninguno);
+}

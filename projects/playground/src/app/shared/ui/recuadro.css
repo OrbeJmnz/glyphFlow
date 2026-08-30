@@ -32,13 +32,18 @@
   color: var(--gf-texto-medio);
 }
 
-/* Caso límite: qué pasa cuando falla. */
+/*
+ * Caso límite: qué pasa cuando falla. El borde reusa `--gf-aviso-texto` -- no existe un
+ * `--gf-aviso` aparte, y el fallback hardcodeado que había aquí antes se quedaba clavado en el
+ * valor de oscuro también en tema claro (el fallback de `var()` solo actúa si la propiedad no
+ * existe, nunca "por tema"), así que el borde no seguía al tema aunque la etiqueta sí.
+ */
 .es-caso {
-  border-left-color: var(--gf-aviso, #d9822b);
+  border-left-color: var(--gf-aviso-texto);
 }
 
 .es-caso .etiqueta {
-  color: var(--gf-aviso-texto, #96530c);
+  color: var(--gf-aviso-texto);
 }
 
 /* Nota: alcance o aclaración. La más neutra de las tres, a propósito. */

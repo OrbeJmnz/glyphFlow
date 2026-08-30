@@ -1,6 +1,7 @@
 <header class="head">
   <h1>{{ 'patrones.titulo' | transloco }}</h1>
   <p>{{ 'patrones.intro' | transloco }}</p>
+  <p class="sub">{{ 'patrones.introDetalle' | transloco }}</p>
 </header>
 
 <!--
@@ -21,7 +22,7 @@
         <p class="responde">{{ col.motor | transloco }}</p>
         <p class="ejemplos">{{ col.ejemplos | transloco }}</p>
         <p class="porque">{{ col.porque | transloco }}</p>
-        <a [href]="'#' + col.ancla">{{ col.ver | transloco }}</a>
+        <a [routerLink]="[]" [fragment]="col.ancla">{{ col.ver | transloco }}</a>
       </article>
     }
   </div>
@@ -29,23 +30,37 @@
   <!-- El caso que rompe la regla de las tres columnas, y por eso va aparte y a lo ancho. -->
   <p class="mezcla">
     <span [innerHTML]="'patrones.decision.mezcla' | transloco"></span>
-    <a href="#three-state-action">{{ 'patrones.decision.mezclaVer' | transloco }}</a>
+    <a [routerLink]="[]" fragment="three-state-action">{{
+      'patrones.decision.mezclaVer' | transloco
+    }}</a>
   </p>
 </section>
 
 <div class="patrones-marco">
   <aside class="patrones-sidebar">
-    <nav class="indice-patrones" [attr.aria-label]="'patrones.indice' | transloco">
-      <span class="indice-titulo">{{ 'patrones.indice' | transloco }}</span>
-      <ol>
-        @for (p of indicePatrones; track p.ancla) {
-          <li>
-            <a [href]="'#' + p.ancla" [class.activo]="anclaVisible() === p.ancla">
-              {{ p.titulo | transloco }}
-            </a>
-          </li>
-        }
-      </ol>
+    <nav [attr.aria-label]="'patrones.indice' | transloco">
+      <!--
+        `open` SIEMPRE presente: en desktop se ve exactamente igual que antes (nada que colapsar a
+        la vista). La ganancia es solo para mobile, donde `.patrones-sidebar` deja de ser sticky —
+        ahí el `<details>` nativo deja que quien quiera bajar directo al contenido lo cierre con un
+        tap, sin que nada lo decida por él ni arriesgue un flash prerender→hidratación.
+      -->
+      <details class="indice-patrones" open>
+        <summary class="indice-titulo">{{ 'patrones.indice' | transloco }}</summary>
+        <ol>
+          @for (p of indicePatrones; track p.ancla) {
+            <li>
+              <a
+                [routerLink]="[]"
+                [fragment]="p.ancla"
+                [class.activo]="anclaVisible() === p.ancla"
+              >
+                {{ p.titulo | transloco }}
+              </a>
+            </li>
+          }
+        </ol>
+      </details>
     </nav>
   </aside>
 
@@ -70,11 +85,13 @@
         {{ 'patrones.copiar.titulo' | transloco
         }}<a
           class="ancla"
-          href="#copy-to-clipboard"
+          [routerLink]="[]"
+          fragment="copy-to-clipboard"
           [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
       <p [innerHTML]="'patrones.copiar.descripcion' | transloco"></p>
       <app-recuadro tipo="caso" [texto]="'patrones.copiar.detalle' | transloco" />
       <app-bloque-codigo
@@ -112,10 +129,15 @@
     <div class="texto">
       <h2>
         {{ 'patrones.tema.titulo' | transloco
-        }}<a class="ancla" href="#theme-switch" [attr.aria-label]="'patrones.enlazar' | transloco"
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="theme-switch"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
       <p [innerHTML]="'patrones.tema.descripcion' | transloco"></p>
       <app-recuadro tipo="nota" [texto]="'patrones.tema.detalle' | transloco" />
       <app-bloque-codigo
@@ -149,11 +171,13 @@
         {{ 'patrones.enviar.titulo' | transloco
         }}<a
           class="ancla"
-          href="#three-state-action"
+          [routerLink]="[]"
+          fragment="three-state-action"
           [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
+      <app-motor-badge tono="mixto" [texto]="'patrones.motor.mixto' | transloco" />
       <p [innerHTML]="'patrones.enviar.descripcion' | transloco"></p>
       <app-recuadro tipo="nota" [texto]="'patrones.enviar.detalle' | transloco" />
       <app-bloque-codigo
@@ -193,8 +217,15 @@
     <div class="texto">
       <h2>
         {{ 'patrones.reaccion.titulo' | transloco
-        }}<a class="ancla" href="#reaction" [attr.aria-label]="'patrones.enlazar' | transloco">#</a>
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="reaction"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
       </h2>
+      <app-motor-badge tono="coreografia" [texto]="'patrones.motor.coreografia' | transloco" />
       <p [innerHTML]="'patrones.reaccion.descripcion' | transloco"></p>
       <app-recuadro tipo="nota" [texto]="'patrones.reaccion.detalle' | transloco" />
       <app-bloque-codigo
@@ -232,12 +263,13 @@
         {{ 'patrones.menu.titulo' | transloco
         }}<a
           class="ancla"
-          href="#menu-hamburger-x"
+          [routerLink]="[]"
+          fragment="menu-hamburger-x"
           [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
-      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
       <p [innerHTML]="'patrones.menu.descripcion' | transloco"></p>
       <app-recuadro tipo="caso" [texto]="'patrones.menu.detalle' | transloco" />
       <app-bloque-codigo
@@ -267,12 +299,13 @@
         {{ 'patrones.play.titulo' | transloco
         }}<a
           class="ancla"
-          href="#player-play-pause"
+          [routerLink]="[]"
+          fragment="player-play-pause"
           [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
-      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
       <p [innerHTML]="'patrones.play.descripcion' | transloco"></p>
       <app-recuadro tipo="regla" [texto]="'patrones.play.detalle' | transloco" />
       <app-bloque-codigo
@@ -306,11 +339,15 @@
     <div class="texto">
       <h2>
         {{ 'patrones.acordeon.titulo' | transloco
-        }}<a class="ancla" href="#accordion" [attr.aria-label]="'patrones.enlazar' | transloco"
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="accordion"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
-      <p class="motor motor-ninguno">{{ 'patrones.motor.ninguno' | transloco }}</p>
+      <app-motor-badge tono="ninguno" [texto]="'patrones.motor.ninguno' | transloco" />
       <p [innerHTML]="'patrones.acordeon.descripcion' | transloco"></p>
       <app-recuadro tipo="regla" [texto]="'patrones.acordeon.detalle' | transloco" />
       <app-bloque-codigo [codigo]="SNIPPET_ACORDEON" />
@@ -338,12 +375,13 @@
         {{ 'patrones.campana.titulo' | transloco
         }}<a
           class="ancla"
-          href="#bell-with-notification"
+          [routerLink]="[]"
+          fragment="bell-with-notification"
           [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
-      <p class="motor motor-coreografia">{{ 'patrones.motor.coreografia' | transloco }}</p>
+      <app-motor-badge tono="coreografia" [texto]="'patrones.motor.coreografia' | transloco" />
       <p [innerHTML]="'patrones.campana.descripcion' | transloco"></p>
       <app-recuadro tipo="regla" [texto]="'patrones.campana.detalle' | transloco" />
       <app-bloque-codigo
@@ -385,11 +423,15 @@
     <div class="texto">
       <h2>
         {{ 'patrones.buscar.titulo' | transloco
-        }}<a class="ancla" href="#search-close" [attr.aria-label]="'patrones.enlazar' | transloco"
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="search-close"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
           >#</a
         >
       </h2>
-      <p class="motor">{{ 'patrones.motor.morph' | transloco }}</p>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
       <p [innerHTML]="'patrones.buscar.descripcion' | transloco"></p>
       <app-recuadro tipo="caso" [texto]="'patrones.buscar.detalle' | transloco" />
       <app-bloque-codigo

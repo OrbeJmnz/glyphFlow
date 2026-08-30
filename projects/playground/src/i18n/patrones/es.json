@@ -4,7 +4,8 @@
   "notaSpring": "spring recibe el nombre de un preset. La lista completa, con el amortiguamiento de cada uno, está en la referencia de API — no se copia aquí para que las dos no puedan separarse.",
   "verPresets": "Ver los presets de spring →",
   "titulo": "Ejemplos",
-  "intro": "La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve: controles que de verdad hacen lo que dicen — el de copiar copia, el de tema cambia colores, el de enviar tiene sus tres estados. El código de cada uno está al lado.",
+  "intro": "La cuadrícula de iconos enseña qué hay. Esto enseña para qué sirve.",
+  "introDetalle": "Cada patrón trae su demo, su motor y el código al lado.",
   "copiar": {
     "titulo": "Copiar al portapapeles",
     "descripcion": "El caso donde el morph gana claro: <code>copy</code> → <code>check</code> confirma sin mover el layout ni meter un toast. El botón de arriba copia de verdad — pruébalo y pega.",
@@ -41,7 +42,8 @@
   "motor": {
     "morph": "morph",
     "coreografia": "coreografía",
-    "ninguno": "sin motor — CSS"
+    "ninguno": "sin motor — CSS",
+    "mixto": "morph + bucle"
   },
   "menu": {
     "titulo": "Menú: hamburguesa → X",
