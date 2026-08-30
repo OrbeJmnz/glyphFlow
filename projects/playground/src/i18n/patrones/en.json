@@ -4,7 +4,8 @@
   "notaSpring": "spring takes a preset name. The full list, with the damping value behind each one, is in the API reference — it isn't copied here so the two can't drift apart.",
   "verPresets": "See the spring presets →",
   "titulo": "Examples",
-  "intro": "The icon grid shows what's there. This shows what it's for: controls that actually do what they say — the copy one copies, the theme one changes colors, the send one has its three states. Each one's code sits right next to it.",
+  "intro": "The icon grid shows what's there. This shows what it's for.",
+  "introDetalle": "Each pattern brings its demo, its engine, and the code right next to it.",
   "copiar": {
     "titulo": "Copy to clipboard",
     "descripcion": "The case where morph clearly wins: <code>copy</code> → <code>check</code> confirms without shifting the layout or bolting on a toast. The button above actually copies — try it and paste.",
@@ -41,7 +42,8 @@
   "motor": {
     "morph": "morph",
     "coreografia": "choreography",
-    "ninguno": "no engine — CSS"
+    "ninguno": "no engine — CSS",
+    "mixto": "morph + loop"
   },
   "menu": {
     "titulo": "Menu: hamburger → X",

@@ -22,6 +22,15 @@
   line-height: 1.6;
 }
 
+/* Segunda línea, un escalón más tenue que la principal -- el hero se lee en dos golpes cortos en
+   vez de un párrafo largo, sin perder la segunda idea. */
+.head .sub {
+  margin: 0.35rem auto 0;
+  max-width: 38rem;
+  color: var(--gf-texto-apagado);
+  line-height: 1.6;
+}
+
 .patrones-marco {
   display: grid;
   grid-template-columns: 14.5rem minmax(0, 1fr);
@@ -51,9 +60,15 @@
   min-width: 0;
 }
 
+/*
+ * El preview mide ~30-35% del ancho real de `.patron`, no un rem fijo: con `%` en `minmax()`
+ * escala con el ancho DISPONIBLE (crece cuando el sidebar se oculta bajo 1024px, se achica cuando
+ * está visible) en vez de quedarse angosto en pantallas anchas. El piso de `11rem` evita que se
+ * apriete de más antes de colapsar a 1 columna bajo `46rem`.
+ */
 .patron {
   display: grid;
-  grid-template-columns: 14rem minmax(0, 1fr);
+  grid-template-columns: minmax(11rem, 32%) minmax(0, 1fr);
   gap: 1.5rem;
   padding: 1.5rem;
   border: 1px solid var(--gf-borde-suave);
@@ -185,44 +200,6 @@
   color: var(--gf-acento-claro);
 }
 
-pre {
-  margin: 0;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--gf-borde-suave);
-  border-radius: 0.6rem;
-  background: var(--gf-fondo);
-  overflow-x: auto;
-}
-
-pre code {
-  padding: 0;
-  background: none;
-  color: var(--gf-texto-medio);
-  font-size: 0.8125rem;
-  line-height: 1.6;
-}
-
-/*
- * `.degradado-texto-sutil` (global) empataría en especificidad con `pre code` de aquí arriba —
- * mismo problema que ya pasó con `.cifras dt` y `.es-primario` en otros archivos. Un selector
- * propio del componente, más específico, gana sin tocar la utilidad global.
- */
-pre code.degradado-texto-sutil {
-  color: var(--gf-marca-2-texto);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  pre code.degradado-texto-sutil {
-    background-image: var(--gf-degradado);
-    /* `local`: este `pre` tiene `overflow-x: auto` — sin esto, una línea larga se desliza por
-       debajo de un degradado pintado fijo a la caja y se ve "congelada" al hacer scroll. */
-    background-attachment: local;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-}
-
 /* Va DEBAJO del snippet, no encima: se lee cuando ya viste el choque, que es cuando la pregunta
    aparece. El enlace apunta a la fila real de la tabla de API — no se copia aquí ninguna lista,
    porque dos copias de lo mismo acaban diciendo cosas distintas. */
@@ -242,30 +219,6 @@ pre code.degradado-texto-sutil {
 
 .nota-api a:hover {
   color: var(--gf-texto);
-}
-
-/*
- * ── T25 · Los cinco patrones nuevos ───────────────────────────────────────────
- *
- * El rótulo de motor. Va DEBAJO del título y no como insignia flotante: es una clasificación que
- * se lee con el título, no una etiqueta que decore la esquina.
- */
-.motor {
-  margin: -0.35rem 0 0.6rem;
-  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.02em;
-  color: var(--gf-acento-claro);
-}
-
-/* El contraejemplo se marca distinto a propósito: si los tres rótulos se vieran igual, la página
-   diría que rotar con CSS es "otro motor más" en vez de la ausencia de uno. */
-.motor-coreografia {
-  color: var(--gf-marca-2-texto);
-}
-
-.motor-ninguno {
-  color: var(--gf-texto-apagado);
 }
 
 .demo-menu {
@@ -409,15 +362,17 @@ pre code.degradado-texto-sutil {
 }
 
 .columna.columna-morph {
-  border-top-color: var(--gf-acento-claro);
+  border-top-color: var(--gf-motor-morph);
 }
 
 .columna.columna-coreografia {
   border-top-color: var(--gf-marca-2);
 }
 
+/* Su propio texto dice "una coreografía en bucle" -- comparte el azul de coreografía, no un
+   tercer tono neutro que la haría leerse como "sin motor" cuando sí lo tiene. */
 .columna.columna-bucle {
-  border-top-color: var(--gf-texto-apagado);
+  border-top-color: var(--gf-marca-2);
 }
 
 .columna h3 {
@@ -432,7 +387,7 @@ pre code.degradado-texto-sutil {
   margin: 0 0 0.5rem;
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
   font-size: 0.78rem;
-  color: var(--gf-acento-claro);
+  color: var(--gf-motor-morph);
 }
 
 .columna.columna-coreografia .responde {
@@ -440,7 +395,7 @@ pre code.degradado-texto-sutil {
 }
 
 .columna.columna-bucle .responde {
-  color: var(--gf-texto-medio);
+  color: var(--gf-marca-2-texto);
 }
 
 .columna .ejemplos {
@@ -522,6 +477,11 @@ pre code.degradado-texto-sutil {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--gf-texto-apagado);
+  /* Ahora es un `<summary>`: interactivo de verdad en mobile (el `<details>` empieza `open`, así
+     que en desktop nada de esto se nota). `display: block` ya esconde la flecha nativa -- no hace
+     falta un `::marker` explícito para mantener el mismo aspecto que tenía como `<span>`. */
+  cursor: pointer;
+  user-select: none;
 }
 
 .indice-patrones ol {
@@ -585,6 +545,14 @@ pre code.degradado-texto-sutil {
   color: var(--gf-acento-claro);
 }
 
+/* Sin hover no hay forma de descubrirlo -- mismo trato que el botón de copiar de
+   `bloque-codigo.css`: discreto en desktop, siempre visible donde no hay con qué "pasar cerca". */
+@media (hover: none) {
+  .ancla {
+    opacity: 1;
+  }
+}
+
 .cierre {
   max-width: var(--gf-ancho);
   margin: 2.5rem auto 0;
@@ -593,9 +561,16 @@ pre code.degradado-texto-sutil {
   text-align: center;
 }
 
+/*
+ * La pregunta de cierre es la última línea que alguien lee antes de decidir si actúa -- se quedaba
+ * al mismo peso que cualquier párrafo de la página, compitiendo por atención con todo lo de arriba
+ * en vez de leerse como una pregunta directa. Sin fondo ni borde: sigue siendo texto, no una card.
+ */
 .cierre p {
-  margin: 0 0 0.9rem;
-  color: var(--gf-texto-medio);
+  margin: 0 0 1.2rem;
+  font-size: 1.06rem;
+  font-weight: 500;
+  color: var(--gf-texto);
 }
 
 .cierre .acciones {
@@ -697,8 +672,8 @@ pre code.degradado-texto-sutil {
   position: absolute;
   right: 0.55rem;
   bottom: 0.4rem;
-  font-size: 0.66rem;
-  color: var(--gf-texto-apagado);
+  font-size: 0.72rem;
+  color: var(--gf-texto-tenue);
   opacity: 0;
   transition: opacity 160ms ease-out;
   pointer-events: none;

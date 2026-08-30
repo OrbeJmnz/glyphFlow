@@ -33,6 +33,7 @@ import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { Recuadro } from '../../shared/ui/recuadro';
+import { MotorBadge } from './motor-badge';
 import { huecoBajoHeader } from '../../core/header';
 import {
   SNIPPET_ACORDEON,
@@ -71,6 +72,7 @@ import { Rutas } from '../../core/rutas.service';
   imports: [
     BloqueCodigo,
     Recuadro,
+    MotorBadge,
     GfIconComponent,
     GfIconMorphComponent,
     Boton,
