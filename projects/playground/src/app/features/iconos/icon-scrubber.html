@@ -63,6 +63,24 @@
   </svg>
 
   @if (duracionMs(); as dur) {
+    <!-- Transporte: sin él, esto era un slider que hay que arrastrar a mano para ver algo. -->
+    <button
+      type="button"
+      class="transporte-btn"
+      (click)="reiniciar()"
+      [attr.aria-label]="'iconos.scrubber.reiniciar' | transloco"
+    >
+      <gf-icon [iconDef]="skipBackIcon" [size]="14" trigger="manual" />
+    </button>
+    <button
+      type="button"
+      class="transporte-btn"
+      (click)="alternarTransporte()"
+      [attr.aria-label]="etiquetaTransporte()"
+    >
+      <gf-icon-morph [icon]="iconoTransporte()" [size]="14" spring="bouncy" />
+    </button>
+
     <div class="control">
       <app-deslizador
         [min]="0"

@@ -59,28 +59,41 @@
               #previewGrande
               [iconDef]="def()"
               [animation]="varianteActiva()"
-              [size]="96"
+              [size]="128"
               trigger="manual"
               (mouseenter)="reproducir()"
               (click)="reproducir()"
             />
           </div>
 
-          <nav
+          <!--
+            Segmented control medido, no chips sueltos: SÍ son opciones interactivas reales —elegir
+            una la reproduce— y el proyecto reserva `appCarrilActivo` (indicador que se DESLIZA)
+            justo para eso. Aritmética (como el carril de velocidad) no alcanza aquí: los nombres de
+            variante son de ancho variable (`default`, `hover`, `hold`…).
+          -->
+          <app-grupo
+            rol="radiogroup"
+            appCarrilActivo
             class="variantes-nav"
-            [attr.aria-label]="'iconos.detalle.variantesNavAria' | transloco"
+            [etiqueta]="'iconos.detalle.variantesNavAria' | transloco"
           >
             @for (v of variantes(); track v) {
               <button
                 type="button"
-                class="pill"
-                [class.activa]="v === varianteActiva()"
+                app-chip
+                variante="contorno"
+                role="radio"
+                [activo]="v === varianteActiva()"
+                [attr.aria-checked]="v === varianteActiva()"
+                [attr.tabindex]="v === varianteActiva() ? 0 : -1"
                 (click)="elegirVariante(v)"
+                (keydown)="teclaVariante($event)"
               >
                 {{ v }}
               </button>
             }
-          </nav>
+          </app-grupo>
         </div>
       }
       @case ('codigo') {

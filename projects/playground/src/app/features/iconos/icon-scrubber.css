@@ -11,6 +11,33 @@
   color: var(--gf-texto);
 }
 
+.transporte-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.transporte-btn:hover {
+  color: var(--gf-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.transporte-btn:active {
+  transform: scale(0.9);
+}
+
 .control {
   display: flex;
   align-items: center;

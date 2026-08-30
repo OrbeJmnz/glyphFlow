@@ -82,7 +82,10 @@
   "scrubber": {
     "progresoEtiqueta": "Progreso de la coreografía",
     "progresoValor": "{{actual}} de {{total}} milisegundos",
-    "sinScrubNota": "Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente en vivo con <code>getTotalLength()</code> (autoDraw)."
+    "sinScrubNota": "Esta variante no tiene tracks fijos que mover a mano — su duración la calcula el componente en vivo con <code>getTotalLength()</code> (autoDraw).",
+    "reproducir": "Reproducir",
+    "pausar": "Pausar",
+    "reiniciar": "Reiniciar"
   },
   "detalle": {
     "seccionAria": "Detalle del icono",
