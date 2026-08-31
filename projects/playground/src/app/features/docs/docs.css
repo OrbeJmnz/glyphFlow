@@ -2,26 +2,28 @@
   display: block;
 }
 
+/*
+ * Sin `max-width` propio ni `margin:auto`: `.shell-cuerpo` (`app.css`) ya limita y centra TODO el
+ * contenido del sitio a `--gf-ancho` (1240 px) -- el mismo techo que usan Iconos/Editor/Patrones.
+ * Antes `.docs-marco` traía su PROPIO max-width (62rem/76rem, anidado dentro del de arriba), más
+ * angosto y siempre ganador -- eso era lo que de verdad apretaba la columna central a ~44rem, no el
+ * `max-width` de cada página (ver `docs-page.css`). Quitarlo deja que el centro use lo que sobra de
+ * los 1240 px reales tras restar sidebar+TOC, en vez de un segundo tope inventado.
+ */
 .docs-marco {
   display: grid;
   grid-template-columns: 15rem minmax(0, 1fr);
   gap: 2.5rem;
-  max-width: 62rem;
-  margin: 0 auto;
 }
 
 /*
  * La tercera columna —el índice de la página— entra en el MISMO punto en que el componente se
  * enciende (1200 px). Si el ancho se cambiara aquí sin cambiarlo allá, quedaría una columna vacía
  * empujando el contenido: los dos números tienen que moverse juntos.
- *
- * Y el marco crece a la vez: manteniendo 62rem, la tercera columna se la quitaría al texto, que es
- * lo que se viene a leer.
  */
 @media (min-width: 1200px) {
   .docs-marco {
     grid-template-columns: 15rem minmax(0, 1fr) 12rem;
-    max-width: 76rem;
   }
 }
 
@@ -32,10 +34,116 @@
   }
 }
 
+/*
+ * El índice de la página no tiene columna propia debajo de 1200 px (`indice-pagina.css` lo vuelve
+ * un disclosure ahí) -- sin esto, el grid lo metería en una fila nueva bajo el sidebar, angosto y
+ * fuera de lugar. `order: -1` lo sube antes que sidebar/artículo: el disclosure "On this page"
+ * queda arriba, junto al resto de los controles de la página, no perdido al fondo.
+ */
+@media (max-width: 1199.98px) {
+  app-indice-pagina {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+}
+
+/* ── Toolbar / drawer / búsqueda móvil (< 48rem) ────────────────────────────────── */
+
+.docs-toolbar-movil {
+  display: none;
+}
+
+.drawer-fondo {
+  display: none;
+}
+
+@media (max-width: 48rem) {
+  .docs-toolbar-movil {
+    display: flex;
+    gap: 0.6rem;
+    order: -2;
+  }
+
+  .toolbar-movil-boton {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--gf-borde);
+    border-radius: 0.5rem;
+    background: var(--gf-panel);
+    color: var(--gf-texto-tenue);
+    font: inherit;
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .toolbar-movil-boton:hover {
+    border-color: var(--gf-borde-vivo);
+    color: var(--gf-texto);
+  }
+
+  /*
+   * Mismo criterio que el fondo del buscador (`buscador-docs.css`): un `<button>`, no un `<div>`,
+   * para que la capa de descarte se pueda cerrar sin ratón.
+   */
+  .drawer-fondo {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 58;
+    border: 0;
+    padding: 0;
+    background: var(--gf-sombra);
+    backdrop-filter: blur(2px);
+    cursor: default;
+  }
+
+  .docs-lateral {
+    display: none;
+  }
+
+  .docs-lateral.abierto {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 59;
+    width: min(20rem, 85vw);
+    padding: 1.25rem;
+    overflow-y: auto;
+    background: var(--gf-fondo);
+    border-right: 1px solid var(--gf-borde-suave);
+    box-shadow: 24px 0 60px -12px var(--gf-sombra);
+    animation: docs-drawer-entrada 0.16s ease;
+  }
+}
+
+@keyframes docs-drawer-entrada {
+  from {
+    transform: translateX(-12px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-lateral.abierto {
+    animation: none;
+  }
+}
+
+[data-motion='off'] .docs-lateral.abierto {
+  animation: none;
+}
+
 .indice {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  /* Espacio entre GRUPOS; el espacio entre links de un mismo grupo lo pone `.grupo`. */
+  gap: 1.1rem;
   align-self: start;
   position: sticky;
   top: calc(var(--gf-header-h) + var(--gf-header-hueco));
@@ -47,7 +155,23 @@
   }
 }
 
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.grupo-tit {
+  margin: 0 0 0.15rem 0.7rem;
+  color: var(--gf-texto-apagado);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .indice a {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
@@ -58,8 +182,7 @@
   color: var(--gf-texto-tenue);
   transition:
     color 0.15s ease,
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background 0.15s ease;
 }
 
 .indice a strong {
@@ -80,7 +203,23 @@
 .indice a.activo {
   color: var(--gf-texto);
   background: var(--gf-panel);
-  border-left-color: var(--gf-acento);
+}
+
+/*
+ * La barra de acento del activo es un degradado cian→violeta, y `border-color` no admite
+ * degradados -- de ahí el pseudo-elemento en vez de simplemente cambiar `border-left-color`. Se
+ * superpone EXACTO sobre el `border-left` reservado arriba (mismo ancho, `left: -2px` cae justo en
+ * esa franja), así que activar/desactivar el estado no mueve nada.
+ */
+.indice a.activo::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--gf-degradado);
 }
 
 .docs-pagina {
@@ -103,6 +242,77 @@
     position: static;
     top: auto;
   }
+}
+
+/* Mismo criterio que arriba, pero para el interruptor MANUAL: quien apaga movimiento con el botón
+   del header (sin que su SO pida reduced-motion) también esperaría que el sidebar deje de flotar. */
+[data-motion='off'] .indice {
+  position: static;
+  top: auto;
+}
+
+/* ── Prev/Next ────────────────────────────────────────────────────────────────── */
+
+.prev-next {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.prev-next-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 48%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  text-decoration: none;
+  color: var(--gf-texto);
+  transition: border-color 0.15s ease;
+}
+
+.prev-next-link.next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.prev-next-dir {
+  color: var(--gf-texto-apagado);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.prev-next-link:hover {
+  border-color: var(--gf-borde-vivo);
+}
+
+/* Solo la flecha se mueve, no la card entera -- pedido explícito de la pasada. */
+.prev-next-link .flecha {
+  display: inline-block;
+  transition: transform 0.14s ease;
+}
+
+.prev-next-link.prev:hover .flecha {
+  transform: translateX(-3px);
+}
+
+.prev-next-link.next:hover .flecha {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prev-next-link,
+  .prev-next-link .flecha {
+    transition: none;
+  }
+}
+
+[data-motion='off'] .prev-next-link,
+[data-motion='off'] .prev-next-link .flecha {
+  transition: none;
 }
 
 /* ── Pie de las páginas de Docs ──────────────────────────────────────────────── */

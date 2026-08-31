@@ -12,15 +12,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
 interface Titulo {
   id: string;
   texto: string;
+  /** 2 = h2, 3 = h3 -- para indentar el subnivel en la plantilla, nada más. */
+  nivel: 2 | 3;
 }
 
 /**
  * El índice de la página actual, a la derecha, con la sección visible resaltada.
  *
- * Se construye LEYENDO EL DOM (`h2[id]` del artículo) y no de una lista declarada por página. Con
- * una lista, cada `<h2>` nuevo obligaría a acordarse de registrarlo en otro archivo, y el síntoma
- * de olvidarlo sería un índice incompleto que nadie nota. Leyendo el DOM, un encabezado con `id`
- * aparece solo; uno sin `id` no aparece, que es exactamente la regla que se quiere.
+ * Se construye LEYENDO EL DOM (`h2[id], h3[id]` del artículo) y no de una lista declarada por
+ * página. Con una lista, cada encabezado nuevo obligaría a acordarse de registrarlo en otro
+ * archivo, y el síntoma de olvidarlo sería un índice incompleto que nadie nota. Leyendo el DOM, un
+ * encabezado con `id` aparece solo; uno sin `id` no aparece, que es exactamente la regla que se
+ * quiere. El `h3` se indenta como subnivel; no hay `h4` en ninguna página de Docs hoy.
  *
  * **También pone los enlaces de ancla** en los propios encabezados. Va aquí y no en una directiva
  * aparte porque ya recorre esos mismos nodos: separarlo obligaría a barrer el artículo dos veces
@@ -37,13 +40,28 @@ interface Titulo {
   template: `
     @if (titulos().length > 1) {
       <nav class="indice-pagina" [attr.aria-label]="'docs.indicePagina.aria' | transloco">
+        <!--
+          Dos cabeceras, una visible a la vez por CSS: el párrafo de siempre en desktop (donde el
+          índice ya está a la vista, sticky) y un botón-disclosure debajo de 1200px, donde no hay
+          hueco para mostrarlo siempre abierto.
+        -->
         <p class="indice-pagina-tit">{{ 'docs.indicePagina.titulo' | transloco }}</p>
-        <ol>
+        <button
+          type="button"
+          class="indice-pagina-toggle"
+          [attr.aria-expanded]="abiertoMovil()"
+          (click)="abiertoMovil.set(!abiertoMovil())"
+        >
+          {{ 'docs.indicePagina.titulo' | transloco }}
+          <span class="flecha" [class.abierta]="abiertoMovil()" aria-hidden="true">▾</span>
+        </button>
+        <ol [class.abierto-movil]="abiertoMovil()">
           @for (t of titulos(); track t.id) {
             <li>
               <a
                 [href]="'#' + t.id"
                 [class.activo]="t.id === activo()"
+                [class.sub]="t.nivel === 3"
                 (click)="ir($event, t.id)"
                 >{{ t.texto }}</a
               >
@@ -61,6 +79,8 @@ export class IndicePagina {
 
   protected readonly titulos = signal<Titulo[]>([]);
   protected readonly activo = signal<string | null>(null);
+  /** Solo importa debajo de 1200px -- el CSS ignora esto en desktop, donde el índice ya está abierto. */
+  protected readonly abiertoMovil = signal(false);
 
   private observadorContenido?: MutationObserver;
   private alScroll?: () => void;
@@ -86,14 +106,25 @@ export class IndicePagina {
   }
 
   private barrer(): void {
-    const encabezados = Array.from(this.articulo().querySelectorAll<HTMLElement>('h2[id]'));
+    const encabezados = Array.from(
+      this.articulo().querySelectorAll<HTMLElement>('h2[id], h3[id]'),
+    );
 
-    const nuevos = encabezados.map((h) => ({ id: h.id, texto: this.textoDe(h) }));
+    const nuevos = encabezados.map((h) => ({
+      id: h.id,
+      texto: this.textoDe(h),
+      nivel: (h.tagName === 'H3' ? 3 : 2) as 2 | 3,
+    }));
     // Comparar antes de escribir: el `MutationObserver` también se dispara cuando ESTE método mete
     // el enlace de ancla, y reescribir la señal en ese caso dejaría un bucle.
     const iguales =
       nuevos.length === this.titulos().length &&
-      nuevos.every((t, i) => t.id === this.titulos()[i].id && t.texto === this.titulos()[i].texto);
+      nuevos.every(
+        (t, i) =>
+          t.id === this.titulos()[i].id &&
+          t.texto === this.titulos()[i].texto &&
+          t.nivel === this.titulos()[i].nivel,
+      );
     if (!iguales) this.titulos.set(nuevos);
 
     for (const h of encabezados) this.ponerAncla(h);
@@ -229,6 +260,8 @@ export class IndicePagina {
     evento.preventDefault();
     destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
     this.activo.set(id);
+    // En mobile el índice es un disclosure: elegir una sección lo cierra, igual que un menú.
+    this.abiertoMovil.set(false);
 
     /*
      * La URL se rearma con `pathname` + `search` delante y NO solo con `#id`. Medido: pasar

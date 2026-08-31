@@ -4,6 +4,7 @@
     "aria": "Search the documentation",
     "marcador": "Type to search…",
     "cerrar": "Close search",
+    "limpiarAria": "Clear search",
     "cuenta": "{{n}} results",
     "sinResultados": "Nothing for “{{q}}”."
   },
@@ -11,12 +12,25 @@
     "version": "These docs describe <strong>v{{v}}</strong>, the version published on npm.",
     "editar": "Edit this page on GitHub"
   },
+  "prevNext": {
+    "aria": "Previous and next page",
+    "previo": "Previous",
+    "siguiente": "Next"
+  },
+  "movil": {
+    "menu": "Menu",
+    "cerrarMenu": "Close menu"
+  },
   "indicePagina": {
     "titulo": "On this page",
     "aria": "Sections of this page"
   },
   "nav": {
     "aria": "Documentation",
+    "grupoStart": "Start",
+    "grupoReference": "Reference",
+    "grupoGuides": "Guides",
+    "grupoDecisions": "Decisions",
     "empezando": {
       "titulo": "Getting started",
       "nota": "install and paint your first icon"
@@ -72,6 +86,7 @@
       "colBundle": "Bundle (gzip)",
       "filaSolo": "Just the component, no icon at all",
       "filaImport": "Component + 1 icon via named import",
+      "recomendado": "recommended",
       "filaName": "<code>name=</code> with the full registry",
       "texto2": "An icon costs that icon. Looking one up by name at runtime forces the bundler to keep all 1767, because it can't know which one you'll ask for."
     },
@@ -291,6 +306,7 @@
   },
   "migracion": {
     "bajada": "glyphflow renamed its public surface in v2. The old names still work — this page says what changed, and until when.",
+    "takeaway": "No behavior change — names only.",
     "v2": {
       "titulo": "What v2 changed",
       "texto": "One thing: the <strong>prefix</strong>. Everything called <code>Max*</code> is now <code>Gf*</code>, and the elements <code>&lt;max-icon&gt;</code> / <code>&lt;max-icon-morph&gt;</code> are <code>&lt;gf-icon&gt;</code> / <code>&lt;gf-icon-morph&gt;</code>. The package is called glyphflow, so the brand is one word, not two. No behaviour changed with the rename."
@@ -390,6 +406,12 @@
     "color": {
       "titulo": "It follows <code>currentColor</code>",
       "texto": "The SVG uses <code>stroke=\"currentColor\"</code>, so the icon takes the text color of whatever contains it. There is no <code>color</code> input, and that is on purpose: an input would be a second source of truth that drifts from the CSS around it.",
+      "demo": {
+        "neutro": "neutral",
+        "cian": "cyan",
+        "violeta": "violet",
+        "pie": "Same icon, same markup — only the container's color changes. Hover a swatch."
+      },
       "consecuencia": "The consequence is convenient — change the container's color and the icon follows, including on hover, on focus, and inside a disabled button — and it is also the whole of the API. If you need a color the container does not have, set <code>color</code> on the icon in CSS like any other element."
     },
     "oscuro": {

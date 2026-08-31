@@ -25,7 +25,10 @@
         <td>{{ cifras.bundleCoreKb }} KB</td>
       </tr>
       <tr>
-        <td>{{ 'docs.empezando.porQue.filaImport' | transloco }}</td>
+        <td>
+          {{ 'docs.empezando.porQue.filaImport' | transloco }}
+          <span class="insignia-recomendado">{{ 'docs.empezando.porQue.recomendado' | transloco }}</span>
+        </td>
         <td>{{ cifras.pesoIconoKb }} KB</td>
       </tr>
       <tr>
@@ -40,7 +43,7 @@
 <h2 id="name-opt-in" [innerHTML]="'docs.empezando.nameOptIn.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.empezando.nameOptIn.texto1' | transloco"></p>
 <app-bloque-codigo [codigo]="SNIPPET_CATALOGO_POR_NOMBRE" />
-<p class="nota ojo" [innerHTML]="'docs.empezando.nameOptIn.nota' | transloco"></p>
+<app-recuadro tipo="caso" [texto]="'docs.empezando.nameOptIn.nota' | transloco" />
 
 <h2 id="trigger">{{ 'docs.empezando.trigger.titulo' | transloco }}</h2>
 <div class="tabla-scroll">

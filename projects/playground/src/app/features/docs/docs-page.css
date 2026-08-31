@@ -3,9 +3,14 @@
  * `styleUrl` — cada componente lo encapsula por su cuenta, pero la fuente de verdad es una.
  */
 
+/*
+ * Sin `max-width` aquí a propósito: antes vivía en el host y encogía TODO por igual, tablas y
+ * bloques de código incluidos. La prosa (`p`/`ul`/`.bajada`/`.nota`, abajo) pide su propio ancho de
+ * lectura; tablas y `pre` se quedan al ancho real de la columna central, que es más ancho y es
+ * donde de verdad hace falta (la tabla de API es la más afectada).
+ */
 :host {
   display: block;
-  max-width: 44rem;
   line-height: 1.7;
   color: var(--gf-texto-medio);
 }
@@ -20,6 +25,7 @@ h1 {
 
 .bajada {
   margin: 0 0 2.25rem;
+  max-width: 44rem;
   font-size: 1.0625rem;
   color: var(--gf-texto-tenue);
 }
@@ -40,10 +46,12 @@ h3 {
 
 p {
   margin: 0 0 1rem;
+  max-width: 44rem;
 }
 
 ul {
   margin: 0 0 1rem;
+  max-width: 44rem;
   padding-left: 1.1rem;
 }
 
@@ -54,6 +62,30 @@ li {
 strong {
   color: var(--gf-texto);
   font-weight: 600;
+}
+
+/*
+ * Único link de prosa hoy (la referencia al catálogo en la página de API), pero la regla es
+ * genérica: sin esto, cualquier link de contenido hereda el azul feo del navegador, que no sigue
+ * el tema. Subrayado sutil (mezclado al 35%, no el color pleno) y no `width`/`background-size`: es
+ * la misma idea -- breve, sin mover texto -- resuelta con la propiedad que ya existe para esto.
+ */
+a {
+  color: var(--gf-marca-1-texto);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--gf-marca-1-texto) 35%, transparent);
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color 0.14s ease;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
 }
 
 code {
@@ -126,14 +158,111 @@ th {
   color: var(--gf-texto);
   font-weight: 600;
   white-space: nowrap;
+  /* Un poco más de presencia que la raya suave de las filas de datos -- separa header de cuerpo
+     sin necesitar un fondo propio ni sticky. */
+  border-bottom-color: var(--gf-borde-vivo);
 }
 
 td code {
   white-space: nowrap;
 }
 
+/* Hover muy sutil, sin mover nada ni zebra -- pedido explícito de la pasada de Docs. */
+tbody tr:hover {
+  background: var(--gf-panel-alto);
+}
+
 .tabla-scroll {
+  position: relative;
   overflow-x: auto;
+}
+
+/*
+ * Affordance de que la tabla sigue hacia la derecha -- confirmado con medición real que sí
+ * desborda en mobile (587px de tabla contra 342px de hueco en la de API). Un fade estático, no
+ * uno que reaccione al scroll: no vale la complejidad de escuchar el evento para una señal que
+ * solo tiene que decir "esto continúa", no "ya llegaste al final".
+ */
+.tabla-scroll::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1.5rem;
+  background: linear-gradient(to right, transparent, var(--gf-fondo));
+  pointer-events: none;
+}
+
+/*
+ * Tablas de API (inputs de gf-icon/gf-icon-morph, exports, types): la primera columna es siempre
+ * el símbolo que se está documentando -- cian, la convención de "runtime/core" del resto del sitio.
+ * La segunda columna de las tablas de inputs es el TYPE de TypeScript (a veces compuesto, `number |
+ * string`): un tinte violeta sobre el propio `<code>` en vez de una píldora, que se vería mal con
+ * un tipo largo. La tabla de exports no tiene un `<code>` en su columna de tipo -- usa el badge
+ * `.insignia-clase` de abajo, porque ahí sí es una sola palabra.
+ */
+.tabla-api td:first-child code {
+  color: var(--gf-marca-1-texto);
+}
+
+.tabla-api td:nth-child(2) code {
+  color: var(--gf-marca-3-texto);
+}
+
+.insignia-clase {
+  padding: 0.05rem 0.45rem;
+  border-radius: 40px;
+  background: color-mix(in srgb, var(--gf-marca-3-texto) 14%, transparent);
+  color: var(--gf-marca-3-texto);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Fila recomendada de la tabla de bundle: un badge, no la fila entera coloreada. */
+.insignia-recomendado {
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.5rem;
+  border-radius: 40px;
+  background: var(--gf-degradado);
+  /* Oscuro fijo y no un token de tema: el degradado es siempre claro/saturado en dark Y light (la
+     marca "no cambia con el fondo"), así que el texto tampoco debe cambiar con el tema. */
+  color: #0b0d12;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/*
+ * Migración: v1 apagado, v2 en violeta, flecha cian entre ambos -- cero rojo para lo legacy, que es
+ * justo lo que pedía la pasada. La flecha es contenido decorativo puro (mismo criterio que el `#`
+ * de anchor): un `::before` en la celda, no una columna nueva en la tabla.
+ */
+.tabla-migracion td:first-child code {
+  color: var(--gf-texto-tenue);
+}
+
+.tabla-migracion td:last-child code {
+  color: var(--gf-marca-3-texto);
+}
+
+.tabla-migracion td:last-child::before {
+  content: '→ ';
+  color: var(--gf-marca-1-texto);
+}
+
+/* SSR: momento de servidor en azul, momento de hidratado en violeta -- sin colorear la fila. */
+.tabla-ssr .etiqueta-servidor {
+  color: var(--gf-marca-2-texto);
+  font-weight: 600;
+}
+
+.tabla-ssr .etiqueta-hidratado {
+  color: var(--gf-marca-3-texto);
+  font-weight: 600;
 }
 
 /*
@@ -162,4 +291,92 @@ tr.obsoleto code {
   display: block;
   margin-top: 0.2rem;
   color: var(--gf-texto-medio);
+}
+
+/* ── Theming: demo de currentColor ───────────────────────────────────────────── */
+
+.demo-color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 0 0.6rem;
+}
+
+.demo-color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  background: var(--gf-panel);
+  /*
+   * El icono y su etiqueta heredan `color` de aquí -- es literalmente la demo (mismo markup, el
+   * contenedor decide el color). La opacidad reducida en reposo, y no otro color, es lo que sube al
+   * pasar el mouse: cambiar de color en sí no demuestra nada nuevo por sí solo, pero un salto de
+   * atención sí se siente como transición sin inventar un segundo tono por variante.
+   */
+  opacity: 0.72;
+  transition: opacity 0.18s ease;
+}
+
+.demo-color-item:hover {
+  opacity: 1;
+}
+
+.demo-color-item span {
+  color: inherit;
+  font-size: 0.75rem;
+}
+
+.demo-color-neutro {
+  color: var(--gf-texto-tenue);
+}
+
+.demo-color-cian {
+  color: var(--gf-marca-1-texto);
+}
+
+.demo-color-violeta {
+  color: var(--gf-marca-3-texto);
+}
+
+.demo-pie {
+  margin: 0 0 1.5rem;
+  color: var(--gf-texto-apagado);
+  font-size: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-color-item {
+    transition: none;
+  }
+}
+
+/* ── Theming: demo de strokeWidth ─────────────────────────────────────────────── */
+
+.demo-trazo {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+  margin: 0 0 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.6rem;
+  background: var(--gf-panel);
+  color: var(--gf-texto);
+}
+
+.demo-trazo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-trazo-item span {
+  color: var(--gf-texto-tenue);
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.7rem;
 }

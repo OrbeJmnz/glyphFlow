@@ -6,23 +6,36 @@
 .disparador {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.55rem;
   width: 100%;
-  padding: 0.5rem 0.7rem;
+  /* Un poco más de aire que antes: el pedido es que se sienta presente, no discreto. */
+  padding: 0.6rem 0.75rem;
   border: 1px solid var(--gf-borde);
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   background: var(--gf-panel);
   color: var(--gf-texto-tenue);
   font: inherit;
   font-size: 0.8125rem;
   text-align: left;
   cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.disparador span {
+  flex: 1;
 }
 
 .disparador:hover {
   border-color: var(--gf-borde-vivo);
   color: var(--gf-texto);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disparador {
+    transition: none;
+  }
 }
 
 .disparador kbd {
@@ -51,6 +64,7 @@
   background: var(--gf-sombra);
   backdrop-filter: blur(2px);
   cursor: default;
+  animation: docs-buscador-fondo 160ms ease;
 }
 
 .cuadro {
@@ -67,17 +81,58 @@
   border-radius: 0.75rem;
   background: var(--gf-panel);
   box-shadow: 0 24px 60px -12px var(--gf-sombra);
+  animation: docs-buscador-cuadro 160ms ease;
 }
 
+/*
+ * Fade + scale MUY corto al abrir -- nada elástico, es un diálogo de trabajo que se abre muchas
+ * veces por sesión. Solo `from`: el `to` implícito es el propio reposo de cada regla (opacity 1,
+ * `translateX(-50%) scale(1)`), así que no hay que repetir el centrado aquí.
+ */
+@keyframes docs-buscador-fondo {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes docs-buscador-cuadro {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fondo,
+  .cuadro {
+    animation: none;
+  }
+}
+
+[data-motion='off'] .fondo,
+[data-motion='off'] .cuadro {
+  animation: none;
+}
+
+/* `app-campo-busqueda` ya trae su propio look (`.ui-campo`); aquí solo el espacio hasta los
+   resultados. */
 .campo {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.5rem;
-  background: var(--gf-fondo);
-  color: var(--gf-texto);
-  font: inherit;
-  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.grupo-doc {
+  margin: 0.7rem 0 0.15rem;
+  padding: 0 0.6rem;
+  color: var(--gf-texto-apagado);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.grupo-doc:first-child {
+  margin-top: 0;
 }
 
 .cuenta {
@@ -93,9 +148,7 @@
 }
 
 .resultados button {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  display: block;
   width: 100%;
   padding: 0.5rem 0.6rem;
   border: 0;
@@ -114,9 +167,4 @@
 .resultados button:hover,
 .resultados button.resaltado {
   background: var(--gf-velo-fuerte);
-}
-
-.resultados .donde {
-  color: var(--gf-texto-apagado);
-  font-size: 0.72rem;
 }

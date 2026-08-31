@@ -3,7 +3,7 @@
 
 <h2 id="support">{{ 'docs.ssr.tabla.titulo' | transloco }}</h2>
 <div class="tabla-scroll">
-  <table>
+  <table class="tabla-ssr">
     <thead>
       <tr>
         <th>{{ 'docs.ssr.tabla.colMomento' | transloco }}</th>
@@ -12,17 +12,25 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{ 'docs.ssr.tabla.filaServidor.momento' | transloco }}</td>
+        <td>
+          <span class="etiqueta-servidor">{{
+            'docs.ssr.tabla.filaServidor.momento' | transloco
+          }}</span>
+        </td>
         <td [innerHTML]="'docs.ssr.tabla.filaServidor.queSeVe' | transloco"></td>
       </tr>
       <tr>
-        <td>{{ 'docs.ssr.tabla.filaHidratar.momento' | transloco }}</td>
+        <td>
+          <span class="etiqueta-hidratado">{{
+            'docs.ssr.tabla.filaHidratar.momento' | transloco
+          }}</span>
+        </td>
         <td [innerHTML]="'docs.ssr.tabla.filaHidratar.queSeVe' | transloco"></td>
       </tr>
     </tbody>
   </table>
 </div>
-<p>{{ 'docs.ssr.sinParpadeo' | transloco }}</p>
+<app-recuadro tipo="regla" [texto]="'docs.ssr.sinParpadeo' | transloco" />
 
 <h2 id="no-config">{{ 'docs.ssr.sinConfig.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.ssr.sinConfig.texto' | transloco"></p>

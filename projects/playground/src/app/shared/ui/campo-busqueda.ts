@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  model,
+  viewChild,
+} from '@angular/core';
 import { GfIconComponent, xIcon } from 'glyphflow';
 
 /**
@@ -20,6 +27,7 @@ import { GfIconComponent, xIcon } from 'glyphflow';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <input
+      #entrada
       type="search"
       class="ui-campo"
       [value]="texto()"
@@ -100,8 +108,25 @@ export class CampoBusqueda {
   @Input() limpiarEtiqueta = 'Clear';
 
   protected readonly aspa = xIcon;
+  private readonly entrada = viewChild<ElementRef<HTMLInputElement>>('entrada');
 
   protected limpiar(): void {
     this.texto.set('');
+    /*
+     * El botón desaparece del DOM en cuanto `texto` queda vacío (el `@if` de arriba) -- perder el
+     * elemento con foco tira el foco a `<body>`, así que sin este `focus()` quien acaba de limpiar
+     * no puede seguir escribiendo sin un click extra al campo.
+     */
+    this.focus();
+  }
+
+  /**
+   * Para consumidores que abren este campo dentro de un diálogo y quieren el foco de una.
+   * No `viewChild.required`: un consumidor típico llama a esto desde su propio `effect()`
+   * reaccionando al mismo signal que recién insertó este componente, y conviene no reventar si
+   * llega a llamarse en un instante donde el query todavía no se resolvió.
+   */
+  focus(): void {
+    this.entrada()?.nativeElement.focus();
   }
 }

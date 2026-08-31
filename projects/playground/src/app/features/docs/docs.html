@@ -1,24 +1,93 @@
 <div class="docs-marco">
-  <div class="docs-lateral">
+  <!--
+    Solo se ve debajo de 768px (CSS). Menu abre el drawer de abajo; Search dispara la MISMA
+    instancia de `app-buscador-docs` que vive en `.docs-lateral` -- su diálogo es `fixed` y cubre
+    toda la pantalla sin que importe desde dónde se pidió abrirlo.
+  -->
+  <div class="docs-toolbar-movil">
+    <button
+      type="button"
+      class="toolbar-movil-boton"
+      [attr.aria-expanded]="menuMovil()"
+      aria-controls="docs-drawer"
+      [attr.aria-label]="'docs.movil.menu' | transloco"
+      (click)="menuMovil.set(!menuMovil())"
+    >
+      <gf-icon [iconDef]="menuMovil() ? iconoCerrar : iconoMenu" [size]="16" />
+      {{ 'docs.movil.menu' | transloco }}
+    </button>
+    <button
+      type="button"
+      class="toolbar-movil-boton"
+      [attr.aria-label]="'docs.buscador.abrir' | transloco"
+      (click)="buscarDesdeToolbar()"
+    >
+      <gf-icon [iconDef]="iconoBuscar" [size]="16" />
+      {{ 'docs.buscador.abrir' | transloco }}
+    </button>
+  </div>
+
+  @if (menuMovil()) {
+    <!-- Mismo criterio que el fondo del buscador: un `<button>`, no un `<div>`, para cerrar sin ratón. -->
+    <button
+      type="button"
+      class="drawer-fondo"
+      [attr.aria-label]="'docs.movil.cerrarMenu' | transloco"
+      (click)="menuMovil.set(false)"
+    ></button>
+  }
+
+  <div class="docs-lateral" id="docs-drawer" [class.abierto]="menuMovil()">
     <!-- El buscador encabeza la barra: es lo primero que se busca cuando ya sabes qué quieres. -->
-    <app-buscador-docs />
+    <app-buscador-docs #buscador />
 
     <nav class="indice" [attr.aria-label]="'docs.nav.aria' | transloco">
-      @for (s of secciones; track s.id) {
-        <a
-          [routerLink]="rutas.slug(s.id)"
-          routerLinkActive="activo"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <strong>{{ s.tituloClave | transloco }}</strong>
-          <span>{{ s.notaClave | transloco }}</span>
-        </a>
+      @for (g of grupos; track g.tituloClave; let gi = $index) {
+        <div class="grupo" role="group" [attr.aria-labelledby]="'docs-grupo-' + gi">
+          <p class="grupo-tit" [id]="'docs-grupo-' + gi">{{ g.tituloClave | transloco }}</p>
+          @for (s of g.items; track s.id) {
+            <a
+              [routerLink]="rutas.slug(s.id)"
+              routerLinkActive="activo"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <strong>{{ s.tituloClave | transloco }}</strong>
+              <span>{{ s.notaClave | transloco }}</span>
+            </a>
+          }
+        </div>
       }
     </nav>
   </div>
 
   <article class="docs-pagina" #pagina>
     <router-outlet />
+
+    <!--
+      Una sola instancia para las 9 páginas, igual que el pie de abajo -- vive en el marco, no
+      repetido. `anterior()`/`siguiente()` ya devuelven `null` en los extremos (Getting started no
+      tiene previo, Comparison no tiene siguiente).
+    -->
+    <nav class="prev-next" [attr.aria-label]="'docs.prevNext.aria' | transloco">
+      @if (anterior(); as a) {
+        <a class="prev-next-link prev" [routerLink]="rutas.slug(a.id)">
+          <span class="prev-next-dir">{{ 'docs.prevNext.previo' | transloco }}</span>
+          <span class="prev-next-tit"
+            ><span class="flecha" aria-hidden="true">←</span> {{ a.tituloClave | transloco }}</span
+          >
+        </a>
+      } @else {
+        <span></span>
+      }
+      @if (siguiente(); as s) {
+        <a class="prev-next-link next" [routerLink]="rutas.slug(s.id)">
+          <span class="prev-next-dir">{{ 'docs.prevNext.siguiente' | transloco }}</span>
+          <span class="prev-next-tit"
+            >{{ s.tituloClave | transloco }} <span class="flecha" aria-hidden="true">→</span></span
+          >
+        </a>
+      }
+    </nav>
 
     <!--
       El pie va DENTRO del artículo para que quede debajo del contenido de cada página, y una sola

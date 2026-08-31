@@ -4,6 +4,7 @@
     "aria": "Buscar en la documentación",
     "marcador": "Escribe para buscar…",
     "cerrar": "Cerrar la búsqueda",
+    "limpiarAria": "Limpiar búsqueda",
     "cuenta": "{{n}} resultados",
     "sinResultados": "Nada para «{{q}}»."
   },
@@ -11,12 +12,25 @@
     "version": "Esta documentación describe la <strong>v{{v}}</strong>, la versión publicada en npm.",
     "editar": "Editar esta página en GitHub"
   },
+  "prevNext": {
+    "aria": "Página anterior y siguiente",
+    "previo": "Anterior",
+    "siguiente": "Siguiente"
+  },
+  "movil": {
+    "menu": "Menú",
+    "cerrarMenu": "Cerrar menú"
+  },
   "indicePagina": {
     "titulo": "En esta página",
     "aria": "Secciones de esta página"
   },
   "nav": {
     "aria": "Documentación",
+    "grupoStart": "Inicio",
+    "grupoReference": "Referencia",
+    "grupoGuides": "Guías",
+    "grupoDecisions": "Decisiones",
     "empezando": {
       "titulo": "Empezando",
       "nota": "instalar y pintar el primer icono"
@@ -72,6 +86,7 @@
       "colBundle": "Bundle (gzip)",
       "filaSolo": "Solo el componente, sin ningún icono",
       "filaImport": "Componente + 1 icono por import nombrado",
+      "recomendado": "recomendado",
       "filaName": "<code>name=</code> con el registro completo",
       "texto2": "Un icono cuesta ese icono. Buscar por nombre en tiempo de ejecución obliga al bundler a conservar los 1767, porque no puede saber cuál vas a pedir."
     },
@@ -291,6 +306,7 @@
   },
   "migracion": {
     "bajada": "glyphflow renombró su superficie pública en la v2. Los nombres viejos siguen funcionando — esta página dice qué cambió y hasta cuándo.",
+    "takeaway": "Sin cambios de comportamiento — solo nombres.",
     "v2": {
       "titulo": "Qué cambió en la v2",
       "texto": "Una cosa: el <strong>prefijo</strong>. Todo lo que se llamaba <code>Max*</code> ahora es <code>Gf*</code>, y los elementos <code>&lt;max-icon&gt;</code> / <code>&lt;max-icon-morph&gt;</code> son <code>&lt;gf-icon&gt;</code> / <code>&lt;gf-icon-morph&gt;</code>. El paquete se llama glyphflow, así que la marca es una sola palabra y no dos. El renombrado no cambió ningún comportamiento."
@@ -390,6 +406,12 @@
     "color": {
       "titulo": "Sigue a <code>currentColor</code>",
       "texto": "El SVG usa <code>stroke=\"currentColor\"</code>, así que el icono toma el color de texto de lo que lo contiene. No hay input <code>color</code>, y es a propósito: un input sería una segunda fuente de verdad que se separa del CSS que lo rodea.",
+      "demo": {
+        "neutro": "neutral",
+        "cian": "cian",
+        "violeta": "violeta",
+        "pie": "Mismo icono, mismo markup — solo cambia el color del contenedor. Pasa el mouse sobre una muestra."
+      },
       "consecuencia": "La consecuencia es cómoda —cambias el color del contenedor y el icono lo sigue, incluso en hover, en foco y dentro de un botón deshabilitado— y además es toda la API. Si necesitas un color que el contenedor no tiene, ponle <code>color</code> al icono en CSS como a cualquier otro elemento."
     },
     "oscuro": {

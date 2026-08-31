@@ -1,31 +1,19 @@
 /*
- * El índice de la página, pegajoso a la derecha.
- *
- * Aparece a partir de 1200 px y no antes: por debajo no hay hueco libre a la derecha, y meterlo
- * encima del contenido convertiría un atajo en un estorbo. El número sale de la ficha del ticket,
- * y coincide con dónde el marco de Docs deja de tener margen sobrante.
+ * El índice de la página. A partir de 1200 px es una columna pegajosa a la derecha -- por debajo
+ * no hay hueco libre ahí, así que se vuelve un disclosure inline (botón + lista colapsada), en vez
+ * de desaparecer sin dejar forma de llegar a "on this page" en tablet/mobile.
  */
 :host {
-  display: none;
-}
-
-@media (min-width: 1200px) {
-  :host {
-    display: block;
-  }
+  display: block;
 }
 
 .indice-pagina {
-  position: sticky;
-  /* Se cuelga de la altura REAL del header, no de un número copiado. Ver `--gf-header-h`. */
-  top: calc(var(--gf-header-h) + var(--gf-header-hueco));
-  max-height: calc(100vh - var(--gf-header-h) - var(--gf-header-hueco) * 2);
-  overflow-y: auto;
   font-size: 0.8125rem;
   line-height: 1.5;
 }
 
 .indice-pagina-tit {
+  display: none;
   margin: 0 0 0.5rem;
   color: var(--gf-texto-apagado);
   font-size: 0.6875rem;
@@ -33,12 +21,48 @@
   text-transform: uppercase;
 }
 
+.indice-pagina-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  margin: 0 0 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 0.5rem;
+  background: var(--gf-panel);
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.indice-pagina-toggle .flecha {
+  margin-left: auto;
+  transition: transform 0.15s ease;
+}
+
+.indice-pagina-toggle .flecha.abierta {
+  transform: rotate(180deg);
+}
+
 .indice-pagina ol {
+  display: none;
   margin: 0;
   padding: 0;
   list-style: none;
   /* La raya vertical hace de riel: sin ella la lista flota y no se lee como un índice. */
   border-left: 1px solid var(--gf-borde-suave);
+}
+
+.indice-pagina ol.abierto-movil {
+  display: block;
+  padding: 0.3rem 0 0.3rem 0.3rem;
+  border-radius: 0.5rem;
+  background: var(--gf-panel);
 }
 
 .indice-pagina a {
@@ -50,7 +74,11 @@
   border-left: 1px solid transparent;
   color: var(--gf-texto-tenue);
   text-decoration: none;
-  transition: color 0.12s ease;
+  /* `border-left-color` entra a la transición junto con `color`: antes solo el texto se
+     desvanecía y el riel activo saltaba de golpe entre secciones. */
+  transition:
+    color 0.14s ease,
+    border-left-color 0.14s ease;
 }
 
 .indice-pagina a:hover {
@@ -62,8 +90,50 @@
   color: var(--gf-texto);
 }
 
+/* Subnivel real (h3 dentro de un h2) -- solo indentación, la estructura ya viene del HTML. */
+.indice-pagina a.sub {
+  padding-left: 1.5rem;
+}
+
+/*
+ * A partir de aquí, el desktop de siempre: sticky, la lista SIEMPRE visible (el disclosure es
+ * cosa de mobile/tablet), y el toggle-botón desaparece porque no hace falta.
+ */
+@media (min-width: 1200px) {
+  .indice-pagina {
+    position: sticky;
+    /* Se cuelga de la altura REAL del header, no de un número copiado. Ver `--gf-header-h`. */
+    top: calc(var(--gf-header-h) + var(--gf-header-hueco));
+    max-height: calc(100vh - var(--gf-header-h) - var(--gf-header-hueco) * 2);
+    overflow-y: auto;
+  }
+
+  .indice-pagina-tit {
+    display: block;
+  }
+
+  .indice-pagina-toggle {
+    display: none;
+  }
+
+  .indice-pagina ol {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .indice-pagina a {
+  .indice-pagina a,
+  .indice-pagina-toggle .flecha {
     transition: none;
   }
+}
+
+/* Mismo apagado que arriba, pero para el interruptor MANUAL de movimiento del header -- sin esto,
+   quien lo apaga a mano (sin que su SO pida reduced-motion) no lo ve reflejado aquí. */
+[data-motion='off'] .indice-pagina a,
+[data-motion='off'] .indice-pagina-toggle .flecha {
+  transition: none;
 }

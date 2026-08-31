@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
+import { Recuadro } from '../../shared/ui/recuadro';
 import { CIFRAS } from '../../core/cifras';
 import {
   SNIPPET_INSTALAR,
@@ -12,7 +13,7 @@ import {
 
 @Component({
   selector: 'app-docs-empezando',
-  imports: [TranslocoPipe, BloqueCodigo],
+  imports: [TranslocoPipe, BloqueCodigo, Recuadro],
   templateUrl: './empezando.html',
   styleUrl: './docs-page.css',
 })

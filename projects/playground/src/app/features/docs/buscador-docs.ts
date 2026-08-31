@@ -4,13 +4,17 @@ import {
   DestroyRef,
   HostListener,
   computed,
+  effect,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { GfIconComponent, searchIcon } from 'glyphflow';
 import { Rutas } from '../../core/rutas.service';
 import { type RutaId } from '../../core/rutas';
+import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 
 interface EntradaIndice {
   idioma: string;
@@ -68,7 +72,7 @@ export function casa(entrada: EntradaIndice, consulta: string): boolean {
  */
 @Component({
   selector: 'app-buscador-docs',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, GfIconComponent, CampoBusqueda],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './buscador-docs.html',
   styleUrl: './buscador-docs.css',
@@ -77,10 +81,14 @@ export class BuscadorDocs {
   private readonly router = inject(Router);
   private readonly rutas = inject(Rutas);
 
+  protected readonly iconoBuscar = searchIcon;
+
   protected readonly abierto = signal(false);
   protected readonly consulta = signal('');
   protected readonly indice = signal<EntradaIndice[] | null>(null);
   protected readonly resaltado = signal(0);
+
+  private readonly campo = viewChild<CampoBusqueda>('campo');
 
   protected readonly resultados = computed(() => {
     const todos = this.indice();
@@ -90,8 +98,34 @@ export class BuscadorDocs {
     return todos.filter((e) => e.idioma === this.rutas.idioma() && casa(e, q)).slice(0, 8);
   });
 
+  /**
+   * Los mismos `resultados()`, agrupados por documento -- «API» una vez, con sus coincidencias
+   * debajo, en vez de repetir el nombre del documento en cada fila. Cada item conserva su índice
+   * PLANO original (`i`): es contra ese índice que compara `resaltado()`, así que agrupar
+   * visualmente no puede desincronizar qué fila resalta el teclado.
+   */
+  protected readonly resultadosAgrupados = computed(() => {
+    const porDoc = new Map<string, { r: EntradaIndice; i: number }[]>();
+    this.resultados().forEach((r, i) => {
+      const lista = porDoc.get(r.ruta);
+      if (lista) lista.push({ r, i });
+      else porDoc.set(r.ruta, [{ r, i }]);
+    });
+    return Array.from(porDoc, ([ruta, items]) => ({ ruta, items }));
+  });
+
   constructor() {
     inject(DestroyRef).onDestroy(() => this.cerrar());
+    /*
+     * Se abre siempre con el foco YA en el campo: quien dispara Ctrl+K viene tecleando y no debería
+     * tener que hacer un click extra. El `queueMicrotask` no es cosmético: en el mismo instante en
+     * que este efecto ve `abierto() === true`, `CampoBusqueda` recién se insertó y su propio
+     * `viewChild` interno del `<input>` puede no haberse resuelto todavía — una vuelta de microtask
+     * le da tiempo a Angular a terminar antes de pedirle el foco.
+     */
+    effect(() => {
+      if (this.abierto()) queueMicrotask(() => this.campo()?.focus());
+    });
   }
 
   /*
@@ -113,7 +147,8 @@ export class BuscadorDocs {
     }
   }
 
-  protected async abrir(): Promise<void> {
+  /** Público: el toolbar móvil de `Docs` también lo dispara, desde fuera de este componente. */
+  async abrir(): Promise<void> {
     this.abierto.set(true);
     this.consulta.set('');
     this.resaltado.set(0);

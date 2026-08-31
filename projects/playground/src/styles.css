@@ -1121,16 +1121,24 @@ code {
 
 /* ── Código: resaltado de sintaxis (`app-bloque-codigo`, lo que llega por `[innerHTML]`) ──────── */
 
-/* Mismo caso que el footer de arriba: `resaltado-codigo.ts` arma los `<span class="tok-...">` en
-   runtime y `[innerHTML]` los inyecta sin `_ngcontent-*` — una regla en `bloque-codigo.css` no los
-   alcanza nunca. Solo 3 colores son nuevos (marca-1/3/4); el resto reusa tokens ya vetados por
-   contraste en otro lado del sitio. */
+/*
+ * Mismo caso que el footer de arriba: `resaltado-codigo.ts` arma los `<span class="tok-...">` en
+ * runtime y `[innerHTML]` los inyecta sin `_ngcontent-*` — una regla en `bloque-codigo.css` no los
+ * alcanza nunca.
+ *
+ * Cinco familias (no seis): etiqueta y clave comparten violeta a propósito -- las dos son
+ * "vocabulario con significado especial" (una palabra reservada del lenguaje, un nombre de
+ * componente), mientras que cadena/binding son "datos"/"cableado", categorías distintas. Antes
+ * cadena usaba `--gf-aviso-texto` -- el mismo ámbar que el resto del rediseño reserva para
+ * warning/caveat -- así que un bloque de código lleno de strings normales competía visualmente con
+ * las alertas de verdad. Cian queda libre para cadena al mover etiqueta a violeta.
+ */
 pre code .tok-comentario {
   color: var(--gf-texto-apagado);
 }
 
 pre code .tok-cadena {
-  color: var(--gf-aviso-texto);
+  color: var(--gf-marca-1-texto);
 }
 
 pre code .tok-binding {
@@ -1138,7 +1146,7 @@ pre code .tok-binding {
 }
 
 pre code .tok-etiqueta {
-  color: var(--gf-marca-1-texto);
+  color: var(--gf-marca-3-texto);
 }
 
 pre code .tok-clave {
@@ -1169,7 +1177,14 @@ html {
  * y la encapsulación emulada no lo alcanza jamás. Una regla puesta allá no aplica — y no avisa,
  * simplemente no pinta.
  */
-.docs-pagina h2 {
+/*
+ * `h3` entró aquí junto con `h2` -- son los subtítulos reales de Accessibility/API que
+ * `indice-pagina.ts` ya vuelve enlazables (mismo `ponerAncla()` para cualquier encabezado con
+ * `id`, sin distinguir nivel). Sin esto, un `h3` saltaría exactamente bajo el header sticky y su
+ * `#` de ancla se vería siempre encendido, sin el fade que sí tienen los `h2`.
+ */
+.docs-pagina h2,
+.docs-pagina h3 {
   position: relative;
   /*
    * Para que al saltar a un ancla el título no quede debajo del header pegajoso. Se cuelga de
@@ -1178,7 +1193,8 @@ html {
   scroll-margin-top: calc(var(--gf-header-h) + 1.5rem);
 }
 
-.docs-pagina h2 .ancla {
+.docs-pagina h2 .ancla,
+.docs-pagina h3 .ancla {
   margin-left: 0.4em;
   color: var(--gf-texto-apagado);
   font-weight: 400;
@@ -1192,12 +1208,15 @@ html {
 }
 
 .docs-pagina h2:hover .ancla,
-.docs-pagina h2 .ancla:focus-visible {
+.docs-pagina h2 .ancla:focus-visible,
+.docs-pagina h3:hover .ancla,
+.docs-pagina h3 .ancla:focus-visible {
   opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .docs-pagina h2 .ancla {
+  .docs-pagina h2 .ancla,
+  .docs-pagina h3 .ancla {
     transition: none;
   }
 }
