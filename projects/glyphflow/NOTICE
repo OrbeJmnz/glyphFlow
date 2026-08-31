@@ -61,3 +61,19 @@ The MIT permission notice reproduced in full: see LICENSE-morphicons.
 ## bezier-js (pending — added when the geometry editor vendors it)
 https://github.com/Pomax/bezierjs — MIT License
 Bezier curve math used by the geometry/node editor.
+
+## AnimateIcons
+https://github.com/Avijit07x/animateicons — MIT License
+Copyright (c) Avijit Dey (@avijit07x)
+
+Two hover gestures are ported from AnimateIcons' React components: the
+`battery-full` pulse (`pulse` variant) and the `external-link` launch
+(`launch` variant). Ported, not copied: the originals are declarative
+`motion/react` variants, and glyphflow's engine is raw Web Animations API —
+the timing values, keyframe sequences and stagger order carry over, the code
+does not. The `pulse` variant on the rest of the `battery` family
+(`battery`, `battery-low`, `battery-medium`, `battery-charging`,
+`battery-warning`, `battery-plus`) is an adaptation of that gesture to
+geometry AnimateIcons does not cover, not a port.
+
+Upstream's tutorials and demos are not redistributed.

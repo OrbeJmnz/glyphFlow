@@ -11241,31 +11241,38 @@
     },
     "battery": {
       "default": "e6641968c2c3",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "68bb2ab033d1"
     },
     "battery-charging": {
       "default": "4ceb57cb7db6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "9fd05bcc2811"
     },
     "battery-full": {
       "default": "69f32b0c5cc4",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "a5bfb9339903"
     },
     "battery-low": {
       "default": "08115da0b576",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "532ec0dacdc8"
     },
     "battery-medium": {
       "default": "66ea110f76ad",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "8d1b254f942e"
     },
     "battery-plus": {
       "default": "7864b5d2d2d0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "756b26d6ad16"
     },
     "battery-warning": {
       "default": "e63968e06220",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "4c4e42a1ed74"
     },
     "beaker": {
       "default": "bb93ba341b21",
@@ -13280,7 +13287,8 @@
     "external-link": {
       "default": "f2f07b404897",
       "draw": "17c8398e8d34",
-      "hold": "b964cd84adf4"
+      "hold": "b964cd84adf4",
+      "launch": "a7c000125558"
     },
     "eye": {
       "default": "7c5a435375e6",
