@@ -3545,7 +3545,10 @@
     "euro": [
       "path:03b407731bdc",
       "path:ad70c04701bf",
-      "path:b76c663784b0"
+      "path:b76c663784b0",
+      "path:c0568d606a64",
+      "path:3440adec2584",
+      "path:33436edc2765"
     ],
     "ev-charger": [
       "path:414e160af516",
@@ -4482,7 +4485,11 @@
       "path:e10fb2bd1201",
       "path:62b6aff32460",
       "path:8de14cc7b38d",
-      "path:7308f708fb2f"
+      "path:7308f708fb2f",
+      "path:9779a57e9b3b",
+      "path:6d51b9e09455",
+      "path:f042de6c7a1f",
+      "path:d5de2fc74ac7"
     ],
     "ghost": [
       "path:68a9b1e07837",
@@ -5179,7 +5186,12 @@
       "path:e359c37c1184",
       "path:ede45e8229b4",
       "path:9c17c10a3fed",
-      "path:345006a766c3"
+      "path:345006a766c3",
+      "path:8e6922b09a8e",
+      "path:b3a424e36c7e",
+      "path:9b3a4a45b97e",
+      "path:c01a403d7fd3",
+      "path:6af3e34c9580"
     ],
     "infinity": [
       "path:fd219cc1e319"
@@ -5212,7 +5224,10 @@
     "japanese-yen": [
       "path:fc41c2078e1e",
       "path:58502854c59a",
-      "path:de3ee2882374"
+      "path:de3ee2882374",
+      "path:2b21b22c49f0",
+      "path:5390286b98c2",
+      "path:6b0237473974"
     ],
     "joystick": [
       "path:034551712bde",
@@ -7029,7 +7044,8 @@
       "path:cb46edce6f1b"
     ],
     "phone": [
-      "path:026dd4457fb2"
+      "path:026dd4457fb2",
+      "circle:7d39ce7760d5"
     ],
     "phone-call": [
       "path:3b031c816c51",
@@ -7230,7 +7246,11 @@
       "path:5feb7e1e457b",
       "path:94b51b885dfd",
       "path:03037ec143f1",
-      "path:675fd4bcac95"
+      "path:675fd4bcac95",
+      "path:08561b296e5d",
+      "path:dd94b847971b",
+      "path:af29e30a5a3e",
+      "path:88e113a3bd92"
     ],
     "power": [
       "path:b9a3e20f0b80",
@@ -7733,7 +7753,9 @@
     ],
     "russian-ruble": [
       "path:fd9f84e98ef4",
-      "path:b36eafe960f4"
+      "path:b36eafe960f4",
+      "path:58711402183f",
+      "path:133917020fa5"
     ],
     "sailboat": [
       "path:bdd1da4ee37c",
@@ -12023,7 +12045,8 @@
     "cat": {
       "default": "6a16f38c52aa",
       "draw": "17c8398e8d34",
-      "hold": "b0625e6d0bb4"
+      "hold": "b0625e6d0bb4",
+      "idle": "792392e37770"
     },
     "cctv": {
       "alert": "34c2bfe29b34",
@@ -13150,7 +13173,8 @@
     "dog": {
       "default": "75d4751e31c7",
       "draw": "17c8398e8d34",
-      "hold": "0affe7f22c1f"
+      "hold": "0affe7f22c1f",
+      "idle": "0f72cf21d848"
     },
     "dollar-sign": {
       "default": "1738a62cdb8d",
@@ -13308,7 +13332,8 @@
     },
     "euro": {
       "default": "2f2c25cf8363",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "f447d40b27a0"
     },
     "ev-charger": {
       "default": "69ecc89f2e44",
@@ -13702,7 +13727,8 @@
     },
     "fish": {
       "default": "530bcaf4c2b0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "4f17095a672d"
     },
     "fish-off": {
       "default": "e276b867d08e",
@@ -14061,7 +14087,8 @@
     },
     "georgian-lari": {
       "default": "67ed1888b308",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "7fcd16b5c550"
     },
     "ghost": {
       "default": "0d18935891c9",
@@ -14560,7 +14587,8 @@
     },
     "indian-rupee": {
       "default": "a1a8c133465f",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "0c9d7a730287"
     },
     "infinity": {
       "default": "9a9006a6cef9",
@@ -14590,7 +14618,8 @@
     },
     "japanese-yen": {
       "default": "a3fdcd33bf24",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "f7c42f6178a8"
     },
     "joystick": {
       "default": "cae26f245085",
@@ -16019,19 +16048,23 @@
     },
     "phone": {
       "default": "35bf354f6aa7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "ring": "12d7d5a5de54"
     },
     "phone-call": {
       "default": "91f3a5f1c97a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "ring": "1c63c1c60795"
     },
     "phone-forwarded": {
       "default": "a249685c9d44",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "ring": "8c907c20f7d2"
     },
     "phone-incoming": {
       "default": "02640aaa39aa",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "ring": "b6dd70dae659"
     },
     "phone-missed": {
       "default": "700291fc4fba",
@@ -16186,7 +16219,8 @@
     },
     "pound-sterling": {
       "default": "9ca05450955f",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "7fcd16b5c550"
     },
     "power": {
       "default": "5729746c1bfd",
@@ -16243,7 +16277,8 @@
     },
     "rabbit": {
       "default": "fd62c2f42f0c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "02ebc654c116"
     },
     "radar": {
       "default": "561dc052b8ad",
@@ -16552,7 +16587,8 @@
     },
     "russian-ruble": {
       "default": "cd0ae2d6d223",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "9980940fee7e"
     },
     "sailboat": {
       "default": "0747b4cf19e9",
@@ -16916,6 +16952,7 @@
       "draw": "17c8398e8d34"
     },
     "shopping-bag": {
+      "bounce": "ce5f9fbb633d",
       "default": "e8f2757b3cbd",
       "draw": "17c8398e8d34"
     },
@@ -16924,6 +16961,7 @@
       "draw": "17c8398e8d34"
     },
     "shopping-cart": {
+      "bounce": "926f61dcd64c",
       "default": "5b64c8954f2c",
       "draw": "17c8398e8d34",
       "pulse": "d566b6d6556e"

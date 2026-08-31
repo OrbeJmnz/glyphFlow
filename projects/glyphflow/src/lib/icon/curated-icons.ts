@@ -801,6 +801,21 @@ const REVEAL_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
 const REVEAL_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';
 
 
+/* ── Variantes de la tanda 4 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE).
+ *
+ * Las SEIS MONEDAS se dibujan en vez de repasarse. El original pinta el icono estático y
+ * encima una copia que se dibuja con `pathLength` — euro trae seis paths donde Lucide tiene
+ * tres. Duplicar figuras cambiaría la geometría y `draw` las dibujaría dos veces, así que el
+ * trazo se aplica sobre las figuras REALES: el signo se dibuja de cero, trazo por trazo.
+ *
+ * `phone` va sin el halo: el original añade un `<circle>` que se expande y que Lucide no tiene.
+ * `shopping-cart` va sin el giro de las ruedas: son `<circle>` de radio 1, y rotar un círculo
+ * sobre su propio centro no mueve un solo píxel.
+ */
+const T4_EASE = 'ease-in-out';
+
 export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
     default: {
       shapes: {
@@ -1453,6 +1468,12 @@ export const phoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(phoneShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -12, 10, -8, 6, 0]), 800, { origin: 'center' }),
     },
+    ring: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-8deg)', easing: T4_EASE }, { transform: 'rotate(8deg)', easing: T4_EASE }, { transform: 'rotate(-6deg)', easing: T4_EASE }, { transform: 'rotate(6deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: '0', easing: 'ease-out' }, { transform: 'scale(0.9)', opacity: '0.25', easing: 'ease-out' }, { transform: 'scale(1.5)', opacity: '0' }], 900, { easing: 'linear', origin: '12px 12px' }),
+      },
+    },
   });
 
 
@@ -1464,6 +1485,9 @@ export const shoppingCartIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingCa
     },
     pulse: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }], 800, { easing: EASE }),
+    },
+    bounce: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px) rotate(0deg)', easing: T4_EASE }, { transform: 'translateY(-3px) rotate(-4deg)', easing: T4_EASE }, { transform: 'translateY(0px) rotate(3deg)', easing: T4_EASE }, { transform: 'translateY(-1px) rotate(-2deg)', easing: T4_EASE }, { transform: 'translateY(0px) rotate(0deg)' }], 1800, { easing: 'linear' }),
     },
   });
 
@@ -2153,6 +2177,12 @@ export const scrollTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(scrollTextSh
 export const shoppingBagIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingBagShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 5, -4, 2, 0]), 700, { origin: 'top center' }),
+    },
+    bounce: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(-6px) scale(1, 1)', offset: 0, easing: T4_EASE }, { transform: 'translateY(0px) scale(1, 1)', offset: 0.4, easing: T4_EASE }, { transform: 'translateY(0px) scale(1.12, 0.86)', offset: 0.55, easing: T4_EASE }, { transform: 'translateY(0px) scale(0.97, 1.05)', offset: 0.78, easing: T4_EASE }, { transform: 'translateY(0px) scale(1, 1)', offset: 1 }], 700, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'scale(1.2)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 350, { easing: 'linear', delay: 420, fill: 'backwards', origin: '12px 10px' }),
+      },
     },
   });
 
@@ -4228,6 +4258,12 @@ export const rabbitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0) scale(1)' }], 800, { easing: EASE }),
+    },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px) scale(1, 1)', offset: 0, easing: 'ease-out' }, { transform: 'translateY(1.2px) scale(1.12, 0.86)', offset: 0.28, easing: 'ease-out' }, { transform: 'translateY(-3px) scale(0.94, 1.1)', offset: 0.58, easing: 'ease-out' }, { transform: 'translateY(0.6px) scale(1.06, 0.94)', offset: 0.82, easing: 'ease-out' }, { transform: 'translateY(0px) scale(1, 1)', offset: 1 }], 850, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0, easing: 'ease-out' }, { transform: 'rotate(14deg)', offset: 0.28, easing: 'ease-out' }, { transform: 'rotate(-8deg)', offset: 0.58, easing: 'ease-out' }, { transform: 'rotate(3deg)', offset: 0.82, easing: 'ease-out' }, { transform: 'rotate(0deg)', offset: 1 }], 850, { easing: 'linear', origin: '18px 8.5px' }),
+      },
     },
   },
 );
@@ -7159,6 +7195,12 @@ export const fishIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track(E3_WAVE, 660, { easing: EASE, origin: '12px 12px' }),
       },
     },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(3deg)', easing: T4_EASE }, { transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-3deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 1000, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-16deg)', easing: T4_EASE }, { transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(16deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 1000, { easing: 'linear', origin: '7px 12px' }),
+      },
+    },
   },
 );
 
@@ -8358,6 +8400,13 @@ export const phoneCallIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(PHONE_RING, 800, { easing: EASE, origin: '11px 15px' }),
       },
     },
+    ring: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-10deg)', easing: T4_EASE }, { transform: 'rotate(10deg)', easing: T4_EASE }, { transform: 'rotate(-6deg)', easing: T4_EASE }, { transform: 'rotate(6deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 900, { easing: 'linear', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1.1)', opacity: '0.6', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', origin: '13px 11px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1.1)', opacity: '0.6', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', origin: '13px 11px' }),
+      },
+    },
   },
 );
 
@@ -8379,6 +8428,13 @@ export const phoneForwardedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(PHONE_RING, 800, { easing: EASE, origin: '11px 15px' }),
       },
     },
+    ring: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-8deg)', easing: T4_EASE }, { transform: 'rotate(8deg)', easing: T4_EASE }, { transform: 'rotate(-6deg)', easing: T4_EASE }, { transform: 'rotate(6deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 900, { easing: 'linear', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T4_EASE }, { transform: 'translateX(4px)', easing: T4_EASE }, { transform: 'translateX(0px)' }], 600, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T4_EASE }, { transform: 'translateX(4px)', easing: T4_EASE }, { transform: 'translateX(0px)' }], 600, { easing: 'linear' }),
+      },
+    },
   },
 );
 
@@ -8398,6 +8454,13 @@ export const phoneIncomingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(PHONE_NUDGE_IN, 600, { easing: EASE, delay: 250, fill: 'backwards' }),
         1: /* @__PURE__ */ track(PHONE_NUDGE_IN, 600, { easing: EASE, delay: 250, fill: 'backwards' }),
         2: /* @__PURE__ */ track(PHONE_RING, 800, { easing: EASE, origin: '11px 15px' }),
+      },
+    },
+    ring: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T4_EASE }, { transform: 'rotate(-8deg)', easing: T4_EASE }, { transform: 'rotate(8deg)', easing: T4_EASE }, { transform: 'rotate(-6deg)', easing: T4_EASE }, { transform: 'rotate(6deg)', easing: T4_EASE }, { transform: 'rotate(0deg)' }], 900, { easing: 'linear', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', easing: 'ease-out' }, { transform: 'translate(-2px, 2px)', easing: 'ease-out' }, { transform: 'translate(0px, 0px)' }], 600, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', easing: 'ease-out' }, { transform: 'translate(-2px, 2px)', easing: 'ease-out' }, { transform: 'translate(0px, 0px)' }], 600, { easing: 'linear' }),
       },
     },
   },
@@ -10935,6 +10998,13 @@ export const euroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       tag: 'path',
       d: "M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2",
     },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M4 10h12", opacity: '0' },
+    { tag: 'path', d: "M4 14h9", opacity: '0' },
+    { tag: 'path', d: "M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2", opacity: '0' },
   ],
   {
     default: {
@@ -10942,6 +11012,20 @@ export const euroIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
         0: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 10px', delay: 80 }),
         1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 14px', delay: 170 }),
+      },
+    },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 160, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 900, { easing: T4_EASE, delay: 260, fill: 'backwards' }),
       },
     },
   },
@@ -10954,6 +11038,14 @@ export const poundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M10 7v14" },
     { tag: 'path', d: "M6 21h12" },
     { tag: 'path', d: "M6 13h10" },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M18 7c0-5.333-8-5.333-8 0", opacity: '0' },
+    { tag: 'path', d: "M10 7v14", opacity: '0' },
+    { tag: 'path', d: "M6 21h12", opacity: '0' },
+    { tag: 'path', d: "M6 13h10", opacity: '0' },
   ],
   {
     default: {
@@ -10961,6 +11053,22 @@ export const poundSterlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '14px 7px' }),
         1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '10px 14px' }),
         3: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 13px', delay: 80 }),
+      },
+    },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        7: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        6: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 360, fill: 'backwards' }),
       },
     },
   },
@@ -10972,6 +11080,13 @@ export const japaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 9.5V21m0-11.5L6 3m6 6.5L18 3" },
     { tag: 'path', d: "M6 15h12" },
     { tag: 'path', d: "M6 11h12" },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M12 9.5V21m0-11.5L6 3m6 6.5L18 3", opacity: '0' },
+    { tag: 'path', d: "M6 15h12", opacity: '0' },
+    { tag: 'path', d: "M6 11h12", opacity: '0' },
   ],
   {
     default: {
@@ -10979,6 +11094,20 @@ export const japaneseYenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '12px 12px' }),
         2: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 11px', delay: 80 }),
         1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 15px', delay: 170 }),
+      },
+    },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 900, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 220, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 340, fill: 'backwards' }),
       },
     },
   },
@@ -10992,6 +11121,15 @@ export const indianRupeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m6 13 8.5 8" },
     { tag: 'path', d: "M6 13h3" },
     { tag: 'path', d: "M9 13c6.667 0 6.667-10 0-10" },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M6 3h12", opacity: '0' },
+    { tag: 'path', d: "M6 8h12", opacity: '0' },
+    { tag: 'path', d: "m6 13 8.5 8", opacity: '0' },
+    { tag: 'path', d: "M6 13h3", opacity: '0' },
+    { tag: 'path', d: "M9 13c6.667 0 6.667-10 0-10", opacity: '0' },
   ],
   {
     default: {
@@ -11002,6 +11140,24 @@ export const indianRupeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '6px 13px', delay: 180 }),
       },
     },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T4_EASE }),
+        6: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T4_EASE }),
+        9: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T4_EASE }),
+        8: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T4_EASE }),
+        7: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: T4_EASE, delay: 160, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 800, { easing: T4_EASE, delay: 260, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: T4_EASE, delay: 420, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: T4_EASE, delay: 520, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -11010,12 +11166,30 @@ export const russianRubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M6 11h8a4 4 0 0 0 0-8H9v18" },
     { tag: 'path', d: "M6 15h8" },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M6 11h8a4 4 0 0 0 0-8H9v18", opacity: '0' },
+    { tag: 'path', d: "M6 15h8", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         0: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '9px 12px' }),
         1: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '6px 15px', delay: 80 }),
+      },
+    },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 900, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 260, fill: 'backwards' }),
       },
     },
   },
@@ -11102,6 +11276,14 @@ export const georgianLariIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M13 12V3" },
     { tag: 'path', d: "M4 21h16" },
     { tag: 'path', d: "M9 12V3" },
+
+    // Trazo fantasma: la copia que se repasa encima. `opacity: '0'` para que el
+    // icono quieto siga siendo el de Lucide; al acabar el gesto desaparece y debajo
+    // queda el trazo real, idéntico, así que no se ve ningún corte.
+    { tag: 'path', d: "M11.5 21a7.5 7.5 0 1 1 7.35-9", opacity: '0' },
+    { tag: 'path', d: "M13 12V3", opacity: '0' },
+    { tag: 'path', d: "M4 21h16", opacity: '0' },
+    { tag: 'path', d: "M9 12V3", opacity: '0' },
   ],
   {
     default: {
@@ -11110,6 +11292,22 @@ export const georgianLariIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '9px 7.5px' }),
         1: /* @__PURE__ */ track(ASIENTA, 460, { easing: EASE, origin: '13px 7.5px' }),
         2: /* @__PURE__ */ track(CRUZA, 420, { easing: SPRING_OUT, origin: '4px 21px', delay: 120 }),
+      },
+    },
+    // La anexa hace de GUÍA: aparece tenue y se apaga al acabar. La figura REAL es la
+    // que se borra y se rellena encima — al revés no funciona, porque la anexa nace
+    // invisible y la real es la que tiene que quedar en pie cuando el gesto termina.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'scale(1.06) rotate(-2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1.03) rotate(2deg) translateY(-1px)', easing: T4_EASE }, { transform: 'scale(1) rotate(0deg) translateY(0px)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        7: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        6: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T4_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 600, { easing: T4_EASE, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.7' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 160, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 260, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.8' }, { strokeDasharray: '1 1', opacity: '1' }], 550, { easing: T4_EASE, delay: 360, fill: 'backwards' }),
       },
     },
   },
@@ -16727,6 +16925,13 @@ export const catIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { origin: '12px 21px' }),
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: T4_EASE }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: T4_EASE }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.34, easing: T4_EASE }, { transform: 'scaleY(0.1)', offset: 0.4, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.46, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '8px 14.25px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.34, easing: T4_EASE }, { transform: 'scaleY(0.1)', offset: 0.4, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.46, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '16px 14.25px' }),
+      },
+    },
   },
 );
 
@@ -16758,6 +16963,13 @@ export const dogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.09)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
       },
       reverseOnLeave: true,
+    },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'rotate(-3deg) translateY(-0.5px)', easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)', easing: T4_EASE }, { transform: 'rotate(3deg) translateY(-0.5px)', easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)' }], 700, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.42, easing: T4_EASE }, { transform: 'scaleY(0.15)', offset: 0.47, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.52, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 1 }], 2800, { easing: 'linear', origin: '8px 14.25px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.42, easing: T4_EASE }, { transform: 'scaleY(0.15)', offset: 0.47, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 0.52, easing: T4_EASE }, { transform: 'scaleY(1)', offset: 1 }], 2800, { easing: 'linear', origin: '16px 14.25px' }),
+      },
     },
   },
 );
