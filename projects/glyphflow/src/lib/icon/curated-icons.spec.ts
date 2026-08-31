@@ -72,6 +72,11 @@ const FIGURAS_ANEXAS: Record<string, number> = {
   'hand-coins': 3,
   signpost: 2,
   wind: 3,
+  // Guías de relleno y estelas: ninguna la dibuja Lucide, todas nacen con `opacity: '0'`.
+  'chevron-down': 1,
+  'chevron-left': 1,
+  'chevron-right': 1,
+  'chevron-up': 1,
 };
 
 describe('Barrido de sanidad — los 180 curados', () => {

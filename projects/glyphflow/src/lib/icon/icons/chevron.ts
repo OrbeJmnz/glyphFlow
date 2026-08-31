@@ -56,6 +56,7 @@ export const chevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronRig
     },
     nudge: {
       shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
@@ -70,6 +71,7 @@ export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDown
     },
     nudge: {
       shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
@@ -84,6 +86,7 @@ export const chevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronLeft
     },
     nudge: {
       shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
@@ -98,6 +101,7 @@ export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShap
     },
     nudge: {
       shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
