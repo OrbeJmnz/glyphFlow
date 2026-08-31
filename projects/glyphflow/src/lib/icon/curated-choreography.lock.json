@@ -14087,23 +14087,28 @@
     },
     "git-commit-horizontal": {
       "default": "91775c2c64c6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "c97362345027"
     },
     "git-commit-vertical": {
       "default": "1b89ee002843",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "998bad5ed44d"
     },
     "git-compare": {
       "default": "c28215d7fd58",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "593c0851764a"
     },
     "git-compare-arrows": {
       "default": "bbd9f0629dda",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "dfd566c29aa7"
     },
     "git-fork": {
       "default": "9f2b6e1b1f64",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "dfdef4870a1d"
     },
     "git-graph": {
       "default": "9def82626d97",
@@ -14115,7 +14120,8 @@
     },
     "git-merge-conflict": {
       "default": "a4b925e99201",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "1c4c7b9ec5fa"
     },
     "git-pull-request": {
       "default": "8865e03bd429",
@@ -14960,11 +14966,13 @@
     },
     "locate": {
       "default": "39c8252d6d5e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "ca1d29d72e2d"
     },
     "locate-fixed": {
       "default": "1458bbd5684e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "ce2f33369a54"
     },
     "locate-off": {
       "default": "e276b867d08e",
@@ -14988,13 +14996,15 @@
     },
     "log-in": {
       "default": "1f716a75de8a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "337e3038f613"
     },
     "log-out": {
       "default": "95bbf3e944de",
       "draw": "17c8398e8d34",
       "hold": "097e11447efe",
-      "nudge": "fd1462a0131a"
+      "nudge": "fd1462a0131a",
+      "reveal": "880ca1587b80"
     },
     "logs": {
       "default": "d2136f17c66c",
@@ -16502,11 +16512,13 @@
     },
     "route": {
       "default": "2ee11314aee8",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "6e1cc5cf8597"
     },
     "route-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "91dcace5e308"
     },
     "router": {
       "default": "1ee8da963e78",

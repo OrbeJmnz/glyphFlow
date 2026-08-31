@@ -783,6 +783,24 @@ const E3_SQUASH_LAND = /* @__PURE__ */ [
 ];
 
 /** Palomita: se dibuja mientras crece 10% y regresa (portado de Animate UI). */
+/* ── Variante `reveal` ──────────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE): el icono se ensambla — los nodos
+ * entran de golpe, los trazos se dibujan y cada pieza lleva su propio retraso.
+ *
+ * Los tres easings vienen con nombre del original; se copian tal cual porque redondearlos a
+ * los de CSS cambia el rebote (`overshoot` pasa de 1 a propósito, es un sobrepaso).
+ *
+ * `route`, `locate` y sus variantes traen muelles propios en el original (curvas que se
+ * pasan de 1); se conservan porque el sobrepaso ES el gesto.
+ */
+const REVEAL_EASE = 'cubic-bezier(0.25, 1, 0.5, 1)';
+const REVEAL_OVERSHOOT = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+const REVEAL_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const REVEAL_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+const REVEAL_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';
+
+
 export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
     default: {
       shapes: {
@@ -1720,6 +1738,14 @@ export const logOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(logOutShapes, {
     },
     reverseOnLeave: true,
   },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: 'ease-in-out' }, { transform: 'scale(1.1) rotate(3deg)', easing: 'ease-in-out' }, { transform: 'scale(0.95) rotate(-2deg)', easing: 'ease-in-out' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(-2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(-2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-in-out', delay: 100, fill: 'backwards' }),
+      },
+    },
 });
 
 /** Filtrar: el embudo se comprime y suelta. */
@@ -4282,6 +4308,17 @@ export const routeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL }),
+        6: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 80, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 350, { easing: REVEAL_DECEL, delay: 550, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -4297,6 +4334,13 @@ export const routeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 220, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' }], 620, { easing: 'ease-in-out', delay: 420, fill: 'backwards' }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 220, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: REVEAL_DECEL, delay: 100, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 100, fill: 'backwards', origin: '6px 19px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 720, fill: 'backwards', origin: '18px 5px' }),
       },
     },
   },
@@ -5384,6 +5428,16 @@ export const locateFixedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         5: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
+      },
+    },
+    reveal: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.4)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 600, fill: 'backwards', origin: '12px 12px' }),
       },
     },
   },
@@ -7723,6 +7777,15 @@ export const locateIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(E1_PULSE, 520, { easing: EASE, origin: '12px 12px', delay: 180, fill: 'backwards' }),
       },
     },
+    reveal: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
+      },
+    },
   },
 );
 
@@ -7738,6 +7801,14 @@ export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(E1_PUSH_RIGHT, 620, { easing: EASE }),
         1: /* @__PURE__ */ track(E1_PUSH_RIGHT, 620, { easing: EASE }),
         2: /* @__PURE__ */ track(E1_PULSE, 460, { easing: EASE, origin: '18px 12px', delay: 200, fill: 'backwards' }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: 'ease-in-out' }, { transform: 'scale(1.1) rotate(-3deg)', easing: 'ease-in-out' }, { transform: 'scale(0.95) rotate(2deg)', easing: 'ease-in-out' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-in-out', delay: 100, fill: 'backwards' }),
       },
     },
   },
