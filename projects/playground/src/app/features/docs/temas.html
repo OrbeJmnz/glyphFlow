@@ -2,6 +2,23 @@
 
 <h2 id="currentcolor" [innerHTML]="'docs.temas.color.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.temas.color.texto' | transloco"></p>
+
+<div class="demo-color">
+  <div class="demo-color-item demo-color-neutro">
+    <gf-icon [iconDef]="iconoDemo" [size]="22" trigger="manual" />
+    <span>{{ 'docs.temas.color.demo.neutro' | transloco }}</span>
+  </div>
+  <div class="demo-color-item demo-color-cian">
+    <gf-icon [iconDef]="iconoDemo" [size]="22" trigger="manual" />
+    <span>{{ 'docs.temas.color.demo.cian' | transloco }}</span>
+  </div>
+  <div class="demo-color-item demo-color-violeta">
+    <gf-icon [iconDef]="iconoDemo" [size]="22" trigger="manual" />
+    <span>{{ 'docs.temas.color.demo.violeta' | transloco }}</span>
+  </div>
+</div>
+<p class="demo-pie">{{ 'docs.temas.color.demo.pie' | transloco }}</p>
+
 <p [innerHTML]="'docs.temas.color.consecuencia' | transloco"></p>
 
 <h2 id="dark-mode">{{ 'docs.temas.oscuro.titulo' | transloco }}</h2>
@@ -10,4 +27,20 @@
 
 <h2 id="stroke-width">{{ 'docs.temas.trazo.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.temas.trazo.texto' | transloco"></p>
+
+<div class="demo-trazo">
+  <div class="demo-trazo-item">
+    <gf-icon [iconDef]="iconoDemo" [size]="16" [strokeWidth]="1.5" trigger="manual" />
+    <span>16px · 1.5</span>
+  </div>
+  <div class="demo-trazo-item">
+    <gf-icon [iconDef]="iconoDemo" [size]="24" [strokeWidth]="2" trigger="manual" />
+    <span>24px · 2</span>
+  </div>
+  <div class="demo-trazo-item">
+    <gf-icon [iconDef]="iconoDemo" [size]="32" [strokeWidth]="2" trigger="manual" />
+    <span>32px · 2</span>
+  </div>
+</div>
+
 <p [innerHTML]="'docs.temas.trazo.recomendacion' | transloco"></p>

@@ -3,7 +3,7 @@
 
 <h2 id="gf-icon">&lt;gf-icon&gt;</h2>
 <div class="tabla-scroll">
-  <table>
+  <table class="tabla-api">
     <thead>
       <tr>
         <th>{{ 'docs.api.colInput' | transloco }}</th>
@@ -39,7 +39,7 @@
 
 <h2 id="gf-icon-morph">&lt;gf-icon-morph&gt;</h2>
 <div class="tabla-scroll">
-  <table>
+  <table class="tabla-api">
     <thead>
       <tr>
         <th>{{ 'docs.api.colInput' | transloco }}</th>
@@ -70,7 +70,7 @@
 @for (e of entradas; track e) {
   <h2 [attr.id]="'exports-' + e" [innerHTML]="'docs.api.exportsDe' | transloco: { e: e }"></h2>
   <div class="tabla-scroll">
-    <table>
+    <table class="tabla-api">
       <thead>
         <tr>
           <th>{{ 'docs.api.colSimbolo' | transloco }}</th>
@@ -95,7 +95,7 @@
                 <span class="insignia-obsoleto">{{ 'docs.api.obsoleto' | transloco }}</span>
               }
             </td>
-            <td>{{ claseClaves[s.clase] | transloco }}</td>
+            <td><span class="insignia-clase">{{ claseClaves[s.clase] | transloco }}</span></td>
             <td>
               {{ s.resumen | transloco: conteos }}
               @if (s.obsoleto) {
@@ -110,9 +110,9 @@
     </table>
   </div>
 
-  <h3>{{ 'docs.api.tiposTitulo' | transloco }}</h3>
+  <h3 [attr.id]="'types-' + e">{{ 'docs.api.tiposTitulo' | transloco }}</h3>
   <div class="tabla-scroll">
-    <table>
+    <table class="tabla-api">
       <thead>
         <tr>
           <th>{{ 'docs.api.colTipo' | transloco }}</th>

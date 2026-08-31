@@ -3,6 +3,7 @@
   en táctil no hay teclado que pulsar.
 -->
 <button type="button" class="disparador" (click)="abrir()">
+  <gf-icon [iconDef]="iconoBuscar" [size]="14" />
   <span>{{ 'docs.buscador.abrir' | transloco }}</span>
   <kbd>Ctrl K</kbd>
 </button>
@@ -26,20 +27,19 @@
     aria-modal="true"
     [attr.aria-label]="'docs.buscador.aria' | transloco"
   >
-    <input
+    <app-campo-busqueda
       #campo
-      type="search"
-      autocomplete="off"
       class="campo"
-      [attr.placeholder]="'docs.buscador.marcador' | transloco"
-      [attr.aria-label]="'docs.buscador.aria' | transloco"
-      [value]="consulta()"
-      (input)="alEscribir($any($event.target).value)"
+      [texto]="consulta()"
+      (textoChange)="alEscribir($event)"
       (keydown)="alTeclearEnCampo($event)"
+      [marcador]="'docs.buscador.marcador' | transloco"
+      [etiqueta]="'docs.buscador.aria' | transloco"
+      [limpiarEtiqueta]="'docs.buscador.limpiarAria' | transloco"
     />
 
     @if (consulta().trim()) {
-      @if (resultados().length) {
+      @if (resultadosAgrupados().length) {
         <!--
           `aria-live` para que el lector de pantalla anuncie cuántos hay: el resultado del tecleo
           aparece lejos del cursor y sin esto no llega.
@@ -48,13 +48,15 @@
           {{ 'docs.buscador.cuenta' | transloco: { n: resultados().length } }}
         </p>
         <ul class="resultados">
-          @for (r of resultados(); track r.ruta + r.ancla; let i = $index) {
-            <li>
-              <button type="button" [class.resaltado]="i === resaltado()" (click)="ir(r)">
-                <strong>{{ r.titulo }}</strong>
-                <span class="donde">{{ r.ruta }}#{{ r.ancla }}</span>
-              </button>
-            </li>
+          @for (g of resultadosAgrupados(); track g.ruta) {
+            <li class="grupo-doc">{{ 'docs.nav.' + g.ruta + '.titulo' | transloco }}</li>
+            @for (it of g.items; track it.r.ancla) {
+              <li>
+                <button type="button" [class.resaltado]="it.i === resaltado()" (click)="ir(it.r)">
+                  {{ it.r.titulo }}
+                </button>
+              </li>
+            }
           }
         </ul>
       } @else {
