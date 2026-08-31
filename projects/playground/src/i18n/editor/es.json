@@ -3,8 +3,10 @@
   "intro": "Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.",
   "trazos": "Este icono tiene {{n}} trazos. Da click en uno para editar sus nodos.",
   "busqueda": {
-    "marcador": "buscar entre los curados…",
-    "etiqueta": "Buscar icono para editar"
+    "marcador": "Buscar entre {{n}} iconos…",
+    "etiqueta": "Buscar icono para editar",
+    "vacio": "Ningún icono para «{{q}}».",
+    "limpiar": "Limpiar búsqueda"
   },
   "lista": {
     "editarAria": "Editar {{nombre}}",
@@ -35,18 +37,19 @@
     "silueta": "el trazo real del icono, atenuado para que los nodos se puedan apuntar debajo"
   },
   "secciones": {
-    "elementos": "elementos",
+    "elementos": "icono",
     "edicion": "edición",
-    "resultado": "resultado"
+    "resultado": "salida",
+    "proyecto": "proyecto"
   },
   "nodo": {
     "grupoAria": "Nodo seleccionado",
     "titulo": "Nodo #{{n}}",
-    "agregar": "agregar nodo aquí",
+    "agregar": "insertar nodo",
     "teclaMas": "+",
     "borrar": "borrar nodo",
     "teclaSupr": "Supr",
-    "pista": "Selecciona un nodo primero — luego agrega o borra."
+    "pista": "Selecciona un nodo para editarlo."
   },
   "historial": {
     "grupoAria": "Historial",
@@ -77,6 +80,7 @@
   "borradores": {
     "titulo": "mis borradores",
     "guardar": "Guardar borrador",
+    "guardado": "Guardado",
     "renombrar": "renombrar",
     "borrar": "borrar",
     "nombreAria": "Nombre del borrador",

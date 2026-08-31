@@ -67,14 +67,18 @@ describe('Taller — el puente entre editar y coreografiar', () => {
   });
 
   it('el editor manda la geometría editada CON la coreografía original', async () => {
-    // La ruta `lab` tiene que EXISTIR aunque el test no la pinte: el botón navega de verdad, y con
-    // rutas vacías Angular rechazaba la navegación con NG04002 — una promesa sin manejar que
+    // La ruta `en/lab` tiene que EXISTIR aunque el test no la pinte: el botón navega de verdad, y
+    // con rutas vacías Angular rechazaba la navegación con NG04002 — una promesa sin manejar que
     // Vitest marca como posible falso positivo del resto de la corrida.
+    //
+    // Con prefijo de idioma y no solo `'lab'`: el editor navega vía `rutas.a('lab')`
+    // (`core/rutas.service.ts`), que SIEMPRE antepone el idioma -- 'en' por default sin un
+    // `ActivatedRoute` real de por medio, mismo criterio que el resto del sitio.
     TestBed.configureTestingModule({
       // `Editor` vive en el scope `editor` — el módulo de testing acepta la clave con scope
       // incluido directo. Ver `core/i18n-testing.ts`.
       imports: [Editor, providersI18nTest({ 'editor/en': editorEn, 'editor/es': editorEs })],
-      providers: [provideRouter([{ path: 'lab', children: [] }])],
+      providers: [provideRouter([{ path: 'en/lab', children: [] }])],
     });
     const taller = TestBed.inject(Taller);
     const fixture = TestBed.createComponent(Editor);
@@ -89,7 +93,7 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     await fixture.whenStable();
 
     // Y de paso se verifica lo que el botón promete: además de mandar la pieza, lleva al Lab.
-    expect(TestBed.inject(Router).url).toBe('/lab');
+    expect(TestBed.inject(Router).url).toBe('/en/lab');
 
     const pieza = taller.recoger()!;
     expect(pieza.nombre).toBe(nombre);

@@ -51,8 +51,18 @@
       (pointerup)="terminar()"
       (pointercancel)="terminar()"
     >
-      <!-- Rejilla de 24: sin referencia, arrastrar un nodo es adivinar. -->
-      <g class="rejilla">
+      <!--
+        Rejilla de 24 en dos niveles: la menor (cada unidad) orienta de cerca sin competir con el
+        trazo, la mayor (cada 4) es la que de verdad ayuda a ubicarse de lejos. Antes había un solo
+        nivel -- la menor va PRIMERO para quedar debajo de la mayor donde coinciden las líneas.
+      -->
+      <g class="rejilla rejilla-menor">
+        @for (i of ejesMenor; track i) {
+          <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
+          <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
+        }
+      </g>
+      <g class="rejilla rejilla-mayor">
         @for (i of [4, 8, 12, 16, 20]; track i) {
           <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
           <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
@@ -91,6 +101,22 @@
           }
         }
       </g>
+
+      <!--
+        El fantasma del original -- SOLO mientras hay algo que comparar (`tocado()`). Va detrás de
+        todo lo demás: es contexto para leer cuánto se movió, no geometría que se pueda tocar.
+      -->
+      @if (dReferencia(); as dRef) {
+        <path
+          class="referencia"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          [attr.d]="dRef"
+        />
+      }
 
       <!--
         Dos capas del MISMO `d`: el trazo real de 2 unidades atenuado, para ver el icono como se
@@ -287,34 +313,51 @@
       <app-campo-busqueda
     [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
         [(texto)]="filtro"
-        [marcador]="'editor.busqueda.marcador' | transloco"
+        [marcador]="'editor.busqueda.marcador' | transloco: { n: totalCurados() }"
         [etiqueta]="'editor.busqueda.etiqueta' | transloco"
       />
 
-      <div class="lista">
-        @for (c of visibles(); track c.nombre) {
-          <app-tooltip [texto]="c.nombre" [abajo]="true">
-            <button
-              type="button"
-              app-chip
-              [activo]="c.nombre === elegido().nombre"
-              (click)="elegir(c)"
-              [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
-            >
-              <gf-icon [iconDef]="c.def" [size]="18" trigger="manual" />
-            </button>
-          </app-tooltip>
-        }
+      @if (candidatos().length === 0) {
         <!--
-          El final de la lista. El botón no es un respaldo del observador: es la única vía para
-          quien tabula por los chips, que nunca dispara un `IntersectionObserver`.
+          Sin esto el filtro sin coincidencias dejaba `.lista` vacía y sin explicación -- un hueco
+          gris sin decir por qué ni qué hacer. Mismo componente que ya usa el catálogo (`iconos.ts`)
+          para lo mismo, aquí sin sugerencias/tags porque el buscador del editor es un filtro de
+          texto plano sobre el set curado, no el sistema de filtros del catálogo completo.
         -->
-        @if (hayMas()) {
-          <button type="button" app-boton compacto appVisible (visible)="montarMas()">
-            {{ 'editor.lista.montarMas' | transloco: { n: candidatos().length - visibles().length } }}
-          </button>
-        }
-      </div>
+        <app-sin-resultados
+          [icono]="caraTriste"
+          [titulo]="'editor.busqueda.vacio' | transloco: { q: filtro().trim() }"
+          [etiquetaLimpiar]="'editor.busqueda.limpiar' | transloco"
+          (limpiar)="filtro.set('')"
+        />
+      } @else {
+        <div class="lista">
+          @for (c of visibles(); track c.nombre) {
+            <app-tooltip [texto]="c.nombre" [abajo]="true">
+              <button
+                type="button"
+                app-chip
+                [activo]="c.nombre === elegido().nombre"
+                (click)="elegir(c)"
+                [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
+              >
+                <gf-icon [iconDef]="c.def" [size]="18" trigger="manual" />
+              </button>
+            </app-tooltip>
+          }
+          <!--
+            El final de la lista. El botón no es un respaldo del observador: es la única vía para
+            quien tabula por los chips, que nunca dispara un `IntersectionObserver`.
+          -->
+          @if (hayMas()) {
+            <button type="button" app-boton compacto appVisible (visible)="montarMas()">
+              {{
+                'editor.lista.montarMas' | transloco: { n: candidatos().length - visibles().length }
+              }}
+            </button>
+          }
+        </div>
+      }
     </section>
 
     <!-- 2. CÓMO lo edito -->
@@ -344,6 +387,16 @@
           {{ 'editor.historial.rehacer' | transloco }}
           <kbd>Ctrl+Shift+Z</kbd>
         </button>
+        <!--
+          Vive junto a deshacer/rehacer y no en el header de "output": es la tercera forma de
+          recuperarse de un error, no un dato más de la salida. Solo aparece si hay algo que
+          restablecer -- y como deshacer YA puede recuperarlo, no hace falta confirmación.
+        -->
+        @if (tocado()) {
+          <button type="button" class="enlace restablecer" (click)="restablecer()">
+            {{ 'editor.salida.restablecer' | transloco }}
+          </button>
+        }
       </div>
 
       <!--
@@ -379,83 +432,106 @@
       </div>
     </section>
 
-    <!-- 3. QUÉ me llevo -->
+    <!-- 3. QUÉ genera -->
     <section class="seccion salida">
-      <div class="salida-cab">
-        <h2 class="grupo-tit">{{ 'editor.secciones.resultado' | transloco }}</h2>
-        @if (tocado()) {
-          <button type="button" class="enlace restablecer" (click)="restablecer()">
-            {{ 'editor.salida.restablecer' | transloco }}
-          </button>
-        }
-      </div>
+      <h2 class="grupo-tit">{{ 'editor.secciones.resultado' | transloco }}</h2>
 
       <!--
         Dos bloques plegables en vez de un muro. El `d` abierto porque es la respuesta que se viene
         a buscar; el JSON cerrado porque son cien líneas que casi nunca se leen — se copian.
       -->
       <div class="bloque" [class.abierto]="verPath()">
-        <button
-          type="button"
-          class="bloque-cab"
-          [attr.aria-expanded]="verPath()"
-          (click)="verPath.set(!verPath())"
-        >
-          <span class="flecha" aria-hidden="true">▸</span>
-          <span class="grupo-tit">{{ 'editor.salida.path' | transloco }}</span>
-        </button>
+        <div class="bloque-cab">
+          <button
+            type="button"
+            class="bloque-toggle"
+            [attr.aria-expanded]="verPath()"
+            (click)="verPath.set(!verPath())"
+          >
+            <span class="flecha" aria-hidden="true">▸</span>
+            <span class="sub-tit">{{ 'editor.salida.path' | transloco }}</span>
+          </button>
+          <button
+            type="button"
+            class="bloque-copiar"
+            [class.hecho]="copiadorPath.copiado()"
+            [attr.aria-label]="
+              (copiadorPath.copiado() ? 'editor.salida.copiado' : 'editor.salida.copiar')
+                | transloco
+            "
+            (click)="copiar()"
+          >
+            <gf-icon-morph [icon]="iconoCopiarPath()" [size]="14" spring="bouncy" />
+          </button>
+        </div>
         @if (verPath()) {
           <pre><code>{{ editado() }}</code></pre>
         }
-        <button type="button" app-boton compacto variante="fantasma" (click)="copiar()">
-          {{
-            (copiado() === 'path' ? 'editor.salida.copiado' : 'editor.salida.copiar') | transloco
-          }}
-        </button>
       </div>
 
       <div class="bloque" [class.abierto]="verJson()">
-        <button
-          type="button"
-          class="bloque-cab"
-          [attr.aria-expanded]="verJson()"
-          (click)="verJson.set(!verJson())"
-        >
-          <span class="flecha" aria-hidden="true">▸</span>
-          <span class="grupo-tit">{{ 'editor.salida.json' | transloco }}</span>
-        </button>
+        <div class="bloque-cab">
+          <button
+            type="button"
+            class="bloque-toggle"
+            [attr.aria-expanded]="verJson()"
+            (click)="verJson.set(!verJson())"
+          >
+            <span class="flecha" aria-hidden="true">▸</span>
+            <span class="sub-tit">{{ 'editor.salida.json' | transloco }}</span>
+          </button>
+          <button
+            type="button"
+            class="bloque-copiar"
+            [class.hecho]="copiadorJson.copiado()"
+            [attr.aria-label]="
+              (copiadorJson.copiado() ? 'editor.salida.copiado' : 'editor.salida.copiar')
+                | transloco
+            "
+            (click)="copiarJson()"
+          >
+            <gf-icon-morph [icon]="iconoCopiarJson()" [size]="14" spring="bouncy" />
+          </button>
+        </div>
         @if (verJson()) {
           <pre class="json"><code>{{ json() }}</code></pre>
         }
-        <button type="button" app-boton compacto variante="fantasma" (click)="copiarJson()">
-          {{
-            (copiado() === 'json' ? 'editor.salida.copiado' : 'editor.salida.copiar') | transloco
-          }}
-        </button>
         <!--
-          Descargar, no solo copiar: es lo que convierte «lo hice» en «me lo llevo». El archivo es
-          exactamente lo que come el importador del Lab.
+          Descargar y copiar-enlace quedan FUERA del disclosure a propósito: son la forma de
+          llevarse el JSON sin tener que abrirlo y leerlo primero.
         -->
-        <button type="button" app-boton compacto variante="fantasma" (click)="descargarJson()">
-          {{ 'editor.salida.descargar' | transloco }}
-        </button>
-        <!--
-          El enlace lleva el estado en el hash (T31 · nivel 1): quien lo abra ve ESTA forma, no el
-          icono de partida. Sirve para pedir opinión y para reportar un fallo con la pieza dentro.
-
-          Si el estado no cabe en una URL de fiar, el botón lo dice y manda al archivo en vez de
-          dar un enlace que unos clientes recortan y otros no.
-        -->
-        @if (enlaceDemasiadoLargo()) {
-          <p class="aviso-enlace">{{ 'editor.salida.enlaceLargo' | transloco }}</p>
-        } @else {
-          <button type="button" app-boton compacto variante="fantasma" (click)="copiarEnlace()">
-            {{
-              (enlaceCopiado() ? 'editor.salida.enlaceCopiado' : 'editor.salida.enlace') | transloco
-            }}
+        <div class="bloque-acciones">
+          <!--
+            Descargar, no solo copiar: es lo que convierte «lo hice» en «me lo llevo». El archivo es
+            exactamente lo que come el importador del Lab.
+          -->
+          <button type="button" app-boton compacto variante="fantasma" (click)="descargarJson()">
+            {{ 'editor.salida.descargar' | transloco }}
           </button>
-        }
+          <!--
+            El enlace lleva el estado en el hash (T31 · nivel 1): quien lo abra ve ESTA forma, no el
+            icono de partida. Sirve para pedir opinión y para reportar un fallo con la pieza dentro.
+
+            Si el estado no cabe en una URL de fiar, el botón lo dice y manda al archivo en vez de
+            dar un enlace que unos clientes recortan y otros no.
+          -->
+          @if (enlaceDemasiadoLargo()) {
+            <p class="aviso-enlace">{{ 'editor.salida.enlaceLargo' | transloco }}</p>
+          } @else {
+            <button type="button" app-boton compacto variante="fantasma" (click)="copiarEnlace()">
+              {{
+                (enlaceCopiado() ? 'editor.salida.enlaceCopiado' : 'editor.salida.enlace')
+                  | transloco
+              }}
+            </button>
+          }
+        </div>
       </div>
+    </section>
+
+    <!-- 4. QUÉ me llevo -->
+    <section class="seccion proyecto">
+      <h2 class="grupo-tit">{{ 'editor.secciones.proyecto' | transloco }}</h2>
 
       <!--
         Llevárselo de verdad. El `.json` de arriba vuelve al Lab; esto SALE del sitio: un módulo
@@ -470,73 +546,78 @@
           {{ 'editor.salida.contribuir' | transloco }}
         </button>
       </div>
-    </section>
 
-    <!--
-      Mis borradores (T31 · nivel 2). El alcance se DICE, no se supone: viven en este navegador y
-      se van al limpiar los datos del sitio. Un «guardado» que el usuario entiende como permanente
-      y no lo es se descubre cuando ya no está.
-    -->
-    <section class="seccion borradores">
-      <h2 class="grupo-tit">{{ 'editor.borradores.titulo' | transloco }}</h2>
+      <!--
+        Mis borradores (T31 · nivel 2). El alcance se DICE, no se supone: viven en este navegador y
+        se van al limpiar los datos del sitio. Un «guardado» que el usuario entiende como permanente
+        y no lo es se descubre cuando ya no está.
+      -->
+      <div class="borradores">
+        <h3 class="sub-tit">{{ 'editor.borradores.titulo' | transloco }}</h3>
 
-      <button type="button" app-boton compacto (click)="guardarComoBorrador()">
-        {{ 'editor.borradores.guardar' | transloco }}
-      </button>
-
-      @if (hayBorradores()) {
-        <ul class="lista-borradores">
-          @for (b of borradores(); track b.id) {
-            <li>
-              @if (renombrando() === b.id) {
-                <input
-                  class="ui-campo"
-                  [value]="b.nombre"
-                  [attr.aria-label]="'editor.borradores.nombreAria' | transloco"
-                  (keydown.enter)="renombrar(b.id, $any($event.target).value)"
-                  (blur)="renombrar(b.id, $any($event.target).value)"
-                />
-              } @else {
-                <button type="button" class="abrir" (click)="abrirBorrador(b)">
-                  {{ b.nombre }}
-                </button>
-                <button
-                  type="button"
-                  class="mini"
-                  [attr.aria-label]="'editor.borradores.renombrarAria' | transloco: { n: b.nombre }"
-                  (click)="renombrando.set(b.id)"
-                >
-                  {{ 'editor.borradores.renombrar' | transloco }}
-                </button>
-                <button
-                  type="button"
-                  class="mini"
-                  [attr.aria-label]="'editor.borradores.borrarAria' | transloco: { n: b.nombre }"
-                  (click)="borrar(b.id)"
-                >
-                  {{ 'editor.borradores.borrar' | transloco }}
-                </button>
-              }
-            </li>
+        <div class="borradores-guardar">
+          <button type="button" app-boton compacto (click)="guardarComoBorrador()">
+            {{ 'editor.borradores.guardar' | transloco }}
+          </button>
+          @if (guardado()) {
+            <span class="marca-guardado" role="status">{{ 'editor.borradores.guardado' | transloco }}</span>
           }
-        </ul>
-      }
+        </div>
 
-      <p class="nota-local">{{ 'editor.borradores.soloAqui' | transloco }}</p>
+        @if (hayBorradores()) {
+          <ul class="lista-borradores">
+            @for (b of borradores(); track b.id) {
+              <li>
+                @if (renombrando() === b.id) {
+                  <input
+                    class="ui-campo"
+                    [value]="b.nombre"
+                    [attr.aria-label]="'editor.borradores.nombreAria' | transloco"
+                    (keydown.enter)="renombrar(b.id, $any($event.target).value)"
+                    (blur)="renombrar(b.id, $any($event.target).value)"
+                  />
+                } @else {
+                  <button type="button" class="abrir" (click)="abrirBorrador(b)">
+                    {{ b.nombre }}
+                  </button>
+                  <button
+                    type="button"
+                    class="mini"
+                    [attr.aria-label]="'editor.borradores.renombrarAria' | transloco: { n: b.nombre }"
+                    (click)="renombrando.set(b.id)"
+                  >
+                    {{ 'editor.borradores.renombrar' | transloco }}
+                  </button>
+                  <button
+                    type="button"
+                    class="mini"
+                    [attr.aria-label]="'editor.borradores.borrarAria' | transloco: { n: b.nombre }"
+                    (click)="borrar(b.id)"
+                  >
+                    {{ 'editor.borradores.borrar' | transloco }}
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        }
+
+        <p class="nota-local">{{ 'editor.borradores.soloAqui' | transloco }}</p>
+      </div>
+
+      <!--
+        El CTA cierra el círculo: se acaba de editar una forma, y la pregunta que sigue sola es qué
+        hacer con ella. Ya no es "primario" como Export -- las dos a la vez decían que ninguna era
+        la principal (regla de `Boton`, ver `styles.css`). Export termina el flujo; esto lo continúa.
+      -->
+      <div class="cta">
+        <button type="button" app-boton (click)="coreografiar()">
+          <gf-icon [iconDef]="iconoPlay" [size]="16" trigger="manual" />
+          {{ 'editor.coreografiar.boton' | transloco }}
+          <span class="flecha-cta" aria-hidden="true">→</span>
+        </button>
+        <p class="pista-nodo" [innerHTML]="'editor.coreografiar.nota' | transloco"></p>
+      </div>
     </section>
-
-    <!--
-      El CTA cierra el círculo: se acaba de editar una forma, y la pregunta que sigue sola es qué
-      hacer con ella. Va fuera de las tres secciones a propósito — no es un ajuste más del panel,
-      es la salida del editor.
-    -->
-    <div class="cta">
-      <button type="button" app-boton variante="primario" (click)="coreografiar()">
-        <gf-icon [iconDef]="iconoPlay" [size]="16" trigger="manual" />
-        {{ 'editor.coreografiar.boton' | transloco }}
-        <span class="flecha-cta" aria-hidden="true">→</span>
-      </button>
-      <p class="pista-nodo" [innerHTML]="'editor.coreografiar.nota' | transloco"></p>
-    </div>
   </aside>
 </div>

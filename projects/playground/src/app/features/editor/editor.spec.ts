@@ -75,7 +75,7 @@ describe('Editor', () => {
     const { fixture, html } = await montar();
 
     // El bloque de JSON solo pinta su contenido abierto; es el último de los dos plegables.
-    const cabeceras = html.querySelectorAll<HTMLButtonElement>('.bloque-cab');
+    const cabeceras = html.querySelectorAll<HTMLButtonElement>('.bloque-toggle');
     cabeceras[cabeceras.length - 1].click();
     await fixture.whenStable();
 
@@ -400,7 +400,7 @@ describe('Editor', () => {
     expect(html.querySelector('.bloque pre.json')).toBeNull();
     expect(html.querySelector('.salida code')).not.toBeNull();
 
-    html.querySelectorAll<HTMLButtonElement>('.bloque .bloque-cab')[1].click();
+    html.querySelectorAll<HTMLButtonElement>('.bloque .bloque-toggle')[1].click();
     await fixture.whenStable();
     expect(html.querySelector('.bloque pre.json')!.textContent).toContain('"shapes"');
   });
