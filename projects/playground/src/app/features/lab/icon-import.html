@@ -1,6 +1,8 @@
 <section class="import" [class.abierto]="abierto()">
-  <button type="button" class="import-toggle" (click)="alternar()">
-    {{ abierto() ? '▾' : '▸' }} {{ 'lab.iconImport.toggle' | transloco }}
+  <button type="button" class="import-toggle" [attr.aria-expanded]="abierto()" (click)="alternar()">
+    <gf-icon [iconDef]="iconoImportar" [size]="15" trigger="manual" />
+    {{ 'lab.iconImport.toggle' | transloco }}
+    <span class="flecha" aria-hidden="true">{{ abierto() ? '▾' : '▸' }}</span>
   </button>
 
   @if (abierto()) {

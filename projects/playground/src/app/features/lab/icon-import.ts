@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { AnimatedIconDef, GfIconComponent, bellIcon } from 'glyphflow';
+import { AnimatedIconDef, GfIconComponent, bellIcon, uploadIcon } from 'glyphflow';
 import { Taller } from '../../core/taller';
 import { Boton } from '../../shared/ui/boton';
 
@@ -76,6 +76,9 @@ export function analizarImportacion(crudo: string): ResultadoImportacion {
 export class IconImport {
   protected readonly entrada = signal('');
   protected readonly abierto = signal(false);
+  /** El icono del toggle: hace el disclosure reconocible como "traer algo de afuera" de un
+      vistazo, sin subirlo a CTA principal -- sigue siendo texto + flecha por dentro. */
+  protected readonly iconoImportar = uploadIcon;
   /** De dónde vino lo que está cargado, cuando no lo pegó el usuario. */
   protected readonly desdeEditor = signal<string | null>(null);
 

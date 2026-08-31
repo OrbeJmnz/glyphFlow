@@ -33,11 +33,34 @@
   display: grid;
   grid-template-columns: minmax(14rem, 1fr) minmax(18rem, 1.3fr);
   gap: 1.5rem;
+  align-items: start;
+}
+
+/*
+ * La biblioteca se queda a la vista mientras la secuencia crece al lado -- mismo patrón que
+ * `.taller` en el Path editor. Su propia rejilla de resultados ya tiene `max-height` (ver
+ * `.resultados`), así que nunca puede ser más alta que la pantalla y el sticky no se queda
+ * "colgando" sin margen para asentarse.
+ */
+.col-buscar {
+  position: sticky;
+  top: calc(var(--gf-header-h, 60px) + var(--gf-header-hueco, 1rem));
 }
 
 @media (max-width: 52rem) {
+  /*
+   * Se perdió por accidente al meter el sticky de arriba: sin esto, `.cuerpo` se quedaba en 2
+   * columnas hasta en mobile y `.col-secuencia` se salía del viewport -- confirmado con un barrido
+   * real de anchos, no a ojo (390px daba overflow horizontal de verdad).
+   */
   .cuerpo {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 52rem), (max-height: 700px), (prefers-reduced-motion: reduce) {
+  .col-buscar {
+    position: static;
   }
 }
 
@@ -97,11 +120,16 @@
   transform: scale(0.92);
 }
 
-.vacio,
 .vacio-lienzo {
   margin: 0;
   color: var(--gf-texto-apagado);
   font-size: 0.75rem;
+}
+
+/* `app-sin-resultados` ocupa todo el ancho del panel de resultados, no solo el mínimo que le pide
+   su propio contenido -- si no, se ve descentrado dentro de `.resultados`. */
+.resultados .vacio {
+  width: 100%;
 }
 
 .lienzo {
@@ -119,119 +147,180 @@
 .cadena {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 0 0 0.6rem;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0 0 0.5rem;
   padding: 0;
   list-style: none;
-  counter-reset: paso;
 }
 
-.cadena li {
+/* Solo dirección: tenue a propósito, para que nunca compita con la forma del paso siguiente. */
+.cadena li.flecha {
+  color: var(--gf-texto-apagado);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.cadena li.paso {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.3rem 0.3rem 0.45rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.4rem;
-  background: var(--gf-panel);
-  color: var(--gf-texto-medio);
 }
 
-.cadena li.activo {
-  border-color: var(--gf-acento);
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto);
+/*
+ * El botón circular es el paso. `--dim` centraliza el tamaño (44px desktop, sube en táctil) para
+ * que el badge de quitar y la marca de fundido, que se posicionan en fracciones de este mismo
+ * valor, no se puedan desincronizar del tamaño real del círculo.
+ */
+.paso {
+  --dim: 44px;
 }
 
-/* Distinto de `.activo` (posición de reproducción): esto marca el tramo que el scrubber tiene
-   abierto — pueden darse los dos a la vez y hay que distinguirlos. */
-.cadena li.tramo-activo {
-  border-color: var(--gf-borde-vivo);
+@media (pointer: coarse) {
+  .paso {
+    --dim: 52px;
+  }
 }
 
-.cadena li .miniatura {
+.paso .glifo {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--dim);
+  height: var(--dim);
   padding: 0;
-  border: none;
-  background: transparent;
-  color: inherit;
+  border: 1.5px solid var(--gf-borde);
+  border-radius: 999px;
+  background: var(--gf-panel);
+  color: var(--gf-texto-medio);
   cursor: pointer;
-  border-radius: 0.3rem;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
-.cadena li .miniatura[aria-pressed='true'] {
+/* El primer paso no tiene tramo que scrubbear -- sigue siendo un botón real (Tab debe alcanzarlo
+   y el tooltip debe poder abrirse con foco), pero sin cursor de "esto hace algo al pulsar". */
+.paso:first-child .glifo {
+  cursor: default;
+}
+
+.paso .glifo:hover {
+  border-color: var(--gf-marca-3-texto);
+}
+
+.paso .glifo[aria-pressed='true'] {
   outline: 1.5px solid var(--gf-borde-vivo);
   outline-offset: 2px;
 }
 
-.cadena li button {
-  border: none;
-  background: transparent;
-  color: var(--gf-texto-apagado);
-  cursor: pointer;
-  font-size: 0.625rem;
-  padding: 0 0.15rem;
+/* La posición que se está reproduciendo AHORA MISMO -- degradado de marca, no un acento plano,
+   para que "esto es lo que se está viendo" se lea distinto de cualquier otro estado (hover,
+   fundido, tramo abierto), que son todos de un solo color. */
+.paso.activo .glifo {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--gf-panel), var(--gf-panel)) padding-box,
+    var(--gf-degradado) border-box;
 }
 
-.cadena li button:hover {
-  color: var(--gf-rojo);
+/* Distinto de `.activo` (posición de reproducción): esto marca el tramo que el scrubber tiene
+   abierto -- pueden darse los dos a la vez y hay que distinguirlos. */
+.paso.tramo-activo .glifo {
+  border-color: var(--gf-borde-vivo);
+}
+
+/* Fundido: borde ámbar PERSISTENTE en el propio botón, no solo un badge flotante -- así se ve
+   sin acercarse. El interior se queda neutral (el pedido es explícito: no rellenar la ficha). */
+.paso.fundido .glifo {
+  border-color: var(--gf-ambar-tenue);
 }
 
 /*
- * El nombre dentro de la ficha de la cadena. Sustituye al renglón de pares que iba debajo —
- * decía lo mismo dos veces— y al tooltip, que colgaba de un icono sin foco y por tanto solo
- * existía para el ratón.
+ * Segunda señal, no depende solo del borde: un punto ámbar en la esquina. Position absolute sobre
+ * `.paso` (no `.glifo`) para no interferir con el `border-radius` del círculo ni con su área de
+ * click.
  */
-.cadena li .nombre {
-  font-size: 0.6875rem;
-  letter-spacing: 0.01em;
+.marca-fundido {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gf-ambar-tenue);
+  border: 1.5px solid var(--gf-panel);
+  pointer-events: none;
 }
 
-/* Mismo ámbar que `.expectativa`: es la misma señal ("el fallback se activó aquí"), a otra escala. */
-.fundido-marca {
-  padding: 0.05rem 0.35rem;
-  border-radius: 0.75rem;
-  background: var(--gf-ambar-fondo);
-  color: var(--gf-ambar-tenue);
-  font-size: 0.625rem;
-  letter-spacing: 0.01em;
+/*
+ * El badge de quitar. Flotante y no una tercera celda de la ficha: en reposo, la forma del icono
+ * es lo único que se ve. Aparece al acercarse Y siempre con foco de teclado -- mismo criterio que
+ * el botón de copiar de `bloque-codigo.css` (un control que solo existe con hover no existe para
+ * quien navega con Tab). En táctil, sin hover posible, se queda visible.
+ */
+.paso .quitar {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
+  color: var(--gf-texto-tenue);
+  font-size: 0.55rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.paso:hover .quitar,
+.paso:focus-within .quitar {
+  opacity: 1;
+}
+
+.paso .quitar:hover {
+  color: var(--gf-rojo);
+  background: var(--gf-panel);
+}
+
+@media (hover: none) {
+  .paso .quitar {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paso .glifo,
+  .paso .quitar {
+    transition: none;
+  }
+}
+
+/* La leyenda va UNA vez aquí, corta -- el callout largo del hero (`.expectativa`) ya explica el
+   porqué; esto solo recuerda qué significa el ámbar mientras se mira la cadena. */
+.leyenda-fundido {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  color: var(--gf-texto-tenue);
+  font-size: 0.7rem;
+}
+
+.leyenda-fundido .marca-fundido {
+  position: static;
+  flex: none;
+  border-color: transparent;
 }
 
 .acciones {
   display: flex;
   gap: 0.5rem;
-}
-
-.acciones button {
-  padding: 0.4rem 0.85rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 0.5rem;
-  background: var(--gf-panel-alto);
-  color: var(--gf-texto-medio);
-  font: inherit;
-  font-size: 0.8125rem;
-  cursor: pointer;
-}
-
-.acciones button:hover:not(:disabled) {
-  color: var(--gf-texto);
-  border-color: var(--gf-borde-vivo);
-}
-
-.acciones .primario {
-  background: var(--gf-texto);
-  border-color: var(--gf-texto);
-  color: var(--gf-fondo);
-  font-weight: 500;
-}
-
-.acciones .primario:hover:not(:disabled) {
-  background: var(--gf-invertido-fondo);
-}
-
-.acciones button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }

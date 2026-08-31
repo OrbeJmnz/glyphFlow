@@ -21,19 +21,35 @@
   line-height: 1.6;
 }
 
-.pares,
-.controles {
+.pares {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.5rem;
-}
-
-.pares {
   margin-bottom: 0.75rem;
 }
 
+/* Cuatro grupos apilados, cada uno su propia fila -- antes era una sola fila con `.separador`
+   (una raya vertical) partiendo playback/compare/resolution, que es la "nube sin jerarquía" que
+   se quería resolver. `app-grupo` ya trae su propio `.ui-grupo` (fondo + padding), así que aquí
+   solo hace falta el espacio entre grupos. */
 .controles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
+}
+
+/*
+ * `app-grupo` trae su propio fondo en píldora (`.ui-grupo`, pensado para carriles chicos como la
+ * velocidad del header) -- aquí adentro va un botón grande de acción de verdad ("Play all 4"), así
+ * que el padding/gap por defecto se queda corto. Se sube SOLO en este contexto, sin tocar el
+ * componente ni su CSS global.
+ */
+.controles app-grupo {
+  gap: 6px;
+  padding: 6px;
 }
 
 button button.primario:hover {
@@ -41,8 +57,14 @@ button button.primario:hover {
   color: var(--gf-fondo);
 }
 
+/*
+ * `flex-wrap` -- sin esto, el texto + los dos `<gf-icon-morph>` + el botón "siguiente" se quedaban
+ * en una sola fila sin importar el ancho, y por debajo de ~600px el botón se salía del viewport
+ * (confirmado con un barrido real de anchos, no a ojo: 390px daba overflow horizontal de verdad).
+ */
 .envoltorio {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem;
   margin: 0 0 1.25rem;
@@ -54,6 +76,7 @@ button button.primario:hover {
 
 .envoltorio-txt {
   flex: 1;
+  min-width: 14rem;
 }
 
 .envoltorio h3 {
@@ -107,19 +130,27 @@ button button.primario:hover {
   color: var(--gf-texto-medio);
 }
 
-/* La variante que ganó el benchmark queda marcada en el arnés: la decisión se lee donde se tomó. */
+/*
+ * La variante que ganó el benchmark queda marcada en el arnés: la decisión se lee donde se tomó.
+ * Antes era un borde neutro (`--gf-borde-vivo`) -- el mismo tono que ya usa `.tramo-activo` en la
+ * secuencia libre para "esto está abierto", sin decir "esto es la recomendación". Un tinte
+ * violeta (no el degradado completo -- `color-mix()` mezcla colores, no gradientes, y el
+ * degradado pleno se reserva para "esto se está reproduciendo ahora" en la secuencia) deja la
+ * tarjeta reconocible sin gritar.
+ */
 .variante.elegida {
-  border-color: var(--gf-borde-vivo);
+  border-color: color-mix(in srgb, var(--gf-marca-3-texto) 45%, var(--gf-borde-suave));
+  background: color-mix(in srgb, var(--gf-marca-3-texto) 4%, var(--gf-panel));
 }
 
 .etiqueta {
   margin-left: 0.4rem;
   padding: 0.05rem 0.4rem;
   border-radius: 0.35rem;
-  background: var(--gf-acento-panel);
-  color: var(--gf-texto-medio);
+  background: color-mix(in srgb, var(--gf-marca-3-texto) 15%, transparent);
+  color: var(--gf-marca-3-texto);
   font-size: 0.625rem;
-  font-weight: 400;
+  font-weight: 500;
   vertical-align: middle;
 }
 
@@ -161,13 +192,6 @@ button button.primario:hover {
   }
 }
 
-.separador {
-  width: 1px;
-  align-self: stretch;
-  margin: 0 0.35rem;
-  background: var(--gf-borde);
-}
-
 .aviso {
   margin: 1rem 0 0;
   padding: 0.6rem 0.85rem;
@@ -187,7 +211,6 @@ button button.primario:hover {
   display: flex;
   gap: 0.75rem;
   margin: 0;
-  font-size: 0.6875rem;
   color: var(--gf-texto-apagado);
 }
 
@@ -201,8 +224,58 @@ button button.primario:hover {
 
 .datos dd {
   margin: 0;
-  color: var(--gf-texto-medio);
   font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Dos niveles, no cinco datos con el mismo peso: keyframes/weight son lo que de verdad se compara
+ * (cuánto le cuesta al navegador), así que suben de tamaño y de color -- el resto sigue siendo
+ * contexto legible, pero deja de competir por atención con el número que importa.
+ */
+.datos-primarias {
+  font-size: 0.8125rem;
+}
+
+.datos-primarias dt {
+  color: var(--gf-texto-tenue);
+}
+
+.datos-primarias dd {
+  color: var(--gf-texto);
+  font-weight: 500;
+}
+
+.datos-secundarias {
+  font-size: 0.6875rem;
+}
+
+.datos-secundarias dd {
+  color: var(--gf-texto-medio);
+}
+
+/*
+ * La barra compara contra el máximo del SET VISIBLE (`costoMaximo`), calculado en el propio
+ * template a partir de `tabla()` -- sin chart, sin librería, un solo `<div>` con su ancho.
+ */
+.costo-barra {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--gf-borde-suave);
+  overflow: hidden;
+}
+
+.costo-barra-relleno {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gf-texto-apagado);
+  transition: width 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .costo-barra-relleno {
+    transition: none;
+  }
 }
 
 /* Nota corta bajo los chips del envoltorio: por qué vale la pena tocarlos. */
@@ -213,8 +286,11 @@ button button.primario:hover {
   color: var(--gf-texto-tenue);
 }
 
+/* Mismo `flex-wrap` que `.envoltorio` y por la misma razón: sin él, esta fila también se salía
+   del viewport en mobile. */
 .comparacion {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem;
   margin: 0 0 1.25rem;
@@ -226,6 +302,7 @@ button button.primario:hover {
 
 .comparacion-txt {
   flex: 1;
+  min-width: 14rem;
 }
 
 .comparacion-txt h3 {
@@ -256,5 +333,19 @@ button button.primario:hover {
 
 .comparacion-par span {
   font-size: 0.6875rem;
-  color: var(--gf-texto-apagado);
+  font-weight: 500;
+}
+
+/*
+ * Sin esto, "baked (WAAPI)" y "live (rAF)" eran el mismo gris con distinto texto -- dos iconos
+ * idénticos sin ninguna señal de que son dos motores. Cian/violeta es la misma convención ya usada
+ * en el editor y en los badges de "motor" de Ejemplos: cian para lo horneado/core, violeta para lo
+ * vivo/alterno.
+ */
+.comparacion-par .es-horneado {
+  color: var(--gf-marca-1-texto);
+}
+
+.comparacion-par .es-vivo {
+  color: var(--gf-marca-3-texto);
 }

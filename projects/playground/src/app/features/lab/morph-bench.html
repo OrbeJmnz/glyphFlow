@@ -3,7 +3,8 @@
     <h2>{{ 'lab.morphBench.titulo' | transloco }}</h2>
     <p>{{ 'lab.morphBench.intro' | transloco }}</p>
 
-    <nav class="pares">
+    <nav class="pares" [attr.aria-label]="'lab.morphBench.paresEtiqueta' | transloco">
+      <span class="grupo-tit">{{ 'lab.morphBench.paresEtiqueta' | transloco }}</span>
       @for (par of pares; track par.id) {
         <button
           type="button"
@@ -17,72 +18,75 @@
       }
     </nav>
 
+    <!--
+      Cuatro grupos con su propio rótulo en vez de una sola fila con líneas verticales de separador:
+      Play all/Loop/Reset son ACCIONES sobre la reproducción; los otros dos son EJES de comparación
+      mutuamente excluyentes, así que pasan a segmented control real (`app-grupo[rol=radiogroup]` +
+      `appCarrilActivo`, mismo patrón que ya usa el panel de detalle del catálogo).
+    -->
     <div class="controles">
-      <button type="button" app-boton variante="primario" (click)="reproducirTodas()">
-        {{ 'lab.morphBench.controles.reproducirTodas' | transloco }}
-      </button>
-      <button
-        type="button"
-        app-chip
-        variante="contorno"
-        [activo]="loop()"
-        [attr.aria-pressed]="loop()"
-        (click)="alternarLoop()"
-      >
-        {{ 'lab.morphBench.controles.loop' | transloco }}
-      </button>
-      <button type="button" app-chip variante="contorno" (click)="cancelar()">
-        {{ 'lab.morphBench.controles.reset' | transloco }}
-      </button>
-      <span class="separador"></span>
-      <button
-        type="button"
-        app-chip
-        variante="contorno"
-        [activo]="modo() === 'pasos'"
-        (click)="elegirModo('pasos')"
-      >
-        {{ 'lab.morphBench.controles.modoPasos' | transloco }}
-      </button>
-      <button
-        type="button"
-        app-chip
-        variante="contorno"
-        [activo]="modo() === 'cola'"
-        (click)="elegirModo('cola')"
-      >
-        {{ 'lab.morphBench.controles.modoCola' | transloco }}
-      </button>
-      <button
-        type="button"
-        app-chip
-        variante="contorno"
-        [activo]="modo() === 'vuelta'"
-        (click)="elegirModo('vuelta')"
-      >
-        {{ 'lab.morphBench.controles.modoVuelta' | transloco }}
-      </button>
-      <button
-        type="button"
-        app-chip
-        variante="contorno"
-        [activo]="modo() === 'sobrepaso'"
-        (click)="elegirModo('sobrepaso')"
-      >
-        {{ 'lab.morphBench.controles.modoSobrepaso' | transloco }}
-      </button>
-      <span class="separador"></span>
-      @for (r of resoluciones; track r) {
+      <app-grupo [titulo]="'lab.morphBench.controles.grupoPlayback' | transloco">
+        <button type="button" app-boton variante="primario" (click)="reproducirTodas()">
+          {{ 'lab.morphBench.controles.reproducirTodas' | transloco }}
+        </button>
         <button
           type="button"
           app-chip
           variante="contorno"
-          [activo]="resolucion() === r"
-          (click)="elegirResolucion(r)"
+          [activo]="loop()"
+          [attr.aria-pressed]="loop()"
+          (click)="alternarLoop()"
         >
-          {{ 'lab.morphBench.controles.resolucion' | transloco }} {{ r }}
+          {{ 'lab.morphBench.controles.loop' | transloco }}
         </button>
-      }
+        <button type="button" app-chip variante="contorno" (click)="cancelar()">
+          {{ 'lab.morphBench.controles.reset' | transloco }}
+        </button>
+      </app-grupo>
+
+      <app-grupo
+        rol="radiogroup"
+        appCarrilActivo
+        [titulo]="'lab.morphBench.controles.grupoCompare' | transloco"
+      >
+        @for (m of modos; track m.valor) {
+          <button
+            type="button"
+            app-chip
+            variante="contorno"
+            role="radio"
+            [activo]="modo() === m.valor"
+            [attr.aria-checked]="modo() === m.valor"
+            [attr.tabindex]="modo() === m.valor ? 0 : -1"
+            (click)="elegirModo(m.valor)"
+            (keydown)="teclaModo($event)"
+          >
+            {{ m.etiqueta | transloco }}
+          </button>
+        }
+      </app-grupo>
+
+      <app-grupo
+        rol="radiogroup"
+        appCarrilActivo
+        [titulo]="'lab.morphBench.controles.grupoResolution' | transloco"
+      >
+        @for (r of resoluciones; track r) {
+          <button
+            type="button"
+            app-chip
+            variante="contorno"
+            role="radio"
+            [activo]="resolucion() === r"
+            [attr.aria-checked]="resolucion() === r"
+            [attr.tabindex]="resolucion() === r ? 0 : -1"
+            (click)="elegirResolucion(r)"
+            (keydown)="teclaResolucion($event)"
+          >
+            {{ 'lab.morphBench.controles.resolucion' | transloco }} {{ r }}
+          </button>
+        }
+      </app-grupo>
     </div>
 
     <!--
@@ -107,25 +111,28 @@
     <div class="envoltorio-txt">
       <h3>&lt;gf-icon-morph&gt;</h3>
       <p [innerHTML]="'lab.morphBench.envoltorio.descripcion' | transloco"></p>
-      <div
-        class="grupo"
-        role="group"
-        [attr.aria-label]="'lab.morphBench.envoltorio.resorteAria' | transloco"
+      <app-grupo
+        rol="radiogroup"
+        appCarrilActivo
+        [etiqueta]="'lab.morphBench.envoltorio.resorteAria' | transloco"
+        [titulo]="'lab.morphBench.envoltorio.resorteTit' | transloco"
       >
-        <span class="grupo-tit">{{ 'lab.morphBench.envoltorio.resorteTit' | transloco }}</span>
         @for (r of resortes; track r) {
           <button
             type="button"
             app-chip
             variante="contorno"
-            [class.activo]="resorte() === r"
-            [attr.aria-pressed]="resorte() === r"
+            role="radio"
+            [activo]="resorte() === r"
+            [attr.aria-checked]="resorte() === r"
+            [attr.tabindex]="resorte() === r ? 0 : -1"
             (click)="resorte.set(r)"
+            (keydown)="teclaResorte($event)"
           >
             {{ r }}
           </button>
         }
-      </div>
+      </app-grupo>
       <p class="aviso-chico" [innerHTML]="'lab.morphBench.envoltorio.avisoChico' | transloco"></p>
     </div>
     <!-- Los dos modos de accesibilidad, lado a lado: con label es semántico; sin label, decorativo. -->
@@ -153,7 +160,7 @@
         [size]="72"
         [label]="'lab.morphBench.comparacion.horneadoLabel' | transloco"
       />
-      <span>{{ 'lab.morphBench.comparacion.horneado' | transloco }}</span>
+      <span class="es-horneado">{{ 'lab.morphBench.comparacion.horneado' | transloco }}</span>
     </div>
     <div class="comparacion-par">
       <gf-icon-morph
@@ -163,7 +170,7 @@
         [size]="72"
         [label]="'lab.morphBench.comparacion.vivoLabel' | transloco"
       />
-      <span>{{ 'lab.morphBench.comparacion.vivo' | transloco }}</span>
+      <span class="es-vivo">{{ 'lab.morphBench.comparacion.vivo' | transloco }}</span>
     </div>
   </div>
 
@@ -207,7 +214,13 @@
           }
           <path class="pose-final" [attr.d]="dFinal(m.id)" />
         </svg>
-        <dl class="datos">
+        <!--
+          Dos niveles, no cinco datos igual de fuertes: keyframes/weight son lo que de verdad se
+          está pesando al comparar (cuánto le cuesta al navegador en runtime); duration/last leg/
+          deviation son contexto que explica el PORQUÉ del número de arriba, no otro número que
+          competir por atención.
+        -->
+        <dl class="datos datos-primarias">
           <div>
             <dt>{{ 'lab.morphBench.tabla.keyframes' | transloco }}</dt>
             <dd>{{ m.keyframes }}</dd>
@@ -216,6 +229,22 @@
             <dt>{{ 'lab.morphBench.tabla.peso' | transloco }}</dt>
             <dd>{{ (m.bytes / 1024).toFixed(1) }} KB</dd>
           </div>
+        </dl>
+        <!--
+          La barra compara contra el MÁXIMO del set visible (`costoMaximo`), no un techo fijo: lo
+          que importa al comparar es "cuánto más pesa esto que la más liviana de las 4 que tengo
+          enfrente", no un porcentaje contra un número arbitrario.
+        -->
+        <div
+          class="costo-barra"
+          role="img"
+          [attr.aria-label]="
+            'lab.morphBench.tabla.costoAria' | transloco: { pct: costoPct(m) }
+          "
+        >
+          <div class="costo-barra-relleno" [style.width.%]="costoPct(m)"></div>
+        </div>
+        <dl class="datos datos-secundarias">
           <div>
             <dt>{{ 'lab.morphBench.tabla.duracion' | transloco }}</dt>
             <dd>{{ m.duracion }} ms</dd>
@@ -229,7 +258,17 @@
             <dd>{{ m.desviacion.toFixed(3) }}</dd>
           </div>
         </dl>
-        <button type="button" app-boton variante="fantasma" compacto (click)="reproducir(m)">
+        <button
+          type="button"
+          app-boton
+          variante="fantasma"
+          compacto
+          [attr.aria-label]="
+            'lab.morphBench.reproducirSoloAria'
+              | transloco: { titulo: 'lab.morphBench.variantes.' + m.id + '.titulo' | transloco }
+          "
+          (click)="reproducir(m)"
+        >
           {{ 'lab.morphBench.reproducirSolo' | transloco }}
         </button>
       </article>
