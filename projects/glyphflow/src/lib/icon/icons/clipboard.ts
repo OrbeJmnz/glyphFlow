@@ -21,6 +21,20 @@ const PASTE_NUDGE = /* @__PURE__ */ [
   { transform: 'translate(0, 0)' },
 ];
 
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const clipboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 8, height: 4, x: 8, y: 2, rx: 1, ry: 1 },
@@ -31,6 +45,12 @@ export const clipboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', strokeDasharray: '0 1', easing: T5_EASE }, { transform: 'translateY(-2px)', strokeDasharray: '1 1', easing: T5_EASE }, { transform: 'translateY(0px)', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)', strokeDasharray: '0 1', easing: T5_EASE }, { transform: 'translateY(-2px)', strokeDasharray: '1 1', easing: T5_EASE }, { transform: 'translateY(0px)', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE, delay: 200, fill: 'backwards' }),
       },
     },
   },

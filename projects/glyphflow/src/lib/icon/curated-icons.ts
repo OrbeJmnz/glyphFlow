@@ -816,6 +816,20 @@ const REVEAL_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';
  */
 const T4_EASE = 'ease-in-out';
 
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
     default: {
       shapes: {
@@ -875,6 +889,14 @@ export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes
       },
       reverseOnLeave: true,
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T5_EASE }, { transform: 'scale(1.02)', easing: T5_EASE }, { transform: 'scale(1)' }], 600, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: '0.4', strokeDasharray: '0 1', easing: T5_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 600, { easing: T5_EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(-2px) scale(1)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(2px) scale(1.05)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 600, { easing: 'linear', delay: 50, fill: 'backwards', origin: '12px 12.5px' }),
+        1: /* @__PURE__ */ track([{ opacity: '0.3', strokeDasharray: '0 1', easing: T5_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 600, { easing: T5_EASE, delay: 100, fill: 'backwards' }),
+      },
+    },
   });
 /** Parpadeo. Aplastar en Y con el origen al centro lee como párpado. */
 export const eyeIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeShapes, {
@@ -885,6 +907,12 @@ export const eyeIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeShapes, {
         { origin: 'center' },
       ),
     },
+    idle: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T5_EASE }, { transform: 'scaleY(1)', offset: 0.55, easing: T5_EASE }, { transform: 'scaleY(0.1)', offset: 0.66, easing: T5_EASE }, { transform: 'scaleY(1)', offset: 0.78, easing: T5_EASE }, { transform: 'scaleY(1)', offset: 1 }], 1600, { easing: 'linear', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-2px)', offset: 0, easing: T5_EASE }, { transform: 'translateX(2px)', offset: 0.25, easing: T5_EASE }, { transform: 'translateX(-1px)', offset: 0.5, easing: T5_EASE }, { transform: 'translateX(1px)', offset: 0.75, easing: T5_EASE }, { transform: 'translateX(0px)', offset: 1 }], 1600, { easing: T5_EASE }),
+      },
+    },
   });
 
 /** Ocultar: se tacha. Solo la diagonal se dibuja, el ojo ya estaba ahí. */
@@ -892,6 +920,15 @@ export const eyeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeOffShapes, {
     default: { shapes: { 3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420) } },
     alert: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.92)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 500, { easing: 'linear', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.92)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 500, { easing: 'linear', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.92)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 500, { easing: 'linear', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 500, { easing: T5_EASE, delay: 150, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.6' }, { strokeDasharray: '1 1', opacity: '1' }], 350, { easing: T5_EASE, delay: 150, fill: 'backwards' }),
+      },
     },
   });
 
@@ -991,6 +1028,15 @@ export const infoIcon: AnimatedIconDef = /* @__PURE__ */ icon(infoShapes, {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 260 }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 360 }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) scale(1)', easing: T5_EASE }, { transform: 'rotate(-2deg) scale(1.08)', easing: T5_EASE }, { transform: 'rotate(2deg) scale(0.95)', easing: T5_EASE }, { transform: 'rotate(0deg) scale(1)' }], 700, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 800, { easing: T5_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.6' }, { strokeDasharray: '1 1', opacity: '1' }], 800, { easing: T5_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: T5_EASE }, { transform: 'scale(1.3)', opacity: '0.5', easing: T5_EASE }, { transform: 'scale(0.8)', opacity: '1', easing: T5_EASE }, { transform: 'scale(1)', opacity: '1' }], 500, { easing: 'linear', origin: '12px 14px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: T5_EASE }, { transform: 'scale(1.3)', opacity: '0.5', easing: T5_EASE }, { transform: 'scale(0.8)', opacity: '1', easing: T5_EASE }, { transform: 'scale(1)', opacity: '1' }], 500, { easing: 'linear', origin: '12px 8px' }),
       },
     },
   });
@@ -1829,6 +1875,24 @@ export const cpuIcon: AnimatedIconDef = /* @__PURE__ */ icon(cpuShapes, {
         13: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.4' }, { opacity: '1' }], 700, { delay: 150 }),
       },
     },
+    reveal: {
+      shapes: {
+        12: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 500, { easing: T5_DECEL }),
+        13: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.2)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 380, { easing: 'linear', delay: 450, fill: 'backwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 400, fill: 'backwards', origin: '12px 3px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 430, fill: 'backwards', origin: '17px 3px' }),
+        11: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 460, fill: 'backwards', origin: '7px 3px' }),
+        9: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 490, fill: 'backwards', origin: '21px 7px' }),
+        7: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 520, fill: 'backwards', origin: '21px 12px' }),
+        8: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 550, fill: 'backwards', origin: '21px 17px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 580, fill: 'backwards', origin: '17px 21px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 610, fill: 'backwards', origin: '12px 21px' }),
+        10: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 640, fill: 'backwards', origin: '7px 21px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 670, fill: 'backwards', origin: '3px 17px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 700, fill: 'backwards', origin: '3px 12px' }),
+        6: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.15)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 300, { easing: 'linear', delay: 730, fill: 'backwards', origin: '3px 7px' }),
+      },
+    },
   });
 
 /** Pasar la tarjeta. */
@@ -2134,6 +2198,20 @@ export const qrCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(qrCodeShapes, {
         5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 300 }),
         6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 340 }),
         7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 380 }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: 'ease-out' }, { transform: 'scale(1.04)', easing: 'ease-out' }, { transform: 'scale(1)' }], 350, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '19px 19px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '21px 21px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '9.5px 9.5px' }),
+        6: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '3px 12px' }),
+        7: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '12px 3px' }),
+        8: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '12px 16px' }),
+        9: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '16.5px 12px' }),
+        10: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '21px 12px' }),
+        11: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '12px 20.5px' }),
       },
     },
   });
@@ -2557,6 +2635,17 @@ export const webhookIcon: AnimatedIconDef = /* @__PURE__ */ icon(webhookShapes, 
         easing: 'linear',
         origin: 'center',
       }),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T5_EASE }, { transform: 'scale(0.96)', offset: 0.2, easing: T5_EASE }, { transform: 'scale(1.04)', offset: 0.5, easing: T5_EASE }, { transform: 'scale(1)', offset: 1 }], 900, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T5_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T5_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T5_EASE }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.5', offset: 0 }, { strokeDasharray: '0.45 1', opacity: '0.9', offset: 0.55 }, { strokeDasharray: '1 1', opacity: '1', offset: 1 }], 900, { easing: T5_EASE }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.5', offset: 0 }, { strokeDasharray: '0.45 1', opacity: '0.9', offset: 0.55 }, { strokeDasharray: '1 1', opacity: '1', offset: 1 }], 900, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.5', offset: 0 }, { strokeDasharray: '0.45 1', opacity: '0.9', offset: 0.55 }, { strokeDasharray: '1 1', opacity: '1', offset: 1 }], 900, { easing: T5_EASE, delay: 240, fill: 'backwards' }),
+      },
     },
   });
 
@@ -3145,6 +3234,12 @@ export const checkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '0.5', strokeDasharray: '0 1', offset: 0, easing: T5_EASE }, { transform: 'scale(1.2)', opacity: '1', strokeDasharray: '0.6 1', offset: 0.5, easing: T5_EASE }, { transform: 'scale(1)', opacity: '1', strokeDasharray: '1 1', offset: 1 }], 700, { easing: 'linear', origin: '10px 11.5px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 500, { easing: T5_EASE, delay: 350, fill: 'backwards' }),
       },
     },
   },
@@ -8640,10 +8735,25 @@ export const repeatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M3 11v-1a4 4 0 0 1 4-4h14" },
     { tag: 'path', d: "m7 22-4-4 4-4" },
     { tag: 'path', d: "M21 13v1a4 4 0 0 1-4 4H3" },
+
+    // Guía del relleno: copia tenue de lo que se está trazando. Nace invisible, así
+    // que el icono quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: "M3 11v-1a4 4 0 0 1 4-4h14", opacity: '0' },
+    { tag: 'path', d: "M21 13v1a4 4 0 0 1-4 4H3", opacity: '0' },
   ],
   {
     default: {
       root: /* @__PURE__ */ track(SWAP_DRAG, 760, { easing: EASE, origin: '50% 50%' }),
+    },
+    nudge: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T5_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T5_EASE, delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: T5_EASE }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.4' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: T5_EASE, delay: 300, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T5_EASE }, { transform: 'scale(1)', offset: 0.4, easing: T5_EASE }, { transform: 'scale(1.3)', offset: 0.52, easing: T5_EASE }, { transform: 'scale(1)', offset: 1 }], 1200, { easing: 'linear', origin: '19px 6px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T5_EASE }, { transform: 'scale(1)', offset: 0.4, easing: T5_EASE }, { transform: 'scale(1.3)', offset: 0.52, easing: T5_EASE }, { transform: 'scale(1)', offset: 1 }], 1200, { easing: 'linear', delay: 300, fill: 'backwards', origin: '5px 18px' }),
+      },
     },
   },
 );
@@ -9856,6 +9966,12 @@ export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(PUNTA_SHUFFLE_CORTA, 380, { delay: 300 }),
       },
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(1.8px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(1.8px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -9888,6 +10004,13 @@ export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 480),
         0: /* @__PURE__ */ track(PUNTA_REPLY_ALL, 480),
         2: /* @__PURE__ */ track(PUNTA_REPLY_ALL, 480),
+      },
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(-3px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 600, { easing: T5_EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(-1.5px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 600, { easing: T5_EASE, delay: 50, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
       },
     },
   },
@@ -10495,6 +10618,19 @@ export const slidersHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         ], 520, { delay: 180 }),
       },
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        1: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        6: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        8: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(3px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(-3px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE, delay: 50, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(3px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE, delay: 100, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -10630,6 +10766,13 @@ export const italicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track(INCLINA, 560, { easing: EASE }),
+    },
+    reveal: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 50, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 170, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'skewX(-10deg)', opacity: '0', strokeDasharray: '0 1', offset: 0, easing: T5_MUELLE }, { transform: 'skewX(2deg)', opacity: '1', strokeDasharray: '1 1', offset: 0.6, easing: T5_MUELLE }, { transform: 'skewX(0deg)', opacity: '1', strokeDasharray: '1 1', offset: 1 }], 550, { easing: 'linear', delay: 290, fill: 'backwards', origin: '12px 12px' }),
+      },
     },
   },
 );
@@ -12733,6 +12876,13 @@ export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'scaleX(1)', easing: 'ease-out' }, { transform: 'scaleX(0.75)', easing: 'ease-out' }, { transform: 'scaleX(1)' }], 280, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '0.6', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 320, { easing: T5_EASE }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '0.6', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 320, { easing: T5_EASE, delay: 50, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -12772,6 +12922,13 @@ export const codeXmlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 700, { easing: T5_EASE }),
+        0: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 700, { easing: T5_EASE, delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T5_EASE }, { opacity: '0.4', strokeDasharray: '0 1', easing: T5_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE }),
+      },
     },
   },
 );

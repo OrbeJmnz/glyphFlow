@@ -6,6 +6,20 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 
 // REVISAR: mapeo por posición — su geometría diverge de Lucide 1.31.
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const textAlignCenterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M21 5H3" },
@@ -205,6 +219,14 @@ export const textWrapIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out', delay: 140, fill: 'backwards' }),
         2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 19px', delay: 620, fill: 'backwards' }),
         3: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 5px' }),
+      },
+    },
+    reveal: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 50, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 170, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 290, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 410, fill: 'backwards' }),
       },
     },
   },
