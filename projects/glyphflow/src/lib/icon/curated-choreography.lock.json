@@ -2153,7 +2153,8 @@
       "path:f341b0a2c0ca"
     ],
     "chevron-down": [
-      "path:99707fdfad60"
+      "path:99707fdfad60",
+      "path:291a88941247"
     ],
     "chevron-first": [
       "path:f954f9971efa",
@@ -2164,13 +2165,16 @@
       "path:ec4b0a04ad0e"
     ],
     "chevron-left": [
-      "path:d88a2f95401a"
+      "path:d88a2f95401a",
+      "path:f52de1a6aab9"
     ],
     "chevron-right": [
-      "path:ab327348df54"
+      "path:ab327348df54",
+      "path:69440a87e9bd"
     ],
     "chevron-up": [
-      "path:535ccddfcd04"
+      "path:535ccddfcd04",
+      "path:2c7446941ce1"
     ],
     "chevrons-down": [
       "path:fb402105266e",
@@ -12233,7 +12237,7 @@
       "active": "53afeecd5837",
       "default": "2afb1f0218bd",
       "draw": "17c8398e8d34",
-      "nudge": "261e59555617"
+      "nudge": "957fd3e8b218"
     },
     "chevron-first": {
       "default": "c0950aecd2b0",
@@ -12247,19 +12251,19 @@
       "active": "2c4d9224c5be",
       "default": "2b546c0343ca",
       "draw": "17c8398e8d34",
-      "nudge": "d71242ab78ad"
+      "nudge": "ae6f977e5985"
     },
     "chevron-right": {
       "active": "f4e8bccd9def",
       "default": "f21e13323929",
       "draw": "17c8398e8d34",
-      "nudge": "0ae4a0b5b728"
+      "nudge": "7bffd68ef732"
     },
     "chevron-up": {
       "active": "5fe14824b52f",
       "default": "0b5087333a0e",
       "draw": "17c8398e8d34",
-      "nudge": "643c94adb6c8"
+      "nudge": "2674bcd02ec4"
     },
     "chevrons-down": {
       "default": "3366f97bb7cc",

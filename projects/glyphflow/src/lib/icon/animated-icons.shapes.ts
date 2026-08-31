@@ -84,7 +84,11 @@ export const calendarShapes: IconShape[] = [
     { tag: 'path', d: 'M3 9h18' },
   ];
 
-export const chevronRightShapes: IconShape[] = [{ tag: 'path', d: 'm9 18 6-6-6-6' }];
+export const chevronRightShapes: IconShape[] = [{ tag: 'path', d: 'm9 18 6-6-6-6' },
+    // Estela: el original la hace duplicando la figura. Nace invisible y se desvanece
+    // mientras se aleja, así que el icono quieto sigue siendo el de Lucide.
+    { tag: 'path', d: "m9 18 6-6-6-6", opacity: '0' },
+  ];
 
 export const arrowLeftShapes: IconShape[] = [
     { tag: 'path', d: 'm12 19-7-7 7-7' },
@@ -1411,11 +1415,23 @@ export const badgeXShapes: IconShape[] = [
     { tag: 'line', x1: 9, y1: 9, x2: 15, y2: 15 },
   ];
 
-export const chevronDownShapes: IconShape[] = [{ tag: 'path', d: 'm6 9 6 6 6-6' }];
+export const chevronDownShapes: IconShape[] = [{ tag: 'path', d: 'm6 9 6 6 6-6' },
+    // Estela: el original la hace duplicando la figura. Nace invisible y se desvanece
+    // mientras se aleja, así que el icono quieto sigue siendo el de Lucide.
+    { tag: 'path', d: "m6 9 6 6 6-6", opacity: '0' },
+  ];
 
-export const chevronLeftShapes: IconShape[] = [{ tag: 'path', d: 'm15 18-6-6 6-6' }];
+export const chevronLeftShapes: IconShape[] = [{ tag: 'path', d: 'm15 18-6-6 6-6' },
+    // Estela: el original la hace duplicando la figura. Nace invisible y se desvanece
+    // mientras se aleja, así que el icono quieto sigue siendo el de Lucide.
+    { tag: 'path', d: "m15 18-6-6 6-6", opacity: '0' },
+  ];
 
-export const chevronUpShapes: IconShape[] = [{ tag: 'path', d: 'm18 15-6-6-6 6' }];
+export const chevronUpShapes: IconShape[] = [{ tag: 'path', d: 'm18 15-6-6-6 6' },
+    // Estela: el original la hace duplicando la figura. Nace invisible y se desvanece
+    // mientras se aleja, así que el icono quieto sigue siendo el de Lucide.
+    { tag: 'path', d: "m18 15-6-6-6 6", opacity: '0' },
+  ];
 
 export const chevronsUpDownShapes: IconShape[] = [
     { tag: 'path', d: 'm7 15 5 5 5-5' },
