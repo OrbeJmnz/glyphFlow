@@ -50,6 +50,17 @@ const FIGURAS_ANEXAS: Record<string, number> = {
   // Al separarse las dos mitades, el cajón de abajo queda sin borde superior — Lucide no se lo
   // dibuja porque con la tapa puesta no se ve. Esta arista lo cierra mientras está abierto.
   archive: 1,
+  // Las seis monedas y `phone` llevan las figuras del gesto de AnimateIcons: cada moneda repasa
+  // su propio trazo con una copia que se dibuja encima, y `phone` expande un halo. Ninguna la
+  // dibuja Lucide, así que nacen con `opacity: '0'` y solo existen mientras dura la variante —
+  // por eso `runAutoDraw` también las salta y el trazo de `draw` sigue siendo el del icono.
+  euro: 3,
+  'georgian-lari': 4,
+  'indian-rupee': 5,
+  'japanese-yen': 3,
+  phone: 1,
+  'pound-sterling': 4,
+  'russian-ruble': 2,
 };
 
 describe('Barrido de sanidad — los 180 curados', () => {
