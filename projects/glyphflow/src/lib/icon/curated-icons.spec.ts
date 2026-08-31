@@ -66,6 +66,12 @@ const FIGURAS_ANEXAS: Record<string, number> = {
   info: 1,
   repeat: 2,
   webhook: 3,
+  // Guías de relleno de la tanda 6.
+  'audio-waveform': 1,
+  bolt: 1,
+  'hand-coins': 3,
+  signpost: 2,
+  wind: 3,
 };
 
 describe('Barrido de sanidad — los 180 curados', () => {

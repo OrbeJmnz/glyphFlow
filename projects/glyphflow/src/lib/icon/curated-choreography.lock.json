@@ -585,7 +585,8 @@
       "path:e142b42575d5"
     ],
     "audio-waveform": [
-      "path:5e988d4cb6ee"
+      "path:5e988d4cb6ee",
+      "path:b0654a331ca1"
     ],
     "award": [
       "path:051a1dc64247",
@@ -1073,7 +1074,8 @@
     ],
     "bolt": [
       "path:bf22cd457005",
-      "circle:9d7fc8897980"
+      "circle:9d7fc8897980",
+      "path:908c8596b22e"
     ],
     "bomb": [
       "circle:069a68004850",
@@ -4785,7 +4787,10 @@
       "path:e50b8440bf51",
       "path:8b2df834683b",
       "circle:295755d23e4b",
-      "circle:f93ece49a9a9"
+      "circle:f93ece49a9a9",
+      "path:92f690332660",
+      "path:2adc7a6f8d43",
+      "path:7554a7cbc975"
     ],
     "hand-fist": [
       "path:6b50ca187adf",
@@ -8365,7 +8370,9 @@
     "signpost": [
       "path:0a74c744e5c5",
       "path:acf7516005b7",
-      "path:0fdcdf17847d"
+      "path:0fdcdf17847d",
+      "path:e8f7431bd93a",
+      "path:6d990e0f2fd6"
     ],
     "signpost-big": [
       "path:66275a4bbcd3",
@@ -10516,7 +10523,10 @@
     "wind": [
       "path:b03d42861491",
       "path:23eb52c10501",
-      "path:7ddb164b0cea"
+      "path:7ddb164b0cea",
+      "path:cf1fc9c118a7",
+      "path:2692570afed8",
+      "path:ca943da85c39"
     ],
     "wind-arrow-down": [
       "path:e093f01426b2",
@@ -10666,7 +10676,8 @@
     "accessibility": {
       "default": "0735105d2fed",
       "draw": "17c8398e8d34",
-      "hold": "a400bd407d98"
+      "hold": "a400bd407d98",
+      "idle": "212e1d989e49"
     },
     "activity": {
       "default": "2a86494e1fca",
@@ -11093,11 +11104,13 @@
     "atom": {
       "default": "ce427ab41d47",
       "draw": "17c8398e8d34",
-      "hold": "9bda4f79ef55"
+      "hold": "9bda4f79ef55",
+      "idle": "a81a009da8c7"
     },
     "audio-lines": {
       "default": "a203dcab21c8",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "3b7688d8fc88"
     },
     "audio-lines-x": {
       "default": "2f90c6149f1c",
@@ -11105,7 +11118,8 @@
     },
     "audio-waveform": {
       "default": "f922ba3dd65a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "c525baf64ab2"
     },
     "award": {
       "default": "1c6bd03c1a81",
@@ -11223,6 +11237,7 @@
       "drop": "1c80ba7c5fea"
     },
     "baggage-claim": {
+      "bounce": "85eecaa5be93",
       "default": "a99a38fe56e4",
       "draw": "17c8398e8d34",
       "hold": "8c56c4ba3b2a"
@@ -11498,7 +11513,8 @@
     },
     "bolt": {
       "default": "ba541b42eba9",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "353a3dd6eb31"
     },
     "bomb": {
       "default": "8d9e56b5a521",
@@ -11996,7 +12012,8 @@
     "car": {
       "default": "d58007557d8d",
       "draw": "17c8398e8d34",
-      "hold": "069d2c2f6a06"
+      "hold": "069d2c2f6a06",
+      "idle": "d3c71f1ad977"
     },
     "car-front": {
       "default": "c0d6336e0af1",
@@ -13259,7 +13276,8 @@
     },
     "drum": {
       "default": "85bb4cb32629",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "a82d92156b9f"
     },
     "drumstick": {
       "default": "c58fb1cb01a0",
@@ -14074,6 +14092,7 @@
       "draw": "17c8398e8d34"
     },
     "gamepad": {
+      "bounce": "5ba8f528e982",
       "default": "f4b9e08b9826",
       "draw": "17c8398e8d34",
       "hold": "9e59bab2a8dc"
@@ -14315,7 +14334,8 @@
     },
     "hand-coins": {
       "default": "eb3128360254",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "635058b37bfb"
     },
     "hand-fist": {
       "default": "b132edaadf25",
@@ -15127,6 +15147,7 @@
       "hold": "702f0120ccc4"
     },
     "mailbox": {
+      "bounce": "16a524370b1c",
       "default": "6d04627290a3",
       "draw": "17c8398e8d34",
       "hold": "9c396767ad33"
@@ -16317,7 +16338,8 @@
     },
     "radio": {
       "default": "b4f52a183fc7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "939ea167aee8"
     },
     "radio-off": {
       "default": "ae43a5f48081",
@@ -16517,6 +16539,7 @@
       "hold": "4ef8b7335d6e"
     },
     "rocket": {
+      "bounce": "501243e349a6",
       "default": "620e990b3f5f",
       "draw": "17c8398e8d34",
       "hold": "03df880bce83"
@@ -17059,7 +17082,8 @@
     "signpost": {
       "default": "599dfd7a3e38",
       "draw": "17c8398e8d34",
-      "hold": "52d4a06e81fc"
+      "hold": "52d4a06e81fc",
+      "reveal": "e3770646d1cb"
     },
     "signpost-big": {
       "default": "4509faf771b6",
@@ -17105,7 +17129,8 @@
     },
     "smartphone": {
       "default": "29adbb4314d7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "ring": "0a1f3be1044f"
     },
     "smartphone-charging": {
       "default": "f5ebc25a1f63",
@@ -17122,7 +17147,8 @@
     },
     "snowflake": {
       "default": "ddcf7d4a9eba",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "e7345c9c80ee"
     },
     "soap-dispenser-droplet": {
       "default": "f38504006da1",
@@ -17166,7 +17192,8 @@
     "speaker": {
       "default": "1642562f41bf",
       "draw": "17c8398e8d34",
-      "hold": "47dcff48c1e7"
+      "hold": "47dcff48c1e7",
+      "pulse": "faf720bcf603"
     },
     "speech": {
       "default": "bb88ec5db0ec",
@@ -18614,7 +18641,8 @@
     "wind": {
       "default": "3b710eca93a2",
       "draw": "17c8398e8d34",
-      "hold": "5bfd8bae156e"
+      "hold": "5bfd8bae156e",
+      "reveal": "97773d6d64cb"
     },
     "wind-arrow-down": {
       "default": "63107813ac86",

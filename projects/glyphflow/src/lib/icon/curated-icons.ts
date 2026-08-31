@@ -830,6 +830,20 @@ const T5_EASE = 'ease-in-out';
 const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
 
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
     default: {
       shapes: {
@@ -2993,12 +3007,23 @@ export const boltIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       d: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z',
     },
     { tag: 'circle', cx: 12, cy: 12, r: 4 },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         0: /* @__PURE__ */ track(BOLT_SPIN, 1000, { easing: 'ease', origin: '12px 12px' }),
         1: /* @__PURE__ */ track(BOLT_SPIN, 1000, { easing: 'ease', origin: '12px 12px' }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_EASE }, { transform: 'scale(1.08) rotate(-2deg)', easing: T6_EASE }, { transform: 'scale(0.95) rotate(2deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(0deg)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1300, { easing: T6_EASE }),
+        0: /* @__PURE__ */ track([{ opacity: '0.4', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 1300, { easing: T6_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: T6_EASE }, { transform: 'scale(1.3)', opacity: '0.6', easing: T6_EASE }, { transform: 'scale(0.9)', opacity: '1', easing: T6_EASE }, { transform: 'scale(1)', opacity: '1' }], 1100, { easing: 'linear', origin: '12px 12px' }),
       },
     },
   },
@@ -3562,6 +3587,13 @@ export const drumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(14deg)' }, { transform: 'rotate(0deg)' }], 520, { easing: 'ease-in-out' }),
       },
     },
+    pulse: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0, easing: T6_MUELLE }, { transform: 'rotate(14deg)', offset: 0.35, easing: T6_MUELLE }, { transform: 'rotate(-3deg)', offset: 0.7, easing: T6_MUELLE }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: 'linear', origin: '2px 2px' }),
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0, easing: T6_MUELLE }, { transform: 'rotate(-14deg)', offset: 0.35, easing: T6_MUELLE }, { transform: 'rotate(3deg)', offset: 0.7, easing: T6_MUELLE }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: 'linear', origin: '22px 2px', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: T6_MUELLE }, { transform: 'scaleY(0.88)', offset: 0.38, easing: T6_MUELLE }, { transform: 'scaleY(1.05)', offset: 0.72, easing: T6_MUELLE }, { transform: 'scaleY(1)', offset: 1 }], 800, { easing: 'linear', delay: 300, fill: 'backwards', origin: '12px 9px' }),
+      },
+    },
   },
 );
 
@@ -3777,6 +3809,11 @@ export const handCoinsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: 'm2 16 6 6' },
     { tag: 'circle', cx: 16, cy: 9, r: 2.9 },
     { tag: 'circle', cx: 6, cy: 5, r: 3 },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: "M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17", opacity: '0' },
+    { tag: 'path', d: "m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9", opacity: '0' },
+    { tag: 'path', d: "m2 16 6 6", opacity: '0' },
   ],
   {
     default: {
@@ -3800,6 +3837,19 @@ export const handCoinsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
           600,
           { easing: 'ease-in', fill: 'forwards' },
         ),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_DECEL }, { transform: 'scale(1.06) rotate(-2deg)', easing: T6_DECEL }, { transform: 'scale(0.98) rotate(1deg)', easing: T6_DECEL }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1100, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1100, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1100, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ opacity: '0.5', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ opacity: '0.5', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ opacity: '0.5', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(-6px) scale(0.7)', opacity: '0', easing: 'ease-out' }, { transform: 'translateY(0px) scale(1.02)', opacity: '1', easing: 'ease-out' }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 600, { easing: 'linear', delay: 100, fill: 'backwards', origin: '16px 9px' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(-6px) scale(0.7)', opacity: '0', easing: 'ease-out' }, { transform: 'translateY(0px) scale(1.02)', opacity: '1', easing: 'ease-out' }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 600, { easing: 'linear', delay: 100, fill: 'backwards', origin: '6px 5px' }),
       },
     },
   },
@@ -4627,6 +4677,23 @@ export const snowflakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 400, { easing: EASE }),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) scale(1)', easing: T6_EASE }, { transform: 'rotate(30deg) scale(1.04)', easing: T6_EASE }, { transform: 'rotate(0deg) scale(1)' }], 1200, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE }),
+        1: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 40, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 160, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 200, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 240, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 280, fill: 'backwards' }),
+        8: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 320, fill: 'backwards' }),
+        9: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 360, fill: 'backwards' }),
+        10: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 400, fill: 'backwards' }),
+        11: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE, delay: 440, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -6277,6 +6344,16 @@ export const audioLinesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track(E2_EQ, 700, { easing: EASE, origin: '22px 11.5px', delay: 400, fill: 'backwards' }),
       },
     },
+    pulse: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', origin: '2px 11.5px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', delay: 200, fill: 'backwards', origin: '6px 11.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', delay: 400, fill: 'backwards', origin: '10px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', delay: 600, fill: 'backwards', origin: '14px 11.5px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', delay: 800, fill: 'backwards', origin: '18px 11.5px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scaleY(1)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1.4)', opacity: '0.8', easing: T6_EASE }, { transform: 'scaleY(0.6)', opacity: '1', easing: T6_EASE }, { transform: 'scaleY(1)', opacity: '1' }], 900, { easing: 'linear', delay: 1000, fill: 'backwards', origin: '22px 11.5px' }),
+      },
+    },
   },
 );
 
@@ -6287,11 +6364,20 @@ export const audioWaveformIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       tag: 'path',
       d: "M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2",
     },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: "M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         0: /* @__PURE__ */ track(E2_EQ, 700, { easing: EASE, origin: '12px 12px' }),
+      },
+    },
+    reveal: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE }),
+        0: /* @__PURE__ */ track([{ opacity: '0.3', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_DECEL }),
       },
     },
   },
@@ -12441,6 +12527,14 @@ export const rocketIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    bounce: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', easing: T6_EASE }, { transform: 'translate(3px, -3px)', easing: T6_EASE }, { transform: 'translate(0px, 0px)' }], 700, { easing: T6_EASE }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', easing: T6_EASE }, { transform: 'translate(3px, -3px)', easing: T6_EASE }, { transform: 'translate(0px, 0px)' }], 700, { easing: T6_EASE }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', easing: T6_EASE }, { transform: 'translate(3px, -3px)', easing: T6_EASE }, { transform: 'translate(0px, 0px)' }], 700, { easing: T6_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: T6_EASE }, { transform: 'scale(1.4)', opacity: '0.3', easing: T6_EASE }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: 'linear', origin: '6.5px 19px' }),
+      },
+    },
   },
 );
 
@@ -13903,6 +13997,13 @@ export const speakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
       },
       reverseOnLeave: true,
+    },
+    pulse: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T6_EASE }, { transform: 'scale(1.14)', offset: 0.25, easing: T6_EASE }, { transform: 'scale(0.96)', offset: 0.5, easing: T6_EASE }, { transform: 'scale(1.06)', offset: 0.75, easing: T6_EASE }, { transform: 'scale(1)', offset: 1 }], 700, { easing: 'linear', origin: '12px 14px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T6_EASE }, { transform: 'scale(1.14)', offset: 0.25, easing: T6_EASE }, { transform: 'scale(0.96)', offset: 0.5, easing: T6_EASE }, { transform: 'scale(1.06)', offset: 0.75, easing: T6_EASE }, { transform: 'scale(1)', offset: 1 }], 700, { easing: 'linear', origin: '12px 14px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T6_EASE }, { transform: 'scale(1.5)', easing: T6_EASE }, { transform: 'scale(1)' }], 350, { easing: 'linear', origin: '12px 6px' }),
+      },
     },
   },
 );
@@ -15382,6 +15483,10 @@ export const signpostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       tag: 'path',
       d: "M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z",
     },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: "M12 13v8", opacity: '0' },
+    { tag: 'path', d: "M12 3v3", opacity: '0' },
   ],
   {
     default: {
@@ -15394,6 +15499,15 @@ export const signpostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
       },
       reverseOnLeave: true,
+    },
+    reveal: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE, delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 500, { easing: T6_EASE }),
+        1: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 500, { easing: T6_EASE, delay: 80, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(-14deg)', opacity: '0', offset: 0, easing: T6_MUELLE }, { transform: 'rotate(5deg)', opacity: '1', offset: 0.6, easing: T6_MUELLE }, { transform: 'rotate(0deg)', opacity: '1', offset: 1 }], 600, { easing: 'linear', delay: 320, fill: 'backwards', origin: '12px 10.5px' }),
+      },
     },
   },
 );
@@ -16141,6 +16255,16 @@ export const baggageClaimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    bounce: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T6_DECEL }, { transform: 'scale(1.03)', easing: T6_DECEL }, { transform: 'scale(1)' }], 600, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', offset: 0, easing: T6_EASE }, { transform: 'translateX(-2px)', offset: 0.33, easing: T6_EASE }, { transform: 'translateX(2px)', offset: 0.66, easing: T6_EASE }, { transform: 'translateX(0px)', offset: 1 }], 700, { easing: T6_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', easing: T6_EASE }, { transform: 'translateY(-2px)', easing: T6_EASE }, { transform: 'translateY(0px)' }], 500, { easing: T6_EASE, delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)', easing: T6_EASE }, { transform: 'translateY(-2px)', easing: T6_EASE }, { transform: 'translateY(0px)' }], 500, { easing: T6_EASE, delay: 100, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 600, { easing: 'linear', origin: '18px 20px' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 600, { easing: 'linear', origin: '9px 20px' }),
+      },
     },
   },
 );
@@ -18211,6 +18335,9 @@ export const atomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.8)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
+    },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) scale(1)', easing: T6_EASE }, { transform: 'rotate(180deg) scale(1.1)', easing: T6_EASE }, { transform: 'rotate(360deg) scale(1)' }], 2000, { easing: 'linear' }),
     },
   },
 );
@@ -20750,6 +20877,14 @@ export const accessibilityIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T6_EASE }, { transform: 'rotate(-6deg)', easing: T6_EASE }, { transform: 'rotate(0deg)' }], 700, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1400, { easing: 'linear', origin: '9px 16px' }),
+        4: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1400, { easing: 'linear', origin: '9px 16px' }),
+        2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', easing: T6_EASE }, { transform: 'rotate(-25deg)', easing: T6_EASE }, { transform: 'rotate(0deg)' }], 1400, { easing: 'linear', origin: '8px 6.5px' }),
+      },
+    },
   },
 );
 
@@ -20946,6 +21081,12 @@ export const mailboxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    bounce: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0, easing: T6_EASE }, { transform: 'scale(1.03)', offset: 0.5, easing: T6_EASE }, { transform: 'scale(1)', offset: 1 }], 500, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(40deg)', offset: 0, easing: T6_MUELLE }, { transform: 'rotate(-8deg)', offset: 0.6, easing: T6_MUELLE }, { transform: 'rotate(0deg)', offset: 1 }], 600, { easing: 'linear', delay: 100, fill: 'backwards', origin: '16px 10px' }),
+      },
     },
   },
 );

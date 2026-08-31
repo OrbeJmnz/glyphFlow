@@ -14,6 +14,20 @@ const APRIETA = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(
 const BOTON = /* @__PURE__ */ [{ transform: 'scale(1)' }, { transform: 'scale(1.5)' }, { transform: 'scale(1)' }];
 
 /** Cruceta apretada, botones después. */
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const gamepadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'line', x1: 6, y1: 12, x2: 10, y2: 12 },
@@ -37,6 +51,15 @@ export const gamepadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.82)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 12px' }),
       },
       reverseOnLeave: true,
+    },
+    bounce: {
+      shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T6_EASE }, { transform: 'scale(0.95)', easing: T6_EASE }, { transform: 'scale(1)' }], 500, { easing: 'linear', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_EASE }, { transform: 'scale(0.85) rotate(20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(-20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(0deg)' }], 400, { easing: 'linear', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_EASE }, { transform: 'scale(0.85) rotate(20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(-20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(0deg)' }], 400, { easing: 'linear', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_EASE }, { transform: 'scale(0.85) rotate(20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(-20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(0deg)' }], 400, { easing: 'linear', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T6_EASE }, { transform: 'scale(0.85) rotate(20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(-20deg)', easing: T6_EASE }, { transform: 'scale(1) rotate(0deg)' }], 400, { easing: 'linear', origin: '12px 12px' }),
+      },
     },
   },
 );
