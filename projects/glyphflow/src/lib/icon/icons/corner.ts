@@ -12,6 +12,17 @@
 // construcción: no hay dos pistas que sincronizar ni offsets que se puedan desfasar.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { track, icon } from '../choreography';
+/* ── Variante `reveal` ─────────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El easing va POR KEYFRAME y `times`
+ * se traduce a `offset`; el porqué de ambas cosas está en el bloque de `pulse` de
+ * icons/battery.ts. Las variantes que la familia ya tenía no se tocan.
+ *
+ * Nuestro orden de figuras está INVERTIDO respecto al suyo en seis de los ocho, así que
+ * el índice va icono por icono — mapear por posición aquí anima la figura equivocada.
+ */
+const EIO = 'ease-in-out';
+
 
 /** Entra 1.8 y sale 2.6: el tramo de salida manda, porque es hacia donde el icono apunta. */
 const DOBLEZ = 620;
@@ -31,6 +42,13 @@ export const cornerDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
   },
 );
 
@@ -48,6 +66,13 @@ export const cornerDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(2.6px, 1.8px)', offset: 0.64 },
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
     },
   },
 );
@@ -67,6 +92,13 @@ export const cornerLeftDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
   },
 );
 
@@ -84,6 +116,13 @@ export const cornerLeftUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(-1.8px, -2.6px)', offset: 0.64 },
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
     },
   },
 );
@@ -103,6 +142,13 @@ export const cornerRightDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
   },
 );
 
@@ -120,6 +166,13 @@ export const cornerRightUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(1.8px, -2.6px)', offset: 0.64 },
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
     },
   },
 );
@@ -139,6 +192,13 @@ export const cornerUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
   },
 );
 
@@ -156,6 +216,13 @@ export const cornerUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(2.6px, -1.8px)', offset: 0.64 },
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
     },
   },
 );

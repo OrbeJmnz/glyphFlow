@@ -5,6 +5,14 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, moveYSeq, track, icon } from '../choreography';
 import { chevronsUpDownShapes } from '../animated-icons.shapes';
+/* ── Variante `nudge` ─────────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El easing va POR KEYFRAME y `times`
+ * se traduce a `offset`; el porqué de ambas cosas está en el bloque de `pulse` de
+ * icons/battery.ts. Las variantes que la familia ya tenía no se tocan.
+ */
+const EIO = 'ease-in-out';
+
 
 /* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
 
@@ -61,6 +69,12 @@ export const chevronsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
+      },
+    },
   },
 );
 
@@ -77,6 +91,12 @@ export const chevronsLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 800, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 800, { easing: 'linear', delay: 200 }),
+      },
+    },
   },
 );
 
@@ -89,6 +109,12 @@ export const chevronsLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
+      },
     },
   },
 );
@@ -106,6 +132,12 @@ export const chevronsRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 900, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 900, { easing: 'linear', delay: 300 }),
+      },
+    },
   },
 );
 
@@ -119,6 +151,12 @@ export const chevronsRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
+      },
+    },
   },
 );
 
@@ -131,6 +169,12 @@ export const chevronsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
+      },
     },
   },
 );
@@ -174,6 +218,15 @@ export const chevronsLeftRightEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ ic
         2: /* @__PURE__ */ track(E1_PUSH_RIGHT, 600, { easing: EASE }),
         3: /* @__PURE__ */ track(E1_PUSH_LEFT, 600, { easing: EASE }),
         4: /* @__PURE__ */ track(E1_BLINK, 800, { easing: EASE, delay: 150, fill: 'backwards' }),
+      },
+    },
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.5', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 1000, { easing: 'linear' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.5', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 1000, { easing: 'linear', delay: 200 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', easing: EIO }, { opacity: '0.35', easing: EIO }, { opacity: '1' }], 1000, { easing: 'linear' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', easing: EIO }, { opacity: '0.35', easing: EIO }, { opacity: '1' }], 1000, { easing: 'linear', delay: 300 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', easing: EIO }, { opacity: '0.35', easing: EIO }, { opacity: '1' }], 1000, { easing: 'linear', delay: 600 }),
       },
     },
   },
