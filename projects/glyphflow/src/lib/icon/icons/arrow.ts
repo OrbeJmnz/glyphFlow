@@ -6,6 +6,113 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, moveXSeq, moveYSeq, track, icon, held } from '../choreography';
 import { arrowDownLeftShapes, arrowDownRightShapes, arrowDownShapes, arrowLeftShapes, arrowRightShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowUpShapes } from '../animated-icons.shapes';
 
+/* ── Variantes `nudge` y `reveal` ─────────────────────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Los `default`/`active` que ya tenía la
+ * familia NO se tocan: aquellos empujan la flecha y la SOSTIENEN (`held`, `reverseOnLeave`);
+ * estos amagan en contra, salen disparados y vuelven solos al reposo. Son gestos distintos.
+ *
+ * Dos cosas medidas con el banco de cotejo, iguales que en `battery`:
+ *
+ * 1. El easing va POR KEYFRAME, no en `options`. Framer aplica su curva entre cada par de
+ *    keyframes; metida en `options`, WAAPI la aplica a la iteración COMPLETA y corre los
+ *    keyframes intermedios de lugar.
+ * 2. `times` se traduce a `offset`. Cuesta el relevo de pose (`conRelevo` corta con offsets),
+ *    igual que en el original.
+ *
+ * Traducción de los easings de Framer, que coinciden exactos con los de CSS:
+ *   easeInOut = cubic-bezier(.42,0,.58,1) = `ease-in-out`;  easeOut = cubic-bezier(0,0,.58,1).
+ */
+const EIO = 'ease-in-out';
+const EOUT = 'ease-out';
+
+/**
+ * El amague: la flecha retrocede un poco antes de salir en su dirección, y vuelve. Va en el
+ * `<svg>` entero porque el original no engancha `variants` a ninguna figura suelta.
+ */
+const nudgeRoot = (de: string, contra: string, ida: string) =>
+  /* @__PURE__ */ track(
+    [
+      { transform: de, offset: 0, easing: EIO },
+      { transform: contra, offset: 0.2, easing: EIO },
+      { transform: ida, offset: 0.6, easing: EIO },
+      { transform: de, offset: 1 },
+    ],
+    600,
+    { easing: 'linear' },
+  );
+
+/** Media flecha de un icono bidireccional: se aparta y vuelve. */
+const nudgeMitad = (medio: string) =>
+  /* @__PURE__ */ track(
+    [
+      { transform: 'translate(0px, 0px)', offset: 0, easing: EIO },
+      { transform: medio, offset: 0.5, easing: EIO },
+      { transform: 'translate(0px, 0px)', offset: 1 },
+    ],
+    600,
+    { easing: 'linear' },
+  );
+
+/** El asta de un icono de orden: entra desde abajo, pasándose de largo. */
+const revealAsta = () =>
+  /* @__PURE__ */ track(
+    [
+      { transform: 'translateY(6px)', opacity: '0', easing: EOUT },
+      { transform: 'translateY(-2px)', opacity: '1', easing: EOUT },
+      { transform: 'translateY(0px)', opacity: '1' },
+    ],
+    600,
+    { easing: 'linear' },
+  );
+
+/** La línea vertical se dibuja. El componente pone `pathLength="1"`, así que el dash va en 0-1. */
+const revealLinea = () =>
+  /* @__PURE__ */ track(
+    [
+      { strokeDasharray: '0 1' },
+      { strokeDasharray: '1 1' },
+    ],
+    700,
+    { easing: EIO, delay: 100 },
+  );
+
+/** Una letra o cifra que entra deslizándose. */
+const revealGlifo = (desde: string, delay: number, duration = 500) =>
+  /* @__PURE__ */ track(
+    [
+      { transform: desde, opacity: '0', easing: EOUT },
+      { transform: 'translate(0px, 0px)', opacity: '1' },
+    ],
+    duration,
+    { easing: 'linear', delay },
+  );
+
+/** La caja del `0`: no se desliza, se infla. */
+const revealCaja = (delay: number) =>
+  /* @__PURE__ */ track(
+    [
+      { transform: 'scale(0.8)', opacity: '0.7', easing: EOUT },
+      { transform: 'scale(1.1)', opacity: '1', easing: EOUT },
+      { transform: 'scale(1)', opacity: '1' },
+    ],
+    600,
+    { easing: 'linear', delay, origin: '17px 7px' },
+  );
+
+/** El icono entero acusa el golpe mientras se rearma. */
+const revealRoot = (pico: number, giro: number, duration: number) =>
+  /* @__PURE__ */ track(
+    [
+      { transform: 'scale(1) rotate(0deg)', easing: EIO },
+      { transform: `scale(${pico}) rotate(${-giro}deg)`, easing: EIO },
+      { transform: `scale(${pico === 1.1 ? 0.95 : 0.96}) rotate(${giro * 0.6}deg)`, easing: EIO },
+      { transform: 'scale(1) rotate(0deg)' },
+    ],
+    duration,
+    { easing: 'linear' },
+  );
+
 const ARROW_UP_LEFT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(-3px, -3px)' }];
 
 const ARROW_UP_RIGHT_NUDGE = /* @__PURE__ */ [{ transform: 'translate(0, 0)' }, { transform: 'translate(3px, -3px)' }];
@@ -201,6 +308,15 @@ export const arrowDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.04)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
+        1: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
+        2: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
+        3: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
+      },
+    },
   },
 );
 
@@ -220,6 +336,14 @@ export const arrowUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
+        1: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
+        2: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
+        3: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
+      },
     },
   },
 );
@@ -530,6 +654,14 @@ export const arrowLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
       },
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ nudgeMitad('translateX(-3px)'),
+        1: /* @__PURE__ */ nudgeMitad('translateX(-3px)'),
+        2: /* @__PURE__ */ nudgeMitad('translateX(3px)'),
+        3: /* @__PURE__ */ nudgeMitad('translateX(3px)'),
+      },
+    },
   },
 );
 
@@ -570,6 +702,16 @@ export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    reveal: {
+      root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
+      shapes: {
+        0: /* @__PURE__ */ revealAsta(),
+        1: /* @__PURE__ */ revealLinea(),
+        2: /* @__PURE__ */ revealCaja(200),
+        3: /* @__PURE__ */ revealGlifo('translateX(-6px)', 300),
+        4: /* @__PURE__ */ revealGlifo('translateX(-6px)', 300),
+      },
+    },
   },
 );
 
@@ -589,6 +731,16 @@ export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    reveal: {
+      root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
+      shapes: {
+        0: /* @__PURE__ */ revealAsta(),
+        1: /* @__PURE__ */ revealLinea(),
+        2: /* @__PURE__ */ revealGlifo('translateX(-6px)', 200),
+        3: /* @__PURE__ */ revealGlifo('translateX(-6px)', 200),
+        4: /* @__PURE__ */ revealCaja(300),
+      },
     },
   },
 );
@@ -610,6 +762,16 @@ export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    reveal: {
+      root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
+      shapes: {
+        0: /* @__PURE__ */ revealAsta(),
+        1: /* @__PURE__ */ revealLinea(),
+        2: /* @__PURE__ */ revealGlifo('translateY(-4px)', 200),
+        3: /* @__PURE__ */ revealGlifo('translateY(-4px)', 200),
+        4: /* @__PURE__ */ revealGlifo('translateX(6px)', 300, 600),
+      },
+    },
   },
 );
 
@@ -630,6 +792,16 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    reveal: {
+      root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
+      shapes: {
+        0: /* @__PURE__ */ revealAsta(),
+        1: /* @__PURE__ */ revealLinea(),
+        2: /* @__PURE__ */ revealGlifo('translateX(6px)', 200, 600),
+        3: /* @__PURE__ */ revealGlifo('translateY(6px)', 300, 600),
+        4: /* @__PURE__ */ revealGlifo('translateY(6px)', 300, 600),
+      },
+    },
   },
 );
 
@@ -643,6 +815,9 @@ export const arrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowLeftShap
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateX(2px)', 'translateX(-4px)'),
+    },
   });
 
 export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveXSeq([0, 3]), 320),
@@ -652,6 +827,9 @@ export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightSh
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateX(-2px)', 'translateX(4px)'),
     },
   });
 
@@ -665,6 +843,9 @@ export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, 
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateY(2px)', 'translateY(-4px)'),
+    },
   });
 
 export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShapes, {
@@ -675,6 +856,9 @@ export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShap
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateY(-2px)', 'translateY(4px)'),
     },
   });
 
@@ -687,6 +871,9 @@ export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpLeft
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(1.5px, 1.5px)', 'translate(-3px, -3px)'),
+    },
   });
 
 export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRightShapes, {
@@ -697,6 +884,9 @@ export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRig
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, -3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(-1.5px, 1.5px)', 'translate(3px, -3px)'),
     },
   });
 
@@ -709,6 +899,9 @@ export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDown
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(1.5px, -1.5px)', 'translate(-3px, 3px)'),
+    },
   });
 
 export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownRightShapes, {
@@ -719,5 +912,8 @@ export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDow
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(3px, 3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(-1.5px, -1.5px)', 'translate(3px, 3px)'),
     },
   });

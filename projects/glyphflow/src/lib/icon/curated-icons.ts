@@ -10718,6 +10718,10 @@ export const quoteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 );
 
 /** Sube el cuerpo de letra: la flecha se estira hacia arriba y la A crece con ella. */
+// El `ease` del grupo en el original de AnimateIcons: no es ninguno de los de CSS, se copia
+// tal cual porque redondearlo a `ease-out` cambia la forma del rebote.
+const A_ARROW_EASE = 'cubic-bezier(0.22, 0.9, 0.32, 1)';
+
 export const aArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m14 11 4-4 4 4" },
@@ -10736,6 +10740,18 @@ export const aArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.2, 0]), 500, { easing: EASE }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.06, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+      },
+    },
+    // Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El `default` no se toca: aquél late,
+    // éste rearma el icono pieza por pieza. Easing POR keyframe, no en `options` — ver el bloque
+    // de `pulse` en icons/battery.ts para el porqué.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: A_ARROW_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: A_ARROW_EASE }, { transform: 'scale(0.98) rotate(1deg)', easing: A_ARROW_EASE }, { transform: 'scale(1) rotate(0deg)' }], 850, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scale(1)', opacity: '0.6', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1.12)', opacity: '1', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 60, origin: '18px 9px' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'translateY(6px)', opacity: '0', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'translateY(0px)', opacity: '1' }], 800, { easing: 'linear', delay: 120 }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 700, { easing: 'linear', delay: 20 }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scaleX(0.9)', opacity: '0', easing: EASE }, { strokeDasharray: '1 1', transform: 'scaleX(1)', opacity: '1' }], 700, { easing: 'linear', delay: 180, origin: '6.5px 13px' }),
       },
     },
   },
@@ -10760,6 +10776,16 @@ export const aArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 500, { easing: EASE }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.94, 1]), 500, { easing: EASE, origin: '6.5px 16px' }),
+      },
+    },
+    // Igual que `a-arrow-up`, con el asta y la diagonal entrando desde el lado contrario.
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: A_ARROW_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: A_ARROW_EASE }, { transform: 'scale(0.98) rotate(1deg)', easing: A_ARROW_EASE }, { transform: 'scale(1) rotate(0deg)' }], 850, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scale(1)', opacity: '0.6', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1.12)', opacity: '1', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 60, origin: '18px 14px' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'translateY(-6px)', opacity: '0', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'translateY(0px)', opacity: '1' }], 800, { easing: 'linear', delay: 120 }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 700, { easing: 'linear', delay: 20 }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scaleX(0.9)', opacity: '0', easing: EASE }, { strokeDasharray: '1 1', transform: 'scaleX(1)', opacity: '1' }], 700, { easing: 'linear', delay: 180, origin: '6.5px 13px' }),
       },
     },
   },
