@@ -61,6 +61,11 @@ const FIGURAS_ANEXAS: Record<string, number> = {
   phone: 1,
   'pound-sterling': 4,
   'russian-ruble': 2,
+  // Guías de relleno de la tanda 5, mismo mecanismo que las monedas.
+  'eye-off': 1,
+  info: 1,
+  repeat: 2,
+  webhook: 3,
 };
 
 describe('Barrido de sanidad — los 180 curados', () => {

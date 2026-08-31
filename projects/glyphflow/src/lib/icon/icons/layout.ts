@@ -7,6 +7,20 @@ import { scaleSeq, track, strokeDraw, icon } from '../choreography';
 import { layoutDashboardShapes, layoutFreeformShapes, layoutGridShapes, layoutListShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutTemplateShapes } from '../animated-icons.shapes';
 
 /** Tablero armándose, tarjeta por tarjeta. */
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutDashboardShapes, {
     default: {
       // Los cuadros crecen y se achican alternado, pivotando desde su esquina EXTERIOR (la que
@@ -61,6 +75,15 @@ export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutD
         3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 300 }),
       },
     },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: T5_EASE }, { transform: 'scale(0.98) rotate(1.5deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 1100, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(3px) scale(0.95)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(-2px) scale(1.04)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 900, { easing: 'linear', origin: '6.5px 7.5px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(3px) scale(0.95)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(-2px) scale(1.04)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 80, fill: 'backwards', origin: '17.5px 5.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(3px) scale(0.95)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(-2px) scale(1.04)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 160, fill: 'backwards', origin: '17.5px 16.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(3px) scale(0.95)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(-2px) scale(1.04)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 240, fill: 'backwards', origin: '6.5px 18.5px' }),
+      },
+    },
   });
 
 /** Igual que el tablero pero en diagonal. */
@@ -90,6 +113,15 @@ export const layoutGridIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutGridSh
         1: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-10px)', offset: 0 }, { opacity: 0, transform: 'translateY(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out' }),
         2: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(10px)', offset: 0 }, { opacity: 0, transform: 'translateX(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 100 }),
         3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 200 }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.03) rotate(1deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 600, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.85)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1.08)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 550, { easing: 'linear', origin: '6.5px 6.5px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.85)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1.08)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 550, { easing: 'linear', delay: 80, fill: 'backwards', origin: '17.5px 6.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.85)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1.08)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 550, { easing: 'linear', delay: 160, fill: 'backwards', origin: '17.5px 17.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.85)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1.08)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 550, { easing: 'linear', delay: 240, fill: 'backwards', origin: '6.5px 17.5px' }),
       },
     },
   });

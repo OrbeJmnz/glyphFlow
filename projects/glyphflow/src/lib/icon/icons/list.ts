@@ -29,6 +29,20 @@ const LIST_NUDGE_RIGHT = /* @__PURE__ */ [{ transform: 'translateX(0)' }, { tran
 const LIST_ARROW_SWING = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(8deg)' }];
 const LIST_ARROW_SWING_BACK = /* @__PURE__ */ [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-8deg)' }];
 
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const listFilterPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12 5H2" },
@@ -192,6 +206,15 @@ export const listChevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(CHEVRON_PUSH_DOWN, 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE, delay: 60, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px) rotate(0deg)', opacity: '1', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px) rotate(-4deg)', opacity: '0.9', offset: 0.34, easing: 'ease-out' }, { transform: 'translateY(-2px) rotate(-2deg)', opacity: '0.95', offset: 0.67, easing: 'ease-out' }, { transform: 'translateY(0px) rotate(0deg)', opacity: '1', offset: 1 }], 900, { easing: T5_EASE }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px) rotate(0deg)', opacity: '1', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px) rotate(4deg)', opacity: '0.9', offset: 0.34, easing: 'ease-out' }, { transform: 'translateY(2px) rotate(2deg)', opacity: '0.95', offset: 0.67, easing: 'ease-out' }, { transform: 'translateY(0px) rotate(0deg)', opacity: '1', offset: 1 }], 900, { easing: T5_EASE, delay: 80, fill: 'backwards' }),
+      },
     },
   },
 );

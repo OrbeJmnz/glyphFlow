@@ -116,6 +116,9 @@ export const eyeOffShapes: IconShape[] = [
       d: 'M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143',
     },
     { tag: 'path', d: 'm2 2 20 20' },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: 'm2 2 20 20', opacity: '0' },
   ];
 
 export const hatGlassesShapes: IconShape[] = [
@@ -148,6 +151,9 @@ export const infoShapes: IconShape[] = [
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: 'M12 16v-4' },
     { tag: 'path', d: 'M12 8h.01' },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'circle', cx: 12, cy: 12, r: 10, opacity: '0' },
   ];
 
 export const loaderCircleShapes: IconShape[] = [{ tag: 'path', d: 'M21 12a9 9 0 1 1-6.219-8.56' }];
@@ -2661,6 +2667,11 @@ export const webhookShapes: IconShape[] = [
     { tag: 'path', d: 'M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2' },
     { tag: 'path', d: 'm6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06' },
     { tag: 'path', d: 'm12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8' },
+    // Guía del relleno: copia tenue de lo que se traza. Nace invisible, así que el icono
+    // quieto es el de Lucide y `runAutoDraw` la salta.
+    { tag: 'path', d: 'M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2', opacity: '0' },
+    { tag: 'path', d: 'm6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06', opacity: '0' },
+    { tag: 'path', d: 'm12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8', opacity: '0' },
   ];
 
 export const powerShapes: IconShape[] = [

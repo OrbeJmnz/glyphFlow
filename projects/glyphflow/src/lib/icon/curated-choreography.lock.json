@@ -3598,7 +3598,8 @@
       "path:441c689d9a6e",
       "path:0bc70e49c9ff",
       "path:341f39d1190e",
-      "path:378c27879c92"
+      "path:378c27879c92",
+      "path:a3c703ace9f8"
     ],
     "face-angry": [
       "path:a45fd53f4846",
@@ -5199,7 +5200,8 @@
     "info": [
       "circle:1b306a76ecc0",
       "path:d189f96410b1",
-      "path:d9e04a33511a"
+      "path:d9e04a33511a",
+      "circle:7d39ce7760d5"
     ],
     "inspection-panel": [
       "rect:d427f2bc2999",
@@ -7547,7 +7549,9 @@
       "path:92da259eee3b",
       "path:d6ca715ce29e",
       "path:ce60783b7632",
-      "path:a823451fa97b"
+      "path:a823451fa97b",
+      "path:3c3ff943b3d4",
+      "path:5e2d0054f38a"
     ],
     "repeat-1": [
       "path:92da259eee3b",
@@ -10401,7 +10405,10 @@
     "webhook": [
       "path:eaafaaff0e43",
       "path:ef92365e7130",
-      "path:23f90fc03f1f"
+      "path:23f90fc03f1f",
+      "path:e2b66c34bef1",
+      "path:62cfe1e9474d",
+      "path:b60521efed77"
     ],
     "webhook-off": [
       "path:1abc0abb3776",
@@ -12133,7 +12140,8 @@
     },
     "chart-no-axes-combined": {
       "default": "006f28fc8854",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "16f76055fda4"
     },
     "chart-no-axes-gantt": {
       "default": "4bea9c5d16a4",
@@ -12158,7 +12166,8 @@
     },
     "check-check": {
       "default": "68d7d9b80534",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "00dff4186502"
     },
     "check-line": {
       "default": "dc1fb8c7188e",
@@ -12513,7 +12522,8 @@
     },
     "clipboard": {
       "default": "4fb8ffacf937",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "11c4da3ae696"
     },
     "clipboard-check": {
       "default": "711d6295b6cb",
@@ -12769,12 +12779,14 @@
     "code": {
       "default": "f97ddb7aefbd",
       "draw": "17c8398e8d34",
-      "hold": "f742223fc430"
+      "hold": "f742223fc430",
+      "nudge": "cad40b52a3d6"
     },
     "code-xml": {
       "default": "2fe648b062a4",
       "draw": "17c8398e8d34",
-      "hold": "7b83b6bed9b3"
+      "hold": "7b83b6bed9b3",
+      "reveal": "408ea1020194"
     },
     "coffee": {
       "default": "3fa8478c4f75",
@@ -12954,7 +12966,8 @@
     },
     "cpu": {
       "default": "ab3c15082793",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "c9558ceacfd6"
     },
     "creative-commons": {
       "default": "7347209a93cb",
@@ -13208,7 +13221,8 @@
     "download": {
       "default": "c3fd9af1e1bd",
       "draw": "17c8398e8d34",
-      "hold": "bfbcfef9af04"
+      "hold": "bfbcfef9af04",
+      "reveal": "384d6b632dce"
     },
     "drafting-compass": {
       "default": "8d5ad55e6fd9",
@@ -13353,7 +13367,8 @@
     },
     "eye": {
       "default": "7c5a435375e6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "11b46615ad41"
     },
     "eye-closed": {
       "default": "ef74c2b5ad99",
@@ -13366,7 +13381,8 @@
     "eye-off": {
       "alert": "e276b867d08e",
       "default": "6312665fb66d",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "c675c0c67835"
     },
     "face-angry": {
       "default": "549524e2052e",
@@ -14597,7 +14613,8 @@
     },
     "info": {
       "default": "e79656a7756c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "17a866af3a0c"
     },
     "inspection-panel": {
       "default": "edd89e00514e",
@@ -14606,7 +14623,8 @@
     },
     "italic": {
       "default": "0280d1b23ba2",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "65cd174500dc"
     },
     "iteration-ccw": {
       "default": "e6a7e73536e0",
@@ -14770,6 +14788,7 @@
       "alert": "bc50ebc7e36e",
       "default": "3bac6b66910e",
       "draw": "17c8398e8d34",
+      "reveal": "000807c6906d",
       "swap": "5172a07501c7"
     },
     "layout-freeform": {
@@ -14780,7 +14799,8 @@
     "layout-grid": {
       "alert": "89a0332b0f92",
       "default": "b336dec41808",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "880d7d03cbe9"
     },
     "layout-list": {
       "default": "8bc847bb743c",
@@ -14904,7 +14924,8 @@
     "list-chevrons-up-down": {
       "default": "8597f289aecd",
       "draw": "17c8398e8d34",
-      "hold": "0c75d3013f03"
+      "hold": "0c75d3013f03",
+      "nudge": "b1a24753aea4"
     },
     "list-collapse": {
       "default": "8597f289aecd",
@@ -16269,7 +16290,8 @@
     },
     "qr-code": {
       "default": "6a61afa23576",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "c7472a5fc229"
     },
     "quote": {
       "default": "2a07e539bf4a",
@@ -16448,7 +16470,8 @@
     },
     "repeat": {
       "default": "3cbc30c2f118",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "e73255a5948d"
     },
     "repeat-1": {
       "default": "fe67650794b0",
@@ -16476,7 +16499,8 @@
     },
     "reply-all": {
       "default": "2b79f1edd8b4",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "416ade9a36a9"
     },
     "rewind": {
       "default": "34de2b5320b1",
@@ -16996,7 +17020,8 @@
     },
     "shuffle": {
       "default": "895047d264c6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "962efac9fd53"
     },
     "sigma": {
       "default": "0bccfad57d84",
@@ -17071,7 +17096,8 @@
     },
     "sliders-horizontal": {
       "default": "770ce144df71",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "d23a34b6b577"
     },
     "sliders-vertical": {
       "default": "f4cfb2087202",
@@ -17865,7 +17891,8 @@
     },
     "text-wrap": {
       "default": "76c0e3bc3d07",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "ca7ea1b8ec04"
     },
     "theater": {
       "default": "abc5c1503af8",
@@ -18519,7 +18546,8 @@
     },
     "webhook": {
       "default": "cd278e0baa5f",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "reveal": "d2f8e430c27c"
     },
     "webhook-off": {
       "default": "e276b867d08e",

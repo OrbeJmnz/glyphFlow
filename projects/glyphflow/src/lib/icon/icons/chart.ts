@@ -6,6 +6,20 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 import { chartColumnShapes } from '../animated-icons.shapes';
 
+/* ── Variantes de la tanda 5 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe y `times` como
+ * `offset`, igual que en las tandas anteriores.
+ *
+ * Tres adaptaciones declaradas, no descuidos: `layout-grid` va sin el destello que barre el
+ * icono (una figura extra que se desplaza 26 unidades fuera del viewBox), y `repeat` y
+ * `shuffle` portan UN ciclo de lo que allá repite infinito — en glyphflow el bucle es un input
+ * del componente, no una propiedad de la variante.
+ */
+const T5_EASE = 'ease-in-out';
+const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const chartAreaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M3 3v16a2 2 0 0 0 2 2h16" },
@@ -336,6 +350,12 @@ export const chartNoAxesCombinedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }], 500, { easing: 'ease', delay: 300 }),
         4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }], 500, { easing: 'ease', delay: 400 }),
         5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 900, { easing: 'ease' }),
+      },
+    },
+    reveal: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.04) rotate(-1.5deg)', easing: T5_EASE }, { transform: 'scale(0.99) rotate(1deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 800, { easing: 'linear' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },
