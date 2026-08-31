@@ -6,6 +6,20 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_SMOOTH, rotateSeq, track, strokeDraw, icon } from '../choreography';
 import { smartphoneShapes } from '../animated-icons.shapes';
 
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const smartphoneChargingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 14, height: 20, x: 5, y: 2, rx: 2, ry: 2 },
@@ -44,5 +58,8 @@ export const smartphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(smartphoneSh
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -7, 7, -5, 5, -2, 0]), 600, {
         easing: SPRING_SMOOTH,
       }),
+    },
+    ring: {
+      root: /* @__PURE__ */ track([{ transform: 'translateX(0px) rotate(0deg)', easing: T6_EASE }, { transform: 'translateX(-1.2px) rotate(-3deg)', easing: T6_EASE }, { transform: 'translateX(1.2px) rotate(3deg)', easing: T6_EASE }, { transform: 'translateX(-1.2px) rotate(-3deg)', easing: T6_EASE }, { transform: 'translateX(1.2px) rotate(3deg)', easing: T6_EASE }, { transform: 'translateX(0px) rotate(0deg)' }], 500, { easing: 'linear' }),
     },
   });

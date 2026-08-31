@@ -27,6 +27,20 @@ const DESTELLA = /* @__PURE__ */ [
 ];
 
 /** La carrocería se hunde; las ruedas no se despegan del suelo. */
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const carIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -51,6 +65,13 @@ export const carIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'translateY(0px) rotate(0deg)', easing: T6_EASE }, { transform: 'translateY(-0.28px) rotate(-1.05deg)', easing: T6_EASE }, { transform: 'translateY(0.09px) rotate(0.68deg)', easing: T6_EASE }, { transform: 'translateY(-0.05px) rotate(-0.2deg)', easing: T6_EASE }, { transform: 'translateY(-0.21px) rotate(-0.76deg)', easing: T6_EASE }, { transform: 'translateY(0.06px) rotate(0.24deg)', easing: T6_EASE }, { transform: 'translateY(-0.12px) rotate(-0.42deg)', easing: T6_EASE }, { transform: 'translateY(0.03px) rotate(0.1deg)', easing: T6_EASE }, { transform: 'translateY(0px) rotate(0deg)' }], 1600, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', easing: T6_EASE }, { transform: 'translateY(-0.4px)', easing: T6_EASE }, { transform: 'translateY(0px)' }], 1600, { easing: T6_EASE, delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', easing: T6_EASE }, { transform: 'translateY(-0.4px)', easing: T6_EASE }, { transform: 'translateY(0px)' }], 1600, { easing: T6_EASE }),
+      },
     },
   },
 );

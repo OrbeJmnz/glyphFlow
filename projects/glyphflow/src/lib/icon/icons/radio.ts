@@ -29,6 +29,20 @@ const E2_BLINK = /* @__PURE__ */ [
   { opacity: 1, offset: 1 },
 ];
 
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const radioOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M13.414 13.414a2 2 0 1 1-2.828-2.828" },
@@ -87,6 +101,14 @@ export const radioIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 150 }),
         3: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
         4: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
+      },
+    },
+    pulse: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.92)', opacity: '0.2', easing: T6_EASE }, { transform: 'scale(1.06)', opacity: '1', easing: T6_EASE }, { transform: 'scale(0.92)', opacity: '0.2' }], 1200, { easing: 'linear', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.92)', opacity: '0.2', easing: T6_EASE }, { transform: 'scale(1.06)', opacity: '1', easing: T6_EASE }, { transform: 'scale(0.92)', opacity: '0.2' }], 1200, { easing: 'linear', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.92)', opacity: '0.2', easing: T6_EASE }, { transform: 'scale(1.06)', opacity: '1', easing: T6_EASE }, { transform: 'scale(0.92)', opacity: '0.2' }], 1200, { easing: 'linear', origin: '12px 12px', delay: 160, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.92)', opacity: '0.2', easing: T6_EASE }, { transform: 'scale(1.06)', opacity: '1', easing: T6_EASE }, { transform: 'scale(0.92)', opacity: '0.2' }], 1200, { easing: 'linear', origin: '12px 12px', delay: 160, fill: 'backwards' }),
       },
     },
   },

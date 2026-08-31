@@ -7,11 +7,30 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, moveXSeq, moveYSeq, track, icon } from '../choreography';
 
 /** Sopla en cadena, y la ráfaga larga viaja más. */
+/* ── Variantes de la tanda 6 ──────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Easing por keyframe, `times` como
+ * `offset`, y un solo ciclo donde el original repite infinito — en glyphflow el bucle es un
+ * input del componente, no una propiedad de la variante.
+ *
+ * Donde el trazo se dibuja de cero y dejaría el icono incompleto va una GUÍA: una figura anexa
+ * con `opacity: '0'` que se enciende tenue mientras dura el gesto. Mismo mecanismo que las
+ * monedas y que la arista de `archive`.
+ */
+const T6_EASE = 'ease-in-out';
+const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+
 export const windIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M12.8 19.6A2 2 0 1 0 14 16H2" },
     { tag: 'path', d: "M17.5 8a2.5 2.5 0 1 1 2 4H2" },
     { tag: 'path', d: "M9.8 4.4A2 2 0 1 1 11 8H2" },
+    // Guía del relleno: sin ella las tres ráfagas se dibujan de cero y el icono queda
+    // COMPLETAMENTE vacío al arrancar el gesto — medido, la tinta caía a 0.00.
+    { tag: 'path', d: "M12.8 19.6A2 2 0 1 0 14 16H2", opacity: '0' },
+    { tag: 'path', d: "M17.5 8a2.5 2.5 0 1 1 2 4H2", opacity: '0' },
+    { tag: 'path', d: "M9.8 4.4A2 2 0 1 1 11 8H2", opacity: '0' },
   ],
   {
     default: {
@@ -30,6 +49,16 @@ export const windIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.05)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 120, origin: '2px 18px' }),
       },
       reverseOnLeave: true,
+    },
+    reveal: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE }),
+        4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE }),
+        5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 900, { easing: T6_EASE }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'translateX(-3px)', opacity: '0' }, { strokeDasharray: '1 1', transform: 'translateX(0px)', opacity: '1' }], 600, { easing: T6_DECEL }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'translateX(-3px)', opacity: '0' }, { strokeDasharray: '1 1', transform: 'translateX(0px)', opacity: '1' }], 600, { easing: T6_DECEL, delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'translateX(-3px)', opacity: '0' }, { strokeDasharray: '1 1', transform: 'translateX(0px)', opacity: '1' }], 600, { easing: T6_DECEL, delay: 240, fill: 'backwards' }),
+      },
     },
   },
 );
