@@ -5,6 +5,17 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, moveXSeq, moveYSeq, track, icon, held } from '../choreography';
 import { chevronDownShapes, chevronLeftShapes, chevronRightShapes, chevronUpShapes } from '../animated-icons.shapes';
+/* ── Variante `nudge` ─────────────────────────────────────────────
+ *
+ * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El easing va POR KEYFRAME y `times`
+ * se traduce a `offset`; el porqué de ambas cosas está en el bloque de `pulse` de
+ * icons/battery.ts. Las variantes que la familia ya tenía no se tocan.
+ *
+ * SIN estela: el original la hace DUPLICANDO la figura, y añadir una figura fantasma
+ * cambiaría la geometría del icono y `draw` la dibujaría dos veces.
+ */
+const EIO = 'ease-in-out';
+
 
 /* ── Vocabulario de la etapa 1 de la cola larga ──────────────────────────────────────────── */
 
@@ -43,6 +54,11 @@ export const chevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronRig
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+      },
+    },
   });
 
 export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDownShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, 3]), 320),
@@ -51,6 +67,11 @@ export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDown
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+      },
     },
   });
 
@@ -61,6 +82,11 @@ export const chevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronLeft
       },
       reverseOnLeave: true,
     },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+      },
+    },
   });
 
 export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, -3]), 320),
@@ -69,6 +95,11 @@ export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShap
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
+      },
     },
   });
 
