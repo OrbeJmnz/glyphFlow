@@ -25,9 +25,13 @@
             </button>
           </app-tooltip>
         } @empty {
-          <p class="vacio">
-            {{ 'lab.morphPicker.buscar.sinResultados' | transloco: { filtro: filtro() } }}
-          </p>
+          <app-sin-resultados
+            class="vacio"
+            [icono]="caraTriste"
+            [titulo]="'lab.morphPicker.buscar.sinResultados' | transloco: { filtro: filtro() }"
+            [etiquetaLimpiar]="'lab.morphPicker.buscar.limpiar' | transloco"
+            (limpiar)="filtro.set('')"
+          />
         }
         <!-- El botón es la única vía con teclado: tabulando no se dispara un observador. -->
         @if (hayMas()) {
@@ -57,42 +61,61 @@
       @if (secuencia().length) {
         <ol class="cadena">
           @for (item of secuencia(); track $index) {
-            <!--
-              El nombre va VISIBLE y no en un tooltip. El tooltip envolvía un `<gf-icon>`, que no
-              recibe foco, así que el nombre solo existía al pasar el ratón: con teclado o en
-              táctil, la cadena era una fila de iconos sin identificar. Y con el nombre aquí, el
-              renglón de pares que iba debajo pasa a ser una repetición — por eso se fue.
-            -->
-            <li [class.activo]="$index === indiceActual()" [class.tramo-activo]="tramoActivo()?.destino === item">
+            @if ($index > 0) {
+              <!-- Solo di­rección, nunca compite con el icono: por eso `aria-hidden` y sin peso propio. -->
+              <li class="flecha" aria-hidden="true">→</li>
+            }
+            <li
+              class="paso"
+              [class.activo]="$index === indiceActual()"
+              [class.tramo-activo]="tramoActivo()?.destino === item"
+              [class.fundido]="calidadCadena()[$index]"
+            >
               <!--
                 A partir del segundo icono, el propio glifo es el botón que elige el tramo a
-                scrubbear (indice-1 -> indice). El primero no tiene "antes": se queda sin este
-                gesto, mismo criterio que ya usa `[disabled]` en otros picks de la cadena.
+                scrubbear (indice-1 -> indice). El primero no tiene "antes" que recorrer, así que
+                su botón no lleva `(click)` -- pero SIGUE siendo un `<button>` real y no un `<span>`:
+                sin eso, Tab saltaba el primer paso entero y su nombre solo existía para el mouse.
               -->
-              @if ($index === 0) {
-                <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
-              } @else {
-                <button
-                  type="button"
-                  class="miniatura"
-                  [attr.aria-pressed]="tramoActivo()?.destino === item"
-                  [attr.aria-label]="
-                    'lab.morphPicker.verTramoAria'
-                      | transloco: { desde: secuencia()[$index - 1].nombre, hasta: item.nombre }
-                  "
-                  (click)="elegirTramo($index)"
-                >
-                  <gf-icon [iconDef]="item.def" [size]="16" trigger="manual" />
-                </button>
-              }
-              <span class="nombre">{{ item.nombre }}</span>
+              <app-tooltip [texto]="item.nombre" [abajo]="true">
+                @if ($index === 0) {
+                  <button
+                    type="button"
+                    class="glifo"
+                    [attr.aria-label]="
+                      (calidadCadena()[$index] ? 'lab.morphPicker.pasoAriaFundido' : 'lab.morphPicker.pasoAria')
+                        | transloco: { nombre: item.nombre, n: 1, total: secuencia().length }
+                    "
+                  >
+                    <gf-icon [iconDef]="item.def" [size]="20" trigger="manual" />
+                  </button>
+                } @else {
+                  <button
+                    type="button"
+                    class="glifo"
+                    [attr.aria-pressed]="tramoActivo()?.destino === item"
+                    [attr.aria-label]="
+                      (calidadCadena()[$index] ? 'lab.morphPicker.pasoAriaFundido' : 'lab.morphPicker.pasoAria')
+                        | transloco: { nombre: item.nombre, n: $index + 1, total: secuencia().length }
+                    "
+                    (click)="elegirTramo($index)"
+                  >
+                    <gf-icon [iconDef]="item.def" [size]="20" trigger="manual" />
+                  </button>
+                }
+              </app-tooltip>
               @if (calidadCadena()[$index]) {
-                <app-tooltip [texto]="'lab.morphPicker.fundidoTooltip' | transloco">
-                  <span class="fundido-marca">{{ 'lab.morphPicker.fundidoBadge' | transloco }}</span>
-                </app-tooltip>
+                <span class="marca-fundido" aria-hidden="true"></span>
               }
+              <!--
+                Badge flotante, no una tercera columna dentro de la ficha: aparece al acercarse o
+                al enfocar (mismo trato que el botón de copiar de `bloque-codigo.css`), así que en
+                reposo la forma del icono no compite con un aspa. Con foco de teclado se queda
+                visible siempre -- si no, quien navega con Tab nunca sabría que existe.
+              -->
               <button
                 type="button"
+                class="quitar"
                 (click)="quitar($index)"
                 [attr.aria-label]="
                   'lab.morphPicker.quitarAria' | transloco: { nombre: item.nombre }
@@ -104,16 +127,22 @@
           }
         </ol>
 
+        <p class="leyenda-fundido">
+          <span class="marca-fundido" aria-hidden="true"></span>
+          {{ 'lab.morphPicker.leyendaFundido' | transloco }}
+        </p>
+
         <div class="acciones">
           <button
             type="button"
-            class="primario"
+            app-boton
+            variante="primario"
             [disabled]="secuencia().length < 2"
             (click)="reproducir()"
           >
             {{ etiquetaReproducir() }}
           </button>
-          <button type="button" app-boton compacto (click)="limpiar()">
+          <button type="button" app-boton compacto variante="fantasma" (click)="limpiar()">
             {{ 'lab.morphPicker.limpiar' | transloco }}
           </button>
         </div>

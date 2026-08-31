@@ -42,6 +42,8 @@ import { aIconNode } from './icon-node';
 import { Boton } from '../../shared/ui/boton';
 import { Chip } from '../../shared/ui/chip';
 import { Recuadro } from '../../shared/ui/recuadro';
+import { Grupo } from '../../shared/ui/grupo';
+import { CarrilActivo } from '../../shared/ui/carril-activo';
 
 /**
  * Arnés del benchmark de morph. NO es producto: existe para decidir números mirando las cosas
@@ -233,7 +235,7 @@ interface Medida extends Variante {
 
 @Component({
   selector: 'app-morph-bench',
-  imports: [GfIconMorphComponent, Boton, Chip, Recuadro, TranslocoPipe],
+  imports: [GfIconMorphComponent, Boton, Chip, Recuadro, Grupo, CarrilActivo, TranslocoPipe],
   templateUrl: './morph-bench.html',
   styleUrl: './morph-bench.css',
 })
@@ -243,6 +245,14 @@ export class MorphBench {
   protected readonly pares = PARES;
   protected readonly parActivo = signal(PARES[0]);
   protected readonly modo = signal<'pasos' | 'cola' | 'vuelta' | 'sobrepaso'>('pasos');
+  /** El orden es el mismo que ya tenía la fila de botones -- solo se volvió arreglo para poder
+      iterarlo en el `@for` del segmented control y para el roving tabindex por teclado. */
+  protected readonly modos = [
+    { valor: 'pasos' as const, etiqueta: 'lab.morphBench.controles.modoPasos' },
+    { valor: 'cola' as const, etiqueta: 'lab.morphBench.controles.modoCola' },
+    { valor: 'vuelta' as const, etiqueta: 'lab.morphBench.controles.modoVuelta' },
+    { valor: 'sobrepaso' as const, etiqueta: 'lab.morphBench.controles.modoSobrepaso' },
+  ];
   /**
    * El rótulo del botón se queda QUIETO en «Loop» y el estado lo lleva `aria-pressed`. Antes
    * alternaba entre «Loop on» y «Loop off», y eso se lee de dos maneras: puede ser el estado
@@ -336,6 +346,20 @@ export class MorphBench {
   );
 
   /**
+   * El máximo de `keyframes` DEL SET VISIBLE, no un techo fijo -- el indicador compara "cuánto más
+   * pesa esto que la más liviana de LAS OPCIONES QUE ESTOY MIRANDO", que es la pregunta real al
+   * comparar. Un techo fijo (p. ej. 60) haría que las cuatro barras se vean casi iguales en el modo
+   * "pasos" (10-30) y aplastadas en "cola"/"sobrepaso", donde los conteos son mucho más chicos.
+   */
+  protected readonly costoMaximo = computed(() =>
+    Math.max(1, ...this.tabla().map((m) => m.keyframes)),
+  );
+
+  protected costoPct(m: Medida): number {
+    return Math.round((m.keyframes / this.costoMaximo()) * 100);
+  }
+
+  /**
    * Las poses de una variante, en orden, listas para pintar.
    *
    * Existe para que las cuatro fichas se distingan EN REPOSO. Antes cada lienzo pintaba la pose de
@@ -366,6 +390,45 @@ export class MorphBench {
   protected elegirModo(modo: 'pasos' | 'cola' | 'vuelta' | 'sobrepaso'): void {
     this.cancelar();
     this.modo.set(modo);
+  }
+
+  /**
+   * Flechas dentro de un `radiogroup`. Mismo contrato en los tres controles de abajo (Compare,
+   * Resolution, Spring) -- calcado de `teclaVariante()` (`icon-detail-panel.ts`): sin flechas,
+   * anunciar "1 de N" y que no respondan sería peor que no anunciarlo.
+   */
+  private rovingTabindex<T>(
+    ev: KeyboardEvent,
+    valores: readonly T[],
+    actual: T,
+    elegir: (v: T) => void,
+  ): void {
+    const pasos: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    const paso = pasos[ev.key];
+    if (paso === undefined) return;
+    ev.preventDefault();
+    const i = valores.indexOf(actual);
+    const siguiente = (i + paso + valores.length) % valores.length;
+    elegir(valores[siguiente]);
+    const boton = ev.currentTarget as HTMLElement;
+    boton.parentElement?.querySelectorAll<HTMLElement>('[role="radio"]')[siguiente]?.focus();
+  }
+
+  protected teclaModo(ev: KeyboardEvent): void {
+    this.rovingTabindex(
+      ev,
+      this.modos.map((m) => m.valor),
+      this.modo(),
+      (v) => this.elegirModo(v),
+    );
+  }
+
+  protected teclaResolucion(ev: KeyboardEvent): void {
+    this.rovingTabindex(ev, this.resoluciones, this.resolucion(), (v) => this.elegirResolucion(v));
+  }
+
+  protected teclaResorte(ev: KeyboardEvent): void {
+    this.rovingTabindex(ev, this.resortes, this.resorte(), (v) => this.resorte.set(v));
   }
 
   /**

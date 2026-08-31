@@ -20,6 +20,7 @@ import {
   starIcon,
   userIcon,
   userRoundIcon,
+  faceSlightlyFrowningIcon,
 } from 'glyphflow';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { GfIconMorphComponent, morphKeyframes, correspondenceIsPoor } from 'glyphflow/morph';
@@ -29,6 +30,7 @@ import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Boton } from '../../shared/ui/boton';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { Visible } from '../../shared/ui/visible';
+import { SinResultados } from '../../shared/ui/sin-resultados';
 
 interface Elegido {
   nombre: string;
@@ -73,6 +75,7 @@ const SECUENCIA_INICIAL: Elegido[] = [
     Tooltip,
     TranslocoPipe,
     Visible,
+    SinResultados,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './morph-picker.html',
@@ -84,6 +87,8 @@ export class MorphPicker implements OnDestroy {
    * de un tramo se sienta igual de lento que reproducir la cadena completa del mismo par.
    */
   protected readonly resorteLento = RESORTE_LENTO;
+  /** La cara del "sin resultados" -- misma cara que ya usan catálogo y editor para lo mismo. */
+  protected readonly caraTriste = faceSlightlyFrowningIcon;
 
   /**
    * El catálogo llega DIFERIDO, no en el chunk de esta página.

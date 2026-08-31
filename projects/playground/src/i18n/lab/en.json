@@ -22,13 +22,17 @@
     "buscar": {
       "marcador": "filter the {{total}} curated icons…",
       "etiqueta": "Filter icons",
-      "sinResultados": "No results for \"{{filtro}}\"."
+      "sinResultados": "No icons for \"{{filtro}}\".",
+      "limpiar": "Clear search"
     },
     "agregarAria": "Add {{nombre}}",
     "quitarAria": "Remove {{nombre}}",
     "verTramoAria": "Scrub the morph from {{desde}} to {{hasta}}",
+    "pasoAria": "{{nombre}}, step {{n}} of {{total}}",
+    "pasoAriaFundido": "{{nombre}}, step {{n}} of {{total}}, fade fallback",
     "fundidoBadge": "fade",
-    "fundidoTooltip": "This leg has no reasonable geometric correspondence — the engine fades instead of deforming.",
+    "fundidoTooltip": "Fallback to fade: no valid geometric match.",
+    "leyendaFundido": "Amber: no valid geometric morph is available, so glyphFlow falls back to a fade.",
     "previewLabel": "Morph preview",
     "vacioLienzo": "Choose at least 2 icons to build a sequence.",
     "reproducir": {
@@ -45,21 +49,25 @@
   "morphBench": {
     "titulo": "Morph benchmark",
     "intro": "One pair at a time, 4 variants side by side. The spring only decides the timing: zero animation loop — the keyframes are computed once and the browser interpolates them.",
+    "paresEtiqueta": "pair",
     "controles": {
+      "grupoPlayback": "playback",
+      "grupoCompare": "compare",
+      "grupoResolution": "resolution",
       "reproducirTodas": "Play all 4",
       "loop": "Loop",
       "reset": "Reset",
-      "modoPasos": "compare steps",
-      "modoCola": "compare spring tail",
-      "modoVuelta": "compare the return",
-      "modoSobrepaso": "compare the bounce",
+      "modoPasos": "steps",
+      "modoCola": "spring tail",
+      "modoVuelta": "return",
+      "modoSobrepaso": "bounce",
       "resolucion": "res",
       "resolucionNota": "<strong>res</strong> is the sampling resolution: how many points each subpath is resampled to before the two shapes are paired up. It samples the OUTLINE, not time — it changes how faithfully the curve is followed, never how many frames play."
     },
     "avisos": {
-      "pasos": "More steps means more intermediate poses, so the path is tracked more closely — and the keyframe array grows. What you are comparing here is fidelity against payload. <strong>Adaptive</strong> is the real default: it doesn't hand out an even count across all 1767 icons, only the pairs that actually rotate get more. Compare it against 20 steps on <em>bell → bell-ring</em> (should look identical) and against 10 on <em>circle → square</em> (fewer steps, same fidelity, because it barely rotates).",
+      "pasos": "<p>More steps track the path more closely, at the cost of a bigger keyframe array — fidelity against payload.</p><details><summary>Technical details</summary><p><strong>Adaptive</strong> is the real default: it doesn't hand out an even count across all 1767 icons, only the pairs that actually rotate get more. Compare it against 20 steps on <em>bell → bell-ring</em> (should look identical) and against 10 on <em>circle → square</em> (fewer steps, same fidelity, because it barely rotates).</p></details>",
       "cola": "The tail only shows up <strong>on the way back</strong>: turn on <em>Loop</em> and watch it land. \"No reverse\" doesn't come back — it restarts from the origin every cycle.",
-      "sobrepaso": "An underdamped spring <strong>overshoots</strong> the target and comes back. That used to just stretch the clock: the icon would arrive and sit still. Now the overshoot poses render by default — the comparison that matters is <em>snappy, undrawn</em> (<code>sobrepaso: false</code>) against <em>snappy</em>. <code>bouncy</code> is clamped: extrapolating further would push it off the canvas and the SVG would clip it.",
+      "sobrepaso": "<p>An underdamped spring <strong>overshoots</strong> the target and comes back.</p><details><summary>Technical details</summary><p>That used to just stretch the clock: the icon would arrive and sit still. Now the overshoot poses render by default — the comparison that matters is <em>snappy, undrawn</em> (<code>sobrepaso: false</code>) against <em>snappy</em>. <code>bouncy</code> is clamped: extrapolating further would push it off the canvas and the SVG would clip it.</p></details>",
       "vuelta": "<strong>Hover in, then pull out</strong> — that's the real case (<code>reverseOnLeave</code>). <em>reverse()</em> walks the offsets in mirror and lands abruptly; <em>Round trip</em> carries its own spring on each leg and doesn't need you to pull out."
     },
     "variantes": {
@@ -142,8 +150,10 @@
       "duracion": "duration",
       "ultimoTramo": "last leg",
       "desviacion": "deviation",
-      "leyenda": "<strong>keyframes</strong> — how many poses the browser interpolates between. <strong>weight</strong> — the size of that keyframe array in memory, as UTF-8 bytes. <em>This is not bundle weight.</em> These keyframes are computed in your browser when the morph runs; none of them ship inside the package. <strong>duration</strong> — how long a single leg of the morph lasts. <strong>last leg</strong> — the share of that duration spent on the final step between two keyframes. The higher it is, the more the icon looks like it crawls to a stop. <strong>deviation</strong> — how far WAAPI's linear interpolation between those poses strays from the real polar trajectory (24×24 canvas). It's the metric behind <em>Adaptive</em>: the default no longer hands out an even step count, only pairs that actually rotate get more."
+      "costoAria": "{{pct}}% of the heaviest option shown",
+      "leyenda": "<p><strong>keyframes</strong> — interpolated poses.</p><p><strong>weight</strong> — size of the keyframe array in memory <em>(not bundle weight — computed in your browser when the morph runs, ships with nothing)</em>.</p><p><strong>duration</strong> — how long one leg of the morph lasts.</p><p><strong>last leg</strong> — share of that duration spent on the final step. Higher means it crawls to a stop.</p><p><strong>deviation</strong> — how far the interpolation strays from the real path. The metric behind <em>Adaptive</em>.</p>"
     },
-    "reproducirSolo": "Play just this one"
+    "reproducirSolo": "▶ Play",
+    "reproducirSoloAria": "Play the {{titulo}} variant"
   }
 }

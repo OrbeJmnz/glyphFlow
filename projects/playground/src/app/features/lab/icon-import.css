@@ -7,8 +7,15 @@
   overflow: hidden;
 }
 
+/*
+ * El icono de subir vuelve la acción reconocible de un vistazo (traer una coreografía de afuera)
+ * sin subirla de peso: sigue siendo un disclosure secundario, no un CTA. La flecha pasa al final
+ * de la fila -- antes prefijaba el texto y competía con el icono nuevo por la misma esquina.
+ */
 .import-toggle {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   width: 100%;
   padding: 0.7rem 1rem;
   border: none;
@@ -17,6 +24,11 @@
   font-size: 0.8125rem;
   text-align: left;
   cursor: pointer;
+}
+
+.import-toggle .flecha {
+  margin-left: auto;
+  color: var(--gf-texto-apagado);
 }
 
 .import-toggle:hover {
