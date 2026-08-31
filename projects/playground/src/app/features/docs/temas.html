@@ -1,6 +1,6 @@
 <p class="bajada">{{ 'docs.temas.bajada' | transloco }}</p>
 
-<h2 id="currentcolor">{{ 'docs.temas.color.titulo' | transloco }}</h2>
+<h2 id="currentcolor" [innerHTML]="'docs.temas.color.titulo' | transloco"></h2>
 <p [innerHTML]="'docs.temas.color.texto' | transloco"></p>
 <p [innerHTML]="'docs.temas.color.consecuencia' | transloco"></p>
 

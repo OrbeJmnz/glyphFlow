@@ -226,14 +226,14 @@
   {
     "idioma": "en",
     "ruta": "ssr",
-    "ancla": "verify",
+    "ancla": "check-locally",
     "titulo": "How it's verified",
     "texto": "How it's verified How it's verified With a smoke test that runs in real Node , not jsdom — and that's the point: jsdom defines window , so a test running there wouldn't prove anything. The script starts by deliberately failing if it detects window : Then it renders with renderApplication from &#64;angular/platform-server and demands two things from the resulting HTML: that there's an <svg> , and that it carries the decorative icon's aria-hidden=\"true\" . Runs in CI on every commit ( npm run test:ssr ). The second check isn't decoration. A render that \"doesn't throw\" but returns empty HTML passes any test that only checks for an exception — that's why the test asserts on content, not on the absence of an error."
   },
   {
     "idioma": "es",
     "ruta": "ssr",
-    "ancla": "verify",
+    "ancla": "check-locally",
     "titulo": "Cómo se verifica",
     "texto": "Cómo se verifica Cómo se verifica Con un smoke test que corre en Node genuino , no en jsdom — y eso es el punto: jsdom define window , así que un test ahí no probaría nada. El script arranca fallando a propósito si detecta window : Luego renderiza con renderApplication de &#64;angular/platform-server y exige dos cosas del HTML resultante: que haya un <svg> , y que traiga el aria-hidden=\"true\" del icono decorativo. Corre en CI en cada commit ( npm run test:ssr ). La segunda comprobación no es de adorno. Un render que \"no truena\" pero devuelve HTML vacío pasa cualquier prueba que solo mire si hubo excepción — por eso el test afirma sobre el contenido, no sobre la ausencia de error."
   },
