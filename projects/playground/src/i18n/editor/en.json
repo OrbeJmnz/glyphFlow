@@ -3,8 +3,10 @@
   "intro": "Drag the points along the outline and watch <code>d</code> change. What you don't touch gets rewritten exactly as it was — that's why the result stays readable instead of turning into a wall of cubics.",
   "trazos": "This icon has {{n}} strokes. Click one to edit its nodes.",
   "busqueda": {
-    "marcador": "search the curated set…",
-    "etiqueta": "Search icon to edit"
+    "marcador": "Search {{n}} icons…",
+    "etiqueta": "Search icon to edit",
+    "vacio": "No icons for “{{q}}”.",
+    "limpiar": "Clear search"
   },
   "lista": {
     "editarAria": "Edit {{nombre}}",
@@ -35,18 +37,19 @@
     "silueta": "the icon's real stroke, dimmed so the nodes stay reachable underneath"
   },
   "secciones": {
-    "elementos": "elements",
-    "edicion": "editing",
-    "resultado": "result"
+    "elementos": "icon",
+    "edicion": "edit",
+    "resultado": "output",
+    "proyecto": "project"
   },
   "nodo": {
     "grupoAria": "Selected node",
     "titulo": "Node #{{n}}",
-    "agregar": "add node here",
+    "agregar": "insert node",
     "teclaMas": "+",
     "borrar": "delete node",
     "teclaSupr": "Del",
-    "pista": "Select a node first — then add or delete."
+    "pista": "Select a node to edit it."
   },
   "historial": {
     "grupoAria": "History",
@@ -77,6 +80,7 @@
   "borradores": {
     "titulo": "my drafts",
     "guardar": "Save draft",
+    "guardado": "Saved",
     "renombrar": "rename",
     "borrar": "delete",
     "nombreAria": "Draft name",

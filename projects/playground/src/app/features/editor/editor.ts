@@ -20,9 +20,13 @@ import {
   // completo llega diferido (ver `curados` más abajo); estos dos hacen falta ya, al construir.
   heartIcon,
   playIcon,
+  checkIcon,
+  copyIcon,
+  faceSlightlyFrowningIcon,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
+import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { TOPE_URL, aFragmento, deFragmento, type EstadoEditor } from '../../core/estado-url';
 import {
@@ -50,11 +54,13 @@ import {
 } from './geometria/path-edit';
 import { crearHistorial } from './geometria/historial';
 import { Taller } from '../../core/taller';
+import { Rutas } from '../../core/rutas.service';
 import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { Visible } from '../../shared/ui/visible';
+import { SinResultados } from '../../shared/ui/sin-resultados';
 
 const LADO = 24;
 
@@ -89,7 +95,17 @@ interface NodoVista extends Nodo {
  */
 @Component({
   selector: 'app-editor',
-  imports: [Boton, CampoBusqueda, Chip, GfIconComponent, Tooltip, TranslocoPipe, Visible],
+  imports: [
+    Boton,
+    CampoBusqueda,
+    Chip,
+    GfIconComponent,
+    GfIconMorphComponent,
+    SinResultados,
+    Tooltip,
+    TranslocoPipe,
+    Visible,
+  ],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -119,6 +135,9 @@ export class Editor implements OnDestroy {
 
   protected readonly lado = LADO;
   protected readonly zoomMin = ZOOM_MIN;
+  /** La rejilla menor, a medio camino entre las líneas mayores (4/8/12/16/20) -- nunca en la misma
+      posición, para no dibujar dos veces la misma línea una encima de la otra. */
+  protected readonly ejesMenor = [2, 6, 10, 14, 18, 22];
 
   /**
    * Las señales del lienzo, en el orden en que se encuentran al usarlo: primero el nodo suelto,
@@ -139,6 +158,8 @@ export class Editor implements OnDestroy {
   protected readonly zoomMax = ZOOM_MAX;
   /** El glifo del CTA. Va por `iconDef` y no por `name=`: el playground no registra el catálogo. */
   protected readonly iconoPlay = playIcon;
+  /** La cara del "sin resultados" -- misma cara que ya usa `iconos.ts` para lo mismo. */
+  protected readonly caraTriste = faceSlightlyFrowningIcon;
 
   /**
    * Coordenada para leer, no para calcular. Dos decimales y sin ceros de relleno: la cifra cambia
@@ -285,6 +306,13 @@ export class Editor implements OnDestroy {
   private readonly borradorActual = signal<string | null>(null);
   protected readonly renombrando = signal<string | null>(null);
 
+  /**
+   * Antes, guardar un borrador no daba ninguna señal -- el usuario solo se enteraba mirando la
+   * lista de abajo. Mismo patrón que `copiado`: un aviso de vida corta, no un toast.
+   */
+  protected readonly guardado = signal(false);
+  private avisoGuardado?: ReturnType<typeof setTimeout>;
+
   /** El estado que se guarda es el MISMO que viaja en el enlace: un dato, dos formas de llegar. */
   private estadoActual(): EstadoEditor {
     return { icono: this.elegido().nombre, paths: this.dPorPath() };
@@ -294,9 +322,12 @@ export class Editor implements OnDestroy {
     const id = this.borradorActual();
     if (id) {
       actualizarBorrador(id, this.estadoActual());
-      return;
+    } else {
+      this.borradorActual.set(guardarBorrador(this.estadoActual()));
     }
-    this.borradorActual.set(guardarBorrador(this.estadoActual()));
+    clearTimeout(this.avisoGuardado);
+    this.guardado.set(true);
+    this.avisoGuardado = setTimeout(() => this.guardado.set(false), 1600);
   }
 
   protected abrirBorrador(b: Borrador): void {
@@ -578,6 +609,15 @@ export class Editor implements OnDestroy {
   protected readonly editado = computed(() => this.dPorPath().join('\n'));
 
   /**
+   * El fantasma de referencia: el `d` ORIGINAL del stroke activo, solo mientras hay algo que
+   * comparar. Sin `tocado()` el activo Y la referencia son el mismo trazo -- pintar un fantasma
+   * idéntico encima de sí mismo no aporta nada, solo un `<path>` de más en cada frame.
+   */
+  protected readonly dReferencia = computed<string | null>(() =>
+    this.tocado() ? (this.pathsOriginales()[this.indiceActivo()] ?? null) : null,
+  );
+
+  /**
    * El icono editado, listo para coreografiar: la geometría nueva con la coreografía ORIGINAL.
    *
    * Los `d` editados se reponen EN SU SITIO dentro del arreglo de figuras, no al final. Los tracks
@@ -685,6 +725,25 @@ export class Editor implements OnDestroy {
         this.agregarNodo();
         return;
       }
+      const paso = ev.shiftKey ? 0.1 : 1;
+      switch (ev.key) {
+        case 'ArrowUp':
+          ev.preventDefault();
+          this.nudgeNodo(0, -paso);
+          return;
+        case 'ArrowDown':
+          ev.preventDefault();
+          this.nudgeNodo(0, paso);
+          return;
+        case 'ArrowLeft':
+          ev.preventDefault();
+          this.nudgeNodo(-paso, 0);
+          return;
+        case 'ArrowRight':
+          ev.preventDefault();
+          this.nudgeNodo(paso, 0);
+          return;
+      }
     }
     if (!(ev.ctrlKey || ev.metaKey)) return;
     const k = ev.key.toLowerCase();
@@ -695,6 +754,47 @@ export class Editor implements OnDestroy {
       ev.preventDefault();
       this.rehacer();
     }
+  }
+
+  private gestoNudgeAbierto = false;
+  private temporizadorNudge?: ReturnType<typeof setTimeout>;
+
+  /**
+   * Flechas mueven el nodo activo: 1 unidad, 0.1 con Shift. Reusa el MISMO mutator que el drag
+   * (`moverNodo`) — sin geometría nueva, y `RefNodo` solo necesita `sub`/`seg` para encontrar el
+   * punto, así que sigue siendo válido aunque el nodo ya se haya movido por una tecla anterior.
+   *
+   * Mantener flecha presionada dispara keydown repetido del sistema operativo — sin agrupar, cada
+   * repetición sería su propio paso de deshacer, y Ctrl+Z tendría que darse veinte veces para
+   * volver a donde estaba. Se abre el gesto en la PRIMERA tecla y se cierra 500ms después de la
+   * última — igual que un arrastre entero cuenta como un solo paso.
+   */
+  private nudgeNodo(dx: number, dy: number): void {
+    const n = this.activo();
+    if (!n) return;
+    if (!this.gestoNudgeAbierto) {
+      this.historial.abrir(this.modelos());
+      this.gestoNudgeAbierto = true;
+    }
+    const i = this.indiceActivo();
+    this.modelos.update((todos) => {
+      const copia = [...todos];
+      copia[i] = moverNodo(copia[i], n, dx, dy);
+      return copia;
+    });
+    this.tocado.set(true);
+    clearTimeout(this.temporizadorNudge);
+    this.temporizadorNudge = setTimeout(() => {
+      const i2 = this.indiceActivo();
+      this.modelos.update((todos) => {
+        const copia = [...todos];
+        copia[i2] = limpiar(copia[i2]);
+        return copia;
+      });
+      this.historial.cerrar(this.modelos());
+      this.gestoNudgeAbierto = false;
+      this.sincronizarPila();
+    }, 500);
   }
 
   constructor() {
@@ -872,11 +972,18 @@ export class Editor implements OnDestroy {
 
   private readonly taller = inject(Taller);
   private readonly router = inject(Router);
+  private readonly rutas = inject(Rutas);
 
-  /** Manda la forma editada al Lab y navega: el traspaso que evita copiar y pegar a mano. */
+  /**
+   * Manda la forma editada al Lab y navega: el traspaso que evita copiar y pegar a mano.
+   *
+   * `rutas.a('lab')` y no `['/lab']` a secas: sin prefijo de idioma, esto SÍ llegaba porque cae en
+   * la red de redirección catch-all de `app.routes.ts` -- pero es un salto de más que el resto del
+   * sitio ya no necesita en ningún otro lado (`patrones.html` usa el mismo patrón para ir a Docs).
+   */
   protected coreografiar(): void {
     this.taller.enviar(this.elegido().nombre, this.defEditado());
-    void this.router.navigate(['/lab']);
+    void this.router.navigate([this.rutas.a('lab')]);
   }
 
   // ── Salida ──────────────────────────────────────────────────────────────────
@@ -885,27 +992,24 @@ export class Editor implements OnDestroy {
   protected readonly verPath = signal(true);
   protected readonly verJson = signal(false);
 
-  /** Cuál de los dos bloques acaba de copiarse, para acusar recibo. */
-  protected readonly copiado = signal<'path' | 'json' | null>(null);
-  private avisoCopiado?: ReturnType<typeof setTimeout>;
-
   /**
-   * Copiar de verdad o no decir nada. El `catch` vacío es a propósito: sin permiso de portapapeles
-   * el acuse NO se pinta, en vez de mentirle al usuario diciendo «copiado» sobre un buffer vacío.
+   * Copiar `d` y copiar JSON usaban un `alPortapapeles()` casero que duplicaba exactamente lo que
+   * `Copiador` ya hace en todo el resto del sitio (incluido el propio botón de enlace de aquí
+   * abajo) -- sin el morph copy→check que sí usa `bloque-codigo.ts`. Dos instancias porque son dos
+   * acuses independientes: copiar el JSON no debe apagar la palomita del `d`, ni viceversa.
    */
-  private async alPortapapeles(texto: string, cual: 'path' | 'json'): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(texto);
-      this.copiado.set(cual);
-      clearTimeout(this.avisoCopiado);
-      this.avisoCopiado = setTimeout(() => this.copiado.set(null), 1600);
-    } catch {
-      /* sin permiso: no se finge que copió */
-    }
-  }
+  protected readonly copiadorPath = new Copiador();
+  protected readonly copiadorJson = new Copiador();
+
+  protected readonly iconoCopiarPath = computed<MorphIcon>(() =>
+    this.copiadorPath.copiado() ? checkIcon : copyIcon,
+  );
+  protected readonly iconoCopiarJson = computed<MorphIcon>(() =>
+    this.copiadorJson.copiado() ? checkIcon : copyIcon,
+  );
 
   protected copiarJson(): Promise<void> {
-    return this.alPortapapeles(this.json(), 'json');
+    return this.copiadorJson.copiar(this.json());
   }
 
   /**
@@ -935,11 +1039,15 @@ export class Editor implements OnDestroy {
   }
 
   protected copiar(): Promise<void> {
-    return this.alPortapapeles(this.editado(), 'path');
+    return this.copiadorPath.copiar(this.editado());
   }
 
   ngOnDestroy(): void {
-    clearTimeout(this.avisoCopiado);
+    this.copiadorPath.destruir();
+    this.copiadorJson.destruir();
+    this.copiadorEnlace.destruir();
     clearTimeout(this.temporizadorUrl);
+    clearTimeout(this.avisoGuardado);
+    clearTimeout(this.temporizadorNudge);
   }
 }
