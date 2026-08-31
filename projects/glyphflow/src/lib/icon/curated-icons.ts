@@ -1385,6 +1385,46 @@ export const externalLinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(externalLi
       },
       reverseOnLeave: true,
     },
+    // Port del gesto de AnimateIcons (Avijit Dey, MIT — ver NOTICE): la caja se redibuja
+    // de cero mientras la flecha amaga hacia abajo-izquierda antes de salir disparada.
+    //
+    // El easing va por keyframe, no en `options`: Framer lo aplica entre cada par, y en `options`
+    // WAAPI lo aplicaría a la iteración completa. Con `times` traducido a `offset`, `conRelevo`
+    // devuelve null y en hover repetido corta en seco — el original hace lo mismo.
+    launch: {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
+            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
+            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
+            { transform: 'translate(0px, 0px)', offset: 1 },
+          ],
+          1000,
+          { easing: 'linear', delay: 120 },
+        ),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
+            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
+            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
+            { transform: 'translate(0px, 0px)', offset: 1 },
+          ],
+          1000,
+          { easing: 'linear', delay: 120 },
+        ),
+        // El componente ya pone `pathLength="1"`, así que el dash va en 0-1. Es la misma forma con
+        // la que Motion resuelve `pathLength` por debajo.
+        2: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '0 1', opacity: '0.4' },
+            { strokeDasharray: '1 1', opacity: '1' },
+          ],
+          900,
+          { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+        ),
+      },
+    },
   });
 
 
