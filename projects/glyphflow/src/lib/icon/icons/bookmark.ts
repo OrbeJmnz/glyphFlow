@@ -74,6 +74,16 @@ export const bookmarkOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkOff
       },
     },
     wave: { root: BOOKMARK_WAVE },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   });
 
 /** Guardar: el listón cae y el "+" se dibuja de insignia, en dos trazos. */

@@ -30,7 +30,7 @@ export const treeDeciduousIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -54,7 +54,7 @@ export const treePineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -81,8 +81,8 @@ export const treePalmIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 9px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 9px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 9px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 9px' }),
       },
       reverseOnLeave: true,
     },

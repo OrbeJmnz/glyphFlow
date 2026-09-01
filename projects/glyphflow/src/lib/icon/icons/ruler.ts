@@ -27,7 +27,7 @@ export const rulerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -60,7 +60,7 @@ export const rulerDimensionLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.92)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '2px 6px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '2px 6px' }),
       },
       reverseOnLeave: true,
     },

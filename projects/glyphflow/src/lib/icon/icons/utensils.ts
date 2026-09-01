@@ -26,9 +26,9 @@ export const utensilsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -56,10 +56,10 @@ export const utensilsCrossedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },

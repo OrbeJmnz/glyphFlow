@@ -62,6 +62,9 @@ describe('Iconos', () => {
    * disponible —el conteo que se anuncia es el de verdad— y lo montado es un prefijo suyo, no una
    * muestra suelta.
    */
+  // Timeout explicito: este test monta un tramo del catalogo entero (2.7 MB de JSON) y
+  // ya corria a ~4.9 s del limite de 5 s por default de Vitest. No es lentitud nueva --
+  // es que el margen era de decimas, y cualquier variante que se agregue lo consume.
   it('monta un tramo del catálogo y anuncia el total de verdad', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
@@ -78,7 +81,7 @@ describe('Iconos', () => {
     // Y queda por dónde seguir: el botón es la única vía para quien navega con teclado, porque
     // tabulando entre tarjetas nunca se dispara un `IntersectionObserver`.
     expect(html.querySelector('.hay-mas button')).toBeTruthy();
-  });
+  }, 20000);
 
   /*
    * El panel de detalle es un DRAWER, no un modal, y eso es reversible sin querer: basta con

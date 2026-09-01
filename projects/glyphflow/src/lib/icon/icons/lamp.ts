@@ -28,7 +28,7 @@ export const lampIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.07)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -53,7 +53,7 @@ export const lampFloorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.07)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
       },
       reverseOnLeave: true,
     },
@@ -79,8 +79,8 @@ export const lampCeilingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.0005deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.0005deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
       },
       reverseOnLeave: true,
     },
@@ -105,7 +105,7 @@ export const lampWallDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 13px' }),
       },
       reverseOnLeave: true,
     },
@@ -130,7 +130,7 @@ export const lampWallUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 11px' }),
       },
       reverseOnLeave: true,
     },

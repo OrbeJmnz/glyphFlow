@@ -43,6 +43,36 @@ const DURACION_LARGA_MS = 1200;
 const ROTACION_ALTA_DEG = 720;
 
 /*
+ * Un `hold` retiene su ultimo keyframe (`fill: 'forwards'`), asi que esa pose ES la variante: es
+ * lo unico que el usuario ve mientras deja el puntero encima. Si apenas se distingue del reposo,
+ * la variante existe en el catalogo y no existe en pantalla.
+ *
+ * Umbral MEDIDO, como los de arriba: hoy el catalogo tiene 496 `hold` y el mas flojo esta en 0.60
+ * unidades, asi que 0.8 marca 7 -- los que no pueden crecer mas sin salirse del lienzo y necesitan
+ * otro gesto, no uno mas grande. No bloquea nada de lo que ya existe.
+ *
+ * La regla es nueva porque el defecto era masivo y no lo veia nadie: antes de la tanda que la
+ * introdujo, 258 de los 496 quedaban por debajo de 1.2 -- `scale(1.04)`, `rotate(3deg)`,
+ * `translateY(-0.5px)`. Se ven en el codigo; no se ven en el icono.
+ */
+const POSE_HOLD_MINIMA = 0.8;
+
+/*
+ * Sutiles A PROPOSITO. Al revisar la tanda que introdujo la regla (2026-09-01), Orbe amplifico
+ * 219 `hold` y devolvio estos diez a su magnitud original: en un coche que se asienta o una
+ * tortuga que apenas asoma, lo discreto ES el gesto.
+ *
+ * Van en una lista y no en un umbral mas bajo porque el numero no puede distinguirlos: `gem`
+ * retiene 0.40 y `turtle` 0.50, justo en la banda donde vivia el defecto (`scale(1.04)` son
+ * 0.32; `rotate(3deg)`, 0.42). Bajar el corte hasta dejarlos pasar apagaria la regla entera.
+ * Una lista dice la verdad -- "esto se miro y se decidio" -- en vez de fingir que lo decide la
+ * aritmetica. Si alguno vuelve a tocarse, sacarlo de aqui y volver a mirarlo.
+ */
+const SUTILES_A_PROPOSITO = new Set([
+  'barrel', 'car', 'car-front', 'caravan', 'cuboid', 'gem', 'spool', 'turtle', 'van', 'wand',
+]);
+
+/*
  * Lo que este linter NO revisa, y por qué — para que nadie lo vuelva a agregar:
  *
  * `tracksSolapados`. El inspector reporta cualquier par de tracks cuyos intervalos se cruzan,
@@ -81,6 +111,25 @@ function revisar(icono: string, v: VariantReport): Hallazgo[] {
       regla: 'duracion-larga',
       nivel: 'aviso',
       detalle: `${v.duracionMs} ms (tope ${DURACION_LARGA_MS})`,
+    });
+  }
+
+  /*
+   * Solo se mide en las variantes que RETIENEN. En una que vuelve al reposo la pose final es ~0
+   * por definicion, y marcarla seria marcar el 80 % del catalogo por hacer bien su trabajo.
+   */
+  if (
+    v.reverseOnLeave &&
+    !v.autoDraw &&
+    !SUTILES_A_PROPOSITO.has(icono) &&
+    v.poseFinalUnidades < POSE_HOLD_MINIMA
+  ) {
+    hallazgos.push({
+      icono,
+      variante: v.variante,
+      regla: 'pose-imperceptible',
+      nivel: 'aviso',
+      detalle: `retiene una pose de ${v.poseFinalUnidades} unidades (minimo ${POSE_HOLD_MINIMA}) — no se distingue del reposo`,
     });
   }
 

@@ -16,7 +16,7 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 
 /** Un símbolo sostenido solo se afirma. */
-const AFIRMA = /* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }];
+const AFIRMA = /* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }];
 
 /** El trazo, con el orden y la duración de cada uno decididos a mano. */
 const trazo = (ms: number, delay = 0) =>

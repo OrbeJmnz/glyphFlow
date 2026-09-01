@@ -43,9 +43,9 @@ export const windIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // por donde entra el aire. El default mueve; el hold cuenta en qué acaba ese movimiento.
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.05)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '2px 6px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.05)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '2px 10px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.05)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 120, origin: '2px 18px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.0976)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '2px 6px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.0976)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '2px 10px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.0976)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 120, origin: '2px 18px' }),
       },
       reverseOnLeave: true,
     },
