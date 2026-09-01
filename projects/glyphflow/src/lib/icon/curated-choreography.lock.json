@@ -10831,91 +10831,113 @@
     },
     "align-center-horizontal": {
       "default": "82f9376d7fa7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "90d525e63cb2"
     },
     "align-center-vertical": {
       "default": "b78915ad3f9b",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "30630dde8e12"
     },
     "align-end-horizontal": {
       "default": "5060205099fe",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "826bc54d7ddd"
     },
     "align-end-vertical": {
       "default": "a5496158036d",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "37d2d125cbd0"
     },
     "align-horizontal-distribute-center": {
       "default": "32bbad4c523c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "53367908c5a4"
     },
     "align-horizontal-distribute-end": {
       "default": "f156efe0a005",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "b78482c57b8e"
     },
     "align-horizontal-distribute-start": {
       "default": "88e6c5eac6b0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "bdd20b199250"
     },
     "align-horizontal-justify-center": {
       "default": "f0d26a4c9686",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "0b04542a61fa"
     },
     "align-horizontal-justify-end": {
       "default": "11e1555a0f23",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "37d2d125cbd0"
     },
     "align-horizontal-justify-start": {
       "default": "9ee2c82a8495",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "150ea5ddb778"
     },
     "align-horizontal-space-around": {
       "default": "a9a20951456f",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "31229ec6bbe4"
     },
     "align-horizontal-space-between": {
       "default": "f840fb9df087",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "53367908c5a4"
     },
     "align-start-horizontal": {
       "default": "a2362cdc5c4b",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "dd890191c897"
     },
     "align-start-vertical": {
       "default": "9572028eafa2",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "150ea5ddb778"
     },
     "align-vertical-distribute-center": {
       "default": "ab8581eca218",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "8a15c08c7ff9"
     },
     "align-vertical-distribute-end": {
       "default": "cb3faccaa964",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "879f4fcdb41d"
     },
     "align-vertical-distribute-start": {
       "default": "7c7a7ee04d33",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "df247c31f05a"
     },
     "align-vertical-justify-center": {
       "default": "c54ae7666df5",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "f41b0a1a9372"
     },
     "align-vertical-justify-end": {
       "default": "8bb38ee0cbbd",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "21c04a9d1c6c"
     },
     "align-vertical-justify-start": {
       "default": "ed1255a02fc6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "dd890191c897"
     },
     "align-vertical-space-around": {
       "default": "0b8dee716f3d",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "c55d7324f7f2"
     },
     "align-vertical-space-between": {
       "default": "a6a2371faef8",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "1f83dcb4e699"
     },
     "ambulance": {
       "default": "6fd8b3d3d800",
@@ -15670,60 +15692,74 @@
     },
     "monitor": {
       "default": "ae1edcea7e29",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "5166a09ab9b3"
     },
     "monitor-check": {
       "default": "100d9decc6df",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "0e5410a4c31f"
     },
     "monitor-cloud": {
       "default": "decb80db2f71",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "24e5b5a2138b"
     },
     "monitor-cog": {
       "default": "2753e343cc31",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "485103a2f73c"
     },
     "monitor-dot": {
       "default": "4ee54977c1c7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "dd66d6996f97"
     },
     "monitor-down": {
       "default": "e789e664d2a2",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "6632fbc91779"
     },
     "monitor-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
+      "nudge": "7639affa91d9",
       "strike": "2b1fa7088b1e"
     },
     "monitor-pause": {
       "default": "4f865d9131c9",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "6632fbc91779"
     },
     "monitor-play": {
       "default": "18fec7e55904",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "24e5b5a2138b"
     },
     "monitor-smartphone": {
       "default": "c7b69e750a49",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "5166a09ab9b3"
     },
     "monitor-speaker": {
       "default": "33519d1aa471",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "6ccc02c88e7e"
     },
     "monitor-stop": {
       "default": "4a2b6cdf2388",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "e9164d28e30a"
     },
     "monitor-up": {
       "default": "637931e02ce8",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "6632fbc91779"
     },
     "monitor-x": {
       "default": "b3f3740e4ed9",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "nudge": "6632fbc91779"
     },
     "moon": {
       "default": "dd7330d2d8a5",

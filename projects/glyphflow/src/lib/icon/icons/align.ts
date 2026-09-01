@@ -35,6 +35,17 @@ export const alignStartHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '17px 6px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -50,6 +61,17 @@ export const alignEndHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '7px 18px' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '17px 18px', delay: 90, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -69,6 +91,17 @@ export const alignStartVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '6px 7px' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -84,6 +117,17 @@ export const alignEndVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '18px 7px' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '18px 17px', delay: 90, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -107,6 +151,19 @@ export const alignCenterHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 12px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateY(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 140 }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 210 }),
+      },
+    },
   },
 );
 
@@ -128,6 +185,19 @@ export const alignCenterVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 12px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 140 }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 210 }),
+      },
+    },
   },
 );
 
@@ -143,6 +213,17 @@ export const alignHorizontalJustifyStartIcon: AnimatedIconDef = /* @__PURE__ */ 
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '6px 12px' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '16px 12px', delay: 90, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -162,6 +243,17 @@ export const alignHorizontalJustifyEndIcon: AnimatedIconDef = /* @__PURE__ */ ic
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '18px 12px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -177,6 +269,17 @@ export const alignHorizontalJustifyCenterIcon: AnimatedIconDef = /* @__PURE__ */
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '8px 12px' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '16px 12px', delay: 90, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -196,6 +299,17 @@ export const alignVerticalJustifyStartIcon: AnimatedIconDef = /* @__PURE__ */ ic
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 6px' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -213,6 +327,17 @@ export const alignVerticalJustifyEndIcon: AnimatedIconDef = /* @__PURE__ */ icon
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 8px' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -228,6 +353,17 @@ export const alignVerticalJustifyCenterIcon: AnimatedIconDef = /* @__PURE__ */ i
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 16px', delay: 90, fill: 'backwards' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 8px' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(1px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -248,6 +384,17 @@ export const alignHorizontalDistributeStartIcon: AnimatedIconDef = /* @__PURE__ 
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '14px 12px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -264,6 +411,17 @@ export const alignHorizontalDistributeEndIcon: AnimatedIconDef = /* @__PURE__ */
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '10px 12px' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '20px 12px', delay: 90, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -290,6 +448,17 @@ export const alignHorizontalDistributeCenterIcon: AnimatedIconDef = /* @__PURE__
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -308,6 +477,17 @@ export const alignVerticalDistributeStartIcon: AnimatedIconDef = /* @__PURE__ */
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 4px' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -324,6 +504,17 @@ export const alignVerticalDistributeEndIcon: AnimatedIconDef = /* @__PURE__ */ i
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 20px', delay: 90, fill: 'backwards' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 10px' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -350,6 +541,17 @@ export const alignVerticalDistributeCenterIcon: AnimatedIconDef = /* @__PURE__ *
         5: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 7px' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -368,6 +570,17 @@ export const alignHorizontalSpaceBetweenIcon: AnimatedIconDef = /* @__PURE__ */ 
         1: /* @__PURE__ */ track(ALIGN_SNAP_X, ALIGN_MS, { easing: SPRING_OUT, origin: '21px 12px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
+      },
+    },
   },
 );
 
@@ -384,6 +597,17 @@ export const alignVerticalSpaceBetweenIcon: AnimatedIconDef = /* @__PURE__ */ ic
       shapes: {
         0: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 21px', delay: 90, fill: 'backwards' }),
         1: /* @__PURE__ */ track(ALIGN_SNAP_Y, ALIGN_MS, { easing: SPRING_OUT, origin: '12px 3px' }),
+      },
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT, delay: 70 }),
       },
     },
   },
@@ -409,6 +633,16 @@ export const alignHorizontalSpaceAroundIcon: AnimatedIconDef = /* @__PURE__ */ i
       },
       reverseOnLeave: true,
     },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+      },
+    },
   },
 );
 
@@ -426,6 +660,16 @@ export const alignVerticalSpaceAroundIcon: AnimatedIconDef = /* @__PURE__ */ ico
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 600, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    // `nudge`: la operacion que el boton promete. Las cajas arrancan desalineadas
+    // -- alejandose de su linea mas cercana, que desalinear es irse de la guia -- y
+    // encajan con resorte, escalonadas cada 70 ms. El desvio de cada una lo acota su
+    // holgura real hasta el borde del lienzo. Las lineas no se mueven: son la
+    // referencia, y una referencia que se mueve no es referencia.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-1.6px)' }, { transform: 'none' }], 520, { easing: SPRING_OUT }),
+      },
     },
   },
 );
