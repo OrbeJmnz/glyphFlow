@@ -93,6 +93,10 @@ export const chevronRightShapes: IconShape[] = [{ tag: 'path', d: 'm9 18 6-6-6-6
 export const arrowLeftShapes: IconShape[] = [
     { tag: 'path', d: 'm12 19-7-7 7-7' },
     { tag: 'path', d: 'M19 12H5' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m12 19-7-7 7-7", opacity: '0' },
+    { tag: 'path', d: "M19 12H5", opacity: '0' },
   ];
 
 export const downloadShapes: IconShape[] = [
@@ -269,6 +273,10 @@ export const savePlusShapes: IconShape[] = [
 export const searchShapes: IconShape[] = [
     { tag: 'path', d: 'm21 21-4.34-4.34' },
     { tag: 'circle', cx: 11, cy: 11, r: 8 },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m21 21-4.34-4.34", opacity: '0' },
+    { tag: 'circle', cx: 11, cy: 11, r: 8, opacity: '0' },
   ];
 
 export const searchCheckShapes: IconShape[] = [
@@ -616,6 +624,9 @@ export const folderPenShapes: IconShape[] = [
       tag: 'path',
       d: 'M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z',
     },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M11.378 13.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z", opacity: '0' },
   ];
 
 export const folderPlusShapes: IconShape[] = [
@@ -1172,6 +1183,9 @@ export const logOutShapes: IconShape[] = [
     { tag: 'path', d: 'm16 17 5-5-5-5' },
     { tag: 'path', d: 'M21 12H9' },
     { tag: 'path', d: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m16 17 5-5-5-5", opacity: '0' },
   ];
 
 export const funnelShapes: IconShape[] = [
@@ -1514,6 +1528,9 @@ export const clipboardPenShapes: IconShape[] = [
     },
     { tag: 'path', d: 'M8 22H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2' },
     { tag: 'rect', x: 8, y: 2, width: 8, height: 4, rx: 1 },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'rect', x: 8, y: 2, width: 8, height: 4, rx: 1, opacity: '0' },
   ];
 
 export const clipboardPlusShapes: IconShape[] = [
@@ -1690,6 +1707,11 @@ export const layersShapes: IconShape[] = [
     },
     { tag: 'path', d: 'M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12' },
     { tag: 'path', d: 'M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z", opacity: '0' },
+    { tag: 'path', d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12", opacity: '0' },
+    { tag: 'path', d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17", opacity: '0' },
   ];
 
 export const layoutDashboardShapes: IconShape[] = [
@@ -1800,6 +1822,9 @@ export const playShapes: IconShape[] = [
       tag: 'path',
       d: 'M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z',
     },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z", opacity: '0' },
   ];
 
 export const qrCodeShapes: IconShape[] = [
@@ -2223,6 +2248,10 @@ export const cctvShapes: IconShape[] = [
 export const arrowRightShapes: IconShape[] = [
     { tag: 'path', d: 'M5 12h14' },
     { tag: 'path', d: 'm12 5 7 7-7 7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M5 12h14", opacity: '0' },
+    { tag: 'path', d: "m12 5 7 7-7 7", opacity: '0' },
   ];
 
 export const chartColumnShapes: IconShape[] = [
@@ -2276,6 +2305,9 @@ export const squarePenShapes: IconShape[] = [
       tag: 'path',
       d: 'M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z',
     },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z", opacity: '0' },
   ];
 
 export const penShapes: IconShape[] = [
@@ -2291,6 +2323,9 @@ export const penLineShapes: IconShape[] = [
       tag: 'path',
       d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z',
     },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z", opacity: '0' },
   ];
 
 export const fileShapes: IconShape[] = [
@@ -2600,6 +2635,9 @@ export const userRoundPenShapes: IconShape[] = [
     { tag: 'path', d: 'M2 21a8 8 0 0 1 10.821-7.487' },
     { tag: 'path', d: 'M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z' },
     { tag: 'circle', cx: 10, cy: 8, r: 5 },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z", opacity: '0' },
   ];
 
 export const userRoundPlusShapes: IconShape[] = [
@@ -2626,31 +2664,55 @@ export const userRoundXShapes: IconShape[] = [
 export const arrowUpShapes: IconShape[] = [
     { tag: 'path', d: 'm5 12 7-7 7 7' },
     { tag: 'path', d: 'M12 19V5' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m5 12 7-7 7 7", opacity: '0' },
+    { tag: 'path', d: "M12 19V5", opacity: '0' },
   ];
 
 export const arrowDownShapes: IconShape[] = [
     { tag: 'path', d: 'M12 5v14' },
     { tag: 'path', d: 'm19 12-7 7-7-7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M12 5v14", opacity: '0' },
+    { tag: 'path', d: "m19 12-7 7-7-7", opacity: '0' },
   ];
 
 export const arrowUpLeftShapes: IconShape[] = [
     { tag: 'path', d: 'M7 17V7h10' },
     { tag: 'path', d: 'M17 17 7 7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M7 17V7h10", opacity: '0' },
+    { tag: 'path', d: "M17 17 7 7", opacity: '0' },
   ];
 
 export const arrowUpRightShapes: IconShape[] = [
     { tag: 'path', d: 'M7 7h10v10' },
     { tag: 'path', d: 'M7 17 17 7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M7 7h10v10", opacity: '0' },
+    { tag: 'path', d: "M7 17 17 7", opacity: '0' },
   ];
 
 export const arrowDownLeftShapes: IconShape[] = [
     { tag: 'path', d: 'M17 7 7 17' },
     { tag: 'path', d: 'M17 17H7V7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M17 7 7 17", opacity: '0' },
+    { tag: 'path', d: "M17 17H7V7", opacity: '0' },
   ];
 
 export const arrowDownRightShapes: IconShape[] = [
     { tag: 'path', d: 'm7 7 10 10' },
     { tag: 'path', d: 'M17 7v10H7' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m7 7 10 10", opacity: '0' },
+    { tag: 'path', d: "M17 7v10H7", opacity: '0' },
   ];
 
 export const wifiShapes: IconShape[] = [
@@ -2877,6 +2939,10 @@ export const keyRoundShapes: IconShape[] = [
       d: 'M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z',
     },
     { tag: 'circle', cx: 16.5, cy: 7.5, r: 0.5, fill: 'currentColor' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z", opacity: '0' },
+    { tag: 'circle', cx: 16.5, cy: 7.5, r: 0.5, opacity: '0' },
   ];
 
 export const calendarDaysShapes: IconShape[] = [
@@ -2907,6 +2973,10 @@ export const calendarArrowDownShapes: IconShape[] = [
     { tag: 'path', d: 'M21 10.354V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h7.343' },
     { tag: 'path', d: 'M3 9h18' },
     { tag: 'path', d: 'M8 2v3' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M16 2v3", opacity: '0' },
+    { tag: 'path', d: "M8 2v3", opacity: '0' },
   ];
 
 export const calendarArrowUpShapes: IconShape[] = [
@@ -2916,6 +2986,10 @@ export const calendarArrowUpShapes: IconShape[] = [
     { tag: 'path', d: 'M21 10.343V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h9' },
     { tag: 'path', d: 'M3 9h18' },
     { tag: 'path', d: 'M8 2v3' },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M16 2v3", opacity: '0' },
+    { tag: 'path', d: "M8 2v3", opacity: '0' },
   ];
 
 export const calendarCheck2Shapes: IconShape[] = [

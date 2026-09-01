@@ -33,7 +33,7 @@ Medido en CI en cada push, no prometido — `npm run bundle-check`:
 | -------------------------------------------- | ------------- |
 | Solo el componente, sin iconos               | **4.06 KB**   |
 | Un icono individual (`[iconDef]="bellIcon"`) | **4.48 KB**   |
-| El catálogo completo (`name="bell"`)         | **162.58 KB** |
+| El catálogo completo (`name="bell"`)         | **164.21 KB** |
 
 Un icono cuesta ~0.42 KB sobre el runtime. Buscar por nombre obliga al bundler a conservar los 1767,
 porque no puede saber cuál vas a pedir — por eso esa ruta es opt-in vía

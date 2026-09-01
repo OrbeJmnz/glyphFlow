@@ -354,7 +354,9 @@
     ],
     "arrow-down": [
       "path:0d2f2c183d2b",
-      "path:7052273fd7ed"
+      "path:7052273fd7ed",
+      "path:7dd58417e5b6",
+      "path:9ad53bf4681e"
     ],
     "arrow-down-0-1": [
       "path:43bf907c9536",
@@ -384,7 +386,9 @@
     ],
     "arrow-down-left": [
       "path:dafb614b4335",
-      "path:e9b06b112333"
+      "path:e9b06b112333",
+      "path:258660a88fe4",
+      "path:5538e35a2fc3"
     ],
     "arrow-down-narrow-wide": [
       "path:43bf907c9536",
@@ -395,7 +399,9 @@
     ],
     "arrow-down-right": [
       "path:e4ddcb3d7a96",
-      "path:4ef084ae0d1c"
+      "path:4ef084ae0d1c",
+      "path:8273c1fee0d6",
+      "path:258aac79a6b5"
     ],
     "arrow-down-to-dot": [
       "path:b5a3dbc30f80",
@@ -411,7 +417,11 @@
       "path:43bf907c9536",
       "path:b9eae7e2cc77",
       "path:b3e4fb5103e6",
-      "path:a06e0c0a0eb6"
+      "path:a06e0c0a0eb6",
+      "path:f344d9e398cd",
+      "path:a2f23c250f6f",
+      "path:e2007a1a4d95",
+      "path:aaf2633dcf74"
     ],
     "arrow-down-wide-narrow": [
       "path:43bf907c9536",
@@ -429,7 +439,9 @@
     ],
     "arrow-left": [
       "path:5d30e801012f",
-      "path:7b5bf2e114a1"
+      "path:7b5bf2e114a1",
+      "path:49d216ca80bd",
+      "path:a9b0562a69ea"
     ],
     "arrow-left-from-line": [
       "path:3e63af930ac9",
@@ -440,7 +452,11 @@
       "path:4a46e85373f2",
       "path:ef767ed9cc64",
       "path:6c48c9c6b7e8",
-      "path:a8d9b775c840"
+      "path:a8d9b775c840",
+      "path:ba8cae40facd",
+      "path:d84045328fac",
+      "path:06a55d81581d",
+      "path:c3a5bb06d0b7"
     ],
     "arrow-left-to-line": [
       "path:aa541359b3d5",
@@ -449,7 +465,9 @@
     ],
     "arrow-right": [
       "path:52f6eb0c4372",
-      "path:b5ee62bc7d53"
+      "path:b5ee62bc7d53",
+      "path:a0fd84735b5b",
+      "path:428f11a37812"
     ],
     "arrow-right-from-line": [
       "path:3337c0606df3",
@@ -469,7 +487,9 @@
     ],
     "arrow-up": [
       "path:81768faea7de",
-      "path:d3f47f6184e9"
+      "path:d3f47f6184e9",
+      "path:78708f793a4a",
+      "path:631a86aa6699"
     ],
     "arrow-up-0-1": [
       "path:2118a1c7b018",
@@ -496,7 +516,11 @@
       "path:94c380565a86",
       "path:46219d5b7692",
       "path:2118a1c7b018",
-      "path:c5fb2a536745"
+      "path:c5fb2a536745",
+      "path:8066c011599c",
+      "path:f7042938ce34",
+      "path:9cf55b6c6cdd",
+      "path:85000040771a"
     ],
     "arrow-up-from-dot": [
       "path:be847196a850",
@@ -510,7 +534,9 @@
     ],
     "arrow-up-left": [
       "path:5e4a8da2f5e7",
-      "path:53886d3be6da"
+      "path:53886d3be6da",
+      "path:e079316553ad",
+      "path:1d140c181d1b"
     ],
     "arrow-up-narrow-wide": [
       "path:2118a1c7b018",
@@ -521,7 +547,9 @@
     ],
     "arrow-up-right": [
       "path:ec6f03cff324",
-      "path:1eaacee71c30"
+      "path:1eaacee71c30",
+      "path:1a69bdc4acc9",
+      "path:ca48040caed2"
     ],
     "arrow-up-to-line": [
       "path:39062b863b76",
@@ -1623,7 +1651,9 @@
       "path:9d832cbaa40a",
       "path:6c812615ba48",
       "path:ec3d9996cae7",
-      "path:ccc0b43e5a8f"
+      "path:ccc0b43e5a8f",
+      "path:c1261f582a00",
+      "path:585c5fc9f2dc"
     ],
     "calendar-arrow-up": [
       "path:fad45161e41a",
@@ -1631,7 +1661,9 @@
       "path:fa16c8c82e33",
       "path:96676401ab2a",
       "path:ec3d9996cae7",
-      "path:ccc0b43e5a8f"
+      "path:ccc0b43e5a8f",
+      "path:c1261f582a00",
+      "path:585c5fc9f2dc"
     ],
     "calendar-check": [
       "path:ccc0b43e5a8f",
@@ -2178,7 +2210,9 @@
     ],
     "chevrons-down": [
       "path:fb402105266e",
-      "path:6ff3d0975869"
+      "path:6ff3d0975869",
+      "path:4bcb1fd6c7e9",
+      "path:328b093c736b"
     ],
     "chevrons-down-up": [
       "path:abc9eb01fc92",
@@ -2186,30 +2220,42 @@
     ],
     "chevrons-left": [
       "path:1de4acccdd5f",
-      "path:5f76b825eb85"
+      "path:5f76b825eb85",
+      "path:2c0325b3adf2",
+      "path:64829df685b2"
     ],
     "chevrons-left-right": [
       "path:737d608c349f",
-      "path:1201bd3f33fc"
+      "path:1201bd3f33fc",
+      "path:caa765f30037",
+      "path:8d2081f42921"
     ],
     "chevrons-left-right-ellipsis": [
       "path:eead8e585bc8",
       "path:806af9bccd4e",
       "path:2052ad31ffc3",
       "path:eb1c59f25225",
-      "path:101f890beab1"
+      "path:101f890beab1",
+      "path:6e43b77ae60a",
+      "path:9759eef50cb7"
     ],
     "chevrons-right": [
       "path:b4c7a4ae4b3d",
-      "path:327d4f1a46e5"
+      "path:327d4f1a46e5",
+      "path:2f6acc792014",
+      "path:7d55440dfa31"
     ],
     "chevrons-right-left": [
       "path:94f24c345f07",
-      "path:b8af1c78c34d"
+      "path:b8af1c78c34d",
+      "path:b1bd9bcb744a",
+      "path:e9eec077d5fd"
     ],
     "chevrons-up": [
       "path:ab6edc4403aa",
-      "path:3d9223d3c1da"
+      "path:3d9223d3c1da",
+      "path:bd62801bd057",
+      "path:247885c09b54"
     ],
     "chevrons-up-down": [
       "path:fe29b60dfd27",
@@ -2549,7 +2595,8 @@
       "path:a9772eeade35",
       "path:64b21495a94f",
       "path:7dd0bd8cfe5b",
-      "rect:4205045326f0"
+      "rect:4205045326f0",
+      "rect:14c968de7724"
     ],
     "clipboard-pen-line": [
       "rect:4205045326f0",
@@ -2824,7 +2871,9 @@
     ],
     "code": [
       "path:d4f38a8e18d3",
-      "path:c7afcaa4f044"
+      "path:c7afcaa4f044",
+      "path:2a6e09d99e0c",
+      "path:a44877fb48c1"
     ],
     "code-xml": [
       "path:13e09cd68401",
@@ -4315,7 +4364,8 @@
     ],
     "folder-pen": [
       "path:6af6847e5695",
-      "path:33f34f976132"
+      "path:33f34f976132",
+      "path:af88003c0d12"
     ],
     "folder-plus": [
       "path:15c91f9f8941",
@@ -5264,7 +5314,9 @@
     ],
     "key-round": [
       "path:395a5c655630",
-      "circle:e373d03b8ddf"
+      "circle:e373d03b8ddf",
+      "path:3e0b65b6c3a4",
+      "circle:fd8ed83b1867"
     ],
     "key-square": [
       "path:f48ac4eeacbf",
@@ -5397,7 +5449,10 @@
     "layers": [
       "path:23e10d821f47",
       "path:83ab0cd6476c",
-      "path:df7d55da89e5"
+      "path:df7d55da89e5",
+      "path:5255f145c0bf",
+      "path:4c17f091509b",
+      "path:ba21774d2efe"
     ],
     "layers-2": [
       "path:c3b426e8a90b",
@@ -5590,7 +5645,12 @@
       "path:967413dd0809",
       "path:b194c5b4a329",
       "path:1d4aceae9f35",
-      "path:3249e5c7f0e1"
+      "path:3249e5c7f0e1",
+      "path:46ddc9da5c51",
+      "path:f4e01e1ed397",
+      "path:ad5da14b15bf",
+      "path:9cc84679642f",
+      "path:3ccabf6c2654"
     ],
     "list-collapse": [
       "path:e7494a1b1b39",
@@ -5778,7 +5838,8 @@
     "log-out": [
       "path:adcbdbb71db8",
       "path:0b53922c0fea",
-      "path:113fe37e469f"
+      "path:113fe37e469f",
+      "path:dc0e505c119f"
     ],
     "logs": [
       "path:58106f66a55f",
@@ -6985,7 +7046,8 @@
     ],
     "pen-line": [
       "path:e071e24ae492",
-      "path:72015e06e6ed"
+      "path:72015e06e6ed",
+      "path:8dfb8141ee6f"
     ],
     "pen-off": [
       "path:57adb1b6c58e",
@@ -7185,7 +7247,8 @@
       "path:e13cf9f91f5b"
     ],
     "play": [
-      "path:af57b8299ff9"
+      "path:af57b8299ff9",
+      "path:5fb289c274f6"
     ],
     "play-off": [
       "path:615fec954838",
@@ -7611,7 +7674,9 @@
     "reply-all": [
       "path:b5777973986b",
       "path:a6ce1a6fcc73",
-      "path:e937fbb7ce38"
+      "path:e937fbb7ce38",
+      "path:0e8a8f605618",
+      "path:c8ab705ce049"
     ],
     "rewind": [
       "path:a981750469e5",
@@ -8011,7 +8076,9 @@
     ],
     "search": [
       "path:a7389ab93e96",
-      "circle:6c5bffb15d7d"
+      "circle:6c5bffb15d7d",
+      "path:cba87e12b8f1",
+      "circle:75a8433e48d2"
     ],
     "search-alert": [
       "circle:6c5bffb15d7d",
@@ -8337,7 +8404,9 @@
       "path:78fa27df8c96",
       "path:93eb2444f28c",
       "path:4530782d895b",
-      "path:c030e0cb75e7"
+      "path:c030e0cb75e7",
+      "path:447f6f23c5bb",
+      "path:8c757094d54f"
     ],
     "sigma": [
       "path:fb681d05b38f"
@@ -8423,7 +8492,10 @@
       "path:f352cd340994",
       "path:453dfdd9e4b8",
       "path:b1fa9046038e",
-      "path:901dc5cfc723"
+      "path:901dc5cfc723",
+      "path:62942a4081b0",
+      "path:78912fe733c9",
+      "path:f19b98015a1a"
     ],
     "sliders-vertical": [
       "path:226253d872e7",
@@ -8888,7 +8960,8 @@
     ],
     "square-pen": [
       "path:c7672d7328a4",
-      "path:7cbb20d205bb"
+      "path:7cbb20d205bb",
+      "path:3a083ad57723"
     ],
     "square-percent": [
       "rect:d427f2bc2999",
@@ -10094,7 +10167,8 @@
     "user-round-pen": [
       "path:a5e7a601ac22",
       "path:d640f02e8934",
-      "circle:9431be6ba814"
+      "circle:9431be6ba814",
+      "path:efdd33f9b8f2"
     ],
     "user-round-plus": [
       "path:e671a66c86fa",
@@ -10933,7 +11007,7 @@
       "active": "9b77892846c2",
       "default": "2afb1f0218bd",
       "draw": "17c8398e8d34",
-      "nudge": "5ecd54d4da4c"
+      "nudge": "a8f469599fa2"
     },
     "arrow-down-0-1": {
       "default": "6ed4e7b0f2fc",
@@ -10955,7 +11029,7 @@
       "active": "9d5415c0a5e7",
       "default": "b7c9f8c41094",
       "draw": "17c8398e8d34",
-      "nudge": "da8deb1f9c3a"
+      "nudge": "591af40c82a4"
     },
     "arrow-down-narrow-wide": {
       "default": "34bda09aac8d",
@@ -10965,7 +11039,7 @@
       "active": "f6a7fa620419",
       "default": "4180dea7122a",
       "draw": "17c8398e8d34",
-      "nudge": "956abe97b9ce"
+      "nudge": "3d3e8388d0cc"
     },
     "arrow-down-to-dot": {
       "default": "17a586a4e1e4",
@@ -10978,7 +11052,7 @@
     "arrow-down-up": {
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
-      "nudge": "e93652102ae0"
+      "nudge": "8550271c6063"
     },
     "arrow-down-wide-narrow": {
       "default": "11cc1916c17e",
@@ -10992,7 +11066,7 @@
       "active": "debec16cb2e8",
       "default": "2b546c0343ca",
       "draw": "17c8398e8d34",
-      "nudge": "d94c892a6c02"
+      "nudge": "dec85b23b050"
     },
     "arrow-left-from-line": {
       "default": "ab63b54a5683",
@@ -11001,7 +11075,7 @@
     "arrow-left-right": {
       "default": "ce0ad243bbad",
       "draw": "17c8398e8d34",
-      "nudge": "86cea60babbf"
+      "nudge": "8be91eefe604"
     },
     "arrow-left-to-line": {
       "default": "49690b7adff0",
@@ -11011,7 +11085,7 @@
       "active": "379bd4a864a0",
       "default": "f21e13323929",
       "draw": "17c8398e8d34",
-      "nudge": "7ebd4f2e05dd"
+      "nudge": "139fb29762f4"
     },
     "arrow-right-from-line": {
       "default": "19a37292d806",
@@ -11029,7 +11103,7 @@
       "active": "f3a646dcc994",
       "default": "0b5087333a0e",
       "draw": "17c8398e8d34",
-      "nudge": "e385d3a270f5"
+      "nudge": "dbd65c938fe2"
     },
     "arrow-up-0-1": {
       "default": "6ed4e7b0f2fc",
@@ -11049,7 +11123,7 @@
     "arrow-up-down": {
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
-      "nudge": "9f234f858d94"
+      "nudge": "34d750cd0cbc"
     },
     "arrow-up-from-dot": {
       "default": "20ce553a274c",
@@ -11063,7 +11137,7 @@
       "active": "641e49eea19a",
       "default": "a65cab714169",
       "draw": "17c8398e8d34",
-      "nudge": "99dada419d95"
+      "nudge": "89c687269c20"
     },
     "arrow-up-narrow-wide": {
       "default": "e9045240e87b",
@@ -11073,7 +11147,7 @@
       "active": "1f489e50bb05",
       "default": "4673e16077d4",
       "draw": "17c8398e8d34",
-      "nudge": "4f54d9d1d635"
+      "nudge": "c61e01b2bcf5"
     },
     "arrow-up-to-line": {
       "default": "76cecdbaebfd",
@@ -11881,12 +11955,12 @@
     "calendar-arrow-down": {
       "default": "deac980ba1d1",
       "draw": "17c8398e8d34",
-      "nudge": "f28c357cafac"
+      "nudge": "39b74811914d"
     },
     "calendar-arrow-up": {
       "default": "2fc757926cdc",
       "draw": "17c8398e8d34",
-      "nudge": "219f75000925"
+      "nudge": "13336dfde098"
     },
     "calendar-check": {
       "default": "b8501868e867",
@@ -12269,7 +12343,7 @@
     "chevrons-down": {
       "default": "3366f97bb7cc",
       "draw": "17c8398e8d34",
-      "nudge": "4522da7184ab"
+      "nudge": "5cc67a0db777"
     },
     "chevrons-down-up": {
       "default": "f400a841339e",
@@ -12278,32 +12352,32 @@
     "chevrons-left": {
       "default": "d3560bc6cd28",
       "draw": "17c8398e8d34",
-      "nudge": "57fa0eb1367c"
+      "nudge": "481cfa9d2a7c"
     },
     "chevrons-left-right": {
       "default": "ccc7d7318188",
       "draw": "17c8398e8d34",
-      "nudge": "adce1567580b"
+      "nudge": "23ce44f2d87b"
     },
     "chevrons-left-right-ellipsis": {
       "default": "f0a5712fd08a",
       "draw": "17c8398e8d34",
-      "nudge": "00cb20b03a98"
+      "nudge": "77cece37c1c8"
     },
     "chevrons-right": {
       "default": "8ef771cbcc7a",
       "draw": "17c8398e8d34",
-      "nudge": "6e545611ad8b"
+      "nudge": "3d859db597a0"
     },
     "chevrons-right-left": {
       "default": "ccc7d7318188",
       "draw": "17c8398e8d34",
-      "nudge": "aed5e6ae23bd"
+      "nudge": "84034ca6df1f"
     },
     "chevrons-up": {
       "default": "efc440d63f22",
       "draw": "17c8398e8d34",
-      "nudge": "cb3fd24d35e1"
+      "nudge": "a0c3acd13441"
     },
     "chevrons-up-down": {
       "active": "69049ef3d71d",
@@ -12582,7 +12656,7 @@
     "clipboard-pen": {
       "default": "861d3e1649ad",
       "draw": "17c8398e8d34",
-      "nudge": "aceae103de42",
+      "nudge": "bc6150a239c6",
       "write": "198b9700cfd8"
     },
     "clipboard-pen-line": {
@@ -12802,7 +12876,7 @@
       "default": "f97ddb7aefbd",
       "draw": "17c8398e8d34",
       "hold": "f742223fc430",
-      "nudge": "cad40b52a3d6"
+      "nudge": "b39861bd12cd"
     },
     "code-xml": {
       "default": "2fe648b062a4",
@@ -13976,7 +14050,7 @@
       "default": "e4f312719ee0",
       "draw": "17c8398e8d34",
       "extra": "c7d3250ebb6f",
-      "nudge": "4bdb3f715114"
+      "nudge": "578bddd2999b"
     },
     "folder-plus": {
       "default": "83b9370fd124",
@@ -14688,7 +14762,7 @@
     "key-round": {
       "default": "eb9f89e06b89",
       "draw": "17c8398e8d34",
-      "nudge": "b8e1aa702374"
+      "nudge": "950c68f7aaaf"
     },
     "key-square": {
       "default": "522393964462",
@@ -14784,8 +14858,8 @@
       "active": "c2ff7400d85c",
       "default": "3754601a500e",
       "draw": "17c8398e8d34",
-      "merge": "81f9e53afbe1",
-      "nudge": "81f9e53afbe1"
+      "merge": "e13dac1227e8",
+      "nudge": "e13dac1227e8"
     },
     "layers-2": {
       "default": "07a56a1f2b82",
@@ -14957,7 +15031,7 @@
       "default": "8597f289aecd",
       "draw": "17c8398e8d34",
       "hold": "0c75d3013f03",
-      "nudge": "b1a24753aea4"
+      "nudge": "232cef0d2134"
     },
     "list-collapse": {
       "default": "8597f289aecd",
@@ -15085,7 +15159,7 @@
       "default": "95bbf3e944de",
       "draw": "17c8398e8d34",
       "hold": "097e11447efe",
-      "nudge": "fd1462a0131a",
+      "nudge": "094075511fba",
       "reveal": "880ca1587b80"
     },
     "logs": {
@@ -16050,7 +16124,7 @@
     "pen-line": {
       "default": "7121ec9436a1",
       "draw": "17c8398e8d34",
-      "nudge": "4bdb3f715114",
+      "nudge": "578bddd2999b",
       "write": "2e449bc22afb"
     },
     "pen-off": {
@@ -16221,8 +16295,8 @@
       "active": "084b00472949",
       "default": "c1b92fc46840",
       "draw": "17c8398e8d34",
-      "next": "449b77057dac",
-      "nudge": "449b77057dac"
+      "next": "09007029af85",
+      "nudge": "09007029af85"
     },
     "play-off": {
       "default": "d262e63d523c",
@@ -16541,7 +16615,7 @@
     "reply-all": {
       "default": "2b79f1edd8b4",
       "draw": "17c8398e8d34",
-      "nudge": "416ade9a36a9"
+      "nudge": "a3a93d0b18bb"
     },
     "rewind": {
       "default": "34de2b5320b1",
@@ -16824,7 +16898,7 @@
       "default": "c94cde4874e0",
       "draw": "17c8398e8d34",
       "find": "7709199dc7a8",
-      "nudge": "d7e0b0e5a386"
+      "nudge": "1a8de284ed51"
     },
     "search-alert": {
       "default": "f4869b347071",
@@ -17066,7 +17140,7 @@
     "shuffle": {
       "default": "895047d264c6",
       "draw": "17c8398e8d34",
-      "nudge": "962efac9fd53"
+      "nudge": "c0421077ec20"
     },
     "sigma": {
       "default": "0bccfad57d84",
@@ -17143,7 +17217,7 @@
     "sliders-horizontal": {
       "default": "770ce144df71",
       "draw": "17c8398e8d34",
-      "nudge": "d23a34b6b577"
+      "nudge": "bb005c1ac5e3"
     },
     "sliders-vertical": {
       "default": "f4cfb2087202",
@@ -17467,7 +17541,7 @@
     "square-pen": {
       "default": "fe353b5c293f",
       "draw": "17c8398e8d34",
-      "nudge": "4bdb3f715114"
+      "nudge": "578bddd2999b"
     },
     "square-percent": {
       "default": "bda49fa96973",
@@ -18360,7 +18434,7 @@
     "user-round-pen": {
       "default": "ac703e0fffdf",
       "draw": "17c8398e8d34",
-      "nudge": "4bdb3f715114"
+      "nudge": "1dbe45f787b7"
     },
     "user-round-plus": {
       "default": "c4bcf6e075dd",

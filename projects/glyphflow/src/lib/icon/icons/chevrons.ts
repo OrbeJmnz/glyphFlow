@@ -63,6 +63,10 @@ export const chevronsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m7 6 5 5 5-5" },
     { tag: 'path', d: "m7 13 5 5 5-5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m7 6 5 5 5-5", opacity: '0' },
+    { tag: 'path', d: "m7 13 5 5 5-5", opacity: '0' },
   ],
   {
     default: {
@@ -71,6 +75,8 @@ export const chevronsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
       },
@@ -82,6 +88,10 @@ export const chevronsLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m9 7-5 5 5 5" },
     { tag: 'path', d: "m15 7 5 5-5 5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m9 7-5 5 5 5", opacity: '0' },
+    { tag: 'path', d: "m15 7 5 5-5 5", opacity: '0' },
   ],
   {
     default: {
@@ -93,6 +103,8 @@ export const chevronsLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 800, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 800, { easing: 'linear', delay: 260, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 800, { easing: 'linear' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 800, { easing: 'linear', delay: 200 }),
       },
@@ -104,6 +116,10 @@ export const chevronsLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m11 17-5-5 5-5" },
     { tag: 'path', d: "m18 17-5-5 5-5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m11 17-5-5 5-5", opacity: '0' },
+    { tag: 'path', d: "m18 17-5-5 5-5", opacity: '0' },
   ],
   {
     default: {
@@ -112,6 +128,8 @@ export const chevronsLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 180, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
       },
@@ -123,6 +141,10 @@ export const chevronsRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m20 17-5-5 5-5" },
     { tag: 'path', d: "m4 17 5-5-5-5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m20 17-5-5 5-5", opacity: '0' },
+    { tag: 'path', d: "m4 17 5-5-5-5", opacity: '0' },
   ],
   {
     default: {
@@ -134,6 +156,8 @@ export const chevronsRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 360, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 900, { easing: 'linear' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.6', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 900, { easing: 'linear', delay: 300 }),
       },
@@ -145,6 +169,10 @@ export const chevronsRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m6 17 5-5-5-5" },
     { tag: 'path', d: "m13 17 5-5-5-5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m6 17 5-5-5-5", opacity: '0' },
+    { tag: 'path', d: "m13 17 5-5-5-5", opacity: '0' },
   ],
   {
     default: {
@@ -153,6 +181,8 @@ export const chevronsRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 180, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
       },
@@ -164,6 +194,10 @@ export const chevronsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m17 11-5-5-5 5" },
     { tag: 'path', d: "m17 18-5-5-5 5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m17 11-5-5-5 5", opacity: '0' },
+    { tag: 'path', d: "m17 18-5-5-5 5", opacity: '0' },
   ],
   {
     default: {
@@ -172,6 +206,8 @@ export const chevronsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 180, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.18, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear', delay: 120 }),
       },
@@ -209,6 +245,10 @@ export const chevronsLeftRightEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ ic
     { tag: 'path', d: "m17 7 5 5-5 5" },
     { tag: 'path', d: "m7 7-5 5 5 5" },
     { tag: 'path', d: "M8 12h.01" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m17 7 5 5-5 5", opacity: '0' },
+    { tag: 'path', d: "m7 7-5 5 5 5", opacity: '0' },
   ],
   {
     default: {
@@ -222,6 +262,8 @@ export const chevronsLeftRightEllipsisIcon: AnimatedIconDef = /* @__PURE__ */ ic
     },
     nudge: {
       shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 260, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(-4px)', opacity: '0.5', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 1000, { easing: 'linear' }),
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '1', easing: EIO }, { transform: 'translateX(4px)', opacity: '0.5', easing: EIO }, { transform: 'translate(0px, 0px)', opacity: '1' }], 1000, { easing: 'linear', delay: 200 }),
         4: /* @__PURE__ */ track([{ opacity: '1', easing: EIO }, { opacity: '0.35', easing: EIO }, { opacity: '1' }], 1000, { easing: 'linear' }),

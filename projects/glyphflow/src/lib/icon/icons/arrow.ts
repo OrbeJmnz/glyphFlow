@@ -297,6 +297,12 @@ export const arrowDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M7 20V4" },
     { tag: 'path', d: "m21 8-4-4-4 4" },
     { tag: 'path', d: "M17 4v16" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
+    { tag: 'path', d: "M7 20V4", opacity: '0' },
+    { tag: 'path', d: "m21 8-4-4-4 4", opacity: '0' },
+    { tag: 'path', d: "M17 4v16", opacity: '0' },
   ],
   {
     default: {
@@ -311,6 +317,10 @@ export const arrowDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     nudge: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.04)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         0: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
         1: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
         2: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
@@ -326,6 +336,12 @@ export const arrowUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 20V4" },
     { tag: 'path', d: "m3 8 4-4 4 4" },
     { tag: 'path', d: "M7 4v16" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m21 16-4 4-4-4", opacity: '0' },
+    { tag: 'path', d: "M17 20V4", opacity: '0' },
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
+    { tag: 'path', d: "M7 4v16", opacity: '0' },
   ],
   {
     default: {
@@ -339,6 +355,10 @@ export const arrowUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         0: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
         1: /* @__PURE__ */ nudgeMitad('translateY(3px)'),
         2: /* @__PURE__ */ nudgeMitad('translateY(-3px)'),
@@ -644,6 +664,12 @@ export const arrowLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M4 7h16" },
     { tag: 'path', d: "m16 21 4-4-4-4" },
     { tag: 'path', d: "M20 17H4" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M8 3 4 7l4 4", opacity: '0' },
+    { tag: 'path', d: "M4 7h16", opacity: '0' },
+    { tag: 'path', d: "m16 21 4-4-4-4", opacity: '0' },
+    { tag: 'path', d: "M20 17H4", opacity: '0' },
   ],
   {
     default: {
@@ -656,6 +682,10 @@ export const arrowLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         0: /* @__PURE__ */ nudgeMitad('translateX(-3px)'),
         1: /* @__PURE__ */ nudgeMitad('translateX(-3px)'),
         2: /* @__PURE__ */ nudgeMitad('translateX(3px)'),
@@ -816,6 +846,10 @@ export const arrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowLeftShap
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateX(2px)', 'translateX(-4px)'),
     },
   });
@@ -829,6 +863,10 @@ export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightSh
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateX(-2px)', 'translateX(4px)'),
     },
   });
@@ -844,6 +882,10 @@ export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, 
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateY(2px)', 'translateY(-4px)'),
     },
   });
@@ -858,6 +900,10 @@ export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShap
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translateY(-2px)', 'translateY(4px)'),
     },
   });
@@ -872,6 +918,10 @@ export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpLeft
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(1.5px, 1.5px)', 'translate(-3px, -3px)'),
     },
   });
@@ -886,6 +936,10 @@ export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRig
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(-1.5px, 1.5px)', 'translate(3px, -3px)'),
     },
   });
@@ -900,6 +954,10 @@ export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDown
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(1.5px, -1.5px)', 'translate(-3px, 3px)'),
     },
   });
@@ -914,6 +972,10 @@ export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDow
       reverseOnLeave: true,
     },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ nudgeRoot('translate(0px, 0px)', 'translate(-1.5px, -1.5px)', 'translate(3px, 3px)'),
     },
   });

@@ -1825,6 +1825,7 @@ export const logOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(logOutShapes, {
   },
   nudge: {
     shapes: {
+      3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 400, { easing: 'linear', delay: 60, fill: 'backwards' }),
       0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 400),
       1: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.75)' }, { transform: 'scaleX(1)' }], 400, { origin: '9px 12px' }),
     },
@@ -2039,6 +2040,9 @@ export const laptopIcon: AnimatedIconDef = /* @__PURE__ */ icon(laptopShapes, {
 /** Capas separándose: la de arriba sube, la de abajo baja. */
 const LAYERS_NUDGE: IconChoreography = /* @__PURE__ */ {
       shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 3px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 3px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -3px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -3px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -9px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 120, fill: 'backwards' }),
         0: /* @__PURE__ */ track(
           [
             { transform: 'translateY(0)' },
@@ -2176,6 +2180,9 @@ export const paletteIcon: AnimatedIconDef = /* @__PURE__ */ icon(paletteShapes, 
 
 /** Play: el empujón de arrancar. */
 const PLAY_NUDGE: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 450, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ track(
         [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
         450,
@@ -10063,6 +10070,10 @@ export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22" },
     { tag: 'path', d: "M2 6h1.972a4 4 0 0 1 3.6 2.2" },
     { tag: 'path', d: "M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m18 14 4 4-4 4", opacity: '0' },
+    { tag: 'path', d: "m18 2 4 4-4 4", opacity: '0' },
   ],
   {
     default: {
@@ -10076,6 +10087,8 @@ export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 180, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(1.8px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(1.8px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 700, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
       },
@@ -10105,6 +10118,10 @@ export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m12 17-5-5 5-5" },
     { tag: 'path', d: "M22 18v-2a4 4 0 0 0-4-4H7" },
     { tag: 'path', d: "m7 17-5-5 5-5" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m12 17-5-5 5-5", opacity: '0' },
+    { tag: 'path', d: "m7 17-5-5 5-5", opacity: '0' },
   ],
   {
     default: {
@@ -10116,6 +10133,8 @@ export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-2.25px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-2.25px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 110, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(-3px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 600, { easing: T5_EASE }),
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', easing: T5_EASE }, { transform: 'translateX(-1.5px)', easing: T5_EASE }, { transform: 'translateX(0px)' }], 600, { easing: T5_EASE, delay: 50, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
@@ -10675,6 +10694,11 @@ export const slidersHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M21 5h-7" },
     { tag: 'path', d: "M8 10v4" },
     { tag: 'path', d: "M8 12H3" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M14 3v4", opacity: '0' },
+    { tag: 'path', d: "M16 17v4", opacity: '0' },
+    { tag: 'path', d: "M8 10v4", opacity: '0' },
   ],
   {
     default: {
@@ -10728,6 +10752,9 @@ export const slidersHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        9: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        10: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        11: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 160, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
         1: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
         4: /* @__PURE__ */ track([{ opacity: '1', easing: T5_EASE }, { opacity: '0.6', easing: T5_EASE }, { opacity: '1' }], 600, { easing: T5_EASE }),
@@ -12967,6 +12994,10 @@ export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "m16 18 6-6-6-6" },
     { tag: 'path', d: "m8 6-6 6 6 6" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "m16 18 6-6-6-6", opacity: '0' },
+    { tag: 'path', d: "m8 6-6 6 6 6", opacity: '0' },
   ],
   {
     default: {
@@ -12995,6 +13026,8 @@ export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     nudge: {
       root: /* @__PURE__ */ track([{ transform: 'scaleX(1)', easing: 'ease-out' }, { transform: 'scaleX(0.75)', easing: 'ease-out' }, { transform: 'scaleX(1)' }], 280, { easing: 'linear' }),
       shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 320, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 320, { easing: 'linear', delay: 60, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '0.6', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 320, { easing: T5_EASE }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '0.6', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 320, { easing: T5_EASE, delay: 50, fill: 'backwards' }),
       },

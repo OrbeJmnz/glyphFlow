@@ -187,6 +187,13 @@ export const listChevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M3 19h8" },
     { tag: 'path', d: "m15 8 3-3 3 3" },
     { tag: 'path', d: "m15 16 3 3 3-3" },
+    // Estela del `nudge`: copias que se alejan desvaneciéndose. Nacen invisibles, así que
+    // el icono quieto no cambia y `runAutoDraw` las salta.
+    { tag: 'path', d: "M3 5h8", opacity: '0' },
+    { tag: 'path', d: "M3 12h8", opacity: '0' },
+    { tag: 'path', d: "M3 19h8", opacity: '0' },
+    { tag: 'path', d: "m15 8 3-3 3 3", opacity: '0' },
+    { tag: 'path', d: "m15 16 3 3 3-3", opacity: '0' },
   ],
   {
     default: {
@@ -207,6 +214,11 @@ export const listChevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     nudge: {
       shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0', offset: 1 }], 750, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0', offset: 1 }], 750, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0', offset: 1 }], 750, { easing: 'linear', delay: 180, fill: 'backwards' }),
+        8: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        9: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 140, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE, delay: 60, fill: 'backwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '1', offset: 0, easing: T5_EASE }, { transform: 'translateX(-2px)', opacity: '0.9', offset: 0.33, easing: T5_EASE }, { transform: 'translateX(2px)', opacity: '0.9', offset: 0.66, easing: T5_EASE }, { transform: 'translateX(0px)', opacity: '1', offset: 1 }], 750, { easing: T5_EASE, delay: 120, fill: 'backwards' }),

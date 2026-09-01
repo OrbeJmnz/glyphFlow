@@ -37,6 +37,10 @@ export const keyIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyShapes, {
 export const keyRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyRoundShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -20, 0]), 700, { origin: '16.5px 7.5px' }) },
     nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
       root: /* @__PURE__ */ track([{ transform: 'translateY(0) rotate(0deg)', offset: 0 }, { transform: 'translateY(-3px) rotate(3deg)', offset: 0.2 }, { transform: 'translateY(0) rotate(-3deg)', offset: 0.4 }, { transform: 'translateY(-2px) rotate(0deg)', offset: 0.6 }, { transform: 'translateY(0) rotate(0deg)', offset: 1 }], 900, { easing: 'ease' }),
     },
   });
