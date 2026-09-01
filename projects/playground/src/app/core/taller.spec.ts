@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { CURATED_ICONS, type AnimatedIconDef } from 'glyphflow';
 import { providersI18nTest } from './i18n-testing';
+import { cargarCurados } from './catalogo';
 import { Taller } from './taller';
 import { IconImport } from '../features/lab/icon-import';
 import { Editor } from '../features/editor/editor';
@@ -66,6 +67,9 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     expect(html.querySelector('textarea')).toBeNull();
   });
 
+  // Timeout explicito: este test monta un tramo del catalogo entero (2.7 MB de JSON) y
+  // ya corria a ~4.9 s del limite de 5 s por default de Vitest. No es lentitud nueva --
+  // es que el margen era de decimas, y cualquier variante que se agregue lo consume.
   it('el editor manda la geometría editada CON la coreografía original', async () => {
     // La ruta `en/lab` tiene que EXISTIR aunque el test no la pinte: el botón navega de verdad, y
     // con rutas vacías Angular rechazaba la navegación con NG04002 — una promesa sin manejar que
@@ -101,13 +105,21 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     // `toStrictEqual` y no `toBe`: desde que el sitio carga el catálogo como JSON, el `def` que
     // maneja el editor ya no es el MISMO objeto que exporta el paquete, sino su copia — y lo que
     // el traspaso promete es que la coreografía viaja intacta, no que comparta referencia.
-    expect(pieza.def.animations).toStrictEqual(CURATED_ICONS[nombre].animations);
+    //
+    // Y se compara contra `cargarCurados()`, NO contra `CURATED_ICONS` de `glyphflow`. En el
+    // playground ese import resuelve al paquete PUBLICADO (`glyphflow-published`), mientras que
+    // `catalogo-curado.json` se genera del código FUENTE — así que compararlos afirma «lo local
+    // ya está publicado», que sólo es cierto justo después de un publish. Este test se puso rojo
+    // en `main` por eso, no por el traspaso. Lo que aquí se prueba es que el editor entrega lo
+    // mismo que cargó, y eso se mide contra la fuente que el editor lee de verdad.
+    const curados = await cargarCurados();
+    expect(pieza.def.animations).toStrictEqual(curados[nombre].animations);
     // Y las figuras conservan su ORDEN y su cantidad: los tracks apuntan a `shapes[i]` por índice,
     // así que reordenarlas rompería en silencio la animación que se quiere conservar.
-    const originales = CURATED_ICONS[nombre].shapes;
+    const originales = curados[nombre].shapes;
     expect(pieza.def.shapes.length).toBe(originales.length);
     expect(pieza.def.shapes.map((f) => f.tag)).toEqual(originales.map((f) => f.tag));
-  });
+  }, 20000);
 });
 
 /**
