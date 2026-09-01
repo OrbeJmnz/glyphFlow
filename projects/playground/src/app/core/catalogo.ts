@@ -18,8 +18,10 @@ interface CatalogoJson {
  * catálogo se va a un chunk que sólo baja quien abre una pantalla que lo necesita. Medido en
  * `ng build playground`: la entrada pasa de 1.43 MB a 0.38 MB, y el JSON son 108 KB con brotli.
  *
- * El archivo lo GENERA `npm run gen:catalogo` desde el paquete publicado, y su `--check` está en
- * `verify:clean`: no puede quedarse atrás en silencio.
+ * El archivo lo GENERA `npm run gen:catalogo` desde el CÓDIGO FUENTE de la librería
+ * (`projects/glyphflow/src/lib/icon/curated-icons.ts`), no desde el paquete publicado — el sitio
+ * enseña el catálogo de este repo, que va por delante de npm entre release y release. Su
+ * `--check` está en `verify:clean`: no puede quedarse atrás en silencio.
  *
  * La promesa se guarda para que dos pantallas no bajen el mismo chunk dos veces.
  */
