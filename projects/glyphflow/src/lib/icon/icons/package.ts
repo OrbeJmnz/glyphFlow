@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, scaleSeq, moveYSeq, track, strokeDraw, icon } from '../choreography';
 import { packageCheckShapes, packageMinusShapes, packageOpenShapes, packagePlusShapes, packageSearchShapes, packageShapes, packageXShapes } from '../animated-icons.shapes';
 
@@ -66,6 +66,22 @@ export const packageMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageMin
   });
 
 /** Paquete abierto: las dos solapas se abren, el cuerpo se queda quieto. */
+const PACKAGE_OPEN_BOUNCE: IconChoreography = /* @__PURE__ */ {
+      root: PACKAGE_DROP,
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
+          delay: 60,
+          easing: EASE,
+          origin: '12px 8px',
+        }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
+          delay: 140,
+          easing: EASE,
+          origin: '12px 8px',
+        }),
+      },
+    };
+
 export const packageOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageOpenShapes, {
     default: {
       root: PACKAGE_BOUNCE,
@@ -80,21 +96,9 @@ export const packageOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageOpen
         }),
       },
     },
-    wide: {
-      root: PACKAGE_DROP,
-      shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
-          delay: 60,
-          easing: EASE,
-          origin: '12px 8px',
-        }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.22, 1]), 480, {
-          delay: 140,
-          easing: EASE,
-          origin: '12px 8px',
-        }),
-      },
-    },
+    bounce: PACKAGE_OPEN_BOUNCE,
+    /** @deprecated Se llamaba `wide`. El alias sale en la v3. */
+    wide: PACKAGE_OPEN_BOUNCE,
   });
 
 /** Agregar paquete: bounce y el "+" se dibuja de insignia, en dos trazos. */

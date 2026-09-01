@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveXSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { serverCogShapes, serverCrashShapes, serverOffShapes, serverPlusShapes, serverShapes } from '../animated-icons.shapes';
 
@@ -53,6 +53,15 @@ export const serverCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCogShap
   });
 
 /** Servidor caído: los indicadores parpadean y el rayo pega al final. */
+const SERVER_CRASH_SHAKE: IconChoreography = /* @__PURE__ */ {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 2, -1, 0]), 300, { easing: EASE }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250),
+        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250, { delay: 90 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 220, easing: EASE }),
+      },
+    };
+
 export const serverCrashIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCrashShapes, {
     default: {
       shapes: {
@@ -61,14 +70,9 @@ export const serverCrashIcon: AnimatedIconDef = /* @__PURE__ */ icon(serverCrash
         4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 350 }),
       },
     },
-    shock: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 2, -1, 0]), 300, { easing: EASE }),
-      shapes: {
-        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250),
-        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0' }, { opacity: '1' }], 250, { delay: 90 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 220, easing: EASE }),
-      },
-    },
+    shake: SERVER_CRASH_SHAKE,
+    /** @deprecated Se llamaba `shock`. El alias sale en la v3. */
+    shock: SERVER_CRASH_SHAKE,
   });
 
 /** Servidor apagado: se fragmenta y la diagonal lo cruza al final. */

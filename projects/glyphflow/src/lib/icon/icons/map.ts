@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { mapPinCheckInsideShapes, mapPinCheckShapes, mapPinHouseShapes, mapPinMinusInsideShapes, mapPinMinusShapes, mapPinPlusInsideShapes, mapPinPlusShapes, mapPinSearchShapes, mapPinShapes, mapPinXInsideShapes, mapPinXShapes, mapShapes } from '../animated-icons.shapes';
 
@@ -26,6 +26,14 @@ export const mapPinOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 );
 
 /** Pin que cae y se clava. */
+const MAP_PIN_PULSE: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.35, 1, 1.3, 1]), 700, {
+          origin: '12px 10px',
+        }),
+      },
+    };
+
 export const mapPinIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -12, 8, -5, 3, 0]), 650, {
@@ -33,23 +41,13 @@ export const mapPinIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinShapes, {
       }),
     },
     /** Ubicando: el punto adentro late, el pin no se mueve. */
-    locate: {
-      shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.35, 1, 1.3, 1]), 700, {
-          origin: '12px 10px',
-        }),
-      },
-    },
+    pulse: MAP_PIN_PULSE,
+    /** @deprecated Se llamaba `locate`. El alias sale en la v3. */
+    locate: MAP_PIN_PULSE,
   });
 
 /** Ubicación confirmada: el pin se rebotea y la palomita se dibuja de insignia. */
-export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheckShapes, {
-    default: {
-      root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
-      shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 300 }) },
-    },
-    /** Celebración: la palomita se dibuja y pega un rebote elástico, no solo se traza. */
-    confirm: {
+const MAP_PIN_CHECK_SHAKE: IconChoreography = /* @__PURE__ */ {
       root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
       shapes: {
         2: /* @__PURE__ */ track(
@@ -62,7 +60,17 @@ export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheck
           { delay: 280, easing: EASE, origin: '19px 20px' },
         ),
       },
+    };
+
+export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheckShapes, {
+    default: {
+      root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
+      shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 300 }) },
     },
+    /** Celebración: la palomita se dibuja y pega un rebote elástico, no solo se traza. */
+    shake: MAP_PIN_CHECK_SHAKE,
+    /** @deprecated Se llamaba `confirm`. El alias sale en la v3. */
+    confirm: MAP_PIN_CHECK_SHAKE,
     reveal: {
       shapes: {
         2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
@@ -133,16 +141,7 @@ export const mapPinPlusInsideIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPin
   });
 
 /** Buscando ubicación: el pin se rebotea y la lupa aparece de insignia. */
-export const mapPinSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinSearchShapes, {
-    default: {
-      root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
-      shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 260, origin: '18px 18px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 480 }),
-      },
-    },
-    /** Rastreando: la lupa barre de un lado a otro, buscando. */
-    scan: {
+const MAP_PIN_SEARCH_NUDGE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         3: /* @__PURE__ */ track(
           [
@@ -155,10 +154,33 @@ export const mapPinSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinSear
           { origin: '18px 18px' },
         ),
       },
+    };
+
+export const mapPinSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinSearchShapes, {
+    default: {
+      root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
+      shapes: {
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 260, origin: '18px 18px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 480 }),
+      },
     },
+    /** Rastreando: la lupa barre de un lado a otro, buscando. */
+    nudge: MAP_PIN_SEARCH_NUDGE,
+    /** @deprecated Se llamaba `scan`. El alias sale en la v3. */
+    scan: MAP_PIN_SEARCH_NUDGE,
   });
 
 /** Ubicación inválida: el pin se rebotea y la equis se dibuja de insignia. */
+const MAP_PIN_X_SHAKE: IconChoreography = /* @__PURE__ */ {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -15, 12, -10, 8, -4, 0]), 450, {
+        origin: '12px 21.8px',
+      }),
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 150 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 210 }),
+      },
+    };
+
 export const mapPinXIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinXShapes, {
     default: {
       root: /* @__PURE__ */ track(MAP_PIN_ROCK, 650, { origin: '12px 21.8px' }),
@@ -168,15 +190,9 @@ export const mapPinXIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinXShapes, 
       },
     },
     /** Rechazo: sacudida más brusca y rápida en vez del rebote suave — un "no" tajante. */
-    deny: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -15, 12, -10, 8, -4, 0]), 450, {
-        origin: '12px 21.8px',
-      }),
-      shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 150 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 160, { delay: 210 }),
-      },
-    },
+    shake: MAP_PIN_X_SHAKE,
+    /** @deprecated Se llamaba `deny`. El alias sale en la v3. */
+    deny: MAP_PIN_X_SHAKE,
   });
 
 /** Igual, pero la equis reemplaza el punto adentro del pin. */

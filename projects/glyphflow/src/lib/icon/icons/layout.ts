@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { scaleSeq, track, strokeDraw, icon } from '../choreography';
 import { layoutDashboardShapes, layoutFreeformShapes, layoutGridShapes, layoutListShapes, layoutPanelLeftShapes, layoutPanelTopShapes, layoutTemplateShapes } from '../animated-icons.shapes';
 
@@ -18,6 +18,31 @@ import { layoutDashboardShapes, layoutFreeformShapes, layoutGridShapes, layoutLi
  * del componente, no una propiedad de la variante.
  */
 const T5_EASE = 'ease-in-out';
+
+const LAYOUT_DASHBOARD_FOCUS: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '3px 3px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '21px 21px' },
+        ),
+        1: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '21px 3px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
+          900,
+          { origin: '3px 21px' },
+        ),
+      },
+    };
 
 export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutDashboardShapes, {
     default: {
@@ -41,30 +66,9 @@ export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutD
       },
     },
     /** Los grandes se encogen al tamaño de los chicos y viceversa; luego regresan. */
-    swap: {
-      shapes: {
-        0: /* @__PURE__ */ track(
-          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
-          900,
-          { origin: '3px 3px' },
-        ),
-        2: /* @__PURE__ */ track(
-          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(0.556)' }, { transform: 'scaleY(1)' }],
-          900,
-          { origin: '21px 21px' },
-        ),
-        1: /* @__PURE__ */ track(
-          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
-          900,
-          { origin: '21px 3px' },
-        ),
-        3: /* @__PURE__ */ track(
-          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1.8)' }, { transform: 'scaleY(1)' }],
-          900,
-          { origin: '3px 21px' },
-        ),
-      },
-    },
+    focus: LAYOUT_DASHBOARD_FOCUS,
+    /** @deprecated Se llamaba `swap`. El alias sale en la v3. */
+    swap: LAYOUT_DASHBOARD_FOCUS,
     alert: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateX(-10px)', offset: 0 }, { opacity: 0, transform: 'translateX(-10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateX(2px)', offset: 0.8 }, { opacity: 1, transform: 'translateX(0)', offset: 1 }], 350, { easing: 'ease-out' }),
@@ -213,6 +217,21 @@ export const layoutPanelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutPa
   });
 
 /** Lista: las 2 miniaturas crecen/achican alternado, los renglones se dibujan de arriba a abajo. */
+const LAYOUT_LIST_FLASH: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, { delay: 0 }),
+        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 140,
+        }),
+        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 280,
+        }),
+        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
+          delay: 420,
+        }),
+      },
+    };
+
 export const layoutListIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutListShapes, {
     default: {
       shapes: {
@@ -228,23 +247,27 @@ export const layoutListIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutListSh
       },
     },
     /** Leyendo: los renglones se iluminan uno a uno, en orden, como si se recorrieran. */
-    read: {
-      shapes: {
-        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, { delay: 0 }),
-        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
-          delay: 140,
-        }),
-        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
-          delay: 280,
-        }),
-        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.35' }, { opacity: '1' }], 260, {
-          delay: 420,
-        }),
-      },
-    },
+    flash: LAYOUT_LIST_FLASH,
+    /** @deprecated Se llamaba `read`. El alias sale en la v3. */
+    read: LAYOUT_LIST_FLASH,
   });
 
 /** Header + 2 tarjetas asimétricas: los 3 crecen/achican alternado. */
+const LAYOUT_TEMPLATE_FOCUS: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        1: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(1)' }],
+          900,
+          { origin: '3px 21px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1)' }],
+          900,
+          { delay: 60, origin: '21px 21px' },
+        ),
+      },
+    };
+
 export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTemplateShapes, {
     default: {
       shapes: {
@@ -264,20 +287,9 @@ export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTe
       },
     },
     /** Las dos tarjetas intercambian ancho (la angosta se hace ancha y viceversa), luego regresan. */
-    select: {
-      shapes: {
-        1: /* @__PURE__ */ track(
-          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(0.556)' }, { transform: 'scaleX(1)' }],
-          900,
-          { origin: '3px 21px' },
-        ),
-        2: /* @__PURE__ */ track(
-          [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1.8)' }, { transform: 'scaleX(1)' }],
-          900,
-          { delay: 60, origin: '21px 21px' },
-        ),
-      },
-    },
+    focus: LAYOUT_TEMPLATE_FOCUS,
+    /** @deprecated Se llamaba `select`. El alias sale en la v3. */
+    select: LAYOUT_TEMPLATE_FOCUS,
     alert: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(-5px)', offset: 0 }, { opacity: 0, transform: 'translateY(-5px)', offset: 0.2 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 300, { easing: 'ease-in' }),
@@ -288,22 +300,7 @@ export const layoutTemplateIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutTe
   });
 
 /** Freeform: sin cuadrado que mantener — cada bloque late desde su propio centro. */
-export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutFreeformShapes, {
-    default: {
-      shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '6.5px 6.5px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
-          delay: 90,
-          origin: '17.5px 7.5px',
-        }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
-          delay: 180,
-          origin: '7.5px 17.5px',
-        }),
-      },
-    },
-    /** Suelto de verdad: cada bloque se ladea y escala a su propio ritmo, sin sincronía. */
-    shuffle: {
+const LAYOUT_FREEFORM_SHAKE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         0: /* @__PURE__ */ track(
           [
@@ -333,5 +330,24 @@ export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutFr
           { delay: 220, origin: '7.5px 17.5px' },
         ),
       },
+    };
+
+export const layoutFreeformIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutFreeformShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, { origin: '6.5px 6.5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.82, 1]), 420, {
+          delay: 90,
+          origin: '17.5px 7.5px',
+        }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.18, 1]), 420, {
+          delay: 180,
+          origin: '7.5px 17.5px',
+        }),
+      },
     },
+    /** Suelto de verdad: cada bloque se ladea y escala a su propio ritmo, sin sincronía. */
+    shake: LAYOUT_FREEFORM_SHAKE,
+    /** @deprecated Se llamaba `shuffle`. El alias sale en la v3. */
+    shuffle: LAYOUT_FREEFORM_SHAKE,
   });

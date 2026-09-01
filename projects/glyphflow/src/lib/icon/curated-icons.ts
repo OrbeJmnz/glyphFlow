@@ -1,4 +1,4 @@
-import { AnimatedIconDef } from './animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from './animated-icon.model';
 import { SHIELD_GEAR_SPIN, SHOOT_OFF_KEYFRAMES, TRAZO_INVERSO, X_SNAP_DRAW, lineaDespliegaYVaga, puntaCompas, astaCompas } from './icons/_shared';
 import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
@@ -1133,13 +1133,17 @@ export const sendIcon: AnimatedIconDef = /* @__PURE__ */ icon(sendShapes, {
   });
 
 /** Media vuelta en dos tiempos; `rotate` gira parejo (bueno con `loop`). Portadas. */
+const SETTINGS_SPIN: IconChoreography = /* @__PURE__ */ {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 2000, { easing: 'linear', origin: 'center' }),
+    };
+
 export const settingsIcon: AnimatedIconDef = /* @__PURE__ */ icon(settingsShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 90, 180]), 1250, { origin: 'center' }),
     },
-    rotate: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 2000, { easing: 'linear', origin: 'center' }),
-    },
+    spin: SETTINGS_SPIN,
+    /** @deprecated Se llamaba `rotate`. El alias sale en la v3. */
+    rotate: SETTINGS_SPIN,
     active: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 1000, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       reverseOnLeave: true,
@@ -1257,6 +1261,16 @@ export const triangleAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(triangleA
   });
 
 /** Subir: asta y punta van hacia arriba; la bandeja se queda. */
+const UPLOAD_NUDGE: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.6)' }, { transform: 'scaleY(1)' }],
+          320,
+          { origin: '12px 3px' },
+        ),
+      },
+    };
+
 export const uploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(uploadShapes, {
     default: {
       // Solo la flecha se mueve (asta + punta); la bandeja se queda estática.
@@ -1266,15 +1280,9 @@ export const uploadIcon: AnimatedIconDef = /* @__PURE__ */ icon(uploadShapes, {
       },
     },
     /** El asta se acorta en longitud (scaleY) desde arriba, donde toca la punta; la punta no se mueve. */
-    retract: {
-      shapes: {
-        0: /* @__PURE__ */ track(
-          [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.6)' }, { transform: 'scaleY(1)' }],
-          320,
-          { origin: '12px 3px' },
-        ),
-      },
-    },
+    nudge: UPLOAD_NUDGE,
+    /** @deprecated Se llamaba `retract`. El alias sale en la v3. */
+    retract: UPLOAD_NUDGE,
     active: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 300, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
@@ -1448,6 +1456,41 @@ export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
 
 
 /** Abrir fuera: la flecha se sale de la caja. */
+const EXTERNAL_LINK_REVEAL: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        0: /* @__PURE__ */ track(
+          [
+            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
+            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
+            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
+            { transform: 'translate(0px, 0px)', offset: 1 },
+          ],
+          1000,
+          { easing: 'linear', delay: 120 },
+        ),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
+            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
+            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
+            { transform: 'translate(0px, 0px)', offset: 1 },
+          ],
+          1000,
+          { easing: 'linear', delay: 120 },
+        ),
+        // El componente ya pone `pathLength="1"`, así que el dash va en 0-1. Es la misma forma con
+        // la que Motion resuelve `pathLength` por debajo.
+        2: /* @__PURE__ */ track(
+          [
+            { strokeDasharray: '0 1', opacity: '0.4' },
+            { strokeDasharray: '1 1', opacity: '1' },
+          ],
+          900,
+          { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+        ),
+      },
+    };
+
 export const externalLinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(externalLinkShapes, {
     default: {
       shapes: {
@@ -1482,40 +1525,9 @@ export const externalLinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(externalLi
     // El easing va por keyframe, no en `options`: Framer lo aplica entre cada par, y en `options`
     // WAAPI lo aplicaría a la iteración completa. Con `times` traducido a `offset`, `conRelevo`
     // devuelve null y en hover repetido corta en seco — el original hace lo mismo.
-    launch: {
-      shapes: {
-        0: /* @__PURE__ */ track(
-          [
-            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
-            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
-            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
-            { transform: 'translate(0px, 0px)', offset: 1 },
-          ],
-          1000,
-          { easing: 'linear', delay: 120 },
-        ),
-        1: /* @__PURE__ */ track(
-          [
-            { transform: 'translate(0px, 0px)', offset: 0, easing: EASE },
-            { transform: 'translate(-1px, 1px)', offset: 0.15, easing: EASE },
-            { transform: 'translate(2px, -2px)', offset: 0.55, easing: EASE },
-            { transform: 'translate(0px, 0px)', offset: 1 },
-          ],
-          1000,
-          { easing: 'linear', delay: 120 },
-        ),
-        // El componente ya pone `pathLength="1"`, así que el dash va en 0-1. Es la misma forma con
-        // la que Motion resuelve `pathLength` por debajo.
-        2: /* @__PURE__ */ track(
-          [
-            { strokeDasharray: '0 1', opacity: '0.4' },
-            { strokeDasharray: '1 1', opacity: '1' },
-          ],
-          900,
-          { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
-        ),
-      },
-    },
+    reveal: EXTERNAL_LINK_REVEAL,
+    /** @deprecated Se llamaba `launch`. El alias sale en la v3. */
+    launch: EXTERNAL_LINK_REVEAL,
   });
 
 
@@ -1570,30 +1582,7 @@ export const crownIcon: AnimatedIconDef = /* @__PURE__ */ icon(crownShapes, {
   });
 
 /** Sol: los rayos brotan uno por uno mientras el astro gira despacio. */
-export const sunIcon: AnimatedIconDef = /* @__PURE__ */ icon(sunShapes, {
-    default: {
-      root: /* @__PURE__ */ track(
-        [
-          { transform: 'rotate(0deg)', offset: 0 },
-          { transform: 'rotate(45deg)', offset: 0.5625 },
-          { transform: 'rotate(405deg)', offset: 1 },
-        ],
-        2400,
-        { origin: 'center', easing: 'linear' },
-      ),
-      shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 0 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 45 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 90 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 135 }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 180 }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 225 }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 270 }),
-        8: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 315 }),
-      },
-    },
-    /** Destello: los rayos titilan en ola, el sol no gira. */
-    shine: {
+const SUN_PULSE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         // Late durante TODA la ola (780ms = último rayo a los 280ms + sus 500ms), no solo al
         // principio — si no, se queda quieto mientras los rayos siguen titilando.
@@ -1689,7 +1678,34 @@ export const sunIcon: AnimatedIconDef = /* @__PURE__ */ icon(sunShapes, {
           { delay: 280 },
         ),
       },
+    };
+
+export const sunIcon: AnimatedIconDef = /* @__PURE__ */ icon(sunShapes, {
+    default: {
+      root: /* @__PURE__ */ track(
+        [
+          { transform: 'rotate(0deg)', offset: 0 },
+          { transform: 'rotate(45deg)', offset: 0.5625 },
+          { transform: 'rotate(405deg)', offset: 1 },
+        ],
+        2400,
+        { origin: 'center', easing: 'linear' },
+      ),
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 0 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 45 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 90 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 135 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 180 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 225 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 270 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 315 }),
+      },
     },
+    /** Destello: los rayos titilan en ola, el sol no gira. */
+    pulse: SUN_PULSE,
+    /** @deprecated Se llamaba `shine`. El alias sale en la v3. */
+    shine: SUN_PULSE,
   });
 
 /** Luna que se recuesta. */
@@ -2021,15 +2037,7 @@ export const laptopIcon: AnimatedIconDef = /* @__PURE__ */ icon(laptopShapes, {
 });
 
 /** Capas separándose: la de arriba sube, la de abajo baja. */
-export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
-    default: {
-      shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.8, 0]), 550),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 550),
-      },
-    },
-    /** Las tres capas se acoplan a medio camino — la de arriba también baja, no se queda fija. */
-    merge: {
+const LAYERS_NUDGE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         0: /* @__PURE__ */ track(
           [
@@ -2060,7 +2068,19 @@ export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
           { delay: 60 },
         ),
       },
+    };
+
+export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
+    default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.8, 0]), 550),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 550),
+      },
     },
+    /** Las tres capas se acoplan a medio camino — la de arriba también baja, no se queda fija. */
+    nudge: LAYERS_NUDGE,
+    /** @deprecated Se llamaba `merge`. El alias sale en la v3. */
+    merge: LAYERS_NUDGE,
     active: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-9px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
@@ -2155,6 +2175,14 @@ export const paletteIcon: AnimatedIconDef = /* @__PURE__ */ icon(paletteShapes, 
 });
 
 /** Play: el empujón de arrancar. */
+const PLAY_NUDGE: IconChoreography = /* @__PURE__ */ {
+      root: /* @__PURE__ */ track(
+        [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
+        450,
+        { easing: EASE, origin: 'center' },
+      ),
+    };
+
 export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
     default: {
       root: /* @__PURE__ */ track(
@@ -2168,13 +2196,9 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
       ),
     },
     /** Avanza: se desplaza a la derecha y regresa, elástico. */
-    next: {
-      root: /* @__PURE__ */ track(
-        [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
-        450,
-        { easing: EASE, origin: 'center' },
-      ),
-    },
+    nudge: PLAY_NUDGE,
+    /** @deprecated Se llamaba `next`. El alias sale en la v3. */
+    next: PLAY_NUDGE,
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
