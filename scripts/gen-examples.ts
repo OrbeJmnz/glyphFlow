@@ -12,6 +12,7 @@ import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import * as SNIPPETS from '../projects/playground/src/app/features/patrones/snippets.ts';
+import { sinCr } from './sin-cr';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const leerJson = (p: string) => JSON.parse(readFileSync(join(RAIZ, p), 'utf8'));
@@ -154,7 +155,7 @@ for (const e of EJEMPLOS) {
   for (const [relativo, contenido] of Object.entries(archivosDe(e))) {
     const destino = join(RAIZ, 'examples', e.dir, relativo);
     if (comprobar) {
-      const actual = existsSync(destino) ? readFileSync(destino, 'utf8') : null;
+      const actual = existsSync(destino) ? sinCr(readFileSync(destino, 'utf8')) : null;
       if (actual !== contenido) desincronizados.push(`examples/${e.dir}/${relativo}`);
       continue;
     }

@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { IDIOMAS } from '../projects/playground/src/app/core/idioma.ts';
 import { ORIGEN } from '../projects/playground/src/app/core/sitio.ts';
 import { ruta, type RutaId } from '../projects/playground/src/app/core/rutas.ts';
+import { sinCr } from './sin-cr';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PUBLIC = join(__dirname, '..', 'projects', 'playground', 'public');
@@ -90,7 +91,7 @@ const salidas: [string, string][] = [
 if (process.argv.includes('--check')) {
   const desincronizados = salidas.filter(([archivo, esperado]) => {
     try {
-      return readFileSync(join(PUBLIC, archivo), 'utf8') !== esperado;
+      return sinCr(readFileSync(join(PUBLIC, archivo), 'utf8')) !== esperado;
     } catch {
       return true;
     }
