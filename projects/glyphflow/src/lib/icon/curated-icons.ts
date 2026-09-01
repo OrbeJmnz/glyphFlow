@@ -794,8 +794,6 @@ const E3_SQUASH_LAND = /* @__PURE__ */ [
  * `route`, `locate` y sus variantes traen muelles propios en el original (curvas que se
  * pasan de 1); se conservan porque el sobrepaso ES el gesto.
  */
-const REVEAL_EASE = 'cubic-bezier(0.25, 1, 0.5, 1)';
-const REVEAL_OVERSHOOT = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
 const REVEAL_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const REVEAL_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
 const REVEAL_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';

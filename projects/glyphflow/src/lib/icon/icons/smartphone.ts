@@ -17,8 +17,6 @@ import { smartphoneShapes } from '../animated-icons.shapes';
  * monedas y que la arista de `archive`.
  */
 const T6_EASE = 'ease-in-out';
-const T6_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const T6_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
 
 export const smartphoneChargingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
