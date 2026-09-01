@@ -20,6 +20,16 @@ export const clock1Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -34,6 +44,16 @@ export const clock10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -52,6 +72,16 @@ export const clock11Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -66,6 +96,16 @@ export const clock12Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -84,6 +124,16 @@ export const clock2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -98,6 +148,16 @@ export const clock3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -116,6 +176,16 @@ export const clock5Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -130,6 +200,16 @@ export const clock6Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -148,6 +228,16 @@ export const clock7Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -164,6 +254,16 @@ export const clock8Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -178,6 +278,16 @@ export const clock9Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, {
           origin: '12px 12px',
         }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -221,12 +331,32 @@ export const clockArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 /** Manecillas dando la vuelta; la carátula quieta. */
 export const clockIcon: AnimatedIconDef = /* @__PURE__ */ icon(clockShapes, {
     default: {
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, { origin: '12px 12px' }) },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
     },
   });
 
@@ -240,6 +370,16 @@ export const clock4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, { origin: '12px 12px' }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -259,6 +399,16 @@ export const clockAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 370, fill: 'backwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 340, { easing: 'ease-out', delay: 480, fill: 'backwards' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -287,6 +437,16 @@ export const clockArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -312,6 +472,16 @@ export const clockArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-1.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
     },
   },
 );
@@ -339,6 +509,16 @@ export const clockArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -354,6 +534,16 @@ export const clockCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 1200, { origin: '12px 12px' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 370, fill: 'backwards' }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },
@@ -379,6 +569,16 @@ export const clockFadingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 700, fill: 'backwards' }),
       },
     },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
+      },
+    },
   },
 );
 
@@ -396,6 +596,16 @@ export const clockPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 370, fill: 'backwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 480, fill: 'backwards' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260, fill: 'backwards' }),
+      },
+    },
+    // `spin`: la vuelta completa del reloj, en doce saltos secos de 30 grados en vez
+    // de un barrido continuo -- ese `steps` es el tictac, y sale gratis porque es una
+    // funcion de easing, no keyframes extra. Se gira una vuelta ENTERA a proposito:
+    // 360 grados acaban donde empezaron, asi que vuelve al reposo sin salto que
+    // disimular. Solo giran las manecillas; la esfera y las insignias se quedan.
+    spin: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1080, { easing: 'steps(12, end)', origin: '12px 12px' }),
       },
     },
   },

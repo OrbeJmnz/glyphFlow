@@ -12741,91 +12741,112 @@
     },
     "clock": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-1": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-10": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-11": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-12": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-2": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-3": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-4": {
       "default": "d341bc56cf81",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-5": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-6": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-7": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-8": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-9": {
       "default": "a1c9f68d3e1a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-alert": {
       "default": "cdc7fdd616d5",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "3fe053510d26"
     },
     "clock-arrow-down": {
       "default": "70638aea4bed",
       "draw": "17c8398e8d34",
-      "hold": "13f5db311abf"
+      "hold": "13f5db311abf",
+      "spin": "3fe053510d26"
     },
     "clock-arrow-left": {
       "default": "594ad8305288",
       "draw": "17c8398e8d34",
-      "hold": "b2485df76914"
+      "hold": "b2485df76914",
+      "spin": "3fe053510d26"
     },
     "clock-arrow-right": {
       "default": "30db11d1169f",
       "draw": "17c8398e8d34",
-      "hold": "ae950633230c"
+      "hold": "ae950633230c",
+      "spin": "3fe053510d26"
     },
     "clock-arrow-up": {
       "default": "5b0c4b585eba",
       "draw": "17c8398e8d34",
-      "hold": "8044a78727e0"
+      "hold": "8044a78727e0",
+      "spin": "3fe053510d26"
     },
     "clock-check": {
       "default": "d19836e143c1",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "3fe053510d26"
     },
     "clock-fading": {
       "default": "f158d1cef32a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "742ebbe0d8af"
     },
     "clock-plus": {
       "default": "44dccb0e7dfa",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "spin": "3fe053510d26"
     },
     "closed-caption": {
       "default": "0adfc4acd0fe",
