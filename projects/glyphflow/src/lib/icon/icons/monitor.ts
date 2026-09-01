@@ -3,7 +3,7 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
+import { EASE, SPRING_OUT, icon, rotateSeq, strokeDraw, track } from '../choreography';
 import { monitorShapes } from '../animated-icons.shapes';
 
 export const monitorCloudIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -17,6 +17,16 @@ export const monitorCloudIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out' }),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   },
@@ -35,6 +45,16 @@ export const monitorDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '19px 6px' }),
       },
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -49,6 +69,16 @@ export const monitorPlayIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '13px 12px' }),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   },
@@ -67,6 +97,16 @@ export const monitorStopIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '12px 10px' }),
       },
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -81,6 +121,15 @@ export const monitorSmartphoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         3: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '19px 17px' }),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   },
@@ -101,6 +150,17 @@ export const monitorPauseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' }], 500, { easing: SPRING_OUT, origin: '0px 10px', delay: 90, fill: 'backwards' }),
       },
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -117,6 +177,17 @@ export const monitorXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 110, fill: 'backwards' }),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   },
@@ -137,6 +208,17 @@ export const monitorSpeakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], 420, { easing: SPRING_OUT, origin: '17px 15px' }),
       },
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -151,6 +233,16 @@ export const monitorCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   },
@@ -187,6 +279,24 @@ export const monitorCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -205,6 +315,17 @@ export const monitorDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 320, { easing: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
     },
   },
 );
@@ -234,6 +355,16 @@ export const monitorOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
       },
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -253,6 +384,17 @@ export const monitorUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
+      },
+    },
   },
 );
 
@@ -270,6 +412,15 @@ export const monitorIcon: AnimatedIconDef = /* @__PURE__ */ icon(monitorShapes, 
           ],
           600,
         ),
+      },
+    },
+    // `nudge`: la pantalla bascula sobre su bisagra (12, 17) como cuando le das un
+    // toque al monitor; el pie se queda, que esta apoyado. Las figuras de la pantalla
+    // giran todas igual y a la vez a proposito: son UNA pieza rigida, y un marco que
+    // se inclina a destiempo de su contenido esta roto, no vivo.
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -1.6, 0.6, 0]), 640, { origin: '12px 17px' }),
       },
     },
   });
