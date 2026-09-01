@@ -67,5 +67,5 @@ export const CIFRAS = {
    * npm»— y ese spec es quien lo hace cierto: al publicar una versión nueva, truena hasta que
    * alguien actualice esto.
    */
-  version: '2.2.0',
+  version: '2.3.0',
 } as const;
