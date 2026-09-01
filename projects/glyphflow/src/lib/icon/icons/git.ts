@@ -34,18 +34,17 @@ export const gitBranchMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 260 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 560 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 195, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 224, { easing: 'ease-out', delay: 195 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 195, { easing: 'ease-out', delay: 419 }),
         1: /* @__PURE__ */ track(
           [
             { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
-          ],
-          650,
-          { easing: 'ease-out', delay: 820, fill: 'both', origin: '21px 18px' },
+          ], 486,
+          { easing: 'ease-out', delay: 614, fill: 'both', origin: '21px 18px' },
         ),
       },
     },
@@ -63,18 +62,17 @@ export const gitPullRequestArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 260 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out', delay: 480 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 206, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 174, { easing: 'ease-out', delay: 206 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 206, { easing: 'ease-out', delay: 380 }),
         3: /* @__PURE__ */ track(
           [
             { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
-          ],
-          650,
-          { easing: 'ease-out', delay: 740, fill: 'both', origin: '19px 15px' },
+          ], 514,
+          { easing: 'ease-out', delay: 586, fill: 'both', origin: '19px 15px' },
         ),
         4: /* @__PURE__ */ track(
           [
@@ -82,9 +80,8 @@ export const gitPullRequestArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
-          ],
-          650,
-          { easing: 'ease-out', delay: 740, fill: 'both', origin: '19px 15px' },
+          ], 514,
+          { easing: 'ease-out', delay: 586, fill: 'both', origin: '19px 15px' },
         ),
       },
     },
@@ -103,19 +100,18 @@ export const gitPullRequestCreateArrowIcon: AnimatedIconDef = /* @__PURE__ */ ic
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { easing: 'ease-out', delay: 260 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 480 }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 200, { easing: 'ease-out', delay: 480 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 215, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 182, { easing: 'ease-out', delay: 215 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 165, { easing: 'ease-out', delay: 397 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 165, { easing: 'ease-out', delay: 397 }),
         2: /* @__PURE__ */ track(
           [
             { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, transform: 'rotate(0deg)', offset: 0 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
-          ],
-          650,
-          { easing: 'ease-out', delay: 680, fill: 'both', origin: '19px 11px' },
+          ], 538,
+          { easing: 'ease-out', delay: 562, fill: 'both', origin: '19px 11px' },
         ),
         3: /* @__PURE__ */ track(
           [
@@ -123,9 +119,8 @@ export const gitPullRequestCreateArrowIcon: AnimatedIconDef = /* @__PURE__ */ ic
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 0.4 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(-15deg)', offset: 0.7 },
             { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, transform: 'rotate(0deg)', offset: 1 },
-          ],
-          650,
-          { easing: 'ease-out', delay: 680, fill: 'both', origin: '19px 11px' },
+          ], 538,
+          { easing: 'ease-out', delay: 562, fill: 'both', origin: '19px 11px' },
         ),
       },
     },

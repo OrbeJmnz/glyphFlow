@@ -83,9 +83,9 @@ export const grid3x2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 2), 1200, { origin: '15px 3px', delay: 220, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 3, 1), 1200, { origin: '3px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 1200, { origin: '9px 3px', delay: 140, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 2), 930, { origin: '15px 3px', delay: 170, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 3, 1), 930, { origin: '3px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 930, { origin: '9px 3px', delay: 108, fill: 'backwards' }),
       },
     },
   },
@@ -103,10 +103,10 @@ export const grid3x3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 2.2, 0), 1200, { origin: '3px 9px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 2.2, 2), 1200, { origin: '3px 15px', delay: 80, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 1), 1200, { origin: '9px 3px', delay: 180, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 1200, { origin: '15px 3px', delay: 260, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 2.2, 0), 904, { origin: '3px 9px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 2.2, 2), 904, { origin: '3px 15px', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 1), 904, { origin: '9px 3px', delay: 136, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 904, { origin: '15px 3px', delay: 196, fill: 'backwards' }),
       },
     },
   },

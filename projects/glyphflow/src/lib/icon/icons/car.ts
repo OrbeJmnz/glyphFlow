@@ -51,10 +51,10 @@ export const carIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {

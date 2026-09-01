@@ -37,7 +37,7 @@ import { track, icon } from '../choreography';
  * esquina en vez del centro. El porcentaje sí es independiente del tamaño — y el `<svg>` siempre
  * es cuadrado (mismo alto que ancho), así que el centro cae exacto sin importar el box model.
  */
-const DICE_ROLL_MS = 1600;
+const DICE_ROLL_MS = 1100;
 const DICE_ROLL = /* @__PURE__ */ [
   { transform: 'translateY(0) rotate(0deg)', offset: 0 },
   { transform: 'translateY(-2.76px) rotate(22.5deg)', offset: 0.08 },

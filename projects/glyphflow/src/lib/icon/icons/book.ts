@@ -712,10 +712,10 @@ export const bookAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 500, { easing: EASE }),
       shapes: {
-        1: /* @__PURE__ */ track(E2_BLINK, 700, { easing: EASE, delay: 620, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(E2_BLINK, 700, { easing: EASE, delay: 620, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_BLINK, 583, { easing: EASE, delay: 517, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(E2_BLINK, 583, { easing: EASE, delay: 517, fill: 'backwards' }),
       },
     },
   },
@@ -749,10 +749,10 @@ export const bookSearchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_E2, 532, { easing: EASE }),
       shapes: {
-        3: /* @__PURE__ */ track(E2_PUSH_LEFT, 620, { easing: EASE, delay: 620, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(E2_PUSH_LEFT, 620, { easing: EASE, delay: 620, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(E2_PUSH_LEFT, 550, { easing: EASE, delay: 550, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(E2_PUSH_LEFT, 550, { easing: EASE, delay: 550, fill: 'backwards' }),
       },
     },
   },

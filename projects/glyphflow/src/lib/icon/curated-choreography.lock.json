@@ -10940,7 +10940,7 @@
       "nudge": "1f83dcb4e699"
     },
     "ambulance": {
-      "default": "6fd8b3d3d800",
+      "default": "797fd98330d3",
       "draw": "17c8398e8d34",
       "hold": "798b740aa533"
     },
@@ -11572,7 +11572,7 @@
       "hold": "650bb15df4ef"
     },
     "bike": {
-      "default": "d2813188afee",
+      "default": "5cd6a34dc189",
       "draw": "17c8398e8d34",
       "hold": "6cfd87a80a85"
     },
@@ -11671,7 +11671,7 @@
       "reveal": "b19e1974e5ef"
     },
     "book-alert": {
-      "default": "0227e94ba404",
+      "default": "7c8a5058cebe",
       "draw": "17c8398e8d34"
     },
     "book-audio": {
@@ -11751,7 +11751,7 @@
       "reveal": "a490ef7b7e3c"
     },
     "book-search": {
-      "default": "fa5ffe7e886d",
+      "default": "96477dde1803",
       "draw": "17c8398e8d34"
     },
     "book-text": {
@@ -11968,7 +11968,7 @@
       "pulse": "5e2da2b81fe0"
     },
     "bus": {
-      "default": "4419d21d9470",
+      "default": "7e6fe1e02643",
       "draw": "17c8398e8d34",
       "hold": "412db84da97f"
     },
@@ -12151,7 +12151,7 @@
       "strike": "fbf350ee98d6"
     },
     "car": {
-      "default": "d58007557d8d",
+      "default": "cccca130f4ff",
       "draw": "17c8398e8d34",
       "hold": "069d2c2f6a06",
       "idle": "d3c71f1ad977"
@@ -12167,7 +12167,7 @@
       "hold": "f343ffa26d2b"
     },
     "caravan": {
-      "default": "7f1037471cd9",
+      "default": "3acc88fa53c6",
       "draw": "17c8398e8d34",
       "hold": "1e90fef37ea7"
     },
@@ -12999,11 +12999,11 @@
       "hold": "3e194ba15d82"
     },
     "columns-2": {
-      "default": "acd6b3302f35",
+      "default": "d734fe544009",
       "draw": "17c8398e8d34"
     },
     "columns-3": {
-      "default": "fdb1d5960a87",
+      "default": "1a789f4a7140",
       "draw": "17c8398e8d34"
     },
     "columns-3-cog": {
@@ -13011,7 +13011,7 @@
       "draw": "17c8398e8d34"
     },
     "columns-4": {
-      "default": "3d600b6e9e5a",
+      "default": "97bd397629d4",
       "draw": "17c8398e8d34"
     },
     "combine": {
@@ -13313,27 +13313,27 @@
       "draw": "17c8398e8d34"
     },
     "dice-1": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dice-2": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dice-3": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dice-4": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dice-5": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dice-6": {
-      "default": "5c855624fd7c",
+      "default": "48ee5a59359c",
       "draw": "17c8398e8d34"
     },
     "dices": {
@@ -13536,7 +13536,7 @@
       "draw": "17c8398e8d34"
     },
     "eraser": {
-      "default": "b8c77f48ab74",
+      "default": "beb07d5fdab8",
       "draw": "17c8398e8d34",
       "hold": "067be7d3a2e9"
     },
@@ -14229,7 +14229,7 @@
       "hold": "990e0fba0192"
     },
     "forklift": {
-      "default": "282050f3fabf",
+      "default": "c313eb0a53e5",
       "draw": "17c8398e8d34",
       "hold": "f84f9b410fb6"
     },
@@ -14339,7 +14339,7 @@
       "flip": "4badefff6a03"
     },
     "git-branch-minus": {
-      "default": "8946ab6cf18c",
+      "default": "c3df8571ea0d",
       "draw": "17c8398e8d34"
     },
     "git-branch-plus": {
@@ -14390,7 +14390,7 @@
       "draw": "17c8398e8d34"
     },
     "git-pull-request-arrow": {
-      "default": "2eace11e5724",
+      "default": "ab28b9bb94eb",
       "draw": "17c8398e8d34"
     },
     "git-pull-request-closed": {
@@ -14402,7 +14402,7 @@
       "draw": "17c8398e8d34"
     },
     "git-pull-request-create-arrow": {
-      "default": "96f91e7c0eaf",
+      "default": "d0200e2fe599",
       "draw": "17c8398e8d34"
     },
     "git-pull-request-draft": {
@@ -14486,11 +14486,11 @@
       "flash": "99d5c974e8ef"
     },
     "grid-3x2": {
-      "default": "b2095a9695b6",
+      "default": "ffe05c77f6d9",
       "draw": "17c8398e8d34"
     },
     "grid-3x3": {
-      "default": "a566568bbed6",
+      "default": "59f0ca20f33f",
       "draw": "17c8398e8d34"
     },
     "grip": {
@@ -15537,7 +15537,7 @@
       "hold": "dcca3f762b05"
     },
     "message-circle-more": {
-      "default": "869356276194",
+      "default": "42610976fff1",
       "draw": "17c8398e8d34",
       "hold": "4db61a28c5c5"
     },
@@ -15613,7 +15613,7 @@
       "hold": "b8a7613bd989"
     },
     "message-square-more": {
-      "default": "869356276194",
+      "default": "42610976fff1",
       "draw": "17c8398e8d34",
       "hold": "bbd870837636"
     },
@@ -15826,7 +15826,7 @@
       "hold": "9efcd2aa6a7f"
     },
     "motorbike": {
-      "default": "7f1037471cd9",
+      "default": "3acc88fa53c6",
       "draw": "17c8398e8d34",
       "hold": "47e4d223b7a6"
     },
@@ -16779,7 +16779,7 @@
       "strike": "1aa82772cf95"
     },
     "replace": {
-      "default": "1876edf790b9",
+      "default": "3e4264a79f13",
       "draw": "17c8398e8d34"
     },
     "replace-all": {
@@ -17059,7 +17059,7 @@
       "draw": "17c8398e8d34"
     },
     "scooter": {
-      "default": "601a5570dc53",
+      "default": "0bc3d289c5ff",
       "draw": "17c8398e8d34",
       "hold": "96acbffc0016"
     },
@@ -17292,7 +17292,7 @@
     },
     "shopping-cart": {
       "bounce": "926f61dcd64c",
-      "default": "5b64c8954f2c",
+      "default": "8f9baba972b8",
       "draw": "17c8398e8d34",
       "pulse": "d566b6d6556e"
     },
@@ -17599,7 +17599,7 @@
       "draw": "17c8398e8d34"
     },
     "square-bottom-dashed-scissors": {
-      "default": "bf17b68ad2fe",
+      "default": "aa182352dff3",
       "draw": "17c8398e8d34"
     },
     "square-centerline-dashed-horizontal": {
@@ -17663,11 +17663,11 @@
       "draw": "17c8398e8d34"
     },
     "square-dashed-text": {
-      "default": "d64fbec05e56",
+      "default": "05eb099f118d",
       "draw": "17c8398e8d34"
     },
     "square-dashed-top-solid": {
-      "default": "fae35adab0b3",
+      "default": "25a5a3725830",
       "draw": "17c8398e8d34"
     },
     "square-divide": {
@@ -18361,7 +18361,7 @@
       "hold": "4ca0612e0eec"
     },
     "tractor": {
-      "default": "535e9d5d9930",
+      "default": "77ab0acc50f0",
       "draw": "17c8398e8d34",
       "hold": "251a2f6139d2"
     },
@@ -18463,11 +18463,11 @@
       "hold": "1498be9481a5"
     },
     "truck": {
-      "default": "5b64c8954f2c",
+      "default": "8f9baba972b8",
       "draw": "17c8398e8d34"
     },
     "truck-electric": {
-      "default": "5dc6e8952f5a",
+      "default": "c2ca8e4f3b3e",
       "draw": "17c8398e8d34"
     },
     "turkish-lira": {
@@ -18695,7 +18695,7 @@
       "hold": "e01b4cde0998"
     },
     "van": {
-      "default": "7f1037471cd9",
+      "default": "3acc88fa53c6",
       "draw": "17c8398e8d34",
       "hold": "1e90fef37ea7"
     },
@@ -18883,7 +18883,7 @@
       "strike": "2a667f9b3314"
     },
     "webhook": {
-      "default": "cd278e0baa5f",
+      "default": "b87021048c19",
       "draw": "17c8398e8d34",
       "reveal": "d2f8e430c27c"
     },
