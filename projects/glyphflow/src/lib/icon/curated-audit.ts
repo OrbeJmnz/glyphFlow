@@ -1,4 +1,5 @@
 import { AnimatedIconDef, IconShape } from './animated-icon.model';
+import { varianteDeHover } from './motion-runtime';
 
 /**
  * Herramientas de verificación de los curados — las comparten el barrido
@@ -46,10 +47,13 @@ export function shapesFingerprint(shapes: IconShape[]): string[] {
 /**
  * Forma canónica de cualquier valor: claves ordenadas en profundidad y números normalizados.
  *
- * El orden de las claves NO se conserva a propósito. Ni el orden de las variantes ni el de los
- * índices dentro de `shapes` cambian lo que se ve — el motor las lee por nombre, no por posición —
- * así que reordenarlas no debe mover la huella. Lo que sí la mueve es el VALOR: otro keyframe, otra
- * duración, otro `origin`, u otro índice de figura.
+ * El orden de las claves NO se conserva a propósito, y lo que sí la mueve es el VALOR: otro
+ * keyframe, otra duración, otro `origin`, u otro índice de figura.
+ *
+ * OJO con lo que este comentario decía antes: «el motor las lee por nombre, no por posición».
+ * Es FALSO para una de ellas. `varianteDeHover()` elige la TERCERA clave, así que reordenar dos
+ * variantes le cambia el gesto de hover a un icono sin mover ni un keyframe. Por eso la huella
+ * de coreografía guarda aparte qué variante resuelve el hover: ver `choreographyFingerprint`.
  */
 function canonical(v: unknown): string {
   if (v === null || v === undefined) return String(v);
@@ -84,6 +88,16 @@ export function choreographyFingerprint(def: AnimatedIconDef): Record<string, st
     const payload = canonical(def.animations[variante]);
     out[variante] = (fnv1a(payload, 0x811c9dc5) + fnv1a(payload, 0x9e3779b9)).slice(0, 12);
   }
+  /*
+   * El gesto de hover, que es lo ÚNICO que el orden de las claves decide — `varianteDeHover()`
+   * toma la tercera. Sin esta línea, reordenar dos variantes le cambia el hover al icono y la
+   * huella sale idéntica: `curated:lock:check`, typecheck y motion-lint los tres verdes mientras
+   * al usuario le cambió el movimiento. Son 1095 iconos con hover decidido por posición.
+   *
+   * Va en claro y no hasheado a propósito: en el diff del lock se lee `'spin' → 'hold'`, que
+   * dice QUÉ pasó. Dos hashes distintos solo dirían que algo pasó.
+   */
+  out['@hover'] = varianteDeHover(def.animations);
   return out;
 }
 

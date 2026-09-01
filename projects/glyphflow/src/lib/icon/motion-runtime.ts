@@ -66,3 +66,24 @@ export function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
   const n = keyframes.length - 1;
   return keyframes.slice(1).map((k, i) => ({ ...k, offset: (i + 1) / n }));
 }
+
+
+/**
+ * Qué variante dispara el hover cuando el consumidor no fijó `animation`.
+ *
+ * **Se elige por POSICIÓN, no por nombre**: con 3 o más, la TERCERA. El orden del catálogo es
+ * `draw`, `default`, y luego la especial del icono (`rotate`, `find`, `turn`…), que es la más
+ * expresiva. Hoy son 1095 de los 1767 iconos los que dependen de ese orden.
+ *
+ * Vive aquí, y no como getter del componente, porque el lock de coreografía TIENE que hacerse la
+ * misma pregunta. Copiarla allí serían dos implementaciones de la misma regla divergiendo en
+ * silencio, y el precio de esa divergencia es que el lock diga verde mientras el gesto cambió.
+ */
+export function varianteDeHover(
+  animations: Record<string, unknown> | undefined,
+  animation?: string,
+): string {
+  if (animation && animation !== 'default') return animation;
+  const variantes = Object.keys(animations ?? {});
+  return variantes.length >= 3 ? variantes[2] : 'default';
+}

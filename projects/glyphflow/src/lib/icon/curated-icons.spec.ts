@@ -1,6 +1,12 @@
 import { AnimatedIconDef, IconChoreography, MotionTrack } from './animated-icon.model';
 import { CURATED_ICONS } from './curated-icons';
-import { shapeFingerprint, shapesFingerprint, variantesPorFigura } from './curated-audit';
+import {
+  choreographyFingerprint,
+  shapeFingerprint,
+  shapesFingerprint,
+  variantesPorFigura,
+} from './curated-audit';
+import { varianteDeHover } from './motion-runtime';
 import lockFile from './curated-choreography.lock.json';
 import iconNodes from 'lucide-static/icon-nodes.json';
 
@@ -337,5 +343,44 @@ describe('Barrido de sanidad — los 180 curados', () => {
       }
     }
     expect(problemas).toEqual([]);
+  });
+
+  /*
+   * El gesto de hover se elige por POSICIÓN: `varianteDeHover()` toma la TERCERA clave de
+   * `animations`. Son 1095 de los 1767 iconos cuyo movimiento al pasar el puntero depende del
+   * ORDEN en que están escritas sus variantes, no de cómo se llaman.
+   *
+   * Eso lo hacía invisible para todo lo que vigila el catálogo: reordenar dos variantes le
+   * cambia el gesto al usuario sin mover un solo keyframe, y typecheck, lint, `motion-lint` y
+   * `curated:lock:check` salían los cuatro verdes. Es la cicatriz de `calendar-clock` —índices
+   * válidos, movimiento equivocado— pero sobre mil iconos.
+   *
+   * Estos dos tests son el ancla. El primero fija la regla; el segundo prueba que la huella de
+   * coreografía SE MUEVE ante un reordenamiento puro, que es lo único que convierte al lock en
+   * una red de verdad para esto.
+   */
+  it('el gesto de hover es la tercera variante, y `animation` manda sobre él', () => {
+    expect(varianteDeHover({ draw: 1, default: 1, spin: 1, hold: 1 })).toBe('spin');
+    expect(varianteDeHover({ draw: 1, default: 1 })).toBe('default');
+    expect(varianteDeHover({})).toBe('default');
+    // lo que fije el consumidor gana, salvo el propio 'default'
+    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'hold')).toBe('hold');
+    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'default')).toBe('spin');
+  });
+
+  it('reordenar variantes mueve la huella, aunque no cambie ni un keyframe', () => {
+    const gesto: IconChoreography = { shapes: { 0: { keyframes: [], options: { duration: 1 } } } };
+    const shapes = [{ tag: 'path' as const, d: 'M0 0h1' }];
+    const antes = choreographyFingerprint({
+      shapes,
+      animations: { draw: gesto, default: gesto, spin: gesto, hold: gesto },
+    });
+    const despues = choreographyFingerprint({
+      shapes,
+      animations: { draw: gesto, default: gesto, hold: gesto, spin: gesto },
+    });
+    expect(antes['@hover']).toBe('spin');
+    expect(despues['@hover']).toBe('hold');
+    expect(antes).not.toEqual(despues);
   });
 });
