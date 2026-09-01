@@ -19,6 +19,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { API_VALORES, API_TIPOS } from '../projects/playground/src/app/features/docs/api-surface';
+import { sinCr } from './sin-cr';
 
 const RAIZ = join(import.meta.dirname, '..');
 const DOCS = join(RAIZ, 'projects/playground/src/app/features/docs');
@@ -164,7 +165,7 @@ for (const idioma of IDIOMAS) {
 const json = JSON.stringify(entradas, null, 2) + '\n';
 
 if (process.argv.includes('--check')) {
-  const enDisco = readFileSync(SALIDA, 'utf8');
+  const enDisco = sinCr(readFileSync(SALIDA, 'utf8'));
   if (enDisco !== json) {
     console.error(
       'indice-busqueda.json está desfasado respecto a las plantillas o a los textos.\n' +

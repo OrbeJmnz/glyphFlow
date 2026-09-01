@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { CURATED_ICONS } from '../projects/glyphflow/src/lib/icon/curated-icons.ts';
 import { ICON_ALIASES } from '../projects/glyphflow/src/lib/icon/animated-icons.registry.ts';
+import { sinCr } from './sin-cr';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIR = join(__dirname, '..', 'projects', 'playground', 'src', 'app', 'core');
@@ -43,7 +44,7 @@ const check = process.argv.includes('--check');
 if (check) {
   let actual: string;
   try {
-    actual = readFileSync(OUT, 'utf8');
+    actual = sinCr(readFileSync(OUT, 'utf8'));
   } catch {
     console.error(`✗ falta ${OUT}. Corre \`npm run gen:catalogo\` y commitea el resultado.`);
     process.exit(1);
