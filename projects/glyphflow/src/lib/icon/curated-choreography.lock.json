@@ -13526,31 +13526,38 @@
     },
     "face-angry": {
       "default": "549524e2052e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "98b4aeed0f5a"
     },
     "face-expressionless": {
       "default": "286b12bfda94",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "aa042bdb05cf"
     },
     "face-grinning": {
       "default": "2caf0a159b78",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "cf6f83a644a1"
     },
     "face-neutral": {
       "default": "56a939a4eabf",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "cf6f83a644a1"
     },
     "face-slightly-frowning": {
       "default": "39d3714a4dc3",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "1d9f017f9e37"
     },
     "face-slightly-smiling": {
       "default": "6e2f4875ed21",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "cf6f83a644a1"
     },
     "face-slightly-smiling-plus": {
       "default": "d8e20ce24235",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "idle": "632d003c1c3e"
     },
     "factory": {
       "default": "8f2802e00b4b",
@@ -16910,7 +16917,8 @@
     "scan-face": {
       "default": "19851c6d9fa8",
       "draw": "17c8398e8d34",
-      "hold": "ff437569085c"
+      "hold": "ff437569085c",
+      "idle": "07e2ae094def"
     },
     "scan-heart": {
       "default": "fe67650794b0",
