@@ -28,8 +28,8 @@ export const CIFRAS = {
    * ancla `cifras.spec.ts` corriendo esa MISMA función en Node — así que no pueden quedarse atrás
    * en silencio si el catálogo cambia.
    */
-  conVariantes: 846,
-  conHold: 468,
+  conVariantes: 1095,
+  conHold: 496,
   /**
    * Escrito a mano por la misma razón que `catalogo`, pero con una trampa propia: **nada lo
    * ancla**, y por eso derivó. Decía 4.09 desde que el catálogo tenía 180 curados; con 911 el

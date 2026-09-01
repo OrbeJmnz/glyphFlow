@@ -35,7 +35,7 @@ interface Hallazgo {
 
 /*
  * Los umbrales salen de MEDIR el catálogo entero antes de fijarlos, no de números redondos: con
- * 911 iconos y 2236 variantes, `duracion-larga` marca 53 (2.4 %) y `rotacion-alta` marca 2. Un
+ * 1767 iconos y 4795 variantes, `duracion-larga` marca 54 y `rotacion-alta` marca 4. Un
  * umbral por debajo del catálogo real convierte el check en ruido que todo el mundo aprende a
  * ignorar, y entonces deja de proteger nada.
  */
@@ -74,7 +74,7 @@ const ROTACION_ALTA_DEG = 720;
  * la variante existe en el catalogo y no existe en pantalla.
  *
  * Umbral MEDIDO, como los de arriba: hoy el catalogo tiene 496 `hold` y el mas flojo esta en 0.60
- * unidades, asi que 0.8 marca 7 -- los que no pueden crecer mas sin salirse del lienzo y necesitan
+ * unidades, asi que 0.8 marca 8 -- los que no pueden crecer mas sin salirse del lienzo y necesitan
  * otro gesto, no uno mas grande. No bloquea nada de lo que ya existe.
  *
  * La regla es nueva porque el defecto era masivo y no lo veia nadie: antes de la tanda que la

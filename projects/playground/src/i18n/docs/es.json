@@ -155,11 +155,12 @@
     "motionLint": {
       "titulo": "Cómo se mantiene barato el movimiento del catálogo",
       "texto1": "Cada coreografía curada la analiza un linter determinista — el mismo <strong>Motion Inspector</strong> que puedes abrir sobre cualquier icono del catálogo, corriendo como check de CI sobre todo el curado en cada PR que lo toca. Una implementación, dos lugares.",
-      "texto2": "Reporta tres cosas, medidas sobre 911 iconos y 2236 variantes:",
+      "texto2": "Reporta cuatro cosas, medidas sobre 1767 iconos y 4795 variantes:",
       "animaD": "<strong>Animar <code>d</code></strong> — esto <em>rompe</em> el build. Cambiar los datos del trazo lo redibuja en cada cuadro; <code>transform</code> y <code>opacity</code> las mueve el compositor sin repintar. Hoy el catálogo tiene <strong>cero</strong>, así que la regla protege contra una regresión en vez de señalar deuda existente. El trazo progresivo (<code>autoDraw</code>) queda fuera: no tiene equivalente barato.",
-      "duracion": "<strong>Duración mayor a 1200 ms</strong> — aviso. La superan 53 variantes, casi todas iconos que cuentan una pequeña historia (dados, clima).",
-      "rotacion": "<strong>Rotación mayor a 720°</strong> — aviso. Exactamente dos: <code>orbit</code> y <code>calendar-cog/spin</code>, las dos a propósito.",
-      "porQueAvisa": "Solo la primera rompe el build. Las otras dos miden <em>costo</em>, no correctitud, y una coreografía cara puede ser la decisión correcta para un icono concreto — un check que falla por gusto se desactiva en una semana."
+      "duracion": "<strong>Duración de más de 1200 ms</strong> — un aviso. 54 variantes lo pasan, casi todas iconos que cuentan una historia corta (un dado rodando, el clima). Los bucles quedan exentos por nombre (<code>idle</code>, <code>wander</code>) y también los <code>default</code> cíclicos: una nube a la deriva es lenta a propósito.",
+      "rotacion": "<strong>Rotación de más de 720°</strong> — un aviso. Cuatro: <code>orbit</code> y <code>calendar-cog/spin</code> a 1080°, más <code>cloud-sync/hold</code> y <code>cloud-backup/hold</code> a 7200°. Esas dos no son un frenesí: son un giro continuo escrito como una sola rotación finita muy larga (20 vueltas en 24 s, unos 300°/s) que se revierte al salir el puntero.",
+      "porQueAvisa": "Solo la primera rompe el build. Las otras dos miden <em>costo</em>, no correctitud, y una coreografía cara puede ser la decisión correcta para un icono concreto — un check que falla por gusto se desactiva en una semana.",
+      "pose": "<strong>Una pose retenida por debajo de 0.8 unidades</strong> — un aviso. Un <code>hold</code> retiene su último keyframe, así que esa pose <em>es</em> la variante; por debajo de ese umbral no se distingue del reposo. Quedan ocho, todos iconos cuya geometría no deja margen para crecer dentro del lienzo."
     },
     "noDecide": {
       "titulo": "Lo que el componente no decide por ti",

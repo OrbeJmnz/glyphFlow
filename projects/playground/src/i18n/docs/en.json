@@ -155,11 +155,12 @@
     "motionLint": {
       "titulo": "How the catalog’s motion is kept cheap",
       "texto1": "Every curated choreography is analysed by a deterministic linter — the same <strong>Motion Inspector</strong> you can open on any icon in the catalog, running as a CI check over the whole curated set on any PR that touches it. One implementation, two places.",
-      "texto2": "It reports three things, measured over 911 icons and 2236 variants:",
+      "texto2": "It reports four things, measured over 1767 icons and 4795 variants:",
       "animaD": "<strong>Animating <code>d</code></strong> — this <em>fails</em> the build. Changing the path data redraws it every frame; <code>transform</code> and <code>opacity</code> are moved by the compositor without repainting. The catalog has <strong>zero</strong> of these today, so the rule guards against a regression rather than flagging existing debt. Progressive stroke (<code>autoDraw</code>) is exempt: there is no cheap equivalent for it.",
-      "duracion": "<strong>Duration over 1200 ms</strong> — a warning. 53 variants exceed it, mostly icons that tell a small story (dice rolling, weather).",
-      "rotacion": "<strong>Rotation over 720°</strong> — a warning. Exactly two: <code>orbit</code> and <code>calendar-cog/spin</code>, both deliberate.",
-      "porQueAvisa": "Only the first one breaks the build. The other two measure <em>cost</em>, not correctness, and an expensive choreography can be the right call for a given icon — a check that fails on a matter of taste gets switched off within a week."
+      "duracion": "<strong>Duration over 1200 ms</strong> — a warning. 54 variants exceed it, mostly icons that tell a small story (dice rolling, weather). Loops are exempt by name (<code>idle</code>, <code>wander</code>) and so are the cyclical defaults — a drifting cloud is slow on purpose.",
+      "rotacion": "<strong>Rotation over 720°</strong> — a warning. Four: <code>orbit</code> and <code>calendar-cog/spin</code> at 1080°, plus <code>cloud-sync/hold</code> and <code>cloud-backup/hold</code> at 7200°. Those two are not a frenzy: they are a continuous spin written as one long finite rotation (20 turns over 24 s, about 300°/s) that reverses when the pointer leaves.",
+      "porQueAvisa": "Only the first one breaks the build. The other two measure <em>cost</em>, not correctness, and an expensive choreography can be the right call for a given icon — a check that fails on a matter of taste gets switched off within a week.",
+      "pose": "<strong>A held pose under 0.8 units</strong> — a warning. A <code>hold</code> retains its last keyframe, so that pose <em>is</em> the variant; below that threshold it cannot be told apart from rest. Eight remain, all of them icons whose geometry leaves no room to grow inside the canvas."
     },
     "noDecide": {
       "titulo": "What the component doesn't decide for you",
