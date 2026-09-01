@@ -20,6 +20,7 @@ import { writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { SPRING_PRESETS } from '../projects/glyphflow/morph/src/core/spring.ts';
+import { sinCr } from './sin-cr';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_FILE = join(
@@ -123,7 +124,7 @@ const esCheck = process.argv.includes('--check');
 if (esCheck) {
   let actual = '';
   try {
-    actual = readFileSync(OUT_FILE, 'utf8');
+    actual = sinCr(readFileSync(OUT_FILE, 'utf8'));
   } catch {
     console.error(`✗ ${OUT_FILE} no existe. Corre \`npm run gen:springs\`.`);
     process.exit(1);

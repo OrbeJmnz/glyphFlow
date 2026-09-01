@@ -10813,7 +10813,7 @@
       "alert": "e276b867d08e",
       "default": "b1561802f5cd",
       "draw": "17c8398e8d34",
-      "strike": "6538ef2cee5d"
+      "strike": "902e57a5b9f3"
     },
     "alarm-clock-plus": {
       "default": "b9c6ec2ff4d7",
@@ -11473,7 +11473,7 @@
     "bean-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "b4f4f67aa56a"
+      "strike": "84e1952877e8"
     },
     "bed": {
       "default": "a44642891156",
@@ -11498,7 +11498,7 @@
       "alert": "e276b867d08e",
       "default": "fe67650794b0",
       "draw": "17c8398e8d34",
-      "strike": "7034c6354083"
+      "strike": "f86acb115d96"
     },
     "beer": {
       "default": "8f92fae535eb",
@@ -11507,7 +11507,7 @@
     "beer-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "f4e5c13c98a3"
+      "strike": "c1df9ed870b6"
     },
     "bell": {
       "alert": "ec7bd8f2ff68",
@@ -11538,7 +11538,7 @@
       "alert": "e276b867d08e",
       "default": "be0188c1b401",
       "draw": "17c8398e8d34",
-      "strike": "a2199b285afe"
+      "strike": "a4423b1530b6"
     },
     "bell-plus": {
       "default": "b6b1fb3fbdbf",
@@ -11633,7 +11633,7 @@
     "bluetooth-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "576627b9523d"
+      "strike": "120a971f56ee"
     },
     "bluetooth-searching": {
       "default": "c0e5b73374b5",
@@ -11805,7 +11805,7 @@
     "bookmark-off": {
       "default": "c9e80cc5b04e",
       "draw": "17c8398e8d34",
-      "strike": "576627b9523d",
+      "strike": "9cbe258bc048",
       "wave": "cc089b4265c0"
     },
     "bookmark-plus": {
@@ -11836,7 +11836,7 @@
     "bot-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "c4f4364b62b3"
+      "strike": "69bcb4617a24"
     },
     "bottle-wine": {
       "default": "79bb650a4454",
@@ -11951,7 +11951,7 @@
     "bug-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "370b2569ab9f"
+      "strike": "69084f23d5e1"
     },
     "bug-play": {
       "default": "f3b10464beec",
@@ -12067,7 +12067,7 @@
       "alert": "e276b867d08e",
       "default": "f0d47edd9828",
       "draw": "17c8398e8d34",
-      "strike": "b6028d41318e"
+      "strike": "395bf59aa182"
     },
     "calendar-plus": {
       "bounce": "8736992c7e33",
@@ -12116,7 +12116,7 @@
     "camera-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "f84d917d1905"
+      "strike": "b7fbad72750c"
     },
     "candy": {
       "default": "d267d7918050",
@@ -12129,7 +12129,7 @@
     "candy-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "590a6c748857"
+      "strike": "6e876cc0fccc"
     },
     "cannabis": {
       "default": "282f7ade53a8",
@@ -12139,7 +12139,7 @@
       "alert": "e276b867d08e",
       "default": "ae43a5f48081",
       "draw": "17c8398e8d34",
-      "strike": "d41136a369e8"
+      "strike": "d909ff0812cc"
     },
     "captions": {
       "default": "6001bc2ebf36",
@@ -12148,7 +12148,7 @@
     "captions-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "fbf350ee98d6"
+      "strike": "a0d2c33dcb0a"
     },
     "car": {
       "default": "cccca130f4ff",
@@ -12222,7 +12222,7 @@
       "alert": "e276b867d08e",
       "default": "ae43a5f48081",
       "draw": "17c8398e8d34",
-      "strike": "6eed1f6d7d64"
+      "strike": "37f31e9667e6"
     },
     "chart-area": {
       "default": "343c73d2c508",
@@ -12471,7 +12471,7 @@
     "cigarette-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "98ddca44c32d"
+      "strike": "ae10e774f93e"
     },
     "circle": {
       "default": "3c3f48baf4b6",
@@ -12602,7 +12602,7 @@
     "circle-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "d25b6f07fe71"
+      "strike": "36cbe5db8de9"
     },
     "circle-parking": {
       "default": "f5ebc25a1f63",
@@ -12611,7 +12611,7 @@
     "circle-parking-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "01ed0d64c184"
+      "strike": "ce3a74e2984b"
     },
     "circle-pause": {
       "default": "a21b896302d8",
@@ -12925,7 +12925,7 @@
     "cloud-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "24c3823b72c2"
     },
     "cloud-rain": {
       "default": "ec6ded360933",
@@ -13373,7 +13373,7 @@
     "dna-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "b416909205be"
+      "strike": "6b75506f5bde"
     },
     "dock": {
       "default": "e555d42fd6f0",
@@ -13448,7 +13448,7 @@
     "droplet-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "576627b9523d"
+      "strike": "f4ba0b4cdef6"
     },
     "droplets": {
       "default": "13883a28fb88",
@@ -13477,7 +13477,7 @@
     "ear-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "094900fc6ccd"
+      "strike": "df3c6cfae481"
     },
     "earth": {
       "default": "10135446ab3a",
@@ -13504,7 +13504,7 @@
     "egg-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "022da989f2ba"
+      "strike": "20eaa5a25629"
     },
     "eject": {
       "default": "428232859634",
@@ -13585,7 +13585,7 @@
       "default": "6312665fb66d",
       "draw": "17c8398e8d34",
       "reveal": "c675c0c67835",
-      "strike": "819ec3de6dce"
+      "strike": "ca40a1f20d5c"
     },
     "face-angry": {
       "default": "549524e2052e",
@@ -13982,7 +13982,7 @@
     "flag-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "21a7d6360f91"
+      "strike": "b31b8944cd9d"
     },
     "flag-triangle-left": {
       "default": "2ce9d5f40ccb",
@@ -14010,7 +14010,7 @@
     "flashlight-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "b33e6814a75c"
+      "strike": "3319c2171c77"
     },
     "flask-conical": {
       "default": "cde5aa616bd3",
@@ -14019,7 +14019,7 @@
     "flask-conical-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "d9c046373a9c"
+      "strike": "5913dab2733d"
     },
     "flask-round": {
       "default": "cde5aa616bd3",
@@ -14438,7 +14438,7 @@
       "draw": "17c8398e8d34",
       "flash": "fc9add5f6845",
       "flicker": "fc9add5f6845",
-      "strike": "4be697e82eda"
+      "strike": "5e9a00ad24a4"
     },
     "globe-x": {
       "default": "cb1096ad4d2d",
@@ -14644,7 +14644,7 @@
     "headphone-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "7e6eca7cbbe0"
+      "strike": "db97d8a00849"
     },
     "headphones": {
       "default": "1a676694ce60",
@@ -14681,7 +14681,7 @@
       "alert": "e276b867d08e",
       "default": "c9fd899bfa6c",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "681d27a5c1b4"
     },
     "heart-plus": {
       "default": "e971a15bd48e",
@@ -14723,7 +14723,7 @@
     "hop-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "a05abd78ad21"
+      "strike": "8f2f4b02315f"
     },
     "hospital": {
       "default": "6346aedbb0fb",
@@ -14796,7 +14796,7 @@
       "alert": "e276b867d08e",
       "default": "2f3d55c69708",
       "draw": "17c8398e8d34",
-      "strike": "f32080e2f925"
+      "strike": "d1bfd8c355c5"
     },
     "image-play": {
       "default": "6795ffbcb029",
@@ -14908,7 +14908,7 @@
     "keyboard-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1faca82e4f10"
+      "strike": "e8f2ac6d91a6"
     },
     "lamp": {
       "default": "8ac5944723ac",
@@ -15112,7 +15112,7 @@
     "lightbulb-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "fc121c637cc8"
+      "strike": "fe520dfd2d6a"
     },
     "line-dot-right-horizontal": {
       "default": "d4f8e2f77caa",
@@ -15140,7 +15140,7 @@
     "link-2-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "0bcab507f17d"
+      "strike": "d3794c75401d"
     },
     "list": {
       "default": "d143463d16c4",
@@ -15270,7 +15270,7 @@
     "locate-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1a2f052b91b6"
+      "strike": "72be557aac94"
     },
     "lock": {
       "default": "1b107039fa8c",
@@ -15422,7 +15422,7 @@
     "map-pin-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "b70cafc33935"
+      "strike": "06b644aaf415"
     },
     "map-pin-pen": {
       "default": "8ef987503156",
@@ -15495,7 +15495,7 @@
     "megaphone-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "ce3735d0db71"
+      "strike": "5a414111a1d7"
     },
     "memory-stick": {
       "default": "64e4bc061aca",
@@ -15545,7 +15545,7 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
       "hold": "1bbd7b57e5b9",
-      "strike": "d25b6f07fe71"
+      "strike": "0535cbdb9cdd"
     },
     "message-circle-plus": {
       "default": "7aeab0bb671f",
@@ -15621,7 +15621,7 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
       "hold": "dcca3f762b05",
-      "strike": "576627b9523d"
+      "strike": "a0dea4db1adc"
     },
     "message-square-plus": {
       "default": "e6d5039d44f8",
@@ -15679,7 +15679,7 @@
     "mic-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "5a221b3558ff"
+      "strike": "5f0a648982ad"
     },
     "mic-signal": {
       "default": "58cef7b7571b",
@@ -15716,7 +15716,7 @@
     "milk-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "450d738642cc"
+      "strike": "3a556adfd9c1"
     },
     "minimize": {
       "default": "2368466d297f",
@@ -15775,7 +15775,7 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
       "nudge": "7639affa91d9",
-      "strike": "2b1fa7088b1e"
+      "strike": "5ff4d512500b"
     },
     "monitor-pause": {
       "default": "4f865d9131c9",
@@ -15851,7 +15851,7 @@
       "alert": "e276b867d08e",
       "default": "52f341c527e4",
       "draw": "17c8398e8d34",
-      "strike": "20125368386f"
+      "strike": "86e1ae46101f"
     },
     "mouse-pointer": {
       "default": "b88e7cbd03b1",
@@ -15868,7 +15868,7 @@
     "mouse-pointer-2-off": {
       "default": "7c45b66ce4d2",
       "draw": "17c8398e8d34",
-      "strike": "33854b975a2f"
+      "strike": "440dab61b3d5"
     },
     "mouse-pointer-ban": {
       "default": "2f4b6d7b9b7e",
@@ -15969,12 +15969,12 @@
     "navigation-2-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "1314b005fa53"
     },
     "navigation-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "17325175c785"
     },
     "network": {
       "default": "96bee6167d16",
@@ -16030,7 +16030,7 @@
     "nut-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "fe13b3ecb428"
+      "strike": "c27ecdb1aac0"
     },
     "octagon": {
       "default": "c6537761a3f2",
@@ -16294,7 +16294,7 @@
     "pen-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "10cfb0ecad5d"
     },
     "pen-tool": {
       "default": "8a4f784a077c",
@@ -16313,7 +16313,7 @@
     "pencil-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "ebaacf0b2bdf"
+      "strike": "f30cde1545bd"
     },
     "pencil-ruler": {
       "default": "577814727180",
@@ -16372,7 +16372,7 @@
     "phone-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "33854b975a2f"
+      "strike": "cf8cfc1ce714"
     },
     "phone-outgoing": {
       "default": "756d6222a070",
@@ -16435,7 +16435,7 @@
     "pin-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1b7590958de8"
+      "strike": "8845a257c04f"
     },
     "pipette": {
       "default": "42801bff2b44",
@@ -16469,7 +16469,7 @@
     "play-off": {
       "default": "d262e63d523c",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "383184e9de33"
     },
     "plug": {
       "default": "083cc323fe10",
@@ -16509,7 +16509,7 @@
     "pointer-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "88279a320a9e"
+      "strike": "d3cf36167543"
     },
     "popcorn": {
       "default": "82c251b85d1b",
@@ -16533,7 +16533,7 @@
     "power-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "4d4daa07aaa6"
+      "strike": "f37eec85ef63"
     },
     "presentation": {
       "default": "aa075b11df25",
@@ -16607,7 +16607,7 @@
     "radio-off": {
       "default": "ae43a5f48081",
       "draw": "17c8398e8d34",
-      "strike": "9ce200c4b774"
+      "strike": "9a2f00c33b91"
     },
     "radio-receiver": {
       "default": "ce1a7a1a1d61",
@@ -16745,7 +16745,7 @@
     "refresh-cw-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "865ba98a5055"
+      "strike": "761a039ae8c6"
     },
     "refrigerator": {
       "default": "9d9be70fb1dd",
@@ -16776,7 +16776,7 @@
     "repeat-off": {
       "default": "d262e63d523c",
       "draw": "17c8398e8d34",
-      "strike": "1aa82772cf95"
+      "strike": "a73211336465"
     },
     "replace": {
       "default": "3e4264a79f13",
@@ -16876,7 +16876,7 @@
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
       "reveal": "91dcace5e308",
-      "strike": "8e10f75e9f49"
+      "strike": "cd214f15550d"
     },
     "router": {
       "default": "1ee8da963e78",
@@ -16962,7 +16962,7 @@
       "default": "cdb995f5bd27",
       "draw": "17c8398e8d34",
       "quick": "b5d17c0572ee",
-      "strike": "6e7c9b90eec0"
+      "strike": "964e42a28321"
     },
     "save-pen": {
       "default": "3d4f552f9c77",
@@ -17153,7 +17153,7 @@
       "default": "a7cc44133a15",
       "draw": "17c8398e8d34",
       "quick": "71c8a5fd2f2b",
-      "strike": "926593f614f8"
+      "strike": "f9670e1e8d35"
     },
     "server-plus": {
       "alert": "25c7e4daf850",
@@ -17250,7 +17250,7 @@
       "alert": "e276b867d08e",
       "default": "1ebabbfdac67",
       "draw": "17c8398e8d34",
-      "strike": "d25b6f07fe71"
+      "strike": "8a7436afc4a9"
     },
     "shield-plus": {
       "default": "ff173e301bdd",
@@ -17714,7 +17714,7 @@
       "alert": "e276b867d08e",
       "default": "0b8d306ee095",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "f2a1ba6742b1"
     },
     "square-parking": {
       "default": "9076347fd6bd",
@@ -17723,7 +17723,7 @@
     "square-parking-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "e210eaf651cd"
+      "strike": "135b203e28f1"
     },
     "square-pause": {
       "default": "ff809767ae6b",
@@ -17878,7 +17878,7 @@
       "default": "76401bd8ebd6",
       "draw": "17c8398e8d34",
       "quick": "c5e3b1640cd4",
-      "strike": "1e91b40fc450"
+      "strike": "80c2219ff426"
     },
     "star-plus": {
       "default": "46d8cb581e9f",
@@ -17930,7 +17930,7 @@
       "default": "9f41e8a2a857",
       "draw": "17c8398e8d34",
       "flip": "364c248ebcfc",
-      "strike": "6de0d301e2ca"
+      "strike": "b67c87bfd17e"
     },
     "sticky-note-plus": {
       "default": "87b0921b1cea",
@@ -18298,7 +18298,7 @@
     "timer-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "2e029f29be89"
+      "strike": "c06eea1a952d"
     },
     "timer-reset": {
       "default": "6536a0bd3e0e",
@@ -18343,7 +18343,7 @@
     "touchpad-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "855e73186254"
+      "strike": "7c66c06c8920"
     },
     "towel-rack": {
       "default": "62a1444a9ca4",
@@ -18512,7 +18512,7 @@
     "umbrella-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "849160b897c6"
+      "strike": "acaa134a554a"
     },
     "underline": {
       "default": "ba63d1116314",
@@ -18740,7 +18740,7 @@
     "vibrate-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "00b730de2979"
+      "strike": "ad84d8e1a4b6"
     },
     "video": {
       "default": "5cc2f510e380",
@@ -18749,7 +18749,7 @@
     "video-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "b6762fc27ca3"
     },
     "videotape": {
       "default": "a77b53b8a8d1",
@@ -18788,7 +18788,7 @@
       "alert": "e276b867d08e",
       "default": "410c979bb08f",
       "draw": "17c8398e8d34",
-      "strike": "f1ea3e4f3689"
+      "strike": "42f1db2a01ab"
     },
     "volume-x": {
       "default": "89bdf81741b7",
@@ -18880,7 +18880,7 @@
       "alert": "e276b867d08e",
       "default": "fe67650794b0",
       "draw": "17c8398e8d34",
-      "strike": "2a667f9b3314"
+      "strike": "b14be60a031c"
     },
     "webhook": {
       "default": "b87021048c19",
@@ -18890,7 +18890,7 @@
     "webhook-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "969d1f42cb28"
+      "strike": "6a06f938c362"
     },
     "weight": {
       "default": "ca1c79f648fe",
@@ -18909,7 +18909,7 @@
     "wheat-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "696920488fca"
+      "strike": "b42040b963a2"
     },
     "whole-word": {
       "default": "27174ccbc7ae",
@@ -18937,7 +18937,7 @@
     "wifi-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "e0a587de11b8"
+      "strike": "3a4ef35b35c8"
     },
     "wifi-pen": {
       "default": "d499d0db2d86",
@@ -18970,7 +18970,7 @@
     "wine-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "1d2e43f4abdb"
+      "strike": "375c2c1edf43"
     },
     "workflow": {
       "default": "568149a3e00a",
@@ -18989,7 +18989,7 @@
       "alert": "e276b867d08e",
       "default": "d262e63d523c",
       "draw": "17c8398e8d34",
-      "strike": "1e91b40fc450"
+      "strike": "e046df2e71b5"
     },
     "x": {
       "default": "c9590aa809d0",
@@ -19008,7 +19008,7 @@
     "zap-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "strike": "a1a650af02c2"
+      "strike": "c286fd9dd964"
     },
     "zodiac-aquarius": {
       "default": "9f4b1e771095",
