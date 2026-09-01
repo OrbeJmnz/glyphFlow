@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { calendar1Shapes, calendarArrowDownShapes, calendarArrowUpShapes, calendarCheck2Shapes, calendarCheckShapes, calendarClockShapes, calendarCogShapes, calendarDaysShapes, calendarFoldShapes, calendarHeartShapes, calendarMinus2Shapes, calendarMinusShapes, calendarOffShapes, calendarPlus2Shapes, calendarPlusShapes, calendarRangeShapes, calendarSearchShapes, calendarShapes, calendarSyncShapes, calendarX2Shapes, calendarXShapes } from '../animated-icons.shapes';
 import { HEART_QUAD_PULSE, FOLD_CHIDA, BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN, SHIELD_GEAR_SPIN } from './_shared';
@@ -286,6 +286,14 @@ export const calendarFoldIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarFo
   });
 
 /** `beat`: el mismo palpitar de 4 pulsaciones de `heart-*:pulse`, aplicado a la insignia. */
+const CALENDAR_HEART_PULSE: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        2: /* @__PURE__ */ track(CALENDAR_PIN, 500),
+        4: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
+        1: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1200, { delay: 260, easing: SPRING_OUT, origin: '18.5px 17px' }),
+      },
+    };
+
 export const calendarHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarHeartShapes, {
     default: {
       shapes: {
@@ -294,13 +302,9 @@ export const calendarHeartIcon: AnimatedIconDef = /* @__PURE__ */ icon(calendarH
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { delay: 260 }),
       },
     },
-    beat: {
-      shapes: {
-        2: /* @__PURE__ */ track(CALENDAR_PIN, 500),
-        4: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
-        1: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1200, { delay: 260, easing: SPRING_OUT, origin: '18.5px 17px' }),
-      },
-    },
+    pulse: CALENDAR_HEART_PULSE,
+    /** @deprecated Se llamaba `beat`. El alias sale en la v3. */
+    beat: CALENDAR_HEART_PULSE,
   });
 
 export const calendarMinus2Icon: AnimatedIconDef = /* @__PURE__ */ icon(calendarMinus2Shapes, {

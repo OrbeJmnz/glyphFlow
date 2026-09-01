@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { userCheckShapes, userCogShapes, userMinusShapes, userPlusShapes, userRoundArrowLeftShapes, userRoundCheckShapes, userRoundCogShapes, userRoundKeyShapes, userRoundMinusShapes, userRoundPenShapes, userRoundPlusShapes, userRoundSearchShapes, userRoundShapes, userRoundXShapes, userShapes, userXShapes } from '../animated-icons.shapes';
 
@@ -92,6 +92,111 @@ export const userXIcon: AnimatedIconDef = /* @__PURE__ */ icon(userXShapes, {
    * 10 es la cabeza (9,7) y 9 el engrane (18,15); al revés, la cabeza escala respecto a un pivote
    * que le queda a media figura de distancia y sale volando.
    */
+const USER_COG_PULSE: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        10: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 450),
+        1: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        2: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        5: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        6: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        7: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        8: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+        9: /* @__PURE__ */ track(
+          [
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(-15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+            { transform: 'scale(1.08) rotate(15deg)' },
+            { transform: 'scale(1) rotate(0deg)' },
+          ],
+          700,
+          { origin: '18px 15px' },
+        ),
+      },
+    };
+
 export const userCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCogShapes, {
     default: {
       shapes: {
@@ -182,110 +287,9 @@ export const userCogIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCogShapes, 
       },
     },
     /** Ajuste fino: el engrane da vueltas cortas de matraca, en vez del giro completo. */
-    tune: {
-      shapes: {
-        10: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1, 0]), 450),
-        1: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        2: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        3: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        4: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        5: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        6: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        7: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        8: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-        9: /* @__PURE__ */ track(
-          [
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(-15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-            { transform: 'scale(1.08) rotate(15deg)' },
-            { transform: 'scale(1) rotate(0deg)' },
-          ],
-          700,
-          { origin: '18px 15px' },
-        ),
-      },
-    },
+    pulse: USER_COG_PULSE,
+    /** @deprecated Se llamaba `tune`. El alias sale en la v3. */
+    tune: USER_COG_PULSE,
     active: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(180deg)' }], 800, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),

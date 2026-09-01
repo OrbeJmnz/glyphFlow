@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, track, icon, held } from '../choreography';
 import { refreshCwShapes } from '../animated-icons.shapes';
 
@@ -85,11 +85,15 @@ export const refreshCwOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 );
 
 /** `default` es de ESTADO: gira 45° y se queda; al salir el puntero regresa (portado). */
+const REFRESH_CW_SPIN: IconChoreography = /* @__PURE__ */ {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 700, { easing: SPRING_OUT, origin: 'center' }),
+    };
+
 export const refreshCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(refreshCwShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 45]), 450, { origin: 'center' }),
-    rotate: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 700, { easing: SPRING_OUT, origin: 'center' }),
-    },
+    spin: REFRESH_CW_SPIN,
+    /** @deprecated Se llamaba `rotate`. El alias sale en la v3. */
+    rotate: REFRESH_CW_SPIN,
     active: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       reverseOnLeave: true,

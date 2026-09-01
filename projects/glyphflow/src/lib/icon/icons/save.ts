@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { EASE, SPRING_OUT, scaleSeq, track, strokeDraw, icon } from '../choreography';
 import { saveAllShapes, saveCheckShapes, saveOffShapes, savePenShapes, savePlusShapes, saveShapes } from '../animated-icons.shapes';
 
@@ -124,18 +124,7 @@ export const savePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(savePlusShapes
   });
 
 /** Guardar todo: las dos hojas se asientan una tras otra, la de atrás primero. */
-export const saveAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveAllShapes, {
-    default: {
-      shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 380, { easing: SPRING_OUT, origin: '13px 14px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.95, 1]), 420, {
-          delay: 140,
-          easing: SPRING_OUT,
-          origin: '12px 12px',
-        }),
-      },
-    },
-    stack: {
+const SAVE_ALL_PULSE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.78, 1.05, 1]), 460, {
           easing: EASE,
@@ -147,5 +136,20 @@ export const saveAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveAllShapes, 
           origin: '12px 12px',
         }),
       },
+    };
+
+export const saveAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(saveAllShapes, {
+    default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.9, 1]), 380, { easing: SPRING_OUT, origin: '13px 14px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.95, 1]), 420, {
+          delay: 140,
+          easing: SPRING_OUT,
+          origin: '12px 12px',
+        }),
+      },
     },
+    pulse: SAVE_ALL_PULSE,
+    /** @deprecated Se llamaba `stack`. El alias sale en la v3. */
+    stack: SAVE_ALL_PULSE,
   });

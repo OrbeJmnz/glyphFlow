@@ -2,7 +2,7 @@
 //
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
-import { AnimatedIconDef } from '../animated-icon.model';
+import { AnimatedIconDef, IconChoreography } from '../animated-icon.model';
 import { SPRING_OUT, rotateSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { globeCheckShapes, globeLockShapes, globeOffShapes, globeShapes, globeXShapes } from '../animated-icons.shapes';
 
@@ -59,6 +59,18 @@ export const globeLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(globeLockShap
   });
 
 /** Fuera de línea: el globo se fragmenta y la diagonal lo cruza al final. */
+const GLOBE_OFF_FLASH: IconChoreography = /* @__PURE__ */ {
+      shapes: {
+        0: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200),
+        1: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 90 }),
+        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 180 }),
+        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 270 }),
+        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 360 }),
+        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 450 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 560 }),
+      },
+    };
+
 export const globeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(globeOffShapes, {
     default: {
       shapes: {
@@ -72,17 +84,9 @@ export const globeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(globeOffShapes
       },
     },
     /** Señal intermitente: los fragmentos titilan antes de que la diagonal corte. */
-    flicker: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200),
-        1: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 90 }),
-        2: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 180 }),
-        3: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 270 }),
-        4: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 360 }),
-        5: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.2' }, { opacity: '1' }], 200, { delay: 450 }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 560 }),
-      },
-    },
+    flash: GLOBE_OFF_FLASH,
+    /** @deprecated Se llamaba `flicker`. El alias sale en la v3. */
+    flicker: GLOBE_OFF_FLASH,
   });
 
 /** No disponible: el globo late y la equis se dibuja de insignia. */

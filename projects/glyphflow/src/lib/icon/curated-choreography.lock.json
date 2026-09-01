@@ -11919,7 +11919,8 @@
     "calendar-heart": {
       "beat": "9f307805d3f2",
       "default": "4b0a4845c6d3",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "pulse": "9f307805d3f2"
     },
     "calendar-minus": {
       "bounce": "1cea780c30e9",
@@ -13385,7 +13386,8 @@
       "default": "f2f07b404897",
       "draw": "17c8398e8d34",
       "hold": "b964cd84adf4",
-      "launch": "a7c000125558"
+      "launch": "a7c000125558",
+      "reveal": "a7c000125558"
     },
     "eye": {
       "default": "7c5a435375e6",
@@ -14240,6 +14242,7 @@
     "globe-off": {
       "default": "de027f616bd8",
       "draw": "17c8398e8d34",
+      "flash": "fc9add5f6845",
       "flicker": "fc9add5f6845"
     },
     "globe-x": {
@@ -14781,7 +14784,8 @@
       "active": "c2ff7400d85c",
       "default": "3754601a500e",
       "draw": "17c8398e8d34",
-      "merge": "81f9e53afbe1"
+      "merge": "81f9e53afbe1",
+      "nudge": "81f9e53afbe1"
     },
     "layers-2": {
       "default": "07a56a1f2b82",
@@ -14812,12 +14816,14 @@
       "alert": "bc50ebc7e36e",
       "default": "3bac6b66910e",
       "draw": "17c8398e8d34",
+      "focus": "5172a07501c7",
       "reveal": "000807c6906d",
       "swap": "5172a07501c7"
     },
     "layout-freeform": {
       "default": "a8a13f76f27f",
       "draw": "17c8398e8d34",
+      "shake": "763c1ec61a30",
       "shuffle": "763c1ec61a30"
     },
     "layout-grid": {
@@ -14829,6 +14835,7 @@
     "layout-list": {
       "default": "8bc847bb743c",
       "draw": "17c8398e8d34",
+      "flash": "d9ed7702cc65",
       "read": "d9ed7702cc65"
     },
     "layout-panel-left": {
@@ -14847,6 +14854,7 @@
       "alert": "8ea0382c7f1a",
       "default": "69602105ca38",
       "draw": "17c8398e8d34",
+      "focus": "6d4ff970c411",
       "select": "6d4ff970c411"
     },
     "leaf": {
@@ -15172,13 +15180,15 @@
     "map-pin": {
       "default": "49e4e702f322",
       "draw": "17c8398e8d34",
-      "locate": "50620bb9d01f"
+      "locate": "50620bb9d01f",
+      "pulse": "50620bb9d01f"
     },
     "map-pin-check": {
       "confirm": "5470e57ce2e4",
       "default": "34b7735ab1b3",
       "draw": "17c8398e8d34",
-      "reveal": "9573814eb6cf"
+      "reveal": "9573814eb6cf",
+      "shake": "5470e57ce2e4"
     },
     "map-pin-check-inside": {
       "default": "66e99a10a4a1",
@@ -15216,12 +15226,14 @@
     "map-pin-search": {
       "default": "8ddbe76389c4",
       "draw": "17c8398e8d34",
+      "nudge": "4dddd509c55f",
       "scan": "4dddd509c55f"
     },
     "map-pin-x": {
       "default": "e7bc738fbffd",
       "deny": "1546897e7a69",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "shake": "1546897e7a69"
     },
     "map-pin-x-inside": {
       "default": "ce419dc84fa0",
@@ -15840,6 +15852,7 @@
       "drop": "bf124e962567"
     },
     "package-open": {
+      "bounce": "e58cd88b45d7",
       "default": "2f29948b6604",
       "draw": "17c8398e8d34",
       "wide": "e58cd88b45d7"
@@ -16208,7 +16221,8 @@
       "active": "084b00472949",
       "default": "c1b92fc46840",
       "draw": "17c8398e8d34",
-      "next": "449b77057dac"
+      "next": "449b77057dac",
+      "nudge": "449b77057dac"
     },
     "play-off": {
       "default": "d262e63d523c",
@@ -16475,7 +16489,8 @@
       "active": "52bae388c216",
       "default": "7ffc2cb303fe",
       "draw": "17c8398e8d34",
-      "rotate": "82fb79a88fc0"
+      "rotate": "82fb79a88fc0",
+      "spin": "82fb79a88fc0"
     },
     "refresh-cw-off": {
       "default": "e276b867d08e",
@@ -16677,6 +16692,7 @@
     "save-all": {
       "default": "1c9a0b29dc03",
       "draw": "17c8398e8d34",
+      "pulse": "afafa242a52c",
       "stack": "afafa242a52c"
     },
     "save-check": {
@@ -16870,6 +16886,7 @@
     "server-crash": {
       "default": "941e74fca7ed",
       "draw": "17c8398e8d34",
+      "shake": "ad0ce7737798",
       "shock": "ad0ce7737798"
     },
     "server-off": {
@@ -16887,7 +16904,8 @@
       "active": "597f9829cdd5",
       "default": "b17396e7c8a0",
       "draw": "17c8398e8d34",
-      "rotate": "2f146c647cbc"
+      "rotate": "2f146c647cbc",
+      "spin": "2f146c647cbc"
     },
     "settings-2": {
       "default": "5fd71bdd0c4b",
@@ -17693,6 +17711,7 @@
     "sun": {
       "default": "7f87c30c6098",
       "draw": "17c8398e8d34",
+      "pulse": "f41d0a1952d4",
       "shine": "f41d0a1952d4"
     },
     "sun-dim": {
@@ -18266,6 +18285,7 @@
       "active": "c9fc7114afb4",
       "default": "bae463d65f9b",
       "draw": "17c8398e8d34",
+      "nudge": "08f246f3ea1d",
       "retract": "08f246f3ea1d"
     },
     "usb": {
@@ -18287,6 +18307,7 @@
       "active": "491c3a64a963",
       "default": "e6e24a0a12ba",
       "draw": "17c8398e8d34",
+      "pulse": "23a477d392e9",
       "tune": "23a477d392e9"
     },
     "user-key": {
