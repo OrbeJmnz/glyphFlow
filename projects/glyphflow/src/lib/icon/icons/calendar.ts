@@ -188,6 +188,8 @@ export const calendarArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(calen
     },
     nudge: {
       shapes: {
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 150, fill: 'backwards' }),
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
         2: /* @__PURE__ */ track(ARROW_SHAFT_NUDGE, 1100, { origin: '18px 13px' }),
@@ -207,6 +209,8 @@ export const calendarArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(calenda
     },
     nudge: {
       shapes: {
+        6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 150, fill: 'backwards' }),
         1: /* @__PURE__ */ track(CALENDAR_PIN, 500),
         5: /* @__PURE__ */ track(CALENDAR_PIN, 500, { delay: 90 }),
         2: /* @__PURE__ */ track(ARROW_SHAFT_NUDGE, 1100, { origin: '18px 21px' }),
