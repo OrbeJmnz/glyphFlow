@@ -244,6 +244,15 @@ export const scanFaceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // Sin cabeceo: el marco es un escaner, no una cabeza.
+    idle: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9.005px 9px' }),
+        6: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15.005px 9px' }),
+      },
+    },
   },
 );
 

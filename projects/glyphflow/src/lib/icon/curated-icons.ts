@@ -6219,6 +6219,15 @@ export const faceSlightlySmilingPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
       },
     },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // Sin cabeceo: el hueco del contorno aloja al `+`, girarlo lo separaria de su insignia.
+    idle: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 9.5px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 9.5px' }),
+      },
+    },
   },
 );
 
@@ -7955,6 +7964,18 @@ export const faceAngryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(FACE_BROW_LEFT, 520, { easing: EASE, origin: '7px 9px' }),
       },
     },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 10.208px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 10.208px' }),
+      },
+    },
   },
 );
 
@@ -7971,6 +7992,18 @@ export const faceExpressionlessIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(FACE_EYE_STRETCH, 620, { easing: EASE, origin: '15px 10px', delay: 60, fill: 'backwards' }),
         1: /* @__PURE__ */ track(FACE_EYE_STRETCH, 620, { easing: EASE, origin: '9px 10px' }),
+      },
+    },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 10px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 10px' }),
       },
     },
   },
@@ -7993,6 +8026,18 @@ export const faceGrinningIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(FACE_GRIN, 520, { easing: EASE, origin: '12px 15.5px' }),
       },
     },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 9.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 9.5px' }),
+      },
+    },
   },
 );
 
@@ -8008,6 +8053,18 @@ export const faceNeutralIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         1: /* @__PURE__ */ track(FACE_EYE_STRETCH, 620, { easing: EASE, origin: '12px 16px' }),
+      },
+    },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 9.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 9.5px' }),
       },
     },
   },
@@ -8026,6 +8083,18 @@ export const faceSlightlyFrowningIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(FACE_CURVE_DEEPEN, 520, { easing: EASE, origin: '12px 16px' }),
       },
     },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 9.5px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 9.5px' }),
+      },
+    },
   },
 );
 
@@ -8041,6 +8110,18 @@ export const faceSlightlySmilingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         1: /* @__PURE__ */ track(FACE_CURVE_DEEPEN, 520, { easing: EASE, origin: '12px 18px' }),
+      },
+    },
+    // `idle`: la cara cabecea y parpadea, portado del `idle` de `cat`. Los dos ojos van
+    // juntos y sin desfase a proposito: parpadear escalonado no se ve vivo, se ve averiado.
+    // El giro va sobre `12px 12px` y no sobre la base del cuello como en `cat`: un
+    // circulo es invariante a girar sobre su centro, asi que el contorno no se mueve
+    // -- y no puede salirse del lienzo -- mientras ojos y boca si giran dentro.
+    idle: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: 'ease-in-out' }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: 'ease-in-out' }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear', origin: '12px 12px' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '15px 9.5px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.34, easing: 'ease-in-out' }, { transform: 'scaleY(0.1)', offset: 0.4, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 0.46, easing: 'ease-in-out' }, { transform: 'scaleY(1)', offset: 1 }], 2600, { easing: 'linear', origin: '9px 9.5px' }),
       },
     },
   },
