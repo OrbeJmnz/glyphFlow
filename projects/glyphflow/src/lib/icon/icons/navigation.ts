@@ -49,7 +49,7 @@ export const navigationIcon: AnimatedIconDef = /* @__PURE__ */ icon(navigationSh
       root: /* @__PURE__ */ track(
         [
           { transform: 'translate(0, 0)' },
-          { transform: 'translate(2px, -2px)' },
+          { transform: 'translate(2px, -2px) skewX(-1.4deg) skewY(1.4deg)' },
           { transform: 'translate(0, 0)' },
         ],
         550,

@@ -11379,7 +11379,7 @@
     "barcode": {
       "default": "7f38fee84d92",
       "draw": "17c8398e8d34",
-      "hold": "0969a65601c2"
+      "hold": "c518658c5ac1"
     },
     "barrel": {
       "default": "d9ed144d25f6",
@@ -12862,7 +12862,7 @@
       "draw": "17c8398e8d34"
     },
     "cloud-sun-rain": {
-      "default": "46dfc3f7955e",
+      "default": "9e3cb281443b",
       "draw": "17c8398e8d34"
     },
     "cloud-sync": {
@@ -15017,7 +15017,7 @@
     "line-style": {
       "default": "ad4773a6c6e4",
       "draw": "17c8398e8d34",
-      "hold": "315c76c00efc"
+      "hold": "1a3d345e37c0"
     },
     "link": {
       "default": "4cff2a93e757",
@@ -15187,7 +15187,7 @@
     "logs": {
       "default": "d2136f17c66c",
       "draw": "17c8398e8d34",
-      "hold": "8588a0b5d915"
+      "hold": "e3a29107671e"
     },
     "lollipop": {
       "default": "0ef64d63d03d",
@@ -15382,7 +15382,7 @@
     "memory-stick": {
       "default": "64e4bc061aca",
       "draw": "17c8398e8d34",
-      "hold": "c937b8ae05e3"
+      "hold": "2f8813c3c139"
     },
     "menu": {
       "default": "7920479d2f49",
@@ -15820,7 +15820,7 @@
       "draw": "17c8398e8d34"
     },
     "navigation": {
-      "default": "0bfa76753aa3",
+      "default": "34bfe73dde3e",
       "draw": "17c8398e8d34"
     },
     "navigation-2": {
@@ -16302,7 +16302,7 @@
       "hold": "90cce780c6d0"
     },
     "plane": {
-      "default": "e5ea68a5b8a9",
+      "default": "326e3b97f6ec",
       "draw": "17c8398e8d34"
     },
     "plane-landing": {
@@ -16426,7 +16426,7 @@
     "qr-code": {
       "default": "6a61afa23576",
       "draw": "17c8398e8d34",
-      "reveal": "c7472a5fc229"
+      "reveal": "cf1a965ebd0c"
     },
     "quote": {
       "default": "2a07e539bf4a",
@@ -16951,7 +16951,7 @@
       "hold": "1eb5ca80a44a"
     },
     "send": {
-      "default": "fc49d4ee07b1",
+      "default": "ef04fa84c04d",
       "draw": "17c8398e8d34"
     },
     "send-horizontal": {
@@ -17138,7 +17138,7 @@
     "shower-head": {
       "default": "315fbf0defe9",
       "draw": "17c8398e8d34",
-      "hold": "b70a90a72c79"
+      "hold": "6c96b1899219"
     },
     "shredder": {
       "default": "28e9553959ec",
@@ -17239,7 +17239,7 @@
     "sliders-horizontal": {
       "default": "770ce144df71",
       "draw": "17c8398e8d34",
-      "nudge": "bb005c1ac5e3"
+      "nudge": "64334c159a5e"
     },
     "sliders-vertical": {
       "default": "f4cfb2087202",
@@ -18204,7 +18204,7 @@
     "train-track": {
       "default": "36dfa1f12c23",
       "draw": "17c8398e8d34",
-      "hold": "b2493514ca00"
+      "hold": "78092d564133"
     },
     "tram-front": {
       "default": "bc7b98889ad4",
@@ -18639,7 +18639,7 @@
     "wand-sparkles": {
       "default": "f44476c9c5f1",
       "draw": "17c8398e8d34",
-      "hold": "65f9f9b17e2c"
+      "hold": "238bf71ea30c"
     },
     "warehouse": {
       "default": "56751a4b4117",

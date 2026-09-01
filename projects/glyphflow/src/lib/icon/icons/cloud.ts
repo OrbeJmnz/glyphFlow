@@ -207,7 +207,7 @@ export const cloudSunRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { transform: 'translate(0, 0)' },
           ],
           1400,
-          { easing: 'ease-in-out' },
+          { easing: 'ease-in-out', delay: 60, fill: 'backwards' },
         ),
         2: /* @__PURE__ */ track(
           [
@@ -217,7 +217,7 @@ export const cloudSunRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { transform: 'translate(0, 0)' },
           ],
           1400,
-          { easing: 'ease-in-out' },
+          { easing: 'ease-in-out', delay: 120, fill: 'backwards' },
         ),
         3: /* @__PURE__ */ track(
           [
@@ -227,7 +227,7 @@ export const cloudSunRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { transform: 'translate(0, 0)' },
           ],
           1400,
-          { easing: 'ease-in-out' },
+          { easing: 'ease-in-out', delay: 180, fill: 'backwards' },
         ),
         4: /* @__PURE__ */ track(
           [
@@ -237,7 +237,7 @@ export const cloudSunRainIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { transform: 'translate(0, 0)' },
           ],
           1400,
-          { easing: 'ease-in-out' },
+          { easing: 'ease-in-out', delay: 240, fill: 'backwards' },
         ),
         5: /* @__PURE__ */ track(
           [
