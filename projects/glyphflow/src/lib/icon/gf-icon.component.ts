@@ -21,7 +21,7 @@ import {
 } from './animated-icon.model';
 import { GF_ICONS_CONFIG } from './gf-icons.config';
 import { GF_ICON_CATALOG } from './icon-catalog.provider';
-import { conRelevo, easingSeguro } from './motion-runtime';
+import { conRelevo, easingSeguro, varianteDeHover } from './motion-runtime';
 
 /**
  * Icono animado con coreografía por figura.
@@ -289,14 +289,12 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   }
 
   /**
-   * Qué variante toca en hover. Con 3 o más, la TERCERA — el orden del catálogo es
-   * `draw`, `default`, y luego la especial del icono (`rotate`, `find`, `turn`…), que siempre es
-   * la más expresiva. Si el consumidor fijó `animation` a mano, esa manda.
+   * Qué variante toca en hover. La regla vive en `motion-runtime` y NO aquí: el lock de
+   * coreografía tiene que hacerse la misma pregunta para poder anclarla, y dos copias de una
+   * regla que se elige por posición divergen sin que nada avise.
    */
   private get hoverVariant(): string {
-    if (this.animation && this.animation !== 'default') return this.animation;
-    const variantes = Object.keys(this.def?.animations ?? {});
-    return variantes.length >= 3 ? variantes[2] : 'default';
+    return varianteDeHover(this.def?.animations, this.animation);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
