@@ -18,8 +18,6 @@ import { layoutDashboardShapes, layoutFreeformShapes, layoutGridShapes, layoutLi
  * del componente, no una propiedad de la variante.
  */
 const T5_EASE = 'ease-in-out';
-const T5_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const T5_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
 
 export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutDashboardShapes, {
     default: {
