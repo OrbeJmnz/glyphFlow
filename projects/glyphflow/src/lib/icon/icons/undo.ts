@@ -22,6 +22,14 @@ export const undoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `redo`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -37,6 +45,14 @@ export const undo2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out' }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `redo-2`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );

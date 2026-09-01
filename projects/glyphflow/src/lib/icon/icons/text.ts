@@ -122,6 +122,14 @@ export const textAlignEndIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '21px 19px', delay: 180, fill: 'backwards' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `text-align-start`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -156,6 +164,14 @@ export const textAlignStartIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 12px', delay: 90, fill: 'backwards' }),
         2: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 19px', delay: 180, fill: 'backwards' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `text-align-end`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
