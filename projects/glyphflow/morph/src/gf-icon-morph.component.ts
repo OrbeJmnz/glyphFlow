@@ -33,9 +33,16 @@ export interface MorphIcon {
   shapes: IconShape[];
 }
 
-/** `shapes` → data estilo Lucide (`[tag, attrs][]`), que es lo que come el core. */
+/**
+ * `shapes` → data estilo Lucide (`[tag, attrs][]`), que es lo que come el core.
+ *
+ * Las figuras que el icono NO enseña en reposo quedan fuera, igual que las salta `runAutoDraw`:
+ * no forman parte de su FORMA, solo existen mientras dura una variante — la guía de las monedas,
+ * la estela del `nudge`, lo que emite `spark`. Meterlas aquí desparejaba el morph entero: `bell`
+ * pasaba de 2 figuras a 4 y el core acababa emparejando el domo con un arco de sonido.
+ */
 function aIconInput(icono: MorphIcon): IconInput {
-  return icono.shapes.map((s: IconShape) => {
+  return icono.shapes.filter((s: IconShape) => s.opacity !== '0').map((s: IconShape) => {
     const { tag, ...attrs } = s as IconShape & Record<string, unknown>;
     const limpio: Record<string, string | number> = {};
     for (const [k, v] of Object.entries(attrs)) {

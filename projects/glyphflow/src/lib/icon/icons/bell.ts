@@ -64,6 +64,12 @@ export const bellIcon: AnimatedIconDef = /* @__PURE__ */ icon(bellShapes, {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(2px)' }, { transform: 'translateX(0)' }], 1100, { easing: EASE }),
       },
     },
+    spark: {
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 20, -10, 10, -5, 3, 0]), 900, { origin: 'top center' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-1.5px, 0px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(-1.5px, 0px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(1.5px, 0px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(1.5px, 0px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 60, fill: 'backwards' }), 0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -6, 5, -5, 4, -3, 2, 0]), 1100) },
+    },
   });
 
 /** Campana con ondas: repica y las ondas salen DESPUÉS del primer golpe, no junto con él. */

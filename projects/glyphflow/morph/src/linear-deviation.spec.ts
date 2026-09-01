@@ -16,7 +16,8 @@ import {
 
 /** `IconShape[]` → data estilo Lucide, que es lo que come el core. */
 function aIconNode(def: AnimatedIconDef): [string, Record<string, string | number>][] {
-  return def.shapes.map((s: IconShape) => {
+  // Replica de `aIconInput`: descarta las figuras que el icono no enseña en reposo.
+  return def.shapes.filter((s: IconShape) => s.opacity !== '0').map((s: IconShape) => {
     const { tag, ...attrs } = s as IconShape & Record<string, unknown>;
     const limpio: Record<string, string | number> = {};
     for (const [k, v] of Object.entries(attrs))

@@ -9,6 +9,9 @@ export const bellShapes: IconShape[] = [
       tag: 'path',
       d: 'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
     },
+    // `spark`: Dos arcos de sonido salen a los lados, como en una viñeta. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M3.4 9.5a4 4 0 0 0 0 5", opacity: '0' },
+    { tag: 'path', d: "M20.6 9.5a4 4 0 0 1 0 5", opacity: '0' },
   ];
 
 export const bellRingShapes: IconShape[] = [
@@ -344,6 +347,10 @@ export const trash2Shapes: IconShape[] = [
     { tag: 'path', d: 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6' },
     { tag: 'path', d: 'M3 6h18' },
     { tag: 'path', d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' },
+    // `spark`: Tres motas caen dentro del bote. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M9 2.6v1.2", opacity: '0' },
+    { tag: 'path', d: "M12 1.6v1.2", opacity: '0' },
+    { tag: 'path', d: "M15 2.6v1.2", opacity: '0' },
   ];
 
 export const triangleAlertShapes: IconShape[] = [
@@ -1133,6 +1140,9 @@ export const zapShapes: IconShape[] = [
       tag: 'path',
       d: 'M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z',
     },
+    // `spark`: Dos chispas saltan del rayo, una por cada extremo. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M6.5 17.5 4 20", opacity: '0' },
+    { tag: 'path', d: "M17.5 6.5 20 4", opacity: '0' },
   ];
 
 export const clockShapes: IconShape[] = [
@@ -1147,6 +1157,10 @@ export const lightbulbShapes: IconShape[] = [
     },
     { tag: 'path', d: 'M9 18h6' },
     { tag: 'path', d: 'M10 22h4' },
+    // `spark`: Tres destellos alrededor del bulbo, como en un chiste de idea. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M12 1.2v1.4", opacity: '0' },
+    { tag: 'path', d: "m4.8 4.4 1 1", opacity: '0' },
+    { tag: 'path', d: "m19.2 4.4-1 1", opacity: '0' },
   ];
 
 export const cameraShapes: IconShape[] = [
@@ -3146,6 +3160,8 @@ export const volume2Shapes: IconShape[] = [
     },
     { tag: 'path', d: 'M16 9a5 5 0 0 1 0 6' },
     { tag: 'path', d: 'M19.364 18.364a9 9 0 0 0 0-12.728' },
+    // `spark`: Una onda más allá de las que dibuja Lucide: el volumen que sube. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M22.3 5.3a13 13 0 0 1 0 13.4", opacity: '0' },
   ];
 
 export const volumeShapes: IconShape[] = [
@@ -3260,6 +3276,8 @@ export const heartShapes: IconShape[] = [
       tag: 'path',
       d: 'M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5',
     },
+    // `spark`: Un aro que se propaga desde el corazón. Tenue a propósito: más marcado tapaba el dibujo. Nace invisible — Lucide no la dibuja.
+    { tag: 'circle', cx: 12, cy: 12, r: 8, opacity: '0' },
   ];
 
 export const moveRightShapes: IconShape[] = [

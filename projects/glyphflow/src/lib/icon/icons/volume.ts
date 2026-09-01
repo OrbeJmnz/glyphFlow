@@ -14,6 +14,13 @@ export const volume2Icon: AnimatedIconDef = /* @__PURE__ */ icon(volume2Shapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 200 }),
       },
     },
+    spark: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(1.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateX(1.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 120, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 80 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 380, { delay: 200 }),
+      },
+    },
   });
 
 /** El altavoz solo, sin ondas — late tantito al aparecer. */
