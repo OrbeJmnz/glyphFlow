@@ -40,6 +40,32 @@ interface Hallazgo {
  * ignorar, y entonces deja de proteger nada.
  */
 const DURACION_LARGA_MS = 1200;
+
+/*
+ * Un BUCLE lento no es un GESTO lento, y hasta ahora la regla no los distinguia: marcaba 134
+ * variantes, entre ellas el `idle` de un gato y la deriva de una nube, que son lentos porque
+ * ese es el punto. El ruido tapaba lo que si importaba -- 65 `default`, o sea el gesto de
+ * hover, con mediana 1500 ms y maxima 3000. Quien pasa el puntero ya se fue.
+ *
+ * Se exime lo ciclico por definicion, de dos formas distintas a proposito:
+ *
+ *   · Por NOMBRE de variante: `idle` y `wander` son ambiente por lo que significan. Es una
+ *     regla, no una lista, asi que cubre sola cualquier icono que las gane manana.
+ *   · Por NOMBRE de icono: hay `default` que son ciclicos aunque la variante no lo diga. Un
+ *     `orbit` da una vuelta entera, un `radar` barre, una `rocking-chair` se mece, las nubes
+ *     van a la deriva. Eso no se deduce del nombre de la variante y va en lista, mirado uno
+ *     por uno (2026-09-01) -- como los `hold` sutiles a proposito.
+ *
+ * Lo que NO se exime, aunque tambien pase de 1200: `pulse` y `reveal`. Son candidatos reales
+ * a una pasada futura y la regla debe seguir apuntandolos.
+ */
+const VARIANTES_AMBIENTE = new Set(['idle', 'wander']);
+const ICONOS_AMBIENTE = new Set([
+  'orbit', 'tornado', 'radar', 'loader', 'rocking-chair', 'ship', 'sun', 'settings',
+  'cloud', 'cloud-alert', 'cloud-backup', 'cloud-check', 'cloud-drizzle', 'cloud-fog',
+  'cloud-hail', 'cloud-lightning', 'cloud-moon', 'cloud-moon-rain', 'cloud-rain',
+  'cloud-rain-wind', 'cloud-snow', 'cloud-sun', 'cloud-sun-rain', 'cloud-sync',
+]);
 const ROTACION_ALTA_DEG = 720;
 
 /*
@@ -104,7 +130,10 @@ function revisar(icono: string, v: VariantReport): Hallazgo[] {
     });
   }
 
-  if (v.duracionMs !== null && v.duracionMs > DURACION_LARGA_MS) {
+  const esAmbiente =
+    VARIANTES_AMBIENTE.has(v.variante) ||
+    (v.variante === 'default' && ICONOS_AMBIENTE.has(icono));
+  if (!esAmbiente && v.duracionMs !== null && v.duracionMs > DURACION_LARGA_MS) {
     hallazgos.push({
       icono,
       variante: v.variante,

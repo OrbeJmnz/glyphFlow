@@ -359,8 +359,7 @@ export const messageCircleMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
           { transform: 'scale(1.05) rotate(-7deg)', offset: 0.2 },
           { transform: 'scale(1.05) rotate(7deg)', offset: 0.4 },
           { transform: 'scale(1) rotate(0deg)', offset: 1 },
-        ],
-        500,
+        ], 324,
         { easing: EASE },
       ),
       shapes: {
@@ -376,8 +375,7 @@ export const messageCircleMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
+          ], 971,
         ),
         2: /* @__PURE__ */ track(
           [
@@ -391,9 +389,8 @@ export const messageCircleMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
-          { delay: 100 },
+          ], 971,
+          { delay: 65 },
         ),
         3: /* @__PURE__ */ track(
           [
@@ -407,9 +404,8 @@ export const messageCircleMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
-          { delay: 200 },
+          ], 971,
+          { delay: 129 },
         ),
       },
     },
@@ -571,8 +567,7 @@ export const messageSquareMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
           { transform: 'scale(1.05) rotate(-7deg)', offset: 0.2 },
           { transform: 'scale(1.05) rotate(7deg)', offset: 0.4 },
           { transform: 'scale(1) rotate(0deg)', offset: 1 },
-        ],
-        500,
+        ], 324,
         { easing: EASE },
       ),
       shapes: {
@@ -588,8 +583,7 @@ export const messageSquareMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
+          ], 971,
         ),
         2: /* @__PURE__ */ track(
           [
@@ -603,9 +597,8 @@ export const messageSquareMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
-          { delay: 100 },
+          ], 971,
+          { delay: 65 },
         ),
         3: /* @__PURE__ */ track(
           [
@@ -619,9 +612,8 @@ export const messageSquareMoreIcon: AnimatedIconDef = /* @__PURE__ */ icon(
             { opacity: 1, offset: 0.8 },
             { opacity: 1, offset: 0.9 },
             { opacity: 1, offset: 1 },
-          ],
-          1500,
-          { delay: 200 },
+          ], 971,
+          { delay: 129 },
         ),
       },
     },

@@ -1477,7 +1477,7 @@ export const usersIcon: AnimatedIconDef = /* @__PURE__ */ icon(usersShapes, {
 
 export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1100),
     },
   });
 
@@ -1589,7 +1589,7 @@ export const phoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(phoneShapes, {
 /** Carrito rodando con las ruedas girando. */
 export const shoppingCartIcon: AnimatedIconDef = /* @__PURE__ */ icon(shoppingCartShapes, {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1100),
     },
     pulse: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }, { transform: 'scale(1.1) translateY(-5px)' }, { transform: 'scale(1) translateY(0)' }], 800, { easing: EASE }),
@@ -2742,12 +2742,12 @@ export const typeIcon: AnimatedIconDef = /* @__PURE__ */ icon(typeShapes, { defa
 export const webhookIcon: AnimatedIconDef = /* @__PURE__ */ icon(webhookShapes, {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350, { delay: 220 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 350, { delay: 440 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 298),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 298, { delay: 188 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 298, { delay: 375 }),
       },
-      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 500, {
-        delay: 790,
+      root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 360]), 426, {
+        delay: 674,
         easing: 'linear',
         origin: 'center',
       }),
@@ -7631,7 +7631,7 @@ export const columns2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 3, 0), 1200, { origin: '12px 3px', delay: 120, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 3, 0), 1000, { origin: '12px 3px', delay: 100, fill: 'backwards' }),
       },
     },
   },
@@ -7647,8 +7647,8 @@ export const columns3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 1200, { origin: '9px 3px', delay: 120, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 2), 1200, { origin: '15px 3px', delay: 210, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 936, { origin: '9px 3px', delay: 94, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 2), 936, { origin: '15px 3px', delay: 164, fill: 'backwards' }),
       },
     },
   },
@@ -7665,9 +7665,9 @@ export const columns4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 0), 1200, { origin: '7.5px 3px', delay: 120, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 1), 1200, { origin: '12px 3px', delay: 200, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 2), 1200, { origin: '16.5px 3px', delay: 280, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 0), 892, { origin: '7.5px 3px', delay: 89, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 1), 892, { origin: '12px 3px', delay: 149, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 2), 892, { origin: '16.5px 3px', delay: 208, fill: 'backwards' }),
       },
     },
   },
@@ -9684,13 +9684,13 @@ export const replaceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(SWAP_LOWER, 1100, { easing: EASE, delay: 120, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(SWAP_LOWER, 1100, { easing: EASE, delay: 120, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(SWAP_LOWER, 1100, { easing: EASE, delay: 120, fill: 'backwards' }),
-        3: /* @__PURE__ */ track(SWAP_LOWER, 1100, { easing: EASE, delay: 120, fill: 'backwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
-        6: /* @__PURE__ */ track(SWAP_UPPER, 1100, { easing: EASE, delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(SWAP_LOWER, 992, { easing: EASE, delay: 108, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(SWAP_LOWER, 992, { easing: EASE, delay: 108, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(SWAP_LOWER, 992, { easing: EASE, delay: 108, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(SWAP_LOWER, 992, { easing: EASE, delay: 108, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 270, { easing: 'ease-out', delay: 144, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 289, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track(SWAP_UPPER, 992, { easing: EASE, delay: 108, fill: 'backwards' }),
       },
     },
   },
@@ -10321,11 +10321,11 @@ export const truckElectricIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1100),
       shapes: {
-        4: /* @__PURE__ */ track(E3_TWINKLE, 340, { easing: 'ease-out', origin: '4px 5px', delay: 200, fill: 'backwards' }),
-        5: /* @__PURE__ */ track(E3_ROLL, 900, { easing: EASE, origin: '17px 19px' }),
-        6: /* @__PURE__ */ track(E3_ROLL, 900, { easing: EASE, origin: '7px 19px' }),
+        4: /* @__PURE__ */ track(E3_TWINKLE, 249, { easing: 'ease-out', origin: '4px 5px', delay: 147, fill: 'backwards' }),
+        5: /* @__PURE__ */ track(E3_ROLL, 660, { easing: EASE, origin: '17px 19px' }),
+        6: /* @__PURE__ */ track(E3_ROLL, 660, { easing: EASE, origin: '7px 19px' }),
       },
     },
   },
@@ -16026,13 +16026,13 @@ export const ambulanceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(DESTELLA, 420),
-        3: /* @__PURE__ */ track(DESTELLA, 420),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
-        4: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 120 }),
+        0: /* @__PURE__ */ track(DESTELLA, 218),
+        3: /* @__PURE__ */ track(DESTELLA, 218),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 62 }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 62 }),
+        4: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 62 }),
       },
     },
     hold: {
@@ -16061,13 +16061,13 @@ export const busIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        5: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        5: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16125,11 +16125,11 @@ export const caravanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16157,11 +16157,11 @@ export const vanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16185,10 +16185,10 @@ export const bikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        3: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16212,11 +16212,11 @@ export const motorbikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16240,10 +16240,10 @@ export const scooterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT }),
       },
     },
     hold: {
@@ -16272,10 +16272,10 @@ export const forkliftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 620, { easing: SPRING_OUT }),
-        0: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 180 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.5, 0]), 322, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 93 }),
       },
     },
     hold: {
@@ -16302,12 +16302,12 @@ export const tractorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 1500, { delay: 620 }),
+      root: /* @__PURE__ */ track(SHOOT_OFF_KEYFRAMES, 778, { delay: 322 }),
       shapes: {
-        4: /* @__PURE__ */ track(HUMO, 620, { easing: EASE }),
-        6: /* @__PURE__ */ track(HUMO, 620, { easing: EASE, delay: 100 }),
-        3: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 140 }),
-        2: /* @__PURE__ */ track(SUSPENSION, 520, { easing: SPRING_OUT, delay: 140 }),
+        4: /* @__PURE__ */ track(HUMO, 322, { easing: EASE }),
+        6: /* @__PURE__ */ track(HUMO, 322, { easing: EASE, delay: 52 }),
+        3: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 73 }),
+        2: /* @__PURE__ */ track(SUSPENSION, 270, { easing: SPRING_OUT, delay: 73 }),
       },
     },
     hold: {
@@ -19007,7 +19007,7 @@ export const eraserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track(ERASER_SWEEP, 1600, { easing: 'linear' }),
+      root: /* @__PURE__ */ track(ERASER_SWEEP, 1100, { easing: 'linear' }),
     },
     hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, -1.5554px)' }], 320),
   },
