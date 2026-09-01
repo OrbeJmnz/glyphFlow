@@ -28,6 +28,9 @@ describe('Editor', () => {
     return { fixture, html: fixture.nativeElement as HTMLElement };
   }
 
+  // Timeout explicito: este test monta un tramo del catalogo entero (2.7 MB de JSON) y
+  // ya corria a ~4.9 s del limite de 5 s por default de Vitest. No es lentitud nueva --
+  // es que el margen era de decimas, y cualquier variante que se agregue lo consume.
   it('arranca con un icono cargado y su `d` intacto', async () => {
     const { html } = await montar();
     const salida = html.querySelector('.salida code')!.textContent!;
@@ -42,7 +45,7 @@ describe('Editor', () => {
       .join('\n');
     // Sin tocar nada, el resultado es byte por byte el `d` de la librería.
     expect(salida).toBe(original);
-  });
+  }, 20000);
 
   it('pinta un nodo por punto arrastrable, y ninguno por el `Z`', async () => {
     const { html } = await montar();

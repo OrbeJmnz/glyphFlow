@@ -19,6 +19,14 @@ export interface VariantReport {
   duracionMs: number | null;
   tracksSolapados: TrackOverlap[];
   rotacionMaximaDeg: number;
+  /**
+   * Cuanto se aleja del reposo la POSE FINAL, en unidades del viewBox de 24. Es la medida que le
+   * falta a un `hold`: como va con `fill: 'forwards'`, su ultimo keyframe es lo que queda en
+   * pantalla, y si esa pose casi no se distingue del reposo la variante existe pero no se ve.
+   * Para las variantes que vuelven al origen el numero es ~0 y no significa nada -- solo tiene
+   * sentido leerlo en las que retienen.
+   */
+  poseFinalUnidades: number;
   propiedadesAnimadas: string[];
   /** `d` es la señal de costo caro (redibuja el path). `transform`/`opacity` son baratas: el
    *  compositor las anima sin repintar. Ver el resto de `propiedadesAnimadas` para el detalle. */
@@ -57,6 +65,44 @@ function rotacionMaximaDe(keyframes: Keyframe[]): number {
   return max;
 }
 
+/*
+ * Un transform, convertido a "cuanto se movio el pixel que mas se movio", en unidades del
+ * viewBox. Sirve para comparar peras con manzanas: 3 grados de giro, un scale de 1.04 y medio
+ * pixel de desplazamiento son magnitudes distintas que se PERCIBEN parecido -- es decir, nada.
+ * El radio caracteristico de 8 sale de la geometria real de Lucide: casi todo el dibujo vive
+ * entre 2 y 22, o sea a unas 8-10 unidades del centro.
+ */
+const RADIO_CARACTERISTICO = 8;
+
+function desviacionDe(transform: unknown): number {
+  if (typeof transform !== 'string' || transform === 'none') return 0;
+  let total = 0;
+  for (const m of transform.matchAll(/(\w+)\(([^)]*)\)/g)) {
+    const nombre = m[1];
+    const n = (m[2].match(/-?\d*\.?\d+/g) ?? []).map(Number);
+    if (!n.length) continue;
+    if (nombre === 'translate') total += Math.hypot(n[0], n[1] ?? 0);
+    else if (nombre === 'translateX' || nombre === 'translateY') total += Math.abs(n[0]);
+    else if (nombre === 'scale') {
+      total += Math.max(...n.map((v) => Math.abs(v - 1))) * RADIO_CARACTERISTICO;
+    } else if (nombre === 'scaleX' || nombre === 'scaleY') {
+      total += Math.abs(n[0] - 1) * RADIO_CARACTERISTICO;
+    } else if (nombre === 'rotate' || nombre.startsWith('skew')) {
+      total += ((Math.abs(n[0]) * Math.PI) / 180) * RADIO_CARACTERISTICO;
+    }
+  }
+  return total;
+}
+
+/** La opacidad tambien retiene: se pesa a 4 unidades por punto para que entre en la misma escala. */
+function poseFinalDe(keyframes: Keyframe[]): number {
+  const kf = keyframes.at(-1);
+  if (!kf) return 0;
+  const opacidad = kf['opacity'];
+  const porOpacidad = opacidad === undefined ? 0 : Math.abs(1 - Number(opacidad)) * 4;
+  return Math.max(desviacionDe(kf['transform']), Number.isFinite(porOpacidad) ? porOpacidad : 0);
+}
+
 /** Intervalo activo de un track en el reloj de la variante: [delay, delay + duration]. */
 function intervaloDe(track: MotionTrack): [number, number] {
   const delay = Number(track.options.delay ?? 0) || 0;
@@ -82,10 +128,13 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
   const tracks = tracksCon(chor);
   const propiedades = new Set<string>();
   let rotacionMaxima = 0;
+  let poseFinal = 0;
   for (const [, track] of tracks) {
     for (const p of propiedadesDe(track.keyframes)) propiedades.add(p);
     const r = rotacionMaximaDe(track.keyframes);
     if (r > rotacionMaxima) rotacionMaxima = r;
+    const p = poseFinalDe(track.keyframes);
+    if (p > poseFinal) poseFinal = p;
   }
 
   const solapados: TrackOverlap[] = [];
@@ -107,6 +156,7 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
     duracionMs,
     tracksSolapados: solapados,
     rotacionMaximaDeg: Math.round(rotacionMaxima),
+    poseFinalUnidades: Math.round(poseFinal * 100) / 100,
     propiedadesAnimadas: [...propiedades].sort(),
     animaD: propiedades.has('d'),
     autoDraw: !!chor.autoDraw,

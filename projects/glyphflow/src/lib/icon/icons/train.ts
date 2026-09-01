@@ -44,8 +44,8 @@ export const trainFrontIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -74,8 +74,8 @@ export const trainFrontTunnelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

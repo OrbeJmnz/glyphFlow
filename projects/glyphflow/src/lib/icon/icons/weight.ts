@@ -35,8 +35,8 @@ export const weightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // Sostenido: el peso puesto. Se queda achatado, que es lo que hace algo pesado apoyado.
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05, 0.94)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.1222, 0.8534)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.1996px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

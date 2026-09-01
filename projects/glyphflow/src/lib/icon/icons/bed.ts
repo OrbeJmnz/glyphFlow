@@ -29,8 +29,8 @@ export const bedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
       },
       reverseOnLeave: true,
     },
@@ -53,7 +53,7 @@ export const bedDoubleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
       },
       reverseOnLeave: true,
     },
@@ -75,7 +75,7 @@ export const bedSingleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
       },
       reverseOnLeave: true,
     },

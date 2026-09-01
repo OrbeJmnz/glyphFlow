@@ -28,7 +28,7 @@ export const iceCreamBowlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -53,7 +53,7 @@ export const iceCreamConeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

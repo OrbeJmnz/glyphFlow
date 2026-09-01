@@ -10812,7 +10812,8 @@
     "alarm-clock-off": {
       "alert": "e276b867d08e",
       "default": "b1561802f5cd",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "6538ef2cee5d"
     },
     "alarm-clock-plus": {
       "default": "b9c6ec2ff4d7",
@@ -10937,7 +10938,7 @@
     "anchor": {
       "default": "58231af07f73",
       "draw": "17c8398e8d34",
-      "hold": "b606feab3dd1"
+      "hold": "0080e67f484c"
     },
     "angle": {
       "default": "dac9af0907ce",
@@ -10947,7 +10948,7 @@
     "antenna": {
       "default": "3007be72c26d",
       "draw": "17c8398e8d34",
-      "hold": "426adc47b655"
+      "hold": "12d376c77330"
     },
     "anvil": {
       "default": "dd97f1ae4673",
@@ -10969,7 +10970,7 @@
     "apple": {
       "default": "cc713087debe",
       "draw": "17c8398e8d34",
-      "hold": "e9480bbdec77"
+      "hold": "d8f07e141209"
     },
     "archive": {
       "default": "798ef893e4b4",
@@ -10986,7 +10987,7 @@
     "armchair": {
       "default": "5320c828f97e",
       "draw": "17c8398e8d34",
-      "hold": "ce9ea52a43b3"
+      "hold": "972e2b520427"
     },
     "arrow-big-down": {
       "default": "efa362a6c29a",
@@ -11236,7 +11237,7 @@
     "backpack": {
       "default": "765072a6bee1",
       "draw": "17c8398e8d34",
-      "hold": "c1bdcae8d1d4"
+      "hold": "7a83a0b529f6"
     },
     "badge": {
       "default": "d6bda53924df",
@@ -11335,12 +11336,12 @@
       "bounce": "85eecaa5be93",
       "default": "a99a38fe56e4",
       "draw": "17c8398e8d34",
-      "hold": "8c56c4ba3b2a"
+      "hold": "2ffb4ace892b"
     },
     "balloon": {
       "default": "fac1bb06434b",
       "draw": "17c8398e8d34",
-      "hold": "3ea3005843ce"
+      "hold": "2523ccd6a289"
     },
     "ban": {
       "default": "3f38b93195b4",
@@ -11349,12 +11350,12 @@
     "banana": {
       "default": "bb69d3071664",
       "draw": "17c8398e8d34",
-      "hold": "75e723c531a2"
+      "hold": "0482b9ccbbe1"
     },
     "bandage": {
       "default": "a0dedceae9b0",
       "draw": "17c8398e8d34",
-      "hold": "ce38c821d3dd"
+      "hold": "3f9ccf0fe8a1"
     },
     "banknote": {
       "default": "f54c5ce08411",
@@ -11379,7 +11380,7 @@
     "barcode": {
       "default": "7f38fee84d92",
       "draw": "17c8398e8d34",
-      "hold": "c518658c5ac1"
+      "hold": "e0437d1e50ba"
     },
     "barrel": {
       "default": "d9ed144d25f6",
@@ -11393,7 +11394,7 @@
     "bath": {
       "default": "504860a7b297",
       "draw": "17c8398e8d34",
-      "hold": "1d7c7218822d"
+      "hold": "eda840dacd21"
     },
     "battery": {
       "default": "e6641968c2c3",
@@ -11433,7 +11434,7 @@
     "beaker": {
       "default": "bb93ba341b21",
       "draw": "17c8398e8d34",
-      "hold": "29eb30f3d758"
+      "hold": "e37c8f07ee3e"
     },
     "bean": {
       "default": "cf1d56ffa84f",
@@ -11441,22 +11442,23 @@
     },
     "bean-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "b4f4f67aa56a"
     },
     "bed": {
       "default": "a44642891156",
       "draw": "17c8398e8d34",
-      "hold": "7a39b22109cf"
+      "hold": "f059eb778878"
     },
     "bed-double": {
       "default": "998d3088375d",
       "draw": "17c8398e8d34",
-      "hold": "43fc28e53566"
+      "hold": "92174346c4d1"
     },
     "bed-single": {
       "default": "998d3088375d",
       "draw": "17c8398e8d34",
-      "hold": "43fc28e53566"
+      "hold": "92174346c4d1"
     },
     "beef": {
       "default": "0aeb3ad4ea54",
@@ -11465,7 +11467,8 @@
     "beef-off": {
       "alert": "e276b867d08e",
       "default": "fe67650794b0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "7034c6354083"
     },
     "beer": {
       "default": "8f92fae535eb",
@@ -11473,7 +11476,8 @@
     },
     "beer-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "f4e5c13c98a3"
     },
     "bell": {
       "alert": "ec7bd8f2ff68",
@@ -11503,7 +11507,8 @@
     "bell-off": {
       "alert": "e276b867d08e",
       "default": "be0188c1b401",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "a2199b285afe"
     },
     "bell-plus": {
       "default": "b6b1fb3fbdbf",
@@ -11534,12 +11539,12 @@
     "biceps-flexed": {
       "default": "6a5d916a1e38",
       "draw": "17c8398e8d34",
-      "hold": "cf6d6ff93fb3"
+      "hold": "650bb15df4ef"
     },
     "bike": {
       "default": "d2813188afee",
       "draw": "17c8398e8d34",
-      "hold": "33867e3089cf"
+      "hold": "6cfd87a80a85"
     },
     "binary": {
       "default": "8035d30d64af",
@@ -11576,12 +11581,12 @@
     "blender": {
       "default": "949833d2dfe1",
       "draw": "17c8398e8d34",
-      "hold": "05fb44668d66"
+      "hold": "2e0a6c174fbb"
     },
     "blinds": {
       "default": "7c8ce8f3fea5",
       "draw": "17c8398e8d34",
-      "hold": "9b0959bb1efc"
+      "hold": "3cd3ee8fdc57"
     },
     "blocks": {
       "default": "63e759e1be51",
@@ -11597,7 +11602,8 @@
     },
     "bluetooth-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "576627b9523d"
     },
     "bluetooth-searching": {
       "default": "c0e5b73374b5",
@@ -11769,6 +11775,7 @@
     "bookmark-off": {
       "default": "c9e80cc5b04e",
       "draw": "17c8398e8d34",
+      "strike": "576627b9523d",
       "wave": "cc089b4265c0"
     },
     "bookmark-plus": {
@@ -11798,7 +11805,8 @@
     },
     "bot-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "c4f4364b62b3"
     },
     "bottle-wine": {
       "default": "79bb650a4454",
@@ -11808,17 +11816,17 @@
     "bow-arrow": {
       "default": "231f7214fdae",
       "draw": "17c8398e8d34",
-      "hold": "e7d9c687d0b0"
+      "hold": "b8fa28c19a74"
     },
     "box": {
       "default": "55cae8d90a27",
       "draw": "17c8398e8d34",
-      "hold": "ee885c00ef56"
+      "hold": "94d15e2f9c57"
     },
     "boxes": {
       "default": "3cb64c056eda",
       "draw": "17c8398e8d34",
-      "hold": "7b1a73e1fb56"
+      "hold": "b56821df7eef"
     },
     "braces": {
       "default": "ef1d5bd9f5e8",
@@ -11881,7 +11889,7 @@
     "broccoli": {
       "default": "3effb270deaa",
       "draw": "17c8398e8d34",
-      "hold": "d3650b464ca3"
+      "hold": "85d5fdf581dc"
     },
     "broom": {
       "default": "664d2f537ab0",
@@ -11912,7 +11920,8 @@
     },
     "bug-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "370b2569ab9f"
     },
     "bug-play": {
       "default": "f3b10464beec",
@@ -11931,7 +11940,7 @@
     "bus": {
       "default": "4419d21d9470",
       "draw": "17c8398e8d34",
-      "hold": "15562b159d83"
+      "hold": "412db84da97f"
     },
     "bus-front": {
       "default": "b4602cf05f1a",
@@ -12027,7 +12036,8 @@
     "calendar-off": {
       "alert": "e276b867d08e",
       "default": "f0d47edd9828",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "b6028d41318e"
     },
     "calendar-plus": {
       "bounce": "8736992c7e33",
@@ -12067,7 +12077,7 @@
     "calendars": {
       "default": "9906ae56a145",
       "draw": "17c8398e8d34",
-      "hold": "ad04961f928b"
+      "hold": "26df872d219b"
     },
     "camera": {
       "default": "950149b6ddce",
@@ -12075,7 +12085,8 @@
     },
     "camera-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "f84d917d1905"
     },
     "candy": {
       "default": "d267d7918050",
@@ -12087,7 +12098,8 @@
     },
     "candy-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "590a6c748857"
     },
     "cannabis": {
       "default": "282f7ade53a8",
@@ -12096,7 +12108,8 @@
     "cannabis-off": {
       "alert": "e276b867d08e",
       "default": "ae43a5f48081",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "d41136a369e8"
     },
     "captions": {
       "default": "6001bc2ebf36",
@@ -12104,7 +12117,8 @@
     },
     "captions-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "fbf350ee98d6"
     },
     "car": {
       "default": "d58007557d8d",
@@ -12130,12 +12144,12 @@
     "card-sim": {
       "default": "f085eaa07ec3",
       "draw": "17c8398e8d34",
-      "hold": "8019f180b941"
+      "hold": "6b51e4a8e1df"
     },
     "carrot": {
       "default": "ec22a34328f6",
       "draw": "17c8398e8d34",
-      "hold": "aec2d96fccfc"
+      "hold": "cbe76110aa54"
     },
     "case-lower": {
       "default": "9a9bb909cd92",
@@ -12166,7 +12180,7 @@
     "cat": {
       "default": "6a16f38c52aa",
       "draw": "17c8398e8d34",
-      "hold": "b0625e6d0bb4",
+      "hold": "8816474ca0ca",
       "idle": "792392e37770"
     },
     "cctv": {
@@ -12177,7 +12191,8 @@
     "cctv-off": {
       "alert": "e276b867d08e",
       "default": "ae43a5f48081",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "6eed1f6d7d64"
     },
     "chart-area": {
       "default": "343c73d2c508",
@@ -12290,7 +12305,7 @@
     "chef-hat": {
       "default": "5ec2ea4398db",
       "draw": "17c8398e8d34",
-      "hold": "6bcc5453ae25"
+      "hold": "7b112511073c"
     },
     "cherry": {
       "default": "096f5e5fe20f",
@@ -12299,22 +12314,22 @@
     "chess-bishop": {
       "default": "85415fa5d2ec",
       "draw": "17c8398e8d34",
-      "hold": "fdf4ba9bba9e"
+      "hold": "024d8f7a4cb7"
     },
     "chess-king": {
       "default": "12090c3f1592",
       "draw": "17c8398e8d34",
-      "hold": "fdf4ba9bba9e"
+      "hold": "024d8f7a4cb7"
     },
     "chess-knight": {
       "default": "9402106ff973",
       "draw": "17c8398e8d34",
-      "hold": "66894dcb320d"
+      "hold": "bec5a327dbc1"
     },
     "chess-pawn": {
       "default": "46e0a1bfbfc8",
       "draw": "17c8398e8d34",
-      "hold": "66894dcb320d"
+      "hold": "bec5a327dbc1"
     },
     "chess-queen": {
       "default": "2ae21ebb0313",
@@ -12324,7 +12339,7 @@
     "chess-rook": {
       "default": "990b873ef352",
       "draw": "17c8398e8d34",
-      "hold": "bed0232e607a"
+      "hold": "02637230b6b2"
     },
     "chevron-down": {
       "active": "53afeecd5837",
@@ -12413,7 +12428,8 @@
     },
     "cigarette-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "98ddca44c32d"
     },
     "circle": {
       "default": "3c3f48baf4b6",
@@ -12543,7 +12559,8 @@
     },
     "circle-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "d25b6f07fe71"
     },
     "circle-parking": {
       "default": "f5ebc25a1f63",
@@ -12551,7 +12568,8 @@
     },
     "circle-parking-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "01ed0d64c184"
     },
     "circle-pause": {
       "default": "a21b896302d8",
@@ -12628,7 +12646,7 @@
     "citrus": {
       "default": "85151e902abd",
       "draw": "17c8398e8d34",
-      "hold": "7b418ee8b0f1"
+      "hold": "1fca4205ff04"
     },
     "clapperboard": {
       "default": "3e2a324e7661",
@@ -12758,7 +12776,7 @@
     "clock-arrow-down": {
       "default": "70638aea4bed",
       "draw": "17c8398e8d34",
-      "hold": "a3066c958368"
+      "hold": "13f5db311abf"
     },
     "clock-arrow-left": {
       "default": "594ad8305288",
@@ -12768,7 +12786,7 @@
     "clock-arrow-right": {
       "default": "30db11d1169f",
       "draw": "17c8398e8d34",
-      "hold": "1bd8978193f9"
+      "hold": "ae950633230c"
     },
     "clock-arrow-up": {
       "default": "5b0c4b585eba",
@@ -12843,7 +12861,8 @@
     },
     "cloud-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "cloud-rain": {
       "default": "ec6ded360933",
@@ -12878,34 +12897,34 @@
     "cloudy": {
       "default": "0ee93874e91d",
       "draw": "17c8398e8d34",
-      "hold": "cb8b52d23c4f"
+      "hold": "8a63ddc262bf"
     },
     "clover": {
       "default": "9c63a19074aa",
       "draw": "17c8398e8d34",
-      "hold": "b6dadadad916"
+      "hold": "86b929fa8789"
     },
     "club": {
       "default": "c6408c1e54c7",
       "draw": "17c8398e8d34",
-      "hold": "f149305cb930"
+      "hold": "6caf7b6b7c6a"
     },
     "code": {
       "default": "f97ddb7aefbd",
       "draw": "17c8398e8d34",
-      "hold": "f742223fc430",
+      "hold": "48a7f88d370e",
       "nudge": "b39861bd12cd"
     },
     "code-xml": {
       "default": "2fe648b062a4",
       "draw": "17c8398e8d34",
-      "hold": "7b83b6bed9b3",
+      "hold": "457f3ddc2576",
       "reveal": "408ea1020194"
     },
     "coffee": {
       "default": "3fa8478c4f75",
       "draw": "17c8398e8d34",
-      "hold": "0c61850b8c99"
+      "hold": "3c6046d34e0e"
     },
     "cog": {
       "default": "7451c33ccee6",
@@ -12948,12 +12967,12 @@
     "component": {
       "default": "7bbe840debb5",
       "draw": "17c8398e8d34",
-      "hold": "57b3ccb08a58"
+      "hold": "c6f1620e9950"
     },
     "computer": {
       "default": "f3c8a789320c",
       "draw": "17c8398e8d34",
-      "hold": "eafd548a2061"
+      "hold": "b1d3320b4544"
     },
     "concierge-bell": {
       "default": "26e8a81e25e1",
@@ -12968,7 +12987,7 @@
     "construction": {
       "default": "b8cfb87aebb9",
       "draw": "17c8398e8d34",
-      "hold": "091f0de0b4f3"
+      "hold": "b1d3320b4544"
     },
     "contact": {
       "default": "a1837b08902f",
@@ -12990,12 +13009,12 @@
     "cookie": {
       "default": "18faeefc0a36",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "cooking-pot": {
       "default": "8b117620beee",
       "draw": "17c8398e8d34",
-      "hold": "e89fdf58c2ca"
+      "hold": "0091eace06aa"
     },
     "copy": {
       "active": "cd8084daca32",
@@ -13031,12 +13050,12 @@
     "copyleft": {
       "default": "cc0f5f66e375",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "copyright": {
       "default": "2555b1134533",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "corner-down-left": {
       "default": "5d8f655f54df",
@@ -13086,7 +13105,7 @@
     "creative-commons": {
       "default": "7347209a93cb",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "credit-card": {
       "default": "787347aacadf",
@@ -13096,7 +13115,7 @@
     "croissant": {
       "default": "b3e47d638d10",
       "draw": "17c8398e8d34",
-      "hold": "aafbfc5a0278"
+      "hold": "0328170392ee"
     },
     "crop": {
       "default": "0925bb7cbb41",
@@ -13105,12 +13124,12 @@
     "cross": {
       "default": "124623b173da",
       "draw": "17c8398e8d34",
-      "hold": "c42c11670b8c"
+      "hold": "5bd3e399c305"
     },
     "crosshair": {
       "default": "4fb21b1359c3",
       "draw": "17c8398e8d34",
-      "hold": "dd77e24311e7"
+      "hold": "e7ecc9fbc1a6"
     },
     "crown": {
       "default": "7b9ccdcc0ce5",
@@ -13124,7 +13143,7 @@
     "cup-soda": {
       "default": "f13565f821dd",
       "draw": "17c8398e8d34",
-      "hold": "7db7661ae9b8"
+      "hold": "9b7919f7f0d4"
     },
     "currency": {
       "default": "db9c5abb271c",
@@ -13207,7 +13226,7 @@
     "dessert": {
       "default": "c27cd1aa5d91",
       "draw": "17c8398e8d34",
-      "hold": "c88cc94dc073"
+      "hold": "cbe8b17ac2c8"
     },
     "diameter": {
       "default": "5fdf0afa90fc",
@@ -13257,7 +13276,7 @@
     "dices": {
       "default": "c529f38d3b0a",
       "draw": "17c8398e8d34",
-      "hold": "ec1c83f1060c"
+      "hold": "09b47067d2ff"
     },
     "diff": {
       "default": "ac75a52a24ea",
@@ -13290,7 +13309,8 @@
     },
     "dna-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "b416909205be"
     },
     "dock": {
       "default": "e555d42fd6f0",
@@ -13300,7 +13320,7 @@
     "dog": {
       "default": "75d4751e31c7",
       "draw": "17c8398e8d34",
-      "hold": "0affe7f22c1f",
+      "hold": "ca985fb330dd",
       "idle": "0f72cf21d848"
     },
     "dollar-sign": {
@@ -13320,7 +13340,7 @@
     "door-closed-locked": {
       "default": "cf599d39d09c",
       "draw": "17c8398e8d34",
-      "hold": "48063af0d0f4"
+      "hold": "a3bf3102a2ad"
     },
     "door-open": {
       "default": "6f8661559516",
@@ -13341,22 +13361,22 @@
     "drafting-compass": {
       "default": "8d5ad55e6fd9",
       "draw": "17c8398e8d34",
-      "hold": "9f55f92d616e"
+      "hold": "7481e5c572f1"
     },
     "drama": {
       "default": "2a55f21f8f3f",
       "draw": "17c8398e8d34",
-      "hold": "1e6be1bf3b5c"
+      "hold": "ceaef07f38e9"
     },
     "drill": {
       "default": "a886ef062acf",
       "draw": "17c8398e8d34",
-      "hold": "c5592c8353eb"
+      "hold": "000e9593b088"
     },
     "drone": {
       "default": "a427e0a9ad96",
       "draw": "17c8398e8d34",
-      "hold": "3d843673ed0a"
+      "hold": "bc49b1f0ab64"
     },
     "droplet": {
       "default": "826da5c1569d",
@@ -13364,12 +13384,13 @@
     },
     "droplet-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "576627b9523d"
     },
     "droplets": {
       "default": "13883a28fb88",
       "draw": "17c8398e8d34",
-      "hold": "90a8bb482fd5"
+      "hold": "e1a4a0a4c83e"
     },
     "drum": {
       "default": "85bb4cb32629",
@@ -13384,7 +13405,7 @@
     "dumbbell": {
       "default": "e4a218ba99bd",
       "draw": "17c8398e8d34",
-      "hold": "e0564b957566"
+      "hold": "c042cc5ea875"
     },
     "ear": {
       "default": "6227242b8fa1",
@@ -13392,7 +13413,8 @@
     },
     "ear-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "094900fc6ccd"
     },
     "earth": {
       "default": "10135446ab3a",
@@ -13402,7 +13424,7 @@
     "earth-lock": {
       "default": "c77fb5181ec9",
       "draw": "17c8398e8d34",
-      "hold": "d583b4e72426"
+      "hold": "76ea9f1ca47c"
     },
     "eclipse": {
       "default": "6afc8d53f73f",
@@ -13418,7 +13440,8 @@
     },
     "egg-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "022da989f2ba"
     },
     "eject": {
       "default": "428232859634",
@@ -13452,12 +13475,12 @@
     "eraser": {
       "default": "b8c77f48ab74",
       "draw": "17c8398e8d34",
-      "hold": "418cc4b986cd"
+      "hold": "067be7d3a2e9"
     },
     "ethernet-port": {
       "default": "e97f4d1f20a9",
       "draw": "17c8398e8d34",
-      "hold": "37c27fbcfcb1"
+      "hold": "1200609c38c2"
     },
     "euro": {
       "default": "2f2c25cf8363",
@@ -13472,7 +13495,7 @@
     "expand": {
       "default": "afd448992fb0",
       "draw": "17c8398e8d34",
-      "hold": "9a2d7bcd2e9e"
+      "hold": "e9f899893953"
     },
     "external-link": {
       "default": "f2f07b404897",
@@ -13498,7 +13521,8 @@
       "alert": "e276b867d08e",
       "default": "6312665fb66d",
       "draw": "17c8398e8d34",
-      "reveal": "c675c0c67835"
+      "reveal": "c675c0c67835",
+      "strike": "819ec3de6dce"
     },
     "face-angry": {
       "default": "549524e2052e",
@@ -13531,7 +13555,7 @@
     "factory": {
       "default": "8f2802e00b4b",
       "draw": "17c8398e8d34",
-      "hold": "0d84894ce9ca"
+      "hold": "376271c9a708"
     },
     "fan": {
       "default": "57c19408b896",
@@ -13546,12 +13570,12 @@
     "feather": {
       "default": "42adf4fcfdc9",
       "draw": "17c8398e8d34",
-      "hold": "53b149916a11"
+      "hold": "8d517c67c442"
     },
     "fence": {
       "default": "148cbf576581",
       "draw": "17c8398e8d34",
-      "hold": "21385ed68300"
+      "hold": "3b690b401dce"
     },
     "ferris-wheel": {
       "default": "07d89844bd7b",
@@ -13840,7 +13864,7 @@
     "files": {
       "default": "d9a8b8b23ea0",
       "draw": "17c8398e8d34",
-      "hold": "6a19b2174d5a"
+      "hold": "1c3eb61d80d1"
     },
     "film": {
       "default": "9481761ed6db",
@@ -13850,7 +13874,7 @@
     "fingerprint-pattern": {
       "default": "1b8503fb296f",
       "draw": "17c8398e8d34",
-      "hold": "4f42e798071e"
+      "hold": "410846b0957f"
     },
     "fire-extinguisher": {
       "default": "b2e2932cec28",
@@ -13873,12 +13897,12 @@
     "fishing-hook": {
       "default": "3b58acc04daa",
       "draw": "17c8398e8d34",
-      "hold": "85710e5857e5"
+      "hold": "92610af3a8c7"
     },
     "fishing-rod": {
       "default": "fde69392c111",
       "draw": "17c8398e8d34",
-      "hold": "fb2313f4d296"
+      "hold": "74a7be0ee5d4"
     },
     "flag": {
       "default": "f9a740824962",
@@ -13886,7 +13910,8 @@
     },
     "flag-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "21a7d6360f91"
     },
     "flag-triangle-left": {
       "default": "2ce9d5f40ccb",
@@ -13899,13 +13924,13 @@
     "flame": {
       "default": "d179a6565278",
       "draw": "17c8398e8d34",
-      "hold": "0c410875b0fe",
+      "hold": "2c9ead6993a1",
       "spark": "d673d4402af5"
     },
     "flame-kindling": {
       "default": "2bc76fafcc58",
       "draw": "17c8398e8d34",
-      "hold": "5ff63c382277"
+      "hold": "8def60848e50"
     },
     "flashlight": {
       "default": "fd35bc00c7df",
@@ -13913,7 +13938,8 @@
     },
     "flashlight-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "b33e6814a75c"
     },
     "flask-conical": {
       "default": "cde5aa616bd3",
@@ -13921,7 +13947,8 @@
     },
     "flask-conical-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "d9c046373a9c"
     },
     "flask-round": {
       "default": "cde5aa616bd3",
@@ -13938,12 +13965,12 @@
     "flower": {
       "default": "bb61442d6404",
       "draw": "17c8398e8d34",
-      "hold": "c30787d83814"
+      "hold": "6ab1b626fe62"
     },
     "flower-2": {
       "default": "828841b29067",
       "draw": "17c8398e8d34",
-      "hold": "74150c3c3641"
+      "hold": "9b1714e69f7f"
     },
     "focus": {
       "default": "8c9463f9daa4",
@@ -14123,12 +14150,12 @@
     "folders": {
       "default": "0c8f0705f11e",
       "draw": "17c8398e8d34",
-      "hold": "56974d308657"
+      "hold": "91c007f83b66"
     },
     "footprints": {
       "default": "aa02ae36a9fc",
       "draw": "17c8398e8d34",
-      "hold": "67fd7aba1dd2"
+      "hold": "990e0fba0192"
     },
     "forklift": {
       "default": "282050f3fabf",
@@ -14151,7 +14178,7 @@
     "fuel": {
       "default": "b8fac592d059",
       "draw": "17c8398e8d34",
-      "hold": "e6574edffadb"
+      "hold": "be45249ede6d"
     },
     "fullscreen": {
       "default": "d14c7747eccc",
@@ -14204,7 +14231,7 @@
     "gamepad-directional": {
       "default": "355badc1fee4",
       "draw": "17c8398e8d34",
-      "hold": "b70f56f108e8"
+      "hold": "f351e7e33998"
     },
     "gauge": {
       "default": "e3165eae4e5a",
@@ -14227,12 +14254,12 @@
     "ghost": {
       "default": "0d18935891c9",
       "draw": "17c8398e8d34",
-      "hold": "75dad1a13ba1"
+      "hold": "e55185e65181"
     },
     "gift": {
       "default": "d1ccfdea4026",
       "draw": "17c8398e8d34",
-      "hold": "f65671c77dee"
+      "hold": "054b0af25ccf"
     },
     "git-branch": {
       "default": "c3aa1ec38831",
@@ -14316,7 +14343,7 @@
     "glasses": {
       "default": "6070e87019fd",
       "draw": "17c8398e8d34",
-      "hold": "053ca52841df"
+      "hold": "f7ff0740a38f"
     },
     "globe": {
       "default": "b5fdd816170f",
@@ -14336,7 +14363,8 @@
       "default": "de027f616bd8",
       "draw": "17c8398e8d34",
       "flash": "fc9add5f6845",
-      "flicker": "fc9add5f6845"
+      "flicker": "fc9add5f6845",
+      "strike": "4be697e82eda"
     },
     "globe-x": {
       "default": "cb1096ad4d2d",
@@ -14346,7 +14374,7 @@
     "goal": {
       "default": "8089db52c6e1",
       "draw": "17c8398e8d34",
-      "hold": "cfe030d01140"
+      "hold": "b00e38816a0a"
     },
     "gpu": {
       "default": "a3cb28cc73d4",
@@ -14360,7 +14388,7 @@
     "grape": {
       "default": "91f350ba3f95",
       "draw": "17c8398e8d34",
-      "hold": "c0fc1ec04f1e"
+      "hold": "8b175f9c40d5"
     },
     "grid-2x2": {
       "default": "fc32819bd0e9",
@@ -14412,17 +14440,17 @@
     "guitar": {
       "default": "7e1d105b41fa",
       "draw": "17c8398e8d34",
-      "hold": "c64fd00e1056"
+      "hold": "ef7064161d12"
     },
     "ham": {
       "default": "3246aa74f7c5",
       "draw": "17c8398e8d34",
-      "hold": "782f4c35f711"
+      "hold": "8ef319247ad3"
     },
     "hamburger": {
       "default": "56f21fd8e692",
       "draw": "17c8398e8d34",
-      "hold": "08b7c2446f3f"
+      "hold": "735c8eecb71c"
     },
     "hammer": {
       "default": "4f7c9db4f9e2",
@@ -14465,7 +14493,7 @@
     "handbag": {
       "default": "3b61390bf230",
       "draw": "17c8398e8d34",
-      "hold": "65e0877a5e77"
+      "hold": "45c416d97556"
     },
     "handshake": {
       "default": "f404e68f7c4a",
@@ -14509,7 +14537,7 @@
     "hdmi-port": {
       "default": "eb96f3aa9f45",
       "draw": "17c8398e8d34",
-      "hold": "e287ed3fef58"
+      "hold": "b289a8276fd6"
     },
     "heading": {
       "default": "77dbc268ed24",
@@ -14541,12 +14569,13 @@
     },
     "headphone-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "7e6eca7cbbe0"
     },
     "headphones": {
       "default": "1a676694ce60",
       "draw": "17c8398e8d34",
-      "hold": "efed76d43122"
+      "hold": "3492e47b465e"
     },
     "headset": {
       "default": "da329da9d092",
@@ -14577,7 +14606,8 @@
     "heart-off": {
       "alert": "e276b867d08e",
       "default": "c9fd899bfa6c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "heart-plus": {
       "default": "e971a15bd48e",
@@ -14596,12 +14626,12 @@
     "heater": {
       "default": "4b184985599f",
       "draw": "17c8398e8d34",
-      "hold": "541911c8106d"
+      "hold": "4f21ecca1d2e"
     },
     "helicopter": {
       "default": "fade2f5ce82a",
       "draw": "17c8398e8d34",
-      "hold": "3d843673ed0a"
+      "hold": "bc49b1f0ab64"
     },
     "hexagon": {
       "default": "886023b5141f",
@@ -14618,7 +14648,8 @@
     },
     "hop-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "a05abd78ad21"
     },
     "hospital": {
       "default": "6346aedbb0fb",
@@ -14659,12 +14690,12 @@
     "ice-cream-bowl": {
       "default": "83c2d4b36bb1",
       "draw": "17c8398e8d34",
-      "hold": "c88cc94dc073"
+      "hold": "5753628fc1a5"
     },
     "ice-cream-cone": {
       "default": "c3ce49157324",
       "draw": "17c8398e8d34",
-      "hold": "08b7c2446f3f"
+      "hold": "af3e8631a63f"
     },
     "id-card": {
       "default": "a1837b08902f",
@@ -14690,7 +14721,8 @@
     "image-off": {
       "alert": "e276b867d08e",
       "default": "2f3d55c69708",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "f32080e2f925"
     },
     "image-play": {
       "default": "6795ffbcb029",
@@ -14799,17 +14831,18 @@
     },
     "keyboard-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1faca82e4f10"
     },
     "lamp": {
       "default": "8ac5944723ac",
       "draw": "17c8398e8d34",
-      "hold": "166e7be12a4d"
+      "hold": "6ab1b626fe62"
     },
     "lamp-ceiling": {
       "default": "661aec948104",
       "draw": "17c8398e8d34",
-      "hold": "9ed8a7823efb"
+      "hold": "37d740deaea5"
     },
     "lamp-desk": {
       "default": "0a7b636ac00e",
@@ -14819,17 +14852,17 @@
     "lamp-floor": {
       "default": "695fa2459e8c",
       "draw": "17c8398e8d34",
-      "hold": "6f654277c642"
+      "hold": "ec49fdfec9b1"
     },
     "lamp-wall-down": {
       "default": "9cfc0d6ec390",
       "draw": "17c8398e8d34",
-      "hold": "e3037bfcbbcf"
+      "hold": "be45249ede6d"
     },
     "lamp-wall-up": {
       "default": "c65d4476e713",
       "draw": "17c8398e8d34",
-      "hold": "aee3f21b3a73"
+      "hold": "e8e04c5b7b82"
     },
     "land-plot": {
       "default": "0c1481e45809",
@@ -14865,7 +14898,7 @@
     "lasso-select": {
       "default": "b69c9c75a921",
       "draw": "17c8398e8d34",
-      "hold": "14c18a3e2be0"
+      "hold": "c42410a7c15d"
     },
     "layer-arrow-down": {
       "default": "6cc8fba3a8c0",
@@ -14955,17 +14988,17 @@
     "leaf": {
       "default": "3405342b63b2",
       "draw": "17c8398e8d34",
-      "hold": "39e477e73e32"
+      "hold": "b1579fd0c47a"
     },
     "leafy-green": {
       "default": "eb8e7028dac9",
       "draw": "17c8398e8d34",
-      "hold": "3ef79c5c03f2"
+      "hold": "2818f28fc9cc"
     },
     "lectern": {
       "default": "b6d1bf94a544",
       "draw": "17c8398e8d34",
-      "hold": "a0616664bb6e"
+      "hold": "2aa8dae6312f"
     },
     "lens-concave": {
       "default": "2dddbc1fca16",
@@ -15002,7 +15035,8 @@
     },
     "lightbulb-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "fc121c637cc8"
     },
     "line-dot-right-horizontal": {
       "default": "d4f8e2f77caa",
@@ -15012,7 +15046,7 @@
     "line-squiggle": {
       "default": "9bf48ed8daca",
       "draw": "17c8398e8d34",
-      "hold": "c9487c2ec05a"
+      "hold": "796491ba907f"
     },
     "line-style": {
       "default": "ad4773a6c6e4",
@@ -15029,7 +15063,8 @@
     },
     "link-2-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "0bcab507f17d"
     },
     "list": {
       "default": "d143463d16c4",
@@ -15154,7 +15189,8 @@
     },
     "locate-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1a2f052b91b6"
     },
     "lock": {
       "default": "1b107039fa8c",
@@ -15187,7 +15223,7 @@
     "logs": {
       "default": "d2136f17c66c",
       "draw": "17c8398e8d34",
-      "hold": "e3a29107671e"
+      "hold": "9924f38d8406"
     },
     "lollipop": {
       "default": "0ef64d63d03d",
@@ -15197,12 +15233,12 @@
     "luggage": {
       "default": "f1792e4b2443",
       "draw": "17c8398e8d34",
-      "hold": "b329e262bd85"
+      "hold": "17c465801759"
     },
     "magnet": {
       "default": "f357b0c0e568",
       "draw": "17c8398e8d34",
-      "hold": "3bd468b60a28"
+      "hold": "6ab1b626fe62"
     },
     "mail": {
       "default": "1d76008320ad",
@@ -15263,7 +15299,7 @@
     "mails": {
       "default": "e3a688507aea",
       "draw": "17c8398e8d34",
-      "hold": "8c82b911168a"
+      "hold": "33f304dfb8c7"
     },
     "map": {
       "default": "b7b6294f2591",
@@ -15305,7 +15341,8 @@
     },
     "map-pin-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "b70cafc33935"
     },
     "map-pin-pen": {
       "default": "8ef987503156",
@@ -15346,17 +15383,17 @@
     "mars": {
       "default": "45ae1f984b99",
       "draw": "17c8398e8d34",
-      "hold": "ce296880583e"
+      "hold": "9f264ff03254"
     },
     "mars-stroke": {
       "default": "599e80399aca",
       "draw": "17c8398e8d34",
-      "hold": "ed534762a2f3"
+      "hold": "06947ce8a844"
     },
     "martini": {
       "default": "e2f183403490",
       "draw": "17c8398e8d34",
-      "hold": "e1b6910f3d82"
+      "hold": "91bda4061f9c"
     },
     "maximize": {
       "default": "9fcea5616522",
@@ -15377,7 +15414,8 @@
     },
     "megaphone-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "ce3735d0db71"
     },
     "memory-stick": {
       "default": "64e4bc061aca",
@@ -15426,7 +15464,8 @@
     "message-circle-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "hold": "1bbd7b57e5b9"
+      "hold": "1bbd7b57e5b9",
+      "strike": "d25b6f07fe71"
     },
     "message-circle-plus": {
       "default": "7aeab0bb671f",
@@ -15501,7 +15540,8 @@
     "message-square-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "hold": "dcca3f762b05"
+      "hold": "dcca3f762b05",
+      "strike": "576627b9523d"
     },
     "message-square-plus": {
       "default": "e6d5039d44f8",
@@ -15541,12 +15581,12 @@
     "messages-square": {
       "default": "5ddc3d261a63",
       "draw": "17c8398e8d34",
-      "hold": "cecb07881ae1"
+      "hold": "77f810941e24"
     },
     "metronome": {
       "default": "d4c581c09227",
       "draw": "17c8398e8d34",
-      "hold": "fe30ee1790e4"
+      "hold": "a122b8819d21"
     },
     "mic": {
       "default": "2d37a0c93adb",
@@ -15558,7 +15598,8 @@
     },
     "mic-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "5a221b3558ff"
     },
     "mic-signal": {
       "default": "58cef7b7571b",
@@ -15571,22 +15612,22 @@
     "microchip": {
       "default": "c459c624ec97",
       "draw": "17c8398e8d34",
-      "hold": "d4c6c95fa707"
+      "hold": "1edbb83f90d9"
     },
     "microscope": {
       "default": "91002aa83a7a",
       "draw": "17c8398e8d34",
-      "hold": "fce1af3072d3"
+      "hold": "ad9d7472b238"
     },
     "microwave": {
       "default": "3dd4e4777e06",
       "draw": "17c8398e8d34",
-      "hold": "41ab52f0605b"
+      "hold": "ea9a5ac09df4"
     },
     "milestone": {
       "default": "2a2e486618b9",
       "draw": "17c8398e8d34",
-      "hold": "054ad7b14ba9"
+      "hold": "7b59358a1c5f"
     },
     "milk": {
       "default": "108ebef72a45",
@@ -15594,7 +15635,8 @@
     },
     "milk-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "450d738642cc"
     },
     "minimize": {
       "default": "2368466d297f",
@@ -15612,12 +15654,12 @@
     "mirror-rectangular": {
       "default": "3dcb3484df35",
       "draw": "17c8398e8d34",
-      "hold": "0f2d6510f3c2"
+      "hold": "eaad08880ee7"
     },
     "mirror-round": {
       "default": "0cec59fb87fe",
       "draw": "17c8398e8d34",
-      "hold": "b7fdf09dfdab"
+      "hold": "14b6bb1de160"
     },
     "monitor": {
       "default": "ae1edcea7e29",
@@ -15645,7 +15687,8 @@
     },
     "monitor-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "2b1fa7088b1e"
     },
     "monitor-pause": {
       "default": "4f865d9131c9",
@@ -15691,7 +15734,7 @@
     "motorbike": {
       "default": "7f1037471cd9",
       "draw": "17c8398e8d34",
-      "hold": "1e90fef37ea7"
+      "hold": "47e4d223b7a6"
     },
     "mountain": {
       "default": "ce41b419c43d",
@@ -15713,7 +15756,8 @@
     "mouse-off": {
       "alert": "e276b867d08e",
       "default": "52f341c527e4",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "20125368386f"
     },
     "mouse-pointer": {
       "default": "b88e7cbd03b1",
@@ -15729,7 +15773,8 @@
     },
     "mouse-pointer-2-off": {
       "default": "7c45b66ce4d2",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "33854b975a2f"
     },
     "mouse-pointer-ban": {
       "default": "2f4b6d7b9b7e",
@@ -15829,11 +15874,13 @@
     },
     "navigation-2-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "navigation-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "network": {
       "default": "96bee6167d16",
@@ -15851,7 +15898,7 @@
     "non-binary": {
       "default": "8cf3b20a1b7a",
       "draw": "17c8398e8d34",
-      "hold": "7f0b181143e5"
+      "hold": "854d2339ea87"
     },
     "notebook": {
       "default": "fe691d675434",
@@ -15875,12 +15922,12 @@
     "notepad-text": {
       "default": "d94acd24662a",
       "draw": "17c8398e8d34",
-      "hold": "28e7100461b0"
+      "hold": "65605d06633a"
     },
     "notepad-text-dashed": {
       "default": "d6f26e46ffb9",
       "draw": "17c8398e8d34",
-      "hold": "fe18a533ad9f"
+      "hold": "6dcf8d5598e0"
     },
     "nut": {
       "default": "de83c9b0b373",
@@ -15888,7 +15935,8 @@
     },
     "nut-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "fe13b3ecb428"
     },
     "octagon": {
       "default": "c6537761a3f2",
@@ -15926,7 +15974,7 @@
     "origami": {
       "default": "a7dee60e53d3",
       "draw": "17c8398e8d34",
-      "hold": "dde7933cceea"
+      "hold": "a23cee49c5d3"
     },
     "package": {
       "default": "6171bf29baa7",
@@ -15975,7 +16023,7 @@
     "paint-roller": {
       "default": "169f75d98e25",
       "draw": "17c8398e8d34",
-      "hold": "f35be3a4e8b4"
+      "hold": "0d0495d98069"
     },
     "paintbrush": {
       "default": "8d87c092d59a",
@@ -15993,7 +16041,7 @@
     "panda": {
       "default": "64d11560767e",
       "draw": "17c8398e8d34",
-      "hold": "bd2e261498ae"
+      "hold": "09e48e40e614"
     },
     "panel-bottom": {
       "default": "539ba55634df",
@@ -16096,7 +16144,7 @@
     "paper-bag": {
       "default": "eed3036cea6c",
       "draw": "17c8398e8d34",
-      "hold": "d1443cb8efe3"
+      "hold": "b289a8276fd6"
     },
     "paperclip": {
       "default": "d4ad12275809",
@@ -16106,7 +16154,7 @@
     "parasol": {
       "default": "347e24ddd275",
       "draw": "17c8398e8d34",
-      "hold": "6e19d92a40e2"
+      "hold": "29b19746477e"
     },
     "parentheses": {
       "default": "f064ff577545",
@@ -16130,7 +16178,7 @@
     "paw-print": {
       "default": "81c9624c4d13",
       "draw": "17c8398e8d34",
-      "hold": "49afdce2417d"
+      "hold": "63406b6abda2"
     },
     "pc-case": {
       "default": "95a64a68487e",
@@ -16151,7 +16199,8 @@
     },
     "pen-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "pen-tool": {
       "default": "8a4f784a077c",
@@ -16169,7 +16218,8 @@
     },
     "pencil-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "ebaacf0b2bdf"
     },
     "pencil-ruler": {
       "default": "577814727180",
@@ -16191,7 +16241,7 @@
     "person-standing": {
       "default": "31e1f420712e",
       "draw": "17c8398e8d34",
-      "hold": "7c02a963ce15"
+      "hold": "678f7d00b979"
     },
     "phi": {
       "default": "1738a62cdb8d",
@@ -16227,7 +16277,8 @@
     },
     "phone-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "33854b975a2f"
     },
     "phone-outgoing": {
       "default": "756d6222a070",
@@ -16259,7 +16310,7 @@
     "piggy-bank": {
       "default": "db3173547a3b",
       "draw": "17c8398e8d34",
-      "hold": "2fa0c52883bb"
+      "hold": "f46ef74a6fb6"
     },
     "pilcrow": {
       "default": "8e043cd46397",
@@ -16281,7 +16332,7 @@
     "pill-bottle": {
       "default": "42a38f0e457e",
       "draw": "17c8398e8d34",
-      "hold": "c88cc94dc073"
+      "hold": "cbe8b17ac2c8"
     },
     "pin": {
       "default": "6de9eb9c3601",
@@ -16289,12 +16340,13 @@
     },
     "pin-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1b7590958de8"
     },
     "pipette": {
       "default": "42801bff2b44",
       "draw": "17c8398e8d34",
-      "hold": "4d699e9a7bf0"
+      "hold": "c3cd374b1607"
     },
     "pizza": {
       "default": "f434ac9e1ba4",
@@ -16322,7 +16374,8 @@
     },
     "play-off": {
       "default": "d262e63d523c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "plug": {
       "default": "083cc323fe10",
@@ -16353,7 +16406,7 @@
     "podium": {
       "default": "87a3388a81f6",
       "draw": "17c8398e8d34",
-      "hold": "36e814dc8d2c"
+      "hold": "52caa98c4179"
     },
     "pointer": {
       "default": "51fa9ff3a78a",
@@ -16361,12 +16414,13 @@
     },
     "pointer-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "88279a320a9e"
     },
     "popcorn": {
       "default": "82c251b85d1b",
       "draw": "17c8398e8d34",
-      "hold": "be0c660be87b"
+      "hold": "d5f27210aea3"
     },
     "popsicle": {
       "default": "2869cd79bf42",
@@ -16384,12 +16438,13 @@
     },
     "power-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "4d4daa07aaa6"
     },
     "presentation": {
       "default": "aa075b11df25",
       "draw": "17c8398e8d34",
-      "hold": "7307385be4d4"
+      "hold": "268097d0edf2"
     },
     "printer": {
       "default": "1f85151c73ba",
@@ -16416,12 +16471,12 @@
     "puzzle": {
       "default": "3621b4af8ed3",
       "draw": "17c8398e8d34",
-      "hold": "2c55e13e89db"
+      "hold": "dad3297e0ae4"
     },
     "pyramid": {
       "default": "dd84d8acde4e",
       "draw": "17c8398e8d34",
-      "hold": "4118b3964824"
+      "hold": "901460889b06"
     },
     "qr-code": {
       "default": "6a61afa23576",
@@ -16457,7 +16512,8 @@
     },
     "radio-off": {
       "default": "ae43a5f48081",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "9ce200c4b774"
     },
     "radio-receiver": {
       "default": "ce1a7a1a1d61",
@@ -16590,12 +16646,13 @@
     },
     "refresh-cw-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "865ba98a5055"
     },
     "refrigerator": {
       "default": "9d9be70fb1dd",
       "draw": "17c8398e8d34",
-      "hold": "7f5ed850c554"
+      "hold": "c738ab38feae"
     },
     "regex": {
       "default": "3c2fc5fbeeee",
@@ -16620,7 +16677,8 @@
     },
     "repeat-off": {
       "default": "d262e63d523c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1aa82772cf95"
     },
     "replace": {
       "default": "1876edf790b9",
@@ -16666,7 +16724,7 @@
     "roller-coaster": {
       "default": "48891e4ebdd1",
       "draw": "17c8398e8d34",
-      "hold": "a157b2ecd45a"
+      "hold": "54e0856bbb15"
     },
     "rose": {
       "default": "06a4f189f3ef",
@@ -16715,7 +16773,8 @@
     "route-off": {
       "default": "e276b867d08e",
       "draw": "17c8398e8d34",
-      "reveal": "91dcace5e308"
+      "reveal": "91dcace5e308",
+      "strike": "8e10f75e9f49"
     },
     "router": {
       "default": "1ee8da963e78",
@@ -16740,12 +16799,12 @@
     "ruler": {
       "default": "85482d117f32",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "ruler-dimension-line": {
       "default": "a2383bf1fe7b",
       "draw": "17c8398e8d34",
-      "hold": "b27fea13e338"
+      "hold": "0a7b9dedc642"
     },
     "russian-ruble": {
       "default": "cd0ae2d6d223",
@@ -16755,27 +16814,27 @@
     "sailboat": {
       "default": "0747b4cf19e9",
       "draw": "17c8398e8d34",
-      "hold": "2dd6d2a8ea41"
+      "hold": "49dcf2462f94"
     },
     "salad": {
       "default": "eec7ed7cb373",
       "draw": "17c8398e8d34",
-      "hold": "aef6094b9eeb"
+      "hold": "d849db074830"
     },
     "sandwich": {
       "default": "72473cc54440",
       "draw": "17c8398e8d34",
-      "hold": "cfe030d01140"
+      "hold": "17ba03b88588"
     },
     "satellite": {
       "default": "4a67aae73d7f",
       "draw": "17c8398e8d34",
-      "hold": "22e3d116c778"
+      "hold": "25b3e10663aa"
     },
     "satellite-dish": {
       "default": "dec3d99aedd2",
       "draw": "17c8398e8d34",
-      "hold": "ef349368ad8c"
+      "hold": "9eff7ed8422a"
     },
     "saudi-riyal": {
       "default": "e0950aca12f6",
@@ -16800,7 +16859,8 @@
       "alert": "e276b867d08e",
       "default": "cdb995f5bd27",
       "draw": "17c8398e8d34",
-      "quick": "b5d17c0572ee"
+      "quick": "b5d17c0572ee",
+      "strike": "6e7c9b90eec0"
     },
     "save-pen": {
       "default": "3d4f552f9c77",
@@ -16825,7 +16885,7 @@
     "scaling": {
       "default": "0b5e5cbbb6f5",
       "draw": "17c8398e8d34",
-      "hold": "88082d789f36"
+      "hold": "5d7052f97384"
     },
     "scan": {
       "default": "8c96ef112cb1",
@@ -16898,7 +16958,7 @@
     "scooter": {
       "default": "601a5570dc53",
       "draw": "17c8398e8d34",
-      "hold": "a8427fb03fc6"
+      "hold": "96acbffc0016"
     },
     "screen-share": {
       "default": "5960ee9cc69c",
@@ -16948,7 +17008,7 @@
     "section": {
       "default": "7ffdcf070510",
       "draw": "17c8398e8d34",
-      "hold": "1eb5ca80a44a"
+      "hold": "3f1e71fcd808"
     },
     "send": {
       "default": "ef04fa84c04d",
@@ -16989,7 +17049,8 @@
       "alert": "e276b867d08e",
       "default": "a7cc44133a15",
       "draw": "17c8398e8d34",
-      "quick": "71c8a5fd2f2b"
+      "quick": "71c8a5fd2f2b",
+      "strike": "926593f614f8"
     },
     "server-plus": {
       "alert": "25c7e4daf850",
@@ -17010,7 +17071,7 @@
     "shapes": {
       "default": "871fe087263e",
       "draw": "17c8398e8d34",
-      "hold": "80edb98c4ab1"
+      "hold": "d3cb991ef692"
     },
     "share": {
       "default": "5c91b3289d72",
@@ -17028,12 +17089,12 @@
     "shell": {
       "default": "c27bf3f7d74c",
       "draw": "17c8398e8d34",
-      "hold": "472476e11b58"
+      "hold": "5bd3e399c305"
     },
     "shelving-unit": {
       "default": "3e0e9fa2dca0",
       "draw": "17c8398e8d34",
-      "hold": "d38bc5c403de"
+      "hold": "c1c00e28552b"
     },
     "shield": {
       "default": "6cd8791b2f8e",
@@ -17085,7 +17146,8 @@
     "shield-off": {
       "alert": "e276b867d08e",
       "default": "1ebabbfdac67",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "d25b6f07fe71"
     },
     "shield-plus": {
       "default": "ff173e301bdd",
@@ -17138,12 +17200,12 @@
     "shower-head": {
       "default": "315fbf0defe9",
       "draw": "17c8398e8d34",
-      "hold": "6c96b1899219"
+      "hold": "08902a310707"
     },
     "shredder": {
       "default": "28e9553959ec",
       "draw": "17c8398e8d34",
-      "hold": "63ae7bc729b6"
+      "hold": "c8cab9c99bdc"
     },
     "shrimp": {
       "default": "99ece8243de4",
@@ -17157,7 +17219,7 @@
     "shrub": {
       "default": "05846cc51b4b",
       "draw": "17c8398e8d34",
-      "hold": "9616b8f50df7"
+      "hold": "690fcfc470ef"
     },
     "shuffle": {
       "default": "895047d264c6",
@@ -17200,13 +17262,13 @@
     "signpost": {
       "default": "599dfd7a3e38",
       "draw": "17c8398e8d34",
-      "hold": "52d4a06e81fc",
+      "hold": "c5dd091bad96",
       "reveal": "e3770646d1cb"
     },
     "signpost-big": {
       "default": "4509faf771b6",
       "draw": "17c8398e8d34",
-      "hold": "34464a41723a"
+      "hold": "f1a55f31eb9e"
     },
     "siren": {
       "default": "74dc311166a1",
@@ -17229,7 +17291,7 @@
     "slash": {
       "default": "decb80db2f71",
       "draw": "17c8398e8d34",
-      "hold": "aab290db03ef"
+      "hold": "d32920defbd5"
     },
     "slice": {
       "default": "fb00cfceb415",
@@ -17271,12 +17333,12 @@
     "soap-dispenser-droplet": {
       "default": "f38504006da1",
       "draw": "17c8398e8d34",
-      "hold": "408e1eba6be7"
+      "hold": "ab6df33abdf1"
     },
     "sofa": {
       "default": "216a1930fad2",
       "draw": "17c8398e8d34",
-      "hold": "912a22ad25a1"
+      "hold": "30c7c79672c8"
     },
     "solar-panel": {
       "default": "77b1f7d4dca3",
@@ -17286,7 +17348,7 @@
     "soup": {
       "default": "d6e937029523",
       "draw": "17c8398e8d34",
-      "hold": "7208b2d35f0d"
+      "hold": "f3c71a0713f4"
     },
     "space": {
       "default": "decb80db2f71",
@@ -17296,7 +17358,7 @@
     "spade": {
       "default": "a1e4d5f0f6e0",
       "draw": "17c8398e8d34",
-      "hold": "e287ed3fef58"
+      "hold": "b289a8276fd6"
     },
     "sparkle": {
       "default": "0256a3c5c781",
@@ -17310,7 +17372,7 @@
     "speaker": {
       "default": "1642562f41bf",
       "draw": "17c8398e8d34",
-      "hold": "47dcff48c1e7",
+      "hold": "ed0b3548c176",
       "pulse": "faf720bcf603"
     },
     "speech": {
@@ -17356,12 +17418,12 @@
     "spray-can": {
       "default": "feb0876ca64a",
       "draw": "17c8398e8d34",
-      "hold": "21015cdfae65"
+      "hold": "febfca6b797d"
     },
     "sprout": {
       "default": "57ea510ba05e",
       "draw": "17c8398e8d34",
-      "hold": "384ec4fd152d"
+      "hold": "d07771098825"
     },
     "square": {
       "default": "cf6bb2a7af0d",
@@ -17546,7 +17608,8 @@
     "square-off": {
       "alert": "e276b867d08e",
       "default": "0b8d306ee095",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "square-parking": {
       "default": "9076347fd6bd",
@@ -17554,7 +17617,8 @@
     },
     "square-parking-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "e210eaf651cd"
     },
     "square-pause": {
       "default": "ff809767ae6b",
@@ -17676,12 +17740,12 @@
     "squirrel": {
       "default": "39f8ffe636f0",
       "draw": "17c8398e8d34",
-      "hold": "c831f6a5f179"
+      "hold": "f3409674cef2"
     },
     "stamp": {
       "default": "363403d4c492",
       "draw": "17c8398e8d34",
-      "hold": "408e1eba6be7"
+      "hold": "ab6df33abdf1"
     },
     "star": {
       "default": "8345cbcfd131",
@@ -17708,7 +17772,8 @@
       "alert": "e276b867d08e",
       "default": "76401bd8ebd6",
       "draw": "17c8398e8d34",
-      "quick": "c5e3b1640cd4"
+      "quick": "c5e3b1640cd4",
+      "strike": "1e91b40fc450"
     },
     "star-plus": {
       "default": "46d8cb581e9f",
@@ -17757,7 +17822,8 @@
     "sticky-note-off": {
       "default": "9f41e8a2a857",
       "draw": "17c8398e8d34",
-      "flip": "364c248ebcfc"
+      "flip": "364c248ebcfc",
+      "strike": "6de0d301e2ca"
     },
     "sticky-note-plus": {
       "default": "87b0921b1cea",
@@ -17776,12 +17842,12 @@
     "stone": {
       "default": "00aad807e04b",
       "draw": "17c8398e8d34",
-      "hold": "39fc7a18971d"
+      "hold": "f140bb62fdb4"
     },
     "store": {
       "default": "f34de6c2b177",
       "draw": "17c8398e8d34",
-      "hold": "7cdea45828e3"
+      "hold": "44cf31146b85"
     },
     "stretch-horizontal": {
       "default": "c7c4b0c0f57b",
@@ -17861,12 +17927,12 @@
     "swords": {
       "default": "ad97a9ab0690",
       "draw": "17c8398e8d34",
-      "hold": "2f93337f9cb4"
+      "hold": "d1f5ec33e275"
     },
     "syringe": {
       "default": "f93a4b77ac4a",
       "draw": "17c8398e8d34",
-      "hold": "8ddf70c1fb24"
+      "hold": "fdd0d5716e1f"
     },
     "table": {
       "default": "dc27db727a1b",
@@ -17911,7 +17977,7 @@
     "tablets": {
       "default": "03788f555d56",
       "draw": "17c8398e8d34",
-      "hold": "812adb4252e5"
+      "hold": "171826620a64"
     },
     "tag": {
       "default": "c86e613d0709",
@@ -17959,7 +18025,7 @@
     "tangent": {
       "default": "e83f08809d0d",
       "draw": "17c8398e8d34",
-      "hold": "5ff55dfbdd1e"
+      "hold": "94df89bcef99"
     },
     "target": {
       "default": "e073e978b7dd",
@@ -17978,7 +18044,7 @@
     "tent-tree": {
       "default": "953c0e92aec6",
       "draw": "17c8398e8d34",
-      "hold": "b562e4c4c39a"
+      "hold": "7557a288c814"
     },
     "terminal": {
       "default": "59448cc0cd3b",
@@ -18043,7 +18109,7 @@
     "theater": {
       "default": "abc5c1503af8",
       "draw": "17c8398e8d34",
-      "hold": "7a5b43d13fab"
+      "hold": "fe0fcbe90c8d"
     },
     "thermometer": {
       "default": "ddcf7d4a9eba",
@@ -18120,7 +18186,8 @@
     },
     "timer-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "2e029f29be89"
     },
     "timer-reset": {
       "default": "6536a0bd3e0e",
@@ -18137,17 +18204,17 @@
     "toilet": {
       "default": "a087817b11c9",
       "draw": "17c8398e8d34",
-      "hold": "5fe915b38ba9"
+      "hold": "c7c9886c9001"
     },
     "tool-case": {
       "default": "53b390fa1810",
       "draw": "17c8398e8d34",
-      "hold": "032a4cf278c7"
+      "hold": "007ba01a9413"
     },
     "toolbox": {
       "default": "02a396dc8c11",
       "draw": "17c8398e8d34",
-      "hold": "ea30c091bc03"
+      "hold": "b18eda20c46d"
     },
     "tornado": {
       "default": "291778276863",
@@ -18164,17 +18231,18 @@
     },
     "touchpad-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "855e73186254"
     },
     "towel-rack": {
       "default": "62a1444a9ca4",
       "draw": "17c8398e8d34",
-      "hold": "9c595b888356"
+      "hold": "9d0e0e993f72"
     },
     "tower-control": {
       "default": "bf5fbc30009a",
       "draw": "17c8398e8d34",
-      "hold": "a66dbb484005"
+      "hold": "3d4a15d901c2"
     },
     "toy-brick": {
       "default": "ecc1fabb993d",
@@ -18184,22 +18252,22 @@
     "tractor": {
       "default": "535e9d5d9930",
       "draw": "17c8398e8d34",
-      "hold": "61863071aa41"
+      "hold": "251a2f6139d2"
     },
     "traffic-cone": {
       "default": "e1dce6b3c9d5",
       "draw": "17c8398e8d34",
-      "hold": "0133d06b1445"
+      "hold": "15a0a1533970"
     },
     "train-front": {
       "default": "c0d6336e0af1",
       "draw": "17c8398e8d34",
-      "hold": "1d4ee2724898"
+      "hold": "606dcad2696f"
     },
     "train-front-tunnel": {
       "default": "5e67b21c44d6",
       "draw": "17c8398e8d34",
-      "hold": "977d09ca85da"
+      "hold": "b05d9960d91b"
     },
     "train-track": {
       "default": "36dfa1f12c23",
@@ -18214,7 +18282,7 @@
     "transgender": {
       "default": "e939ed86ddd2",
       "draw": "17c8398e8d34",
-      "hold": "4e40a7e74161"
+      "hold": "ded866385ae9"
     },
     "trash": {
       "active": "c8898926da75",
@@ -18230,22 +18298,22 @@
     "tree-deciduous": {
       "default": "84160bb66522",
       "draw": "17c8398e8d34",
-      "hold": "2476a47d45a2"
+      "hold": "fa80cd677178"
     },
     "tree-palm": {
       "default": "ab3ee66df171",
       "draw": "17c8398e8d34",
-      "hold": "a8339054621e"
+      "hold": "5cf0aac220eb"
     },
     "tree-pine": {
       "default": "84160bb66522",
       "draw": "17c8398e8d34",
-      "hold": "2476a47d45a2"
+      "hold": "fa80cd677178"
     },
     "trees": {
       "default": "42113d1183f2",
       "draw": "17c8398e8d34",
-      "hold": "968ebd0e47e3"
+      "hold": "aec981f4be52"
     },
     "trending-down": {
       "default": "e739f4aec237",
@@ -18279,7 +18347,7 @@
     "trophy": {
       "default": "b935a474d72f",
       "draw": "17c8398e8d34",
-      "hold": "992c7b45df9b"
+      "hold": "1498be9481a5"
     },
     "truck": {
       "default": "5b64c8954f2c",
@@ -18296,7 +18364,7 @@
     "turntable": {
       "default": "726a87c3ff7d",
       "draw": "17c8398e8d34",
-      "hold": "ffd2b44e53ec"
+      "hold": "9eaec93baacf"
     },
     "turtle": {
       "default": "4dc7ff19cd24",
@@ -18330,7 +18398,8 @@
     },
     "umbrella-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "849160b897c6"
     },
     "underline": {
       "default": "ba63d1116314",
@@ -18498,17 +18567,17 @@
     "utensils": {
       "default": "cf39e925370a",
       "draw": "17c8398e8d34",
-      "hold": "92e654727373"
+      "hold": "b71f65e22f9f"
     },
     "utensils-crossed": {
       "default": "21190d4dda24",
       "draw": "17c8398e8d34",
-      "hold": "fff71399f6bb"
+      "hold": "8deb8b55bcea"
     },
     "utility-pole": {
       "default": "6b5340cff4c3",
       "draw": "17c8398e8d34",
-      "hold": "a666f365d2de"
+      "hold": "e01b4cde0998"
     },
     "van": {
       "default": "7f1037471cd9",
@@ -18542,12 +18611,12 @@
     "venus": {
       "default": "f9061d708761",
       "draw": "17c8398e8d34",
-      "hold": "251e8f80889a"
+      "hold": "a4837c24245d"
     },
     "venus-and-mars": {
       "default": "cb3749ed876c",
       "draw": "17c8398e8d34",
-      "hold": "39bad2cc077e"
+      "hold": "88d696e0cfbe"
     },
     "vibrate": {
       "default": "e4428158baf2",
@@ -18555,7 +18624,8 @@
     },
     "vibrate-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "00b730de2979"
     },
     "video": {
       "default": "5cc2f510e380",
@@ -18563,7 +18633,8 @@
     },
     "video-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "videotape": {
       "default": "a77b53b8a8d1",
@@ -18583,7 +18654,7 @@
     "volleyball": {
       "default": "f33008860794",
       "draw": "17c8398e8d34",
-      "hold": "301dc698803b"
+      "hold": "df5ac0e84498"
     },
     "volume": {
       "default": "bdb5bbdf20d9",
@@ -18601,7 +18672,8 @@
     "volume-off": {
       "alert": "e276b867d08e",
       "default": "410c979bb08f",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "f1ea3e4f3689"
     },
     "volume-x": {
       "default": "89bdf81741b7",
@@ -18692,7 +18764,8 @@
     "webcam-off": {
       "alert": "e276b867d08e",
       "default": "fe67650794b0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "2a667f9b3314"
     },
     "webhook": {
       "default": "cd278e0baa5f",
@@ -18701,12 +18774,13 @@
     },
     "webhook-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "969d1f42cb28"
     },
     "weight": {
       "default": "ca1c79f648fe",
       "draw": "17c8398e8d34",
-      "hold": "d00b43237b87"
+      "hold": "30f7a1a83d96"
     },
     "weight-tilde": {
       "default": "15756124a78f",
@@ -18719,7 +18793,8 @@
     },
     "wheat-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "696920488fca"
     },
     "whole-word": {
       "default": "27174ccbc7ae",
@@ -18746,7 +18821,8 @@
     },
     "wifi-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "e0a587de11b8"
     },
     "wifi-pen": {
       "default": "d499d0db2d86",
@@ -18764,7 +18840,7 @@
     "wind": {
       "default": "3b710eca93a2",
       "draw": "17c8398e8d34",
-      "hold": "5bfd8bae156e",
+      "hold": "f5ebe571517a",
       "reveal": "97773d6d64cb"
     },
     "wind-arrow-down": {
@@ -18778,7 +18854,8 @@
     },
     "wine-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1d2e43f4abdb"
     },
     "workflow": {
       "default": "568149a3e00a",
@@ -18787,7 +18864,7 @@
     "worm": {
       "default": "1476de99c067",
       "draw": "17c8398e8d34",
-      "hold": "c3385a39a02c"
+      "hold": "2ac3f9ed1061"
     },
     "wrench": {
       "default": "fc917a41b016",
@@ -18796,7 +18873,8 @@
     "wrench-off": {
       "alert": "e276b867d08e",
       "default": "d262e63d523c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "1e91b40fc450"
     },
     "x": {
       "default": "c9590aa809d0",
@@ -18814,72 +18892,73 @@
     },
     "zap-off": {
       "default": "e276b867d08e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "strike": "a1a650af02c2"
     },
     "zodiac-aquarius": {
       "default": "9f4b1e771095",
       "draw": "17c8398e8d34",
-      "hold": "6913ffb46755"
+      "hold": "f031e5aa1674"
     },
     "zodiac-aries": {
       "default": "bd06c73cb102",
       "draw": "17c8398e8d34",
-      "hold": "d1fa1898e5a5"
+      "hold": "34a48a8ce9b5"
     },
     "zodiac-cancer": {
       "default": "89f622168872",
       "draw": "17c8398e8d34",
-      "hold": "19105a220171"
+      "hold": "e6850a0a22e6"
     },
     "zodiac-capricorn": {
       "default": "39ed763fcf48",
       "draw": "17c8398e8d34",
-      "hold": "ce4a47133ba4"
+      "hold": "251af7adc1b2"
     },
     "zodiac-gemini": {
       "default": "de140f072d77",
       "draw": "17c8398e8d34",
-      "hold": "200adb1e6f0b"
+      "hold": "86b929fa8789"
     },
     "zodiac-leo": {
       "default": "8eebe9e6cbb4",
       "draw": "17c8398e8d34",
-      "hold": "60ad70045ade"
+      "hold": "f3aab090c971"
     },
     "zodiac-libra": {
       "default": "507653ddd834",
       "draw": "17c8398e8d34",
-      "hold": "c73233790155"
+      "hold": "82926987cd3e"
     },
     "zodiac-ophiuchus": {
       "default": "f5f370fba023",
       "draw": "17c8398e8d34",
-      "hold": "157485f55cd5"
+      "hold": "b1d3320b4544"
     },
     "zodiac-pisces": {
       "default": "51bbf75db333",
       "draw": "17c8398e8d34",
-      "hold": "c30787d83814"
+      "hold": "6ab1b626fe62"
     },
     "zodiac-sagittarius": {
       "default": "db3e9781476d",
       "draw": "17c8398e8d34",
-      "hold": "12bef7a0fb6d"
+      "hold": "22f7658ae5a1"
     },
     "zodiac-scorpio": {
       "default": "ccb0fecb953c",
       "draw": "17c8398e8d34",
-      "hold": "f323a0d473fb"
+      "hold": "b662702adc86"
     },
     "zodiac-taurus": {
       "default": "cdeaecc87bf4",
       "draw": "17c8398e8d34",
-      "hold": "d1fa1898e5a5"
+      "hold": "34a48a8ce9b5"
     },
     "zodiac-virgo": {
       "default": "3571e7a61539",
       "draw": "17c8398e8d34",
-      "hold": "47b92b667314"
+      "hold": "b8309d28c3d7"
     },
     "zoom-in": {
       "default": "305f57d42870",

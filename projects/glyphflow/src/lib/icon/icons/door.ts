@@ -87,7 +87,7 @@ export const doorClosedLockedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2002px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },

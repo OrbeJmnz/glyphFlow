@@ -942,6 +942,17 @@ export const eyeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(eyeOffShapes, {
         3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.6' }, { strokeDasharray: '1 1', opacity: '1' }], 350, { easing: T5_EASE, delay: 150, fill: 'backwards' }),
       },
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   });
 
 /** Anónimo: se toca el sombrero y los lentes aparecen. */
@@ -2994,6 +3005,17 @@ export const beanOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3011,6 +3033,21 @@ export const beerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3084,6 +3121,16 @@ export const bluetoothOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3166,6 +3213,20 @@ export const botOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3255,6 +3316,25 @@ export const bugOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        8: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        10: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        11: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        9: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 60 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 60 }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3269,6 +3349,17 @@ export const cameraOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3287,6 +3378,20 @@ export const candyOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3302,6 +3407,19 @@ export const captionsOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 40 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3399,6 +3517,19 @@ export const cigaretteOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3645,6 +3776,23 @@ export const dnaOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 60 }),
+        8: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+        9: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3657,6 +3805,16 @@ export const dropletOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3700,6 +3858,18 @@ export const earOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3728,6 +3898,16 @@ export const eggOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3768,6 +3948,17 @@ export const flagOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -3782,6 +3973,18 @@ export const flashlightOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3799,6 +4002,19 @@ export const flaskConicalOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -3990,6 +4206,18 @@ export const headphoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4010,6 +4238,22 @@ export const hopOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        8: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4051,6 +4295,23 @@ export const keyboardOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        6: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        8: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        9: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 40 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4065,6 +4326,18 @@ export const lightbulbOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4086,6 +4359,20 @@ export const locateOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 130 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 130 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4180,6 +4467,18 @@ export const megaphoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 40 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4205,6 +4504,19 @@ export const micOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 60 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4218,6 +4530,17 @@ export const milkOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4313,6 +4636,18 @@ export const nutOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4417,6 +4752,16 @@ export const phoneOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4446,6 +4791,17 @@ export const pinOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4462,6 +4818,19 @@ export const pointerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 60 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -4475,6 +4844,17 @@ export const powerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -4601,6 +4981,20 @@ export const routeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
         5: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 350, { easing: REVEAL_DECEL, delay: 550, fill: 'backwards' }),
+      },
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
       },
     },
   },
@@ -4967,6 +5361,18 @@ export const timerOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 40 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5051,6 +5457,19 @@ export const touchpadOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5065,6 +5484,18 @@ export const umbrellaOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 10 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -5108,6 +5539,18 @@ export const vibrateOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 40 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5135,6 +5578,16 @@ export const videoOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -5168,6 +5621,20 @@ export const webhookOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        6: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5188,6 +5655,23 @@ export const wheatOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        9: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        8: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+        7: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5205,6 +5689,18 @@ export const wineOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5219,6 +5715,17 @@ export const zapOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -5420,6 +5927,19 @@ export const beefOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { easing: EASE },
       ),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5477,6 +5997,19 @@ export const cannabisOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { easing: EASE },
       ),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 120 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5514,6 +6047,19 @@ export const cctvOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: EASE },
       ),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        3: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 30 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 70 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -5811,6 +6357,16 @@ export const playOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
       },
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -5864,6 +6420,20 @@ export const repeatOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 340, { easing: 'ease-out' }),
+      },
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 20 }),
+        4: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 80 }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 100 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 130 }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
       },
     },
   },
@@ -6081,6 +6651,20 @@ export const webcamOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { easing: EASE },
       ),
     },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        4: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        6: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 50 }),
+        2: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 90 }),
+        5: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 110 }),
+        3: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 130 }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
+    },
   },
 );
 
@@ -6112,6 +6696,16 @@ export const wrenchOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         600,
         { easing: EASE },
       ),
+    },
+    // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
+    // figura es su proyección sobre el eje del corte, no un número a ojo.
+    strike: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(0.93)' }, { transform: 'none' }], 460),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1' }, { strokeDasharray: '1', strokeDashoffset: '0' }], 260, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ opacity: '1', transform: 'none' }, { opacity: '0.42', transform: 'scale(0.96)' }, { opacity: '1', transform: 'none' }], 340, { origin: '12px 12px', delay: 140 }),
+      },
     },
   },
 );
@@ -12032,7 +12626,7 @@ export const puzzleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -12123,12 +12717,12 @@ export const dicesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 16px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
       },
       reverseOnLeave: true,
     },
@@ -12197,10 +12791,10 @@ export const crosshairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12224,7 +12818,7 @@ export const goalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12320,11 +12914,11 @@ export const trophyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12354,12 +12948,12 @@ export const volleyballIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.0743, 0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
       },
       reverseOnLeave: true,
     },
@@ -12418,11 +13012,11 @@ export const dumbbellIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -12453,9 +13047,9 @@ export const bicepsFlexedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04, 1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 17px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 15px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.104, 1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 15px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 11px' }),
       },
       reverseOnLeave: true,
     },
@@ -12558,14 +13152,14 @@ export const swordsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 11px' }),
       },
       reverseOnLeave: true,
     },
@@ -12687,8 +13281,8 @@ export const balloonIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.0005deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.0005deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
       },
       reverseOnLeave: true,
     },
@@ -12767,8 +13361,8 @@ export const giftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.33)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12824,7 +13418,7 @@ export const filesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.6983px, 1.3986px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12848,7 +13442,7 @@ export const foldersIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.6983px, 1.3986px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12870,7 +13464,7 @@ export const mailsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.6983px, 1.3986px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12898,8 +13492,8 @@ export const calendarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.85px, 0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.6983px, 1.3986px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.6983px, 1.3986px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -12927,7 +13521,7 @@ export const messagesSquareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 15px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -12990,15 +13584,15 @@ export const logsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 135 }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 270 }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 45 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 180 }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 315 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 90 }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 225 }),
-        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 360 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 135 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 270 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 45 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 180 }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 315 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 90 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 225 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 360 }),
       },
       reverseOnLeave: true,
     },
@@ -13056,7 +13650,7 @@ export const earthLockIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13092,8 +13686,8 @@ export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13140,9 +13734,9 @@ export const codeXmlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-10.835deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -13180,9 +13774,9 @@ export const notepadTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13223,9 +13817,9 @@ export const notepadTextDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        12: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        12: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13361,7 +13955,7 @@ export const lassoSelectIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.9499px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13407,7 +14001,7 @@ export const pillBottleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13438,7 +14032,7 @@ export const flameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.95, 1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.8916, 1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -13480,7 +14074,7 @@ export const flameKindlingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.95, 1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.8916, 1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -13512,9 +14106,9 @@ export const boxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.85px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9525px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9525px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.0673px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13565,10 +14159,10 @@ export const boxesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        10: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        11: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13595,8 +14189,8 @@ export const treesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 16px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 19px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.047deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.047deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -13678,12 +14272,12 @@ export const microchipIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13863,7 +14457,7 @@ export const hdmiPortIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13893,10 +14487,10 @@ export const ethernetPortIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13924,9 +14518,9 @@ export const cardSimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
       },
       reverseOnLeave: true,
     },
@@ -13954,10 +14548,10 @@ export const antennaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -13992,8 +14586,8 @@ export const satelliteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -14018,8 +14612,8 @@ export const satelliteDishIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 15px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 15px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 15px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -14112,7 +14706,7 @@ export const utilityPoleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
       },
       reverseOnLeave: true,
     },
@@ -14137,8 +14731,8 @@ export const speakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
       },
       reverseOnLeave: true,
     },
@@ -14168,7 +14762,7 @@ export const headphonesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-9.864deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -14299,7 +14893,7 @@ export const turntableIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 8px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.997deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 8px' }),
       },
       reverseOnLeave: true,
     },
@@ -14361,7 +14955,7 @@ export const guitarIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 16px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 16px' }),
       },
       reverseOnLeave: true,
     },
@@ -14386,7 +14980,7 @@ export const computerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
       },
       reverseOnLeave: true,
     },
@@ -14446,9 +15040,9 @@ export const metronomeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -14476,11 +15070,11 @@ export const barcodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.9)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.9)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 45 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.9)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 90 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.9)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 135 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.9)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 180 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 45 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 90 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 135 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.87)' }], 320, { easing: SPRING_OUT, fill: 'both', origin: '12px 12px', delay: 180 }),
       },
       reverseOnLeave: true,
     },
@@ -14515,10 +15109,18 @@ export const fingerprintPatternIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     hold: {
+      // Los nueve arcos, del nucleo hacia afuera: el retraso es el RADIO de cada uno
+      // respecto a (12, 14), no el orden del array. Antes escalaban tres a la vez.
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 14px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 40, fill: 'both', origin: '12px 14px' }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 80, fill: 'both', origin: '12px 14px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 120, fill: 'both', origin: '12px 14px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 160, fill: 'both', origin: '12px 14px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 200, fill: 'both', origin: '12px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 240, fill: 'both', origin: '12px 14px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 280, fill: 'both', origin: '12px 14px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, delay: 320, fill: 'both', origin: '12px 14px' }),
       },
       reverseOnLeave: true,
     },
@@ -14585,8 +15187,8 @@ export const armchairIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.92)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.648)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14615,9 +15217,9 @@ export const sofaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.92)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(0.648)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 18px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14644,8 +15246,8 @@ export const shelvingUnitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14677,7 +15279,7 @@ export const bathIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2002px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14712,13 +15314,13 @@ export const showerHeadIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 165 }),
-        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 330 }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 110 }),
-        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 275 }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 55 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 220 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 165 }),
+        9: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 330 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 110 }),
+        8: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 275 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 55 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 220 }),
       },
       reverseOnLeave: true,
     },
@@ -14743,7 +15345,7 @@ export const toiletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14768,7 +15370,7 @@ export const towelRackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(2.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 3px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 3px' }),
       },
       reverseOnLeave: true,
     },
@@ -14799,8 +15401,8 @@ export const soapDispenserDropletIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14848,7 +15450,7 @@ export const refrigeratorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14873,7 +15475,7 @@ export const microwaveIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 11.5px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 11.5px' }),
       },
       reverseOnLeave: true,
     },
@@ -14907,7 +15509,7 @@ export const blenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -14939,8 +15541,8 @@ export const heaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15095,10 +15697,10 @@ export const blindsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 7px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 11px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 15px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 19px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 7px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 11px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 15px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 19px' }),
       },
       reverseOnLeave: true,
     },
@@ -15146,8 +15748,8 @@ export const mirrorRectangularIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15172,8 +15774,8 @@ export const mirrorRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15277,11 +15879,11 @@ export const busIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15398,8 +16000,8 @@ export const bikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15426,9 +16028,9 @@ export const motorbikeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15453,8 +16055,8 @@ export const scooterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15517,8 +16119,8 @@ export const tractorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15608,10 +16210,10 @@ export const trafficConeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
       },
       reverseOnLeave: true,
     },
@@ -15640,7 +16242,7 @@ export const signpostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.0005deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
       },
       reverseOnLeave: true,
     },
@@ -15673,8 +16275,8 @@ export const signpostBigIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 7px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 7px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '11px 7px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 7px' }),
       },
       reverseOnLeave: true,
     },
@@ -15704,7 +16306,7 @@ export const milestoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-9deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 9px' }),
       },
       reverseOnLeave: true,
     },
@@ -15758,7 +16360,7 @@ export const fuelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 13px' }),
       },
       reverseOnLeave: true,
     },
@@ -15832,7 +16434,7 @@ export const helicopterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(PALA_DE_CANTO_Y, 620, { easing: EASE, origin: '2px 12.5px' }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320),
   },
 );
 
@@ -15864,7 +16466,7 @@ export const droneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         8: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -0.7, 0]), 860, { easing: EASE, delay: 120 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320),
   },
 );
 
@@ -15894,8 +16496,8 @@ export const towerControlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.12)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.48px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.4874)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9498px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -15952,7 +16554,7 @@ export const sailboatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 13px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '10px 13px' }),
       },
       reverseOnLeave: true,
     },
@@ -15971,7 +16573,7 @@ export const anchorIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 6, -4.5, 3, -1.5, 0]), 1000, { easing: EASE, origin: '12px 4px' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 320, { origin: '12px 4px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(10.51deg)' }], 320, { origin: '12px 4px' }),
   },
 );
 
@@ -16043,7 +16645,7 @@ export const rollerCoasterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track(CRECE_Y, 380, { easing: SPRING_OUT, delay: 460, origin: '22px 19px' }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.05)' }], 320, { origin: '12px 19px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 320, { origin: '12px 19px' }),
   },
 );
 
@@ -16290,7 +16892,7 @@ export const storeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 2px' }),
       },
       reverseOnLeave: true,
     },
@@ -16317,7 +16919,7 @@ export const factoryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 220 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320),
   },
 );
 
@@ -16345,7 +16947,7 @@ export const constructionIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.03)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
       },
       reverseOnLeave: true,
     },
@@ -16369,7 +16971,7 @@ export const backpackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 0.7, 0]), 560, { easing: EASE, delay: 180 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320),
   },
 );
 
@@ -16395,8 +16997,8 @@ export const baggageClaimIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -16430,7 +17032,7 @@ export const luggageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'scaleY(0.72)' }, { transform: 'scaleY(1)' }], 520, { easing: SPRING_OUT, origin: '12px 18px' }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 320, { origin: '8px 20px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { origin: '8px 20px' }),
   },
 );
 
@@ -16472,7 +17074,7 @@ export const appleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.997deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 6.5px' }),
       },
       reverseOnLeave: true,
     },
@@ -16492,7 +17094,7 @@ export const bananaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3.5, -2.5, 1.5, 0]), 940, { easing: EASE, origin: '13px 2px' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3.5deg)' }], 320, { origin: '13px 2px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5.754deg)' }], 320, { origin: '13px 2px' }),
   },
 );
 
@@ -16536,7 +17138,7 @@ export const broccoliIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 9px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 9px' }),
       },
       reverseOnLeave: true,
     },
@@ -16563,7 +17165,7 @@ export const carrotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 9px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.997deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 9px' }),
       },
       reverseOnLeave: true,
     },
@@ -16587,7 +17189,7 @@ export const chefHatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
       },
       reverseOnLeave: true,
     },
@@ -16615,7 +17217,7 @@ export const citrusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 11px' }),
       },
       reverseOnLeave: true,
     },
@@ -16643,9 +17245,9 @@ export const coffeeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -16674,7 +17276,7 @@ export const cookieIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -16701,8 +17303,8 @@ export const cookingPotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -16738,7 +17340,7 @@ export const croissantIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.05)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 9px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9px 9px' }),
       },
       reverseOnLeave: true,
     },
@@ -16762,7 +17364,7 @@ export const cupSodaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 8px' }),
       },
       reverseOnLeave: true,
     },
@@ -16788,7 +17390,7 @@ export const dessertIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -16908,7 +17510,7 @@ export const grapeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-8deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16.1px 7.89px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16.1px 7.89px' }),
       },
       reverseOnLeave: true,
     },
@@ -16939,7 +17541,7 @@ export const hamIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 8px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 8px' }),
       },
       reverseOnLeave: true,
     },
@@ -16967,7 +17569,7 @@ export const hamburgerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -16987,7 +17589,7 @@ export const leafyGreenIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, 3, -2, 1, 0]), 940, { easing: EASE, origin: '2px 22px' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { origin: '2px 22px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5.526deg)' }], 320, { origin: '2px 22px' }),
   },
 );
 
@@ -17030,7 +17632,7 @@ export const martiniIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -6, 4, 0]), 820, { easing: EASE, origin: '12px 22px' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { origin: '12px 22px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { origin: '12px 22px' }),
   },
 );
 
@@ -17055,7 +17657,7 @@ export const paperBagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -17114,7 +17716,7 @@ export const popcornIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -17160,9 +17762,9 @@ export const saladIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 10px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 8px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '7px 10px' }),
       },
       reverseOnLeave: true,
     },
@@ -17188,7 +17790,7 @@ export const sandwichIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -17253,9 +17855,9 @@ export const soupIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -17349,7 +17951,7 @@ export const catIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(DESTELLA, 380, { delay: 200 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { origin: '12px 21px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(9.752deg)' }], 320, { origin: '12px 21px' }),
     idle: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translateY(0px)', offset: 0, easing: T4_EASE }, { transform: 'rotate(-10deg) translateY(0px)', offset: 0.25, easing: T4_EASE }, { transform: 'rotate(-10deg) translateY(-0.6px)', offset: 0.5, easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)', offset: 0.75, easing: T4_EASE }, { transform: 'rotate(0deg) translateY(0px)', offset: 1 }], 2600, { easing: 'linear' }),
       shapes: {
@@ -17385,7 +17987,7 @@ export const dogIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.09)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
       },
       reverseOnLeave: true,
     },
@@ -17420,7 +18022,7 @@ export const pandaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(DESTELLA, 400, { delay: 300 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 320, { origin: '12px 22px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5.72deg)' }], 320, { origin: '12px 22px' }),
   },
 );
 
@@ -17530,7 +18132,7 @@ export const squirrelIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 20px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 20px' }),
       },
       reverseOnLeave: true,
     },
@@ -17557,7 +18159,7 @@ export const wormIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.94)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '4px 6px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleX(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '4px 6px' }),
       },
       reverseOnLeave: true,
     },
@@ -17583,7 +18185,7 @@ export const shellIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -17616,7 +18218,7 @@ export const origamiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-6deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.998deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -17673,7 +18275,7 @@ export const pawPrintIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9.25px 15px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '9.25px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -17705,8 +18307,8 @@ export const footprintsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17.5px 13px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17.5px 13px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 17px' }),
       },
       reverseOnLeave: true,
     },
@@ -17724,7 +18326,7 @@ export const featherIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -3.5, 2.5, -1, 0]), 1000, { easing: EASE, origin: '19px 5px' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3.5deg)' }], 320, { origin: '19px 5px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7.0175deg)' }], 320, { origin: '19px 5px' }),
   },
 );
 
@@ -17783,8 +18385,8 @@ export const cloverIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -17804,7 +18406,7 @@ export const leafIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 520, { easing: 'ease-out', delay: 140 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(2.5deg)' }], 320, { origin: '2px 21px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(9.775deg)' }], 320, { origin: '2px 21px' }),
   },
 );
 
@@ -17824,7 +18426,7 @@ export const shrubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(2.5deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 20px' }),
       },
       reverseOnLeave: true,
     },
@@ -17850,8 +18452,8 @@ export const sproutIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 13px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 13px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 13px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '5px 13px' }),
       },
       reverseOnLeave: true,
     },
@@ -17897,8 +18499,8 @@ export const drillIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.35px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9502px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9751px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -17925,7 +18527,7 @@ export const magnetIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -17954,7 +18556,7 @@ export const pipetteIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.93)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 6px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.87)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 6px' }),
       },
       reverseOnLeave: true,
     },
@@ -17989,7 +18591,7 @@ export const sprayCanIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.4px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18016,9 +18618,9 @@ export const draftingCompassIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11.001deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 5px' }),
       },
       reverseOnLeave: true,
     },
@@ -18076,8 +18678,8 @@ export const toolCaseIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18106,7 +18708,7 @@ export const toolboxIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18139,7 +18741,7 @@ export const shredderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18166,8 +18768,8 @@ export const stampIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18214,7 +18816,7 @@ export const eraserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(ERASER_SWEEP, 1600, { easing: 'linear' }),
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, -0.7px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, -1.5554px)' }], 320),
   },
 );
 
@@ -18272,7 +18874,7 @@ export const bandageIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 320, { easing: SPRING_OUT, delay: 380, origin: '10px 14px' }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-3deg)' }], 320, { origin: '12px 12px' }),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-11.001deg)' }], 320, { origin: '12px 12px' }),
   },
 );
 
@@ -18328,9 +18930,9 @@ export const syringeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.6px, 0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5558px, 1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5558px, 1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5558px, 1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18356,8 +18958,8 @@ export const tabletsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18409,8 +19011,8 @@ export const microscopeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18440,7 +19042,7 @@ export const beakerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.7px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2001px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18531,7 +19133,7 @@ export const personStandingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.997deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 10px' }),
       },
       reverseOnLeave: true,
     },
@@ -18557,7 +19159,7 @@ export const glassesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 15px' }),
       },
       reverseOnLeave: true,
     },
@@ -18582,7 +19184,7 @@ export const ghostIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(DESTELLA, 420, { delay: 200 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 320),
   },
 );
 
@@ -18621,8 +19223,8 @@ export const marsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18647,9 +19249,9 @@ export const marsStrokeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18672,8 +19274,8 @@ export const venusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.5px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18700,8 +19302,8 @@ export const venusAndMarsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.6px, -0.6px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5558px, -1.5558px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -18733,7 +19335,7 @@ export const transgenderIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.1)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -18759,7 +19361,7 @@ export const nonBinaryIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17px' }),
       },
       reverseOnLeave: true,
     },
@@ -18893,7 +19495,7 @@ export const copyrightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -18922,7 +19524,7 @@ export const copyleftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -18946,7 +19548,7 @@ export const creativeCommonsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.04)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -18967,7 +19569,7 @@ export const crossIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -18989,7 +19591,7 @@ export const clubIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17.66px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.1253)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 17.66px' }),
       },
       reverseOnLeave: true,
     },
@@ -19014,7 +19616,7 @@ export const spadeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -19048,8 +19650,8 @@ export const cloudyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9476px)' }], 380, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9476px)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
       },
       reverseOnLeave: true,
     },
@@ -19144,8 +19746,8 @@ export const dropletsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 12px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.08)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 70, origin: '7px 11px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 380, { easing: SPRING_OUT, fill: 'forwards', origin: '15px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 70, origin: '7px 11px' }),
       },
       reverseOnLeave: true,
     },
@@ -19404,8 +20006,8 @@ export const parasolIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.06)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '18.196px 21px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 380, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '18.196px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -19469,7 +20071,7 @@ export const stoneIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     hold: {
-      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '50% 50%' }),
+      root: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9494px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '50% 50%' }),
       reverseOnLeave: true,
     },
   },
@@ -19743,8 +20345,8 @@ export const pyramidIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.03)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.03)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.0976)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.0976)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 22px' }),
       },
       reverseOnLeave: true,
     },
@@ -19847,9 +20449,9 @@ export const scalingIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // Sostenido: escalado aplicado. La flecha se va a su esquina y el marco se encoge de verdad.
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.92)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '3px 21px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.8444)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60, origin: '3px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -19871,8 +20473,8 @@ export const sectionIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9496px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.9496px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
       },
       reverseOnLeave: true,
     },
@@ -19899,9 +20501,9 @@ export const shapesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 50 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 100 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.7108px, 1.7108px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 50 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.7108px, 1.7108px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 100 }),
       },
       reverseOnLeave: true,
     },
@@ -19928,9 +20530,9 @@ export const tangentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // Sostenida: la recta gira sobre el punto donde toca. Es lo único que una tangente puede hacer.
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 10.5px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, 0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.8px, -0.8px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-13.615deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '10.5px 10.5px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, 1.556px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.556px, -1.556px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -20098,7 +20700,7 @@ export const slashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(5deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(11deg)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -20425,10 +21027,10 @@ export const componentIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 50 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 100 }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.9px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 150 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9539px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9539px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 50 }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.9539px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 100 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9539px)' }], 400, { easing: SPRING_OUT, fill: 'forwards', delay: 150 }),
       },
       reverseOnLeave: true,
     },
@@ -20620,14 +21222,14 @@ export const expandIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, -0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, -0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, 0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, -0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.7px, -0.7px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, -1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, -1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, 1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.5554px, 1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5554px, 1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5554px, 1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5554px, -1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.5554px, -1.5554px)' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -20789,7 +21391,7 @@ export const presentationIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.12)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 3px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.13)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 3px' }),
       },
       reverseOnLeave: true,
     },
@@ -21255,7 +21857,7 @@ export const piggyBankIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.06)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 20px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(1.13)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '13px 20px' }),
       },
       reverseOnLeave: true,
     },
@@ -21280,8 +21882,8 @@ export const handbagIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.1)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(0.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.2166)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 11px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(1.7328px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
       },
       reverseOnLeave: true,
     },
@@ -21598,9 +22200,9 @@ export const bowArrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.8px, -0.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-0.8px, 0.8px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(1.556px, -1.556px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(-1.556px, 1.556px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -21633,14 +22235,14 @@ export const dramaIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-4deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '16px 17px' }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        7: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7.676deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '8px 21px' }),
       },
       reverseOnLeave: true,
     },
@@ -21674,12 +22276,12 @@ export const theaterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.7px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(-1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9502px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -21733,8 +22335,8 @@ export const lecternIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-7deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.997deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(-10.997deg)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },
@@ -21760,8 +22362,8 @@ export const podiumIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.08)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(1.1734)' }], 420, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-1.9503px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -21824,9 +22426,9 @@ export const fenceIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
-        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-0.9px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 120 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 420, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 60 }),
+        6: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateY(-2.1996px)' }], 420, { easing: SPRING_OUT, fill: 'forwards', delay: 120 }),
       },
       reverseOnLeave: true,
     },

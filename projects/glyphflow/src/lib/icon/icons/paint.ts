@@ -49,6 +49,6 @@ export const paintRollerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 0.5, 0]), 720, { easing: EASE, delay: 90 }),
       },
     },
-    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(0.8px)' }], 320),
+    hold: /* @__PURE__ */ held(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translateX(1.9496px)' }], 320),
   },
 );

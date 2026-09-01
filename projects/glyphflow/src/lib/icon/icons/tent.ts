@@ -66,9 +66,9 @@ export const tentTreeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(3deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(2deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(1.2deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(20.148deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(13.432deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'rotate(8.0592deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '17px 14px' }),
       },
       reverseOnLeave: true,
     },

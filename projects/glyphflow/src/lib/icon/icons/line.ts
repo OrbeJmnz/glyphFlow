@@ -59,7 +59,7 @@ export const lineSquiggleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // Sostenido: el garabato se aprieta sobre sí mismo, como cuando repasas un tachón.
     hold: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.9)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.87)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
     },

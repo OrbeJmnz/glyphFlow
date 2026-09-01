@@ -216,8 +216,8 @@ export const clockArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.125)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 18px' }),
-        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.2437)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '14px 18px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
     },
@@ -282,8 +282,8 @@ export const clockArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     hold: {
       shapes: {
-        2: /* @__PURE__ */ track([{ transform: 'translateY(0)' }, { transform: 'translateY(1px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.125)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 14px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0)' }, { transform: 'translateY(1.95px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.2437)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '18px 14px' }),
       },
       reverseOnLeave: true,
     },
