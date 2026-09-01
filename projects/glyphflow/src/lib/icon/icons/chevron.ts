@@ -60,6 +60,14 @@ export const chevronRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronRig
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-left`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   });
 
 export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDownShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, 3]), 320),
@@ -74,6 +82,14 @@ export const chevronDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronDown
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(-1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-up`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
   });
 
@@ -90,6 +106,14 @@ export const chevronLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronLeft
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateX(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateX(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-right`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   });
 
 export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShapes, { default: /* @__PURE__ */ held(/* @__PURE__ */ moveYSeq([0, -3]), 320),
@@ -104,6 +128,14 @@ export const chevronUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(chevronUpShap
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-9px)', opacity: '0.45', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-9px)', opacity: '0', offset: 1 }], 1000, { easing: 'linear', delay: 80, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', offset: 0, easing: EIO }, { transform: 'translateY(1.5px)', offset: 0.2, easing: EIO }, { transform: 'translateY(-4px)', offset: 0.55, easing: EIO }, { transform: 'translate(0px, 0px)', offset: 1 }], 1000, { easing: 'linear' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-down`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
   });
 
@@ -125,6 +157,14 @@ export const chevronFirstIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(E1_PULSE, 400, { easing: EASE, origin: '7px 12px', delay: 220, fill: 'backwards' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-last`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -140,6 +180,14 @@ export const chevronLastIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(E1_PUSH_RIGHT, 600, { easing: EASE }),
         1: /* @__PURE__ */ track(E1_PULSE, 400, { easing: EASE, origin: '17px 12px', delay: 220, fill: 'backwards' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `chevron-first`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );

@@ -5333,6 +5333,14 @@ export const thumbsDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px) rotate(0deg)' }, { transform: 'translate(-1px, 2px) rotate(-12deg)' }], 300, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
       reverseOnLeave: true,
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `thumbs-up`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(-1, -1)' }, { transform: 'scale(-1, -1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -5345,6 +5353,14 @@ export const thumbsUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px) rotate(0deg)' }, { transform: 'translate(-1px, -2px) rotate(-12deg)' }], 300, { easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `thumbs-down`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scale(-1, -1)' }, { transform: 'scale(-1, -1)' }, { transform: 'none' }], 900),
     },
   },
 );
@@ -9574,6 +9590,14 @@ export const redoIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out' }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `undo`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -9589,6 +9613,14 @@ export const redo2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 300, fill: 'backwards' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 460, { easing: 'ease-out' }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `undo-2`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
@@ -10689,6 +10721,14 @@ export const skipBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(RECULA_IZQ, 380, { delay: 150 }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `skip-forward`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10708,6 +10748,14 @@ export const skipForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(RECULA_DER, 380, { delay: 150 }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `skip-back`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10725,6 +10773,14 @@ export const stepBackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         0: /* @__PURE__ */ track(PASO_IZQ, 560),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `step-forward`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
@@ -10750,6 +10806,14 @@ export const stepForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `step-back`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10765,6 +10829,14 @@ export const rewindIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(CADENA_IZQ, 420, { easing: SPRING_OUT }),
         1: /* @__PURE__ */ track(CADENA_IZQ, 420, { delay: 90, easing: SPRING_OUT }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `fast-forward`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
@@ -10788,6 +10860,14 @@ export const fastForwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(CADENA_DER_HOLD, 320, { delay: 80, easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `rewind`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
@@ -10858,6 +10938,14 @@ export const replyIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(PUNTA_REPLY, 480),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `forward`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10905,6 +10993,14 @@ export const forwardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(PUNTA_FORWARD, 480),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `reply`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10921,6 +11017,14 @@ export const iterationCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(PUNTA_ITER_IZQ, 560),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `iteration-ccw`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -10936,6 +11040,14 @@ export const iterationCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(TRAZO_INVERSO, 560),
         0: /* @__PURE__ */ track(PUNTA_ITER_DER, 560),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `iteration-cw`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   },
 );

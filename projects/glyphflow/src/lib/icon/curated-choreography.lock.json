@@ -11073,7 +11073,8 @@
     },
     "arrow-down-narrow-wide": {
       "default": "34bda09aac8d",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "arrow-down-right": {
       "active": "f6a7fa620419",
@@ -11092,11 +11093,13 @@
     "arrow-down-up": {
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "8550271c6063"
     },
     "arrow-down-wide-narrow": {
       "default": "11cc1916c17e",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "arrow-down-z-a": {
       "default": "6ed4e7b0f2fc",
@@ -11115,6 +11118,7 @@
     "arrow-left-right": {
       "default": "ce0ad243bbad",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "8be91eefe604"
     },
     "arrow-left-to-line": {
@@ -11133,7 +11137,8 @@
     },
     "arrow-right-left": {
       "default": "86aebb0b36ec",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "arrow-right-to-line": {
       "default": "b66507bca377",
@@ -11163,6 +11168,7 @@
     "arrow-up-down": {
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "34d750cd0cbc"
     },
     "arrow-up-from-dot": {
@@ -11181,7 +11187,8 @@
     },
     "arrow-up-narrow-wide": {
       "default": "e9045240e87b",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "arrow-up-right": {
       "active": "1f489e50bb05",
@@ -11195,7 +11202,8 @@
     },
     "arrow-up-wide-narrow": {
       "default": "48dec78cbe5c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "arrow-up-z-a": {
       "default": "6ed4e7b0f2fc",
@@ -12283,11 +12291,13 @@
     },
     "chart-no-axes-column-decreasing": {
       "default": "55efb9aefccf",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "chart-no-axes-column-increasing": {
       "default": "55efb9aefccf",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "chart-no-axes-combined": {
       "default": "006f28fc8854",
@@ -12367,37 +12377,44 @@
       "active": "53afeecd5837",
       "default": "2afb1f0218bd",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "nudge": "957fd3e8b218"
     },
     "chevron-first": {
       "default": "c0950aecd2b0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "chevron-last": {
       "default": "354447e9f1f1",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "chevron-left": {
       "active": "2c4d9224c5be",
       "default": "2b546c0343ca",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "ae6f977e5985"
     },
     "chevron-right": {
       "active": "f4e8bccd9def",
       "default": "f21e13323929",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "7bffd68ef732"
     },
     "chevron-up": {
       "active": "5fe14824b52f",
       "default": "0b5087333a0e",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "nudge": "2674bcd02ec4"
     },
     "chevrons-down": {
       "default": "3366f97bb7cc",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "nudge": "5cc67a0db777"
     },
     "chevrons-down-up": {
@@ -12407,6 +12424,7 @@
     "chevrons-left": {
       "default": "d3560bc6cd28",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "481cfa9d2a7c"
     },
     "chevrons-left-right": {
@@ -12422,6 +12440,7 @@
     "chevrons-right": {
       "default": "8ef771cbcc7a",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "nudge": "3d859db597a0"
     },
     "chevrons-right-left": {
@@ -12432,6 +12451,7 @@
     "chevrons-up": {
       "default": "efc440d63f22",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "nudge": "a0c3acd13441"
     },
     "chevrons-up-down": {
@@ -13615,6 +13635,7 @@
     "fast-forward": {
       "default": "11f9616ec7c6",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "hold": "b25985bdc12f"
     },
     "feather": {
@@ -14219,7 +14240,8 @@
     },
     "forward": {
       "default": "23c35283d7fc",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "frame": {
       "default": "7699295b919a",
@@ -14313,7 +14335,8 @@
     },
     "git-branch": {
       "default": "c3aa1ec38831",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "git-branch-minus": {
       "default": "8946ab6cf18c",
@@ -14354,7 +14377,8 @@
     },
     "git-merge": {
       "default": "d14ea31f8745",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "git-merge-conflict": {
       "default": "a4b925e99201",
@@ -14832,11 +14856,13 @@
     },
     "iteration-ccw": {
       "default": "e6a7e73536e0",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "iteration-cw": {
       "default": "b2cf40c11973",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "japanese-yen": {
       "default": "a3fdcd33bf24",
@@ -15148,6 +15174,7 @@
     "list-end": {
       "default": "d13777f27d55",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "hold": "0b955abf8455"
     },
     "list-filter": {
@@ -15188,15 +15215,18 @@
     },
     "list-sort-ascending": {
       "default": "2d0500091f11",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "list-sort-descending": {
       "default": "0d29a0f355b7",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "list-start": {
       "default": "d13777f27d55",
       "draw": "17c8398e8d34",
+      "flip": "4badefff6a03",
       "hold": "855ffca5caa2"
     },
     "list-todo": {
@@ -16683,11 +16713,13 @@
     },
     "redo": {
       "default": "29dea506962a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "redo-2": {
       "default": "29dea506962a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "redo-dot": {
       "default": "6dbb56a4e398",
@@ -16695,7 +16727,8 @@
     },
     "refresh-ccw": {
       "default": "3e687cbd0a0c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "refresh-ccw-dot": {
       "default": "34a20ca10813",
@@ -16705,6 +16738,7 @@
       "active": "52bae388c216",
       "default": "7ffc2cb303fe",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "rotate": "82fb79a88fc0",
       "spin": "82fb79a88fc0"
     },
@@ -16754,7 +16788,8 @@
     },
     "reply": {
       "default": "290e2ffaffe2",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "reply-all": {
       "default": "2b79f1edd8b4",
@@ -16763,7 +16798,8 @@
     },
     "rewind": {
       "default": "34de2b5320b1",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "ribbon": {
       "default": "4fcf75b67963",
@@ -16802,7 +16838,8 @@
     "rotate-ccw": {
       "active": "3e687cbd0a0c",
       "default": "744332beba97",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "rotate-ccw-clock": {
       "default": "fbb407941e5c",
@@ -16819,7 +16856,8 @@
     "rotate-cw": {
       "active": "52bae388c216",
       "default": "fedfcd6dfad8",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "rotate-cw-fading-clock": {
       "default": "8761597971ca",
@@ -17342,11 +17380,13 @@
     },
     "skip-back": {
       "default": "92df8b546a2d",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "skip-forward": {
       "default": "d80612414aff",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "skull": {
       "default": "56c446d6a61b",
@@ -17852,11 +17892,13 @@
     },
     "step-back": {
       "default": "919c1f8a652c",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "step-forward": {
       "default": "c28c59a69cd9",
       "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18",
       "hold": "5462b17a46e1"
     },
     "stethoscope": {
@@ -18136,7 +18178,8 @@
     },
     "text-align-end": {
       "default": "d821ff4dc098",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "text-align-justify": {
       "default": "349bb123299c",
@@ -18144,7 +18187,8 @@
     },
     "text-align-start": {
       "default": "3f51d60fff51",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "text-cursor": {
       "default": "9041336dd141",
@@ -18190,11 +18234,13 @@
     },
     "thumbs-down": {
       "default": "a7041c6241a9",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "36365aeb090c"
     },
     "thumbs-up": {
       "default": "43b06751a219",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "36365aeb090c"
     },
     "ticket": {
       "default": "14b379098d78",
@@ -18382,11 +18428,13 @@
     },
     "trending-down": {
       "default": "e739f4aec237",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "trending-up": {
       "default": "6095ac84b6b6",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "4badefff6a03"
     },
     "trending-up-down": {
       "default": "6b7858f3b25a",
@@ -18472,11 +18520,13 @@
     },
     "undo": {
       "default": "29dea506962a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "undo-2": {
       "default": "29dea506962a",
-      "draw": "17c8398e8d34"
+      "draw": "17c8398e8d34",
+      "flip": "8e4fe1557f18"
     },
     "undo-dot": {
       "default": "2ace084a700a",

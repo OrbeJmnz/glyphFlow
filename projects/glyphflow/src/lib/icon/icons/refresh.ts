@@ -64,6 +64,14 @@ export const refreshCcwIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       reverseOnLeave: true,
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `refresh-cw`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -111,5 +119,13 @@ export const refreshCwIcon: AnimatedIconDef = /* @__PURE__ */ icon(refreshCwShap
     active: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(50deg)' }], 400, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `refresh-ccw`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
   });

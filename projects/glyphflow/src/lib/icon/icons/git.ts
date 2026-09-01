@@ -185,6 +185,14 @@ export const gitBranchIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 290 }),
       },
     },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `git-merge`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
+    },
   },
 );
 
@@ -462,6 +470,14 @@ export const gitMergeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 100 }),
       },
+    },
+    // `flip`: ensena su opuesto y vuelve. El destino no es una pose inventada --
+    // es `git-branch`, punto por punto: se midio muestreando ambas geometrias.
+    // Por eso cabe en el lienzo por construccion, sin nada que comprobar.
+    // Va en `root` y sin `origin`: el default 50% 50% ES (12, 12) en un viewBox
+    // de 24, y en porcentaje sigue centrado a cualquier tamano de render.
+    flip: {
+      root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
   },
 );
