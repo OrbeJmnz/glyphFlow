@@ -21,6 +21,12 @@ export const heartIcon: AnimatedIconDef = /* @__PURE__ */ icon(heartShapes, {
     pulse: {
       root: /* @__PURE__ */ track(HEART_QUAD_PULSE, 1500, { easing: SPRING_OUT, origin: 'center' }),
     },
+    spark: {
+      root: /* @__PURE__ */ track(HEART_BEAT, 500, { easing: SPRING_OUT, origin: 'center' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.55)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'scale(0.95)', opacity: '0.28', offset: 0.4, easing: 'ease-out' }, { transform: 'scale(1.25)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+      },
+    },
   });
 
 /** Latido doble (como el de verdad) y el electro trazándose encima. */

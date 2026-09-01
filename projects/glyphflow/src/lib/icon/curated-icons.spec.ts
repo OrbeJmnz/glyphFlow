@@ -74,6 +74,15 @@ const FIGURAS_ANEXAS: Record<string, number> = {
   wind: 3,
   // Guías de relleno y estelas: ninguna la dibuja Lucide, todas nacen con `opacity: '0'`.
   'chevron-down': 1,
+  // `spark`: figuras que el icono emite y que Lucide no dibuja.
+  bell: 2,
+  flame: 2,
+  hammer: 3,
+  heart: 1,
+  lightbulb: 3,
+  'trash-2': 3,
+  'volume-2': 1,
+  zap: 2,
   // Estelas del `nudge` (propuesta 1).
   'arrow-down': 2,
   'arrow-down-left': 2,

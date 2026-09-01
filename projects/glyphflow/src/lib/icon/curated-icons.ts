@@ -1244,6 +1244,33 @@ export const trash2Icon: AnimatedIconDef = /* @__PURE__ */ icon(trash2Shapes, {
       },
       reverseOnLeave: true,
     },
+    spark: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        6: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 80, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 160, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 520, { delay: 80 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.5, 0]), 520, { delay: 120 }),
+        3: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0) rotate(0deg)' },
+            { transform: 'translateY(-1.5px) rotate(-12deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          600,
+          { origin: '3px 6px' },
+        ),
+        4: /* @__PURE__ */ track(
+          [
+            { transform: 'translateY(0) rotate(0deg)' },
+            { transform: 'translateY(-1.5px) rotate(-12deg)' },
+            { transform: 'translateY(0) rotate(0deg)' },
+          ],
+          600,
+          { origin: '3px 6px' },
+        ),
+      },
+    },
   });
 
 /** Advertencia: se sacude y el signo aparece al final. */
@@ -1732,6 +1759,25 @@ export const zapIcon: AnimatedIconDef = /* @__PURE__ */ icon(zapShapes, {
         { origin: 'center' },
       ),
     },
+    spark: {
+      root: /* @__PURE__ */ track(
+        [
+          { opacity: '1', transform: 'scale(1)' },
+          { opacity: '0.2', transform: 'scale(0.92)' },
+          { opacity: '1', transform: 'scale(1.15)' },
+          { opacity: '0.15', transform: 'scale(0.95)' },
+          { opacity: '0.9', transform: 'scale(1.08)' },
+          { opacity: '0.3', transform: 'scale(0.97)' },
+          { opacity: '1', transform: 'scale(1)' },
+        ],
+        650,
+        { origin: 'center' },
+      ),
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-1.5px, 1.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(-1.5px, 1.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(1.5px, -1.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(1.5px, -1.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 90, fill: 'backwards' }),
+      },
+    },
   });
 
 
@@ -1754,6 +1800,22 @@ export const lightbulbIcon: AnimatedIconDef = /* @__PURE__ */ icon(lightbulbShap
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.4 }, { transform: 'rotate(15deg)', offset: 0.6 }, { transform: 'rotate(-7deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE, delay: 300 }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(0deg)', offset: 0.4 }, { transform: 'rotate(10deg)', offset: 0.6 }, { transform: 'rotate(-5deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 800, { easing: EASE }),
+      },
+    },
+    spark: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-1.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(-1.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-1px, -1px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(-1px, -1px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 70, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(1px, -1px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(1px, -1px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 70, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(
+          [
+            { opacity: '0.45', transform: 'scale(0.96)' },
+            { opacity: '1', transform: 'scale(1.08)' },
+            { opacity: '1', transform: 'scale(1)' },
+          ],
+          600,
+          { origin: '12px 14px' },
+        ),
       },
     },
   });
@@ -3820,10 +3882,22 @@ export const hammerIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" },
     { tag: 'path', d: "m18 15 4-4" },
     { tag: 'path', d: "m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" },
+    // `spark`: Tres líneas de impacto donde golpea la cabeza. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "m17.2 5.2 1.2-1.2", opacity: '0' },
+    { tag: 'path', d: "M21.4 8.6h1.2", opacity: '0' },
+    { tag: 'path', d: "m20.6 4.6.9-1.2", opacity: '0' },
   ],
   {
     default: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+    },
+    spark: {
+      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-20deg)', offset: 0.6 }, { transform: 'rotate(15deg)', offset: 0.8 }, { transform: 'rotate(0deg)', offset: 1 }], 1000, { easing: 'ease' }),
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-0.8px, -0.8px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(-0.8px, -0.8px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(0.7px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateX(0.7px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0.4px, -1px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translate(0.4px, -1px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+      },
     },
   },
 );
@@ -13347,6 +13421,9 @@ export const flameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       tag: 'path',
       d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",
     },
+    // `spark`: Dos pavesas que suben y se apagan. Nace invisible — Lucide no la dibuja.
+    { tag: 'path', d: "M9 5.4v-1.2", opacity: '0' },
+    { tag: 'path', d: "M15.5 4.4v-1.2", opacity: '0' },
   ],
   {
     default: {
@@ -13364,6 +13441,18 @@ export const flameIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scale(0.95, 1.06)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 21px' }),
       },
       reverseOnLeave: true,
+    },
+    spark: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-2.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(-2.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.4)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-2.5px)', opacity: '0.9', offset: 0.4, easing: 'ease-out' }, { transform: 'translateY(-2.5px)', opacity: '0', offset: 1 }], 620, { easing: 'linear', origin: '12px 12px', delay: 140, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([
+          { transform: 'scale(1, 1)', offset: 0 },
+          { transform: 'scale(0.95, 1.06)', offset: 0.32 },
+          { transform: 'scale(1.04, 0.97)', offset: 0.66 },
+          { transform: 'scale(1, 1)', offset: 1 },
+        ], 620, { easing: EASE, origin: '12px 21px' }),
+      },
     },
   },
 );

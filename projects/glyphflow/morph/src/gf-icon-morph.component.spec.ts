@@ -171,7 +171,8 @@ describe('<gf-icon-morph> — input `live`', () => {
   /** `shapes` → data estilo Lucide — copia local del mismo patrón que ya usan
    *  `gf-icon-morph.component.ts` y `live-morph.spec.ts` (`aIconNode`). */
   function aIconNode(icono: MorphIcon): [string, Record<string, string | number>][] {
-    return icono.shapes.map((s: IconShape) => {
+    // Replica de `aIconInput`: descarta las figuras que el icono no enseña en reposo.
+  return icono.shapes.filter((s: IconShape) => s.opacity !== '0').map((s: IconShape) => {
       const { tag, ...attrs } = s as IconShape & Record<string, unknown>;
       const limpio: Record<string, string | number> = {};
       for (const [k, v] of Object.entries(attrs))
