@@ -106,10 +106,10 @@ export const trainTrackIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     hold: {
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 55 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 110 }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 165 }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'translate(0.9px, -0.9px)' }], 320, { easing: SPRING_OUT, fill: 'both', delay: 220 }),
       },
       reverseOnLeave: true,
     },

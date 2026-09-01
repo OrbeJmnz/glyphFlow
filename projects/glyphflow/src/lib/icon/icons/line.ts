@@ -33,11 +33,11 @@ export const lineStyleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     hold: {
       shapes: {
         4: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'scaleY(2)' }], 400, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 19px' }),
-        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        5: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'both', delay: 200 }),
         0: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'forwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'both', delay: 100 }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'both', delay: 150 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ [{ opacity: '1' }, { opacity: '0.35' }], 400, { easing: SPRING_OUT, fill: 'both', delay: 50 }),
       },
       reverseOnLeave: true,
     },
