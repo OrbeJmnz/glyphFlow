@@ -9,6 +9,7 @@
 //
 // Ninguno tronó nada. El síntoma de los dos es gente aprendiendo algo que ya no es cierto.
 import { readFileSync } from 'node:fs';
+import { CURATED_ICONS } from '../projects/glyphflow/src/lib/icon/curated-icons';
 
 const leer = (archivo: string) => readFileSync(new URL(`../${archivo}`, import.meta.url), 'utf8');
 
@@ -55,6 +56,39 @@ for (const simbolo of [...todos].sort()) {
       `  ✗ "${simbolo}" aparece ${a} vez/veces en README.md y ${b} en README.es.md — uno de los dos se quedó atrás.`,
     );
     ok = false;
+  }
+}
+
+/*
+ * --- 3. Toda variante que un README ENSEÑA existe de verdad ---
+ *
+ * El bug que esto viene a impedir ya ocurrió, y viajó en la portada de npm: el único ejemplo de
+ * `play()` de los tres README decía `play('hover')`, y CERO de los 1767 iconos tienen una
+ * variante `hover`. `hover` es un `trigger` —sale en la tabla de justo encima— y alguien
+ * confundió las dos cosas. El motor no avisa de eso: `play()` sobre una variante inexistente
+ * hace `if (!chor) return;`, o sea nada, en silencio.
+ *
+ * Se miran `play('x')` y `animation="x"`, que son las dos formas en que un README nombra una
+ * variante. `draw` vale aunque el catálogo no la liste: la sintetiza el componente.
+ */
+const VARIANTES = new Set<string>(['draw']);
+for (const def of Object.values(CURATED_ICONS)) {
+  for (const v of Object.keys(def.animations)) VARIANTES.add(v);
+}
+for (const archivo of READMES) {
+  const md = leer(archivo);
+  const citadas = [
+    ...[...md.matchAll(/\bplay\(\s*'([a-z][\w-]*)'/g)].map((m) => m[1]),
+    ...[...md.matchAll(/\banimation="([a-z][\w-]*)"/g)].map((m) => m[1]),
+  ];
+  for (const v of [...new Set(citadas)]) {
+    if (!VARIANTES.has(v)) {
+      console.error(
+        `  ✗ ${archivo} enseña la variante "${v}", que no existe en ningún icono del catálogo` +
+          ' — ¿confundida con un `trigger`? `play()` la ignora en silencio.',
+      );
+      ok = false;
+    }
   }
 }
 

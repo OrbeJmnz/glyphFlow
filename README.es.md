@@ -63,7 +63,7 @@ import { GfIconComponent, bellIcon } from 'glyphflow';
 ```ts
 @ViewChild(GfIconComponent) icon!: GfIconComponent;
 
-this.icon.play('hover'); // reproduce una variante — sin argumento repite `animation`
+this.icon.play('pulse'); // reproduce una VARIANTE — no un trigger; sin argumento repite `animation`
 this.icon.reverse(); // invierte la animación que esté corriendo
 this.icon.cancel(); // la corta y restablece la pose base
 ```
@@ -73,11 +73,13 @@ this.icon.cancel(); // la corta y restablece la pose base
 |                        |                                                     |
 | ---------------------- | --------------------------------------------------- |
 | Iconos totales         | **1767** — el set canónico completo de Lucide 1.31  |
-| Con coreografía a mano | **180** — movimiento con intención, icono por icono |
-| Generados              | **1587** — geometría más trazo automático           |
+| Con coreografía a mano | **1767** — todos, movimiento con intención          |
+| Con más de un gesto    | **1095** — una segunda variante además de `default` |
 
-Los dos viven en archivos separados a propósito (`curated-icons.ts` y `generated-icons.ts`): el
-generador nunca toca el curado. La coreografía con intención es criterio humano, icono por icono.
+Hoy el catálogo entero está curado a mano: `generated-icons.ts` quedó vacío, y se conserva como
+el sitio donde aterriza lo que traiga una versión futura de Lucide. Los dos archivos existen a
+propósito (`curated-icons.ts` y `generated-icons.ts`): el generador nunca toca el curado. La
+coreografía con intención es criterio humano, icono por icono.
 Ver [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Accesibilidad: una regla, no una matriz

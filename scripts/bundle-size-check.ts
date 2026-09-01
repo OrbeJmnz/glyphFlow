@@ -93,12 +93,29 @@ const PUBLICACIONES: { archivo: string; patron: (fila: string, clave: string) =>
     archivo: '../README.md',
     patron: (fila) => new RegExp(`\\|\\s*${escapar(fila)}\\s*\\|\\s*\\*\\*([0-9.]+) KB\\*\\*`),
   },
+  /*
+   * `README.es.md` lleva la MISMA tabla con las filas traducidas, y hasta hoy no la miraba nadie:
+   * el mensaje de error de este script acababa diciendo «recuerda que README.es.md lleva la misma
+   * tabla», o sea confiando en que alguien se acordara. Es por ese hueco exacto por el que
+   * `MaxIconComponent` sobrevivió toda la v2 en el README español.
+   */
+  {
+    archivo: '../README.es.md',
+    patron: (fila) => new RegExp(`\\|\\s*${escapar(FILA_ES[fila])}\\s*\\|\\s*\\*\\*([0-9.]+) KB\\*\\*`),
+  },
   // `bundleCoreKb: 4.57,`
   {
     archivo: '../projects/playground/src/app/core/cifras.ts',
     patron: (_fila, clave) => new RegExp(`${clave}:\\s*([0-9.]+),`),
   },
 ];
+
+/** La misma fila, como está escrita en el README español. */
+const FILA_ES: Record<string, string> = {
+  'The component alone, no icons': 'Solo el componente, sin iconos',
+  'One icon (`[iconDef]="bellIcon"`)': 'Un icono individual (`[iconDef]="bellIcon"`)',
+  'The whole catalog (`name="bell"`)': 'El catálogo completo (`name="bell"`)',
+};
 
 /** La clave de `CIFRAS` que publica cada escenario. */
 const CLAVE_CIFRAS: Record<string, string> = {
@@ -126,7 +143,7 @@ function verificarDocs(medidos: Map<string, number>): boolean {
       if (desvio > TOLERANCIA) {
         console.error(
           `  ✗ ${archivo} miente en "${fila}": publica ${publicado} KB, el CI mide ${kb.toFixed(2)} KB ` +
-            `(${(desvio * 100).toFixed(1)}% de desvío). Recuerda que README.es.md lleva la misma tabla.`,
+            `(${(desvio * 100).toFixed(1)}% de desvío).`,
         );
         ok = false;
       }

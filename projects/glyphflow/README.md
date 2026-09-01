@@ -63,7 +63,7 @@ import { GfIconComponent, bellIcon } from 'glyphflow';
 ```ts
 @ViewChild(GfIconComponent) icon!: GfIconComponent;
 
-this.icon.play('hover'); // plays a variant — no argument replays `animation`
+this.icon.play('pulse'); // plays a VARIANT — not a trigger; no argument replays `animation`
 this.icon.reverse(); // reverses the animation currently running
 this.icon.cancel(); // stops it and resets to the base pose
 ```
@@ -72,13 +72,14 @@ this.icon.cancel(); // stops it and resets to the base pose
 
 |                    |                                                   |
 | ------------------ | ------------------------------------------------- |
-| Total icons        | **1767** — the complete canonical Lucide 1.31 set |
-| Hand-choreographed | **180** — motion with intent, one icon at a time  |
-| Generated          | **1587** — geometry plus an automatic draw-on     |
+| Total icons          | **1767** — the complete canonical Lucide 1.31 set    |
+| Hand-choreographed   | **1767** — every one, motion with intent            |
+| More than one gesture | **1095** — a second variant beyond `default`        |
 
-The two live in separate files on purpose (`curated-icons.ts` and `generated-icons.ts`): the
-generator never touches the curated ones. Choreography with intent is human judgement, icon by icon.
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Every icon in the catalog is now hand-choreographed: `generated-icons.ts` is empty, and stays as
+the landing zone for whatever a future Lucide release adds. The two files exist on purpose
+(`curated-icons.ts` and `generated-icons.ts`): the generator never touches the curated ones.
+Choreography with intent is human judgement, icon by icon. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Accessibility: one rule, not a matrix
 

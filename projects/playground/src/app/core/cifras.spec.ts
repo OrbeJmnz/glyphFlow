@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { ANIMATED_ICONS, CURATED_ICONS, GENERATED_ICONS, type AnimatedIconDef } from 'glyphflow';
+import { ANIMATED_ICONS, GENERATED_ICONS, type AnimatedIconDef } from 'glyphflow';
 import { insigniasDe } from '../features/iconos/icon-badges';
 import { CIFRAS } from './cifras';
+import catalogoJson from './catalogo-curado.json';
 
 /**
  * `CIFRAS.catalogo` está escrito a mano y tiene que seguir así: derivarlo de `ANIMATED_ICONS`
@@ -17,8 +18,16 @@ describe('CIFRAS', () => {
     expect(CIFRAS.catalogo).toBe(Object.keys(ANIMATED_ICONS).length);
   });
 
-  it('los curados salen del catálogo en vivo', () => {
-    expect(CIFRAS.curados).toBe(Object.keys(CURATED_ICONS).length);
+  /*
+   * Contra el JSON del sitio y NO contra `CURATED_ICONS` de `glyphflow`: en el playground ese
+   * import resuelve al paquete PUBLICADO, mientras `catalogo-curado.json` se genera del código
+   * FUENTE. Comparar la portada con lo publicado afirma «lo local ya está en npm», que sólo es
+   * cierto justo después de un release — y entre release y release el hero acaba contradiciendo
+   * a la rejilla de abajo, que sí come el JSON. Es la misma trampa que puso rojo a
+   * `taller.spec` en `05d7cdb`.
+   */
+  it('los curados salen del catálogo que el sitio de verdad pinta', () => {
+    expect(CIFRAS.curados).toBe(Object.keys(catalogoJson.iconos).length);
   });
 
   /*
@@ -49,8 +58,8 @@ describe('CIFRAS', () => {
   it('conVariantes y conHold coinciden con insigniasDe() sobre el catálogo real', () => {
     let conVariantes = 0;
     let conHold = 0;
-    for (const [nombre, def] of Object.entries(CURATED_ICONS)) {
-      const insignias = insigniasDe(nombre, def as AnimatedIconDef);
+    for (const [nombre, def] of Object.entries(catalogoJson.iconos)) {
+      const insignias = insigniasDe(nombre, def as unknown as AnimatedIconDef);
       if (insignias.some((i) => i.clave === 'extras')) conVariantes++;
       if (insignias.some((i) => i.clave === 'hold')) conHold++;
     }
