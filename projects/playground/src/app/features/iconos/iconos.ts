@@ -369,12 +369,21 @@ export class Iconos implements OnDestroy {
 
   /**
    * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
-   * mismo con otro color: el claro pesa 50 KB contra 425 del oscuro.
+   * mismo con otro color: el claro pesa 39 KB contra 284 del oscuro.
+   *
+   * Van en WebP animado y no en GIF. La conversión es LOSSLESS —`gif2webp` sin `-lossy`—, así que
+   * el arte es idéntico píxel a píxel y el `mix-blend-mode: lighten` del CSS sigue funcionando
+   * igual; lo único que cambia es el peso: el oscuro bajó de 415 a 284 KB, 132 KB menos en el
+   * elemento que además va con `fetchpriority="high"`, o sea el LCP de la portada.
+   *
+   * En lossy el archivo CRECE (medido: 544 KB a q90, 399 a q80). No es un error de configuración:
+   * el arte es plano con degradados suaves, y el ruido que introduce el lossy rompe la predicción
+   * entre fotogramas, que es de donde sale toda la compresión de una animación.
    */
   protected readonly logoAnimado = computed(() =>
     tema() === 'claro'
-      ? '/images/glyphflow-anim-preview-light.gif'
-      : '/images/glyphflow-anim-preview.gif',
+      ? '/images/glyphflow-anim-preview-light.webp'
+      : '/images/glyphflow-anim-preview.webp',
   );
 
   /** Sin movimiento se sirve quieto — y también tiene que seguir al tema. */
@@ -388,8 +397,8 @@ export class Iconos implements OnDestroy {
    *
    * Existen porque el sitio se prerenderiza y el `src` del `<img>` se hornea en el HTML estático.
    * En el servidor no hay `matchMedia`, así que salía siempre el par por defecto —animado y
-   * oscuro— y quien prefiere claro se bajaba el GIF oscuro de 425 KB para verlo cambiar al claro
-   * de 50 en cuanto hidrataba. Una media query la resuelve el navegador antes de pintar y solo
+   * oscuro— y quien prefiere claro se bajaba el asset oscuro de 284 KB para verlo cambiar al claro
+   * de 39 en cuanto hidrataba. Una media query la resuelve el navegador antes de pintar y solo
    * descarga la fuente que casa, así que no hay ni salto ni descarga tirada.
    *
    * Cada dimensión aporta su `<source>` SOLO mientras la mande el sistema: en cuanto alguien
@@ -421,7 +430,7 @@ export class Iconos implements OnDestroy {
         media: '(prefers-color-scheme: light)',
         srcset:
           sistemaMovimiento || hayMovimiento()
-            ? '/images/glyphflow-anim-preview-light.gif'
+            ? '/images/glyphflow-anim-preview-light.webp'
             : '/images/glyphflow-logo-light.svg',
       });
     }
