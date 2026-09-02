@@ -48,36 +48,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
       display: inline-flex;
     }
 
-    /* Mismo resorte que BotonGithub — ver ahí el porqué de copiarlo en vez de importarlo. */
     .dn {
-      --resorte: linear(
-        0,
-        0.0636,
-        0.1905,
-        0.3809,
-        0.5302,
-        0.6626,
-        0.7725,
-        0.8587,
-        0.9227,
-        0.9763,
-        1.0024,
-        1.0175,
-        1.0247,
-        1.0265,
-        1.0251,
-        1.0208,
-        1.0168,
-        1.0128,
-        1.0092,
-        1.0063,
-        1.0039,
-        1.0018,
-        1.0007,
-        1,
-        1
-      );
-
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -121,7 +92,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
       display: grid;
       place-items: center;
       transition:
-        transform 0.34s var(--resorte),
+        transform 0.34s var(--gf-resorte),
         opacity 0.16s ease;
     }
 
@@ -152,7 +123,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
       transform: translateY(10px) rotate(-45deg) scale(0);
       opacity: 0;
       transition:
-        transform 0.34s 0.05s var(--resorte),
+        transform 0.34s 0.05s var(--gf-resorte),
         opacity 0.16s 0.05s ease;
     }
 
