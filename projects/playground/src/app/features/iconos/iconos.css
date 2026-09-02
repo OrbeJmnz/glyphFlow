@@ -104,33 +104,25 @@
  * alrededor. Clipando solo el span, el pill se queda opaco y el texto es lo único en degradado.
  */
 .degradado-comando {
-  color: var(--gf-marca-2);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  .degradado-comando {
-    background-image: linear-gradient(
-      100deg,
-      var(--gf-marca-1),
-      var(--gf-marca-2),
-      var(--gf-marca-3),
-      var(--gf-marca-4),
-      var(--gf-marca-3),
-      var(--gf-marca-2),
-      var(--gf-marca-1)
-    );
-    background-size: 220% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gf-degradado-corre 7s linear infinite;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .degradado-comando {
-    animation: none;
-  }
+  /*
+   * TINTA PLENA, no degradado — y esto es una corrección, no una preferencia.
+   *
+   * El texto iba con el degradado de marca clipado, sobre el pill que `.ui-boton.es-primario`
+   * invierte. En el tema OSCURO, que es el default del sitio, ese pill es BLANCO, y ahí el
+   * degradado daba de 1.91 a 3.85:1 contra el 4.5 que WCAG 2.2 (1.4.3, AA) pide para 14px/600.
+   * O sea el string más importante de la portada era el menos legible que tenía.
+   *
+   * No había forma de salvarlo dejándolo dentro del texto: ningún stop de la paleta pasa 4.5:1
+   * sobre blanco sin oscurecerse tanto que el cian deja de ser cian, y bajar el pill a un tono
+   * oscuro tampoco alcanza (medido: 4.29:1, falla por el violeta).
+   *
+   * `--gf-invertido-texto` resuelve los dos temas de una: es #121212 sobre el pill blanco del
+   * oscuro y #ffffff sobre el pill #16161c del claro. El degradado no se pierde — se mueve al
+   * borde del pill, en `.ui-boton.instalar`, donde es decoración y no tiene que cumplir contraste
+   * de texto. Y de paso se lee mejor: en un filete continuo la transición se aprecia, dentro de
+   * letras de 14px apenas se intuye.
+   */
+  color: var(--gf-invertido-texto);
 }
 
 /* Lista y no un montón de divs: son seis cosas del mismo tipo, y así se anuncian como «lista de 6». */
@@ -1028,10 +1020,37 @@
  * la acción: un comando y un icono sueltos en la misma caja se leen como una etiqueta con adorno,
  * no como algo que se pulsa.
  */
-.instalar {
+/*
+ * El selector lleva `.ui-boton` a propósito: la primitiva declara `background` en SHORTHAND, que
+ * resetea `background-image`. Con `.instalar` a secas empatarían en especificidad y el resultado
+ * dependería del orden de las hojas — frágil y silencioso. Con las dos clases, gana sin pelear.
+ */
+.ui-boton.instalar {
   gap: 0;
   padding-right: 0;
   overflow: hidden;
+  /*
+   * Dos capas: el relleno del pill (opaco, del color invertido de siempre) y debajo el degradado
+   * de marca. `background-clip: padding-box, border-box` hace que la primera se recorte al interior
+   * y la segunda llegue hasta el borde — así el filete de 2px ES el degradado, sin pseudo-elemento
+   * ni un `<span>` extra que estorbe al `overflow: hidden`.
+   */
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(var(--gf-invertido-fondo), var(--gf-invertido-fondo)), var(--gf-degradado);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  /* Solo la segunda capa corre: la primera es un color plano y moverla no se vería. */
+  background-size:
+    100% 100%,
+    220% auto;
+  animation: gf-degradado-corre 7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-boton.instalar {
+    animation: none;
+  }
 }
 
 /* En BOLD: es lo único de la portada que hay que teclear, y compite con un botón secundario al

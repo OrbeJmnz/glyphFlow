@@ -130,6 +130,31 @@
   );
 
   /*
+   * Los MISMOS cuatro colores, pero para cuando el degradado pinta TEXTO y no un borde o un fondo.
+   * Es el mismo criterio que ya separa `--gf-marca-N` de `--gf-marca-N-texto`: un color de
+   * identidad vale para decorar y no siempre para leerse.
+   *
+   * En OSCURO son idénticos a los crudos, porque sobre `--gf-fondo` ya pasan de sobra. El tema
+   * claro los sobreescribe: ahí los crudos daban 1.87 a 3.76:1 contra el 4.5 que pide WCAG AA, o
+   * sea la cifra del hero y el bloque de API estaban por debajo del piso.
+   *
+   * Van APARTE de `--gf-degradado` a propósito: ese se usa en seis sitios y casi todos son bordes
+   * y fondos (`docs.css`, `morph-picker.css`, las tarjetas), donde el color vivo es lo correcto y
+   * oscurecerlo apagaría la identidad sin arreglar nada.
+   */
+  --gf-marca-1-grad: var(--gf-marca-1);
+  --gf-marca-2-grad: var(--gf-marca-2);
+  --gf-marca-3-grad: var(--gf-marca-3);
+  --gf-marca-4-grad: var(--gf-marca-4);
+  --gf-degradado-texto: linear-gradient(
+    100deg,
+    var(--gf-marca-1-grad),
+    var(--gf-marca-2-grad),
+    var(--gf-marca-3-grad),
+    var(--gf-marca-4-grad)
+  );
+
+  /*
    * El motor de cada patrón en la página Ejemplos: violeta=morph, azul=coreografía,
    * gris=sin motor/CSS. Alias puros de los `-texto` de arriba -- no un color nuevo, un NOMBRE para
    * el mapeo que `MotorBadge` (`features/patrones/`) necesita, declarados una sola vez porque los
@@ -226,6 +251,20 @@
 }
 
 :root[data-theme='light'] {
+  /*
+   * El degradado de TEXTO, llevado a AA sobre `--gf-fondo` (#fdfcfd). Medido con la fórmula de
+   * luminancia relativa, no a ojo: los crudos daban 1.87 / 3.29 / 3.76 / 3.65 y estos dan
+   * 4.55 / 4.54 / 5.54 / 4.51. Se conserva el matiz y la saturación de cada uno; solo baja la
+   * luminosidad hasta cruzar el 4.5.
+   *
+   * El cian es el que más se nota, y no hay alternativa: es el color más claro de la paleta, así
+   * que es el que más tiene que bajar para ser legible sobre un fondo casi blanco.
+   */
+  --gf-marca-1-grad: #027f9a;
+  --gf-marca-2-grad: #316af6;
+  --gf-marca-3-grad: #733cf6;
+  --gf-marca-4-grad: #ac32f7;
+
   /*
    * No es blanco puro, y el motivo es medible: el GIF del hero trae fondo opaco rgb(253,252,253) y
    * contra #ffffff se dibujaba su rectángulo — poco, pero se veía. Igualar la página al asset borra
@@ -586,20 +625,20 @@ code {
  * no esta utilidad.
  */
 .degradado-texto {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-grad);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .degradado-texto {
     background-image: linear-gradient(
       100deg,
-      var(--gf-marca-1),
-      var(--gf-marca-2),
-      var(--gf-marca-3),
-      var(--gf-marca-4),
-      var(--gf-marca-3),
-      var(--gf-marca-2),
-      var(--gf-marca-1)
+      var(--gf-marca-1-grad),
+      var(--gf-marca-2-grad),
+      var(--gf-marca-3-grad),
+      var(--gf-marca-4-grad),
+      var(--gf-marca-3-grad),
+      var(--gf-marca-2-grad),
+      var(--gf-marca-1-grad)
     );
     background-size: 220% auto;
     -webkit-background-clip: text;
@@ -623,12 +662,12 @@ code {
  * loop — se pinta una sola vez sobre el alto real del bloque.
  */
 .degradado-texto-sutil {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-grad);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .degradado-texto-sutil {
-    background-image: var(--gf-degradado);
+    background-image: var(--gf-degradado-texto);
     /* `local`: si el elemento tiene su propio scroll (el `overflow-x` de un `<pre>` con una línea
        larga), el fondo viaja CON el contenido. Sin esto el degradado queda pintado fijo a la caja
        y el texto se desliza por debajo — se ve "congelado", desenganchado de lo que se lee. */
