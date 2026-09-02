@@ -461,16 +461,37 @@ export class Iconos implements OnDestroy {
   /** Qué paso muestra cada hueco. Las cuatro posiciones avanzan a la vez, corridas una de otra. */
   protected readonly paso = signal(0);
 
-  private readonly reloj = setInterval(
-    () => this.paso.update((p) => (p + 1) % this.formas.length),
-    1900,
-  );
+  /**
+   * Deja de avanzar solo en cuanto alguien elige un paso a mano: a partir de ahí manda su elección
+   * y no el reloj. Sin esto, tocar un punto duraba 1.9s — el carrusel se lo llevaba por delante.
+   */
+  protected readonly avanceManual = signal(false);
+
+  /**
+   * El showcase avanza SOLO mientras el movimiento esté activo y nadie haya tomado el control.
+   *
+   * Era un `setInterval` incondicional de campo, y eso lo hacía dos cosas a la vez: movimiento
+   * automático de duración indefinida sin ninguna forma de pararlo (WCAG 2.2 · 2.2.2 Pause, Stop,
+   * Hide — nivel A), y una contradicción con lo que la librería anuncia, porque ignoraba
+   * `hayMovimiento()`, que es la señal que el propio sitio ofrece en su barra superior.
+   *
+   * Como `effect` y no como campo porque así el reloj se ata a las señales: se rearma cuando el
+   * movimiento vuelve y se limpia solo con `onCleanup` — al destruir el componente y también en
+   * cada re-evaluación, sin dejar temporizadores huérfanos.
+   */
+  private readonly efectoShowcase = effect((onCleanup) => {
+    if (!hayMovimiento() || this.avanceManual()) return;
+    const reloj = setInterval(() => this.paso.update((p) => (p + 1) % this.formas.length), 1900);
+    onCleanup(() => clearInterval(reloj));
+  });
 
   protected formaEn(hueco: number): MorphIcon {
     return this.formas[(this.paso() + hueco) % this.formas.length];
   }
 
   protected irAlPaso(n: number): void {
+    // El clic gana al reloj: ver `avanceManual`.
+    this.avanceManual.set(true);
     this.paso.set(n);
   }
 
@@ -574,7 +595,7 @@ export class Iconos implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.reloj);
+    // El reloj del showcase ya no se limpia aquí: vive en un `effect` y lo cierra su `onCleanup`.
     clearTimeout(this.temporizadorUrl);
   }
 
