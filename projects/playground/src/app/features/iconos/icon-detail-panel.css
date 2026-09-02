@@ -382,12 +382,12 @@ textarea.codigo.json {
  * gana sin tocar la utilidad global.
  */
 .codigo.degradado-texto-sutil {
-  color: var(--gf-marca-2);
+  color: var(--gf-marca-2-grad);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .codigo.degradado-texto-sutil {
-    background-image: var(--gf-degradado);
+    background-image: var(--gf-degradado-texto);
     /* `local`: si el contenido se desborda y el elemento scrollea por su cuenta, el fondo viaja
        CON el texto en vez de quedar pintado fijo a la caja (se ve "congelado" si no). */
     background-attachment: local;
