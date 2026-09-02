@@ -8,6 +8,17 @@
   propósito: son una foto de un día concreto contra versiones concretas, y fingir que se actualizan
   solos sería peor que no ponerlos. Cuando alguien vuelva a medir, cambia la fecha con la cifra.
 -->
+<!--
+  Envuelta y no suelta: con 5 columnas la tabla mide 516px dentro de una columna de 332 a 390,
+  y sin contenedor propio el desbordamiento lo hereda el DOCUMENTO — medido a 390px de ancho,
+  `scrollWidth` 540 contra `clientWidth` 380, o sea la página entera se movía de lado y
+  desalineaba el header sticky. Falla WCAG 2.2 · 1.4.10 Reflow (AA), y es la página que más
+  tráfico de búsqueda recibe, que aterriza sobre todo en móvil.
+
+  La clase ya existía en `docs-page.css` con su degradado de affordance, y `api.html` la usaba
+  desde su propia tabla ancha. Esta página era la única de docs que se la había saltado.
+-->
+<div class="tabla-scroll">
 <table>
   <thead>
     <tr>
@@ -46,10 +57,22 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <p [innerHTML]="'docs.comparativa.peso.lectura' | transloco"></p>
 
 <h2 id="what-you-get">{{ 'docs.comparativa.queTraen.titulo' | transloco }}</h2>
+<!--
+  Envuelta y no suelta: con 5 columnas la tabla mide 516px dentro de una columna de 332 a 390,
+  y sin contenedor propio el desbordamiento lo hereda el DOCUMENTO — medido a 390px de ancho,
+  `scrollWidth` 540 contra `clientWidth` 380, o sea la página entera se movía de lado y
+  desalineaba el header sticky. Falla WCAG 2.2 · 1.4.10 Reflow (AA), y es la página que más
+  tráfico de búsqueda recibe, que aterriza sobre todo en móvil.
+
+  La clase ya existía en `docs-page.css` con su degradado de affordance, y `api.html` la usaba
+  desde su propia tabla ancha. Esta página era la única de docs que se la había saltado.
+-->
+<div class="tabla-scroll">
 <table>
   <thead>
     <tr>
@@ -98,6 +121,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <h2 id="method">{{ 'docs.comparativa.metodo.titulo' | transloco }}</h2>
 <p [innerHTML]="'docs.comparativa.metodo.texto' | transloco"></p>

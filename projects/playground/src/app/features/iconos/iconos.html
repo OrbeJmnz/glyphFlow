@@ -339,11 +339,26 @@
     </app-grupo>
   </div>
 
-  @if (filtro() || busqueda()) {
-    <span class="aviso">{{
-      'iconos.barra.aviso' | transloco: { n: entries().length, total }
-    }}</span>
-  }
+  <!--
+    Región viva SIEMPRE presente, con el `@if` movido DENTRO en vez de envolverla.
+
+    Es la diferencia entre que se anuncie y que no: `aria-live` avisa de los cambios que ocurren
+    dentro de un elemento que YA estaba en el árbol. Un `<span aria-live>` creado en el mismo
+    momento en que aparece el texto se inserta ya "con" su contenido, y la mayoría de lectores no
+    lo leen — la región tiene que existir antes para poder observar el cambio.
+
+    Filtrar 1767 iconos no producía ningún anuncio: el contador cambiaba en pantalla y quien no ve
+    la pantalla no se enteraba de cuántos resultados quedaban (WCAG 2.2 · 4.1.3 Status Messages,
+    AA). El buscador de docs ya lo hacía bien; el buscador principal del sitio era el que no.
+
+    `polite` y no `assertive`: es el resultado de algo que la persona acaba de teclear, así que
+    espera su turno en vez de cortar lo que el lector esté diciendo.
+  -->
+  <span class="aviso" aria-live="polite">
+    @if (filtro() || busqueda()) {
+      {{ 'iconos.barra.aviso' | transloco: { n: entries().length, total } }}
+    }
+  </span>
 </div>
 
 <!--
