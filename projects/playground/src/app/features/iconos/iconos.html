@@ -312,7 +312,7 @@
           [attr.aria-pressed]="filtro() === c.clave"
           (click)="elegirFiltro(c.clave)"
         >
-          {{ c.etiqueta | transloco }} <em>{{ c.n }}</em>
+          {{ c.traducir ? (c.etiqueta | transloco) : c.etiqueta }} <em>{{ c.n }}</em>
         </button>
       }
     </app-grupo>
