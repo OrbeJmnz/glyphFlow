@@ -11,7 +11,7 @@
     "@angular/compiler": "^22.1.0",
     "@angular/core": "^22.1.0",
     "@angular/platform-browser": "^22.1.0",
-    "glyphflow": "^2.3.0",
+    "glyphflow": "^2.4.0",
     "rxjs": "^7.8.0"
   },
   "devDependencies": {

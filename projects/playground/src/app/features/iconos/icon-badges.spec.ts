@@ -63,8 +63,24 @@ describe('insigniasDe', () => {
    * — sumadas cruzaban la mitad (205 de 405) sin que ninguna hubiera perdido su poder de separar.
    */
   it('cada filtro acota de verdad: ni casa con todo ni se queda vacío', () => {
-    const claves: ClaveInsignia[] = ['extras', 'held', 'solo-draw'];
-    for (const clave of claves) {
+    /*
+     * Las claves que se prueban son las que la barra USA COMO FILTRO, y ya no son las cuatro de
+     * la taxonomía. `extras` salió de aquí porque dejó de acotar —1095 de 1767, el 62 %— y ese
+     * fue justo el fallo que este test dio cuando el sitio pasó a consumir la 2.4.0: hizo su
+     * trabajo. Sigue existiendo como CUENTA (lo ancla `cifras.spec.ts`), no como filtro.
+     *
+     * Los nombres de variante se toman del catálogo y no de una lista escrita a mano: una lista
+     * fija es exactamente como `extras` se pudrió sin que nadie lo viera.
+     */
+    const nombres = [
+      ...new Set(
+        TODOS.flatMap(([n]) =>
+          claves(n).filter((c): c is `variante:${string}` => c.startsWith('variante:')),
+        ),
+      ),
+    ];
+    const filtros: ClaveInsignia[] = ['held', 'solo-draw', ...nombres];
+    for (const clave of filtros) {
       const n = TODOS.filter(([nombre]) =>
         insigniasDe(nombre, CURATED_ICONS[nombre]).some((i) => i.clave === clave),
       ).length;

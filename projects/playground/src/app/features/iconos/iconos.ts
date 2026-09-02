@@ -625,20 +625,50 @@ export class Iconos implements OnDestroy {
    * chunk, `todos()` está VACÍO cuando se construye el componente. Como campo, los tres conteos
    * salían 0, el `.filter(n > 0)` los borraba y la barra de filtros no llegaba a pintarse nunca.
    */
-  protected readonly conteos = computed<{ clave: ClaveInsignia; etiqueta: string; n: number }[]>(
-    () => {
-      const todos = this.todos();
-      return (
-        [
-          { clave: 'extras', etiqueta: 'iconos.barra.insignias.extras' },
-          { clave: 'held', etiqueta: 'iconos.barra.insignias.held' },
-          { clave: 'solo-draw', etiqueta: 'iconos.barra.insignias.soloDraw' },
-        ] as { clave: ClaveInsignia; etiqueta: string }[]
-      )
-        .map((o) => ({ ...o, n: todos.filter((e) => tiene(e, o.clave)).length }))
-        .filter((o) => o.n > 0);
-    },
-  );
+  protected readonly conteos = computed<
+    { clave: ClaveInsignia; etiqueta: string; n: number; traducir: boolean }[]
+  >(() => {
+    const todos = this.todos();
+
+    /*
+     * Los chips por NOMBRE de variante salen del catálogo, no de una lista escrita a mano: cada
+     * tanda de curado añade nombres, y una lista fija se queda atrás en silencio — que es
+     * exactamente como `extras` acabó casando con el 62 % sin que nadie lo notara.
+     *
+     * Se ordenan por cuántos iconos casan y se cortan en TOPE. Sin ese corte la barra tendría 53
+     * chips, que es otra forma de no acotar. Los que quedan fuera siguen siendo alcanzables: el
+     * buscador filtra por nombre de icono, y el panel de detalle enseña las variantes de cada uno.
+     */
+    const porNombre = new Map<string, number>();
+    for (const e of todos) {
+      for (const i of e.insignias) {
+        if (!i.clave.startsWith('variante:')) continue;
+        porNombre.set(i.clave, (porNombre.get(i.clave) ?? 0) + 1);
+      }
+    }
+    const variantes = [...porNombre.entries()]
+      .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+      .slice(0, Iconos.TOPE_CHIPS_VARIANTE)
+      .map(([clave, n]) => ({
+        clave: clave as ClaveInsignia,
+        etiqueta: clave.slice('variante:'.length),
+        n,
+        traducir: false,
+      }));
+
+    // `held` y `solo-draw` NO son nombres de variante, así que no salen del mapa de arriba y
+    // conservan su clave de transloco: son prosa, no API.
+    const banderas = (
+      [
+        { clave: 'held', etiqueta: 'iconos.barra.insignias.held' },
+        { clave: 'solo-draw', etiqueta: 'iconos.barra.insignias.soloDraw' },
+      ] as { clave: ClaveInsignia; etiqueta: string }[]
+    )
+      .map((o) => ({ ...o, n: todos.filter((e) => tiene(e, o.clave)).length, traducir: true }))
+      .filter((o) => o.n > 0);
+
+    return [...variantes, ...banderas];
+  });
 
   protected readonly entries = computed<CuratedEntry[]>(() => {
     const f = this.filtro();
@@ -654,6 +684,12 @@ export class Iconos implements OnDestroy {
    * Cuántos iconos por página. Filtro y búsqueda siguen operando sobre `entries()` — el catálogo
    * COMPLETO filtrado— esto solo decide qué TAJADA de ese resultado llega a existir en el DOM.
    */
+  /**
+   * Cuántos chips de variante caben en la barra. Hay 53 nombres; enseñarlos todos sería cambiar
+   * un filtro que no acota por una barra que no se puede leer.
+   */
+  private static readonly TOPE_CHIPS_VARIANTE = 8;
+
   private static readonly TAMANO_PAGINA = 200;
 
   /**

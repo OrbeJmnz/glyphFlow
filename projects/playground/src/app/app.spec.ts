@@ -117,7 +117,12 @@ describe('App (shell)', () => {
     ];
     expect(activos.length).toBe(1);
     expect(activos[0].getAttribute('href')).toBe('/en');
-  });
+    // Timeout explícito, igual que los tres de `editor`/`iconos`/`taller`: este es el ÚNICO test
+    // del shell que monta las rutas de verdad, y navegar a `/en` carga `Iconos` por
+    // `loadComponent`, que se trae el catálogo entero. Rondaba los 5.1 s contra el límite de 5 s
+    // por default de Vitest, así que fallaba una de cada dos corridas — y el mensaje era un
+    // timeout, no una aserción, que es lo que lo hacía parecer un flaky de verdad.
+  }, 20000);
 
   it('el botón de tema dice a dónde lleva, no dónde estás', async () => {
     const fixture = TestBed.createComponent(App);
