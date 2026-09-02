@@ -360,12 +360,18 @@ describe('Barrido de sanidad — los 180 curados', () => {
    * una red de verdad para esto.
    */
   it('el gesto de hover es la tercera variante, y `animation` manda sobre él', () => {
+    // Sin segundo argumento — el consumidor no fijó `animation` — manda la POSICIÓN: la tercera.
     expect(varianteDeHover({ draw: 1, default: 1, spin: 1, hold: 1 })).toBe('spin');
     expect(varianteDeHover({ draw: 1, default: 1 })).toBe('default');
     expect(varianteDeHover({})).toBe('default');
-    // lo que fije el consumidor gana, salvo el propio 'default'
+    // Lo que fije el consumidor gana, y eso INCLUYE 'default'.
+    //
+    // La última línea afirmaba `.toBe('spin')` hasta el 2026-09-02: no era una regla, era el hoyo
+    // de API escrito como test. `@Input() animation` arrancaba en `'default'`, así que el string
+    // había que descartarlo para poder distinguirlo de "no lo fijó" — y el efecto era que
+    // `default` fuese la única variante imposible de pedir. Hoy el centinela es `undefined`.
     expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'hold')).toBe('hold');
-    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'default')).toBe('spin');
+    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'default')).toBe('default');
   });
 
   it('reordenar variantes mueve la huella, aunque no cambie ni un keyframe', () => {
