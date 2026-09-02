@@ -142,7 +142,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
       right: -5px;
       display: grid;
       color: var(--gf-destello);
-      transform: translateY(10px) rotate(-45deg) scale(0);
+      transform: translateY(10px) rotate(-45deg) scale(0.94);
       opacity: 0;
       transition:
         transform 0.34s 0.05s var(--gf-resorte),

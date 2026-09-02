@@ -271,6 +271,20 @@ export class IconDetailPanel {
     this.previewGrande?.play();
   }
 
+  /**
+   * Un toque en táctil sintetiza `pointerenter` Y `click`, así que sin este guard el gesto se
+   * disparaba DOS veces por toque y se reiniciaba encima de sí mismo. El motor ya blinda sus dos
+   * caminos igual (`gf-icon.component.ts`, `pointerType === 'touch'`); esto es el mismo criterio
+   * para el disparo manual del panel, que no pasa por ahí.
+   *
+   * Va por `pointerenter` y no `mouseenter` precisamente porque el evento de puntero SÍ dice de
+   * qué tipo de entrada viene; el de ratón no lo distingue.
+   */
+  protected reproducirSiApunta(e: PointerEvent): void {
+    if (e.pointerType === 'touch') return;
+    this.reproducir();
+  }
+
   protected async copiarSnippet(): Promise<void> {
     await this.copiar(this.snippet(), 'snippet');
   }
