@@ -309,7 +309,9 @@
   color: var(--gf-texto);
   font: inherit;
   font-size: 0.82rem;
-  outline: none;
+  /* SIN `outline: none`: lo tenía y no ponía nada a cambio, así que el foco de teclado en este
+     input era literalmente invisible (WCAG 2.4.7). El `:focus-visible` global de `styles.css` ya
+     le pinta su anillo; esta regla solo tenía que dejar de taparlo. */
   overflow: hidden;
 }
 

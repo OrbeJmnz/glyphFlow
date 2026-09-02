@@ -154,6 +154,7 @@
 <aside
   class="menu-movil"
   [class.abierto]="menuAbierto()"
+  [attr.inert]="menuAbierto() ? null : ''"
   id="menu-movil"
   [attr.aria-label]="'shell.menu.titulo' | transloco"
 >
