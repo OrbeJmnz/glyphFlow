@@ -131,7 +131,7 @@
 }
 
 .cerrar:active {
-  transform: scale(0.9);
+  transform: scale(0.96);
 }
 
 /* ── Tabs ───────────────────────────────────────────────────────────────────── */
@@ -299,7 +299,7 @@
 }
 
 .copiar:active {
-  transform: scale(0.9);
+  transform: scale(0.96);
 }
 
 /* Confirmación: mismo verde que ya usa el Motion Inspector para "esto no cuesta caro" — un solo

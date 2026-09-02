@@ -535,7 +535,16 @@
   cursor: pointer;
   transition:
     background 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    scale 0.1s ease;
+}
+
+/*
+ * La tarjeta es el objetivo que más se pulsa del sitio y no acusaba recibo. `0.98` y no `0.96`
+ * como los botones: es un área grande, y ahí el mismo porcentaje se lee como un salto.
+ */
+.card:active {
+  scale: 0.98;
 }
 
 /*
@@ -836,7 +845,12 @@
   transition:
     color 0.15s ease,
     border-color 0.15s ease,
-    transform 0.1s ease;
+    scale 0.1s ease;
+}
+
+/* La transición de `transform` estaba declarada sin que ningún `:active` la usara. */
+.copiar-snippet:active {
+  scale: 0.96;
 }
 
 @media (pointer: coarse) {

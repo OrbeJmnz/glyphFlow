@@ -291,7 +291,7 @@
   }
 
   .menu-disparador:active {
-    transform: scale(0.94);
+    transform: scale(0.96);
   }
 
   /*
@@ -416,7 +416,7 @@
   }
 
   .menu-cerrar:active {
-    transform: scale(0.9);
+    transform: scale(0.96);
   }
 
   .menu-nav {

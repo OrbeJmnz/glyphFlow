@@ -484,7 +484,7 @@ code {
  * curva de la casa: entra rápido y suelta con un pelo de rebote, igual que el resto del sitio.
  */
 .chip:active:not(:disabled) {
-  scale: 0.94;
+  scale: 0.96;
 }
 
 /* Deshabilitada. `:not(:disabled)` arriba en vez de resetear el hover después: si se deja que el
@@ -822,7 +822,7 @@ code {
 }
 
 .ui-boton-velocidad:active {
-  scale: 0.94;
+  scale: 0.96;
 }
 
 /* Feedback breve al ciclar: un pulso de fondo que se apaga solo, sin JS de por medio. */
