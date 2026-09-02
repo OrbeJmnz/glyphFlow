@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { GfIconComponent } from './gf-icon.component';
+import type { AnimatedIconDef, IconChoreography } from './animated-icon.model';
 import { ANIMATED_ICONS, ICON_ALIASES } from './animated-icons.registry';
 import { CURATED_ICONS } from './curated-icons';
 import { provideIconCatalog, GF_ICON_CATALOG, MAX_ICON_CATALOG } from './icon-catalog.provider';
@@ -342,6 +343,86 @@ describe('reverse() al salir el puntero', () => {
 
     expect(unTiro.map((a) => a.reversas)).toEqual(unTiro.map(() => 0));
     expect(sostienen.map((a) => a.reversas)).toEqual(sostienen.map(() => 1));
+  });
+});
+
+/*
+ * ── `animation="default"` ──────────────────────────────────────────────────────────────────────
+ *
+ * El hoyo de API que se tapó el 2026-09-02: `default` era la ÚNICA variante que no se podía pedir.
+ *
+ * `@Input() animation` arrancaba en `'default'`, y ese valor ES un nombre de variante legítimo. Así
+ * que `varianteDeHover()` no podía distinguir "el consumidor no lo fijó" de "lo fijó a `default`", y
+ * desempataba descartándolo: en un icono de 3+ variantes, pedir `animation="default"` seguía
+ * disparando la TERCERA en hover. Con `trash-2` (draw/default/active) no había forma de quedarse
+ * con la sacudida.
+ *
+ * Se afirma sobre el EFECTO OBSERVABLE —qué `duration` llegó a `animate()`— y no leyendo
+ * `hoverVariant`, que es privado: al consumidor lo que le importa es qué gesto se ve. jsdom no
+ * implementa Web Animations API, así que el doble de `animate` es obligatorio igual que en los
+ * bloques de arriba.
+ */
+describe('la variante `default` sí se puede pedir', () => {
+  let duraciones: number[];
+  let original: PropertyDescriptor | undefined;
+
+  /** Tres variantes idénticas salvo la duración — esa es la etiqueta que delata cuál corrió. */
+  function pista(duration: number): IconChoreography {
+    return { shapes: { 0: { keyframes: [{ opacity: 1 }, { opacity: 0.4 }], options: { duration } } } };
+  }
+
+  /** El orden del catálogo real: `draw`, `default`, y la especial del icono al final. */
+  const DEF: AnimatedIconDef = {
+    shapes: [{ tag: 'path', d: 'M0 0h24' }],
+    animations: { draw: pista(111), default: pista(222), spin: pista(333) },
+  };
+
+  beforeEach(async () => {
+    duraciones = [];
+    original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+    Object.defineProperty(Element.prototype, 'animate', {
+      configurable: true,
+      writable: true,
+      value: function (_kf: unknown, opciones: KeyframeAnimationOptions): Animation {
+        duraciones.push(opciones?.duration as number);
+        return dobleDeAnimacion();
+      },
+    });
+
+    TestBed.resetTestingModule();
+    // Sin `provideIconCatalog`: el def va por `[iconDef]`, que es la vía sin catálogo.
+    await TestBed.configureTestingModule({ imports: [GfIconComponent] }).compileComponents();
+  });
+
+  afterEach(() => {
+    if (original) Object.defineProperty(Element.prototype, 'animate', original);
+    else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
+  });
+
+  /** Monta en modo `group` (el default) y devuelve las duraciones que dispara UN hover. */
+  function duracionesDeHover(animation?: string): number[] {
+    const fixture = TestBed.createComponent(GfIconComponent);
+    fixture.componentRef.setInput('iconDef', DEF);
+    if (animation !== undefined) fixture.componentRef.setInput('animation', animation);
+    fixture.detectChanges(); // ngAfterViewInit → wireGroup() → play('draw')
+
+    duraciones = []; // el trazo de entrada no es lo que se mide aquí
+    // `Event` y no `PointerEvent`: jsdom no lo trae siempre, y el guard táctil del motor solo
+    // descarta `pointerType === 'touch'` — `undefined` pasa, que es justo el caso de escritorio.
+    fixture.nativeElement.dispatchEvent(new Event('pointerenter'));
+    return duraciones;
+  }
+
+  it('sin fijarlo, el hover sigue eligiendo la TERCERA variante', () => {
+    expect(duracionesDeHover()).toEqual([333]);
+  });
+
+  it('fijado a `default`, el hover reproduce `default` y NO la tercera', () => {
+    expect(duracionesDeHover('default')).toEqual([222]);
+  });
+
+  it('fijado a cualquier otra, manda esa (lo que ya funcionaba sigue igual)', () => {
+    expect(duracionesDeHover('draw')).toEqual([111]);
   });
 });
 

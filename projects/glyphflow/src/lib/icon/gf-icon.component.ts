@@ -154,10 +154,15 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
    */
   @Input() iconDef?: AnimatedIconDef;
   /**
-   * Variante de la coreografía. En modo `group` solo manda si la fijas explícitamente distinta de
-   * `default`; si no, la variante de hover se elige sola (ver `hoverVariant`).
+   * Variante de la coreografía. Si la fijas manda siempre, y eso INCLUYE `default`; si no la fijas,
+   * la variante de hover se elige sola por posición (ver `hoverVariant`).
+   *
+   * Sin inicializador A PROPÓSITO. `'default'` es un nombre de variante legítimo, así que traerlo
+   * como valor inicial lo volvía indistinguible de "el consumidor no lo fijó", y el desempate
+   * descartaba el string — `default` acababa siendo la ÚNICA variante imposible de pedir desde la
+   * plantilla. `undefined` es el único centinela que no colisiona con el catálogo.
    */
-  @Input() animation = 'default';
+  @Input() animation?: string;
   @Input() trigger: AnimatedIconTrigger = 'group';
   @Input() size: number | string = 24;
   @Input() strokeWidth: number | string = 2;
@@ -327,14 +332,14 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   }
 
   // ── API pública (útil con trigger="manual") ────────────────────────────────
-  /** Reproduce una variante; sin argumento, la del input `animation`. */
+  /** Reproduce una variante; sin argumento, la del input `animation` — y sin él, `default`. */
   play(variant?: string): void {
     // El interruptor global va PRIMERO y no mira `respectReducedMotion`: ese input decide si se
     // sigue al sistema, y esto es una orden directa del consumidor. Un icono con
     // `respectReducedMotion="false"` ignora al sistema, no a la aplicación que lo hospeda.
     if (!this.animationsEnabled) return;
     if (this.respectReducedMotion && this.prefersReducedMotion) return;
-    const chor = this.def?.animations[variant ?? this.animation];
+    const chor = this.def?.animations[variant ?? this.animation ?? 'default'];
     if (!chor) return;
 
     const root = this.svgRoot?.nativeElement;
@@ -474,7 +479,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   }
 
   private get choreography() {
-    return this.def?.animations[this.animation];
+    return this.def?.animations[this.animation ?? 'default'];
   }
 
   private get prefersReducedMotion(): boolean {
