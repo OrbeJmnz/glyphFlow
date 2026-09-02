@@ -51,7 +51,7 @@ Foco único, chunking, una cosa a la vez, opciones mínimas, memoria de trabajo.
 
 ## Especificidad: PASA (~80% específico)
 Sin defaults de IA. El 20% de plantilla está en el tejido conectivo: 14 eyebrows en mayúsculas, cadenas con `·`, «PALABRA — fragmento», casi-negro tintado.
-Contradicción de fondo: el elemento firma es un GIF de 425 KB (oscuro) en el sitio de una librería que vende animación nativa.
+El logotipo animado del hero pesaba 425 KB en el tema oscuro (el default) y va con `fetchpriority="high"`, o sea es el LCP de la portada. Es un problema de carga y de la regla de assets, NADA más: el wordmark es identidad de marca, no una demostración técnica, y el sitio ya demuestra el motor de sobra con 1767 iconos animando al hover, el panel de inspección y el Lab. RESUELTO el 2026-09-02 en `b3db456`: WebP animado lossless, 284 KB.
 
 ## Detector (B)
 1 real: `morph-bench.css:272` anima `width` (layout-transition). 3 ya adjudicados en `.impeccable/config.json`, uno de ellos falso positivo genuino (binding de Angular).
