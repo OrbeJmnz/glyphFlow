@@ -8,6 +8,13 @@ export * from './lib/icon/gf-icon.component';
 export * from './lib/icon/gf-icons.config';
 export * from './lib/icon/icon-catalog.provider';
 export * from './lib/icon/animated-icon.model';
+// Los resortes de la casa (SPRING_SMOOTH/SNAPPY/BOUNCY), para que un consumidor pueda usar la MISMA
+// curva que el motor en su propio CSS o en un `element.animate()` suyo. Va este módulo SOLO y no
+// `choreography`: ese trae además el vocabulario de autoría —icon(), track(), rotateSeq()…— que
+// nadie necesita para reusar un easing y que sí pesaría en el bundle de quien solo quiere la curva.
+// Sin esto, el consumidor únicamente podía copiar la cadena a mano y desincronizarse en silencio
+// la próxima vez que los resortes se regeneraran: es lo que llevaba pasando en el playground.
+export * from './lib/icon/spring-easings';
 // ANIMATED_ICONS/ANIMATED_ICON_NAMES/ICON_ALIASES/resolveIconName — la ruta de conveniencia por
 // `name`, que sí arrastra el registro completo.
 export * from './lib/icon/animated-icons.registry';

@@ -65,44 +65,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
       display: inline-flex;
     }
 
-    /*
-     * El resorte de la casa: ζ = 0.73, sobrepaso 1.0265. Es la MISMA curva que usa <gf-icon-morph>
-     * con spring="snappy".
-     *
-     * Está copiada y no importada porque "SPRING_SNAPPY" vive en la librería pero NO sale en su
-     * "public-api", así que un consumidor —y el playground lo es, consume desde npm— no la puede
-     * pedir. Exportarla es una mejora pendiente del paquete; mientras tanto, esto es una cadena de
-     * CSS, no código duplicado.
-     */
     .gh {
-      --resorte: linear(
-        0,
-        0.0636,
-        0.1905,
-        0.3809,
-        0.5302,
-        0.6626,
-        0.7725,
-        0.8587,
-        0.9227,
-        0.9763,
-        1.0024,
-        1.0175,
-        1.0247,
-        1.0265,
-        1.0251,
-        1.0208,
-        1.0168,
-        1.0128,
-        1.0092,
-        1.0063,
-        1.0039,
-        1.0018,
-        1.0007,
-        1,
-        1
-      );
-
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -148,7 +111,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
       display: grid;
       place-items: center;
       transition:
-        transform 0.34s var(--resorte),
+        transform 0.34s var(--gf-resorte),
         /* La opacidad va aparte y con un easing normal: está limitada a [0,1] por spec, así que el
            sobrepaso del resorte se aplanaría solo y sin avisar. Solo "transform" lo aprovecha. */
         opacity 0.16s ease;
@@ -182,7 +145,7 @@ import { conteoVisible, formatearEstrellas, URL_REPO } from '../../core/github';
       transform: translateY(10px) rotate(-45deg) scale(0);
       opacity: 0;
       transition:
-        transform 0.34s 0.05s var(--resorte),
+        transform 0.34s 0.05s var(--gf-resorte),
         opacity 0.16s 0.05s ease;
     }
 

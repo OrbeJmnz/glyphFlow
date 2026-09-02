@@ -142,7 +142,11 @@
   /*
    * El resorte de la casa como token: ζ = 0.73, sobrepaso 1.0265 — la MISMA curva que usa
    * <gf-icon-morph spring="snappy">. Vive aquí y no copiada en cada componente porque hasta ahora
-   * estaba duplicada en el botón de GitHub.
+   * estaba duplicada en el botón de GitHub — y en el de donar, que copió la copia.
+   *
+   * Desde el 2026-09-02 el paquete SÍ exporta `SPRING_SNAPPY`, así que esto ya no es la única vía:
+   * es el espejo en CSS de esa constante, para el CSS que no pasa por TypeScript. Si algún día se
+   * regeneran los resortes, este valor se actualiza desde ahí — no se vuelve a teclear a ojo.
    *
    * Se copia del paquete y no se importa porque `SPRING_SNAPPY` existe en la librería pero NO sale
    * en su `public-api`; el playground consume desde npm y no la puede pedir. Exportarla es pendiente.
