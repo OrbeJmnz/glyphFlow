@@ -45,6 +45,11 @@ const steps = [
   ['Lint', 'npm', ['run', 'lint']],
   ['Typecheck', 'npm', ['run', 'typecheck']],
   ['Drift del lock de coreografía curada', 'npm', ['run', 'curated:lock:check']],
+  // No estaba: la vara de «ya quedó» no medía el movimiento. Cuesta 4.4 s.
+  ['Motion lint sobre el catálogo curado', 'npx', ['tsx', 'scripts/motion-lint.ts']],
+  // Tampoco estaba, y llevaba tiempo en falso rojo por el bug de CRLF que nadie veía
+  // porque nadie lo corría.
+  ['Drift de los resortes generados', 'npm', ['run', 'gen:springs:check']],
   ['Drift de sitemap.xml y robots.txt', 'npm', ['run', 'gen:sitemap:check']],
   ['README: paridad EN/ES y sin API de la v1', 'npm', ['run', 'docs:check']],
   ['Snippets copiables del sitio', 'npm', ['run', 'snippets:check']],

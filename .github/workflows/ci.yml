@@ -45,6 +45,28 @@ jobs:
       - name: Drift del lock de coreografía curada
         run: npm run curated:lock:check
 
+      # Aquí y no en su propio workflow con filtros `paths`, que es donde vivía. Dos motivos, los
+      # dos medidos:
+      #
+      #   1. El filtro dejaba fuera `choreography.ts` y `spring-easings.ts`, que es donde viven
+      #      `track()` (decide `easing` y el `fill: 'backwards'`), `held()` (`fill: 'forwards'` +
+      #      `reverseOnLeave`) e `icon()`. Tocabas el default de `track()` y cambiabas las 4795
+      #      variantes medidas sin disparar al que las mide.
+      #   2. `release` depende de `[ci, angular-compat]`. Un workflow aparte NO está en esa
+      #      cadena, así que un rojo del único linter que juzga la coreografía no detenía un
+      #      publish.
+      #
+      # El filtro existía para ahorrar CI. Cronometrado: 4.4 s sobre los 1767 iconos. No ahorraba
+      # nada y a cambio abría los dos huecos de arriba.
+      - name: Motion lint sobre el catálogo curado
+        run: npx tsx scripts/motion-lint.ts
+
+      # `spring-easings.ts` lo GENERA integrando el resorte; si alguien lo edita a mano o cambian
+      # los { k, c } del preset vendorizado, las 40 coreografías que usan `SPRING_OUT` se mueven
+      # sin que nada lo diga. No estaba en ningún gate, y por eso llevaba tiempo en falso rojo.
+      - name: Drift de los resortes generados
+        run: npm run gen:springs:check
+
       - name: Unit tests (glyphflow)
         run: npx ng test glyphflow --watch=false
 

@@ -17,7 +17,10 @@
  * anterior al cambio, que es justo lo que un check de PR no debe hacer.
  */
 import { CURATED_ICONS } from '../projects/glyphflow/src/lib/icon/curated-icons';
-import type { AnimatedIconDef } from '../projects/glyphflow/src/lib/icon/animated-icon.model';
+import type {
+  AnimatedIconDef,
+  IconChoreography,
+} from '../projects/glyphflow/src/lib/icon/animated-icon.model';
 import {
   analizarIcono,
   type VariantReport,
@@ -178,7 +181,83 @@ function revisar(icono: string, v: VariantReport): Hallazgo[] {
 const entradas = Object.entries(CURATED_ICONS as Record<string, AnimatedIconDef>);
 const informes = entradas.map(([nombre, def]) => analizarIcono(nombre, def));
 const variantes = informes.reduce((n, r) => n + r.variantes.length, 0);
-const hallazgos = informes.flatMap((r) => r.variantes.flatMap((v) => revisar(r.icono, v)));
+/*
+ * Qué CLASE de gesto es una coreografía, por las funciones de transform que usa. Grueso a
+ * propósito: no distingue 4° de 12°, distingue girar de reflejar.
+ */
+function familiaDeGesto(chor: IconChoreography): Set<string> {
+  const fam = new Set<string>();
+  const tracks = [chor.root, ...Object.values(chor.shapes ?? {})].filter(Boolean);
+  for (const t of tracks) {
+    for (const kf of t!.keyframes) {
+      const tr = kf['transform'];
+      if (typeof tr !== 'string' || tr === 'none') continue;
+      for (const m of tr.matchAll(/(\w+)\(([^)]*)\)/g)) {
+        const n = (m[2].match(/-?\d*\.?\d+/g) ?? ['0']).map(Number);
+        if (m[1].startsWith('scale')) fam.add(n.some((v) => v < 0) ? 'espejo' : 'escala');
+        else if (m[1] === 'rotate') fam.add('giro');
+        else if (m[1].startsWith('translate')) fam.add('traslado');
+        else if (m[1].startsWith('skew')) fam.add('sesgo');
+      }
+    }
+  }
+  return fam;
+}
+
+/*
+ * Un nombre de variante que significa DOS gestos distintos.
+ *
+ * Cada nombre es API pública (`<gf-icon animation="…">`), así que su significado tiene que ser
+ * uno solo: quien escribe `animation="flip"` en una plantilla espera lo mismo en los 57 iconos
+ * que lo tienen. Y esto no se ve leyendo un icono — sólo aparece mirando el catálogo entero, que
+ * es justo lo que ningún otro check hace.
+ *
+ * El defecto ya ocurrió, y por eso existe la regla: al añadir `flip` a 25 pares opuestos
+ * (espejo) nadie notó que 6 `sticky-note-*` ya lo usaban para una esquina que se despliega
+ * (giro de 25°). Dos gestos, un nombre, en el mismo release.
+ *
+ * Umbral MEDIDO, no elegido: se exige que las familias sean DISJUNTAS —sin una sola función de
+ * transform en común— y que cada una tenga 3 o más iconos, para no marcar a un icono raro dentro
+ * de un nombre sano. Con eso, hoy salta en 2 de los 53 nombres: `flip` y `active`. Aflojarlo
+ * marcaría nombres legítimos como `default`, que usa de todo por definición.
+ */
+const MINIMO_FAMILIA = 3;
+const porNombre = new Map<string, Map<string, { n: number; fam: Set<string> }>>();
+for (const [, def] of entradas) {
+  for (const [variante, chor] of Object.entries(def.animations)) {
+    if (variante === 'draw' || variante === 'default') continue;
+    const fam = familiaDeGesto(chor);
+    if (!fam.size) continue;
+    const clave = [...fam].sort().join('+');
+    const grupos = porNombre.get(variante) ?? new Map();
+    const antes = grupos.get(clave) ?? { n: 0, fam };
+    grupos.set(clave, { n: antes.n + 1, fam });
+    porNombre.set(variante, grupos);
+  }
+}
+const ambiguos: Hallazgo[] = [];
+for (const [variante, grupos] of porNombre) {
+  const grandes = [...grupos.entries()].filter(([, g]) => g.n >= MINIMO_FAMILIA);
+  const disjuntas = grandes.filter(
+    ([, g]) => !grandes.some(([, o]) => o !== g && [...g.fam].some((f) => o.fam.has(f))),
+  );
+  if (disjuntas.length < 2) continue;
+  ambiguos.push({
+    icono: '(catálogo)',
+    variante,
+    regla: 'nombre-ambiguo',
+    nivel: 'aviso',
+    detalle: `significa ${disjuntas.length} gestos distintos: ${disjuntas
+      .sort((a, b) => b[1].n - a[1].n)
+      .map(([clave, g]) => `${g.n}×${clave}`)
+      .join(' vs ')} — un nombre es API, y quien lo escribe espera lo mismo en todos`,
+  });
+}
+
+const hallazgos = [
+  ...informes.flatMap((r) => r.variantes.flatMap((v) => revisar(r.icono, v))),
+  ...ambiguos,
+];
 
 console.log(`motion-lint — ${entradas.length} iconos curados, ${variantes} variantes analizadas`);
 
