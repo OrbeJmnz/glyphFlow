@@ -105,6 +105,11 @@
       "auto": "En cuanto monta.",
       "manual": "Nunca solo: lo disparas tú llamando <code>play()</code> sobre la instancia."
     },
+    "variantes": {
+      "titulo": "Elegir qué animación se reproduce",
+      "texto1": "Todo icono trae <code>draw</code> más lo que le hayan curado a mano — <code>default</code>, <code>active</code>, alguna con nombre propio (<code>rotate</code>, <code>find</code>...). <code>animation=\"nombre\"</code> fuerza cuál se reproduce en el trigger; sin fijarlo, el hover elige por posición. Qué trae CADA icono se descubre sin bajar el catálogo entero: <code>ICON_VARIANTS</code> es un módulo aparte, igual que <code>ICON_TAGS</code>.",
+      "texto2": "Siempre incluye <code>draw</code>, así que nunca viene vacío."
+    },
     "velocidad": {
       "titulo": "Velocidad global",
       "texto1": "Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph por igual. <code>1</code> es sin cambio; sin proveer nada, el comportamiento queda intacto.",
