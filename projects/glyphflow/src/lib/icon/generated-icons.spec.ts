@@ -2,6 +2,7 @@ import { ANIMATED_ICONS, ICON_ALIASES, ICON_META } from './animated-icons.regist
 import { CURATED_ICONS } from './curated-icons';
 import { GENERATED_ICONS } from './generated-icons';
 import { ICON_TAGS } from './icon-tags';
+import { ICON_VARIANTS } from './icon-variants';
 import iconNodes from 'lucide-static/icon-nodes.json';
 import lucideTags from 'lucide-static/tags.json';
 
@@ -77,6 +78,41 @@ describe('Catálogo generado — cobertura completa', () => {
         lucideNames.includes(viejo),
         `"${viejo}" es un alias viejo pero TAMBIÉN es un nombre canónico vigente de Lucide`,
       ).toBe(false);
+    }
+  });
+
+  /**
+   * Mismo invariante que ya fuerza `tags`, aplicado a variantes: `IconMeta.variants` es requerido,
+   * así que el tipo promete al menos una. `draw` la inyecta `icon()` siempre de primera (ver
+   * choreography.ts), así que su ausencia significaría que algo construyó el registro sin pasar
+   * por ese helper.
+   */
+  it('todo icono trae al menos una variante, en ICON_VARIANTS y en su metadata, y siempre incluye draw', () => {
+    for (const name of Object.keys(ANIMATED_ICONS)) {
+      expect(ICON_VARIANTS[name], `"${name}" no tiene entrada en ICON_VARIANTS`).toBeDefined();
+      expect(ICON_VARIANTS[name].length, `"${name}" tiene la lista de variantes vacía`).toBeGreaterThan(0);
+      expect(ICON_VARIANTS[name], `"${name}" no incluye la variante draw`).toContain('draw');
+      expect(ICON_META[name].variants, `"${name}": ICON_META y ICON_VARIANTS no coinciden`).toBe(
+        ICON_VARIANTS[name],
+      );
+    }
+  });
+
+  it('ICON_VARIANTS coincide con las claves reales de animations en el registro — no una copia que derivó', () => {
+    for (const name of Object.keys(ANIMATED_ICONS)) {
+      expect(
+        [...ICON_VARIANTS[name]].sort(),
+        `"${name}" tiene variantes distintas a Object.keys(animations)`,
+      ).toEqual(Object.keys(ANIMATED_ICONS[name].animations).sort());
+    }
+  });
+
+  it('ICON_VARIANTS no inventa iconos que el catálogo no tiene', () => {
+    for (const name of Object.keys(ICON_VARIANTS)) {
+      expect(
+        ANIMATED_ICONS[name],
+        `"${name}" está en ICON_VARIANTS pero no en el catálogo`,
+      ).toBeDefined();
     }
   });
 
