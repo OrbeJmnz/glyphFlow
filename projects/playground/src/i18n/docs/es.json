@@ -105,11 +105,6 @@
       "auto": "En cuanto monta.",
       "manual": "Nunca solo: lo disparas tú llamando <code>play()</code> sobre la instancia."
     },
-    "variantes": {
-      "titulo": "Elegir qué animación se reproduce",
-      "texto1": "Todo icono trae <code>draw</code> más lo que le hayan curado a mano — <code>default</code>, <code>active</code>, alguna con nombre propio (<code>rotate</code>, <code>find</code>...). <code>animation=\"nombre\"</code> fuerza cuál se reproduce en el trigger; sin fijarlo, el hover elige por posición. Qué trae CADA icono se descubre sin bajar el catálogo entero: <code>ICON_VARIANTS</code> es un módulo aparte, igual que <code>ICON_TAGS</code>.",
-      "texto2": "Siempre incluye <code>draw</code>, así que nunca viene vacío."
-    },
     "velocidad": {
       "titulo": "Velocidad global",
       "texto1": "Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph por igual. <code>1</code> es sin cambio; sin proveer nada, el comportamiento queda intacto.",
@@ -265,9 +260,8 @@
       "ANIMATED_ICON_NAMES": "Las claves del catálogo. Mismo costo de bundle que ANIMATED_ICONS.",
       "ICON_ALIASES": "Renombramientos reales de Lucide (mismo glifo, nombre nuevo).",
       "resolveIconName": "Aplica los alias: nombre viejo → nombre actual.",
-      "ICON_META": "Metadatos por icono: si es curado, su origen, sus tags de búsqueda y sus variantes de animación.",
+      "ICON_META": "Metadatos por icono: si es curado, su origen y sus tags de búsqueda.",
       "ICON_TAGS": "Los sinónimos de búsqueda de Lucide por icono, sin la geometría.",
-      "ICON_VARIANTS": "Qué variantes de animación tiene cada icono, sin la geometría. Siempre incluye `draw`.",
       "GfIconMorphComponent": "Selector <gf-icon-morph>. Cambiar [icon] dispara la transición.",
       "morphKeyframes": "Calcula los keyframes discretos de `d` entre dos iconos. No anima nada.",
       "runMorph": "morphKeyframes + element.animate(). Devuelve la Animation para que la controles.",
@@ -294,7 +288,7 @@
       "AutoDraw": "Config del trazo automático (velocidad, traslape, topes).",
       "AnimatedIconTrigger": "'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual'.",
       "GfIconsConfig": "Lo que recibe provideGfIcons.",
-      "IconMeta": "Los metadatos de un icono del catálogo. `tags` y `variants` vienen siempre poblados.",
+      "IconMeta": "Los metadatos de un icono del catálogo. `tags` viene siempre poblado.",
       "MorphIcon": "Lo que acepta [icon]: un AnimatedIconDef o su geometría.",
       "MorphKeyframes": "La salida de morphKeyframes: keyframes, duración, peso.",
       "MorphKeyframesOpts": "Pasos, resolución, cola, resorte, sobrepaso.",

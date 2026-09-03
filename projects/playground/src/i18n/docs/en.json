@@ -105,11 +105,6 @@
       "auto": "As soon as it mounts.",
       "manual": "Never on its own: you trigger it by calling <code>play()</code> on the instance."
     },
-    "variantes": {
-      "titulo": "Choosing which animation plays",
-      "texto1": "Every icon carries <code>draw</code> plus whatever's been hand-curated for it — <code>default</code>, <code>active</code>, sometimes one with its own name (<code>rotate</code>, <code>find</code>...). <code>animation=\"name\"</code> forces which one the trigger plays; leave it unset and hover picks by position. What each SPECIFIC icon has is discoverable without pulling in the whole catalog: <code>ICON_VARIANTS</code> is a standalone module, same as <code>ICON_TAGS</code>.",
-      "texto2": "Always includes <code>draw</code>, so it never comes back empty."
-    },
     "velocidad": {
       "titulo": "Global speed",
       "texto1": "One multiplier for every computed duration — choreography and morph transitions alike. <code>1</code> means no change; without providing anything, behavior stays untouched.",
@@ -265,9 +260,8 @@
       "ANIMATED_ICON_NAMES": "The catalog's keys. Same bundle cost as ANIMATED_ICONS.",
       "ICON_ALIASES": "Real Lucide renames (same glyph, new name).",
       "resolveIconName": "Applies the aliases: old name → current name.",
-      "ICON_META": "Per-icon metadata: curated flag, source, search tags, animation variants.",
+      "ICON_META": "Per-icon metadata: curated flag, source, search tags.",
       "ICON_TAGS": "Lucide's search synonyms per icon, without the geometry.",
-      "ICON_VARIANTS": "Which animation variants each icon has, without the geometry. Always includes `draw`.",
       "GfIconMorphComponent": "Selector <gf-icon-morph>. Changing [icon] triggers the transition.",
       "morphKeyframes": "Computes the discrete `d` keyframes between two icons. Doesn't animate anything.",
       "runMorph": "morphKeyframes + element.animate(). Returns the Animation so you can control it.",
@@ -294,7 +288,7 @@
       "AutoDraw": "Auto-draw config (speed, overlap, caps).",
       "AnimatedIconTrigger": "'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual'.",
       "GfIconsConfig": "What provideGfIcons receives.",
-      "IconMeta": "One catalog icon's metadata. `tags` and `variants` are always populated.",
+      "IconMeta": "One catalog icon's metadata. `tags` is always populated.",
       "MorphIcon": "What [icon] accepts: an AnimatedIconDef or its geometry.",
       "MorphKeyframes": "morphKeyframes' output: keyframes, duration, weight.",
       "MorphKeyframesOpts": "Steps, resolution, tail, spring, overshoot.",
