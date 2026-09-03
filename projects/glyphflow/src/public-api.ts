@@ -22,6 +22,10 @@ export * from './lib/icon/animated-icons.registry';
 // que un buscador puede indexarlos sin bajar el catálogo. Colgados solo de `IconMeta`, buscar
 // obligaría a importar `ICON_META`, que se construye sobre `ANIMATED_ICON_NAMES` y arrastra todo.
 export * from './lib/icon/icon-tags';
+// ICON_VARIANTS: mismo criterio que ICON_TAGS un módulo arriba — qué animaciones tiene cada icono,
+// sin arrastrar su geometría. Colgado solo de IconMeta, buscarlo ahí exige ICON_META (que sí
+// arrastra ANIMATED_ICON_NAMES y por tanto el catálogo completo).
+export * from './lib/icon/icon-variants';
 // Los curados a mano, uno por familia bajo `icons/` más los que aún no tienen módulo propio: la
 // ruta tree-shakeable vía `[iconDef]="bellIcon"`.
 export * from './lib/icon/curated-icons';
