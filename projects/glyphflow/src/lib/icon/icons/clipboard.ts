@@ -5,7 +5,7 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { clipboardCheckShapes, clipboardClockShapes, clipboardCopyShapes, clipboardListShapes, clipboardMinusShapes, clipboardPasteShapes, clipboardPenLineShapes, clipboardPenShapes, clipboardPlusShapes, clipboardTypeShapes, clipboardXShapes } from '../animated-icons.shapes';
-import { BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN, puntaTrazoYCompas, astaTrazoYCompas } from './_shared';
+import { REBOTE_ELASTICO, BADGE_BOUNCE_DRAW, X_SNAP_DRAW, REFRESH_SPIN, puntaTrazoYCompas, astaTrazoYCompas } from './_shared';
 
 // Igual que el `translate` de reposo de pencil/pen/square-pen.
 const PEN_WRITE_SQUIGGLE = /* @__PURE__ */ [
@@ -266,6 +266,9 @@ export const clipboardTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboard
 /** `snap`: mismo combo dashoffset+scale de `check`, aplicado a las dos diagonales. */
 export const clipboardXIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardXShapes, {
     default: {
+      // El rebote de cierre separa este `default` de su `mark`: los dos dibujan la misma
+      // insignia, y sin algo que los distinga la variante extra no aporta nada.
+      root: /* @__PURE__ */ track(REBOTE_ELASTICO, 460, { easing: SPRING_OUT, delay: 500, fill: 'backwards', origin: '12px 21px' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: 'ease-in-out' }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }),
@@ -273,18 +276,15 @@ export const clipboardXIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardXSh
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 230 }),
       },
     },
-    snap: {
+    // Era la variante `snap`, y renombrarla es lo correcto: mueve SOLO la equis —figuras 2 y 3—
+    // sobre la tabla quieta, que es exactamente lo que `mark` promete.
+    //
+    // La `mark` que había animaba las cuatro figuras, tabla incluida, con el mismo vaivén que el
+    // `default`. O sea el `default` otra vez, con otro nombre. Se borró.
+    mark: {
       shapes: {
         2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { delay: 150, origin: '12px 14px' }),
         3: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { delay: 230, origin: '12px 14px' }),
-      },
-    },
-    mark: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
-        1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
-        2: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-        3: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
       },
     },
   });

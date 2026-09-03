@@ -4,6 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, track, burst, strokeDraw, icon } from '../choreography';
+import { REBOTE_ELASTICO } from './_shared';
 import { listChecksShapes, listShapes } from '../animated-icons.shapes';
 
 /**
@@ -137,6 +138,9 @@ export const listIcon: AnimatedIconDef = /* @__PURE__ */ icon(listShapes, {
 /** Pendientes que se van palomeando. */
 export const listChecksIcon: AnimatedIconDef = /* @__PURE__ */ icon(listChecksShapes, {
     default: {
+      // El rebote de cierre separa este `default` de su `mark`: los dos dibujan la misma
+      // insignia, y sin algo que los distinga la variante extra no aporta nada.
+      root: /* @__PURE__ */ track(REBOTE_ELASTICO, 460, { easing: SPRING_OUT, delay: 460, fill: 'backwards', origin: '12px 21px' }),
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 300, { delay: 160 }),

@@ -8,6 +8,28 @@ import { folderShapes, folderArchiveShapes, folderBookmarkShapes, folderCheckSha
 
 const FOLDER_BOUNCE = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -1.8, 0]), 520, { easing: SPRING_OUT });
 
+/**
+ * La carpeta se ABRE: la tapa se inclina desde la bisagra y vuelve.
+ *
+ * Es lo único que separa a `extra` de `default`. Antes los dos usaban `FOLDER_BOUNCE` —el mismo
+ * brinco, el mismo resorte, la misma amplitud— y `extra` solo se distinguía por durar más. Dos
+ * variantes que hacen el mismo gesto con distinto reloj no son dos variantes.
+ *
+ * El origen va en la BISAGRA (abajo a la izquierda), no en el centro: girando sobre el centro se
+ * ve como el icono entero ladeándose, que es exactamente lo que ya hace `default`.
+ */
+const FOLDER_TAPA = /* @__PURE__ */ track(
+  [
+    { transform: 'rotate(0deg) translateY(0px)' },
+    { transform: 'rotate(-4deg) translateY(-1px)' },
+    { transform: 'rotate(1.5deg) translateY(0px)' },
+    { transform: 'rotate(0deg) translateY(0px)' },
+  ],
+  620,
+  { easing: SPRING_OUT, origin: '4px 20px' },
+);
+
+
 const FOLDER_GEAR_SPIN = /* @__PURE__ */ [
   { transform: 'scale(1) rotate(0deg)' },
   { transform: 'scale(1.15) rotate(360deg)' },
@@ -100,7 +122,7 @@ export const folderCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderCheck
     },
     /** Igual que el default; al terminar, la palomita "confirma" con un rebote y regresa. */
     extra: {
-      root: FOLDER_BOUNCE,
+      root: FOLDER_TAPA,
       shapes: {
         1: /* @__PURE__ */ track(
           [
@@ -485,7 +507,7 @@ export const folderKanbanIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderKanb
     },
     /** Igual que el default; al crecer, cada columna rebota un poco más alto y se asienta. */
     extra: {
-      root: FOLDER_BOUNCE,
+      root: FOLDER_TAPA,
       shapes: {
         1: /* @__PURE__ */ track(
           [
@@ -721,7 +743,7 @@ export const folderPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderPlusSh
     },
     /** Igual que el default; al terminar, la cruz crece un poco más y regresa. */
     extra: {
-      root: FOLDER_BOUNCE,
+      root: FOLDER_TAPA,
       shapes: {
         0: /* @__PURE__ */ track(
           [
@@ -745,10 +767,13 @@ export const folderPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderPlusSh
         ),
       },
     },
+    // `mark` es la MARCA sobre una base quieta. Aquí la marca es el "+" —figuras 0 y 1—; la 2 es
+    // la carpeta, o sea la base. Animarla también volvía a dibujar el icono entero, que es lo que
+    // hace `draw`. Misma receta que `folder-check`, con las dos astas del "+" escalonadas.
     mark: {
       shapes: {
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
-        2: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out', delay: 120, fill: 'backwards' }),
       },
     },
   });
@@ -1039,7 +1064,7 @@ export const folderXIcon: AnimatedIconDef = /* @__PURE__ */ icon(folderXShapes, 
       },
     },
     extra: {
-      root: FOLDER_BOUNCE,
+      root: FOLDER_TAPA,
       shapes: {
         1: /* @__PURE__ */ track(
           [

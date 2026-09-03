@@ -12044,7 +12044,7 @@
       "@hover": "default"
     },
     "book-a": {
-      "default": "2ec016b1494f",
+      "default": "c64f38391d80",
       "draw": "17c8398e8d34",
       "mark": "b19e1974e5ef",
       "reveal": "5cfc38f18d6b",
@@ -12131,7 +12131,7 @@
       "@hover": "mark"
     },
     "book-minus": {
-      "default": "fc10569850ec",
+      "default": "f1f7e3598357",
       "draw": "17c8398e8d34",
       "mark": "e05a65a2ad47",
       "reveal": "5cfc38f18d6b",
@@ -12156,7 +12156,7 @@
       "@hover": "default"
     },
     "book-plus": {
-      "default": "b6858f5423af",
+      "default": "21e908a84ff9",
       "draw": "17c8398e8d34",
       "mark": "a490ef7b7e3c",
       "reveal": "5cfc38f18d6b",
@@ -12176,7 +12176,7 @@
       "@hover": "mark"
     },
     "book-type": {
-      "default": "86db6862ccb5",
+      "default": "29349dbba347",
       "draw": "17c8398e8d34",
       "mark": "4798916c79be",
       "reveal": "5cfc38f18d6b",
@@ -12197,14 +12197,14 @@
       "@hover": "mark"
     },
     "book-user": {
-      "default": "8c32ac3188cd",
+      "default": "d7bac7eda2ec",
       "draw": "17c8398e8d34",
       "mark": "23eae1bf819e",
       "reveal": "5cfc38f18d6b",
       "@hover": "mark"
     },
     "book-x": {
-      "default": "ffe0db1a8c54",
+      "default": "811dd27e6cd0",
       "draw": "17c8398e8d34",
       "mark": "a490ef7b7e3c",
       "reveal": "5cfc38f18d6b",
@@ -13250,7 +13250,7 @@
       "@hover": "hold"
     },
     "circle-check": {
-      "default": "3c62dd4dedb5",
+      "default": "ed5af0f9defe",
       "draw": "17c8398e8d34",
       "mark": "9e2b5d4fdc56",
       "reveal": "5cfc38f18d6b",
@@ -13583,12 +13583,11 @@
       "@hover": "quick"
     },
     "clipboard-x": {
-      "default": "1abc853610ca",
+      "default": "f5f729107dec",
       "draw": "17c8398e8d34",
-      "mark": "1f49309a1211",
+      "mark": "c6d49afbc1aa",
       "reveal": "5cfc38f18d6b",
-      "snap": "c6d49afbc1aa",
-      "@hover": "snap"
+      "@hover": "mark"
     },
     "clock": {
       "default": "a1c9f68d3e1a",
@@ -14106,6 +14105,7 @@
       "assemble": "c90dbf50c337",
       "default": "5d8f655f54df",
       "draw": "17c8398e8d34",
+      "nudge": "5b00416e709c",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14113,6 +14113,7 @@
       "assemble": "cbff275c6dbe",
       "default": "1235760a0d6e",
       "draw": "17c8398e8d34",
+      "nudge": "c9e38beab2a6",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14120,6 +14121,7 @@
       "assemble": "2af5c2f0dc45",
       "default": "4237aa1e4728",
       "draw": "17c8398e8d34",
+      "nudge": "9b6bb365ccba",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14127,6 +14129,7 @@
       "assemble": "a653219a58c4",
       "default": "097e7d4ba6c8",
       "draw": "17c8398e8d34",
+      "nudge": "20c36df8af91",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14134,6 +14137,7 @@
       "assemble": "2af5c2f0dc45",
       "default": "1f782bb6d64d",
       "draw": "17c8398e8d34",
+      "nudge": "9b6bb365ccba",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14141,6 +14145,7 @@
       "assemble": "a653219a58c4",
       "default": "fd662e434e00",
       "draw": "17c8398e8d34",
+      "nudge": "20c36df8af91",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14148,6 +14153,7 @@
       "assemble": "c90dbf50c337",
       "default": "ed674bd3ca65",
       "draw": "17c8398e8d34",
+      "nudge": "5b00416e709c",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14155,6 +14161,7 @@
       "assemble": "cbff275c6dbe",
       "default": "3b8d33e23fc6",
       "draw": "17c8398e8d34",
+      "nudge": "c9e38beab2a6",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -14528,6 +14535,7 @@
       "default": "c3fd9af1e1bd",
       "draw": "17c8398e8d34",
       "hold": "bfbcfef9af04",
+      "nudge": "d488ec71bbba",
       "reveal": "5cfc38f18d6b",
       "@hover": "hold"
     },
@@ -14734,7 +14742,7 @@
       "default": "f2f07b404897",
       "draw": "17c8398e8d34",
       "hold": "b964cd84adf4",
-      "launch": "a7c000125558",
+      "nudge": "f82abcb08eaf",
       "reveal": "5cfc38f18d6b",
       "@hover": "hold"
     },
@@ -14936,7 +14944,7 @@
       "@hover": "pulse"
     },
     "file-check": {
-      "default": "e10096d1915c",
+      "default": "7b077757eb33",
       "draw": "17c8398e8d34",
       "mark": "9573814eb6cf",
       "pulse": "ccb1ebe5314e",
@@ -14944,7 +14952,7 @@
       "@hover": "mark"
     },
     "file-check-corner": {
-      "default": "e10096d1915c",
+      "default": "7b077757eb33",
       "draw": "17c8398e8d34",
       "mark": "9573814eb6cf",
       "pulse": "3d6d190e8d7d",
@@ -15447,7 +15455,7 @@
     "folder-check": {
       "default": "42c515004eb3",
       "draw": "17c8398e8d34",
-      "extra": "0f85702bceb0",
+      "extra": "6c374b1da1dc",
       "mark": "9e2b5d4fdc56",
       "reveal": "5cfc38f18d6b",
       "@hover": "extra"
@@ -15528,7 +15536,7 @@
       "cascade": "73e1d35767bb",
       "default": "af7b9516de92",
       "draw": "17c8398e8d34",
-      "extra": "093339bb3a36",
+      "extra": "acdaf8598392",
       "reveal": "5cfc38f18d6b",
       "@hover": "extra"
     },
@@ -15584,8 +15592,8 @@
     "folder-plus": {
       "default": "83b9370fd124",
       "draw": "17c8398e8d34",
-      "extra": "4760770742af",
-      "mark": "99c376896e29",
+      "extra": "8c4706d5c95e",
+      "mark": "6174e7d16942",
       "reveal": "5cfc38f18d6b",
       "@hover": "extra"
     },
@@ -15643,7 +15651,7 @@
     "folder-x": {
       "default": "cccad7a89e51",
       "draw": "17c8398e8d34",
-      "extra": "5d5b0b3e215f",
+      "extra": "4b2f16cc7b0c",
       "mark": "a6fdfac1f9ae",
       "reveal": "5cfc38f18d6b",
       "@hover": "extra"
@@ -15833,7 +15841,7 @@
     },
     "git-commit-horizontal": {
       "assemble": "c97362345027",
-      "default": "91775c2c64c6",
+      "default": "e4881ed0158f",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
@@ -15847,7 +15855,7 @@
     },
     "git-compare": {
       "assemble": "593c0851764a",
-      "default": "c28215d7fd58",
+      "default": "12aa280ecef2",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
@@ -16970,7 +16978,7 @@
       "@hover": "default"
     },
     "list-checks": {
-      "default": "5267541d0ebd",
+      "default": "61fb7da09cd6",
       "draw": "17c8398e8d34",
       "mark": "68d7d9b80534",
       "reveal": "5cfc38f18d6b",
@@ -17173,6 +17181,7 @@
       "assemble": "337e3038f613",
       "default": "1f716a75de8a",
       "draw": "17c8398e8d34",
+      "nudge": "94d087385026",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
@@ -17319,7 +17328,6 @@
       "@hover": "pulse"
     },
     "map-pin-check": {
-      "confirm": "5470e57ce2e4",
       "default": "34b7735ab1b3",
       "draw": "17c8398e8d34",
       "mark": "9573814eb6cf",
@@ -18295,30 +18303,30 @@
     "package-check": {
       "default": "eb81c4fd822e",
       "draw": "17c8398e8d34",
-      "drop": "bc0935d0fe22",
-      "mark": "100d9decc6df",
+      "drop": "fa000206a359",
+      "mark": "9e2b5d4fdc56",
       "reveal": "5cfc38f18d6b",
       "@hover": "drop"
     },
     "package-minus": {
       "default": "e4a541b317e1",
       "draw": "17c8398e8d34",
-      "drop": "bf124e962567",
+      "drop": "51a082003347",
       "reveal": "5cfc38f18d6b",
       "@hover": "drop"
     },
     "package-open": {
-      "bounce": "e58cd88b45d7",
+      "bounce": "5f232df504ff",
       "default": "2f29948b6604",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "wide": "e58cd88b45d7",
+      "wide": "5f232df504ff",
       "@hover": "bounce"
     },
     "package-plus": {
       "default": "67db9140612b",
       "draw": "17c8398e8d34",
-      "drop": "03c350f17c1d",
+      "drop": "162c630b3ac0",
       "reveal": "5cfc38f18d6b",
       "@hover": "drop"
     },
@@ -18331,7 +18339,7 @@
     "package-x": {
       "default": "68faeec8ab87",
       "draw": "17c8398e8d34",
-      "drop": "afc863f8c952",
+      "drop": "15a5b0822738",
       "reveal": "5cfc38f18d6b",
       "@hover": "drop"
     },
@@ -21874,7 +21882,7 @@
     "user-check": {
       "default": "cecfd546c634",
       "draw": "17c8398e8d34",
-      "mark": "9573814eb6cf",
+      "mark": "100d9decc6df",
       "reveal": "5cfc38f18d6b",
       "@hover": "mark"
     },

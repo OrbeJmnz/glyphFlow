@@ -51,9 +51,12 @@ export const userCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(userCheckShap
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 200 }),
       },
     },
+    // La marca de este icono es la PALOMITA, que aquí es la figura 0 — la 2 es la cabeza. Animaba
+    // la 2: índice válido, figura equivocada, la misma clase de fallo que `calendar-clock`. El
+    // resultado era un `mark` que trazaba el círculo de la cabeza y dejaba la palomita quieta.
     mark: {
       shapes: {
-        2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });

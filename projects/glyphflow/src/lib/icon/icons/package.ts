@@ -10,9 +10,22 @@ const PACKAGE_BOUNCE = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2.5, 
   easing: SPRING_OUT,
 });
 
-const PACKAGE_DROP = /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -6, 1, 0]), 480, {
-  easing: EASE,
-});
+/**
+ * Cae DESDE ARRIBA y aterriza aplastándose un poco.
+ *
+ * Antes era `moveYSeq([0, -6, 1, 0])`: el mismo gesto que `PACKAGE_BOUNCE` con más amplitud —los
+ * dos SUBÍAN desde el reposo— y a 24 píxeles la diferencia entre 2.5 y 6 no se lee como otra
+ * animación, se lee como la misma mal calibrada. Un `drop` tiene que empezar fuera de su sitio.
+ */
+const PACKAGE_DROP = /* @__PURE__ */ track(
+  [
+    { transform: 'translateY(-9px) scaleY(1)', opacity: '0' },
+    { transform: 'translateY(0px) scaleY(0.88)', opacity: '1' },
+    { transform: 'translateY(0px) scaleY(1)', opacity: '1' },
+  ],
+  560,
+  { easing: EASE, origin: '12px 21px' },
+);
 
 /* ── Vocabulario de la etapa 2 ───────────────────────────────────────────────────────────── */
 
@@ -46,9 +59,11 @@ export const packageCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(packageChe
       root: PACKAGE_DROP,
       shapes: { 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 280, { delay: 330 }) },
     },
+    // La marca es la PALOMITA, figura 1. La 0 es la costura vertical de la caja — parte de la
+    // base, no de la marca. Mismo fallo que traía `user-check`: índice válido, figura equivocada.
     mark: {
       shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
   });
