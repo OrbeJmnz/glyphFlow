@@ -325,32 +325,40 @@
       "path:f983872c4b0d"
     ],
     "arrow-big-down": [
-      "path:8919ba3d21b2"
+      "path:8919ba3d21b2",
+      "path:eae8a8febd45"
     ],
     "arrow-big-down-dash": [
       "path:83ba614ed7e9",
-      "path:67c00e92d417"
+      "path:67c00e92d417",
+      "path:29badf19cf82"
     ],
     "arrow-big-left": [
-      "path:9a18d2c9cc2e"
+      "path:9a18d2c9cc2e",
+      "path:8d83bee2d6ec"
     ],
     "arrow-big-left-dash": [
       "path:4b30cfae17d0",
-      "path:caddff389521"
+      "path:caddff389521",
+      "path:689ccf79eae2"
     ],
     "arrow-big-right": [
-      "path:a95c6c0c399c"
+      "path:a95c6c0c399c",
+      "path:3a0d8d73dd54"
     ],
     "arrow-big-right-dash": [
       "path:302b02cec97a",
-      "path:b458fd1c55b9"
+      "path:b458fd1c55b9",
+      "path:345e4c998ac7"
     ],
     "arrow-big-up": [
-      "path:0f06f9b6049d"
+      "path:0f06f9b6049d",
+      "path:1a9de971a731"
     ],
     "arrow-big-up-dash": [
       "path:2040c0562737",
-      "path:cfbadd6c6cea"
+      "path:cfbadd6c6cea",
+      "path:dbee0011a923"
     ],
     "arrow-down": [
       "path:0d2f2c183d2b",
@@ -363,21 +371,24 @@
       "path:b9eae7e2cc77",
       "rect:c050e2a74c47",
       "path:e43caf01f676",
-      "path:fdf0bf77b154"
+      "path:fdf0bf77b154",
+      "path:f344d9e398cd"
     ],
     "arrow-down-1-0": [
       "path:43bf907c9536",
       "path:b9eae7e2cc77",
       "path:587698df3295",
       "path:a4b5b194ffba",
-      "rect:dc48bab4b524"
+      "rect:dc48bab4b524",
+      "path:f344d9e398cd"
     ],
     "arrow-down-a-z": [
       "path:43bf907c9536",
       "path:b9eae7e2cc77",
       "path:2a38e2f7754f",
       "path:102aaefb0ce6",
-      "path:5dfbac22d773"
+      "path:5dfbac22d773",
+      "path:f344d9e398cd"
     ],
     "arrow-down-from-line": [
       "path:1b15a1997544",
@@ -396,7 +407,8 @@
       "path:b9eae7e2cc77",
       "path:09a31c6fb4c0",
       "path:3611ae6e79fa",
-      "path:f8000d4f2817"
+      "path:f8000d4f2817",
+      "path:f344d9e398cd"
     ],
     "arrow-down-right": [
       "path:e4ddcb3d7a96",
@@ -407,7 +419,8 @@
     "arrow-down-to-dot": [
       "path:b5a3dbc30f80",
       "path:25d5363901ea",
-      "circle:d455174c698f"
+      "circle:d455174c698f",
+      "path:c960b592dd43"
     ],
     "arrow-down-to-line": [
       "path:db035371ad12",
@@ -430,14 +443,16 @@
       "path:b9eae7e2cc77",
       "path:ecb977e03fb6",
       "path:3611ae6e79fa",
-      "path:9db503066631"
+      "path:9db503066631",
+      "path:f344d9e398cd"
     ],
     "arrow-down-z-a": [
       "path:43bf907c9536",
       "path:c5fb2a536745",
       "path:b323a80f765d",
       "path:29e777cd9686",
-      "path:6c5fe9fa515c"
+      "path:6c5fe9fa515c",
+      "path:f344d9e398cd"
     ],
     "arrow-left": [
       "path:5d30e801012f",
@@ -483,7 +498,9 @@
       "path:22f111d69f9d",
       "path:ca0f58f28b74",
       "path:5e6fbb514828",
-      "path:2dd2b9c4dc98"
+      "path:2dd2b9c4dc98",
+      "path:23469d91ac8f",
+      "path:60c13a1ab351"
     ],
     "arrow-right-to-line": [
       "path:0e6023ed1d8f",
@@ -502,21 +519,24 @@
       "path:c5fb2a536745",
       "rect:c050e2a74c47",
       "path:e43caf01f676",
-      "path:fdf0bf77b154"
+      "path:fdf0bf77b154",
+      "path:9cf55b6c6cdd"
     ],
     "arrow-up-1-0": [
       "path:2118a1c7b018",
       "path:c5fb2a536745",
       "path:587698df3295",
       "path:a4b5b194ffba",
-      "rect:dc48bab4b524"
+      "rect:dc48bab4b524",
+      "path:9cf55b6c6cdd"
     ],
     "arrow-up-a-z": [
       "path:2118a1c7b018",
       "path:c5fb2a536745",
       "path:2a38e2f7754f",
       "path:102aaefb0ce6",
-      "path:5dfbac22d773"
+      "path:5dfbac22d773",
+      "path:9cf55b6c6cdd"
     ],
     "arrow-up-down": [
       "path:94c380565a86",
@@ -531,7 +551,8 @@
     "arrow-up-from-dot": [
       "path:be847196a850",
       "path:c1078fb5133e",
-      "circle:d455174c698f"
+      "circle:d455174c698f",
+      "path:5a0d2ed19e54"
     ],
     "arrow-up-from-line": [
       "path:2be38a061a40",
@@ -550,7 +571,8 @@
       "path:c5fb2a536745",
       "path:9db503066631",
       "path:67dca79f996a",
-      "path:459c1f6426cc"
+      "path:459c1f6426cc",
+      "path:9cf55b6c6cdd"
     ],
     "arrow-up-right": [
       "path:ec6f03cff324",
@@ -569,14 +591,16 @@
       "path:c5fb2a536745",
       "path:f8000d4f2817",
       "path:67dca79f996a",
-      "path:6fcd8d035597"
+      "path:6fcd8d035597",
+      "path:9cf55b6c6cdd"
     ],
     "arrow-up-z-a": [
       "path:2118a1c7b018",
       "path:c5fb2a536745",
       "path:b323a80f765d",
       "path:29e777cd9686",
-      "path:6c5fe9fa515c"
+      "path:6c5fe9fa515c",
+      "path:9cf55b6c6cdd"
     ],
     "arrows-up-from-line": [
       "path:82a253d8205d",
@@ -2202,11 +2226,13 @@
     ],
     "chevron-first": [
       "path:f954f9971efa",
-      "path:21d8417db31b"
+      "path:21d8417db31b",
+      "path:72f7fa3c6c81"
     ],
     "chevron-last": [
       "path:1555f376576d",
-      "path:ec4b0a04ad0e"
+      "path:ec4b0a04ad0e",
+      "path:70fd9bb12525"
     ],
     "chevron-left": [
       "path:d88a2f95401a",
@@ -2228,7 +2254,9 @@
     ],
     "chevrons-down-up": [
       "path:abc9eb01fc92",
-      "path:f78f4dc34ae8"
+      "path:f78f4dc34ae8",
+      "path:7eeeb1ca9bc7",
+      "path:8893e5b0c8e7"
     ],
     "chevrons-left": [
       "path:1de4acccdd5f",
@@ -2271,7 +2299,9 @@
     ],
     "chevrons-up-down": [
       "path:fe29b60dfd27",
-      "path:82e027c032cb"
+      "path:82e027c032cb",
+      "path:eca29b0e302f",
+      "path:ab80f9efb969"
     ],
     "church": [
       "path:03250843d12e",
@@ -2318,22 +2348,26 @@
     "circle-arrow-out-down-left": [
       "path:91703225ca1f",
       "path:801a01925014",
-      "path:85121a2ca08d"
+      "path:85121a2ca08d",
+      "path:a91e3f13af0c"
     ],
     "circle-arrow-out-down-right": [
       "path:93f0b27cc65e",
       "path:299bae35382b",
-      "path:2148188b432d"
+      "path:2148188b432d",
+      "path:518f536861be"
     ],
     "circle-arrow-out-up-left": [
       "path:716122d74e19",
       "path:04859d5541fb",
-      "path:caaa46ac7c58"
+      "path:caaa46ac7c58",
+      "path:495806fc9538"
     ],
     "circle-arrow-out-up-right": [
       "path:270895c4ee6d",
       "path:60d3466da371",
-      "path:2772adce68a5"
+      "path:2772adce68a5",
+      "path:e7a2cf994b2b"
     ],
     "circle-arrow-right": [
       "circle:1b306a76ecc0",
@@ -8702,12 +8736,14 @@
     "square-arrow-down-left": [
       "path:98a0f3796bf2",
       "path:a1673b0b12ed",
-      "rect:d427f2bc2999"
+      "rect:d427f2bc2999",
+      "path:bc6dcd52d7e0"
     ],
     "square-arrow-down-right": [
       "path:4400c26795d2",
       "path:086cbbadcb5f",
-      "rect:d427f2bc2999"
+      "rect:d427f2bc2999",
+      "path:f880538c17ec"
     ],
     "square-arrow-left": [
       "rect:d427f2bc2999",
@@ -8718,22 +8754,26 @@
     "square-arrow-out-down-left": [
       "path:c0da0fd3c245",
       "path:ecc178565b6c",
-      "path:82784bf9c6d5"
+      "path:82784bf9c6d5",
+      "path:5fdb29d26a41"
     ],
     "square-arrow-out-down-right": [
       "path:426f6c27cc61",
       "path:3157a3ad06e2",
-      "path:10c4b33594a9"
+      "path:10c4b33594a9",
+      "path:08afa446fd24"
     ],
     "square-arrow-out-up-left": [
       "path:6b91c396ba20",
       "path:e9ff5c07696b",
-      "path:17452e44b1f5"
+      "path:17452e44b1f5",
+      "path:c1f0621ba608"
     ],
     "square-arrow-out-up-right": [
       "path:25da88ea41de",
       "path:6fab1760a21f",
-      "path:c78685b083c9"
+      "path:c78685b083c9",
+      "path:a26e0e5f95ee"
     ],
     "square-arrow-right": [
       "rect:d427f2bc2999",
@@ -8744,12 +8784,14 @@
     "square-arrow-right-enter": [
       "path:402492aec108",
       "path:30a4ad394372",
-      "path:f1c4e78aa08d"
+      "path:f1c4e78aa08d",
+      "path:3eca2a793186"
     ],
     "square-arrow-right-exit": [
       "path:c9b7ab374d0b",
       "path:a7b8bd3de711",
-      "path:bd061af0095f"
+      "path:bd061af0095f",
+      "path:e73b43feffad"
     ],
     "square-arrow-up": [
       "rect:d427f2bc2999",
@@ -8760,12 +8802,14 @@
     "square-arrow-up-left": [
       "path:4400c26795d2",
       "path:a46aac3d9f5a",
-      "rect:d427f2bc2999"
+      "rect:d427f2bc2999",
+      "path:f880538c17ec"
     ],
     "square-arrow-up-right": [
       "path:1c6a79a9a6c5",
       "path:091bcebfb4e2",
-      "rect:d427f2bc2999"
+      "rect:d427f2bc2999",
+      "path:b4d9174260d1"
     ],
     "square-asterisk": [
       "rect:d427f2bc2999",
@@ -11136,52 +11180,68 @@
       "@hover": "hold"
     },
     "arrow-big-down": {
-      "default": "efa362a6c29a",
+      "dart": "a833b1e9f252",
+      "default": "fda6de2beab9",
       "draw": "17c8398e8d34",
+      "hold": "efa362a6c29a",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-down-dash": {
-      "default": "6a3a8a42c2be",
+      "dart": "3b1cb75f11e0",
+      "default": "242b643f9bfe",
       "draw": "17c8398e8d34",
+      "hold": "6a3a8a42c2be",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-left": {
-      "default": "eb799ff138c5",
+      "dart": "02558eadf7a1",
+      "default": "c222ce10a880",
       "draw": "17c8398e8d34",
+      "hold": "eb799ff138c5",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-left-dash": {
-      "default": "cd62545e579e",
+      "dart": "53682c23025b",
+      "default": "d045fa91457e",
       "draw": "17c8398e8d34",
+      "hold": "cd62545e579e",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-right": {
-      "default": "87c6dc5650a0",
+      "dart": "71b241669fe9",
+      "default": "8a5b587b4a51",
       "draw": "17c8398e8d34",
+      "hold": "87c6dc5650a0",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-right-dash": {
-      "default": "0eb99a0a68ed",
+      "dart": "16f59b392b89",
+      "default": "946271678909",
       "draw": "17c8398e8d34",
+      "hold": "0eb99a0a68ed",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-up": {
-      "default": "7cc59661a4cc",
+      "dart": "25fbb3888711",
+      "default": "b0ec88383f6e",
       "draw": "17c8398e8d34",
+      "hold": "7cc59661a4cc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-big-up-dash": {
-      "default": "c45946a64b75",
+      "dart": "993374615dc4",
+      "default": "1b80adf719ec",
       "draw": "17c8398e8d34",
+      "hold": "c45946a64b75",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down": {
       "active": "9b77892846c2",
@@ -11192,22 +11252,31 @@
       "@hover": "active"
     },
     "arrow-down-0-1": {
-      "default": "6ed4e7b0f2fc",
+      "assemble": "e3765a9cdae3",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
+      "hold": "6ed4e7b0f2fc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-1-0": {
-      "default": "08051e41f6f1",
+      "assemble": "31fb3675616e",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
+      "hold": "08051e41f6f1",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-a-z": {
-      "default": "08051e41f6f1",
+      "assemble": "42bf4566410a",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
+      "hold": "08051e41f6f1",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-from-line": {
       "dart": "ce3c178c4f79",
@@ -11226,11 +11295,14 @@
       "@hover": "active"
     },
     "arrow-down-narrow-wide": {
-      "default": "34bda09aac8d",
+      "assemble": "76ec567546c3",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
+      "hold": "34bda09aac8d",
       "reveal": "5cfc38f18d6b",
-      "@hover": "flip"
+      "@hover": "hold"
     },
     "arrow-down-right": {
       "active": "f6a7fa620419",
@@ -11241,10 +11313,13 @@
       "@hover": "active"
     },
     "arrow-down-to-dot": {
-      "default": "17a586a4e1e4",
+      "assemble": "d3b4ac968ec2",
+      "dart": "0c3d3e5b9cf1",
+      "default": "6135632d4db8",
       "draw": "17c8398e8d34",
+      "hold": "17a586a4e1e4",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-to-line": {
       "dart": "f999c47cdf04",
@@ -11263,17 +11338,23 @@
       "@hover": "dart"
     },
     "arrow-down-wide-narrow": {
-      "default": "11cc1916c17e",
+      "assemble": "76ec567546c3",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
+      "hold": "11cc1916c17e",
       "reveal": "5cfc38f18d6b",
-      "@hover": "flip"
+      "@hover": "hold"
     },
     "arrow-down-z-a": {
-      "default": "6ed4e7b0f2fc",
+      "assemble": "3c056d4bbf6e",
+      "dart": "7892f3f8b9f9",
+      "default": "68e1b204f3c6",
       "draw": "17c8398e8d34",
+      "hold": "6ed4e7b0f2fc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-left": {
       "active": "debec16cb2e8",
@@ -11324,6 +11405,8 @@
       "@hover": "hold"
     },
     "arrow-right-left": {
+      "assemble": "7734a2ad2dcf",
+      "dart": "cf3bf0ea35f1",
       "default": "86aebb0b36ec",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
@@ -11348,24 +11431,30 @@
     },
     "arrow-up-0-1": {
       "assemble": "0bc144884e64",
-      "default": "6ed4e7b0f2fc",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
+      "hold": "6ed4e7b0f2fc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "assemble"
+      "@hover": "hold"
     },
     "arrow-up-1-0": {
       "assemble": "bc8bc3c5b00f",
-      "default": "08051e41f6f1",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
+      "hold": "08051e41f6f1",
       "reveal": "5cfc38f18d6b",
-      "@hover": "assemble"
+      "@hover": "hold"
     },
     "arrow-up-a-z": {
       "assemble": "1639471628dd",
-      "default": "08051e41f6f1",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
+      "hold": "08051e41f6f1",
       "reveal": "5cfc38f18d6b",
-      "@hover": "assemble"
+      "@hover": "hold"
     },
     "arrow-up-down": {
       "dart": "34d750cd0cbc",
@@ -11376,10 +11465,13 @@
       "@hover": "dart"
     },
     "arrow-up-from-dot": {
-      "default": "20ce553a274c",
+      "assemble": "df77cb6995e5",
+      "dart": "afc265e375e8",
+      "default": "6c4b6375bda3",
       "draw": "17c8398e8d34",
+      "hold": "20ce553a274c",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-up-from-line": {
       "dart": "50e95eda871b",
@@ -11398,11 +11490,14 @@
       "@hover": "active"
     },
     "arrow-up-narrow-wide": {
-      "default": "e9045240e87b",
+      "assemble": "92b53c45b87c",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
+      "hold": "e9045240e87b",
       "reveal": "5cfc38f18d6b",
-      "@hover": "flip"
+      "@hover": "hold"
     },
     "arrow-up-right": {
       "active": "1f489e50bb05",
@@ -11421,18 +11516,23 @@
       "@hover": "hold"
     },
     "arrow-up-wide-narrow": {
-      "default": "48dec78cbe5c",
+      "assemble": "92b53c45b87c",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
+      "hold": "48dec78cbe5c",
       "reveal": "5cfc38f18d6b",
-      "@hover": "flip"
+      "@hover": "hold"
     },
     "arrow-up-z-a": {
       "assemble": "617a1665d373",
-      "default": "6ed4e7b0f2fc",
+      "dart": "df8a964560a5",
+      "default": "651075bd9409",
       "draw": "17c8398e8d34",
+      "hold": "6ed4e7b0f2fc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "assemble"
+      "@hover": "hold"
     },
     "arrows-up-from-line": {
       "dart": "624eddf63078",
@@ -13090,6 +13190,8 @@
       "@hover": "active"
     },
     "chevron-first": {
+      "assemble": "d70671f11971",
+      "dart": "2adf610dca14",
       "default": "c0950aecd2b0",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
@@ -13097,6 +13199,8 @@
       "@hover": "flip"
     },
     "chevron-last": {
+      "assemble": "de60901df810",
+      "dart": "b59190b73b94",
       "default": "354447e9f1f1",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
@@ -13139,10 +13243,13 @@
       "@hover": "dart"
     },
     "chevrons-down-up": {
-      "default": "f400a841339e",
+      "assemble": "feb676d80717",
+      "dart": "9e5e398a5abc",
+      "default": "7f2de44ffcbc",
       "draw": "17c8398e8d34",
+      "hold": "f400a841339e",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "chevrons-left": {
       "dart": "481cfa9d2a7c",
@@ -13191,6 +13298,8 @@
     },
     "chevrons-up-down": {
       "active": "69049ef3d71d",
+      "assemble": "feb676d80717",
+      "dart": "2872631aa9cd",
       "default": "b27e01f1ed7f",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
@@ -13246,6 +13355,8 @@
       "@hover": "hold"
     },
     "circle-arrow-out-down-left": {
+      "assemble": "77f0a525730a",
+      "dart": "533dc0d717c0",
       "default": "69d168d5164b",
       "draw": "17c8398e8d34",
       "hold": "a48526401ddd",
@@ -13253,6 +13364,8 @@
       "@hover": "hold"
     },
     "circle-arrow-out-down-right": {
+      "assemble": "d018c717a5fb",
+      "dart": "f3d283c2b7b9",
       "default": "2b4d6d9eab19",
       "draw": "17c8398e8d34",
       "hold": "274e109b46d4",
@@ -13260,6 +13373,8 @@
       "@hover": "hold"
     },
     "circle-arrow-out-up-left": {
+      "assemble": "db7f4a8193cf",
+      "dart": "3e04064477e8",
       "default": "ae36f56a4fcc",
       "draw": "17c8398e8d34",
       "hold": "4cf7861fc1da",
@@ -13267,6 +13382,8 @@
       "@hover": "hold"
     },
     "circle-arrow-out-up-right": {
+      "assemble": "5a3df46b11ba",
+      "dart": "9f50d43f6f9f",
       "default": "e799cb0df2ec",
       "draw": "17c8398e8d34",
       "hold": "6bda17c806e8",
@@ -20421,16 +20538,22 @@
       "@hover": "hold"
     },
     "square-arrow-down-left": {
-      "default": "be424b76174b",
+      "assemble": "49787e84ff16",
+      "dart": "97146d0bc94d",
+      "default": "5ea48c009d8f",
       "draw": "17c8398e8d34",
+      "hold": "be424b76174b",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-down-right": {
-      "default": "ff35b968c6aa",
+      "assemble": "e6152ecc06a4",
+      "dart": "fda97c750a25",
+      "default": "f52514bc02b2",
       "draw": "17c8398e8d34",
+      "hold": "ff35b968c6aa",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-left": {
       "dart": "2145853d57a5",
@@ -20441,28 +20564,36 @@
       "@hover": "hold"
     },
     "square-arrow-out-down-left": {
+      "assemble": "77f0a525730a",
+      "dart": "533dc0d717c0",
       "default": "8b054912421d",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-out-down-right": {
+      "assemble": "d018c717a5fb",
+      "dart": "f3d283c2b7b9",
       "default": "5c631fde9681",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-out-up-left": {
+      "assemble": "78592e251d50",
+      "dart": "336ebb3878a5",
       "default": "a54498b26f8b",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-out-up-right": {
+      "assemble": "5a3df46b11ba",
+      "dart": "9f50d43f6f9f",
       "default": "aba64f9e33dd",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-right": {
       "dart": "40379bcfeda2",
@@ -20473,16 +20604,20 @@
       "@hover": "hold"
     },
     "square-arrow-right-enter": {
+      "assemble": "4f5846fcd08e",
+      "dart": "164854fe3ca1",
       "default": "c68723273602",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-right-exit": {
+      "assemble": "d735ae8cdb51",
+      "dart": "c4fbe110b7bc",
       "default": "c68723273602",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "square-arrow-up": {
       "dart": "8df794d4e5fd",
@@ -20493,16 +20628,22 @@
       "@hover": "hold"
     },
     "square-arrow-up-left": {
-      "default": "d3e4a0484b0d",
+      "assemble": "165b51bc188c",
+      "dart": "270cb0e96b1e",
+      "default": "2eeca9e88207",
       "draw": "17c8398e8d34",
+      "hold": "d3e4a0484b0d",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-up-right": {
-      "default": "5631efbefd15",
+      "assemble": "dbfe110ca4ba",
+      "dart": "fe4999837e20",
+      "default": "c9ebbc981d8e",
       "draw": "17c8398e8d34",
+      "hold": "5631efbefd15",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-asterisk": {
       "default": "bda49fa96973",

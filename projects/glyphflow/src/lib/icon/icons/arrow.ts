@@ -176,14 +176,48 @@ export const arrowDownToDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 2v14" },
     { tag: 'path', d: "m19 9-7 7-7-7" },
     { tag: 'circle', cx: 12, cy: 21, r: 1 },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m19 9-7 7-7-7", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 1.5), 480, { origin: '12px 2px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * El punto ACUSA la llegada creciendo — es el destino de la flecha, no decoración.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 2.5, 3), 540, { origin: '12px 2px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(1)', offset: 0.35 }, { transform: 'scale(1.7)', offset: 0.58 }, { transform: 'scale(1)', offset: 1 }], 540, { easing: 'ease-out', origin: '12px 21px' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA, con el orden que cuenta su historia: en `to-dot` el punto aparece al
+     * final porque es el destino, y en `from-dot` aparece primero porque es el origen. El mismo
+     * gesto con el orden invertido dice cosas opuestas.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 0, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 150, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.6)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 420, { easing: SPRING_OUT, delay: 520, fill: 'backwards', origin: '12px 21px' }),
+      },
     },
   },
 );
@@ -438,14 +472,48 @@ export const arrowUpFromDotIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m5 9 7-7 7 7" },
     { tag: 'path', d: "M12 16V2" },
     { tag: 'circle', cx: 12, cy: 21, r: 1 },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m5 9 7-7 7 7", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 1.5), 480, { origin: '12px 16px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * El punto ACUSA la llegada creciendo — es el destino de la flecha, no decoración.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 2.5, 3), 540, { origin: '12px 16px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(1)', offset: 0.35 }, { transform: 'scale(1.7)', offset: 0.58 }, { transform: 'scale(1)', offset: 1 }], 540, { easing: 'ease-out', origin: '12px 21px' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA, con el orden que cuenta su historia: en `to-dot` el punto aparece al
+     * final porque es el destino, y en `from-dot` aparece primero porque es el origen. El mismo
+     * gesto con el orden invertido dice cosas opuestas.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.6)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 420, { easing: SPRING_OUT, delay: 0, fill: 'backwards', origin: '12px 21px' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(6px)', opacity: '0' }, { transform: 'translateY(-2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -648,9 +716,22 @@ export const arrowDownNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 4h4" },
     { tag: 'path', d: "M11 8h7" },
     { tag: 'path', d: "M11 12h10" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
@@ -668,6 +749,33 @@ export const arrowDownNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     flip: {
       root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 280, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 360, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -678,9 +786,22 @@ export const arrowUpNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 12h4" },
     { tag: 'path', d: "M11 16h7" },
     { tag: 'path', d: "M11 20h10" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
@@ -698,6 +819,33 @@ export const arrowUpNarrowWideIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     flip: {
       root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(6px)', opacity: '0' }, { transform: 'translateY(-2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 280, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 360, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -708,9 +856,22 @@ export const arrowDownWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 4h10" },
     { tag: 'path', d: "M11 8h7" },
     { tag: 'path', d: "M11 12h4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
@@ -728,6 +889,33 @@ export const arrowDownWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     flip: {
       root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 280, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 360, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -738,9 +926,22 @@ export const arrowUpWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 12h10" },
     { tag: 'path', d: "M11 16h7" },
     { tag: 'path', d: "M11 20h4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
@@ -758,6 +959,33 @@ export const arrowUpWideNarrowIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     flip: {
       root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleY(-1)' }, { transform: 'scaleY(-1)' }, { transform: 'none' }], 900),
     },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(6px)', opacity: '0' }, { transform: 'translateY(-2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 280, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 360, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -766,14 +994,39 @@ export const arrowBigDownDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M14 8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-6.939 6.939a1.207 1.207 0 0 1-1.708 0l-6.94-6.94a.707.707 0 0 1 .5-1.206H8a1 1 0 0 0 1-1V9a1 1 0 0 1 1-1z" },
     { tag: 'path', d: "M9 4h6" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M14 8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-6.939 6.939a1.207 1.207 0 0 1-1.708 0l-6.94-6.94a.707.707 0 0 1 .5-1.206H8a1 1 0 0 0 1-1V9a1 1 0 0 1 1-1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(-1px) scaleY(0.94)', offset: 0.24 }, { transform: 'translateY(1.2px) scaleY(1.024)', offset: 0.6 }, { transform: 'translateY(0.24px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 460, { origin: '12px 8px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * El guión acusa el impulso achatándose, que es lo que vuelve legible un recorrido corto.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(-2.2px) scaleY(0.86)', offset: 0.24 }, { transform: 'translateY(2.5px) scaleY(1.056)', offset: 0.6 }, { transform: 'translateY(0.5px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 520, { origin: '12px 8px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.28 }, { transform: 'scaleX(0.84)', offset: 0.48 }, { transform: 'scaleX(1.05)', offset: 0.74 }, { transform: 'scaleX(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 4px' }),
+      },
     },
   },
 );
@@ -782,11 +1035,35 @@ export const arrowBigDownDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const arrowBigDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-7.086 7.086a1 1 0 0 1-1.414 0l-7.086-7.086a.707.707 0 0 1 .5-1.207H8a1 1 0 0 0 1-1z" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M9 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 0 1 1h3.293a.707.707 0 0 1 .5 1.207l-7.086 7.086a1 1 0 0 1-1.414 0l-7.086-7.086a.707.707 0 0 1 .5-1.207H8a1 1 0 0 0 1-1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(-1px) scaleY(0.94)', offset: 0.24 }, { transform: 'translateY(1.2px) scaleY(1.024)', offset: 0.6 }, { transform: 'translateY(0.24px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 460, { origin: '12px 4px' }),
+      },
+    },
+    hold: {
       root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * Sin guión que reaccione, todo el efecto vive en la compresión y el rastro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(-2.2px) scaleY(0.86)', offset: 0.24 }, { transform: 'translateY(2.5px) scaleY(1.056)', offset: 0.6 }, { transform: 'translateY(0.5px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 520, { origin: '12px 4px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -796,14 +1073,39 @@ export const arrowBigLeftDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M13 9a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707l6.94 6.94a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h2a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z" },
     { tag: 'path', d: "M20 9v6" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M13 9a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707l6.94 6.94a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h2a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(1px) scaleX(0.94)', offset: 0.24 }, { transform: 'translateX(-1.2px) scaleX(1.024)', offset: 0.6 }, { transform: 'translateX(-0.24px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 460, { origin: '16px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * El guión acusa el impulso achatándose, que es lo que vuelve legible un recorrido corto.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(2.2px) scaleX(0.86)', offset: 0.24 }, { transform: 'translateX(-2.5px) scaleX(1.056)', offset: 0.6 }, { transform: 'translateX(-0.5px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 520, { origin: '16px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.28 }, { transform: 'scaleY(0.84)', offset: 0.48 }, { transform: 'scaleY(1.05)', offset: 0.74 }, { transform: 'scaleY(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '20px 12px' }),
+      },
     },
   },
 );
@@ -812,11 +1114,35 @@ export const arrowBigLeftDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const arrowBigLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(1px) scaleX(0.94)', offset: 0.24 }, { transform: 'translateX(-1.2px) scaleX(1.024)', offset: 0.6 }, { transform: 'translateX(-0.24px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 460, { origin: '20px 12px' }),
+      },
+    },
+    hold: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * Sin guión que reaccione, todo el efecto vive en la compresión y el rastro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(2.2px) scaleX(0.86)', offset: 0.24 }, { transform: 'translateX(-2.5px) scaleX(1.056)', offset: 0.6 }, { transform: 'translateX(-0.5px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 520, { origin: '20px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -826,14 +1152,39 @@ export const arrowBigRightDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M11 9a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707l-6.94 6.94a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z" },
     { tag: 'path', d: "M4 9v6" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M11 9a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707l-6.94 6.94a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H9a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(-1px) scaleX(0.94)', offset: 0.24 }, { transform: 'translateX(1.2px) scaleX(1.024)', offset: 0.6 }, { transform: 'translateX(0.24px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 460, { origin: '8px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * El guión acusa el impulso achatándose, que es lo que vuelve legible un recorrido corto.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(-2.2px) scaleX(0.86)', offset: 0.24 }, { transform: 'translateX(2.5px) scaleX(1.056)', offset: 0.6 }, { transform: 'translateX(0.5px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 520, { origin: '8px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.28 }, { transform: 'scaleY(0.84)', offset: 0.48 }, { transform: 'scaleY(1.05)', offset: 0.74 }, { transform: 'scaleY(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '4px 12px' }),
+      },
     },
   },
 );
@@ -842,11 +1193,35 @@ export const arrowBigRightDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const arrowBigRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M13.207 19.793a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707z" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M13.207 19.793a.707.707 0 0 1-1.207-.5V16a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1V4.707a.707.707 0 0 1 1.207-.5l6.94 6.94a1.207 1.207 0 0 1 0 1.707z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(-1px) scaleX(0.94)', offset: 0.24 }, { transform: 'translateX(1.2px) scaleX(1.024)', offset: 0.6 }, { transform: 'translateX(0.24px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 460, { origin: '4px 12px' }),
+      },
+    },
+    hold: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * Sin guión que reaccione, todo el efecto vive en la compresión y el rastro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px) scaleX(1)', offset: 0 }, { transform: 'translateX(-2.2px) scaleX(0.86)', offset: 0.24 }, { transform: 'translateX(2.5px) scaleX(1.056)', offset: 0.6 }, { transform: 'translateX(0.5px) scaleX(1)', offset: 0.82 }, { transform: 'translateX(0px) scaleX(1)', offset: 1 }], 520, { origin: '4px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -856,14 +1231,39 @@ export const arrowBigUpDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1z" },
     { tag: 'path', d: "M9 20h6" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(1px) scaleY(0.94)', offset: 0.24 }, { transform: 'translateY(-1.2px) scaleY(1.024)', offset: 0.6 }, { transform: 'translateY(-0.24px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 460, { origin: '12px 16px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * El guión acusa el impulso achatándose, que es lo que vuelve legible un recorrido corto.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(2.2px) scaleY(0.86)', offset: 0.24 }, { transform: 'translateY(-2.5px) scaleY(1.056)', offset: 0.6 }, { transform: 'translateY(-0.5px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 520, { origin: '12px 16px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.28 }, { transform: 'scaleX(0.84)', offset: 0.48 }, { transform: 'scaleX(1.05)', offset: 0.74 }, { transform: 'scaleX(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 20px' }),
+      },
     },
   },
 );
@@ -872,11 +1272,35 @@ export const arrowBigUpDashIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 export const arrowBigUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'path', d: "M9 19a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-6a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-7.086-7.086a1 1 0 0 0-1.414 0l-7.086 7.086a.707.707 0 0 0 .5 1.207H8a1 1 0 0 1 1 1z" },
+    // La estela del `dart`: copia de la flecha que sale disparada y se apaga.
+    { tag: 'path', d: "M9 19a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-6a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-7.086-7.086a1 1 0 0 0-1.414 0l-7.086 7.086a.707.707 0 0 0 .5 1.207H8a1 1 0 0 1 1 1z", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia. Antes aquí vivía un ESTADO —el que ahora es `hold`—, o sea una
+     * pose con `fill: 'forwards'` que se queda puesta. Misma migración que `circle-arrow-*`.
+     *
+     * La flecha se COMPRIME contra su cola en vez de solo trasladarse: es una figura maciza que
+     * llena el lienzo, y dos unidades hacia afuera ya tocan el borde. El `origin` va en la cola.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(1px) scaleY(0.94)', offset: 0.24 }, { transform: 'translateY(-1.2px) scaleY(1.024)', offset: 0.6 }, { transform: 'translateY(-0.24px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 460, { origin: '12px 20px' }),
+      },
+    },
+    hold: {
       root: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 200, { easing: 'ease-out', fill: 'forwards' }),
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: se comprime el doble que el `default` (2.2 contra 1) y sale con estela.
+     * Sin guión que reaccione, todo el efecto vive en la compresión y el rastro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px) scaleY(1)', offset: 0 }, { transform: 'translateY(2.2px) scaleY(0.86)', offset: 0.24 }, { transform: 'translateY(-2.5px) scaleY(1.056)', offset: 0.6 }, { transform: 'translateY(-0.5px) scaleY(1)', offset: 0.82 }, { transform: 'translateY(0px) scaleY(1)', offset: 1 }], 520, { origin: '12px 20px' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -888,15 +1312,51 @@ export const arrowDown01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', x: 15, y: 4, width: 4, height: 6, ry: 2 },
     { tag: 'path', d: "M17 20v-6h-2" },
     { tag: 'path', d: "M15 20h4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 800, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.8)', opacity: '0.7' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 600, { easing: SPRING_OUT ? 'ease-out' : 'ease-out', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * Los dígitos anclan: son el criterio de orden, no parte de la flecha.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -908,15 +1368,51 @@ export const arrowDown10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 10V4h-2" },
     { tag: 'path', d: "M15 10h4" },
     { tag: 'rect', x: 15, y: 14, width: 4, height: 6, ry: 2 },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 800, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.8)', opacity: '0.7' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 600, { easing: SPRING_OUT ? 'ease-out' : 'ease-out', delay: 300, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * Los dígitos anclan: son el criterio de orden, no parte de la flecha.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -928,15 +1424,55 @@ export const arrowDownAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20 8h-5" },
     { tag: 'path', d: "M15 10V6.5a2.5 2.5 0 0 1 5 0V10" },
     { tag: 'path', d: "M15 14h5l-5 6h5" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(-4px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(-4px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 500, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -949,15 +1485,55 @@ export const arrowDownZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 4h5l-5 6h5" },
     { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
     { tag: 'path', d: "M20 18h-5" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 16 4 4 4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 4px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 4px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA. Copiado del hermano que ya lo traía (`arrow-up-a-z` y `arrow-up-0-1`,
+     * del port de AnimateIcons); sus gemelos hacia el otro lado se habían quedado sin él.
+     * Lo único que cambia al reflejar es de dónde ENTRA la punta: la que apunta hacia abajo entra
+     * desde arriba. Las letras conservan su propio sentido de entrada, que ya estaba decidido.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateY(-6px)', opacity: '0' }, { transform: 'translateY(2px)', opacity: '1' }, { transform: 'translateY(0px)', opacity: '1' }], 600, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 100, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(6px)', opacity: '0' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -1015,6 +1591,9 @@ export const arrowRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20 7H4" },
     { tag: 'path', d: "m8 21-4-4 4-4" },
     { tag: 'path', d: "M4 17h16" },
+    // Las dos estelas del `dart`: una por punta, invisibles en reposo.
+    { tag: 'path', d: "m16 3 4 4-4 4", opacity: '0' },
+    { tag: 'path', d: "m8 21-4-4 4-4", opacity: '0' },
   ],
   {
     default: {
@@ -1033,6 +1612,38 @@ export const arrowRightLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     flip: {
       root: /* @__PURE__ */ track([{ transform: 'none' }, { transform: 'scaleX(-1)' }, { transform: 'scaleX(-1)' }, { transform: 'none' }], 900),
     },
+    /**
+     * Las dos flechas disparan a la vez, cada una hacia su lado. El desfase de 80 ms entre la de
+     * arriba y la de abajo es lo que evita que se lea como un bloque que se estira.
+     *
+     * Cada asta se estira desde el extremo OPUESTO a su punta: la de arriba apunta a la derecha,
+     * así que ancla en x=4; la de abajo apunta a la izquierda y ancla en x=20. Intercambiarlos
+     * despega el asta de su punta y la flecha se parte por la mitad.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 16, 2.5, 3), 540, { origin: '4px 7px' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 2.5, 3), 540, { delay: 80, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 16, 2.5, 3), 540, { origin: '20px 17px', delay: 80, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 190, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA, con el orden que cuenta su historia: en `to-dot` el punto aparece al
+     * final porque es el destino, y en `from-dot` aparece primero porque es el origen. El mismo
+     * gesto con el orden invertido dice cosas opuestas.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.1) rotate(-5deg)' }, { transform: 'scale(0.95) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
+      shapes: {
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 0, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0' }, { transform: 'translateX(2px)', opacity: '1' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(6px)', opacity: '0' }, { transform: 'translateX(-2px)', opacity: '1' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: SPRING_OUT, delay: 320, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -1043,9 +1654,18 @@ export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', x: 15, y: 4, width: 4, height: 6, ry: 2 },
     { tag: 'path', d: "M17 20v-6h-2" },
     { tag: 'path', d: "M15 20h4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
@@ -1063,6 +1683,17 @@ export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ assembleGlifo('translateX(-6px)', 300),
       },
     },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * Los dígitos anclan: son el criterio de orden, no parte de la flecha.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -1073,9 +1704,18 @@ export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 10V4h-2" },
     { tag: 'path', d: "M15 10h4" },
     { tag: 'rect', x: 15, y: 14, width: 4, height: 6, ry: 2 },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /** El compás de la familia. El estado que vivía aquí se mudó a `hold`. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
@@ -1093,6 +1733,17 @@ export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ assembleCaja(300),
       },
     },
+    /**
+     * El disparo: doble recorrido que el `default` y con estela.
+     * Los dígitos anclan: son el criterio de orden, no parte de la flecha.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -1103,9 +1754,22 @@ export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M20 8h-5" },
     { tag: 'path', d: "M15 10V6.5a2.5 2.5 0 0 1 5 0V10" },
     { tag: 'path', d: "M15 14h5l-5 6h5" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
@@ -1123,6 +1787,17 @@ export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ assembleGlifo('translateX(6px)', 300, 600),
       },
     },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -1133,9 +1808,22 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 4h5l-5 6h5" },
     { tag: 'path', d: "M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" },
     { tag: 'path', d: "M20 18h-5" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m3 8 4-4 4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia, SOLO sobre la flecha. Las letras y las barras anclan: son el
+     * criterio de ordenamiento, no parte de la flecha, y moverlas convierte el gesto en "todo
+     * el icono tiembla" — que es justo lo que hacía el estado que ahora vive en `hold`.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 1.5), 480),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 1.5, 1.5), 480, { origin: '7px 20px' }),
+      },
+    },
+    hold: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-10px)' }], 300, { easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', fill: 'forwards' }),
@@ -1151,6 +1839,17 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ assembleGlifo('translateX(6px)', 200, 600),
         3: /* @__PURE__ */ assembleGlifo('translateY(6px)', 300, 600),
         4: /* @__PURE__ */ assembleGlifo('translateY(6px)', 300, 600),
+      },
+    },
+    /**
+     * El disparo: el doble de recorrido que el `default` (3 contra 1.5) y con estela detrás.
+     * Las letras siguen quietas — lo que se dispara es la flecha, no el criterio de orden.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2.5, 3), 540),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 16, 2.5, 3), 540, { origin: '7px 20px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-4px)', opacity: '0', offset: 1 }], 540, { easing: 'linear', delay: 110, fill: 'backwards' }),
       },
     },
   },

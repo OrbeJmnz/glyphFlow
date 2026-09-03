@@ -325,6 +325,11 @@ describe('reverse() al salir el puntero', () => {
    * quietas; y las que llevan `fill: 'backwards'` se quedaban congeladas en su primer fotograma
    * porque su `onfinish` ya se había soltado. Se veía en `arrow-up-narrow-wide`: las tres líneas
    * horizontales no volvían a su tamaño.
+   *
+   * Se reproduce `hold` y no `default`: en la v3 ese estado sostenido se mudó ahí, y de paso es la
+   * variante que el hover dispara en este icono — o sea el camino real donde ocurre el fallo. Lo
+   * que el test necesita es una mezcla de tracks de un tiro y sostenidos en la MISMA reproducción,
+   * y eso solo lo da un `hold` (el trazo del montaje aporta los de un tiro).
    */
   it('no revive los tracks que ya terminaron y se cancelaron solos', async () => {
     TestBed.resetTestingModule();
@@ -336,7 +341,7 @@ describe('reverse() al salir el puntero', () => {
     const fixture = TestBed.createComponent(GfIconComponent);
     fixture.componentRef.setInput('name', 'arrow-up-narrow-wide');
     fixture.detectChanges();
-    fixture.componentInstance.play();
+    fixture.componentInstance.play('hold');
 
     // Lo que hace el motor de verdad al terminar un track que no sostiene: cancelarlo.
     const unTiro = creadas.filter((a) => a.fill !== 'forwards' && a.fill !== 'both');
