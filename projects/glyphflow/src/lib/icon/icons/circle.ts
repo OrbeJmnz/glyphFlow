@@ -228,6 +228,8 @@ export const circleArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: "M12 8v8" },
     { tag: 'path', d: "m8 12 4 4 4-4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m8 12 4 4 4-4", opacity: '0' },
   ],
   {
     default: {
@@ -243,6 +245,17 @@ export const circleArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 3, 1.3), 440),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '12px 8px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateY(4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -251,6 +264,8 @@ export const circleArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: "m12 8-4 4 4 4" },
     { tag: 'path', d: "M16 12H8" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m12 8-4 4 4 4", opacity: '0' },
   ],
   {
     default: {
@@ -265,6 +280,17 @@ export const circleArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '16px 12px' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 3, 1.3), 440),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '16px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateX(-4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -366,6 +392,8 @@ export const circleArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: "m12 16 4-4-4-4" },
     { tag: 'path', d: "M8 12h8" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m12 16 4-4-4-4", opacity: '0' },
   ],
   {
     default: {
@@ -381,6 +409,17 @@ export const circleArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 3, 1.3), 440),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '8px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateX(4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -389,6 +428,8 @@ export const circleArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'circle', cx: 12, cy: 12, r: 10 },
     { tag: 'path', d: "m16 12-4-4-4 4" },
     { tag: 'path', d: "M12 16V8" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m16 12-4-4-4 4", opacity: '0' },
   ],
   {
     default: {
@@ -403,6 +444,17 @@ export const circleArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.1875)' }], 220, { easing: 'ease-out', fill: 'forwards', origin: '12px 16px' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 3, 1.3), 440),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '12px 16px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateY(-4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );

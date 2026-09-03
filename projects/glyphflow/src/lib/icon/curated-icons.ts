@@ -1901,7 +1901,7 @@ export const logOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(logOutShapes, {
       1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 12, 1.5, 1.5), 560, { origin: '9px 12px' }),
     },
   },
-  nudge: {
+  dart: {
     shapes: {
       3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 400, { easing: 'linear', delay: 60, fill: 'backwards' }),
       0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }], 400),
@@ -2155,7 +2155,7 @@ export const layersIcon: AnimatedIconDef = /* @__PURE__ */ icon(layersShapes, {
       },
     },
     /** Las tres capas se acoplan a medio camino — la de arriba también baja, no se queda fija. */
-    nudge: LAYERS_NUDGE,
+    dart: LAYERS_NUDGE,
     /** @deprecated Se llamaba `merge`. El alias sale en la v3. */
     merge: LAYERS_NUDGE,
     active: {
@@ -2271,7 +2271,7 @@ export const playIcon: AnimatedIconDef = /* @__PURE__ */ icon(playShapes, {
       ),
     },
     /** Avanza: se desplaza a la derecha y regresa, elástico. */
-    nudge: PLAY_NUDGE,
+    dart: PLAY_NUDGE,
     /** @deprecated Se llamaba `next`. El alias sale en la v3. */
     next: PLAY_NUDGE,
     active: {
@@ -8879,6 +8879,10 @@ export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m10 17 5-5-5-5" },
     { tag: 'path', d: "M15 12H3" },
     { tag: 'path', d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga. Nace invisible, así
+    // que el icono quieto sigue siendo el de Lucide, `runAutoDraw` la salta y `glyphflow/morph`
+    // la deja fuera de su geometría. Misma figura que lleva `log-out`, para que el par empate.
+    { tag: 'path', d: "m10 17 5-5-5-5", opacity: '0' },
   ],
   {
     default: {
@@ -8897,14 +8901,23 @@ export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     /**
-     * La flecha toca la puerta y regresa. Contra el `default`: aquí el marco NO pulsa y el
-     * recorrido es la mitad — es "acércate", no "entra". El desfase de 60 ms entre punta y asta es
-     * lo único que evita que se vea como un bloque; sin él las dos figuras viajan pegadas.
+     * ESPEJO EXACTO del `dart` de `log-out`, para que el par se lea como un par.
+     *
+     * Se lo escribí primero como `nudge` sin estela, y quedaba en otra variante y con otro gesto
+     * que su gemelo — misma anatomía (una flecha cruzando una puerta) moviéndose distinto.
+     *
+     * La aritmética del espejo, que no es intercambiable: en `log-out` la puerta está a la
+     * IZQUIERDA, el asta va de 9 a 21 y comprime con `origin` en 9, de modo que su extremo libre
+     * recorre las mismas 3 unidades que viaja la punta. Aquí la puerta está a la DERECHA, el asta
+     * va de 3 a 15 y el `origin` cae en 3, así que para mover el extremo libre +3 hay que ESTIRAR
+     * a 1.25 —(18−3)/(15−3)— en vez de comprimir a 0.75. Con el mismo 0.75 el asta se despegaría
+     * de la punta y la flecha se parte por la mitad.
      */
-    nudge: {
+    dart: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.6, 0]), 420, { easing: SPRING_OUT }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.6, 0]), 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 400, { easing: 'linear', delay: 60, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 400),
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.25)' }, { transform: 'scaleX(1)' }], 400, { origin: '3px 12px' }),
       },
     },
   },
@@ -9720,7 +9733,7 @@ export const repeatIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(SWAP_DRAG, 760, { easing: EASE, origin: '50% 50%' }),
     },
-    nudge: {
+    dart: {
       shapes: {
         4: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T5_EASE }),
         5: /* @__PURE__ */ track([{ opacity: '0.22', offset: 0 }, { opacity: '0.22', offset: 0.82 }, { opacity: '0', offset: 1 }], 1200, { easing: T5_EASE, delay: 300, fill: 'backwards' }),
@@ -10993,7 +11006,7 @@ export const shuffleIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(PUNTA_SHUFFLE_CORTA, 380, { delay: 300 }),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 60, fill: 'backwards' }),
         6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(2.7px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 180, fill: 'backwards' }),
@@ -11047,7 +11060,7 @@ export const replyAllIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(PUNTA_REPLY_ALL, 480),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-2.25px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-2.25px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 110, fill: 'backwards' }),
@@ -11219,6 +11232,9 @@ export const arrowsUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m14 6 3-3 3 3" },
     { tag: 'path', d: "M17 17V3" },
     { tag: 'path', d: "M4 21h16" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m4 6 3-3 3 3", opacity: '0' },
+    { tag: 'path', d: "m14 6 3-3 3 3", opacity: '0' },
   ],
   {
     default: {
@@ -11227,6 +11243,28 @@ export const arrowsUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(PUNTA_SALTO, ESTIRADO),
         3: /* @__PURE__ */ track(ESTIRA_SALTO, ESTIRADO, { delay: 120, origin: '17px 17px' }),
         2: /* @__PURE__ */ track(PUNTA_SALTO, ESTIRADO, { delay: 120 }),
+      },
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 6), 560),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '7px 17px' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 6), 560),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '17px 17px' }),
+        6: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.86)', offset: 0.5 }, { transform: 'scaleX(1.04)', offset: 0.75 }, { transform: 'scaleX(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '12px 21px' }),
       },
     },
   },
@@ -11690,7 +11728,7 @@ export const slidersHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         ], 520, { delay: 180 }),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         9: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 60, fill: 'backwards' }),
         10: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 700, { easing: 'linear', delay: 110, fill: 'backwards' }),
@@ -13963,7 +14001,7 @@ export const codeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       root: /* @__PURE__ */ track([{ transform: 'scaleX(1)', easing: 'ease-out' }, { transform: 'scaleX(0.75)', easing: 'ease-out' }, { transform: 'scaleX(1)' }], 280, { easing: 'linear' }),
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 320, { easing: 'linear', delay: 110, fill: 'backwards' }),

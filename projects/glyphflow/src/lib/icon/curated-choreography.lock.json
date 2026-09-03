@@ -382,7 +382,8 @@
     "arrow-down-from-line": [
       "path:1b15a1997544",
       "path:c6550f843741",
-      "path:23682fc060dd"
+      "path:23682fc060dd",
+      "path:c23d41ef84cc"
     ],
     "arrow-down-left": [
       "path:dafb614b4335",
@@ -411,7 +412,8 @@
     "arrow-down-to-line": [
       "path:db035371ad12",
       "path:1507eee4a41e",
-      "path:6c02cd33889a"
+      "path:6c02cd33889a",
+      "path:a761b8bbdc04"
     ],
     "arrow-down-up": [
       "path:43bf907c9536",
@@ -446,7 +448,8 @@
     "arrow-left-from-line": [
       "path:3e63af930ac9",
       "path:33a4b1f23e72",
-      "path:951d17ebf149"
+      "path:951d17ebf149",
+      "path:cf002c00f8f2"
     ],
     "arrow-left-right": [
       "path:4a46e85373f2",
@@ -461,7 +464,8 @@
     "arrow-left-to-line": [
       "path:aa541359b3d5",
       "path:472f784e4fd1",
-      "path:f012b18ea387"
+      "path:f012b18ea387",
+      "path:cb762e196921"
     ],
     "arrow-right": [
       "path:52f6eb0c4372",
@@ -472,7 +476,8 @@
     "arrow-right-from-line": [
       "path:3337c0606df3",
       "path:11539b9e0dea",
-      "path:91ae31fd11cb"
+      "path:91ae31fd11cb",
+      "path:ed03553ebcbe"
     ],
     "arrow-right-left": [
       "path:22f111d69f9d",
@@ -483,7 +488,8 @@
     "arrow-right-to-line": [
       "path:0e6023ed1d8f",
       "path:9375168997f0",
-      "path:174a8b8a0dbe"
+      "path:174a8b8a0dbe",
+      "path:53f4bd22aa00"
     ],
     "arrow-up": [
       "path:81768faea7de",
@@ -530,7 +536,8 @@
     "arrow-up-from-line": [
       "path:2be38a061a40",
       "path:215a5436fb35",
-      "path:eeb36d422fd8"
+      "path:eeb36d422fd8",
+      "path:18ad0d411882"
     ],
     "arrow-up-left": [
       "path:5e4a8da2f5e7",
@@ -554,7 +561,8 @@
     "arrow-up-to-line": [
       "path:39062b863b76",
       "path:66546b258c47",
-      "path:2fbf5be2ecd0"
+      "path:2fbf5be2ecd0",
+      "path:010168f6ce6b"
     ],
     "arrow-up-wide-narrow": [
       "path:2118a1c7b018",
@@ -575,7 +583,9 @@
       "path:a73186d54c14",
       "path:5dcd8abf6fb8",
       "path:48da24443cd8",
-      "path:8de14cc7b38d"
+      "path:8de14cc7b38d",
+      "path:dc691b572c6b",
+      "path:be367b748006"
     ],
     "asterisk": [
       "path:4209a9c9871a",
@@ -2296,12 +2306,14 @@
     "circle-arrow-down": [
       "circle:1b306a76ecc0",
       "path:3fbc681c0854",
-      "path:79cf1387b52d"
+      "path:79cf1387b52d",
+      "path:38bf4face7fc"
     ],
     "circle-arrow-left": [
       "circle:1b306a76ecc0",
       "path:c2920cff60b3",
-      "path:17472901b4bc"
+      "path:17472901b4bc",
+      "path:1d98de34a5ea"
     ],
     "circle-arrow-out-down-left": [
       "path:91703225ca1f",
@@ -2326,12 +2338,14 @@
     "circle-arrow-right": [
       "circle:1b306a76ecc0",
       "path:92b5434c2b48",
-      "path:996d85dad073"
+      "path:996d85dad073",
+      "path:dcd6b033a4de"
     ],
     "circle-arrow-up": [
       "circle:1b306a76ecc0",
       "path:3ea4320c03d0",
-      "path:c7079927093e"
+      "path:c7079927093e",
+      "path:cc6a8373c46d"
     ],
     "circle-check": [
       "circle:1b306a76ecc0",
@@ -5844,7 +5858,8 @@
     "log-in": [
       "path:7e1328254ba9",
       "path:7d33f58be1ec",
-      "path:42d36a4d5a17"
+      "path:42d36a4d5a17",
+      "path:f15a8df62b65"
     ],
     "log-out": [
       "path:adcbdbb71db8",
@@ -8681,7 +8696,8 @@
     "square-arrow-down": [
       "rect:d427f2bc2999",
       "path:3fbc681c0854",
-      "path:79cf1387b52d"
+      "path:79cf1387b52d",
+      "path:38bf4face7fc"
     ],
     "square-arrow-down-left": [
       "path:98a0f3796bf2",
@@ -8696,7 +8712,8 @@
     "square-arrow-left": [
       "rect:d427f2bc2999",
       "path:c2920cff60b3",
-      "path:17472901b4bc"
+      "path:17472901b4bc",
+      "path:1d98de34a5ea"
     ],
     "square-arrow-out-down-left": [
       "path:c0da0fd3c245",
@@ -8721,7 +8738,8 @@
     "square-arrow-right": [
       "rect:d427f2bc2999",
       "path:996d85dad073",
-      "path:92b5434c2b48"
+      "path:92b5434c2b48",
+      "path:dcd6b033a4de"
     ],
     "square-arrow-right-enter": [
       "path:402492aec108",
@@ -8736,7 +8754,8 @@
     "square-arrow-up": [
       "rect:d427f2bc2999",
       "path:3ea4320c03d0",
-      "path:c7079927093e"
+      "path:c7079927093e",
+      "path:cc6a8373c46d"
     ],
     "square-arrow-up-left": [
       "path:4400c26795d2",
@@ -11166,9 +11185,9 @@
     },
     "arrow-down": {
       "active": "9b77892846c2",
+      "dart": "a8f469599fa2",
       "default": "2afb1f0218bd",
       "draw": "17c8398e8d34",
-      "nudge": "a8f469599fa2",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -11191,16 +11210,18 @@
       "@hover": "default"
     },
     "arrow-down-from-line": {
-      "default": "4e6384d287c7",
+      "dart": "ce3c178c4f79",
+      "default": "b0a1c6394e78",
       "draw": "17c8398e8d34",
+      "hold": "4e6384d287c7",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-left": {
       "active": "9d5415c0a5e7",
+      "dart": "591af40c82a4",
       "default": "b7c9f8c41094",
       "draw": "17c8398e8d34",
-      "nudge": "591af40c82a4",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -11213,9 +11234,9 @@
     },
     "arrow-down-right": {
       "active": "f6a7fa620419",
+      "dart": "3d3e8388d0cc",
       "default": "4180dea7122a",
       "draw": "17c8398e8d34",
-      "nudge": "3d3e8388d0cc",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -11226,18 +11247,20 @@
       "@hover": "default"
     },
     "arrow-down-to-line": {
-      "default": "17a586a4e1e4",
+      "dart": "f999c47cdf04",
+      "default": "1eae68e3ba03",
       "draw": "17c8398e8d34",
+      "hold": "17a586a4e1e4",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-down-up": {
+      "dart": "8550271c6063",
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "8550271c6063",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "arrow-down-wide-narrow": {
       "default": "11cc1916c17e",
@@ -11254,45 +11277,51 @@
     },
     "arrow-left": {
       "active": "debec16cb2e8",
+      "dart": "dec85b23b050",
       "default": "2b546c0343ca",
       "draw": "17c8398e8d34",
-      "nudge": "dec85b23b050",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "arrow-left-from-line": {
-      "default": "ab63b54a5683",
+      "dart": "0cf6f4864ca6",
+      "default": "94131eb9547f",
       "draw": "17c8398e8d34",
+      "hold": "ab63b54a5683",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-left-right": {
+      "dart": "8be91eefe604",
       "default": "ce0ad243bbad",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "8be91eefe604",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "arrow-left-to-line": {
-      "default": "49690b7adff0",
+      "dart": "e642243f3777",
+      "default": "c669bc56e79b",
       "draw": "17c8398e8d34",
+      "hold": "49690b7adff0",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-right": {
       "active": "379bd4a864a0",
+      "dart": "139fb29762f4",
       "default": "f21e13323929",
       "draw": "17c8398e8d34",
-      "nudge": "139fb29762f4",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "arrow-right-from-line": {
-      "default": "19a37292d806",
+      "dart": "f64a2a3c5af9",
+      "default": "ec289b8f1722",
       "draw": "17c8398e8d34",
+      "hold": "19a37292d806",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-right-left": {
       "default": "86aebb0b36ec",
@@ -11302,16 +11331,18 @@
       "@hover": "flip"
     },
     "arrow-right-to-line": {
-      "default": "b66507bca377",
+      "dart": "499ad1e4a1af",
+      "default": "eb3d530d723a",
       "draw": "17c8398e8d34",
+      "hold": "b66507bca377",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-up": {
       "active": "f3a646dcc994",
+      "dart": "dbd65c938fe2",
       "default": "0b5087333a0e",
       "draw": "17c8398e8d34",
-      "nudge": "dbd65c938fe2",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -11337,12 +11368,12 @@
       "@hover": "assemble"
     },
     "arrow-up-down": {
+      "dart": "34d750cd0cbc",
       "default": "77ac70616689",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "34d750cd0cbc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "arrow-up-from-dot": {
       "default": "20ce553a274c",
@@ -11351,16 +11382,18 @@
       "@hover": "default"
     },
     "arrow-up-from-line": {
-      "default": "20ce553a274c",
+      "dart": "50e95eda871b",
+      "default": "bbd8d13f7db4",
       "draw": "17c8398e8d34",
+      "hold": "20ce553a274c",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-up-left": {
       "active": "641e49eea19a",
+      "dart": "89c687269c20",
       "default": "a65cab714169",
       "draw": "17c8398e8d34",
-      "nudge": "89c687269c20",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -11373,17 +11406,19 @@
     },
     "arrow-up-right": {
       "active": "1f489e50bb05",
+      "dart": "c61e01b2bcf5",
       "default": "4673e16077d4",
       "draw": "17c8398e8d34",
-      "nudge": "c61e01b2bcf5",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "arrow-up-to-line": {
-      "default": "76cecdbaebfd",
+      "dart": "c3316949ff19",
+      "default": "86e74a166985",
       "draw": "17c8398e8d34",
+      "hold": "76cecdbaebfd",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "arrow-up-wide-narrow": {
       "default": "48dec78cbe5c",
@@ -11400,10 +11435,11 @@
       "@hover": "assemble"
     },
     "arrows-up-from-line": {
+      "dart": "624eddf63078",
       "default": "fdc25a0e4be9",
       "draw": "17c8398e8d34",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "dart"
     },
     "asterisk": {
       "default": "3cce0229461a",
@@ -12526,18 +12562,18 @@
       "@hover": "quick"
     },
     "calendar-arrow-down": {
+      "dart": "39b74811914d",
       "default": "deac980ba1d1",
       "draw": "17c8398e8d34",
-      "nudge": "39b74811914d",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "calendar-arrow-up": {
+      "dart": "13336dfde098",
       "default": "2fc757926cdc",
       "draw": "17c8398e8d34",
-      "nudge": "13336dfde098",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "calendar-check": {
       "default": "b8501868e867",
@@ -13046,10 +13082,10 @@
     },
     "chevron-down": {
       "active": "53afeecd5837",
+      "dart": "957fd3e8b218",
       "default": "2afb1f0218bd",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
-      "nudge": "957fd3e8b218",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
@@ -13069,38 +13105,38 @@
     },
     "chevron-left": {
       "active": "2c4d9224c5be",
+      "dart": "ae6f977e5985",
       "default": "2b546c0343ca",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "ae6f977e5985",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "chevron-right": {
       "active": "f4e8bccd9def",
+      "dart": "7bffd68ef732",
       "default": "f21e13323929",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "7bffd68ef732",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "chevron-up": {
       "active": "5fe14824b52f",
+      "dart": "2674bcd02ec4",
       "default": "0b5087333a0e",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
-      "nudge": "2674bcd02ec4",
       "reveal": "5cfc38f18d6b",
       "@hover": "active"
     },
     "chevrons-down": {
+      "dart": "5cc67a0db777",
       "default": "3366f97bb7cc",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
-      "nudge": "5cc67a0db777",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-down-up": {
       "default": "f400a841339e",
@@ -13109,49 +13145,49 @@
       "@hover": "default"
     },
     "chevrons-left": {
+      "dart": "481cfa9d2a7c",
       "default": "d3560bc6cd28",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "481cfa9d2a7c",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-left-right": {
+      "dart": "23ce44f2d87b",
       "default": "ccc7d7318188",
       "draw": "17c8398e8d34",
-      "nudge": "23ce44f2d87b",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-left-right-ellipsis": {
+      "dart": "77cece37c1c8",
       "default": "f0a5712fd08a",
       "draw": "17c8398e8d34",
-      "nudge": "77cece37c1c8",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-right": {
+      "dart": "3d859db597a0",
       "default": "8ef771cbcc7a",
       "draw": "17c8398e8d34",
       "flip": "8e4fe1557f18",
-      "nudge": "3d859db597a0",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-right-left": {
+      "dart": "84034ca6df1f",
       "default": "ccc7d7318188",
       "draw": "17c8398e8d34",
-      "nudge": "84034ca6df1f",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-up": {
+      "dart": "a0c3acd13441",
       "default": "efc440d63f22",
       "draw": "17c8398e8d34",
       "flip": "4badefff6a03",
-      "nudge": "a0c3acd13441",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "chevrons-up-down": {
       "active": "69049ef3d71d",
@@ -13194,6 +13230,7 @@
       "@hover": "alert"
     },
     "circle-arrow-down": {
+      "dart": "11e0c9086a0a",
       "default": "a65c1205dd41",
       "draw": "17c8398e8d34",
       "hold": "0ee8aefe6f88",
@@ -13201,6 +13238,7 @@
       "@hover": "hold"
     },
     "circle-arrow-left": {
+      "dart": "2145853d57a5",
       "default": "179d9b9992ca",
       "draw": "17c8398e8d34",
       "hold": "8b77022a64d0",
@@ -13236,6 +13274,7 @@
       "@hover": "hold"
     },
     "circle-arrow-right": {
+      "dart": "3e4823b55414",
       "default": "b4bf840d82c1",
       "draw": "17c8398e8d34",
       "hold": "3c05fa121b81",
@@ -13243,6 +13282,7 @@
       "@hover": "hold"
     },
     "circle-arrow-up": {
+      "dart": "8df794d4e5fd",
       "default": "d5ca43b7e342",
       "draw": "17c8398e8d34",
       "hold": "600accb6d91f",
@@ -13553,9 +13593,9 @@
       "@hover": "nudge"
     },
     "clipboard-pen": {
+      "dart": "bc6150a239c6",
       "default": "861d3e1649ad",
       "draw": "17c8398e8d34",
-      "nudge": "bc6150a239c6",
       "reveal": "5cfc38f18d6b",
       "write": "198b9700cfd8",
       "@hover": "write"
@@ -13893,10 +13933,10 @@
       "@hover": "hold"
     },
     "code": {
+      "dart": "b39861bd12cd",
       "default": "f97ddb7aefbd",
       "draw": "17c8398e8d34",
       "hold": "48a7f88d370e",
-      "nudge": "b39861bd12cd",
       "reveal": "5cfc38f18d6b",
       "@hover": "hold"
     },
@@ -15582,10 +15622,10 @@
       "@hover": "extra"
     },
     "folder-pen": {
+      "dart": "578bddd2999b",
       "default": "e4f312719ee0",
       "draw": "17c8398e8d34",
       "extra": "c7d3250ebb6f",
-      "nudge": "578bddd2999b",
       "reveal": "5cfc38f18d6b",
       "@hover": "extra"
     },
@@ -16405,7 +16445,7 @@
     "house": {
       "default": "9f23dbdc2278",
       "draw": "17c8398e8d34",
-      "mark": "8c38d7eabb8e",
+      "mark": "4fd3c2e1e683",
       "reveal": "5cfc38f18d6b",
       "@hover": "mark"
     },
@@ -16610,11 +16650,11 @@
       "@hover": "active"
     },
     "key-round": {
+      "dart": "950c68f7aaaf",
       "default": "eb9f89e06b89",
       "draw": "17c8398e8d34",
-      "nudge": "950c68f7aaaf",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "key-square": {
       "default": "522393964462",
@@ -16749,12 +16789,12 @@
     },
     "layers": {
       "active": "c2ff7400d85c",
+      "dart": "e13dac1227e8",
       "default": "3754601a500e",
       "draw": "17c8398e8d34",
       "merge": "e13dac1227e8",
-      "nudge": "e13dac1227e8",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "layers-2": {
       "default": "07a56a1f2b82",
@@ -16992,10 +17032,10 @@
       "@hover": "hold"
     },
     "list-chevrons-up-down": {
+      "dart": "232cef0d2134",
       "default": "8597f289aecd",
       "draw": "17c8398e8d34",
       "hold": "0c75d3013f03",
-      "nudge": "232cef0d2134",
       "reveal": "5cfc38f18d6b",
       "@hover": "hold"
     },
@@ -17179,20 +17219,20 @@
     },
     "log-in": {
       "assemble": "337e3038f613",
+      "dart": "17e5052401fe",
       "default": "1f716a75de8a",
       "draw": "17c8398e8d34",
-      "nudge": "94d087385026",
       "reveal": "5cfc38f18d6b",
       "@hover": "assemble"
     },
     "log-out": {
       "assemble": "880ca1587b80",
+      "dart": "094075511fba",
       "default": "95bbf3e944de",
       "draw": "17c8398e8d34",
       "hold": "097e11447efe",
-      "nudge": "094075511fba",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "logs": {
       "default": "d2136f17c66c",
@@ -18594,9 +18634,9 @@
       "@hover": "write"
     },
     "pen-line": {
+      "dart": "578bddd2999b",
       "default": "7121ec9436a1",
       "draw": "17c8398e8d34",
-      "nudge": "578bddd2999b",
       "reveal": "5cfc38f18d6b",
       "write": "2e449bc22afb",
       "@hover": "write"
@@ -18845,12 +18885,12 @@
     },
     "play": {
       "active": "084b00472949",
+      "dart": "09007029af85",
       "default": "c1b92fc46840",
       "draw": "17c8398e8d34",
       "next": "09007029af85",
-      "nudge": "09007029af85",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "play-off": {
       "default": "d262e63d523c",
@@ -19269,11 +19309,11 @@
       "@hover": "default"
     },
     "repeat": {
+      "dart": "e73255a5948d",
       "default": "3cbc30c2f118",
       "draw": "17c8398e8d34",
-      "nudge": "e73255a5948d",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "repeat-1": {
       "default": "fe67650794b0",
@@ -19314,11 +19354,11 @@
       "@hover": "flip"
     },
     "reply-all": {
+      "dart": "a3a93d0b18bb",
       "default": "2b79f1edd8b4",
       "draw": "17c8398e8d34",
-      "nudge": "a3a93d0b18bb",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "rewind": {
       "default": "34de2b5320b1",
@@ -19720,10 +19760,10 @@
       "@hover": "default"
     },
     "search": {
+      "dart": "1a8de284ed51",
       "default": "c94cde4874e0",
       "draw": "17c8398e8d34",
       "find": "7709199dc7a8",
-      "nudge": "1a8de284ed51",
       "reveal": "5cfc38f18d6b",
       "@hover": "find"
     },
@@ -20071,11 +20111,11 @@
       "@hover": "hold"
     },
     "shuffle": {
+      "dart": "c0421077ec20",
       "default": "895047d264c6",
       "draw": "17c8398e8d34",
-      "nudge": "c0421077ec20",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "sigma": {
       "default": "0bccfad57d84",
@@ -20181,11 +20221,11 @@
       "@hover": "hold"
     },
     "sliders-horizontal": {
+      "dart": "64334c159a5e",
       "default": "770ce144df71",
       "draw": "17c8398e8d34",
-      "nudge": "64334c159a5e",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "sliders-vertical": {
       "default": "f4cfb2087202",
@@ -20373,10 +20413,12 @@
       "@hover": "default"
     },
     "square-arrow-down": {
-      "default": "e83a714f6bcc",
+      "dart": "11e0c9086a0a",
+      "default": "a65c1205dd41",
       "draw": "17c8398e8d34",
+      "hold": "e83a714f6bcc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-down-left": {
       "default": "be424b76174b",
@@ -20391,10 +20433,12 @@
       "@hover": "default"
     },
     "square-arrow-left": {
-      "default": "38523935caa0",
+      "dart": "2145853d57a5",
+      "default": "179d9b9992ca",
       "draw": "17c8398e8d34",
+      "hold": "38523935caa0",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-out-down-left": {
       "default": "8b054912421d",
@@ -20421,10 +20465,12 @@
       "@hover": "default"
     },
     "square-arrow-right": {
-      "default": "8e79ebcb45fc",
+      "dart": "40379bcfeda2",
+      "default": "5a23e557a0b4",
       "draw": "17c8398e8d34",
+      "hold": "8e79ebcb45fc",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-right-enter": {
       "default": "c68723273602",
@@ -20439,10 +20485,12 @@
       "@hover": "default"
     },
     "square-arrow-up": {
-      "default": "c99425096bda",
+      "dart": "8df794d4e5fd",
+      "default": "d5ca43b7e342",
       "draw": "17c8398e8d34",
+      "hold": "c99425096bda",
       "reveal": "5cfc38f18d6b",
-      "@hover": "default"
+      "@hover": "hold"
     },
     "square-arrow-up-left": {
       "default": "d3e4a0484b0d",
@@ -20658,11 +20706,11 @@
       "@hover": "default"
     },
     "square-pen": {
+      "dart": "578bddd2999b",
       "default": "fe353b5c293f",
       "draw": "17c8398e8d34",
-      "nudge": "578bddd2999b",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "square-percent": {
       "default": "bda49fa96973",
@@ -21965,11 +22013,11 @@
       "@hover": "default"
     },
     "user-round-pen": {
+      "dart": "1dbe45f787b7",
       "default": "ac703e0fffdf",
       "draw": "17c8398e8d34",
-      "nudge": "1dbe45f787b7",
       "reveal": "5cfc38f18d6b",
-      "@hover": "nudge"
+      "@hover": "dart"
     },
     "user-round-plus": {
       "default": "c4bcf6e075dd",

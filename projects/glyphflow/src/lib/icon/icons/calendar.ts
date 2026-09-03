@@ -186,7 +186,7 @@ export const calendarArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(calen
         0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipTravel(1), 1100),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
         7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 150, fill: 'backwards' }),
@@ -207,7 +207,7 @@ export const calendarArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(calenda
         0: /* @__PURE__ */ track(/* @__PURE__ */ arrowTipTravel(-1), 1100),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
         7: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 150, fill: 'backwards' }),

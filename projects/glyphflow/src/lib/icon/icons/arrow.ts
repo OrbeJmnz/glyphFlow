@@ -4,6 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, moveXSeq, moveYSeq, track, icon, held } from '../choreography';
+import { puntaCompas, astaCompas } from './_shared';
 import { arrowDownLeftShapes, arrowDownRightShapes, arrowDownShapes, arrowLeftShapes, arrowRightShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowUpShapes } from '../animated-icons.shapes';
 
 /* ── Variantes `nudge` y `assemble` ─────────────────────────────────────────────────────────
@@ -126,14 +127,46 @@ export const arrowDownFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M19 3H5" },
     { tag: 'path', d: "M12 21V7" },
     { tag: 'path', d: "m6 15 6 6 6-6" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m6 15 6 6 6-6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.2, 2.5), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.2, 2.5), 520, { origin: '12px 7px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 6), 560),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '12px 7px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.86)', offset: 0.5 }, { transform: 'scaleX(1.04)', offset: 0.75 }, { transform: 'scaleX(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '12px 3px' }),
+      },
     },
   },
 );
@@ -160,14 +193,46 @@ export const arrowDownToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M12 17V3" },
     { tag: 'path', d: "m6 11 6 6 6-6" },
     { tag: 'path', d: "M19 21H5" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m6 11 6 6 6-6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.2, 2.5), 520),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.2, 2.5), 520, { origin: '12px 3px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 1.5, 6), 560),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '12px 3px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.86)', offset: 0.5 }, { transform: 'scaleX(1.04)', offset: 0.75 }, { transform: 'scaleX(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '12px 21px' }),
+      },
     },
   },
 );
@@ -177,14 +242,46 @@ export const arrowLeftFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m9 6-6 6 6 6" },
     { tag: 'path', d: "M3 12h14" },
     { tag: 'path', d: "M21 19V5" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m9 6-6 6 6 6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 1.2, 2.5), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.2, 2.5), 520, { origin: '17px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 1.5, 6), 560),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.5, 6), 560, { origin: '17px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(0.86)', offset: 0.5 }, { transform: 'scaleY(1.04)', offset: 0.75 }, { transform: 'scaleY(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '21px 12px' }),
+      },
     },
   },
 );
@@ -194,14 +291,46 @@ export const arrowLeftToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M3 19V5" },
     { tag: 'path', d: "m13 6-6 6 6 6" },
     { tag: 'path', d: "M7 12h14" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m13 6-6 6 6 6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 1.2, 2.5), 520),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.2, 2.5), 520, { origin: '21px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 1.5, 6), 560),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.5, 6), 560, { origin: '21px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(0.86)', offset: 0.5 }, { transform: 'scaleY(1.04)', offset: 0.75 }, { transform: 'scaleY(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '3px 12px' }),
+      },
     },
   },
 );
@@ -211,14 +340,46 @@ export const arrowRightFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M3 5v14" },
     { tag: 'path', d: "M21 12H7" },
     { tag: 'path', d: "m15 18 6-6-6-6" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m15 18 6-6-6-6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 1.2, 2.5), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.2, 2.5), 520, { origin: '7px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 1.5, 6), 560),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.5, 6), 560, { origin: '7px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(0.86)', offset: 0.5 }, { transform: 'scaleY(1.04)', offset: 0.75 }, { transform: 'scaleY(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '3px 12px' }),
+      },
     },
   },
 );
@@ -228,14 +389,46 @@ export const arrowRightToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M17 12H3" },
     { tag: 'path', d: "m11 18 6-6-6-6" },
     { tag: 'path', d: "M21 5v14" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m11 18 6-6-6-6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 1.2, 2.5), 520),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.2, 2.5), 520, { origin: '3px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 1.5, 6), 560),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', 14, 1.5, 6), 560, { origin: '3px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(1)', offset: 0 }, { transform: 'scaleY(1)', offset: 0.3 }, { transform: 'scaleY(0.86)', offset: 0.5 }, { transform: 'scaleY(1.04)', offset: 0.75 }, { transform: 'scaleY(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '21px 12px' }),
+      },
     },
   },
 );
@@ -262,14 +455,46 @@ export const arrowUpFromLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m18 9-6-6-6 6" },
     { tag: 'path', d: "M12 3v14" },
     { tag: 'path', d: "M5 21h14" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m18 9-6-6-6 6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.2, 2.5), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.2, 2.5), 520, { origin: '12px 17px' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 6), 560),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '12px 17px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.86)', offset: 0.5 }, { transform: 'scaleX(1.04)', offset: 0.75 }, { transform: 'scaleX(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '12px 21px' }),
+      },
     },
   },
 );
@@ -279,14 +504,46 @@ export const arrowUpToLineIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M5 3h14" },
     { tag: 'path', d: "m18 13-6-6-6 6" },
     { tag: 'path', d: "M12 7v14" },
+    // Estela(s) del `dart`: copia de la punta, invisible en reposo.
+    { tag: 'path', d: "m18 13-6-6-6 6", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.2, 2.5), 520),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.2, 2.5), 520, { origin: '12px 21px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-3px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * La flecha se CARGA contra la línea y sale; la línea acusa el impulso.
+     *
+     * El agache manda (6 contra 1.5 de salida) y esta MEDIDO, no elegido a ojo: con 3.5
+     * el pico quedaba en 3.5 y su propio `default` ya llega a 3.0 — un 17% mas, o sea nada. Los
+     * `dart` que ya funcionan van a 2.1-3.0 veces su default; con 6 este queda en 2.0.
+     *
+     * Hacia afuera no hay lienzo (la punta ya termina en el borde), asi que el recorrido sale del
+     * lado de la linea: ahi sobra sitio y ademas es lo que el icono significa. El achatamiento de
+     * la linea completa el gesto, en su eje perpendicular y con el origen en su centro.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 1.5, 6), 560),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', 14, 1.5, 6), 560, { origin: '12px 21px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateY(-1.8px)', opacity: '0', offset: 1 }], 560, { easing: 'linear', delay: 120, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleX(1)', offset: 0 }, { transform: 'scaleX(1)', offset: 0.3 }, { transform: 'scaleX(0.86)', offset: 0.5 }, { transform: 'scaleX(1.04)', offset: 0.75 }, { transform: 'scaleX(1)', offset: 1 }], 560, { easing: 'ease-out', origin: '12px 3px' }),
+      },
     },
   },
 );
@@ -314,7 +571,7 @@ export const arrowDownUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.04)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -361,7 +618,7 @@ export const arrowUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -728,7 +985,7 @@ export const arrowLeftRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track([{ transform: 'translateX(0)' }, { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }], 500),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -909,7 +1166,7 @@ export const arrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowLeftShap
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -926,7 +1183,7 @@ export const arrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowRightSh
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(6px, 0px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -945,7 +1202,7 @@ export const arrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpShapes, 
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -963,7 +1220,7 @@ export const arrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDownShap
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, 6px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -981,7 +1238,7 @@ export const arrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpLeft
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -999,7 +1256,7 @@ export const arrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowUpRig
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, -4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -1017,7 +1274,7 @@ export const arrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDown
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
@@ -1035,7 +1292,7 @@ export const arrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(arrowDow
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(4.5px, 4.5px)', opacity: '0', offset: 1 }], 600, { easing: 'linear', delay: 60, fill: 'backwards' }),
