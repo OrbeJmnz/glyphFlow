@@ -29,14 +29,46 @@ export const squareArrowDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 15H9l6-6" },
     { tag: 'path', d: "M9 15V9" },
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M15 15H9l6-6", opacity: '0' },
   ],
   {
+    /** La mitad del `dart`: mismo gesto, la mitad del recorrido y sin estela. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(0.70px, -0.70px)', offset: 0.22 }, { transform: 'translate(-1.00px, 1.00px)', offset: 0.6 }, { transform: 'translate(-0.20px, 0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(0.70px, -0.70px)', offset: 0.22 }, { transform: 'translate(-1.00px, 1.00px)', offset: 0.6 }, { transform: 'translate(-0.20px, 0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1.5px, 1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1.5px, 1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.40px, -1.40px)', offset: 0.22 }, { transform: 'translate(-2.00px, 2.00px)', offset: 0.6 }, { transform: 'translate(-0.40px, 0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.40px, -1.40px)', offset: 0.22 }, { transform: 'translate(-2.00px, 2.00px)', offset: 0.6 }, { transform: 'translate(-0.40px, 0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 3px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(-3px, 3px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(-6px, 6px)', opacity: '0' }, { transform: 'translate(1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(-6px, 6px)', opacity: '0' }, { transform: 'translate(1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 320, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -46,14 +78,46 @@ export const squareArrowDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 15 9 9" },
     { tag: 'path', d: "M9 15h6V9" },
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M15 15 9 9", opacity: '0' },
   ],
   {
+    /** La mitad del `dart`: mismo gesto, la mitad del recorrido y sin estela. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-0.70px, -0.70px)', offset: 0.22 }, { transform: 'translate(1.00px, 1.00px)', offset: 0.6 }, { transform: 'translate(0.20px, 0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-0.70px, -0.70px)', offset: 0.22 }, { transform: 'translate(1.00px, 1.00px)', offset: 0.6 }, { transform: 'translate(0.20px, 0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1.5px, 1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1.5px, 1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.40px, -1.40px)', offset: 0.22 }, { transform: 'translate(2.00px, 2.00px)', offset: 0.6 }, { transform: 'translate(0.40px, 0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.40px, -1.40px)', offset: 0.22 }, { transform: 'translate(2.00px, 2.00px)', offset: 0.6 }, { transform: 'translate(0.40px, 0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(3px, 3px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(3px, 3px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(6px, 6px)', opacity: '0' }, { transform: 'translate(-1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(6px, 6px)', opacity: '0' }, { transform: 'translate(-1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 320, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -145,12 +209,37 @@ export const squareArrowRightEnterIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "m10 16 4-4-4-4" },
     { tag: 'path', d: "M3 12h11" },
     { tag: 'path', d: "M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "m10 16 4-4-4-4", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', offset: 0 }, { transform: 'translateX(-1.8px)', offset: 0.22 }, { transform: 'translateX(2.2px)', offset: 0.6 }, { transform: 'translateX(0.44000000000000006px)', offset: 0.82 }, { transform: 'translateX(0px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', offset: 0 }, { transform: 'translateX(-0.9px)', offset: 0.22 }, { transform: 'translateX(1.1px)', offset: 0.6 }, { transform: 'translateX(0.22000000000000003px)', offset: 0.82 }, { transform: 'translateX(0px)', offset: 1 }], 520, { easing: 'ease-out', delay: 40, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3.2px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(3.2px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(-7px, 0px)', opacity: '0' }, { transform: 'translate(1.75px, 0.00px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 220, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(-7px, 0px)', opacity: '0' }, { transform: 'translate(1.75px, 0.00px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
       },
     },
   },
@@ -161,12 +250,37 @@ export const squareArrowRightExitIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M10 12h11" },
     { tag: 'path', d: "m17 16 4-4-4-4" },
     { tag: 'path', d: "M21 6.344V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.344" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "m17 16 4-4-4-4", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out' }),
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)', offset: 0 }, { transform: 'translateX(-1.8px)', offset: 0.22 }, { transform: 'translateX(2.2px)', offset: 0.6 }, { transform: 'translateX(0.44000000000000006px)', offset: 0.82 }, { transform: 'translateX(0px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)', offset: 0 }, { transform: 'translateX(-0.9px)', offset: 0.22 }, { transform: 'translateX(1.1px)', offset: 0.6 }, { transform: 'translateX(0.22000000000000003px)', offset: 0.82 }, { transform: 'translateX(0px)', offset: 1 }], 520, { easing: 'ease-out', delay: 40, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3.2px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translateX(3.2px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(-7px, 0px)', opacity: '0' }, { transform: 'translate(1.75px, 0.00px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 220, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(-7px, 0px)', opacity: '0' }, { transform: 'translate(1.75px, 0.00px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 300, fill: 'backwards' }),
       },
     },
   },
@@ -218,14 +332,46 @@ export const squareArrowUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 15 9 9" },
     { tag: 'path', d: "M9 15V9h6" },
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M15 15 9 9", opacity: '0' },
   ],
   {
+    /** La mitad del `dart`: mismo gesto, la mitad del recorrido y sin estela. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(0.70px, 0.70px)', offset: 0.22 }, { transform: 'translate(-1.00px, -1.00px)', offset: 0.6 }, { transform: 'translate(-0.20px, -0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(0.70px, 0.70px)', offset: 0.22 }, { transform: 'translate(-1.00px, -1.00px)', offset: 0.6 }, { transform: 'translate(-0.20px, -0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1.5px, -1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(-1.5px, -1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.40px, 1.40px)', offset: 0.22 }, { transform: 'translate(-2.00px, -2.00px)', offset: 0.6 }, { transform: 'translate(-0.40px, -0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.40px, 1.40px)', offset: 0.22 }, { transform: 'translate(-2.00px, -2.00px)', offset: 0.6 }, { transform: 'translate(-0.40px, -0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, -3px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(-3px, -3px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(-6px, -6px)', opacity: '0' }, { transform: 'translate(1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(-6px, -6px)', opacity: '0' }, { transform: 'translate(1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 320, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -235,14 +381,46 @@ export const squareArrowUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M15 15V9H9" },
     { tag: 'path', d: "m9 15 6-6" },
     { tag: 'rect', x: 3, y: 3, width: 18, height: 18, rx: 2 },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M15 15V9H9", opacity: '0' },
   ],
   {
+    /** La mitad del `dart`: mismo gesto, la mitad del recorrido y sin estela. */
     default: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-0.70px, 0.70px)', offset: 0.22 }, { transform: 'translate(1.00px, -1.00px)', offset: 0.6 }, { transform: 'translate(0.20px, -0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-0.70px, 0.70px)', offset: 0.22 }, { transform: 'translate(1.00px, -1.00px)', offset: 0.6 }, { transform: 'translate(0.20px, -0.20px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 460, { easing: 'ease-out' }),
+      },
+    },
+    hold: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1.5px, -1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         1: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(1.5px, -1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.40px, 1.40px)', offset: 0.22 }, { transform: 'translate(2.00px, -2.00px)', offset: 0.6 }, { transform: 'translate(0.40px, -0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.40px, 1.40px)', offset: 0.22 }, { transform: 'translate(2.00px, -2.00px)', offset: 0.6 }, { transform: 'translate(0.40px, -0.40px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(3px, -3px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(3px, -3px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ transform: 'translate(6px, -6px)', opacity: '0' }, { transform: 'translate(-1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 240, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(6px, -6px)', opacity: '0' }, { transform: 'translate(-1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 320, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -1008,12 +1186,37 @@ export const squareArrowOutDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M13 21h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6" },
     { tag: 'path', d: "m3 21 9-9" },
     { tag: 'path', d: "M9 21H3v-6" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M9 21H3v-6", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9010)', offset: 0.22 }, { transform: 'scale(1.1414)', offset: 0.6 }, { transform: 'scale(1.0283)', offset: 0.82 }, { transform: 'scale(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.00px, -1.00px)', offset: 0.22 }, { transform: 'translate(-1.40px, 1.40px)', offset: 0.6 }, { transform: 'translate(-0.28px, 0.28px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-2.4px, 2.4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(-2.4px, 2.4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(-6px, 6px)', opacity: '0' }, { transform: 'translate(1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 380, fill: 'backwards' }),
       },
     },
   },
@@ -1024,12 +1227,37 @@ export const squareArrowOutDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon
     { tag: 'path', d: "M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6" },
     { tag: 'path', d: "m21 21-9-9" },
     { tag: 'path', d: "M21 15v6h-6" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M21 15v6h-6", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, -2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9010)', offset: 0.22 }, { transform: 'scale(1.1414)', offset: 0.6 }, { transform: 'scale(1.0283)', offset: 0.82 }, { transform: 'scale(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.00px, -1.00px)', offset: 0.22 }, { transform: 'translate(1.40px, 1.40px)', offset: 0.6 }, { transform: 'translate(0.28px, 0.28px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.4px, 2.4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(2.4px, 2.4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(6px, 6px)', opacity: '0' }, { transform: 'translate(-1.50px, -1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 380, fill: 'backwards' }),
       },
     },
   },
@@ -1040,12 +1268,37 @@ export const squareArrowOutUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6" },
     { tag: 'path', d: "m3 3 9 9" },
     { tag: 'path', d: "M3 9V3h6" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M3 9V3h6", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9010)', offset: 0.22 }, { transform: 'scale(1.1414)', offset: 0.6 }, { transform: 'scale(1.0283)', offset: 0.82 }, { transform: 'scale(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(1.00px, 1.00px)', offset: 0.22 }, { transform: 'translate(-1.40px, -1.40px)', offset: 0.6 }, { transform: 'translate(-0.28px, -0.28px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-2.4px, -2.4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(-2.4px, -2.4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(-6px, -6px)', opacity: '0' }, { transform: 'translate(1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 380, fill: 'backwards' }),
       },
     },
   },
@@ -1056,12 +1309,37 @@ export const squareArrowOutUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" },
     { tag: 'path', d: "m21 3-9 9" },
     { tag: 'path', d: "M15 3h6v6" },
+    // Estela(s) del `dart`: copia de lo que viaja, invisible en reposo.
+    { tag: 'path', d: "M15 3h6v6", opacity: '0' },
   ],
   {
     default: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
         2: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-2px, 2px)' }, { transform: 'translate(0, 0)' }], 500),
+      },
+    },
+    /** El disparo con estela. Ver el bloque de esta tanda para el porqué de cada sub-grupo. */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'scale(1)', offset: 0 }, { transform: 'scale(0.9010)', offset: 0.22 }, { transform: 'scale(1.1414)', offset: 0.6 }, { transform: 'scale(1.0283)', offset: 0.82 }, { transform: 'scale(1)', offset: 1 }], 520, { easing: 'ease-out', origin: '12px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(0.00px, 0.00px)', offset: 0 }, { transform: 'translate(-1.00px, 1.00px)', offset: 0.22 }, { transform: 'translate(1.40px, -1.40px)', offset: 0.6 }, { transform: 'translate(0.28px, -0.28px)', offset: 0.82 }, { transform: 'translate(0.00px, 0.00px)', offset: 1 }], 520, { easing: 'ease-out' }),
+        3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(2.4px, -2.4px)', opacity: '0.4', offset: 0.5, easing: 'ease-out' }, { transform: 'translate(2.4px, -2.4px)', opacity: '0', offset: 1 }], 520, { easing: 'linear', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * El icono se ENSAMBLA: el ancla se traza y lo que viaja entra desde fuera, escalonado.
+     *
+     * Qué figura es el ancla NO sale de la firma de tags: en `circle-arrow-out-up-left` la
+     * escuadra está en el índice 0 y el aro en el 2, al revés que en sus tres hermanos. Va
+     * icono por icono a propósito.
+     */
+    assemble: {
+      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)' }, { transform: 'scale(1.08) rotate(-4deg)' }, { transform: 'scale(0.96) rotate(3deg)' }, { transform: 'scale(1) rotate(0deg)' }], 880, { easing: 'linear' }),
+      shapes: {
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 680, { easing: 'ease-out', delay: 200, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translate(6px, -6px)', opacity: '0' }, { transform: 'translate(-1.50px, 1.50px)', opacity: '1' }, { transform: 'translate(0px, 0px)', opacity: '1' }], 520, { easing: SPRING_OUT, delay: 380, fill: 'backwards' }),
       },
     },
   },
