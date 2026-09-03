@@ -83,8 +83,6 @@ export const mapPinCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(mapPinCheck
     },
     /** Celebración: la palomita se dibuja y pega un rebote elástico, no solo se traza. */
     shake: MAP_PIN_CHECK_SHAKE,
-    /** @deprecated Se llamaba `confirm`. El alias sale en la v3. */
-    confirm: MAP_PIN_CHECK_SHAKE,
     mark: {
       shapes: {
         2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),

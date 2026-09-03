@@ -4,6 +4,7 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, rotateSeq, scaleSeq, moveYSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { REBOTE_ELASTICO } from './_shared';
 import { fileBadgeShapes, fileCheckCornerShapes, fileCheckShapes, fileExclamationPointShapes, fileShapes, fileSpreadsheetShapes, fileTextShapes, fileXShapes } from '../animated-icons.shapes';
 
 /**
@@ -1413,6 +1414,9 @@ export const fileTextIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileTextShapes
 /** Archivo validado. */
 export const fileCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckShapes, {
   default: {
+    // El rebote de cierre separa este `default` de su `mark`: los dos dibujan la misma
+    // insignia, y sin algo que los distinga la variante extra no aporta nada.
+    root: /* @__PURE__ */ track(REBOTE_ELASTICO, 460, { easing: SPRING_OUT, delay: 580, fill: 'backwards', origin: '12px 21px' }),
     shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) },
   },
   mark: {
@@ -1496,6 +1500,9 @@ export const fileIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileShapes, {
 
 export const fileCheckCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckCornerShapes, {
   default: {
+    // El rebote de cierre separa este `default` de su `mark`: los dos dibujan la misma
+    // insignia, y sin algo que los distinga la variante extra no aporta nada.
+    root: /* @__PURE__ */ track(REBOTE_ELASTICO, 460, { easing: SPRING_OUT, delay: 580, fill: 'backwards', origin: '12px 21px' }),
     shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) },
   },
   mark: {

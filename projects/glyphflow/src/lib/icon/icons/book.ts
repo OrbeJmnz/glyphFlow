@@ -19,10 +19,62 @@ const BOOK_WIGGLE = /* @__PURE__ */ [
   { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 },
 ];
 
-/** Lo que pasa "al final" arranca cuando el meneo ya terminó. El mismo número que usa `reveal`. */
+/** Lo que pasa "al final" arranca cuando el meneo ya terminó. El mismo número que usa `mark`. */
+/**
+ * El meneo de la familia con un REBOTE ELÁSTICO al final, en una sola pista.
+ *
+ * Va junto y no en dos tracks porque `root` es un solo elemento: una pista por elemento. Por eso
+ * el meneo ocupa el primer 37.5% (600 de 1600 ms, los mismos de siempre), luego el icono espera
+ * quieto mientras la insignia se dibuja, y el rebote cierra al final.
+ *
+ * Dos decisiones que no son cosméticas:
+ * - El easing va POR KEYFRAME con `linear` en `options`. Con el easing global de antes, estirar
+ *   la pista de 600 a 1600 ms habría metido todo el meneo dentro de la rampa de entrada.
+ * - Todos los keyframes usan la MISMA lista de funciones (`scale(x, y) rotate() translateY()`).
+ *   Mezclar `scale(1)` con `scale(1.1, 0.9)` obliga al navegador a interpolar por matriz, y ahí
+ *   el giro y el achatamiento se contaminan.
+ *
+ * Sin origen explícito a propósito: el meneo pivota en el centro y así se queda. Cambiarlo a la
+ * base para que el rebote "aterrice" habría movido también el eje de giro del meneo.
+ */
+
+/**
+ * La insignia del centro REACCIONA sin desaparecer: se encoge y rebota, y ya.
+ *
+ * `BADGE_BOUNCE_DRAW` arranca en `opacity: '0'` con el trazo sin dibujar. Con `delay: 620` y
+ * `fill: 'backwards'` eso deja la insignia INVISIBLE los primeros 620 ms del `default` — el libro
+ * se menea con el centro vacío y la insignia aparece de la nada al final. En el `mark` eso es
+ * correcto (ahí la marca ES lo que llega), pero en el `default` el icono debe verse entero desde
+ * el cuadro 0.
+ *
+ * Sin `opacity` ni `strokeDasharray` a propósito: lo que no se toca, no puede desvanecerse.
+ */
+const BOOK_BADGE_POP = /* @__PURE__ */ [
+  { transform: 'scale(1)' },
+  { transform: 'scale(0.82)' },
+  { transform: 'scale(1.22)' },
+  { transform: 'scale(1)' },
+];
+
+const BOOK_WIGGLE_REBOTE = /* @__PURE__ */ [
+  { transform: 'scale(1, 1) rotate(0deg) translateY(0px)', offset: 0, easing: EASE },
+  { transform: 'scale(1.04, 1.04) rotate(-8deg) translateY(-2px)', offset: 0.075, easing: EASE },
+  { transform: 'scale(1.04, 1.04) rotate(8deg) translateY(-2px)', offset: 0.1875, easing: EASE },
+  { transform: 'scale(1.04, 1.04) rotate(-8deg) translateY(-2px)', offset: 0.3, easing: EASE },
+  { transform: 'scale(1, 1) rotate(0deg) translateY(0px)', offset: 0.375, easing: EASE },
+  { transform: 'scale(1, 1) rotate(0deg) translateY(0px)', offset: 0.73, easing: EASE },
+  { transform: 'scale(1.1, 0.9) rotate(0deg) translateY(1px)', offset: 0.82, easing: EASE },
+  { transform: 'scale(0.94, 1.07) rotate(0deg) translateY(-2px)', offset: 0.9, easing: EASE },
+  { transform: 'scale(1.02, 0.98) rotate(0deg) translateY(0px)', offset: 0.96, easing: EASE },
+  { transform: 'scale(1, 1) rotate(0deg) translateY(0px)', offset: 1 },
+];
+
+/** Precalculado y no `600 + 1000`: una expresión inline en `track(...)` rompe el tree-shaking. */
+const BOOK_REBOTE_MS = 1600;
+
 const BOOK_AFTER = 620;
 
-/** El desfase entre dos piezas de la MISMA insignia. El mismo que usa `reveal` (620 → 750). */
+/** El desfase entre dos piezas de la MISMA insignia. El mismo que usa `mark` (620 → 750). */
 const BOOK_STAGGER = 130;
 
 /**
@@ -182,10 +234,10 @@ export const bookAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 11px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 11px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     mark: {
@@ -438,9 +490,9 @@ export const bookMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
       },
     },
     mark: {
@@ -498,10 +550,10 @@ export const bookPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 10px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     mark: {
@@ -547,11 +599,11 @@ export const bookTypeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 7px', delay: BOOK_AFTER, fill: 'backwards' }),
-        1: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 13px', delay: BOOK_AFTER_180, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 7px', delay: BOOK_AFTER, fill: 'backwards' }),
+        1: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 13px', delay: BOOK_AFTER_180, fill: 'backwards' }),
       },
     },
     mark: {
@@ -625,10 +677,10 @@ export const bookUserIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        2: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 8px', delay: BOOK_AFTER, fill: 'backwards' }),
-        0: /* @__PURE__ */ track(BADGE_BOUNCE_DRAW, 420, { easing: EASE, origin: '12px 12px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 8px', delay: BOOK_AFTER, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_BADGE_POP, 420, { easing: EASE, origin: '12px 12px', delay: BOOK_AFTER_STAGGER, fill: 'backwards' }),
       },
     },
     mark: {
@@ -649,10 +701,10 @@ export const bookXIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg) translateY(0)', offset: 0 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.2 }, { transform: 'scale(1.04) rotate(8deg) translateY(-2px)', offset: 0.5 }, { transform: 'scale(1.04) rotate(-8deg) translateY(-2px)', offset: 0.8 }, { transform: 'scale(1) rotate(0deg) translateY(0)', offset: 1 }], 600, { easing: EASE }),
+      root: /* @__PURE__ */ track(BOOK_WIGGLE_REBOTE, BOOK_REBOTE_MS, { easing: 'linear' }),
       shapes: {
-        0: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
-        2: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(BOOK_BADGE_POP, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(BOOK_BADGE_POP, 400, { easing: EASE, origin: '12px 9.5px', delay: BOOK_AFTER_90, fill: 'backwards' }),
       },
     },
     mark: {

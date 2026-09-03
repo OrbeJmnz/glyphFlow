@@ -783,7 +783,7 @@ const E3_SQUASH_LAND = /* @__PURE__ */ [
 ];
 
 /** Palomita: se dibuja mientras crece 10% y regresa (portado de Animate UI). */
-/* ── Variante `reveal` ──────────────────────────────────────────────
+/* ── Variante `assemble` ──────────────────────────────────────────────
  *
  * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE): el icono se ensambla — los nodos
  * entran de golpe, los trazos se dibujan y cada pieza lleva su propio retraso.
@@ -794,9 +794,9 @@ const E3_SQUASH_LAND = /* @__PURE__ */ [
  * `route`, `locate` y sus variantes traen muelles propios en el original (curvas que se
  * pasan de 1); se conservan porque el sobrepaso ES el gesto.
  */
-const REVEAL_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const REVEAL_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
-const REVEAL_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';
+const EASE_EXPO = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_MUELLE = 'cubic-bezier(0.34, 1.4, 0.64, 1)';
+const EASE_MUELLE_SUAVE = 'cubic-bezier(0.34, 1.2, 0.64, 1)';
 
 
 /* ── Variantes de la tanda 4 ──────────────────────────────────────────
@@ -895,6 +895,18 @@ export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes
         2: /* @__PURE__ */ track(DOWNLOAD_DIP, 320, { easing: SPRING_SNAPPY, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Un toquecito, no el viaje del `default`: la flecha baja la mitad y en menos tiempo, y la
+     * bandeja acusa el golpe achatándose. Esa reacción de la bandeja es lo que lo separa del
+     * `default` — sin ella serían el mismo gesto con otra amplitud, que no se lee como otra cosa.
+     */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 380, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 1.2, 0]), 380, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.93)' }, { transform: 'scaleY(1)' }], 340, { easing: SPRING_OUT, delay: 130, origin: '12px 21px' }),
+      },
     },
     assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T5_EASE }, { transform: 'scale(1.02)', easing: T5_EASE }, { transform: 'scale(1)' }], 600, { easing: 'linear' }),
@@ -1479,7 +1491,7 @@ export const truckIcon: AnimatedIconDef = /* @__PURE__ */ icon(truckShapes, {
 
 
 /** Abrir fuera: la flecha se sale de la caja. */
-const EXTERNAL_LINK_REVEAL: IconChoreography = /* @__PURE__ */ {
+const EXTERNAL_LINK_ASSEMBLE: IconChoreography = /* @__PURE__ */ {
       shapes: {
         0: /* @__PURE__ */ track(
           [
@@ -1548,9 +1560,17 @@ export const externalLinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(externalLi
     // El easing va por keyframe, no en `options`: Framer lo aplica entre cada par, y en `options`
     // WAAPI lo aplicaría a la iteración completa. Con `times` traducido a `offset`, `conRelevo`
     // devuelve null y en hover repetido corta en seco — el original hace lo mismo.
-    assemble: EXTERNAL_LINK_REVEAL,
-    /** @deprecated Se llamaba `launch`. El alias sale en la v3. */
-    launch: EXTERNAL_LINK_REVEAL,
+    assemble: EXTERNAL_LINK_ASSEMBLE,
+    /**
+     * La flecha amaga hacia dentro y sale disparada, sin redibujar la caja. Es el gesto corto de
+     * "esto abre en otra pestaña" — el mismo que `hold` sostiene, pero de ida y vuelta.
+     */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(2.5px, -2.5px)' }, { transform: 'translate(0, 0)' }], 620, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translate(0, 0)' }, { transform: 'translate(-1px, 1px)' }, { transform: 'translate(2.5px, -2.5px)' }, { transform: 'translate(0, 0)' }], 620, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 
@@ -5035,9 +5055,9 @@ export const routeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     assemble: {
       shapes: {
-        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: REVEAL_DECEL, delay: 100, fill: 'backwards' }),
-        0: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 100, fill: 'backwards', origin: '6px 19px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 720, fill: 'backwards', origin: '18px 5px' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: EASE_EXPO, delay: 100, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: EASE_MUELLE, delay: 100, fill: 'backwards', origin: '6px 19px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: EASE_MUELLE, delay: 720, fill: 'backwards', origin: '18px 5px' }),
       },
     },
   },
@@ -6344,12 +6364,12 @@ export const locateFixedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     assemble: {
       shapes: {
-        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
-        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
-        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
-        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
-        5: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.4)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 600, fill: 'backwards', origin: '12px 12px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: EASE_MUELLE_SUAVE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
+        5: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.4)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: EASE_MUELLE, delay: 600, fill: 'backwards', origin: '12px 12px' }),
       },
     },
   },
@@ -8844,11 +8864,11 @@ export const locateIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     assemble: {
       shapes: {
-        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
-        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
-        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
-        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: EASE_MUELLE_SUAVE, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 360, fill: 'backwards', origin: '20.5px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 420, fill: 'backwards', origin: '12px 3.5px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_MUELLE_SUAVE, delay: 480, fill: 'backwards', origin: '12px 20.5px' }),
       },
     },
   },
@@ -8874,6 +8894,17 @@ export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
         2: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 700, { easing: 'ease-in-out', delay: 100, fill: 'backwards' }),
+      },
+    },
+    /**
+     * La flecha toca la puerta y regresa. Contra el `default`: aquí el marco NO pulsa y el
+     * recorrido es la mitad — es "acércate", no "entra". El desfase de 60 ms entre punta y asta es
+     * lo único que evita que se vea como un bloque; sin él las dos figuras viajan pegadas.
+     */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.6, 0]), 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.6, 0]), 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
       },
     },
   },

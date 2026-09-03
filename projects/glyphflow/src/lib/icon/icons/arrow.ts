@@ -6,7 +6,7 @@ import { AnimatedIconDef } from '../animated-icon.model';
 import { SPRING_OUT, moveXSeq, moveYSeq, track, icon, held } from '../choreography';
 import { arrowDownLeftShapes, arrowDownRightShapes, arrowDownShapes, arrowLeftShapes, arrowRightShapes, arrowUpLeftShapes, arrowUpRightShapes, arrowUpShapes } from '../animated-icons.shapes';
 
-/* ── Variantes `nudge` y `reveal` ─────────────────────────────────────────────────────────
+/* ── Variantes `nudge` y `assemble` ─────────────────────────────────────────────────────────
  *
  * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). Los `default`/`active` que ya tenía la
  * familia NO se tocan: aquellos empujan la flecha y la SOSTIENEN (`held`, `reverseOnLeave`);
@@ -55,7 +55,7 @@ const nudgeMitad = (medio: string) =>
   );
 
 /** El asta de un icono de orden: entra desde abajo, pasándose de largo. */
-const revealAsta = () =>
+const assembleAsta = () =>
   /* @__PURE__ */ track(
     [
       { transform: 'translateY(6px)', opacity: '0', easing: EOUT },
@@ -67,7 +67,7 @@ const revealAsta = () =>
   );
 
 /** La línea vertical se dibuja. El componente pone `pathLength="1"`, así que el dash va en 0-1. */
-const revealLinea = () =>
+const assembleLinea = () =>
   /* @__PURE__ */ track(
     [
       { strokeDasharray: '0 1' },
@@ -78,7 +78,7 @@ const revealLinea = () =>
   );
 
 /** Una letra o cifra que entra deslizándose. */
-const revealGlifo = (desde: string, delay: number, duration = 500) =>
+const assembleGlifo = (desde: string, delay: number, duration = 500) =>
   /* @__PURE__ */ track(
     [
       { transform: desde, opacity: '0', easing: EOUT },
@@ -89,7 +89,7 @@ const revealGlifo = (desde: string, delay: number, duration = 500) =>
   );
 
 /** La caja del `0`: no se desliza, se infla. */
-const revealCaja = (delay: number) =>
+const assembleCaja = (delay: number) =>
   /* @__PURE__ */ track(
     [
       { transform: 'scale(0.8)', opacity: '0.7', easing: EOUT },
@@ -101,7 +101,7 @@ const revealCaja = (delay: number) =>
   );
 
 /** El icono entero acusa el golpe mientras se rearma. */
-const revealRoot = (pico: number, giro: number, duration: number) =>
+const assembleRoot = (pico: number, giro: number, duration: number) =>
   /* @__PURE__ */ track(
     [
       { transform: 'scale(1) rotate(0deg)', easing: EIO },
@@ -797,13 +797,13 @@ export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       reverseOnLeave: true,
     },
     assemble: {
-      root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
+      root: /* @__PURE__ */ assembleRoot(1.08, 4, 800),
       shapes: {
-        0: /* @__PURE__ */ revealAsta(),
-        1: /* @__PURE__ */ revealLinea(),
-        2: /* @__PURE__ */ revealCaja(200),
-        3: /* @__PURE__ */ revealGlifo('translateX(-6px)', 300),
-        4: /* @__PURE__ */ revealGlifo('translateX(-6px)', 300),
+        0: /* @__PURE__ */ assembleAsta(),
+        1: /* @__PURE__ */ assembleLinea(),
+        2: /* @__PURE__ */ assembleCaja(200),
+        3: /* @__PURE__ */ assembleGlifo('translateX(-6px)', 300),
+        4: /* @__PURE__ */ assembleGlifo('translateX(-6px)', 300),
       },
     },
   },
@@ -827,13 +827,13 @@ export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       reverseOnLeave: true,
     },
     assemble: {
-      root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
+      root: /* @__PURE__ */ assembleRoot(1.08, 4, 800),
       shapes: {
-        0: /* @__PURE__ */ revealAsta(),
-        1: /* @__PURE__ */ revealLinea(),
-        2: /* @__PURE__ */ revealGlifo('translateX(-6px)', 200),
-        3: /* @__PURE__ */ revealGlifo('translateX(-6px)', 200),
-        4: /* @__PURE__ */ revealCaja(300),
+        0: /* @__PURE__ */ assembleAsta(),
+        1: /* @__PURE__ */ assembleLinea(),
+        2: /* @__PURE__ */ assembleGlifo('translateX(-6px)', 200),
+        3: /* @__PURE__ */ assembleGlifo('translateX(-6px)', 200),
+        4: /* @__PURE__ */ assembleCaja(300),
       },
     },
   },
@@ -857,13 +857,13 @@ export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       reverseOnLeave: true,
     },
     assemble: {
-      root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
+      root: /* @__PURE__ */ assembleRoot(1.1, 5, 900),
       shapes: {
-        0: /* @__PURE__ */ revealAsta(),
-        1: /* @__PURE__ */ revealLinea(),
-        2: /* @__PURE__ */ revealGlifo('translateY(-4px)', 200),
-        3: /* @__PURE__ */ revealGlifo('translateY(-4px)', 200),
-        4: /* @__PURE__ */ revealGlifo('translateX(6px)', 300, 600),
+        0: /* @__PURE__ */ assembleAsta(),
+        1: /* @__PURE__ */ assembleLinea(),
+        2: /* @__PURE__ */ assembleGlifo('translateY(-4px)', 200),
+        3: /* @__PURE__ */ assembleGlifo('translateY(-4px)', 200),
+        4: /* @__PURE__ */ assembleGlifo('translateX(6px)', 300, 600),
       },
     },
   },
@@ -887,13 +887,13 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       reverseOnLeave: true,
     },
     assemble: {
-      root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
+      root: /* @__PURE__ */ assembleRoot(1.1, 5, 900),
       shapes: {
-        0: /* @__PURE__ */ revealAsta(),
-        1: /* @__PURE__ */ revealLinea(),
-        2: /* @__PURE__ */ revealGlifo('translateX(6px)', 200, 600),
-        3: /* @__PURE__ */ revealGlifo('translateY(6px)', 300, 600),
-        4: /* @__PURE__ */ revealGlifo('translateY(6px)', 300, 600),
+        0: /* @__PURE__ */ assembleAsta(),
+        1: /* @__PURE__ */ assembleLinea(),
+        2: /* @__PURE__ */ assembleGlifo('translateX(6px)', 200, 600),
+        3: /* @__PURE__ */ assembleGlifo('translateY(6px)', 300, 600),
+        4: /* @__PURE__ */ assembleGlifo('translateY(6px)', 300, 600),
       },
     },
   },

@@ -577,10 +577,15 @@ export const circleAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleAlert
 
 /** Toast de éxito: primero el círculo, luego la palomita. Nunca al mismo tiempo. */
 export const circleCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleCheckShapes, {
+    // Confirmar: el aro se contrae como si apretara y la palomita entra de golpe con sobrepaso.
+    //
+    // Antes eran dos `strokeDraw()` escalonados, idénticos al `draw` automático. Y no chocaba con
+    // `mark` de casualidad: `mark` TRAZA la palomita (dasharray) y este la ESCALA, así que las dos
+    // siguen siendo distinguibles.
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 450),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 280 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 0.92, 1.03, 1]), 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.6)', opacity: '0' }, { transform: 'scale(1.15)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 420, { easing: SPRING_OUT, origin: '12px 12px', delay: 140, fill: 'backwards' }),
       },
     },
     mark: {

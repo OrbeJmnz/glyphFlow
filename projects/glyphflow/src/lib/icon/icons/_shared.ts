@@ -168,6 +168,24 @@ export const SHIELD_GEAR_SPIN = /* @__PURE__ */ [
  * Una figura sola no tiene con qué escalonarse, así que late. Es el mismo pulso que `circle` usa
  * desde siempre para su aro pelado; aquí lo comparten todos los iconos de una sola pieza.
  */
+/**
+ * Rebote elastico de CIERRE: el icono se achata, se estira y se asienta.
+ *
+ * Va en el track raiz y despues de que el gesto termino, para separar un `default` de su `mark`
+ * cuando los dos dibujan la misma insignia. Sin esto se veian identicos, y una variante que no se
+ * distingue de otra no es una variante.
+ *
+ * Deforma a proposito (scaleX y scaleY en contra): un rebote que solo escala uniforme se lee como
+ * un pulso, no como algo que cae y se acomoda.
+ */
+export const REBOTE_ELASTICO = /* @__PURE__ */ [
+  { transform: 'scale(1, 1) translateY(0)' },
+  { transform: 'scale(1.1, 0.9) translateY(1px)' },
+  { transform: 'scale(0.94, 1.07) translateY(-2px)' },
+  { transform: 'scale(1.02, 0.98) translateY(0)' },
+  { transform: 'scale(1, 1) translateY(0)' },
+];
+
 export const LATIDO = /* @__PURE__ */ scaleSeq([1, 1.15, 1]);
 
 /**

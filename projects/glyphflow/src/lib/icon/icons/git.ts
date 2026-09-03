@@ -3,10 +3,10 @@
 // Extraído de curated-icons.ts sin tocar una línea de coreografía. Que el movimiento no se
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { scaleSeq, track, burst, strokeDraw, icon } from '../choreography';
+import { SPRING_OUT, scaleSeq, moveXSeq, track, burst, strokeDraw, icon } from '../choreography';
 import { gitForkShapes } from '../animated-icons.shapes';
 
-/* ── Variante `reveal` ──────────────────────────────────────────────
+/* ── Variante `assemble` ──────────────────────────────────────────────
  *
  * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE): el icono se ensambla — los nodos
  * entran de golpe, los trazos se dibujan y cada pieza lleva su propio retraso.
@@ -19,9 +19,9 @@ import { gitForkShapes } from '../animated-icons.shapes';
  * `scaleX`/`scaleY` anclado por `origin` al extremo que toca el nodo: mismo movimiento,
  * sin depender de que el navegador anime geometría SVG.
  */
-const REVEAL_EASE = 'cubic-bezier(0.25, 1, 0.5, 1)';
-const REVEAL_OVERSHOOT = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
-const REVEAL_DECEL = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_CUARTA = 'cubic-bezier(0.25, 1, 0.5, 1)';
+const EASE_SOBREPASO = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+const EASE_EXPO = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 
 export const gitBranchMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -156,11 +156,11 @@ export const gitForkIcon: AnimatedIconDef = /* @__PURE__ */ icon(gitForkShapes, 
     },
     assemble: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '12px 18px' }),
-        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: REVEAL_EASE, delay: 150, fill: 'backwards' }),
-        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 400, { easing: REVEAL_EASE, delay: 400, fill: 'backwards' }),
-        1: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 250, { easing: REVEAL_EASE, delay: 650, fill: 'backwards', origin: '6px 6px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 250, { easing: REVEAL_EASE, delay: 650, fill: 'backwards', origin: '18px 6px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: EASE_CUARTA, origin: '12px 18px' }),
+        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: EASE_CUARTA, delay: 150, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 400, { easing: EASE_CUARTA, delay: 400, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 250, { easing: EASE_CUARTA, delay: 650, fill: 'backwards', origin: '6px 6px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 250, { easing: EASE_CUARTA, delay: 650, fill: 'backwards', origin: '18px 6px' }),
       },
     },
   });
@@ -223,19 +223,25 @@ export const gitCommitHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'line', x1: 15, x2: 21, y1: 12, y2: 12 },
   ],
   {
+    // El commit ATERRIZA en la rama: el punto cae con sobrepaso y los dos tramos de línea acusan
+    // el golpe separándose y volviendo.
+    //
+    // Antes eran tres `strokeDraw()` escalonados, o sea el `draw` automático copiado a mano: la
+    // misma animación con otro nombre. Un `default` tiene que decir qué ES el icono, no volver a
+    // dibujarlo.
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 180, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 130 }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 130 }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.35, 0.92, 1]), 520, { easing: SPRING_OUT, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.6, 0]), 460, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.6, 0]), 460, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
       },
     },
     assemble: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1000, { easing: 'linear' }),
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: REVEAL_OVERSHOOT, origin: '12px 12px' }),
-        1: /* @__PURE__ */ track([{ transform: 'scaleX(0)', opacity: '0' }, { transform: 'scaleX(1)', opacity: '1' }], 420, { easing: REVEAL_DECEL, delay: 420, fill: 'backwards', origin: '9px 12px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleX(0)', opacity: '0' }, { transform: 'scaleX(1)', opacity: '1' }], 420, { easing: REVEAL_DECEL, delay: 420, fill: 'backwards', origin: '15px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: EASE_SOBREPASO, origin: '12px 12px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scaleX(0)', opacity: '0' }, { transform: 'scaleX(1)', opacity: '1' }], 420, { easing: EASE_EXPO, delay: 420, fill: 'backwards', origin: '9px 12px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleX(0)', opacity: '0' }, { transform: 'scaleX(1)', opacity: '1' }], 420, { easing: EASE_EXPO, delay: 420, fill: 'backwards', origin: '15px 12px' }),
       },
     },
   },
@@ -259,9 +265,9 @@ export const gitCommitVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     assemble: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1000, { easing: 'linear' }),
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: REVEAL_OVERSHOOT, origin: '12px 12px' }),
-        0: /* @__PURE__ */ track([{ transform: 'scaleY(0)', opacity: '0' }, { transform: 'scaleY(1)', opacity: '1' }], 420, { easing: REVEAL_DECEL, delay: 420, fill: 'backwards', origin: '12px 9px' }),
-        2: /* @__PURE__ */ track([{ transform: 'scaleY(0)', opacity: '0' }, { transform: 'scaleY(1)', opacity: '1' }], 420, { easing: REVEAL_DECEL, delay: 420, fill: 'backwards', origin: '12px 15px' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: EASE_SOBREPASO, origin: '12px 12px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scaleY(0)', opacity: '0' }, { transform: 'scaleY(1)', opacity: '1' }], 420, { easing: EASE_EXPO, delay: 420, fill: 'backwards', origin: '12px 9px' }),
+        2: /* @__PURE__ */ track([{ transform: 'scaleY(0)', opacity: '0' }, { transform: 'scaleY(1)', opacity: '1' }], 420, { easing: EASE_EXPO, delay: 420, fill: 'backwards', origin: '12px 15px' }),
       },
     },
   },
@@ -276,20 +282,25 @@ export const gitCompareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'path', d: "M11 18H8a2 2 0 0 1-2-2V9" },
   ],
   {
+    // Comparar es IR Y VENIR: las dos ramas se turnan. Late la de arriba, su conector empuja hacia
+    // la otra, late la de abajo y el suyo responde en sentido contrario. El desfase de 200 ms entre
+    // las dos es lo que lo vuelve un diálogo y no un parpadeo simultáneo.
+    //
+    // Antes eran cuatro `strokeDraw()` escalonados — el `draw` automático otra vez, a mano.
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out', delay: 200 }),
-        1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out' }),
-        2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out', delay: 100 }),
-        3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out', delay: 300 }),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 420, { easing: SPRING_OUT, origin: '6px 6px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.4, 0]), 500, { easing: SPRING_OUT, delay: 80, fill: 'backwards' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 420, { easing: SPRING_OUT, origin: '18px 18px', delay: 200, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -1.4, 0]), 500, { easing: SPRING_OUT, delay: 280, fill: 'backwards' }),
       },
     },
     assemble: {
       shapes: {
-        1: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '6px 6px' }),
-        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 150, fill: 'backwards', origin: '18px 18px' }),
-        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_EASE, delay: 300, fill: 'backwards' }),
-        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_EASE, delay: 300, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: EASE_CUARTA, origin: '6px 6px' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: EASE_CUARTA, delay: 150, fill: 'backwards', origin: '18px 18px' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: EASE_CUARTA, delay: 300, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: EASE_CUARTA, delay: 300, fill: 'backwards' }),
       },
     },
   },
@@ -354,12 +365,12 @@ export const gitCompareArrowsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     assemble: {
       shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '5px 6px' }),
-        3: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 300, fill: 'backwards', origin: '19px 18px' }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_EASE, delay: 150, fill: 'backwards' }),
-        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_EASE, delay: 450, fill: 'backwards' }),
-        2: /* @__PURE__ */ track([{ transform: 'translateX(-4px)', opacity: '0' }, { transform: 'translateX(0px)', opacity: '1' }], 350, { easing: REVEAL_EASE, delay: 300, fill: 'backwards' }),
-        5: /* @__PURE__ */ track([{ transform: 'translateX(4px)', opacity: '0' }, { transform: 'translateX(0px)', opacity: '1' }], 350, { easing: REVEAL_EASE, delay: 600, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: EASE_CUARTA, origin: '5px 6px' }),
+        3: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: EASE_CUARTA, delay: 300, fill: 'backwards', origin: '19px 18px' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: EASE_CUARTA, delay: 150, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: EASE_CUARTA, delay: 450, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(-4px)', opacity: '0' }, { transform: 'translateX(0px)', opacity: '1' }], 350, { easing: EASE_CUARTA, delay: 300, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateX(4px)', opacity: '0' }, { transform: 'translateX(0px)', opacity: '1' }], 350, { easing: EASE_CUARTA, delay: 600, fill: 'backwards' }),
       },
     },
   },
@@ -432,11 +443,11 @@ export const gitMergeConflictIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     },
     assemble: {
       shapes: {
-        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: REVEAL_EASE }),
-        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 100, fill: 'backwards' }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 400, { easing: REVEAL_EASE, delay: 250, fill: 'backwards' }),
-        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: REVEAL_EASE, delay: 450, fill: 'backwards' }),
-        4: /* @__PURE__ */ track([{ transform: 'scale(0.6)', opacity: '0' }, { transform: 'scale(1.15)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_EASE, delay: 750, fill: 'backwards', origin: '18px 18px' }),
+        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: EASE_CUARTA }),
+        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: EASE_CUARTA, delay: 100, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 400, { easing: EASE_CUARTA, delay: 250, fill: 'backwards' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: EASE_CUARTA, delay: 450, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'scale(0.6)', opacity: '0' }, { transform: 'scale(1.15)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: EASE_CUARTA, delay: 750, fill: 'backwards', origin: '18px 18px' }),
       },
     },
   },

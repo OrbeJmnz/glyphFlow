@@ -11,8 +11,8 @@
 // Va en el track raíz a propósito. Moviendo el icono entero, punta y asta quedan soldadas por
 // construcción: no hay dos pistas que sincronizar ni offsets que se puedan desfasar.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, icon } from '../choreography';
-/* ── Variante `reveal` ─────────────────────────────────────────────
+import { SPRING_OUT, moveXSeq, moveYSeq, track, icon } from '../choreography';
+/* ── Variante `assemble` ─────────────────────────────────────────────
  *
  * Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El easing va POR KEYFRAME y `times`
  * se traduce a `offset`; el porqué de ambas cosas está en el bloque de `pulse` de
@@ -49,6 +49,13 @@ export const cornerDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'translateX(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
       },
     },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
   },
 );
 
@@ -72,6 +79,13 @@ export const cornerDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 420, { easing: SPRING_OUT }),
       },
     },
   },
@@ -99,6 +113,13 @@ export const cornerLeftDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track([{ transform: 'translateY(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
       },
     },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
   },
 );
 
@@ -122,6 +143,13 @@ export const cornerLeftUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
         0: /* @__PURE__ */ track([{ transform: 'translateY(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 420, { easing: SPRING_OUT }),
       },
     },
   },
@@ -149,6 +177,13 @@ export const cornerRightDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track([{ transform: 'translateY(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
       },
     },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
   },
 );
 
@@ -172,6 +207,13 @@ export const cornerRightUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
         0: /* @__PURE__ */ track([{ transform: 'translateY(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2, 0]), 420, { easing: SPRING_OUT }),
       },
     },
   },
@@ -199,6 +241,13 @@ export const cornerUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'translateX(3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
       },
     },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2, 0]), 420, { easing: SPRING_OUT }),
+      },
+    },
   },
 );
 
@@ -222,6 +271,13 @@ export const cornerUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
         0: /* @__PURE__ */ track([{ transform: 'translateX(-3px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(3px)', opacity: '1', offset: 0.6, easing: 'ease-out' }, { transform: 'translate(0px, 0px)', opacity: '1', offset: 1 }], 800, { easing: 'linear', delay: 500 }),
+      },
+    },
+    /** La punta toca hacia donde apunta y regresa. Sale del `assemble`: mismo eje y mismo
+     *  sentido que su entrada, pero sin dibujar la L y con dos tercios del recorrido. */
+    nudge: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2, 0]), 420, { easing: SPRING_OUT }),
       },
     },
   },
