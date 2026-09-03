@@ -52,7 +52,7 @@ export const alarmClockCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(alarmCl
       root: /* @__PURE__ */ track(CLOCK_RING, 350, { origin: 'center' }),
       shapes: { 5: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 260, { delay: 250 }) },
     },
-    reveal: {
+    mark: {
       shapes: {
         5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },

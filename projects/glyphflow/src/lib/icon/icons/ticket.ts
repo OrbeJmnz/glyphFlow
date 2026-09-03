@@ -39,7 +39,7 @@ export const ticketCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(ticketCheck
       },
     },
     tear: { root: TICKET_TEAR },
-    reveal: {
+    mark: {
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },

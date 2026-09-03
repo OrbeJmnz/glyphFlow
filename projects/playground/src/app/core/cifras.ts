@@ -28,7 +28,7 @@ export const CIFRAS = {
    * ancla `cifras.spec.ts` corriendo esa MISMA función en Node — así que no pueden quedarse atrás
    * en silencio si el catálogo cambia.
    */
-  conVariantes: 1095,
+  conVariantes: 1086,
   conHold: 496,
   /**
    * Escrito a mano por la misma razón que `catalogo`, pero con una trampa propia: **nada lo
@@ -40,14 +40,14 @@ export const CIFRAS = {
    * paquete PUBLICADO, que es el que el sitio consume — no el árbol de trabajo. Al publicar una
    * versión que mueva el número, se actualiza aquí junto con el `npm update glyphflow-published`.
    */
-  pesoIconoKb: 4.59,
+  pesoIconoKb: 5.04,
   /**
    * Los otros dos escenarios de `bundle-check`. Están aquí y no sueltos en la plantilla de
    * `empezando.html` porque ahí YA se pudrieron una vez: publicaban 3.74 / 4.09 / 94.48, las
    * cifras de cuando el catálogo tenía 180 curados, mientras el CI medía otra cosa. Con los tres
    * juntos, `bundle-size-check.ts` los verifica de una y no hay dónde esconder una copia.
    */
-  bundleCoreKb: 4.06,
+  bundleCoreKb: 4.50,
   bundleCatalogoKb: 169.27,
   depsAnimacion: 0,
   /**

@@ -16,6 +16,7 @@ import {
   AnimatedIconDef,
   AnimatedIconTrigger,
   AutoDraw,
+  AutoReveal,
   IconShape,
   MotionTrack,
 } from './animated-icon.model';
@@ -207,8 +208,32 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
    * documenta como válido. Con un solo mapa por elemento, el trazo le pisaría el track en silencio.
    */
   private vivasDraw: Animation[] = [];
+  /**
+   * Materialización automática, en su propio canal por lo mismo que el trazo: es desechable y
+   * convive con `root`/`shapes`. Los fantasmas van aparte porque no son animaciones sino NODOS
+   * que hay que retirar del SVG al terminar.
+   */
+  private vivasReveal: Animation[] = [];
+  private fantasmas: SVGElement[] = [];
   private observer?: IntersectionObserver;
   private unwireGroup?: () => void;
+
+  /** Marca del nodo fantasma. `play()` los excluye para que los índices de figura no se corran. */
+  private static readonly GHOST_ATTR = 'data-gf-ghost';
+
+  /** El trazo del `reveal`: todas las figuras a la vez, no en fila como el `draw`. */
+  private static readonly REVEAL_KEYFRAMES: Keyframe[] = [
+    { strokeDasharray: '0 1', opacity: '0.35' },
+    { strokeDasharray: '1 1', opacity: '1' },
+  ];
+
+  /** El icono se acomoda al materializarse. Copiado del `reveal` que `bolt` traía a mano. */
+  private static readonly REVEAL_WOBBLE: Keyframe[] = [
+    { transform: 'scale(1) rotate(0deg)' },
+    { transform: 'scale(1.06) rotate(-2deg)' },
+    { transform: 'scale(0.96) rotate(2deg)' },
+    { transform: 'scale(1) rotate(0deg)' },
+  ];
 
   /** Trazo en 0-1 porque el componente pone `pathLength="1"` en todas las figuras. */
   private static readonly DRAW_KEYFRAMES: Keyframe[] = [
@@ -345,10 +370,16 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     const root = this.svgRoot?.nativeElement;
     if (!root?.animate) return; // SSR / navegador sin WAAPI: se queda estático, no truena.
 
-    const children = Array.from(root.children) as SVGElement[];
+    // Los fantasmas de un `reveal` en curso son nodos que este componente inyectó, no figuras del
+    // icono. Sin excluirlos, `children[i]` deja de coincidir con `shapes[i]` y toda coreografía
+    // disparada encima de un reveal animaría la figura equivocada.
+    const children = Array.from(root.children).filter(
+      (el) => !el.hasAttribute(GfIconComponent.GHOST_ATTR),
+    ) as SVGElement[];
 
     // El trazo anterior no se releva, se tira: arranca invisible, no hay pose que entregar.
     this.detenerDraw();
+    this.detenerReveal();
 
     // Las figuras que animaba la variante anterior y esta ya NO toca se cortan en seco a propósito
     // — no hay animación nueva a la que entregarles la pose, y su lugar es la base. El relevo suave
@@ -368,6 +399,88 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     }
 
     if (chor.autoDraw) this.vivasDraw = this.runAutoDraw(children, chor.autoDraw);
+    if (chor.autoReveal) this.vivasReveal = this.runAutoReveal(root, children, chor.autoReveal);
+  }
+
+  /**
+   * `reveal` universal: el icono se MATERIALIZA. Una copia tenue del trazo completo destella por
+   * debajo — el "fantasma" — mientras el trazo real se dibuja encima, y el conjunto se acomoda con
+   * un bamboleo. Es la receta que `bolt` y `audio-waveform` traían escrita a mano.
+   *
+   * **El fantasma se sintetiza AQUÍ y jamás entra a `def.shapes`.** No es una preferencia de
+   * estilo: `glyphflow/morph` arma su geometría desde `shapes` filtrando `opacity !== '0'`, así que
+   * una figura de más ahí desparejaría el morph de TODO el catálogo — la cicatriz conocida es
+   * `bell` pasando de 2 figuras a 4 y el core emparejando el domo con un arco de sonido. Inyectarlo
+   * como nodo lo vuelve imposible por construcción: la geometría publicada no cambia ni un byte.
+   *
+   * Vive en el componente y no en `choreography.ts` por presupuesto: este archivo cae en `core`
+   * (4.06 de 10 KB gzip), y el vocabulario de coreografía cae en el bundle de quien importa UN
+   * icono (4.59 de 5 KB), que no tiene aire para esto.
+   */
+  private runAutoReveal(
+    root: SVGSVGElement,
+    children: SVGElement[],
+    cfg: AutoReveal,
+  ): Animation[] {
+    const { duration = 900, guide = 0.22, easing = 'ease-out', wobble = true } = cfg;
+    const total = duration * this.durationScale;
+    const anims: Animation[] = [];
+    // Un solo objeto de opciones para las dos capas: mismo compás, y un `iterations` que se decide
+    // una vez en vez de tres veces.
+    const opts: KeyframeAnimationOptions = {
+      duration: total,
+      easing: easingSeguro(easing),
+      ...(this.loop ? { iterations: Infinity } : {}),
+    };
+    // La guía es idéntica en todas las figuras: se arma una vez, no una por figura.
+    const guiaKf: Keyframe[] = [
+      { opacity: `${guide}`, offset: 0 },
+      { opacity: `${guide}`, offset: 0.82 },
+      { opacity: '0', offset: 1 },
+    ];
+
+    // Una figura que el icono no enseña en reposo no forma parte de su trazo — mismo criterio que
+    // `runAutoDraw`, y la razón por la que los 14 reveals curados ya traían su guía con opacity 0.
+    for (const el of children) {
+      if (el.getAttribute('opacity') === '0') continue;
+      const fantasma = el.cloneNode(false) as SVGElement;
+      fantasma.setAttribute(GfIconComponent.GHOST_ATTR, '');
+      fantasma.setAttribute('opacity', '0');
+      // Antes de todo lo demás: la guía se pinta DEBAJO del trazo que se está dibujando.
+      root.insertBefore(fantasma, root.firstChild);
+      this.fantasmas.push(fantasma);
+      anims.push(fantasma.animate(guiaKf, opts));
+      anims.push(el.animate(GfIconComponent.REVEAL_KEYFRAMES, opts));
+    }
+
+    if (wobble) {
+      anims.push(root.animate(GfIconComponent.REVEAL_WOBBLE, { ...opts, easing: 'linear' }));
+    }
+
+    // Un solo handler, en la que termina al final: cancelar todas y RETIRAR los nodos fantasma.
+    // Dejarlos vivos sería una fuga silenciosa — un hover repetido acumula una copia por pasada.
+    const ultima = anims[anims.length - 1];
+    if (ultima && !this.loop) {
+      ultima.onfinish = () => {
+        ultima.onfinish = null;
+        this.detenerReveal();
+      };
+    }
+    return anims;
+  }
+
+  private quitarFantasmas(): void {
+    for (const fantasma of this.fantasmas) fantasma.remove();
+    this.fantasmas = [];
+  }
+
+  private detenerReveal(): void {
+    for (const anim of this.vivasReveal) {
+      anim.onfinish = null;
+      anim.cancel();
+    }
+    this.vivasReveal = [];
+    this.quitarFantasmas();
   }
 
   /**
@@ -459,6 +572,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   cancel(): void {
     for (const el of [...this.vivasTrack.keys()]) this.detenerTrack(el);
     this.detenerDraw();
+    this.detenerReveal();
   }
 
   private detenerTrack(el: SVGElement): void {

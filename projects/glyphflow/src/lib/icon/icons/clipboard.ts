@@ -45,7 +45,7 @@ export const clipboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),
       },
     },
-    reveal: {
+    bounce: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)', strokeDasharray: '0 1', easing: T5_EASE }, { transform: 'translateY(-2px)', strokeDasharray: '1 1', easing: T5_EASE }, { transform: 'translateY(0px)', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE }),
         0: /* @__PURE__ */ track([{ transform: 'translateY(0px)', strokeDasharray: '0 1', easing: T5_EASE }, { transform: 'translateY(-2px)', strokeDasharray: '1 1', easing: T5_EASE }, { transform: 'translateY(0px)', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE, delay: 200, fill: 'backwards' }),
@@ -58,7 +58,7 @@ export const clipboardCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboar
     default: { shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: 'ease-in-out' }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }), 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 420, { delay: 150 }) } },
-    reveal: {
+    mark: {
       shapes: {
         2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
@@ -279,7 +279,7 @@ export const clipboardXIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardXSh
         3: /* @__PURE__ */ track(X_SNAP_DRAW, 400, { delay: 230, origin: '12px 14px' }),
       },
     },
-    reveal: {
+    mark: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(0)', offset: 0 }, { transform: 'translateY(-2px)', offset: 0.25 }, { transform: 'translateY(1px)', offset: 0.5 }, { transform: 'translateY(0)', offset: 1 }], 500, { easing: EASE }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: EASE }),

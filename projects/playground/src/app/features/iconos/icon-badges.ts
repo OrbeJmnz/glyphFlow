@@ -47,7 +47,14 @@ export function insigniasDe(nombre: string, def: AnimatedIconDef): Insignia[] {
   const reporte = analizarIcono(nombre, def);
   const salida: Insignia[] = [];
 
-  const extras = reporte.variantes.map((v) => v.variante).filter((v) => !UNIVERSALES.has(v));
+  // `reveal` es universal desde la 3.0.0 —`icon()` se la cuelga a los 1767— pero NO va en
+  // `UNIVERSALES`: la que traen todos es la GENÉRICA, y catorce iconos conservan una escrita a
+  // mano que sí los distingue. Excluir por el nombre borraría esos catorce del filtro; excluir
+  // por `autoReveal` deja `variante:reveal` acotando exactamente a ellos, que es para lo que
+  // sirve un filtro. Mismo criterio que `varianteDeHover` en el motor, por la misma razón.
+  const extras = reporte.variantes
+    .filter((v) => !UNIVERSALES.has(v.variante) && !v.autoReveal)
+    .map((v) => v.variante);
   if (extras.length) {
     salida.push({
       clave: 'extras',

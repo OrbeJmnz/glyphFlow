@@ -359,19 +359,37 @@ describe('Barrido de sanidad — los 180 curados', () => {
    * coreografía SE MUEVE ante un reordenamiento puro, que es lo único que convierte al lock en
    * una red de verdad para esto.
    */
-  it('el gesto de hover es la tercera variante, y `animation` manda sobre él', () => {
-    // Sin segundo argumento — el consumidor no fijó `animation` — manda la POSICIÓN: la tercera.
-    expect(varianteDeHover({ draw: 1, default: 1, spin: 1, hold: 1 })).toBe('spin');
-    expect(varianteDeHover({ draw: 1, default: 1 })).toBe('default');
+  it('el gesto de hover es el primer nombre propio, y `animation` manda sobre él', () => {
+    const g = {}; // una coreografía cualquiera; aquí solo importan los NOMBRES
+    const auto = { autoReveal: {} }; // el `reveal` que `icon()` le cuelga a los 1767
+
+    // Sin segundo argumento — el consumidor no fijó `animation` — manda el primer nombre que no
+    // sea `draw`, `default` ni el `reveal` genérico.
+    expect(varianteDeHover({ draw: g, default: g, spin: g, hold: g })).toBe('spin');
+    expect(varianteDeHover({ draw: g, default: g })).toBe('default');
     expect(varianteDeHover({})).toBe('default');
+
+    // El `reveal` GENÉRICO no le roba el hover a nadie: lo tienen los 1767, así que no es el gesto
+    // de ninguno. Sin este descarte, los 672 iconos que solo traían `draw`+`default` pasaban de su
+    // gesto curado a una materialización genérica, en silencio y sin un test en rojo.
+    expect(varianteDeHover({ draw: g, default: g, reveal: auto })).toBe('default');
+    expect(varianteDeHover({ draw: g, default: g, spin: g, reveal: auto })).toBe('spin');
+
+    // Pero el CURADO a mano sí cuenta: no trae `autoReveal`, y quien lo escribió lo hizo porque el
+    // genérico no le servía (`bolt`, `audio-waveform`, las monedas).
+    expect(varianteDeHover({ draw: g, default: g, reveal: g })).toBe('reveal');
+    // …y aun así no se adelanta al gesto propio del icono, porque `icon()` respeta la posición que
+    // le dio su autor. Es la cicatriz de `eye-off`, que perdía su `alert`.
+    expect(varianteDeHover({ draw: g, default: g, alert: g, reveal: g })).toBe('alert');
+
     // Lo que fije el consumidor gana, y eso INCLUYE 'default'.
     //
     // La última línea afirmaba `.toBe('spin')` hasta el 2026-09-02: no era una regla, era el hoyo
     // de API escrito como test. `@Input() animation` arrancaba en `'default'`, así que el string
     // había que descartarlo para poder distinguirlo de "no lo fijó" — y el efecto era que
     // `default` fuese la única variante imposible de pedir. Hoy el centinela es `undefined`.
-    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'hold')).toBe('hold');
-    expect(varianteDeHover({ draw: 1, default: 1, spin: 1 }, 'default')).toBe('default');
+    expect(varianteDeHover({ draw: g, default: g, spin: g }, 'hold')).toBe('hold');
+    expect(varianteDeHover({ draw: g, default: g, spin: g }, 'default')).toBe('default');
   });
 
   it('reordenar variantes mueve la huella, aunque no cambie ni un keyframe', () => {

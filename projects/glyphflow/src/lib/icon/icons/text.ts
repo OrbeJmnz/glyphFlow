@@ -235,7 +235,7 @@ export const textWrapIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track(TEXT_SETTLE, 460, { easing: SPRING_OUT, origin: '3px 5px' }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         3: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 50, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 170, fill: 'backwards' }),

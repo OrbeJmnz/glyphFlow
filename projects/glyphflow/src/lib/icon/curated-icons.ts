@@ -861,11 +861,6 @@ export const checkIcon: AnimatedIconDef = /* @__PURE__ */ icon(checkShapes, {
         },
       },
     },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
-      },
-    },
   });
 
 
@@ -901,7 +896,7 @@ export const downloadIcon: AnimatedIconDef = /* @__PURE__ */ icon(downloadShapes
       },
       reverseOnLeave: true,
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: T5_EASE }, { transform: 'scale(1.02)', easing: T5_EASE }, { transform: 'scale(1)' }], 600, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: '0.4', strokeDasharray: '0 1', easing: T5_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 600, { easing: T5_EASE }),
@@ -1110,12 +1105,6 @@ export const plusIcon: AnimatedIconDef = /* @__PURE__ */ icon(plusShapes, {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 400, { easing: SPRING_OUT, origin: 'center' }),
     },
     turn: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 90]), 350, { origin: 'center' }),
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
-      },
-    },
   });
 
 
@@ -1174,7 +1163,7 @@ export const sparklesIcon: AnimatedIconDef = /* @__PURE__ */ icon(sparklesShapes
         3: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 450, { delay: 300 }),
       },
     },
-    reveal: {
+    twinkle: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1.1)' }, { transform: 'scale(1)' }], 600, { easing: EASE }),
         3: /* @__PURE__ */ track([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0)' }, { opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], 600, { easing: EASE }),
@@ -1358,12 +1347,6 @@ export const menuIcon: AnimatedIconDef = /* @__PURE__ */ icon(menuShapes, {
 /** Cerrar: gira 90° y se sostiene mientras el puntero siga encima. */
 export const xIcon: AnimatedIconDef = /* @__PURE__ */ icon(xShapes, {
     default: /* @__PURE__ */ held(/* @__PURE__ */ rotateSeq([0, 90]), 350, { origin: 'center' }),
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
-      },
-    },
   });
 
 
@@ -1565,7 +1548,7 @@ export const externalLinkIcon: AnimatedIconDef = /* @__PURE__ */ icon(externalLi
     // El easing va por keyframe, no en `options`: Framer lo aplica entre cada par, y en `options`
     // WAAPI lo aplicaría a la iteración completa. Con `times` traducido a `offset`, `conRelevo`
     // devuelve null y en hover repetido corta en seco — el original hace lo mismo.
-    reveal: EXTERNAL_LINK_REVEAL,
+    assemble: EXTERNAL_LINK_REVEAL,
     /** @deprecated Se llamaba `launch`. El alias sale en la v3. */
     launch: EXTERNAL_LINK_REVEAL,
   });
@@ -1912,7 +1895,7 @@ export const logOutIcon: AnimatedIconDef = /* @__PURE__ */ icon(logOutShapes, {
     },
     reverseOnLeave: true,
   },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: 'ease-in-out' }, { transform: 'scale(1.1) rotate(3deg)', easing: 'ease-in-out' }, { transform: 'scale(0.95) rotate(-2deg)', easing: 'ease-in-out' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(-2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
@@ -1939,11 +1922,6 @@ export const funnelIcon: AnimatedIconDef = /* @__PURE__ */ icon(funnelShapes, {
 /** Electro: el trazo ES la animación, y lento a propósito para que se lea el pulso. */
 export const activityIcon: AnimatedIconDef = /* @__PURE__ */ icon(activityShapes, {
     default: { autoDraw: { speed: 45 } },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 600, { easing: EASE }),
-      },
-    },
   });
 
 
@@ -1979,7 +1957,7 @@ export const cpuIcon: AnimatedIconDef = /* @__PURE__ */ icon(cpuShapes, {
         13: /* @__PURE__ */ track([{ opacity: '1' }, { opacity: '0.4' }, { opacity: '1' }], 700, { delay: 150 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         12: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 500, { easing: T5_DECEL }),
         13: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0', offset: 0, easing: T5_MUELLE }, { transform: 'scale(1.2)', opacity: '1', offset: 0.6, easing: T5_MUELLE }, { transform: 'scale(1)', opacity: '1', offset: 1 }], 380, { easing: 'linear', delay: 450, fill: 'backwards', origin: '12px 12px' }),
@@ -2208,11 +2186,6 @@ export const minusIcon: AnimatedIconDef = /* @__PURE__ */ icon(minusShapes, {
     default: {
       root: /* @__PURE__ */ track(/* @__PURE__ */ scaleSeq([1, 1.25, 1]), 400, { easing: SPRING_OUT, origin: 'center' }),
     },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-      },
-    },
   });
 
 /** Red: los nodos se conectan de arriba hacia abajo. */
@@ -2318,7 +2291,7 @@ export const qrCodeIcon: AnimatedIconDef = /* @__PURE__ */ icon(qrCodeShapes, {
         7: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 300, { delay: 380 }),
       },
     },
-    reveal: {
+    scan: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: 'ease-out' }, { transform: 'scale(1.04)', easing: 'ease-out' }, { transform: 'scale(1)' }], 350, { easing: 'linear' }),
       shapes: {
         3: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(0.6)', opacity: '0.5', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: 'linear', origin: '19px 19px' }),
@@ -2851,11 +2824,6 @@ export const bracesIcon: AnimatedIconDef = /* @__PURE__ */ icon(bracesShapes, {
 /** Infinito: lento a propósito, el chiste es ver el trazo completar el lazo. */
 export const infinityIcon: AnimatedIconDef = /* @__PURE__ */ icon(infinityShapes, {
     default: { autoDraw: { speed: 38 } },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 1000, { easing: EASE }),
-      },
-    },
   });
 
 
@@ -3488,7 +3456,7 @@ export const checkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(1)', opacity: '0.5', strokeDasharray: '0 1', offset: 0, easing: T5_EASE }, { transform: 'scale(1.2)', opacity: '1', strokeDasharray: '0.6 1', offset: 0.5, easing: T5_EASE }, { transform: 'scale(1)', opacity: '1', strokeDasharray: '1 1', offset: 1 }], 700, { easing: 'linear', origin: '10px 11.5px' }),
         1: /* @__PURE__ */ track([{ transform: 'translateX(-6px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 500, { easing: T5_EASE, delay: 350, fill: 'backwards' }),
@@ -5032,17 +5000,6 @@ export const routeOffIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track([{ transform: 'translateX(0)', offset: 0 }, { transform: 'translateX(-7%)', offset: 0.1667 }, { transform: 'translateX(7%)', offset: 0.3333 }, { transform: 'translateX(-7%)', offset: 0.5 }, { transform: 'translateX(7%)', offset: 0.6667 }, { transform: 'translateX(0)', offset: 1 }], 600, { easing: EASE }),
     },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL }),
-        6: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 80, fill: 'backwards' }),
-        2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 80, fill: 'backwards' }),
-        4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
-        5: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 500, { easing: REVEAL_DECEL, delay: 160, fill: 'backwards' }),
-        3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 350, { easing: REVEAL_DECEL, delay: 550, fill: 'backwards' }),
-      },
-    },
     // `strike`: la diagonal se traza y va apagando lo que cruza. El retraso de cada
     // figura es el instante REAL en que el corte la alcanza --su proyección sobre el
     // eje, medida desde el centro de su caja y escalada por lo que tarda el trazo--
@@ -5076,7 +5033,7 @@ export const routeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 220, { easing: 'ease-out', delay: 160, fill: 'backwards' }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 700, { easing: REVEAL_DECEL, delay: 100, fill: 'backwards' }),
         0: /* @__PURE__ */ track([{ transform: 'scale(0)', opacity: '0' }, { transform: 'scale(1.25)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 400, { easing: REVEAL_MUELLE, delay: 100, fill: 'backwards', origin: '6px 19px' }),
@@ -5235,9 +5192,6 @@ export const snowflakeIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   ],
   {
     default: {
-      root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }, { transform: 'rotate(5deg)' }, { transform: 'rotate(0deg)' }], 400, { easing: EASE }),
-    },
-    reveal: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg) scale(1)', easing: T6_EASE }, { transform: 'rotate(30deg) scale(1.04)', easing: T6_EASE }, { transform: 'rotate(0deg) scale(1)' }], 1200, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T6_EASE }, { opacity: '0.7', strokeDasharray: '0.3 1', easing: T6_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 900, { easing: T6_EASE }),
@@ -6388,7 +6342,7 @@ export const locateFixedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track([{ transform: 'scale(0.3)', opacity: 0 }, { transform: 'scale(1.1)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], 380, { easing: SPRING_OUT }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
         0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
@@ -8888,7 +8842,7 @@ export const locateIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(E1_PULSE, 520, { easing: EASE, origin: '12px 12px', delay: 180, fill: 'backwards' }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'scale(1.4)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 450, { easing: REVEAL_MUELLE_SUAVE, origin: '12px 12px' }),
         0: /* @__PURE__ */ track([{ transform: 'scale(1.8)', opacity: '0' }, { transform: 'scale(1)', opacity: '1' }], 350, { easing: REVEAL_MUELLE_SUAVE, delay: 300, fill: 'backwards', origin: '3.5px 12px' }),
@@ -8914,7 +8868,7 @@ export const logInIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(E1_PULSE, 460, { easing: EASE, origin: '18px 12px', delay: 200, fill: 'backwards' }),
       },
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: 'ease-in-out' }, { transform: 'scale(1.1) rotate(-3deg)', easing: 'ease-in-out' }, { transform: 'scale(0.95) rotate(2deg)', easing: 'ease-in-out' }, { transform: 'scale(1) rotate(0deg)' }], 900, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateX(-8px)', opacity: '0', easing: 'ease-out' }, { transform: 'translateX(2px)', opacity: '1', easing: 'ease-out' }, { transform: 'translateX(0px)', opacity: '1' }], 600, { easing: 'linear' }),
@@ -11857,7 +11811,7 @@ export const italicIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       root: /* @__PURE__ */ track(INCLINA, 560, { easing: EASE }),
     },
-    reveal: {
+    draw: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 50, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ opacity: '0', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 450, { easing: T5_DECEL, delay: 170, fill: 'backwards' }),
@@ -12112,7 +12066,7 @@ export const aArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     // Port de AnimateIcons (Avijit Dey, MIT — ver NOTICE). El `default` no se toca: aquél late,
     // éste rearma el icono pieza por pieza. Easing POR keyframe, no en `options` — ver el bloque
     // de `pulse` en icons/battery.ts para el porqué.
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: A_ARROW_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: A_ARROW_EASE }, { transform: 'scale(0.98) rotate(1deg)', easing: A_ARROW_EASE }, { transform: 'scale(1) rotate(0deg)' }], 850, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scale(1)', opacity: '0.6', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1.12)', opacity: '1', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 60, origin: '18px 9px' }),
@@ -12146,7 +12100,7 @@ export const aArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
     },
     // Igual que `a-arrow-up`, con el asta y la diagonal entrando desde el lado contrario.
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: A_ARROW_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: A_ARROW_EASE }, { transform: 'scale(0.98) rotate(1deg)', easing: A_ARROW_EASE }, { transform: 'scale(1) rotate(0deg)' }], 850, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '0 1', transform: 'scale(1)', opacity: '0.6', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1.12)', opacity: '1', easing: 'ease-out' }, { strokeDasharray: '1 1', transform: 'scale(1)', opacity: '1' }], 900, { easing: 'linear', delay: 60, origin: '18px 14px' }),
@@ -14026,13 +13980,6 @@ export const codeXmlIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ [{ transform: 'none' }, { transform: 'skewX(-10.835deg)' }], 320, { easing: SPRING_OUT, fill: 'forwards', origin: '12px 12px' }),
       },
       reverseOnLeave: true,
-    },
-    reveal: {
-      shapes: {
-        1: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 700, { easing: T5_EASE }),
-        0: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 700, { easing: T5_EASE, delay: 100, fill: 'backwards' }),
-        2: /* @__PURE__ */ track([{ opacity: '1', strokeDasharray: '1 1', easing: T5_EASE }, { opacity: '0.4', strokeDasharray: '0 1', easing: T5_EASE }, { opacity: '1', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE }),
-      },
     },
   },
 );

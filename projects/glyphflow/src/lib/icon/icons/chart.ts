@@ -366,7 +366,7 @@ export const chartNoAxesCombinedIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         5: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 900, { easing: 'ease' }),
       },
     },
-    reveal: {
+    mark: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.04) rotate(-1.5deg)', easing: T5_EASE }, { transform: 'scale(0.99) rotate(1deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 800, { easing: 'linear' }),
       shapes: {
         3: /* @__PURE__ */ track([{ opacity: '0.6', strokeDasharray: '0 1' }, { opacity: '1', strokeDasharray: '1 1' }], 1000, { easing: T5_EASE, delay: 120, fill: 'backwards' }),
@@ -460,7 +460,7 @@ export const chartColumnIcon: AnimatedIconDef = /* @__PURE__ */ icon(chartColumn
         }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
         2: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }], 600, { easing: 'ease', delay: 100 }),

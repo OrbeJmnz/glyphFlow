@@ -796,7 +796,7 @@ export const arrowUp01Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
       shapes: {
         0: /* @__PURE__ */ revealAsta(),
@@ -826,7 +826,7 @@ export const arrowUp10Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ revealRoot(1.08, 4, 800),
       shapes: {
         0: /* @__PURE__ */ revealAsta(),
@@ -856,7 +856,7 @@ export const arrowUpAZIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
       shapes: {
         0: /* @__PURE__ */ revealAsta(),
@@ -886,7 +886,7 @@ export const arrowUpZAIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ revealRoot(1.1, 5, 900),
       shapes: {
         0: /* @__PURE__ */ revealAsta(),
