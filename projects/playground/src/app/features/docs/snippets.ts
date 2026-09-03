@@ -30,11 +30,6 @@ export const SNIPPET_VELOCIDAD = `import { provideGfIcons } from 'glyphflow';
 
 providers: [provideGfIcons({ durationScale: 0.8 })]`;
 
-export const SNIPPET_VARIANTES = `import { ICON_VARIANTS } from 'glyphflow';
-
-ICON_VARIANTS['trash']; // ['draw', 'default', 'active']
-// <gf-icon [iconDef]="trash" animation="active" label="Delete" />`;
-
 export const SNIPPET_MORPH = `import { GfIconMorphComponent } from 'glyphflow/morph';
 
 // The binding IS the state: changing [icon] triggers the transition from the previous value.
