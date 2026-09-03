@@ -75,9 +75,16 @@ export const houseWifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 
 export const houseIcon: AnimatedIconDef = /* @__PURE__ */ icon(houseShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2.5, 0]), 500, { easing: SPRING_OUT }) },
+    // `house` es la BASE de `house-heart`, `house-plug`, `house-plus` y `house-wifi`: no tiene una
+    // marca que le distinga de nadie. Animaba la figura 1, o sea la casa ENTERA — un `mark` que
+    // redibujaba el icono, que es lo que ya hace `draw`.
+    //
+    // Lo más parecido a una marca aquí es la puerta (figura 0), el único detalle dentro del
+    // contorno. Se traza ella sola sobre la casa quieta, que es lo que `mark` promete en el resto
+    // de la familia.
     mark: {
       shapes: {
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 600, { easing: 'ease-out' }),
+        0: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 600, { easing: 'ease-out' }),
       },
     },
   });

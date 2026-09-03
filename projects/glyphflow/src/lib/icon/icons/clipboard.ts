@@ -217,7 +217,7 @@ export const clipboardPenIcon: AnimatedIconDef = /* @__PURE__ */ icon(clipboardP
         0: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'rotate(0deg)', offset: 0 }, { transform: 'rotate(-1deg)', offset: 0.25 }, { transform: 'rotate(1deg)', offset: 0.75 }, { transform: 'rotate(0deg)', offset: 1 }], 500, { easing: 'ease-in-out', origin: '12px 12px' }), 1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 320, { delay: 150 }) } },
     write: { shapes: { 1: /* @__PURE__ */ track(PEN_WRITE_SQUIGGLE, 700, { delay: 150 }) } },
-    nudge: {
+    dart: {
       shapes: {
         4: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-1.5px, 2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-1.5px, 2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),

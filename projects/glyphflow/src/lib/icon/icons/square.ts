@@ -4,8 +4,12 @@
 // movió lo verifica `npm run curated:lock:check` contra curated-choreography.lock.json.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, scaleSeq, track, strokeDraw, icon } from '../choreography';
+import { puntaCompas, astaCompas } from './_shared';
 import { squareCenterlineDashedHorizontalShapes, squareCenterlineDashedVerticalShapes, squarePenShapes, squareShapes } from '../animated-icons.shapes';
 
+
+/** Las cuatro flechas enmarcadas miden lo mismo: de 8 a 16 en su eje. */
+const ARROW_SHAFT_LEN = 8;
 export const squareActivityIcon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
@@ -59,14 +63,38 @@ export const squareArrowDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
     { tag: 'path', d: "M12 8v8" },
     { tag: 'path', d: "m8 12 4 4 4-4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m8 12 4 4 4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 2, 1), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 2, 1), 520, { origin: '12px 8px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.78)' }], 240, { easing: 'ease-out', fill: 'forwards', origin: '12px 8px' }),
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', 1, 3, 1.3), 440),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '12px 8px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateY(4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -76,14 +104,38 @@ export const squareArrowLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
     { tag: 'path', d: "m12 8-4 4 4 4" },
     { tag: 'path', d: "M16 12H8" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m12 8-4 4 4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 2, 1), 520),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 2, 1), 520, { origin: '16px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.78)' }], 240, { easing: 'ease-out', fill: 'forwards', origin: '16px 12px' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', -1, 3, 1.3), 440),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '16px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(-4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateX(-4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -125,14 +177,38 @@ export const squareArrowRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
     { tag: 'path', d: "M8 12h8" },
     { tag: 'path', d: "m12 16 4-4-4-4" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m12 16 4-4-4-4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 2, 1), 520),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 2, 1), 520, { origin: '8px 12px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0.78)' }], 240, { easing: 'ease-out', fill: 'forwards', origin: '8px 12px' }),
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        2: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('X', 1, 3, 1.3), 440),
+        1: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('X', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '8px 12px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateX(4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateX(4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -176,14 +252,38 @@ export const squareArrowUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
     { tag: 'rect', width: 18, height: 18, x: 3, y: 3, rx: 2 },
     { tag: 'path', d: "m16 12-4-4-4 4" },
     { tag: 'path', d: "M12 16V8" },
+    // La estela del `dart`: copia de la punta que sale disparada y se apaga.
+    { tag: 'path', d: "m16 12-4-4-4 4", opacity: '0' },
   ],
   {
+    /**
+     * El compás de la familia: se agacha, sale y regresa. Antes aquí vivía un ESTADO —el que
+     * ahora es `hold`—, o sea un desplazamiento con `fill: 'forwards'` que se queda puesto.
+     * Misma migración que `circle-arrow-*` ya tuvo.
+     */
     default: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 2, 1), 520),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 2, 1), 520, { origin: '12px 16px' }),
+      },
+    },
+    hold: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }], 240, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track([{ transform: 'scaleY(1)' }, { transform: 'scaleY(0.78)' }], 240, { easing: 'ease-out', fill: 'forwards', origin: '12px 16px' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * Sale disparada y regresa, dejando rastro. Contra el compás del `default`: llega a 3
+     * unidades en vez de 2 y en 440 ms en vez de 520 — más lejos y más seco, no lo mismo con estela.
+     */
+    dart: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ puntaCompas('Y', -1, 3, 1.3), 440),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ astaCompas('Y', ARROW_SHAFT_LEN, 3, 1.3), 440, { origin: '12px 16px' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translateY(-4.2px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translateY(-4.2px)', opacity: '0', offset: 1 }], 440, { easing: 'linear', delay: 60, fill: 'backwards' }),
+      },
     },
   },
 );
@@ -1232,7 +1332,7 @@ export const squarePenIcon: AnimatedIconDef = /* @__PURE__ */ icon(squarePenShap
         ),
       },
     },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-1.5px, 2.25px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-1.5px, 2.25px)', opacity: '0', offset: 1 }], 500, { easing: 'linear', delay: 60, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ transform: 'rotate(0deg) translate(0px, 0px)', offset: 0 }, { transform: 'rotate(-0.5deg) translate(-1px, 1.5px)', offset: 0.25 }, { transform: 'rotate(0.5deg) translate(1.5px, -1px)', offset: 0.75 }, { transform: 'rotate(0deg) translate(0px, 0px)', offset: 1 }], 500, { easing: EASE }),

@@ -216,7 +216,7 @@ export const listChevronsUpDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       },
       reverseOnLeave: true,
     },
-    nudge: {
+    dart: {
       shapes: {
         5: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0', offset: 1 }], 750, { easing: 'linear', delay: 60, fill: 'backwards' }),
         6: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(-3px, 0px)', opacity: '0', offset: 1 }], 750, { easing: 'linear', delay: 120, fill: 'backwards' }),

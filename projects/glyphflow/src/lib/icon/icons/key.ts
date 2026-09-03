@@ -36,7 +36,7 @@ export const keyIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyShapes, {
    */
 export const keyRoundIcon: AnimatedIconDef = /* @__PURE__ */ icon(keyRoundShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ rotateSeq([0, -20, 0]), 700, { origin: '16.5px 7.5px' }) },
-    nudge: {
+    dart: {
       shapes: {
         2: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track([{ transform: 'translate(0px, 0px)', opacity: '0', offset: 0, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0.4', offset: 0.45, easing: 'ease-out' }, { transform: 'translate(0px, -4.5px)', opacity: '0', offset: 1 }], 900, { easing: 'linear', delay: 60, fill: 'backwards' }),
