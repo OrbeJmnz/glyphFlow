@@ -58,6 +58,10 @@ const steps = [
   // El catálogo que el sitio importa como JSON. Si no se regenera tras curar iconos, la rejilla
   // enseña el catálogo de ayer sin que nada truene — es un archivo, no una dependencia.
   ['Drift del catálogo JSON del sitio', 'npm', ['run', 'gen:catalogo:check']],
+  // Variantes por icono derivadas del registro compuesto. A diferencia de tags (lucide-static),
+  // esto cambia en cada PR que toca coreografía en curated-icons.ts — sin este check se desfasa
+  // en silencio, que es justo lo que le pasó a generated-icons.ts sin que nadie se enterara.
+  ['Drift del catálogo de variantes', 'npm', ['run', 'gen:variants:check']],
   ['Los ejemplos compilan contra el paquete PUBLICADO', 'npx', ['tsc', '-p', 'examples/tsconfig.check.json']],
   ['Unit tests (glyphflow)', 'npx', ['ng', 'test', 'glyphflow', '--watch=false']],
   ['Unit tests (playground)', 'npx', ['ng', 'test', 'playground', '--watch=false']],

@@ -2,6 +2,7 @@ import { AnimatedIconDef } from './animated-icon.model';
 import { CURATED_ICONS } from './curated-icons';
 import { GENERATED_ICONS } from './generated-icons';
 import { ICON_TAGS } from './icon-tags';
+import { ICON_VARIANTS } from './icon-variants';
 
 /**
  * Composición final: generado primero, curado al final — un argumento posterior de
@@ -54,6 +55,15 @@ export interface IconMeta {
    * completo, porque se construye sobre `ANIMATED_ICON_NAMES`.
    */
   tags: readonly string[];
+  /**
+   * Qué animaciones tiene el icono, además de `draw` (que siempre está — la inyecta `icon()`).
+   * Sin esto, la única vía para saberlo es `Object.keys(ANIMATED_ICONS[nombre].animations)`, que
+   * arrastra el catálogo entero — exactamente lo que `provideIconCatalog()` existe para evitar.
+   *
+   * Si solo necesitas esto, importa `ICON_VARIANTS` directo: tocar `ICON_META` arrastra el
+   * catálogo completo, igual que con `tags`.
+   */
+  variants: readonly string[];
   morphTargets?: string[];
 }
 
@@ -76,6 +86,7 @@ export const ICON_META: Record<string, IconMeta> = /* @__PURE__ */ Object.fromEn
       // Acceso a propiedad, no llamada: no hay una sub-expresión más que anotar. Aquí colgarlo
       // sale gratis en peso porque quien llega a `ICON_META` ya se trajo el catálogo entero.
       tags: ICON_TAGS[name],
+      variants: ICON_VARIANTS[name],
     },
   ]),
 );

@@ -10,6 +10,8 @@
     "docs:check": "tsx scripts/docs-check.ts",
     "gen:examples": "tsx scripts/gen-examples.ts",
     "gen:examples:check": "tsx scripts/gen-examples.ts --check",
+    "gen:variants": "tsx scripts/gen-icon-variants.ts",
+    "gen:variants:check": "tsx scripts/gen-icon-variants.ts --check",
     "gen:docs-index": "tsx scripts/gen-docs-index.ts",
     "gen:docs-index:check": "tsx scripts/gen-docs-index.ts --check",
     "gen:catalogo": "tsx scripts/gen-catalogo-json.ts",
