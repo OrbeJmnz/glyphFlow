@@ -32,6 +32,10 @@ export interface VariantReport {
    *  compositor las anima sin repintar. Ver el resto de `propiedadesAnimadas` para el detalle. */
   animaD: boolean;
   autoDraw: boolean;
+  /** La materialización GENÉRICA, la que `icon()` le cuelga a los 1767. Distinguirla del `reveal`
+   *  curado a mano es lo que deja a los filtros seguir acotando: si `reveal` contara para todos,
+   *  el filtro casaría con el catálogo entero y dejaría de servir. */
+  autoReveal: boolean;
   reverseOnLeave: boolean;
 }
 
@@ -146,8 +150,20 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
     }
   }
 
-  const esSoloAutoDraw = !!chor.autoDraw && tracks.length === 0;
-  const duracionMs = esSoloAutoDraw
+  // El `reveal` GENÉRICO, el que `icon()` le cuelga a los 1767. Es el único que se llama así y no
+  // trae nada propio: ni `root`, ni figuras, ni trazo. Uno curado a mano siempre trae algo — lo
+  // exige el spec «toda variante mueve algo» —, así que la ausencia lo identifica sin ambigüedad.
+  //
+  // Se DEDUCE en vez de leer `chor.autoReveal`, y no por gusto: este archivo lo typechequea el
+  // playground contra el glyphflow PUBLICADO, no contra el del workspace. Leer un campo que aún no
+  // existe en el paquete publicado deja el typecheck en rojo hasta la siguiente release, y esa
+  // frontera es a propósito (regla 4: el sitio consume del registro, no de `dist/`).
+  const autoReveal = variante === 'reveal' && tracks.length === 0 && !chor.autoDraw;
+
+  // Sin tracks propios no hay reloj que leer: la duración la calcula el componente en vivo, midiendo
+  // las figuras (`draw`) o con su propio compás (`reveal`). Devolver 0 sería mentir con precisión.
+  const esSoloAutomatica = (!!chor.autoDraw || autoReveal) && tracks.length === 0;
+  const duracionMs = esSoloAutomatica
     ? null
     : tracks.reduce((max, [, t]) => Math.max(max, intervaloDe(t)[1]), 0);
 
@@ -160,6 +176,7 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
     propiedadesAnimadas: [...propiedades].sort(),
     animaD: propiedades.has('d'),
     autoDraw: !!chor.autoDraw,
+    autoReveal,
     reverseOnLeave: !!chor.reverseOnLeave,
   };
 }

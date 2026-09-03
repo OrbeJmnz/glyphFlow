@@ -71,9 +71,19 @@ export function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
 /**
  * Qué variante dispara el hover cuando el consumidor no fijó `animation`.
  *
- * **Se elige por POSICIÓN, no por nombre**: con 3 o más, la TERCERA. El orden del catálogo es
- * `draw`, `default`, y luego la especial del icono (`rotate`, `find`, `turn`…), que es la más
- * expresiva. Hoy son 1095 de los 1767 iconos los que dependen de ese orden.
+ * **Se elige por NOMBRE: la primera clave que no sea `draw`, `default` ni el `reveal` genérico.**
+ * Es el gesto propio del icono (`rotate`, `find`, `turn`…), y cuando no hay ninguno, `default`.
+ *
+ * Antes se elegía por POSICIÓN — la tercera clave — y funcionaba solo mientras `reveal` fuera una
+ * variante rara. Al volverse universal (`icon()` la inyecta en los 1767, igual que `draw`) esa
+ * regla le habría robado el hover a los 672 iconos que solo tenían `draw`+`default`: pasarían de
+ * su gesto curado a una materialización genérica, en silencio y sin un test en rojo.
+ *
+ * **El `reveal` curado a mano SÍ cuenta**, y por eso el descarte mira `autoReveal` en vez del
+ * nombre: quien escribió a mano el reveal de `bolt` o de `audio-waveform` lo hizo porque el gesto
+ * genérico no le servía, y degradarlos a `default` sería barrer justo el criterio humano. Medido
+ * sobre el catálogo: 1758 de 1767 iconos conservan su gesto de hover, y los 9 que cambian lo hacen
+ * por decisiones tomadas a propósito.
  *
  * **Lo que fije el consumidor gana entero, `'default'` incluido.** El único centinela de "no lo
  * fijó" es `undefined`. Antes se descartaba también el string `'default'`, porque el input del
@@ -85,10 +95,14 @@ export function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
  * silencio, y el precio de esa divergencia es que el lock diga verde mientras el gesto cambió.
  */
 export function varianteDeHover(
-  animations: Record<string, unknown> | undefined,
+  animations: Record<string, { autoReveal?: unknown } | undefined> | undefined,
   animation?: string,
 ): string {
   if (animation) return animation;
-  const variantes = Object.keys(animations ?? {});
-  return variantes.length >= 3 ? variantes[2] : 'default';
+  for (const clave of Object.keys(animations ?? {})) {
+    if (clave === 'draw' || clave === 'default') continue;
+    if (clave === 'reveal' && animations?.[clave]?.autoReveal) continue;
+    return clave;
+  }
+  return 'default';
 }

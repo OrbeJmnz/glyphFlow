@@ -70,7 +70,7 @@ export const gripVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(gripVertic
         5: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 1.2, 0]), 450, { delay: 180 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.25 }, { opacity: 1 }], 620, { easing: 'ease-in-out', delay: 70, fill: 'backwards' }),
         1: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0.25 }, { opacity: 1 }], 620, { easing: 'ease-in-out' }),

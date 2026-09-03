@@ -77,7 +77,7 @@ export const layoutDashboardIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutD
         3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 300 }),
       },
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.06) rotate(-1.5deg)', easing: T5_EASE }, { transform: 'scale(0.98) rotate(1.5deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 1100, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'translateY(3px) scale(0.95)', opacity: '0.6', easing: T5_EASE }, { transform: 'translateY(-2px) scale(1.04)', opacity: '1', easing: T5_EASE }, { transform: 'translateY(0px) scale(1)', opacity: '1' }], 900, { easing: 'linear', origin: '6.5px 7.5px' }),
@@ -117,7 +117,7 @@ export const layoutGridIcon: AnimatedIconDef = /* @__PURE__ */ icon(layoutGridSh
         3: /* @__PURE__ */ track([{ opacity: 0, transform: 'translateY(10px)', offset: 0 }, { opacity: 0, transform: 'translateY(10px)', offset: 0.5 }, { opacity: 0.8, transform: 'translateY(-2px)', offset: 0.8 }, { opacity: 1, transform: 'translateY(0)', offset: 1 }], 350, { easing: 'ease-out', delay: 200 }),
       },
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1) rotate(0deg)', easing: T5_EASE }, { transform: 'scale(1.03) rotate(1deg)', easing: T5_EASE }, { transform: 'scale(1) rotate(0deg)' }], 600, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(0.85)', opacity: '0.4', easing: 'ease-out' }, { transform: 'scale(1.08)', opacity: '1', easing: 'ease-out' }, { transform: 'scale(1)', opacity: '1' }], 550, { easing: 'linear', origin: '6.5px 6.5px' }),

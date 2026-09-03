@@ -45,12 +45,6 @@ export const badgeCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeCheckSh
         1: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260, { delay: 480 }),
       },
     },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }, { transform: 'scale(1)' }], 1200, { easing: EASE }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 1 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1 }], 1200, { easing: EASE }),
-      },
-    },
   });
 
 export const badgeAlertIcon: AnimatedIconDef = /* @__PURE__ */ icon(badgeAlertShapes, {

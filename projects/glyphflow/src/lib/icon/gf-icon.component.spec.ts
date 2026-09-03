@@ -84,8 +84,14 @@ describe('GfIconComponent', () => {
         expect(def.animations['default'], `${name}: falta la variante default`).toBeDefined();
       }
       expect(def.animations['draw'], `${name}: falta la variante draw`).toBeDefined();
+      // `reveal` la cuelga `icon()` en TODOS desde la v3, igual que `draw`.
+      expect(def.animations['reveal'], `${name}: falta la variante reveal`).toBeDefined();
       for (const [variant, chor] of Object.entries(def.animations)) {
-        const mueve = !!chor.root || !!chor.autoDraw || Object.keys(chor.shapes ?? {}).length > 0;
+        const mueve =
+          !!chor.root ||
+          !!chor.autoDraw ||
+          !!chor.autoReveal ||
+          Object.keys(chor.shapes ?? {}).length > 0;
         expect(mueve, `${name}/${variant}: variante vacía`).toBe(true);
       }
     }

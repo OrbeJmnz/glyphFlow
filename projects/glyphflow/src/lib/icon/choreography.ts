@@ -82,10 +82,28 @@ export const strokeDraw = (): Keyframe[] => [
  */
 const DRAW: IconChoreography = { autoDraw: {} };
 
-/** Arma la definición y le cuelga la variante `draw` (a menos que se escriba una a mano). */
+/**
+ * Variante `reveal` universal. Misma idea que `DRAW`: una constante COMPARTIDA por los 1767, no
+ * keyframes por icono. Lo que cuesta bytes vive en el componente (presupuesto `core`, con aire);
+ * aquí solo puede haber una referencia, porque este archivo entra ENTERO al bundle de quien
+ * importa un solo icono aunque no lo use.
+ */
+const REVEAL: IconChoreography = { autoReveal: {} };
+
+/**
+ * Arma la definición y le cuelga `draw` y `reveal` (a menos que se escriban a mano).
+ *
+ * `reveal` va DESPUÉS del spread y por eso se escribe como re-asignación: si el icono trae uno
+ * curado, la clave ya existe y conserva la posición que le dio su autor; si no, se agrega al final.
+ * Ponerlo antes del spread parecía equivalente y no lo es — la clave saltaba al frente y el reveal
+ * curado le robaba el hover al gesto propio del icono. Medido: `eye-off` perdía su `alert`, y
+ * `signpost` y `wind` su `hold`.
+ *
+ * Que el genérico traiga `autoReveal` es lo que deja a `varianteDeHover` distinguirlo del curado.
+ */
 export const icon = (shapes: IconShape[], animations: Record<string, IconChoreography>): AnimatedIconDef => ({
   shapes,
-  animations: { draw: DRAW, ...animations },
+  animations: { draw: DRAW, ...animations, reveal: animations['reveal'] ?? REVEAL },
 });
 
 /**

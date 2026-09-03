@@ -154,7 +154,7 @@ export const gitForkIcon: AnimatedIconDef = /* @__PURE__ */ icon(gitForkShapes, 
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 420, { delay: 280 }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '12px 18px' }),
         4: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0.3' }, { strokeDasharray: '1 1', opacity: '1' }], 450, { easing: REVEAL_EASE, delay: 150, fill: 'backwards' }),
@@ -230,7 +230,7 @@ export const gitCommitHorizontalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 130 }),
       },
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1000, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: REVEAL_OVERSHOOT, origin: '12px 12px' }),
@@ -256,7 +256,7 @@ export const gitCommitVerticalIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 150, { easing: 'ease-out', delay: 130 }),
       },
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], 1000, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'scale(0.2)', opacity: '0' }, { transform: 'scale(1.24)', opacity: '1' }, { transform: 'scale(0.92)', opacity: '1' }], 520, { easing: REVEAL_OVERSHOOT, origin: '12px 12px' }),
@@ -284,7 +284,7 @@ export const gitCompareIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 130, { easing: 'ease-out', delay: 300 }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         1: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '6px 6px' }),
         0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 150, fill: 'backwards', origin: '18px 18px' }),
@@ -352,7 +352,7 @@ export const gitCompareArrowsIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         ),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         0: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, origin: '5px 6px' }),
         3: /* @__PURE__ */ track([{ transform: 'scale(0.7)', opacity: '0' }, { transform: 'scale(1.1)', opacity: '1' }, { transform: 'scale(1)', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 300, fill: 'backwards', origin: '19px 18px' }),
@@ -430,7 +430,7 @@ export const gitMergeConflictIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 110, { easing: 'ease-out', delay: 200 }),
       },
     },
-    reveal: {
+    assemble: {
       shapes: {
         2: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: REVEAL_EASE }),
         3: /* @__PURE__ */ track([{ strokeDasharray: '0 1', opacity: '0' }, { strokeDasharray: '1 1', opacity: '1' }], 300, { easing: REVEAL_EASE, delay: 100, fill: 'backwards' }),

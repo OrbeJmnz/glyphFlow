@@ -38,12 +38,6 @@ export const bookmarkCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkC
       },
     },
     wave: { root: BOOKMARK_WAVE },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
-      },
-    },
   });
 
 /** Quitar: el listón cae y el "-" se dibuja de insignia. */
@@ -55,12 +49,6 @@ export const bookmarkMinusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkM
       },
     },
     wave: { root: BOOKMARK_WAVE },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-      },
-    },
   });
 
 /** Sin guardar: el listón se dibuja en fragmentos y la diagonal lo tacha al final. */
@@ -98,13 +86,6 @@ export const bookmarkPlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkPl
       },
     },
     wave: { root: BOOKMARK_WAVE },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-        2: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
-      },
-    },
   });
 
 /** Quitar: el listón cae y la equis se dibuja de insignia. */
@@ -117,11 +98,4 @@ export const bookmarkXIcon: AnimatedIconDef = /* @__PURE__ */ icon(bookmarkXShap
       },
     },
     wave: { root: BOOKMARK_WAVE },
-    reveal: {
-      shapes: {
-        0: /* @__PURE__ */ track([{ transform: 'scale(1, 1)' }, { transform: 'scale(0.9, 1.3)' }, { transform: 'scale(1.1, 0.9)' }, { transform: 'scale(0.95, 1.05)' }, { transform: 'scale(1, 1)' }], 600, { easing: 'ease-out' }),
-        1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
-        2: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),
-      },
-    },
   });

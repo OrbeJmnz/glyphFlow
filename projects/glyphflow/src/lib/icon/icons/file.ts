@@ -1415,7 +1415,7 @@ export const fileCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileCheckShap
   default: {
     shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) },
   },
-  reveal: {
+  mark: {
     shapes: {
       2: /* @__PURE__ */ track(
         [
@@ -1498,7 +1498,7 @@ export const fileCheckCornerIcon: AnimatedIconDef = /* @__PURE__ */ icon(fileChe
   default: {
     shapes: { 2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 180 }) },
   },
-  reveal: {
+  mark: {
     shapes: {
       2: /* @__PURE__ */ track(
         [

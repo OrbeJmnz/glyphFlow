@@ -31,8 +31,8 @@ Medido en CI en cada push, no prometido — `npm run bundle-check`:
 
 | Qué importas                                 | gzip          |
 | -------------------------------------------- | ------------- |
-| Solo el componente, sin iconos               | **4.06 KB**   |
-| Un icono individual (`[iconDef]="bellIcon"`) | **4.59 KB**   |
+| Solo el componente, sin iconos               | **4.50 KB**   |
+| Un icono individual (`[iconDef]="bellIcon"`) | **5.04 KB**   |
 | El catálogo completo (`name="bell"`)         | **169.27 KB** |
 
 Un icono cuesta ~0.42 KB sobre el runtime. Buscar por nombre obliga al bundler a conservar los 1767,

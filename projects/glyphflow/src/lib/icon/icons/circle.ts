@@ -583,7 +583,7 @@ export const circleCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(circleCheck
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 400, { delay: 280 }),
       },
     },
-    reveal: {
+    mark: {
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.33 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 500, { easing: 'ease-out' }),
       },
@@ -610,7 +610,7 @@ export const circlePlusIcon: AnimatedIconDef = /* @__PURE__ */ icon(circlePlusSh
         2: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 350, { delay: 320 }),
       },
     },
-    reveal: {
+    mark: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out' }),
         2: /* @__PURE__ */ track([{ opacity: 0, strokeDasharray: '1', strokeDashoffset: '1', offset: 0 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '1', offset: 0.15 }, { opacity: 1, strokeDasharray: '1', strokeDashoffset: '0', offset: 1 }], 300, { easing: 'ease-out', delay: 250 }),

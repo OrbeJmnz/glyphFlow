@@ -42,7 +42,7 @@ export const cornerDownLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -67,7 +67,7 @@ export const cornerDownRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -92,7 +92,7 @@ export const cornerLeftDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -117,7 +117,7 @@ export const cornerLeftUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -142,7 +142,7 @@ export const cornerRightDownIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -167,7 +167,7 @@ export const cornerRightUpIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -192,7 +192,7 @@ export const cornerUpLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         0: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),
@@ -217,7 +217,7 @@ export const cornerUpRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         { transform: 'translate(0, 0)', offset: 1 },
       ], DOBLEZ),
     },
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track([{ transform: 'scale(1)', easing: EIO }, { transform: 'scale(1.03)', easing: EIO }, { transform: 'scale(1)' }], 800, { easing: 'linear' }),
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 1' }], 900, { easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }),

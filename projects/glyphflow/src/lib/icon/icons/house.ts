@@ -75,7 +75,7 @@ export const houseWifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(
 
 export const houseIcon: AnimatedIconDef = /* @__PURE__ */ icon(houseShapes, {
     default: { root: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([-2.5, 0]), 500, { easing: SPRING_OUT }) },
-    reveal: {
+    mark: {
       shapes: {
         1: /* @__PURE__ */ track([{ strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0 }, { strokeDasharray: '1', strokeDashoffset: '1', opacity: 0, offset: 0.15 }, { strokeDasharray: '1', strokeDashoffset: '0', opacity: 1, offset: 1 }], 600, { easing: 'ease-out' }),
       },

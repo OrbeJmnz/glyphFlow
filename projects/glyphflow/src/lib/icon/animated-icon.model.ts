@@ -94,12 +94,37 @@ export interface AutoDraw {
   easing?: string;
 }
 
+/**
+ * `reveal` automático: el icono se MATERIALIZA. Una copia tenue del trazo completo destella por
+ * debajo (el "fantasma") mientras el trazo real se dibuja encima, y el conjunto se acomoda con un
+ * bamboleo. Es la receta que `bolt` y `audio-waveform` traían escrita a mano, generalizada.
+ *
+ * Se distingue del `draw` en el fantasma: `draw` es una pluma que recorre las figuras en fila, de
+ * la más larga a la más corta; `reveal` las trae todas a la vez sobre una guía que se apaga. Sin
+ * el fantasma las dos animaciones se parecerían demasiado como para justificar las dos.
+ */
+export interface AutoReveal {
+  /** Duración del trazo (ms). El bamboleo dura un 15% más para cerrar después de él. */
+  duration?: number;
+  /** Opacidad de la guía fantasma mientras el trazo se dibuja encima. */
+  guide?: number;
+  easing?: string;
+  /** El bamboleo del conjunto. `false` lo apaga — útil si el icono ya gira en su `default`. */
+  wobble?: boolean;
+}
+
 export interface IconChoreography {
   root?: MotionTrack;
   /** Índice de la figura dentro de `shapes[]` → su track. */
   shapes?: Record<number, MotionTrack>;
   /** Dibujo de trazo automático (ver `AutoDraw`). Se combina con `root`/`shapes` sin problema. */
   autoDraw?: AutoDraw;
+  /**
+   * Materialización automática (ver `AutoReveal`). La inyecta `icon()` en TODOS los iconos, así que
+   * su presencia es también lo que distingue al `reveal` genérico de uno curado a mano — de eso
+   * depende `varianteDeHover` para no robarle el hover al icono que sí tiene gesto propio.
+   */
+  autoReveal?: AutoReveal;
   /**
    * Para animaciones de ESTADO (el icono se queda en su pose final, ej. refresh girado 45°):
    * al salir el puntero se reproduce en reversa en vez de cortarse en seco.

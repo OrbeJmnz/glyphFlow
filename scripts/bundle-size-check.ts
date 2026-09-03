@@ -33,9 +33,23 @@ const CASES = [
     filaReadme: 'One icon (`[iconDef]="bellIcon"`)',
     entry: `import { bellIcon } from '${FESM.replace(/\\/g, '/')}'; console.log(bellIcon);`,
     // Presupuesto: vocabulario de coreografía (track/rotateSeq/icon/...) + UN icono, medido en
-    // ~3.5KB gzip real. 5KB da margen sin dejar de detectar una regresión real (el catálogo
+    // ~3.5KB gzip real. El techo da margen sin dejar de detectar una regresión real (el catálogo
     // completo son ~94KB — si esto se acerca, algo volvió a arrastrar los 1766 que no se usan).
-    maxGzipBytes: 5 * 1024,
+    //
+    // **Este caso NO mide el icono solo: trae el componente entero.** La definición de un
+    // componente de Angular (`ɵɵdefineComponent`) es un efecto de nivel de módulo que esbuild no
+    // puede tirar del FESM, así que viaja aunque el entry solo importe `bellIcon`. Comprobado
+    // buscando el selector en la salida de los dos casos, y la aritmética sola ya lo delataba: si
+    // fuera el icono solo costaría 4.59KB gzip, imposible cuando los 1767 juntos son 169KB.
+    // Consecuencia: `core` NO es un presupuesto aparte del que quede aire — está DENTRO de éste, y
+    // todo lo que se le agregue al componente se cobra aquí, que es el techo apretado.
+    //
+    // Subido de 5KB a 5.5KB el 2026-09-03, decisión explícita de Orbe, por el `reveal` universal
+    // con fantasma (+0.45KB): 4.59 → 5.04. Se subió a propósito y no para tapar una regresión —
+    // el tripwire existe para cazar el catálogo colándose entero (~94KB), y 5.04 no lo amenaza.
+    // Si hace falta una SEGUNDA subida, eso ya no es margen: es que el techo dejó de significar
+    // algo y toca replantear el caso, no el número.
+    maxGzipBytes: 5.5 * 1024,
   },
   {
     name: 'B — name= (registro completo, ruta de conveniencia)',
@@ -62,6 +76,19 @@ const CASES = [
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent);`,
     maxGzipBytes: 21 * 1024,
+  },
+  {
+    name: 'morph + 1 intent — un gesto curado, no los seis',
+    // La razón de ser de este caso: los intents son SEIS consts, cada uno con dos figuras — doce
+    // iconos en el mismo módulo. Se exportan uno por uno precisamente para que quien importe
+    // `COPY_INTENT` no pague las figuras de los otros cinco; un registro por nombre (`intent="copy"`)
+    // los habría hecho a todos alcanzables desde el componente y habría arrastrado los doce.
+    //
+    // El presupuesto es el del caso `morph` (21KB) más el par de figuras que este intent SÍ usa. Si
+    // el tree-shaking dejara de podar, aquí se verían los doce y el número saltaría, no crecería.
+    filaReadme: null as string | null,
+    entry: `import { GfIconMorphComponent, COPY_INTENT } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent, COPY_INTENT);`,
+    maxGzipBytes: 22 * 1024,
   },
 ];
 

@@ -17,7 +17,7 @@ export const signalIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalShapes, {
         4: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 340 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
@@ -37,7 +37,7 @@ export const signalHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalHighSh
         3: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 260 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
@@ -55,7 +55,7 @@ export const signalMediumIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalMedi
         2: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 180 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 100 }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 200 }),
@@ -71,7 +71,7 @@ export const signalLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalLowShap
         1: /* @__PURE__ */ track(/* @__PURE__ */ strokeDraw(), 220, { delay: 100 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
       },
@@ -81,7 +81,7 @@ export const signalLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalLowShap
 /** Sin señal: solo el punto. */
 export const signalZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(signalZeroShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(/* @__PURE__ */ burst(), 260) } },
-    reveal: {
+    cascade: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 1200),
       },

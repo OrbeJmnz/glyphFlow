@@ -84,7 +84,7 @@ export const wifiIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiShapes, {
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 390 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 450 }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
@@ -102,7 +102,7 @@ export const wifiHighIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiHighShapes
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 260 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 350 }),
         2: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
@@ -118,7 +118,7 @@ export const wifiLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiLowShapes, 
         1: /* @__PURE__ */ track(WIFI_RISE, 380, { delay: 130 }),
       },
     },
-    reveal: {
+    cascade: {
       shapes: {
         1: /* @__PURE__ */ track([{ opacity: 0 }, { opacity: 1 }], 600, { easing: 'ease', delay: 250 }),
       },
@@ -128,7 +128,7 @@ export const wifiLowIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiLowShapes, 
 /** Sin señal: solo el punto. */
 export const wifiZeroIcon: AnimatedIconDef = /* @__PURE__ */ icon(wifiZeroShapes, {
     default: { shapes: { 0: /* @__PURE__ */ track(WIFI_RISE, 320) } },
-    reveal: {
+    cascade: {
       shapes: {
         0: /* @__PURE__ */ track([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }, { opacity: 0 }, { opacity: 1 }], 1200),
       },

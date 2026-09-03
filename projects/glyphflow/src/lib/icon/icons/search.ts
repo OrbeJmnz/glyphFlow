@@ -81,7 +81,7 @@ export const searchCheckIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchCheck
       },
     },
     /** Traza + el mismo "busca alrededor" que hace `search:find`. */
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track(
         [
           { transform: 'translate(0, 0)' },
@@ -114,7 +114,7 @@ export const searchSlashIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchSlash
       },
     },
     /** Traza + el mismo "busca alrededor" que hace `search:find`. */
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track(
         [
           { transform: 'translate(0, 0)' },
@@ -145,7 +145,7 @@ export const searchXIcon: AnimatedIconDef = /* @__PURE__ */ icon(searchXShapes, 
       },
     },
     /** Traza + el mismo "busca alrededor" que hace `search:find` (en vez del shake de default). */
-    reveal: {
+    assemble: {
       root: /* @__PURE__ */ track(
         [
           { transform: 'translate(0, 0)' },
