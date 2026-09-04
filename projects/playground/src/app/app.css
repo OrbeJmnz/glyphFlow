@@ -477,57 +477,12 @@
   }
 }
 
-/* ── Progreso de scroll ─────────────────────────────────────────────────────── */
-
 /*
- * La línea de progreso: los colores del logotipo, sacados del degradado del propio SVG
- * (#03CCF8 → #B952F8), no inventados a ojo.
- *
- * Va sobre el borde inferior del header, no debajo, para no sumar 2px de alto al chrome.
+ * El bloque "Progreso de scroll" (la línea del header) vive en `styles.css`, GLOBAL, no aquí —
+ * ver ahí el porqué: Angular renombra `@keyframes` en CSS de componente para el scoping de
+ * encapsulación, y el renombrado no llega a la referencia `animation-name` cuando está anidada
+ * dentro de un `@supports`. En producción la animación quedaba muda por eso, sin error visible.
  */
-.shell-progreso {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  background: linear-gradient(90deg, #03ccf8, #5987f8, #9166f8, #b952f8);
-  /* Estado en reposo: oculta. Es lo que ven los navegadores sin scroll-timeline, y está bien —
-     una barra de progreso es adorno, y su ausencia no rompe nada. */
-  clip-path: inset(0 100% 0 0);
-}
-
-/*
- * Cero JavaScript: la anima el propio scroll del documento. Es la misma tesis de la librería —
- * la plataforma ya trae el motor, no hace falta traer otro.
- *
- * Van los longhands y no el atajo `animation:` a propósito: el atajo REINICIA `animation-timeline`
- * a `auto`, así que puesto después mataría en silencio la línea de abajo. Y `animation-duration`
- * tiene que ser `auto` — es el valor que significa «la duración la marca la línea de tiempo».
- */
-@supports (animation-timeline: scroll()) {
-  .shell-progreso {
-    animation-name: gf-progreso;
-    animation-duration: auto;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: scroll(root block);
-  }
-}
-
-/*
- * Se revela con `clip-path` en vez de escalar con `scaleX`: escalar comprimiría todo el degradado
- * dentro del tramo recorrido, así que al 10% se vería el arcoíris completo en un dedo de ancho.
- * Revelando, cada color se queda en su sitio y lo que crece es cuánto se ve.
- */
-@keyframes gf-progreso {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
 
 /*
  * Con movimiento reducido, la barra se queda ausente — que es su estado en reposo, no un caso
