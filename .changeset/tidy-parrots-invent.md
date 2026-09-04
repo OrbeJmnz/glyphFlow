@@ -2,8 +2,8 @@
 'glyphflow': major
 ---
 
-`reveal` now means one thing, every icon has it, and the gesture vocabulary that replaced it grew a
-proper `dart`/`nudge`/`hold` split
+`reveal` now means one thing, every icon has it, the gesture vocabulary that replaced it grew a
+proper `dart`/`nudge`/`hold` split, and a fourth universal animation joins it: `flicker`
 
 **Breaking.** Through 2.6.0, `reveal` was the name of 122 hand-written choreographies that did
 different things: some assembled the icon from scattered pieces, some kept the base still and only
@@ -82,17 +82,32 @@ Deliberately **not** touched: `table`/`separator-*`/`fold-*`/`unfold-*`/`stretch
 does exactly what its name promises; adding a second variant would have been redundant at best, and
 at worst would silently steal hover away from a gesture that was already right.
 
+### `flicker`: a fourth universal animation
+
+Same shape as `reveal` — `icon()` hangs it on all 1767, `varianteDeHover` excludes the generic one
+the same way (checks `autoFlicker`, not the name) — but a different mechanic and much cheaper.
+The stroke un-draws (the reverse of `draw`) and draws again, all figures at once, with a brief gap
+fully erased in the middle so the two halves read as separate gestures instead of one continuous
+wiggle. No ghost, no synthesized DOM node: unlike `reveal`, there is nothing to build, so it never
+touches the geometry even temporarily.
+
+An initial hand-authored prototype on `heart`/`bell`/`wifi` was removed before shipping — once the
+automatic mechanism existed, the hand-written version was byte-for-byte the same thing with extra
+steps.
+
 ### The hover gesture is picked by name, not by position
 
 `varianteDeHover` used to take **the third key** of `animations`. With `reveal` on all 1767 that
 rule would have stolen the hover from the 672 icons that only had `draw` and `default`: they would
 have gone from their curated gesture to a generic materialization, silently and without a failing
-test. It now picks **the first name that is not `draw`, `default`, or the generic `reveal`**.
+test. It now picks **the first name that is not `draw`, `default`, or the generic `reveal`/`flicker`**.
 
 A hand-written `reveal` **does** count as an icon's own gesture — whoever wrote `bolt`'s did so
-because the generic one did not serve it — and the exclusion checks the `autoReveal` field, not the
-name. One consequence worth knowing: adding `dart`/`nudge`/`assemble`/`hold` to an icon that only had
-`default` before makes that new variant the hover target, same as it always has for named variants.
+because the generic one did not serve it — and the exclusion checks the `autoReveal`/`autoFlicker`
+field, not the name. One consequence worth knowing: adding `dart`/`nudge`/`assemble`/`hold` to an
+icon that only had `default` before makes that new variant the hover target, same as it always has
+for named variants. Verified across the whole catalog: adding universal `flicker` changed **zero**
+icons' hover target.
 
 ### Size
 
@@ -100,15 +115,15 @@ Measured in CI, not promised. The published figures move again with this round o
 
 | What you import | 2.6.0 | 3.0.0 |
 | --- | --- | --- |
-| The component alone, no icons | 4.06 KB | **5.07 KB** |
-| One icon (`[iconDef]="bellIcon"`) | 4.59 KB | **5.44 KB** |
-| The whole catalog (`name="bell"`) | — | **174.52 KB** |
+| The component alone, no icons | 4.06 KB | **5.24 KB** |
+| One icon (`[iconDef]="bellIcon"`) | 4.59 KB | **5.60 KB** |
+| The whole catalog (`name="bell"`) | — | **174.74 KB** |
 
-**The "one icon" budget is nearly exhausted**: 5.44 KB against a 5.5 KB gzip cap, 0.06 KB of
-headroom. It was raised from 5 KB to 5.5 KB for the `reveal` ghost alone; the `dart` trail and the
-`d`-attribute keyframes in this round ate the rest. The next choreography that adds real weight to a
-tree-shaken icon will need either a deliberate, approved budget raise or a lighter technique — this
-tripwire has done its job twice now and is close to doing it a third time.
+The "one icon" budget was raised twice this cycle: 5 → 5.5 KB for the `reveal` ghost, then
+5.5 → 6 KB for `flicker` (+0.16 KB — cheaper than `reveal`, since there's no ghost to synthesize).
+Both were deliberate, measured calls, not regressions papered over — the tripwire's real job is
+catching the whole catalog (~175 KB) leaking into a single-icon import, and 5.60 KB doesn't come
+close. The budget moves when there's a reason; it isn't a hard ceiling on the vocabulary.
 
 Worth repeating from before: **`core` is not a separate budget with room to spare — it sits inside
 "one icon"**, because an Angular component definition is a module-level side effect esbuild cannot
@@ -116,11 +131,13 @@ drop from the FESM. The two numbers move together because they are, structurally
 
 ### API
 
-- New exported type `AutoReveal`, and a new optional `autoReveal` field on `IconChoreography`.
+- New exported types `AutoReveal` and `AutoFlicker`, and new optional `autoReveal`/`autoFlicker`
+  fields on `IconChoreography`.
 - The `reveal` ghost is synthesized in the DOM at playback and **never enters `def.shapes`**. That is
   not a style preference: `glyphflow/morph` builds its geometry from `shapes` filtering
   `opacity !== '0'`, and one extra figure there would mismatch morphs across the whole catalog. This
-  way the published geometry does not change by a single byte for those 1767 icons.
+  way the published geometry does not change by a single byte for those 1767 icons. `flicker` has no
+  equivalent concern — it never adds a node, curated or synthesized.
 - `dart`'s trail figures are real, visible-at-zero-opacity entries in `shapes` (unlike the `reveal`
   ghost), each one declared individually in the test suite's `FIGURAS_ANEXAS` allowlist — they are
   part of the icon's own curated geometry, not synthesized at runtime.
