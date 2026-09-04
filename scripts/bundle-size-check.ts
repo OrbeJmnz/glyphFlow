@@ -44,12 +44,15 @@ const CASES = [
     // Consecuencia: `core` NO es un presupuesto aparte del que quede aire — está DENTRO de éste, y
     // todo lo que se le agregue al componente se cobra aquí, que es el techo apretado.
     //
-    // Subido de 5KB a 5.5KB el 2026-09-03, decisión explícita de Orbe, por el `reveal` universal
-    // con fantasma (+0.45KB): 4.59 → 5.04. Se subió a propósito y no para tapar una regresión —
-    // el tripwire existe para cazar el catálogo colándose entero (~94KB), y 5.04 no lo amenaza.
-    // Si hace falta una SEGUNDA subida, eso ya no es margen: es que el techo dejó de significar
-    // algo y toca replantear el caso, no el número.
-    maxGzipBytes: 5.5 * 1024,
+    // Subido de 5KB a 5.5KB el 2026-09-03 por el `reveal` universal con fantasma (+0.45KB):
+    // 4.59 → 5.04. Esa nota decía que una SEGUNDA subida significaría que el techo dejó de
+    // servir — y aun así, subido de nuevo a 6KB el 2026-09-04 por el `flicker` universal
+    // (+0.16KB: 5.44 → 5.60), decisión explícita de Orbe ("el presupuesto no debería ser un
+    // limitante, es algo que podemos seguir aumentando"). El tripwire sigue siendo real: existe
+    // para cazar el catálogo colándose entero (~175KB), y 5.60 no lo amenaza ni de lejos. Lo que
+    // cambió es el criterio: el techo ya no se toca solo cuando alguien mide y decide que vale la
+    // pena, no cuando el número se acerca solo.
+    maxGzipBytes: 6 * 1024,
   },
   {
     name: 'B — name= (registro completo, ruta de conveniencia)',

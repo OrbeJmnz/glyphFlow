@@ -40,15 +40,15 @@ export const CIFRAS = {
    * paquete PUBLICADO, que es el que el sitio consume — no el árbol de trabajo. Al publicar una
    * versión que mueva el número, se actualiza aquí junto con el `npm update glyphflow-published`.
    */
-  pesoIconoKb: 5.44,
+  pesoIconoKb: 5.60,
   /**
    * Los otros dos escenarios de `bundle-check`. Están aquí y no sueltos en la plantilla de
    * `empezando.html` porque ahí YA se pudrieron una vez: publicaban 3.74 / 4.09 / 94.48, las
    * cifras de cuando el catálogo tenía 180 curados, mientras el CI medía otra cosa. Con los tres
    * juntos, `bundle-size-check.ts` los verifica de una y no hay dónde esconder una copia.
    */
-  bundleCoreKb: 5.07,
-  bundleCatalogoKb: 174.52,
+  bundleCoreKb: 5.24,
+  bundleCatalogoKb: 174.74,
   depsAnimacion: 0,
   /**
    * El rango de Angular que el paquete declara. Escrito a mano por la MISMA razón que

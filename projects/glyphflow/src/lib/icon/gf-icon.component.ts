@@ -16,6 +16,7 @@ import {
   AnimatedIconDef,
   AnimatedIconTrigger,
   AutoDraw,
+  AutoFlicker,
   AutoReveal,
   IconShape,
   MotionTrack,
@@ -215,6 +216,8 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
    */
   private vivasReveal: Animation[] = [];
   private fantasmas: SVGElement[] = [];
+  /** Desdibujado automático, en su propio canal por lo mismo que el trazo y la materialización. */
+  private vivasFlicker: Animation[] = [];
   private observer?: IntersectionObserver;
   private unwireGroup?: () => void;
 
@@ -239,6 +242,15 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   private static readonly DRAW_KEYFRAMES: Keyframe[] = [
     { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0' },
     { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1' },
+  ];
+
+  /** El trazo del `flicker`: se desdibuja y se vuelve a dibujar. El hueco 0.45-0.55 separa los
+   * dos gestos — sin él, "se borra" y "se dibuja" se leen como un solo movimiento continuo. */
+  private static readonly FLICKER_KEYFRAMES: Keyframe[] = [
+    { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', offset: 0 },
+    { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', offset: 0.45 },
+    { strokeDasharray: '1', strokeDashoffset: '1', opacity: '0', offset: 0.55 },
+    { strokeDasharray: '1', strokeDashoffset: '0', opacity: '1', offset: 1 },
   ];
 
   /**
@@ -380,6 +392,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     // El trazo anterior no se releva, se tira: arranca invisible, no hay pose que entregar.
     this.detenerDraw();
     this.detenerReveal();
+    this.detenerFlicker();
 
     // Las figuras que animaba la variante anterior y esta ya NO toca se cortan en seco a propósito
     // — no hay animación nueva a la que entregarles la pose, y su lugar es la base. El relevo suave
@@ -400,6 +413,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
 
     if (chor.autoDraw) this.vivasDraw = this.runAutoDraw(children, chor.autoDraw);
     if (chor.autoReveal) this.vivasReveal = this.runAutoReveal(root, children, chor.autoReveal);
+    if (chor.autoFlicker) this.vivasFlicker = this.runAutoFlicker(children, chor.autoFlicker);
   }
 
   /**
@@ -481,6 +495,43 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     }
     this.vivasReveal = [];
     this.quitarFantasmas();
+  }
+
+  /**
+   * `flicker` universal: el trazo se DESdibuja y se vuelve a dibujar, todas las figuras a la vez.
+   * A diferencia de `runAutoReveal`, aquí no hay nada que sintetizar — ni fantasma ni nodo nuevo —
+   * así que la geometría no se toca ni siquiera temporalmente.
+   */
+  private runAutoFlicker(children: SVGElement[], cfg: AutoFlicker): Animation[] {
+    const { duration = 900, easing = 'ease-in-out' } = cfg;
+    const opts: KeyframeAnimationOptions = {
+      duration: duration * this.durationScale,
+      easing: easingSeguro(easing),
+      ...(this.loop ? { iterations: Infinity } : {}),
+    };
+
+    // Mismo criterio que `runAutoDraw`: una figura que el icono no enseña en reposo no forma
+    // parte de su trazo (las estelas de `dart`, p. ej.).
+    const anims = children
+      .filter((el) => el.getAttribute('opacity') !== '0')
+      .map((el) => el.animate(GfIconComponent.FLICKER_KEYFRAMES, opts));
+
+    const ultima = anims[anims.length - 1];
+    if (ultima && !this.loop) {
+      ultima.onfinish = () => {
+        ultima.onfinish = null;
+        this.detenerFlicker();
+      };
+    }
+    return anims;
+  }
+
+  private detenerFlicker(): void {
+    for (const anim of this.vivasFlicker) {
+      anim.onfinish = null;
+      anim.cancel();
+    }
+    this.vivasFlicker = [];
   }
 
   /**
@@ -573,6 +624,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     for (const el of [...this.vivasTrack.keys()]) this.detenerTrack(el);
     this.detenerDraw();
     this.detenerReveal();
+    this.detenerFlicker();
   }
 
   private detenerTrack(el: SVGElement): void {

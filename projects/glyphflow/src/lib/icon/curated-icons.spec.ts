@@ -421,9 +421,10 @@ describe('Barrido de sanidad — los 180 curados', () => {
   it('el gesto de hover es el primer nombre propio, y `animation` manda sobre él', () => {
     const g = {}; // una coreografía cualquiera; aquí solo importan los NOMBRES
     const auto = { autoReveal: {} }; // el `reveal` que `icon()` le cuelga a los 1767
+    const autoF = { autoFlicker: {} }; // el `flicker` que `icon()` le cuelga a los 1767
 
     // Sin segundo argumento — el consumidor no fijó `animation` — manda el primer nombre que no
-    // sea `draw`, `default` ni el `reveal` genérico.
+    // sea `draw`, `default` ni el `reveal`/`flicker` genéricos.
     expect(varianteDeHover({ draw: g, default: g, spin: g, hold: g })).toBe('spin');
     expect(varianteDeHover({ draw: g, default: g })).toBe('default');
     expect(varianteDeHover({})).toBe('default');
@@ -433,6 +434,11 @@ describe('Barrido de sanidad — los 180 curados', () => {
     // gesto curado a una materialización genérica, en silencio y sin un test en rojo.
     expect(varianteDeHover({ draw: g, default: g, reveal: auto })).toBe('default');
     expect(varianteDeHover({ draw: g, default: g, spin: g, reveal: auto })).toBe('spin');
+
+    // Mismo descarte para el `flicker` GENÉRICO, mismo motivo: lo tienen los 1767 también.
+    expect(varianteDeHover({ draw: g, default: g, flicker: autoF })).toBe('default');
+    expect(varianteDeHover({ draw: g, default: g, spin: g, flicker: autoF })).toBe('spin');
+    expect(varianteDeHover({ draw: g, default: g, reveal: auto, flicker: autoF })).toBe('default');
 
     // Pero el CURADO a mano sí cuenta: no trae `autoReveal`, y quien lo escribió lo hizo porque el
     // genérico no le servía (`bolt`, `audio-waveform`, las monedas).

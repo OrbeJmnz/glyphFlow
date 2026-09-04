@@ -79,11 +79,11 @@ export function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
  * regla le habría robado el hover a los 672 iconos que solo tenían `draw`+`default`: pasarían de
  * su gesto curado a una materialización genérica, en silencio y sin un test en rojo.
  *
- * **El `reveal` curado a mano SÍ cuenta**, y por eso el descarte mira `autoReveal` en vez del
- * nombre: quien escribió a mano el reveal de `bolt` o de `audio-waveform` lo hizo porque el gesto
- * genérico no le servía, y degradarlos a `default` sería barrer justo el criterio humano. Medido
- * sobre el catálogo: 1758 de 1767 iconos conservan su gesto de hover, y los 9 que cambian lo hacen
- * por decisiones tomadas a propósito.
+ * **El `reveal`/`flicker` curados a mano SÍ cuentan**, y por eso el descarte mira `autoReveal`/
+ * `autoFlicker` en vez del nombre: quien escribió a mano el reveal de `bolt` o de
+ * `audio-waveform` lo hizo porque el gesto genérico no le servía, y degradarlos a `default` sería
+ * barrer justo el criterio humano. Medido sobre el catálogo: 1758 de 1767 iconos conservan su
+ * gesto de hover, y los 9 que cambian lo hacen por decisiones tomadas a propósito.
  *
  * **Lo que fije el consumidor gana entero, `'default'` incluido.** El único centinela de "no lo
  * fijó" es `undefined`. Antes se descartaba también el string `'default'`, porque el input del
@@ -95,13 +95,16 @@ export function conRelevo(keyframes: Keyframe[]): Keyframe[] | null {
  * silencio, y el precio de esa divergencia es que el lock diga verde mientras el gesto cambió.
  */
 export function varianteDeHover(
-  animations: Record<string, { autoReveal?: unknown } | undefined> | undefined,
+  animations:
+    | Record<string, { autoReveal?: unknown; autoFlicker?: unknown } | undefined>
+    | undefined,
   animation?: string,
 ): string {
   if (animation) return animation;
   for (const clave of Object.keys(animations ?? {})) {
     if (clave === 'draw' || clave === 'default') continue;
     if (clave === 'reveal' && animations?.[clave]?.autoReveal) continue;
+    if (clave === 'flicker' && animations?.[clave]?.autoFlicker) continue;
     return clave;
   }
   return 'default';

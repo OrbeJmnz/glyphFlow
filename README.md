@@ -31,11 +31,11 @@ Measured in CI on every push, not promised — `npm run bundle-check`:
 
 | What you import                   | gzip          |
 | --------------------------------- | ------------- |
-| The component alone, no icons     | **5.07 KB**   |
-| One icon (`[iconDef]="bellIcon"`) | **5.44 KB**   |
-| The whole catalog (`name="bell"`) | **174.52 KB** |
+| The component alone, no icons     | **5.24 KB**   |
+| One icon (`[iconDef]="bellIcon"`) | **5.60 KB**   |
+| The whole catalog (`name="bell"`) | **174.74 KB** |
 
-An icon costs about 0.37 KB on top of the runtime. Looking one up by name forces the bundler to keep
+An icon costs about 0.36 KB on top of the runtime. Looking one up by name forces the bundler to keep
 all 1767, because it cannot know which one you will ask for — so that route is opt-in via
 `provideIconCatalog(ANIMATED_ICONS)`, never a hidden fallback.
 
