@@ -5,7 +5,7 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { track, burst, strokeDraw, icon } from '../choreography';
 import { grid2x2CheckShapes, grid2x2PlusShapes, grid2x2Shapes, grid2x2XShapes } from '../animated-icons.shapes';
-import { lineaDespliegaYVaga } from './_shared';
+import { lineaDespliegaYVaga, lineaVaga } from './_shared';
 
 // El marco entra con un pop; las divisiones/insignia se dibujan encima.
 // Parpadeo corto tras dibujarse, como refrescando la vista.
@@ -88,6 +88,17 @@ export const grid3x2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 930, { origin: '9px 3px', delay: 108, fill: 'backwards' }),
       },
     },
+    /**
+     * Solo la mitad del `default`: la línea ya está desplegada, así que aquí nomás vaga.
+     * Mismo eje/amplitud/semilla que su propio default, para que se sienta la misma línea.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('Y', 3, 1), 620, { origin: '3px 12px' }),
+        0: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 2), 620, { origin: '15px 3px', delay: 60, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 0), 620, { origin: '9px 3px', delay: 120, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -107,6 +118,18 @@ export const grid3x3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('X', 'Y', 2.2, 2), 904, { origin: '3px 15px', delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 1), 904, { origin: '9px 3px', delay: 136, fill: 'backwards' }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 904, { origin: '15px 3px', delay: 196, fill: 'backwards' }),
+      },
+    },
+    /**
+     * Solo la mitad del `default`: la línea ya está desplegada, así que aquí nomás vaga.
+     * Mismo eje/amplitud/semilla que su propio default, para que se sienta la misma línea.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('Y', 2.2, 0), 620, { origin: '3px 9px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('Y', 2.2, 2), 620, { origin: '3px 15px', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 1), 620, { origin: '9px 3px', delay: 120, fill: 'backwards' }),
+        4: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 0), 620, { origin: '15px 3px', delay: 180, fill: 'backwards' }),
       },
     },
   },
