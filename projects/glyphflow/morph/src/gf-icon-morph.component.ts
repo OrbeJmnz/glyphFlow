@@ -6,7 +6,6 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
-  SimpleChanges,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -17,6 +16,7 @@ import {
 import { GF_ICONS_CONFIG, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
+import type { MorphIntent } from './intents';
 import { createLiveMorph, type LiveMorph } from './live-morph';
 import type { IconInput } from './core/types';
 
@@ -32,6 +32,30 @@ export interface MorphIcon {
   viewBox?: string;
   shapes: IconShape[];
 }
+
+/**
+ * Los cuatro momentos de una operación asíncrona, en el orden en que ocurren.
+ *
+ * No hay un quinto: `idle` es tanto el antes como el después de un `autoReset`. Un estado
+ * "cancelado" o "vacío" se modela desde fuera volviendo a `idle`.
+ */
+export type GfAsyncState = 'idle' | 'loading' | 'success' | 'error';
+
+/**
+ * Lo que tarda una vuelta del spinner de `asyncState="loading"`.
+ *
+ * Un segundo es el consenso de facto: por debajo lee como nervioso, por encima como colgado. Se
+ * escala con el mismo `provideGfIcons({ durationScale })` que el resto del motor.
+ */
+const VUELTA_MS = 1000;
+
+/**
+ * Lo que tarda el spinner en ASENTARSE cuando llega la respuesta.
+ *
+ * Corto a propósito y fijo, no proporcional a lo que falte de vuelta: cuando la respuesta ya está
+ * en pantalla, el giro dejó de ser información y es solo ruido encima de ella.
+ */
+const ASENTAR_MS = 240;
 
 /**
  * `shapes` → data estilo Lucide (`[tag, attrs][]`), que es lo que come el core.
@@ -78,7 +102,7 @@ function aIconInput(icono: MorphIcon): IconInput {
   template: `
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      [attr.viewBox]="icon?.viewBox ?? '0 0 24 24'"
+      [attr.viewBox]="viewBoxActual"
       fill="none"
       stroke="currentColor"
       [attr.stroke-width]="strokeWidth"
@@ -89,11 +113,21 @@ function aIconInput(icono: MorphIcon): IconInput {
       style="display: block"
     >
       <!--
-        El atributo "d" se escribe imperativamente, NUNCA con [attr.d]: la animación y el
-        aterrizaje también lo escriben, y dos dueños del mismo atributo terminan peleándose — un
-        ciclo de detección de cambios pisaría el valor animado a media transición.
+        El giro del estado "loading" va en este g, NO en el path: el fallback de crossfade de
+        runMorph anima el transform de la figura, y dos animaciones sobre la misma propiedad del
+        mismo elemento se pisan (gana la última en empezar). Tampoco va en el svg: ahí el
+        transform-origin se resuelve contra la caja de layout del host, que el consumidor controla
+        con "size". Un g con transform-box view-box gira siempre sobre el centro del viewBox, pase
+        lo que pase afuera.
       -->
-      <path #figura />
+      <g #giro>
+        <!--
+          El atributo "d" se escribe imperativamente, NUNCA con [attr.d]: la animación y el
+          aterrizaje también lo escriben, y dos dueños del mismo atributo terminan peleándose — un
+          ciclo de detección de cambios pisaría el valor animado a media transición.
+        -->
+        <path #figura />
+      </g>
     </svg>
   `,
   styles: [
@@ -105,6 +139,11 @@ function aIconInput(icono: MorphIcon): IconInput {
     // `correspondenceIsPoor`) derivaría desde la esquina del viewBox en vez del centro del propio
     // trazo — el icono se vería "arrastrarse" hacia una esquina en vez de encogerse en su sitio.
     'path { transform-box: fill-box; transform-origin: center; }',
+    // EXPLÍCITO a propósito, no por confiar en el default del navegador: es la misma cicatriz que
+    // ya obligó a fijar `transform-box` en las figuras hijas del motor de <gf-icon>. Con `view-box`
+    // el pivote es el centro del viewBox (12,12 en un icono de Lucide), no el de la caja del trazo
+    // — un spinner que gire sobre el bbox de su propia figura bambolea.
+    'g { transform-box: view-box; transform-origin: center; }',
   ],
   host: {
     '[style.--ai-size.px]': 'size',
@@ -112,12 +151,62 @@ function aIconInput(icono: MorphIcon): IconInput {
 })
 export class GfIconMorphComponent implements OnChanges, OnDestroy {
   @ViewChild('figura', { static: true }) private figura!: ElementRef<SVGPathElement>;
+  @ViewChild('giro', { static: true }) private grupo!: ElementRef<SVGGElement>;
 
   /**
    * El icono a mostrar. Cambiarlo dispara el morph desde el valor anterior; el primer valor se
    * pinta estático (no hay desde dónde transicionar).
    */
   @Input() icon?: MorphIcon;
+
+  /**
+   * Máquina de estados de una operación asíncrona. Mientras esté definido **manda sobre `icon`**:
+   * son dos formas de decir lo mismo y tener dos dueños del mismo `<path>` acaba en un empate que
+   * el consumidor no puede depurar.
+   *
+   * ```html
+   * <gf-icon-morph [asyncState]="estado()" [autoReset]="2000"
+   *   [idleIcon]="sparklesIcon" [loadingIcon]="loaderCircleIcon"
+   *   [successIcon]="checkIcon"  [errorIcon]="triangleAlertIcon" />
+   * ```
+   */
+  @Input() asyncState?: GfAsyncState;
+  @Input() idleIcon?: MorphIcon;
+  @Input() loadingIcon?: MorphIcon;
+  @Input() successIcon?: MorphIcon;
+  @Input() errorIcon?: MorphIcon;
+
+  /**
+   * Un gesto de dos estados ya curado: el par de figuras, su resorte y si el activo es transitorio.
+   *
+   * ```html
+   * <gf-icon-morph [intent]="COPY_INTENT" [active]="copiado()" />
+   * ```
+   *
+   * Manda sobre `icon` y cede ante `asyncState` — de más específico a menos, un solo dueño del
+   * `<path>` en cada momento.
+   */
+  @Input() intent?: MorphIntent;
+  /** Qué lado del `intent` se enseña. Sin `intent` no hace nada. */
+  @Input() active = false;
+  /**
+   * Milisegundos tras los que un estado transitorio vuelve solo a reposo: `success`/`error` con
+   * `asyncState`, el lado activo con `intent`.
+   *
+   * **Sin inicializador A PROPÓSITO.** `0` es un valor legítimo —"no vuelvas"— así que traerlo
+   * como default lo volvería indistinguible de "el consumidor no lo fijó", y entonces el
+   * `autoReset` que trae un intent (`COPY_INTENT` vuelve a los 2 s) no se podría apagar nunca desde
+   * la plantilla. `undefined` es el único centinela que no colisiona. Es la misma trampa que ya
+   * mordió con `animation="default"` en `<gf-icon>`.
+   *
+   * Vuelve el ICONO, no el input: `asyncState`/`active` siguen siendo del consumidor y esto no
+   * puede escribirle su señal. La consecuencia práctica: para enseñar dos éxitos seguidos hay que
+   * pasar otra vez por `loading`, igual que en la vida real.
+   *
+   * Se lee en el momento de la transición, no de forma continua.
+   */
+  @Input() autoReset?: number;
+
   @Input() size: number | string = 24;
   @Input() strokeWidth: number | string = 2;
   /**
@@ -167,16 +256,87 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
   private anterior?: MorphIcon;
   private modoVivo: boolean | null = null;
   private motorVivo?: LiveMorph;
+  /** La vuelta va junto a su animación: `detenerGiro` necesita el periodo para rematar a la MISMA
+   *  velocidad angular, y leerlo del `effect` obliga a que exista `getTiming()` en cada entorno. */
+  private giro?: { animacion: Animation; vuelta: number };
+  /** La vuelta de cierre. Se guarda solo para poder cancelarla si vuelve a cargar a media parada. */
+  private remate?: Animation;
+  /** El último valor VISTO del input, para distinguir un cambio real de un `ngOnChanges` de paso. */
+  private ultimoEstado?: GfAsyncState;
+  /** Lo que se está ENSEÑANDO. Tras un `autoReset` ya no coincide con el input: el input es del
+   *  consumidor y este componente no puede escribirle su señal. */
+  private mostrado?: GfAsyncState;
+  /** El par `ultimo…`/`…Mostrado` de `intent`, por el mismo motivo que el de `asyncState`. */
+  private ultimoActivo?: boolean;
+  private activoMostrado = false;
+  private regreso?: ReturnType<typeof setTimeout>;
 
   protected get ariaHidden(): 'true' | 'false' {
     return this.decorative && !this.label ? 'true' : 'false';
   }
 
-  ngOnChanges(cambios: SimpleChanges): void {
-    if (!cambios['icon']) return;
+  /** Del icono que se está enseñando, no del input `icon`: con `intent`/`asyncState` ese está vacío. */
+  protected get viewBoxActual(): string {
+    return this.iconoObjetivo?.viewBox ?? '0 0 24 24';
+  }
+
+  /** El input pisa al intent: fijar `spring` en la plantilla es decir "este gesto, con MI carácter". */
+  private get resorte(): SpringPreset | SpringConfig | undefined {
+    return this.spring ?? this.intent?.spring;
+  }
+
+  /**
+   * Qué figura toca pintar. Precedencia de más específico a menos: `asyncState` → `intent` →
+   * `icon`. Un solo dueño del `<path>` en cada momento; dos serían un empate imposible de depurar
+   * desde fuera.
+   */
+  private get iconoObjetivo(): MorphIcon | undefined {
+    switch (this.mostrado) {
+      case undefined:
+        if (this.intent) return this.activoMostrado ? this.intent.active : this.intent.idle;
+        return this.icon;
+      case 'idle':
+        return this.idleIcon;
+      case 'loading':
+        return this.loadingIcon;
+      case 'success':
+        return this.successIcon;
+      case 'error':
+        return this.errorIcon;
+    }
+  }
+
+  ngOnChanges(): void {
+    // Solo un cambio REAL del input reengancha la máquina: `ngOnChanges` también corre por `size`,
+    // `label` o `spring`, y reprogramar el `autoReset` en cada uno reiniciaría la cuenta atrás.
+    const cambioEstado = this.asyncState !== this.ultimoEstado;
+    const cambioActivo = this.active !== this.ultimoActivo;
+    if (cambioEstado) {
+      this.ultimoEstado = this.asyncState;
+      this.mostrado = this.asyncState;
+    }
+    if (cambioActivo) {
+      this.ultimoActivo = this.active;
+      this.activoMostrado = this.active;
+    }
+    if (cambioEstado || cambioActivo) this.programarRegreso();
+    this.aplicar();
+  }
+
+  /** Pinta lo que toca ahora mismo, venga de un input o del temporizador de `autoReset`. */
+  private aplicar(): void {
+    // ANTES del guard de identidad: el giro depende del ESTADO, no de la figura. Si `loadingIcon` y
+    // `successIcon` fueran el mismo objeto, el guard cortaría aquí y el spinner seguiría girando
+    // sobre un icono que ya dice "listo".
+    this.sincronizarGiro();
+
+    const nuevo = this.iconoObjetivo;
+    // Identidad, no `cambios['icon']`: con `asyncState` el `<path>` tiene dos posibles dueños y el
+    // que manda no siempre es el input que cambió. Comparar el RESULTADO cubre los dos y de paso
+    // ignora los cambios de `size`/`spring`/`label`, que no mueven la figura.
+    if (nuevo === this.anterior) return;
     this.modoVivo ??= this.live;
 
-    const nuevo = this.icon;
     const anterior = this.anterior;
     this.anterior = nuevo;
 
@@ -244,7 +404,7 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
         this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
         this.motorVivo.morphTo(aIconInput(nuevo), {
           durationScale,
-          ...(this.spring ? { spring: this.spring } : {}),
+          ...(this.resorte ? { spring: this.resorte } : {}),
         });
       });
       return;
@@ -252,12 +412,138 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
 
     runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
       durationScale,
-      ...(this.spring ? { spring: this.spring } : {}),
+      ...(this.resorte ? { spring: this.resorte } : {}),
     });
   }
 
   ngOnDestroy(): void {
     this.motorVivo?.destroy();
+    // Cancelar a secas, sin rematar la vuelta: el elemento se va del DOM, así que la vuelta de
+    // cierre no la vería nadie y quedaría corriendo sobre un nodo desmontado.
+    this.giro?.animacion.cancel();
+    this.remate?.cancel();
+    this.giro = undefined;
+    this.remate = undefined;
+    // Sin esto, el regreso dispara sobre un componente desmontado y escribe en un nodo suelto.
+    clearTimeout(this.regreso);
+    this.regreso = undefined;
+  }
+
+  /**
+   * Prende el giro del estado `loading`. Idempotente: mientras siga cargando, llamarlo de más no
+   * reinicia la vuelta en curso.
+   *
+   * No se envuelve en `runOutsideAngular` como sí hace el motor en vivo: WAAPI no agenda ninguna
+   * tarea de zona — corre en el compositor y no dispara detección de cambios por frame.
+   */
+  /**
+   * Agenda —o cancela— el regreso a `idle` de un estado terminal.
+   *
+   * Se llama en CADA cambio real de estado, también al entrar en `loading`: así un `loading` que
+   * llega mientras un "listo" anterior espera su regreso mata esa cuenta atrás, en vez de dejarla
+   * disparar encima del ciclo nuevo.
+   */
+  private programarRegreso(): void {
+    clearTimeout(this.regreso);
+    this.regreso = undefined;
+
+    // El input manda si se fijó, INCLUIDO `0`; si no, el que traiga el intent. Ver el comentario
+    // del input `autoReset`: sin el centinela `undefined`, un intent con regreso propio no se
+    // podría apagar desde la plantilla.
+    const ms = this.autoReset ?? this.intent?.autoReset ?? 0;
+    if (ms <= 0) return;
+
+    const enEstadoTransitorio =
+      this.mostrado === 'success' ||
+      this.mostrado === 'error' ||
+      (this.mostrado === undefined && !!this.intent && this.activoMostrado);
+    if (!enEstadoTransitorio) return;
+
+    this.regreso = setTimeout(() => {
+      this.regreso = undefined;
+      if (this.mostrado === undefined) this.activoMostrado = false;
+      else this.mostrado = 'idle';
+      // `aplicar()` escribe el `<path>` a mano, así que no necesita un ciclo de detección: el
+      // componente es OnPush y ningún binding de la plantilla depende del estado.
+      this.aplicar();
+    }, ms);
+  }
+
+  private sincronizarGiro(): void {
+    if (this.mostrado !== 'loading') {
+      this.detenerGiro();
+      return;
+    }
+    if (this.giro) return;
+    // Mismo guard que el morph: sin WAAPI (SSR, navegador sin soporte) se ve el icono de carga
+    // quieto, que es peor que girar pero mucho mejor que no pintar nada.
+    const el = this.grupo.nativeElement;
+    if (typeof el.animate !== 'function') return;
+    // Movimiento reducido: el icono de carga SÍ se pinta (el estado es información), solo no gira.
+    if (this.respectReducedMotion && this.movimientoReducido) return;
+
+    // Si volvió a cargar mientras se remataba la vuelta anterior, esa cierra sobre el mismo
+    // `transform`: sin cancelarla, las dos animaciones se pisan y gana la última en empezar.
+    this.remate?.cancel();
+    this.remate = undefined;
+
+    // `Math.max`: con `durationScale` en 0 o negativo, una duración 0 con iteraciones infinitas
+    // reinicia el ciclo en cada frame y el icono vibra en vez de girar.
+    const vuelta = Math.max(1, VUELTA_MS * (this.config?.durationScale ?? 1));
+    const animacion = el.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], {
+      duration: vuelta,
+      iterations: Infinity,
+      // `linear` no es pereza: cualquier easing le mete un pulso a cada vuelta, y un spinner que
+      // acelera y frena lee como si la operación fuera a trompicones.
+      easing: 'linear',
+    });
+    this.giro = { animacion, vuelta };
+  }
+
+  /**
+   * Apaga el giro ASENTÁNDOLO en el reposo más cercano, ni de golpe ni completando la vuelta.
+   *
+   * Cancelar y ya devuelve el `<g>` a 0° en un solo frame: con el spinner a media vuelta son 180°
+   * de salto justo cuando el usuario está mirando, porque es cuando llega la respuesta.
+   *
+   * Pero completar la vuelta a velocidad constante —lo que hacía la primera versión de esto— es
+   * PEOR: el `<path>` ya está morfeando hacia la palomita mientras el grupo sigue rodando, así que
+   * la respuesta se pasa hasta un segundo entero dando vueltas. Un spinner que se resuelve frena;
+   * no termina su lap. Por eso el destino es el múltiplo de 360° más cercano (nunca más de medio
+   * giro de recorrido) y la duración es corta y fija.
+   *
+   * `ease-out` y no `SPRING_SMOOTH`, que sería la curva de la casa: este entry point se compila
+   * TAMBIÉN contra el `glyphflow` PUBLICADO (hoy 2.4.0), que no exporta `spring-easings` todavía —
+   * importarlo aquí dejaría `typecheck` en rojo hasta la próxima release. A 240 ms un ease-out y un
+   * resorte crítico son indistinguibles.
+   */
+  private detenerGiro(): void {
+    const giro = this.giro;
+    if (!giro) return;
+    this.giro = undefined;
+
+    const transcurrido = Number(giro.animacion.currentTime ?? 0);
+    giro.animacion.cancel();
+    if (!Number.isFinite(transcurrido)) return;
+
+    // Módulo defensivo: `currentTime` de una animación infinita crece sin techo.
+    const recorrido = ((transcurrido % giro.vuelta) + giro.vuelta) % giro.vuelta;
+    // Justo en 0°: ya está donde tiene que estar, animar sería peor que no hacer nada.
+    if (recorrido === 0) return;
+
+    const angulo = (recorrido / giro.vuelta) * 360;
+    // Atrás si no pasó del medio giro, adelante si ya lo pasó: como mucho 180° de recorrido.
+    const destino = angulo <= 180 ? 0 : 360;
+
+    const el = this.grupo.nativeElement;
+    if (typeof el.animate !== 'function') return;
+    this.remate = el.animate(
+      [{ transform: `rotate(${angulo}deg)` }, { transform: `rotate(${destino}deg)` }],
+      {
+        duration: Math.max(1, ASENTAR_MS * (this.config?.durationScale ?? 1)),
+        easing: 'ease-out',
+      },
+    );
   }
 
   /** `NgZone.runOutsideAngular` si hay zona; si no (`inject` opcional sin proveedor), corre la

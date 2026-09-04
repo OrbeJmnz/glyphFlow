@@ -140,7 +140,29 @@ function puntoMasCercanoEnAngulo(
  *
  * `destino` se asume de UN solo subpath.
  */
-function construirConSatelites(origenD: string, indiceCuerpo: number, destinoD: string): CuratedMorph {
+/**
+ * Reparto del reloj cuando el gesto se cuenta en DOS ACTOS en vez de hacer todo a la vez.
+ *
+ * `satelite` es la fracción de `t` en la que los satélites terminan de retraerse; `cuerpo`, aquella
+ * en la que el cuerpo empieza a morfear. **Se solapan a propósito**: sin solape se leen como dos
+ * animaciones pegadas con una costura en medio, no como un gesto con dos tiempos.
+ *
+ * Sin esto (el default) los dos comparten `t` y ocurren simultáneamente, que es como nacieron los
+ * curados. No se escalona por gusto: solo donde hacerlo a la vez esconde la mitad del gesto.
+ */
+interface Escalonado {
+  readonly satelite: number;
+  readonly cuerpo: number;
+}
+
+const acotar01 = (x: number): number => (x < 0 ? 0 : x > 1 ? 1 : x);
+
+function construirConSatelites(
+  origenD: string,
+  indiceCuerpo: number,
+  destinoD: string,
+  escalonado?: Escalonado,
+): CuratedMorph {
   const origen = resampleIcon(origenD);
   const destino = resampleIcon(destinoD);
   const cuerpoOrigen = origen[indiceCuerpo];
@@ -160,7 +182,11 @@ function construirConSatelites(origenD: string, indiceCuerpo: number, destinoD: 
     });
 
   function pose(t: number): string {
-    interpPolar(plan, t, cuerpoOut);
+    // Cada acto con su propio reloj. Sin `escalonado` los dos son `t` y no cambia nada.
+    const tCuerpo = escalonado ? acotar01((t - escalonado.cuerpo) / (1 - escalonado.cuerpo)) : t;
+    const tSatelite = escalonado ? acotar01(t / escalonado.satelite) : t;
+
+    interpPolar(plan, tCuerpo, cuerpoOut);
     const salidas: Float64Array[] = [cuerpoOut[0]];
     const cerrados = [cuerpoCerrado];
     for (const sat of satelites) {
@@ -168,8 +194,8 @@ function construirConSatelites(origenD: string, indiceCuerpo: number, destinoD: 
       const n = sat.pts.length / 2;
       const encogido = new Float64Array(sat.pts.length);
       for (let i = 0; i < n; i++) {
-        encogido[2 * i] = sat.pts[2 * i] + (bx - sat.pts[2 * i]) * t;
-        encogido[2 * i + 1] = sat.pts[2 * i + 1] + (by - sat.pts[2 * i + 1]) * t;
+        encogido[2 * i] = sat.pts[2 * i] + (bx - sat.pts[2 * i]) * tSatelite;
+        encogido[2 * i + 1] = sat.pts[2 * i + 1] + (by - sat.pts[2 * i + 1]) * tSatelite;
       }
       salidas.push(encogido);
       cerrados.push(sat.closed);
@@ -281,7 +307,17 @@ const REGISTRO: EntradaCurada[] = [
   {
     origenD: COPY_D,
     destinoD: CHECK_D,
-    construir: () => construirConSatelites(COPY_D, 1, CHECK_D),
+    /*
+     * ESCALONADO, único del registro. Copiar es dos cosas —la hoja de encima se va, lo que queda
+     * se vuelve palomita— y hacerlas a la vez las esconde: se leía como "algo pequeño cambió", sin
+     * que se pudiera decir qué. En dos tiempos el gesto se cuenta.
+     *
+     * El cuadrado sale primero y el cuerpo espera: medido, la "L" (trazo ABIERTO) va a la palomita
+     * con residual 0.286, mientras que el cuadrado (bucle CERRADO) daría 0.676 — casi el umbral de
+     * fundido. Cerrado → abierto es el caso duro del motor, así que la pieza que sobrevive tiene
+     * que ser la L, no el cuadrado.
+     */
+    construir: () => construirConSatelites(COPY_D, 1, CHECK_D, { satelite: 0.45, cuerpo: 0.35 }),
     cache: null,
   },
   // volume-off→volume: el cuerpo del parlante (índice 3 de volume-off) es prácticamente idéntico al

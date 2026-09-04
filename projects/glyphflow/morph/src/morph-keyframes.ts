@@ -539,6 +539,29 @@ function curatedKeyframes(
     offsetsDeTramo.push(offsetPara(t, tiempos, progreso));
   }
 
+  /*
+   * EL RELOJ NO PUEDE SOBRAR. `offsetPara` devuelve el instante en que el resorte cruza el destino
+   * por PRIMERA vez, y con un preset que sobrepasa eso ocurre mucho antes del final: 0.547 con
+   * `snappy`, 0.192 con `bouncy`. Sin esto el último keyframe se quedaba ahí, y WAAPI congela una
+   * propiedad desde su último offset hasta el final — el icono terminaba de morfear, se quedaba
+   * tieso el resto de la duración, y pegaba un saltito al escribir `runMorph` el `d` de reposo.
+   * Con `bouncy` eran cuatro quintas partes del tiempo en blanco.
+   *
+   * La rama geométrica de abajo resuelve lo mismo DIBUJANDO el rebote (poses con t > 1) y cerrando
+   * en offset 1. Aquí no se puede copiar tal cual: `limiteSeguro` necesita un `plan` con figuras y
+   * dos de los tres constructores de `curated-morphs.ts` devuelven `PLAN_VACIO`, así que no hay con
+   * qué acotar cuánto puede salirse la figura del lienzo.
+   *
+   * Se recorta el reloj en su lugar: los offsets se reescalan para que el último sea 1 y la
+   * duración se acorta en la MISMA proporción. El instante real de cada pose no se mueve ni un
+   * milisegundo — el movimiento visible queda idéntico y lo único que desaparece es la cola muerta.
+   */
+  const cruce = offsetsDeTramo[offsetsDeTramo.length - 1];
+  const recorteDeReloj = cruce > 0 && cruce < 1 ? cruce : 1;
+  if (recorteDeReloj !== 1) {
+    for (let i = 0; i < offsetsDeTramo.length; i++) offsetsDeTramo[i] /= recorteDeReloj;
+  }
+
   const keyframes: Keyframe[] = [];
   if (roundTrip) {
     for (let i = 0; i < pasos; i++) keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] / 2 });
@@ -549,7 +572,7 @@ function curatedKeyframes(
     for (let i = 0; i < pasos; i++) keyframes.push({ d: poses[i], offset: offsetsDeTramo[i] });
   }
 
-  const duracionDeTramo = tiempos[tiempos.length - 1] * 1000;
+  const duracionDeTramo = tiempos[tiempos.length - 1] * 1000 * recorteDeReloj;
   const bytes = new TextEncoder().encode(JSON.stringify(keyframes)).length;
   const duracion = roundTrip ? duracionDeTramo * 2 : duracionDeTramo;
   return { keyframes, duration: duracion, duracion, bytes, plan: curado.plan };

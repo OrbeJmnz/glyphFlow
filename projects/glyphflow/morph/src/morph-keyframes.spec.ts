@@ -665,3 +665,97 @@ describe('curado — eye↔eye-closed: sin cuerpo compartido, converge/emerge de
     for (const s of subs1.slice(0, 2)) expect(anchoDe(s)).toBeLessThan(0.01);
   });
 });
+
+describe('curado + resorte con sobrepaso — el reloj no puede sobrar', () => {
+  /**
+   * El bug: `offsetPara` devuelve el instante en que el resorte CRUZA el destino por primera vez,
+   * y con sobrepaso eso pasa mucho antes del final (con `snappy`, al 54.7%). La rama geométrica lo
+   * compensa añadiendo las poses del rebote y cerrando en offset 1; la curada nunca lo hizo, así
+   * que su último keyframe quedaba en 0.547 — y WAAPI CONGELA la propiedad desde ahí hasta el
+   * final. Se veía como un icono que termina de morfear, se queda tieso, y pega un saltito cuando
+   * `runMorph` escribe el `d` de reposo al acabar.
+   *
+   * Lo cazó el ojo, no los tests: 149 pasaban con el congelado dentro.
+   */
+  const CURADOS: [string, typeof copy, typeof copy][] = [
+    ['copy→check', copy, check],
+    ['check→copy', check, copy],
+  ];
+
+  for (const preset of ['snappy', 'bouncy'] as SpringPreset[]) {
+    for (const [nombre, a, b] of CURADOS) {
+      it(`${nombre} con \`${preset}\` usa TODA su duración, sin cola muerta`, () => {
+        const { keyframes } = morphKeyframes(a, b, { spring: preset });
+        const ultimo = keyframes[keyframes.length - 1]['offset'] as number;
+        expect(ultimo).toBeCloseTo(1, 6);
+      });
+    }
+  }
+
+  it('los offsets siguen siendo crecientes y arrancan en 0', () => {
+    const { keyframes } = morphKeyframes(copy, check, { spring: 'snappy' });
+    expect(keyframes[0]['offset']).toBe(0);
+    for (let i = 1; i < keyframes.length; i++) {
+      expect(keyframes[i]['offset'] as number).toBeGreaterThan(keyframes[i - 1]['offset'] as number);
+    }
+  });
+
+  it('`smooth` no se toca: nunca cruzaba antes de tiempo, así que no había nada que reescalar', () => {
+    const { keyframes, duration } = morphKeyframes(copy, check, { spring: 'smooth' });
+    expect(keyframes[keyframes.length - 1]['offset']).toBeCloseTo(1, 6);
+    expect(duration).toBeGreaterThan(0);
+  });
+
+  it('un morph GEOMÉTRICO con sobrepaso sigue cerrando en 1 — la otra rama no se movió', () => {
+    const { keyframes } = morphKeyframes(bell, bellRing, { spring: 'snappy' });
+    expect(keyframes[keyframes.length - 1]['offset']).toBeCloseTo(1, 6);
+  });
+});
+
+describe('curado — copy↔check ESCALONA: primero se retrae el cuadrado, luego se pliega la L', () => {
+  /** Cuánto mide (ancho+alto) el subpath `indice` de una pose. 0 = ya se retrajo del todo. */
+  function extension(pose: string, indice: number): number {
+    const sub = pose.slice(6, -2).split(/(?=M)/g)[indice];
+    const nums = (sub.match(/-?\d+(\.\d+)?/g) ?? []).map(Number);
+    const xs = nums.filter((_, i) => i % 2 === 0);
+    const ys = nums.filter((_, i) => i % 2 === 1);
+    return Math.max(...xs) - Math.min(...xs) + (Math.max(...ys) - Math.min(...ys));
+  }
+
+  /** Las poses van en orden de `t` (t = i/(pasos-1)), aunque sus offsets no sean uniformes. */
+  function poses(a: typeof copy, b: typeof copy) {
+    return morphKeyframes(a, b, { steps: 11 }).keyframes.map((k) => k['d'] as string);
+  }
+
+  it('a media transición el cuadrado YA se fue, en vez de ir por la mitad', () => {
+    const p = poses(copy, check);
+    const inicial = extension(p[0], 1);
+    expect(inicial).toBeGreaterThan(1); // control: al principio sí está
+
+    // Sin escalonar, el satélite es lineal en `t`: a t=0.5 mediría la mitad. Escalonado ya terminó.
+    expect(extension(p[5], 1)).toBeLessThan(inicial * 0.02);
+  });
+
+  it('el cuerpo ESPERA su turno: en el primer tercio todavía no se ha movido', () => {
+    const p = poses(copy, check);
+    const quieto = extension(p[0], 0);
+    // Con el reloj compartido de antes, a t=0.3 el cuerpo ya iba un 30% hacia la palomita y su
+    // caja había cambiado. Escalonado no arranca hasta que el cuadrado casi terminó de irse.
+    expect(Math.abs(extension(p[3], 0) - quieto)).toBeLessThan(quieto * 0.02);
+  });
+
+  it('aterriza igual que siempre: el cuadrado desaparece y el cuerpo es la palomita', () => {
+    const p = poses(copy, check);
+    expect(extension(p[10], 1)).toBeLessThan(0.02);
+    expect(extension(p[0], 0)).toBeGreaterThan(0);
+  });
+
+  it('sun↔moon NO se escalona: sus satélites siguen siendo lineales en el tiempo', () => {
+    const p = poses(sun, moon);
+    const inicial = extension(p[0], 1);
+    const medio = extension(p[5], 1);
+    // Lineal en `t` ⇒ a t=0.5 mide la mitad. Es la guarda de que el escalonado es SOLO de copy.
+    expect(medio / inicial).toBeGreaterThan(0.4);
+    expect(medio / inicial).toBeLessThan(0.6);
+  });
+});
