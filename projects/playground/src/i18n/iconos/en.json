@@ -11,7 +11,7 @@
       "conVariantes": "with variants",
       "conHold": "with hold",
       "pesoIcono": "one icon, gzip",
-      "depsAnimacion": "animation deps"
+      "animaciones": "animations"
     },
     "verElResto": "See the other {{n}} below",
     "instalarCopiar": "Copy npm i glyphflow",

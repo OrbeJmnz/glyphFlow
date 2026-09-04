@@ -162,8 +162,8 @@
       <dd>{{ 'iconos.hero.cifras.pesoIcono' | transloco }}</dd>
     </div>
     <div>
-      <dt><app-contador [valor]="cifras.depsAnimacion" /></dt>
-      <dd>{{ 'iconos.hero.cifras.depsAnimacion' | transloco }}</dd>
+      <dt><app-contador [valor]="cifras.animaciones" /></dt>
+      <dd>{{ 'iconos.hero.cifras.animaciones' | transloco }}</dd>
     </div>
   </dl>
 
@@ -450,7 +450,16 @@
         </span>
       }
 
-      <gf-icon [iconDef]="entry.def" [size]="tamGlifo()" trigger="group" />
+      <!--
+        `animation` atado al filtro: con `pulse` puesto, lo que se reproduce es `pulse`. Sin filtro
+        va `undefined` y el motor vuelve a elegir su gesto de hover. Ver `varianteDelFiltro`.
+      -->
+      <gf-icon
+        [iconDef]="entry.def"
+        [size]="tamGlifo()"
+        trigger="group"
+        [animation]="varianteDelFiltro()"
+      />
 
       <!--
         Texto REAL en el DOM, no un pseudo-elemento ni un atributo: tiene que encontrarlo el
