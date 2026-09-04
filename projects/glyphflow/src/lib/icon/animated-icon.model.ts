@@ -113,6 +113,17 @@ export interface AutoReveal {
   wobble?: boolean;
 }
 
+/**
+ * `flicker` automático: el trazo se DESdibuja y se vuelve a dibujar, todas las figuras a la vez —
+ * la reversa de `draw` seguida de `draw` otra vez. Sin fantasma ni nodo nuevo: a diferencia de
+ * `reveal`, aquí no hay nada que sintetizar, así que no toca la geometría ni siquiera temporalmente.
+ */
+export interface AutoFlicker {
+  /** Duración del ciclo completo (ms): dibujado → borrado → dibujado. */
+  duration?: number;
+  easing?: string;
+}
+
 export interface IconChoreography {
   root?: MotionTrack;
   /** Índice de la figura dentro de `shapes[]` → su track. */
@@ -125,6 +136,12 @@ export interface IconChoreography {
    * depende `varianteDeHover` para no robarle el hover al icono que sí tiene gesto propio.
    */
   autoReveal?: AutoReveal;
+  /**
+   * Desdibujado automático (ver `AutoFlicker`). Misma razón de ser que `autoReveal`: `icon()` la
+   * inyecta en TODOS los iconos, y `varianteDeHover` mira este campo para no robarle el hover al
+   * icono que sí tiene un `flicker` curado a mano.
+   */
+  autoFlicker?: AutoFlicker;
   /**
    * Para animaciones de ESTADO (el icono se queda en su pose final, ej. refresh girado 45°):
    * al salir el puntero se reproduce en reversa en vez de cortarse en seco.

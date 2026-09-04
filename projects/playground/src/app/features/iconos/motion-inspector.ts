@@ -36,6 +36,8 @@ export interface VariantReport {
    *  curado a mano es lo que deja a los filtros seguir acotando: si `reveal` contara para todos,
    *  el filtro casaría con el catálogo entero y dejaría de servir. */
   autoReveal: boolean;
+  /** Mismo criterio que `autoReveal`, para el `flicker` GENÉRICO que `icon()` cuelga en los 1767. */
+  autoFlicker: boolean;
   reverseOnLeave: boolean;
 }
 
@@ -159,10 +161,12 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
   // existe en el paquete publicado deja el typecheck en rojo hasta la siguiente release, y esa
   // frontera es a propósito (regla 4: el sitio consume del registro, no de `dist/`).
   const autoReveal = variante === 'reveal' && tracks.length === 0 && !chor.autoDraw;
+  // Mismo criterio, para `flicker`.
+  const autoFlicker = variante === 'flicker' && tracks.length === 0 && !chor.autoDraw;
 
   // Sin tracks propios no hay reloj que leer: la duración la calcula el componente en vivo, midiendo
-  // las figuras (`draw`) o con su propio compás (`reveal`). Devolver 0 sería mentir con precisión.
-  const esSoloAutomatica = (!!chor.autoDraw || autoReveal) && tracks.length === 0;
+  // las figuras (`draw`) o con su propio compás (`reveal`/`flicker`). Devolver 0 sería mentir con precisión.
+  const esSoloAutomatica = (!!chor.autoDraw || autoReveal || autoFlicker) && tracks.length === 0;
   const duracionMs = esSoloAutomatica
     ? null
     : tracks.reduce((max, [, t]) => Math.max(max, intervaloDe(t)[1]), 0);
@@ -177,6 +181,7 @@ function analizarVariante(variante: string, chor: IconChoreography): VariantRepo
     animaD: propiedades.has('d'),
     autoDraw: !!chor.autoDraw,
     autoReveal,
+    autoFlicker,
     reverseOnLeave: !!chor.reverseOnLeave,
   };
 }

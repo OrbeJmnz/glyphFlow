@@ -90,20 +90,29 @@ const DRAW: IconChoreography = { autoDraw: {} };
  */
 const REVEAL: IconChoreography = { autoReveal: {} };
 
+/** Ver `AutoFlicker` en animated-icon.model.ts. */
+const FLICKER: IconChoreography = { autoFlicker: {} };
+
 /**
- * Arma la definición y le cuelga `draw` y `reveal` (a menos que se escriban a mano).
+ * Arma la definición y le cuelga `draw`, `reveal` y `flicker` (a menos que se escriban a mano).
  *
- * `reveal` va DESPUÉS del spread y por eso se escribe como re-asignación: si el icono trae uno
- * curado, la clave ya existe y conserva la posición que le dio su autor; si no, se agrega al final.
- * Ponerlo antes del spread parecía equivalente y no lo es — la clave saltaba al frente y el reveal
- * curado le robaba el hover al gesto propio del icono. Medido: `eye-off` perdía su `alert`, y
- * `signpost` y `wind` su `hold`.
+ * `reveal`/`flicker` van DESPUÉS del spread y por eso se escriben como re-asignación: si el icono
+ * trae uno curado, la clave ya existe y conserva la posición que le dio su autor; si no, se agrega
+ * al final. Ponerlo antes del spread parecía equivalente y no lo es — la clave saltaba al frente y
+ * el reveal curado le robaba el hover al gesto propio del icono. Medido: `eye-off` perdía su
+ * `alert`, y `signpost` y `wind` su `hold`.
  *
- * Que el genérico traiga `autoReveal` es lo que deja a `varianteDeHover` distinguirlo del curado.
+ * Que el genérico traiga `autoReveal`/`autoFlicker` es lo que deja a `varianteDeHover`
+ * distinguirlo del curado.
  */
 export const icon = (shapes: IconShape[], animations: Record<string, IconChoreography>): AnimatedIconDef => ({
   shapes,
-  animations: { draw: DRAW, ...animations, reveal: animations['reveal'] ?? REVEAL },
+  animations: {
+    draw: DRAW,
+    ...animations,
+    reveal: animations['reveal'] ?? REVEAL,
+    flicker: animations['flicker'] ?? FLICKER,
+  },
 });
 
 /**
