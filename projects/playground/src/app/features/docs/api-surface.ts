@@ -235,6 +235,45 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'función',
     resumen: 'docs.api.simbolos.maxLinearDeviation',
   },
+  // Los seis gestos curados de dos estados. Van uno por uno y no como categoría (que es lo que sí
+  // se hace con los ~1767 `xIcon`): son seis, cada uno trae su propia decisión de resorte y de si
+  // el estado activo caduca, y esa decisión es justo lo que alguien viene a consultar aquí.
+  {
+    nombre: 'COPY_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.COPY_INTENT',
+  },
+  {
+    nombre: 'THEME_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.THEME_INTENT',
+  },
+  {
+    nombre: 'PASSWORD_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.PASSWORD_INTENT',
+  },
+  {
+    nombre: 'PLAY_PAUSE_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.PLAY_PAUSE_INTENT',
+  },
+  {
+    nombre: 'MENU_CLOSE_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.MENU_CLOSE_INTENT',
+  },
+  {
+    nombre: 'EXPAND_COLLAPSE_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.EXPAND_COLLAPSE_INTENT',
+  },
   // Los nombres de la v1. Se documentan porque siguen exportados —el spec exige que TODO export
   // esté documentado— y porque quien llegue con código viejo tiene que encontrar a qué migrar.
   {
@@ -333,5 +372,21 @@ export const API_TIPOS: { nombre: string; entrada: Entrada; resumen: string }[] 
     nombre: 'LiveMorphOpts',
     entrada: 'glyphflow/morph',
     resumen: 'docs.api.tipos.LiveMorphOpts',
+  },
+  /*
+   * Estos dos NO están todavía en el `import type` de `api-surface.spec.ts`, que es la guarda que
+   * verifica los tipos al compilar. No es un olvido: ese spec typechequea contra el glyphflow
+   * PUBLICADO (hoy la 2.4.0), y ahí estos dos aún no existen — importarlos dejaría el typecheck en
+   * rojo hasta que salga la release que los lleva. Se agregan a la guarda DESPUÉS de publicar.
+   */
+  {
+    nombre: 'MorphIntent',
+    entrada: 'glyphflow/morph',
+    resumen: 'docs.api.tipos.MorphIntent',
+  },
+  {
+    nombre: 'GfAsyncState',
+    entrada: 'glyphflow/morph',
+    resumen: 'docs.api.tipos.GfAsyncState',
   },
 ];

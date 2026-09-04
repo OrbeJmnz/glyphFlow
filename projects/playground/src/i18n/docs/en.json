@@ -278,7 +278,13 @@
       "maxLinearDeviation": "How far WAAPI's linear interpolation between baked poses strays from the real polar trajectory.",
       "PASOS_DEFAULT": "20 discrete poses. Decided in the Lab by comparing 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 points per subpath.",
-      "COLA_DEFAULT": "What to do with the spring's asymptotic tail."
+      "COLA_DEFAULT": "What to do with the spring's asymptotic tail.",
+      "COPY_INTENT": "Copy to clipboard: copy becomes check, snappy, and returns to rest on its own after 2 s.",
+      "THEME_INTENT": "Light to dark: sun becomes moon, with smooth — a change of mood, not a confirmation.",
+      "PASSWORD_INTENT": "Reveal or hide a password: eye becomes eye-off. Active means the password is visible.",
+      "PLAY_PAUSE_INTENT": "Playback transport: play becomes pause. Active means it is playing, so the button offers to pause.",
+      "MENU_CLOSE_INTENT": "Navigation menu: menu becomes x. Active means open, so the button offers to close.",
+      "EXPAND_COLLAPSE_INTENT": "Expand and collapse: the chevron flips. Active means expanded, so it points up."
     },
     "tipos": {
       "AnimatedIconDef": "An icon: geometry + its animation variants.",
@@ -296,7 +302,9 @@
       "SpringConfig": "Raw spring: stiffness and damping.",
       "SpringPreset": "The names in SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'.",
       "LiveMorph": "createLiveMorph's handle: morphTo, set, destroy.",
-      "LiveMorphOpts": "spring and durationScale, same vocabulary as the baked engine."
+      "LiveMorphOpts": "spring and durationScale, same vocabulary as the baked engine.",
+      "MorphIntent": "A two-state gesture with its character already decided: the pair of figures, its spring, and whether the active state expires.",
+      "GfAsyncState": "The four moments of an async operation: idle, loading, success, error."
     },
     "clases": {
       "componente": "component",

@@ -278,7 +278,13 @@
       "maxLinearDeviation": "Cuánto se aleja la interpolación lineal de WAAPI entre las poses horneadas de la trayectoria polar real.",
       "PASOS_DEFAULT": "20 poses discretas. Decidido en el Lab comparando 10/15/20/30.",
       "RESOLUCION_DEFAULT": "64 puntos por subpath.",
-      "COLA_DEFAULT": "Qué hacer con la cola asintótica del resorte."
+      "COLA_DEFAULT": "Qué hacer con la cola asintótica del resorte.",
+      "COPY_INTENT": "Copiar al portapapeles: copy pasa a check, con snappy, y vuelve solo al reposo a los 2 s.",
+      "THEME_INTENT": "Claro a oscuro: sun pasa a moon, con smooth — es un cambio de ambiente, no una confirmación.",
+      "PASSWORD_INTENT": "Enseñar u ocultar una contraseña: eye pasa a eye-off. Activo significa que está a la vista.",
+      "PLAY_PAUSE_INTENT": "Transporte de reproducción: play pasa a pause. Activo significa que suena, así que el botón ofrece pausar.",
+      "MENU_CLOSE_INTENT": "Menú de navegación: menu pasa a x. Activo significa abierto, así que el botón ofrece cerrar.",
+      "EXPAND_COLLAPSE_INTENT": "Desplegar y plegar: la punta del chevron gira. Activo significa desplegado, así que mira arriba."
     },
     "tipos": {
       "AnimatedIconDef": "Un icono: geometría + sus variantes de animación.",
@@ -296,7 +302,9 @@
       "SpringConfig": "Resorte crudo: rigidez y amortiguamiento.",
       "SpringPreset": "Los nombres de SPRING_PRESETS: 'smooth' | 'snappy' | 'bouncy'.",
       "LiveMorph": "El manejador de createLiveMorph: morphTo, set, destroy.",
-      "LiveMorphOpts": "spring y durationScale, mismo vocabulario que el motor horneado."
+      "LiveMorphOpts": "spring y durationScale, mismo vocabulario que el motor horneado.",
+      "MorphIntent": "Un gesto de dos estados con su carácter ya decidido: el par de figuras, su resorte y si el estado activo caduca.",
+      "GfAsyncState": "Los cuatro momentos de una operación asíncrona: idle, loading, success, error."
     },
     "clases": {
       "componente": "componente",
