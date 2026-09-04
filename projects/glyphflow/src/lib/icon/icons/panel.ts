@@ -20,13 +20,16 @@ export const panelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftShap
     },
   });
 
-/** Cerrar panel: la flecha empuja hacia la izquierda y se sostiene. */
+/** Cerrar panel: en `hold`, la flecha empuja hacia la izquierda y se sostiene. */
 export const panelLeftCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftCloseShapes, {
-    // `reverseOnLeave` aplica a TODA la coreografía, no solo al root: por eso basta con el track
-    // de la flecha, sin un root vacío de relleno.
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -49,11 +52,16 @@ export const panelLeftCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLef
     },
   });
 
-/** Abrir panel: la flecha ">" empuja hacia la derecha (adentro) y se sostiene. */
+/** Abrir panel: en `hold`, la flecha ">" empuja hacia la derecha (adentro) y se sostiene. */
 export const panelLeftOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftOpenShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -89,11 +97,16 @@ export const panelRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRightSh
     },
   });
 
-/** Cerrar panel: la flecha "&gt;" empuja hacia la derecha (afuera) y se sostiene. */
+/** Cerrar panel: en `hold`, la flecha "&gt;" empuja hacia la derecha (afuera) y se sostiene. */
 export const panelRightCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRightCloseShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -116,11 +129,16 @@ export const panelRightCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRi
     },
   });
 
-/** Abrir panel: la flecha "&lt;" empuja hacia la izquierda (adentro) y se sostiene. */
+/** Abrir panel: en `hold`, la flecha "&lt;" empuja hacia la izquierda (adentro) y se sostiene. */
 export const panelRightOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRightOpenShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -156,11 +174,16 @@ export const panelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopShapes
     },
   });
 
-/** Cerrar panel: la flecha "^" empuja hacia arriba (afuera) y se sostiene. */
+/** Cerrar panel: en `hold`, la flecha "^" empuja hacia arriba (afuera) y se sostiene. */
 export const panelTopCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopCloseShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -183,11 +206,16 @@ export const panelTopCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopC
     },
   });
 
-/** Abrir panel: la flecha "v" empuja hacia abajo (adentro) y se sostiene. */
+/** Abrir panel: en `hold`, la flecha "v" empuja hacia abajo (adentro) y se sostiene. */
 export const panelTopOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopOpenShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -223,11 +251,16 @@ export const panelBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBottom
     },
   });
 
-/** Cerrar panel: la flecha "v" empuja hacia abajo (afuera) y se sostiene. */
+/** Cerrar panel: en `hold`, la flecha "v" empuja hacia abajo (afuera) y se sostiene. */
 export const panelBottomCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBottomCloseShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
@@ -250,11 +283,16 @@ export const panelBottomCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelB
     },
   });
 
-/** Abrir panel: la flecha "^" empuja hacia arriba (adentro) y se sostiene. */
+/** Abrir panel: en `hold`, la flecha "^" empuja hacia arriba (adentro) y se sostiene. */
 export const panelBottomOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBottomOpenShapes, {
-    default: {
+    default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550) } },
+    /**
+     * El estado (la flecha que se desliza y se queda) vive en `hold`; `default` es solo el
+     * gesto del divisor, de un tiro.
+     */
+    hold: {
       shapes: {
-        1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(2px)' }], 320, { easing: SPRING_OUT, fill: 'forwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -2]), 320, { easing: SPRING_OUT, fill: 'forwards' }),
       },
       reverseOnLeave: true,
