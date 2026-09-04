@@ -49,7 +49,22 @@ export const CIFRAS = {
    */
   bundleCoreKb: 5.24,
   bundleCatalogoKb: 174.74,
-  depsAnimacion: 0,
+  /**
+   * Cuántas animaciones hay en total: la suma de `Object.keys(animations).length` sobre los 1767
+   * iconos. O sea cuántas combinaciones `name` + `animation=` distintas puede pedir un consumidor.
+   *
+   * NO es «8471 coreografías escritas a mano», y conviene no venderlo así: 7068 de ellas son las
+   * cuatro universales que trae todo icono (`draw`, `default`, `reveal`, `flicker`), y de esas,
+   * `draw`/`reveal`/`flicker` son constantes COMPARTIDAS que `icon()` inyecta, no geometría por
+   * icono. Con nombre propio hay 1403, repartidas en 53 nombres (`hold` 543, `pulse` 106,
+   * `dart` 99, `nudge` 80…).
+   *
+   * Escrito a mano por la misma razón que `catalogo` —derivarlo aquí sube los 1767 iconos con
+   * geometría al bundle inicial— pero a diferencia de `depsAnimacion`, al que sustituye, este SÍ
+   * lo ancla `cifras.spec.ts` contra `catalogo-curado.json`. Ese archivo llevaba la cicatriz de
+   * `pesoIconoKb` al lado y era el único campo del hero sin red.
+   */
+  animaciones: 8471,
   /**
    * El rango de Angular que el paquete declara. Escrito a mano por la MISMA razón que
    * `catalogo`: leerlo en el cliente obligaría a importar el `package.json` del paquete, y

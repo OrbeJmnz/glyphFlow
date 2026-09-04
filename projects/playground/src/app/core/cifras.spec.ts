@@ -67,6 +67,25 @@ describe('CIFRAS', () => {
     expect(CIFRAS.conHold).toBe(conHold);
   });
 
+  /*
+   * El campo al que sustituyó `depsAnimacion` era el ÚNICO de las cinco tarjetas del hero sin nada
+   * que lo verificara — un `0` de fe, al lado del comentario que cuenta cómo `pesoIconoKb` se pudrió
+   * justamente por eso. Este ancla nace con su red puesta.
+   *
+   * Contra el JSON del sitio por la misma razón que `conVariantes`/`conHold` arriba, y contando lo
+   * mismo que el hero promete: cuántas combinaciones `name` + `animation=` existen, o sea la suma de
+   * las claves de `animations` sobre todos los iconos. No filtra las universales — `draw`, `default`,
+   * `reveal` y `flicker` son disparables como cualquier otra, y el número dice «animaciones», no
+   * «coreografías escritas a mano».
+   */
+  it('animaciones es la suma de las variantes de todo el catálogo que el sitio pinta', () => {
+    let animaciones = 0;
+    for (const def of Object.values(catalogoJson.iconos)) {
+      animaciones += Object.keys((def as { animations: Record<string, unknown> }).animations).length;
+    }
+    expect(CIFRAS.animaciones).toBe(animaciones);
+  });
+
   it('curados y catálogo son coherentes entre sí', () => {
     expect(CIFRAS.curados).toBeGreaterThan(0);
     expect(CIFRAS.curados).toBeLessThanOrEqual(CIFRAS.catalogo);
