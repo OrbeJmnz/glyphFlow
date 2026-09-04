@@ -102,6 +102,18 @@ const SUTILES_A_PROPOSITO = new Set([
 ]);
 
 /*
+ * `table-2` anima `d`, A PROPÓSITO -- la única excepción del catálogo (commit `ef865f5`, sesión
+ * de layout, 2026-09-04). Lucide manda su marco como un único `<path>`; partirlo en dos (el marco
+ * fijo + las dos líneas internas que sí se mueven) rompería el test de fidelidad 1:1 con Lucide.
+ * Animar `d` es la única forma de mover las líneas internas sin tocar esa geometría: en cada
+ * keyframe el marco queda byte-idéntico y solo cambian las coordenadas de las líneas.
+ *
+ * Va en `icono/variante`, no solo `icono`: la excepción es de ESTAS dos variantes, no un permiso
+ * abierto para cualquier gesto futuro de `table-2`.
+ */
+const ANIMA_D_A_PROPOSITO = new Set(['table-2/default', 'table-2/assemble']);
+
+/*
  * Lo que este linter NO revisa, y por qué — para que nadie lo vuelva a agregar:
  *
  * `tracksSolapados`. El inspector reporta cualquier par de tracks cuyos intervalos se cruzan,
@@ -113,9 +125,10 @@ function revisar(icono: string, v: VariantReport): Hallazgo[] {
   const hallazgos: Hallazgo[] = [];
 
   /*
-   * La ÚNICA regla que rompe el build, y se puede permitir porque está medida: hoy el catálogo
-   * tiene CERO variantes que animen `d` fuera de `autoDraw`. O sea no bloquea nada de lo que ya
-   * existe — es una guarda contra la regresión, no una deuda que alguien tenga que pagar.
+   * La ÚNICA regla que rompe el build, y se puede permitir porque está medida: el catálogo tiene
+   * UNA sola variante que anime `d` fuera de `autoDraw` (`ANIMA_D_A_PROPOSITO`, arriba). No
+   * bloquea nada de lo que ya existe — es una guarda contra la regresión, no una deuda que alguien
+   * tenga que pagar.
    *
    * Animar `d` redibuja el path en cada cuadro; `transform`/`opacity` las mueve el compositor sin
    * repintar. Es la señal de costo que el brief nombra por su nombre.
@@ -123,7 +136,7 @@ function revisar(icono: string, v: VariantReport): Hallazgo[] {
    * `autoDraw` queda fuera: ahí lo que se anima es `stroke-dashoffset`, y el trazo progresivo no
    * tiene equivalente barato — es la técnica, no un descuido.
    */
-  if (v.animaD && !v.autoDraw) {
+  if (v.animaD && !v.autoDraw && !ANIMA_D_A_PROPOSITO.has(`${icono}/${v.variante}`)) {
     hallazgos.push({
       icono,
       variante: v.variante,
