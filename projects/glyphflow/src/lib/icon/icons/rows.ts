@@ -9,7 +9,7 @@
 // un bloque es el escalonado de 90 ms, no la dirección.
 import { AnimatedIconDef } from '../animated-icon.model';
 import { track, icon } from '../choreography';
-import { PANEL_DIVIDER_DOWN } from './_shared';
+import { despliegaLuego, PANEL_DIVIDER_DOWN } from './_shared';
 
 /** Dos filas: el divisor se desliza hacia abajo y se sostiene. */
 export const rows2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
@@ -21,6 +21,14 @@ export const rows2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
     default: {
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550),
+      },
+    },
+    /**
+     * El divisor se despliega desde su borde y LUEGO baja y se sostiene, igual que el default.
+     */
+    assemble: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 0, fill: 'backwards' }),
       },
     },
   },
@@ -40,6 +48,15 @@ export const rows3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         2: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550, { delay: 90 }),
       },
     },
+    /**
+     * El divisor se despliega desde su borde y LUEGO baja y se sostiene, igual que el default.
+     */
+    assemble: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 0, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 90, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -57,6 +74,16 @@ export const rows4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550),
         2: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550, { delay: 90 }),
         3: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550, { delay: 180 }),
+      },
+    },
+    /**
+     * El divisor se despliega desde su borde y LUEGO baja y se sostiene, igual que el default.
+     */
+    assemble: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 0, fill: 'backwards' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 90, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', PANEL_DIVIDER_DOWN), 780, { delay: 180, fill: 'backwards' }),
       },
     },
   },

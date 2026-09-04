@@ -96,6 +96,27 @@ export const lineaDespliegaYVaga = (
 };
 
 /**
+ * Misma idea que `lineaDespliegaYVaga`, pero lo que sigue no es un vaivén: es cualquier otro
+ * track ya escrito (el `TABLE_SHIFT` de las tablas, el `PANEL_DIVIDER_DOWN` de las filas...).
+ * Sirve para darle a esas familias una SEGUNDA variante donde la línea se despliega antes de
+ * hacer lo que ya hacía. `luego[0].transform` tiene que ser la pose de reposo (offset 0):
+ * de ahí sale el `reposo` que se combina con el escalado del despliegue.
+ */
+export const despliegaLuego = (ejeDespliegue: 'X' | 'Y', luego: Keyframe[]): Keyframe[] => {
+  const DESPLIEGUE = 0.28;
+  const s = (v: number) => `scale${ejeDespliegue}(${v})`;
+  const reposo = String(luego[0]['transform'] ?? 'none');
+  return [
+    { transform: `${s(0.15)} ${reposo}`, offset: 0 },
+    { transform: `${s(1)} ${reposo}`, offset: DESPLIEGUE },
+    ...luego.slice(1).map((k) => ({
+      transform: `${s(1)} ${k['transform']}`,
+      offset: Number((DESPLIEGUE + (1 - DESPLIEGUE) * (k.offset as number)).toFixed(4)),
+    })),
+  ];
+};
+
+/**
  * EL COMPÁS DE UNA FLECHA. Se agacha hacia adentro, sale, y regresa rebotando.
  *
  * La punta y el asta son DOS figuras que tienen que leerse como una sola: si se traslada la punta

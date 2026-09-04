@@ -1,5 +1,5 @@
 import { AnimatedIconDef, IconChoreography } from './animated-icon.model';
-import { SHIELD_GEAR_SPIN, SHOOT_OFF_KEYFRAMES, TRAZO_INVERSO, X_SNAP_DRAW, lineaDespliegaYVaga, puntaCompas, astaCompas } from './icons/_shared';
+import { despliegaLuego, SHIELD_GEAR_SPIN, SHOOT_OFF_KEYFRAMES, TRAZO_INVERSO, X_SNAP_DRAW, lineaDespliegaYVaga, lineaVaga, puntaCompas, astaCompas } from './icons/_shared';
 import { EASE, SPRING_OUT, SPRING_SMOOTH, SPRING_SNAPPY, rotateSeq, scaleSeq, moveXSeq, moveYSeq, track, burst, strokeDraw, icon, held } from './choreography';
 import { activityShapes, appWindowShapes, atSignShapes, banShapes, banknoteShapes, bracesShapes, building2Shapes, buildingShapes, cableShapes, cakeShapes, cameraShapes, cctvShapes, checkShapes, commandShapes, contactShapes, cpuShapes, creditCardShapes, crownShapes, downloadShapes, ellipsisShapes, ellipsisVerticalShapes, externalLinkShapes, eyeOffShapes, eyeShapes, funnelShapes, graduationCapShapes, hashShapes, hatGlassesShapes, idCardShapes, imagesShapes, inboxShapes, infinityShapes, infoShapes, keyboardShapes, landmarkShapes, languagesShapes, laptopShapes, layersShapes, libraryShapes, lightbulbShapes, loaderCircleShapes, logOutShapes, mailShapes, menuShapes, minusShapes, moonShapes, networkShapes, paletteShapes, phoneShapes, planeShapes, playShapes, pauseShapes, plusShapes, powerShapes, printerShapes, qrCodeShapes, routerShapes, scrollTextShapes, sendShapes, settingsShapes, shirtShapes, shoppingBagShapes, shoppingCartShapes, sparklesShapes, sunShapes, tabletShapes, tagShapes, trash2Shapes, trashShapes, triangleAlertShapes, triangleShapes, truckShapes, tvShapes, typeShapes, unlinkShapes, uploadShapes, usersShapes, warehouseShapes, webhookShapes, workflowShapes, wrenchShapes, xShapes, zapShapes, zoomInShapes, zoomOutShapes } from './animated-icons.shapes';
 
@@ -7702,6 +7702,15 @@ export const columns2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 3, 0), 1000, { origin: '12px 3px', delay: 100, fill: 'backwards' }),
       },
     },
+    /**
+     * Solo la mitad del `default`: la línea ya está desplegada, así que aquí nomás vaga.
+     * Mismo eje/amplitud/semilla que su propio default, para que se sienta la misma línea.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 3, 0), 620, { origin: '12px 3px', delay: 60, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -7717,6 +7726,16 @@ export const columns3Icon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 0), 936, { origin: '9px 3px', delay: 94, fill: 'backwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 2.2, 2), 936, { origin: '15px 3px', delay: 164, fill: 'backwards' }),
+      },
+    },
+    /**
+     * Solo la mitad del `default`: la línea ya está desplegada, así que aquí nomás vaga.
+     * Mismo eje/amplitud/semilla que su propio default, para que se sienta la misma línea.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 0), 620, { origin: '9px 3px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 2.2, 2), 620, { origin: '15px 3px', delay: 70, fill: 'backwards' }),
       },
     },
   },
@@ -7736,6 +7755,17 @@ export const columns4Icon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 0), 892, { origin: '7.5px 3px', delay: 89, fill: 'backwards' }),
         2: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 1), 892, { origin: '12px 3px', delay: 149, fill: 'backwards' }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ lineaDespliegaYVaga('Y', 'X', 1.6, 2), 892, { origin: '16.5px 3px', delay: 208, fill: 'backwards' }),
+      },
+    },
+    /**
+     * Solo la mitad del `default`: la línea ya está desplegada, así que aquí nomás vaga.
+     * Mismo eje/amplitud/semilla que su propio default, para que se sienta la misma línea.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 1.6, 0), 620, { origin: '7.5px 3px' }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 1.6, 1), 620, { origin: '12px 3px', delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ lineaVaga('X', 1.6, 2), 620, { origin: '16.5px 3px', delay: 120, fill: 'backwards' }),
       },
     },
   },
@@ -10059,10 +10089,55 @@ export const tableIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         3: /* @__PURE__ */ track(TABLE_SHIFT_Y, 550, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
+    /**
+     * Las líneas se despliegan desde su borde y LUEGO hacen el mismo TABLE_SHIFT/_Y del default.
+     */
+    assemble: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('Y', TABLE_SHIFT), 780, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', TABLE_SHIFT_Y), 780, { easing: EASE, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', TABLE_SHIFT_Y), 780, { easing: EASE, delay: 120, fill: 'backwards' }),
+      },
+    },
   },
 );
 
-/** Va toda de una pieza: Lucide la dibuja en un solo trazo, así que se corre entera. */
+/**
+ * Lucide manda table-2 en un único `<path>` (marco + las dos líneas internas fundidos en un solo
+ * trazo) y partirlo en figuras separadas rompería el test de fidelidad 1:1 con Lucide. En vez de
+ * eso, estos dos tracks animan el atributo `d` DIRECTO: en cada keyframe los 4 fragmentos del
+ * marco quedan byte-idénticos (nunca se tocan) y solo cambian las coordenadas de la línea
+ * vertical (`M{x} 3v18`) y la horizontal (`m0 {dy}h18`) -- mismo nodo, mismo `shapes[0].d` en
+ * reposo que Lucide, pero solo las líneas se mueven. Nuevo en la librería: la interpolación de
+ * `d` solo funciona si cada keyframe tiene la MISMA secuencia de comandos (aquí siempre la
+ * tiene) y solo la soportan navegadores con la propiedad CSS `d` (Chrome/Firefox/Safari 16.4+);
+ * en motores viejos el navegador ignora la propiedad y el icono se queda quieto, no se rompe.
+ */
+const TABLE2_LINES_SHIFT: Keyframe[] = /* @__PURE__ */ [
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 0 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M8.504 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 0.0984 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M7.5 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 -1.004h18")', offset: 0.2975 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M8.492 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 -1.5h18")', offset: 0.3959 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M10.5 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0.508h18")', offset: 0.5951 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M10.019 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 1.5h18")', offset: 0.6934 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0.481h18")', offset: 0.9016 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 1 },
+];
+
+/** Igual que `TABLE2_LINES_SHIFT` pero con las líneas cortas al arrancar: se despliegan y LUEGO hacen el mismo vaivén. */
+const TABLE2_LINES_ASSEMBLE: Keyframe[] = /* @__PURE__ */ [
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v2.7M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h2.7")', offset: 0 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 0.2636 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M8.504 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 0.3361 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M7.5 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 -1.004h18")', offset: 0.4827 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M8.492 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 -1.5h18")', offset: 0.5552 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M10.5 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0.508h18")', offset: 0.7018 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M10.019 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 1.5h18")', offset: 0.7743 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0.481h18")', offset: 0.9276 },
+  { d: 'path("M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18M9 21h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18")', offset: 1 },
+];
+
+/** Va toda de una pieza: Lucide la dibuja en un solo trazo. `default`/`assemble` animan el `d` directo (ver arriba). */
 export const table2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   [
     {
@@ -10073,7 +10148,12 @@ export const table2Icon: AnimatedIconDef = /* @__PURE__ */ icon(
   {
     default: {
       shapes: {
-        0: /* @__PURE__ */ track(TABLE_SHIFT, 550, { easing: EASE }),
+        0: /* @__PURE__ */ track(TABLE2_LINES_SHIFT, 610),
+      },
+    },
+    assemble: {
+      shapes: {
+        0: /* @__PURE__ */ track(TABLE2_LINES_ASSEMBLE, 828),
       },
     },
   },
@@ -10149,6 +10229,16 @@ export const tablePropertiesIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         0: /* @__PURE__ */ track(TABLE_SHIFT, 550, { easing: EASE }),
         2: /* @__PURE__ */ track(TABLE_SHIFT_Y, 550, { easing: EASE, delay: 60, fill: 'backwards' }),
         3: /* @__PURE__ */ track(TABLE_SHIFT_Y, 550, { easing: EASE, delay: 120, fill: 'backwards' }),
+      },
+    },
+    /**
+     * Las líneas se despliegan desde su borde y LUEGO hacen el mismo TABLE_SHIFT/_Y del default.
+     */
+    assemble: {
+      shapes: {
+        0: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('Y', TABLE_SHIFT), 780, { easing: EASE }),
+        2: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', TABLE_SHIFT_Y), 780, { easing: EASE, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track(/* @__PURE__ */ despliegaLuego('X', TABLE_SHIFT_Y), 780, { easing: EASE, delay: 120, fill: 'backwards' }),
       },
     },
   },

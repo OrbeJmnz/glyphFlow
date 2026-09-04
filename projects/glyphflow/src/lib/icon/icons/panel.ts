@@ -9,6 +9,15 @@ import { panelBottomCloseShapes, panelBottomDashedShapes, panelBottomOpenShapes,
 
 export const panelLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeftShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550) } },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Cerrar panel: la flecha empuja hacia la izquierda y se sostiene. */
@@ -29,6 +38,15 @@ export const panelLeftCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLef
       },
       reverseOnLeave: true,
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Abrir panel: la flecha ">" empuja hacia la derecha (adentro) y se sostiene. */
@@ -47,10 +65,28 @@ export const panelLeftOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLeft
       },
       reverseOnLeave: true,
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 export const panelRightIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRightShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_RIGHT, 550) } },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Cerrar panel: la flecha "&gt;" empuja hacia la derecha (afuera) y se sostiene. */
@@ -68,6 +104,15 @@ export const panelRightCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRi
         2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
     },
   });
 
@@ -87,10 +132,28 @@ export const panelRightOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelRig
       },
       reverseOnLeave: true,
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 export const panelTopIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550) } },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Cerrar panel: la flecha "^" empuja hacia arriba (afuera) y se sostiene. */
@@ -108,6 +171,15 @@ export const panelTopCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopC
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: 'ease-in', fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
     },
   });
 
@@ -127,10 +199,28 @@ export const panelTopOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTopOp
       },
       reverseOnLeave: true,
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 export const panelBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBottomShapes, {
     default: { shapes: { 1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550) } },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Cerrar panel: la flecha "v" empuja hacia abajo (afuera) y se sostiene. */
@@ -149,6 +239,15 @@ export const panelBottomCloseIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelB
       },
       reverseOnLeave: true,
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
+    },
   });
 
 /** Abrir panel: la flecha "^" empuja hacia arriba (adentro) y se sostiene. */
@@ -166,6 +265,15 @@ export const panelBottomOpenIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelBo
         2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-2px)' }], 200, { easing: EASE, fill: 'forwards' }),
       },
       reverseOnLeave: true,
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+      },
     },
   });
 
@@ -186,6 +294,18 @@ export const panelLeftDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelLe
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+      },
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
       },
     },
   });
@@ -209,6 +329,18 @@ export const panelRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelR
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
       },
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+      },
+    },
   });
 
 /** Marca de resize arriba: las 4 rayas invitan a jalar hacia arriba. */
@@ -230,6 +362,18 @@ export const panelTopDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panelTop
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+      },
+    },
   });
 
 /** Marca de resize abajo: las 4 rayas invitan a jalar hacia abajo. */
@@ -249,6 +393,18 @@ export const panelBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(panel
         2: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
         4: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, 3, 0]), 500, { easing: EASE }),
+      },
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
       },
     },
   });
@@ -280,6 +436,22 @@ export const panelTopBottomDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
         7: /* @__PURE__ */ track(/* @__PURE__ */ moveYSeq([0, -3, 0]), 500, { easing: EASE }),
       },
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        5: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        3: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+        4: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+      },
+    },
   });
 
 /** Marca de resize izquierda y derecha: cada par se separa hacia afuera. */
@@ -307,6 +479,22 @@ export const panelLeftRightDashedIcon: AnimatedIconDef = /* @__PURE__ */ icon(pa
         6: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
         3: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, 3, 0]), 500, { easing: EASE }),
         7: /* @__PURE__ */ track(/* @__PURE__ */ moveXSeq([0, -3, 0]), 500, { easing: EASE }),
+      },
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        3: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        0: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
+        7: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        4: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 60, fill: 'backwards' }),
+        5: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 120, fill: 'backwards' }),
+        6: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 180, fill: 'backwards' }),
       },
     },
   });

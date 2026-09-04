@@ -4,7 +4,7 @@
 // sostiene ahí. Aquí hay DOS divisores por icono, uno por cada panel que el nombre menciona, y
 // cada uno va hacia el suyo — el desfase de 90 ms es para que no se lean como un bloque.
 import { AnimatedIconDef } from '../animated-icon.model';
-import { track, icon } from '../choreography';
+import { SPRING_OUT, track, icon } from '../choreography';
 import { PANEL_DIVIDER_DOWN, PANEL_DIVIDER_LEFT, PANEL_DIVIDER_RIGHT, PANEL_DIVIDER_UP } from './_shared';
 
 /** El divisor vertical se va a la izquierda y el horizontal, abajo. Cada uno hacia su panel. */
@@ -19,6 +19,16 @@ export const panelsLeftBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550),
         2: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550, { delay: 90 }),
+      },
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 90, fill: 'backwards' }),
       },
     },
   },
@@ -38,6 +48,16 @@ export const panelsRightBottomIcon: AnimatedIconDef = /* @__PURE__ */ icon(
         1: /* @__PURE__ */ track(PANEL_DIVIDER_DOWN, 550, { delay: 90 }),
       },
     },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT }),
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT, delay: 90, fill: 'backwards' }),
+      },
+    },
   },
 );
 
@@ -53,6 +73,16 @@ export const panelsTopLeftIcon: AnimatedIconDef = /* @__PURE__ */ icon(
       shapes: {
         1: /* @__PURE__ */ track(PANEL_DIVIDER_UP, 550),
         2: /* @__PURE__ */ track(PANEL_DIVIDER_LEFT, 550, { delay: 90 }),
+      },
+    },
+    /**
+     * El divisor se empuja perpendicular a sí mismo, hacia el lado que ABRE el panel que le da
+     * nombre. El marco no se mueve: es el contenedor, no el contenido.
+     */
+    nudge: {
+      shapes: {
+        1: /* @__PURE__ */ track([{ transform: 'translateY(0px)' }, { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0px)' }], 420, { easing: SPRING_OUT }),
+        2: /* @__PURE__ */ track([{ transform: 'translateX(0px)' }, { transform: 'translateX(-1.5px)' }, { transform: 'translateX(0px)' }], 420, { easing: SPRING_OUT, delay: 90, fill: 'backwards' }),
       },
     },
   },
