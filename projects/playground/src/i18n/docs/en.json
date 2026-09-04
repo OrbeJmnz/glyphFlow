@@ -284,7 +284,11 @@
       "PASSWORD_INTENT": "Reveal or hide a password: eye becomes eye-off. Active means the password is visible.",
       "PLAY_PAUSE_INTENT": "Playback transport: play becomes pause. Active means it is playing, so the button offers to pause.",
       "MENU_CLOSE_INTENT": "Navigation menu: menu becomes x. Active means open, so the button offers to close.",
-      "EXPAND_COLLAPSE_INTENT": "Expand and collapse: the chevron flips. Active means expanded, so it points up."
+      "EXPAND_COLLAPSE_INTENT": "Expand and collapse: the chevron flips. Active means expanded, so it points up.",
+      "ICON_VARIANTS": "Which animation variants each icon has, without the geometry. Always starts with draw.",
+      "SPRING_SMOOTH": "ζ=1.00, critical, no overshoot. The house default for going from A to B.",
+      "SPRING_SNAPPY": "ζ=0.73, fast with a subtle overshoot.",
+      "SPRING_BOUNCY": "ζ=0.40, a real bounce."
     },
     "tipos": {
       "AnimatedIconDef": "An icon: geometry + its animation variants.",

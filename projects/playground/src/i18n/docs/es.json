@@ -284,7 +284,11 @@
       "PASSWORD_INTENT": "Enseñar u ocultar una contraseña: eye pasa a eye-off. Activo significa que está a la vista.",
       "PLAY_PAUSE_INTENT": "Transporte de reproducción: play pasa a pause. Activo significa que suena, así que el botón ofrece pausar.",
       "MENU_CLOSE_INTENT": "Menú de navegación: menu pasa a x. Activo significa abierto, así que el botón ofrece cerrar.",
-      "EXPAND_COLLAPSE_INTENT": "Desplegar y plegar: la punta del chevron gira. Activo significa desplegado, así que mira arriba."
+      "EXPAND_COLLAPSE_INTENT": "Desplegar y plegar: la punta del chevron gira. Activo significa desplegado, así que mira arriba.",
+      "ICON_VARIANTS": "Qué variantes de animación trae cada icono, sin la geometría. Siempre empieza con draw.",
+      "SPRING_SMOOTH": "ζ=1.00, crítico, sin sobrepaso. El default de la casa para ir de A a B.",
+      "SPRING_SNAPPY": "ζ=0.73, rápido con sobrepaso sutil.",
+      "SPRING_BOUNCY": "ζ=0.40, un rebote de verdad."
     },
     "tipos": {
       "AnimatedIconDef": "Un icono: geometría + sus variantes de animación.",

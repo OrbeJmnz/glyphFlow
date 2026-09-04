@@ -113,6 +113,32 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'constante',
     resumen: 'docs.api.simbolos.ICON_TAGS',
   },
+  {
+    nombre: 'ICON_VARIANTS',
+    entrada: 'glyphflow',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.ICON_VARIANTS',
+  },
+  // Los tres resortes de la casa: mismos nombres y misma curva que usa el motor por dentro, para
+  // que un consumidor pueda reusarlos en su propio CSS o `element.animate()` sin desincronizarse.
+  {
+    nombre: 'SPRING_SMOOTH',
+    entrada: 'glyphflow',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.SPRING_SMOOTH',
+  },
+  {
+    nombre: 'SPRING_SNAPPY',
+    entrada: 'glyphflow',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.SPRING_SNAPPY',
+  },
+  {
+    nombre: 'SPRING_BOUNCY',
+    entrada: 'glyphflow',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.SPRING_BOUNCY',
+  },
   // Los nombres de la v1. Se documentan porque la v2 los sigue exportando —el spec exige que TODO
   // export esté documentado— y porque quien llegue con código de la v1 tiene que encontrar a qué
   // migrar, que es justo cuando va a buscarlo.
