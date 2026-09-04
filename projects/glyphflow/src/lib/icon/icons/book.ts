@@ -5,7 +5,7 @@
 import { AnimatedIconDef } from '../animated-icon.model';
 import { EASE, SPRING_OUT, track, strokeDraw, icon } from '../choreography';
 import { bookOpenShapes } from '../animated-icons.shapes';
-import { BADGE_BOUNCE_DRAW, X_SNAP_DRAW, HEART_QUAD_PULSE } from './_shared';
+import { HEART_QUAD_PULSE } from './_shared';
 
 /**
  * El meneo con el que abre TODA la familia: el libro se ladea a un lado y al otro y se asienta.
@@ -41,13 +41,9 @@ const BOOK_WIGGLE = /* @__PURE__ */ [
 /**
  * La insignia del centro REACCIONA sin desaparecer: se encoge y rebota, y ya.
  *
- * `BADGE_BOUNCE_DRAW` arranca en `opacity: '0'` con el trazo sin dibujar. Con `delay: 620` y
- * `fill: 'backwards'` eso deja la insignia INVISIBLE los primeros 620 ms del `default` — el libro
- * se menea con el centro vacío y la insignia aparece de la nada al final. En el `mark` eso es
- * correcto (ahí la marca ES lo que llega), pero en el `default` el icono debe verse entero desde
- * el cuadro 0.
- *
- * Sin `opacity` ni `strokeDasharray` a propósito: lo que no se toca, no puede desvanecerse.
+ * Sin `opacity` ni `strokeDasharray` a propósito: lo que no se toca, no puede desvanecerse. En el
+ * `mark` sí desaparece y vuelve a dibujarse —ahí la marca ES lo que llega— pero en el `default` el
+ * icono debe verse entero desde el cuadro 0, con el centro visible mientras se menea.
  */
 const BOOK_BADGE_POP = /* @__PURE__ */ [
   { transform: 'scale(1)' },
