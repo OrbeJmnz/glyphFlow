@@ -43,6 +43,30 @@ export interface Insignia {
  * barra de filtros necesita EXACTAMENTE esta exclusión, y duplicarla es cómo se desincroniza. */
 export const UNIVERSALES = new Set(['draw', 'default']);
 
+/**
+ * Qué variante REPRODUCE la rejilla mientras ese filtro está puesto: si acotas por `pulse`, lo que
+ * se mueve al pasar el puntero es `pulse` y no el gesto que el motor elegiría por su cuenta.
+ * Filtrar por una animación y que se reproduzca otra es enseñar lo que no se pidió.
+ *
+ * Vive AQUÍ y no en el componente a propósito: las claves las define `insigniasDe()` treinta líneas
+ * abajo, así que quien agregue una insignia nueva se topa con la decisión de qué reproduce en el
+ * mismo archivo, en vez de dejarla muda sin enterarse.
+ *
+ * Devuelve `undefined` —no `null`— porque ese es el centinela del input `animation` de `<gf-icon>`:
+ * significa «no lo fijé, elige tú».
+ */
+export function varianteDe(clave: ClaveInsignia | null): string | undefined {
+  if (!clave) return undefined;
+  if (clave.startsWith('variante:')) return clave.slice('variante:'.length);
+  // `hold` es una variante de verdad. `held` y `solo-draw` NO nombran una: describen cómo es el
+  // `default` de ese icono —se sostiene al salir, o es solo el trazo automático—, así que lo que
+  // toca reproducir en esos dos es el propio `default`.
+  if (clave === 'hold') return 'hold';
+  if (clave === 'held' || clave === 'solo-draw') return 'default';
+  // `extras` agrupa por TENER alguna variante extra, cualquiera. No hay una sola que reproducir.
+  return undefined;
+}
+
 export function insigniasDe(nombre: string, def: AnimatedIconDef): Insignia[] {
   const reporte = analizarIcono(nombre, def);
   const salida: Insignia[] = [];

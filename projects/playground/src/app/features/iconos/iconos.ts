@@ -47,7 +47,7 @@ import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
 import { NombreTruncado } from '../../shared/ui/nombre-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
-import { insigniasDe, type ClaveInsignia, type Insignia } from './icon-badges';
+import { insigniasDe, varianteDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { Paginador } from './paginador';
 import { CIFRAS } from '../../core/cifras';
 import { iconoPlano } from '../../core/morph-icon-plano';
@@ -601,6 +601,16 @@ export class Iconos implements OnDestroy {
 
   /** Filtro por insignia. `null` = "Todos", que es el estado normal. */
   protected readonly filtro = signal<ClaveInsignia | null>(null);
+
+  /**
+   * La variante que la rejilla reproduce con este filtro puesto. Alimenta los DOS caminos sin
+   * tocar ninguno: el hover (`trigger="group"`) y el botón «repetir visibles», que llama `play()`
+   * sobre el mismo componente y lee `animation` en ese momento.
+   *
+   * La tabla de qué reproduce cada clave vive en `varianteDe()`, junto a `insigniasDe()`, que es
+   * quien las define.
+   */
+  protected readonly varianteDelFiltro = computed(() => varianteDe(this.filtro()));
 
   /** Filtro por nombre y por sinónimo. Ver `buscador.ts` para el orden de relevancia. */
   protected readonly busqueda = signal('');
