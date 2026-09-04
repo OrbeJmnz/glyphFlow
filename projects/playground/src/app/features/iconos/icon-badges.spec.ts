@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { CURATED_ICONS, AnimatedIconDef } from 'glyphflow';
-import { insigniasDe, type ClaveInsignia } from './icon-badges';
+import { insigniasDe, varianteDe, type ClaveInsignia } from './icon-badges';
 import { analizarIcono } from './motion-inspector';
 
 const TODOS = Object.entries(CURATED_ICONS) as [string, AnimatedIconDef][];
@@ -89,5 +89,46 @@ describe('insigniasDe', () => {
         TODOS.length / 2,
       );
     }
+  });
+});
+
+describe('varianteDe', () => {
+  it('sin filtro no fija nada: el motor sigue eligiendo su gesto de hover', () => {
+    // `undefined` y no `null` — es el centinela del input `animation` de `<gf-icon>`.
+    expect(varianteDe(null)).toBeUndefined();
+  });
+
+  it('un filtro por nombre de variante reproduce ESA variante', () => {
+    expect(varianteDe('variante:pulse')).toBe('pulse');
+    expect(varianteDe('variante:dart')).toBe('dart');
+    // El nombre puede traer guiones; se corta por el prefijo, no por el primer separador.
+    expect(varianteDe('variante:play-pause')).toBe('play-pause');
+  });
+
+  it('`hold` es una variante de verdad y se reproduce tal cual', () => {
+    expect(varianteDe('hold')).toBe('hold');
+  });
+
+  it('`held` y `solo-draw` describen el `default`, así que reproducen el `default`', () => {
+    // Ninguna de las dos NOMBRA una variante: `held` es que el default se sostiene al salir, y
+    // `solo-draw` que el default es solo el trazo automático. En ambas lo que hay que ver es él.
+    expect(varianteDe('held')).toBe('default');
+    expect(varianteDe('solo-draw')).toBe('default');
+  });
+
+  it('`extras` no reproduce nada: agrupa por tener alguna, no por cuál', () => {
+    expect(varianteDe('extras')).toBeUndefined();
+  });
+
+  it('toda clave que `insigniasDe` sepa producir tiene una decisión tomada aquí', () => {
+    // La red contra el olvido: si alguien agrega una insignia nueva y no decide qué reproduce,
+    // este test la caza en vez de dejarla muda en la rejilla sin que nadie se entere.
+    const vistas = new Set<ClaveInsignia>();
+    for (const [nombre] of TODOS) for (const c of claves(nombre)) vistas.add(c);
+
+    const sinDecidir = [...vistas].filter(
+      (c) => varianteDe(c) === undefined && c !== 'extras',
+    );
+    expect(sinDecidir, 'insignias sin variante asignada en varianteDe()').toEqual([]);
   });
 });
