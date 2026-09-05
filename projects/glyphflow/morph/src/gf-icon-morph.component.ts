@@ -8,12 +8,23 @@ import {
   OnDestroy,
   ViewChild,
   inject,
+  output,
+  signal,
 } from '@angular/core';
 // Por NOMBRE DE PAQUETE, no por ruta relativa: `glyphflow/morph` es un entry point secundario, y
 // una ruta relativa hacia el primario haría que ng-packagr duplique ese código en este bundle. Con
 // `GF_ICONS_CONFIG` eso no sería solo peso: `InjectionToken` es identidad de objeto, así que una
 // copia duplicada es OTRO token, y el `provideGfIcons` del consumidor no llegaría nunca.
-import { GF_ICONS_CONFIG, IconShape } from 'glyphflow';
+//
+// `GfIconComponent` SÍ es estático, a propósito — se intentó `import('glyphflow')` para que solo
+// quien usa `animateAtRest` pagara el motor de coreografía, y `bundle-check` demostró que empeora:
+// sin `splitting` (así mide este script, y así miden la mayoría de bundlers de consumidor un import
+// dinámico a un barrel), esbuild no puede tree-shakear qué exporta de 'glyphflow' se usa DESPUÉS de
+// resolver la promesa — infló el caso "morph" de 21.31KB a 259KB gzip, arrastrando el catálogo
+// completo. El costo real de `animateAtRest` es estático: sube el presupuesto de `morph` de 21.0KB
+// a ~21.4KB gzip. Decisión de Orbe pendiente: subir el presupuesto (mismo precedente que `core`
+// 5KB→6KB por `flicker`) o descontinuar el input.
+import { AnimatedIconDef, GF_ICONS_CONFIG, GfIconComponent, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';
 import type { MorphIntent } from './intents';
@@ -98,6 +109,7 @@ function aIconInput(icono: MorphIcon): IconInput {
      deprecado en la v2 y sale en la v3. */
   selector: 'gf-icon-morph, max-icon-morph',
   standalone: true,
+  imports: [GfIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg
@@ -110,7 +122,7 @@ function aIconInput(icono: MorphIcon): IconInput {
       stroke-linejoin="round"
       [attr.aria-hidden]="ariaHidden"
       [attr.aria-label]="label ?? null"
-      style="display: block"
+      [style.display]="richRestActivo && mostrandoReposo() ? 'none' : 'block'"
     >
       <!--
         El giro del estado "loading" va en este g, NO en el path: el fallback de crossfade de
@@ -129,6 +141,24 @@ function aIconInput(icono: MorphIcon): IconInput {
         <path #figura />
       </g>
     </svg>
+    <!--
+      animateAtRest: fuera de una transición, el path aplanado de arriba se oculta y este gf-icon
+      real se monta encima. Uno FRESCO en cada reposo, a propósito: es lo que dispara su autoDraw de
+      nuevo (wireGroup() en gf-icon.component.ts solo lo hace en ngAfterViewInit, no al cambiar
+      iconDef sobre una instancia viva), así que el icono aterrizado dibuja su propio trazo en vez
+      de aparecer ya completo.
+    -->
+    @if (richRestActivo && mostrandoReposo() && iconoReposo(); as def) {
+      <gf-icon
+        [iconDef]="comoAnimatedIconDef(def)"
+        [animation]="restHoverAnimation"
+        [size]="size"
+        [strokeWidth]="strokeWidth"
+        [decorative]="decorative"
+        [label]="label"
+        [respectReducedMotion]="respectReducedMotion"
+      />
+    }
   `,
   styles: [
     // Mismo contrato de tamaño que <gf-icon>: por contención, no por override (ver ahí el porqué
@@ -245,6 +275,34 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
    */
   @Input() live = false;
 
+  /**
+   * Fuera de una transición, pinta el icono con un `<gf-icon>` real en vez del `<path>` aplanado
+   * del motor de morph: recupera su propio `autoDraw` de entrada y su propio hover, exactamente
+   * como si se usara suelto. Al primer icono, y a cada icono en el que ATERRIZA un morph, les toca
+   * ver su draw y su hover — la transición en sí sigue siendo geometría pura, sin figuras.
+   *
+   * **Exige el `AnimatedIconDef` COMPLETO** en `icon` (el mismo que ya usa `<gf-icon iconDef>`), no
+   * un `{shapes}` suelto — el motor de morph nunca lo exige porque nunca lee `.animations`, pero el
+   * `<gf-icon>` anidado sí. Pasar un `MorphIcon` sin coreografía real revienta en runtime al montar
+   * ese `<gf-icon>`, igual que le pasaría a cualquier `[iconDef]` incompleto.
+   *
+   * **Solo aplica al camino plano `[icon]`.** Con `intent` o `asyncState` se ignora en silencio:
+   * los dos ya tienen su propia semántica de reposo (el lado activo de un intent, el spinner de
+   * `loading`) y mezclarla con "reposo = icono real con hover" no está definida.
+   *
+   * **Fijo desde el primer uso**, mismo contrato que `live`.
+   */
+  @Input() animateAtRest = false;
+  /** Variante de hover del `<gf-icon>` de reposo cuando `animateAtRest` está activo. Sin esto, cada
+   *  icono decide su hover con la misma regla que si se usara suelto (`varianteDeHover`). */
+  @Input() restHoverAnimation?: string;
+
+  /**
+   * Se dispara cuando una transición de morph asienta — con o sin `animateAtRest`. Una transición
+   * interrumpida por otra más nueva NUNCA emite: solo se avisa el aterrizaje de la MÁS RECIENTE.
+   */
+  readonly morphed = output<void>();
+
   /** El mismo `provideGfIcons({ durationScale })` que escala las coreografías de `<gf-icon>`. */
   private readonly config = inject(GF_ICONS_CONFIG, { optional: true });
   /** Opcional a propósito: `pack-check` (y cualquier consumidor que arme el componente por fuera
@@ -271,8 +329,41 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
   private activoMostrado = false;
   private regreso?: ReturnType<typeof setTimeout>;
 
+  /** `true` cuando NO hay transición en vuelo. Solo importa mientras `animateAtRest` esté activo:
+   *  gobierna cuál de los dos —el `<path>` aplanado o el `<gf-icon>` anidado— está visible. */
+  protected readonly mostrandoReposo = signal(true);
+  /** El icono que pinta el `<gf-icon>` de reposo. Separado de `this.anterior` (que es del motor de
+   *  morph y vive en `MorphIcon`) porque este necesita sobrevivir hasta que `comoAnimatedIconDef`
+   *  lo use en el template. */
+  protected readonly iconoReposo = signal<MorphIcon | undefined>(undefined);
+  /** Identidad de la transición en curso. Una más nueva la reemplaza — el callback de la vieja se
+   *  compara contra esto antes de tocar cualquier signal, así una transición interrumpida nunca
+   *  pisa el aterrizaje de la que la reemplazó. */
+  private transicionActual?: object;
+
   protected get ariaHidden(): 'true' | 'false' {
     return this.decorative && !this.label ? 'true' : 'false';
+  }
+
+  /**
+   * Si el `<gf-icon>` de reposo aplica AHORA MISMO. Fuente única para la plantilla (qué se
+   * oculta/monta) y para `aplicar()` (qué escribe al aterrizar) — dos copias de esta regla
+   * divergiendo es justo el bug que costó el primer intento: la plantilla escondía el `<path>`
+   * aplanado mirando solo el input `animateAtRest`, sin enterarse de que `intent`/`asyncState`
+   * apagan el rest-icon.
+   */
+  protected get richRestActivo(): boolean {
+    return this.animateAtRest && this.mostrado === undefined && !this.intent;
+  }
+
+  /**
+   * Cast documentado: `animateAtRest` exige que el consumidor pase el `AnimatedIconDef` completo
+   * (ver el JSDoc del input), no un `MorphIcon` suelto. El campo se queda tipado `MorphIcon` porque
+   * el motor de morph nunca lee `.animations` — pero el `<gf-icon>` de reposo sí, y estructuralmente
+   * es el MISMO objeto que ya trae ese campo cuando `animateAtRest` se usa como está documentado.
+   */
+  protected comoAnimatedIconDef(icono: MorphIcon): AnimatedIconDef {
+    return icono as AnimatedIconDef;
   }
 
   /** Del icono que se está enseñando, no del input `icon`: con `intent`/`asyncState` ese está vacío. */
@@ -340,6 +431,9 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
     const anterior = this.anterior;
     this.anterior = nuevo;
 
+    // Ver el getter `richRestActivo`: misma regla que usa la plantilla, una sola vez.
+    const richRestActivo = this.richRestActivo;
+
     if (!nuevo) {
       // Si quedara un morph en vuelo, el ticker del motor en vivo repintaría `d` en el SIGUIENTE
       // frame y el icono "reaparecería" a medio morph — se destruye ANTES de limpiar el atributo,
@@ -348,6 +442,7 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       this.motorVivo?.destroy();
       this.motorVivo = undefined;
       this.figura.nativeElement.removeAttribute('d');
+      if (richRestActivo) this.mostrandoReposo.set(false);
       return;
     }
 
@@ -383,15 +478,39 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       // lo que está pintado ahora mismo (p. ej. C) — la figura saltaría hacia atrás al reanudar el
       // movimiento. `set()` ya escribe el `d` canónico Y actualiza `objetivo`/`reposo`: mismo
       // resultado en pantalla, motor sincronizado.
-      if (this.motorVivo) {
+      if (richRestActivo) {
+        // Primer valor, o cualquier camino que hoy salta la animación: el <gf-icon> de reposo se
+        // pinta solo y trae su propio autoDraw — la ruta plana ni se toca.
+        this.iconoReposo.set(nuevo);
+        this.mostrandoReposo.set(true);
+      } else if (this.motorVivo) {
         this.motorVivo.set(aIconInput(nuevo));
       } else {
         this.figura.nativeElement.setAttribute('d', canonicalD(aIconInput(nuevo)));
       }
+      this.morphed.emit();
       return;
     }
 
+    // A partir de aquí sí hay una transición animada real: si el <gf-icon> de reposo estaba
+    // visible, se oculta hasta que la transición aterrice.
+    if (richRestActivo) this.mostrandoReposo.set(false);
+
     const durationScale = this.config?.durationScale ?? 1;
+    const miTransicion = {};
+    this.transicionActual = miTransicion;
+    // Una transición interrumpida por otra más nueva jamás llega aquí con `miTransicion` vigente —
+    // `this.transicionActual` ya apunta a la que la reemplazó — así que ni pisa el <gf-icon> de
+    // reposo ni emite `morphed` por algo que no terminó de ocurrir.
+    const alAterrizar = (): void => {
+      if (this.transicionActual !== miTransicion) return;
+      if (richRestActivo) {
+        this.iconoReposo.set(nuevo);
+        this.mostrandoReposo.set(true);
+      }
+      this.morphed.emit();
+    };
+
     if (this.modoVivo) {
       // `runOutsideAngular`: el scheduler de `live-morph.ts` se registra con `requestAnimationFrame`
       // desde AQUÍ. Con zone.js cargado (la app de un consumidor real, no este workspace zoneless),
@@ -400,19 +519,30 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       // componente. WAAPI nunca pagó este costo porque no agenda ninguna tarea de zona; el modo en
       // vivo sí, y es la propia librería quien la agenda desde su ciclo de vida — ningún consumidor
       // puede evitarlo por su cuenta si esto no lo hace.
+      //
+      // `alAterrizar` viaja igual fuera de la zona: escribe sobre signals, y esas notifican al
+      // detector de cambios por su cuenta (Angular las observa aunque la escritura no pase por
+      // `NgZone.run`), sin necesidad de un `markForCheck` manual ni de reentrar a la zona.
       this.runFueraDeLaZona(() => {
         this.motorVivo ??= createLiveMorph(this.figura.nativeElement, aIconInput(anterior));
         this.motorVivo.morphTo(aIconInput(nuevo), {
           durationScale,
           ...(this.resorte ? { spring: this.resorte } : {}),
+          onSettle: alAterrizar,
         });
       });
       return;
     }
 
-    runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
+    const { animation } = runMorph(this.figura.nativeElement, aIconInput(anterior), aIconInput(nuevo), {
       durationScale,
       ...(this.resorte ? { spring: this.resorte } : {}),
+    });
+    // `runMorph` ya tiene su propio `.finished.then()` para escribir el `d` final — este es OTRO
+    // suscriptor de la MISMA promesa, no un reemplazo.
+    animation.finished.then(alAterrizar).catch(() => {
+      // `cancel()` (una transición más nueva interrumpiendo esta) rechaza con AbortError, y eso ya
+      // lo cubre el guard de `transicionActual` de arriba — no hay nada más que hacer con ese rechazo.
     });
   }
 
@@ -427,6 +557,9 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
     // Sin esto, el regreso dispara sobre un componente desmontado y escribe en un nodo suelto.
     clearTimeout(this.regreso);
     this.regreso = undefined;
+    // Cualquier `alAterrizar` que resuelva después de esto se encuentra el guard de identidad y no
+    // toca ningún signal de un componente ya destruido.
+    this.transicionActual = undefined;
   }
 
   /**
