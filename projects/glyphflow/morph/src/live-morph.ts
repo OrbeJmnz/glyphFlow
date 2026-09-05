@@ -65,6 +65,14 @@ export interface LiveMorphOpts {
   /** Igual que en `runMorph`: multiplica el reloj sin tocar la forma del resorte. Se lee UNA vez
    *  por llamada a `morphTo`, no reactivo a medio vuelo — mismo contrato que WAAPI. */
   durationScale?: number;
+  /**
+   * Se llama UNA vez cuando ESTA llamada a `morphTo` asienta — ya sea porque el resorte llegó a
+   * reposo o porque `saltar()` la resolvió de un salto (sin `requestAnimationFrame`, o con
+   * `durationScale<=0`). Una llamada posterior a `morphTo` reemplaza el callback pendiente: solo se
+   * avisa el asentamiento de la transición MÁS RECIENTE pedida, igual que `runMorph` descarta el
+   * `finished` de una animación interrumpida.
+   */
+  onSettle?: () => void;
 }
 
 export interface LiveMorph {
@@ -110,6 +118,10 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
   // intenta arrancando en reposo — mid-vuelo la pose en pantalla ya no es la forma original, y la
   // coreografía curada no sabe posar nada que no sea sol(0)/luna(1) exactos.
   let curado: CuratedMorph | null = null;
+  /** El `onSettle` de la llamada a `morphTo` EN CURSO. Se limpia al consumirse, así que una llamada
+   *  interrumpida a medio vuelo simplemente pierde el suyo — nunca se avisa un asentamiento que no
+   *  ocurrió para esa transición. */
+  let alAsentar: (() => void) | undefined;
 
   el.setAttribute('d', canonicalD(iconoInicial));
 
@@ -155,6 +167,9 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
     // vez de volver al estilo que le imponga el consumidor (CSS, otro `[style]`, etc).
     el.style.opacity = '';
     el.style.transform = '';
+    const cb = alAsentar;
+    alAsentar = undefined;
+    cb?.();
   };
 
   const tick: Ticker = (dt) => {
@@ -220,6 +235,7 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
       if (muerta) return;
       if (icon === objetivo && (reposo || volando)) return; // ya está ahí / ya en camino
       if (typeof requestAnimationFrame !== 'function') {
+        alAsentar = opts?.onSettle;
         saltar(icon); // SSR / sin DOM: sin rAF no hay a dónde volar
         return;
       }
@@ -227,12 +243,14 @@ export function createLiveMorph(el: SVGPathElement, iconoInicial: IconInput): Li
       if (!(s > 0)) {
         // 0, negativo o NaN: no hay reloj que integrar — mismo criterio que WAAPI, donde
         // `duration * 0` aterriza instantáneo. `!(s > 0)` atrapa también NaN sin un caso aparte.
+        alAsentar = opts?.onSettle;
         saltar(icon);
         return;
       }
       const { k, c } = resolverResorte(opts?.spring);
       spring.config(k, c);
       escala = s;
+      alAsentar = opts?.onSettle;
       replanear(icon);
       spring.start(); // conserva velocidad si venía volando
       if (!volando) {

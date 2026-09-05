@@ -730,3 +730,186 @@ describe('<gf-icon-morph> — input `intent`', () => {
     }
   });
 });
+
+describe('<gf-icon-morph> — input `animateAtRest`', () => {
+  @Component({
+    imports: [GfIconMorphComponent],
+    template: `<gf-icon-morph
+      [icon]="icono()"
+      [animateAtRest]="true"
+      label="prueba"
+      (morphed)="aterrizajes.set(aterrizajes() + 1)"
+    />`,
+  })
+  class AnfitrionRico {
+    readonly icono = signal<MorphIcon | undefined>(bellIcon);
+    readonly aterrizajes = signal(0);
+  }
+
+  @Component({
+    imports: [GfIconMorphComponent],
+    template: '<gf-icon-morph [icon]="icono()" [animateAtRest]="true" [intent]="intent" [active]="activo()" label="prueba" />',
+  })
+  class AnfitrionRicoConIntent {
+    readonly icono = signal<MorphIcon | undefined>(undefined);
+    readonly intent = COPY_INTENT;
+    readonly activo = signal(false);
+  }
+
+  function svgAplanado(fixture: { nativeElement: unknown }): SVGSVGElement {
+    return (fixture.nativeElement as HTMLElement).querySelector('svg') as SVGSVGElement;
+  }
+
+  function gfIconAnidado(fixture: { nativeElement: unknown }): HTMLElement | null {
+    return (fixture.nativeElement as HTMLElement).querySelector('gf-icon');
+  }
+
+  /** Como `espiarAnimate`, pero con `finished` controlable a mano — hace falta para poder mirar el
+   *  estado a MEDIO vuelo. La versión de arriba resuelve `finished` en el momento de crearse, así
+   *  que un `await fixture.whenStable()` colapsa arranque Y aterrizaje en el mismo flush: nunca hay
+   *  un instante intermedio que observar. */
+  function espiarAnimateDiferido(): {
+    resolver: () => void;
+    restaurar: () => void;
+  } {
+    let resolver: () => void = () => {
+      // Reemplazado por el `animate()` real de más abajo antes de que nadie llame esto.
+    };
+    const original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+    Object.defineProperty(Element.prototype, 'animate', {
+      configurable: true,
+      writable: true,
+      value(this: Element): Animation {
+        const animacion = {
+          currentTime: 0,
+          playbackRate: 1,
+          playState: 'running',
+          finished: new Promise<void>((r) => {
+            resolver = r;
+          }),
+          cancel(): void {
+            // No hace falta rastrear cancelaciones en este mock: ningún test de este describe las mira.
+          },
+        };
+        return animacion as unknown as Animation;
+      },
+    });
+    return {
+      resolver: () => resolver(),
+      restaurar: () => {
+        if (original) Object.defineProperty(Element.prototype, 'animate', original);
+        else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
+      },
+    };
+  }
+
+  let espia: ReturnType<typeof espiarAnimate>;
+  beforeEach(() => (espia = espiarAnimate()));
+  afterEach(() => espia.restaurar());
+
+  it('primer valor: se monta el <gf-icon> de reposo y el path aplanado queda oculto', async () => {
+    const fixture = TestBed.createComponent(AnfitrionRico);
+    await fixture.whenStable();
+
+    expect(gfIconAnidado(fixture)).toBeTruthy();
+    expect(svgAplanado(fixture).style.display).toBe('none');
+    // El `<gf-icon>` de reposo SÍ dispara su propio `autoDraw` de entrada al montarse (bellIcon lo
+    // trae) — es justo lo que pide la feature. Lo que NO pasa es un morph sobre el `<path>`
+    // aplanado: la geometría de esas llamadas es de trazo (opacity/strokeDasharray), no un `d`.
+    for (const llamada of espia.llamadas) {
+      expect(llamada.keyframes.some((k) => 'd' in k)).toBe(false);
+    }
+    // Y el `morphed` del primer paint SÍ se emite: aterrizó, aunque sin animarse.
+    expect(fixture.componentInstance.aterrizajes()).toBe(1);
+  });
+
+  it('a medio vuelo el <gf-icon> de reposo desaparece y el path aplanado se ve', async () => {
+    espia.restaurar(); // este test necesita `finished` controlable, no el auto-resuelto de arriba
+    const diferido = espiarAnimateDiferido();
+    try {
+      const fixture = TestBed.createComponent(AnfitrionRico);
+      await fixture.whenStable();
+      expect(gfIconAnidado(fixture)).toBeTruthy();
+
+      fixture.componentInstance.icono.set(bellRingIcon);
+      await fixture.whenStable();
+
+      // El morph arrancó pero su `finished` sigue sin resolver: seguimos a medio vuelo.
+      expect(gfIconAnidado(fixture)).toBeFalsy();
+      expect(svgAplanado(fixture).style.display).toBe('block');
+      expect(fixture.componentInstance.aterrizajes()).toBe(1); // solo el del primer paint
+
+      diferido.resolver();
+      await fixture.whenStable();
+      // El aterrizaje llega por una promesa suelta (`animation.finished`), no por un `ngOnChanges`
+      // síncrono — el signal que dispara el remontaje del `<gf-icon>` puede tardar un tick más de
+      // reconciliación en reflejarse que el resto de este archivo, que solo escribe DOM a mano.
+      await fixture.whenStable();
+
+      // Aterrizó: vuelve un <gf-icon> (fresco) y el path aplanado se oculta otra vez.
+      expect(gfIconAnidado(fixture)).toBeTruthy();
+      expect(svgAplanado(fixture).style.display).toBe('none');
+      expect(fixture.componentInstance.aterrizajes()).toBe(2);
+    } finally {
+      diferido.restaurar();
+      espia = espiarAnimate(); // deja el espía de siempre instalado para el `afterEach` del describe
+    }
+  });
+
+  it('`animateAtRest` se ignora con `intent`: nunca aparece un <gf-icon> anidado', async () => {
+    const fixture = TestBed.createComponent(AnfitrionRicoConIntent);
+    await fixture.whenStable();
+    expect(gfIconAnidado(fixture)).toBeFalsy();
+
+    fixture.componentInstance.activo.set(true);
+    await fixture.whenStable();
+    expect(gfIconAnidado(fixture)).toBeFalsy();
+    expect(svgAplanado(fixture).style.display).not.toBe('none');
+  });
+
+  describe('en modo vivo', () => {
+    @Component({
+      imports: [GfIconMorphComponent],
+      template: `<gf-icon-morph
+        [icon]="icono()"
+        [animateAtRest]="true"
+        [live]="true"
+        label="prueba"
+        (morphed)="aterrizajes.set(aterrizajes() + 1)"
+      />`,
+    })
+    class AnfitrionRicoVivo {
+      readonly icono = signal<MorphIcon | undefined>(bellIcon);
+      readonly aterrizajes = signal(0);
+    }
+
+    let raf: ReturnType<typeof espiarRaf>;
+    beforeEach(() => (raf = espiarRaf()));
+    afterEach(() => raf.restaurar());
+
+    it('también aterriza en modo vivo: vuelve el <gf-icon> y emite `morphed`', async () => {
+      const fixture = TestBed.createComponent(AnfitrionRicoVivo);
+      await fixture.whenStable();
+
+      fixture.componentInstance.icono.set(bellRingIcon);
+      await fixture.whenStable();
+      expect(gfIconAnidado(fixture)).toBeFalsy(); // arrancó el vuelo, todavía sin asentar
+
+      // Tope de seguridad generoso: el resorte más lento del catálogo (`bouncy`) asienta muy por
+      // debajo de esto. Si este test empieza a fallar por timeout, es una regresión real, no un
+      // umbral corto.
+      let ts = 0;
+      for (let i = 0; i < 300 && !gfIconAnidado(fixture); i++) {
+        ts += 16;
+        raf.avanzar(ts);
+        await fixture.whenStable();
+      }
+
+      expect(gfIconAnidado(fixture)).toBeTruthy();
+      expect(svgAplanado(fixture).style.display).toBe('none');
+      expect(fixture.componentInstance.aterrizajes()).toBe(2); // primer paint + este aterrizaje
+
+      fixture.destroy();
+    });
+  });
+});
