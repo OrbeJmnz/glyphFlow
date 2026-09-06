@@ -11,6 +11,7 @@ gesture, just the shape sitting there.
 
 ```html
 <gf-icon-morph [icon]="open() ? xIcon : menuIcon" [animateAtRest]="true" restHoverAnimation="wiggle" />
+<gf-icon-morph [intent]="COPY_INTENT" [active]="copiado()" [animateAtRest]="true" />
 ```
 
 With `animateAtRest`, outside of a transition the flattened path is replaced by a real `<gf-icon>` —
@@ -19,9 +20,12 @@ it gets its own `autoDraw` entrance and its own hover, exactly as if it were use
 draw from `ngAfterViewInit`, not on an `[iconDef]` change over a living instance, so reusing one
 instance across icons would silently drop the draw on every icon after the first.
 
-This only applies to the plain `[icon]` path. `intent` and `asyncState` already have their own rest
-semantics — the active side of an intent, the `loading` spinner — and mixing those with "rest = a
-real animated icon" isn't defined, so `animateAtRest` is silently ignored there.
+This applies to the plain `[icon]` path **and** to `intent` — the rest-icon follows whichever side
+(`idle`/`active`) is currently showing, so a two-state toggle like `COPY_INTENT` gets hover on both
+ends for free. `restHoverAnimation` stays a single variant for both sides; leave it unset and each
+icon falls back to its own default hover. `asyncState` is the one exception: the `loading` spinner
+already has its own rest semantics, and mixing that with "rest = a real animated icon" isn't
+defined, so `animateAtRest` is silently ignored there.
 
 It requires the full `AnimatedIconDef` in `icon` (the same object `<gf-icon iconDef>` already takes),
 not a bare `{shapes}` value — the morph engine itself never needed `.animations`, but the nested
