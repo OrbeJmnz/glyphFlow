@@ -93,10 +93,11 @@
   content: '';
   position: absolute;
   z-index: -1;
-  inset-block: 0;
+  top: 0;
   left: 0;
   width: var(--ind-w, 0);
-  translate: var(--ind-x, 0) 0;
+  height: var(--ind-h, 100%);
+  translate: var(--ind-x, 0) var(--ind-y, 0);
   opacity: var(--ind-o, 0);
   border-radius: 999px;
   background: var(--gf-velo-activo);
@@ -115,6 +116,7 @@
   transition:
     translate 0.42s var(--gf-resorte),
     width 0.42s var(--gf-resorte),
+    height 0.42s var(--gf-resorte),
     opacity 0.2s ease;
 }
 
