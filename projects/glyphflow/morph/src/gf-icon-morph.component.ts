@@ -22,8 +22,9 @@ import {
 // dinámico a un barrel), esbuild no puede tree-shakear qué exporta de 'glyphflow' se usa DESPUÉS de
 // resolver la promesa — infló el caso "morph" de 21.31KB a 259KB gzip, arrastrando el catálogo
 // completo. El costo real de `animateAtRest` es estático: sube el presupuesto de `morph` de 21.0KB
-// a ~21.4KB gzip. Decisión de Orbe pendiente: subir el presupuesto (mismo precedente que `core`
-// 5KB→6KB por `flicker`) o descontinuar el input.
+// a 22KB gzip (ver `scripts/bundle-size-check.ts`) — decisión de Orbe (2026-09-06), mismo
+// precedente que `core` 5KB→6KB por `flicker`: el ahorro de aislarlo en su propio entry point
+// (~0.3KB) no justificaba la superficie pública nueva.
 import { AnimatedIconDef, GF_ICONS_CONFIG, GfIconComponent, IconShape } from 'glyphflow';
 import { canonicalD, runMorph } from './morph-keyframes';
 import type { SpringConfig, SpringPreset } from './morph-keyframes';

@@ -73,12 +73,19 @@ const CASES = [
     // pares NO son tree-shakeables entre sí — `findCuratedMorph` compara el `d` canónico de
     // CUALQUIER llamada contra TODO el registro en runtime, así que un consumidor que solo usa
     // bell→bell-ring paga igual por los 9. Medido: 14.51KB → 18.20KB (+3.69KB por los 6 pares
-    // nuevos, ~0.6KB c/u). 21KB deja margen para el crecimiento normal del registro sin dejar de
-    // cazar una regresión real — agregar el DÉCIMO par curado probablemente vuelva a acercarse al
-    // límite, y en ese punto toca decidir de nuevo, no ampliar en silencio.
+    // nuevos, ~0.6KB c/u).
+    //
+    // Subido de 21KB a 22KB el 2026-09-06 por `animateAtRest` (`GfIconComponent` importado
+    // ESTÁTICO desde `gf-icon-morph.component.ts` — ver el comentario de ese import: un
+    // `import('glyphflow')` dinámico se probó primero y empeoró a 259KB gzip, porque esbuild no
+    // tree-shakea qué exporta un barrel resuelto detrás de una promesa sin `splitting`). Medido:
+    // 21.31KB real contra el techo viejo de 21KB. Mismo criterio que `core` 5→5.5→6KB: decisión
+    // explícita de Orbe de subir el presupuesto en vez de descontinuar el input o aislarlo en su
+    // propio entry point — el ahorro de ese aislamiento (~0.3KB) no justificaba la superficie
+    // pública nueva. 22KB deja margen; la próxima feature que toque este entry point vuelve a medir.
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent);`,
-    maxGzipBytes: 21 * 1024,
+    maxGzipBytes: 22 * 1024,
   },
   {
     name: 'morph + 1 intent — un gesto curado, no los seis',
@@ -87,11 +94,12 @@ const CASES = [
     // `COPY_INTENT` no pague las figuras de los otros cinco; un registro por nombre (`intent="copy"`)
     // los habría hecho a todos alcanzables desde el componente y habría arrastrado los doce.
     //
-    // El presupuesto es el del caso `morph` (21KB) más el par de figuras que este intent SÍ usa. Si
-    // el tree-shaking dejara de podar, aquí se verían los doce y el número saltaría, no crecería.
+    // El presupuesto es el del caso `morph` (22KB, ver su nota de `animateAtRest`) más el par de
+    // figuras que este intent SÍ usa. Si el tree-shaking dejara de podar, aquí se verían los doce
+    // y el número saltaría, no crecería.
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent, COPY_INTENT } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent, COPY_INTENT);`,
-    maxGzipBytes: 22 * 1024,
+    maxGzipBytes: 23 * 1024,
   },
 ];
 
