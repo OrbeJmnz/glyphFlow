@@ -249,16 +249,21 @@
   content: '';
   position: absolute;
   z-index: -1;
-  inset-block: 0;
+  top: 0;
   left: 0;
   width: var(--ind-w, 0);
-  translate: var(--ind-x, 0) 0;
+  /* Alto de LA PÍLDORA ACTIVA, no `inset-block:0` (alto del contenedor): con `flex-wrap` el
+     contenedor mide dos filas, y con altura completa el indicador se desbordaba sobre la fila de
+     abajo como una píldora fantasma sin texto — ver `appCarrilActivo`. */
+  height: var(--ind-h, 100%);
+  translate: var(--ind-x, 0) var(--ind-y, 0);
   opacity: var(--ind-o, 0);
   border-radius: 999px;
   background: var(--gf-acento-fondo);
   transition:
     translate 0.28s var(--gf-resorte),
     width 0.28s var(--gf-resorte),
+    height 0.28s var(--gf-resorte),
     opacity 0.2s ease;
 }
 

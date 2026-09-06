@@ -1,9 +1,14 @@
 import { DestroyRef, Directive, ElementRef, afterNextRender, inject } from '@angular/core';
 
 /**
- * Publica dónde está el hijo `.activo` como variables CSS del host: `--ind-x`, `--ind-w` y
- * `--ind-o`. Con eso el contenedor puede dibujar UN indicador que se desliza entre opciones en vez
- * de que cada una encienda y apague su propio fondo.
+ * Publica dónde está el hijo `.activo` como variables CSS del host: `--ind-x`, `--ind-y`,
+ * `--ind-w`, `--ind-h` y `--ind-o`. Con eso el contenedor puede dibujar UN indicador que se
+ * desliza entre opciones en vez de que cada una encienda y apague su propio fondo.
+ *
+ * Publica el rectángulo COMPLETO (con Y/alto, no solo X/ancho) a propósito: `.variantes-nav` usa
+ * `flex-wrap`, y un indicador que solo trackeara X quedaría con `inset-block:0` (alto del
+ * CONTENEDOR completo, las dos filas) en vez del alto de la píldora activa — se veía una segunda
+ * píldora fantasma, sin texto, flotando en la fila de abajo en la columna que le tocaba por X.
  *
  * Existe porque el carril de velocidad NO necesita esto: sus cuatro píldoras miden lo mismo, así
  * que ahí el desplazamiento es aritmética pura (índice × paso) y no hace falta tocar el DOM. En la
@@ -90,7 +95,9 @@ export class CarrilActivo {
     const caja = el.getBoundingClientRect();
     const suya = activo.getBoundingClientRect();
     el.style.setProperty('--ind-x', `${suya.left - caja.left + el.scrollLeft}px`);
+    el.style.setProperty('--ind-y', `${suya.top - caja.top + el.scrollTop}px`);
     el.style.setProperty('--ind-w', `${suya.width}px`);
+    el.style.setProperty('--ind-h', `${suya.height}px`);
     el.style.setProperty('--ind-o', '1');
   }
 }
