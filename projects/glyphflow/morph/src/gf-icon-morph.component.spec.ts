@@ -856,15 +856,25 @@ describe('<gf-icon-morph> — input `animateAtRest`', () => {
     }
   });
 
-  it('`animateAtRest` se ignora con `intent`: nunca aparece un <gf-icon> anidado', async () => {
+  it('`animateAtRest` SÍ aplica con `intent`: el <gf-icon> de reposo sigue el lado activo', async () => {
     const fixture = TestBed.createComponent(AnfitrionRicoConIntent);
     await fixture.whenStable();
-    expect(gfIconAnidado(fixture)).toBeFalsy();
+
+    // En reposo, lado `idle` (copyIcon: rect + path) — hay un <gf-icon> anidado con su propio rect.
+    expect(gfIconAnidado(fixture)).toBeTruthy();
+    expect(svgAplanado(fixture).style.display).toBe('none');
+    expect(gfIconAnidado(fixture)?.querySelector('rect')).toBeTruthy();
 
     fixture.componentInstance.activo.set(true);
     await fixture.whenStable();
-    expect(gfIconAnidado(fixture)).toBeFalsy();
-    expect(svgAplanado(fixture).style.display).not.toBe('none');
+    // Aterrizaje por promesa suelta (`animation.finished`): un tick más de reconciliación, mismo
+    // motivo que el resto de este describe.
+    await fixture.whenStable();
+
+    // Aterrizó en el lado `active` (checkIcon: un solo path, SIN rect) — <gf-icon> fresco, sin rect.
+    expect(gfIconAnidado(fixture)).toBeTruthy();
+    expect(svgAplanado(fixture).style.display).toBe('none');
+    expect(gfIconAnidado(fixture)?.querySelector('rect')).toBeFalsy();
   });
 
   describe('en modo vivo', () => {

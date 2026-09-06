@@ -287,9 +287,14 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
    * `<gf-icon>` anidado sí. Pasar un `MorphIcon` sin coreografía real revienta en runtime al montar
    * ese `<gf-icon>`, igual que le pasaría a cualquier `[iconDef]` incompleto.
    *
-   * **Solo aplica al camino plano `[icon]`.** Con `intent` o `asyncState` se ignora en silencio:
-   * los dos ya tienen su propia semántica de reposo (el lado activo de un intent, el spinner de
-   * `loading`) y mezclarla con "reposo = icono real con hover" no está definida.
+   * **Aplica al camino plano `[icon]` y a `intent`.** Con un intent, el `<gf-icon>` de reposo
+   * sigue el lado que toque (`idle` o `active`, según `iconoObjetivo`) — así un toggle de dos
+   * estados (`COPY_INTENT`: copiar/listo) puede tener hover en LOS DOS lados sin que el consumidor
+   * arme el montaje manual que esta feature existe para evitarle. `restHoverAnimation` sigue
+   * siendo una sola variante para ambos lados; sin fijarla, cada icono cae a su propio default.
+   *
+   * **Con `asyncState` se ignora en silencio**: el spinner de `loading` ya tiene su propia
+   * semántica de reposo, y mezclarla con "reposo = icono real con hover" no está definida ahí.
    *
    * **Fijo desde el primer uso**, mismo contrato que `live`.
    */
@@ -350,11 +355,11 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
    * Si el `<gf-icon>` de reposo aplica AHORA MISMO. Fuente única para la plantilla (qué se
    * oculta/monta) y para `aplicar()` (qué escribe al aterrizar) — dos copias de esta regla
    * divergiendo es justo el bug que costó el primer intento: la plantilla escondía el `<path>`
-   * aplanado mirando solo el input `animateAtRest`, sin enterarse de que `intent`/`asyncState`
-   * apagan el rest-icon.
+   * aplanado mirando solo el input `animateAtRest`, sin enterarse de que `asyncState` apaga el
+   * rest-icon (`intent` YA NO lo apaga: ver el JSDoc de `animateAtRest`).
    */
   protected get richRestActivo(): boolean {
-    return this.animateAtRest && this.mostrado === undefined && !this.intent;
+    return this.animateAtRest && this.mostrado === undefined;
   }
 
   /**
