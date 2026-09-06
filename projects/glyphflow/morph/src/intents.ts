@@ -24,17 +24,27 @@
  * `public-api.ts` de este entry point.
  */
 import {
+  bellIcon,
+  bellOffIcon,
   checkIcon,
   chevronDownIcon,
   chevronUpIcon,
   copyIcon,
   eyeIcon,
   eyeOffIcon,
+  heartIcon,
+  heartOffIcon,
+  mapPinIcon,
+  mapPinOffIcon,
   menuIcon,
   moonIcon,
   pauseIcon,
   playIcon,
+  starIcon,
+  starOffIcon,
   sunIcon,
+  volume2Icon,
+  volumeOffIcon,
   xIcon,
 } from 'glyphflow';
 import type { MorphIcon } from './gf-icon-morph.component';
@@ -109,4 +119,52 @@ export const EXPAND_COLLAPSE_INTENT: MorphIntent = {
   idle: chevronDownIcon,
   active: chevronUpIcon,
   spring: 'smooth',
+};
+
+/**
+ * Quitar de "me gusta". `active` = quitado — `heartOffIcon` es el corazón partido por una
+ * diagonal, no un corazón relleno: mismo lenguaje visual que `bellOff`/`starOff`/`volumeOff`
+ * (figura base + raya = "esto se apagó"), no el relleno sólido que usan X/Instagram para "liked".
+ * Si lo que hace falta es esa segunda convención, este intent no es el que la resuelve.
+ *
+ * ```html
+ * <gf-icon-morph [intent]="LIKE_INTENT" [active]="quitado()" [animateAtRest]="true" />
+ * ```
+ */
+export const LIKE_INTENT: MorphIntent = {
+  idle: heartIcon,
+  active: heartOffIcon,
+  spring: 'snappy',
+};
+
+/** Favorito. `active` = favorito quitado — la estrella se fragmenta por la misma raya. */
+export const FAVORITE_INTENT: MorphIntent = {
+  idle: starIcon,
+  active: starOffIcon,
+  spring: 'snappy',
+};
+
+/** Notificaciones. `active` = silenciadas. */
+export const NOTIFY_INTENT: MorphIntent = {
+  idle: bellIcon,
+  active: bellOffIcon,
+  spring: 'snappy',
+};
+
+/** Fijar/desfijar un elemento. `active` = ya no está fijado. */
+export const PIN_INTENT: MorphIntent = {
+  idle: mapPinIcon,
+  active: mapPinOffIcon,
+  spring: 'snappy',
+};
+
+/**
+ * Sonido. `active` = silenciado. `idle` es `volume2Icon` (las dos ondas), no el altavoz pelón: es
+ * la única de las seis cuyo par curado (`curated-morphs.ts`) tuvo que ampliarse — el registro real
+ * solo cubría volumeOff↔volume (sin ondas); ver `construirConSatelitesYEntrada`.
+ */
+export const VOLUME_INTENT: MorphIntent = {
+  idle: volume2Icon,
+  active: volumeOffIcon,
+  spring: 'snappy',
 };

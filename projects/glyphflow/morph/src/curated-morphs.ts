@@ -14,17 +14,20 @@ import type { IconInput } from './core/types';
  * fijar, favorito, silenciar) tienen intención humana detrás en vez de forzar el genérico.
  *
  * Deliberadamente chico y a demanda — no es un patrón automático, cada entrada se agrega mirando
- * el par real. Tres formas de coreografía, según qué tan parecidas son las dos figuras:
+ * el par real. Cuatro formas de coreografía, según qué tan parecidas son las dos figuras:
  *
  * 1. `construirConSatelites` — hay UN cuerpo que sí corresponde bien (`sun`↔`moon`, `copy`↔`check`,
  *    `volume`↔`volume-off`): ese cuerpo morfea de verdad: el resto son "satélites" sin contraparte
- *    que se encogen/crecen hacia un punto fijo del borde final.
- * 2. `construirBaseConRaya` — el patrón `-off` más común de Lucide: la base NO cambia de forma en
+ *    que se encogen hacia un punto fijo del borde final.
+ * 2. `construirConSatelitesYEntrada` — como la anterior, pero DESTINO trae piezas que origen no
+ *    tiene (`volume-off`↔`volume2`: las dos ondas). Mismo cuerpo, satélites que se encogen Y
+ *    entrantes que CRECEN desde un punto fijo del cuerpo origen — espejo exacto de las salientes.
+ * 3. `construirBaseConRaya` — el patrón `-off` más común de Lucide: la base NO cambia de forma en
  *    vuelo (partirla en piezas para el hueco de la raya da mal residuo incluso emparejando a mano —
  *    medido 0.48-0.70 en varios), solo crece una raya diagonal encima. El aterrizaje exacto (que ya
  *    hace `runMorph`/`createLiveMorph`) cambia al `d` real —CON el hueco— en el instante en que la
  *    raya ya lo tapa por completo, así que el salto es invisible.
- * 3. `construirSinCuerpo` — ninguna pieza de un lado corresponde razonablemente a ninguna del otro
+ * 4. `construirSinCuerpo` — ninguna pieza de un lado corresponde razonablemente a ninguna del otro
  *    (`eye`↔`eye-closed`: un lente cerrado no es una versión deformada de un párpado, es OTRA
  *    figura): todo lo de origen converge al centro del lienzo, todo lo de destino emerge desde ahí.
  */
@@ -52,6 +55,12 @@ const VOLUME_D =
   'M11 4.702C10.9996 4.4172 10.8278 4.1606 10.5647 4.0516C10.3015 3.9427 9.9986 4.0028 9.797 4.204C8.669 5.3317 7.541 6.4593 6.413 7.587C6.1492 7.8524 5.7902 8.0011 5.416 8C4.6107 8 3.8053 8 3 8C2.4477 8 2 8.4477 2 9C2 11 2 13 2 15C2 15.5523 2.4477 16 3 16C3.8053 16 4.6107 16 5.416 16C5.7902 15.9989 6.1492 16.1476 6.413 16.413C7.5407 17.541 8.6683 18.669 9.796 19.797C9.9976 19.999 10.3012 20.0596 10.5649 19.9503C10.8286 19.841 11.0004 19.5835 11 19.298C11 14.4327 11 9.5673 11 4.702Z';
 const VOLUME_OFF_D =
   'M16 9C16.5044 9.6723 16.8311 10.461 16.95 11.293M19.364 5.636C21.9814 8.2519 22.7308 12.2034 21.253 15.596M2 2C8.6667 8.6667 15.3333 15.3333 22 22M7 7C6.8043 7.1957 6.6087 7.3913 6.413 7.587C6.1492 7.8524 5.7902 8.0011 5.416 8C4.6107 8 3.8053 8 3 8C2.4477 8 2 8.4477 2 9C2 11 2 13 2 15C2 15.5523 2.4477 16 3 16C3.8053 16 4.6107 16 5.416 16C5.7902 15.9989 6.1492 16.1476 6.413 16.413C7.5407 17.541 8.6683 18.669 9.796 19.797C9.9976 19.999 10.3012 20.0596 10.5649 19.9503C10.8286 19.841 11.0004 19.5835 11 19.298C11 16.532 11 13.766 11 11M9.828 4.172C10.0241 3.9752 10.3196 3.916 10.5763 4.0223C10.833 4.1285 11.0003 4.3791 11 4.657C11 4.8857 11 5.1143 11 5.343';
+// El mismo altavoz que VOLUME_D (índice 0, idéntico) + las dos ondas de `volume2Icon` (índices
+// 1 y 2 — la 3ª figura, `spark`, nace `opacity:0` y `aIconInput` ya la filtra, así que nunca llega
+// aquí). Generado con el mismo `canonicalD()` que los demás, verificado contra VOLUME_D/VOLUME_OFF_D
+// recalculados desde cero antes de confiar en esta salida.
+const VOLUME_2_D =
+  'M11 4.702C10.9996 4.4172 10.8278 4.1606 10.5647 4.0516C10.3015 3.9427 9.9986 4.0028 9.797 4.204C8.669 5.3317 7.541 6.4593 6.413 7.587C6.1492 7.8524 5.7902 8.0011 5.416 8C4.6107 8 3.8053 8 3 8C2.4477 8 2 8.4477 2 9C2 11 2 13 2 15C2 15.5523 2.4477 16 3 16C3.8053 16 4.6107 16 5.416 16C5.7902 15.9989 6.1492 16.1476 6.413 16.413C7.5407 17.541 8.6683 18.669 9.796 19.797C9.9976 19.999 10.3012 20.0596 10.5649 19.9503C10.8286 19.841 11.0004 19.5835 11 19.298C11 14.4327 11 9.5673 11 4.702ZM16 9C17.3333 10.7778 17.3333 13.2222 16 15M19.364 18.364C21.0519 16.6762 22.0001 14.387 22.0001 12C22.0001 9.613 21.0519 7.3238 19.364 5.636';
 const EYE_D =
   'M2.062 12.348C1.9787 12.1235 1.9787 11.8765 2.062 11.652C3.722 7.6269 7.646 5.0006 12 5.0006C16.354 5.0006 20.278 7.6269 21.938 11.652C22.0213 11.8765 22.0213 12.1235 21.938 12.348C20.278 16.3731 16.354 18.9994 12 18.9994C7.646 18.9994 3.722 16.3731 2.062 12.348M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z';
 const EYE_OFF_D =
@@ -102,6 +111,14 @@ interface Satelite {
   pts: Float64Array;
   closed: boolean;
   destino: readonly [number, number];
+}
+
+/** Espejo de `Satelite`: un subpath SIN origen propio — crece desde un punto fijo del cuerpo
+ *  ORIGEN, en vez de encogerse hacia uno del borde final. Ver `construirConSatelitesYEntrada`. */
+interface Entrante {
+  pts: Float64Array;
+  closed: boolean;
+  origen: readonly [number, number];
 }
 
 /** Punto del array `borde` (pares x,y) más cercano en ÁNGULO (desde `centro`) a `angulo`. */
@@ -199,6 +216,87 @@ function construirConSatelites(
       }
       salidas.push(encogido);
       cerrados.push(sat.closed);
+    }
+    return serialize(salidas, cerrados);
+  }
+
+  return { plan, pose };
+}
+
+/**
+ * Como `construirConSatelites`, pero DESTINO tiene más piezas que origen (`volumeOff`→`volume2`:
+ * las dos ondas no existen del lado silenciado). `construirConSatelites` a secas no resuelve
+ * esto — solo sabe encoger satélites que YA EXISTEN en origen, nunca hacer aparecer piezas nuevas
+ * del lado destino; una pieza sin origen se perdería de la animación y aparecería de golpe recién
+ * al aterrizar.
+ *
+ * Simetría a propósito: una entrante CRECE desde el punto del CUERPO ORIGEN más cercano en ángulo
+ * a donde esa pieza vive en destino — mismo criterio que ya usa `puntoMasCercanoEnAngulo` para las
+ * salientes, en espejo (destino↔origen intercambiados). Ambos actos comparten el mismo reloj
+ * `tSatelite` — no hay razón para que una salga más rápido que la otra entra.
+ */
+function construirConSatelitesYEntrada(
+  origenD: string,
+  indiceCuerpoOrigen: number,
+  destinoD: string,
+  indiceCuerpoDestino: number,
+  escalonado?: Escalonado,
+): CuratedMorph {
+  const origen = resampleIcon(origenD);
+  const destino = resampleIcon(destinoD);
+  const cuerpoOrigen = origen[indiceCuerpoOrigen];
+  const cuerpoDestino = destino[indiceCuerpoDestino];
+  const centro = centroid(cuerpoOrigen.pts);
+
+  const plan = buildPlan([cuerpoOrigen], [cuerpoDestino]);
+  const cuerpoOut = allocOutputs(plan);
+  const cuerpoCerrado = plan.items[0].closed;
+  const bordeFinal = plan.items[0].bO;
+
+  const satelites: Satelite[] = origen
+    .filter((_, i) => i !== indiceCuerpoOrigen)
+    .map((s) => {
+      const c = centroid(s.pts);
+      const angulo = Math.atan2(c[1] - centro[1], c[0] - centro[0]);
+      return { pts: s.pts, closed: s.closed, destino: puntoMasCercanoEnAngulo(bordeFinal, centro, angulo) };
+    });
+
+  const entrantes: Entrante[] = destino
+    .filter((_, i) => i !== indiceCuerpoDestino)
+    .map((s) => {
+      const c = centroid(s.pts);
+      const angulo = Math.atan2(c[1] - centro[1], c[0] - centro[0]);
+      return { pts: s.pts, closed: s.closed, origen: puntoMasCercanoEnAngulo(cuerpoOrigen.pts, centro, angulo) };
+    });
+
+  function pose(t: number): string {
+    const tCuerpo = escalonado ? acotar01((t - escalonado.cuerpo) / (1 - escalonado.cuerpo)) : t;
+    const tSatelite = escalonado ? acotar01(t / escalonado.satelite) : t;
+
+    interpPolar(plan, tCuerpo, cuerpoOut);
+    const salidas: Float64Array[] = [cuerpoOut[0]];
+    const cerrados = [cuerpoCerrado];
+    for (const sat of satelites) {
+      const [bx, by] = sat.destino;
+      const n = sat.pts.length / 2;
+      const encogido = new Float64Array(sat.pts.length);
+      for (let i = 0; i < n; i++) {
+        encogido[2 * i] = sat.pts[2 * i] + (bx - sat.pts[2 * i]) * tSatelite;
+        encogido[2 * i + 1] = sat.pts[2 * i + 1] + (by - sat.pts[2 * i + 1]) * tSatelite;
+      }
+      salidas.push(encogido);
+      cerrados.push(sat.closed);
+    }
+    for (const ent of entrantes) {
+      const [ox, oy] = ent.origen;
+      const n = ent.pts.length / 2;
+      const crecido = new Float64Array(ent.pts.length);
+      for (let i = 0; i < n; i++) {
+        crecido[2 * i] = ox + (ent.pts[2 * i] - ox) * tSatelite;
+        crecido[2 * i + 1] = oy + (ent.pts[2 * i + 1] - oy) * tSatelite;
+      }
+      salidas.push(crecido);
+      cerrados.push(ent.closed);
     }
     return serialize(salidas, cerrados);
   }
@@ -326,6 +424,16 @@ const REGISTRO: EntradaCurada[] = [
     origenD: VOLUME_OFF_D,
     destinoD: VOLUME_D,
     construir: () => construirConSatelites(VOLUME_OFF_D, 3, VOLUME_D),
+    cache: null,
+  },
+  // volume-off→volume2: mismo cuerpo (parlante, índice 3 de volume-off ≡ índice 0 de volume2) y
+  // las mismas 4 salientes que arriba, PERO volume2 trae 2 ondas que volume-off no tiene — por eso
+  // es `construirConSatelitesYEntrada`, no `construirConSatelites`: esas dos ondas necesitan CRECER,
+  // no solo las salientes encogerse. Es el único de los 10 pares que usa esta variante.
+  {
+    origenD: VOLUME_OFF_D,
+    destinoD: VOLUME_2_D,
+    construir: () => construirConSatelitesYEntrada(VOLUME_OFF_D, 3, VOLUME_2_D, 0),
     cache: null,
   },
   // Patrón "-off" — base intacta, raya creciendo. Medido: forzar la base a partirse en las piezas

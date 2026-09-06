@@ -27,6 +27,7 @@ import {
   checkIcon,
   volumeIcon,
   volumeOffIcon,
+  volume2Icon,
   bellOffIcon,
   eyeIcon,
   eyeClosedIcon,
@@ -64,6 +65,7 @@ const copy = aIconNode(copyIcon);
 const check = aIconNode(checkIcon);
 const volume = aIconNode(volumeIcon);
 const volumeOff = aIconNode(volumeOffIcon);
+const volume2 = aIconNode(volume2Icon);
 const bellOff = aIconNode(bellOffIcon);
 const eye = aIconNode(eyeIcon);
 const eyeClosed = aIconNode(eyeClosedIcon);
@@ -603,6 +605,41 @@ describe('curado — volume↔volume-off reusa construirConSatelites con otro í
     expect(keyframes[0]).not.toHaveProperty('opacity');
     for (const kf of keyframes) {
       expect((kf['d'] as string).match(/M/g)?.length).toBe(5);
+    }
+  });
+});
+
+describe('curado — volume-off↔volume2 usa construirConSatelitesYEntrada: las ondas CRECEN', () => {
+  it('7 subtrazos en TODAS las poses (cuerpo + 4 salientes + 2 entrantes) — ninguno aparece de golpe', () => {
+    const { keyframes, plan } = morphKeyframes(volumeOff, volume2);
+    expect(correspondenceIsPoor(plan)).toBe(false);
+    for (const kf of keyframes) {
+      expect((kf['d'] as string).match(/M/g)?.length).toBe(7);
+    }
+  });
+
+  it('las 2 ondas entrantes arrancan colapsadas en un punto (longitud ~0) y llegan a su tamaño real', () => {
+    const subpaths = (d: string) => d.slice(6, -2).split(/(?=M)/g);
+    const largoDe = (sub: string) => {
+      const n = (sub.match(/-?\d+(\.\d+)?/g) ?? []).map(Number);
+      let acc = 0;
+      for (let i = 2; i < n.length; i += 2) acc += Math.hypot(n[i] - n[i - 2], n[i + 1] - n[i - 1]);
+      return acc;
+    };
+    const { keyframes } = morphKeyframes(volumeOff, volume2, { steps: 10 });
+    const primeraOnda = (kf: (typeof keyframes)[number]): string => subpaths(kf['d'] as string)[5];
+    const segundaOnda = (kf: (typeof keyframes)[number]): string => subpaths(kf['d'] as string)[6];
+    expect(largoDe(primeraOnda(keyframes[0]))).toBeCloseTo(0, 5);
+    expect(largoDe(segundaOnda(keyframes[0]))).toBeCloseTo(0, 5);
+    expect(largoDe(primeraOnda(keyframes[9]))).toBeGreaterThan(3);
+    expect(largoDe(segundaOnda(keyframes[9]))).toBeGreaterThan(8);
+  });
+
+  it('volume2↔volume-off es la misma coreografía invertida', () => {
+    const ida = morphKeyframes(volumeOff, volume2, { steps: 8 });
+    const vuelta = morphKeyframes(volume2, volumeOff, { steps: 8 });
+    for (let i = 0; i < 8; i++) {
+      expect(vuelta.keyframes[i]['d']).toBe(ida.keyframes[7 - i]['d']);
     }
   });
 });
