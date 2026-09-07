@@ -437,6 +437,25 @@ describe('la variante `default` sí se puede pedir', () => {
   it('fijado a cualquier otra, manda esa (lo que ya funcionaba sigue igual)', () => {
     expect(duracionesDeHover('draw')).toEqual([111]);
   });
+
+  it('una variante `draw` vacía ({}) no anima nada al montar, pero no corre la posición del hover', () => {
+    // Así es como `glyphflow/morph` neutraliza el draw de un <gf-icon> de reposo que ya se
+    // mostró antes (ver `comoAnimatedIconDef` en gf-icon-morph.component.ts): reemplaza el
+    // VALOR de 'draw' por `{}`, nunca borra la LLAVE — borrarla movería 'default'/'spin' un
+    // puesto y el hover posicional (sin `animation` fijo) elegiría la variante equivocada.
+    const fixture = TestBed.createComponent(GfIconComponent);
+    fixture.componentRef.setInput('iconDef', {
+      ...DEF,
+      animations: { ...DEF.animations, draw: {} },
+    });
+    duraciones = [];
+    fixture.detectChanges(); // ngAfterViewInit → wireGroup() → play('draw') → no-op
+
+    expect(duraciones).toEqual([]); // el montaje no animó nada
+
+    fixture.nativeElement.dispatchEvent(new Event('pointerenter'));
+    expect(duraciones).toEqual([333]); // el hover SIGUE eligiendo la tercera variante (`spin`)
+  });
 });
 
 /** Lo justo para poder afirmar A QUIÉN se le llamó `reverse()` y en qué estado estaba. */
