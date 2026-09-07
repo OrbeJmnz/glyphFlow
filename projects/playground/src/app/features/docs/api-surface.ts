@@ -261,8 +261,8 @@ export const API_VALORES: SimboloApi[] = [
     clase: 'función',
     resumen: 'docs.api.simbolos.maxLinearDeviation',
   },
-  // Los seis gestos curados de dos estados. Van uno por uno y no como categoría (que es lo que sí
-  // se hace con los ~1767 `xIcon`): son seis, cada uno trae su propia decisión de resorte y de si
+  // Los doce gestos curados de dos estados. Van uno por uno y no como categoría (que es lo que sí
+  // se hace con los ~1767 `xIcon`): son doce, cada uno trae su propia decisión de resorte y de si
   // el estado activo caduca, y esa decisión es justo lo que alguien viene a consultar aquí.
   {
     nombre: 'COPY_INTENT',
@@ -299,6 +299,36 @@ export const API_VALORES: SimboloApi[] = [
     entrada: 'glyphflow/morph',
     clase: 'constante',
     resumen: 'docs.api.simbolos.EXPAND_COLLAPSE_INTENT',
+  },
+  {
+    nombre: 'LIKE_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.LIKE_INTENT',
+  },
+  {
+    nombre: 'FAVORITE_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.FAVORITE_INTENT',
+  },
+  {
+    nombre: 'NOTIFY_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.NOTIFY_INTENT',
+  },
+  {
+    nombre: 'PIN_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.PIN_INTENT',
+  },
+  {
+    nombre: 'VOLUME_INTENT',
+    entrada: 'glyphflow/morph',
+    clase: 'constante',
+    resumen: 'docs.api.simbolos.VOLUME_INTENT',
   },
   // Los nombres de la v1. Se documentan porque siguen exportados —el spec exige que TODO export
   // esté documentado— y porque quien llegue con código viejo tiene que encontrar a qué migrar.
