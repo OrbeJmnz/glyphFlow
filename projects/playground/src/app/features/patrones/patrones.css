@@ -301,7 +301,8 @@
   grid-template-columns: 1fr;
 }
 
-.demo-buscar input {
+.demo-buscar input,
+.demo-contrasena input {
   min-width: 0;
   padding: 0;
   border: 0;
@@ -317,6 +318,20 @@
 
 .demo-buscar.abierto input {
   padding: 0 0.3rem 0 0.6rem;
+}
+
+/*
+ * A diferencia de `.demo-buscar`, este campo no colapsa — la contraseña está siempre a la vista,
+ * lo que cambia es si se lee en claro o enmascarada. Mismo look de píldora, sin la pista animada.
+ */
+.demo-contrasena {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.15rem 0.15rem 0.6rem;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
 }
 
 @media (prefers-reduced-motion: reduce) {

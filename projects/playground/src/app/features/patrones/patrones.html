@@ -69,7 +69,7 @@
   <article class="patron" id="copy-to-clipboard">
     <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
       <button type="button" app-boton [class.hecho]="copiado()" (click)="copiar()">
-        <gf-icon-morph [icon]="iconoCopiar()" [size]="18" spring="bouncy" />
+        <gf-icon-morph [intent]="COPY_INTENT" [active]="copiado()" [animateAtRest]="true" [size]="18" />
         {{ etiquetaCopiar() }}
       </button>
 
@@ -122,7 +122,13 @@
         (click)="alternarTema()"
         [attr.aria-label]="ariaTema()"
       >
-        <gf-icon-morph [icon]="iconoTema()" [size]="20" [label]="labelTema()" />
+        <gf-icon-morph
+          [intent]="THEME_INTENT"
+          [active]="!claro()"
+          [animateAtRest]="true"
+          [size]="20"
+          [label]="labelTema()"
+        />
       </button>
       <span class="muestra">Aa</span>
     </div>
@@ -249,7 +255,12 @@
         (click)="alternarMenu()"
         (keydown.escape)="cerrarMenuDemo($event)"
       >
-        <gf-icon-morph [icon]="iconoMenu()" [size]="20" spring="snappy" />
+        <gf-icon-morph
+          [intent]="MENU_CLOSE_INTENT"
+          [active]="menuAbierto()"
+          [animateAtRest]="true"
+          [size]="20"
+        />
       </button>
       @if (menuAbierto()) {
         <ul id="demo-menu-panel" class="demo-menu">
@@ -291,7 +302,12 @@
         [attr.aria-label]="ariaPlay()"
         (click)="reproduciendo.set(!reproduciendo())"
       >
-        <gf-icon-morph [icon]="iconoPlay()" [size]="20" spring="snappy" />
+        <gf-icon-morph
+          [intent]="PLAY_PAUSE_INTENT"
+          [active]="reproduciendo()"
+          [animateAtRest]="true"
+          [size]="20"
+        />
       </button>
     </div>
     <div class="texto">
@@ -438,6 +454,301 @@
         [codigo]="SNIPPET_BUSCAR"
         [completo]="SNIPPET_BUSCAR_COMPLETO"
         ejemplo="search-toggle"
+      />
+    </div>
+  </article>
+
+  <!-- ── Favorito: star → starOff (MorphIntent) ─────────────────────────────── -->
+  <article class="patron" id="star-unstar">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="favorito()"
+        [attr.aria-label]="ariaFavorito()"
+        (click)="alternarFavorito()"
+      >
+        <gf-icon-morph
+          [intent]="FAVORITE_INTENT"
+          [active]="!favorito()"
+          [animateAtRest]="true"
+          [size]="20"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.favorito.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="star-unstar"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.favorito.descripcion' | transloco"></p>
+      <app-recuadro tipo="regla" [texto]="'patrones.favorito.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_FAVORITO"
+        [completo]="SNIPPET_FAVORITO_COMPLETO"
+        ejemplo="favorite-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Silenciar notificaciones: bell → bellOff, la otra mitad de la regla de la campana ─── -->
+  <article class="patron" id="mute-notifications">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="notificacionesSilenciadas()"
+        [attr.aria-label]="ariaNotificar()"
+        (click)="alternarNotificaciones()"
+      >
+        <gf-icon-morph
+          [intent]="NOTIFY_INTENT"
+          [active]="notificacionesSilenciadas()"
+          [animateAtRest]="true"
+          [size]="20"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.notificar.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="mute-notifications"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.notificar.descripcion' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.notificar.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_NOTIFICAR"
+        [completo]="SNIPPET_NOTIFICAR_COMPLETO"
+        ejemplo="notifications-toggle"
+      />
+    </div>
+  </article>
+
+  <!-- ── Fijar → desanclar: mapPin → mapPinOff ──────────────────────────────── -->
+  <article class="patron" id="pin-unpin">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="fijado()"
+        [attr.aria-label]="ariaFijar()"
+        (click)="alternarFijado()"
+      >
+        <gf-icon-morph
+          [intent]="PIN_INTENT"
+          [active]="!fijado()"
+          [animateAtRest]="true"
+          [size]="18"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.fijar.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="pin-unpin"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.fijar.descripcion' | transloco"></p>
+      <app-recuadro tipo="regla" [texto]="'patrones.fijar.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_FIJAR"
+        [completo]="SNIPPET_FIJAR_COMPLETO"
+        ejemplo="pin-toggle"
+      />
+    </div>
+  </article>
+
+  <!-- ── Silenciar sonido: volume2 → volumeOff ──────────────────────────────── -->
+  <article class="patron" id="mute-sound">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="sonidoSilenciado()"
+        [attr.aria-label]="ariaSilenciar()"
+        (click)="alternarSonido()"
+      >
+        <gf-icon-morph
+          [intent]="VOLUME_INTENT"
+          [active]="sonidoSilenciado()"
+          [animateAtRest]="true"
+          [size]="20"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.silenciar.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="mute-sound"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.silenciar.descripcion' | transloco"></p>
+      <app-recuadro tipo="caso" [texto]="'patrones.silenciar.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_SILENCIAR"
+        [completo]="SNIPPET_SILENCIAR_COMPLETO"
+        ejemplo="volume-toggle"
+      />
+    </div>
+  </article>
+
+  <!-- ── Quitar like: heart → heartOff, morph real vs. la coreografía de arriba ────── -->
+  <article class="patron" id="remove-like">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="icono-solo"
+        [attr.aria-pressed]="likeQuitado()"
+        [attr.aria-label]="ariaQuitarLike()"
+        (click)="alternarLike()"
+      >
+        <gf-icon-morph
+          [intent]="LIKE_INTENT"
+          [active]="likeQuitado()"
+          [animateAtRest]="true"
+          [size]="18"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.quitarLike.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="remove-like"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.quitarLike.descripcion' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.quitarLike.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_QUITAR_LIKE"
+        [completo]="SNIPPET_QUITAR_LIKE_COMPLETO"
+        ejemplo="unlike-button"
+      />
+    </div>
+  </article>
+
+  <!-- ── Mostrar/ocultar contraseña: eye → eyeOff ───────────────────────────── -->
+  <article class="patron" id="password-visibility">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <span class="demo-contrasena">
+        <input
+          [type]="contrasenaVisible() ? 'text' : 'password'"
+          value="Sup3rSecr3t!"
+          readonly
+          [attr.aria-label]="'patrones.contrasena.campo' | transloco"
+        />
+        <button
+          type="button"
+          app-boton
+          class="icono-solo"
+          [attr.aria-pressed]="contrasenaVisible()"
+          [attr.aria-label]="ariaContrasena()"
+          (click)="alternarContrasena()"
+        >
+          <gf-icon-morph
+            [intent]="PASSWORD_INTENT"
+            [active]="contrasenaVisible()"
+            [animateAtRest]="true"
+            [size]="18"
+          />
+        </button>
+      </span>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.contrasena.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="password-visibility"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.contrasena.descripcion' | transloco"></p>
+      <app-recuadro tipo="caso" [texto]="'patrones.contrasena.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_CONTRASENA"
+        [completo]="SNIPPET_CONTRASENA_COMPLETO"
+        ejemplo="password-toggle"
+      />
+    </div>
+  </article>
+
+  <!-- ── Desplegar/plegar: chevronDown → chevronUp, morph real vs. la rotación de arriba ────── -->
+  <article class="patron" id="expand-collapse">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <button
+        type="button"
+        app-boton
+        class="demo-acordeon"
+        [attr.aria-expanded]="expandido()"
+        (click)="alternarExpandido()"
+      >
+        {{ 'patrones.expandir.boton' | transloco }}
+        <gf-icon-morph
+          [intent]="EXPAND_COLLAPSE_INTENT"
+          [active]="expandido()"
+          [animateAtRest]="true"
+          [size]="16"
+        />
+      </button>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.expandir.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="expand-collapse"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="morph" [texto]="'patrones.motor.morph' | transloco" />
+      <p [innerHTML]="'patrones.expandir.descripcion' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.expandir.detalle' | transloco" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_EXPANDIR"
+        [completo]="SNIPPET_EXPANDIR_COMPLETO"
+        ejemplo="expand-toggle"
       />
     </div>
   </article>

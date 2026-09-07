@@ -1,6 +1,5 @@
-import { Component, computed, signal, ElementRef, viewChild } from '@angular/core';
-import { menuIcon, xIcon } from 'glyphflow';
-import { GfIconMorphComponent } from 'glyphflow/morph';
+import { Component, signal, ElementRef, viewChild } from '@angular/core';
+import { GfIconMorphComponent, MENU_CLOSE_INTENT } from 'glyphflow/morph';
 
 @Component({
   selector: 'app-menu-button',
@@ -15,7 +14,12 @@ import { GfIconMorphComponent } from 'glyphflow/morph';
       (click)="open.set(!open())"
       (keydown.escape)="close()"
     >
-      <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+      <gf-icon-morph
+        [intent]="MENU_CLOSE_INTENT"
+        [active]="open()"
+        [animateAtRest]="true"
+        [size]="20"
+      />
     </button>
 
     @if (open()) {
@@ -27,10 +31,10 @@ import { GfIconMorphComponent } from 'glyphflow/morph';
   `,
 })
 export class MenuButton {
+  protected readonly MENU_CLOSE_INTENT = MENU_CLOSE_INTENT;
   private readonly trigger = viewChild.required<ElementRef<HTMLElement>>('trigger');
 
   protected readonly open = signal(false);
-  protected readonly icon = computed(() => (this.open() ? xIcon : menuIcon));
 
   /** Returns focus to the trigger: otherwise Escape leaves it on the <body>. */
   protected close(): void {

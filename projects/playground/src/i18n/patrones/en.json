@@ -81,6 +81,55 @@
     "descripcion": "The field expands and the icon announces what the button will do next.",
     "detalle": "While collapsed the input is out of the tab order (<code>tabindex=\"-1\"</code>): a field nobody can see should not be a stop for someone navigating by keyboard."
   },
+  "favorito": {
+    "titulo": "Favorite",
+    "agregar": "Add to favorites",
+    "quitar": "Remove from favorites",
+    "descripcion": "An intent already carries the pair and the spring decided — the input is <code>[active]</code>, a boolean, not an icon. <code>[animateAtRest]</code> comes free: both sides get their own hover.",
+    "detalle": "The intent already resolves <code>idle</code>/<code>active</code>: no <code>computed&lt;MorphIcon&gt;</code> needed like the patterns above. When the <code>-Off</code> side is the one that's off (not the favorite), invert the signal in the binding, not the variable's name."
+  },
+  "notificar": {
+    "titulo": "Mute notifications",
+    "silenciar": "Mute notifications",
+    "activar": "Unmute notifications",
+    "descripcion": "Same icon as the bell above, different mechanism: here a second shape genuinely exists (<code>bellOffIcon</code>), so what plays is a real morph, not a gesture on the same shape.",
+    "detalle": "The bell above shows that a second shape isn't always needed. This is the other half of that rule: when one genuinely exists — and <code>bellOffIcon</code> does —, the right engine is morph, not choreography."
+  },
+  "fijar": {
+    "titulo": "Pin message",
+    "marcar": "Pin",
+    "desanclar": "Unpin",
+    "descripcion": "<code>[intent]</code> with <code>[active]</code> inverted: the <code>-Off</code> side of the pair (<code>mapPinOffIcon</code>) is the one that's off, not the one that's marked — the demo's signal still reads positively.",
+    "detalle": "<code>[active]</code> doesn't always map 1:1 to the state the consumer wants to name: here it's inverted so <code>pinned</code> describes what the user sees (pinned), not the intent's <code>-Off</code> icon name."
+  },
+  "silenciar": {
+    "titulo": "Mute sound",
+    "apagar": "Mute sound",
+    "encender": "Unmute sound",
+    "descripcion": "Same pattern as above, for a media player: <code>[active]</code> in two positions, with sound waves and without.",
+    "detalle": "Nothing new to learn here — it's the same <code>[intent]</code>/<code>[active]</code>/<code>[animateAtRest]</code> as the rest, with a different icon pair. That's the point: the API doesn't change from one gesture to the next."
+  },
+  "quitarLike": {
+    "titulo": "Remove like",
+    "quitar": "Remove like",
+    "restaurar": "Like again",
+    "descripcion": "Same heart as the reaction above, but this genuinely is a morph: <code>heartOffIcon</code> is a real shape (split by a slash), not a gesture on the same heart.",
+    "detalle": "The reaction above is choreography on the SAME shape — there's nothing to transition to. Here there is: <code>heartOffIcon</code> is a genuine second shape, so removing a like carries different weight than tapping a reaction."
+  },
+  "contrasena": {
+    "titulo": "Show password",
+    "campo": "Password",
+    "mostrar": "Show password",
+    "ocultar": "Hide password",
+    "descripcion": "<code>PASSWORD_INTENT</code> already brings the eye and the crossed-out eye with their spring decided. Unlike favorite/pin, here <code>active</code> IS the state you see directly: visible, nothing inverted.",
+    "detalle": "Changing a field's <code>type</code> mid-keystroke can move the cursor to the end of the text — worth saving the selection position before toggling, on a field that's actually editable (this demo is read-only)."
+  },
+  "expandir": {
+    "titulo": "Expand/collapse",
+    "boton": "Details",
+    "descripcion": "The counterexample above rotates a chevron with CSS because there's nothing to transition to. <code>EXPAND_COLLAPSE_INTENT</code> is the other half: when two real shapes DO exist (chevron down, chevron up), a morph is also a valid choice.",
+    "detalle": "There's no single rule for which to use — a 180° rotation is cheaper and less code; a full morph communicates the same thing with a bit more personality. What matters more is that the app stays consistent with itself, not which one you pick."
+  },
   "decision": {
     "titulo": "Which engine do I use?",
     "mezcla": "Mixing them isn't sloppiness. The three-state send button uses <strong>both</strong>: a looping choreography while it does not know when it will finish, and a morph the moment it does.",

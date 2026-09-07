@@ -10,24 +10,31 @@ import {
 import { RouterLink } from '@angular/router';
 import {
   bellIcon,
-  checkIcon,
   chevronDownIcon,
   circleCheckIcon,
-  copyIcon,
   GfIconComponent,
   heartIcon,
   loaderCircleIcon,
-  menuIcon,
-  moonIcon,
-  pauseIcon,
-  playIcon,
   searchIcon,
   sendIcon,
-  sunIcon,
   type AnimatedIconDef,
   xIcon,
 } from 'glyphflow';
-import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import {
+  COPY_INTENT,
+  EXPAND_COLLAPSE_INTENT,
+  FAVORITE_INTENT,
+  GfIconMorphComponent,
+  LIKE_INTENT,
+  MENU_CLOSE_INTENT,
+  NOTIFY_INTENT,
+  PASSWORD_INTENT,
+  PIN_INTENT,
+  PLAY_PAUSE_INTENT,
+  THEME_INTENT,
+  VOLUME_INTENT,
+  type MorphIcon,
+} from 'glyphflow/morph';
 import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
@@ -53,8 +60,21 @@ import {
   SNIPPET_REACCION_COMPLETO,
   SNIPPET_TEMA,
   SNIPPET_TEMA_COMPLETO,
+  SNIPPET_FAVORITO,
+  SNIPPET_FAVORITO_COMPLETO,
+  SNIPPET_NOTIFICAR,
+  SNIPPET_NOTIFICAR_COMPLETO,
+  SNIPPET_FIJAR,
+  SNIPPET_FIJAR_COMPLETO,
+  SNIPPET_SILENCIAR,
+  SNIPPET_SILENCIAR_COMPLETO,
+  SNIPPET_QUITAR_LIKE,
+  SNIPPET_QUITAR_LIKE_COMPLETO,
+  SNIPPET_CONTRASENA,
+  SNIPPET_CONTRASENA_COMPLETO,
+  SNIPPET_EXPANDIR,
+  SNIPPET_EXPANDIR_COMPLETO,
 } from './snippets';
-import { iconoPlano } from '../../core/morph-icon-plano';
 import { Rutas } from '../../core/rutas.service';
 
 /**
@@ -119,20 +139,26 @@ export class Patrones implements OnDestroy {
   protected readonly SNIPPET_CAMPANA_COMPLETO = SNIPPET_CAMPANA_COMPLETO;
   protected readonly SNIPPET_BUSCAR = SNIPPET_BUSCAR;
   protected readonly SNIPPET_BUSCAR_COMPLETO = SNIPPET_BUSCAR_COMPLETO;
+  protected readonly SNIPPET_FAVORITO = SNIPPET_FAVORITO;
+  protected readonly SNIPPET_FAVORITO_COMPLETO = SNIPPET_FAVORITO_COMPLETO;
+  protected readonly SNIPPET_NOTIFICAR = SNIPPET_NOTIFICAR;
+  protected readonly SNIPPET_NOTIFICAR_COMPLETO = SNIPPET_NOTIFICAR_COMPLETO;
+  protected readonly SNIPPET_FIJAR = SNIPPET_FIJAR;
+  protected readonly SNIPPET_FIJAR_COMPLETO = SNIPPET_FIJAR_COMPLETO;
+  protected readonly SNIPPET_SILENCIAR = SNIPPET_SILENCIAR;
+  protected readonly SNIPPET_SILENCIAR_COMPLETO = SNIPPET_SILENCIAR_COMPLETO;
+  protected readonly SNIPPET_QUITAR_LIKE = SNIPPET_QUITAR_LIKE;
+  protected readonly SNIPPET_QUITAR_LIKE_COMPLETO = SNIPPET_QUITAR_LIKE_COMPLETO;
+  protected readonly SNIPPET_CONTRASENA = SNIPPET_CONTRASENA;
+  protected readonly SNIPPET_CONTRASENA_COMPLETO = SNIPPET_CONTRASENA_COMPLETO;
+  protected readonly SNIPPET_EXPANDIR = SNIPPET_EXPANDIR;
+  protected readonly SNIPPET_EXPANDIR_COMPLETO = SNIPPET_EXPANDIR_COMPLETO;
 
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 
   // ── Copiar al portapapeles ──────────────────────────────────────────────────
+  protected readonly COPY_INTENT = COPY_INTENT;
   protected readonly copiado = signal(false);
-  /**
-   * `copyIcon` aplanado a un solo path: son 2 figuras (rect + trazo) contra la 1 de `checkIcon`,
-   * y el plan de morph resuelve p≠q con asignación surjectiva — las dos convergen al MISMO
-   * destino, así que a media transición se ven cruzándose. Aplanado, es 1↔1 real.
-   */
-  private readonly copyIconPlano = iconoPlano(copyIcon);
-  protected readonly iconoCopiar = computed<MorphIcon>(() =>
-    this.copiado() ? checkIcon : this.copyIconPlano,
-  );
   protected readonly TEXTO_A_COPIAR = 'npm i glyphflow';
   /** La rama elige la CLAVE, no el texto — mismo patrón que `boton-github.ts`. */
   private readonly claveCopiar = computed(() =>
@@ -162,7 +188,9 @@ export class Patrones implements OnDestroy {
       return;
     }
     this.copiado.set(true);
-    this.enUnRato(() => this.copiado.set(false), 1600);
+    // El icono ya vuelve solo por el `autoReset` de `COPY_INTENT` — esto es lo mismo, pero para
+    // el resto del demo (el texto del botón, el anuncio), que el intent no puede tocar.
+    this.enUnRato(() => this.copiado.set(false), COPY_INTENT.autoReset ?? 2000);
   }
 
   /**
@@ -226,6 +254,13 @@ export class Patrones implements OnDestroy {
     { ancla: 'accordion', titulo: 'patrones.acordeon.titulo' },
     { ancla: 'bell-with-notification', titulo: 'patrones.campana.titulo' },
     { ancla: 'search-close', titulo: 'patrones.buscar.titulo' },
+    { ancla: 'star-unstar', titulo: 'patrones.favorito.titulo' },
+    { ancla: 'mute-notifications', titulo: 'patrones.notificar.titulo' },
+    { ancla: 'pin-unpin', titulo: 'patrones.fijar.titulo' },
+    { ancla: 'mute-sound', titulo: 'patrones.silenciar.titulo' },
+    { ancla: 'remove-like', titulo: 'patrones.quitarLike.titulo' },
+    { ancla: 'password-visibility', titulo: 'patrones.contrasena.titulo' },
+    { ancla: 'expand-collapse', titulo: 'patrones.expandir.titulo' },
   ];
 
   /** Qué patrón está a la vista. `null` hasta que el observador dice algo. */
@@ -275,8 +310,8 @@ export class Patrones implements OnDestroy {
    * aquí se enseña aislado, con lo que un menú de verdad necesita: `aria-expanded` y el foco de
    * vuelta al disparador al cerrar.
    */
+  protected readonly MENU_CLOSE_INTENT = MENU_CLOSE_INTENT;
   protected readonly menuAbierto = signal(false);
-  protected readonly iconoMenu = computed<MorphIcon>(() => (this.menuAbierto() ? xIcon : menuIcon));
   private readonly claveMenu = computed(() =>
     this.menuAbierto() ? 'patrones.menu.cerrar' : 'patrones.menu.abrir',
   );
@@ -300,10 +335,8 @@ export class Patrones implements OnDestroy {
   }
 
   /** Play / pause. Dos formas distintas para el mismo control: morph. */
+  protected readonly PLAY_PAUSE_INTENT = PLAY_PAUSE_INTENT;
   protected readonly reproduciendo = signal(false);
-  protected readonly iconoPlay = computed<MorphIcon>(() =>
-    this.reproduciendo() ? pauseIcon : playIcon,
-  );
   private readonly clavePlay = computed(() =>
     this.reproduciendo() ? 'patrones.play.pausar' : 'patrones.play.reproducir',
   );
@@ -347,8 +380,8 @@ export class Patrones implements OnDestroy {
   }
 
   // ── Tema claro/oscuro ───────────────────────────────────────────────────────
+  protected readonly THEME_INTENT = THEME_INTENT;
   protected readonly claro = signal(false);
-  protected readonly iconoTema = computed<MorphIcon>(() => (this.claro() ? sunIcon : moonIcon));
   /** El aria-label dice A DÓNDE vas, no dónde estás — mismo criterio que el switcher del shell. */
   private readonly claveAriaTema = computed(() =>
     this.claro() ? 'patrones.tema.ariaAOscuro' : 'patrones.tema.ariaAClaro',
@@ -401,6 +434,89 @@ export class Patrones implements OnDestroy {
   protected alternarMeGusta(): void {
     this.meGusta.update((v) => !v);
     this.votos.update((n) => n + (this.meGusta() ? 1 : -1));
+  }
+
+  // ── Cinco MorphIntent — [intent] en vez de armar el ternario a mano ──────────
+  // A diferencia de TODO lo de arriba (`iconoCopiar`/`iconoMenu`/…, un `computed` por patrón que
+  // decide qué figura toca), un intent ya trae el par y el resorte decididos: el input es un
+  // booleano, no un icono. `[animateAtRest]` de regalo — hover real en los dos lados, sin la
+  // señal de tipo que exige `iconoPlano()` para los pares p≠q de arriba.
+  protected readonly FAVORITE_INTENT = FAVORITE_INTENT;
+  protected readonly NOTIFY_INTENT = NOTIFY_INTENT;
+  protected readonly PIN_INTENT = PIN_INTENT;
+  protected readonly VOLUME_INTENT = VOLUME_INTENT;
+  protected readonly LIKE_INTENT = LIKE_INTENT;
+
+  protected readonly favorito = signal(false);
+  protected alternarFavorito(): void {
+    this.favorito.update((v) => !v);
+  }
+  /** El aria-label dice la ACCIÓN, no el estado — mismo criterio que `ariaMenu`/`ariaBuscar`. */
+  private readonly claveAriaFavorito = computed(() =>
+    this.favorito() ? 'patrones.favorito.quitar' : 'patrones.favorito.agregar',
+  );
+  protected readonly ariaFavorito = translateSignal(this.claveAriaFavorito);
+
+  /** `active` = silenciadas — arranca en `false` (notificaciones prendidas es el default sano). */
+  protected readonly notificacionesSilenciadas = signal(false);
+  protected alternarNotificaciones(): void {
+    this.notificacionesSilenciadas.update((v) => !v);
+  }
+  private readonly claveAriaNotificar = computed(() =>
+    this.notificacionesSilenciadas() ? 'patrones.notificar.activar' : 'patrones.notificar.silenciar',
+  );
+  protected readonly ariaNotificar = translateSignal(this.claveAriaNotificar);
+
+  protected readonly fijado = signal(true);
+  protected alternarFijado(): void {
+    this.fijado.update((v) => !v);
+  }
+  private readonly claveAriaFijar = computed(() =>
+    this.fijado() ? 'patrones.fijar.desanclar' : 'patrones.fijar.marcar',
+  );
+  protected readonly ariaFijar = translateSignal(this.claveAriaFijar);
+
+  /** `active` = silenciado. `VOLUME_INTENT.idle` es `volume2Icon` (con ondas) a propósito. */
+  protected readonly sonidoSilenciado = signal(false);
+  protected alternarSonido(): void {
+    this.sonidoSilenciado.update((v) => !v);
+  }
+  private readonly claveAriaSilenciar = computed(() =>
+    this.sonidoSilenciado() ? 'patrones.silenciar.encender' : 'patrones.silenciar.apagar',
+  );
+  protected readonly ariaSilenciar = translateSignal(this.claveAriaSilenciar);
+
+  /**
+   * `active` = quitado. Va SEPARADO de `meGusta`/`corazon` de arriba a propósito — ese patrón
+   * es coreografía sobre la MISMA forma (un tap que reacciona); este es un morph real a
+   * `heartOffIcon` (partido por una raya), la decisión de "ya no me gusta esto" con más peso.
+   */
+  protected readonly likeQuitado = signal(false);
+  protected alternarLike(): void {
+    this.likeQuitado.update((v) => !v);
+  }
+  private readonly claveAriaQuitarLike = computed(() =>
+    this.likeQuitado() ? 'patrones.quitarLike.restaurar' : 'patrones.quitarLike.quitar',
+  );
+  protected readonly ariaQuitarLike = translateSignal(this.claveAriaQuitarLike);
+
+  // ── Mostrar/ocultar contraseña ───────────────────────────────────────────────
+  protected readonly PASSWORD_INTENT = PASSWORD_INTENT;
+  /** `active` = a la vista, tal cual lo documenta el intent. */
+  protected readonly contrasenaVisible = signal(false);
+  protected alternarContrasena(): void {
+    this.contrasenaVisible.update((v) => !v);
+  }
+  private readonly claveAriaContrasena = computed(() =>
+    this.contrasenaVisible() ? 'patrones.contrasena.ocultar' : 'patrones.contrasena.mostrar',
+  );
+  protected readonly ariaContrasena = translateSignal(this.claveAriaContrasena);
+
+  // ── Desplegar/plegar, la versión morph del contraejemplo de arriba ──────────
+  protected readonly EXPAND_COLLAPSE_INTENT = EXPAND_COLLAPSE_INTENT;
+  protected readonly expandido = signal(false);
+  protected alternarExpandido(): void {
+    this.expandido.update((v) => !v);
   }
 
   /** Los timers se cancelan al destruir: cambiar de ruta a media animación no debe escribir señales. */

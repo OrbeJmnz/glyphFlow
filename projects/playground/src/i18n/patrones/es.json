@@ -81,6 +81,55 @@
     "descripcion": "El campo se expande y el icono anuncia qué hará el botón a continuación.",
     "detalle": "Mientras está cerrado, el campo sale del recorrido de tabulación (<code>tabindex=\"-1\"</code>): un campo que nadie ve no debería ser una parada para quien navega con el teclado."
   },
+  "favorito": {
+    "titulo": "Favorito",
+    "agregar": "Agregar a favoritos",
+    "quitar": "Quitar de favoritos",
+    "descripcion": "Un intent ya trae el par de figuras y el resorte decididos — el input es <code>[active]</code>, un booleano, no un icono. <code>[animateAtRest]</code> de regalo: los dos lados tienen su propio hover.",
+    "detalle": "El intent trae <code>idle</code>/<code>active</code> ya resueltos: no hace falta un <code>computed&lt;MorphIcon&gt;</code> como en los patrones de arriba. Cuando el lado <code>-Off</code> es el que se apaga (no el favorito), se invierte la señal en el binding, no el nombre de la variable."
+  },
+  "notificar": {
+    "titulo": "Silenciar notificaciones",
+    "silenciar": "Silenciar notificaciones",
+    "activar": "Activar notificaciones",
+    "descripcion": "Mismo icono que la campana de arriba, mecanismo distinto: aquí sí existe una segunda forma (<code>bellOffIcon</code>), así que lo que se ve es un morph real, no un gesto sobre la misma figura.",
+    "detalle": "La campana de arriba demuestra que no siempre hace falta una segunda forma. Esta es la otra mitad de esa regla: cuando sí existe una — y <code>bellOffIcon</code> existe de verdad —, el motor correcto es morph, no coreografía."
+  },
+  "fijar": {
+    "titulo": "Fijar mensaje",
+    "marcar": "Fijar",
+    "desanclar": "Desanclar",
+    "descripcion": "<code>[intent]</code> con <code>[active]</code> invertido: el lado <code>-Off</code> del par (<code>mapPinOffIcon</code>) es el que se apaga, no el que se marca — la señal del demo sigue leyendo en positivo.",
+    "detalle": "<code>[active]</code> no siempre se traduce 1:1 al estado que el consumidor quiere nombrar: acá se invierte para que <code>pinned</code> describa lo que el usuario ve (fijado), no el nombre del icono <code>-Off</code> que trae el intent."
+  },
+  "silenciar": {
+    "titulo": "Silenciar sonido",
+    "apagar": "Silenciar sonido",
+    "encender": "Activar sonido",
+    "descripcion": "Igual patrón que arriba, para un reproductor: <code>[active]</code> en dos posiciones, con ondas de sonido y sin ellas.",
+    "detalle": "Nada nuevo que aprender aquí — es el mismo <code>[intent]</code>/<code>[active]</code>/<code>[animateAtRest]</code> del resto, con otro par de iconos. Ese es el punto: la API no cambia de un gesto a otro."
+  },
+  "quitarLike": {
+    "titulo": "Quitar like",
+    "quitar": "Quitar like",
+    "restaurar": "Volver a dar like",
+    "descripcion": "Mismo corazón que la reacción de arriba, pero esto sí es un morph: <code>heartOffIcon</code> es una forma real (partida por una raya), no un gesto sobre el mismo corazón.",
+    "detalle": "La reacción de arriba es coreografía sobre la MISMA forma — no hay a qué transicionar. Aquí sí: <code>heartOffIcon</code> es una segunda figura real, así que quitar un like pesa distinto que reaccionar con un tap."
+  },
+  "contrasena": {
+    "titulo": "Mostrar contraseña",
+    "campo": "Contraseña",
+    "mostrar": "Mostrar contraseña",
+    "ocultar": "Ocultar contraseña",
+    "descripcion": "<code>PASSWORD_INTENT</code> ya trae el ojo y el ojo tachado con su resorte decidido. A diferencia de favoritos/fijar, aquí <code>active</code> SÍ es el estado que se ve tal cual: a la vista, sin invertir nada.",
+    "detalle": "Cambiar el <code>type</code> de un campo a medio tecleo puede mover el cursor al final del texto — vale la pena guardar la posición de selección antes de alternar, en un campo que sí se edita (este demo es de solo lectura)."
+  },
+  "expandir": {
+    "titulo": "Desplegar/plegar",
+    "boton": "Detalles",
+    "descripcion": "El contraejemplo de arriba gira un chevron con CSS porque no hay a qué transicionar. <code>EXPAND_COLLAPSE_INTENT</code> es la otra mitad: cuando SÍ hay dos formas reales (chevron abajo, chevron arriba), un morph también es una opción válida.",
+    "detalle": "No hay una regla única de cuál usar — un giro de 180° es más barato y menos código; un morph completo comunica lo mismo con un poco más de personalidad. Aquí importa que la app sea consistente consigo misma, más que cuál se elige."
+  },
   "decision": {
     "titulo": "¿Qué motor uso?",
     "mezcla": "Mezclarlos no es descuido. El botón de enviar usa <strong>los dos</strong>: una coreografía en bucle mientras no sabe cuándo va a terminar, y un morph en el momento en que ya lo sabe.",

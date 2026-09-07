@@ -1,22 +1,21 @@
-import { Component, computed, signal } from '@angular/core';
-import { checkIcon, copyIcon } from 'glyphflow';
-import { GfIconMorphComponent } from 'glyphflow/morph';
+import { Component, signal } from '@angular/core';
+import { COPY_INTENT, GfIconMorphComponent } from 'glyphflow/morph';
 
 @Component({
   selector: 'app-copy-button',
   imports: [GfIconMorphComponent],
   template: `
     <button type="button" (click)="copy()">
-      <gf-icon-morph [icon]="icon()" [size]="18" spring="bouncy" />
+      <gf-icon-morph [intent]="COPY_INTENT" [active]="copied()" [animateAtRest]="true" [size]="18" />
       {{ copied() ? 'Copied' : 'Copy' }}
     </button>
   `,
 })
 export class CopyButton {
-  readonly text = 'npm i glyphflow';
+  protected readonly COPY_INTENT = COPY_INTENT;
 
+  readonly text = 'npm i glyphflow';
   protected readonly copied = signal(false);
-  protected readonly icon = computed(() => (this.copied() ? checkIcon : copyIcon));
 
   protected async copy(): Promise<void> {
     // If the browser blocks it, the state does NOT change: no check mark over an empty buffer.
@@ -26,6 +25,8 @@ export class CopyButton {
       return;
     }
     this.copied.set(true);
-    setTimeout(() => this.copied.set(false), 1600);
+    // COPY_INTENT's own autoReset already brings the ICON back to idle — this does the same for
+    // the rest of this demo (the button text), which the intent has no way to reach.
+    setTimeout(() => this.copied.set(false), COPY_INTENT.autoReset);
   }
 }
