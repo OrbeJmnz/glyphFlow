@@ -1,6 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { pauseIcon, playIcon } from 'glyphflow';
-import { GfIconMorphComponent } from 'glyphflow/morph';
+import { Component, signal } from '@angular/core';
+import { GfIconMorphComponent, PLAY_PAUSE_INTENT } from 'glyphflow/morph';
 
 @Component({
   selector: 'app-play-button',
@@ -12,11 +11,16 @@ import { GfIconMorphComponent } from 'glyphflow/morph';
       [attr.aria-label]="playing() ? 'Pause' : 'Play'"
       (click)="playing.set(!playing())"
     >
-      <gf-icon-morph [icon]="icon()" [size]="20" spring="snappy" />
+      <gf-icon-morph
+        [intent]="PLAY_PAUSE_INTENT"
+        [active]="playing()"
+        [animateAtRest]="true"
+        [size]="20"
+      />
     </button>
   `,
 })
 export class PlayButton {
+  protected readonly PLAY_PAUSE_INTENT = PLAY_PAUSE_INTENT;
   protected readonly playing = signal(false);
-  protected readonly icon = computed(() => (this.playing() ? pauseIcon : playIcon));
 }

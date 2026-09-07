@@ -85,6 +85,55 @@ export const EJEMPLOS: Ejemplo[] = [
     titulo: 'Search to close',
     fuente: SNIPPETS.SNIPPET_BUSCAR_COMPLETO,
   },
+  {
+    dir: 'favorite-button',
+    clase: 'FavoriteButton',
+    selector: 'app-favorite-button',
+    titulo: 'Favorite',
+    fuente: SNIPPETS.SNIPPET_FAVORITO_COMPLETO,
+  },
+  {
+    dir: 'notifications-toggle',
+    clase: 'NotificationsToggle',
+    selector: 'app-notifications-toggle',
+    titulo: 'Mute notifications',
+    fuente: SNIPPETS.SNIPPET_NOTIFICAR_COMPLETO,
+  },
+  {
+    dir: 'pin-toggle',
+    clase: 'PinToggle',
+    selector: 'app-pin-toggle',
+    titulo: 'Pin message',
+    fuente: SNIPPETS.SNIPPET_FIJAR_COMPLETO,
+  },
+  {
+    dir: 'volume-toggle',
+    clase: 'VolumeToggle',
+    selector: 'app-volume-toggle',
+    titulo: 'Mute sound',
+    fuente: SNIPPETS.SNIPPET_SILENCIAR_COMPLETO,
+  },
+  {
+    dir: 'unlike-button',
+    clase: 'UnlikeButton',
+    selector: 'app-unlike-button',
+    titulo: 'Remove like',
+    fuente: SNIPPETS.SNIPPET_QUITAR_LIKE_COMPLETO,
+  },
+  {
+    dir: 'password-toggle',
+    clase: 'PasswordToggle',
+    selector: 'app-password-toggle',
+    titulo: 'Show password',
+    fuente: SNIPPETS.SNIPPET_CONTRASENA_COMPLETO,
+  },
+  {
+    dir: 'expand-toggle',
+    clase: 'ExpandToggle',
+    selector: 'app-expand-toggle',
+    titulo: 'Expand/collapse',
+    fuente: SNIPPETS.SNIPPET_EXPANDIR_COMPLETO,
+  },
 ];
 
 function archivosDe(e: Ejemplo): Record<string, string> {
