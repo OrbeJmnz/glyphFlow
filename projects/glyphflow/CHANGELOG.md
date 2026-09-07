@@ -1,5 +1,73 @@
 # glyphflow
 
+## 3.1.0
+
+### Minor Changes
+
+- [`0247388`](https://github.com/OrbeJmnz/glyphFlow/commit/024738827b95579395fc90c0f8e01f23e866c204) Thanks [@OrbeJmnz](https://github.com/OrbeJmnz)! - `<gf-icon-morph>` gains `animateAtRest`: the icon on each end of a morph gets its own draw and hover
+
+  Until now a morph pair only ever painted a single flattened `<path>` — the geometry that WAAPI needs
+  to interpolate, with none of the choreography (`autoDraw`, hover) that a plain `<gf-icon>` gets for
+  free. Toggling between two icons meant either icon looked "dead" at rest: no entrance draw, no hover
+  gesture, just the shape sitting there.
+
+  ```html
+  <gf-icon-morph
+    [icon]="open() ? xIcon : menuIcon"
+    [animateAtRest]="true"
+    restHoverAnimation="wiggle"
+  />
+  <gf-icon-morph [intent]="COPY_INTENT" [active]="copiado()" [animateAtRest]="true" />
+  ```
+
+  With `animateAtRest`, outside of a transition the flattened path is replaced by a real `<gf-icon>` —
+  it gets its own `autoDraw` entrance and its own hover, exactly as if it were used on its own. A
+  **fresh** `<gf-icon>` mounts on every landing, on purpose: `trigger="group"` only fires its entrance
+  draw from `ngAfterViewInit`, not on an `[iconDef]` change over a living instance, so reusing one
+  instance across icons would silently drop the draw on every icon after the first.
+
+  This applies to the plain `[icon]` path **and** to `intent` — the rest-icon follows whichever side
+  (`idle`/`active`) is currently showing, so a two-state toggle like `COPY_INTENT` gets hover on both
+  ends for free. `restHoverAnimation` stays a single variant for both sides; leave it unset and each
+  icon falls back to its own default hover. `asyncState` is the one exception: the `loading` spinner
+  already has its own rest semantics, and mixing that with "rest = a real animated icon" isn't
+  defined, so `animateAtRest` is silently ignored there.
+
+  It requires the full `AnimatedIconDef` in `icon` (the same object `<gf-icon iconDef>` already takes),
+  not a bare `{shapes}` value — the morph engine itself never needed `.animations`, but the nested
+  `<gf-icon>` does.
+
+  A second, independent addition: **`morphed` now fires whenever a transition settles**, with or
+  without `animateAtRest` — a transition superseded by a newer one before landing never fires it.
+
+- [`0a15519`](https://github.com/OrbeJmnz/glyphFlow/commit/0a15519780da5916f4747eed6f7b0d1956494d4e) Thanks [@OrbeJmnz](https://github.com/OrbeJmnz)! - `glyphflow/morph` gains six curated `MorphIntent` constants: `LIKE_INTENT`, `FAVORITE_INTENT`,
+  `NOTIFY_INTENT`, `PIN_INTENT`, and `VOLUME_INTENT`, alongside the existing six.
+
+  ```html
+  <gf-icon-morph [intent]="LIKE_INTENT" [active]="meGusta()" [animateAtRest]="true" />
+  ```
+
+  | Constant          | idle → active             | Icons                           |
+  | ----------------- | ------------------------- | ------------------------------- |
+  | `LIKE_INTENT`     | not liked → liked         | `heartIcon` → `heartOffIcon`    |
+  | `FAVORITE_INTENT` | not favorited → favorited | `starIcon` → `starOffIcon`      |
+  | `NOTIFY_INTENT`   | notifications on → muted  | `bellIcon` → `bellOffIcon`      |
+  | `PIN_INTENT`      | pinned → unpinned         | `mapPinIcon` → `mapPinOffIcon`  |
+  | `VOLUME_INTENT`   | sound on → muted          | `volume2Icon` → `volumeOffIcon` |
+
+  All five reuse curated geometry that already existed in `curated-morphs.ts` — with one exception.
+  `VOLUME_INTENT` pairs `volumeOffIcon` with `volume2Icon` (the two-wave icon), not the bare
+  `volumeIcon` the existing `volumeOff↔volume` entry covered. `volume2Icon` has two waves that
+  `volumeOffIcon` doesn't, so the existing `construirConSatelites` (which only shrinks satellites
+  that already exist in the origin icon) couldn't animate them — they'd have popped in unanimated
+  right when the transition landed.
+
+  This adds `construirConSatelitesYEntrada`, a mirror-image extension: satellites that only exist in
+  the origin shrink toward the final body's outline (unchanged from `construirConSatelites`), and
+  pieces that only exist in the destination grow from a matching point on the origin body's outline
+  — same nearest-angle-in-a-shared-centroid trick, applied in both directions. It's additive; no
+  existing curated pair changes behavior.
+
 ## 3.0.0
 
 ### Major Changes
