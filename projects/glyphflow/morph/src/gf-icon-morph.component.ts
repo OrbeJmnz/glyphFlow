@@ -342,6 +342,20 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
    *  morph y vive en `MorphIcon`) porque este necesita sobrevivir hasta que `comoAnimatedIconDef`
    *  lo use en el template. */
   protected readonly iconoReposo = signal<MorphIcon | undefined>(undefined);
+  /**
+   * Si el PRÓXIMO `<gf-icon>` de reposo debe jugar su `draw` de entrada al montarse.
+   *
+   * `true` solo para el primer aterrizaje: el trazo ya lo hizo el propio morph al llegar, así que
+   * un `<gf-icon>` fresco repitiéndolo en cada click de un toggle real se ve como que el icono
+   * "recarga" — un parpadeo en blanco antes de redibujarse. Se apaga la primera vez que hay un
+   * reposo previo que ocultar, y no vuelve a prenderse en la vida de este componente: solo un
+   * `<gf-icon-morph>` nuevo (otra navegación a esta misma página, por ejemplo) reinicia la cuenta.
+   * La lee `comoAnimatedIconDef`, que es quien de verdad apaga el draw — ver ahí el porqué de la
+   * técnica (no hay un input para esto: `GfIconComponent` no lo expone).
+   */
+  protected dibujarAlMontarReposo = true;
+  /** `true` en cuanto el reposo se mostró una vez. Ver `dibujarAlMontarReposo`. */
+  private huboReposoAntes = false;
   /** Identidad de la transición en curso. Una más nueva la reemplaza — el callback de la vieja se
    *  compara contra esto antes de tocar cualquier signal, así una transición interrumpida nunca
    *  pisa el aterrizaje de la que la reemplazó. */
@@ -367,9 +381,22 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
    * (ver el JSDoc del input), no un `MorphIcon` suelto. El campo se queda tipado `MorphIcon` porque
    * el motor de morph nunca lee `.animations` — pero el `<gf-icon>` de reposo sí, y estructuralmente
    * es el MISMO objeto que ya trae ese campo cuando `animateAtRest` se usa como está documentado.
+   *
+   * En cualquier aterrizaje que NO sea el primero (`dibujarAlMontarReposo` en falso), además apaga
+   * el draw de entrada: el `<gf-icon>` de reposo se monta FRESCO en cada aterrizaje (es lo que le
+   * da su propio hover, ver el JSDoc de `animateAtRest`), y en modo `group` (su default) monta
+   * jugando `'draw'` solo — el trazo que el morph YA hizo al llegar, repetido, se lee como que el
+   * icono "recarga". `GfIconComponent` no expone un input para apagar SOLO eso, así que se
+   * reemplaza el VALOR de `animations['draw']` por `{}` (una coreografía válida que no mueve
+   * nada). A propósito NO se borra la LLAVE: `wireGroup()` sigue enganchando el hover con el mismo
+   * `trigger="group"` de siempre, y borrar la llave correría un puesto la selección POSICIONAL del
+   * hover cuando el consumidor no fija `restHoverAnimation` — el mismo motivo por el que
+   * `runAutoReveal`/`runAutoDraw` filtran por `opacity==='0'` en vez de recortar el array.
    */
   protected comoAnimatedIconDef(icono: MorphIcon): AnimatedIconDef {
-    return icono as AnimatedIconDef;
+    const def = icono as AnimatedIconDef;
+    if (this.dibujarAlMontarReposo) return def;
+    return { ...def, animations: { ...def.animations, draw: {} } };
   }
 
   /** Del icono que se está enseñando, no del input `icon`: con `intent`/`asyncState` ese está vacío. */
@@ -487,6 +514,8 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
       if (richRestActivo) {
         // Primer valor, o cualquier camino que hoy salta la animación: el <gf-icon> de reposo se
         // pinta solo y trae su propio autoDraw — la ruta plana ni se toca.
+        this.dibujarAlMontarReposo = !this.huboReposoAntes;
+        this.huboReposoAntes = true;
         this.iconoReposo.set(nuevo);
         this.mostrandoReposo.set(true);
       } else if (this.motorVivo) {
@@ -511,6 +540,8 @@ export class GfIconMorphComponent implements OnChanges, OnDestroy {
     const alAterrizar = (): void => {
       if (this.transicionActual !== miTransicion) return;
       if (richRestActivo) {
+        this.dibujarAlMontarReposo = !this.huboReposoAntes;
+        this.huboReposoAntes = true;
         this.iconoReposo.set(nuevo);
         this.mostrandoReposo.set(true);
       }

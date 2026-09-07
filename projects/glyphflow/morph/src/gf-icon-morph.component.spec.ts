@@ -21,10 +21,15 @@ import { canonicalD, PASOS_DEFAULT, SPRING_PRESETS, type SpringPreset } from './
 import {
   COPY_INTENT,
   EXPAND_COLLAPSE_INTENT,
+  FAVORITE_INTENT,
+  LIKE_INTENT,
   MENU_CLOSE_INTENT,
+  NOTIFY_INTENT,
   PASSWORD_INTENT,
+  PIN_INTENT,
   PLAY_PAUSE_INTENT,
   THEME_INTENT,
+  VOLUME_INTENT,
 } from './intents';
 import { allocOutputs, interpPolar } from './core/interpolate';
 import { buildPlan } from './core/plan';
@@ -713,7 +718,7 @@ describe('<gf-icon-morph> — input `intent`', () => {
     );
   });
 
-  it('los seis intents del catálogo traen par completo y son distintos entre sí', () => {
+  it('los once intents del catálogo traen par completo y son distintos entre sí', () => {
     const todos = [
       COPY_INTENT,
       THEME_INTENT,
@@ -721,6 +726,11 @@ describe('<gf-icon-morph> — input `intent`', () => {
       PLAY_PAUSE_INTENT,
       MENU_CLOSE_INTENT,
       EXPAND_COLLAPSE_INTENT,
+      LIKE_INTENT,
+      FAVORITE_INTENT,
+      NOTIFY_INTENT,
+      PIN_INTENT,
+      VOLUME_INTENT,
     ];
     for (const intent of todos) {
       expect(intent.idle.shapes.length).toBeGreaterThan(0);
@@ -852,6 +862,63 @@ describe('<gf-icon-morph> — input `animateAtRest`', () => {
       expect(fixture.componentInstance.aterrizajes()).toBe(2);
     } finally {
       diferido.restaurar();
+      espia = espiarAnimate(); // deja el espía de siempre instalado para el `afterEach` del describe
+    }
+  });
+
+  it('el <gf-icon> de reposo solo dibuja al montarse en el PRIMER aterrizaje', async () => {
+    espia.restaurar(); // este test arma su propio mock: necesita distinguir QUÉ se animó, no solo cuánto
+    interface LlamadaSimple {
+      keyframes: Keyframe[];
+    }
+    const llamadas: LlamadaSimple[] = [];
+    let resolverMorph: (() => void) | undefined;
+    const original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+    Object.defineProperty(Element.prototype, 'animate', {
+      configurable: true,
+      writable: true,
+      value(this: Element, keyframes: Keyframe[]): Animation {
+        llamadas.push({ keyframes });
+        // Solo el morph del `<path>` aplanado (keyframes con `d`) necesita `finished` controlable
+        // a mano: es la única de estas animaciones cuyo aterrizaje dispara un segundo montaje del
+        // <gf-icon> de reposo. El resto (el draw del propio <gf-icon>) se resuelve solo.
+        const esMorph = keyframes.some((k) => 'd' in k);
+        return {
+          currentTime: 0,
+          playbackRate: 1,
+          playState: 'running',
+          cancel(): void {
+            // Nada que rastrear: este mock es de un solo uso, para un test.
+          },
+          finished: esMorph
+            ? new Promise<void>((resolver) => {
+                resolverMorph = resolver;
+              })
+            : Promise.resolve(),
+        } as unknown as Animation;
+      },
+    });
+
+    /** El `draw` deja `strokeDashoffset` en su primer keyframe (ver `DRAW_KEYFRAMES` del core). */
+    const dibujos = () => llamadas.filter((l) => l.keyframes.some((k) => 'strokeDashoffset' in k));
+
+    try {
+      const fixture = TestBed.createComponent(AnfitrionRico);
+      await fixture.whenStable();
+      expect(dibujos().length, 'el primer aterrizaje SÍ debe dibujar').toBeGreaterThan(0);
+
+      // Un segundo aterrizaje: el morph YA contó la transición, así que el <gf-icon> fresco que
+      // repone no debería volver a jugar su draw — eso se leería como que el icono "recarga".
+      llamadas.length = 0;
+      fixture.componentInstance.icono.set(bellRingIcon);
+      await fixture.whenStable();
+      resolverMorph?.();
+      await fixture.whenStable();
+      await fixture.whenStable(); // mismo tick extra que el resto de este describe
+
+      expect(dibujos().length, 'el segundo aterrizaje NO debe repetir el draw').toBe(0);
+    } finally {
+      if (original) Object.defineProperty(Element.prototype, 'animate', original);
       espia = espiarAnimate(); // deja el espía de siempre instalado para el `afterEach` del describe
     }
   });
