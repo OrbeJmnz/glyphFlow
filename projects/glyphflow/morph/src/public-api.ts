@@ -38,7 +38,7 @@ export type {
 export { GfIconMorphComponent } from './gf-icon-morph.component';
 export type { GfAsyncState } from './gf-icon-morph.component';
 // Los intents curados, uno por export a propósito: quien importa `COPY_INTENT` no paga las figuras
-// de los otros cinco. Un registro global por nombre habría arrastrado los doce iconos a cualquiera
+// de los otros once. Un registro global por nombre habría arrastrado los doce iconos a cualquiera
 // que usara uno solo.
 export {
   COPY_INTENT,
@@ -47,6 +47,11 @@ export {
   PLAY_PAUSE_INTENT,
   MENU_CLOSE_INTENT,
   EXPAND_COLLAPSE_INTENT,
+  LIKE_INTENT,
+  FAVORITE_INTENT,
+  NOTIFY_INTENT,
+  PIN_INTENT,
+  VOLUME_INTENT,
 } from './intents';
 export type { MorphIntent } from './intents';
 export { createLiveMorph } from './live-morph';
