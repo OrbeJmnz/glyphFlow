@@ -1,5 +1,21 @@
 # glyphflow
 
+## 3.1.1
+
+### Patch Changes
+
+- [`2bb06e4`](https://github.com/OrbeJmnz/glyphFlow/commit/2bb06e417a74b3d4859c8905bfa18504220448c3) Thanks [@OrbeJmnz](https://github.com/OrbeJmnz)! - Fixes `animateAtRest` replaying the landed icon's own entrance draw on every single morph
+  landing, not just the first. The rest `<gf-icon>` genuinely remounts fresh each time (that's what
+  gives it its own hover), and a fresh mount in `group` trigger mode always plays its `draw` variant
+  — so a real toggle (favorite, mute, pin…) looked like the icon "reloaded" itself on every click.
+  Now only the very first landing draws; later ones land already fully drawn, ready for hover.
+
+- [`d26b268`](https://github.com/OrbeJmnz/glyphFlow/commit/d26b268b76a23f45a4a2e1d3b91c6962dd308bd4) Thanks [@OrbeJmnz](https://github.com/OrbeJmnz)! - Fixes `LIKE_INTENT`, `FAVORITE_INTENT`, `NOTIFY_INTENT`, `PIN_INTENT`, and `VOLUME_INTENT` not
+  actually being exported from `glyphflow/morph` — they existed in `intents.ts` but `public-api.ts`
+  re-exports intents through an explicit, one-by-one list (on purpose, so importing one doesn't pull
+  the other eleven), and that list wasn't updated. 3.1.0 shipped a changelog entry for five intents
+  that weren't reachable from the package at all.
+
 ## 3.1.0
 
 ### Minor Changes
