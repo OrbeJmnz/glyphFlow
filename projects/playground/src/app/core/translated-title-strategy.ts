@@ -20,7 +20,12 @@ export class TranslatedTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);
   private readonly injector = inject(Injector);
   private readonly snapshotActual = signal<RouterStateSnapshot | null>(null);
-  private readonly claveActual = computed(() => {
+  /**
+   * Pública a propósito: `enlaces-idioma.ts` la reusa para resolver `og:description` (T16) sin
+   * volver a caminar el árbol de rutas — `routes.iconos.title` → `routes.iconos.descripcion` es el
+   * mismo convenio que ya usa `tituloConConteo` como hermano de `title`.
+   */
+  readonly claveActual = computed(() => {
     const snap = this.snapshotActual();
     return snap ? (this.buildTitle(snap) ?? '') : '';
   });

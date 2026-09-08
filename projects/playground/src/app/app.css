@@ -127,6 +127,24 @@
 }
 
 /*
+ * T15: "Lab" sigue su nombre, pero con una etiqueta que avisa que es experimental — no todo lo que
+ * hay ahí tiene la misma terminación que el resto del sitio. `.chip` ya es `inline-flex` con `gap`,
+ * así que esto entra como un ítem más sin margen a mano.
+ */
+.beta-tag {
+  padding: 0.1em 0.5em;
+  border: 1px solid var(--gf-acento-borde);
+  border-radius: 999px;
+  background: var(--gf-acento-fondo);
+  color: var(--gf-marca-1-texto);
+  font-size: 0.65em;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/*
  * En la primera pintada el indicador aparece donde toca en vez de viajar desde la esquina: hasta que
  * la directiva mide, `--ind-o` es 0 y no hay nada visible que animar.
  */
@@ -441,6 +459,14 @@
     transition:
       color 0.15s ease,
       background 0.15s ease;
+  }
+
+  /* Nombre + `.beta-tag` en la misma línea — un `flex-direction: column` en `.menu-nav a` los
+     pondría uno debajo del otro si no fueran UN solo ítem. */
+  .menu-nav-titulo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
   /* La descripción de la sección (T15). Tenue y en una línea: acompaña al nombre, no compite con

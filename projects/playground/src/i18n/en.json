@@ -16,6 +16,7 @@
     "patrones": "Examples",
     "editor": "Path editor",
     "lab": "Lab",
+    "labBeta": "Beta",
     "docs": "Docs"
   },
   "shell": {
@@ -57,46 +58,59 @@
   "routes": {
     "iconos": {
       "title": "glyphflow — animated Lucide icons for Angular",
-      "tituloConConteo": "glyphflow — {{n}} animated icons"
+      "tituloConConteo": "glyphflow — {{n}} animated icons",
+      "descripcion": "Browse the full catalog of animated Lucide icons for Angular. Hover to preview, click to copy the code."
     },
     "patrones": {
-      "title": "Examples — glyphflow"
+      "title": "Examples — glyphflow",
+      "descripcion": "Real UI controls — menus, toggles, notifications — with the exact code that animates them, side by side."
     },
     "editor": {
-      "title": "Path editor — glyphflow"
+      "title": "Path editor — glyphflow",
+      "descripcion": "Edit an icon's outline node by node, then hand the result straight to the choreography editor."
     },
     "lab": {
-      "title": "Lab — glyphflow"
+      "title": "Lab — glyphflow",
+      "descripcion": "Where default animation values get decided — durations, easings, and morph steps, tuned against real icons."
     },
     "noEncontrado": {
       "title": "Page not found — glyphflow"
     },
     "docsEmpezando": {
-      "title": "Getting started — glyphflow"
+      "title": "Getting started — glyphflow",
+      "descripcion": "Install glyphflow and animate your first icon in a few lines, no animation library required."
     },
     "docsAccesibilidad": {
-      "title": "Accessibility — glyphflow"
+      "title": "Accessibility — glyphflow",
+      "descripcion": "How glyphflow handles decorative vs. semantic icons, reduced motion, and keyboard navigation."
     },
     "docsSsr": {
-      "title": "SSR — glyphflow"
+      "title": "SSR — glyphflow",
+      "descripcion": "glyphflow renders on the server with zero access to window or document — verified, not assumed."
     },
     "docsApi": {
-      "title": "API — glyphflow"
+      "title": "API — glyphflow",
+      "descripcion": "Every input, output, and type glyphflow exports, with the guarantees that come with each one."
     },
     "docsMigracion": {
-      "title": "Migration — glyphflow"
+      "title": "Migration — glyphflow",
+      "descripcion": "Upgrading between glyphflow major versions — what changed and how to update your code."
     },
     "docsComparativa": {
-      "title": "Comparison — glyphflow"
+      "title": "Comparison — glyphflow",
+      "descripcion": "glyphflow against lucide-angular, ng-icons, and Lottie — bundle weight, tree-shaking, and SSR support."
     },
     "docsVerificar": {
-      "title": "Verify your bundle — glyphflow"
+      "title": "Verify your bundle — glyphflow",
+      "descripcion": "Confirm your build only ships the icons you actually import, not the full catalog."
     },
     "docsProblemas": {
-      "title": "Troubleshooting — glyphflow"
+      "title": "Troubleshooting — glyphflow",
+      "descripcion": "Common glyphflow issues and their fixes, from a blank icon to a broken build."
     },
     "docsTemas": {
-      "title": "Theming and color — glyphflow"
+      "title": "Theming and color — glyphflow",
+      "descripcion": "How glyphflow tokens interact with your app's light and dark themes."
     }
   },
   "marca": {

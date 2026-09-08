@@ -1,13 +1,16 @@
-import { DOCUMENT, effect, inject } from '@angular/core';
+import { computed, DOCUMENT, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
+import { translateSignal } from '@jsverse/transloco';
 import { filter, map } from 'rxjs';
 import { IDIOMAS } from './idioma';
 import { alternativas, idiomaDeLaRuta } from './rutas';
 import { ORIGEN } from './sitio';
+import { TranslatedTitleStrategy } from './translated-title-strategy';
 
 /**
- * `hreflang` recíproco + `canonical`, reescritos en cada navegación.
+ * `hreflang` recíproco + `canonical`, más `og:url`/`og:locale`/`og:title`/`og:description` y sus
+ * espejos de Twitter Card — todo reescrito en cada navegación.
  *
  * Con dos árboles de rutas que dicen lo mismo en dos idiomas, un buscador que no sepa que
  * `/en/patterns` y `/es/patrones` son la MISMA página las trata como contenido duplicado y elige
@@ -38,6 +41,25 @@ export function conectarEnlacesDeIdioma(): void {
     { initialValue: router.url },
   );
 
+  /*
+   * T16: `og:description`/`twitter:*` se quedaban con el bloque estático de `index.html` en TODAS
+   * las páginas, igual que `og:url`/`og:title` antes de que existiera este archivo. La clave sale
+   * de `TranslatedTitleStrategy.claveActual` (`routes.iconos.title` → `routes.iconos.descripcion`)
+   * en vez de volver a caminar el árbol de rutas — mismo convenio que ya usa `tituloConConteo` como
+   * hermano de `title` bajo la misma clave.
+   *
+   * Es de la clave raíz (`i18n/{en,es}.json`), no de un scope diferido — llega con el bundle
+   * inicial, así que no hay el hueco async que rompía la primera versión de
+   * `TranslatedTitleStrategy` (ver su comentario). `translateSignal` de todos modos, por
+   * consistencia y porque re-evalúa solo si la clave cambia.
+   */
+  const claveTitulo = inject(TranslatedTitleStrategy).claveActual;
+  const claveDescripcion = computed(() => {
+    const clave = claveTitulo();
+    return clave ? clave.replace(/\.title$/, '.descripcion') : '';
+  });
+  const descripcion = translateSignal(claveDescripcion);
+
   effect(() => {
     // Sin query ni fragmento: `?q=…` es un filtro de la interfaz, no otra página, y anunciarlo
     // como canónico partiría una sola página en tantas URLs como búsquedas haga la gente.
@@ -66,6 +88,24 @@ export function conectarEnlacesDeIdioma(): void {
     // de compartir, «qué es esto» vale más que «cuántos hay». Lo que importaba —que la página en
     // español no se anuncie en inglés— sí queda resuelto.
     if (doc.title) fijarMeta(doc, 'og:title', doc.title);
+
+    /*
+     * `og:image`/`twitter:image` NO se tocan aquí: siguen el cartel único de `index.html`
+     * (`glyphflow-og-card.png`). Un cartel por icono —lo que T16 deja como "si es viable"— pediría
+     * generar 1767 imágenes o un pipeline de render bajo demanda; ninguno de los dos existe, así
+     * que "viable" hoy es NO, y el cartel por defecto es el mismo en las ~30 rutas.
+     *
+     * `translateSignal` devuelve la CLAVE cruda si no encuentra traducción (mismo comportamiento
+     * que `translate()`) — la comparación descarta ese caso en vez de publicar
+     * "routes.x.descripcion" como si fuera texto real. Hoy solo le pasa a `noEncontrado`, que se
+     * queda a propósito con la descripción global del 404.
+     */
+    const desc = descripcion();
+    if (desc && desc !== claveDescripcion()) {
+      fijarMeta(doc, 'og:description', desc);
+      fijarMetaName(doc, 'twitter:title', doc.title);
+      fijarMetaName(doc, 'twitter:description', desc);
+    }
   });
 }
 
@@ -81,6 +121,17 @@ function fijarMeta(doc: Document, property: string, content: string): void {
   if (!meta) {
     meta = doc.createElement('meta');
     meta.setAttribute('property', property);
+    doc.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+/** Igual que `fijarMeta`, pero por `name` — el atributo que usa Twitter Card, no Open Graph. */
+function fijarMetaName(doc: Document, name: string, content: string): void {
+  let meta = doc.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = doc.createElement('meta');
+    meta.setAttribute('name', name);
     doc.head.appendChild(meta);
   }
   meta.setAttribute('content', content);

@@ -84,8 +84,12 @@
 
     <!--
       Vista previa al compartir el enlace. Va en PNG y no en SVG a propósito: los scrapers de redes
-      no renderizan SVG, así que un `og:image` en SVG se ve como enlace pelado. El 1200w es el
-      tamaño que piden las tarjetas grandes.
+      no renderizan SVG, así que un `og:image` en SVG se ve como enlace pelado. 1200×630 es lo que
+      piden las tarjetas grandes (T16) — `glyphflow-og-card.png` es un archivo APARTE de
+      `glyphflow-logo-1200w.png` (ese sigue siendo el logo suelto que usa el README, proporción
+      2.95:1): el cartel social lleva el logo sobre fondo oscuro MÁS el subtítulo, en su propio
+      lienzo 1200×630, generado desde `glyphflow-logo-2400w.png` (la variante RGBA sin fondo propio,
+      así no hay costura contra el `#121212` del lienzo).
     -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="glyphflow — animated Lucide icons for Angular" />
@@ -100,11 +104,20 @@
     <meta property="og:url" content="https://glyph-flow-zeta.vercel.app/" />
     <meta
       property="og:image"
-      content="https://glyph-flow-zeta.vercel.app/images/glyphflow-logo-1200w.png"
+      content="https://glyph-flow-zeta.vercel.app/images/glyphflow-og-card.png"
     />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="406" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="glyphflow — animated Lucide icons for Angular" />
+    <meta
+      name="twitter:description"
+      content="Animated on the native Web Animations API. Zero animation dependencies, real tree-shaking, and morphing between shapes."
+    />
+    <meta
+      name="twitter:image"
+      content="https://glyph-flow-zeta.vercel.app/images/glyphflow-og-card.png"
+    />
 
     <!--
       Outfit, la tipografía del sitio. `preconnect` a los dos orígenes porque los archivos .woff2

@@ -46,6 +46,14 @@ export const appConfig: ApplicationConfig = {
     provideConfigEnVivo(),
     provideI18n(),
     // `route.title` ahora es una clave de traducción, no texto — ver `translated-title-strategy.ts`.
-    { provide: TitleStrategy, useClass: TranslatedTitleStrategy },
+    //
+    // `useExisting`, NUNCA `useClass`: `TranslatedTitleStrategy` también es `providedIn: 'root'`, y
+    // con `useClass` esa fábrica crea una instancia PROPIA para el token `TitleStrategy` — distinta
+    // de la que resuelve `inject(TranslatedTitleStrategy)` en cualquier otro sitio (`enlaces-idioma.ts`
+    // la reusa para `og:description`, T16). El Router solo llama `updateTitle()` sobre la instancia
+    // que él resuelve; con `useClass`, la que lee `enlaces-idioma.ts` se queda con `claveActual` en
+    // '' para siempre porque nadie la actualiza. `useExisting` fuerza el mismo singleton en los dos
+    // tokens.
+    { provide: TitleStrategy, useExisting: TranslatedTitleStrategy },
   ],
 };

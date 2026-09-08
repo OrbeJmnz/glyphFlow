@@ -58,7 +58,8 @@
         [routerLink]="rutas.a('lab')"
         routerLinkActive="activo"
         ariaCurrentWhenActive="page"
-        >{{ 'nav.lab' | transloco }}</a
+        >{{ 'nav.lab' | transloco
+        }}<span class="beta-tag" aria-hidden="true">{{ 'nav.labBeta' | transloco }}</span></a
       >
       <a
         app-chip
@@ -217,7 +218,10 @@
       ariaCurrentWhenActive="page"
       (click)="cerrarMenu()"
     >
-      {{ 'nav.lab' | transloco }}
+      <span class="menu-nav-titulo"
+        >{{ 'nav.lab' | transloco
+        }}<span class="beta-tag" aria-hidden="true">{{ 'nav.labBeta' | transloco }}</span></span
+      >
       <small>{{ 'navDesc.lab' | transloco }}</small>
     </a>
     <a
