@@ -10,10 +10,25 @@ import { analizarImportacion } from '../lab/icon-import';
 
 /**
  * La matemática de edición tiene sus propios tests sobre los 450 paths del catálogo. Esto prueba
- * el CABLEADO: que el componente cargue el `d` real, pinte un nodo por punto arrastrable, y que
- * cambiar de icono no arrastre estado del anterior.
+ * el CABLEADO: que el componente arranque en blanco con la pluma armada, que elegir un icono
+ * cargue su `d` real y pinte un nodo por punto arrastrable, y que cambiar de icono no arrastre
+ * estado del anterior. La mayoría de los tests necesitan geometría real para tener algo que
+ * mover/insertar/deshacer -- la piden explícitamente con el helper `elegir()`.
  */
 describe('Editor', () => {
+  /*
+   * Cicatriz real, encontrada depurando esta sesión -- ninguno de estos tests destruía su
+   * `fixture`. `ngOnDestroy` cancela el timer de 400ms que escribe el estado en `location.hash`
+   * (`sincronizarUrl`); sin destruir, ese timer sigue vivo después de que el test que lo programó
+   * ya terminó, y `location` es GLOBAL -- compartido por TODOS los tests del archivo, `TestBed` no
+   * lo resetea entre componentes. Si el timer disparaba DURANTE la ejecución de un test distinto,
+   * `restaurarDesdeHash()` de ESE componente leía el hash ajeno y le pisaba `modelos` con la
+   * geometría de OTRO test. El síntoma: un test que carga un icono real y verifica su `d` a veces
+   * (dependiendo del timing entre tests) lo veía vacío -- nunca en `ng test --watch`, donde cada
+   * test corre con más aire entre uno y otro.
+   */
+  const fixturesActivos: { destroy(): void }[] = [];
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       // `Editor` vive en el scope `editor` (ver `app.routes.ts`) — el módulo de testing acepta la
@@ -22,19 +37,81 @@ describe('Editor', () => {
     }).compileComponents();
   });
 
+  afterEach(() => {
+    for (const fixture of fixturesActivos.splice(0)) fixture.destroy();
+    // Por si algún timer alcanzó a escribir antes del destroy: el siguiente test no debe heredarlo.
+    location.hash = '';
+  });
+
   async function montar() {
     const fixture = TestBed.createComponent(Editor);
+    fixturesActivos.push(fixture);
     await fixture.whenStable();
     return { fixture, html: fixture.nativeElement as HTMLElement };
+  }
+
+  /**
+   * Cambia de pestaña en el panel (Icono/Edición/Salida/Proyecto). Las 4 secciones de antes son
+   * pestañas ahora -- `@switch (pestanaActiva())` solo pinta la activa, así que cualquier test que
+   * busque algo de OTRA pestaña (`.editable-d`, `.lista .chip`...) tiene que pasar por aquí
+   * primero. Los botones no llevan texto verificable en el test (viene de transloco); el orden del
+   * markup es fijo (Icono/Edición/Salida/Proyecto), así que basta con el índice.
+   */
+  async function irA(
+    m: Awaited<ReturnType<typeof montar>>,
+    pestana: 'icono' | 'edicion' | 'salida' | 'proyecto',
+  ): Promise<void> {
+    const { fixture, html } = m;
+    const indices = { icono: 0, edicion: 1, salida: 2, proyecto: 3 } as const;
+    html.querySelectorAll<HTMLButtonElement>('.tabs-nav button')[indices[pestana]].click();
+    await fixture.whenStable();
+  }
+
+  /**
+   * Selecciona un icono real por nombre. El editor arranca en blanco (T-nuevo: la pluma es la
+   * entrada primaria a "crear desde cero"), así que los tests que prueban mecánica de EDICIÓN
+   * (arrastrar, insertar, deshacer...) piden geometría real explícitamente -- ya no viene puesta
+   * de fábrica. `heart` por default: es el mismo icono con el que estos tests ya se escribieron
+   * antes del cambio, así que sus asunciones de "cuántos nodos hay" siguen valiendo igual.
+   *
+   * Devuelve el nombre elegido: elegir un icono salta solo a la pestaña "Edición" (ver
+   * `Editor.elegir`), así que releer `.lista .chip.activo` después de llamar a este helper
+   * requeriría volver a la pestaña "Icono" primero -- casi siempre alcanza con el nombre que ya se
+   * pidió.
+   */
+  async function elegir(
+    m: Awaited<ReturnType<typeof montar>>,
+    nombre = 'heart',
+  ): Promise<string> {
+    const { fixture, html } = m;
+    await irA(m, 'icono');
+    const input = html.querySelector<HTMLInputElement>('app-campo-busqueda input')!;
+    input.value = nombre;
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    const chip = [...html.querySelectorAll<HTMLButtonElement>('.lista .chip')].find(
+      (b) => nombreDe(b) === nombre,
+    );
+    chip!.click();
+    await fixture.whenStable();
+    // Limpia el filtro: algunos tests cuentan chips o dependen del tramo normal de la lista.
+    // El click de arriba ya saltó a "Edición" -- volver a "Icono" para poder tocar el buscador.
+    await irA(m, 'icono');
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    return nombre;
   }
 
   // Timeout explicito: este test monta un tramo del catalogo entero (2.7 MB de JSON) y
   // ya corria a ~4.9 s del limite de 5 s por default de Vitest. No es lentitud nueva --
   // es que el margen era de decimas, y cualquier variante que se agregue lo consume.
-  it('arranca con un icono cargado y su `d` intacto', async () => {
-    const { html } = await montar();
-    const salida = html.querySelector('.salida code')!.textContent!;
-    const nombre = nombreDe(html.querySelector('.lista .chip.activo')!);
+  it('elegir un icono carga su `d` intacto', async () => {
+    const m = await montar();
+    const nombre = await elegir(m);
+    const { html } = m;
+    await irA(m, 'salida');
+    const salida = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
 
     const original = CURATED_ICONS[nombre].shapes
       .filter(
@@ -47,9 +124,26 @@ describe('Editor', () => {
     expect(salida).toBe(original);
   }, 20000);
 
+  it('arranca en blanco, sin nodos, con la pluma armada', async () => {
+    // T-nuevo: el editor ya no pre-carga un icono -- "crear desde cero" es la entrada primaria,
+    // no una opción escondida detrás de "empezar de un curado y borrar todo".
+    const m = await montar();
+    const { html } = m;
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(0);
+    expect(html.querySelector('.lista .chip.activo')).toBeNull();
+    // La pluma, armada de una -- no un segundo paso.
+    expect(html.querySelector('.lienzo.modo-pluma')).not.toBeNull();
+    // El `d` pegable vive en la pestaña "Salida".
+    await irA(m, 'salida');
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).toBe('');
+  });
+
   it('pinta un nodo por punto arrastrable, y ninguno por el `Z`', async () => {
-    const { html } = await montar();
-    const d = html.querySelector('.salida code')!.textContent!;
+    const m = await montar();
+    await elegir(m);
+    const { html } = m;
+    await irA(m, 'salida');
+    const d = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
     // Contra el parser real (`parseD`/`nodosDe`, ya probado sobre los 899 paths del catálogo) en
     // vez de contar letras de comando a mano: un comando puede repetirse implícito (mismo `a` con
     // varios juegos de parámetros seguidos), y ahí contar letras sub-cuenta puntos reales.
@@ -75,7 +169,10 @@ describe('Editor', () => {
      * Contra el texto que se RENDERIZA, no contra el `computed` interno: es el que se copia y el
      * que se descarga, así que es el que de verdad viaja.
      */
-    const { fixture, html } = await montar();
+    const m = await montar();
+    const nombre = await elegir(m);
+    const { fixture, html } = m;
+    await irA(m, 'salida');
 
     // El bloque de JSON solo pinta su contenido abierto; es el último de los dos plegables.
     const cabeceras = html.querySelectorAll<HTMLButtonElement>('.bloque-toggle');
@@ -89,11 +186,11 @@ describe('Editor', () => {
     expect(resultado).not.toHaveProperty('errorKey');
 
     const aceptado = resultado as { def: { shapes: unknown[] }; nombre: string | null };
-    expect(aceptado.nombre).toBe(nombreDe(html.querySelector('.lista .chip.activo')!));
+    expect(aceptado.nombre).toBe(nombre);
     expect(aceptado.def.shapes.length).toBeGreaterThan(0);
 
     // Y lleva la geometría que el editor está mostrando, no la del catálogo sin tocar.
-    const dMostrado = html.querySelector('.salida code')!.textContent!;
+    const dMostrado = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
     const dExportado = (aceptado.def.shapes as { d?: string }[])
       .filter((f) => typeof f.d === 'string')
       .map((f) => f.d)
@@ -111,25 +208,74 @@ describe('Editor', () => {
     chip.click();
     await fixture.whenStable();
     expect(html.querySelectorAll('.contexto rect').length).toBe(1);
-    expect(html.querySelector('.salida code')!.textContent).not.toContain('rect');
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).not.toContain('rect');
   });
 
   it('cambiar de icono no arrastra el estado del anterior', async () => {
-    const { fixture, html } = await montar();
-    const primero = html.querySelector('.salida code')!.textContent;
+    const m = await montar();
+    await elegir(m, 'heart');
+    const { fixture, html } = m;
+    await irA(m, 'salida');
+    const primero = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
+
     // Cualquiera que no sea el puesto. Antes se comparaba por texto, y con los chips ya sin texto
     // la búsqueda devolvía `undefined`.
+    await irA(m, 'icono');
     const otro = html.querySelector<HTMLButtonElement>('.lista .chip:not(.activo)')!;
     otro.click();
     await fixture.whenStable();
-    expect(html.querySelector('.salida code')!.textContent).not.toBe(primero);
-    // Y el botón de restablecer no aparece: el icono nuevo está limpio, no hay nada que revertir.
-    expect(html.querySelector('.salida-cab .restablecer')).toBeNull();
+    // El click de arriba dispara `elegir()` de verdad, que salta a "Edición" -- ahí vive
+    // restablecer. Y el botón no aparece: el icono nuevo está limpio, no hay nada que revertir.
+    expect(html.querySelector('.restablecer')).toBeNull();
+
+    await irA(m, 'salida');
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).not.toBe(primero);
+  });
+
+  // T30: el `d` del panel de salida es editable -- pegar o editar a mano carga esa forma. `change`
+  // y no un `ClipboardEvent` simulado: `cargarDesdeTexto` es el mismo camino para pegar Y para
+  // editar a mano (ver su comentario en `editor.ts`), así que probarlo por `change` cubre la
+  // lógica real sin pelearse con jsdom y `clipboardData`, que no lo implementa de forma confiable.
+  it('editar el `d` a mano (evento change) carga esa forma', async () => {
+    const m = await montar();
+    const { fixture, html } = m;
+    await irA(m, 'salida');
+    const campo = html.querySelector<HTMLTextAreaElement>('.editable-d')!;
+
+    campo.value = 'M0 0L10 0L5 10Z';
+    campo.dispatchEvent(new Event('change', { bubbles: true }));
+    await fixture.whenStable();
+
+    // Un triángulo: 3 nodos movibles, ninguno marcado `fin` (el trazo cierra con Z).
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(3);
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).toBe('M0 0L10 0L5 10Z');
+  });
+
+  it('un `d` con más o menos líneas de las que hay trazos no se aplica', async () => {
+    const m = await montar();
+    const { fixture, html } = m;
+    await irA(m, 'salida');
+    const campo = html.querySelector<HTMLTextAreaElement>('.editable-d')!;
+    const nodosAntes = html.querySelectorAll('.nodos .nodo').length;
+
+    // El lienzo en blanco de arranque tiene 1 path; dos líneas no corresponden a nada -- ni
+    // "reemplaza todos" ni "reemplaza el activo" aplica, así que `modelos` no se toca. (El VALOR
+    // crudo del textarea no sirve para verificarlo: Angular no re-escribe una propiedad `[value]`
+    // cuyo cómputo no cambió, así que lo que sí prueba que nada se aplicó es el conteo de nodos
+    // reales.)
+    campo.value = 'M0 0L1 1\nM2 2L3 3';
+    campo.dispatchEvent(new Event('change', { bubbles: true }));
+    await fixture.whenStable();
+
+    expect(html.querySelectorAll('.nodos .nodo').length).toBe(nodosAntes);
   });
 
   it('un arrastre entero es UN paso de deshacer, no uno por píxel', async () => {
-    const { fixture, html } = await montar();
-    const original = html.querySelector('.salida code')!.textContent!;
+    const m = await montar();
+    await elegir(m);
+    const { fixture, html } = m;
+    await irA(m, 'salida');
+    const original = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
     const svg = html.querySelector('svg.lienzo')!;
     const nodo = html.querySelectorAll('.nodos .nodo')[1] as SVGCircleElement;
 
@@ -158,26 +304,28 @@ describe('Editor', () => {
     svg.dispatchEvent(new PointerEvent('pointerup', punto(x0 + 3, y0)));
     await fixture.whenStable();
 
-    expect(html.querySelector('.salida code')!.textContent).not.toBe(original);
-    const btnDeshacer = html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0];
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).not.toBe(original);
+    const btnDeshacer = html.querySelectorAll<HTMLButtonElement>('.deshacer button')[0];
     expect(btnDeshacer.disabled).toBe(false);
 
     btnDeshacer.click();
     await fixture.whenStable();
     // UN solo click devuelve el `d` original completo.
-    expect(html.querySelector('.salida code')!.textContent).toBe(original);
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).toBe(original);
     expect(btnDeshacer.disabled).toBe(true);
 
-    html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[1].click();
+    html.querySelectorAll<HTMLButtonElement>('.deshacer button')[1].click();
     await fixture.whenStable();
-    expect(html.querySelector('.salida code')!.textContent).not.toBe(original);
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).not.toBe(original);
   });
 
   it('seleccionar un nodo sin arrastrarlo NO mete un paso al historial', async () => {
     // La cicatriz: al soltar se redondeaban decimales SIEMPRE. Un simple click cambiaba los
     // decimales de una edición anterior, el historial lo contaba como cambio, y el siguiente
     // Ctrl+Z deshacía ese redondeo en vez de la operación que el usuario quería deshacer.
-    const { fixture, html } = await montar();
+    const m = await montar();
+    await elegir(m);
+    const { fixture, html } = m;
     const svg = html.querySelector('svg.lienzo')!;
     const r = { left: 0, top: 0, width: 480, height: 480 };
     svg.getBoundingClientRect = () =>
@@ -200,22 +348,27 @@ describe('Editor', () => {
       svg.dispatchEvent(new PointerEvent('pointerup', punto(x0, y0)));
       await fixture.whenStable();
     }
-    expect(html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0].disabled).toBe(true);
+    expect(html.querySelectorAll<HTMLButtonElement>('.deshacer button')[0].disabled).toBe(true);
   });
 
   it('agregar y borrar nodo son UN paso cada uno, y solo con nodo elegido', async () => {
-    const { fixture, html } = await montar();
+    const m = await montar();
+    await elegir(m);
+    const { fixture, html } = m;
     const svg = html.querySelector('svg.lienzo')!;
     const r = { left: 0, top: 0, width: 480, height: 480 };
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
 
-    // Sin nodo elegido no hay botones, solo la pista.
-    expect(html.querySelector('.nodo-acciones .chip')).toBeNull();
+    // Sin nodo elegido no hay botones, solo la pista. `.nodo-acciones` vive en el dock del lienzo,
+    // así que se ve sin importar qué pestaña del panel esté abierta -- `.editable-d` sí necesita
+    // "Salida".
+    expect(html.querySelector('.nodo-acciones button')).toBeNull();
     expect(html.querySelector('.nodo-acciones .pista-nodo')).not.toBeNull();
+    await irA(m, 'salida');
 
     const antes = html.querySelectorAll('.nodos .nodo').length;
-    const dAntes = html.querySelector('.salida code')!.textContent;
+    const dAntes = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
 
     const nodo = html.querySelectorAll('.nodos .nodo')[2] as SVGCircleElement;
     nodo.setPointerCapture = () => undefined;
@@ -229,22 +382,22 @@ describe('Editor', () => {
     svg.dispatchEvent(new PointerEvent('pointerup', p));
     await fixture.whenStable();
 
-    const botones = html.querySelectorAll<HTMLButtonElement>('.nodo-acciones .chip');
+    const botones = html.querySelectorAll<HTMLButtonElement>('.nodo-acciones button');
     expect(botones.length).toBe(2);
 
     botones[0].click();
     await fixture.whenStable();
     expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes + 1);
 
-    html.querySelectorAll<HTMLButtonElement>('.deshacer .chip')[0].click();
+    html.querySelectorAll<HTMLButtonElement>('.deshacer button')[0].click();
     await fixture.whenStable();
     expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes);
-    expect(html.querySelector('.salida code')!.textContent).toBe(dAntes);
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).toBe(dAntes);
   });
 
   it('los botones de historial arrancan apagados', async () => {
     const { html } = await montar();
-    const botones = html.querySelectorAll<HTMLButtonElement>('.deshacer .chip');
+    const botones = html.querySelectorAll<HTMLButtonElement>('.deshacer button');
     expect(botones.length).toBe(2);
     expect([...botones].every((b) => b.disabled)).toBe(true);
   });
@@ -295,10 +448,11 @@ describe('Editor', () => {
   });
 
   it('el icono que se está editando siempre está montado, caiga donde caiga', async () => {
-    const { html } = await montar();
-    // `heart`, el de arranque, va por la posición 700 de 1767: fuera de cualquier tramo inicial.
-    // Sin la excepción del elegido, la lista salía sin chip activo y no se veía qué se editaba.
-    expect(html.querySelector('.lista .chip.activo')).toBeTruthy();
+    const m = await montar();
+    // `heart` va por la posición 700 de 1767: fuera de cualquier tramo inicial. Sin la excepción
+    // del elegido, la lista saldría sin chip activo y no se vería qué se está editando.
+    await elegir(m, 'heart');
+    expect(m.html.querySelector('.lista .chip.activo')).toBeTruthy();
   });
 
   it('se puede llegar a `x`, que el corte de 60 dejaba fuera para siempre', async () => {
@@ -334,16 +488,26 @@ describe('Editor', () => {
     // El riesgo real del zoom no es que se vea mal: es que `aViewBox` deje de cuadrar y el nodo se
     // despegue del puntero. Aquí se mide justo eso, arrastrando UNA unidad del icono con el
     // encuadre movido y comprobando que el punto se mueve una unidad, no 1.35.
-    const { fixture, html } = await montar();
+    const m = await montar();
+    await elegir(m);
+    const { fixture, html } = m;
     const svg = html.querySelector('svg.lienzo')!;
     const r = { left: 0, top: 0, width: 480, height: 480 };
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
 
-    const [mas] = [...html.querySelectorAll<HTMLButtonElement>('.barra-baja .lienzo-btn')].filter(
+    const [mas] = [...html.querySelectorAll<HTMLButtonElement>('.dock .lienzo-btn')].filter(
       (b) => b.textContent?.trim() === '+',
     );
     mas.click();
+    await fixture.whenStable();
+
+    // El ajuste a rejilla arranca activo (T-nuevo): sin apagarlo, el arrastre de 1 unidad de abajo
+    // se redondearía al múltiplo de 2 más cercano y este test dejaría de medir lo que dice medir
+    // -- la conversión pantalla→viewBox, no el ajuste. Su botón vive en el dock del lienzo, orden
+    // fijo (deshacer, rehacer, rejilla, ajuste, pluma) mientras no haya nodo elegido todavía -- las
+    // acciones del nodo, que SÍ son condicionales, van después de este punto.
+    html.querySelectorAll<HTMLButtonElement>('.dock .lienzo-btn')[3].click();
     await fixture.whenStable();
 
     const [px, py, ancho] = svg.getAttribute('viewBox')!.split(' ').map(Number);
@@ -375,9 +539,11 @@ describe('Editor', () => {
   });
 
   it('el radio de los nodos se divide entre el zoom para medir lo mismo en pantalla', async () => {
-    const { fixture, html } = await montar();
+    const m = await montar();
+    await elegir(m);
+    const { fixture, html } = m;
     const antes = Number(html.querySelector('.nodos .nodo')!.getAttribute('r'));
-    [...html.querySelectorAll<HTMLButtonElement>('.barra-baja .lienzo-btn')]
+    [...html.querySelectorAll<HTMLButtonElement>('.dock .lienzo-btn')]
       .find((b) => b.textContent?.trim() === '+')!
       .click();
     await fixture.whenStable();
@@ -388,8 +554,11 @@ describe('Editor', () => {
   });
 
   it('los nodos marcan inicio, y fin solo en trazos que no cierran', async () => {
-    const { html } = await montar();
-    const d = html.querySelector('.salida code')!.textContent!;
+    const m = await montar();
+    await elegir(m);
+    const { html } = m;
+    await irA(m, 'salida');
+    const d = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
     const arranques = (d.match(/[Mm]/g) ?? []).length;
     const cierres = (d.match(/[zZ]/g) ?? []).length;
     // Un `inicio` por subpath; `fin` solo en los que quedan abiertos — en uno cerrado el final ES
@@ -399,9 +568,11 @@ describe('Editor', () => {
   });
 
   it('el JSON arranca plegado y el `d` abierto', async () => {
-    const { fixture, html } = await montar();
+    const m = await montar();
+    const { fixture, html } = m;
+    await irA(m, 'salida');
     expect(html.querySelector('.bloque pre.json')).toBeNull();
-    expect(html.querySelector('.salida code')).not.toBeNull();
+    expect(html.querySelector<HTMLTextAreaElement>('.editable-d')).not.toBeNull();
 
     html.querySelectorAll<HTMLButtonElement>('.bloque .bloque-toggle')[1].click();
     await fixture.whenStable();

@@ -48,7 +48,18 @@ describe('App (shell)', () => {
     expect(html.querySelector('.marca img')?.getAttribute('alt')).toBe('glyphflow');
     expect(html.querySelector('.marca')?.getAttribute('aria-label')).toContain('glyphflow');
     // Inglés por default (i18n, tráfico) — no español. Ver `core/i18n.ts`.
-    const rutas = [...html.querySelectorAll('.nav a')].map((a) => a.textContent?.trim());
+    //
+    // `textContent` a secas incluiría el badge "Beta" de Lab (`aria-hidden="true"`, T15): un
+    // lector de pantalla no lo anuncia como parte del nombre del link, así que la comparación
+    // tampoco debería contarlo -- de lo contrario prueba texto crudo del DOM, no el nombre
+    // ACCESIBLE que es lo que este test dice verificar.
+    const nombreAccesible = (el: Element) =>
+      [...el.childNodes]
+        .filter((n) => !(n instanceof Element && n.getAttribute('aria-hidden') === 'true'))
+        .map((n) => n.textContent)
+        .join('')
+        .trim();
+    const rutas = [...html.querySelectorAll('.nav a')].map(nombreAccesible);
     expect(rutas).toEqual(['Icons', 'Examples', 'Path editor', 'Lab', 'Docs']);
     // El glifo junto al logotipo: el sitio animando su propio producto en el header.
     expect(html.querySelector('.marca gf-icon')).not.toBeNull();

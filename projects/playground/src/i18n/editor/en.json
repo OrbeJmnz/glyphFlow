@@ -2,6 +2,17 @@
   "titulo": "Path editor",
   "intro": "Drag the points along the outline and watch <code>d</code> change. What you don't touch gets rewritten exactly as it was — that's why the result stays readable instead of turning into a wall of cubics.",
   "trazos": "This icon has {{n}} strokes. Click one to edit its nodes.",
+  "pluma": {
+    "sinNombre": "Blank icon",
+    "blanco": "+ Blank icon",
+    "blancoPista": "Draw with the pen tool below, or paste your own d — jumps to that field.",
+    "entrar": "Pen tool: draw a new stroke",
+    "salir": "Exit pen tool",
+    "aviso": "Pen tool — click to place points.",
+    "avisoAbierto": "Finish as an open line, or keep clicking for a closed shape.",
+    "avisoCerrar": "Click the first point to close, or:",
+    "moverTodo": "drag a node — moves its whole stroke together, not just that point"
+  },
   "busqueda": {
     "marcador": "Search {{n}} icons…",
     "etiqueta": "Search icon to edit",
@@ -19,6 +30,7 @@
     "intacto": "unchanged",
     "estadoAria": "Canvas status",
     "controlesAria": "Canvas controls",
+    "controlesZoomAria": "Zoom and fullscreen",
     "acercar": "Zoom in",
     "alejar": "Zoom out",
     "reencuadrar": "Back to 100%",
@@ -46,6 +58,9 @@
     "resultado": "output",
     "proyecto": "project"
   },
+  "panel": {
+    "tabsNavAria": "Editor panel sections"
+  },
   "nodo": {
     "grupoAria": "Selected node",
     "titulo": "Node #{{n}}",
@@ -55,6 +70,7 @@
     "teclaMas": "+",
     "borrar": "delete node",
     "teclaSupr": "Del",
+    "curvar": "curve this segment",
     "pista": "Select a node to edit it."
   },
   "atajos": {

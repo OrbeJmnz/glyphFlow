@@ -18,13 +18,15 @@ import {
   GfIconComponent,
   // Sueltos y NO desde el registro: cada icono es su propio export y se poda solo. El registro
   // completo llega diferido (ver `curados` más abajo); estos hacen falta ya, al construir.
-  heartIcon,
   playIcon,
   checkIcon,
+  circleMinusIcon,
+  circlePlusIcon,
   copyIcon,
   faceSlightlyFrowningIcon,
   grid3x3Icon,
   magnetIcon,
+  penToolIcon,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
@@ -41,15 +43,20 @@ import {
   type Borrador,
 } from '../../core/borradores';
 import { Copiador } from '../../shared/ui/copiar';
-import { parseD, type SubPath } from './geometria/path-model';
+import { parseD, type Punto, type SubPath } from './geometria/path-model';
 import {
+  agregarPunto,
+  cerrarSubpath,
+  convertirACurva,
   dDeSubpath,
   limpiar,
   manijasDe,
   moverManija,
   insertarNodo,
   moverNodo,
+  moverSubpath,
   nodosDe,
+  nuevoSubpath,
   quitarNodo,
   type Manija,
   type Nodo,
@@ -78,10 +85,19 @@ const PASO_REJILLA = 2;
 /** T30 · por debajo de esto, el editor de nodos no cabe sin romperse. Ver `angosto`. */
 const ANCHO_MINIMO = 900;
 
+/** Pluma: clic a menos de esto del punto de arranque cierra el subtrazo en vez de agregar otro. */
+const CIERRE_PLUMA = 0.6;
+
 interface Curado {
   nombre: string;
   def: AnimatedIconDef;
 }
+
+/**
+ * Las 4 sub-secciones del panel — una a la vista, el resto es scroll perdido. Mismo patrón que
+ * `TabDetalle` en `icon-detail-panel.ts`: un tipo cerrado, un signal, y `@switch` en la plantilla.
+ */
+type PestanaPanel = 'icono' | 'edicion' | 'salida' | 'proyecto';
 
 /**
  * Un nodo listo para pintar: además de dónde está, QUÉ es. Sin esto todos los puntos se ven
@@ -150,6 +166,9 @@ export class Editor implements OnDestroy {
   @ViewChild('lienzo') private lienzo!: ElementRef<SVGSVGElement>;
   /** El marco que entra a pantalla completa: el lienzo con su barra, no el `<svg>` pelón. */
   @ViewChild('zona') private zona!: ElementRef<HTMLElement>;
+  /** El campo del `d` pegable. Opcional de verdad -- además de `@if (!angosto())`, vive dentro de
+      `@if (verPath())`, que el usuario puede haber cerrado antes de llegar aquí. */
+  @ViewChild('campoD') private campoD?: ElementRef<HTMLTextAreaElement>;
 
   protected readonly lado = LADO;
   protected readonly zoomMin = ZOOM_MIN;
@@ -180,15 +199,19 @@ export class Editor implements OnDestroy {
   protected readonly caraTriste = faceSlightlyFrowningIcon;
   protected readonly iconoRejilla = grid3x3Icon;
   protected readonly iconoAjuste = magnetIcon;
+  protected readonly iconoPluma = penToolIcon;
+  protected readonly iconoInsertar = circlePlusIcon;
+  protected readonly iconoBorrar = circleMinusIcon;
 
   /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
   protected readonly mostrarRejilla = signal(true);
   /**
    * Ajuste a rejilla: SOLO al soltar el gesto (arrastre o flecha), nunca en cada píxel intermedio
    * -- ajustar de camino se sentiría como que el nodo tiembla en vez de responder al puntero. Ver
-   * `snapNodoActivo`.
+   * `snapNodoActivo`. Activo por default -- el toggle se movió de un botón propio en el dock del
+   * lienzo a un chip en la pestaña "Edición", así que el valor de arranque importa más que antes.
    */
-  protected readonly ajustarRejilla = signal(false);
+  protected readonly ajustarRejilla = signal(true);
 
   private redondearAGrid(v: number): number {
     return Math.round(v / PASO_REJILLA) * PASO_REJILLA;
@@ -204,6 +227,117 @@ export class Editor implements OnDestroy {
    * `matchMedia` (SSR) se asume que SÍ cabe, porque el prerender no tiene viewport que romper.
    */
   protected readonly angosto = signal(false);
+
+  // ── Panel: pestañas ────────────────────────────────────────────────────────────
+
+  /**
+   * Qué sub-sección del panel se ve. Las 4 secciones de siempre (Icono/Edición/Salida/Proyecto)
+   * iban apiladas en un solo scroll; con "Animar" sumándose pronto arriba del `.marco` (ver el plan
+   * de pluma+animar) esa columna solo iba a crecer. Por pestaña y no por ruta/URL: es postura de
+   * panel, no algo que valga compartir por enlace -- mismo criterio que dejó el modo forma/animar
+   * fuera de `estado-url.ts`.
+   */
+  protected readonly pestanaActiva = signal<PestanaPanel>('icono');
+
+  protected elegirPestana(p: PestanaPanel): void {
+    this.pestanaActiva.set(p);
+  }
+
+  // ── Pluma: crear un subtrazo desde cero ──────────────────────────────────────
+
+  /** `true` mientras el clic en el lienzo coloca puntos en vez de seleccionar/arrastrar. */
+  protected readonly modoPluma = signal(false);
+  /** El subtrazo que se está dibujando. `null` = pluma activa pero sin el primer punto todavía. */
+  protected readonly plumaEnProgreso = signal<SubPath | null>(null);
+  /** Posición del puntero en unidades del viewBox, solo mientras hay pluma -- para el segmento
+      fantasma del último punto al cursor. */
+  protected readonly punteroPluma = signal<Punto | null>(null);
+
+  protected readonly nodosPluma = computed<Nodo[]>(() => {
+    const p = this.plumaEnProgreso();
+    return p ? nodosDe([p]) : [];
+  });
+  protected readonly dPluma = computed(() => {
+    const p = this.plumaEnProgreso();
+    return p ? dDeSubpath(p) : '';
+  });
+  protected readonly ultimoPuntoPluma = computed<Punto | null>(() => {
+    const n = this.nodosPluma();
+    return n.length ? n[n.length - 1].punto : null;
+  });
+  /** Con menos de 3 puntos cerrar daría un subtrazo degenerado (un segmento sobre sí mismo). */
+  protected readonly plumaPuedeCerrar = computed(() => this.nodosPluma().length >= 3);
+  /** Dos puntos ya son una línea válida -- ABIERTA, sin forzar el cierre. Cerrar sigue pidiendo 3. */
+  protected readonly plumaPuedeTerminar = computed(() => this.nodosPluma().length >= 2);
+
+  protected activarPluma(): void {
+    this.modoPluma.set(true);
+    this.plumaEnProgreso.set(null);
+    this.activo.set(null);
+    this.manijaActiva.set(null);
+  }
+
+  protected cancelarPluma(): void {
+    this.modoPluma.set(false);
+    this.plumaEnProgreso.set(null);
+  }
+
+  /** Clic en el lienzo mientras hay pluma activa. Primer clic arranca; los siguientes agregan un
+      tramo recto; clic cerca del punto de arranque cierra. */
+  protected clicPluma(ev: PointerEvent): void {
+    const punto = this.aViewBox(ev);
+    const actual = this.plumaEnProgreso();
+    if (!actual) {
+      this.plumaEnProgreso.set(nuevoSubpath(punto));
+      return;
+    }
+    const inicio = actual.segmentos[0].fin;
+    const distancia = Math.hypot(punto[0] - inicio[0], punto[1] - inicio[1]);
+    if (distancia < CIERRE_PLUMA && this.plumaPuedeCerrar()) {
+      this.confirmarPluma(true);
+      return;
+    }
+    this.plumaEnProgreso.set(agregarPunto(actual, punto));
+  }
+
+  /**
+   * Agrega el subtrazo en progreso al trazo activo como UN paso de deshacer. `cerrar` decide si
+   * lleva `Z` o queda abierto -- una línea de 2 puntos es una figura válida por sí misma, no un
+   * paso a medias de camino a un polígono. Cerrar sigue pidiendo 3 (ver `plumaPuedeCerrar`);
+   * terminar abierto solo pide 2 (ver `plumaPuedeTerminar`).
+   */
+  private confirmarPluma(cerrar: boolean): void {
+    const actual = this.plumaEnProgreso();
+    if (!actual || (cerrar ? !this.plumaPuedeCerrar() : !this.plumaPuedeTerminar())) return;
+    const listo = cerrar ? cerrarSubpath(actual) : actual;
+    const i = this.indiceActivo();
+    const antes = this.modelos();
+    const subIndex = antes[i].length; // dónde queda el subtrazo nuevo: al final del arreglo
+    this.historial.registrar(antes);
+    this.modelos.set(antes.map((m, k) => (k === i ? [...m, listo] : m)));
+    this.tocado.set(true);
+    this.sincronizarPila();
+    this.modoPluma.set(false);
+    this.plumaEnProgreso.set(null);
+    // Selecciona el último punto puesto. Sin esto, terminar un trazo dejaba el panel diciendo
+    // "selecciona un nodo" justo después de crear varios -- y "curvar este tramo" (T-nuevo) y el
+    // aviso de Alt+arrastre viven DENTRO de ese `@if`, así que nadie los veía sin un clic más, a
+    // ciegas, sobre un punto que acababa de tocar.
+    const ultimoSeg = cerrar ? listo.segmentos.length - 2 : listo.segmentos.length - 1;
+    this.activo.set({
+      sub: subIndex,
+      seg: ultimoSeg,
+      punto: listo.segmentos[ultimoSeg].fin,
+      movible: true,
+    });
+  }
+
+  /** El clic en un trazo de fondo cambia cuál se edita -- cancela una pluma en progreso si estaba
+      dibujando para OTRO trazo, para no dejar puntos flotando sin dueño. */
+  protected elegirIndiceActivo(i: number): void {
+    if (this.plumaEnProgreso()) this.plumaEnProgreso.set(null);
+    this.indiceActivo.set(i);
+  }
 
   /**
    * Coordenada para leer, no para calcular. Dos decimales y sin ceros de relleno: la cifra cambia
@@ -221,9 +355,11 @@ export class Editor implements OnDestroy {
    * entero eso es más de un megabyte que baja hasta quien sólo abre Docs. Medido: 1.43 MB de
    * entrada contra 373 KB sin él.
    *
-   * Arranca vacío y se llena al resolver. El editor no se queda en blanco mientras tanto porque
-   * `elegido` se siembra con `heartIcon`, que es un export suelto y se poda solo — o sea, se puede
-   * editar desde el primer fotograma aunque la LISTA de la izquierda tarde un instante.
+   * Arranca vacío y se llena al resolver. El editor no espera a esto para ser usable: `elegido`
+   * ya vale desde el primer fotograma (hoy, un def en blanco -- ver su comentario), así que se
+   * puede dibujar con la pluma o elegir un curado en cuanto la LISTA de la izquierda termine de
+   * llegar, sin que el resto del componente tenga que tratar "sin catálogo todavía" como un caso
+   * aparte.
    */
   private readonly curados = signal<Curado[]>([]);
 
@@ -319,11 +455,24 @@ export class Editor implements OnDestroy {
    * Restaura desde el hash al abrir. Sólo una vez, en el arranque: releerlo después pisaría lo que
    * el usuario esté editando cada vez que la URL se pone al día con su propio trabajo.
    */
+  /**
+   * Cicatriz real (T-nuevo, encontrada depurando la suite): con el arranque en blanco, `irABlanco`
+   * dispara `sincronizarUrl` -- un timer de 400ms que escribe el estado en blanco al hash. El
+   * catálogo tarda bastante más que eso en cargar (~2-3s, es JSON grande), así que para cuando
+   * `cargarCurados()` resuelve y llama a ESTA función, el hash YA tiene ese "e1.blanco" escrito
+   * por el propio arranque -- no por un enlace compartido de verdad. Sin el chequeo de abajo, eso
+   * se decodifica y se aplica igual, pisando lo que el usuario haya elegido MIENTRAS el catálogo
+   * cargaba (un curado real, o algo dibujado con la pluma) con el estado en blanco de vuelta.
+   *
+   * El chequeo va DESPUÉS del `await` a propósito: `deFragmento` es asíncrono, así que el usuario
+   * pudo actuar durante ESE decode también, no solo antes de llamar a esta función.
+   */
   private async restaurarDesdeHash(): Promise<void> {
     const hash = this.ubicacion.path(true).split('#')[1];
     if (!hash) return;
     const estado = await deFragmento(hash);
     if (!estado) return;
+    if (this.elegido().nombre !== '' || this.tocado()) return;
     const suyo = this.curados().find((c) => c.nombre === estado.icono);
     if (suyo) this.elegido.set(suyo);
     // Los `d` del enlace mandan sobre los del catálogo: son justamente lo que alguien quiso
@@ -469,16 +618,19 @@ export class Editor implements OnDestroy {
   /**
    * El tramo, MÁS el icono que se está editando aunque caiga fuera.
    *
-   * Sin eso, elegir uno del final y recargar deja la lista sin chip activo: el usuario no ve cuál
-   * está editando, y el `heart` de arranque —que va por la posición 700 de 1767— ya salía sin
-   * marcar. Va DELANTE porque es lo que se busca con la vista, no perdido en su sitio alfabético.
+   * Sin eso, elegir uno del final de la lista deja la lista sin chip activo: el usuario no ve cuál
+   * está editando. `heart`, por ejemplo, va por la posición 700 de 1767 -- fuera del primer tramo
+   * ya salía sin marcar. Va DELANTE porque es lo que se busca con la vista, no perdido en su sitio
+   * alfabético. (El editor arranca en blanco -- sin chip elegido todavía -- así que esta excepción
+   * entra en juego en cuanto se elige algo, no antes.)
    */
   protected readonly visibles = computed(() => {
     const tramo = this.candidatos().slice(0, this.montados());
     const actual = this.elegido();
     if (!actual || tramo.some((c) => c.nombre === actual.nombre)) return tramo;
-    // Por NOMBRE y no por identidad: mientras el catálogo no ha llegado, `elegido` es un objeto
-    // propio con `heartIcon` dentro, y `includes` diría que no está aunque el icono sí exista.
+    // Por NOMBRE y no por identidad: `elegido` puede ser un objeto propio (el def en blanco de
+    // arranque, o uno recién elegido antes de que el catálogo termine de llegar), y comparar por
+    // referencia diría que no está en la lista aunque el icono sí exista ahí, con OTRO objeto.
     const enLista = this.candidatos().find((c) => c.nombre === actual.nombre);
     return enLista ? [enLista, ...tramo] : tramo;
   });
@@ -489,12 +641,17 @@ export class Editor implements OnDestroy {
   }
 
   /**
-   * `heartIcon` suelto y no `curados().find(...)`: el catálogo llega diferido, y esta señal tiene
-   * que valer DESDE EL PRIMER FOTOGRAMA — la mitad del componente la lee para calcular nodos,
-   * manijas y la salida. Sembrarla con un import podable evita hacerla nullable y guardar en los
-   * trece sitios que la usan.
+   * En blanco desde el primer fotograma, no `curados().find(...)`: el catálogo llega diferido, y
+   * esta señal tiene que valer YA — la mitad del componente la lee para calcular nodos, manijas y
+   * la salida. Un objeto literal (no `null`) evita hacerla nullable y guardar en los trece sitios
+   * que la usan. Antes sembraba con `heartIcon` (un icono real) -- se decidió que el editor arranca
+   * en blanco por defecto, con la pluma armada: es la entrada más honesta a "crear desde cero", el
+   * caso que T-nuevo agrega. Elegir un icono del catálogo sigue siendo un clic, igual que siempre.
    */
-  protected readonly elegido = signal<Curado>({ nombre: 'heart', def: heartIcon });
+  protected readonly elegido = signal<Curado>({
+    nombre: '',
+    def: { viewBox: '0 0 24 24', shapes: [], animations: {} },
+  });
 
   /**
    * Las figuras que NO son `path` se pintan pero no se editan. Decirlo es más honesto que
@@ -516,6 +673,19 @@ export class Editor implements OnDestroy {
   /** Estado editable: un modelo por cada `<path>` del icono. */
   protected readonly modelos = signal<SubPath[][]>([]);
   protected readonly indiceActivo = signal(0);
+
+  /**
+   * Un `<path>` de dibujo por SUBTRAZO, no uno por PATH -- hace falta para poder arrastrar por el
+   * BORDE de una figura sin agarrar de paso las demás que comparten el mismo `<path>` de Lucide
+   * (mover una figura entera desde su arista, no solo desde un nodo). `dPorPath()` se queda tal
+   * cual para la salida/exportar -- eso SÍ necesita un `d` por path, no por subtrazo.
+   */
+  protected readonly subtrazosVista = computed<{ pathIndex: number; subIndex: number; d: string }[]>(
+    () =>
+      this.modelos().flatMap((subs, pathIndex) =>
+        subs.map((sub, subIndex) => ({ pathIndex, subIndex, d: dDeSubpath(sub) })),
+      ),
+  );
 
   protected readonly nodos = computed<Nodo[]>(() => {
     const m = this.modelos()[this.indiceActivo()];
@@ -753,6 +923,24 @@ export class Editor implements OnDestroy {
     this.activo.set(null);
   }
 
+  /** `true` cuando el tramo que termina en el nodo activo es recto (L/H/V) -- el único caso que
+      `convertirACurva` de verdad transforma. Sirve para no ofrecer el botón sobre algo que ya es
+      curva o un arco, donde no haría nada. */
+  protected readonly puedeCurvar = computed(() => {
+    const n = this.activo();
+    const subs = this.modelos()[this.indiceActivo()];
+    const seg = subs?.[n?.sub ?? -1]?.segmentos[n?.seg ?? -1];
+    if (!n || !seg) return false;
+    const L = seg.letra.toUpperCase();
+    return L === 'L' || L === 'H' || L === 'V';
+  });
+
+  protected curvarTramo(): void {
+    const n = this.activo();
+    if (!n) return;
+    this.aplicar((subs) => convertirACurva(subs, n));
+  }
+
   /**
    * T30 · las coordenadas del nodo activo, editables a mano. Reusa `aplicar()` -- el mismo camino
    * que agregar/borrar nodo -- así que un valor tecleado entra al historial como UN paso, igual que
@@ -778,6 +966,25 @@ export class Editor implements OnDestroy {
     // — y nunca mientras se escribe en el buscador, en las coordenadas o en el `d` (T30: los dos
     // últimos son nuevos, y sin este guardia Tab/flechas/Supr saltarían del campo al lienzo).
     const enCampo = ['INPUT', 'TEXTAREA'].includes((ev.target as HTMLElement | null)?.tagName ?? '');
+
+    // Pluma: Esc cancela; Enter termina ABIERTO (2+ puntos, sin forzar cerrar);
+    // Shift+Enter cierra (3+, lo mismo que clicar cerca del punto de arranque). Nada más del
+    // teclado aplica mientras se dibuja a propósito -- ni deshacer, que operaría sobre `modelos` y
+    // no sobre el trazo en progreso, que todavía no entró al historial.
+    if (this.modoPluma() && !enCampo) {
+      if (ev.key === 'Escape') {
+        ev.preventDefault();
+        this.cancelarPluma();
+      } else if (ev.key === 'Enter' && ev.shiftKey && this.plumaPuedeCerrar()) {
+        ev.preventDefault();
+        this.confirmarPluma(true);
+      } else if (ev.key === 'Enter' && !ev.shiftKey && this.plumaPuedeTerminar()) {
+        ev.preventDefault();
+        this.confirmarPluma(false);
+      }
+      return;
+    }
+
     if (!ev.ctrlKey && !ev.metaKey && !enCampo && this.activo()) {
       if (ev.key === 'Delete' || ev.key === 'Backspace') {
         ev.preventDefault();
@@ -893,8 +1100,12 @@ export class Editor implements OnDestroy {
    * ver el porqué en `ajustarRejilla`. Reusa `moverNodo` con el delta que faltaba para llegar al
    * múltiplo de `PASO_REJILLA` más cercano, así que entra al mismo camino que cualquier otro
    * movimiento -- nada de geometría nueva.
+   *
+   * `subpathCompleto`: si el arrastre que acaba de soltarse movía el subtrazo entero (Alt), el
+   * ajuste tiene que viajar CON él -- ajustar solo el nodo activo mientras el resto se queda donde
+   * estaba rompería la rigidez que todo el gesto acababa de mantener.
    */
-  private snapNodoActivo(): void {
+  private snapNodoActivo(subpathCompleto = false): void {
     if (!this.ajustarRejilla()) return;
     const n = this.activo();
     const p = this.nodoActivo()?.punto;
@@ -905,13 +1116,15 @@ export class Editor implements OnDestroy {
     const i = this.indiceActivo();
     this.modelos.update((todos) => {
       const copia = [...todos];
-      copia[i] = limpiar(moverNodo(copia[i], n, dx, dy));
+      copia[i] = limpiar(
+        subpathCompleto ? moverSubpath(copia[i], n.sub, dx, dy) : moverNodo(copia[i], n, dx, dy),
+      );
       return copia;
     });
   }
 
   constructor() {
-    this.cargar();
+    this.irABlanco();
     try {
       const consulta = matchMedia(`(max-width: ${ANCHO_MINIMO - 1}px)`);
       this.angosto.set(consulta.matches);
@@ -921,8 +1134,8 @@ export class Editor implements OnDestroy {
       // para un HTML que ningún viewport real va a medir.
     }
     // El catálogo y los alias llegan por su propio chunk. No se espera a ellos para nada de lo de
-    // arriba: `elegido` ya trae `heartIcon`, así que se puede editar desde el primer fotograma y lo
-    // único que aparece más tarde es la LISTA de la izquierda.
+    // arriba: `elegido` ya vale (en blanco) desde el primer fotograma, así que se puede dibujar con
+    // la pluma de inmediato y lo único que aparece más tarde es la LISTA de la izquierda.
     // `PendingTasks.run` y no un `then` suelto: registra la carga como trabajo pendiente de la
     // aplicación, y de eso dependen el PRERENDER —que serializaría antes de que llegue el
     // catálogo— y el `whenStable()` de los tests.
@@ -933,8 +1146,11 @@ export class Editor implements OnDestroy {
           .map(([nombre, def]) => ({ nombre, def }))
           .sort((a, b) => a.nombre.localeCompare(b.nombre));
         this.curados.set(lista);
-        // Y se re-siembra `elegido` con la entrada REAL del catálogo: hasta aquí era un objeto
-        // propio con `heartIcon` dentro, y aunque el `def` sea el mismo, no es la MISMA entrada.
+        // Si ya se eligió un curado ANTES de que esto resolviera (rarísimo, el catálogo llega
+        // rápido, pero posible), se re-siembra con la entrada REAL: hasta aquí `elegido` tenía un
+        // objeto propio, y aunque el `def` sea el mismo, no es la MISMA entrada. Con el arranque en
+        // blanco (`nombre: ''`), `find` no encuentra nada y esto no hace nada -- correcto: seguir
+        // en blanco es el estado esperado hasta que alguien elija algo.
         const real = lista.find((c) => c.nombre === this.elegido().nombre);
         if (real) this.elegido.set(real);
         // Y AQUÍ el enlace compartido, no antes: el hash trae el NOMBRE del icono, así que hasta
@@ -950,11 +1166,78 @@ export class Editor implements OnDestroy {
   protected elegir(c: Curado): void {
     this.elegido.set(c);
     this.cargar();
+    // Elegir un icono es la señal más fuerte de "quiero editar esto ya" -- saltar a la pestaña de
+    // edición ahorra el clic extra que, sin esto, pedía cada vez (los controles de edición viven
+    // ahora en el dock flotante del lienzo, pero "Edición" sigue teniendo Restablecer y los atajos).
+    this.pestanaActiva.set('edicion');
+  }
+
+  /**
+   * El estado de un lienzo vacío: un path, cero subtrazos -- el mínimo que la pluma necesita para
+   * escribir desde el primer clic. NO reusa `cargar()`: esa reconstruye `modelos` desde
+   * `pathsOriginales()`, que para un `def` sin `shapes` da un arreglo VACÍO (cero paths), no uno
+   * con un path vacío.
+   *
+   * Reusado por el ARRANQUE del componente (el editor abre en blanco por defecto, con la pluma
+   * como la entrada primaria a "crear desde cero") y por el botón "Icono en blanco" a mitad de
+   * sesión. Arma la pluma en los DOS casos -- un lienzo en blanco no tiene NADA más que hacer, y
+   * eso es cierto llegues por el botón o por la URL directa; obligar a un clic extra solo porque
+   * "nadie pidió nada todavía" sería la misma sorpresa negativa al revés, un lienzo que se ve
+   * listo pero no responde al primer clic. Lo que SÍ es exclusivo del botón (`empezarEnBlanco`,
+   * abajo) es robar foco/scroll hacia el campo de pegar -- eso sí depende de una acción explícita.
+   */
+  private irABlanco(): void {
+    this.elegido.set({ nombre: '', def: { viewBox: '0 0 24 24', shapes: [], animations: {} } });
+    this.modelos.set([[]]);
+    this.indiceActivo.set(0);
+    this.tocado.set(false);
+    this.arrastrando = null;
+    this.activo.set(null);
+    this.manijaActiva.set(null);
+    this.reencuadrar();
+    this.historial.limpiar();
+    this.sincronizarPila();
+    this.activarPluma();
+  }
+
+  /** El botón "Icono en blanco": mismo estado que `irABlanco()` (pluma incluida), más la vista
+      llevada al campo de pegar -- la otra entrada a un lienzo en blanco. */
+  protected empezarEnBlanco(): void {
+    this.irABlanco();
+    // El campo del `d` pegable vive en la pestaña "Salida" del panel. Enfocar y seleccionar deja
+    // las DOS vías listas de una: dibujar con la pluma (ya armada por `irABlanco()`, funciona sobre
+    // el lienzo sin importar qué pestaña esté abierta), o pegar encima (el paste reemplaza el `[[]]`
+    // vacío igual que reemplazaría cualquier otro `d`).
+    this.pestanaActiva.set('salida');
+    // Un tick para que Angular pinte la pestaña nueva antes de buscar el campo -- mismo patrón que
+    // `elegirVariante` en `icon-detail-panel.ts`: disparar antes de que el `@switch` re-pinte deja
+    // `campoD` apuntando al `<textarea>` de la pestaña vieja (o a nada).
+    setTimeout(() => this.llevarAlCampoD());
+  }
+
+  /** Desplaza y enfoca el campo del `d` pegable -- ver el porqué en `empezarEnBlanco`. */
+  private llevarAlCampoD(): void {
+    const el = this.campoD?.nativeElement;
+    if (!el) return;
+    let suave = true;
+    try {
+      suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch {
+      // SSR: sin matchMedia, no hay nada que desplazar de todos modos.
+    }
+    el.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'center' });
+    el.focus();
+    el.select();
   }
 
   /** Reconstruye los modelos desde el `d` original del icono elegido. */
   private cargar(): void {
-    this.modelos.set(this.pathsOriginales().map((d) => parseD(d)));
+    const paths = this.pathsOriginales();
+    // Sin `shapes` (el def en blanco) `paths` es `[]` -- CERO paths, no uno vacío. `[[]]` es el
+    // mínimo que la pluma necesita para escribir desde el primer clic (mismo motivo que
+    // `irABlanco()`); sin esto, "Restablecer" después de dibujar algo en blanco dejaba
+    // `indiceActivo` apuntando a nada.
+    this.modelos.set(paths.length ? paths.map((d) => parseD(d)) : [[]]);
     this.indiceActivo.set(0);
     this.tocado.set(false);
     this.arrastrando = null;
@@ -965,6 +1248,10 @@ export class Editor implements OnDestroy {
     // El historial del icono anterior no aplica al nuevo.
     this.historial.limpiar();
     this.sincronizarPila();
+    // La pluma solo tiene sentido en un lienzo en blanco. Sin esto, `irABlanco()` la arma, y elegir
+    // DESPUÉS un curado real la dejaba armada -- el primer clic en un nodo del icono recién cargado
+    // no arrastraba nada, porque `empezar()` se sale temprano mientras `modoPluma()` es verdad.
+    this.cancelarPluma();
   }
 
   protected restablecer(): void {
@@ -974,8 +1261,18 @@ export class Editor implements OnDestroy {
   // ── Arrastre ────────────────────────────────────────────────────────────────
 
   private arrastrando:
-    | { tipo: 'nodo'; ref: Nodo; ultimo: [number, number]; movio: boolean }
+    | {
+        tipo: 'nodo';
+        ref: Nodo;
+        ultimo: [number, number];
+        movio: boolean;
+        /** Alt al empezar: mueve TODO el subtrazo del nodo, no solo él. Ver `moverSubpath`. */
+        subpathCompleto: boolean;
+      }
     | { tipo: 'manija'; ref: Manija; ultimo: [number, number]; movio: boolean }
+    /** Arrastre desde el BORDE de una figura (no un nodo): mueve el subtrazo entero directo, sin
+        necesitar Alt -- clicar la arista, lejos de cualquier punto, ya es inequívoco. */
+    | { tipo: 'subtrazo'; sub: number; ultimo: [number, number]; movio: boolean }
     | null = null;
   protected readonly activo = signal<Nodo | null>(null);
   protected readonly manijaActiva = signal<Manija | null>(null);
@@ -1012,7 +1309,9 @@ export class Editor implements OnDestroy {
   }
 
   protected empezar(ev: PointerEvent, nodo: Nodo): void {
-    if (!nodo.movible) return;
+    // Con la pluma activa el clic es de ELLA (burbujea a `clicPluma` en el `<svg>`) -- un nodo de
+    // OTRO trazo debajo del cursor no debe además empezar su propio arrastre.
+    if (this.modoPluma() || !nodo.movible) return;
     ev.preventDefault();
     // `setPointerCapture`: si el puntero sale del círculo a media arrastrada — y sale siempre, es
     // de 5px — los eventos siguen llegando a este elemento en vez de perderse.
@@ -1020,13 +1319,21 @@ export class Editor implements OnDestroy {
     // Se abre el gesto ANTES de mover: el arrastre entero cuenta como un paso de deshacer, no uno
     // por píxel recorrido.
     this.historial.abrir(this.modelos());
-    this.arrastrando = { tipo: 'nodo', ref: nodo, ultimo: this.aViewBox(ev), movio: false };
+    this.arrastrando = {
+      tipo: 'nodo',
+      ref: nodo,
+      ultimo: this.aViewBox(ev),
+      movio: false,
+      subpathCompleto: ev.altKey,
+    };
     this.activo.set(nodo);
     this.arrastrandoNodo.set(true);
     this.manijaActiva.set(null);
   }
 
   protected empezarManija(ev: PointerEvent, manija: Manija): void {
+    // Sin `stopPropagation` aquí: el evento burbujea al `<svg>` y lo toma `clicPluma`.
+    if (this.modoPluma()) return;
     ev.preventDefault();
     ev.stopPropagation();
     (ev.target as Element).setPointerCapture(ev.pointerId);
@@ -1036,7 +1343,30 @@ export class Editor implements OnDestroy {
     this.activo.set(null);
   }
 
+  /**
+   * Arrastre desde el BORDE de una figura: clicar el trazo mismo, lejos de cualquier nodo, mueve
+   * el subtrazo entero -- sin necesitar Alt, porque el punto de agarre ya lo dice todo (un nodo
+   * cerca habría ganado el evento primero, por el orden de pintado del SVG). También pone ese
+   * subtrazo como el trazo activo: arrastrar una figura y seguir editándola con las herramientas
+   * de nodo debería ser el mismo gesto, no dos.
+   */
+  protected empezarSubtrazo(ev: PointerEvent, pathIndex: number, subIndex: number): void {
+    if (this.modoPluma()) return;
+    ev.preventDefault();
+    (ev.target as Element).setPointerCapture(ev.pointerId);
+    this.elegirIndiceActivo(pathIndex);
+    this.historial.abrir(this.modelos());
+    this.arrastrando = { tipo: 'subtrazo', sub: subIndex, ultimo: this.aViewBox(ev), movio: false };
+    this.activo.set(null);
+    this.manijaActiva.set(null);
+  }
+
   protected mover(ev: PointerEvent): void {
+    // Solo actualiza el fantasma del último punto al cursor -- la pluma no arrastra ni panea.
+    if (this.modoPluma()) {
+      if (this.plumaEnProgreso()) this.punteroPluma.set(this.aViewBox(ev));
+      return;
+    }
     if (this.paneando) {
       const r = this.lienzo.nativeElement.getBoundingClientRect();
       const l = this.ladoVisible();
@@ -1057,10 +1387,15 @@ export class Editor implements OnDestroy {
     const gesto = this.arrastrando;
     this.modelos.update((todos) => {
       const copia = [...todos];
-      copia[i] =
-        gesto.tipo === 'nodo'
-          ? moverNodo(copia[i], gesto.ref, dx, dy)
-          : moverManija(copia[i], gesto.ref, dx, dy);
+      if (gesto.tipo === 'nodo') {
+        copia[i] = gesto.subpathCompleto
+          ? moverSubpath(copia[i], gesto.ref.sub, dx, dy)
+          : moverNodo(copia[i], gesto.ref, dx, dy);
+      } else if (gesto.tipo === 'subtrazo') {
+        copia[i] = moverSubpath(copia[i], gesto.sub, dx, dy);
+      } else {
+        copia[i] = moverManija(copia[i], gesto.ref, dx, dy);
+      }
       return copia;
     });
     this.arrastrando.ultimo = [x, y];
@@ -1072,14 +1407,14 @@ export class Editor implements OnDestroy {
     this.paneando = null;
     this.arrastrandoNodo.set(false);
     if (!this.arrastrando) return;
-    const { movio, tipo } = this.arrastrando;
+    const gesto = this.arrastrando;
     this.arrastrando = null;
 
     // Solo se redondea si de verdad hubo arrastre. Redondear en cada click parecía inofensivo y no
     // lo era: un simple SELECCIONAR cambiaba los decimales de una edición anterior, el historial lo
     // veía como cambio y metía un paso — así que el siguiente Ctrl+Z deshacía ese redondeo en vez
     // de la operación que el usuario quería deshacer.
-    if (movio) {
+    if (gesto.movio) {
       const i = this.indiceActivo();
       this.modelos.update((todos) => {
         const copia = [...todos];
@@ -1088,7 +1423,7 @@ export class Editor implements OnDestroy {
       });
       // Solo nodos: una manija bézier no vive EN la rejilla, apunta hacia dónde se curva el trazo
       // -- ajustarla al múltiplo más cercano rompería la curva en vez de alinear un punto.
-      if (tipo === 'nodo') this.snapNodoActivo();
+      if (gesto.tipo === 'nodo') this.snapNodoActivo(gesto.subpathCompleto);
     }
     this.historial.cerrar(this.modelos());
     this.sincronizarPila();

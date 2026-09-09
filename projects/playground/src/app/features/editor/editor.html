@@ -21,7 +21,7 @@
     <div class="barra barra-alta">
       <span class="identidad">
         <gf-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
-        <strong>{{ elegido().nombre }}</strong>
+        <strong>{{ elegido().nombre || ('editor.pluma.sinNombre' | transloco) }}</strong>
       </span>
 
       <span class="estado" role="status" [attr.aria-label]="'editor.lienzo.estadoAria' | transloco">
@@ -42,18 +42,49 @@
       </span>
     </div>
 
+    <!-- Aviso de la pluma: qué hace cada clic, mientras está activa. Fila propia y no metido en
+         `.barra-alta` -- esa fila ya reporta nodos/trazos/estado, mezclar instrucciones ahí las
+         perdería entre los demás datos. -->
+    @if (modoPluma()) {
+      <p class="aviso-pluma">
+        {{
+          (plumaPuedeCerrar()
+            ? 'editor.pluma.avisoCerrar'
+            : plumaPuedeTerminar()
+              ? 'editor.pluma.avisoAbierto'
+              : 'editor.pluma.aviso'
+          ) | transloco
+        }}
+        <!-- Badges de verdad, no solo la palabra suelta en la oración -- el pedido explícito era
+             que el atajo se VEA, no que esté descrito. -->
+        <kbd>Esc</kbd>
+        @if (plumaPuedeTerminar()) {
+          <kbd>Enter</kbd>
+        }
+        @if (plumaPuedeCerrar()) {
+          <kbd>Shift+Enter</kbd>
+        }
+      </p>
+    }
+
     <!--
+      El envoltorio ancla el dock flotante (más abajo) contra el lienzo mismo, no contra toda la
+      tarjeta `.taller` -- sin esto, el dock se posiciona contra el borde inferior de `.taller`, que
+      incluye la leyenda DEBAJO del lienzo, y las dos piezas quedan encimadas.
+
       `--z` lleva el zoom al CSS. Nodos, manijas y líneas de pelo se dividen entre él para medir
       siempre lo mismo en pantalla: si crecieran con el viewBox, acercarse taparía justo la
       geometría que se quiere ver de cerca.
     -->
+    <div class="lienzo-envoltorio" [class.modo-pluma]="modoPluma()">
     <svg
       #lienzo
       class="lienzo"
       [class.paneable]="zoom() > zoomMin"
+      [class.modo-pluma]="modoPluma()"
       [style.--z]="zoom()"
       [attr.viewBox]="vista()"
-      (pointerdown)="empezarPan($event)"
+      (pointerdown)="modoPluma() ? clicPluma($event) : empezarPan($event)"
       (wheel)="rueda($event)"
       (pointermove)="mover($event)"
       (pointerup)="terminar()"
@@ -136,19 +167,24 @@
         Dos capas del MISMO `d`: el trazo real de 2 unidades atenuado, para ver el icono como se
         va a ver, y encima una linea de pelo con la geometria exacta. Con solo el trazo real, a
         este tamano los nodos quedan enterrados bajo 40px de tinta y no se puede apuntar.
+
+        Un `<path>` por SUBTRAZO (`subtrazosVista()`), no uno por PATH: clicar la arista de UNA
+        figura arrastra ESA figura (`empezarSubtrazo`), no todas las que comparten el mismo
+        `<path>` de Lucide. `dPorPath()` sigue siendo la fuente de la salida/exportar -- esto es
+        solo la capa de dibujo/interacción.
       -->
       <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        @for (d of dPorPath(); track $index) {
+        @for (s of subtrazosVista(); track s.pathIndex + ':' + s.subIndex) {
           <path
             class="tinta"
             stroke-width="2"
-            [attr.d]="d"
-            [class.inactivo]="$index !== indiceActivo()"
-            (pointerdown)="indiceActivo.set($index)"
+            [attr.d]="s.d"
+            [class.inactivo]="s.pathIndex !== indiceActivo()"
+            (pointerdown)="empezarSubtrazo($event, s.pathIndex, s.subIndex)"
           />
         }
-        @for (d of dPorPath(); track $index) {
-          <path class="hilo" [attr.d]="d" [class.inactivo]="$index !== indiceActivo()" />
+        @for (s of subtrazosVista(); track s.pathIndex + ':' + s.subIndex) {
+          <path class="hilo" [attr.d]="s.d" [class.inactivo]="s.pathIndex !== indiceActivo()" />
         }
       </g>
 
@@ -209,7 +245,267 @@
           />
         }
       </g>
+
+      <!--
+        La pluma: el trazo en progreso (líneas rectas por ahora), un segmento fantasma del último
+        punto al cursor, y un punto por cada clic ya dado. El primero se marca aparte -- es el que
+        hay que volver a tocar para cerrar.
+      -->
+      @if (modoPluma() && plumaEnProgreso()) {
+        <g class="pluma">
+          <path class="pluma-trazo" fill="none" [attr.d]="dPluma()" />
+          @if (ultimoPuntoPluma(); as ultimo) {
+            @if (punteroPluma(); as cursor) {
+              <line
+                class="pluma-fantasma"
+                [attr.x1]="ultimo[0]"
+                [attr.y1]="ultimo[1]"
+                [attr.x2]="cursor[0]"
+                [attr.y2]="cursor[1]"
+              />
+            }
+          }
+          @for (n of nodosPluma(); track $index) {
+            <circle
+              class="pluma-punto"
+              [class.pluma-inicio]="$index === 0 && plumaPuedeCerrar()"
+              [attr.r]="radioNodo()"
+              [attr.cx]="n.punto[0]"
+              [attr.cy]="n.punto[1]"
+            />
+          }
+        </g>
+      }
     </svg>
+
+    <!--
+      El dock flotante: deshacer/rehacer, rejilla, pluma, y -- contextual -- las acciones del nodo
+      elegido. Zoom y pantalla completa viven en su propio dock (`.dock-zoom`, más abajo) arriba a
+      la derecha del lienzo -- son controles de VISTA, no de edición, así que se separan del resto.
+      El ajuste a rejilla se cayó como botón propio: ya arranca activo (ver `ajustarRejilla` en
+      `editor.ts`) y su toggle vive ahora en la pestaña "Edición" del panel.
+      Dentro de `.lienzo-envoltorio` a propósito -- ver el comentario de arriba. Y dentro de
+      `.dock-pila` -- que apila este dock con `.dock-nodo` (más abajo) sin números a mano: cada uno
+      mide lo que su contenido pida y el `gap` de la pila los separa.
+    -->
+    <div class="dock-pila">
+    <div class="dock" role="group" [attr.aria-label]="'editor.lienzo.controlesAria' | transloco">
+      <div class="deshacer" role="group" [attr.aria-label]="'editor.historial.grupoAria' | transloco">
+        <button
+          type="button"
+          class="lienzo-btn"
+          [disabled]="!pila().deshacer"
+          [title]="'editor.historial.deshacer' | transloco"
+          [attr.aria-label]="'editor.historial.deshacer' | transloco"
+          (click)="deshacer()"
+        >
+          ↶
+        </button>
+        <button
+          type="button"
+          class="lienzo-btn"
+          [disabled]="!pila().rehacer"
+          [title]="'editor.historial.rehacer' | transloco"
+          [attr.aria-label]="'editor.historial.rehacer' | transloco"
+          (click)="rehacer()"
+        >
+          ↷
+        </button>
+      </div>
+
+      <span class="dock-sep" aria-hidden="true"></span>
+
+      <!--
+        T30 · conmutador de rejilla y de ajuste. Icono cada uno y `[class.activo]` para el estado --
+        mismo criterio que el botón de movimiento del header (`app.html`): un control que alterna,
+        no dos botones "encendido"/"apagado" por separado. El ajuste arranca activo (T-nuevo, ver
+        `ajustarRejilla` en `editor.ts`), así que este botón normalmente se ve ya encendido.
+      -->
+      <button
+        type="button"
+        class="lienzo-btn"
+        [class.activo]="mostrarRejilla()"
+        [attr.aria-pressed]="mostrarRejilla()"
+        [title]="
+          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+            | transloco
+        "
+        [attr.aria-label]="
+          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+            | transloco
+        "
+        (click)="mostrarRejilla.set(!mostrarRejilla())"
+      >
+        <gf-icon [iconDef]="iconoRejilla" [size]="14" trigger="manual" />
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn"
+        [class.activo]="ajustarRejilla()"
+        [attr.aria-pressed]="ajustarRejilla()"
+        [title]="
+          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+            | transloco
+        "
+        [attr.aria-label]="
+          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+            | transloco
+        "
+        (click)="ajustarRejilla.set(!ajustarRejilla())"
+      >
+        <gf-icon [iconDef]="iconoAjuste" [size]="14" trigger="manual" />
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn"
+        [class.activo]="modoPluma()"
+        [class.pluma-activa]="modoPluma()"
+        [attr.aria-pressed]="modoPluma()"
+        [title]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
+        [attr.aria-label]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
+        (click)="modoPluma() ? cancelarPluma() : activarPluma()"
+      >
+        <gf-icon [iconDef]="iconoPluma" [size]="14" trigger="manual" />
+      </button>
+
+      <!--
+        Acciones del nodo: contextuales, y por eso van al final -- el dock solo crece cuando hay
+        algo sobre lo que actuar. La identidad del nodo y sus coordenadas viven aparte, en
+        `.dock-nodo` debajo de este dock -- separar "qué puedo hacer" (estos botones) de "qué estoy
+        tocando" (la otra pastilla) le da a las coordenadas el ancho que se merecen.
+      -->
+      <span class="dock-sep" aria-hidden="true"></span>
+      <div class="nodo-acciones" role="group" [attr.aria-label]="'editor.nodo.grupoAria' | transloco">
+        @if (nodoActivo()) {
+          <!--
+            Icono y no texto+kbd: en un dock ya lleno de botones cuadrados, dos pastillas largas
+            desentonaban -- el resto del grupo ya enseña que "icono + tooltip" es el idioma de esta
+            barra. El atajo (+/Supr) sigue en el tooltip y en la lista de atajos de "Edición";
+            "curvar este tramo" se queda con su texto -- no hay un icono de curva que no confunda.
+          -->
+          <div class="nodo-btns">
+            <button
+              type="button"
+              class="lienzo-btn"
+              [title]="'editor.nodo.agregar' | transloco"
+              [attr.aria-label]="'editor.nodo.agregar' | transloco"
+              (click)="agregarNodo()"
+            >
+              <gf-icon [iconDef]="iconoInsertar" [size]="14" trigger="manual" />
+            </button>
+            <button
+              type="button"
+              class="lienzo-btn"
+              [title]="'editor.nodo.borrar' | transloco"
+              [attr.aria-label]="'editor.nodo.borrar' | transloco"
+              (click)="borrarNodo()"
+            >
+              <gf-icon [iconDef]="iconoBorrar" [size]="14" trigger="manual" />
+            </button>
+            @if (puedeCurvar()) {
+              <button type="button" app-chip variante="contorno" (click)="curvarTramo()">
+                {{ 'editor.nodo.curvar' | transloco }}
+              </button>
+            }
+          </div>
+        } @else {
+          <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
+        }
+      </div>
+    </div>
+
+    <!--
+      La identidad del nodo elegido y sus coordenadas, en su propia pastilla debajo del dock --
+      separada de "qué puedo hacer" (los botones de arriba) para que el número no compita por
+      espacio con un botón cuadrado de 36px. El nombre lleva el degradado de marca (cian→azul):
+      mismo criterio que el resto del sitio para "el UN dato que importa en esta pantalla".
+    -->
+    @if (nodoActivo(); as n) {
+      <div class="dock dock-nodo">
+        <strong class="degradado-texto-sutil">
+          {{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}
+        </strong>
+        <span class="coords">
+          <label>
+            <em>X</em>
+            <input
+              type="number"
+              step="0.01"
+              class="coord-input"
+              [value]="dec(n.punto[0])"
+              [attr.aria-label]="'editor.nodo.xAria' | transloco: { n: n.indice }"
+              (change)="fijarCoordenada('x', $any($event.target).value)"
+            />
+          </label>
+          <label>
+            <em>Y</em>
+            <input
+              type="number"
+              step="0.01"
+              class="coord-input"
+              [value]="dec(n.punto[1])"
+              [attr.aria-label]="'editor.nodo.yAria' | transloco: { n: n.indice }"
+              (change)="fijarCoordenada('y', $any($event.target).value)"
+            />
+          </label>
+        </span>
+      </div>
+    }
+    </div>
+
+    <!-- Zoom y pantalla completa: controles de VISTA, aparte del dock de edición -- arriba a la
+         derecha del lienzo, no abajo al centro, para no competir por el mismo espacio. -->
+    <div
+      class="dock dock-zoom"
+      role="group"
+      [attr.aria-label]="'editor.lienzo.controlesZoomAria' | transloco"
+    >
+      <button
+        type="button"
+        class="lienzo-btn"
+        [disabled]="zoom() <= zoomMin"
+        [title]="'editor.lienzo.alejar' | transloco"
+        [attr.aria-label]="'editor.lienzo.alejar' | transloco"
+        (click)="alejar()"
+      >
+        −
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn lienzo-btn-txt"
+        [title]="'editor.lienzo.reencuadrar' | transloco"
+        (click)="reencuadrar()"
+      >
+        {{ porcentaje() }}%
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn"
+        [disabled]="zoom() >= zoomMax"
+        [title]="'editor.lienzo.acercar' | transloco"
+        [attr.aria-label]="'editor.lienzo.acercar' | transloco"
+        (click)="acercar()"
+      >
+        +
+      </button>
+
+      <span class="dock-sep" aria-hidden="true"></span>
+
+      <button
+        type="button"
+        class="lienzo-btn"
+        [title]="
+          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+        "
+        [attr.aria-label]="
+          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+        "
+        (click)="alternarPantalla()"
+      >
+        ⛶
+      </button>
+    </div>
+    </div>
 
     @if (dPorPath().length > 1) {
       <p class="pista">
@@ -260,278 +556,147 @@
         }
       </ul>
     </details>
-
-    <div
-      class="barra barra-baja"
-      role="group"
-      [attr.aria-label]="'editor.lienzo.controlesAria' | transloco"
-    >
-      <button
-        type="button"
-        class="lienzo-btn"
-        [disabled]="zoom() <= zoomMin"
-        [title]="'editor.lienzo.alejar' | transloco"
-        [attr.aria-label]="'editor.lienzo.alejar' | transloco"
-        (click)="alejar()"
-      >
-        −
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn lienzo-btn-txt"
-        [title]="'editor.lienzo.reencuadrar' | transloco"
-        (click)="reencuadrar()"
-      >
-        {{ porcentaje() }}%
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn"
-        [disabled]="zoom() >= zoomMax"
-        [title]="'editor.lienzo.acercar' | transloco"
-        [attr.aria-label]="'editor.lienzo.acercar' | transloco"
-        (click)="acercar()"
-      >
-        +
-      </button>
-
-      <!--
-        T30 · conmutador de rejilla y de ajuste. Un icono cada uno y `[class.activo]` para el
-        estado -- mismo criterio que el botón de movimiento del header (`app.html`): un control que
-        alterna, no dos botones "encendido"/"apagado" por separado.
-      -->
-      <button
-        type="button"
-        class="lienzo-btn"
-        [class.activo]="mostrarRejilla()"
-        [attr.aria-pressed]="mostrarRejilla()"
-        [title]="
-          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
-            | transloco
-        "
-        [attr.aria-label]="
-          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
-            | transloco
-        "
-        (click)="mostrarRejilla.set(!mostrarRejilla())"
-      >
-        <gf-icon [iconDef]="iconoRejilla" [size]="14" trigger="manual" />
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn"
-        [class.activo]="ajustarRejilla()"
-        [attr.aria-pressed]="ajustarRejilla()"
-        [title]="
-          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
-            | transloco
-        "
-        [attr.aria-label]="
-          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
-            | transloco
-        "
-        (click)="ajustarRejilla.set(!ajustarRejilla())"
-      >
-        <gf-icon [iconDef]="iconoAjuste" [size]="14" trigger="manual" />
-      </button>
-
-      <span class="crece"></span>
-
-      <button
-        type="button"
-        class="lienzo-btn"
-        [title]="
-          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
-        "
-        [attr.aria-label]="
-          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
-        "
-        (click)="alternarPantalla()"
-      >
-        ⛶
-      </button>
-    </div>
   </section>
 
   <aside class="panel">
-    <!-- 1. QUÉ edito -->
-    <section class="seccion">
-      <h2 class="grupo-tit">
+    <!--
+      El panel pasa de 4 secciones apiladas en un solo scroll a 4 pestañas: una a la vista. Los
+      controles de edición en sí (deshacer/rehacer, pluma, acciones del nodo) viven ahora en el
+      dock flotante del lienzo -- siempre visibles sin importar qué pestaña esté abierta aquí --
+      así que "Edición" se queda con lo que de verdad pide estar en el panel: restablecer y los
+      atajos de teclado.
+    -->
+    <nav class="tabs-nav ui-grupo" [attr.aria-label]="'editor.panel.tabsNavAria' | transloco">
+      <button type="button" app-chip [activo]="pestanaActiva() === 'icono'" (click)="elegirPestana('icono')">
         {{ 'editor.secciones.elementos' | transloco }}
-        <!-- El conteo va derivado, nunca escrito a mano: es la misma deriva que ya se pagó en el
-             showcase, donde el número quedó fijo en 180 y la 1.2.0 lo dejó en 405 sin que nadie se
-             enterara. -->
-        <span class="conteo">{{ candidatos().length }}/{{ totalCurados() }}</span>
-      </h2>
+      </button>
+      <button type="button" app-chip [activo]="pestanaActiva() === 'edicion'" (click)="elegirPestana('edicion')">
+        {{ 'editor.secciones.edicion' | transloco }}
+      </button>
+      <button type="button" app-chip [activo]="pestanaActiva() === 'salida'" (click)="elegirPestana('salida')">
+        {{ 'editor.secciones.resultado' | transloco }}
+      </button>
+      <button type="button" app-chip [activo]="pestanaActiva() === 'proyecto'" (click)="elegirPestana('proyecto')">
+        {{ 'editor.secciones.proyecto' | transloco }}
+      </button>
+    </nav>
 
-      <app-campo-busqueda
+    @switch (pestanaActiva()) {
+      @case ('icono') {
+        <section class="seccion">
+          <h2 class="grupo-tit">
+            {{ 'editor.secciones.elementos' | transloco }}
+            <!-- El conteo va derivado, nunca escrito a mano: es la misma deriva que ya se pagó en el
+                 showcase, donde el número quedó fijo en 180 y la 1.2.0 lo dejó en 405 sin que nadie se
+                 enterara. -->
+            <span class="conteo">{{ candidatos().length }}/{{ totalCurados() }}</span>
+          </h2>
+
+          <app-campo-busqueda
     [limpiarEtiqueta]="'shell.limpiarBusqueda' | transloco"
-        [(texto)]="filtro"
-        [marcador]="'editor.busqueda.marcador' | transloco: { n: totalCurados() }"
-        [etiqueta]="'editor.busqueda.etiqueta' | transloco"
-      />
+            [(texto)]="filtro"
+            [marcador]="'editor.busqueda.marcador' | transloco: { n: totalCurados() }"
+            [etiqueta]="'editor.busqueda.etiqueta' | transloco"
+          />
 
-      @if (candidatos().length === 0) {
-        <!--
-          Sin esto el filtro sin coincidencias dejaba `.lista` vacía y sin explicación -- un hueco
-          gris sin decir por qué ni qué hacer. Mismo componente que ya usa el catálogo (`iconos.ts`)
-          para lo mismo, aquí sin sugerencias/tags porque el buscador del editor es un filtro de
-          texto plano sobre el set curado, no el sistema de filtros del catálogo completo.
-        -->
-        <app-sin-resultados
-          [icono]="caraTriste"
-          [titulo]="'editor.busqueda.vacio' | transloco: { q: filtro().trim() }"
-          [etiquetaLimpiar]="'editor.busqueda.limpiar' | transloco"
-          (limpiar)="filtro.set('')"
-        />
-      } @else {
-        <div class="lista">
-          @for (c of visibles(); track c.nombre) {
-            <app-tooltip [texto]="c.nombre" [abajo]="true">
-              <button
-                type="button"
-                app-chip
-                [activo]="c.nombre === elegido().nombre"
-                (click)="elegir(c)"
-                [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
-              >
-                <gf-icon [iconDef]="c.def" [size]="18" trigger="manual" />
-              </button>
-            </app-tooltip>
-          }
           <!--
-            El final de la lista. El botón no es un respaldo del observador: es la única vía para
-            quien tabula por los chips, que nunca dispara un `IntersectionObserver`.
+            Fuera de la lista filtrable a propósito: "empezar en blanco" no es un icono del catálogo, es
+            la otra entrada al editor. Que sobreviva cualquier texto de búsqueda es parte del punto.
           -->
-          @if (hayMas()) {
-            <button type="button" app-boton compacto appVisible (visible)="montarMas()">
-              {{
-                'editor.lista.montarMas' | transloco: { n: candidatos().length - visibles().length }
-              }}
+          <button type="button" app-boton compacto variante="fantasma" (click)="empezarEnBlanco()">
+            {{ 'editor.pluma.blanco' | transloco }}
+          </button>
+          <p class="pista-nodo">{{ 'editor.pluma.blancoPista' | transloco }}</p>
+
+          @if (candidatos().length === 0) {
+            <!--
+              Sin esto el filtro sin coincidencias dejaba `.lista` vacía y sin explicación -- un hueco
+              gris sin decir por qué ni qué hacer. Mismo componente que ya usa el catálogo (`iconos.ts`)
+              para lo mismo, aquí sin sugerencias/tags porque el buscador del editor es un filtro de
+              texto plano sobre el set curado, no el sistema de filtros del catálogo completo.
+            -->
+            <app-sin-resultados
+              [icono]="caraTriste"
+              [titulo]="'editor.busqueda.vacio' | transloco: { q: filtro().trim() }"
+              [etiquetaLimpiar]="'editor.busqueda.limpiar' | transloco"
+              (limpiar)="filtro.set('')"
+            />
+          } @else {
+            <div class="lista">
+              @for (c of visibles(); track c.nombre) {
+                <app-tooltip [texto]="c.nombre" [abajo]="true">
+                  <button
+                    type="button"
+                    app-chip
+                    [activo]="c.nombre === elegido().nombre"
+                    (click)="elegir(c)"
+                    [attr.aria-label]="'editor.lista.editarAria' | transloco: { nombre: c.nombre }"
+                  >
+                    <gf-icon [iconDef]="c.def" [size]="18" trigger="manual" />
+                  </button>
+                </app-tooltip>
+              }
+              <!--
+                El final de la lista. El botón no es un respaldo del observador: es la única vía para
+                quien tabula por los chips, que nunca dispara un `IntersectionObserver`.
+              -->
+              @if (hayMas()) {
+                <button type="button" app-boton compacto appVisible (visible)="montarMas()">
+                  {{
+                    'editor.lista.montarMas'
+                      | transloco: { n: candidatos().length - visibles().length }
+                  }}
+                </button>
+              }
+            </div>
+          }
+        </section>
+      }
+      @case ('edicion') {
+        <section class="seccion">
+          <h2 class="grupo-tit">{{ 'editor.secciones.edicion' | transloco }}</h2>
+
+          <!--
+            Deshacer/rehacer, rejilla/ajuste, la pluma y las acciones del nodo viven en el dock
+            flotante del lienzo (siempre a la vista, sin importar la pestaña) -- aquí sólo queda lo
+            que de verdad es "referencia", no acción del momento a momento.
+          -->
+          @if (tocado()) {
+            <button type="button" class="enlace restablecer" (click)="restablecer()">
+              {{ 'editor.salida.restablecer' | transloco }}
             </button>
           }
-        </div>
+
+          <!--
+            T30 · "atajos listados en el panel": flechas/Tab/Esc no tienen un botón propio del que
+            colgar un `<kbd>` -- Ctrl+Z, `+` y Supr ya lo tienen en el dock, así que esta lista
+            completa el resto en un solo sitio en vez de repartir la mitad en el lienzo y la mitad
+            aquí.
+          -->
+          <details class="atajos" open>
+            <summary>{{ 'editor.atajos.titulo' | transloco }}</summary>
+            <ul>
+              <li><kbd>↑↓←→</kbd><span>{{ 'editor.atajos.mover' | transloco }}</span></li>
+              <li>
+                <kbd>Shift + ↑↓←→</kbd><span>{{ 'editor.atajos.moverFino' | transloco }}</span>
+              </li>
+              <li>
+                <kbd>Alt + arrastre</kbd><span>{{ 'editor.pluma.moverTodo' | transloco }}</span>
+              </li>
+              <li><kbd>Tab</kbd><span>{{ 'editor.atajos.tab' | transloco }}</span></li>
+              <li><kbd>Esc</kbd><span>{{ 'editor.atajos.esc' | transloco }}</span></li>
+              <li><kbd>Supr</kbd><span>{{ 'editor.atajos.supr' | transloco }}</span></li>
+              <li><kbd>+</kbd><span>{{ 'editor.atajos.mas' | transloco }}</span></li>
+              <li><kbd>Ctrl+Z</kbd><span>{{ 'editor.atajos.deshacer' | transloco }}</span></li>
+              <li>
+                <kbd>Ctrl+Shift+Z</kbd><span>{{ 'editor.atajos.rehacer' | transloco }}</span>
+              </li>
+            </ul>
+          </details>
+        </section>
       }
-    </section>
-
-    <!-- 2. CÓMO lo edito -->
-    <section class="seccion">
-      <h2 class="grupo-tit">{{ 'editor.secciones.edicion' | transloco }}</h2>
-
-      <div
-        class="deshacer"
-        role="group"
-        [attr.aria-label]="'editor.historial.grupoAria' | transloco"
-      >
-        <button
-          type="button"
-          class="chip es-contorno"
-          [disabled]="!pila().deshacer"
-          (click)="deshacer()"
-        >
-          {{ 'editor.historial.deshacer' | transloco }}
-          <kbd>Ctrl+Z</kbd>
-        </button>
-        <button
-          type="button"
-          class="chip es-contorno"
-          [disabled]="!pila().rehacer"
-          (click)="rehacer()"
-        >
-          {{ 'editor.historial.rehacer' | transloco }}
-          <kbd>Ctrl+Shift+Z</kbd>
-        </button>
-        <!--
-          Vive junto a deshacer/rehacer y no en el header de "output": es la tercera forma de
-          recuperarse de un error, no un dato más de la salida. Solo aparece si hay algo que
-          restablecer -- y como deshacer YA puede recuperarlo, no hace falta confirmación.
-        -->
-        @if (tocado()) {
-          <button type="button" class="enlace restablecer" (click)="restablecer()">
-            {{ 'editor.salida.restablecer' | transloco }}
-          </button>
-        }
-      </div>
-
-      <!--
-        Contextual: sin nodo elegido solo se pinta la pista. Enseñar «+ nodo» y «borrar nodo»
-        apagados todo el tiempo llenaba el panel de controles que no aplican todavía.
-      -->
-      <div
-        class="nodo-acciones"
-        role="group"
-        [attr.aria-label]="'editor.nodo.grupoAria' | transloco"
-      >
-        @if (nodoActivo(); as n) {
-          <div class="nodo-cab">
-            <strong>{{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}</strong>
-            <!--
-              T30: eran `<span>` de solo lectura. `(change)` y no `(input)` -- se aplica al SALIR
-              del campo (blur/Enter), no en cada dígito, para que escribir "12" de camino a "120"
-              no meta un "1" y un "12" como pasos de deshacer sueltos.
-            -->
-            <span class="coords">
-              <label>
-                <em>X</em>
-                <input
-                  type="number"
-                  step="0.01"
-                  class="coord-input"
-                  [value]="dec(n.punto[0])"
-                  [attr.aria-label]="'editor.nodo.xAria' | transloco: { n: n.indice }"
-                  (change)="fijarCoordenada('x', $any($event.target).value)"
-                />
-              </label>
-              <label>
-                <em>Y</em>
-                <input
-                  type="number"
-                  step="0.01"
-                  class="coord-input"
-                  [value]="dec(n.punto[1])"
-                  [attr.aria-label]="'editor.nodo.yAria' | transloco: { n: n.indice }"
-                  (change)="fijarCoordenada('y', $any($event.target).value)"
-                />
-              </label>
-            </span>
-          </div>
-          <div class="nodo-btns">
-            <button type="button" app-chip variante="contorno" (click)="agregarNodo()">
-              {{ 'editor.nodo.agregar' | transloco }}
-              <kbd>{{ 'editor.nodo.teclaMas' | transloco }}</kbd>
-            </button>
-            <button type="button" app-chip variante="contorno" (click)="borrarNodo()">
-              {{ 'editor.nodo.borrar' | transloco }}
-              <kbd>{{ 'editor.nodo.teclaSupr' | transloco }}</kbd>
-            </button>
-          </div>
-        } @else {
-          <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
-        }
-      </div>
-
-      <!--
-        T30 · "atajos listados en el panel": flechas/Tab/Esc no tienen un botón propio del que
-        colgar un `<kbd>` -- Ctrl+Z, `+` y Supr ya lo tienen arriba, así que esta lista completa el
-        resto en un solo sitio en vez de repartir la mitad en el lienzo y la mitad aquí.
-      -->
-      <details class="atajos">
-        <summary>{{ 'editor.atajos.titulo' | transloco }}</summary>
-        <ul>
-          <li><kbd>↑↓←→</kbd><span>{{ 'editor.atajos.mover' | transloco }}</span></li>
-          <li><kbd>Shift + ↑↓←→</kbd><span>{{ 'editor.atajos.moverFino' | transloco }}</span></li>
-          <li><kbd>Tab</kbd><span>{{ 'editor.atajos.tab' | transloco }}</span></li>
-          <li><kbd>Esc</kbd><span>{{ 'editor.atajos.esc' | transloco }}</span></li>
-          <li><kbd>Supr</kbd><span>{{ 'editor.atajos.supr' | transloco }}</span></li>
-          <li><kbd>+</kbd><span>{{ 'editor.atajos.mas' | transloco }}</span></li>
-          <li><kbd>Ctrl+Z</kbd><span>{{ 'editor.atajos.deshacer' | transloco }}</span></li>
-          <li><kbd>Ctrl+Shift+Z</kbd><span>{{ 'editor.atajos.rehacer' | transloco }}</span></li>
-        </ul>
-      </details>
-    </section>
-
-    <!-- 3. QUÉ genera -->
-    <section class="seccion salida">
+      @case ('salida') {
+        <section class="seccion">
       <h2 class="grupo-tit">{{ 'editor.secciones.resultado' | transloco }}</h2>
 
       <!--
@@ -569,6 +734,7 @@
             segmento, corregir un número) sin esperar a que alguien pegue algo.
           -->
           <textarea
+            #campoD
             class="editable-d"
             rows="4"
             spellcheck="false"
@@ -639,10 +805,10 @@
           }
         </div>
       </div>
-    </section>
-
-    <!-- 4. QUÉ me llevo -->
-    <section class="seccion proyecto">
+        </section>
+      }
+      @case ('proyecto') {
+        <section class="seccion">
       <h2 class="grupo-tit">{{ 'editor.secciones.proyecto' | transloco }}</h2>
 
       <!--
@@ -730,7 +896,9 @@
         </button>
         <p class="pista-nodo" [innerHTML]="'editor.coreografiar.nota' | transloco"></p>
       </div>
-    </section>
+        </section>
+      }
+    }
   </aside>
   </div>
 } @else {

@@ -1,7 +1,20 @@
 import { describe, it, expect } from 'vitest';
 import { CURATED_ICONS } from 'glyphflow';
-import { parseD, serializeD } from './path-model';
-import { moverNodo, nodosDe, limpiar, recalcular, manijasDe, moverManija } from './path-edit';
+import { parseD, serializeD, type SubPath } from './path-model';
+import {
+  moverNodo,
+  nodosDe,
+  limpiar,
+  recalcular,
+  manijasDe,
+  moverManija,
+  dDeSubpath,
+  nuevoSubpath,
+  agregarPunto,
+  cerrarSubpath,
+  moverSubpath,
+  convertirACurva,
+} from './path-edit';
 
 const TODOS_LOS_D: { icono: string; d: string }[] = Object.entries(CURATED_ICONS).flatMap(
   ([nombre, def]) =>
@@ -221,5 +234,185 @@ describe('manijasDe / moverManija', () => {
         }
       }
     }
+  });
+});
+
+describe('pluma: nuevoSubpath / agregarPunto / cerrarSubpath', () => {
+  it('nuevoSubpath arranca un M suelto, abierto, con un solo nodo movible', () => {
+    const sub = nuevoSubpath([3, 4]);
+    expect(sub.cerrado).toBe(false);
+    const nodos = nodosDe([sub]);
+    expect(nodos).toHaveLength(1);
+    expect(nodos[0].movible).toBe(true);
+    expect(nodos[0].punto).toEqual([3, 4]);
+  });
+
+  it('agregarPunto encadena tramos L en el orden en que se colocan', () => {
+    let sub = nuevoSubpath([0, 0]);
+    sub = agregarPunto(sub, [5, 0]);
+    sub = agregarPunto(sub, [5, 5]);
+    const nodos = nodosDe([sub]);
+    expect(nodos.map((n) => n.punto)).toEqual([
+      [0, 0],
+      [5, 0],
+      [5, 5],
+    ]);
+    expect(nodos.every((n) => n.movible)).toBe(true);
+  });
+
+  it('cerrarSubpath agrega un Z no-movible que vuelve al punto de arranque', () => {
+    let sub = nuevoSubpath([0, 0]);
+    sub = agregarPunto(sub, [5, 0]);
+    sub = agregarPunto(sub, [5, 5]);
+    sub = cerrarSubpath(sub);
+    expect(sub.cerrado).toBe(true);
+    const nodos = nodosDe([sub]);
+    expect(nodos).toHaveLength(4);
+    expect(nodos[3].movible).toBe(false);
+  });
+
+  it('el d resultante hace round-trip: parseD(dDeSubpath(...)) reproduce los mismos nodos', () => {
+    let sub = nuevoSubpath([1, 1]);
+    sub = agregarPunto(sub, [9, 1]);
+    sub = agregarPunto(sub, [5, 9]);
+    sub = cerrarSubpath(sub);
+
+    const d = dDeSubpath(sub);
+    const releido = parseD(d);
+    expect(releido).toHaveLength(1);
+    expect(releido[0].cerrado).toBe(true);
+
+    const movibles = nodosDe(releido).filter((n) => n.movible);
+    expect(movibles.map((n) => n.punto)).toEqual([
+      [1, 1],
+      [9, 1],
+      [5, 9],
+    ]);
+  });
+
+  it('un trazo cerrado con la pluma se puede seguir editando con las herramientas normales', () => {
+    let sub = nuevoSubpath([0, 0]);
+    sub = agregarPunto(sub, [10, 0]);
+    sub = agregarPunto(sub, [10, 10]);
+    sub = cerrarSubpath(sub);
+
+    const movido = moverNodo([sub], { sub: 0, seg: 1 }, 2, -3);
+    const nodos = nodosDe(movido);
+    expect(nodos[1].punto[0]).toBeCloseTo(12, 6);
+    expect(nodos[1].punto[1]).toBeCloseTo(-3, 6);
+    // El resto no se movió — misma garantía que ya prueba moverNodo sobre el catálogo.
+    expect(nodos[0].punto).toEqual([0, 0]);
+    expect(nodos[2].punto).toEqual([10, 10]);
+  });
+});
+
+describe('moverSubpath', () => {
+  it('traslada un subtrazo absoluto: todos los nodos se mueven el MISMO delta', () => {
+    const subs = parseD('M0 0L10 0L5 10Z');
+    const movido = moverSubpath(subs, 0, 3, -2);
+    expect(
+      nodosDe(movido)
+        .filter((n) => n.movible)
+        .map((n) => n.punto),
+    ).toEqual([
+      [3, -2],
+      [13, -2],
+      [8, 8],
+    ]);
+  });
+
+  it('con comandos relativos, el delta INTERNO no cambia -- solo se ancla distinto', () => {
+    // M absoluto + dos líneas relativas: mismo triángulo que arriba, otra sintaxis.
+    const subs = parseD('M0 0l10 0l-5 10Z');
+    const antes = nodosDe(subs)
+      .filter((n) => n.movible)
+      .map((n) => n.punto);
+    const movido = moverSubpath(subs, 0, 3, -2);
+    const despues = nodosDe(movido)
+      .filter((n) => n.movible)
+      .map((n) => n.punto);
+    for (let i = 0; i < antes.length; i++) {
+      expect(despues[i][0]).toBeCloseTo(antes[i][0] + 3, 6);
+      expect(despues[i][1]).toBeCloseTo(antes[i][1] - 2, 6);
+    }
+  });
+
+  it('mover un subtrazo NO toca los demás -- ni siquiera cuando el siguiente arranca en m relativo', () => {
+    // Dos subtrazos: el segundo con `m` RELATIVO, ancla al fin del primero. Es justo el caso que
+    // necesita compensación -- sin ella, mover el primero arrastraría el segundo con él.
+    const subs = parseD('M0 0L10 0L0 10Z m5 5l5 0l0 5z');
+    const segundoAntes = nodosDe(subs)
+      .filter((n) => n.sub === 1 && n.movible)
+      .map((n) => n.punto);
+
+    const movido = moverSubpath(subs, 0, 100, 100);
+
+    const primeroDespues = nodosDe(movido)
+      .filter((n) => n.sub === 0 && n.movible)
+      .map((n) => n.punto);
+    const segundoDespues = nodosDe(movido)
+      .filter((n) => n.sub === 1 && n.movible)
+      .map((n) => n.punto);
+
+    expect(primeroDespues).toEqual([
+      [100, 100],
+      [110, 100],
+      [100, 110],
+    ]);
+    // El segundo subtrazo, intacto -- ni un decimal de arrastre por la compensación del `m`.
+    for (let i = 0; i < segundoAntes.length; i++) {
+      expect(segundoDespues[i][0]).toBeCloseTo(segundoAntes[i][0], 6);
+      expect(segundoDespues[i][1]).toBeCloseTo(segundoAntes[i][1], 6);
+    }
+  });
+
+  it('el propio d re-serializado hace round-trip a la misma geometría', () => {
+    const subs = parseD('M0 0l10 0l-5 10Z m8 8l4 0l0 4z');
+    const movido = moverSubpath(subs, 0, 2, 2);
+    const d = movido.map(dDeSubpath).join('');
+    const releido = parseD(d);
+    const puntos = (s: SubPath[]) =>
+      nodosDe(s)
+        .filter((n) => n.movible)
+        .map((n) => n.punto);
+    expect(puntos(releido)).toEqual(puntos(movido));
+  });
+});
+
+describe('convertirACurva', () => {
+  it('convierte un tramo L a C, sin mover inicio ni fin', () => {
+    const subs = parseD('M0 0L12 0');
+    const curvo = convertirACurva(subs, { sub: 0, seg: 1 });
+    const nodos = nodosDe(curvo).filter((n) => n.movible);
+    expect(nodos[0].punto).toEqual([0, 0]);
+    expect(nodos[1].punto).toEqual([12, 0]); // el fin no se movió, solo el camino hasta ahí
+    expect(curvo[0].segmentos[1].letra).toBe('C');
+  });
+
+  it('los controles caen al tercio y dos tercios de la línea original', () => {
+    const subs = parseD('M0 0L12 0');
+    const curvo = convertirACurva(subs, { sub: 0, seg: 1 });
+    const [m1] = manijasDe(curvo).filter((m) => m.cual === 0);
+    const [m2] = manijasDe(curvo).filter((m) => m.cual === 1);
+    expect(m1.punto[0]).toBeCloseTo(4, 6);
+    expect(m2.punto[0]).toBeCloseTo(8, 6);
+  });
+
+  it('un tramo YA curvo, o un arco, no se toca', () => {
+    const conArco = parseD('M0 0A5 5 0 0 1 10 0');
+    expect(convertirACurva(conArco, { sub: 0, seg: 1 })).toBe(conArco);
+
+    const conCurva = parseD('M0 0C1 1 2 2 3 3');
+    expect(convertirACurva(conCurva, { sub: 0, seg: 1 })).toBe(conCurva);
+  });
+
+  it('el resultado se puede editar con las manijas que ya existen, sin geometría nueva', () => {
+    const subs = parseD('M0 0L12 0');
+    const curvo = convertirACurva(subs, { sub: 0, seg: 1 });
+    const manija = manijasDe(curvo).find((m) => m.cual === 0)!;
+    const movido = moverManija(curvo, manija, 0, 5);
+    // Mover la manija dobla la curva pero NO mueve los nodos -- misma garantía que ya prueba
+    // `moverManija` sobre el catálogo.
+    expect(nodosDe(movido).filter((n) => n.movible)[0].punto).toEqual([0, 0]);
   });
 });

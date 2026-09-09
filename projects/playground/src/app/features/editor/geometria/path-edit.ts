@@ -382,3 +382,137 @@ export function quitarNodo(subs: SubPath[], ref: RefNodo): SubPath[] {
   segs.splice(ref.seg, 1);
   return recalcular(copia);
 }
+
+// ── Mover un subtrazo completo ────────────────────────────────────────────────
+
+/**
+ * Traslada UN subtrazo entero como cuerpo rígido: ningún nodo se mueve relativo a los demás, todo
+ * el subtrazo cambia de sitio junto. Es lo contrario de `moverNodo` en un sentido preciso: ahí un
+ * tramo relativo se COMPENSA para que el nodo SIGUIENTE no se mueva; aquí el delta entre dos nodos
+ * que se están moviendo LOS DOS no cambia -- así que un tramo relativo se deja tal cual. La única
+ * excepción es el primer tramo del subtrazo si es un `m` relativo: ese sí ancla a un punto de
+ * FUERA (el fin del subtrazo anterior, que NO se mueve), así que su delta tiene que crecer por el
+ * mismo (dx,dy) para que el subtrazo entero aterrice en el sitio correcto.
+ */
+export function moverSubpath(subs: SubPath[], subIndex: number, dx: number, dy: number): SubPath[] {
+  if (dx === 0 && dy === 0) return subs;
+  const sub = subs[subIndex];
+  if (!sub) return subs;
+
+  const segmentos = sub.segmentos.map((seg, j) => {
+    const L = seg.letra.toUpperCase();
+    if (L === 'Z') return seg; // Sin punto propio: sigue al M, que ya se movió.
+
+    const rel = esRelativo(seg.letra);
+    if (rel && j > 0) return seg; // Delta entre dos puntos que se mueven igual: no cambia.
+
+    if (L === 'H') return { ...seg, numeros: [seg.numeros[0] + dx], sucio: true };
+    if (L === 'V') return { ...seg, numeros: [seg.numeros[0] + dy], sucio: true };
+    // Absoluto (a cualquier posición), o el `m`/`M` inicial del subtrazo: los dos cambian igual --
+    // el inicial porque su delta/posición ancla al subtrazo entero.
+    const nums = [...seg.numeros];
+    nums[nums.length - 2] += dx;
+    nums[nums.length - 1] += dy;
+    return { ...seg, numeros: nums, sucio: true };
+  });
+
+  const copia = subs.map((s, i) => (i === subIndex ? { ...s, segmentos } : s));
+
+  // El subtrazo SIGUIENTE puede empezar con un `m` relativo, anclado al fin de ESTE -- que se
+  // acaba de mover. Se compensa para que NO lo siga, igual que `moverNodo` compensa el tramo que
+  // sigue a un nodo movido (misma función, mismo sentido del delta).
+  const proximo = copia[subIndex + 1];
+  if (proximo) {
+    const segs = [...proximo.segmentos];
+    segs[0] = compensar(segs[0], dx, dy);
+    copia[subIndex + 1] = { ...proximo, segmentos: segs };
+  }
+
+  return recalcular(copia);
+}
+
+// ── Pluma: crear un subtrazo desde cero ───────────────────────────────────────
+
+/**
+ * Arranca un subtrazo nuevo: un `M` suelto en `punto`, sin cerrar. Coordenadas siempre ABSOLUTAS
+ * (mayúscula) — la pluma no tiene "tramo anterior" del que heredar relatividad, así que no hay
+ * razón para escribir deltas que solo complicarían `agregarPunto`/`cerrarSubpath`.
+ */
+export function nuevoSubpath(punto: Punto): SubPath {
+  return {
+    segmentos: [
+      { letra: 'M', numeros: [punto[0], punto[1]], crudo: '', sucio: true, inicio: punto, fin: punto },
+    ],
+    cerrado: false,
+  };
+}
+
+/** Añade un tramo recto (`L`) al final del subtrazo, hasta `punto`. */
+export function agregarPunto(sub: SubPath, punto: Punto): SubPath {
+  const anterior = sub.segmentos[sub.segmentos.length - 1];
+  const inicio = anterior?.fin ?? punto;
+  return {
+    ...sub,
+    segmentos: [
+      ...sub.segmentos,
+      { letra: 'L', numeros: [punto[0], punto[1]], crudo: '', sucio: true, inicio, fin: punto },
+    ],
+  };
+}
+
+/**
+ * Cierra el subtrazo (`Z`): vuelve al punto donde arrancó el `M`. Igual que `parseD` deja un `Z`
+ * de verdad como su propio segmento — no solo el flag `cerrado` — porque es ese segmento el que
+ * `dDeSubpath`/`serializeD` convierten en la letra `Z` de salida.
+ */
+export function cerrarSubpath(sub: SubPath): SubPath {
+  const inicioSubpath = sub.segmentos[0].fin;
+  const anterior = sub.segmentos[sub.segmentos.length - 1];
+  return {
+    ...sub,
+    segmentos: [
+      ...sub.segmentos,
+      { letra: 'Z', numeros: [], crudo: '', sucio: true, inicio: anterior.fin, fin: inicioSubpath },
+    ],
+    cerrado: true,
+  };
+}
+
+// ── Convertir un tramo recto en curva ─────────────────────────────────────────
+
+/**
+ * Convierte el tramo recto que TERMINA en `ref` a una curva cúbica (`C`), con controles al
+ * tercio y dos tercios de la línea original -- un punto de partida donde la curva YA se nota sin
+ * arrastrar nada, que es la señal de "esto es una curva" que un punto medio degenerado no da. De
+ * ahí en adelante se edita con las manijas que YA existen (`manijasDe`/`moverManija`): esta
+ * función solo abre la puerta, no es un editor de curvas aparte.
+ *
+ * `inicio`/`fin` no cambian -- ningún nodo se mueve, solo el CAMINO entre los dos se curva. Por
+ * eso no hace falta compensar nada más adelante, a diferencia de mover o borrar un nodo.
+ *
+ * Arcos y curvas ya existentes se dejan tal cual: un arco necesitaría aproximarlo con cúbicas (la
+ * misma cuenta que `path-split.ts` decidió no traer `bezier-js` para resolver -- ver su
+ * comentario), y una curva ya es una curva.
+ */
+export function convertirACurva(subs: SubPath[], ref: RefNodo): SubPath[] {
+  const seg = subs[ref.sub]?.segmentos[ref.seg];
+  if (!seg) return subs;
+  const L = seg.letra.toUpperCase();
+  if (L !== 'L' && L !== 'H' && L !== 'V') return subs;
+
+  const [ix, iy] = seg.inicio;
+  const [fx, fy] = seg.fin;
+  const c1x = ix + (fx - ix) / 3;
+  const c1y = iy + (fy - iy) / 3;
+  const c2x = ix + ((fx - ix) * 2) / 3;
+  const c2y = iy + ((fy - iy) * 2) / 3;
+
+  const copia = subs.map((s) => ({ ...s, segmentos: [...s.segmentos] }));
+  copia[ref.sub].segmentos[ref.seg] = {
+    ...seg,
+    letra: 'C',
+    numeros: [c1x, c1y, c2x, c2y, fx, fy],
+    sucio: true,
+  };
+  return recalcular(copia);
+}

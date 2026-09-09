@@ -59,10 +59,11 @@
 }
 
 /* Mobile ya colapsa `.marco` a 1 columna -- pegar el canvas ahí solo estorbaría el scroll hacia
-   el panel. Pantalla baja y movimiento reducido caen por el mismo motivo que ya usa Ejemplos. */
+   el panel. Pantalla baja y movimiento reducido caen por el mismo motivo que ya usa Ejemplos.
+   `relative` y no `static`: el dock flotante necesita ese contexto de posicionamiento. */
 @media (max-width: 56rem), (max-height: 700px), (prefers-reduced-motion: reduce) {
   .taller {
-    position: static;
+    position: relative;
   }
 }
 
@@ -78,10 +79,6 @@
 
 .barra-alta {
   border-bottom: 1px solid var(--gf-borde-suave);
-}
-
-.barra-baja {
-  border-top: 1px solid var(--gf-borde-suave);
 }
 
 .identidad {
@@ -137,11 +134,6 @@
 .marca-estado.vivo .punto {
   background: var(--gf-marca-1);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--gf-marca-1) 22%, transparent);
-}
-
-/* Empuja lo que venga después hasta el extremo opuesto de la barra. */
-.crece {
-  flex: 1;
 }
 
 /*
@@ -204,6 +196,92 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Ancla los docks flotantes contra el lienzo mismo, no contra toda la tarjeta `.taller` -- que
+   sigue con la leyenda debajo, y ahí es donde encimaban antes de este envoltorio. */
+.lienzo-envoltorio {
+  position: relative;
+}
+
+/* Pluma activa: un aro y un resplandor con los dos colores de marca (cian+azul) alrededor del
+   lienzo entero -- la señal más grande posible de "estás dibujando", sin competir con el color
+   real del trazo (que sigue siendo `currentColor`, neutro). */
+.lienzo-envoltorio.modo-pluma {
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 2px var(--gf-marca-1),
+    0 0 32px -6px var(--gf-marca-2);
+}
+
+/* Apila el dock principal y `.dock-nodo` (debajo, cuando hay nodo elegido) sin números a mano --
+   cada uno mide lo que pida su contenido y el `gap` los separa. */
+.dock-pila {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+  translate: -50% 0;
+}
+
+/* El dock flotante: deshacer/rehacer, rejilla, pluma y, contextual, las acciones del nodo --
+   siempre encima del lienzo, sin importar la pestaña del panel. */
+.dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--gf-panel-alto);
+  border: 1px solid var(--gf-borde-vivo);
+  box-shadow: 0 10px 24px var(--gf-sombra);
+  overflow-x: auto;
+}
+
+/* La identidad del nodo elegido: su propia pastilla, debajo del dock principal -- separada de los
+   botones de arriba para que las coordenadas tengan ancho de sobra. */
+.dock-nodo {
+  padding: 8px 14px;
+}
+
+.dock-nodo .coords {
+  margin-left: 4px;
+}
+
+/* El segundo dock: zoom y pantalla completa, arriba a la derecha -- controles de VISTA, aparte
+   del dock de edición para no competir por el mismo espacio abajo. Mismo look, otra esquina. */
+.dock-zoom {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 1;
+}
+
+.dock-sep {
+  flex: none;
+  width: 1px;
+  height: 20px;
+  background: var(--gf-borde-vivo);
+  margin: 0 2px;
+}
+
+/* El botón de pluma activa lleva relleno sólido (cian), no solo texto de color -- a diferencia de
+   rejilla/ajuste (que ya arrancan activos casi siempre y no deben gritar), la pluma es un MODO, y
+   entrar a él merece la señal más fuerte del grupo. */
+.lienzo-btn.pluma-activa {
+  background: var(--gf-marca-1);
+  color: var(--gf-invertido-texto);
+}
+
+.lienzo-btn.pluma-activa:hover {
+  background: var(--gf-marca-1);
+  color: var(--gf-invertido-texto);
+}
+
 /* ── El lienzo ───────────────────────────────────────────────────────────────── */
 
 .lienzo {
@@ -212,7 +290,8 @@
   max-height: 60vh;
   aspect-ratio: 1;
   margin: 0 auto;
-  padding: 16px;
+  /* Más aire abajo: ahí se posan el dock y, con un nodo elegido, `.dock-nodo` apilado debajo. */
+  padding: 16px 16px 132px;
   box-sizing: border-box;
   color: var(--gf-texto);
   /* Sin esto, arrastrar en un móvil hace scroll en vez de mover el nodo. */
@@ -267,7 +346,11 @@
 /* El trazo real: se ve el icono, pero sin competir con los nodos. */
 .tinta {
   opacity: 0.22;
-  cursor: pointer;
+  cursor: grab; /* arrastrable desde el borde, no solo clicable -- ver `empezarSubtrazo` */
+}
+
+.tinta:active {
+  cursor: grabbing;
 }
 
 /* La geometria exacta, para poder apuntar. */
@@ -383,6 +466,51 @@
   fill: var(--gf-marca-3);
   stroke: var(--gf-marca-3);
   cursor: grabbing;
+}
+
+/* Pluma en marca-3, tono de "acción en curso" (mismo que `.nodo:hover`). */
+.lienzo.modo-pluma {
+  cursor: crosshair;
+}
+
+.pluma-trazo,
+.pluma-fantasma,
+.pluma-punto {
+  stroke: var(--gf-marca-3-texto);
+  pointer-events: none;
+}
+
+.pluma-trazo {
+  stroke-width: calc(0.12 / var(--z, 1));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Mismo grosor que el trazo confirmado -- el punteado ya distingue "pendiente" de "puesto", no
+   hace falta además adelgazarlo hasta perderlo. */
+.pluma-fantasma {
+  stroke-width: calc(0.12 / var(--z, 1));
+  stroke-dasharray: calc(0.6 / var(--z, 1));
+  opacity: 0.85;
+}
+
+.pluma-punto {
+  r: calc(0.4 / var(--z, 1));
+  stroke-width: calc(0.14 / var(--z, 1));
+  fill: var(--gf-panel);
+}
+
+/* El primero: relleno sólido en cuanto hay suficientes puntos para cerrar. */
+.pluma-punto.pluma-inicio {
+  fill: var(--gf-marca-3);
+}
+
+.aviso-pluma {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--gf-marca-3-texto);
+  border-bottom: 1px solid var(--gf-borde-suave);
 }
 
 .pista {
@@ -531,25 +659,22 @@ button:disabled kbd {
 .panel {
   display: flex;
   flex-direction: column;
-  padding: 4px 16px 16px;
+  padding: 12px 16px 16px;
   border-radius: var(--gf-radio);
   background: var(--gf-panel);
 }
 
-/*
- * Tres bloques con rótulo y una línea que los separa. Antes todo colgaba del mismo `flex` con el
- * mismo hueco: buscador, iconos, deshacer, resultado y CTA pesaban igual y el panel se leía como
- * una lista de cosas sueltas en vez de como tres decisiones — qué edito, cómo lo edito, qué me llevo.
- */
+/* Las 4 pestañas -- `app-chip` de verdad, agrupadas con `.ui-grupo` (el mismo carril que ya usa
+   el resto del sitio para velocidad/nav) en vez de reinventar el contenedor. El aire de arriba lo
+   da el padding de `.panel` (subido de 4px a 12px); el de abajo, el propio padding de `.seccion`. */
+
+/* Antes tres bloques con rótulo y una línea que los separa -- ahora una pestaña a la vez
+   (`@switch`), así que ya no hay hermano del que separarse. Mismo ritmo vertical de siempre. */
 .seccion {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 14px 0;
-}
-
-.seccion + .seccion {
-  border-top: 1px solid var(--gf-borde-suave);
 }
 
 /*
@@ -594,8 +719,9 @@ button:disabled kbd {
   gap: 4px;
 }
 
-.deshacer .restablecer {
-  margin-left: auto;
+/* Ya no vive dentro de `.deshacer` (ese grupo se mudó al dock): sigue chico a propósito, para
+   leerse como acción secundaria y no como texto normal de la pestaña. */
+.restablecer {
   font-size: 0.75rem;
 }
 
@@ -627,14 +753,13 @@ button:disabled kbd {
 
 /*
  * Acciones del nodo: contextuales. Sin nodo elegido solo va la pista — enseñar «+ nodo» y «borrar»
- * apagados de forma permanente era ruido constante por una acción que casi nunca aplica.
- * El `min-height` mantiene el sitio para que el panel no salte al seleccionar.
+ * apagados de forma permanente era ruido constante por una acción que casi nunca aplica. Vive en
+ * el dock (`position: absolute`), así que crecer/encoger ya no mueve nada a su alrededor.
  */
 .nodo-acciones {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 32px;
 }
 
 .nodo-cab {
@@ -705,17 +830,6 @@ button:disabled kbd {
 }
 
 /* ── La salida ───────────────────────────────────────────────────────────────── */
-
-.salida-cab {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.salida-cab h2 {
-  margin: 0;
-}
 
 .bloque {
   border: 1px solid var(--gf-borde-suave);

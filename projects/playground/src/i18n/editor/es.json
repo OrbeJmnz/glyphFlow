@@ -2,6 +2,17 @@
   "titulo": "Editor de trazos",
   "intro": "Arrastra los puntos del contorno y mira el <code>d</code> cambiar. Lo que no tocas se re-escribe tal cual — por eso el resultado sigue siendo legible en vez de un muro de cubics.",
   "trazos": "Este icono tiene {{n}} trazos. Da click en uno para editar sus nodos.",
+  "pluma": {
+    "sinNombre": "Icono en blanco",
+    "blanco": "+ Icono en blanco",
+    "blancoPista": "Dibuja con la pluma abajo, o pega tu propio d — salta a ese campo.",
+    "entrar": "Pluma: dibujar un trazo nuevo",
+    "salir": "Salir de la pluma",
+    "aviso": "Pluma — clic para colocar puntos.",
+    "avisoAbierto": "Termina como línea abierta, o sigue clicando para una forma cerrada.",
+    "avisoCerrar": "Clic en el primer punto para cerrar, o:",
+    "moverTodo": "arrastra un nodo — mueve todo su trazo junto, no solo ese punto"
+  },
   "busqueda": {
     "marcador": "Buscar entre {{n}} iconos…",
     "etiqueta": "Buscar icono para editar",
@@ -19,6 +30,7 @@
     "intacto": "sin cambios",
     "estadoAria": "Estado del lienzo",
     "controlesAria": "Controles del lienzo",
+    "controlesZoomAria": "Zoom y pantalla completa",
     "acercar": "Acercar",
     "alejar": "Alejar",
     "reencuadrar": "Volver al 100%",
@@ -46,6 +58,9 @@
     "resultado": "salida",
     "proyecto": "proyecto"
   },
+  "panel": {
+    "tabsNavAria": "Secciones del panel del editor"
+  },
   "nodo": {
     "grupoAria": "Nodo seleccionado",
     "titulo": "Nodo #{{n}}",
@@ -55,6 +70,7 @@
     "teclaMas": "+",
     "borrar": "borrar nodo",
     "teclaSupr": "Supr",
+    "curvar": "curvar este tramo",
     "pista": "Selecciona un nodo para editarlo."
   },
   "atajos": {

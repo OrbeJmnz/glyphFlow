@@ -89,7 +89,22 @@ describe('Taller — el puente entre editar y coreografiar', () => {
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
 
+    // El editor arranca en blanco (sin icono precargado): hay que elegir uno antes de mandarlo.
+    // Cualquiera sirve, la prueba compara contra lo que sea que quedó activo.
+    html.querySelector<HTMLButtonElement>('.lista .chip')!.click();
+    await fixture.whenStable();
+
+    // Elegir un icono salta solo a la pestaña "Edición" (el panel pasó de 4 secciones apiladas a
+    // 4 pestañas): hay que volver a "Icono" para leer el chip activo, y pasar a "Proyecto" para
+    // llegar al CTA que manda al Lab -- ambos viven ahí ahora. `.tabs-nav button` en orden fijo
+    // (Icono/Edición/Salida/Proyecto), mismo criterio que `irA()` en `editor.spec.ts`.
+    const tabs = html.querySelectorAll<HTMLButtonElement>('.tabs-nav button');
+    tabs[0].click();
+    await fixture.whenStable();
     const nombre = nombreDe(html.querySelector('.lista .chip.activo')!);
+
+    tabs[3].click();
+    await fixture.whenStable();
     // Por la clase, no por el atributo: `[app-boton]` casa aunque el componente no esté importado.
     // Y acotado a `.cta`: el panel tiene más botones de esa clase (los de copiar de cada bloque de
     // salida), así que el primer `.ui-boton` del panel dejó de ser el que navega.
