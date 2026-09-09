@@ -18,12 +18,16 @@
     "modificado": "modified",
     "intacto": "unchanged",
     "estadoAria": "Canvas status",
-    "zoomAria": "Canvas zoom",
+    "controlesAria": "Canvas controls",
     "acercar": "Zoom in",
     "alejar": "Zoom out",
     "reencuadrar": "Back to 100%",
     "pantalla": "Fullscreen",
     "salirPantalla": "Exit fullscreen",
+    "rejillaMostrar": "Show grid",
+    "rejillaOcultar": "Hide grid",
+    "ajusteActivar": "Snap to grid",
+    "ajusteDesactivar": "Turn off snap to grid",
     "nodo": "1 node",
     "trazo": "1 stroke"
   },
@@ -45,11 +49,24 @@
   "nodo": {
     "grupoAria": "Selected node",
     "titulo": "Node #{{n}}",
+    "xAria": "X coordinate of node {{n}}",
+    "yAria": "Y coordinate of node {{n}}",
     "agregar": "insert node",
     "teclaMas": "+",
     "borrar": "delete node",
     "teclaSupr": "Del",
     "pista": "Select a node to edit it."
+  },
+  "atajos": {
+    "titulo": "Keyboard shortcuts",
+    "mover": "Move the selected node",
+    "moverFino": "Move it in fine steps",
+    "tab": "Cycle through the stroke's nodes",
+    "esc": "Deselect the node",
+    "supr": "Delete the selected node",
+    "mas": "Insert a node here",
+    "deshacer": "Undo",
+    "rehacer": "Redo"
   },
   "historial": {
     "grupoAria": "History",
@@ -59,6 +76,8 @@
   "salida": {
     "titulo": "result",
     "path": "svg path",
+    "pathEditableAria": "Path data (d) — editable, paste a d to load that shape",
+    "pathPegarPista": "Paste a d here to load that shape.",
     "json": "json",
     "restablecer": "reset",
     "copiar": "copy",
@@ -87,5 +106,9 @@
     "renombrarAria": "Rename {{n}}",
     "borrarAria": "Delete {{n}}",
     "soloAqui": "Drafts live in this browser only. Clearing site data removes them."
+  },
+  "angosto": {
+    "titulo": "Editing needs more room",
+    "texto": "The node editor needs at least 900px of width for dragging to stay precise. Here's the icon and its current shape — open this page on a wider window to edit it."
   }
 }

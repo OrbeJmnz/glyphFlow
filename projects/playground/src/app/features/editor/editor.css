@@ -188,6 +188,17 @@
   cursor: default;
 }
 
+/* T30 · rejilla/ajuste: mismo tono de acento que ya usa el nodo seleccionado (`--gf-marca-1-texto`
+   pasa AA sobre el panel, a diferencia de `--gf-marca-1` crudo -- ver la nota de `styles.css`). */
+.lienzo-btn.activo {
+  color: var(--gf-marca-1-texto);
+}
+
+.lienzo-btn.activo:hover:not(:disabled) {
+  color: var(--gf-marca-1-texto);
+  background: var(--gf-velo);
+}
+
 .lienzo-btn-txt {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
@@ -456,6 +467,47 @@ button:disabled kbd {
   cursor: default;
 }
 
+/* T30 · "atajos listados en el panel" -- mismo patrón de disclosure que `.leyenda`, con `<kbd>` en
+   vez de una muestra SVG. `kbd` global ya trae su caja (línea ~402); aquí solo se reajusta el
+   margen (va PRIMERO en la fila, no pegado a un texto) y se le da ancho fijo para que la columna
+   de teclas no zigzaguee entre filas. */
+.atajos {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--gf-texto-apagado);
+}
+
+.atajos summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.atajos ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atajos li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.atajos kbd {
+  flex: none;
+  min-width: 5.2em;
+  margin-left: 0;
+  text-align: center;
+}
+
+.atajos span {
+  color: var(--gf-texto-medio);
+}
+
 /*
  * En pantalla completa el navegador pinta negro detrás: sin fondo propio el panel desaparecería y
  * el lienzo quedaría flotando. Y el `max-height` de 60vh estorba justo aquí, que es cuando por fin
@@ -617,6 +669,29 @@ button:disabled kbd {
   color: var(--gf-texto-apagado);
 }
 
+.coords label {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* T30 · las coordenadas eran texto. `tabular-nums` heredado del padre ya evita el bailoteo del
+   arrastre; lo nuevo es que el campo también acepta el valor escrito a mano. */
+.coord-input {
+  width: 3.4em;
+  padding: 1px 4px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 4px;
+  background: var(--gf-fondo);
+  color: var(--gf-texto);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.coord-input:hover {
+  border-color: var(--gf-acento-borde);
+}
+
 .nodo-btns {
   display: flex;
   gap: 4px;
@@ -760,6 +835,42 @@ button:disabled kbd {
   color: var(--gf-texto-medio);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/*
+ * T30 · el `d` deja de ser `<pre><code>` de solo lectura. Mismas medidas que `.bloque code` para
+ * que el cambio de bloque no salte de tamaño -- el contenido real casi siempre es más ancho que el
+ * área visible, por eso `overflow-wrap: normal` (el navegador SÍ deja hacer scroll horizontal en un
+ * textarea, a diferencia del `pre` de arriba que fuerza el wrap).
+ */
+.editable-d {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0 10px 8px;
+  border: 0;
+  max-height: 12rem;
+  min-height: 4.5rem;
+  resize: vertical;
+  background: transparent;
+  color: var(--gf-texto-medio);
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre;
+  box-sizing: border-box;
+}
+
+.editable-d:focus-visible {
+  outline: 2px solid var(--gf-marca-1-texto);
+  outline-offset: -2px;
+}
+
+.pista-editable {
+  margin: 0;
+  padding: 0 10px 10px;
+  font-size: 11px;
+  color: var(--gf-texto-apagado);
 }
 
 /*
@@ -928,4 +1039,42 @@ button:disabled kbd {
   color: var(--gf-texto-tenue);
   font-size: 0.7rem;
   line-height: 1.45;
+}
+
+/* ── T30 · modo lectura por debajo de 900px ─────────────────────────────────── */
+
+.angosto {
+  max-width: 28rem;
+  margin: 0 auto 48px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.angosto gf-icon {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--gf-texto);
+}
+
+.angosto-titulo {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gf-texto);
+}
+
+.angosto-texto {
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gf-texto-tenue);
+}
+
+.angosto .bloque {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.angosto .bloque .sub-tit {
+  margin: 0;
 }

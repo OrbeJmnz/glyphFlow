@@ -3,7 +3,15 @@
   <p [innerHTML]="'editor.intro' | transloco"></p>
 </header>
 
-<div class="marco">
+<!--
+  T30 · por debajo de `ANCHO_MINIMO` (900px) el editor de nodos no cabe -- ni arrastre preciso ni
+  un panel de 22rem tienen sitio. En vez de encogerlo hasta que se rompa, se cambia a una vista de
+  solo lectura: el icono y su forma actual, con un aviso de que editar pide más ancho. `@if`/`@else`
+  entero y no CSS que esconda piezas: lo escondido seguiría cargando el catálogo completo y
+  aceptando drags que no se pueden ver bien, solo que invisibles.
+-->
+@if (!angosto()) {
+  <div class="marco">
   <!--
     El lienzo es el protagonista y por eso trae sus dos barras DENTRO: arriba qué se está editando
     y en qué estado, abajo cómo mirarlo. Colgarlas del panel las habría convertido en ajustes
@@ -55,19 +63,25 @@
         Rejilla de 24 en dos niveles: la menor (cada unidad) orienta de cerca sin competir con el
         trazo, la mayor (cada 4) es la que de verdad ayuda a ubicarse de lejos. Antes había un solo
         nivel -- la menor va PRIMERO para quedar debajo de la mayor donde coinciden las líneas.
+
+        T30: el apagador (`mostrarRejilla`) va por `@if`, no por opacidad -- una rejilla oculta que
+        siguiera en el DOM seguiría contando para lectores de pantalla que recorren el `<svg>` nodo
+        por nodo, por decorativa que sea a la vista.
       -->
-      <g class="rejilla rejilla-menor">
-        @for (i of ejesMenor; track i) {
-          <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
-          <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
-        }
-      </g>
-      <g class="rejilla rejilla-mayor">
-        @for (i of [4, 8, 12, 16, 20]; track i) {
-          <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
-          <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
-        }
-      </g>
+      @if (mostrarRejilla()) {
+        <g class="rejilla rejilla-menor">
+          @for (i of ejesMenor; track i) {
+            <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
+            <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
+          }
+        </g>
+        <g class="rejilla rejilla-mayor">
+          @for (i of [4, 8, 12, 16, 20]; track i) {
+            <line [attr.x1]="i" y1="0" [attr.x2]="i" [attr.y2]="lado" />
+            <line x1="0" [attr.y1]="i" [attr.x2]="lado" [attr.y2]="i" />
+          }
+        </g>
+      }
 
       <!-- Las figuras que no son `path` se pintan de contexto, atenuadas: no se editan. -->
       <g class="contexto" fill="none" stroke="currentColor" stroke-width="2">
@@ -250,7 +264,7 @@
     <div
       class="barra barra-baja"
       role="group"
-      [attr.aria-label]="'editor.lienzo.zoomAria' | transloco"
+      [attr.aria-label]="'editor.lienzo.controlesAria' | transloco"
     >
       <button
         type="button"
@@ -279,6 +293,46 @@
         (click)="acercar()"
       >
         +
+      </button>
+
+      <!--
+        T30 · conmutador de rejilla y de ajuste. Un icono cada uno y `[class.activo]` para el
+        estado -- mismo criterio que el botón de movimiento del header (`app.html`): un control que
+        alterna, no dos botones "encendido"/"apagado" por separado.
+      -->
+      <button
+        type="button"
+        class="lienzo-btn"
+        [class.activo]="mostrarRejilla()"
+        [attr.aria-pressed]="mostrarRejilla()"
+        [title]="
+          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+            | transloco
+        "
+        [attr.aria-label]="
+          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+            | transloco
+        "
+        (click)="mostrarRejilla.set(!mostrarRejilla())"
+      >
+        <gf-icon [iconDef]="iconoRejilla" [size]="14" trigger="manual" />
+      </button>
+      <button
+        type="button"
+        class="lienzo-btn"
+        [class.activo]="ajustarRejilla()"
+        [attr.aria-pressed]="ajustarRejilla()"
+        [title]="
+          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+            | transloco
+        "
+        [attr.aria-label]="
+          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+            | transloco
+        "
+        (click)="ajustarRejilla.set(!ajustarRejilla())"
+      >
+        <gf-icon [iconDef]="iconoAjuste" [size]="14" trigger="manual" />
       </button>
 
       <span class="crece"></span>
@@ -411,9 +465,34 @@
         @if (nodoActivo(); as n) {
           <div class="nodo-cab">
             <strong>{{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}</strong>
+            <!--
+              T30: eran `<span>` de solo lectura. `(change)` y no `(input)` -- se aplica al SALIR
+              del campo (blur/Enter), no en cada dígito, para que escribir "12" de camino a "120"
+              no meta un "1" y un "12" como pasos de deshacer sueltos.
+            -->
             <span class="coords">
-              <span><em>X</em>{{ dec(n.punto[0]) }}</span>
-              <span><em>Y</em>{{ dec(n.punto[1]) }}</span>
+              <label>
+                <em>X</em>
+                <input
+                  type="number"
+                  step="0.01"
+                  class="coord-input"
+                  [value]="dec(n.punto[0])"
+                  [attr.aria-label]="'editor.nodo.xAria' | transloco: { n: n.indice }"
+                  (change)="fijarCoordenada('x', $any($event.target).value)"
+                />
+              </label>
+              <label>
+                <em>Y</em>
+                <input
+                  type="number"
+                  step="0.01"
+                  class="coord-input"
+                  [value]="dec(n.punto[1])"
+                  [attr.aria-label]="'editor.nodo.yAria' | transloco: { n: n.indice }"
+                  (change)="fijarCoordenada('y', $any($event.target).value)"
+                />
+              </label>
             </span>
           </div>
           <div class="nodo-btns">
@@ -430,6 +509,25 @@
           <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
         }
       </div>
+
+      <!--
+        T30 · "atajos listados en el panel": flechas/Tab/Esc no tienen un botón propio del que
+        colgar un `<kbd>` -- Ctrl+Z, `+` y Supr ya lo tienen arriba, así que esta lista completa el
+        resto en un solo sitio en vez de repartir la mitad en el lienzo y la mitad aquí.
+      -->
+      <details class="atajos">
+        <summary>{{ 'editor.atajos.titulo' | transloco }}</summary>
+        <ul>
+          <li><kbd>↑↓←→</kbd><span>{{ 'editor.atajos.mover' | transloco }}</span></li>
+          <li><kbd>Shift + ↑↓←→</kbd><span>{{ 'editor.atajos.moverFino' | transloco }}</span></li>
+          <li><kbd>Tab</kbd><span>{{ 'editor.atajos.tab' | transloco }}</span></li>
+          <li><kbd>Esc</kbd><span>{{ 'editor.atajos.esc' | transloco }}</span></li>
+          <li><kbd>Supr</kbd><span>{{ 'editor.atajos.supr' | transloco }}</span></li>
+          <li><kbd>+</kbd><span>{{ 'editor.atajos.mas' | transloco }}</span></li>
+          <li><kbd>Ctrl+Z</kbd><span>{{ 'editor.atajos.deshacer' | transloco }}</span></li>
+          <li><kbd>Ctrl+Shift+Z</kbd><span>{{ 'editor.atajos.rehacer' | transloco }}</span></li>
+        </ul>
+      </details>
     </section>
 
     <!-- 3. QUÉ genera -->
@@ -465,7 +563,21 @@
           </button>
         </div>
         @if (verPath()) {
-          <pre><code>{{ editado() }}</code></pre>
+          <!--
+            T30: era `<pre><code>` de solo lectura. Pegar un `d` aquí carga esa forma -- ver
+            `pegarD`/`cargarDesdeTexto`. `(change)` cubre además la edición a mano (borrar un
+            segmento, corregir un número) sin esperar a que alguien pegue algo.
+          -->
+          <textarea
+            class="editable-d"
+            rows="4"
+            spellcheck="false"
+            [value]="editado()"
+            [attr.aria-label]="'editor.salida.pathEditableAria' | transloco"
+            (paste)="pegarD($event)"
+            (change)="cargarDesdeTexto($any($event.target).value)"
+          ></textarea>
+          <p class="pista-editable">{{ 'editor.salida.pathPegarPista' | transloco }}</p>
         }
       </div>
 
@@ -620,4 +732,25 @@
       </div>
     </section>
   </aside>
-</div>
+  </div>
+} @else {
+  <!--
+    Icono + resultado, nada más: sin catálogo, sin lienzo interactivo, sin panel de edición. Los
+    mismos `editado()`/`json()` que ya usa el modo completo -- no hay una serialización aparte que
+    pudiera divergir.
+  -->
+  <div class="angosto">
+    <gf-icon [iconDef]="elegido().def" [size]="56" trigger="manual" />
+    <p class="angosto-titulo">{{ 'editor.angosto.titulo' | transloco }}</p>
+    <p class="angosto-texto">{{ 'editor.angosto.texto' | transloco }}</p>
+
+    <div class="bloque abierto">
+      <div class="bloque-cab"><span class="sub-tit">{{ 'editor.salida.path' | transloco }}</span></div>
+      <pre><code>{{ editado() }}</code></pre>
+    </div>
+    <div class="bloque abierto">
+      <div class="bloque-cab"><span class="sub-tit">{{ 'editor.salida.json' | transloco }}</span></div>
+      <pre class="json"><code>{{ json() }}</code></pre>
+    </div>
+  </div>
+}

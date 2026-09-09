@@ -17,12 +17,14 @@ import editorEn from '../../../i18n/editor/en.json';
 import {
   GfIconComponent,
   // Sueltos y NO desde el registro: cada icono es su propio export y se poda solo. El registro
-  // completo llega diferido (ver `curados` más abajo); estos dos hacen falta ya, al construir.
+  // completo llega diferido (ver `curados` más abajo); estos hacen falta ya, al construir.
   heartIcon,
   playIcon,
   checkIcon,
   copyIcon,
   faceSlightlyFrowningIcon,
+  grid3x3Icon,
+  magnetIcon,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
@@ -68,6 +70,13 @@ const LADO = 24;
 const ZOOM_MIN = 1;
 const ZOOM_MAX = 8;
 const ZOOM_PASO = 1.35;
+
+/** Mismo espaciado que dibuja la rejilla visible (menor+mayor intercaladas cada 2 unidades) — el
+    ajuste tiene que caer donde el ojo ya espera una línea, no en un paso inventado aparte. */
+const PASO_REJILLA = 2;
+
+/** T30 · por debajo de esto, el editor de nodos no cabe sin romperse. Ver `angosto`. */
+const ANCHO_MINIMO = 900;
 
 interface Curado {
   nombre: string;
@@ -129,9 +138,18 @@ interface NodoVista extends Nodo {
   },
 })
 export class Editor implements OnDestroy {
-  @ViewChild('lienzo', { static: true }) private lienzo!: ElementRef<SVGSVGElement>;
+  /*
+   * T30: `static: true` -- SIN falta desde que `#lienzo`/`#zona` viven dentro de `@if (!angosto())`
+   * (modo lectura <900px). Una query estática se resuelve ANTES de que Angular decida qué rama de
+   * un `@if` instanciar, así que con `static: true` quedaban `undefined` incluso en la rama donde
+   * SÍ existen -- el arrastre fallaba con "Cannot read properties of undefined (reading
+   * 'nativeElement')" en CUALQUIER ancho, no solo por debajo de 900px. `static: false` (el default)
+   * las resuelve después de cada pasada de detección de cambios, que es lo que un elemento
+   * condicional necesita.
+   */
+  @ViewChild('lienzo') private lienzo!: ElementRef<SVGSVGElement>;
   /** El marco que entra a pantalla completa: el lienzo con su barra, no el `<svg>` pelón. */
-  @ViewChild('zona', { static: true }) private zona!: ElementRef<HTMLElement>;
+  @ViewChild('zona') private zona!: ElementRef<HTMLElement>;
 
   protected readonly lado = LADO;
   protected readonly zoomMin = ZOOM_MIN;
@@ -160,6 +178,32 @@ export class Editor implements OnDestroy {
   protected readonly iconoPlay = playIcon;
   /** La cara del "sin resultados" -- misma cara que ya usa `iconos.ts` para lo mismo. */
   protected readonly caraTriste = faceSlightlyFrowningIcon;
+  protected readonly iconoRejilla = grid3x3Icon;
+  protected readonly iconoAjuste = magnetIcon;
+
+  /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
+  protected readonly mostrarRejilla = signal(true);
+  /**
+   * Ajuste a rejilla: SOLO al soltar el gesto (arrastre o flecha), nunca en cada píxel intermedio
+   * -- ajustar de camino se sentiría como que el nodo tiembla en vez de responder al puntero. Ver
+   * `snapNodoActivo`.
+   */
+  protected readonly ajustarRejilla = signal(false);
+
+  private redondearAGrid(v: number): number {
+    return Math.round(v / PASO_REJILLA) * PASO_REJILLA;
+  }
+
+  /**
+   * T30 · por debajo de `ANCHO_MINIMO` no se intenta encoger el editor -- se cambia a una vista de
+   * solo lectura (icono + resultado). `matchMedia` y no un `HostListener('window:resize')`: el
+   * navegador ya optimiza cuándo dispara el cambio, y sondear el ancho en cada resize sería
+   * recalcular en cada frame del gesto en vez de solo cuando la condición realmente cruza el borde.
+   *
+   * Seed + `addEventListener('change', …)`, mismo patrón que `movimiento.ts`/`tema.ts`: sin
+   * `matchMedia` (SSR) se asume que SÍ cabe, porque el prerender no tiene viewport que romper.
+   */
+  protected readonly angosto = signal(false);
 
   /**
    * Coordenada para leer, no para calcular. Dos decimales y sin ceros de relleno: la cifra cambia
@@ -709,11 +753,31 @@ export class Editor implements OnDestroy {
     this.activo.set(null);
   }
 
+  /**
+   * T30 · las coordenadas del nodo activo, editables a mano. Reusa `aplicar()` -- el mismo camino
+   * que agregar/borrar nodo -- así que un valor tecleado entra al historial como UN paso, igual que
+   * cualquier otro cambio. Sin ajuste a rejilla aquí a propósito: quien teclea 12.34 quiere 12.34,
+   * no que se le redondee por detrás -- el ajuste (`ajustarRejilla`) es solo para gestos de puntero
+   * o teclado donde el valor exacto no era la intención, ver `snapNodoActivo`.
+   */
+  protected fijarCoordenada(eje: 'x' | 'y', valor: string): void {
+    const n = this.activo();
+    const p = this.nodoActivo()?.punto;
+    if (!n || !p) return;
+    const num = Number(valor);
+    if (!Number.isFinite(num)) return;
+    const dx = eje === 'x' ? num - p[0] : 0;
+    const dy = eje === 'y' ? num - p[1] : 0;
+    if (dx === 0 && dy === 0) return;
+    this.aplicar((subs) => moverNodo(subs, n, dx, dy));
+  }
+
   /** Ctrl+Z / Ctrl+Shift+Z, y Ctrl+Y para quien venga de Windows. */
   protected atajo(ev: KeyboardEvent): void {
-    // Borrar y agregar no llevan modificador, pero solo aplican con un nodo seleccionado — y nunca
-    // mientras se escribe en el buscador.
-    const enCampo = (ev.target as HTMLElement | null)?.tagName === 'INPUT';
+    // Borrar, agregar, Tab y Esc no llevan modificador, pero solo aplican con un nodo seleccionado
+    // — y nunca mientras se escribe en el buscador, en las coordenadas o en el `d` (T30: los dos
+    // últimos son nuevos, y sin este guardia Tab/flechas/Supr saltarían del campo al lienzo).
+    const enCampo = ['INPUT', 'TEXTAREA'].includes((ev.target as HTMLElement | null)?.tagName ?? '');
     if (!ev.ctrlKey && !ev.metaKey && !enCampo && this.activo()) {
       if (ev.key === 'Delete' || ev.key === 'Backspace') {
         ev.preventDefault();
@@ -723,6 +787,20 @@ export class Editor implements OnDestroy {
       if (ev.key === '+' || ev.key === '=') {
         ev.preventDefault();
         this.agregarNodo();
+        return;
+      }
+      if (ev.key === 'Escape') {
+        ev.preventDefault();
+        this.activo.set(null);
+        return;
+      }
+      if (ev.key === 'Tab') {
+        // Captura el foco a propósito: mientras hay un nodo activo, Tab recorre EL TRAZO en vez de
+        // saltar a lo siguiente de la página. `Esc` suelta la selección y devuelve Tab a lo suyo —
+        // es el contrato, no un efecto secundario: capturarlo siempre (sin nodo activo) rompería la
+        // navegación normal del resto del sitio, que es justo lo que T30 no puede permitirse.
+        ev.preventDefault();
+        this.ciclarNodo(ev.shiftKey ? -1 : 1);
         return;
       }
       const paso = ev.shiftKey ? 0.1 : 1;
@@ -754,6 +832,17 @@ export class Editor implements OnDestroy {
       ev.preventDefault();
       this.rehacer();
     }
+  }
+
+  /** Recorre `nodosVista()` en orden, con vuelta al principio/final -- lo mismo que Tab nativo. */
+  private ciclarNodo(delta: 1 | -1): void {
+    const lista = this.nodosVista();
+    if (!lista.length) return;
+    const actual = this.activo();
+    const i = actual ? lista.findIndex((n) => n.sub === actual.sub && n.seg === actual.seg) : -1;
+    const siguiente = lista[(i + delta + lista.length) % lista.length];
+    this.activo.set(siguiente);
+    this.manijaActiva.set(null);
   }
 
   private gestoNudgeAbierto = false;
@@ -791,14 +880,46 @@ export class Editor implements OnDestroy {
         copia[i2] = limpiar(copia[i2]);
         return copia;
       });
+      this.snapNodoActivo();
       this.historial.cerrar(this.modelos());
       this.gestoNudgeAbierto = false;
       this.sincronizarPila();
     }, 500);
   }
 
+  /**
+   * T30 · ajusta el nodo activo al punto de rejilla más cercano. Se llama SOLO al cerrar un gesto
+   * (soltar el arrastre, o los 500ms de silencio tras una flecha) -- nunca en cada paso intermedio,
+   * ver el porqué en `ajustarRejilla`. Reusa `moverNodo` con el delta que faltaba para llegar al
+   * múltiplo de `PASO_REJILLA` más cercano, así que entra al mismo camino que cualquier otro
+   * movimiento -- nada de geometría nueva.
+   */
+  private snapNodoActivo(): void {
+    if (!this.ajustarRejilla()) return;
+    const n = this.activo();
+    const p = this.nodoActivo()?.punto;
+    if (!n || !p) return;
+    const dx = this.redondearAGrid(p[0]) - p[0];
+    const dy = this.redondearAGrid(p[1]) - p[1];
+    if (dx === 0 && dy === 0) return;
+    const i = this.indiceActivo();
+    this.modelos.update((todos) => {
+      const copia = [...todos];
+      copia[i] = limpiar(moverNodo(copia[i], n, dx, dy));
+      return copia;
+    });
+  }
+
   constructor() {
     this.cargar();
+    try {
+      const consulta = matchMedia(`(max-width: ${ANCHO_MINIMO - 1}px)`);
+      this.angosto.set(consulta.matches);
+      consulta.addEventListener('change', (e) => this.angosto.set(e.matches));
+    } catch {
+      // Sin `matchMedia` (SSR) la semilla `false` ya deja el editor completo, que es lo correcto
+      // para un HTML que ningún viewport real va a medir.
+    }
     // El catálogo y los alias llegan por su propio chunk. No se espera a ellos para nada de lo de
     // arriba: `elegido` ya trae `heartIcon`, así que se puede editar desde el primer fotograma y lo
     // único que aparece más tarde es la LISTA de la izquierda.
@@ -951,7 +1072,7 @@ export class Editor implements OnDestroy {
     this.paneando = null;
     this.arrastrandoNodo.set(false);
     if (!this.arrastrando) return;
-    const movio = this.arrastrando.movio;
+    const { movio, tipo } = this.arrastrando;
     this.arrastrando = null;
 
     // Solo se redondea si de verdad hubo arrastre. Redondear en cada click parecía inofensivo y no
@@ -965,6 +1086,9 @@ export class Editor implements OnDestroy {
         copia[i] = limpiar(copia[i]);
         return copia;
       });
+      // Solo nodos: una manija bézier no vive EN la rejilla, apunta hacia dónde se curva el trazo
+      // -- ajustarla al múltiplo más cercano rompería la curva en vez de alinear un punto.
+      if (tipo === 'nodo') this.snapNodoActivo();
     }
     this.historial.cerrar(this.modelos());
     this.sincronizarPila();
@@ -1040,6 +1164,57 @@ export class Editor implements OnDestroy {
 
   protected copiar(): Promise<void> {
     return this.copiadorPath.copiar(this.editado());
+  }
+
+  /**
+   * T30 · el campo del `d` deja de ser solo lectura: pegar un `d` válido carga esa forma.
+   * `preventDefault()` en el paste porque la aplicación ya reescribe el `<textarea>` — el binding a
+   * `editado()` reacciona en cuanto `modelos` cambia, así que dejar que el navegador inserte el
+   * texto crudo ADEMÁS solo duplicaría lo que ya se está pintando por su cuenta.
+   */
+  protected pegarD(ev: ClipboardEvent): void {
+    const texto = ev.clipboardData?.getData('text/plain');
+    if (!texto) return;
+    ev.preventDefault();
+    this.cargarDesdeTexto(texto);
+  }
+
+  /**
+   * También en `(change)` (blur tras editar a mano), no solo en `paste` — es lo que hace al campo
+   * "editable" de verdad y no solo "pegable". Comparado contra `editado()` antes de tocar nada: un
+   * `blur` que sigue a un `paste` ya aplicado no debe meter un segundo paso vacío al historial.
+   *
+   * Reglas de correspondencia: N líneas para N trazos reemplaza todos; UNA línea reemplaza solo el
+   * trazo activo (el caso común — la mayoría de los iconos son un solo `path`). Cualquier otro
+   * conteo no se aplica: adivinar a cuál de varios trazos pertenece una línea de más es más riesgo
+   * de silenciosamente romper otro trazo que el beneficio de intentarlo. `parseD` no truena con
+   * geometría inválida (ver su comentario) — el peor caso es una forma rara, recuperable con
+   * Ctrl+Z o «Restablecer», nunca una excepción.
+   */
+  protected cargarDesdeTexto(texto: string): void {
+    const lineas = texto
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
+    if (!lineas.length) return;
+    const actuales = this.modelos();
+    let nuevos: SubPath[][];
+    if (lineas.length === actuales.length) {
+      nuevos = lineas.map(parseD);
+    } else if (lineas.length === 1) {
+      const i = this.indiceActivo();
+      nuevos = actuales.map((m, k) => (k === i ? parseD(lineas[0]) : m));
+    } else {
+      return;
+    }
+    const dNuevo = nuevos.map((subs) => subs.map(dDeSubpath).join('')).join('\n');
+    if (dNuevo === this.editado()) return;
+    this.historial.registrar(actuales);
+    this.modelos.set(nuevos);
+    this.tocado.set(true);
+    this.activo.set(null);
+    this.manijaActiva.set(null);
+    this.sincronizarPila();
   }
 
   ngOnDestroy(): void {

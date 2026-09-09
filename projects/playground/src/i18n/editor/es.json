@@ -18,12 +18,16 @@
     "modificado": "modificado",
     "intacto": "sin cambios",
     "estadoAria": "Estado del lienzo",
-    "zoomAria": "Zoom del lienzo",
+    "controlesAria": "Controles del lienzo",
     "acercar": "Acercar",
     "alejar": "Alejar",
     "reencuadrar": "Volver al 100%",
     "pantalla": "Pantalla completa",
     "salirPantalla": "Salir de pantalla completa",
+    "rejillaMostrar": "Mostrar rejilla",
+    "rejillaOcultar": "Ocultar rejilla",
+    "ajusteActivar": "Ajustar a la rejilla",
+    "ajusteDesactivar": "Quitar el ajuste a la rejilla",
     "nodo": "1 nodo",
     "trazo": "1 trazo"
   },
@@ -45,11 +49,24 @@
   "nodo": {
     "grupoAria": "Nodo seleccionado",
     "titulo": "Nodo #{{n}}",
+    "xAria": "Coordenada X del nodo {{n}}",
+    "yAria": "Coordenada Y del nodo {{n}}",
     "agregar": "insertar nodo",
     "teclaMas": "+",
     "borrar": "borrar nodo",
     "teclaSupr": "Supr",
     "pista": "Selecciona un nodo para editarlo."
+  },
+  "atajos": {
+    "titulo": "Atajos de teclado",
+    "mover": "Mueve el nodo seleccionado",
+    "moverFino": "Muévelo en pasos finos",
+    "tab": "Recorre los nodos del trazo",
+    "esc": "Deselecciona el nodo",
+    "supr": "Borra el nodo seleccionado",
+    "mas": "Inserta un nodo aquí",
+    "deshacer": "Deshacer",
+    "rehacer": "Rehacer"
   },
   "historial": {
     "grupoAria": "Historial",
@@ -59,6 +76,8 @@
   "salida": {
     "titulo": "resultado",
     "path": "svg path",
+    "pathEditableAria": "Datos del path (d) — editable, pega un d para cargar esa forma",
+    "pathPegarPista": "Pega un d aquí para cargar esa forma.",
     "json": "json",
     "restablecer": "restablecer",
     "copiar": "copiar",
@@ -87,5 +106,9 @@
     "renombrarAria": "Renombrar {{n}}",
     "borrarAria": "Borrar {{n}}",
     "soloAqui": "Los borradores viven solo en este navegador. Se van al limpiar los datos del sitio."
+  },
+  "angosto": {
+    "titulo": "Editar necesita más espacio",
+    "texto": "El editor de nodos necesita al menos 900px de ancho para que arrastrar siga siendo preciso. Aquí está el icono y su forma actual — abre esta página en una ventana más ancha para editarlo."
   }
 }
