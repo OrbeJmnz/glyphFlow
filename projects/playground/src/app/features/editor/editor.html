@@ -13,6 +13,73 @@
 @if (!angosto()) {
   <div class="marco">
   <!--
+    Columna de capas. Refleja lo que YA existe en el modelo -- un renglón por `<path>` del icono --
+    y no inventa un árbol de grupos que el editor no tiene. Existe porque hasta ahora la única
+    forma de cambiar de trazo era acertarle a su arista en el lienzo, a ciegas.
+  -->
+  <aside class="capas">
+    <h2 class="capas-tit">{{ 'editor.capas.titulo' | transloco }}</h2>
+
+    <ul class="capas-lista" [attr.aria-label]="'editor.capas.aria' | transloco">
+      @for (capa of capas(); track capa.indice) {
+        <li class="capa" [class.es-activa]="capa.activa" [class.es-oculta]="!capa.visible">
+          <button
+            type="button"
+            class="capa-elegir"
+            [attr.aria-label]="'editor.capas.elegir' | transloco: { n: capa.indice + 1 }"
+            [attr.aria-current]="capa.activa ? 'true' : null"
+            (click)="elegirIndiceActivo(capa.indice)"
+          >
+            <span class="capa-nombre">{{
+              'editor.capas.trazo' | transloco: { n: capa.indice + 1 }
+            }}</span>
+            <span class="capa-detalle">
+              {{
+                (capa.subtrazos === 1 ? 'editor.capas.subtrazo' : 'editor.capas.subtrazos')
+                  | transloco: { n: capa.subtrazos }
+              }}
+              @if (capa.activa) {
+                <span class="capa-marca">{{ 'editor.capas.editando' | transloco }}</span>
+              }
+            </span>
+          </button>
+
+          <!-- El ojo es un botón aparte del de elegir: son dos acciones distintas sobre el mismo
+               renglón, y anidarlos dejaría un control dentro de otro. -->
+          <button
+            type="button"
+            class="capa-ojo"
+            [disabled]="capa.visible && visiblesCuenta() <= 1"
+            [attr.aria-pressed]="!capa.visible"
+            [attr.aria-label]="
+              (capa.visible && visiblesCuenta() <= 1
+                ? 'editor.capas.unico'
+                : capa.visible
+                  ? 'editor.capas.ocultar'
+                  : 'editor.capas.mostrar'
+              ) | transloco: { n: capa.indice + 1 }
+            "
+            (click)="alternarCapa(capa.indice)"
+          >
+            <gf-icon [iconDef]="capa.visible ? iconoVisible : iconoOculto" [size]="15" trigger="manual" />
+          </button>
+        </li>
+      }
+    </ul>
+
+    @if (numTrazos() > 1) {
+      <p class="capas-nota">{{ 'editor.capas.soloVista' | transloco }}</p>
+    }
+
+    <div class="capas-tip">
+      <h3>{{ 'editor.capas.tipTitulo' | transloco }}</h3>
+      <p>{{ 'editor.capas.tipArrastre' | transloco }}</p>
+      <p>{{ 'editor.capas.tipAlt' | transloco }}</p>
+      <p>{{ 'editor.capas.tipFino' | transloco }}</p>
+    </div>
+  </aside>
+
+  <!--
     El lienzo es el protagonista y por eso trae sus dos barras DENTRO: arriba qué se está editando
     y en qué estado, abajo cómo mirarlo. Colgarlas del panel las habría convertido en ajustes
     sueltos; aquí leen como los bordes de una mesa de trabajo.
@@ -22,23 +89,6 @@
       <span class="identidad">
         <gf-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
         <strong>{{ elegido().nombre || ('editor.pluma.sinNombre' | transloco) }}</strong>
-      </span>
-
-      <span class="estado" role="status" [attr.aria-label]="'editor.lienzo.estadoAria' | transloco">
-        <span>{{
-          (nodosVista().length === 1 ? 'editor.lienzo.nodo' : 'editor.lienzo.nodos')
-            | transloco: { n: nodosVista().length }
-        }}</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span>{{
-          (numTrazos() === 1 ? 'editor.lienzo.trazo' : 'editor.lienzo.trazos')
-            | transloco: { n: numTrazos() }
-        }}</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span class="marca-estado" [class.vivo]="tocado()">
-          <i class="punto" aria-hidden="true"></i>
-          {{ (tocado() ? 'editor.lienzo.modificado' : 'editor.lienzo.intacto') | transloco }}
-        </span>
       </span>
     </div>
 
@@ -507,11 +557,35 @@
     </div>
     </div>
 
-    @if (numTrazos() > 1) {
-      <p class="pista">
-        {{ 'editor.trazos' | transloco: { n: numTrazos() } }}
-      </p>
-    }
+    <!--
+      Barra de estado. Bajó aquí desde `.barra-alta`, donde competía con el nombre del icono y se
+      leía como metadato del título. Al pie del lienzo lee como lo que es: el reporte de lo que
+      tienes delante, en el sitio donde ya miras después de mover algo.
+    -->
+    <div class="barra barra-estado" role="status" [attr.aria-label]="'editor.lienzo.estadoAria' | transloco">
+      <span class="estado">
+        <span>{{
+          (nodosVista().length === 1 ? 'editor.lienzo.nodo' : 'editor.lienzo.nodos')
+            | transloco: { n: nodosVista().length }
+        }}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{{
+          (numTrazos() === 1 ? 'editor.lienzo.trazo' : 'editor.lienzo.trazos')
+            | transloco: { n: numTrazos() }
+        }}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="marca-estado" [class.vivo]="tocado()">
+          <i class="punto" aria-hidden="true"></i>
+          {{ (tocado() ? 'editor.lienzo.modificado' : 'editor.lienzo.intacto') | transloco }}
+        </span>
+      </span>
+
+      @if (numTrazos() > 1) {
+        <span class="pista">
+          {{ 'editor.trazos' | transloco: { n: numTrazos() } }}
+        </span>
+      }
+    </div>
 
     <!--
       La leyenda del lienzo. El editor ya distinguía cuatro estados de nodo con cuatro señales

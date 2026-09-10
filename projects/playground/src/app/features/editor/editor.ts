@@ -24,6 +24,8 @@ import {
   circleMinusIcon,
   circlePlusIcon,
   copyIcon,
+  eyeIcon,
+  eyeOffIcon,
   faceSlightlyFrowningIcon,
   grid3x3Icon,
   magnetIcon,
@@ -207,6 +209,8 @@ export class Editor implements OnDestroy {
   protected readonly iconoPluma = penToolIcon;
   protected readonly iconoInsertar = circlePlusIcon;
   protected readonly iconoBorrar = circleMinusIcon;
+  protected readonly iconoVisible = eyeIcon;
+  protected readonly iconoOculto = eyeOffIcon;
 
   /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
   protected readonly mostrarRejilla = signal(true);
@@ -342,6 +346,53 @@ export class Editor implements OnDestroy {
   protected elegirIndiceActivo(i: number): void {
     if (this.plumaEnProgreso()) this.plumaEnProgreso.set(null);
     this.indiceActivo.set(i);
+  }
+
+  /**
+   * Trazos ocultos, por índice de path. Es SOLO de vista: `dPorPath()` los sigue incluyendo, así
+   * que exportar, el borrador y el enlace compartido llevan el icono completo. Ocultar sirve para
+   * despejar el lienzo mientras editas una figura tapada por otra, no para recortar el icono.
+   */
+  private readonly ocultos = signal<ReadonlySet<number>>(new Set());
+
+  /**
+   * Las capas del icono: un renglón por `<path>`, con lo que hace falta para elegirlo y para
+   * saber qué hay dentro. Deriva de la FORMA del modelo (cuántos paths, cuántos subtrazos), no de
+   * su geometría -- así arrastrar un nodo no reconstruye esta lista sesenta veces por segundo.
+   */
+  protected readonly capas = computed(() => {
+    const ocultos = this.ocultos();
+    const activo = this.indiceActivo();
+    return this.modelos().map((subs, i) => ({
+      indice: i,
+      subtrazos: subs.length,
+      visible: !ocultos.has(i),
+      activa: i === activo,
+    }));
+  });
+
+  /** Cuántos trazos quedan a la vista. Ocultar el último dejaría el lienzo en blanco sin decir por qué. */
+  protected readonly visiblesCuenta = computed(() => this.capas().filter((c) => c.visible).length);
+
+  /**
+   * Oculta o revela un trazo. Dos guardas, las dos por no dejar al usuario en un estado sin salida:
+   * no se puede ocultar el último visible, y ocultar el ACTIVO pasa la edición al primero que
+   * quede a la vista (si no, los nodos desaparecen y el panel sigue diciendo que editas algo).
+   */
+  protected alternarCapa(i: number): void {
+    const ocultos = new Set(this.ocultos());
+    if (ocultos.has(i)) {
+      ocultos.delete(i);
+    } else {
+      if (this.visiblesCuenta() <= 1) return;
+      ocultos.add(i);
+      if (this.indiceActivo() === i) {
+        const siguiente = this.modelos().findIndex((_, k) => !ocultos.has(k));
+        if (siguiente >= 0) this.elegirIndiceActivo(siguiente);
+        this.activo.set(null);
+      }
+    }
+    this.ocultos.set(ocultos);
   }
 
   /**
@@ -686,10 +737,16 @@ export class Editor implements OnDestroy {
    * cual para la salida/exportar -- eso SÍ necesita un `d` por path, no por subtrazo.
    */
   protected readonly subtrazosVista = computed<{ pathIndex: number; subIndex: number; d: string }[]>(
-    () =>
-      this.modelos().flatMap((subs, pathIndex) =>
-        subs.map((sub, subIndex) => ({ pathIndex, subIndex, d: dDeSubpath(sub) })),
-      ),
+    () => {
+      // El filtro de capas ocultas vive AQUÍ y no en `dPorPath()`: esto es lo que se pinta, aquello
+      // es lo que se exporta. Ocultar un trazo nunca debe recortar el icono que sale del editor.
+      const ocultos = this.ocultos();
+      return this.modelos().flatMap((subs, pathIndex) =>
+        ocultos.has(pathIndex)
+          ? []
+          : subs.map((sub, subIndex) => ({ pathIndex, subIndex, d: dDeSubpath(sub) })),
+      );
+    },
   );
 
   protected readonly nodos = computed<Nodo[]>(() => {
@@ -1206,6 +1263,7 @@ export class Editor implements OnDestroy {
     this.arrastrando = null;
     this.activo.set(null);
     this.manijaActiva.set(null);
+    this.ocultos.set(new Set());
     this.reencuadrar();
     this.historial.limpiar();
     this.sincronizarPila();
@@ -1255,6 +1313,9 @@ export class Editor implements OnDestroy {
     this.arrastrando = null;
     this.activo.set(null);
     this.manijaActiva.set(null);
+    // Las capas ocultas son del icono anterior: sus índices no significan lo mismo aquí, y dejarlas
+    // esconde figuras del icono nuevo sin que nada lo explique.
+    this.ocultos.set(new Set());
     // Un encuadre heredado deja el icono nuevo fuera de cuadro: cada figura tiene su propio centro.
     this.reencuadrar();
     // El historial del icono anterior no aplica al nuevo.

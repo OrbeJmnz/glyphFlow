@@ -43,6 +43,23 @@
     "nodo": "1 nodo",
     "trazo": "1 trazo"
   },
+  "capas": {
+    "titulo": "Capas",
+    "aria": "Trazos del icono",
+    "trazo": "Trazo {{n}}",
+    "subtrazo": "1 figura",
+    "subtrazos": "{{n}} figuras",
+    "editando": "editando",
+    "elegir": "Editar el trazo {{n}}",
+    "ocultar": "Ocultar el trazo {{n}}",
+    "mostrar": "Mostrar el trazo {{n}}",
+    "unico": "Es el único trazo a la vista",
+    "soloVista": "Ocultar es solo de vista: exportar y guardar llevan el icono completo.",
+    "tipTitulo": "Cómo se edita",
+    "tipArrastre": "Arrastra un nodo para moverlo.",
+    "tipAlt": "Con Alt, arrastras el trazo entero.",
+    "tipFino": "Con Shift, las flechas mueven en pasos de 0.1."
+  },
   "leyenda": {
     "titulo": "Qué estás viendo",
     "nodo": "nodo — arrástralo para mover el punto",

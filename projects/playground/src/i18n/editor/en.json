@@ -43,6 +43,23 @@
     "nodo": "1 node",
     "trazo": "1 stroke"
   },
+  "capas": {
+    "titulo": "Layers",
+    "aria": "Icon strokes",
+    "trazo": "Stroke {{n}}",
+    "subtrazo": "1 shape",
+    "subtrazos": "{{n}} shapes",
+    "editando": "editing",
+    "elegir": "Edit stroke {{n}}",
+    "ocultar": "Hide stroke {{n}}",
+    "mostrar": "Show stroke {{n}}",
+    "unico": "This is the only stroke in view",
+    "soloVista": "Hiding only affects the view: exporting and saving keep the whole icon.",
+    "tipTitulo": "How to edit",
+    "tipArrastre": "Drag a node to move it.",
+    "tipAlt": "Hold Alt to drag the whole stroke.",
+    "tipFino": "Hold Shift and the arrow keys move in steps of 0.1."
+  },
   "leyenda": {
     "titulo": "What you are looking at",
     "nodo": "node — drag it to move the point",

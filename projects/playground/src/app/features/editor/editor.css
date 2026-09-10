@@ -2,38 +2,270 @@
   display: block;
 }
 
+/* Encabezado deliberadamente corto: esto es una herramienta, y cada píxel que se lleva el título es
+   uno que el lienzo no tiene. El texto explica de qué va y se quita de en medio. */
 .head {
   max-width: var(--gf-ancho);
-  margin: 48px auto 32px;
+  margin: 28px auto 20px;
   text-align: center;
 }
 
 .head h1 {
-  margin: 0 0 8px;
-  font-size: 32px;
+  margin: 0 0 6px;
+  font-size: 26px;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
 
 .head p {
-  max-width: 34rem;
+  max-width: 40rem;
   margin: 0 auto;
-  font-size: 15px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 21px;
   color: var(--gf-texto-tenue);
 }
 
+/*
+ * Tres columnas: capas · lienzo · inspector. El lienzo es el único que crece; las dos orillas
+ * quedan fijas para que su ancho no dependa del icono que estés editando.
+ *
+ * El colapso NO es a una columna. Por debajo de 900px el editor entero se sustituye por el modo
+ * lectura (ver `angosto()` en el componente), así que el único tramo que hay que resolver aquí es
+ * entre 900px y ~1250px: ahí las capas pasan a una tira horizontal sobre el lienzo, que es la
+ * orilla que menos duele perder cuando el ancho escasea.
+ */
 .marco {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 22rem;
+  grid-template-columns: 15rem minmax(0, 1fr) 21rem;
   gap: 16px;
   align-items: start;
 }
 
-@media (max-width: 56rem) {
+@media (max-width: 78rem) {
   .marco {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) 21rem;
   }
+
+  .capas {
+    grid-column: 1 / -1;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .capas-tit,
+  .capas-nota,
+  .capas-tip {
+    display: none;
+  }
+
+  .capas-lista {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .capa {
+    flex: none;
+  }
+}
+
+/* ── Capas ───────────────────────────────────────────────────────────────────── */
+
+.capas {
+  position: sticky;
+  top: calc(var(--gf-header-h, 60px) + var(--gf-header-hueco, 1rem));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+@media (max-width: 78rem), (max-height: 700px), (prefers-reduced-motion: reduce) {
+  .capas {
+    position: static;
+  }
+}
+
+.capas-tit {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gf-texto-tenue);
+}
+
+.capas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Un renglón, no una tarjeta: el trazo activo se marca con fondo y una barra de marca, sin borde
+   ni sombra propios. Anidar tarjetas dentro del panel aplanaría la jerarquía de toda la columna. */
+.capa {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-radius: var(--gf-radio-chico);
+}
+
+.capa-elegir {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: var(--gf-radio-chico);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+.capa-elegir:hover {
+  background: var(--gf-velo);
+}
+
+.capa-nombre {
+  font-size: 13px;
+  color: var(--gf-texto-medio);
+  white-space: nowrap;
+}
+
+.capa-detalle {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--gf-texto-apagado);
+  white-space: nowrap;
+}
+
+.capa.es-activa {
+  background: var(--gf-velo-fuerte);
+}
+
+.capa.es-activa .capa-nombre {
+  color: var(--gf-texto);
+  font-weight: 500;
+}
+
+/* La marca del trazo en edición: cian, del lado del contenido, como el carril de una pestaña.
+   `-texto` y no el crudo de marca -- ése no se recalcula en tema claro y ahí perdería contraste. */
+.capa.es-activa::before {
+  content: '';
+  position: absolute;
+  inset-block: 6px;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--gf-marca-1-texto);
+}
+
+.capa-marca {
+  color: var(--gf-marca-1-texto);
+}
+
+/* Oculto se dice con el icono del ojo Y con opacidad: el color solo no basta. */
+.capa.es-oculta .capa-nombre,
+.capa.es-oculta .capa-detalle {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.capa-ojo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--gf-radio-chico);
+  background: transparent;
+  color: var(--gf-texto-apagado);
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.capa-ojo:hover:not(:disabled) {
+  background: var(--gf-velo);
+  color: var(--gf-marca-3-texto);
+}
+
+.capa-ojo[aria-pressed='true'] {
+  color: var(--gf-texto-medio);
+}
+
+.capa-ojo:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (pointer: coarse) {
+  .capa-ojo {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+.capas-nota {
+  margin: 0;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--gf-texto-apagado);
+}
+
+.capas-tip {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+.capas-tip h3 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gf-texto-tenue);
+}
+
+.capas-tip p {
+  margin: 0 0 4px;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--gf-texto-apagado);
+}
+
+.capas-tip p:last-child {
+  margin-bottom: 0;
+}
+
+/* El sitio apaga movimiento por dos vías independientes; una sola deja el toggle a medias. */
+@media (prefers-reduced-motion: reduce) {
+  .capa-elegir,
+  .capa-ojo {
+    transition: none;
+  }
+}
+
+[data-motion='off'] .capa-elegir,
+[data-motion='off'] .capa-ojo {
+  transition: none;
 }
 
 /* ── El taller: barra, lienzo, barra ─────────────────────────────────────────── */
@@ -79,6 +311,27 @@
 
 .barra-alta {
   border-bottom: 1px solid var(--gf-borde-suave);
+}
+
+/* Al pie del lienzo, no en el título. Cierra la mesa de trabajo por abajo igual que `.barra-alta`
+   la cierra por arriba, y queda donde ya miras después de mover un nodo. */
+.barra-estado {
+  border-top: 1px solid var(--gf-borde-suave);
+  justify-content: space-between;
+}
+
+/* En la barra alta el estado se empujaba a la derecha; aquí manda desde la izquierda. */
+.barra-estado .estado {
+  margin-left: 0;
+}
+
+.barra-estado .pista {
+  margin: 0;
+  text-align: right;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .identidad {
