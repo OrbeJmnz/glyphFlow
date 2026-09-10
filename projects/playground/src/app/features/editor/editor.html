@@ -18,7 +18,20 @@
     forma de cambiar de trazo era acertarle a su arista en el lienzo, a ciegas.
   -->
   <aside class="capas">
-    <h2 class="capas-tit">{{ 'editor.capas.titulo' | transloco }}</h2>
+    <div class="capas-cab">
+      <h2 class="capas-tit">{{ 'editor.capas.titulo' | transloco }}</h2>
+      <!-- La pluma escribe siempre DENTRO del trazo activo, así que sin esto todo lo dibujado en
+           un icono en blanco caía en el mismo `<path>` y las capas nunca pasaban de una. -->
+      <button
+        type="button"
+        class="capas-nuevo"
+        [attr.aria-label]="'editor.capas.nuevoAria' | transloco"
+        (click)="agregarCapa()"
+      >
+        <gf-icon [iconDef]="iconoInsertar" [size]="13" trigger="manual" />
+        {{ 'editor.capas.nuevo' | transloco }}
+      </button>
+    </div>
 
     <ul class="capas-lista" [attr.aria-label]="'editor.capas.aria' | transloco">
       @for (capa of capas(); track capa.indice) {
@@ -35,8 +48,12 @@
             }}</span>
             <span class="capa-detalle">
               {{
-                (capa.subtrazos === 1 ? 'editor.capas.subtrazo' : 'editor.capas.subtrazos')
-                  | transloco: { n: capa.subtrazos }
+                (capa.subtrazos === 0
+                  ? 'editor.capas.vacio'
+                  : capa.subtrazos === 1
+                    ? 'editor.capas.subtrazo'
+                    : 'editor.capas.subtrazos'
+                ) | transloco: { n: capa.subtrazos }
               }}
               @if (capa.activa) {
                 <span class="capa-marca">{{ 'editor.capas.editando' | transloco }}</span>
@@ -63,9 +80,82 @@
           >
             <gf-icon [iconDef]="capa.visible ? iconoVisible : iconoOculto" [size]="15" trigger="manual" />
           </button>
+
+          <!--
+            Acciones de segunda fila: aparecen al pasar el ratón o al enfocar dentro del renglón.
+            Siempre en el DOM (nunca `@if`) para que el tabulador las encuentre; lo que cambia es su
+            opacidad. Esconderlas del árbol dejaría el reordenado fuera del alcance del teclado.
+          -->
+          <span class="capa-acciones">
+            <button
+              type="button"
+              class="capa-mini"
+              [disabled]="!capa.puedeSubir"
+              [attr.aria-label]="'editor.capas.subir' | transloco: { n: capa.indice + 1 }"
+              (click)="moverCapa(capa.indice, -1)"
+            >
+              <gf-icon [iconDef]="iconoSubir" [size]="13" trigger="manual" />
+            </button>
+            <button
+              type="button"
+              class="capa-mini"
+              [disabled]="!capa.puedeBajar"
+              [attr.aria-label]="'editor.capas.bajar' | transloco: { n: capa.indice + 1 }"
+              (click)="moverCapa(capa.indice, 1)"
+            >
+              <gf-icon [iconDef]="iconoBajar" [size]="13" trigger="manual" />
+            </button>
+            <button
+              type="button"
+              class="capa-mini"
+              [attr.aria-label]="
+                (aislada(capa.indice) ? 'editor.capas.dejarAislar' : 'editor.capas.aislar')
+                  | transloco: { n: capa.indice + 1 }
+              "
+              [attr.aria-pressed]="aislada(capa.indice)"
+              (click)="aislarCapa(capa.indice)"
+            >
+              <gf-icon [iconDef]="iconoAislar" [size]="13" trigger="manual" />
+            </button>
+            @if (capa.subtrazos > 1) {
+              <button
+                type="button"
+                class="capa-mini"
+                [attr.aria-expanded]="capa.desplegada"
+                [attr.aria-label]="
+                  (capa.desplegada ? 'editor.capas.plegar' : 'editor.capas.desplegar')
+                    | transloco: { n: capa.indice + 1 }
+                "
+                (click)="alternarDespliegue(capa.indice)"
+              >
+                <gf-icon [iconDef]="iconoDesplegar" [size]="13" trigger="manual" />
+              </button>
+            }
+            <button
+              type="button"
+              class="capa-mini es-borrar"
+              [disabled]="numTrazos() <= 1"
+              [attr.aria-label]="
+                (numTrazos() <= 1 ? 'editor.capas.unicoBorrar' : 'editor.capas.borrar')
+                  | transloco: { n: capa.indice + 1 }
+              "
+              (click)="borrarCapa(capa.indice)"
+            >
+              <gf-icon [iconDef]="iconoBorrar" [size]="13" trigger="manual" />
+            </button>
+          </span>
+
+          @if (capa.desplegada && capa.subtrazos > 1) {
+            <ul class="capa-figuras">
+              @for (f of capa.figuras; track f) {
+                <li>{{ 'editor.capas.figura' | transloco: { n: f + 1 } }}</li>
+              }
+            </ul>
+          }
         </li>
       }
     </ul>
+
 
     @if (numTrazos() > 1) {
       <p class="capas-nota">{{ 'editor.capas.soloVista' | transloco }}</p>

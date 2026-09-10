@@ -484,6 +484,49 @@ describe('Editor', () => {
     expect(html.querySelector('.grupo-tit .conteo')!.textContent!.trim()).toBe(`${total}/${total}`);
   });
 
+  /*
+   * Cicatriz: el lienzo NO es cuadrado (con el workspace de tres columnas es claramente más ancho
+   * que alto), pero su `viewBox` sí. Sin `preserveAspectRatio` el SVG usa el default `xMidYMid
+   * meet`: escala uniforme y CENTRA, dejando bandas a los lados. `aViewBox()` mapeaba el rect
+   * entero al viewBox —dividiendo x entre `width` e y entre `height`— así que en el eje largo
+   * aplicaba el factor equivocado y no descontaba el centrado. Efecto: lo que dibujas aparece
+   * desplazado del puntero, y tanto más cuanto más te alejas del centro.
+   *
+   * El test anterior usaba un rect de 480×480, cuadrado, donde las dos cuentas coinciden. Por eso
+   * nunca lo cazó.
+   */
+  it('la conversión pantalla→viewBox respeta el centrado en un lienzo no cuadrado', async () => {
+    const m = await montar();
+    const { fixture, html } = m;
+    const svg = html.querySelector('svg.lienzo')!;
+    // 600×400: el dibujo ocupa 400×400 centrado, con 100px de banda a cada lado.
+    const r = { left: 0, top: 0, width: 600, height: 400 };
+    svg.getBoundingClientRect = () =>
+      ({ ...r, right: 600, bottom: 400, x: 0, y: 0, toJSON: () => r }) as DOMRect;
+
+    // El editor arranca con la pluma armada. Dos clics en puntos conocidos.
+    // x=200 cae a 100px del borde IZQUIERDO del dibujo → 100/(400/24) = 6 unidades.
+    // x=400 cae a 300px → 18 unidades. y=200 es el centro vertical → 12.
+    for (const [x, y] of [
+      [200, 200],
+      [400, 200],
+    ]) {
+      svg.dispatchEvent(
+        new PointerEvent('pointerdown', { clientX: x, clientY: y, bubbles: true }),
+      );
+      await fixture.whenStable();
+    }
+    // Enter termina el trazo abierto (≥2 puntos).
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await fixture.whenStable();
+
+    await irA(m, 'salida');
+    const d = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
+    // Con la cuenta vieja habrían salido 8 y 16: el ancho completo mapeado al viewBox.
+    expect(d).toContain('M6 12');
+    expect(d).toContain('18 12');
+  }, 20000);
+
   it('el zoom reencuadra el viewBox y la conversión pantalla→viewBox lo respeta', async () => {
     // El riesgo real del zoom no es que se vea mal: es que `aViewBox` deje de cuadrar y el nodo se
     // despegue del puntero. Aquí se mide justo eso, arrastrando UNA unidad del icono con el
@@ -576,6 +619,137 @@ describe('Editor', () => {
     await fixture.whenStable();
     expect(html.querySelector('.bloque pre.json')!.textContent).toContain('"shapes"');
   });
+
+  /*
+   * Reordenar trazos es la única acción del panel de capas que cambia el icono EXPORTADO, no solo
+   * lo que se ve. Y arrastra una consecuencia que no se ve venir: `IconChoreography.shapes` es un
+   * `Record<number, MotionTrack>` indexado por posición dentro de `def.shapes`, así que mover una
+   * figura sin remapear esos tracks deja la coreografía animando la figura equivocada, en
+   * silencio y sin que ningún tipo se queje. Estos dos tests son la red de esa cicatriz.
+   */
+  async function jsonDeSalida(m: Awaited<ReturnType<typeof montar>>) {
+    const { fixture, html } = m;
+    await irA(m, 'salida');
+    const toggles = html.querySelectorAll<HTMLButtonElement>('.bloque .bloque-toggle');
+    if (!html.querySelector('.bloque pre.json')) {
+      toggles[1].click();
+      await fixture.whenStable();
+    }
+    return JSON.parse(html.querySelector('.bloque pre.json')!.textContent!) as {
+      shapes: { d?: string }[];
+      animations: Record<string, { shapes?: Record<string, unknown> }>;
+    };
+  }
+
+  it('desde un icono en blanco se pueden dibujar trazos separados', async () => {
+    // El hueco que esto tapa: la pluma escribe SIEMPRE dentro del trazo activo, así que sin un
+    // "trazo nuevo" todo lo dibujado en un icono en blanco caía en el mismo `<path>` y el panel
+    // de capas no pasaba nunca de una fila.
+    const m = await montar();
+    const { fixture, html } = m;
+    const svg = html.querySelector('svg.lienzo')!;
+    const r = { left: 0, top: 0, width: 480, height: 480 };
+    svg.getBoundingClientRect = () =>
+      ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
+
+    const dibujar = async (puntos: [number, number][]) => {
+      for (const [x, y] of puntos) {
+        svg.dispatchEvent(
+          new PointerEvent('pointerdown', { clientX: x, clientY: y, bubbles: true }),
+        );
+        await fixture.whenStable();
+      }
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      await fixture.whenStable();
+    };
+
+    expect(html.querySelectorAll('.capas-lista .capa').length).toBe(1);
+    await dibujar([
+      [100, 100],
+      [200, 100],
+    ]);
+
+    html.querySelector<HTMLButtonElement>('.capas-nuevo')!.click();
+    await fixture.whenStable();
+    expect(html.querySelectorAll('.capas-lista .capa').length).toBe(2);
+
+    await dibujar([
+      [100, 300],
+      [200, 300],
+    ]);
+
+    // Dos trazos de verdad, cada uno con su `d`: es una línea por `<path>` en la salida.
+    await irA(m, 'salida');
+    const lineas = html
+      .querySelector<HTMLTextAreaElement>('.editable-d')!
+      .value.split('\n')
+      .filter(Boolean);
+    expect(lineas.length).toBe(2);
+    expect(lineas[0]).not.toBe(lineas[1]);
+  }, 20000);
+
+  it('subir un trazo reordena las figuras del icono exportado', async () => {
+    const m = await montar();
+    await elegir(m, 'alarm-clock');
+    const { fixture, html } = m;
+
+    const antes = await jsonDeSalida(m);
+    const dsAntes = antes.shapes.map((f) => f.d).filter(Boolean);
+    expect(dsAntes.length).toBeGreaterThan(1);
+
+    await irA(m, 'icono');
+    // Subir el segundo trazo: pasa a ser el primero.
+    html
+      .querySelectorAll('.capa')[1]
+      .querySelectorAll<HTMLButtonElement>('.capa-mini')[0]
+      .click();
+    await fixture.whenStable();
+
+    const despues = await jsonDeSalida(m);
+    const dsDespues = despues.shapes.map((f) => f.d).filter(Boolean);
+    // Los dos primeros `d` intercambiados, el resto igual: es una permutación, no una reescritura.
+    expect(dsDespues[0]).toBe(dsAntes[1]);
+    expect(dsDespues[1]).toBe(dsAntes[0]);
+    expect(dsDespues.slice(2)).toEqual(dsAntes.slice(2));
+  }, 20000);
+
+  it('al reordenar, los tracks de la coreografía siguen a su figura', async () => {
+    const m = await montar();
+    await elegir(m, 'alarm-clock');
+    const { fixture, html } = m;
+
+    const antes = await jsonDeSalida(m);
+    // La variante que tenga tracks por índice; `alarm-clock` los trae.
+    const conTracks = Object.entries(antes.animations).find(
+      ([, c]) => c.shapes && Object.keys(c.shapes).length > 0,
+    );
+    expect(conTracks, 'el icono de prueba debe traer tracks indexados').toBeDefined();
+    const [variante, coreoAntes] = conTracks!;
+    const indicesAntes = Object.keys(coreoAntes.shapes!).map(Number).sort((a, b) => a - b);
+
+    await irA(m, 'icono');
+    html
+      .querySelectorAll('.capa')[1]
+      .querySelectorAll<HTMLButtonElement>('.capa-mini')[0]
+      .click();
+    await fixture.whenStable();
+
+    const despues = await jsonDeSalida(m);
+    const coreoDespues = despues.animations[variante];
+    const indicesDespues = Object.keys(coreoDespues.shapes!).map(Number).sort((a, b) => a - b);
+
+    // Mismo número de tracks: ninguno se perdió por el camino.
+    expect(indicesDespues.length).toBe(indicesAntes.length);
+
+    // Y cada track sigue apuntando a la MISMA figura, esté donde esté ahora. Se comprueba por su
+    // `d`: es lo que de verdad identifica a la figura, no su posición.
+    for (const i of indicesAntes) {
+      const dOriginal = antes.shapes[i]?.d;
+      if (dOriginal === undefined) continue;
+      const nuevoIndice = indicesDespues.find((j) => despues.shapes[j]?.d === dOriginal);
+      expect(nuevoIndice, `el track de la figura ${i} se quedó sin su figura`).toBeDefined();
+    }
+  }, 20000);
 });
 
 /**

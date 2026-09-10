@@ -91,11 +91,64 @@
   }
 }
 
+.capas-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .capas-tit {
   margin: 0;
   font-size: 13px;
   font-weight: 600;
   color: var(--gf-texto-tenue);
+}
+
+.capas-nuevo {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.capas-nuevo:hover {
+  color: var(--gf-marca-1-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+@media (pointer: coarse) {
+  .capas-nuevo {
+    min-height: 36px;
+  }
+}
+
+/* Borrar es destructivo: se pinta como tal solo cuando el puntero está encima, para no gritar
+   desde el reposo en una lista que se recorre con la vista. */
+.capa-mini.es-borrar:hover:not(:disabled) {
+  color: var(--gf-rojo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capas-nuevo {
+    transition: none;
+  }
+}
+
+[data-motion='off'] .capas-nuevo {
+  transition: none;
 }
 
 .capas-lista {
@@ -224,11 +277,102 @@
   }
 }
 
+/* Segunda fila de acciones: reordenar, aislar y desplegar. Escondidas por opacidad y NO por
+   `display:none` -- siguen en el orden de tabulación, así que el reordenado se alcanza con teclado
+   aunque nunca aparezca un puntero. Se revelan al pasar el ratón o al enfocar cualquier cosa
+   dentro del renglón. */
+.capa-acciones {
+  position: absolute;
+  inset-inline-end: 34px;
+  inset-block: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding-inline: 3px;
+  border-radius: var(--gf-radio-chico);
+  background: var(--gf-panel-alto);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease;
+}
+
+.capa:hover .capa-acciones,
+.capa:focus-within .capa-acciones {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.capa-mini {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--gf-texto-apagado);
+  cursor: pointer;
+}
+
+.capa-mini:hover:not(:disabled) {
+  color: var(--gf-texto);
+  background: var(--gf-velo);
+}
+
+.capa-mini[aria-pressed='true'] {
+  color: var(--gf-marca-1-texto);
+}
+
+.capa-mini:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Las figuras de dentro del trazo. Sangradas bajo su renglón, sin caja propia: son detalle del
+   trazo, no capas hermanas. */
+.capa-figuras {
+  flex-basis: 100%;
+  margin: 0 0 4px;
+  padding: 0 0 0 22px;
+  list-style: none;
+}
+
+.capa-figuras li {
+  font-size: 11px;
+  line-height: 18px;
+  color: var(--gf-texto-apagado);
+}
+
+.capa-figuras li::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 1px;
+  margin-inline-end: 6px;
+  vertical-align: middle;
+  background: var(--gf-borde-vivo);
+}
+
+.capa {
+  flex-wrap: wrap;
+}
+
 .capas-nota {
   margin: 0;
   font-size: 11px;
   line-height: 16px;
   color: var(--gf-texto-apagado);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capa-acciones {
+    transition: none;
+  }
+}
+
+[data-motion='off'] .capa-acciones {
+  transition: none;
 }
 
 .capas-tip {

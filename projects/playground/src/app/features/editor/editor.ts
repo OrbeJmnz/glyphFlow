@@ -23,11 +23,15 @@ import {
   checkIcon,
   circleMinusIcon,
   circlePlusIcon,
+  chevronDownIcon,
+  chevronUpIcon,
   copyIcon,
   eyeIcon,
   eyeOffIcon,
   faceSlightlyFrowningIcon,
+  focusIcon,
   grid3x3Icon,
+  listIcon,
   magnetIcon,
   maximizeIcon,
   minimizeIcon,
@@ -227,6 +231,15 @@ export class Editor implements OnDestroy {
   protected readonly iconoAlejar = zoomOutIcon;
   protected readonly iconoPantalla = maximizeIcon;
   protected readonly iconoSalirPantalla = minimizeIcon;
+  protected readonly iconoSubir = chevronUpIcon;
+  protected readonly iconoBajar = chevronDownIcon;
+  protected readonly iconoAislar = focusIcon;
+  protected readonly iconoDesplegar = listIcon;
+
+  /** `true` cuando este trazo es el único a la vista, o sea está aislado. */
+  protected aislada(i: number): boolean {
+    return this.ocultos().size === this.modelos().length - 1 && !this.ocultos().has(i);
+  }
 
   /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
   protected readonly mostrarRejilla = signal(true);
@@ -371,6 +384,9 @@ export class Editor implements OnDestroy {
    */
   private readonly ocultos = signal<ReadonlySet<number>>(new Set());
 
+  /** Qué capas tienen sus figuras desplegadas. Solo de presentación: no toca el modelo. */
+  private readonly desplegadas = signal<ReadonlySet<number>>(new Set());
+
   /**
    * Las capas del icono: un renglón por `<path>`, con lo que hace falta para elegirlo y para
    * saber qué hay dentro. Deriva de la FORMA del modelo (cuántos paths, cuántos subtrazos), no de
@@ -378,14 +394,140 @@ export class Editor implements OnDestroy {
    */
   protected readonly capas = computed(() => {
     const ocultos = this.ocultos();
+    const desplegadas = this.desplegadas();
     const activo = this.indiceActivo();
+    const total = this.modelos().length;
     return this.modelos().map((subs, i) => ({
       indice: i,
       subtrazos: subs.length,
       visible: !ocultos.has(i),
       activa: i === activo,
+      desplegada: desplegadas.has(i),
+      // Las figuras de dentro. Solo su cuenta y su índice: nada de geometría, para que arrastrar
+      // un nodo no rehaga esta lista.
+      figuras: subs.map((_, k) => k),
+      puedeSubir: i > 0,
+      puedeBajar: i < total - 1,
     }));
   });
+
+  /**
+   * Trazo nuevo, vacío, al final y ya activo.
+   *
+   * Hacía falta: la pluma escribe SIEMPRE dentro del trazo activo (`confirmarPluma` añade un
+   * subtrazo, no un `<path>`), así que en un icono en blanco todo lo dibujado caía en el mismo y
+   * no había forma de repartirlo. Un `<path>` aparte no es cosmético — es la unidad que la
+   * coreografía puede animar por su cuenta.
+   */
+  protected agregarCapa(): void {
+    const antes = this.modelos();
+    this.historial.registrar(antes);
+    this.modelos.set([...antes, []]);
+    this.ordenPaths.set([...this.ordenPaths(), antes.length]);
+    this.indiceActivo.set(antes.length);
+    this.activo.set(null);
+    this.tocado.set(true);
+    this.sincronizarPila();
+    // La pluma armada: quien pide un trazo nuevo es porque va a dibujarlo.
+    if (!this.modoPluma()) this.activarPluma();
+  }
+
+  /** Borra un trazo entero. No deja el icono sin ninguno: con uno solo, el botón va deshabilitado. */
+  protected borrarCapa(i: number): void {
+    const antes = this.modelos();
+    if (antes.length <= 1) return;
+    this.historial.registrar(antes);
+    this.modelos.set(antes.filter((_, k) => k !== i));
+    this.ordenPaths.set(
+      this.ordenPaths()
+        .filter((_, k) => k !== i)
+        .map((v) => (v > i ? v - 1 : v)),
+    );
+    // Los índices de lo oculto se corren con el borrado; sin esto, ocultar el 3 y borrar el 1
+    // dejaba oculto al que antes era el 4.
+    this.ocultos.set(
+      new Set(
+        [...this.ocultos()].filter((k) => k !== i).map((k) => (k > i ? k - 1 : k)),
+      ),
+    );
+    this.desplegadas.set(new Set());
+    this.indiceActivo.set(Math.max(0, Math.min(this.indiceActivo(), antes.length - 2)));
+    this.activo.set(null);
+    this.tocado.set(true);
+    this.sincronizarPila();
+  }
+
+  protected alternarDespliegue(i: number): void {
+    const d = new Set(this.desplegadas());
+    if (!d.delete(i)) d.add(i);
+    this.desplegadas.set(d);
+  }
+
+  /**
+   * Aislar: deja a la vista SOLO este trazo. Repetirlo lo deshace, porque si no la única salida
+   * sería ir mostrando los otros de uno en uno.
+   */
+  protected aislarCapa(i: number): void {
+    const total = this.modelos().length;
+    const yaAislado = this.ocultos().size === total - 1 && !this.ocultos().has(i);
+    if (yaAislado) {
+      this.ocultos.set(new Set());
+      return;
+    }
+    this.ocultos.set(new Set(this.modelos().map((_, k) => k).filter((k) => k !== i)));
+    if (this.indiceActivo() !== i) {
+      this.elegirIndiceActivo(i);
+      this.activo.set(null);
+    }
+  }
+
+  /**
+   * Orden de los trazos, como PERMUTACIÓN de los originales. `ordenPaths[nuevo] = viejo`.
+   *
+   * Existe porque en SVG el orden de pintado importa (lo último va encima), así que reordenar
+   * cambia el icono que sale del editor, no solo lo que se ve. Y arrastra una consecuencia que no
+   * se ve venir: la coreografía apunta a sus figuras POR ÍNDICE (`IconChoreography.shapes` es un
+   * `Record<number, MotionTrack>`), así que mover un trazo sin remapear esos tracks deja la
+   * animación moviendo la figura equivocada, en silencio. `defEditado()` aplica las dos cosas.
+   */
+  private readonly ordenPaths = signal<readonly number[]>([]);
+
+  /** Sube o baja un trazo en el orden de pintado. `delta` es -1 (arriba) o +1 (abajo). */
+  protected moverCapa(i: number, delta: number): void {
+    const j = i + delta;
+    const m = this.modelos();
+    if (j < 0 || j >= m.length) return;
+
+    this.historial.registrar(m);
+    const nuevos = [...m];
+    [nuevos[i], nuevos[j]] = [nuevos[j], nuevos[i]];
+    this.modelos.set(nuevos);
+
+    const orden = [...this.ordenPaths()];
+    [orden[i], orden[j]] = [orden[j], orden[i]];
+    this.ordenPaths.set(orden);
+
+    // Lo oculto viaja con su trazo: si no, ocultas el segundo, lo subes, y de pronto el oculto es
+    // otro. Misma idea para cuál se está editando.
+    const ocultos = this.ocultos();
+    if (ocultos.has(i) !== ocultos.has(j)) {
+      const nuevosOcultos = new Set(ocultos);
+      if (ocultos.has(i)) {
+        nuevosOcultos.delete(i);
+        nuevosOcultos.add(j);
+      } else {
+        nuevosOcultos.delete(j);
+        nuevosOcultos.add(i);
+      }
+      this.ocultos.set(nuevosOcultos);
+    }
+    if (this.indiceActivo() === i) this.indiceActivo.set(j);
+    else if (this.indiceActivo() === j) this.indiceActivo.set(i);
+
+    this.tocado.set(true);
+    this.sincronizarPila();
+    this.activo.set(null);
+  }
 
   /** Cuántos trazos quedan a la vista. Ocultar el último dejaría el lienzo en blanco sin decir por qué. */
   protected readonly visiblesCuenta = computed(() => this.capas().filter((c) => c.visible).length);
@@ -925,13 +1067,52 @@ export class Editor implements OnDestroy {
    */
   protected readonly defEditado = computed<AnimatedIconDef>(() => {
     const ds = this.dPorPath();
+    const def = this.elegido().def;
     let k = 0;
-    const shapes = this.elegido().def.shapes.map((f) =>
+    const shapes = def.shapes.map((f) =>
       f.tag === 'path' && typeof (f as { d?: unknown }).d === 'string'
         ? ({ ...f, d: ds[k++] } as IconShape)
         : f,
     );
-    return { ...this.elegido().def, shapes };
+
+    // Sin reordenar, nada más que hacer: los `d` ya están en su sitio.
+    const orden = this.ordenPaths();
+    if (!orden.some((viejo, nuevo) => viejo !== nuevo)) return { ...def, shapes };
+
+    /*
+     * Los `d` YA salen reordenados: `moverCapa()` reordena `modelos`, y el `map` de arriba los
+     * reparte en orden sobre las posiciones de path. Volver a permutar aquí deshacía el
+     * movimiento -- lo pilló el test `subir un trazo reordena las figuras del icono exportado`.
+     *
+     * Lo que sí falta es mover los TRACKS con su figura. Las figuras que no son path se quedan
+     * donde están: mover un `<circle>` no es algo que el editor ofrezca.
+     */
+    const posDePath = shapes
+      .map((f, i) => (f.tag === 'path' && typeof (f as { d?: unknown }).d === 'string' ? i : -1))
+      .filter((i) => i >= 0);
+
+    const finales = shapes;
+    // `mapa[viejo] = nuevo`: la figura que ocupaba la posición del path `orden[n]` está ahora en
+    // la del path `n`.
+    const mapa = new Map<number, number>();
+    posDePath.forEach((destino, n) => {
+      mapa.set(posDePath[orden[n]], destino);
+    });
+
+    const animations = Object.fromEntries(
+      Object.entries(def.animations).map(([nombre, coreografia]) => {
+        if (!coreografia.shapes) return [nombre, coreografia];
+        const tracks = Object.fromEntries(
+          Object.entries(coreografia.shapes).map(([indice, track]) => [
+            mapa.get(Number(indice)) ?? Number(indice),
+            track,
+          ]),
+        );
+        return [nombre, { ...coreografia, shapes: tracks }];
+      }),
+    );
+
+    return { ...def, shapes: finales, animations };
   });
 
   /** El mismo formato que acepta el importador del Lab: no hay una ruta privilegiada. */
@@ -1280,6 +1461,8 @@ export class Editor implements OnDestroy {
     this.activo.set(null);
     this.manijaActiva.set(null);
     this.ocultos.set(new Set());
+    this.desplegadas.set(new Set());
+    this.ordenPaths.set([0]);
     this.reencuadrar();
     this.historial.limpiar();
     this.sincronizarPila();
@@ -1330,8 +1513,11 @@ export class Editor implements OnDestroy {
     this.activo.set(null);
     this.manijaActiva.set(null);
     // Las capas ocultas son del icono anterior: sus índices no significan lo mismo aquí, y dejarlas
-    // esconde figuras del icono nuevo sin que nada lo explique.
+    // esconde figuras del icono nuevo sin que nada lo explique. Mismo motivo para el despliegue y
+    // para el orden, que arranca siendo el del catálogo.
     this.ocultos.set(new Set());
+    this.desplegadas.set(new Set());
+    this.ordenPaths.set(this.modelos().map((_, i) => i));
     // Un encuadre heredado deja el icono nuevo fuera de cuadro: cada figura tiene su propio centro.
     this.reencuadrar();
     // El historial del icono anterior no aplica al nuevo.
@@ -1391,10 +1577,27 @@ export class Editor implements OnDestroy {
   private aViewBox(ev: { clientX: number; clientY: number }): [number, number] {
     const r = this.lienzo.nativeElement.getBoundingClientRect();
     // El zoom entra aquí y en ningún otro lado: es el único punto donde pantalla y viewBox se
-    // tocan. Con zoom 1 y pan (0,0) la cuenta es idéntica a la de antes.
+    // tocan.
     const l = this.ladoVisible();
     const [px, py] = this.pan();
-    return [px + ((ev.clientX - r.left) / r.width) * l, py + ((ev.clientY - r.top) / r.height) * l];
+    /*
+     * El `viewBox` es CUADRADO y el elemento casi nunca lo es. Sin `preserveAspectRatio`, el SVG
+     * usa el default `xMidYMid meet`: escala uniforme por el lado corto y centra el dibujo,
+     * dejando bandas en el largo. Repartir el rect entero entre el viewBox —dividir x entre
+     * `width` e y entre `height`— aplica dos escalas distintas y se salta el centrado, así que lo
+     * dibujado se despega del puntero, y tanto más cuanto más lejos del centro.
+     *
+     * `getScreenCTM()` daría esto resuelto, pero jsdom no lo implementa y dejaría los tests de
+     * arrastre sin poder medir nada. La cuenta a mano es la misma y se comporta igual en los dos
+     * sitios. Con un elemento cuadrado los offsets son 0 y esto es idéntico a la fórmula vieja.
+     */
+    const escala = Math.min(r.width, r.height) / l;
+    const margenX = (r.width - l * escala) / 2;
+    const margenY = (r.height - l * escala) / 2;
+    return [
+      px + (ev.clientX - r.left - margenX) / escala,
+      py + (ev.clientY - r.top - margenY) / escala,
+    ];
   }
 
   protected empezar(ev: PointerEvent, nodo: Nodo): void {
