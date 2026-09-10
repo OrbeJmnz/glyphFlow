@@ -496,9 +496,9 @@ describe('Editor', () => {
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
 
-    const [mas] = [...html.querySelectorAll<HTMLButtonElement>('.dock .lienzo-btn')].filter(
-      (b) => b.textContent?.trim() === '+',
-    );
+    // Por clase y no por el texto del botón: su contenido es un `<gf-icon>`, no un carácter. La
+    // clase no depende del idioma en que corran los tests ni del orden dentro del dock.
+    const mas = html.querySelector<HTMLButtonElement>('.dock .zoom-mas')!;
     mas.click();
     await fixture.whenStable();
 
@@ -543,9 +543,7 @@ describe('Editor', () => {
     await elegir(m);
     const { fixture, html } = m;
     const antes = Number(html.querySelector('.nodos .nodo')!.getAttribute('r'));
-    [...html.querySelectorAll<HTMLButtonElement>('.dock .lienzo-btn')]
-      .find((b) => b.textContent?.trim() === '+')!
-      .click();
+    html.querySelector<HTMLButtonElement>('.dock .zoom-mas')!.click();
     await fixture.whenStable();
     expect(Number(html.querySelector('.nodos .nodo')!.getAttribute('r'))).toBeCloseTo(
       antes / 1.35,

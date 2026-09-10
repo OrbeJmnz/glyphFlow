@@ -29,7 +29,13 @@ import {
   faceSlightlyFrowningIcon,
   grid3x3Icon,
   magnetIcon,
+  maximizeIcon,
+  minimizeIcon,
   penToolIcon,
+  redo2Icon,
+  undo2Icon,
+  zoomInIcon,
+  zoomOutIcon,
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
@@ -211,6 +217,16 @@ export class Editor implements OnDestroy {
   protected readonly iconoBorrar = circleMinusIcon;
   protected readonly iconoVisible = eyeIcon;
   protected readonly iconoOculto = eyeOffIcon;
+  // Los controles del lienzo dibujaban su icono con glifos Unicode (↶ ↷ − + ⛶). Un glifo no es un
+  // icono: no comparte grosor ni caja con el resto, y el de deshacer/rehacer venía DENTRO del
+  // aria-label, así que un lector de pantalla lo leía en voz alta. Ahora son iconos de la propia
+  // librería -- el sitio de glyphflow usando glyphflow.
+  protected readonly iconoDeshacer = undo2Icon;
+  protected readonly iconoRehacer = redo2Icon;
+  protected readonly iconoAcercar = zoomInIcon;
+  protected readonly iconoAlejar = zoomOutIcon;
+  protected readonly iconoPantalla = maximizeIcon;
+  protected readonly iconoSalirPantalla = minimizeIcon;
 
   /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
   protected readonly mostrarRejilla = signal(true);

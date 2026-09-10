@@ -349,7 +349,7 @@
           [attr.aria-label]="'editor.historial.deshacer' | transloco"
           (click)="deshacer()"
         >
-          ↶
+          <gf-icon [iconDef]="iconoDeshacer" [size]="16" trigger="manual" />
         </button>
         <button
           type="button"
@@ -359,7 +359,7 @@
           [attr.aria-label]="'editor.historial.rehacer' | transloco"
           (click)="rehacer()"
         >
-          ↷
+          <gf-icon [iconDef]="iconoRehacer" [size]="16" trigger="manual" />
         </button>
       </div>
 
@@ -512,13 +512,13 @@
     >
       <button
         type="button"
-        class="lienzo-btn"
+        class="lienzo-btn zoom-menos"
         [disabled]="zoom() <= zoomMin"
         [title]="'editor.lienzo.alejar' | transloco"
         [attr.aria-label]="'editor.lienzo.alejar' | transloco"
         (click)="alejar()"
       >
-        −
+        <gf-icon [iconDef]="iconoAlejar" [size]="16" trigger="manual" />
       </button>
       <button
         type="button"
@@ -530,13 +530,13 @@
       </button>
       <button
         type="button"
-        class="lienzo-btn"
+        class="lienzo-btn zoom-mas"
         [disabled]="zoom() >= zoomMax"
         [title]="'editor.lienzo.acercar' | transloco"
         [attr.aria-label]="'editor.lienzo.acercar' | transloco"
         (click)="acercar()"
       >
-        +
+        <gf-icon [iconDef]="iconoAcercar" [size]="16" trigger="manual" />
       </button>
 
       <span class="dock-sep" aria-hidden="true"></span>
@@ -552,7 +552,11 @@
         "
         (click)="alternarPantalla()"
       >
-        ⛶
+        <gf-icon
+          [iconDef]="enPantalla() ? iconoSalirPantalla : iconoPantalla"
+          [size]="16"
+          trigger="manual"
+        />
       </button>
     </div>
     </div>

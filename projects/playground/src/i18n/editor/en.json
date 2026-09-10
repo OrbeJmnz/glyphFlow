@@ -103,8 +103,8 @@
   },
   "historial": {
     "grupoAria": "History",
-    "deshacer": "↶ undo",
-    "rehacer": "↷ redo"
+    "deshacer": "Undo",
+    "rehacer": "Redo"
   },
   "salida": {
     "titulo": "result",
