@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
@@ -146,6 +147,10 @@ interface NodoVista extends Nodo {
   ],
   templateUrl: './editor.html',
   styleUrl: './editor.css',
+  // Era el único componente del sitio sin OnPush. Todo el estado de aquí ya va por señal (lo que
+  // no lo es, son constantes y métodos), así que con la app todavía en Zone.js esto recorta el
+  // repintado ajeno que dispara cada `pointermove` del arrastre.
+  changeDetection: ChangeDetectionStrategy.OnPush,
   // El atajo va en el host y no en un `div` del template: Ctrl+Z es global, no una interacción de
   // ese elemento. Colgarlo de un `div` además obligaba a hacerlo focusable para nada.
   host: {
@@ -819,6 +824,13 @@ export class Editor implements OnDestroy {
   protected readonly dPorPath = computed<string[]>(() =>
     this.modelos().map((subs) => subs.map(dDeSubpath).join('')),
   );
+
+  /**
+   * Cuántos `<path>` tiene el icono. Existe para que el contador de la barra y la pista de
+   * multi-trazo NO lean `dPorPath()`: eso serializa la geometría entera a texto, y se leía en cada
+   * `pointermove` del arrastre solo para sacarle el `.length` a un arreglo.
+   */
+  protected readonly numTrazos = computed(() => this.modelos().length);
 
   protected readonly editado = computed(() => this.dPorPath().join('\n'));
 

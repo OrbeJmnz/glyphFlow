@@ -31,8 +31,8 @@
         }}</span>
         <span class="sep" aria-hidden="true">·</span>
         <span>{{
-          (dPorPath().length === 1 ? 'editor.lienzo.trazo' : 'editor.lienzo.trazos')
-            | transloco: { n: dPorPath().length }
+          (numTrazos() === 1 ? 'editor.lienzo.trazo' : 'editor.lienzo.trazos')
+            | transloco: { n: numTrazos() }
         }}</span>
         <span class="sep" aria-hidden="true">·</span>
         <span class="marca-estado" [class.vivo]="tocado()">
@@ -507,9 +507,9 @@
     </div>
     </div>
 
-    @if (dPorPath().length > 1) {
+    @if (numTrazos() > 1) {
       <p class="pista">
-        {{ 'editor.trazos' | transloco: { n: dPorPath().length } }}
+        {{ 'editor.trazos' | transloco: { n: numTrazos() } }}
       </p>
     }
 
