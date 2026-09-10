@@ -498,7 +498,11 @@ describe('Editor', () => {
   it('la conversión pantalla→viewBox respeta el centrado en un lienzo no cuadrado', async () => {
     const m = await montar();
     const { fixture, html } = m;
-    const svg = html.querySelector('svg.lienzo')!;
+    const svg = html.querySelector<SVGSVGElement>('svg.lienzo')!;
+    // Padding a 0 a propósito: este test mide el CENTRADO, y el padding real del componente
+    // (16/16/132) tiene su propio test justo debajo. Sin fijarlo, la aritmética de aquí dependería
+    // de un valor de CSS que no es lo que se está probando.
+    svg.style.padding = '0';
     // 600×400: el dibujo ocupa 400×400 centrado, con 100px de banda a cada lado.
     const r = { left: 0, top: 0, width: 600, height: 400 };
     svg.getBoundingClientRect = () =>
@@ -527,6 +531,46 @@ describe('Editor', () => {
     expect(d).toContain('18 12');
   }, 20000);
 
+  /*
+   * Segunda mitad de la misma cicatriz. `.lienzo` lleva `padding: 16px 16px 132px` con
+   * `box-sizing: border-box` (el hueco de abajo es donde se posan los docks), pero el `viewBox` de
+   * un SVG se mapea al CONTENT box, no al border box — y `getBoundingClientRect()` devuelve el
+   * border box. Medir sobre la caja equivocada desvía la escala casi un tercio, que es la parte
+   * gorda del desfase que se veía dibujando con la pluma.
+   */
+  it('la conversión descuenta el padding del lienzo', async () => {
+    const m = await montar();
+    const { fixture, html } = m;
+    const svg = html.querySelector<SVGSVGElement>('svg.lienzo')!;
+    // Border box 500×400 con 50px de padding a cada lado y 100px arriba/abajo:
+    // el content box es 400×200, y su origen está en (50, 100).
+    svg.style.padding = '100px 50px';
+    const r = { left: 0, top: 0, width: 500, height: 400 };
+    svg.getBoundingClientRect = () =>
+      ({ ...r, right: 500, bottom: 400, x: 0, y: 0, toJSON: () => r }) as DOMRect;
+
+    // Content 400×200 → escala meet = 200/24 = 8.333; el dibujo ocupa 200×200 centrado en 400,
+    // así que empieza en x = 50 + 100 = 150 de la pantalla.
+    // Clic en x=150 → 0 unidades; en x=250 → 12. y=200 es el centro vertical → 12.
+    for (const [x, y] of [
+      [200, 200],
+      [250, 200],
+    ]) {
+      svg.dispatchEvent(
+        new PointerEvent('pointerdown', { clientX: x, clientY: y, bubbles: true }),
+      );
+      await fixture.whenStable();
+    }
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await fixture.whenStable();
+
+    await irA(m, 'salida');
+    const d = html.querySelector<HTMLTextAreaElement>('.editable-d')!.value;
+    // x=200 está 50px dentro del dibujo → 50/8.333 = 6 unidades. x=250 → 12.
+    expect(d).toContain('M6 12');
+    expect(d).toContain('12 12');
+  }, 20000);
+
   it('el zoom reencuadra el viewBox y la conversión pantalla→viewBox lo respeta', async () => {
     // El riesgo real del zoom no es que se vea mal: es que `aViewBox` deje de cuadrar y el nodo se
     // despegue del puntero. Aquí se mide justo eso, arrastrando UNA unidad del icono con el
@@ -534,7 +578,10 @@ describe('Editor', () => {
     const m = await montar();
     await elegir(m);
     const { fixture, html } = m;
-    const svg = html.querySelector('svg.lienzo')!;
+    const svg = html.querySelector<SVGSVGElement>('svg.lienzo')!;
+    // Padding a 0: aquí se mide el ZOOM, y con el padding real del componente el área de dibujo no
+    // sería los 480×480 que asume la aritmética de abajo.
+    svg.style.padding = '0';
     const r = { left: 0, top: 0, width: 480, height: 480 };
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;

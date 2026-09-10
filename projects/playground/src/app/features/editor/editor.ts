@@ -1575,28 +1575,42 @@ export class Editor implements OnDestroy {
    * puntero en cuanto cambia el ancho de la ventana.
    */
   private aViewBox(ev: { clientX: number; clientY: number }): [number, number] {
-    const r = this.lienzo.nativeElement.getBoundingClientRect();
+    const el = this.lienzo.nativeElement;
+    const r = el.getBoundingClientRect();
     // El zoom entra aquí y en ningún otro lado: es el único punto donde pantalla y viewBox se
     // tocan.
     const l = this.ladoVisible();
     const [px, py] = this.pan();
+
     /*
-     * El `viewBox` es CUADRADO y el elemento casi nunca lo es. Sin `preserveAspectRatio`, el SVG
-     * usa el default `xMidYMid meet`: escala uniforme por el lado corto y centra el dibujo,
-     * dejando bandas en el largo. Repartir el rect entero entre el viewBox —dividir x entre
-     * `width` e y entre `height`— aplica dos escalas distintas y se salta el centrado, así que lo
-     * dibujado se despega del puntero, y tanto más cuanto más lejos del centro.
+     * Dos correcciones, las dos por la misma razón: el `viewBox` no se reparte sobre el rectángulo
+     * que devuelve `getBoundingClientRect()`.
      *
-     * `getScreenCTM()` daría esto resuelto, pero jsdom no lo implementa y dejaría los tests de
-     * arrastre sin poder medir nada. La cuenta a mano es la misma y se comporta igual en los dos
-     * sitios. Con un elemento cuadrado los offsets son 0 y esto es idéntico a la fórmula vieja.
+     * 1. Va al CONTENT box. `.lienzo` lleva `padding: 16px 16px 132px` con `box-sizing:
+     *    border-box` -- el hueco de abajo es donde se posan los docks -- y `getBoundingClientRect`
+     *    devuelve el BORDER box, padding incluido. Medir sobre él desvía la escala casi un tercio.
+     *
+     * 2. Dentro de ese content box, el SVG aplica `xMidYMid meet` (el default, aquí no se declara
+     *    `preserveAspectRatio`): escala uniforme por el lado corto y CENTRA, dejando bandas en el
+     *    largo. Repartir cada eje por su cuenta aplica dos escalas distintas y se salta el
+     *    centrado, así que lo dibujado se despega del puntero, y tanto más cuanto más lejos del
+     *    centro se hace clic.
+     *
+     * `getScreenCTM()` daría las dos resueltas, pero jsdom no lo implementa y dejaría los tests de
+     * arrastre sin poder medir nada. La cuenta a mano se comporta igual en los dos sitios.
      */
-    const escala = Math.min(r.width, r.height) / l;
-    const margenX = (r.width - l * escala) / 2;
-    const margenY = (r.height - l * escala) / 2;
+    const cs = getComputedStyle(el);
+    const padIzq = parseFloat(cs.paddingLeft) || 0;
+    const padArriba = parseFloat(cs.paddingTop) || 0;
+    const ancho = r.width - padIzq - (parseFloat(cs.paddingRight) || 0);
+    const alto = r.height - padArriba - (parseFloat(cs.paddingBottom) || 0);
+
+    const escala = Math.min(ancho, alto) / l;
+    const margenX = (ancho - l * escala) / 2;
+    const margenY = (alto - l * escala) / 2;
     return [
-      px + (ev.clientX - r.left - margenX) / escala,
-      py + (ev.clientY - r.top - margenY) / escala,
+      px + (ev.clientX - r.left - padIzq - margenX) / escala,
+      py + (ev.clientY - r.top - padArriba - margenY) / escala,
     ];
   }
 
