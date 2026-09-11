@@ -43,6 +43,187 @@
         <gf-icon [iconDef]="elegido().def" [size]="16" trigger="manual" />
         <strong>{{ elegido().nombre || ('editor.pluma.sinNombre' | transloco) }}</strong>
       </span>
+      <div class="dock" role="group" [attr.aria-label]="'editor.lienzo.controlesAria' | transloco">
+        <div class="deshacer" role="group" [attr.aria-label]="'editor.historial.grupoAria' | transloco">
+          <button
+            type="button"
+            class="lienzo-btn"
+            [disabled]="!pila().deshacer"
+            [title]="'editor.historial.deshacer' | transloco"
+            [attr.aria-label]="'editor.historial.deshacer' | transloco"
+            (click)="deshacer()"
+          >
+            <gf-icon [iconDef]="iconoDeshacer" [size]="16" trigger="manual" />
+          </button>
+          <button
+            type="button"
+            class="lienzo-btn"
+            [disabled]="!pila().rehacer"
+            [title]="'editor.historial.rehacer' | transloco"
+            [attr.aria-label]="'editor.historial.rehacer' | transloco"
+            (click)="rehacer()"
+          >
+            <gf-icon [iconDef]="iconoRehacer" [size]="16" trigger="manual" />
+          </button>
+        </div>
+
+        <span class="dock-sep" aria-hidden="true"></span>
+
+        <!--
+          T30 · conmutador de rejilla y de ajuste. Icono cada uno y `[class.activo]` para el estado --
+          mismo criterio que el botón de movimiento del header (`app.html`): un control que alterna,
+          no dos botones "encendido"/"apagado" por separado. El ajuste arranca activo (T-nuevo, ver
+          `ajustarRejilla` en `editor.ts`), así que este botón normalmente se ve ya encendido.
+        -->
+        <button
+          type="button"
+          class="lienzo-btn"
+          [class.activo]="mostrarRejilla()"
+          [attr.aria-pressed]="mostrarRejilla()"
+          [title]="
+            (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+              | transloco
+          "
+          [attr.aria-label]="
+            (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
+              | transloco
+          "
+          (click)="mostrarRejilla.set(!mostrarRejilla())"
+        >
+          <gf-icon [iconDef]="iconoRejilla" [size]="14" trigger="manual" />
+        </button>
+        <button
+          type="button"
+          class="lienzo-btn"
+          [class.activo]="ajustarRejilla()"
+          [attr.aria-pressed]="ajustarRejilla()"
+          [title]="
+            (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+              | transloco
+          "
+          [attr.aria-label]="
+            (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
+              | transloco
+          "
+          (click)="ajustarRejilla.set(!ajustarRejilla())"
+        >
+          <gf-icon [iconDef]="iconoAjuste" [size]="14" trigger="manual" />
+        </button>
+        <button
+          type="button"
+          class="lienzo-btn"
+          [class.activo]="modoPluma()"
+          [class.pluma-activa]="modoPluma()"
+          [attr.aria-pressed]="modoPluma()"
+          [title]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
+          [attr.aria-label]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
+          (click)="modoPluma() ? cancelarPluma() : activarPluma()"
+        >
+          <gf-icon [iconDef]="iconoPluma" [size]="14" trigger="manual" />
+        </button>
+
+        <!--
+          Acciones del nodo: contextuales, y por eso van al final -- el dock solo crece cuando hay
+          algo sobre lo que actuar. La identidad del nodo y sus coordenadas viven aparte, en
+          `.dock-nodo` debajo de este dock -- separar "qué puedo hacer" (estos botones) de "qué estoy
+          tocando" (la otra pastilla) le da a las coordenadas el ancho que se merecen.
+        -->
+        <span class="dock-sep" aria-hidden="true"></span>
+        <div class="nodo-acciones" role="group" [attr.aria-label]="'editor.nodo.grupoAria' | transloco">
+          @if (nodoActivo()) {
+            <!--
+              Icono y no texto+kbd: en un dock ya lleno de botones cuadrados, dos pastillas largas
+              desentonaban -- el resto del grupo ya enseña que "icono + tooltip" es el idioma de esta
+              barra. El atajo (+/Supr) sigue en el tooltip y en la lista de atajos de "Edición";
+              "curvar este tramo" se queda con su texto -- no hay un icono de curva que no confunda.
+            -->
+            <div class="nodo-btns">
+              <button
+                type="button"
+                class="lienzo-btn"
+                [title]="'editor.nodo.agregar' | transloco"
+                [attr.aria-label]="'editor.nodo.agregar' | transloco"
+                (click)="agregarNodo()"
+              >
+                <gf-icon [iconDef]="iconoInsertar" [size]="14" trigger="manual" />
+              </button>
+              <button
+                type="button"
+                class="lienzo-btn"
+                [title]="'editor.nodo.borrar' | transloco"
+                [attr.aria-label]="'editor.nodo.borrar' | transloco"
+                (click)="borrarNodo()"
+              >
+                <gf-icon [iconDef]="iconoBorrar" [size]="14" trigger="manual" />
+              </button>
+              @if (puedeCurvar()) {
+                <button type="button" app-chip variante="contorno" (click)="curvarTramo()">
+                  {{ 'editor.nodo.curvar' | transloco }}
+                </button>
+              }
+            </div>
+          } @else {
+            <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Zoom y pantalla completa: controles de VISTA, aparte del dock de edición -- arriba a la
+           derecha del lienzo, no abajo al centro, para no competir por el mismo espacio. -->
+      <div
+        class="dock dock-zoom"
+        role="group"
+        [attr.aria-label]="'editor.lienzo.controlesZoomAria' | transloco"
+      >
+        <button
+          type="button"
+          class="lienzo-btn zoom-menos"
+          [disabled]="zoom() <= zoomMin"
+          [title]="'editor.lienzo.alejar' | transloco"
+          [attr.aria-label]="'editor.lienzo.alejar' | transloco"
+          (click)="alejar()"
+        >
+          <gf-icon [iconDef]="iconoAlejar" [size]="16" trigger="manual" />
+        </button>
+        <button
+          type="button"
+          class="lienzo-btn lienzo-btn-txt"
+          [title]="'editor.lienzo.reencuadrar' | transloco"
+          (click)="reencuadrar()"
+        >
+          {{ porcentaje() }}%
+        </button>
+        <button
+          type="button"
+          class="lienzo-btn zoom-mas"
+          [disabled]="zoom() >= zoomMax"
+          [title]="'editor.lienzo.acercar' | transloco"
+          [attr.aria-label]="'editor.lienzo.acercar' | transloco"
+          (click)="acercar()"
+        >
+          <gf-icon [iconDef]="iconoAcercar" [size]="16" trigger="manual" />
+        </button>
+
+        <span class="dock-sep" aria-hidden="true"></span>
+
+        <button
+          type="button"
+          class="lienzo-btn"
+          [title]="
+            (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+          "
+          [attr.aria-label]="
+            (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
+          "
+          (click)="alternarPantalla()"
+        >
+          <gf-icon
+            [iconDef]="enPantalla() ? iconoSalirPantalla : iconoPantalla"
+            [size]="16"
+            trigger="manual"
+          />
+        </button>
+      </div>
     </div>
 
     <!-- Aviso de la pluma: qué hace cada clic, mientras está activa. Fila propia y no metido en
@@ -292,130 +473,6 @@
       mide lo que su contenido pida y el `gap` de la pila los separa.
     -->
     <div class="dock-pila">
-    <div class="dock" role="group" [attr.aria-label]="'editor.lienzo.controlesAria' | transloco">
-      <div class="deshacer" role="group" [attr.aria-label]="'editor.historial.grupoAria' | transloco">
-        <button
-          type="button"
-          class="lienzo-btn"
-          [disabled]="!pila().deshacer"
-          [title]="'editor.historial.deshacer' | transloco"
-          [attr.aria-label]="'editor.historial.deshacer' | transloco"
-          (click)="deshacer()"
-        >
-          <gf-icon [iconDef]="iconoDeshacer" [size]="16" trigger="manual" />
-        </button>
-        <button
-          type="button"
-          class="lienzo-btn"
-          [disabled]="!pila().rehacer"
-          [title]="'editor.historial.rehacer' | transloco"
-          [attr.aria-label]="'editor.historial.rehacer' | transloco"
-          (click)="rehacer()"
-        >
-          <gf-icon [iconDef]="iconoRehacer" [size]="16" trigger="manual" />
-        </button>
-      </div>
-
-      <span class="dock-sep" aria-hidden="true"></span>
-
-      <!--
-        T30 · conmutador de rejilla y de ajuste. Icono cada uno y `[class.activo]` para el estado --
-        mismo criterio que el botón de movimiento del header (`app.html`): un control que alterna,
-        no dos botones "encendido"/"apagado" por separado. El ajuste arranca activo (T-nuevo, ver
-        `ajustarRejilla` en `editor.ts`), así que este botón normalmente se ve ya encendido.
-      -->
-      <button
-        type="button"
-        class="lienzo-btn"
-        [class.activo]="mostrarRejilla()"
-        [attr.aria-pressed]="mostrarRejilla()"
-        [title]="
-          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
-            | transloco
-        "
-        [attr.aria-label]="
-          (mostrarRejilla() ? 'editor.lienzo.rejillaOcultar' : 'editor.lienzo.rejillaMostrar')
-            | transloco
-        "
-        (click)="mostrarRejilla.set(!mostrarRejilla())"
-      >
-        <gf-icon [iconDef]="iconoRejilla" [size]="14" trigger="manual" />
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn"
-        [class.activo]="ajustarRejilla()"
-        [attr.aria-pressed]="ajustarRejilla()"
-        [title]="
-          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
-            | transloco
-        "
-        [attr.aria-label]="
-          (ajustarRejilla() ? 'editor.lienzo.ajusteDesactivar' : 'editor.lienzo.ajusteActivar')
-            | transloco
-        "
-        (click)="ajustarRejilla.set(!ajustarRejilla())"
-      >
-        <gf-icon [iconDef]="iconoAjuste" [size]="14" trigger="manual" />
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn"
-        [class.activo]="modoPluma()"
-        [class.pluma-activa]="modoPluma()"
-        [attr.aria-pressed]="modoPluma()"
-        [title]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
-        [attr.aria-label]="(modoPluma() ? 'editor.pluma.salir' : 'editor.pluma.entrar') | transloco"
-        (click)="modoPluma() ? cancelarPluma() : activarPluma()"
-      >
-        <gf-icon [iconDef]="iconoPluma" [size]="14" trigger="manual" />
-      </button>
-
-      <!--
-        Acciones del nodo: contextuales, y por eso van al final -- el dock solo crece cuando hay
-        algo sobre lo que actuar. La identidad del nodo y sus coordenadas viven aparte, en
-        `.dock-nodo` debajo de este dock -- separar "qué puedo hacer" (estos botones) de "qué estoy
-        tocando" (la otra pastilla) le da a las coordenadas el ancho que se merecen.
-      -->
-      <span class="dock-sep" aria-hidden="true"></span>
-      <div class="nodo-acciones" role="group" [attr.aria-label]="'editor.nodo.grupoAria' | transloco">
-        @if (nodoActivo()) {
-          <!--
-            Icono y no texto+kbd: en un dock ya lleno de botones cuadrados, dos pastillas largas
-            desentonaban -- el resto del grupo ya enseña que "icono + tooltip" es el idioma de esta
-            barra. El atajo (+/Supr) sigue en el tooltip y en la lista de atajos de "Edición";
-            "curvar este tramo" se queda con su texto -- no hay un icono de curva que no confunda.
-          -->
-          <div class="nodo-btns">
-            <button
-              type="button"
-              class="lienzo-btn"
-              [title]="'editor.nodo.agregar' | transloco"
-              [attr.aria-label]="'editor.nodo.agregar' | transloco"
-              (click)="agregarNodo()"
-            >
-              <gf-icon [iconDef]="iconoInsertar" [size]="14" trigger="manual" />
-            </button>
-            <button
-              type="button"
-              class="lienzo-btn"
-              [title]="'editor.nodo.borrar' | transloco"
-              [attr.aria-label]="'editor.nodo.borrar' | transloco"
-              (click)="borrarNodo()"
-            >
-              <gf-icon [iconDef]="iconoBorrar" [size]="14" trigger="manual" />
-            </button>
-            @if (puedeCurvar()) {
-              <button type="button" app-chip variante="contorno" (click)="curvarTramo()">
-                {{ 'editor.nodo.curvar' | transloco }}
-              </button>
-            }
-          </div>
-        } @else {
-          <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
-        }
-      </div>
-    </div>
 
     <!--
       La identidad del nodo elegido y sus coordenadas, en su propia pastilla debajo del dock --
@@ -456,62 +513,6 @@
     }
     </div>
 
-    <!-- Zoom y pantalla completa: controles de VISTA, aparte del dock de edición -- arriba a la
-         derecha del lienzo, no abajo al centro, para no competir por el mismo espacio. -->
-    <div
-      class="dock dock-zoom"
-      role="group"
-      [attr.aria-label]="'editor.lienzo.controlesZoomAria' | transloco"
-    >
-      <button
-        type="button"
-        class="lienzo-btn zoom-menos"
-        [disabled]="zoom() <= zoomMin"
-        [title]="'editor.lienzo.alejar' | transloco"
-        [attr.aria-label]="'editor.lienzo.alejar' | transloco"
-        (click)="alejar()"
-      >
-        <gf-icon [iconDef]="iconoAlejar" [size]="16" trigger="manual" />
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn lienzo-btn-txt"
-        [title]="'editor.lienzo.reencuadrar' | transloco"
-        (click)="reencuadrar()"
-      >
-        {{ porcentaje() }}%
-      </button>
-      <button
-        type="button"
-        class="lienzo-btn zoom-mas"
-        [disabled]="zoom() >= zoomMax"
-        [title]="'editor.lienzo.acercar' | transloco"
-        [attr.aria-label]="'editor.lienzo.acercar' | transloco"
-        (click)="acercar()"
-      >
-        <gf-icon [iconDef]="iconoAcercar" [size]="16" trigger="manual" />
-      </button>
-
-      <span class="dock-sep" aria-hidden="true"></span>
-
-      <button
-        type="button"
-        class="lienzo-btn"
-        [title]="
-          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
-        "
-        [attr.aria-label]="
-          (enPantalla() ? 'editor.lienzo.salirPantalla' : 'editor.lienzo.pantalla') | transloco
-        "
-        (click)="alternarPantalla()"
-      >
-        <gf-icon
-          [iconDef]="enPantalla() ? iconoSalirPantalla : iconoPantalla"
-          [size]="16"
-          trigger="manual"
-        />
-      </button>
-    </div>
     </div>
 
     <!--

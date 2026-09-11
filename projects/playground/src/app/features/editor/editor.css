@@ -106,8 +106,50 @@ app-capas-panel {
   color: var(--gf-texto-tenue);
 }
 
+/*
+ * La cabecera del lienzo es ahora la barra de herramientas: identidad a la izquierda, edición al
+ * centro, vista a la derecha. Antes las dos últimas flotaban SOBRE el dibujo, y ahí le comían
+ * esquina justo donde suele haber geometría -- además de tapar lo que estás editando con lo que
+ * usas para editarlo.
+ */
 .barra-alta {
   border-bottom: 1px solid var(--gf-borde-suave);
+  gap: 12px;
+  min-height: 52px;
+  padding-block: 6px;
+  flex-wrap: wrap;
+}
+
+/*
+ * Dentro de la barra, los docks pierden la pastilla: borde, fondo y sombra dibujaban una caja
+ * dentro de otra. Flotando sobre el lienzo hacían falta para despegarse del dibujo; aquí ya están
+ * sobre una superficie propia, y repetirlas aplana la jerarquía en vez de crearla.
+ */
+.barra-alta .dock {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/*
+ * Dos filas a propósito, no por accidente: con el lienzo en ~630px, once botones más el nombre no
+ * caben en una línea sin encogerlos por debajo del mínimo táctil. Así que la de arriba lleva las
+ * dos puntas -- qué estás editando y cómo lo miras -- y las herramientas ocupan la suya, centradas
+ * bajo el nombre. Dejarlo al `wrap` sin ordenar tiraba el zoom a la izquierda de la segunda fila,
+ * lejos del extremo donde se le busca.
+ */
+.barra-alta .dock-zoom {
+  position: static;
+  margin-inline-start: auto;
+}
+
+.barra-alta .dock:not(.dock-zoom) {
+  order: 3;
+  flex-basis: 100%;
+  justify-content: center;
 }
 
 /* Al pie del lienzo, no en el título. Cierra la mesa de trabajo por abajo igual que `.barra-alta`
@@ -304,12 +346,6 @@ app-capas-panel {
 
 /* El segundo dock: zoom y pantalla completa, arriba a la derecha -- controles de VISTA, aparte
    del dock de edición para no competir por el mismo espacio abajo. Mismo look, otra esquina. */
-.dock-zoom {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  z-index: 1;
-}
 
 .dock-sep {
   flex: none;
@@ -340,8 +376,11 @@ app-capas-panel {
   max-height: 60vh;
   aspect-ratio: 1;
   margin: 0 auto;
-  /* Más aire abajo: ahí se posan el dock y, con un nodo elegido, `.dock-nodo` apilado debajo. */
-  padding: 16px 16px 132px;
+  /* Aire abajo sólo para la pastilla de coordenadas, que es lo único que sigue flotando sobre el
+     lienzo. El dock de edición subió a la cabecera y con él se fueron ~70px de hueco muerto: el
+     dibujo los recupera. Ojo, `aViewBox()` descuenta este padding — el viewBox se reparte sobre el
+     content box, no sobre el rect. */
+  padding: 16px 16px 62px;
   box-sizing: border-box;
   color: var(--gf-texto);
   /* Sin esto, arrastrar en un móvil hace scroll en vez de mover el nodo. */
