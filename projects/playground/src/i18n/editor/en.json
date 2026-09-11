@@ -21,7 +21,11 @@
   },
   "lista": {
     "editarAria": "Edit {{nombre}}",
-    "montarMas": "Show {{n}} more"
+    "rango": "Showing {{desde}}–{{hasta}} of {{total}}",
+    "navAria": "Catalog pages",
+    "anterior": "Previous page",
+    "siguiente": "Next page",
+    "pagina": "Page"
   },
   "lienzo": {
     "nodos": "{{n}} nodes",

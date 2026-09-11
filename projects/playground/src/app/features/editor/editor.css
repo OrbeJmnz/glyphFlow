@@ -34,11 +34,24 @@
  * entre 900px y ~1250px: ahí las capas pasan a una tira horizontal sobre el lienzo, que es la
  * orilla que menos duele perder cuando el ancho escasea.
  */
+/*
+ * `stretch` y no `start`: el inspector se estira hasta el alto del lienzo en vez de cortarse donde
+ * acabe su contenido, que dejaba un escalón raro en el borde inferior del workspace.
+ *
+ * Las dos columnas que se pegan al hacer scroll (capas y taller) se salen de eso con `align-self:
+ * start`: un sticky que ocupa todo el alto de su fila no tiene margen donde pegarse, así que
+ * estirarlas lo habría desactivado en silencio.
+ */
 .marco {
   display: grid;
   grid-template-columns: 15rem minmax(0, 1fr) 21rem;
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
+}
+
+.marco > app-capas-panel,
+.marco > .taller {
+  align-self: start;
 }
 
 /* La columna de capas: aquí sólo su sitio en la rejilla. Lo de dentro lo resuelve el componente. */
@@ -328,22 +341,17 @@ app-capas-panel {
  * Conserva la clase `.dock` para no duplicar su aspecto, pero sin pastilla: aquí ya está sobre
  * una superficie propia.
  */
-.dock-nodo {
+.nodo-cabecera {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 0 0 10px;
-  border: 0;
   border-bottom: 1px solid var(--gf-borde-suave);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
 }
 
 /* Las coordenadas se pegan al nombre, no al borde opuesto del panel: son SU dato, y con 336px de
    ancho separarlas las convertía en dos islas mirándose de lejos. */
-.dock-nodo .coords {
+.nodo-cabecera .coords {
   margin-left: 0;
 }
 
@@ -771,13 +779,71 @@ button:disabled kbd {
    el resto del sitio para velocidad/nav) en vez de reinventar el contenedor. El aire de arriba lo
    da el padding de `.panel` (subido de 4px a 12px); el de abajo, el propio padding de `.seccion`. */
 
+/*
+ * Un indicador que SE DESLIZA entre pestañas, en vez de que cada una encienda y apague su fondo.
+ * Reutiliza `[appCarrilActivo]`, la misma directiva que mueve el de la navegación del sitio: mide
+ * el hijo `.activo` y publica su rectángulo como `--ind-*`. Las cuatro pestañas miden distinto
+ * (“icono” contra “proyecto”), así que sin medir no hay forma de saber cuánto desplazarlo.
+ *
+ * Sin `z-index` negativo: el indicador va primero en la pila y los chips se levantan sobre él con
+ * `position: relative`. Un `-1` aquí se escaparía detrás del panel entero, porque `.tabs-nav` no
+ * crea contexto de apilado por sí solo.
+ */
+.tabs-nav {
+  position: relative;
+  isolation: isolate;
+}
+
+.tabs-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--ind-w, 0);
+  height: var(--ind-h, 100%);
+  translate: var(--ind-x, 0) var(--ind-y, 0);
+  opacity: var(--ind-o, 0);
+  border-radius: 999px;
+  background: var(--gf-velo-activo);
+  transition:
+    translate 0.28s var(--gf-resorte, ease),
+    width 0.28s var(--gf-resorte, ease),
+    opacity 0.2s ease;
+}
+
+.tabs-nav > * {
+  position: relative;
+}
+
+/* El fondo lo pinta el indicador: si el chip activo trae además el suyo, se ven dos pastillas
+   durante todo el recorrido. */
+.tabs-nav .chip.activo {
+  background: transparent;
+}
+
+/* Bajo movimiento reducido el indicador aparece donde toca, sin recorrer el camino. */
+@media (prefers-reduced-motion: reduce) {
+  .tabs-nav::before {
+    transition: opacity 0.2s ease;
+  }
+}
+
+[data-motion='off'] .tabs-nav::before {
+  transition: opacity 0.2s ease;
+}
+
 /* Antes tres bloques con rótulo y una línea que los separa -- ahora una pestaña a la vez
    (`@switch`), así que ya no hay hermano del que separarse. Mismo ritmo vertical de siempre. */
+/* Ocupa el panel entero: es la que reparte el alto a lo que lleve dentro (el catálogo en "icono",
+   los bloques de código en "salida"). `min-height: 0` para que sus hijos con scroll puedan
+   encoger en vez de desbordar el panel. */
 .seccion {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 14px 0;
+  flex: 1;
+  min-height: 0;
 }
 
 /*
@@ -785,11 +851,21 @@ button:disabled kbd {
  * también el `max-height` (11rem → 14rem) para que quepan más filas antes de pedir scroll -- la
  * altura de la pastilla la sigue dando `.chip` global, aquí solo se separa más el aire entre ellas.
  */
+/*
+ * La lista ya no lleva un alto fijo de 14rem: ahora que el inspector se estira hasta el lienzo,
+ * toma el espacio que sobre y hace scroll dentro. Con el alto fijo quedaba una franja muerta bajo
+ * el catálogo mientras el lienzo seguía bajando -- justo el escalón que se veía en el borde.
+ *
+ * `min-height: 0` es lo que lo hace posible: sin él, un hijo de flex no encoge por debajo de su
+ * contenido y la lista empujaría el panel hacia abajo en vez de desplazarse por dentro.
+ */
 .lista {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 8px;
-  max-height: 14rem;
+  flex: 1;
+  min-height: 8rem;
   overflow-y: auto;
 }
 
@@ -860,18 +936,6 @@ button:disabled kbd {
  * el dock (`position: absolute`), así que crecer/encoger ya no mueve nada a su alrededor.
  */
 
-.nodo-cab {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.nodo-cab strong {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gf-texto);
-}
 
 /*
  * `tabular-nums` no es cosmético: la cifra cambia en cada píxel del arrastre, y sin ancho fijo por
@@ -1055,14 +1119,16 @@ button:disabled kbd {
  * área visible, por eso `overflow-wrap: normal` (el navegador SÍ deja hacer scroll horizontal en un
  * textarea, a diferencia del `pre` de arriba que fuerza el wrap).
  */
+/* El `d` es lo que más se lee de esta pestaña, y ahora que el inspector llega al alto del lienzo
+   hay sitio: sube de 12rem a 20rem de tope. Sigue siendo redimensionable a mano. */
 .editable-d {
   display: block;
   width: 100%;
   margin: 0;
   padding: 0 10px 8px;
   border: 0;
-  max-height: 12rem;
-  min-height: 4.5rem;
+  max-height: 20rem;
+  min-height: 6rem;
   resize: vertical;
   background: transparent;
   color: var(--gf-texto-medio);

@@ -48,7 +48,7 @@ import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
 import { NombreTruncado } from '../../shared/ui/nombre-truncado';
 import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, varianteDe, type ClaveInsignia, type Insignia } from './icon-badges';
-import { Paginador } from './paginador';
+import { Paginador } from '../../shared/ui/paginador';
 import { CIFRAS } from '../../core/cifras';
 import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';

@@ -504,7 +504,11 @@
       así que "Edición" se queda con lo que de verdad pide estar en el panel: restablecer y los
       atajos de teclado.
     -->
-    <nav class="tabs-nav ui-grupo" [attr.aria-label]="'editor.panel.tabsNavAria' | transloco">
+    <nav
+      appCarrilActivo
+      class="tabs-nav ui-grupo"
+      [attr.aria-label]="'editor.panel.tabsNavAria' | transloco"
+    >
       <button type="button" app-chip [activo]="pestanaActiva() === 'icono'" (click)="elegirPestana('icono')">
         {{ 'editor.secciones.elementos' | transloco }}
       </button>
@@ -574,19 +578,38 @@
                   </button>
                 </app-tooltip>
               }
-              <!--
-                El final de la lista. El botón no es un respaldo del observador: es la única vía para
-                quien tabula por los chips, que nunca dispara un `IntersectionObserver`.
-              -->
-              @if (hayMas()) {
-                <button type="button" app-boton compacto appVisible (visible)="montarMas()">
-                  {{
-                    'editor.lista.montarMas'
-                      | transloco: { n: candidatos().length - visibles().length }
-                  }}
-                </button>
-              }
             </div>
+
+            <!--
+              Paginación en vez de un tramo que crece: con 1767 iconos, «ver más» obligaba a seguir
+              pulsando sin saber cuánto falta, y al filtrar dejaba montado lo de la búsqueda
+              anterior. Reutiliza el mismo `app-paginador` del catálogo del sitio -- subió a
+              `shared/ui/` justo por este segundo uso.
+            -->
+            @if (totalPaginas() > 1) {
+              <div class="pie-paginacion">
+                <p class="pie-rango">
+                  {{
+                    'editor.lista.rango'
+                      | transloco
+                        : {
+                            desde: rangoPagina().desde,
+                            hasta: rangoPagina().hasta,
+                            total: rangoPagina().total,
+                          }
+                  }}
+                </p>
+                <app-paginador
+                  [pagina]="paginaEfectiva()"
+                  [totalPaginas]="totalPaginas()"
+                  [etiqueta]="'editor.lista.navAria' | transloco"
+                  [etiquetaAnterior]="'editor.lista.anterior' | transloco"
+                  [etiquetaSiguiente]="'editor.lista.siguiente' | transloco"
+                  [etiquetaPagina]="'editor.lista.pagina' | transloco"
+                  (cambiar)="irAPagina($event)"
+                />
+              </div>
+            }
           }
         </section>
       }
@@ -606,7 +629,7 @@
             mismo criterio que el resto del sitio para "el UN dato que importa en esta pantalla".
           -->
           @if (nodoActivo(); as n) {
-            <div class="dock dock-nodo">
+            <div class="nodo-cabecera">
               <strong class="degradado-texto-sutil">
                 {{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}
               </strong>

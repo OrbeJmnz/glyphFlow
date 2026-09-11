@@ -1111,6 +1111,25 @@ code {
  * salen de `rangoPaginas()` (`features/iconos/paginacion.ts`): primera, última, vecinas de la
  * actual, con un salto donde el hueco lo pida.
  */
+/*
+ * El pie de una lista paginada: el rango y los números, centrados. Vive aquí y no en el CSS del
+ * componente que lo use porque ya son dos -- el catálogo del sitio y el del editor de trazos-- y
+ * duplicarlo en cada uno es la vía rápida a que se separen sin que nadie lo note.
+ */
+.pie-paginacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.pie-rango {
+  margin: 0;
+  font-size: 12px;
+  color: var(--gf-texto-tenue);
+  font-variant-numeric: tabular-nums;
+}
+
 .ui-paginador {
   display: inline-flex;
   align-items: center;

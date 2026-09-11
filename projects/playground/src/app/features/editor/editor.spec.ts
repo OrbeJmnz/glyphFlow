@@ -451,8 +451,10 @@ describe('Editor', () => {
     expect(html.querySelector('.conteo')?.textContent).toContain(String(total));
 
     // Y hay por dónde seguir sin depender de un `IntersectionObserver`, que tabulando no se
-    // dispara nunca.
-    expect(html.querySelector('.lista button[app-boton]')).toBeTruthy();
+    // dispara nunca. Antes era un botón de "ver N más" dentro de la lista; ahora es el paginador,
+    // que además dice cuántas páginas hay en vez de obligar a pulsar hasta que se acabe.
+    expect(html.querySelector('.pie-paginacion app-paginador')).toBeTruthy();
+    expect(html.querySelectorAll('.pie-paginacion .paginador-num').length).toBeGreaterThan(0);
   });
 
   it('el icono que se está editando siempre está montado, caiga donde caiga', async () => {

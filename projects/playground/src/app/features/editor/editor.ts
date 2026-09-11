@@ -38,6 +38,8 @@ import {
   type IconShape,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { CarrilActivo } from '../../shared/ui/carril-activo';
+import { Paginador } from '../../shared/ui/paginador';
 import { CapasPanel } from './capas-panel';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { TOPE_URL, aFragmento, deFragmento, type EstadoEditor } from '../../core/estado-url';
@@ -132,6 +134,8 @@ interface NodoVista extends Nodo {
     Boton,
     CampoBusqueda,
     CapasPanel,
+    CarrilActivo,
+    Paginador,
     Chip,
     GfIconComponent,
     GfIconMorphComponent,
@@ -811,24 +815,47 @@ export class Editor implements OnDestroy {
    * justo lo que el comentario de arriba pedía: nada de cortes silenciosos.
    */
   private static readonly TRAMO = 120;
-  protected readonly montados = linkedSignal({
+  /**
+   * Página actual del catálogo. `linkedSignal` sobre `candidatos`: al cambiar el filtro, la lista
+   * de detrás es OTRA, así que volver a la página 1 es lo correcto -- quedarse en la 7 de una lista
+   * que ahora tiene dos páginas dejaría el panel en blanco sin decir por qué.
+   */
+  protected readonly pagina = linkedSignal({
     source: this.candidatos,
-    // Al filtrar, la lista de detrás es otra: el tramo vuelve al principio en vez de arrastrar lo
-    // que hubiera montado de la anterior.
-    computation: () => Editor.TRAMO,
+    computation: () => 1,
   });
 
+  protected readonly totalPaginas = computed(() =>
+    Math.max(1, Math.ceil(this.candidatos().length / Editor.TRAMO)),
+  );
+
+  /** Acotada al total: si el filtro encoge la lista, la página que se pinta nunca queda fuera. */
+  protected readonly paginaEfectiva = computed(() =>
+    Math.min(Math.max(1, this.pagina()), this.totalPaginas()),
+  );
+
+  /** Para el «Mostrando X–Y de Z» de debajo de la lista. */
+  protected readonly rangoPagina = computed(() => {
+    const total = this.candidatos().length;
+    const desde = total === 0 ? 0 : (this.paginaEfectiva() - 1) * Editor.TRAMO + 1;
+    return { desde, hasta: Math.min(this.paginaEfectiva() * Editor.TRAMO, total), total };
+  });
+
+  protected irAPagina(n: number): void {
+    this.pagina.set(Math.min(Math.max(1, n), this.totalPaginas()));
+  }
+
   /**
-   * El tramo, MÁS el icono que se está editando aunque caiga fuera.
+   * La página, MÁS el icono que se está editando aunque caiga en otra.
    *
    * Sin eso, elegir uno del final de la lista deja la lista sin chip activo: el usuario no ve cuál
-   * está editando. `heart`, por ejemplo, va por la posición 700 de 1767 -- fuera del primer tramo
-   * ya salía sin marcar. Va DELANTE porque es lo que se busca con la vista, no perdido en su sitio
-   * alfabético. (El editor arranca en blanco -- sin chip elegido todavía -- así que esta excepción
-   * entra en juego en cuanto se elige algo, no antes.)
+   * está editando. `heart`, por ejemplo, va por la posición 700 de 1767 -- fuera de la página que
+   * mires, salía sin marcar. Va DELANTE porque es lo que se busca con la vista, no perdido en su
+   * sitio alfabético.
    */
   protected readonly visibles = computed(() => {
-    const tramo = this.candidatos().slice(0, this.montados());
+    const desde = (this.paginaEfectiva() - 1) * Editor.TRAMO;
+    const tramo = this.candidatos().slice(desde, desde + Editor.TRAMO);
     const actual = this.elegido();
     if (!actual || tramo.some((c) => c.nombre === actual.nombre)) return tramo;
     // Por NOMBRE y no por identidad: `elegido` puede ser un objeto propio (el def en blanco de
@@ -837,11 +864,6 @@ export class Editor implements OnDestroy {
     const enLista = this.candidatos().find((c) => c.nombre === actual.nombre);
     return enLista ? [enLista, ...tramo] : tramo;
   });
-  protected readonly hayMas = computed(() => this.candidatos().length > this.montados());
-
-  protected montarMas(): void {
-    this.montados.update((n) => n + Editor.TRAMO);
-  }
 
   /**
    * En blanco desde el primer fotograma, no `curados().find(...)`: el catálogo llega diferido, y

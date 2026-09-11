@@ -6,9 +6,9 @@ import { rangoPaginas } from './paginacion';
  * Números + elipsis de `rangoPaginas()`. No sabe nada de iconos ni de tamaño de página — el texto
  * «Mostrando X–Y de Z» vive en quien lo consume, porque ESE contenido sí es del catálogo.
  *
- * Vive junto a `Iconos` y no en `shared/ui/`: hoy es su único consumidor, y la regla del propio
- * `shared/ui/README.md` es clara — «una primitiva con un solo uso no es una primitiva, es
- * indirección». Si el día de mañana otra lista larga necesita paginar, es candidata a subir.
+ * Vivía junto a `Iconos` mientras fue su único consumidor: «una primitiva con un solo uso no es
+ * una primitiva, es indirección» (`shared/ui/README.md`). Subió aquí al aparecer el segundo, el
+ * catálogo del editor de trazos -- que es justo la condición que su comentario anterior ponía.
  */
 @Component({
   selector: 'app-paginador',
