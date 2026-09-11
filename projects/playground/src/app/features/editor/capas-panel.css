@@ -1,0 +1,348 @@
+/*
+ * El sticky y la posición en la rejilla los pone el editor (es quien conoce el layout de tres
+ * columnas); aquí sólo vive lo de dentro del panel.
+ */
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+.capas-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.capas-tit {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gf-texto-tenue);
+}
+
+.capas-nuevo {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--gf-texto-tenue);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.capas-nuevo:hover {
+  color: var(--gf-marca-1-texto);
+  border-color: var(--gf-borde-vivo);
+}
+
+.capas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Un renglón, no una tarjeta: el trazo activo se marca con fondo y una barra de marca, sin borde
+   ni sombra propios. Anidar tarjetas dentro del panel aplanaría la jerarquía de toda la columna. */
+.capa {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-radius: var(--gf-radio-chico);
+}
+
+/*
+ * `margin-inline-end` y no `padding`: las acciones flotan sobre el renglón, y el padding seguiría
+ * siendo área clicable DEBAJO de ellas. El resultado era que al pasar el ratón para elegir un
+ * trazo, los botones aparecían bajo el cursor y se comían el clic -- hacías clic para elegir la
+ * capa y subías el trazo. Con margen, el botón acaba antes de donde ellas empiezan.
+ */
+.capa-elegir {
+  flex: 1;
+  min-width: 0;
+  margin-inline-end: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: var(--gf-radio-chico);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+.capa-elegir:hover {
+  background: var(--gf-velo);
+}
+
+.capa-nombre {
+  font-size: 13px;
+  color: var(--gf-texto-medio);
+  white-space: nowrap;
+}
+
+.capa-detalle {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--gf-texto-apagado);
+  white-space: nowrap;
+}
+
+.capa.es-activa {
+  background: var(--gf-velo-fuerte);
+}
+
+.capa.es-activa .capa-nombre {
+  color: var(--gf-texto);
+  font-weight: 500;
+}
+
+/* La marca del trazo en edición: cian, del lado del contenido, como el carril de una pestaña.
+   `-texto` y no el crudo de marca -- ése no se recalcula en tema claro y ahí perdería contraste. */
+.capa.es-activa::before {
+  content: '';
+  position: absolute;
+  inset-block: 6px;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--gf-marca-1-texto);
+}
+
+.capa-marca {
+  color: var(--gf-marca-1-texto);
+}
+
+/* Oculto se dice con el icono del ojo Y con opacidad: el color solo no basta. */
+.capa.es-oculta .capa-nombre,
+.capa.es-oculta .capa-detalle {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.capa-ojo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--gf-radio-chico);
+  background: transparent;
+  color: var(--gf-texto-apagado);
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.capa-ojo:hover:not(:disabled) {
+  background: var(--gf-velo);
+  color: var(--gf-marca-3-texto);
+}
+
+.capa-ojo[aria-pressed='true'] {
+  color: var(--gf-texto-medio);
+}
+
+.capa-ojo:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Segunda fila de acciones: reordenar, aislar, desplegar y borrar. Escondidas por opacidad y NO
+   por `display:none` -- siguen en el orden de tabulación, así que el reordenado se alcanza con
+   teclado aunque nunca aparezca un puntero. */
+.capa-acciones {
+  position: absolute;
+  inset-inline-end: 34px;
+  inset-block: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding-inline: 3px;
+  border-radius: var(--gf-radio-chico);
+  background: var(--gf-panel-alto);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease;
+}
+
+.capa:hover .capa-acciones,
+.capa:focus-within .capa-acciones {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.capa-mini {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--gf-texto-apagado);
+  cursor: pointer;
+}
+
+.capa-mini:hover:not(:disabled) {
+  color: var(--gf-texto);
+  background: var(--gf-velo);
+}
+
+.capa-mini[aria-pressed='true'] {
+  color: var(--gf-marca-1-texto);
+}
+
+.capa-mini:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Borrar es destructivo: se pinta como tal sólo bajo el puntero, para no gritar desde el reposo
+   en una lista que se recorre con la vista. */
+.capa-mini.es-borrar:hover:not(:disabled) {
+  color: var(--gf-rojo);
+}
+
+/* Las figuras de dentro del trazo. Sangradas bajo su renglón, sin caja propia: son detalle del
+   trazo, no capas hermanas. */
+.capa-figuras {
+  flex-basis: 100%;
+  margin: 0 0 4px;
+  padding: 0 0 0 22px;
+  list-style: none;
+}
+
+.capa-figuras li {
+  font-size: 11px;
+  line-height: 18px;
+  color: var(--gf-texto-apagado);
+}
+
+.capa-figuras li::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 1px;
+  margin-inline-end: 6px;
+  vertical-align: middle;
+  background: var(--gf-borde-vivo);
+}
+
+.capas-nota {
+  margin: 0;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--gf-texto-apagado);
+}
+
+.capas-tip {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--gf-borde-suave);
+}
+
+.capas-tip h3 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gf-texto-tenue);
+}
+
+.capas-tip p {
+  margin: 0 0 4px;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--gf-texto-apagado);
+}
+
+.capas-tip p:last-child {
+  margin-bottom: 0;
+}
+
+@media (pointer: coarse) {
+  .capas-nuevo {
+    min-height: 36px;
+  }
+
+  .capa-ojo {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/*
+ * Entre 900px y ~1250px el panel se tumba en una tira horizontal sobre el lienzo: lo decide
+ * el propio componente. El título, la nota y el tip se van -- en una tira son
+ * texto que empuja los renglones fuera de la vista.
+ */
+@media (max-width: 78rem) {
+  :host {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .capas-tit,
+  .capas-nota,
+  .capas-tip {
+    display: none;
+  }
+
+  .capas-lista {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .capa {
+    flex: none;
+  }
+}
+
+/* El sitio apaga movimiento por dos vías independientes; una sola deja el toggle a medias. */
+@media (prefers-reduced-motion: reduce) {
+  .capas-nuevo,
+  .capa-elegir,
+  .capa-ojo,
+  .capa-acciones {
+    transition: none;
+  }
+}
+
+[data-motion='off'] .capas-nuevo,
+[data-motion='off'] .capa-elegir,
+[data-motion='off'] .capa-ojo,
+[data-motion='off'] .capa-acciones {
+  transition: none;
+}

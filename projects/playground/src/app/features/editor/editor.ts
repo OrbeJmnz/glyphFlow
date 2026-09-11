@@ -23,15 +23,9 @@ import {
   checkIcon,
   circleMinusIcon,
   circlePlusIcon,
-  chevronDownIcon,
-  chevronUpIcon,
   copyIcon,
-  eyeIcon,
-  eyeOffIcon,
   faceSlightlyFrowningIcon,
-  focusIcon,
   grid3x3Icon,
-  listIcon,
   magnetIcon,
   maximizeIcon,
   minimizeIcon,
@@ -44,6 +38,7 @@ import {
   type IconShape,
 } from 'glyphflow';
 import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { CapasPanel } from './capas-panel';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { TOPE_URL, aFragmento, deFragmento, type EstadoEditor } from '../../core/estado-url';
 import {
@@ -136,6 +131,7 @@ interface NodoVista extends Nodo {
   imports: [
     Boton,
     CampoBusqueda,
+    CapasPanel,
     Chip,
     GfIconComponent,
     GfIconMorphComponent,
@@ -219,8 +215,6 @@ export class Editor implements OnDestroy {
   protected readonly iconoPluma = penToolIcon;
   protected readonly iconoInsertar = circlePlusIcon;
   protected readonly iconoBorrar = circleMinusIcon;
-  protected readonly iconoVisible = eyeIcon;
-  protected readonly iconoOculto = eyeOffIcon;
   // Los controles del lienzo dibujaban su icono con glifos Unicode (↶ ↷ − + ⛶). Un glifo no es un
   // icono: no comparte grosor ni caja con el resto, y el de deshacer/rehacer venía DENTRO del
   // aria-label, así que un lector de pantalla lo leía en voz alta. Ahora son iconos de la propia
@@ -231,15 +225,7 @@ export class Editor implements OnDestroy {
   protected readonly iconoAlejar = zoomOutIcon;
   protected readonly iconoPantalla = maximizeIcon;
   protected readonly iconoSalirPantalla = minimizeIcon;
-  protected readonly iconoSubir = chevronUpIcon;
-  protected readonly iconoBajar = chevronDownIcon;
-  protected readonly iconoAislar = focusIcon;
-  protected readonly iconoDesplegar = listIcon;
 
-  /** `true` cuando este trazo es el único a la vista, o sea está aislado. */
-  protected aislada(i: number): boolean {
-    return this.ocultos().size === this.modelos().length - 1 && !this.ocultos().has(i);
-  }
 
   /** La rejilla YA se dibujaba siempre; esto le suma un apagador (T30). */
   protected readonly mostrarRejilla = signal(true);
@@ -403,6 +389,9 @@ export class Editor implements OnDestroy {
       visible: !ocultos.has(i),
       activa: i === activo,
       desplegada: desplegadas.has(i),
+      // Aislada = es la unica a la vista. Se calcula aqui y no en el panel para que el panel no
+      // tenga que saber cuantas capas hay ocultas.
+      aislada: ocultos.size === this.modelos().length - 1 && !ocultos.has(i),
       // Las figuras de dentro. Solo su cuenta y su índice: nada de geometría, para que arrastrar
       // un nodo no rehaga esta lista.
       figuras: subs.map((_, k) => k),
