@@ -360,9 +360,10 @@ describe('Editor', () => {
     svg.getBoundingClientRect = () =>
       ({ ...r, right: 480, bottom: 480, x: 0, y: 0, toJSON: () => r }) as DOMRect;
 
-    // Sin nodo elegido no hay botones, solo la pista. `.nodo-acciones` vive en el dock del lienzo,
-    // así que se ve sin importar qué pestaña del panel esté abierta -- `.editable-d` sí necesita
-    // "Salida".
+    // Sin nodo elegido no hay botones, solo la pista. `.nodo-acciones` ya no flota sobre el lienzo:
+    // vive en la pestaña "Edición" del panel, con las coordenadas del nodo. Así que hay que estar
+    // en ella para verlo -- antes se veía desde cualquier pestaña.
+    await irA(m, 'edicion');
     expect(html.querySelector('.nodo-acciones button')).toBeNull();
     expect(html.querySelector('.nodo-acciones .pista-nodo')).not.toBeNull();
     await irA(m, 'salida');
@@ -382,6 +383,10 @@ describe('Editor', () => {
     svg.dispatchEvent(new PointerEvent('pointerup', p));
     await fixture.whenStable();
 
+    // Las acciones del nodo viven en "Edición" con sus coordenadas; el `d` editable, en "Salida".
+    // El ir y venir es el precio de que cada cosa esté donde el usuario la busca, en vez de flotando
+    // sobre el lienzo.
+    await irA(m, 'edicion');
     const botones = html.querySelectorAll<HTMLButtonElement>('.nodo-acciones button');
     expect(botones.length).toBe(2);
 
@@ -389,9 +394,12 @@ describe('Editor', () => {
     await fixture.whenStable();
     expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes + 1);
 
+    // Deshacer sigue en la cabecera del lienzo: se alcanza desde cualquier pestaña.
     html.querySelectorAll<HTMLButtonElement>('.deshacer button')[0].click();
     await fixture.whenStable();
     expect(html.querySelectorAll('.nodos .nodo').length).toBe(antes);
+
+    await irA(m, 'salida');
     expect(html.querySelector<HTMLTextAreaElement>('.editable-d')!.value).toBe(dAntes);
   });
 

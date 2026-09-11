@@ -304,23 +304,9 @@ app-capas-panel {
     0 0 32px -6px var(--gf-marca-2);
 }
 
-/* Apila el dock principal y `.dock-nodo` (debajo, cuando hay nodo elegido) sin números a mano --
-   cada uno mide lo que pida su contenido y el `gap` los separa. */
-.dock-pila {
-  position: absolute;
-  left: 50%;
-  bottom: 16px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  max-width: calc(100% - 32px);
-  translate: -50% 0;
-}
-
-/* El dock flotante: deshacer/rehacer, rejilla, pluma y, contextual, las acciones del nodo --
-   siempre encima del lienzo, sin importar la pestaña del panel. */
+/* Los grupos de controles del lienzo. La pastilla (borde, fondo, sombra) existía para despegarse
+   del dibujo cuando flotaban encima; en la cabecera y en el panel la pierden -- ver `.barra-alta
+   .dock` y `.dock-nodo`. */
 .dock {
   display: flex;
   align-items: center;
@@ -334,14 +320,42 @@ app-capas-panel {
   overflow-x: auto;
 }
 
-/* La identidad del nodo elegido: su propia pastilla, debajo del dock principal -- separada de los
-   botones de arriba para que las coordenadas tengan ancho de sobra. */
+/*
+ * La identidad del nodo elegido y sus coordenadas. Vivían flotando sobre el lienzo, donde el
+ * número competía con botones cuadrados por un ancho que no sobraba; en el panel lo tienen de
+ * sobra, y el dibujo se queda sin nada encima -- que era el punto del rediseño.
+ *
+ * Conserva la clase `.dock` para no duplicar su aspecto, pero sin pastilla: aquí ya está sobre
+ * una superficie propia.
+ */
 .dock-nodo {
-  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 10px;
+  border: 0;
+  border-bottom: 1px solid var(--gf-borde-suave);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
+/* Las coordenadas se pegan al nombre, no al borde opuesto del panel: son SU dato, y con 336px de
+   ancho separarlas las convertía en dos islas mirándose de lejos. */
 .dock-nodo .coords {
-  margin-left: 4px;
+  margin-left: 0;
+}
+
+/* Lo que se le puede hacer al nodo, bajo lo que dice cuál es. En fila: son dos iconos y una
+   pastilla de texto, no una columna. */
+.nodo-acciones {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 /* El segundo dock: zoom y pantalla completa, arriba a la derecha -- controles de VISTA, aparte
@@ -845,11 +859,6 @@ button:disabled kbd {
  * apagados de forma permanente era ruido constante por una acción que casi nunca aplica. Vive en
  * el dock (`position: absolute`), así que crecer/encoger ya no mueve nada a su alrededor.
  */
-.nodo-acciones {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 .nodo-cab {
   display: flex;

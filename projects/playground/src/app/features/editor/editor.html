@@ -122,50 +122,6 @@
           <gf-icon [iconDef]="iconoPluma" [size]="14" trigger="manual" />
         </button>
 
-        <!--
-          Acciones del nodo: contextuales, y por eso van al final -- el dock solo crece cuando hay
-          algo sobre lo que actuar. La identidad del nodo y sus coordenadas viven aparte, en
-          `.dock-nodo` debajo de este dock -- separar "qué puedo hacer" (estos botones) de "qué estoy
-          tocando" (la otra pastilla) le da a las coordenadas el ancho que se merecen.
-        -->
-        <span class="dock-sep" aria-hidden="true"></span>
-        <div class="nodo-acciones" role="group" [attr.aria-label]="'editor.nodo.grupoAria' | transloco">
-          @if (nodoActivo()) {
-            <!--
-              Icono y no texto+kbd: en un dock ya lleno de botones cuadrados, dos pastillas largas
-              desentonaban -- el resto del grupo ya enseña que "icono + tooltip" es el idioma de esta
-              barra. El atajo (+/Supr) sigue en el tooltip y en la lista de atajos de "Edición";
-              "curvar este tramo" se queda con su texto -- no hay un icono de curva que no confunda.
-            -->
-            <div class="nodo-btns">
-              <button
-                type="button"
-                class="lienzo-btn"
-                [title]="'editor.nodo.agregar' | transloco"
-                [attr.aria-label]="'editor.nodo.agregar' | transloco"
-                (click)="agregarNodo()"
-              >
-                <gf-icon [iconDef]="iconoInsertar" [size]="14" trigger="manual" />
-              </button>
-              <button
-                type="button"
-                class="lienzo-btn"
-                [title]="'editor.nodo.borrar' | transloco"
-                [attr.aria-label]="'editor.nodo.borrar' | transloco"
-                (click)="borrarNodo()"
-              >
-                <gf-icon [iconDef]="iconoBorrar" [size]="14" trigger="manual" />
-              </button>
-              @if (puedeCurvar()) {
-                <button type="button" app-chip variante="contorno" (click)="curvarTramo()">
-                  {{ 'editor.nodo.curvar' | transloco }}
-                </button>
-              }
-            </div>
-          } @else {
-            <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
-          }
-        </div>
       </div>
 
       <!-- Zoom y pantalla completa: controles de VISTA, aparte del dock de edición -- arriba a la
@@ -462,56 +418,6 @@
       }
     </svg>
 
-    <!--
-      El dock flotante: deshacer/rehacer, rejilla, pluma, y -- contextual -- las acciones del nodo
-      elegido. Zoom y pantalla completa viven en su propio dock (`.dock-zoom`, más abajo) arriba a
-      la derecha del lienzo -- son controles de VISTA, no de edición, así que se separan del resto.
-      El ajuste a rejilla se cayó como botón propio: ya arranca activo (ver `ajustarRejilla` en
-      `editor.ts`) y su toggle vive ahora en la pestaña "Edición" del panel.
-      Dentro de `.lienzo-envoltorio` a propósito -- ver el comentario de arriba. Y dentro de
-      `.dock-pila` -- que apila este dock con `.dock-nodo` (más abajo) sin números a mano: cada uno
-      mide lo que su contenido pida y el `gap` de la pila los separa.
-    -->
-    <div class="dock-pila">
-
-    <!--
-      La identidad del nodo elegido y sus coordenadas, en su propia pastilla debajo del dock --
-      separada de "qué puedo hacer" (los botones de arriba) para que el número no compita por
-      espacio con un botón cuadrado de 36px. El nombre lleva el degradado de marca (cian→azul):
-      mismo criterio que el resto del sitio para "el UN dato que importa en esta pantalla".
-    -->
-    @if (nodoActivo(); as n) {
-      <div class="dock dock-nodo">
-        <strong class="degradado-texto-sutil">
-          {{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}
-        </strong>
-        <span class="coords">
-          <label>
-            <em>X</em>
-            <input
-              type="number"
-              step="0.01"
-              class="coord-input"
-              [value]="dec(n.punto[0])"
-              [attr.aria-label]="'editor.nodo.xAria' | transloco: { n: n.indice }"
-              (change)="fijarCoordenada('x', $any($event.target).value)"
-            />
-          </label>
-          <label>
-            <em>Y</em>
-            <input
-              type="number"
-              step="0.01"
-              class="coord-input"
-              [value]="dec(n.punto[1])"
-              [attr.aria-label]="'editor.nodo.yAria' | transloco: { n: n.indice }"
-              (change)="fijarCoordenada('y', $any($event.target).value)"
-            />
-          </label>
-        </span>
-      </div>
-    }
-    </div>
 
     </div>
 
@@ -687,6 +593,93 @@
       @case ('edicion') {
         <section class="seccion">
           <h2 class="grupo-tit">{{ 'editor.secciones.edicion' | transloco }}</h2>
+
+          <!--
+            Lo que estás tocando y qué puedes hacerle. Vivía flotando sobre el lienzo, donde el
+            número competía por ancho con botones cuadrados; aquí lo tiene de sobra, y el dibujo
+            se queda sin nada encima -- que era el punto del rediseño.
+          -->
+          <!--
+            La identidad del nodo elegido y sus coordenadas, en su propia pastilla debajo del dock --
+            separada de "qué puedo hacer" (los botones de arriba) para que el número no compita por
+            espacio con un botón cuadrado de 36px. El nombre lleva el degradado de marca (cian→azul):
+            mismo criterio que el resto del sitio para "el UN dato que importa en esta pantalla".
+          -->
+          @if (nodoActivo(); as n) {
+            <div class="dock dock-nodo">
+              <strong class="degradado-texto-sutil">
+                {{ 'editor.nodo.titulo' | transloco: { n: n.indice } }}
+              </strong>
+              <span class="coords">
+                <label>
+                  <em>X</em>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="coord-input"
+                    [value]="dec(n.punto[0])"
+                    [attr.aria-label]="'editor.nodo.xAria' | transloco: { n: n.indice }"
+                    (change)="fijarCoordenada('x', $any($event.target).value)"
+                  />
+                </label>
+                <label>
+                  <em>Y</em>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="coord-input"
+                    [value]="dec(n.punto[1])"
+                    [attr.aria-label]="'editor.nodo.yAria' | transloco: { n: n.indice }"
+                    (change)="fijarCoordenada('y', $any($event.target).value)"
+                  />
+                </label>
+              </span>
+            </div>
+          }
+
+          <!--
+            Acciones del nodo: contextuales, y por eso van al final -- el dock solo crece cuando hay
+            algo sobre lo que actuar. La identidad del nodo y sus coordenadas viven aparte, en
+            `.dock-nodo` debajo de este dock -- separar "qué puedo hacer" (estos botones) de "qué estoy
+            tocando" (la otra pastilla) le da a las coordenadas el ancho que se merecen.
+          -->
+          <div class="nodo-acciones" role="group" [attr.aria-label]="'editor.nodo.grupoAria' | transloco">
+            @if (nodoActivo()) {
+              <!--
+                Icono y no texto+kbd: en un dock ya lleno de botones cuadrados, dos pastillas largas
+                desentonaban -- el resto del grupo ya enseña que "icono + tooltip" es el idioma de esta
+                barra. El atajo (+/Supr) sigue en el tooltip y en la lista de atajos de "Edición";
+                "curvar este tramo" se queda con su texto -- no hay un icono de curva que no confunda.
+              -->
+              <div class="nodo-btns">
+                <button
+                  type="button"
+                  class="lienzo-btn"
+                  [title]="'editor.nodo.agregar' | transloco"
+                  [attr.aria-label]="'editor.nodo.agregar' | transloco"
+                  (click)="agregarNodo()"
+                >
+                  <gf-icon [iconDef]="iconoInsertar" [size]="14" trigger="manual" />
+                </button>
+                <button
+                  type="button"
+                  class="lienzo-btn"
+                  [title]="'editor.nodo.borrar' | transloco"
+                  [attr.aria-label]="'editor.nodo.borrar' | transloco"
+                  (click)="borrarNodo()"
+                >
+                  <gf-icon [iconDef]="iconoBorrar" [size]="14" trigger="manual" />
+                </button>
+                @if (puedeCurvar()) {
+                  <button type="button" app-chip variante="contorno" (click)="curvarTramo()">
+                    {{ 'editor.nodo.curvar' | transloco }}
+                  </button>
+                }
+              </div>
+            } @else {
+              <span class="pista-nodo">{{ 'editor.nodo.pista' | transloco }}</span>
+            }
+          </div>
 
           <!--
             Deshacer/rehacer, rejilla/ajuste, la pluma y las acciones del nodo viven en el dock
