@@ -55,15 +55,20 @@
           <!-- Sin botón propio: el reproductor ES el icono — hover en desktop, click en cualquier
                dispositivo. -->
           <div class="escenario">
-            <gf-icon
-              #previewGrande
-              [iconDef]="def()"
-              [animation]="varianteActiva()"
-              [size]="128"
-              trigger="manual"
-              (pointerenter)="reproducirSiApunta($event)"
-              (click)="reproducir()"
-            />
+            <!-- `iconoMostrado` arranca en `null` hasta la primera corrida del `effect` (ver el
+                 .ts) — el `@if` evita pasarle `null` al `iconDef` required de `<gf-icon>`. -->
+            @if (iconoMostrado(); as iconoActual) {
+              <gf-icon
+                #previewGrande
+                [iconDef]="iconoActual"
+                [animation]="varianteActiva()"
+                [size]="128"
+                trigger="manual"
+                [class.desvaneciendo]="desvaneciendo()"
+                (pointerenter)="reproducirSiApunta($event)"
+                (click)="reproducir()"
+              />
+            }
           </div>
 
           <!--

@@ -1,7 +1,16 @@
+/*
+ * `min-height` medido, no adivinado: 3.5rem cubre el más alto de los dos estados posibles aquí.
+ * La nota de `sin-scrub` se envuelve a DOS líneas (mide 54px) — más alta que la fila de
+ * transporte+slider (40px), al revés de lo esperado a primera vista. Sin este piso, cuál de los
+ * dos estados es más bajo termina de sobra abajo, y como `.escenario` en `icon-detail-panel.css`
+ * es `flex: 1`, ese sobrante se lo come el icono grande: el contenedor cambiaba de tamaño según la
+ * variante activa en vez de quedarse fijo.
+ */
 .scrubber {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-height: 3.5rem;
 }
 
 .scrubber svg {

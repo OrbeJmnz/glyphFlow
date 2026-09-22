@@ -68,6 +68,9 @@ export class IconDetailPanel {
   /** Solo hay un panel abierto a la vez, así que un id fijo alcanza y se lee en el DOM. */
   protected readonly ID_TITULO = 'detalle-titulo';
 
+  /** Debe calzar con la transición de opacidad de `.escenario gf-icon` en el CSS. */
+  private static readonly MS_DESVANECIDO = 150;
+
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
 
@@ -111,6 +114,23 @@ export class IconDetailPanel {
     Object.keys(this.def().animations),
   );
   protected readonly varianteActiva = signal('default');
+  /** Controla el fundido del `<gf-icon>` grande al cambiar de icono — ver el `effect` del constructor. */
+  protected readonly desvaneciendo = signal(false);
+  /**
+   * El `<gf-icon>` grande NO se enlaza a `def()` directo: el `ngOnChanges` de `GfIconComponent`
+   * cancela el trazo en curso en cuanto `iconDef` cambia, y `cancel()` cae al estilo base — que es
+   * la figura YA COMPLETA, sin dasharray (ver `runAutoDraw` en `gf-icon.component.ts`). Si el
+   * input cambiara ya mismo, esa pose completa se alcanza a ver un instante mientras la opacidad
+   * todavía no baja a 0. Este signal solo se actualiza DESPUÉS del fundido de salida: para
+   * entonces la opacidad ya está en 0 y ese `cancel()` pasa invisible.
+   *
+   * Arranca en `null` y se seedea en la primera corrida del `effect` de abajo (rama
+   * `primeraApertura`) — leer `this.def()` en el inicializador del campo, o incluso suelto en el
+   * cuerpo del constructor, dispara NG8118: el compilador solo garantiza el input required dentro
+   * de un contexto reactivo (`computed`/`effect`/plantilla), nunca antes. La plantilla protege el
+   * `<gf-icon>` grande con `@if` mientras esto sigue en `null`.
+   */
+  protected readonly iconoMostrado = signal<AnimatedIconDef | null>(null);
   protected readonly copiado = signal<'snippet' | 'json' | null>(null);
 
   /**
@@ -155,11 +175,43 @@ export class IconDetailPanel {
   protected readonly ariaJson = translateSignal(this.claveAriaJson);
 
   constructor() {
-    // Si cambia el icono seleccionado, la variante activa vuelve a `default` (o a la primera que
-    // haya) — quedarse en una variante de OTRO icono sería mostrar un snippet que no corresponde.
+    /*
+     * Si cambia el icono seleccionado, la variante activa pasa a `draw` — cada icono arranca
+     * mostrando cómo se dibuja, no reproduciendo `default`. Cuando el panel YA estaba abierto
+     * (segunda vez en adelante), el `<gf-icon>` se desvanece antes de que entre el siguiente: sin
+     * eso el trazo nuevo empieza sobre la figura del icono anterior, todavía en pantalla.
+     *
+     * La causa de por qué se alcanzaba a ver el icono completo un instante NO era el orden entre
+     * `reproducir()` y el fundido — era `iconoMostrado`: sin ese buffer, `[iconDef]` cambiaba ya
+     * mismo y el `ngOnChanges` de `GfIconComponent` cancelaba el trazo en curso ANTES de que la
+     * opacidad terminara de bajar. `iconoMostrado.set(nuevoDef)` va DENTRO del `setTimeout` del
+     * fundido, nunca antes, para que ese `cancel()` ocurra con la opacidad ya en 0.
+     */
+    let primeraApertura = true;
     effect(() => {
+      const nuevoDef = this.def();
       const vs = this.variantes();
-      this.varianteActiva.set(vs.includes('default') ? 'default' : (vs[0] ?? 'default'));
+      const variante = vs.includes('draw') ? 'draw' : (vs[0] ?? 'default');
+
+      if (primeraApertura) {
+        primeraApertura = false;
+        this.iconoMostrado.set(nuevoDef);
+        this.varianteActiva.set(variante);
+        setTimeout(() => this.reproducir());
+        return;
+      }
+
+      this.desvaneciendo.set(true);
+      setTimeout(() => {
+        this.iconoMostrado.set(nuevoDef);
+        this.varianteActiva.set(variante);
+        // Un tick para que Angular pinte `[iconDef]`/`[animation]` con los valores nuevos antes de
+        // `reproducir()` (mismo motivo que en `elegirVariante`) — recién ahí se revela.
+        setTimeout(() => {
+          this.reproducir();
+          this.desvaneciendo.set(false);
+        });
+      }, IconDetailPanel.MS_DESVANECIDO);
     });
 
     /*

@@ -231,6 +231,15 @@
   background: var(--gf-panel-alto);
 }
 
+/* Cruce entre iconos al cambiar de selección — ver el `effect` del constructor en el .ts. */
+.escenario gf-icon {
+  transition: opacity 0.15s ease;
+}
+
+.escenario gf-icon.desvaneciendo {
+  opacity: 0;
+}
+
 /*
  * Segmented control medido — mismo patrón que `.nav` del header (`app.css`), con `appCarrilActivo`
  * en vez de aritmética: los nombres de variante son de ancho variable (`default`, `hover`, `hold`…),
