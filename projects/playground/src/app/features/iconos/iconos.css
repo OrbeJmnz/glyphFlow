@@ -648,18 +648,128 @@
 }
 
 /*
+ * `--angle` registrada: sin `@property` una custom property no tiene TIPO, así que la animación no
+ * la interpola — salta a medio camino. Como `<angle>` sí es numérica de verdad, y `gf-seleccion-
+ * recorre` la gira de 0 a 360grados en vez de mover un degradado lineal a un lado.
+ *
+ * Sin soporte (Safari <16.4, Firefox <128) el salto a medio camino sigue pasando, pero entre 0deg y
+ * 360deg de un CÓNICO se ve exactamente igual —es la misma vuelta completa—, así que el peor caso es
+ * un anillo quieto, nunca uno roto. No hace falta `@supports` para eso.
+ */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/*
+ * Segunda propiedad registrada, mismo motivo que `--angle`: sin tipo no interpola. `--brillo-color`
+ * es el color VIVO del halo — una sola fuente de verdad que `gf-seleccion-recorre` mueve, y que el
+ * `box-shadow` (declarado una sola vez abajo, y otra vez en `gf-seleccion-brillo`) simplemente LEE.
+ * Ya no hace falta escribir el `box-shadow` completo en cada parada del keyframe ni pelear el orden
+ * de dos animaciones sobre la misma propiedad — ver el porqué completo más abajo.
+ *
+ * `initial-value` no admite `var()` — el spec lo pide como valor literal, no una referencia a otra
+ * custom property — por eso va el hexadecimal de `--gf-marca-3` a mano y no `var(--gf-marca-3)`.
+ */
+@property --brillo-color {
+  syntax: '<color>';
+  initial-value: #9166f8;
+  inherits: false;
+}
+
+/*
  * Seleccionada: el arcoíris completo, reservado para el estado ACTIVO — abrió el drawer, con su
  * slider de contenido — no para cualquier paso del mouse. Es el truco de doble fondo: `padding-box`
  * pinta el relleno sólido por dentro, `border-box` pinta el degradado en el grosor del `border` —
  * lo único que permite un borde en degradado CON `border-radius` (un `border-image` no redondea
- * esquinas).
+ * esquinas, y es la forma "de libro" de animar esto — por eso NO se usa aquí). El grosor sube a 2px
+ * —el resto de las tarjetas se queda en el 1.5px de `.card`— porque a 1.5 el cónico girando casi no
+ * se distingue: hay que VER el degradado, no intuirlo. (3px se probó y sobraba, junto con un halo
+ * de 44px/spread 4 — demasiado para una rejilla compacta de tarjetas de 96-150px.)
+ *
+ * El cónico ROTA de verdad (receta de Bramus Van Damme, brm.us/animated-gradient-border) en vez de
+ * deslizar una franja lineal como hace `.ui-boton.instalar` más abajo. Cierra el círculo repitiendo
+ * `--gf-marca-1` al final: un cónico ya envuelve sobre sí mismo, así que la vuelta completa no deja
+ * costura — al revés que el lineal, que sí la acepta (ver el porqué en `.ui-boton.instalar`).
+ *
+ * El halo va en DOS capas del mismo `--brillo-color` — una ajustada casi sin difuminar, pegada al
+ * borde, y una grande y suave por encima — en vez de una sola: es lo que separa un halo con cuerpo
+ * de un resplandor plano. Y se mueve CON el borde, mismo compás de 7s, los mismos cuatro tonos:
+ * iban desacoplados (el borde girando, el halo clavado en un violeta fijo) y se sentía como dos
+ * piezas que no se habían enterado la una de la otra.
+ *
+ * `gf-seleccion-brillo` (0.45s, UN solo tiro) solo anima el TAMAÑO del halo —de 0 a su tamaño
+ * final—, nunca el color: el color lo trae puesto `var(--brillo-color)`, que en paralelo mueve
+ * `gf-seleccion-recorre` (infinita). Como cada animación toca una propiedad distinta (`box-shadow`
+ * una, `--brillo-color` la otra) no compiten por prioridad ni hay que ordenarlas a propósito — y
+ * aun después de que `brillo` termina sus 450ms y dejar de tener `forwards` la saca de la jugada, el
+ * halo declarado abajo SIGUE leyendo `var(--brillo-color)` en vivo, así que el color no se congela:
+ * sigue el compás de `recorre` para siempre, sin que nadie tenga que relevar a nadie.
  */
 .card.inspeccionado {
+  --angle: 0deg;
+  --brillo-color: var(--gf-marca-3);
   border-color: transparent;
+  border-width: 2px;
   background:
     linear-gradient(var(--gf-panel-alto), var(--gf-panel-alto)) padding-box,
-    var(--gf-degradado) border-box;
-  box-shadow: 0 0 24px -6px var(--gf-marca-3);
+    conic-gradient(
+        from var(--angle),
+        var(--gf-marca-1),
+        var(--gf-marca-2),
+        var(--gf-marca-3),
+        var(--gf-marca-4),
+        var(--gf-marca-1)
+      )
+      border-box;
+  box-shadow:
+    0 0 3px 0 var(--brillo-color),
+    0 0 14px 0 var(--brillo-color);
+  animation:
+    gf-seleccion-recorre 7s linear infinite,
+    gf-seleccion-brillo 0.45s ease-out;
+}
+
+/* Un solo tiro, solo TAMAÑO — el color lo trae `var(--brillo-color)`, ver el porqué arriba. */
+@keyframes gf-seleccion-brillo {
+  from {
+    box-shadow:
+      0 0 0 0 var(--brillo-color),
+      0 0 0 0 var(--brillo-color);
+  }
+  to {
+    box-shadow:
+      0 0 3px 0 var(--brillo-color),
+      0 0 14px 0 var(--brillo-color);
+  }
+}
+
+/*
+ * El borde y el halo, en el mismo compás Y las mismas paradas: sin porcentajes propios, un
+ * `conic-gradient` reparte sus 5 colores parejo cada 25%, así que `--brillo-color` usa esas mismas
+ * 0/25/50/75/100 — en cualquier instante es el MISMO tono que tiene ahí el origen del cónico (justo
+ * donde apunta `--angle`), no uno aproximado. Y cierra el círculo igual que el cónico: `marca-1` se
+ * repite en 100%, así que el final de la vuelta es idéntico al arranque de la siguiente, sin salto.
+ */
+@keyframes gf-seleccion-recorre {
+  0% {
+    --angle: 0deg;
+    --brillo-color: var(--gf-marca-1);
+  }
+  25% {
+    --brillo-color: var(--gf-marca-2);
+  }
+  50% {
+    --brillo-color: var(--gf-marca-3);
+  }
+  75% {
+    --brillo-color: var(--gf-marca-4);
+  }
+  100% {
+    --angle: 360deg;
+    --brillo-color: var(--gf-marca-1);
+  }
 }
 
 /*
@@ -786,9 +896,19 @@
   }
 }
 
-/* Aquí no hay medias tintas: el revelado es puro adorno y su ausencia no esconde nada. */
+/*
+ * Aquí no hay medias tintas: el revelado, el brillo y el cónico girando de `.inspeccionado` son puro
+ * adorno y su ausencia no esconde nada — `animation: none` deja `--angle` clavado en su `0deg`
+ * declarado arriba, o sea el anillo completo quieto, no una rebanada. `.card.inspeccionado` va
+ * aparte porque sus dos clases le ganan en especificidad a `.card` a secas: sin esta línea, la regla
+ * de abajo no la alcanza.
+ */
 @media (prefers-reduced-motion: reduce) {
   .card {
+    animation: none;
+  }
+
+  .card.inspeccionado {
     animation: none;
   }
 }
