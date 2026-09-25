@@ -65,6 +65,7 @@ import { Chip } from './chip';
     /* El disco existe para que la cara no flote sola en el vacío — y para que se lea como una
        ilustración y no como un icono más de la rejilla. */
     .cara {
+      position: relative;
       display: grid;
       place-items: center;
       width: 96px;
@@ -72,6 +73,58 @@ import { Chip } from './chip';
       border-radius: 999px;
       background: var(--gf-panel);
       color: var(--gf-texto-tenue);
+    }
+
+    /*
+     * El foco respira detrás de la cara: no gira ni cicla de color como la tarjeta seleccionada
+     * del catálogo (ese gesto está guardado para "esto es lo elegido") — aquí el mensaje es otro,
+     * alguien sigue mirando y no encontró nada, así que el gesto es más quieto: un pulso lento,
+     * un solo tono, sin la energía de una selección.
+     *
+     * Pseudo-elemento y no un fondo en .cara: necesita crecer MÁS ALLÁ del disco al respirar
+     * (inset negativo), y un fondo normal se recorta seco en el borde redondeado del contenedor.
+     *
+     * Sin z-index negativo (la regla del proyecto: sin stacking context propio en el padre, se
+     * escapa hacia arriba y pinta detrás de contenido ajeno). En vez de eso, el icono de encima
+     * sube con su propio z-index más abajo — el pseudo se queda sin declarar el suyo, que es el
+     * patrón seguro.
+     */
+    .cara::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: inherit;
+      background: radial-gradient(circle, var(--gf-marca-3), transparent 70%);
+      opacity: 0.18;
+      animation: gf-buscar-respira 3.6s ease-in-out infinite;
+    }
+
+    @keyframes gf-buscar-respira {
+      0%,
+      100% {
+        opacity: 0.14;
+        scale: 0.88;
+      }
+      50% {
+        opacity: 0.42;
+        scale: 1.12;
+      }
+    }
+
+    /* Sube sobre el foco a propósito: sin esto, el z-index:auto de un elemento posicionado pinta
+       encima de contenido normal SIN IMPORTAR el orden en el DOM, y la cara quedaba tapada. */
+    .cara gf-icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sigue presente, quieto: es adorno, no información, pero apagarlo del todo dejaría el disco
+       más plano de lo que el resto del sitio ya decidió para este mismo halo. */
+    @media (prefers-reduced-motion: reduce) {
+      .cara::before {
+        animation: none;
+        opacity: 0.25;
+      }
     }
 
     .titulo {
