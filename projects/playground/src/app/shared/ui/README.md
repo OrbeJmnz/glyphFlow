@@ -10,6 +10,7 @@ necesita saberlo, no va aquí — va en su `features/`.
 | `Grupo` | `app-grupo` | el carril que envuelve a un conjunto de píldoras |
 | `CampoBusqueda` | `app-campo-busqueda` | filtrar los curados en editor y picker |
 | `Deslizador` | `app-deslizador` | el scrubber de la animación |
+| `BurbujasAmbiente` | `app-burbujas-ambiente` | el fondo del hero de la portada |
 
 ## Las tres reglas
 
@@ -31,6 +32,18 @@ CSS de la página; la forma es de la primitiva.
 **3. Las variantes son `@Input`, no clases sueltas.** `variante="primario"` en vez de
 `class="boton primario grande"`. El conjunto de aspectos posibles queda cerrado y se lee en un solo
 archivo, en vez de descubrirse combinando clases por las plantillas.
+
+**4. `BurbujasAmbiente` pide dos cosas al que la aloja.** La primera: un **recorte horizontal en
+un ancestro de ancho completo** (`overflow-x: clip`, como el de `app-root` en `app.css`). El host
+va full-bleed a `100vw`, y eso incluye la scrollbar; sin el recorte hay scroll horizontal. Usa
+`clip` y no `hidden`: `hidden` mata el `sticky` de la barra superior.
+
+La segunda: que su contenedor tenga stacking context propio. El host del
+componente ES la capa (`position: absolute; z-index: -1`), para no obligar a nadie a
+envolverlo — pero ese `-1` solo se queda contenido dentro del contenedor si éste YA declara
+`position: relative` + un z-index que no sea `auto`. Sin eso, el negativo se escapa hacia arriba
+y pinta detrás de contenido de la página que no tiene nada que ver (la regla de z-index negativo
+del proyecto). Ver `iconos.css`, regla `.hero`, para el ejemplo que ya lo hace bien.
 
 ## Qué NO subir aquí
 

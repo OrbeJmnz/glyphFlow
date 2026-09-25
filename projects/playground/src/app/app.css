@@ -1,6 +1,16 @@
+/*
+ * `overflow-x: clip` es la contraparte obligatoria de los fondos full-bleed (BurbujasAmbiente):
+ * un host de 100vw mide también el ancho de la scrollbar y se sale ~5-10px del área visible, y
+ * sin este recorte eso es scroll horizontal. `clip` y no `hidden` a propósito: `hidden` crea un
+ * scroll container y mata todo `sticky` de las páginas (la barra superior incluida); `clip`
+ * recorta sin crearlo. El costo, aceptado a conciencia: un desborde horizontal real en otra
+ * página ya no se ve como scrollbar sino como contenido cortado — los `<pre>` y tablas anchas
+ * necesitan su propio `overflow-x: auto`, como ya lo tienen.
+ */
 :host {
   display: block;
   min-height: 100dvh;
+  overflow-x: clip;
 }
 
 /* ── Barra superior ─────────────────────────────────────────────────────────── */

@@ -1,5 +1,14 @@
 <section class="hero">
   <!--
+    Puramente decorativo. El propio host de BurbujasAmbiente se pone detrás con z-index: -1 —
+    y ESO solo queda contenido dentro de `.hero` porque `.hero` gana su propio stacking context
+    en el CSS (position: relative + z-index: 0). Sin ese stacking context el -1 se escapa hacia
+    arriba y pinta detrás de contenido de la página que no tiene nada que ver. Ver el porqué
+    completo en shared/ui/README.md.
+  -->
+  <app-burbujas-ambiente />
+
+  <!--
     El logotipo animado ocupa el lugar del titular, pero el `<h1>` NO desaparece: se esconde solo a
     la vista. Reemplazar el h1 por una imagen sin texto es la forma clásica de perder el SEO de la
     portada y de dejar mudo al lector de pantalla.

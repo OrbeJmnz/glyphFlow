@@ -11,7 +11,15 @@
  */
 /* 24 y no 48: entre el header y el logotipo había 141px de nada, y en una laptop de 768 el
    catálogo quedaba a dos scrolls. La herramienta principal tiene que caber en la primera pantalla. */
+/*
+ * `position: relative` + `z-index: 0`: sin esto es solo un contenedor de flujo normal, y
+ * BurbujasAmbiente (su fondo, con `z-index: -1`) se escaparía hacia arriba en vez de quedar
+ * contenida aquí — pintaría detrás del header o de otra sección, no detrás del hero. Ver
+ * shared/ui/README.md para el porqué completo de ese contrato.
+ */
 .hero {
+  position: relative;
+  z-index: 0;
   padding: 24px 0 0;
   text-align: center;
 }

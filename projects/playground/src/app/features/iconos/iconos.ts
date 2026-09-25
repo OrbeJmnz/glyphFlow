@@ -38,6 +38,7 @@ import { RouterLink } from '@angular/router';
 import { BotonDonar } from '../../shared/marca/boton-donar';
 import { BotonGithub } from '../../shared/marca/boton-github';
 import { Boton } from '../../shared/ui/boton';
+import { BurbujasAmbiente } from '../../shared/ui/burbujas-ambiente';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
@@ -128,6 +129,7 @@ interface PuntoDeRegreso {
     BotonDonar,
     BotonGithub,
     Boton,
+    BurbujasAmbiente,
     CampoBusqueda,
     Chip,
     Contador,
