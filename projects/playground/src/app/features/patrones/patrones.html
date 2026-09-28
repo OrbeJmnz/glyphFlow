@@ -781,7 +781,11 @@
       <app-motor-badge tono="coreografia" [texto]="'patrones.motor.coreografia' | transloco" />
       <p [innerHTML]="'patrones.relevo.descripcion' | transloco"></p>
       <app-recuadro tipo="nota" [texto]="'patrones.relevo.detalle' | transloco" />
-      <app-bloque-codigo [codigo]="SNIPPET_RELEVO" [completo]="SNIPPET_RELEVO_COMPLETO" />
+      <app-bloque-codigo
+        [codigo]="SNIPPET_RELEVO"
+        [completo]="SNIPPET_RELEVO_COMPLETO"
+        ejemplo="icon-swap"
+      />
 
       <!--
         El prompt va aparte del bloque de código y sin resaltado: es prosa con API dentro, y el

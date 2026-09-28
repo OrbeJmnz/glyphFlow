@@ -607,7 +607,13 @@ export const SNIPPET_RELEVO = `<a routerLink="/docs">
 </a>`;
 
 export const SNIPPET_RELEVO_COMPLETO = `import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { GfIconComponent, SPRING_SNAPPY, type AnimatedIconDef } from 'glyphflow';
+import {
+  GfIconComponent,
+  SPRING_SNAPPY,
+  arrowRightIcon,
+  rocketIcon,
+  type AnimatedIconDef,
+} from 'glyphflow';
 
 @Component({
   selector: 'app-icon-swap',
@@ -692,4 +698,33 @@ export class IconSwap {
   readonly rest = input.required<AnimatedIconDef>();
   readonly enter = input.required<AnimatedIconDef>();
   protected readonly spring = SPRING_SNAPPY;
+}
+
+// Usage: the accent is projected with [accent] and sits on a 28px box, icon in the middle.
+@Component({
+  selector: 'app-get-started-button',
+  imports: [IconSwap],
+  template: \`
+    <button type="button">
+      Get started
+      <app-icon-swap [rest]="arrowRightIcon" [enter]="rocketIcon">
+        <svg accent viewBox="0 0 28 28" fill="currentColor">
+          <circle cx="5.2" cy="23" r="1.25" />
+          <circle cx="3.1" cy="25.2" r="0.95" opacity="0.7" />
+          <circle cx="1.4" cy="27" r="0.7" opacity="0.45" />
+        </svg>
+      </app-icon-swap>
+    </button>
+  \`,
+  styles: \`
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+  \`,
+})
+export class GetStartedButton {
+  protected readonly arrowRightIcon = arrowRightIcon;
+  protected readonly rocketIcon = rocketIcon;
 }`;

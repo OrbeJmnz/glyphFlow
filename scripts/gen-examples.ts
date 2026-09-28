@@ -134,6 +134,14 @@ export const EJEMPLOS: Ejemplo[] = [
     titulo: 'Expand/collapse',
     fuente: SNIPPETS.SNIPPET_EXPANDIR_COMPLETO,
   },
+  {
+    // `IconSwap` es la receta; el que arranca es el botón que la usa, para que se vea algo.
+    dir: 'icon-swap',
+    clase: 'GetStartedButton',
+    selector: 'app-get-started-button',
+    titulo: 'Icon swap',
+    fuente: SNIPPETS.SNIPPET_RELEVO_COMPLETO,
+  },
 ];
 
 function archivosDe(e: Ejemplo): Record<string, string> {
