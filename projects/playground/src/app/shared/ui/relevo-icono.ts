@@ -19,6 +19,13 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
  *
  * El hover se lee con `:host-context(a:hover)` y no con un `:hover` propio: el que se pasa por
  * encima es el botón entero, no la caja de 16px del icono.
+ *
+ * Lo que varía entre consumidores se abre sin inputs nuevos, para que la API siga siendo dos:
+ * - Un reposo que no está en el catálogo (la marca de GitHub) se proyecta con `[reposo]` en vez de
+ *   pasar `reposo`.
+ * - `--relevo-tono` en el host tiñe el icono que entra (la estrella amarilla, el corazón rosa).
+ * - `--relevo-acento-desde` / `--relevo-acento-hasta` cambian cómo entra el acento; por defecto
+ *   crece desde `scale(0.6)`, y la estrella de GitHub llega girando desde -45°.
  */
 @Component({
   selector: 'app-relevo-icono',
@@ -27,7 +34,10 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
   host: { 'aria-hidden': 'true' },
   template: `
     <span class="capa capa-reposo">
-      <gf-icon [iconDef]="reposo()" [size]="16" trigger="manual" />
+      @if (reposo(); as icono) {
+        <gf-icon [iconDef]="icono" [size]="16" trigger="manual" />
+      }
+      <ng-content select="[reposo]" />
     </span>
     <span class="capa capa-entrada">
       <gf-icon [iconDef]="entrada()" [size]="16" trigger="group" />
@@ -57,6 +67,7 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
     }
 
     .capa-entrada {
+      color: var(--relevo-tono, inherit);
       transform: translateY(15px) scale(0.8);
       opacity: 0;
     }
@@ -83,7 +94,7 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
       inset: -6px;
       display: grid;
       pointer-events: none;
-      transform: scale(0.6);
+      transform: var(--relevo-acento-desde, scale(0.6));
       opacity: 0;
       transition:
         transform 0.34s 0.05s var(--gf-resorte),
@@ -94,7 +105,7 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
     :host-context(a:focus-visible) .acento,
     :host-context(button:hover) .acento,
     :host-context(button:focus-visible) .acento {
-      transform: scale(1);
+      transform: var(--relevo-acento-hasta, scale(1));
       opacity: 1;
     }
 
@@ -115,8 +126,8 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
   `,
 })
 export class RelevoIcono {
-  /** Lo que se ve en reposo. No se anima: sale entero hacia arriba. */
-  readonly reposo = input.required<AnimatedIconDef>();
+  /** Lo que se ve en reposo. No se anima: sale entero hacia arriba. Sin él, se proyecta `[reposo]`. */
+  readonly reposo = input<AnimatedIconDef>();
   /** Lo que entra al pasar el puntero, dibujándose con su propia coreografía. */
   readonly entrada = input.required<AnimatedIconDef>();
 }

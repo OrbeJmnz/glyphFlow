@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GfIconComponent, coffeeIcon, heartIcon, type AnimatedIconDef } from 'glyphflow';
+import { coffeeIcon, heartIcon, type AnimatedIconDef } from 'glyphflow';
+import { RelevoIcono } from '../ui/relevo-icono';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 /**
@@ -14,7 +15,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 @Component({
   selector: 'app-boton-donar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [GfIconComponent, TranslocoPipe],
+  imports: [RelevoIcono, TranslocoPipe],
   template: `
     <a
       class="dn"
@@ -23,22 +24,12 @@ import { TranslocoPipe } from '@jsverse/transloco';
       rel="noopener noreferrer"
       [attr.aria-label]="'marca.donar.aria' | transloco"
     >
-      <span class="capas" aria-hidden="true">
-        <span class="capa capa-cafe">
-          <gf-icon [iconDef]="cafe" [size]="16" trigger="group" />
-        </span>
-
-        <span class="capa capa-corazon">
-          <!-- El propio motor, igual que en BotonGithub: trigger=group se cuelga del hover de
-               este <a>, así que el corazón SE DIBUJA justo mientras entra. -->
-          <gf-icon [iconDef]="corazon" [size]="16" trigger="group" />
-          <span class="destello">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
-              <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6z" />
-            </svg>
-          </span>
-        </span>
-      </span>
+      <!-- El relevo de RelevoIcono, igual que en BotonGithub: café → corazón, con su destello. -->
+      <app-relevo-icono class="relevo" [reposo]="cafe" [entrada]="corazon">
+        <svg acento class="destello" viewBox="0 0 24 24" fill="currentColor" width="10" height="10">
+          <path d="M12 2l2.4 7.6H22l-6.2 4.5 2.4 7.6-6.2-4.5-6.2 4.5 2.4-7.6L2 9.6h7.6z" />
+        </svg>
+      </app-relevo-icono>
 
       <span class="texto">{{ 'marca.donar.texto' | transloco }}</span>
     </a>
@@ -79,64 +70,22 @@ import { TranslocoPipe } from '@jsverse/transloco';
       transform: scale(0.96);
     }
 
-    .capas {
-      position: relative;
-      flex: none;
-      width: 16px;
-      height: 16px;
-    }
-
-    .capa {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      transition:
-        transform 0.34s var(--gf-resorte),
-        opacity 0.16s ease;
-    }
-
-    .capa-corazon {
-      color: var(--gf-rosa);
-      transform: translateY(15px) scale(0.8);
-      opacity: 0;
-    }
-
-    .dn:hover .capa-cafe,
-    .dn:focus-visible .capa-cafe {
-      transform: translateY(-15px) scale(0.8);
-      opacity: 0;
-    }
-
-    .dn:hover .capa-corazon,
-    .dn:focus-visible .capa-corazon {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+    /* El tono del corazón y la entrada girando del destello, igual que en BotonGithub. */
+    .relevo {
+      --relevo-tono: var(--gf-rosa);
+      --relevo-acento-desde: translateY(10px) rotate(-45deg) scale(0.94);
+      --relevo-acento-hasta: translateY(0) rotate(0) scale(1);
     }
 
     .destello {
-      position: absolute;
-      top: -6px;
-      right: -5px;
-      display: grid;
+      justify-self: end;
+      align-self: start;
+      margin-right: 1px;
       color: var(--gf-destello);
-      transform: translateY(10px) rotate(-45deg) scale(0.94);
-      opacity: 0;
-      transition:
-        transform 0.34s 0.05s var(--gf-resorte),
-        opacity 0.16s 0.05s ease;
-    }
-
-    .dn:hover .destello,
-    .dn:focus-visible .destello {
-      transform: translateY(0) rotate(0) scale(1);
-      opacity: 1;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .dn,
-      .capa,
-      .destello {
+      .dn {
         transition-property: opacity, background;
         transition-duration: 0.12s;
       }
