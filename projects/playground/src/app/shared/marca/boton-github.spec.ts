@@ -71,9 +71,10 @@ describe('BotonGithub', () => {
     const { html } = montar();
     // El movimiento es puro CSS; lo que un test puede afirmar es que las piezas están y que no
     // ensucian lo que oye un lector de pantalla — el nombre ya lo da el `aria-label` del enlace.
-    expect(html.querySelector('.capa-marca svg')).not.toBeNull();
-    expect(html.querySelector('.capa-estrella gf-icon')).not.toBeNull();
-    expect(html.querySelector('.destello svg')).not.toBeNull();
-    expect(html.querySelector('.capas')?.getAttribute('aria-hidden')).toBe('true');
+    // Las capas son las de `RelevoIcono`: la marca va proyectada en el reposo, la estrella entra.
+    expect(html.querySelector('.capa-reposo svg')).not.toBeNull();
+    expect(html.querySelector('.capa-entrada gf-icon')).not.toBeNull();
+    expect(html.querySelector('svg.destello')).not.toBeNull();
+    expect(html.querySelector('app-relevo-icono')?.getAttribute('aria-hidden')).toBe('true');
   });
 });
