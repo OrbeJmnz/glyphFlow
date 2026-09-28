@@ -166,3 +166,19 @@ export interface AnimatedIconDef {
  * animaba todos a la vez.
  */
 export type AnimatedIconTrigger = 'group' | 'hover' | 'tap' | 'view' | 'auto' | 'manual';
+
+/**
+ * Qué hace un icono de HOVER (`trigger` `group` o `hover`) en una pantalla táctil, donde no hay
+ * puntero que pase por encima. Opt-in: con `'none'` (el default) se queda como siempre —solo el
+ * dibujo al montarse—, porque un tap táctil sintetiza `pointerenter` y animar ahí se comía la
+ * sensación del tap.
+ *
+ * - `'press'`: al PRESIONAR con el dedo reproduce la variante de hover; al soltar la revierte si la
+ *   variante trae `reverseOnLeave`. Para botones y controles.
+ * - `'view'`: solo en pantallas SIN hover (`(hover: none)`), reproduce la variante de hover al
+ *   entrar al viewport. Para rejillas y listas que en móvil nadie va a tocar una por una.
+ * - `'none'`: nada.
+ *
+ * No afecta a `tap`, `view`, `auto` ni `manual`: esos ya dicen cuándo animar.
+ */
+export type GfIconTouch = 'press' | 'view' | 'none';

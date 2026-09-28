@@ -1,4 +1,5 @@
 import { InjectionToken, Provider } from '@angular/core';
+import type { GfIconTouch } from './animated-icon.model';
 
 /**
  * Config global opcional. Sin `provideGfIcons(...)` en ningún injector, el valor por defecto
@@ -22,6 +23,14 @@ export interface GfIconsConfig {
    * convierte en un interruptor vivo sin re-bootstrapear la aplicación.
    */
   animationsEnabled?: boolean;
+  /**
+   * Modo táctil por defecto de los iconos de hover (`group`/`hover`). Default `'none'`: sin esto
+   * nada cambia. El input `touch` de cada icono gana sobre este valor. Ver {@link GfIconTouch}.
+   *
+   * A diferencia de `durationScale`/`animationsEnabled`, se lee AL MONTAR el icono: decide qué
+   * escuchadores se conectan, y reconectarlos en vivo no tiene un caso de uso que lo pague.
+   */
+  touch?: GfIconTouch;
 }
 
 /**

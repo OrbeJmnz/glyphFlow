@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { GfIconComponent } from './gf-icon.component';
 import type { AnimatedIconDef, IconChoreography } from './animated-icon.model';
@@ -477,6 +478,135 @@ interface FalsaAnimacion {
  * vacíos, y aquí no hay nada que ejecutar: lo que se afirma es que `animate()` LLEGÓ a llamarse,
  * no lo que pase después.
  */
+describe('modo táctil (`touch`)', () => {
+  let duraciones: number[];
+  let original: PropertyDescriptor | undefined;
+
+  function pista(duration: number, reverseOnLeave = false): IconChoreography {
+    return {
+      shapes: { 0: { keyframes: [{ opacity: 1 }, { opacity: 0.4 }], options: { duration } } },
+      ...(reverseOnLeave ? { reverseOnLeave } : {}),
+    };
+  }
+
+  /** Mismo orden que el catálogo: la de hover es la tercera (333). */
+  const DEF: AnimatedIconDef = {
+    shapes: [{ tag: 'path', d: 'M0 0h24' }],
+    animations: { draw: pista(111), default: pista(222), spin: pista(333, true) },
+  };
+
+  /** `Event` con `pointerType` pegado: jsdom no trae siempre `PointerEvent`. */
+  const puntero = (tipo: string, pointerType: string) =>
+    Object.assign(new Event(tipo), { pointerType });
+
+  async function montar(opciones: { touch?: string; config?: Record<string, unknown> } = {}) {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [GfIconComponent],
+      providers: opciones.config ? [provideGfIcons(opciones.config)] : [],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(GfIconComponent);
+    fixture.componentRef.setInput('iconDef', DEF);
+    if (opciones.touch) fixture.componentRef.setInput('touch', opciones.touch);
+    fixture.detectChanges();
+    duraciones = []; // el trazo de entrada no es lo que se mide aquí
+    return fixture;
+  }
+
+  beforeEach(() => {
+    duraciones = [];
+    original = Object.getOwnPropertyDescriptor(Element.prototype, 'animate');
+    Object.defineProperty(Element.prototype, 'animate', {
+      configurable: true,
+      writable: true,
+      value: function (_kf: unknown, opciones: KeyframeAnimationOptions): Animation {
+        duraciones.push(opciones?.duration as number);
+        return dobleDeAnimacion();
+      },
+    });
+  });
+
+  afterEach(() => {
+    if (original) Object.defineProperty(Element.prototype, 'animate', original);
+    else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
+    vi.unstubAllGlobals();
+  });
+
+  it('sin fijarlo, un toque no anima nada: el comportamiento de siempre', async () => {
+    const fixture = await montar();
+    fixture.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
+    fixture.nativeElement.dispatchEvent(puntero('pointerenter', 'touch'));
+    expect(duraciones).toEqual([]);
+  });
+
+  it('con `press`, presionar con el dedo reproduce la variante de hover', async () => {
+    const fixture = await montar({ touch: 'press' });
+    fixture.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
+    expect(duraciones).toEqual([333]);
+  });
+
+  it('con `press`, el ratón sigue yendo solo por hover y el `pointerenter` táctil sigue ignorado', async () => {
+    const fixture = await montar({ touch: 'press' });
+    fixture.nativeElement.dispatchEvent(puntero('pointerdown', 'mouse'));
+    fixture.nativeElement.dispatchEvent(puntero('pointerenter', 'touch'));
+    expect(duraciones).toEqual([]);
+  });
+
+  it('con `press`, soltar revierte si la variante trae `reverseOnLeave`', async () => {
+    const fixture = await montar({ touch: 'press' });
+    const revertir = vi.spyOn(fixture.componentInstance, 'reverse');
+    fixture.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
+    fixture.nativeElement.dispatchEvent(puntero('pointerup', 'touch'));
+    expect(revertir).toHaveBeenCalledTimes(1);
+  });
+
+  it('la config global lo enciende, y el input del icono le gana', async () => {
+    const global = await montar({ config: { touch: 'press' } });
+    global.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
+    expect(duraciones).toEqual([333]);
+
+    const apagado = await montar({ config: { touch: 'press' }, touch: 'none' });
+    apagado.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
+    expect(duraciones).toEqual([]);
+  });
+
+  describe('con `view`', () => {
+    let alEntrar: ((entradas: { isIntersecting: boolean }[]) => void) | undefined;
+
+    function simularPantalla(sinHover: boolean) {
+      alEntrar = undefined;
+      vi.stubGlobal(
+        'matchMedia',
+        (consulta: string) => ({ matches: consulta === '(hover: none)' ? sinHover : false }),
+      );
+      vi.stubGlobal(
+        'IntersectionObserver',
+        class {
+          // Dobles: el observador real no existe en jsdom; lo que importa es capturar el callback.
+          observe = vi.fn();
+          disconnect = vi.fn();
+          constructor(cb: typeof alEntrar) {
+            alEntrar = cb;
+          }
+        },
+      );
+    }
+
+    it('en una pantalla sin hover, reproduce la variante de hover al entrar al viewport', async () => {
+      simularPantalla(true);
+      await montar({ touch: 'view' });
+      alEntrar?.([{ isIntersecting: true }]);
+      expect(duraciones).toEqual([333]);
+    });
+
+    it('con puntero (hay hover), no se conecta: manda el hover de siempre', async () => {
+      simularPantalla(false);
+      await montar({ touch: 'view' });
+      expect(alEntrar).toBeUndefined();
+    });
+  });
+});
+
 function dobleDeAnimacion(): Animation {
   const nada = (): undefined => undefined;
 

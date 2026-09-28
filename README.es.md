@@ -31,8 +31,8 @@ Medido en CI en cada push, no prometido — `npm run bundle-check`:
 
 | Qué importas                                 | gzip          |
 | -------------------------------------------- | ------------- |
-| Solo el componente, sin iconos               | **5.24 KB**   |
-| Un icono individual (`[iconDef]="bellIcon"`) | **5.60 KB**   |
+| Solo el componente, sin iconos               | **5.45 KB**   |
+| Un icono individual (`[iconDef]="bellIcon"`) | **5.81 KB**   |
 | El catálogo completo (`name="bell"`)         | **174.74 KB** |
 
 Un icono cuesta ~0.36 KB sobre el runtime. Buscar por nombre obliga al bundler a conservar los 1767,
@@ -67,6 +67,26 @@ this.icon.play('pulse'); // reproduce una VARIANTE — no un trigger; sin argume
 this.icon.reverse(); // invierte la animación que esté corriendo
 this.icon.cancel(); // la corta y restablece la pose base
 ```
+
+### En pantallas táctiles
+
+Una pantalla táctil no tiene puntero que pase por encima, así que los iconos de hover (`group`,
+`hover`) ahí solo se dibujan al montar. Es a propósito: un tap dispara un `pointerenter` sintético,
+y animar con él se comería la sensación del tap. El input `touch` lo activa a voluntad:
+
+| `touch`          | En una pantalla táctil                                                                                     |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| `none` (default) | Nada nuevo — el comportamiento de arriba.                                                                  |
+| `press`          | Al presionar con el dedo reproduce la variante de hover; al soltar la revierte si la variante trae `reverseOnLeave`. Para botones y controles. |
+| `view`           | Solo en pantallas sin hover (`(hover: none)`): reproduce la variante de hover al entrar al viewport. Para rejillas y listas. |
+
+```html
+<button type="button"><gf-icon [iconDef]="bellIcon" touch="press" /> Avísame</button>
+```
+
+Solo añade escuchadores: el hover con ratón sigue igual que siempre, y `tap`, `view`, `auto` y
+`manual` lo ignoran. Se fija una vez para toda la app con `provideGfIcons({ touch: 'press' })`; el
+input `touch` de cada icono le gana al global.
 
 ## El catálogo
 

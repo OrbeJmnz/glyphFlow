@@ -15,6 +15,7 @@ import { resolveIconName } from './animated-icons.registry';
 import {
   AnimatedIconDef,
   AnimatedIconTrigger,
+  GfIconTouch,
   AutoDraw,
   AutoFlicker,
   AutoReveal,
@@ -175,6 +176,12 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   /** Solo con `trigger="view"`: si se anima una vez o cada que reentra al viewport. */
   @Input() viewOnce = true;
   /**
+   * Qué hace en táctil un icono de hover (`group`/`hover`). Sin fijarlo manda la config global
+   * (`provideGfIcons({ touch })`), y sin ninguna de las dos, `'none'`: el comportamiento de
+   * siempre. Se lee al montar. Ver {@link GfIconTouch}.
+   */
+  @Input() touch?: GfIconTouch;
+  /**
    * Contrato de accesibilidad: una sola regla, no una interacción `aria-hidden`/`aria-label` que
    * combinar. `decorative=true` sin `label` → `aria-hidden="true"`. Con `label` → icono semántico
    * (`aria-hidden="false"`, `aria-label=label`).
@@ -220,6 +227,7 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   private vivasFlicker: Animation[] = [];
   private observer?: IntersectionObserver;
   private unwireGroup?: () => void;
+  private unwireTouch?: () => void;
 
   /** Marca del nodo fantasma. `play()` los excluye para que los índices de figura no se corran. */
   private static readonly GHOST_ATTR = 'data-gf-ghost';
@@ -287,10 +295,12 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     if (this.trigger === 'auto') this.play();
     if (this.trigger === 'view') this.observeViewport();
     if (this.trigger === 'group') this.wireGroup();
+    if (this.trigger === 'group' || this.trigger === 'hover') this.wireTouch();
     this.destroyRef.onDestroy(() => {
       this.cancel();
       this.observer?.disconnect();
       this.unwireGroup?.();
+      this.unwireTouch?.();
     });
   }
 
@@ -302,18 +312,11 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   private wireGroup(): void {
     this.play('draw');
 
-    const host = this.el.nativeElement as HTMLElement;
-    // Prioridad: el control que lo contiene > el `.group` de Tailwind > el icono mismo.
-    // El botón GANA a propósito: en una fila `<tr class="group">` con tres botones de acción,
-    // colgarse del grupo animaba los tres a la vez con solo pasar por la fila. Cada botón
-    // enciende SU icono, y el `.group` queda para los iconos que no viven en un control.
-    const target =
-      (host.closest('button, a, [role="button"]') as HTMLElement | null) ??
-      (host.closest('.group') as HTMLElement | null) ??
-      host;
+    const target = this.groupTarget();
 
     // Un tap táctil sintetiza `pointerenter` antes del click (cicatriz conocida): sin el guard,
-    // en móvil el icono se animaría en cada toque y se comería la sensación del tap.
+    // en móvil el icono se animaría en cada toque y se comería la sensación del tap. Lo que SÍ
+    // hace en táctil lo decide el input `touch` (ver `wireTouch`), opt-in.
     const enter = (event: Event) => {
       if ((event as PointerEvent).pointerType === 'touch') return;
       this.play(this.hoverVariant);
@@ -327,6 +330,65 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     this.unwireGroup = () => {
       target.removeEventListener('pointerenter', enter);
       target.removeEventListener('pointerleave', leave);
+    };
+  }
+
+  /** La superficie de `group`: el control que lo contiene > el `.group` de Tailwind > el icono. */
+  private groupTarget(): HTMLElement {
+    const host = this.el.nativeElement as HTMLElement;
+    // Prioridad: el control que lo contiene > el `.group` de Tailwind > el icono mismo.
+    // El botón GANA a propósito: en una fila `<tr class="group">` con tres botones de acción,
+    // colgarse del grupo animaba los tres a la vez con solo pasar por la fila. Cada botón
+    // enciende SU icono, y el `.group` queda para los iconos que no viven en un control.
+    return (
+      (host.closest('button, a, [role="button"]') as HTMLElement | null) ??
+      (host.closest('.group') as HTMLElement | null) ??
+      host
+    );
+  }
+
+  /**
+   * El modo táctil (input `touch`, o `provideGfIcons({ touch })`), solo para los disparadores de
+   * hover. Todo lo demás del icono queda igual: esto AÑADE escuchadores, no cambia los de puntero.
+   *
+   * `press` escucha `pointerdown` y no `click`: el click llega después de soltar, y en un control
+   * que navega o abre un panel la animación ya no se vería. Filtra por `pointerType === 'touch'`
+   * para que el ratón siga yendo solo por hover. `view` solo se conecta si la pantalla NO tiene
+   * hover: en una laptop con pantalla táctil manda el puntero, que es lo que el usuario usa.
+   */
+  private wireTouch(): void {
+    const modo = this.touch ?? this.config?.touch ?? 'none';
+    if (modo === 'none') return;
+    // `group` elige su variante de hover por posición; `hover` usa la del input `animation`. Se
+    // lee en cada toque, no al montar: el `iconDef` puede cambiar después.
+    const variante = () => (this.trigger === 'group' ? this.hoverVariant : undefined);
+
+    if (modo === 'view') {
+      const sinHover =
+        typeof window !== 'undefined' && !!window.matchMedia?.('(hover: none)').matches;
+      if (sinHover) this.observeViewport(variante());
+      return;
+    }
+
+    const target =
+      this.trigger === 'group' ? this.groupTarget() : (this.el.nativeElement as HTMLElement);
+    const revierte = () => {
+      const nombre = variante();
+      return (nombre ? this.def?.animations[nombre] : this.choreography)?.reverseOnLeave ?? false;
+    };
+    const presiona = (event: Event) => {
+      if ((event as PointerEvent).pointerType === 'touch') this.play(variante());
+    };
+    const suelta = (event: Event) => {
+      if ((event as PointerEvent).pointerType === 'touch' && revierte()) this.reverse();
+    };
+    target.addEventListener('pointerdown', presiona);
+    target.addEventListener('pointerup', suelta);
+    target.addEventListener('pointercancel', suelta);
+    this.unwireTouch = () => {
+      target.removeEventListener('pointerdown', presiona);
+      target.removeEventListener('pointerup', suelta);
+      target.removeEventListener('pointercancel', suelta);
     };
   }
 
@@ -744,13 +806,14 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
     el.style.strokeDashoffset = '';
   }
 
-  private observeViewport(): void {
+  /** `variant` sin fijar = la de `play()` sin argumento. Con `touch="view"` es la de hover. */
+  private observeViewport(variant?: string): void {
     if (typeof IntersectionObserver === 'undefined') return;
     this.observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
-          this.play();
+          this.play(variant);
           if (this.viewOnce) this.observer?.disconnect();
         }
       },

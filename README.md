@@ -31,8 +31,8 @@ Measured in CI on every push, not promised — `npm run bundle-check`:
 
 | What you import                   | gzip          |
 | --------------------------------- | ------------- |
-| The component alone, no icons     | **5.24 KB**   |
-| One icon (`[iconDef]="bellIcon"`) | **5.60 KB**   |
+| The component alone, no icons     | **5.45 KB**   |
+| One icon (`[iconDef]="bellIcon"`) | **5.81 KB**   |
 | The whole catalog (`name="bell"`) | **174.74 KB** |
 
 An icon costs about 0.36 KB on top of the runtime. Looking one up by name forces the bundler to keep
@@ -67,6 +67,26 @@ this.icon.play('pulse'); // plays a VARIANT — not a trigger; no argument repla
 this.icon.reverse(); // reverses the animation currently running
 this.icon.cancel(); // stops it and resets to the base pose
 ```
+
+### On touch screens
+
+A touch screen has no pointer passing over things, so hover-driven icons (`group`, `hover`) only
+draw on mount there. That is on purpose: a tap fires a synthetic `pointerenter`, and animating on
+it would swallow the feel of the tap. The `touch` input is the opt-in:
+
+| `touch`          | On a touch screen                                                                                        |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `none` (default) | Nothing new — the behavior above.                                                                        |
+| `press`          | Pressing with a finger plays the hover variant; lifting it reverses it when the variant has `reverseOnLeave`. For buttons and controls. |
+| `view`           | Only on screens without hover (`(hover: none)`): plays the hover variant when the icon enters the viewport. For grids and lists. |
+
+```html
+<button type="button"><gf-icon [iconDef]="bellIcon" touch="press" /> Notify me</button>
+```
+
+It only adds listeners: mouse hover keeps working exactly as before, and `tap`, `view`, `auto` and
+`manual` ignore it. Set it once for the whole app with `provideGfIcons({ touch: 'press' })`; an
+icon's own `touch` input wins over the global one.
 
 ## The catalog
 
