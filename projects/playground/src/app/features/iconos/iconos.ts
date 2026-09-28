@@ -345,7 +345,8 @@ export class Iconos implements OnDestroy {
   protected readonly relevoEmpezar = { reposo: arrowRightIcon, entrada: rocketIcon };
   protected readonly relevoEditor = { reposo: splineIcon, entrada: penToolIcon };
   /** Las píldoras de densidad, con el mismo relevo que «Donar»: la rejilla deja paso a lo que
-      significa cada opción — el sofá para «cómoda», las flechas que se juntan para «compacta». */
+      significa cada opción — el sofá (con sus «zz») para «cómoda», las flechas que se juntan (con
+      una rejilla apretada) para «compacta». */
   protected readonly relevoComoda = { reposo: grid2x2Icon, entrada: sofaIcon };
   protected readonly relevoCompacta = { reposo: grid3x3Icon, entrada: shrinkIcon };
 

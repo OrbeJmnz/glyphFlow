@@ -1244,3 +1244,18 @@
   stroke: var(--gf-marca-2);
   stroke-width: 1.1;
 }
+
+/* Los de densidad salen del color del texto: son filtros, no marca, y se quedan en su sitio. */
+.acento-zz path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+
+.acento-rejilla {
+  fill: currentColor;
+  opacity: 0.7;
+}

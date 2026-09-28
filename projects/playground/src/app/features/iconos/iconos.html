@@ -355,7 +355,13 @@
         [attr.aria-pressed]="densidad() === 'comoda'"
         (click)="cambiarDensidad('comoda')"
       >
-        <app-relevo-icono [reposo]="relevoComoda.reposo" [entrada]="relevoComoda.entrada" />
+        <app-relevo-icono [reposo]="relevoComoda.reposo" [entrada]="relevoComoda.entrada">
+          <!-- «zz» sobre el sofá: descanso. Arriba a la derecha, donde el sofá de Lucide deja aire. -->
+          <svg acento class="acento-zz" viewBox="0 0 28 28" width="28" height="28">
+            <path d="M19 3h3l-3 3.2h3" />
+            <path d="M23.6 0.6h2l-2 2.1h2" />
+          </svg>
+        </app-relevo-icono>
         {{ 'iconos.barra.densidadComoda' | transloco }}
       </button>
       <button
@@ -365,7 +371,16 @@
         [attr.aria-pressed]="densidad() === 'compacta'"
         (click)="cambiarDensidad('compacta')"
       >
-        <app-relevo-icono [reposo]="relevoCompacta.reposo" [entrada]="relevoCompacta.entrada" />
+        <app-relevo-icono [reposo]="relevoCompacta.reposo" [entrada]="relevoCompacta.entrada">
+          <!-- Una rejilla de 2×2 apretada fuera de la esquina: más por fila. Fuera de la caja del
+               icono a propósito — las esquinas de «shrink» ya las ocupan sus flechas. -->
+          <svg acento class="acento-rejilla" viewBox="0 0 28 28" width="28" height="28">
+            <circle cx="23.2" cy="23.2" r="0.85" />
+            <circle cx="25.7" cy="23.2" r="0.85" />
+            <circle cx="23.2" cy="25.7" r="0.85" />
+            <circle cx="25.7" cy="25.7" r="0.85" />
+          </svg>
+        </app-relevo-icono>
         {{ 'iconos.barra.densidadCompacta' | transloco }}
       </button>
     </app-grupo>
