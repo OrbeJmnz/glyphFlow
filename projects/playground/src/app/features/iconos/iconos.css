@@ -240,7 +240,15 @@
 
 /* ── Showcase de morph ──────────────────────────────────────────────────────── */
 
+/*
+ * `position: relative` + `z-index: 1`: los halos de BurbujasAmbiente sangran 360px por debajo del
+ * hero y caen encima de esta tarjeta. El hero tiene su propio stacking context (`z-index: 0`) y un
+ * bloque sin posicionar se pinta ANTES que él, así que el panel quedaba tapado por las esferas.
+ * Con 1 sube por encima del contexto del hero sin tocar el de nadie más.
+ */
 .showcase {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

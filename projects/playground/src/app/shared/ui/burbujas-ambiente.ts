@@ -135,8 +135,8 @@ const BURBUJAS_HERO: readonly Burbuja[] = [
         [class.lavanda]="b.tono === 'lavanda'"
         [class.sutil]="b.sutil"
         [class.grande]="b.grande"
-        [style.top]="desdeHero(b.top)"
-        [style.bottom]="desdeHero(b.bottom)"
+        [style.top]="desdeHero(b.top, 'arriba')"
+        [style.bottom]="desdeHero(b.bottom, 'abajo')"
         [style.left]="b.left ?? null"
         [style.right]="b.right ?? null"
         [style.--bb-tamano.px]="b.tamano"
@@ -171,9 +171,13 @@ const BURBUJAS_HERO: readonly Burbuja[] = [
      */
     :host {
       position: absolute;
+      /* Abajo sobra más que arriba: los halos inferiores (F) van pegados al borde de abajo a
+         propósito, y su resplandor —38% del diámetro más allá del cuerpo— necesita ~170px extra
+         para apagarse solo. Con 360 se cortaba en línea recta a la altura de «Mira la API». */
       --bb-sangrado: 360px;
+      --bb-sangrado-abajo: 560px;
       top: calc(-1 * var(--bb-sangrado));
-      bottom: calc(-1 * var(--bb-sangrado));
+      bottom: calc(-1 * var(--bb-sangrado-abajo));
       left: calc(50% - 50vw);
       right: calc(50% - 50vw);
       overflow: hidden;
@@ -479,11 +483,13 @@ export class BurbujasAmbiente {
 
   /**
    * Las offsets de `Burbuja` se escriben contra el borde del CONTENEDOR (.hero), que es como se
-   * piensan. Pero el host se estira --bb-sangrado por arriba y por abajo, y un `top` crudo se
-   * medía desde ahí: A, B y D quedaban 360px más arriba de lo escrito — A y B, las dos que
+   * piensan. Pero el host se estira (--bb-sangrado arriba, --bb-sangrado-abajo abajo) y un
+   * `top` crudo se medía desde ahí: A, B y D quedaban 360px más arriba de lo escrito — A y B, las dos que
    * enmarcan, fuera de pantalla por completo. Esto traduce una sola vez, aquí.
    */
-  protected desdeHero(offset: string | undefined): string | null {
-    return offset === undefined ? null : `calc(var(--bb-sangrado) + ${offset})`;
+  protected desdeHero(offset: string | undefined, lado: 'arriba' | 'abajo'): string | null {
+    if (offset === undefined) return null;
+    const sangrado = lado === 'arriba' ? '--bb-sangrado' : '--bb-sangrado-abajo';
+    return `calc(var(${sangrado}) + ${offset})`;
   }
 }
