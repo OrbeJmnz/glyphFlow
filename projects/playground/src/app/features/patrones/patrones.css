@@ -707,3 +707,65 @@
     transition: none;
   }
 }
+
+/* ── Relevo de iconos ─────────────────────────────────────────────────────── */
+
+/* La estela del demo: mismo acento que el «Empezar» del home, del color del texto — es humo. */
+.acento-estela {
+  fill: currentColor;
+  opacity: 0.6;
+}
+
+/*
+ * El prompt para IA. Se lee como documento, no como código: fuente del cuerpo, `pre-wrap` para
+ * que respete los saltos del prompt sin obligar a desplazarse a lo ancho, y un alto máximo con
+ * scroll propio para que no se coma el artículo. Es foco de teclado (`tabindex` en la plantilla)
+ * porque una región con scroll tiene que poder recorrerse sin ratón.
+ */
+.prompt-ia {
+  margin: 1.2rem 0 0;
+  padding: 16px 18px;
+  border: 1px solid var(--gf-borde-suave);
+  border-radius: var(--gf-radio);
+  background: var(--gf-panel);
+}
+
+.prompt-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.prompt-cabecera h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.prompt-nota {
+  margin: 0.5rem 0 0;
+  color: var(--gf-texto-apagado);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.prompt-texto {
+  max-height: 260px;
+  margin: 0.8rem 0 0;
+  padding: 12px 14px;
+  overflow: auto;
+  border-radius: calc(var(--gf-radio) - 4px);
+  background: var(--gf-fondo);
+  color: var(--gf-texto-medio);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.prompt-texto:focus-visible {
+  outline: 2px solid var(--gf-marca-2);
+  outline-offset: 2px;
+}

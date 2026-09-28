@@ -9,12 +9,14 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  arrowRightIcon,
   bellIcon,
   chevronDownIcon,
   circleCheckIcon,
   GfIconComponent,
   heartIcon,
   loaderCircleIcon,
+  rocketIcon,
   searchIcon,
   sendIcon,
   type AnimatedIconDef,
@@ -74,8 +76,12 @@ import {
   SNIPPET_CONTRASENA_COMPLETO,
   SNIPPET_EXPANDIR,
   SNIPPET_EXPANDIR_COMPLETO,
+  SNIPPET_RELEVO,
+  SNIPPET_RELEVO_COMPLETO,
 } from './snippets';
 import { Rutas } from '../../core/rutas.service';
+import { RelevoIcono } from '../../shared/ui/relevo-icono';
+import { Copiador } from '../../shared/ui/copiar';
 
 /**
  * Patrones reales, no una vitrina de iconos sueltos.
@@ -93,6 +99,7 @@ import { Rutas } from '../../core/rutas.service';
     BloqueCodigo,
     Recuadro,
     MotorBadge,
+    RelevoIcono,
     GfIconComponent,
     GfIconMorphComponent,
     Boton,
@@ -153,6 +160,29 @@ export class Patrones implements OnDestroy {
   protected readonly SNIPPET_CONTRASENA_COMPLETO = SNIPPET_CONTRASENA_COMPLETO;
   protected readonly SNIPPET_EXPANDIR = SNIPPET_EXPANDIR;
   protected readonly SNIPPET_EXPANDIR_COMPLETO = SNIPPET_EXPANDIR_COMPLETO;
+  protected readonly SNIPPET_RELEVO = SNIPPET_RELEVO;
+  protected readonly SNIPPET_RELEVO_COMPLETO = SNIPPET_RELEVO_COMPLETO;
+
+  // ── Relevo de iconos ────────────────────────────────────────────────────────
+
+  /** El demo es el `RelevoIcono` del sitio, el mismo que usa el «Empezar» del home. */
+  protected readonly relevoDemo = { reposo: arrowRightIcon, entrada: rocketIcon };
+
+  /**
+   * El prompt se copia en el idioma de la página: sale de la misma clave que se lee en pantalla,
+   * así que lo que se pega es exactamente lo que se ve.
+   */
+  private readonly textoPrompt = translateSignal('patrones.relevo.prompt');
+  protected readonly copiadorPrompt = new Copiador();
+  protected readonly etiquetaPrompt = translateSignal(
+    computed(() =>
+      this.copiadorPrompt.copiado() ? 'patrones.relevo.promptCopiado' : 'patrones.relevo.promptCopiar',
+    ),
+  );
+
+  protected copiarPrompt(): Promise<void> {
+    return this.copiadorPrompt.copiar(this.textoPrompt());
+  }
 
   private readonly relojes: ReturnType<typeof setTimeout>[] = [];
 
@@ -241,7 +271,7 @@ export class Patrones implements OnDestroy {
   // ── T23 · Índice, anclas y cierre ───────────────────────────────────────────
 
   /**
-   * El índice lateral. Los nueve patrones, con su ancla y su clave de título — las mismas claves
+   * El índice lateral. Los patrones, con su ancla y su clave de título — las mismas claves
    * que pinta cada `<h2>`, así que el índice no puede quedarse diciendo un nombre viejo.
    */
   protected readonly indicePatrones = [
@@ -261,6 +291,7 @@ export class Patrones implements OnDestroy {
     { ancla: 'remove-like', titulo: 'patrones.quitarLike.titulo' },
     { ancla: 'password-visibility', titulo: 'patrones.contrasena.titulo' },
     { ancla: 'expand-collapse', titulo: 'patrones.expandir.titulo' },
+    { ancla: 'icon-swap', titulo: 'patrones.relevo.titulo' },
   ];
 
   /** Qué patrón está a la vista. `null` hasta que el observador dice algo. */
@@ -558,6 +589,7 @@ export class Patrones implements OnDestroy {
 
   ngOnDestroy(): void {
     for (const r of this.relojes) clearTimeout(r);
+    this.copiadorPrompt.destruir();
     this.observador?.disconnect();
   }
 }

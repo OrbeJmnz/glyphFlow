@@ -752,6 +752,70 @@
       />
     </div>
   </article>
+
+  <!-- ── Relevo de iconos: la receta de `RelevoIcono`, con su prompt para IA ──────────────── -->
+  <article class="patron" id="icon-swap">
+    <div class="demo" [attr.data-pista]="'patrones.pruebalo' | transloco">
+      <a app-boton [routerLink]="rutas.a('docs')">
+        {{ 'patrones.relevo.boton' | transloco }}
+        <app-relevo-icono [reposo]="relevoDemo.reposo" [entrada]="relevoDemo.entrada">
+          <svg acento class="acento-estela" viewBox="0 0 28 28" width="28" height="28">
+            <circle cx="5.2" cy="23" r="1.25" />
+            <circle cx="3.1" cy="25.2" r="0.95" opacity="0.7" />
+            <circle cx="1.4" cy="27" r="0.7" opacity="0.45" />
+          </svg>
+        </app-relevo-icono>
+      </a>
+    </div>
+    <div class="texto">
+      <h2>
+        {{ 'patrones.relevo.titulo' | transloco
+        }}<a
+          class="ancla"
+          [routerLink]="[]"
+          fragment="icon-swap"
+          [attr.aria-label]="'patrones.enlazar' | transloco"
+          >#</a
+        >
+      </h2>
+      <app-motor-badge tono="coreografia" [texto]="'patrones.motor.coreografia' | transloco" />
+      <p [innerHTML]="'patrones.relevo.descripcion' | transloco"></p>
+      <app-recuadro tipo="nota" [texto]="'patrones.relevo.detalle' | transloco" />
+      <app-bloque-codigo [codigo]="SNIPPET_RELEVO" [completo]="SNIPPET_RELEVO_COMPLETO" />
+
+      <!--
+        El prompt va aparte del bloque de código y sin resaltado: es prosa con API dentro, y el
+        resaltador de código le pintaría colores a palabras sueltas. Se copia el mismo texto que
+        se lee, en el idioma de la página.
+      -->
+      <section class="prompt-ia" aria-labelledby="prompt-ia-titulo">
+        <div class="prompt-cabecera">
+          <h3 id="prompt-ia-titulo">{{ 'patrones.relevo.promptTitulo' | transloco }}</h3>
+          <button
+            type="button"
+            app-boton
+            compacto
+            [class.hecho]="copiadorPrompt.copiado()"
+            (click)="copiarPrompt()"
+          >
+            <gf-icon-morph
+              [intent]="COPY_INTENT"
+              [active]="copiadorPrompt.copiado()"
+              [animateAtRest]="true"
+              [autoReset]="0"
+              [size]="15"
+            />
+            {{ etiquetaPrompt() }}
+          </button>
+        </div>
+        <p class="prompt-nota">{{ 'patrones.relevo.promptNota' | transloco }}</p>
+        <pre class="prompt-texto" tabindex="0">{{ 'patrones.relevo.prompt' | transloco }}</pre>
+        <p class="visualmente-oculto" aria-live="polite">
+          {{ copiadorPrompt.copiado() ? ('patrones.relevo.promptCopiado' | transloco) : '' }}
+        </p>
+      </section>
+    </div>
+  </article>
 </div>
 </div>
 
