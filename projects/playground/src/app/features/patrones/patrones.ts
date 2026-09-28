@@ -468,10 +468,9 @@ export class Patrones implements OnDestroy {
   }
 
   // ── Cinco MorphIntent — [intent] en vez de armar el ternario a mano ──────────
-  // A diferencia de TODO lo de arriba (`iconoCopiar`/`iconoMenu`/…, un `computed` por patrón que
-  // decide qué figura toca), un intent ya trae el par y el resorte decididos: el input es un
-  // booleano, no un icono. `[animateAtRest]` de regalo — hover real en los dos lados, sin la
-  // señal de tipo que exige `iconoPlano()` para los pares p≠q de arriba.
+  // A diferencia de los patrones con un `computed` que decide qué figura toca, un intent ya trae
+  // el par y el resorte decididos: el input es un booleano, no un icono. `[animateAtRest]` de
+  // regalo — hover real en los dos lados.
   protected readonly FAVORITE_INTENT = FAVORITE_INTENT;
   protected readonly NOTIFY_INTENT = NOTIFY_INTENT;
   protected readonly PIN_INTENT = PIN_INTENT;
