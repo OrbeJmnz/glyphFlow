@@ -15,13 +15,20 @@ import { transformSync } from 'esbuild';
 import { readFileSync } from 'node:fs';
 import * as patrones from '../projects/playground/src/app/features/patrones/snippets.ts';
 
-/** Los símbolos que el paquete publicado exporta de verdad, leídos de sus tipos. */
+/**
+ * Los símbolos que el paquete publicado exporta de verdad, leídos de sus tipos. Incluye los
+ * `export type { … }`: ahí salen `AnimatedIconDef` y el resto de tipos, que un snippet importa.
+ */
 function exportados(dts: string): Set<string> {
-  const bloque = readFileSync(new URL(dts, import.meta.url), 'utf8').match(/export \{([^}]*)\}/g);
+  const bloque = readFileSync(new URL(dts, import.meta.url), 'utf8').match(
+    /export (?:type )?\{([^}]*)\}/g,
+  );
   if (!bloque) throw new Error(`No encontré la lista de exports en ${dts}`);
+  // Con coma, no con espacio: son VARIOS bloques, y un espacio pegaba el último nombre de uno con
+  // el primero del siguiente en un solo "nombre" que no existe.
   const nombres = bloque
-    .join(' ')
-    .replace(/export \{|\}/g, '')
+    .join(',')
+    .replace(/export (?:type )?\{|\}/g, '')
     .split(',')
     .map((n) =>
       n
@@ -57,9 +64,10 @@ for (const [nombre, codigo] of completos) {
     /import \{([^}]*)\} from '(glyphflow(?:\/morph)?)'/g,
   )) {
     const entrada = m[2] as keyof typeof API;
+    // `type X` es un import de solo tipo, TypeScript válido: se compara el nombre, no el modificador.
     for (const simbolo of m[1]
       .split(',')
-      .map((s) => s.trim())
+      .map((s) => s.trim().replace(/^type\s+/, ''))
       .filter(Boolean)) {
       if (!API[entrada].has(simbolo)) {
         console.error(`  ✗ ${nombre}: importa '${simbolo}' de '${entrada}', que NO lo exporta.`);
