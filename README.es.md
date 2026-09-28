@@ -31,8 +31,8 @@ Medido en CI en cada push, no prometido — `npm run bundle-check`:
 
 | Qué importas                                 | gzip          |
 | -------------------------------------------- | ------------- |
-| Solo el componente, sin iconos               | **5.45 KB**   |
-| Un icono individual (`[iconDef]="bellIcon"`) | **5.81 KB**   |
+| Solo el componente, sin iconos               | **5.50 KB**   |
+| Un icono individual (`[iconDef]="bellIcon"`) | **5.87 KB**   |
 | El catálogo completo (`name="bell"`)         | **174.74 KB** |
 
 Un icono cuesta ~0.36 KB sobre el runtime. Buscar por nombre obliga al bundler a conservar los 1767,
@@ -87,6 +87,10 @@ y animar con él se comería la sensación del tap. El input `touch` lo activa a
 Solo añade escuchadores: el hover con ratón sigue igual que siempre, y `tap`, `view`, `auto` y
 `manual` lo ignoran. Se fija una vez para toda la app con `provideGfIcons({ touch: 'press' })`; el
 input `touch` de cada icono le gana al global.
+
+Dentro de un web component cuyo `<button>` real vive en su shadow root —`<ion-button>`,
+`<ion-tab-button>`, un `<ion-item>` clicable o cualquier otro—, el icono se cuelga del componente,
+así que el hover y el toque cuentan sobre todo el botón, no solo sobre el icono.
 
 ## El catálogo
 

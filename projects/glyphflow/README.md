@@ -31,8 +31,8 @@ Measured in CI on every push, not promised — `npm run bundle-check`:
 
 | What you import                   | gzip          |
 | --------------------------------- | ------------- |
-| The component alone, no icons     | **5.45 KB**   |
-| One icon (`[iconDef]="bellIcon"`) | **5.81 KB**   |
+| The component alone, no icons     | **5.50 KB**   |
+| One icon (`[iconDef]="bellIcon"`) | **5.87 KB**   |
 | The whole catalog (`name="bell"`) | **174.74 KB** |
 
 An icon costs about 0.36 KB on top of the runtime. Looking one up by name forces the bundler to keep
@@ -87,6 +87,10 @@ it would swallow the feel of the tap. The `touch` input is the opt-in:
 It only adds listeners: mouse hover keeps working exactly as before, and `tap`, `view`, `auto` and
 `manual` ignore it. Set it once for the whole app with `provideGfIcons({ touch: 'press' })`; an
 icon's own `touch` input wins over the global one.
+
+Inside a web component whose real `<button>` lives in its shadow root — `<ion-button>`,
+`<ion-tab-button>`, a clickable `<ion-item>`, or any other — the icon hooks onto the component
+itself, so hover and press count over the whole button, not just over the icon.
 
 ## The catalog
 

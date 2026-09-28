@@ -27,6 +27,25 @@ import { GF_ICON_CATALOG } from './icon-catalog.provider';
 import { conRelevo, easingSeguro, varianteDeHover } from './motion-runtime';
 
 /**
+ * El control que contiene al icono cuando ese control es un web component: `<ion-button>`,
+ * `<sl-button>`, `<md-filled-button>`… pintan su `<button>` real DENTRO de su shadow DOM, así que
+ * desde un icono proyectado adentro `closest('button')` no lo ve, y el icono se colgaba de sí
+ * mismo: el hover —y el toque— solo contaban sobre el icono, no sobre el botón entero.
+ *
+ * Se reconoce por lo que tiene, no por cómo se llama: el primer ancestro cuyo shadow root trae un
+ * `<button>` o un `<a>`. Así no hay lista de nombres que mantener, y respeta la semántica de
+ * `<ion-item>`: clicable pinta un `<button>` en su shadow; de lista, un `<div>`, y no cuenta.
+ * Límite conocido: un ancestro con botones internos que NO es un botón (el `ion-searchbar`, con su
+ * botón de limpiar) se tomaría como control si el icono va proyectado ahí adentro.
+ */
+function controlConShadow(desde: HTMLElement): HTMLElement | null {
+  for (let el = desde.parentElement; el; el = el.parentElement) {
+    if (el.shadowRoot?.querySelector('button, a')) return el;
+  }
+  return null;
+}
+
+/**
  * Icono animado con coreografía por figura.
  *
  * Dibuja su propio SVG (en vez de delegar en `lucide-angular`) porque animar path-por-path exige
@@ -336,12 +355,13 @@ export class GfIconComponent implements AfterViewInit, OnChanges {
   /** La superficie de `group`: el control que lo contiene > el `.group` de Tailwind > el icono. */
   private groupTarget(): HTMLElement {
     const host = this.el.nativeElement as HTMLElement;
-    // Prioridad: el control que lo contiene > el `.group` de Tailwind > el icono mismo.
+    // Prioridad: el control que lo contiene (normal o web component) > el `.group` > el icono.
     // El botón GANA a propósito: en una fila `<tr class="group">` con tres botones de acción,
     // colgarse del grupo animaba los tres a la vez con solo pasar por la fila. Cada botón
     // enciende SU icono, y el `.group` queda para los iconos que no viven en un control.
     return (
       (host.closest('button, a, [role="button"]') as HTMLElement | null) ??
+      controlConShadow(host) ??
       (host.closest('.group') as HTMLElement | null) ??
       host
     );

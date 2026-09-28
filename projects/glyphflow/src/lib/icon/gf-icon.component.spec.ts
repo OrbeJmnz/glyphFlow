@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { GfIconComponent } from './gf-icon.component';
@@ -568,6 +568,64 @@ describe('modo táctil (`touch`)', () => {
     const apagado = await montar({ config: { touch: 'press' }, touch: 'none' });
     apagado.nativeElement.dispatchEvent(puntero('pointerdown', 'touch'));
     expect(duraciones).toEqual([]);
+  });
+
+  describe('dentro de un control que es web component (Ionic y similares)', () => {
+    // Dobles de `<ion-button>`/`<ion-item>`: lo único que importa de ellos es su shadow root. El
+    // botón pinta un `<button>` ahí adentro; el item de lista, un `<div>`.
+    function definir(tag: string, sombra: string) {
+      if (customElements.get(tag)) return;
+      customElements.define(
+        tag,
+        class extends HTMLElement {
+          constructor() {
+            super();
+            this.attachShadow({ mode: 'open' }).innerHTML = sombra;
+          }
+        },
+      );
+    }
+    definir('ion-button', '<button><slot></slot></button>');
+    definir('ion-item', '<div><slot></slot></div>');
+
+    @Component({
+      imports: [GfIconComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      template: `
+        <ion-button><span>Avisarme</span> <gf-icon [iconDef]="def" touch="press" /></ion-button>
+        <ion-item><span>Fila</span> <gf-icon [iconDef]="def" /></ion-item>
+      `,
+    })
+    class Anfitrion {
+      readonly def = DEF;
+    }
+
+    async function montarAnfitrion() {
+      TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({ imports: [Anfitrion] }).compileComponents();
+      const fixture = TestBed.createComponent(Anfitrion);
+      fixture.detectChanges();
+      duraciones = [];
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('el hover con ratón sobre CUALQUIER parte del ion-button anima el icono', async () => {
+      const html = await montarAnfitrion();
+      html.querySelector('ion-button')!.dispatchEvent(new Event('pointerenter'));
+      expect(duraciones).toEqual([333]);
+    });
+
+    it('con `press`, el dedo sobre el ion-button (no solo sobre el icono) lo anima', async () => {
+      const html = await montarAnfitrion();
+      html.querySelector('ion-button')!.dispatchEvent(puntero('pointerdown', 'touch'));
+      expect(duraciones).toEqual([333]);
+    });
+
+    it('un ion-item de lista (sin botón en su shadow) no se toma como control', async () => {
+      const html = await montarAnfitrion();
+      html.querySelector('ion-item')!.dispatchEvent(new Event('pointerenter'));
+      expect(duraciones).toEqual([]);
+    });
   });
 
   describe('con `view`', () => {

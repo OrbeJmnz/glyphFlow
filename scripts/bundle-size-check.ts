@@ -83,9 +83,15 @@ const CASES = [
     // explícita de Orbe de subir el presupuesto en vez de descontinuar el input o aislarlo en su
     // propio entry point — el ahorro de ese aislamiento (~0.3KB) no justificaba la superficie
     // pública nueva. 22KB deja margen; la próxima feature que toque este entry point vuelve a medir.
+    //
+    // Subido de 22KB a 22.5KB el 2026-09-28: este caso incluye `GfIconComponent` entero (el de
+    // reposo), así que lo que crece el componente se cobra aquí también. El input `touch` y el
+    // reconocimiento de controles que son web components (`ion-button` y similares, por su shadow
+    // root) lo llevaron de 21.98 a 22.04KB, medido. Mismo criterio de siempre: se midió y el costo
+    // (~0.06KB) vale la feature; el tripwire sigue cazando lo que importa, el catálogo colándose.
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent);`,
-    maxGzipBytes: 22 * 1024,
+    maxGzipBytes: 22.5 * 1024,
   },
   {
     name: 'morph + 1 intent — un gesto curado, no los seis',
