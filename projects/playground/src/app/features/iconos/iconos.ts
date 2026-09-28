@@ -29,11 +29,17 @@ import {
   triangleIcon,
   leafIcon,
   codeIcon,
-  checkIcon,
-  copyIcon,
   infoIcon,
+  arrowRightIcon,
+  rocketIcon,
+  splineIcon,
+  penToolIcon,
+  grid2x2Icon,
+  grid3x3Icon,
+  sofaIcon,
+  shrinkIcon,
 } from 'glyphflow';
-import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { COPY_INTENT, GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
 import { RouterLink } from '@angular/router';
 import { BotonDonar } from '../../shared/marca/boton-donar';
 import { BotonGithub } from '../../shared/marca/boton-github';
@@ -51,7 +57,6 @@ import { IconDetailPanel } from './icon-detail-panel';
 import { insigniasDe, varianteDe, type ClaveInsignia, type Insignia } from './icon-badges';
 import { Paginador } from '../../shared/ui/paginador';
 import { CIFRAS } from '../../core/cifras';
-import { iconoPlano } from '../../core/morph-icon-plano';
 import { conTransicion } from '../../core/transicion';
 import { Copiador } from '../../shared/ui/copiar';
 import { normalizar, ordenarPorRelevancia, sugerencias } from './buscador';
@@ -61,6 +66,7 @@ import { cargarCurados } from '../../core/catalogo';
 import { Visible } from '../../shared/ui/visible';
 import { SinResultados } from '../../shared/ui/sin-resultados';
 import { Tooltip } from '../../shared/ui/tooltip';
+import { RelevoIcono } from '../../shared/ui/relevo-icono';
 import { densidad, elegirDensidad, type Densidad } from '../../core/densidad';
 
 /**
@@ -140,6 +146,7 @@ interface PuntoDeRegreso {
     Paginador,
     TranslocoPipe,
     Visible,
+    RelevoIcono,
     SinResultados,
     Tooltip,
   ],
@@ -213,12 +220,12 @@ export class Iconos implements OnDestroy {
   protected readonly copiador = new Copiador();
   protected readonly copiado = this.copiador.copiado;
 
-  /* `copyIcon` aplanado: son 2 figuras contra la 1 de `checkIcon`, y WAAPI solo interpola entre
-     `d` con la misma estructura. Mismo tratamiento que en el panel de detalle. */
-  private readonly copyIconPlano = iconoPlano(copyIcon);
-  protected readonly iconoCopiar = computed<MorphIcon>(() =>
-    this.copiado() ? checkIcon : this.copyIconPlano,
-  );
+  /**
+   * El copiar de /ejemplos: `COPY_INTENT` con el icono vivo en reposo. `[autoReset]="0"` en la
+   * plantilla para que el regreso lo marque el `Copiador` y no el temporizador del intent — si no,
+   * un segundo clic antes de que acabe el acuse dejaría el icono y el estado desfasados.
+   */
+  protected readonly COPY_INTENT = COPY_INTENT;
 
   /* Una sola lectura de `copiado()` alimenta rótulo y `aria-label`: con dos lecturas sueltas es
      cuestión de tiempo que el botón diga una cosa y el lector de pantalla otra. */
@@ -330,10 +337,17 @@ export class Iconos implements OnDestroy {
    */
   private readonly copiadorInstalar = new Copiador();
 
-  /** `copy → check` con morph, el mismo gesto que el resto de las acciones de copiado del sitio. */
-  protected readonly iconoCopiarInstalacion = computed<MorphIcon>(() =>
-    this.copiadorInstalar.copiado() ? checkIcon : this.copyIconPlano,
-  );
+  /**
+   * Los dos CTA del home hacen el relevo del «Star on GitHub» (`RelevoIcono`): «Empezar» despega
+   * —la flecha sale y entra un cohete— y «Probar en el editor» pasa de la curva a la pluma que la
+   * traza, que es literalmente lo que hace esa pantalla.
+   */
+  protected readonly relevoEmpezar = { reposo: arrowRightIcon, entrada: rocketIcon };
+  protected readonly relevoEditor = { reposo: splineIcon, entrada: penToolIcon };
+  /** Las píldoras de densidad, con el mismo relevo que «Donar»: la rejilla deja paso a lo que
+      significa cada opción — el sofá para «cómoda», las flechas que se juntan para «compacta». */
+  protected readonly relevoComoda = { reposo: grid2x2Icon, entrada: sofaIcon };
+  protected readonly relevoCompacta = { reposo: grid3x3Icon, entrada: shrinkIcon };
 
   /** El nombre accesible cambia con el estado: sin eso, un lector de pantalla no se entera. */
   protected readonly etiquetaCopiarInstalacion = translateSignal(

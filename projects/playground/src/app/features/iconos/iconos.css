@@ -1219,3 +1219,28 @@
 .instalar.copiado .instalar-copia {
   background: color-mix(in srgb, currentColor 24%, transparent);
 }
+
+/*
+ * Los acentos del relevo (`RelevoIcono`, `[acento]`). La estela sale del color del propio texto
+ * —es humo, no marca—; el nodo lleva el azul de marca porque es el mismo nodo del editor, con el
+ * cuadro relleno del fondo para que se lea como punto de control y no como mancha.
+ */
+.acento-estela {
+  fill: currentColor;
+  opacity: 0.6;
+}
+
+.acento-nodo line {
+  stroke: var(--gf-marca-2);
+  stroke-width: 0.9;
+}
+
+.acento-nodo circle {
+  fill: var(--gf-marca-2);
+}
+
+.acento-nodo rect {
+  fill: var(--gf-fondo);
+  stroke: var(--gf-marca-2);
+  stroke-width: 1.1;
+}

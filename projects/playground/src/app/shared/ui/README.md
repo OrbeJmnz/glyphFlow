@@ -11,6 +11,7 @@ necesita saberlo, no va aquí — va en su `features/`.
 | `CampoBusqueda` | `app-campo-busqueda` | filtrar los curados en editor y picker |
 | `Deslizador` | `app-deslizador` | el scrubber de la animación |
 | `BurbujasAmbiente` | `app-burbujas-ambiente` | el fondo del hero de la portada |
+| `RelevoIcono` | `app-relevo-icono` | el relevo de iconos al pasar el puntero (CTA del home, densidad) |
 
 ## Las tres reglas
 
