@@ -656,13 +656,14 @@
 }
 
 /*
- * `--angle` registrada: sin `@property` una custom property no tiene TIPO, así que la animación no
- * la interpola — salta a medio camino. Como `<angle>` sí es numérica de verdad, y `gf-seleccion-
- * recorre` la gira de 0 a 360grados en vez de mover un degradado lineal a un lado.
+ * La vuelta de marca: el giro del cónico (`--angle`) y el color vivo del halo (`--brillo-color`)
+ * en un solo compás de 7s. La usan la tarjeta seleccionada (giro + halo) y el botón de instalar
+ * (solo el giro, sin halo).
  *
- * Sin soporte (Safari <16.4, Firefox <128) el salto a medio camino sigue pasando, pero entre 0deg y
- * 360deg de un CÓNICO se ve exactamente igual —es la misma vuelta completa—, así que el peor caso es
- * un anillo quieto, nunca uno roto. No hace falta `@supports` para eso.
+ * Las dos propiedades van registradas porque sin `@property` una custom property no tiene TIPO y
+ * la animación no la interpola: salta a medio camino. Sin soporte (Safari <16.4, Firefox <128) el
+ * peor caso es un anillo quieto, nunca uno roto — entre 0deg y 360deg un cónico se ve igual.
+ * `initial-value` no admite `var()`, por eso el hexadecimal de `--gf-marca-3` va escrito a mano.
  */
 @property --angle {
   syntax: '<angle>';
@@ -670,20 +671,37 @@
   inherits: false;
 }
 
-/*
- * Segunda propiedad registrada, mismo motivo que `--angle`: sin tipo no interpola. `--brillo-color`
- * es el color VIVO del halo — una sola fuente de verdad que `gf-seleccion-recorre` mueve, y que el
- * `box-shadow` (declarado una sola vez abajo, y otra vez en `gf-seleccion-brillo`) simplemente LEE.
- * Ya no hace falta escribir el `box-shadow` completo en cada parada del keyframe ni pelear el orden
- * de dos animaciones sobre la misma propiedad — ver el porqué completo más abajo.
- *
- * `initial-value` no admite `var()` — el spec lo pide como valor literal, no una referencia a otra
- * custom property — por eso va el hexadecimal de `--gf-marca-3` a mano y no `var(--gf-marca-3)`.
- */
 @property --brillo-color {
   syntax: '<color>';
   initial-value: #9166f8;
   inherits: false;
+}
+
+/*
+ * El borde y el halo, en el mismo compás Y las mismas paradas: sin porcentajes propios, un
+ * `conic-gradient` reparte sus 5 colores parejo cada 25%, así que `--brillo-color` usa esas mismas
+ * 0/25/50/75/100 — en cualquier instante es el MISMO tono que tiene ahí el origen del cónico (justo
+ * donde apunta `--angle`), no uno aproximado. Y cierra el círculo igual que el cónico: `marca-1` se
+ * repite en 100%, así que el final de la vuelta es idéntico al arranque de la siguiente, sin salto.
+ */
+@keyframes gf-marca-gira {
+  0% {
+    --angle: 0deg;
+    --brillo-color: var(--gf-marca-1);
+  }
+  25% {
+    --brillo-color: var(--gf-marca-2);
+  }
+  50% {
+    --brillo-color: var(--gf-marca-3);
+  }
+  75% {
+    --brillo-color: var(--gf-marca-4);
+  }
+  100% {
+    --angle: 360deg;
+    --brillo-color: var(--gf-marca-1);
+  }
 }
 
 /*
@@ -709,7 +727,7 @@
  *
  * `gf-seleccion-brillo` (0.45s, UN solo tiro) solo anima el TAMAÑO del halo —de 0 a su tamaño
  * final—, nunca el color: el color lo trae puesto `var(--brillo-color)`, que en paralelo mueve
- * `gf-seleccion-recorre` (infinita). Como cada animación toca una propiedad distinta (`box-shadow`
+ * `gf-marca-gira` (infinita). Como cada animación toca una propiedad distinta (`box-shadow`
  * una, `--brillo-color` la otra) no compiten por prioridad ni hay que ordenarlas a propósito — y
  * aun después de que `brillo` termina sus 450ms y dejar de tener `forwards` la saca de la jugada, el
  * halo declarado abajo SIGUE leyendo `var(--brillo-color)` en vivo, así que el color no se congela:
@@ -735,7 +753,7 @@
     0 0 3px 0 var(--brillo-color),
     0 0 14px 0 var(--brillo-color);
   animation:
-    gf-seleccion-recorre 7s linear infinite,
+    gf-marca-gira 7s linear infinite,
     gf-seleccion-brillo 0.45s ease-out;
 }
 
@@ -753,32 +771,6 @@
   }
 }
 
-/*
- * El borde y el halo, en el mismo compás Y las mismas paradas: sin porcentajes propios, un
- * `conic-gradient` reparte sus 5 colores parejo cada 25%, así que `--brillo-color` usa esas mismas
- * 0/25/50/75/100 — en cualquier instante es el MISMO tono que tiene ahí el origen del cónico (justo
- * donde apunta `--angle`), no uno aproximado. Y cierra el círculo igual que el cónico: `marca-1` se
- * repite en 100%, así que el final de la vuelta es idéntico al arranque de la siguiente, sin salto.
- */
-@keyframes gf-seleccion-recorre {
-  0% {
-    --angle: 0deg;
-    --brillo-color: var(--gf-marca-1);
-  }
-  25% {
-    --brillo-color: var(--gf-marca-2);
-  }
-  50% {
-    --brillo-color: var(--gf-marca-3);
-  }
-  75% {
-    --brillo-color: var(--gf-marca-4);
-  }
-  100% {
-    --angle: 360deg;
-    --brillo-color: var(--gf-marca-1);
-  }
-}
 
 /*
  * El indicador reemplaza a las insignias de texto: un número (`draw` + `default` + extras) en vez
@@ -1163,22 +1155,40 @@
    * y la segunda llegue hasta el borde — así el filete de 2px ES el degradado, sin pseudo-elemento
    * ni un `<span>` extra que estorbe al `overflow: hidden`.
    */
+  /*
+   * El mismo giro que la tarjeta seleccionada (`gf-marca-gira`, arriba): el cónico GIRA
+   * en vez de deslizar un lineal. Sin el halo a propósito (decisión de Orbe): la tarjeta lo lleva
+   * porque marca «esto es lo elegido»; en un botón que está siempre a la vista sería ruido fijo.
+   */
+  --angle: 0deg;
   border: 2px solid transparent;
   background-image:
-    linear-gradient(var(--gf-invertido-fondo), var(--gf-invertido-fondo)), var(--gf-degradado);
+    linear-gradient(var(--gf-invertido-fondo), var(--gf-invertido-fondo)),
+    conic-gradient(
+      from var(--angle),
+      var(--gf-marca-1),
+      var(--gf-marca-2),
+      var(--gf-marca-3),
+      var(--gf-marca-4),
+      var(--gf-marca-1)
+    );
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  /* Solo la segunda capa corre: la primera es un color plano y moverla no se vería. */
-  background-size:
-    100% 100%,
-    220% auto;
-  animation: gf-degradado-corre 7s linear infinite;
+  animation: gf-marca-gira 7s linear infinite;
 }
 
+/* Quieto: el anillo completo en `0deg`. */
 @media (prefers-reduced-motion: reduce) {
   .ui-boton.instalar {
     animation: none;
   }
+}
+
+/* El interruptor del sitio también manda aquí — antes solo lo hacía la media query. Con
+   `:host-context` le gana en especificidad a la regla de arriba sin pelear por el orden. */
+:host-context([data-motion='off']) .ui-boton.instalar,
+:host-context([data-motion='off']) .card.inspeccionado {
+  animation: none;
 }
 
 /* En BOLD: es lo único de la portada que hay que teclear, y compite con un botón secundario al

@@ -754,7 +754,21 @@ code {
   right: 0;
   bottom: -1px;
   height: 2px;
-  background: linear-gradient(90deg, #03ccf8, #5987f8, #9166f8, #b952f8);
+  /*
+   * La vuelta de marca de la tarjeta seleccionada, traducida a una línea: un cónico de 2px de alto
+   * no gira, se parte en dos mitades que parpadean. Lo equivalente aquí es que los colores CORRAN
+   * a lo largo (`gf-degradado-corre`, mismo compás de 7s), cerrando en `marca-1` para que el bucle
+   * no deje costura. Sin halo, a diferencia de la tarjeta (decisión de Orbe).
+   */
+  background: linear-gradient(
+    90deg,
+    var(--gf-marca-1),
+    var(--gf-marca-2),
+    var(--gf-marca-3),
+    var(--gf-marca-4),
+    var(--gf-marca-1)
+  );
+  background-size: 220% 100%;
   /* Estado en reposo: oculta. Es lo que ven los navegadores sin scroll-timeline, y está bien —
      una barra de progreso es adorno, y su ausencia no rompe nada. */
   clip-path: inset(0 100% 0 0);
@@ -770,11 +784,14 @@ code {
  */
 @supports (animation-timeline: scroll()) {
   .shell-progreso {
-    animation-name: gf-progreso;
-    animation-duration: auto;
+    /* Dos animaciones, cada una con SU línea de tiempo: la primera la marca el scroll, la segunda
+       el reloj (`auto`). Las listas van alineadas por posición. */
+    animation-name: gf-progreso, gf-degradado-corre;
+    animation-duration: auto, 7s;
     animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: scroll(root block);
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: both, none;
+    animation-timeline: scroll(root block), auto;
   }
 }
 
