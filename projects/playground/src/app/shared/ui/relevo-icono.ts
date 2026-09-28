@@ -72,17 +72,13 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
       opacity: 0;
     }
 
-    :host-context(a:hover) .capa-reposo,
     :host-context(a:focus-visible) .capa-reposo,
-    :host-context(button:hover) .capa-reposo,
     :host-context(button:focus-visible) .capa-reposo {
       transform: translateY(-15px) scale(0.8);
       opacity: 0;
     }
 
-    :host-context(a:hover) .capa-entrada,
     :host-context(a:focus-visible) .capa-entrada,
-    :host-context(button:hover) .capa-entrada,
     :host-context(button:focus-visible) .capa-entrada {
       transform: translateY(0) scale(1);
       opacity: 1;
@@ -101,12 +97,36 @@ import { GfIconComponent, type AnimatedIconDef } from 'glyphflow';
         opacity 0.16s 0.05s ease;
     }
 
-    :host-context(a:hover) .acento,
     :host-context(a:focus-visible) .acento,
-    :host-context(button:hover) .acento,
     :host-context(button:focus-visible) .acento {
       transform: var(--relevo-acento-hasta, scale(1));
       opacity: 1;
+    }
+
+    /*
+     * El hover, solo donde hay hover de verdad. En táctil, el navegador aplica :hover al TOCAR y
+     * lo deja puesto hasta que se toca otra cosa: el relevo se quedaba a medias, con el icono de
+     * entrada clavado. :focus-visible queda fuera de la media query a propósito: el teclado no
+     * depende de si la pantalla tiene puntero.
+     */
+    @media (hover: hover) {
+      :host-context(a:hover) .capa-reposo,
+      :host-context(button:hover) .capa-reposo {
+        transform: translateY(-15px) scale(0.8);
+        opacity: 0;
+      }
+
+      :host-context(a:hover) .capa-entrada,
+      :host-context(button:hover) .capa-entrada {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      :host-context(a:hover) .acento,
+      :host-context(button:hover) .acento {
+        transform: var(--relevo-acento-hasta, scale(1));
+        opacity: 1;
+      }
     }
 
     /* Se conserva el CAMBIO de icono —es información— y se quita el movimiento. */

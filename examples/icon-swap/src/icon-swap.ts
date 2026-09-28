@@ -57,24 +57,35 @@ import {
         opacity 0.16s 0.05s ease;
     }
 
-    :host-context(a:hover) .rest,
     :host-context(a:focus-visible) .rest,
-    :host-context(button:hover) .rest,
     :host-context(button:focus-visible) .rest {
       transform: translateY(-15px) scale(0.8);
       opacity: 0;
     }
 
-    :host-context(a:hover) .enter,
     :host-context(a:focus-visible) .enter,
-    :host-context(button:hover) .enter,
     :host-context(button:focus-visible) .enter,
-    :host-context(a:hover) .accent,
     :host-context(a:focus-visible) .accent,
-    :host-context(button:hover) .accent,
     :host-context(button:focus-visible) .accent {
       transform: none;
       opacity: 1;
+    }
+
+    /* Hover only where there is hover: on touch, :hover sticks after a tap. */
+    @media (hover: hover) {
+      :host-context(a:hover) .rest,
+      :host-context(button:hover) .rest {
+        transform: translateY(-15px) scale(0.8);
+        opacity: 0;
+      }
+
+      :host-context(a:hover) .enter,
+      :host-context(button:hover) .enter,
+      :host-context(a:hover) .accent,
+      :host-context(button:hover) .accent {
+        transform: none;
+        opacity: 1;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
