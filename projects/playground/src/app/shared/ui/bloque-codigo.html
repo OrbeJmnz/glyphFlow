@@ -44,7 +44,7 @@
       [attr.aria-label]="etiqueta()"
       (click)="copiar()"
     >
-      <gf-icon-morph [icon]="icono()" [size]="15" spring="bouncy" />
+      <gf-icon-morph [intent]="COPY_INTENT" [active]="copiador.copiado()" [animateAtRest]="true" [autoReset]="0" [size]="15" />
     </button>
   </div>
 

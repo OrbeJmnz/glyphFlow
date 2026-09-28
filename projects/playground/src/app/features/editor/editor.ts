@@ -20,10 +20,8 @@ import {
   // Sueltos y NO desde el registro: cada icono es su propio export y se poda solo. El registro
   // completo llega diferido (ver `curados` más abajo); estos hacen falta ya, al construir.
   playIcon,
-  checkIcon,
   circleMinusIcon,
   circlePlusIcon,
-  copyIcon,
   faceSlightlyFrowningIcon,
   grid3x3Icon,
   magnetIcon,
@@ -37,7 +35,7 @@ import {
   type AnimatedIconDef,
   type IconShape,
 } from 'glyphflow';
-import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { COPY_INTENT, GfIconMorphComponent } from 'glyphflow/morph';
 import { CarrilActivo } from '../../shared/ui/carril-activo';
 import { Paginador } from '../../shared/ui/paginador';
 import { CapasPanel } from './capas-panel';
@@ -1777,12 +1775,12 @@ export class Editor implements OnDestroy {
   protected readonly copiadorPath = new Copiador();
   protected readonly copiadorJson = new Copiador();
 
-  protected readonly iconoCopiarPath = computed<MorphIcon>(() =>
-    this.copiadorPath.copiado() ? checkIcon : copyIcon,
-  );
-  protected readonly iconoCopiarJson = computed<MorphIcon>(() =>
-    this.copiadorJson.copiado() ? checkIcon : copyIcon,
-  );
+  /**
+   * El copiar de /ejemplos: `COPY_INTENT` con el icono vivo en reposo. `[autoReset]="0"` en la
+   * plantilla para que el regreso lo marque el `Copiador` y no el temporizador del intent — si no,
+   * un segundo clic antes de que acabe el acuse dejaría el icono y el estado desfasados.
+   */
+  protected readonly COPY_INTENT = COPY_INTENT;
 
   protected copiarJson(): Promise<void> {
     return this.copiadorJson.copiar(this.json());

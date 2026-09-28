@@ -15,8 +15,8 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { AnimatedIconDef, GfIconComponent, checkIcon, copyIcon } from 'glyphflow';
-import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { AnimatedIconDef, GfIconComponent } from 'glyphflow';
+import { COPY_INTENT, GfIconMorphComponent } from 'glyphflow/morph';
 import { analizarIcono } from './motion-inspector';
 import { nombreDeConst } from './icon-name';
 import { IconScrubber } from './icon-scrubber';
@@ -26,7 +26,6 @@ import { Grupo } from '../../shared/ui/grupo';
 import { CarrilActivo } from '../../shared/ui/carril-activo';
 import { Tooltip } from '../../shared/ui/tooltip';
 import { URL_REPO } from '../../core/github';
-import { iconoPlano } from '../../core/morph-icon-plano';
 import { Rutas } from '../../core/rutas.service';
 
 /** Las tres pestañas del drawer — una sola cosa visible a la vez, el resto es scroll perdido. */
@@ -134,18 +133,11 @@ export class IconDetailPanel {
   protected readonly copiado = signal<'snippet' | 'json' | null>(null);
 
   /**
-   * Mismo patrón que "Copiar al portapapeles" en /patrones: copy → check vía morph real.
-   * `copyIcon` aplanado (ver `iconoPlano`): son 2 figuras contra la 1 de `checkIcon`, y sin
-   * aplanar el plan las reparte con asignación surjectiva — ambas convergen al MISMO destino y
-   * a media transición se cruzan antes de fundirse recién en t=1.
+   * El copiar de /ejemplos: `COPY_INTENT` con el icono vivo en reposo. `[autoReset]="0"` en la
+   * plantilla para que el regreso lo marque el `Copiador` y no el temporizador del intent — si no,
+   * un segundo clic antes de que acabe el acuse dejaría el icono y el estado desfasados.
    */
-  private readonly copyIconPlano = iconoPlano(copyIcon);
-  protected readonly iconoCopiarSnippet = computed<MorphIcon>(() =>
-    this.copiado() === 'snippet' ? checkIcon : this.copyIconPlano,
-  );
-  protected readonly iconoCopiarJson = computed<MorphIcon>(() =>
-    this.copiado() === 'json' ? checkIcon : this.copyIconPlano,
-  );
+  protected readonly COPY_INTENT = COPY_INTENT;
 
   /**
    * Tooltip y aria-label de cada botón de copiar, uno por botón porque cada uno vigila SU PROPIO

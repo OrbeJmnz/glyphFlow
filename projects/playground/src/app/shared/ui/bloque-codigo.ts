@@ -7,8 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
-import { checkIcon, copyIcon } from 'glyphflow';
-import { GfIconMorphComponent, type MorphIcon } from 'glyphflow/morph';
+import { COPY_INTENT, GfIconMorphComponent } from 'glyphflow/morph';
 import { Copiador } from './copiar';
 import { resaltarCodigo } from './resaltado-codigo';
 
@@ -93,10 +92,12 @@ export class BloqueCodigo implements OnDestroy {
 
   protected readonly copiador = new Copiador();
 
-  /** El icono dice en qué estado ESTÁ, no a dónde va — al revés que el botón de tema. */
-  protected readonly icono = computed<MorphIcon>(() =>
-    this.copiador.copiado() ? checkIcon : copyIcon,
-  );
+  /**
+   * El copiar de /ejemplos: `COPY_INTENT` con el icono vivo en reposo. `[autoReset]="0"` en la
+   * plantilla para que el regreso lo marque el `Copiador` y no el temporizador del intent — si no,
+   * un segundo clic antes de que acabe el acuse dejaría el icono y el estado desfasados.
+   */
+  protected readonly COPY_INTENT = COPY_INTENT;
 
   /* Una sola lectura del estado alimenta el `aria-label` y el acuse: con lecturas sueltas es
      cuestión de tiempo que el botón diga una cosa y el lector de pantalla otra. */
