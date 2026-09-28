@@ -45,11 +45,14 @@
  */
 
 /* El logotipo a 480 de los 780 nativos: deja margen para pantallas densas sin escalar hacia arriba. */
-.marca-hero img {
+.marca-hero {
   display: block;
   width: min(480px, 100%);
-  height: auto;
+  aspect-ratio: 780 / 264;
   margin: 0 auto;
+  /* Las cuatro variantes por tema × movimiento. Las decide `data-theme`/`data-motion`, que el
+     script del <head> pone antes de pintar: ver el porqué en la plantilla. */
+  background: url('/images/glyphflow-anim-preview.webp') center / contain no-repeat;
   /*
    * El GIF trae fondo OPACO (medido: rgb(14,14,15)) contra una página de rgb(18,18,18), y esos
    * cuatro puntos de diferencia se ven como un recuadro alrededor del logotipo. `lighten` compara
@@ -70,8 +73,18 @@
  * color que el fondo del asset. Se probó dejarlo contra blanco puro y el rectángulo del GIF SÍ se
  * notaba — dos puntos de diferencia bastan cuando el borde es recto.
  */
-:host-context([data-theme='light']) .marca-hero img {
+:host-context([data-theme='light']) .marca-hero {
+  background-image: url('/images/glyphflow-anim-preview-light.webp');
   mix-blend-mode: normal;
+}
+
+/* Sin movimiento se sirve quieto, en su SVG por tema. */
+:host-context([data-motion='off']) .marca-hero {
+  background-image: url('/images/glyphflow-logo.svg');
+}
+
+:host-context([data-theme='light'][data-motion='off']) .marca-hero {
+  background-image: url('/images/glyphflow-logo-light.svg');
 }
 
 .hero .bajada {

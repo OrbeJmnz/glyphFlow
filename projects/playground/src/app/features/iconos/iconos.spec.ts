@@ -261,33 +261,36 @@ describe('Iconos', () => {
     expect(h1?.classList.contains('visualmente-oculto')).toBe(true);
   });
 
-  it('el logotipo animado del hero cede ante el movimiento reducido', async () => {
+  it('el logotipo del hero lo decide el CSS por tema y movimiento, no el prerender', async () => {
     const fixture = TestBed.createComponent(Iconos);
     await fixture.whenStable();
     const html = fixture.nativeElement as HTMLElement;
-    const fuentes = [...html.querySelectorAll('picture source')];
-    const media = fuentes.map((f) => f.getAttribute('media'));
 
-    // La librería promete respetar `prefers-reduced-motion` y le dedica una página de docs. Un WebP animado
-    // no se puede pausar por CSS, así que la única salida honesta es servir el logotipo quieto.
-    const quieto = fuentes.find((f) => f.getAttribute('media') === '(prefers-reduced-motion: reduce)');
-    expect(quieto?.getAttribute('srcset')).toContain('.svg');
+    // Ni `<img>` ni `<picture>`: el prerender horneaba la fuente con las media queries del SISTEMA,
+    // y con el sistema en oscuro y el sitio en claro se pintaba el WebP oscuro hasta hidratar.
+    // Ahora lo elige el CSS con `data-theme`/`data-motion`, que el script del <head> pone antes
+    // de pintar. Decorativo: el nombre lo da el `<h1>` oculto.
+    expect(html.querySelector('.hero picture, .hero img')).toBeNull();
+    expect(html.querySelector('.marca-hero')?.getAttribute('aria-hidden')).toBe('true');
 
-    // Y desde el 2026-08-27, el TEMA va por la misma vía y por el mismo motivo: el `src` lo hornea
-    // el prerender, donde no hay `matchMedia`, así que salía siempre el asset oscuro de 284 KB y
-    // quien prefiere claro se lo bajaba entero para verlo cambiar al de 39 al hidratar.
-    expect(media).toContain('(prefers-color-scheme: light)');
-    const claro = fuentes.find((f) => f.getAttribute('media') === '(prefers-color-scheme: light)');
-    expect(claro?.getAttribute('srcset')).toContain('-light.');
+    const css = [...document.querySelectorAll('style')]
+      .map((s) => s.textContent ?? '')
+      .find((t) => t.includes('marca-hero'));
+    const regla = (selector: RegExp, archivo: RegExp) =>
+      new RegExp(selector.source + String.raw`[^{]*\{[^}]*` + archivo.source).test(css ?? '');
 
-    // Lo más específico va primero: gana el PRIMER `<source>` que casa.
-    expect(media[0]).toBe('(prefers-reduced-motion: reduce) and (prefers-color-scheme: light)');
-
-    // `.webp` desde el 2026-09-02: la conversión es lossless, así que el arte no cambió — solo
-    // el peso (415 → 284 KB en el oscuro), y este assert es lo que impide volver al GIF sin querer.
-    expect(html.querySelector('picture img')?.getAttribute('src')).toContain('.webp');
-    // Con dimensiones explícitas para que la portada no salte al cargar.
-    expect(html.querySelector('picture img')?.getAttribute('width')).toBe('780');
+    // Animado por defecto, en WebP: la conversión es lossless, y esto impide volver al GIF.
+    expect(css).toMatch(/\.marca-hero[^{]*\{[^}]*glyphflow-anim-preview\.webp/);
+    // Claro con su propio asset (el arte es distinto, no el oscuro con otro color).
+    expect(regla(/data-theme=["']?light["']?\]/, /glyphflow-anim-preview-light\.webp/)).toBe(true);
+    // La librería promete respetar el movimiento reducido: un WebP animado no se pausa por CSS,
+    // así que la única salida honesta es servir el logotipo quieto.
+    expect(regla(/data-motion=["']?off["']?\]/, /glyphflow-logo\.svg/)).toBe(true);
+    expect(
+      regla(/data-theme=["']?light["']?\]\[data-motion=["']?off["']?\]/, /glyphflow-logo-light\.svg/),
+    ).toBe(true);
+    // Con el tamaño reservado para que la portada no salte al cargar.
+    expect(css).toMatch(/aspect-ratio:\s*780\s*\/\s*264/);
   });
 
   it('el filtro por insignia recorta la lista y se puede quitar', async () => {

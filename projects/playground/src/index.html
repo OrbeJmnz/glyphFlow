@@ -79,6 +79,26 @@
         );
         var barra = document.querySelector('meta[name="theme-color"]');
         if (barra) barra.setAttribute('content', tema === 'light' ? '#ffffff' : '#121212');
+        // El logotipo de la portada es un fondo CSS (ver iconos.html): se precarga aquí la ÚNICA
+        // variante que casa con el tema y el movimiento de arriba, con la prioridad del LCP que
+        // antes daba el `fetchpriority` del <img>. Solo en la portada: en otra ruta sería una
+        // descarga tirada.
+        if (/^\/(?:en|es)?\/?$/.test(location.pathname)) {
+          var claro = tema === 'light';
+          var quieto = raiz.getAttribute('data-motion') === 'off';
+          var logo = document.createElement('link');
+          logo.rel = 'preload';
+          logo.as = 'image';
+          logo.setAttribute('fetchpriority', 'high');
+          logo.href = quieto
+            ? claro
+              ? '/images/glyphflow-logo-light.svg'
+              : '/images/glyphflow-logo.svg'
+            : claro
+              ? '/images/glyphflow-anim-preview-light.webp'
+              : '/images/glyphflow-anim-preview.webp';
+          document.head.appendChild(logo);
+        }
       })();
     </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />

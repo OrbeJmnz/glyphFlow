@@ -49,7 +49,7 @@ import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
-import { hayMovimiento, siguiendoAlSistema } from '../../core/movimiento';
+import { hayMovimiento } from '../../core/movimiento';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
 import { NombreTruncado } from '../../shared/ui/nombre-truncado';
@@ -61,7 +61,6 @@ import { conTransicion } from '../../core/transicion';
 import { Copiador } from '../../shared/ui/copiar';
 import { normalizar, ordenarPorRelevancia, sugerencias } from './buscador';
 import { Rutas } from '../../core/rutas.service';
-import { tema, temaSiguiendoAlSistema } from '../../core/tema';
 import { cargarCurados } from '../../core/catalogo';
 import { Visible } from '../../shared/ui/visible';
 import { SinResultados } from '../../shared/ui/sin-resultados';
@@ -383,85 +382,6 @@ export class Iconos implements OnDestroy {
 
   /** El disclosure que explica número/hold. Suelto y no del registro, mismo criterio que arriba. */
   protected readonly infoIcon = infoIcon;
-
-  /**
-   * El logotipo del hero, en su versión por tema. Son DOS assets porque el arte es distinto, no el
-   * mismo con otro color: el claro pesa 39 KB contra 284 del oscuro.
-   *
-   * Van en WebP animado y no en GIF. La conversión es LOSSLESS —`gif2webp` sin `-lossy`—, así que
-   * el arte es idéntico píxel a píxel y el `mix-blend-mode: lighten` del CSS sigue funcionando
-   * igual; lo único que cambia es el peso: el oscuro bajó de 415 a 284 KB, 132 KB menos en el
-   * elemento que además va con `fetchpriority="high"`, o sea el LCP de la portada.
-   *
-   * En lossy el archivo CRECE (medido: 544 KB a q90, 399 a q80). No es un error de configuración:
-   * el arte es plano con degradados suaves, y el ruido que introduce el lossy rompe la predicción
-   * entre fotogramas, que es de donde sale toda la compresión de una animación.
-   */
-  protected readonly logoAnimado = computed(() =>
-    tema() === 'claro'
-      ? '/images/glyphflow-anim-preview-light.webp'
-      : '/images/glyphflow-anim-preview.webp',
-  );
-
-  /** Sin movimiento se sirve quieto — y también tiene que seguir al tema. */
-  protected readonly logoQuieto = computed(() =>
-    tema() === 'claro' ? '/images/glyphflow-logo-light.svg' : '/images/glyphflow-logo.svg',
-  );
-
-  /**
-   * Los `<source>` del `<picture>`, en el orden en que el navegador los prueba: gana el PRIMERO
-   * que casa, así que lo más específico va arriba.
-   *
-   * Existen porque el sitio se prerenderiza y el `src` del `<img>` se hornea en el HTML estático.
-   * En el servidor no hay `matchMedia`, así que salía siempre el par por defecto —animado y
-   * oscuro— y quien prefiere claro se bajaba el asset oscuro de 284 KB para verlo cambiar al claro
-   * de 39 en cuanto hidrataba. Una media query la resuelve el navegador antes de pintar y solo
-   * descarga la fuente que casa, así que no hay ni salto ni descarga tirada.
-   *
-   * Cada dimensión aporta su `<source>` SOLO mientras la mande el sistema: en cuanto alguien
-   * elige a mano, la media query siempre le ganaría —el navegador resuelve el `<picture>` antes
-   * de mirar el `src`— y por eso se retira y manda la señal.
-   */
-  protected readonly fuentesLogo = computed<{ media: string; srcset: string }[]>(() => {
-    const sistemaTema = temaSiguiendoAlSistema();
-    const sistemaMovimiento = siguiendoAlSistema();
-    const fuentes: { media: string; srcset: string }[] = [];
-
-    if (sistemaMovimiento && sistemaTema) {
-      fuentes.push({
-        media: '(prefers-reduced-motion: reduce) and (prefers-color-scheme: light)',
-        srcset: '/images/glyphflow-logo-light.svg',
-      });
-    }
-    if (sistemaMovimiento) {
-      // Quieto. Con el tema a mano ya viene resuelto en `logoQuieto()`; con el tema del sistema,
-      // el caso claro lo agarró la línea de arriba y aquí solo queda el oscuro.
-      fuentes.push({
-        media: '(prefers-reduced-motion: reduce)',
-        srcset: sistemaTema ? '/images/glyphflow-logo.svg' : this.logoQuieto(),
-      });
-    }
-    if (sistemaTema) {
-      // Claro. Si el movimiento lo eligió el visitante, se respeta cuál de los dos claros toca.
-      fuentes.push({
-        media: '(prefers-color-scheme: light)',
-        srcset:
-          sistemaMovimiento || hayMovimiento()
-            ? '/images/glyphflow-anim-preview-light.webp'
-            : '/images/glyphflow-logo-light.svg',
-      });
-    }
-    return fuentes;
-  });
-
-  /*
-   * El que acaba en el `src` del `<img>`. Sale de la preferencia EFECTIVA, no de la del sistema:
-   * el `<source>` de al lado cubre el caso por defecto, y esto cubre el de quien eligió a mano.
-   */
-  protected readonly siguiendoAlSistema = siguiendoAlSistema;
-  protected readonly logoHero = computed(() =>
-    hayMovimiento() ? this.logoAnimado() : this.logoQuieto(),
-  );
 
   /** El resto de las cifras del hero. */
   protected readonly cifras = CIFRAS;

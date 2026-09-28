@@ -20,33 +20,16 @@
   -->
   <h1 class="visualmente-oculto">{{ 'iconos.hero.h1' | transloco }}</h1>
   <!--
-    Los `<source>` cubren lo que mande el SISTEMA y la señal del `[src]` cubre lo que el visitante
-    haya elegido a mano. Los dos hacen falta y no son redundantes.
-
-    El motivo es el prerender: en el servidor no hay `matchMedia`, así que el `src` se hornea
-    siempre con el par por defecto —animado y oscuro— y el HTML estático se lo sirve a todo el
-    mundo. Sin los `<source>`, quien prefiere claro se bajaba el GIF oscuro de 425 KB entero y lo
-    veía cambiar al claro de 50 en cuanto hidrataba. Una media query la resuelve el navegador
-    ANTES de pintar y solo descarga la fuente que casa: ni salto ni descarga tirada.
-
-    Cada dimensión aporta su `<source>` sólo mientras la mande el sistema, y `fuentesLogo()` los
-    ordena de más específico a menos porque gana el PRIMERO que casa. En cuanto alguien elige a
-    mano, su `<source>` se retira: una media query siempre le ganaría al visitante, porque el
-    navegador resuelve el `<picture>` antes de mirar el `src` del `<img>`.
+    El logotipo es un FONDO CSS, no un `<img>`, y es a propósito: el sitio se prerenderiza, y un
+    `<img>`/`<picture>` elige su fuente con lo único que el HTML estático sabe —las media queries
+    del SISTEMA—, no con el tema que el visitante eligió a mano. Con el sistema en oscuro y el
+    sitio en claro se pintaba el WebP oscuro (fondo negro opaco) hasta que Angular hidrataba.
+    `data-theme` y `data-motion` los pone el script del `<head>` ANTES de pintar, así que el CSS
+    elige bien desde el primer cuadro y solo baja la variante que casa. Ese mismo script precarga
+    esa variante con prioridad alta, para no perder lo que hacía el `fetchpriority` del `<img>`.
+    Decorativo: el nombre ya lo dice el `<h1>` de arriba.
   -->
-  <picture class="marca-hero">
-    @for (f of fuentesLogo(); track f.media) {
-      <source [media]="f.media" [srcset]="f.srcset" />
-    }
-    <img
-      [src]="logoHero()"
-      width="780"
-      height="264"
-      alt=""
-      fetchpriority="high"
-      decoding="async"
-    />
-  </picture>
+  <span class="marca-hero" aria-hidden="true"></span>
   <p class="bajada">{{ 'iconos.hero.bajada' | transloco }}</p>
 
   <!--
