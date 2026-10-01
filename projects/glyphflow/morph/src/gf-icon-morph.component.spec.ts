@@ -919,6 +919,7 @@ describe('<gf-icon-morph> — input `animateAtRest`', () => {
       expect(dibujos().length, 'el segundo aterrizaje NO debe repetir el draw').toBe(0);
     } finally {
       if (original) Object.defineProperty(Element.prototype, 'animate', original);
+      else delete (Element.prototype as unknown as Record<string, unknown>)['animate'];
       espia = espiarAnimate(); // deja el espía de siempre instalado para el `afterEach` del describe
     }
   });

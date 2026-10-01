@@ -8,8 +8,8 @@
     "declarationMap": true,
     "types": []
   },
-  // `morph/` es el entry point secundario (`glyphflow/morph`): vive fuera de `src/` porque
-  // ng-packagr identifica cada entry point por su carpeta con `ng-package.json`.
-  "include": ["src/**/*.ts", "morph/**/*.ts"],
+  // `morph/` y `bots/` son entry points secundarios (`glyphflow/morph`, `glyphflow/bots`): viven
+  // fuera de `src/` porque ng-packagr identifica cada entry point por su carpeta con `ng-package.json`.
+  "include": ["src/**/*.ts", "morph/**/*.ts", "bots/**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

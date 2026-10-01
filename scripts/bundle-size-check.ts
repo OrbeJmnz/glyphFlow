@@ -17,6 +17,11 @@ const FESM_MORPH = new URL(
   import.meta.url,
 ).pathname.replace(/^\/([A-Za-z]):/, '$1:');
 
+const FESM_BOTS = new URL(
+  '../dist/glyphflow/fesm2022/glyphflow-bots.mjs',
+  import.meta.url,
+).pathname.replace(/^\/([A-Za-z]):/, '$1:');
+
 const CASES = [
   {
     name: 'core — solo el componente, sin ningún icono',
@@ -106,6 +111,17 @@ const CASES = [
     filaReadme: null as string | null,
     entry: `import { GfIconMorphComponent, COPY_INTENT } from '${FESM_MORPH.replace(/\\/g, '/')}'; console.log(GfIconMorphComponent, COPY_INTENT);`,
     maxGzipBytes: 23 * 1024,
+  },
+  {
+    name: 'bots — entry point secundario (F0: solo los estados)',
+    // Sin fila en el README todavía: los bots no están publicados. Este caso existe desde el andamio
+    // (F0) para que el entry point tenga su fila desde el primer día; el techo de 1KB es el del
+    // andamio y se fija de verdad en F2, cuando el motor y `<gf-bot>` existan y se midan.
+    // Si este número salta sin que `bots/` haya crecido, algo del primario se coló por una ruta
+    // relativa (regla 6 de CLAUDE.md).
+    filaReadme: null as string | null,
+    entry: `import { GF_BOT_STATES, isGfBotState } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GF_BOT_STATES, isGfBotState);`,
+    maxGzipBytes: 1 * 1024,
   },
 ];
 

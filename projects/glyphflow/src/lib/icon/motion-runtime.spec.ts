@@ -25,6 +25,7 @@ describe('easingSeguro', () => {
       expect(easingSeguro(SPRING_SNAPPY)).toBe(EASING_FALLBACK);
     } finally {
       if (original) Element.prototype.animate = original;
+      else Reflect.deleteProperty(Element.prototype, 'animate');
     }
   });
 

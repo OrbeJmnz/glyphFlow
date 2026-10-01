@@ -31,7 +31,8 @@
             "tsConfig": "projects/glyphflow/tsconfig.spec.json",
             "include": [
               "**/*.spec.ts",
-              "../morph/**/*.spec.ts"
+              "../morph/**/*.spec.ts",
+              "../bots/**/*.spec.ts"
             ]
           }
         },

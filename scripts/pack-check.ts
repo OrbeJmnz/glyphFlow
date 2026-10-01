@@ -101,6 +101,11 @@ if (conNombresViejos.keyframes.length !== 12) {
   throw new Error('las opciones de la v1 (pasos/cola) dejaron de leerse en el paquete publicado');
 }
 
+// ── Entry point secundario: glyphflow/bots (F0: solo los estados) ─────────────────────────────
+import { GF_BOT_STATES, isGfBotState } from 'glyphflow/bots';
+if (!Array.isArray(GF_BOT_STATES) || GF_BOT_STATES.length !== 3) throw new Error('GF_BOT_STATES no resolvió desde glyphflow/bots');
+if (!isGfBotState('idle') || isGfBotState('dancing')) throw new Error('isGfBotState no resolvió desde glyphflow/bots');
+
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');
 console.log('Token compartido OK — provideGfIcons llega a <gf-icon-morph> a través de los dos entry points.');
 console.log('Alias de la v1 OK — los nombres viejos sobreviven al empaquetado y son la misma referencia.');
