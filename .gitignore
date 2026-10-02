@@ -66,3 +66,4 @@ DECISIONES-VOLATILES.md
 # glyphflow-contexto), NO al repo público: lo que entra al historial de un repo público se queda
 # ahí para siempre aunque después se borre.
 .engram/
+Claude outputs/*
