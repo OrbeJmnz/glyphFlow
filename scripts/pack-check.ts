@@ -102,11 +102,12 @@ if (conNombresViejos.keyframes.length !== 12) {
 }
 
 // ── Entry point secundario: glyphflow/bots (estados + createBot) ──────────────────────────────
-import { GF_BOT_STATES, isGfBotState, createBot } from 'glyphflow/bots';
+import { GF_BOT_STATES, isGfBotState, createBot, catShape, robotShape, nightCloudShape } from 'glyphflow/bots';
 if (!Array.isArray(GF_BOT_STATES) || GF_BOT_STATES.length !== 3) throw new Error('GF_BOT_STATES no resolvió desde glyphflow/bots');
 if (!isGfBotState('idle') || isGfBotState('dancing')) throw new Error('isGfBotState no resolvió desde glyphflow/bots');
 // importar el motor en Node (sin window ni document) no debe tocar el DOM: solo createBot lo usa, y solo al llamarlo
 if (typeof createBot !== 'function') throw new Error('createBot no resolvió desde glyphflow/bots');
+if (catShape.id !== 'cat' || robotShape.id !== 'robot' || nightCloudShape.id !== 'nCloud') throw new Error('las formas no resolvieron desde glyphflow/bots');
 
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');
 console.log('Token compartido OK — provideGfIcons llega a <gf-icon-morph> a través de los dos entry points.');

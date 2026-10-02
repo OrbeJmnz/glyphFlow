@@ -137,6 +137,15 @@ const CASES = [
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
     maxGzipBytes: 75 * 1024,
   },
+  {
+    name: 'bots + createBot + catShape — un bot con UNA forma',
+    // El caso real de quien usa el gato: el motor más SU forma, no las otras cinco ni las diez nocturnas.
+    // Si salta, una forma está reteniendo a las demás (una llamada sin `@__PURE__` o un acceso a
+    // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
+    filaReadme: null as string | null,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
+    maxGzipBytes: 82 * 1024,
+  },
 ];
 
 /**
