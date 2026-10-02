@@ -3,6 +3,11 @@
   <p>{{ 'lab.intro' | transloco }}</p>
 </header>
 
+<a class="face-lab-link" [routerLink]="rutas.a('lab', 'faceLab')">
+  <strong>{{ 'lab.faceLab.titulo' | transloco }}</strong>
+  <span>{{ 'lab.faceLab.texto' | transloco }}</span>
+</a>
+
 <app-icon-import />
 
 <app-morph-picker />

@@ -1,6 +1,10 @@
 {
   "titulo": "Lab",
   "intro": "The authoring harnesses. Not product — they exist to decide numbers by looking at things side by side: how many discrete poses, what to do with the spring's tail, how an unvalidated pair looks. What gets decided here is what ends up as the library's default.",
+  "faceLab": {
+    "titulo": "Face Lab →",
+    "texto": "Twelve face hypotheses for the bots, on the same shape, color and expression. To pick the face system by looking."
+  },
   "iconImport": {
     "toggle": "Import choreography (JSON)",
     "desdeEditor": "Loaded <strong>{{nombre}}</strong> from the geometry editor, with its original choreography. Previewed below.",

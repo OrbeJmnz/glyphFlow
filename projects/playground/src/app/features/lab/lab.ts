@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 import labEn from '../../../i18n/lab/en.json';
 import { IconImport } from './icon-import';
 import { MorphPicker } from './morph-picker';
 import { MorphBench } from './morph-bench';
+import { Rutas } from '../../core/rutas.service';
 
 /**
  * Las herramientas de autoría, juntas y fuera del showcase.
@@ -14,7 +16,7 @@ import { MorphBench } from './morph-bench';
  */
 @Component({
   selector: 'app-lab',
-  imports: [IconImport, MorphPicker, MorphBench, TranslocoPipe],
+  imports: [IconImport, MorphPicker, MorphBench, TranslocoPipe, RouterLink],
   // El scope va aquí y no en la ruta: `app.routes.ts` es eager, así que su loader se resuelve en
   // un `import()` aparte que se encadena DESPUÉS de bajar este chunk — dos esperas en fila, y
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
@@ -31,4 +33,6 @@ import { MorphBench } from './morph-bench';
   templateUrl: './lab.html',
   styleUrl: './lab.css',
 })
-export class Lab {}
+export class Lab {
+  protected readonly rutas = inject(Rutas);
+}

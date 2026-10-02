@@ -1,0 +1,82 @@
+{
+  "volver": "← Lab",
+  "intro": "Twelve face hypotheses on the same body, with the same size, color and expression: the only thing that changes is the face. It is a separate bench and does not touch the current bot system.",
+  "controles": {
+    "etiqueta": "Face Lab controls",
+    "shape": "Shape",
+    "expresion": "Expression",
+    "color": "Color",
+    "tema": "UI",
+    "animar": "Animate",
+    "modo": "Mode",
+    "face": "Face"
+  },
+  "temas": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "modos": {
+    "variants": "12 variants",
+    "shapes": "Compare shapes",
+    "sizes": "Sizes"
+  },
+  "formas": {
+    "huevo": "Egg",
+    "circulo": "Candy",
+    "cubo": "Cube",
+    "pildora": "Pill",
+    "robot": "Robot",
+    "gota": "Drop",
+    "fantasma": "Ghost",
+    "gato": "Cat"
+  },
+  "expresiones": {
+    "neutral": "Neutral",
+    "happy": "Happy",
+    "surprised": "Surprised",
+    "wink": "Wink",
+    "thinking": "Thinking",
+    "sad": "Sad",
+    "working": "Working",
+    "success": "Success",
+    "error": "Error",
+    "sleeping": "Sleeping"
+  },
+  "colores": {
+    "auto": "Auto (shape color)",
+    "lavanda": "Lavender",
+    "caramelo": "Caramel",
+    "cielo": "Sky",
+    "menta": "Mint",
+    "agua": "Water",
+    "niebla": "Mist",
+    "mandarina": "Tangerine",
+    "coral": "Coral",
+    "acero": "Steel",
+    "ambar": "Amber"
+  },
+  "global": "= global",
+  "exprDeCard": "{{nombre}} expression",
+  "verFormas": "See on all 8 shapes →",
+  "tamanosChicos": "Small sizes",
+  "conteo": {
+    "variantes": "12 variants · {{forma}} · {{expr}}",
+    "formas": "{{cara}} on all 8 shapes · {{expr}}",
+    "tamanos": "{{cara}} from 24 to 256 px, on light and dark UI"
+  },
+  "ideas": {
+    "ethereal": "Edgeless eyes: a gradient that fades out at the border, with a core of light. The face feels inside the material.",
+    "flat": "“D” eyes with a flat base and no highlights. Happy without closing them: they squash upward. Built for 24–32 px.",
+    "line": "Everything is a single-weight, round-capped stroke, like one more glyph in the library.",
+    "pastel": "Almost-round eyes with two tiny catchlights and low, barely-there cheeks, on pastel bodies.",
+    "solid": "Perfect indigo discs. Color only comes in as one graphic piece: pink, cyan, green or coral depending on the expression.",
+    "neu": "Sockets carved into the material —shadow above, a light edge below— with the pupil inside.",
+    "vibrant": "Tall, maximum-contrast slabs on an intense gradient body with a colored halo.",
+    "mask": "A thick, open arc crosses the face and holds eyes and mouth; it trims to each shape’s width. On the robot it is the visor.",
+    "gel": "Each eye wears its own silicone lens: you see the eye, and the skin over it.",
+    "adaptive": "Capsules that stretch, spread, drop and tilt following the measured silhouette.",
+    "dark": "Slits of light, one lavender and one cyan, with a faint halo. Built for dark UIs, no neon.",
+    "system": "Glyph-like capsules with a single signature trait: the inner top corner cut on a diagonal. No cheeks, highlights or extra color."
+  },
+  "nota": "Hover a bot: the face follows you a few px and blinks. If the site is set to still or your system asks for reduced motion, everything stays put."
+}

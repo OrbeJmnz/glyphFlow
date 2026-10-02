@@ -1,0 +1,294 @@
+/*
+ * Estilos del SVG de `app-face-bot`. Sin encapsulación (ver el docblock del componente), así que
+ * todo va colgado de `.fl-bot` y con prefijo `fl-`.
+ *
+ * Todo el movimiento es `transform`/`translate` sobre grupos del SVG: nada de JS cuadro a cuadro.
+ * `transform-box: fill-box` hace que cada escala o giro sea respecto a SU propia caja — el ojo se
+ * aplasta sobre su centro, el cuerpo respira desde su base.
+ */
+.fl-bot {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fl-bot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fl-bot .fl-bodywrap,
+.fl-bot .fl-blink,
+.fl-bot .fl-look,
+.fl-bot .fl-fx,
+.fl-bot .fl-accent,
+.fl-bot .fl-face {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.fl-bot .fl-bodywrap {
+  transform-origin: 50% 100%;
+}
+
+/* Seguimiento del puntero: `translate` (propiedad aparte) para no pelear con las animaciones. */
+.fl-bot .fl-face {
+  translate: calc(var(--lx, 0) * 1px) calc(var(--ly, 0) * 1px);
+  transition: translate 0.28s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.fl-bot .fl-look {
+  translate: calc(var(--dx, 0) * 1px) calc(var(--dy, 0) * 1px);
+}
+
+/* Microanimaciones por expresión: solo con «Animate» encendido y solo en los bots grandes. */
+[data-fl-anim='on'] .fl-bot[data-lod='lg'] .fl-bodywrap {
+  animation: fl-float 4.2s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='happy'] .fl-bodywrap {
+  animation: fl-bob 1.7s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='success'] .fl-bodywrap {
+  animation: fl-hop 1.6s cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='success'] .fl-spark {
+  animation: fl-twinkle 1.6s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='success'] .fl-accent {
+  animation: fl-tpop 1.6s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='working'] .fl-look {
+  animation: fl-scan 2.6s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='working'] .fl-accent,
+[data-fl-anim='on'] .fl-bot [data-expr='thinking'] .fl-dots {
+  animation: fl-pulse 1.4s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='thinking'] .fl-look {
+  animation: fl-ponder 3.4s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='thinking'] .fl-accent {
+  animation: fl-rise 3.4s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='sleeping'] .fl-bodywrap {
+  animation: fl-breathe 4.6s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='sleeping'] .fl-z {
+  animation: fl-zz 3.2s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='error'] .fl-bodywrap {
+  animation: fl-shake 3s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='error'] .fl-sweat {
+  animation: fl-drip 3s ease-in infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='sad'] .fl-bodywrap {
+  animation: fl-droop 5s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='surprised'] .fl-bodywrap {
+  animation: fl-pop 2.8s cubic-bezier(0.3, 1.5, 0.5, 1) infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='wink'] .fl-bodywrap {
+  animation: fl-tilt 3s ease-in-out infinite;
+}
+[data-fl-anim='on'] .fl-bot [data-expr='neutral'] .fl-accent {
+  animation: fl-pulse 3.6s ease-in-out infinite;
+}
+/* Los tamaños chicos no se mueven: son la prueba de legibilidad, no de animación. */
+[data-fl-anim='on'] .fl-bot[data-lod='sm'] * {
+  animation: none;
+}
+
+/*
+ * El interruptor de movimiento del sitio (que ya sigue a `prefers-reduced-motion` salvo que alguien
+ * elija a mano) manda sobre el «Animate» del lab.
+ */
+:root[data-motion='off'] .fl-bot * {
+  animation: none !important;
+  transition: none !important;
+}
+
+@keyframes fl-float {
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+@keyframes fl-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  40% {
+    transform: translateY(-4px) scale(0.99, 1.01);
+  }
+  70% {
+    transform: translateY(0) scale(1.015, 0.985);
+  }
+}
+@keyframes fl-hop {
+  0%,
+  55%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  12% {
+    transform: translateY(0) scale(1.04, 0.95);
+  }
+  28% {
+    transform: translateY(-12px) scale(0.97, 1.03);
+  }
+  44% {
+    transform: translateY(0) scale(1.03, 0.97);
+  }
+}
+@keyframes fl-twinkle {
+  0%,
+  100% {
+    transform: scale(0.6) rotate(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: scale(1.15) rotate(20deg);
+    opacity: 1;
+  }
+}
+@keyframes fl-tpop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  28% {
+    transform: scale(1.7);
+  }
+}
+@keyframes fl-scan {
+  0%,
+  100% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+@keyframes fl-ponder {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  45%,
+  70% {
+    transform: translate(1.5px, -1.5px);
+  }
+}
+@keyframes fl-rise {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes fl-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+@keyframes fl-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.02, 0.975);
+  }
+}
+@keyframes fl-zz {
+  0% {
+    transform: translate(0, 3px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(4px, -7px);
+    opacity: 0;
+  }
+}
+@keyframes fl-shake {
+  0%,
+  20%,
+  100% {
+    transform: translateX(0);
+  }
+  4% {
+    transform: translateX(-2px);
+  }
+  8% {
+    transform: translateX(2px);
+  }
+  12% {
+    transform: translateX(-1.5px);
+  }
+  16% {
+    transform: translateX(1px);
+  }
+}
+@keyframes fl-drip {
+  0%,
+  30% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+@keyframes fl-droop {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(1.5px) scale(1.01, 0.985);
+  }
+}
+@keyframes fl-pop {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+  }
+  8% {
+    transform: scale(1.05, 0.94);
+  }
+  18% {
+    transform: scale(0.97, 1.05) translateY(-3px);
+  }
+  30% {
+    transform: scale(1);
+  }
+}
+@keyframes fl-tilt {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30%,
+  60% {
+    transform: rotate(-3deg);
+  }
+}

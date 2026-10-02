@@ -73,6 +73,10 @@
       "title": "Lab — glyphflow",
       "descripcion": "Where default animation values get decided — durations, easings, and morph steps, tuned against real icons."
     },
+    "faceLab": {
+      "title": "Face Lab — glyphflow",
+      "descripcion": "Twelve face hypotheses for the glyphflow bots, compared on the same shape, color and expression."
+    },
     "noEncontrado": {
       "title": "Page not found — glyphflow"
     },

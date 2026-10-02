@@ -1,0 +1,274 @@
+:host {
+  display: block;
+}
+
+/*
+ * Las superficies donde se pintan los bots NO siguen el tema del sitio: siguen el «Light / Dark»
+ * del lab, porque la pregunta es cómo se ve cada cara sobre UI clara y sobre UI oscura. Cada tema
+ * trae sus propios valores (no son el uno invertido del otro).
+ */
+.fl-grid {
+  --fl-view: #eeedf6;
+  --fl-view-alto: #fcfcff;
+  --fl-view-texto: #5d5b73;
+}
+
+.fl-grid[data-ui='dark'],
+.fl-card[data-ui='dark'] {
+  --fl-view: #141420;
+  --fl-view-alto: #23233a;
+  --fl-view-texto: #a3a1ba;
+}
+
+.fl-card[data-ui='light'] {
+  --fl-view: #eeedf6;
+  --fl-view-alto: #fcfcff;
+  --fl-view-texto: #5d5b73;
+}
+
+.fl-page {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.fl-head {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.fl-back {
+  justify-self: start;
+  font-size: 0.85rem;
+  color: var(--gf-texto-medio);
+  text-decoration: none;
+}
+
+.fl-back:hover {
+  color: var(--gf-texto);
+}
+
+.fl-head h1 {
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.fl-head p {
+  margin: 0;
+  max-width: 44rem;
+  color: var(--gf-texto-medio);
+  line-height: 1.6;
+}
+
+.fl-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--gf-panel);
+  border: 1px solid var(--gf-borde);
+  border-radius: 1rem;
+}
+
+@media (min-width: 761px) {
+  .fl-controls {
+    position: sticky;
+    top: 4.5rem;
+    z-index: 5;
+  }
+}
+
+.fl-field {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gf-texto-tenue);
+}
+
+.fl-controls select,
+.fl-card-expr {
+  font: inherit;
+  font-size: 0.9rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--gf-texto);
+  background: var(--gf-panel-alto);
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  min-width: 0;
+}
+
+.fl-controls select:focus-visible,
+.fl-card-expr:focus-visible,
+.fl-more:focus-visible,
+.fl-toggle input:focus-visible {
+  outline: 2px solid var(--gf-foco);
+  outline-offset: 2px;
+}
+
+.fl-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  padding-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.fl-toggle input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.fl-count {
+  margin: 0;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--gf-texto-tenue);
+}
+
+.fl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+@media (max-width: 1100px) {
+  .fl-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .fl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .fl-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.fl-grid.fl-grid-1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.fl-card {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 0.75rem;
+  background: var(--gf-panel);
+  border: 1px solid var(--gf-borde);
+  border-radius: 1rem;
+}
+
+.fl-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.fl-card h2 {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fl-num {
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.7rem;
+  color: var(--gf-texto-tenue);
+  background: var(--gf-panel-alto);
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.4rem;
+}
+
+.fl-card-expr {
+  max-width: 46%;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.4rem;
+}
+
+.fl-view {
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  padding: 6%;
+  border-radius: 0.8rem;
+  background: radial-gradient(120% 90% at 50% 30%, var(--fl-view-alto), var(--fl-view) 70%);
+  overflow: hidden;
+}
+
+.fl-idea {
+  margin: 0;
+  min-height: 3.6em;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--gf-texto-medio);
+}
+
+.fl-sizes,
+.fl-ladder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.75rem;
+  background: var(--fl-view);
+}
+
+.fl-ladder {
+  gap: 1.2rem;
+  padding: 1rem;
+}
+
+.fl-sizes figure,
+.fl-ladder figure {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+}
+
+.fl-sizes figcaption,
+.fl-ladder figcaption {
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: 0.65rem;
+  color: var(--fl-view-texto);
+}
+
+.fl-more {
+  justify-self: start;
+  padding: 0.15rem 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gf-marca-3-texto);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.fl-note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--gf-texto-tenue);
+}

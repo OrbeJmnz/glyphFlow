@@ -1,0 +1,243 @@
+<div class="fl-page" [attr.data-fl-anim]="animate() ? 'on' : 'off'">
+  <header class="fl-head">
+    <a class="fl-back" [routerLink]="rutas.a('lab')">{{ 'faceLab.volver' | transloco }}</a>
+    <h1>FACE LAB</h1>
+    <p>{{ 'faceLab.intro' | transloco }}</p>
+  </header>
+
+  <section class="fl-controls" [attr.aria-label]="'faceLab.controles.etiqueta' | transloco">
+    <label class="fl-field">
+      <span>{{ 'faceLab.controles.shape' | transloco }}</span>
+      <select [value]="shape()" (change)="onShape(valor($event))">
+        @for (s of shapes; track s) {
+          <option [value]="s" [selected]="s === shape()">
+            {{ 'faceLab.formas.' + s | transloco }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <label class="fl-field">
+      <span>{{ 'faceLab.controles.expresion' | transloco }}</span>
+      <select [value]="expr()" (change)="setGlobalExpr($any(valor($event)))">
+        @for (e of expressions; track e) {
+          <option [value]="e" [selected]="e === expr()">
+            {{ 'faceLab.expresiones.' + e | transloco }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <label class="fl-field">
+      <span>{{ 'faceLab.controles.color' | transloco }}</span>
+      <select [value]="palette()" (change)="onPalette(valor($event))">
+        @for (p of palettes; track p) {
+          <option [value]="p" [selected]="p === palette()">
+            {{ 'faceLab.colores.' + p | transloco }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <app-grupo rol="group" [titulo]="'faceLab.controles.tema' | transloco">
+      @for (t of uiThemes; track t) {
+        <button
+          type="button"
+          app-chip
+          [activo]="theme() === t"
+          [attr.aria-pressed]="theme() === t"
+          (click)="theme.set(t)"
+        >
+          {{ 'faceLab.temas.' + t | transloco }}
+        </button>
+      }
+    </app-grupo>
+
+    <label class="fl-toggle">
+      <input
+        type="checkbox"
+        [checked]="animate()"
+        (change)="animate.set($any($event.target).checked)"
+      />
+      {{ 'faceLab.controles.animar' | transloco }}
+    </label>
+
+    <app-grupo rol="group" [titulo]="'faceLab.controles.modo' | transloco">
+      @for (m of ['variants', 'shapes', 'sizes']; track m) {
+        <button
+          type="button"
+          app-chip
+          [activo]="mode() === m"
+          [attr.aria-pressed]="mode() === m"
+          (click)="mode.set($any(m))"
+        >
+          {{ 'faceLab.modos.' + m | transloco }}
+        </button>
+      }
+    </app-grupo>
+
+    @if (mode() !== 'variants') {
+      <label class="fl-field">
+        <span>{{ 'faceLab.controles.face' | transloco }}</span>
+        <select [value]="face()" (change)="onFace(valor($event))">
+          @for (v of faces; track v.id) {
+            <option [value]="v.id" [selected]="v.id === face()">{{ v.n }} {{ v.name }}</option>
+          }
+        </select>
+      </label>
+    }
+  </section>
+
+  <p class="fl-count" aria-live="polite">
+    @switch (mode()) {
+      @case ('variants') {
+        {{
+          'faceLab.conteo.variantes'
+            | transloco
+              : {
+                  forma: ('faceLab.formas.' + shape() | transloco),
+                  expr: ('faceLab.expresiones.' + expr() | transloco),
+                }
+        }}
+      }
+      @case ('shapes') {
+        {{
+          'faceLab.conteo.formas'
+            | transloco: { cara: faceName(), expr: ('faceLab.expresiones.' + expr() | transloco) }
+        }}
+      }
+      @case ('sizes') {
+        {{ 'faceLab.conteo.tamanos' | transloco: { cara: faceName() } }}
+      }
+    }
+  </p>
+
+  <div class="fl-grid" [class.fl-grid-1]="mode() === 'sizes'" [attr.data-ui]="theme()">
+    @switch (mode()) {
+      @case ('variants') {
+        @for (v of faces; track v.id) {
+          <article class="fl-card">
+            <header>
+              <span class="fl-num">{{ v.n }}</span>
+              <h2>{{ v.name }}</h2>
+              <select
+                class="fl-card-expr"
+                [attr.aria-label]="'faceLab.exprDeCard' | transloco: { nombre: v.name }"
+                (change)="setCardExpr(v.id, valor($event))"
+              >
+                <option value="" [selected]="!perCard()[v.id]">
+                  {{ 'faceLab.global' | transloco }}
+                </option>
+                @for (e of expressions; track e) {
+                  <option [value]="e" [selected]="perCard()[v.id] === e">
+                    {{ 'faceLab.expresiones.' + e | transloco }}
+                  </option>
+                }
+              </select>
+            </header>
+            <div class="fl-view">
+              <app-face-bot
+                interactive
+                blinks
+                [animate]="animate()"
+                [shape]="shape()"
+                [face]="v.id"
+                [expr]="exprFor(v.id)"
+                [palette]="palette()"
+                [theme]="theme()"
+              />
+            </div>
+            <p class="fl-idea">{{ 'faceLab.ideas.' + v.id | transloco }}</p>
+            <div class="fl-sizes" [attr.aria-label]="'faceLab.tamanosChicos' | transloco">
+              @for (px of smallSizes; track px) {
+                <figure>
+                  <app-face-bot
+                    [size]="px"
+                    [shape]="shape()"
+                    [face]="v.id"
+                    [expr]="exprFor(v.id)"
+                    [palette]="palette()"
+                    [theme]="theme()"
+                  />
+                  <figcaption>{{ px }}</figcaption>
+                </figure>
+              }
+            </div>
+            <button type="button" class="fl-more" (click)="compareShapes(v.id)">
+              {{ 'faceLab.verFormas' | transloco }}
+            </button>
+          </article>
+        }
+      }
+      @case ('shapes') {
+        @for (s of shapes; track s) {
+          <article class="fl-card">
+            <header>
+              <span class="fl-num">{{ faceById[face()].n }}</span>
+              <h2>{{ faceName() }} + {{ 'faceLab.formas.' + s | transloco }}</h2>
+            </header>
+            <div class="fl-view">
+              <app-face-bot
+                interactive
+                blinks
+                [animate]="animate()"
+                [shape]="s"
+                [face]="face()"
+                [expr]="expr()"
+                [palette]="palette()"
+                [theme]="theme()"
+              />
+            </div>
+            <div class="fl-sizes" [attr.aria-label]="'faceLab.tamanosChicos' | transloco">
+              @for (px of smallSizes; track px) {
+                <figure>
+                  <app-face-bot
+                    [size]="px"
+                    [shape]="s"
+                    [face]="face()"
+                    [expr]="expr()"
+                    [palette]="palette()"
+                    [theme]="theme()"
+                  />
+                  <figcaption>{{ px }}</figcaption>
+                </figure>
+              }
+            </div>
+          </article>
+        }
+      }
+      @case ('sizes') {
+        @for (t of uiThemes; track t) {
+          <article class="fl-card" [attr.data-ui]="t">
+            <header>
+              <span class="fl-num">{{ faceById[face()].n }}</span>
+              <h2>
+                {{ faceName() }} · {{ 'faceLab.formas.' + shape() | transloco }} ·
+                {{ 'faceLab.temas.' + t | transloco }}
+              </h2>
+            </header>
+            <div class="fl-ladder">
+              @for (px of ladder; track px) {
+                <figure>
+                  <app-face-bot
+                    [size]="px"
+                    [interactive]="px > 48"
+                    [animate]="animate()"
+                    [shape]="shape()"
+                    [face]="face()"
+                    [expr]="expr()"
+                    [palette]="palette()"
+                    [theme]="t"
+                  />
+                  <figcaption>{{ px }} px</figcaption>
+                </figure>
+              }
+            </div>
+          </article>
+        }
+      }
+    }
+  </div>
+
+  <p class="fl-note">{{ 'faceLab.nota' | transloco }}</p>
+</div>

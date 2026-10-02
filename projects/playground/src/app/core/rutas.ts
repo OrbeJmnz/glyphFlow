@@ -14,6 +14,7 @@ export type RutaId =
   | 'patrones'
   | 'editor'
   | 'lab'
+  | 'faceLab'
   | 'docs'
   | 'empezando'
   | 'accesibilidad'
@@ -38,6 +39,9 @@ export const SLUGS: Record<RutaId, Record<Idioma, string>> = {
   patrones: { en: 'examples', es: 'ejemplos' },
   editor: { en: 'editor', es: 'editor' },
   lab: { en: 'lab', es: 'lab' },
+  // Vive DENTRO del Lab (`/lab/face-lab`): es un banco más, no una sección del sitio. Fuera del
+  // sitemap a propósito — ver `PAGINAS` en `scripts/gen-sitemap.ts`.
+  faceLab: { en: 'face-lab', es: 'face-lab' },
   docs: { en: 'docs', es: 'docs' },
   empezando: { en: 'getting-started', es: 'empezando' },
   accesibilidad: { en: 'accessibility', es: 'accesibilidad' },

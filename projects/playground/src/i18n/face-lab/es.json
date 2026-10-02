@@ -1,0 +1,82 @@
+{
+  "volver": "← Lab",
+  "intro": "Doce hipótesis de cara sobre el mismo cuerpo, con el mismo tamaño, color y expresión: lo único que cambia es la cara. Es un banco aparte: no toca el sistema de bots actual.",
+  "controles": {
+    "etiqueta": "Controles del Face Lab",
+    "shape": "Shape",
+    "expresion": "Expression",
+    "color": "Color",
+    "tema": "UI",
+    "animar": "Animate",
+    "modo": "Modo",
+    "face": "Face"
+  },
+  "temas": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "modos": {
+    "variants": "12 variantes",
+    "shapes": "Compare shapes",
+    "sizes": "Tamaños"
+  },
+  "formas": {
+    "huevo": "Huevo",
+    "circulo": "Caramelo",
+    "cubo": "Cubo",
+    "pildora": "Píldora",
+    "robot": "Robot",
+    "gota": "Gota",
+    "fantasma": "Fantasma",
+    "gato": "Gato"
+  },
+  "expresiones": {
+    "neutral": "Neutral",
+    "happy": "Happy",
+    "surprised": "Surprised",
+    "wink": "Wink",
+    "thinking": "Thinking",
+    "sad": "Sad",
+    "working": "Working",
+    "success": "Success",
+    "error": "Error",
+    "sleeping": "Sleeping"
+  },
+  "colores": {
+    "auto": "Auto (color de la forma)",
+    "lavanda": "Lavanda",
+    "caramelo": "Caramelo",
+    "cielo": "Cielo",
+    "menta": "Menta",
+    "agua": "Agua",
+    "niebla": "Niebla",
+    "mandarina": "Mandarina",
+    "coral": "Coral",
+    "acero": "Acero",
+    "ambar": "Ámbar"
+  },
+  "global": "= global",
+  "exprDeCard": "Expresión de {{nombre}}",
+  "verFormas": "Ver en las 8 formas →",
+  "tamanosChicos": "Tamaños chicos",
+  "conteo": {
+    "variantes": "12 variantes · {{forma}} · {{expr}}",
+    "formas": "{{cara}} en las 8 formas · {{expr}}",
+    "tamanos": "{{cara}} de 24 a 256 px, en UI clara y oscura"
+  },
+  "ideas": {
+    "ethereal": "Ojos sin contorno: un degradado que se apaga hacia el borde, con un núcleo de luz. La cara se siente dentro del material.",
+    "flat": "Ojos en «D», de base plana y sin brillos. Feliz sin cerrarlos: se aplastan hacia arriba. Pensada para 24–32 px.",
+    "line": "Todo es trazo de un solo grosor con puntas redondas, como un glifo más de la librería.",
+    "pastel": "Ojos casi redondos con dos reflejos diminutos y mejillas bajas, apenas visibles, sobre cuerpos pastel.",
+    "solid": "Discos índigo perfectos. El color entra solo como una pieza gráfica: rosa, cian, verde o coral según la expresión.",
+    "neu": "Cuencas talladas en el material —sombra arriba, filo de luz abajo— con la pupila adentro.",
+    "vibrant": "Losas altas de contraste máximo sobre un cuerpo de degradado intenso con halo de color.",
+    "mask": "Un arco grueso y abierto cruza la cara y guarda ojos y boca; se recorta al ancho de cada forma. En el robot es su visor.",
+    "gel": "Cada ojo lleva su propia lente de silicona encima: se ve el ojo, y la piel sobre él.",
+    "adaptive": "Cápsulas que se estiran, separan, bajan e inclinan según la silueta medida.",
+    "dark": "Rendijas de luz, una lavanda y otra cian, con un halo leve. Pensada para UI oscura, sin neón.",
+    "system": "Cápsulas tipo glifo con un solo rasgo propio: la esquina interior de arriba cortada en diagonal. Sin mejillas, brillos ni color extra."
+  },
+  "nota": "Pasa el puntero sobre un bot: la cara te sigue unos px y parpadea. Si el sitio está en «quieto» o tu sistema pide menos movimiento, todo se queda inmóvil."
+}

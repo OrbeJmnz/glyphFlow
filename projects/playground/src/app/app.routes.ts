@@ -85,6 +85,12 @@ function paginas(idioma: Idioma): Routes {
       loadComponent: () => import('./features/lab/lab').then((m) => m.Lab),
     },
     {
+      // Un banco experimental del Lab: por eso cuelga de su slug y no tiene entrada en el nav.
+      path: `${slug('lab', idioma)}/${slug('faceLab', idioma)}`,
+      title: 'routes.faceLab.title',
+      loadComponent: () => import('./features/face-lab/face-lab').then((m) => m.FaceLab),
+    },
+    {
       path: slug('docs', idioma),
       loadComponent: () => import('./features/docs/docs').then((m) => m.Docs),
       // Una sola scope para las 4 hijas: comparten el mismo tema (documentación), y las cuatro se

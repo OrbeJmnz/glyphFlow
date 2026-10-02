@@ -1,6 +1,10 @@
 {
   "titulo": "Lab",
   "intro": "Los arneses de autoría. No son producto: existen para decidir números mirando las cosas juntas — cuántas poses discretas, qué hacer con la cola del resorte, cómo se ve un par que nadie validó. Lo que se decide aquí es lo que termina siendo el default de la librería.",
+  "faceLab": {
+    "titulo": "Face Lab →",
+    "texto": "Doce hipótesis de cara para los bots, sobre la misma forma, color y expresión. Para elegir el sistema facial mirando."
+  },
   "iconImport": {
     "toggle": "Importar coreografía (JSON)",
     "desdeEditor": "Llegó <strong>{{nombre}}</strong> desde el editor de geometría, con su coreografía original. Se previsualiza abajo.",

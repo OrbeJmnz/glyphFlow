@@ -21,3 +21,32 @@
   color: var(--gf-texto-medio);
   line-height: 1.6;
 }
+
+/* La entrada al Face Lab: un banco aparte, con su propia página. */
+.face-lab-link {
+  display: grid;
+  gap: 0.25rem;
+  max-width: 40rem;
+  margin: 0 auto 2.5rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 1rem;
+  background: var(--gf-panel);
+  color: inherit;
+  text-decoration: none;
+}
+
+.face-lab-link:hover {
+  border-color: var(--gf-borde-vivo);
+}
+
+.face-lab-link:focus-visible {
+  outline: 2px solid var(--gf-foco);
+  outline-offset: 2px;
+}
+
+.face-lab-link span {
+  color: var(--gf-texto-medio);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}

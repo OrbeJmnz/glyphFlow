@@ -73,6 +73,10 @@
       "title": "Lab — glyphflow",
       "descripcion": "Donde se deciden los valores por defecto: duraciones, curvas y pasos de morph, ajustados contra iconos reales."
     },
+    "faceLab": {
+      "title": "Face Lab — glyphflow",
+      "descripcion": "Doce hipótesis de cara para los bots de glyphflow, comparadas sobre la misma forma, color y expresión."
+    },
     "noEncontrado": {
       "title": "Página no encontrada — glyphflow"
     },
