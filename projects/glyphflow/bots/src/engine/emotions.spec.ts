@@ -2,7 +2,7 @@ import { mochiShape } from '../shapes/mochi';
 import { cuboShape } from '../shapes/retired';
 import { robotShape } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { celebrate, cheer, curious, excited, hatPulse, happy, neutral, surprised, thinking } from './emotions';
+import { celebrate, cheer, curious, excited, hatPulse, happy, neutral, surprised, thinking, wave } from './emotions';
 import { setHat, setShape } from './setters';
 import { installStateHooks, setState } from './state';
 
@@ -62,6 +62,7 @@ describe('glyphflow/bots · emociones', () => {
   const DURACION: [string, (c: BotContext) => void, number][] = [
     ['neutral', neutral, 900], ['happy', happy, 1300], ['excited', excited, 1500], ['curious', curious, 1700],
     ['thinking', thinking, 2000], ['surprised', surprised, 1300], ['celebrate', celebrate, 1900], ['cheer', cheer, 1300],
+    ['wave', wave, 1500],
   ];
   for (const [nombre, fn, ms] of DURACION) {
     it(`${nombre}: avisa por ${ms} ms y corre entera sin tronar`, () => {

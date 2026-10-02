@@ -2,12 +2,13 @@
 import { pulpoD, pulpoIdleSt } from '../data/pulpo';
 import { pulpoShape } from '../shapes/pulpo';
 import { TAU } from './math';
+import { supportsAnimatedD } from './shape-fx';
 import { type BotContext } from './context';
 
 
 
   export function parm(ctx: BotContext, side: 'L' | 'R', deg: number[], ms: number) {
-    if (ctx.shape.id !== 'pulpo' || ctx.reduce || !CSS.supports('d', 'path("M0 0")')) return;
+    if (ctx.shape.id !== 'pulpo' || ctx.reduce || !supportsAnimatedD()) return;
     if (!ctx.pGest) { ctx.pGest = {}; queueMicrotask(() => runPGest(ctx)); }
     ctx.pGest[side] = { deg:deg.map(a => Math.max(-52, Math.min(52, a))), ms };   // más de ~52° y la punta se enrosca contra la cabeza
   }

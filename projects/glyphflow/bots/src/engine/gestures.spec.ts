@@ -39,10 +39,10 @@ function bot(): { ctx: BotContext; acts: number[]; cues: GfBotCue[] } {
 const DURACION: Record<string, number> = {
   hop: 720, doubleHop: 1300, somersault: 1250, cartwheel: 1150, sideHop: 1200, turn: 1150, shakeNo: 1300,
   nodYes: 1200, wink: 800, surprise: 1100, dance: 2400, dizzy: 2100, angry: 2300, sad: 2800, sick: 2800,
-  disgust: 2100, fear: 2400, bored: 2800,
+  disgust: 2100, fear: 2400, bored: 2800, lookAround: 1400,
 };
 /** Los que no se alargan con movimiento reducido (el guiño dura lo mismo). */
-const SIN_SLOW = new Set(['wink']);
+const SIN_SLOW = new Set(['wink', 'lookAround']);
 
 describe('glyphflow/bots · gestos', () => {
   beforeEach(() => {
@@ -79,8 +79,8 @@ describe('glyphflow/bots · gestos', () => {
     });
   }
 
-  it('cubre los 18 gestos que traía el prototipo', () => {
-    expect(Object.keys(DURACION)).toHaveLength(18);
+  it('cubre los 19 gestos (18 + lookAround) del prototipo', () => {
+    expect(Object.keys(DURACION)).toHaveLength(19);
     for (const name of Object.keys(DURACION)) expect(typeof (G as Record<string, unknown>)[name], name).toBe('function');
   });
 

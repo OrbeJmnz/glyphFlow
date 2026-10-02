@@ -3,6 +3,7 @@ import { defaultMouth, setMouth } from './mouth';
 import { animatePose, setPose } from './pose-motion';
 import { baseFor, baseRoll } from './base-pose';
 import { blink, swapEyes } from './eyes';
+import { expr } from './kawaii';
 import { SPARK_COLORS, airArc, antTip, antWiggle, antenna, flushCheeks, glow, headTop, holdEyes, isRobot, miniHop, pick, slow, spark } from './actions';
 import { S, TAU, clamp01 } from './math';
 import { later, play } from './timing';
@@ -82,3 +83,5 @@ import { type BotContext } from './context';
     later(ctx, () => miniHop(ctx, 18), 320, ctx.lookTimers);
     later(ctx, () => miniHop(ctx, 12), 820, ctx.lookTimers);
   }
+
+  export function wave(ctx: BotContext) { ctx.hooks.act(1500); expr(ctx, 'happy', 1500); animatePose(ctx, u => ({ roll: baseRoll(ctx) + 7 * Math.sin(TAU * 1.5 * u) * (1 - u) }), 1400); if (ctx.shape.id !== 'pulpo') miniHop(ctx, 8); }

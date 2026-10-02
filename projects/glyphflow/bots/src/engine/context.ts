@@ -25,8 +25,7 @@ import { botSkeleton } from './skeleton';
  * - **Se crea solo en el navegador.** `createBotContext` escribe en `host`; en servidor el
  *   componente no lo llama (el esqueleto sí se puede prerenderizar: `botSkeleton`).
  *
- * Campos que faltan a propósito, y quién los trae: `stream` y `AGENT_*` (agente, corte 7) y `drag`/
- * `endDrag` (interacción, corte 6). Sus tipos dependen de código que aún no está portado; declararlos ahora sería poner
+ * Campos que faltan a propósito, y quién los trae: `stream` y `AGENT_*` (agente, corte 7). Sus tipos dependen de código que aún no está portado; declararlos ahora sería poner
  * `unknown` y mentir con la forma.
  */
 
@@ -153,6 +152,45 @@ export interface BotFaceElements {
   antTips: SVGElement[];
   mflow: SVGElement | null;
   mhalo: SVGElement | null;
+}
+
+/** Punto del arrastre gomoso: posición y velocidad del cuerpo (el resorte que persigue al dedo). */
+export interface GfBotGoo {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
+/** Cómo se deforma el cuerpo al jalarlo: estirón vertical, torcedura de la punta, inclinación, desplazamiento y ensanche. */
+export interface GfBotGooShape {
+  sy: number;
+  shear: number;
+  lean: number;
+  tx: number;
+  sx: number;
+}
+
+/** Un arrastre en curso: lo que hizo el dedo (vueltas, sacudidas, tiempo estirado) decide cómo reacciona al soltarlo. */
+export interface BotDrag {
+  eyes: Animation[];
+  g: GfBotGoo;
+  tgt: { x: number; y: number };
+  prev: { x: number; y: number };
+  t0: number;
+  raf: number;
+  peak: number;
+  flips: number;
+  lastSx: number;
+  turn: number;
+  lastAng: number | null;
+  held: number;
+  dizzy: boolean;
+  maxUp: number;
+  path: number;
+  pvx?: number;
+  sag?: number;
+  d?: GfBotGooShape;
 }
 
 /** Lo que el sombrero necesita medir cada cuadro (se arma en `hatBind`). */
@@ -296,6 +334,13 @@ export interface BotContext {
   pAnim: Animation | null;
 
   // ---- Interacción ----
+  /** Un arrastre en curso (`null` si nadie lo tiene agarrado). */
+  drag: BotDrag | null;
+  /**
+   * Fuerza una reacción concreta en vez de elegirla al azar: `poke` (una de las 9) o `spin` (una de las 5).
+   * El prototipo lo leía de `window.__pokeV`/`window.__spinV` «solo para pruebas»; aquí es un campo explícito.
+   */
+  force: { poke?: string; spin?: string };
   pokes: number;
   pokeT: ReturnType<typeof setTimeout> | null;
   dragging: boolean;
@@ -427,6 +472,8 @@ export function createBotContext(
     pGest: null,
     pAnim: null,
 
+    drag: null,
+    force: {},
     pokes: 0,
     pokeT: null,
     dragging: false,

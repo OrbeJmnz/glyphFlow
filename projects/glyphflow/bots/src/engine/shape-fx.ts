@@ -7,7 +7,7 @@ import type { BotContext } from './context';
  * el contorno mueve todo lo pintado dentro).
  */
 
-const supportsAnimatedD = (): boolean =>
+export const supportsAnimatedD = (): boolean =>
   typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('d', 'path("M0 0")');
 
 export function startShapeFx(ctx: BotContext): void {

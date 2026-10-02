@@ -3,7 +3,7 @@ import { airArc, antenna, holdEyes, isRobot, miniHop, mood, puff, shadowFor, sho
 import { later, play } from './timing';
 import { S, TAU, clamp01, easeInOut } from './math';
 import { animatePose } from './pose-motion';
-import { blink, eyeSeq, swapEyes } from './eyes';
+import { blink, eyeSeq, lookTo, swapEyes } from './eyes';
 import { flash, lit, sweep, tint } from './light';
 import { setMouth } from './mouth';
 import { f2, f3 } from '../data/color';
@@ -245,4 +245,10 @@ import { type BotContext } from './context';
     later(ctx, () => eyeSeq(ctx, [{ transform:S(1,.42) }, { transform:S(1,.08), offset:.5 }, { transform:S(1,.42) }], 500), d * .6, ctx.lookTimers);   // parpadeo lento
     lit(ctx, 'dim', [{ opacity:0 }, { opacity:.14, offset:.25 }, { opacity:.14, offset:.85 }, { opacity:0 }], d);
     lit(ctx, 'gloss', [{ opacity:1 }, { opacity:.6, offset:.25 }, { opacity:.6, offset:.85 }, { opacity:1 }], d);
+  }
+
+  export function lookAround(ctx: BotContext) {
+    ctx.hooks.act(1400); lookTo(ctx, -1);
+    eyeSeq(ctx, [{ transform:S(1) }, { transform:S(1.12,1.18), offset:.2 }, { transform:S(1,1), offset:.45 }, { transform:S(1.12,1.18), offset:.7 }, { transform:S(1) }], 1400);
+    later(ctx, () => lookTo(ctx, 1), 700, ctx.lookTimers); later(ctx, () => { lookTo(ctx, 0); blink(ctx); }, 1400, ctx.lookTimers);
   }
