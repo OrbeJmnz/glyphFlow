@@ -7,7 +7,7 @@ import { TAU, S, clamp01, easeInOut } from '../engine/math';
 import { cubeShape } from '../shapes/retired';
 import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 
 describe('glyphflow/bots · matemática', () => {
   it('easeInOut arranca en 0, termina en 1 y es simétrica en el medio', () => {
@@ -65,7 +65,7 @@ describe('glyphflow/bots · sombreros pegados a una forma', () => {
   });
 
   it('audífonos y visera se ajustan al CUERPO cuando la forma lo permite', () => {
-    const robot = robotShape(cubeShape);
+    const robot = makeRobot(cubeShape);
     expect(hatAccs('headphones', catShape)[0].p[1]).toBe(
       (catShape.bodyFit?.y ?? 0) - catShape.cy,
     );

@@ -1,7 +1,7 @@
 import { KAWAII } from '../data/kawaii';
 import { mochiShape } from '../shapes/mochi';
 import { cubeShape } from '../shapes/retired';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import {
   expr, installKawaiiHooks, K, K_IDLE, kClear, kCue, kDraw, kFlush, kHold, kIdleOn, kIdleTick, kPick, kRelease, kWake,
@@ -64,7 +64,7 @@ describe('glyphflow/bots · caras kawaii', () => {
     });
 
     it('el robot no tiene capa kawaii: expr no hace nada', () => {
-      const ctx = bot({ shape: robotShape(cubeShape) });
+      const ctx = bot({ shape: makeRobot(cubeShape) });
       expr(ctx, 'happy');
       expect(ctx.exprAnims).toHaveLength(0);
       expect(ctx.svg.dataset['kface']).toBeUndefined();
@@ -121,7 +121,7 @@ describe('glyphflow/bots · caras kawaii', () => {
       const ctx = bot({ wander: true });
       ctx.state = 'working';
       expect(kIdleOn(ctx)).toBe(false);
-      expect(kIdleOn(bot({ wander: true, shape: robotShape(cubeShape) }))).toBe(false);
+      expect(kIdleOn(bot({ wander: true, shape: makeRobot(cubeShape) }))).toBe(false);
     });
 
     it('kPick reparte las 17 caras de reposo sin repetir seguidas', () => {

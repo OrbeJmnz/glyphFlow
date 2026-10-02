@@ -13,7 +13,7 @@ function makeOctopus(): GfBotShape {
   keys.push(keys[0]);
   return {
     id: 'octopus',
-    label: 'Pulpo',
+    label: 'Octopus',
     family: 'octopus',
     palette: 'mist',
     model: 'sphere',

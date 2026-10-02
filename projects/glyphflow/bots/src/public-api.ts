@@ -24,3 +24,27 @@ export type { GfKawaiiId } from './data/kawaii';
 export type { GfBotPaletteId } from './data/palettes';
 export type { GfBotSleepRoutine, GfBotWorkRoutine } from './data/routines';
 export type { GfBotToyId } from './data/toys';
+
+// Formas. Cada una es un objeto suelto (como los iconos del primario): quien usa `catShape` no carga
+// el pulpo. Se pasan a `createBot({ shape })` o a `bot.setShape(shape)`. Las retiradas (huevo, caramelo,
+// cubo, píldora, gota) no salen: solo existen de cuerpo base del robot.
+export { mochiShape } from './shapes/mochi';
+export { tofuShape } from './shapes/tofu';
+export { ghostShape } from './shapes/ghost';
+export { catShape } from './shapes/cat';
+export { octopusShape } from './shapes/octopus';
+export { robotShape } from './shapes/robot';
+// Las nocturnas (pensadas para fondo oscuro): el `id` interno conserva la `n` (`nCloud`…) porque es el
+// contrato con el CSS; el nombre público dice qué son.
+export {
+  nNeonShape as nightNeonShape,
+  nAuroraShape as nightAuroraShape,
+  nCobaltShape as nightCobaltShape,
+  nPearlShape as nightPearlShape,
+  nVibrantShape as nightVibrantShape,
+  nMaskShape as nightMaskShape,
+  nCrystalShape as nightCrystalShape,
+  nJellyShape as nightJellyShape,
+  nCloudShape as nightCloudShape,
+  nPrismShape as nightPrismShape,
+} from './shapes/night';

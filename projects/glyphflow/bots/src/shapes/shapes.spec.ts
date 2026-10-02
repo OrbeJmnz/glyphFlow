@@ -11,12 +11,12 @@ import {
 } from './night';
 import { octopusShape } from './octopus';
 import { cubeShape, dropShape, eggShape, pillShape, candyShape } from './retired';
-import { robotShape } from './robot';
+import { makeRobot } from './robot';
 import { tofuShape } from './tofu';
 
 const ACTIVAS: Record<string, GfBotShape> = {
   mochi: mochiShape, tofu: tofuShape, ghost: ghostShape, cat: catShape, octopus: octopusShape,
-  robot: robotShape(cubeShape),
+  robot: makeRobot(cubeShape),
 };
 const NOCHE: Record<string, GfBotShape> = {
   jalea: nJellyShape, nube: nCloudShape, neon: nNeonShape, aurora: nAuroraShape, cobalto: nCobaltShape,

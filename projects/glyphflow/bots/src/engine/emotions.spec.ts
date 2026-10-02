@@ -1,6 +1,6 @@
 import { mochiShape } from '../shapes/mochi';
 import { cubeShape } from '../shapes/retired';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { celebrate, cheer, curious, excited, hatPulse, happy, neutral, surprised, thinking, wave } from './emotions';
 import { setHat, setShape } from './setters';
@@ -72,7 +72,7 @@ describe('glyphflow/bots · emociones', () => {
       vi.advanceTimersByTime(ms * 2);
     });
     it(`${nombre}: también corre en el robot (antena, ojos de anillo)`, () => {
-      const { ctx } = bot({ shape: robotShape(cubeShape) });
+      const { ctx } = bot({ shape: makeRobot(cubeShape) });
       expect(() => fn(ctx)).not.toThrow();
       vi.advanceTimersByTime(ms * 2);
     });
@@ -107,7 +107,7 @@ describe('glyphflow/bots · emociones', () => {
     curious(ctx);
     expect(mouthOn(ctx)).toBe('o');
     expect(calls.filter((c) => ctx.fe.eyeList.includes(c.node as SVGElement)).map((c) => c.frames[1]['transform'])).toEqual(['scale(1.12,1.14)', 'scale(1,0.78)']);
-    const r = bot({ shape: robotShape(cubeShape) });
+    const r = bot({ shape: makeRobot(cubeShape) });
     const llamadas = stubAnimations();
     curious(r.ctx);
     expect(llamadas.some((c) => c.node === r.ctx.fe.half[1])).toBe(true);

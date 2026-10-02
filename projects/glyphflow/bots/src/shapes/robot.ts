@@ -1,12 +1,13 @@
 import { bolt } from '../data/geometry';
 import type { GfBotShape } from '../data/shape';
+import { cubeShape } from './retired';
 
 /**
  * Robot: toma el cuerpo de otra forma (círculo, huevo o cubo) y le pone visor, antena y tornillos.
  * Se parte de la forma base como OBJETO —no de su clave— para que quien use el robot solo cargue el
  * cuerpo que elija.
  */
-export function robotShape(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
+export function makeRobot(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
   const top = base.top ?? base.cy;
   const sideW = base.sideW ?? 60;
   return {
@@ -34,3 +35,6 @@ export function robotShape(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
     ],
   };
 }
+
+/** El robot de siempre: el visor, la antena y los tornillos sobre el cuerpo de cubo. */
+export const robotShape: GfBotShape = /* @__PURE__ */ makeRobot(cubeShape);

@@ -17,7 +17,7 @@ export function ghostSheetPath(u = 0): string {
   return d + ' Z';
 }
 // Las 12 pieles del fantasma (nombres de la hoja). Colores muestreados de cada tarjeta.
-export const GHOST_VARS = { f1:'Etérea', f2:'Plana', f3:'Línea', f4:'Pastel', f5:'Sólida', f6:'Neumórfica', f7:'Vibrante', f8:'Máscara', f9:'Translúcida', f10:'Adaptativa', f11:'Oscura', f12:'Sistema' } as const;
+export const GHOST_VARS = { f1:'Ethereal', f2:'Flat', f3:'Line', f4:'Pastel', f5:'Solid', f6:'Neumorphic', f7:'Vibrant', f8:'Mask', f9:'Translucent', f10:'Adaptive', f11:'Dark', f12:'System' } as const;
 export type GfGhostVariant = keyof typeof GHOST_VARS;
 export const isGhost = (v: string): v is GfGhostVariant => /^f\d+$/.test(v);
 export function ghostSkin(v: string, p: string): GfBotSkinLayers {

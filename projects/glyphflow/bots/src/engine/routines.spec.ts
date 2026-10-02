@@ -5,7 +5,7 @@ import { mochiShape } from '../shapes/mochi';
 import { nCloudShape } from '../shapes/night';
 import { octopusShape } from '../shapes/octopus';
 import { cubeShape } from '../shapes/retired';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { FIDGETS, RUN } from './routines';
 import { setShape } from './setters';
@@ -32,7 +32,7 @@ function bot(opts: Partial<GfBotOptions> = {}): BotContext {
   return ctx;
 }
 
-const FORMAS = [mochiShape, ghostShape, catShape, octopusShape, nCloudShape, robotShape(cubeShape)];
+const FORMAS = [mochiShape, ghostShape, catShape, octopusShape, nCloudShape, makeRobot(cubeShape)];
 
 describe('glyphflow/bots · rutinas', () => {
   beforeEach(() => {
@@ -97,7 +97,7 @@ describe('glyphflow/bots · rutinas', () => {
           vi.advanceTimersByTime(5000);
         }
       }
-    });
+    }, 20_000); // recorre ~30 variantes con 5 s virtuales cada una: ronda los 5 s reales con la CPU ocupada
   }
 
   it('al limpiar la rutina no queda ningún timer suelto de la anterior', () => {

@@ -5,7 +5,7 @@ import { mochiShape } from '../shapes/mochi';
 import { nCloudShape } from '../shapes/night';
 import { octopusShape } from '../shapes/octopus';
 import { cubeShape } from '../shapes/retired';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 import { applyFx, buildShape } from './build';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { accMarkup, faceMarkup, faceOf, ownFace } from './face';
@@ -25,7 +25,7 @@ const built = (opts: Partial<GfBotOptions> = {}): BotContext => {
 };
 
 /** Cada forma de serie: la paridad contra el prototipo se midió fuera del repo; aquí quedan los invariantes. */
-const FORMAS = [mochiShape, ghostShape, catShape, octopusShape, nCloudShape, robotShape(cubeShape)];
+const FORMAS = [mochiShape, ghostShape, catShape, octopusShape, nCloudShape, makeRobot(cubeShape)];
 
 describe('glyphflow/bots · construcción de la forma', () => {
   afterEach(() => {
@@ -64,7 +64,7 @@ describe('glyphflow/bots · construcción de la forma', () => {
         expect(html).toContain(`data-m="${m}"`);
       }
       expect(html).toContain('xkL');
-      expect(faceMarkup(make(), robotShape(cubeShape))).not.toContain('xkL');
+      expect(faceMarkup(make(), makeRobot(cubeShape))).not.toContain('xkL');
     });
 
     it('los ids de la cara cuelgan del prefijo del bot', () => {
@@ -125,7 +125,7 @@ describe('glyphflow/bots · construcción de la forma', () => {
       expect(familia(octopusShape, 'o2')).toBe('octopus');
       expect(familia(mochiShape, 'n3')).toBe('night');
       expect(familia(mochiShape, 'neu')).toBe('light');
-      expect(familia(robotShape(cubeShape), 'neu')).toBe('');
+      expect(familia(makeRobot(cubeShape), 'neu')).toBe('');
     });
 
     it('rehace las referencias de la cara y deja las listas llenas', () => {
@@ -152,7 +152,7 @@ describe('glyphflow/bots · construcción de la forma', () => {
     });
 
     it('en el robot el reflejo va debajo de la cara; en las demás, encima', () => {
-      const robot = built({ shape: robotShape(cubeShape) });
+      const robot = built({ shape: makeRobot(cubeShape) });
       expect([...robot.el.flip.children].indexOf(robot.el.light)).toBeLessThan([...robot.el.flip.children].indexOf(robot.el.face));
       const mochi = built();
       expect([...mochi.el.flip.children].indexOf(mochi.el.light)).toBeGreaterThan([...mochi.el.flip.children].indexOf(mochi.el.face));

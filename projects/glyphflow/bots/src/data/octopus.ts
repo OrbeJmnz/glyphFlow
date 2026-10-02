@@ -40,7 +40,7 @@ export interface GfOctopusPalette {
 }
 // y entre ellos no hay ninguna línea de unión. En reposo todos los lóbulos son base; ninguno se levanta.
 // En un gesto, un lóbulo de flanco se dobla hacia arriba DENTRO de la misma silueta (se anima «d»): es una mano solo mientras dura.
-export const OCTOPUS_VARS = { o1:'Clásico', o2:'Pastel', o3:'Luminoso', o4:'Nocturno', o5:'Cristalina', o6:'Arcoíris' } as const;
+export const OCTOPUS_VARS = { o1:'Classic', o2:'Pastel', o3:'Glowing', o4:'Night', o5:'Crystalline', o6:'Rainbow' } as const;
 export type GfOctopusVariant = keyof typeof OCTOPUS_VARS;
 export const isOctopus = (v: string): v is GfOctopusVariant => /^o\d+$/.test(v);
 // mitad izquierda en las coordenadas del trazo (474×539); cada punto: [x, y, lóbulo, peso]

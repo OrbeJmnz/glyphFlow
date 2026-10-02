@@ -37,7 +37,7 @@ export interface GfSilMetrics {
 }
 
 // ---------- Efectos (sección Colores, para TODAS las formas) ----------
-export const FX_VARS = { glow:'Contorno glow', pixel:'Pixel', glitch:'Glitch', bug:'Bug' } as const;
+export const FX_VARS = { glow:'Glow outline', pixel:'Pixel', glitch:'Glitch', bug:'Bug' } as const;
 export type GfBotFxId = keyof typeof FX_VARS;
 export const fxInMarkup = (p: string, sh: GfBotFxShape): string => `<g class="xfx xfx-glow">
     <radialGradient id="${p}-ngd" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#3B2F9C"/><stop offset=".6" stop-color="#22196A"/><stop offset="1" stop-color="#140F47"/></radialGradient>
@@ -62,7 +62,7 @@ export const fxOutMarkup = (p: string, sh: GfBotFxShape): string => `<g class="x
 // ---------- Accesorios extra (sección Sombreros, para TODAS las formas) ----------
 
 /** Accesorios extra. `glasses` no está aquí: va en la cara para que gire con ella. */
-export const ACCX = { halo:'Halo', glasses:'Gafas', heart:'Corazón', earphones:'Auriculares' } as const;
+export const ACCX = { halo:'Halo', glasses:'Glasses', heart:'Heart', earphones:'Earphones' } as const;
 export type GfBotAccXId = keyof typeof ACCX;
 
 /** Marcado del accesorio `k` colocado según las medidas `m` de la silueta de `sh`. */

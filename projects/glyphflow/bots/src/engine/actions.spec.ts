@@ -2,7 +2,7 @@ import { ghostShape } from '../shapes/ghost';
 import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
 import { cubeShape } from '../shapes/retired';
-import { robotShape } from '../shapes/robot';
+import { makeRobot } from '../shapes/robot';
 import {
   antenna, antTip, antWiggle, breathe, cloudBubble, flushCheeks, gearPath, glow, headTop, holdEyes, isRobot,
   miniHop, mk, mood, nod, pick, popIn, puff, shadowFor, showFor, slow, spark, SPARK_COLORS, spawnZ, squint,
@@ -98,12 +98,12 @@ describe('glyphflow/bots · vocabulario de acciones', () => {
       expect(medir(mochiShape)).toBe(mochiShape.top);
       expect(medir(ghostShape)).toBe(48);
       expect(medir(catShape)).toBe(48);
-      expect(medir(robotShape(cubeShape))).toBe((cubeShape.top ?? 0) - 26);
+      expect(medir(makeRobot(cubeShape))).toBe((cubeShape.top ?? 0) - 26);
     });
 
     it('isRobot solo es cierto con la piel del robot', () => {
       expect(isRobot(bot().ctx)).toBe(false);
-      expect(isRobot(bot({ shape: robotShape(cubeShape) }).ctx)).toBe(true);
+      expect(isRobot(bot({ shape: makeRobot(cubeShape) }).ctx)).toBe(true);
     });
 
     it('popIn aparece con resorte desde el 40%', () => {
@@ -259,7 +259,7 @@ describe('glyphflow/bots · vocabulario de acciones', () => {
     });
 
     it('antenas y mejillas: antenna/antWiggle/antTip animan las del robot, flushCheeks las mejillas', () => {
-      const { ctx } = bot({ shape: robotShape(cubeShape) });
+      const { ctx } = bot({ shape: makeRobot(cubeShape) });
       const calls = stubAnimations();
       antenna(ctx, [{ transform: 'rotate(0deg)' }, { transform: 'rotate(10deg)' }], 500);
       expect(calls.filter((c) => ctx.fe.ants.includes(c.node as SVGElement)).length).toBe(ctx.fe.ants.length);
