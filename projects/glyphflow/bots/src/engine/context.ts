@@ -24,9 +24,6 @@ import { botSkeleton } from './skeleton';
  * - **Un contexto = un bot.** Dos bots en una página no comparten nada (ni ids, ni timers).
  * - **Se crea solo en el navegador.** `createBotContext` escribe en `host`; en servidor el
  *   componente no lo llama (el esqueleto sí se puede prerenderizar: `botSkeleton`).
- *
- * Campos que faltan a propósito, y quién los trae: `stream` y `AGENT_*` (agente, corte 7). Sus tipos dependen de código que aún no está portado; declararlos ahora sería poner
- * `unknown` y mentir con la forma.
  */
 
 /** Las dos bocas de reposo que se pueden elegir a mano: la pastilla neumórfica o la «w» del gato. */
@@ -234,6 +231,18 @@ export interface BotCloudPhysics {
   st: number;
 }
 
+/** La hoja que se escribe mientras llegan tokens del agente: el documento, el cursor y los renglones. */
+export interface BotStream {
+  doc: SVGElement;
+  x0: number;
+  y0: number;
+  caret: SVGElement;
+  lines: SVGElement[];
+  /** Ancho ya escrito del renglón actual. */
+  x: number;
+  box: SVGElement;
+}
+
 /** Rutinas que el dueño puede fijar: `null` = que el bot elija por turnos. */
 export interface BotFixedRoutines {
   working: GfBotWorkRoutine | null;
@@ -348,6 +357,10 @@ export interface BotContext {
   lastPokeAt: number;
   lastDragEnd: number;
   lastTouchAt: number;
+
+  // ---- Agente ----
+  /** La hoja abierta mientras el agente escribe; `null` fuera de ese estado. */
+  stream: BotStream | null;
 
   // ---- Juguetes ----
   toyN: number;
@@ -481,6 +494,8 @@ export function createBotContext(
     lastPokeAt: 0,
     lastDragEnd: 0,
     lastTouchAt: 0,
+
+    stream: null,
 
     toyN: 0,
     toyTimers: [],

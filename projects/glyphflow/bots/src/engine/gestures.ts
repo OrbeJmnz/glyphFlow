@@ -252,3 +252,11 @@ import { type BotContext } from './context';
     eyeSeq(ctx, [{ transform:S(1) }, { transform:S(1.12,1.18), offset:.2 }, { transform:S(1,1), offset:.45 }, { transform:S(1.12,1.18), offset:.7 }, { transform:S(1) }], 1400);
     later(ctx, () => lookTo(ctx, 1), 700, ctx.lookTimers); later(ctx, () => { lookTo(ctx, 0); blink(ctx); }, 1400, ctx.lookTimers);
   }
+
+  /** Aparece de golpe: el cuerpo se infla desde .82 con el resorte y los ojos se abren. */
+  export function pop(ctx: BotContext) {
+    if (ctx.reduce) return;
+    ctx.running.get(ctx.el.hop)?.cancel();
+    ctx.running.set(ctx.el.hop, ctx.el.hop.animate([{ transform:S(.82) }, { transform:S(1) }], { duration: ctx.spring.duration, easing: ctx.spring.easing }));
+    eyeSeq(ctx, [{ transform:S(1,.1) }, { transform:S(1.15,1.2), offset:.4 }, { transform:S(1) }], 450);
+  }
