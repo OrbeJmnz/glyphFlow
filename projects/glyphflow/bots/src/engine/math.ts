@@ -11,4 +11,4 @@ export const easeInOut = (u: number): number =>
 export const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
 
 /** `scale(x, y)` para keyframes; con un solo argumento escala parejo. */
-export const S = (x: number, y: number = x): string => `scale(${x},${y})`;
+export const S = (x: number | string, y: number | string = x): string => `scale(${x},${y})`;

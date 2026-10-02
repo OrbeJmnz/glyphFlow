@@ -68,7 +68,7 @@ describe('glyphflow/bots · contexto', () => {
       expect(ctx.ready).toBe(false);
       expect(ctx.pose).toEqual({ yaw: 0, pitch: 0, roll: 0 });
       expect(ctx.shape).toBe(mochiShape);
-      expect(ctx.fe.eyes).toBeNull();
+      expect(ctx.fe.eyes.isConnected).toBe(false); // un <g> suelto hasta la primera construcción
       expect(ctx.fe.eyeList).toEqual([]);
       expect(ctx.fe.mflow).toBeNull();
       expect([ctx.subAnims, ctx.subTimers, ctx.lookTimers, ctx.toyTimers, ctx.poseEls, ctx.feats]).toEqual([[], [], [], [], [], []]);

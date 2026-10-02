@@ -43,6 +43,13 @@ function skinFamily(ctx: BotContext): string {
             : 'light';
 }
 
+/** Un rasgo que `faceMarkup` siempre dibuja: si falta, se rompió el contrato con las clases. */
+function must(ctx: BotContext, selector: string): SVGElement {
+  const node = ctx.q(selector);
+  if (!node) throw new Error(`glyphflow/bots: la cara no trae «${selector}»`);
+  return node;
+}
+
 export function buildShape(ctx: BotContext): void {
   const { el, svg, id: p } = ctx;
   const sh = withHat(ctx, ctx.shape);
@@ -97,9 +104,9 @@ export function buildShape(ctx: BotContext): void {
     ctx.q('.skinOver')!.innerHTML = k.over;
   }
   const fe: BotFaceElements = {
-    eyes: ctx.q('.eyes'), eyeList: ctx.qa('.eye'), closed: ctx.qa('.closed'), happy: ctx.qa('.happy'),
-    squeeze: ctx.qa('.squeeze'), bubble: ctx.q('.bubble'), browA: ctx.qa('.browA'), browS: ctx.qa('.browS'),
-    tears: ctx.qa('.tear'), sweat: ctx.q('.sweat'), faceFx: ctx.q('.faceFx'), cheeks: ctx.qa('.cheek'),
+    eyes: must(ctx, '.eyes'), eyeList: ctx.qa('.eye'), closed: ctx.qa('.closed'), happy: ctx.qa('.happy'),
+    squeeze: ctx.qa('.squeeze'), bubble: must(ctx, '.bubble'), browA: ctx.qa('.browA'), browS: ctx.qa('.browS'),
+    tears: ctx.qa('.tear'), sweat: must(ctx, '.sweat'), faceFx: must(ctx, '.faceFx'), cheeks: ctx.qa('.cheek'),
     line: ctx.qa('.line'), half: ctx.qa('.half'), ring: ctx.qa('.ring'), cross: ctx.qa('.cross'),
     mouths: ctx.qa('.mouths [data-m]'), ants: ctx.qa('.ant'), antTips: ctx.qa('.ant-tip'),
     mflow: ctx.q('.mflow'), mhalo: ctx.q('.mhalo'),

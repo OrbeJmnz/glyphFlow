@@ -2,6 +2,7 @@ import { FACES, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import { HATS, type GfBotHatId } from '../data/hats';
 import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
+import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotState } from '../bot-state';
 import { prefersReducedMotion } from './env';
@@ -87,12 +88,18 @@ export interface GfBotCue {
 
 export interface BotHooks {
   cue: (cue: GfBotCue) => void;
+  /** Un gesto avisa que va a durar `ms`: la máquina de estados despierta al bot y pausa la rutina. */
+  act: (ms: number) => void;
+  /** Las caras kawaii vuelven a decidir si toca una (al cambiar de estado). Lo instala el corte kawaii. */
+  kawaiiIdleTick: () => void;
+  /** Despertar con cara de recién despierto (bostezo, estirón…). Lo instala el corte kawaii. */
+  kawaiiWake: () => void;
 }
 
 /** Referencias que salen del esqueleto: existen desde que se crea el bot y no cambian de forma. */
 export interface BotElements {
-  hop: SVGElement;
-  breath: SVGElement;
+  hop: SVGGraphicsElement;
+  breath: SVGGraphicsElement;
   flip: SVGElement;
   light: SVGElement;
   face: SVGElement;
@@ -125,17 +132,17 @@ export interface BotElements {
  * pintado (Gel, App, Etéreo, Pastel).
  */
 export interface BotFaceElements {
-  eyes: SVGElement | null;
+  eyes: SVGElement;
   eyeList: SVGElement[];
   closed: SVGElement[];
   happy: SVGElement[];
   squeeze: SVGElement[];
-  bubble: SVGElement | null;
+  bubble: SVGElement;
   browA: SVGElement[];
   browS: SVGElement[];
   tears: SVGElement[];
-  sweat: SVGElement | null;
-  faceFx: SVGElement | null;
+  sweat: SVGElement;
+  faceFx: SVGElement;
   cheeks: SVGElement[];
   line: SVGElement[];
   half: SVGElement[];
@@ -191,8 +198,8 @@ export interface BotCloudPhysics {
 
 /** Rutinas que el dueño puede fijar: `null` = que el bot elija por turnos. */
 export interface BotFixedRoutines {
-  working: string | null;
-  sleeping: string | null;
+  working: GfBotWorkRoutine | null;
+  sleeping: GfBotSleepRoutine | null;
 }
 
 export interface BotContext {
@@ -209,9 +216,9 @@ export interface BotContext {
   /** Resorte de los saltos y poses (ver `spring.ts`), resuelto al crear el bot. */
   readonly spring: BotSpring;
   /**
-   * Ganchos que el motor rellena según qué cortes estén cargados. `cue` avisa a las caras kawaii de que
-   * pasó algo en los ojos o la boca; mientras no haya kawaii, no hace nada. Existe para que los ojos no
-   * importen a las caras kawaii (que a su vez importan los ojos): un ciclo de imports.
+   * Ganchos que el motor rellena según qué módulos estén cargados; mientras no, no hacen nada. `cue`
+   * avisa a las caras kawaii de que pasó algo en los ojos o la boca; `act` lo instala la máquina de
+   * estados. Existen para romper ciclos de imports: los gestos no pueden importar a quien los llama.
    */
   hooks: BotHooks;
   /** `querySelector` / `querySelectorAll` sobre el SVG de este bot. */
@@ -317,11 +324,14 @@ function need<T extends SVGElement = SVGElement>(svg: SVGSVGElement, selector: s
 }
 
 /** Caras vacías: lo que hay antes de la primera construcción de forma. */
-export const emptyFaceElements = (): BotFaceElements => ({
-  eyes: null, eyeList: [], closed: [], happy: [], squeeze: [], bubble: null,
-  browA: [], browS: [], tears: [], sweat: null, faceFx: null, cheeks: [], line: [], half: [],
-  ring: [], cross: [], mouths: [], ants: [], antTips: [], mflow: null, mhalo: null,
-});
+export const emptyFaceElements = (): BotFaceElements => {
+  const loose = (): SVGElement => document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  return {
+    eyes: loose(), eyeList: [], closed: [], happy: [], squeeze: [], bubble: loose(),
+    browA: [], browS: [], tears: [], sweat: loose(), faceFx: loose(), cheeks: [], line: [], half: [],
+    ring: [], cross: [], mouths: [], ants: [], antTips: [], mflow: null, mhalo: null,
+  };
+};
 
 /**
  * Monta el esqueleto en `host` y devuelve el contexto con el estado inicial que fijan las
@@ -343,7 +353,7 @@ export function createBotContext(
 
   const hat = opts.hat ?? null;
   const el: BotElements = {
-    hop: need(svg, '.hop'), breath: need(svg, '.breath'), flip: need(svg, '.flip'),
+    hop: need<SVGGraphicsElement>(svg, '.hop'), breath: need<SVGGraphicsElement>(svg, '.breath'), flip: need(svg, '.flip'),
     light: need(svg, '.light'), face: need(svg, '.face'), clip: need(svg, '.clipShape'),
     accBack: need(svg, '.accBack'), accFront: need(svg, '.accFront'), shadow: need(svg, '.shadow'),
     dots: need(svg, '.dots'), dotList: qa('.dot'), fx: need(svg, '.fx'),
@@ -359,7 +369,7 @@ export function createBotContext(
   };
 
   return {
-    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined }, q, qa, el, fe: emptyFaceElements(),
+    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined, act: () => undefined, kawaiiIdleTick: () => undefined, kawaiiWake: () => undefined }, q, qa, el, fe: emptyFaceElements(),
 
     shape: opts.shape,
     pose: { yaw: 0, pitch: 0, roll: 0 },
