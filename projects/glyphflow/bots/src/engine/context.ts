@@ -1,5 +1,6 @@
 import { FACES, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
+import type { GfKawaiiId } from '../data/kawaii';
 import { HATS, type GfBotHatId } from '../data/hats';
 import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
@@ -24,9 +25,8 @@ import { botSkeleton } from './skeleton';
  * - **Se crea solo en el navegador.** `createBotContext` escribe en `host`; en servidor el
  *   componente no lo llama (el esqueleto sí se puede prerenderizar: `botSkeleton`).
  *
- * Campos que faltan a propósito, y quién los trae: `stream` y `AGENT_*` (agente, corte 7), `drag`/
- * `endDrag` (interacción, corte 6), `pGest`/`pAnim` (brazos del pulpo, corte 6), `kQ` (cola kawaii,
- * corte 4). Sus tipos dependen de código que aún no está portado; declararlos ahora sería poner
+ * Campos que faltan a propósito, y quién los trae: `stream` y `AGENT_*` (agente, corte 7) y `drag`/
+ * `endDrag` (interacción, corte 6). Sus tipos dependen de código que aún no está portado; declararlos ahora sería poner
  * `unknown` y mentir con la forma.
  */
 
@@ -282,13 +282,18 @@ export interface BotContext {
   // ---- Caras kawaii ----
   exprAnims: Animation[];
   kIdleT: ReturnType<typeof setTimeout> | null;
-  kIdleKey: string | null;
-  kBag: string[];
+  kIdleKey: GfKawaiiId | null;
+  kBag: GfKawaiiId[];
   kTmpT: ReturnType<typeof setTimeout> | null;
   kSeqId: number;
   kWakeForce: string | null;
   kLockUntil: number;
   kHeldKey: string | null;
+  /** Pistas de ojos/boca que llegaron en el mismo instante: se combinan y se resuelven al siguiente tick. */
+  kQ: GfBotCue | null;
+  /** Brazos del pulpo: gestos pedidos este tick y la animación del contorno que los dibuja. */
+  pGest: Partial<Record<'L' | 'R', { deg: number[]; ms: number }>> | null;
+  pAnim: Animation | null;
 
   // ---- Interacción ----
   pokes: number;
@@ -418,6 +423,9 @@ export function createBotContext(
     kWakeForce: null,
     kLockUntil: 0,
     kHeldKey: null,
+    kQ: null,
+    pGest: null,
+    pAnim: null,
 
     pokes: 0,
     pokeT: null,
