@@ -11,6 +11,7 @@ export function robotShape(base: GfBotShape, bodyKey = 'cubo'): GfBotShape {
   const sideW = base.sideW ?? 60;
   return {
     ...base,
+    id: 'robot',
     hatAt: top - base.cy + 1.5,
     hatK: 0.88,
     label: 'Robot',

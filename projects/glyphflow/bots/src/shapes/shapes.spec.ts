@@ -34,6 +34,16 @@ describe('glyphflow/bots · formas', () => {
     }
   });
 
+  it('cada forma trae un id estable y único: el CSS de las pieles se engancha a él', () => {
+    const todas = [...Object.values(ACTIVAS), ...Object.values(NOCHE), ...RETIRADAS];
+    const ids = todas.map((s) => s.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids.every((i) => /^[a-zA-Z]+$/.test(i))).toBe(true);
+    // el CSS del prototipo usa estos cuatro y el motor ramifica por pulpo y nNube
+    expect(ids).toEqual(expect.arrayContaining(['fantasma', 'gato', 'nJalea', 'nNube', 'pulpo']));
+    expect(ACTIVAS['robot'].id).toBe('robot'); // no hereda el id del cuerpo (cubo)
+  });
+
   it('las formas retiradas están marcadas y el robot toma el cuerpo del cubo sin heredar la marca', () => {
     for (const s of RETIRADAS) expect(s.retired).toBe(true);
     const robot = ACTIVAS['robot'];

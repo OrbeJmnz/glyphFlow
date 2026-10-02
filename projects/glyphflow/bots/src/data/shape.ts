@@ -1,6 +1,7 @@
 import type { GfBotAccessory, GfBotModel } from '../engine/pose';
 import type { GfBotFaceId } from './faces';
 import type { GfBotHeadMetrics } from './hats';
+import type { MATERIALS } from './palettes';
 
 /**
  * Una forma de bot: su silueta, cómo se comporta en 3D, dónde van los ojos y la boca, y qué lleva
@@ -34,11 +35,18 @@ export interface GfBotHead extends GfBotHeadMetrics {
 export type GfBotShapeFx = (id: string) => string;
 
 export interface GfBotShape {
+  /**
+   * Nombre estable de la forma (`mochi`, `pulpo`, `nNube`…). Sale en `data-shape` y el CSS de las
+   * pieles se engancha a él; el motor también ramifica por él (`pulpo`, `nNube`). No se reutiliza.
+   */
+  id: string;
   label: string;
   /** Familia de pieles que le corresponden. */
   family?: 'fant' | 'gato' | 'pulpo';
   /** Clave de la paleta (`PALETTES`). */
   palette: string;
+  /** Material del cuerpo; sin esto, plástico. Ninguna forma de serie lo fija. */
+  material?: keyof typeof MATERIALS;
   /** Cuerpo 3D: esfera, cilindro o caja redondeada. */
   model: GfBotModel;
   /** Radio (esfera/cilindro). */

@@ -12,6 +12,7 @@ function makePulpo(): GfBotShape {
   const keys = Array.from({ length: 16 }, (_, i) => idle(((i / 16) * Math.PI) * 2));
   keys.push(keys[0]);
   return {
+    id: 'pulpo',
     label: 'Pulpo',
     family: 'pulpo',
     palette: 'niebla',

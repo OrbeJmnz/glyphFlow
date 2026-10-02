@@ -5,6 +5,7 @@ import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotState } from '../bot-state';
 import { prefersReducedMotion } from './env';
+import { resolveSpring, type BotSpring } from './spring';
 import type { GfBotFeature, GfBotPose } from './pose';
 import { botSkeleton } from './skeleton';
 
@@ -75,6 +76,19 @@ export interface BotLights {
   gloss: SVGElement;
 }
 
+/** Pista que los gestos le dan a las caras kawaii (`kCue` en el prototipo); las que llegan juntas se combinan. */
+export interface GfBotCue {
+  eye?: string | null;
+  which?: number[];
+  mouth?: string;
+  show?: boolean;
+  ms?: number;
+}
+
+export interface BotHooks {
+  cue: (cue: GfBotCue) => void;
+}
+
 /** Referencias que salen del esqueleto: existen desde que se crea el bot y no cambian de forma. */
 export interface BotElements {
   hop: SVGElement;
@@ -94,7 +108,7 @@ export interface BotElements {
   fxOut: SVGElement;
   fxBack: SVGElement;
   hatShadow: SVGElement;
-  hatShadowWrap: SVGElement;
+  hatShadowWrap: SVGGraphicsElement;
   toys: SVGElement;
   thought: SVGElement;
   thoughtList: SVGElement[];
@@ -136,8 +150,8 @@ export interface BotFaceElements {
 
 /** Lo que el sombrero necesita medir cada cuadro (se arma en `hatBind`). */
 export interface BotHatElements {
-  anchor: SVGElement | null;
-  sdyn: SVGElement | null;
+  anchor: SVGGraphicsElement | null;
+  sdyn: SVGGraphicsElement | null;
   dyn: SVGElement[];
   tips: SVGElement[];
   /** Punto de anclaje en coordenadas del viewBox. */
@@ -192,6 +206,14 @@ export interface BotContext {
    * aquí es por bot, y en servidor nunca se llega a preguntar.
    */
   readonly reduce: boolean;
+  /** Resorte de los saltos y poses (ver `spring.ts`), resuelto al crear el bot. */
+  readonly spring: BotSpring;
+  /**
+   * Ganchos que el motor rellena según qué cortes estén cargados. `cue` avisa a las caras kawaii de que
+   * pasó algo en los ojos o la boca; mientras no haya kawaii, no hace nada. Existe para que los ojos no
+   * importen a las caras kawaii (que a su vez importan los ojos): un ciclo de imports.
+   */
+  hooks: BotHooks;
   /** `querySelector` / `querySelectorAll` sobre el SVG de este bot. */
   q(selector: string): SVGElement | null;
   qa(selector: string): SVGElement[];
@@ -200,9 +222,8 @@ export interface BotContext {
   fe: BotFaceElements;
 
   // ---- Forma, piel y color ----
+  /** La forma actual (`shape.id` va a `data-shape`: el CSS de las pieles y los fx se engancha a él). */
   shape: GfBotShape;
-  /** Nombre de la forma para `data-shape` (el CSS de las pieles y los fx se engancha a él). */
-  shapeId: string;
   pose: Required<GfBotPose>;
   /** Estilo de cara elegido a mano; `null` = la propia de la forma (el que elija el usuario manda). */
   faceStyle: GfBotFaceId | null;
@@ -289,8 +310,8 @@ let uid = 0;
 export const nextBotId = (): string => 'b' + ++uid;
 
 /** Un elemento que el esqueleto TIENE que traer: si falta, se rompió el contrato, no es un caso normal. */
-function need(svg: SVGSVGElement, selector: string): SVGElement {
-  const node = svg.querySelector<SVGElement>(selector);
+function need<T extends SVGElement = SVGElement>(svg: SVGSVGElement, selector: string): T {
+  const node = svg.querySelector<T>(selector);
   if (!node) throw new Error(`glyphflow/bots: el esqueleto no trae «${selector}»`);
   return node;
 }
@@ -327,7 +348,7 @@ export function createBotContext(
     accBack: need(svg, '.accBack'), accFront: need(svg, '.accFront'), shadow: need(svg, '.shadow'),
     dots: need(svg, '.dots'), dotList: qa('.dot'), fx: need(svg, '.fx'),
     fxIn: need(svg, '.shapeFxIn'), fxOut: need(svg, '.shapeFxOut'), fxBack: need(svg, '.shapeFxBack'),
-    hatShadow: need(svg, '.hatShadow'), hatShadowWrap: need(svg, '.hatShadowWrap'),
+    hatShadow: need(svg, '.hatShadow'), hatShadowWrap: need<SVGGraphicsElement>(svg, '.hatShadowWrap'),
     toys: need(svg, '.toys'), thought: need(svg, '.thought'), thoughtList: qa('.thought circle'),
     spinner: need(svg, '.spinner'), z: need(svg, '.zlayer'), world: need(svg, '.world'),
     L: {
@@ -338,10 +359,9 @@ export function createBotContext(
   };
 
   return {
-    id, host, svg, opts, reduce: prefersReducedMotion(), q, qa, el, fe: emptyFaceElements(),
+    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined }, q, qa, el, fe: emptyFaceElements(),
 
     shape: opts.shape,
-    shapeId: '',
     pose: { yaw: 0, pitch: 0, roll: 0 },
     faceStyle: opts.face && Object.hasOwn(FACES, opts.face) ? opts.face : null,
     mochiVar: opts.mochi || 'neu',
