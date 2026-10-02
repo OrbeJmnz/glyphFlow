@@ -2,7 +2,7 @@
 // Corre esbuild directo (sin el wrapper de Angular) contra el FESM ya construido, con
 // @angular/core externo para aislar SOLO lo que aporta glyphflow. Requiere `ng build glyphflow`
 // antes (lo hace `npm run bundle-check`).
-import { build } from 'esbuild';
+import { build, type Plugin } from 'esbuild';
 import { gzipSync } from 'node:zlib';
 import { mkdtempSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -122,6 +122,7 @@ const CASES = [
     filaReadme: null as string | null,
     entry: `import { GF_BOT_STATES, isGfBotState } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GF_BOT_STATES, isGfBotState);`,
     maxGzipBytes: 1 * 1024,
+    optimizadorAngular: true,
   },
   {
     name: 'bots + createBot — el motor completo, sin ninguna forma',
@@ -130,12 +131,13 @@ const CASES = [
     // suya. El caso de arriba (solo los estados) cuida lo contrario: que importar un estado NO
     // arrastre el motor — ese era el spread de `K` en una constante de módulo.
     //
-    // Medido el 2026-10-02 (corte 7): 248KB raw / 72.6KB gzip, repartido parejo (hats 25KB, rutinas 22KB,
+    // Medido el 2026-10-02 (F2, con el optimizador de Angular aplicado): 232KB raw / 68.2KB gzip, repartido parejo (hats 25KB, rutinas 22KB,
     // variantes de trabajo 17KB, esqueleto 16KB, juguetes 14KB, gestos 13KB…): es coreografía, no un
-    // import colado. Techo con ~3% de holgura; F2 lo revisa al sumar el componente.
+    // import colado. Techo con ~3% de holgura. Con una forma y el componente ver los casos de abajo.
     filaReadme: null as string | null,
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
-    maxGzipBytes: 75 * 1024,
+    maxGzipBytes: 70 * 1024,
+    optimizadorAngular: true,
   },
   {
     name: 'bots + createBot + catShape — un bot con UNA forma',
@@ -144,7 +146,17 @@ const CASES = [
     // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
     filaReadme: null as string | null,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
-    maxGzipBytes: 82 * 1024,
+    maxGzipBytes: 78 * 1024,
+    optimizadorAngular: true,
+  },
+  {
+    name: 'bots + <gf-bot> + catShape — lo que paga quien usa el componente con una forma',
+    // El caso del consumidor real: el componente (con sus ~45KB de CSS de pieles, que viajan DENTRO del
+    // componente a propósito: un solo import y funciona) más el motor y una forma. Medido el 2026-10-02.
+    filaReadme: null as string | null,
+    entry: `import { GfBotComponent, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GfBotComponent, catShape);`,
+    maxGzipBytes: 86 * 1024,
+    optimizadorAngular: true,
   },
 ];
 
@@ -237,6 +249,48 @@ function verificarDocs(medidos: Map<string, number>): boolean {
   return ok;
 }
 
+/**
+ * Envuelve cada declaración parcial de Angular (`i0.ɵɵngDeclareComponent|Factory|ClassMetadata(...)`) en una
+ * IIFE anotada `@__PURE__`: lo mismo que hace el optimizador del Angular CLI en un build de producción, y
+ * por lo mismo un componente que nadie usa se cae del bundle. Anotar solo la llamada NO basta: sus
+ * argumentos traen accesos a propiedad (`i0.ChangeDetectionStrategy.OnPush`) que esbuild no puede probar
+ * puros, y los conserva — con ellos, la clase entera. Se envuelve la llamada completa, con su paréntesis
+ * de cierre (escaneo consciente de cadenas), para que esbuild la juzgue como una sola unidad.
+ */
+function purificarDeclaraciones(src: string): string {
+  const re = /\bi0\.ɵɵngDeclare(?:Component|Factory|ClassMetadata|ClassMetadataAsync)\(/g;
+  let out = '';
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(src))) {
+    let i = m.index + m[0].length;
+    let depth = 1;
+    while (i < src.length && depth > 0) {
+      const c = src[i];
+      if (c === '"' || c === "'" || c === '`') {
+        for (i++; i < src.length && src[i] !== c; i++) if (src[i] === '\\') i++;
+      } else if (c === '(') depth++;
+      else if (c === ')') depth--;
+      i++;
+    }
+    out += src.slice(last, m.index) + '/* @__PURE__ */ (() => ' + src.slice(m.index, i) + ')()';
+    last = i;
+    re.lastIndex = i;
+  }
+  return out + src.slice(last);
+}
+
+/** Plugin de esbuild que aplica `purificarDeclaraciones` a los FESM de dist (ver `optimizadorAngular`). */
+const pureAngular: Plugin = {
+  name: 'angular-pure',
+  setup(b) {
+    b.onLoad({ filter: /fesm2022[\\/].*\.mjs$/ }, (args) => ({
+      contents: purificarDeclaraciones(readFileSync(args.path, 'utf8')),
+      loader: 'js',
+    }));
+  },
+};
+
 async function main() {
   const tmp = mkdtempSync(join(tmpdir(), 'glyphflow-bundle-check-'));
   let failed = false;
@@ -253,6 +307,11 @@ async function main() {
       format: 'esm',
       platform: 'browser',
       external: ['@angular/core', '@angular/common'],
+      // Lo que hace el optimizador del Angular CLI en un build de producción: las declaraciones parciales
+      // (`ɵɵngDeclare*`) son puras, así que un componente que nadie usa se cae del bundle. Sin esto esbuild
+      // las trata como efectos y el componente viaja pegado a cualquier import del entry point. La opción
+      // `pure` de esbuild NO sirve aquí: solo marca identificadores globales, y `i0` es un import.
+      plugins: c.optimizadorAngular ? [pureAngular] : [],
       write: false,
     });
 

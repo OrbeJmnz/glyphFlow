@@ -102,11 +102,12 @@ if (conNombresViejos.keyframes.length !== 12) {
 }
 
 // ── Entry point secundario: glyphflow/bots (estados + createBot) ──────────────────────────────
-import { GF_BOT_STATES, isGfBotState, createBot, catShape, robotShape, nightCloudShape } from 'glyphflow/bots';
+import { GF_BOT_STATES, isGfBotState, createBot, GfBotComponent, catShape, robotShape, nightCloudShape } from 'glyphflow/bots';
 if (!Array.isArray(GF_BOT_STATES) || GF_BOT_STATES.length !== 3) throw new Error('GF_BOT_STATES no resolvió desde glyphflow/bots');
 if (!isGfBotState('idle') || isGfBotState('dancing')) throw new Error('isGfBotState no resolvió desde glyphflow/bots');
 // importar el motor en Node (sin window ni document) no debe tocar el DOM: solo createBot lo usa, y solo al llamarlo
 if (typeof createBot !== 'function') throw new Error('createBot no resolvió desde glyphflow/bots');
+if (typeof GfBotComponent !== 'function') throw new Error('GfBotComponent no resolvió desde glyphflow/bots');
 if (catShape.id !== 'cat' || robotShape.id !== 'robot' || nightCloudShape.id !== 'nCloud') throw new Error('las formas no resolvieron desde glyphflow/bots');
 
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');
@@ -121,13 +122,15 @@ console.log('Alias de la v1 OK — los nombres viejos sobreviven al empaquetado 
   writeFileSync(
     join(tmp, 'test-types.ts'),
     `import { bellIcon, AnimatedIconDef } from 'glyphflow';
-import type { GfBotApi, GfBotOptions } from 'glyphflow/bots';
+import type { GfBotApi, GfBotOptions, GfBotComponent } from 'glyphflow/bots';
 const x: AnimatedIconDef = bellIcon;
 declare const bot: GfBotApi;
 declare const opts: GfBotOptions;
 bot.setState('working');
 bot.hop();
 console.log(opts.shape.id);
+declare const cmp: GfBotComponent;
+console.log(cmp.api?.state);
 console.log(x.shapes.length);
 `,
     'utf8',

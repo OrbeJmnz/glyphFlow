@@ -9,6 +9,7 @@ import { bootstrapApplication, BootstrapContext } from '@angular/platform-browse
 import { provideServerRendering, renderApplication } from '@angular/platform-server';
 import { MaxIconComponent, bellIcon, provideIconCatalog } from '../dist/glyphflow/fesm2022/glyphflow.mjs';
 import { ANIMATED_ICONS } from '../dist/glyphflow/fesm2022/glyphflow.mjs';
+import { GfBotComponent, mochiShape } from '../dist/glyphflow/fesm2022/glyphflow-bots.mjs';
 
 if (typeof window !== 'undefined') {
   throw new Error('Este smoke test debe correr sin `window` global — si existe, no prueba nada.');
@@ -16,14 +17,16 @@ if (typeof window !== 'undefined') {
 
 @Component({
   selector: 'app-root',
-  imports: [MaxIconComponent],
+  imports: [MaxIconComponent, GfBotComponent],
   template: `
     <max-icon [iconDef]="bellIcon" trigger="auto" />
     <max-icon name="check" />
+    <gf-bot [shape]="mochi" label="Asistente" />
   `,
 })
 class SsrTestRoot {
   bellIcon = bellIcon;
+  mochi = mochiShape;
 }
 
 async function main() {
@@ -42,6 +45,14 @@ async function main() {
   }
   if (!html.includes('aria-hidden="true"')) {
     throw new Error('Falta el aria-hidden esperado en el SVG decorativo.');
+  }
+
+  // El bot: en servidor el host sale vacío (el motor necesita `window`) pero con su rol y nombre accesible.
+  if (!html.includes('<gf-bot') || !html.includes('aria-label="Asistente"')) {
+    throw new Error('El render de servidor no produjo <gf-bot> con su nombre accesible.');
+  }
+  if (html.includes('gf-bot-svg"')) {
+    throw new Error('El motor de <gf-bot> corrió en el servidor: debe esperar al navegador (afterNextRender).');
   }
 
   console.log('SSR smoke test OK — glyphflow renderiza sin `window`/`document` reales, sin tronar.');
