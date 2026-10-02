@@ -113,7 +113,7 @@ const CASES = [
     maxGzipBytes: 23 * 1024,
   },
   {
-    name: 'bots — entry point secundario (F0: solo los estados)',
+    name: 'bots — solo los estados: importar uno NO arrastra el motor',
     // Sin fila en el README todavía: los bots no están publicados. Este caso existe desde el andamio
     // (F0) para que el entry point tenga su fila desde el primer día; el techo de 1KB es el del
     // andamio y se fija de verdad en F2, cuando el motor y `<gf-bot>` existan y se midan.
@@ -122,6 +122,20 @@ const CASES = [
     filaReadme: null as string | null,
     entry: `import { GF_BOT_STATES, isGfBotState } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GF_BOT_STATES, isGfBotState);`,
     maxGzipBytes: 1 * 1024,
+  },
+  {
+    name: 'bots + createBot — el motor completo, sin ninguna forma',
+    // El motor entero (gestos, emociones, kawaii, rutinas, arrastre, juguetes, agente) sin una sola
+    // forma: lo que cuesta TENER un bot antes de elegir cuál. Las formas suman aparte, cada una la
+    // suya. El caso de arriba (solo los estados) cuida lo contrario: que importar un estado NO
+    // arrastre el motor — ese era el spread de `K` en una constante de módulo.
+    //
+    // Medido el 2026-10-02 (corte 7): 248KB raw / 72.6KB gzip, repartido parejo (hats 25KB, rutinas 22KB,
+    // variantes de trabajo 17KB, esqueleto 16KB, juguetes 14KB, gestos 13KB…): es coreografía, no un
+    // import colado. Techo con ~3% de holgura; F2 lo revisa al sumar el componente.
+    filaReadme: null as string | null,
+    entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
+    maxGzipBytes: 75 * 1024,
   },
 ];
 
