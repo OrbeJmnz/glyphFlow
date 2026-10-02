@@ -323,21 +323,21 @@ describe('glyphflow/bots · movimiento de la cara', () => {
       expect(ctx.svg.style.getPropertyValue('--c3')).toBe(c);
       expect(ctx.svg.style.getPropertyValue('--rim')).toBe(RIM['coral']);
       expect(ctx.paletteKey).toBe('coral');
-      expect(ctx.svg.dataset['material']).toBe('plastico');
+      expect(ctx.svg.dataset['material']).toBe('plastic');
     });
 
     it('`auto` toma la paleta de la forma', () => {
       const ctx = built();
       setPalette(ctx, 'auto');
-      expect(ctx.svg.style.getPropertyValue('--c1')).toBe(PALETTES['niebla'][0]);
+      expect(ctx.svg.style.getPropertyValue('--c1')).toBe(PALETTES['mist'][0]);
     });
 
     it('un material metálico escribe sus seis paradas, usa el degradado metálico y enciende la viñeta', () => {
       const ctx = built();
-      setPalette(ctx, 'acero');
-      setMaterial(ctx, 'oro');
+      setPalette(ctx, 'steel');
+      setMaterial(ctx, 'gold');
       for (let i = 1; i <= 6; i++) expect(ctx.svg.style.getPropertyValue('--m' + i), `--m${i}`).not.toBe('');
-      expect(ctx.svg.dataset['material']).toBe('oro');
+      expect(ctx.svg.dataset['material']).toBe('gold');
       expect(ctx.svg.querySelector('[data-paint]')?.getAttribute('fill')).toBe(`url(#${ctx.id}-metal)`);
       expect(ctx.svg.querySelector('.vig')?.getAttribute('opacity')).toBe('1');
       expect(ctx.svg.querySelector('.glossE')?.getAttribute('fill')).toBe(`url(#${ctx.id}-glossHard)`);
@@ -346,7 +346,7 @@ describe('glyphflow/bots · movimiento de la cara', () => {
     it('volver a plástico restituye el degradado normal y apaga la viñeta', () => {
       const ctx = built();
       setMaterial(ctx, 'metal');
-      setMaterial(ctx, 'plastico');
+      setMaterial(ctx, 'plastic');
       expect(ctx.svg.querySelector('[data-paint]')?.getAttribute('fill')).toBe(`url(#${ctx.id}-body)`);
       expect(ctx.svg.querySelector('.vig')?.getAttribute('opacity')).toBe('0');
       expect(ctx.svg.querySelector('.glossE')?.getAttribute('fill')).toBe(`url(#${ctx.id}-gloss)`);
@@ -355,10 +355,10 @@ describe('glyphflow/bots · movimiento de la cara', () => {
     it('`auto` usa el material de la forma, y sin él, plástico', () => {
       const ctx = built();
       applyMaterial(ctx);
-      expect(ctx.svg.dataset['material']).toBe('plastico');
-      ctx.shape = { ...mochiShape, material: 'cromo' };
+      expect(ctx.svg.dataset['material']).toBe('plastic');
+      ctx.shape = { ...mochiShape, material: 'chrome' };
       applyMaterial(ctx);
-      expect(ctx.svg.dataset['material']).toBe('cromo');
+      expect(ctx.svg.dataset['material']).toBe('chrome');
     });
   });
 });

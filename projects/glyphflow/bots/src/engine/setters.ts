@@ -1,9 +1,9 @@
 import { FACES, MOCHI_VARS, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
-import { FANT_VARS } from '../data/fantasma';
-import { GATO_VARS } from '../data/gato';
+import { GHOST_VARS } from '../data/ghost';
+import { CAT_VARS } from '../data/cat';
 import { HATS, type GfBotHatId } from '../data/hats';
-import { PULPO_VARS } from '../data/pulpo';
+import { OCTOPUS_VARS } from '../data/octopus';
 import type { GfBotShape } from '../data/shape';
 import { applyFx, buildShape } from './build';
 import type { BotContext, GfBotMouthKind } from './context';
@@ -42,12 +42,12 @@ export function setFx(ctx: BotContext, v: string | null): void {
 
 /** Piel (`neu`, `gel`, `g1`, `f4`, `o2`, `n3`…); una desconocida vuelve a `neu`. */
 export function setMochi(ctx: BotContext, v: string): void {
-  const known = [MOCHI_VARS, GATO_VARS, FANT_VARS, PULPO_VARS].some((t) => Object.hasOwn(t, v));
+  const known = [MOCHI_VARS, CAT_VARS, GHOST_VARS, OCTOPUS_VARS].some((t) => Object.hasOwn(t, v));
   ctx.mochiVar = known ? v : 'neu';
   setShape(ctx, ctx.shape);
 }
 
-/** Sombrero o accesorio extra (`halo`, `gafas`…); `null` o desconocido, ninguno. */
+/** Sombrero o accesorio extra (`halo`, `glasses`…); `null` o desconocido, ninguno. */
 export function setHat(ctx: BotContext, k: string | null): void {
   ctx.hatKey = k && Object.hasOwn(HATS, k) ? (k as GfBotHatId) : null;
   ctx.accX = k && Object.hasOwn(ACCX, k) ? (k as GfBotAccXId) : null;

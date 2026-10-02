@@ -98,7 +98,7 @@ import { type BotContext } from './context';
   }
 
   export const headTop = (ctx: BotContext) => {
-    const sh = ctx.shape, extra = { pildora:40, gota:36, fantasma:48, gato:48 }[ctx.shape.id];
+    const sh = ctx.shape, extra = { pill:40, drop:36, ghost:48, cat:48 }[ctx.shape.id];
     return (extra ?? sh.top ?? sh.cy - 62) - (sh.skin === 'robot' ? 26 : 0);
   };
 

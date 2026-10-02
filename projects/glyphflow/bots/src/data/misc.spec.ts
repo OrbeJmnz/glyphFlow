@@ -4,8 +4,8 @@ import { ROUTINES, STATE_LABEL } from './routines';
 import { LUCIDE_STAR, TOYS } from './toys';
 import { GF_BOT_STATES } from '../bot-state';
 import { TAU, S, clamp01, easeInOut } from '../engine/math';
-import { cuboShape } from '../shapes/retired';
-import { gatoShape } from '../shapes/gato';
+import { cubeShape } from '../shapes/retired';
+import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
 import { robotShape } from '../shapes/robot';
 
@@ -50,7 +50,7 @@ describe('glyphflow/bots · juguetes', () => {
 
 describe('glyphflow/bots · sombreros pegados a una forma', () => {
   it('un sombrero normal es UN accesorio; el que trae detalle suma otro por delante', () => {
-    expect(hatAccs('mago', mochiShape).length).toBe(1);
+    expect(hatAccs('wizard', mochiShape).length).toBe(1);
     const conDeco = (Object.keys(HATS) as (keyof typeof HATS)[]).filter(
       (k) => 'deco' in HATS[k],
     );
@@ -59,22 +59,22 @@ describe('glyphflow/bots · sombreros pegados a una forma', () => {
   });
 
   it('el sombrero se asienta en la coronilla de la forma (hatAt)', () => {
-    const [acc] = hatAccs('mago', gatoShape);
-    expect(acc.p[1]).toBeCloseTo((gatoShape.hatAt ?? 0) + (HATS.mago.oy ?? 0) * (gatoShape.hatK ?? 1), 10);
+    const [acc] = hatAccs('wizard', catShape);
+    expect(acc.p[1]).toBeCloseTo((catShape.hatAt ?? 0) + (HATS.wizard.oy ?? 0) * (catShape.hatK ?? 1), 10);
     expect(acc.hat).toBe(true);
   });
 
   it('audífonos y visera se ajustan al CUERPO cuando la forma lo permite', () => {
-    const robot = robotShape(cuboShape);
-    expect(hatAccs('audifonos', gatoShape)[0].p[1]).toBe(
-      (gatoShape.bodyFit?.y ?? 0) - gatoShape.cy,
+    const robot = robotShape(cubeShape);
+    expect(hatAccs('headphones', catShape)[0].p[1]).toBe(
+      (catShape.bodyFit?.y ?? 0) - catShape.cy,
     );
-    expect(Number.isNaN(hatAccs('audifonos', robot)[0].p[1])).toBe(false);
+    expect(Number.isNaN(hatAccs('headphones', robot)[0].p[1])).toBe(false);
   });
 
   it('una forma sin hatAt ni bodyFit no propaga NaN al transform', () => {
     for (const k of Object.keys(HATS) as (keyof typeof HATS)[]) {
-      for (const a of hatAccs(k, cuboShape)) {
+      for (const a of hatAccs(k, cubeShape)) {
         expect(a.p.some(Number.isNaN), k).toBe(false);
         expect(a.draw(100, 60, 'b1', 'neu'), k).not.toContain('NaN');
       }

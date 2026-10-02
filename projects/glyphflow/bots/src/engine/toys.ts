@@ -6,7 +6,7 @@ import { flushCheeks, headTop, miniHop, mk, mood, spark, tremble } from './actio
 import { f2, f3 } from '../data/color';
 import { play } from './timing';
 import { S, TAU } from './math';
-import { parm } from './pulpo-arms';
+import { parm } from './octopus-arms';
 import { hatKick } from './physics';
 import { kSeq, kStars } from './reactions';
 import { expr, floaty } from './kawaii';

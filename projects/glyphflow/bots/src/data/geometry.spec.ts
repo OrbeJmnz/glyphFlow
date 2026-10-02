@@ -36,7 +36,7 @@ describe('glyphflow/bots · caras y pieles', () => {
     const ocultas = Object.entries(FACES)
       .filter(([, f]) => 'hidden' in f && f.hidden)
       .map(([k]) => k);
-    expect(ocultas).toEqual(['globo', 'night', 'gato', 'fant']);
+    expect(ocultas).toEqual(['tofu', 'night', 'cat', 'ghost']);
   });
 
   it('las pieles de noche son exactamente n1…n10', () => {

@@ -1,4 +1,4 @@
-import { KAWAII, kEye, kMouth, nubeIn, type GfKawaiiMouth } from './kawaii';
+import { KAWAII, kEye, kMouth, cloudIn, type GfKawaiiMouth } from './kawaii';
 
 describe('glyphflow/bots · caras kawaii', () => {
   const entries = Object.entries(KAWAII);
@@ -39,7 +39,7 @@ describe('glyphflow/bots · caras kawaii', () => {
   });
 
   it('el borde de la nube sigue a la silueta animada por medio de <use>', () => {
-    const svg = nubeIn('b4');
+    const svg = cloudIn('b4');
     expect(svg.match(/<use href="#b4-cs"/g)?.length).toBe(3);
   });
 });

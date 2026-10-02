@@ -79,9 +79,9 @@ describe('glyphflow/bots · contexto', () => {
     });
 
     it('traduce las opciones a estado inicial', () => {
-      const ctx = make({ palette: 'coral', material: 'oro', mochi: 'gel', face: 'geo', fx: 'glow', mouthk: 'w', hoverOnly: true });
+      const ctx = make({ palette: 'coral', material: 'gold', mochi: 'gel', face: 'geo', fx: 'glow', mouthk: 'w', hoverOnly: true });
       expect(ctx).toMatchObject({
-        paletteKey: 'coral', materialKey: 'oro', mochiVar: 'gel', faceStyle: 'geo', fxVar: 'glow',
+        paletteKey: 'coral', materialKey: 'gold', mochiVar: 'gel', faceStyle: 'geo', fxVar: 'glow',
         mouthPref: 'w', hoverHold: true,
       });
       const defaults = make();
@@ -93,8 +93,8 @@ describe('glyphflow/bots · contexto', () => {
     });
 
     it('un sombrero va a hatKey y un accesorio extra a accX, nunca a los dos', () => {
-      const withHat = make({ hat: 'copa' });
-      expect(withHat.hatKey).toBe('copa');
+      const withHat = make({ hat: 'topHat' });
+      expect(withHat.hatKey).toBe('topHat');
       expect(withHat.accX).toBeNull();
       const withAcc = make({ hat: 'halo' });
       expect(withAcc.accX).toBe('halo');

@@ -1,6 +1,6 @@
-import { fantSkin, isFant } from './fantasma';
-import { gatoSkin, isGato } from './gato';
-import { isPulpo, pulpoSkin } from './pulpo';
+import { ghostSkin, isGhost } from './ghost';
+import { catSkin, isCat } from './cat';
+import { isOctopus, octopusSkin } from './octopus';
 import type { GfBotSkinLayers } from './skin';
 
 /**
@@ -13,9 +13,9 @@ import type { GfBotSkinLayers } from './skin';
 
 /** Pinta la piel `v` de cualquier familia sobre el bot de prefijo `p`. */
 export function mochiSkin(v: string, p: string): GfBotSkinLayers {
-  if (isGato(v)) return gatoSkin(v, p);
-  if (isFant(v)) return fantSkin(v, p);
-  if (isPulpo(v)) return pulpoSkin(v, p);
+  if (isCat(v)) return catSkin(v, p);
+  if (isGhost(v)) return ghostSkin(v, p);
+  if (isOctopus(v)) return octopusSkin(v, p);
   const cs = `#${p}-cs`, U = (attrs: string) => `<use href="${cs}" ${attrs}/>`;
   let nb = 0;   // cada mancha de color es un grupo que fluye por su cuenta (ver .mb en el CSS)
   const blob = (x: number, y: number, rx: number, ry: number, c: string, o: number, f = 'mblob') => `<g class="mb mb${++nb}"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${c}" opacity="${o}" filter="url(#${p}-${f})"/></g>`;

@@ -7,8 +7,8 @@ describe('glyphflow/bots · sombreros', () => {
 
   it('declara los 16 sombreros en su orden', () => {
     expect(ids.length).toBe(16);
-    expect(ids[0]).toBe('mago');
-    expect(ids[ids.length - 1]).toBe('antena');
+    expect(ids[0]).toBe('wizard');
+    expect(ids[ids.length - 1]).toBe('antenna');
   });
 
   it('todos traen la física del resorte con valores sensatos', () => {

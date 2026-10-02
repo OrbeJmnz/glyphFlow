@@ -1,28 +1,28 @@
 import { MATERIALS, PALETTES, RIM } from '../data/palettes';
 import { morphPath, pathLerp } from '../data/morph';
 import type { GfBotShape } from '../data/shape';
-import { fantasmaShape } from './fantasma';
-import { gatoShape } from './gato';
+import { ghostShape } from './ghost';
+import { catShape } from './cat';
 import { MOCHI_TUFT } from './mochi-tuft';
 import { mochiShape } from './mochi';
 import {
-  nAuroraShape, nCobaltoShape, nCristalShape, nJaleaShape, nMascaraShape, nNeonShape, nNubeShape,
-  nPerlaShape, nPrismaShape, nVibranteShape,
+  nAuroraShape, nCobaltShape, nCrystalShape, nJellyShape, nMaskShape, nNeonShape, nCloudShape,
+  nPearlShape, nPrismShape, nVibrantShape,
 } from './night';
-import { pulpoShape } from './pulpo';
-import { cuboShape, gotaShape, huevoShape, pildoraShape, circuloShape } from './retired';
+import { octopusShape } from './octopus';
+import { cubeShape, dropShape, eggShape, pillShape, candyShape } from './retired';
 import { robotShape } from './robot';
 import { tofuShape } from './tofu';
 
 const ACTIVAS: Record<string, GfBotShape> = {
-  mochi: mochiShape, tofu: tofuShape, fantasma: fantasmaShape, gato: gatoShape, pulpo: pulpoShape,
-  robot: robotShape(cuboShape),
+  mochi: mochiShape, tofu: tofuShape, ghost: ghostShape, cat: catShape, octopus: octopusShape,
+  robot: robotShape(cubeShape),
 };
 const NOCHE: Record<string, GfBotShape> = {
-  jalea: nJaleaShape, nube: nNubeShape, neon: nNeonShape, aurora: nAuroraShape, cobalto: nCobaltoShape,
-  perla: nPerlaShape, vibrante: nVibranteShape, mascara: nMascaraShape, cristal: nCristalShape, prisma: nPrismaShape,
+  jalea: nJellyShape, nube: nCloudShape, neon: nNeonShape, aurora: nAuroraShape, cobalto: nCobaltShape,
+  perla: nPearlShape, vibrante: nVibrantShape, mascara: nMaskShape, cristal: nCrystalShape, prisma: nPrismShape,
 };
-const RETIRADAS = [huevoShape, circuloShape, cuboShape, pildoraShape, gotaShape];
+const RETIRADAS = [eggShape, candyShape, cubeShape, pillShape, dropShape];
 
 describe('glyphflow/bots · formas', () => {
   it('cada forma trae lo que el motor necesita: silueta, centro, ojos y paleta existente', () => {
@@ -40,7 +40,7 @@ describe('glyphflow/bots · formas', () => {
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids.every((i) => /^[a-zA-Z]+$/.test(i))).toBe(true);
     // el CSS del prototipo usa estos cuatro y el motor ramifica por pulpo y nNube
-    expect(ids).toEqual(expect.arrayContaining(['fantasma', 'gato', 'nJalea', 'nNube', 'pulpo']));
+    expect(ids).toEqual(expect.arrayContaining(['ghost', 'cat', 'nJelly', 'nCloud', 'octopus']));
     expect(ACTIVAS['robot'].id).toBe('robot'); // no hereda el id del cuerpo (cubo)
   });
 
@@ -48,20 +48,20 @@ describe('glyphflow/bots · formas', () => {
     for (const s of RETIRADAS) expect(s.retired).toBe(true);
     const robot = ACTIVAS['robot'];
     expect(robot.retired).toBe(false);
-    expect(robot.body).toBe('cubo');
+    expect(robot.body).toBe('cube');
     expect(robot.model).toBe('box');
     expect(robot.acc?.length).toBe(3); // antena + dos tornillos
   });
 
   it('cada familia declara la suya y su cara', () => {
-    expect(fantasmaShape.family).toBe('fant');
-    expect(gatoShape.family).toBe('gato');
-    expect(pulpoShape.family).toBe('pulpo');
+    expect(ghostShape.family).toBe('ghost');
+    expect(catShape.family).toBe('cat');
+    expect(octopusShape.family).toBe('octopus');
     expect(mochiShape.family).toBeUndefined();
   });
 
   it('las formas con contorno animado traen fotogramas que cierran el ciclo', () => {
-    for (const s of [pulpoShape, nJaleaShape, nNubeShape, nPrismaShape]) {
+    for (const s of [octopusShape, nJellyShape, nCloudShape, nPrismShape]) {
       const keys = s.dKeys ?? [];
       expect(keys.length).toBeGreaterThan(4);
       expect(keys[0]).toBe(keys[keys.length - 1]);
@@ -71,16 +71,16 @@ describe('glyphflow/bots · formas', () => {
   });
 
   it('las promovidas de Noche se anuncian como tales y arrancan con su piel', () => {
-    expect(nJaleaShape.promoted && nJaleaShape.mochiDefault).toBe('n1');
-    expect(nNubeShape.promoted && nNubeShape.mochiDefault).toBe('n2');
-    expect(nPrismaShape.promoted && nPrismaShape.mochiDefault).toBe('n10');
+    expect(nJellyShape.promoted && nJellyShape.mochiDefault).toBe('n1');
+    expect(nCloudShape.promoted && nCloudShape.mochiDefault).toBe('n2');
+    expect(nPrismShape.promoted && nPrismShape.mochiDefault).toBe('n10');
     expect(nNeonShape.promoted).toBeUndefined();
   });
 
   it('la Nube respira con sus lóbulos y la Jalea sube burbujas', () => {
-    expect(nNubeShape.lobes?.length).toBe(5);
-    expect(nJaleaShape.fxIn?.('b1')).toContain('class="jbubs"');
-    expect(nPrismaShape.fxOut?.('b1')).toContain('class="psparks"');
+    expect(nCloudShape.lobes?.length).toBe(5);
+    expect(nJellyShape.fxIn?.('b1')).toContain('class="jbubs"');
+    expect(nPrismShape.fxOut?.('b1')).toContain('class="psparks"');
   });
 
   it('los accesorios dibujan con la piel actual y el copete usa el contorno medido', () => {
@@ -93,10 +93,10 @@ describe('glyphflow/bots · formas', () => {
 describe('glyphflow/bots · paletas y deformación', () => {
   it('paletas, luz de contorno y materiales van parejos', () => {
     expect(Object.keys(RIM).sort()).toEqual(Object.keys(PALETTES).sort());
-    expect(MATERIALS.plastico).toBeNull();
-    const metal = MATERIALS.metal?.(PALETTES.lavanda);
+    expect(MATERIALS.plastic).toBeNull();
+    const metal = MATERIALS.metal?.(PALETTES.lavender);
     expect(metal?.length).toBe(6);
-    expect(MATERIALS.oro?.(PALETTES.lavanda)[0]).toBe('#FFE59A');
+    expect(MATERIALS.gold?.(PALETTES.lavender)[0]).toBe('#FFE59A');
   });
 
   it('morphPath mueve cada par de coordenadas y conserva los comandos', () => {

@@ -1,6 +1,6 @@
-import { fantasmaShape } from '../shapes/fantasma';
+import { ghostShape } from '../shapes/ghost';
 import { mochiShape } from '../shapes/mochi';
-import { pulpoShape } from '../shapes/pulpo';
+import { octopusShape } from '../shapes/octopus';
 import { createBotContext, type BotContext } from './context';
 import { setFace, setFx, setHat, setMochi, setMouthKind, setShape } from './setters';
 import { installStateHooks, setState } from './state';
@@ -45,10 +45,10 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
     it('reconstruye el SVG con la forma nueva y conserva el estado', () => {
       const ctx = bot();
       setState(ctx, 'working');
-      setShape(ctx, fantasmaShape);
-      expect(ctx.shape).toBe(fantasmaShape);
-      expect(ctx.svg.dataset['shape']).toBe('fantasma');
-      expect(ctx.el.clip.getAttribute('d')).toBe(fantasmaShape.d);
+      setShape(ctx, ghostShape);
+      expect(ctx.shape).toBe(ghostShape);
+      expect(ctx.svg.dataset['shape']).toBe('ghost');
+      expect(ctx.el.clip.getAttribute('d')).toBe(ghostShape.d);
       expect(ctx.state).toBe('working');
     });
 
@@ -56,7 +56,7 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
       const ctx = bot();
       const cancel = vi.fn();
       ctx.running.set(ctx.el.hop, { cancel } as unknown as Animation);
-      setShape(ctx, pulpoShape);
+      setShape(ctx, octopusShape);
       expect(cancel).toHaveBeenCalledTimes(1);
       expect(ctx.running.has(ctx.el.hop)).toBe(false);
     });
@@ -68,7 +68,7 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
       setState(ctx, 'working');
       onRoutine.mockClear();
       ctx.paletteKey = 'coral';
-      setShape(ctx, fantasmaShape);
+      setShape(ctx, ghostShape);
       expect(onRoutine).toHaveBeenCalledTimes(1);
       expect(ctx.svg.style.getPropertyValue('--c1')).not.toBe('');
     });
@@ -78,7 +78,7 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
       const ctx = bot();
       ctx.opts.onRoutine = onRoutine;
       ctx.paused = true;
-      setShape(ctx, fantasmaShape);
+      setShape(ctx, ghostShape);
       expect(onRoutine).not.toHaveBeenCalled();
       expect(ctx.fe.mouths.find((m) => m.style.opacity === '1')?.dataset['m']).toBe('pill');
     });
@@ -92,9 +92,9 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
 
     it('un cambio de forma monta el sombrero y su física en la forma nueva', () => {
       const ctx = bot();
-      setHat(ctx, 'copa');
-      setShape(ctx, fantasmaShape);
-      expect(ctx.svg.dataset['hat']).toBe('copa');
+      setHat(ctx, 'topHat');
+      setShape(ctx, ghostShape);
+      expect(ctx.svg.dataset['hat']).toBe('topHat');
       expect(ctx.hatEls).not.toBeNull();
     });
   });
@@ -130,8 +130,8 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
 
     it('setHat separa sombrero de accesorio y se queda con uno solo', () => {
       const ctx = bot();
-      setHat(ctx, 'copa');
-      expect([ctx.hatKey, ctx.accX]).toEqual(['copa', null]);
+      setHat(ctx, 'topHat');
+      expect([ctx.hatKey, ctx.accX]).toEqual(['topHat', null]);
       setHat(ctx, 'halo');
       expect([ctx.hatKey, ctx.accX]).toEqual([null, 'halo']);
       setHat(ctx, 'nada');

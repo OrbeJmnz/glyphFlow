@@ -1,15 +1,15 @@
-import { fantasmaShape } from '../shapes/fantasma';
-import { pulpoShape } from '../shapes/pulpo';
+import { ghostShape } from '../shapes/ghost';
+import { octopusShape } from '../shapes/octopus';
 import { buildShape } from './build';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { parm, runPGest } from './pulpo-arms';
+import { parm, runPGest } from './octopus-arms';
 
 const proto = Element.prototype as unknown as Record<string, unknown>;
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: pulpoShape, ...opts });
+  const ctx = createBotContext(host, { shape: octopusShape, ...opts });
   buildShape(ctx);
   return ctx;
 }
@@ -30,7 +30,7 @@ describe('glyphflow/bots · brazos del pulpo', () => {
   });
 
   it('solo el pulpo tiene brazos: en otra forma parm no hace nada', () => {
-    const ctx = built({ shape: fantasmaShape });
+    const ctx = built({ shape: ghostShape });
     parm(ctx, 'L', [0, 20, 0], 1000);
     expect(ctx.pGest).toBeNull();
   });
@@ -85,7 +85,7 @@ describe('glyphflow/bots · brazos del pulpo', () => {
   it('si la forma cambió antes del microtask, no dibuja nada', () => {
     const ctx = built();
     ctx.pGest = { L: { deg: [0, 20, 0], ms: 500 } };
-    ctx.shape = fantasmaShape;
+    ctx.shape = ghostShape;
     runPGest(ctx);
     expect(ctx.pAnim).toBeNull();
     expect(ctx.pGest).toBeNull();

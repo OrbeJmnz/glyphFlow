@@ -1,7 +1,7 @@
 import { TOYS } from '../data/toys';
-import { fantasmaShape } from '../shapes/fantasma';
+import { ghostShape } from '../shapes/ghost';
 import { mochiShape } from '../shapes/mochi';
-import { pulpoShape } from '../shapes/pulpo';
+import { octopusShape } from '../shapes/octopus';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { installKawaiiHooks } from './kawaii';
 import { setShape } from './setters';
@@ -100,7 +100,7 @@ describe('glyphflow/bots · juguetes', () => {
       expect(labels.filter((l) => l === null)).toHaveLength(5); // cada una avisa al terminar
     });
 
-    for (const [forma, shape] of [['mochi', mochiShape], ['fantasma', fantasmaShape], ['pulpo', pulpoShape]] as const) {
+    for (const [forma, shape] of [['mochi', mochiShape], ['ghost', ghostShape], ['octopus', octopusShape]] as const) {
       it(`${kind} en ${forma}: las cuatro variantes corren enteras sin tronar y limpian el escenario`, () => {
         const ctx = bot({ shape, wander: true });
         for (let i = 0; i < 4; i++) {

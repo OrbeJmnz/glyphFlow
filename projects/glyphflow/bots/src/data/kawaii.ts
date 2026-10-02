@@ -175,7 +175,7 @@ export function kMouth(t: GfKawaiiMouth, x: number, y: number, s: number, ink: s
 
 // ---------- Nube: borde interno que simula volumen ----------
 // Se dibuja con <use> de la silueta animada (#p-cs), así el borde sigue a los lóbulos cuando la nube «respira».
-export const nubeIn = (p: string): string => `<g class="nvol">
+export const cloudIn = (p: string): string => `<g class="nvol">
     <use href="#${p}-cs" fill="none" stroke="#8F86E0" stroke-width="22" opacity=".55" transform="translate(0 -5)" filter="url(#${p}-mblur2)"/>
     <use href="#${p}-cs" fill="none" stroke="#B7AFF5" stroke-width="8" opacity=".7" transform="translate(0 -1.5)" filter="url(#${p}-mblur1)"/>
     <use href="#${p}-cs" fill="none" stroke="#FFFFFF" stroke-width="9" opacity=".85" transform="translate(0 4)" filter="url(#${p}-mblur2)"/>

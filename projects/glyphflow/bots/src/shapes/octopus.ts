@@ -1,5 +1,5 @@
 import { pathLerp } from '../data/morph';
-import { PULPO_D, pulpoD, pulpoIdleSt } from '../data/pulpo';
+import { OCTOPUS_D, octopusD, octopusIdleSt } from '../data/octopus';
 import type { GfBotShape } from '../data/shape';
 
 /**
@@ -7,15 +7,15 @@ import type { GfBotShape } from '../data/shape';
  * izquierda a derecha (flanco izq → bajo izq → bajo der → flanco der): los flancos se mecen y los
  * bajos enroscan la punta y se aplastan/estiran.
  */
-function makePulpo(): GfBotShape {
-  const idle = (ph: number) => pulpoD(pulpoIdleSt(ph));
+function makeOctopus(): GfBotShape {
+  const idle = (ph: number) => octopusD(octopusIdleSt(ph));
   const keys = Array.from({ length: 16 }, (_, i) => idle(((i / 16) * Math.PI) * 2));
   keys.push(keys[0]);
   return {
-    id: 'pulpo',
+    id: 'octopus',
     label: 'Pulpo',
-    family: 'pulpo',
-    palette: 'niebla',
+    family: 'octopus',
+    palette: 'mist',
     model: 'sphere',
     R: 59,
     cy: 100,
@@ -43,7 +43,7 @@ function makePulpo(): GfBotShape {
     hatK: 0.95,
     bodyFit: { k: 1.04, y: 52 },
     mochiDefault: 'o1',
-    d: PULPO_D,
+    d: OCTOPUS_D,
     dKeys: keys,
     dDur: 3000,
     dEase: 'linear',
@@ -52,5 +52,5 @@ function makePulpo(): GfBotShape {
   };
 }
 
-export const pulpoShape: GfBotShape = /* @__PURE__ */ makePulpo();
+export const octopusShape: GfBotShape = /* @__PURE__ */ makeOctopus();
 

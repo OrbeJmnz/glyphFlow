@@ -1,6 +1,6 @@
-import { fantasmaShape } from '../shapes/fantasma';
+import { ghostShape } from '../shapes/ghost';
 import { mochiShape } from '../shapes/mochi';
-import { nNubeShape } from '../shapes/night';
+import { nCloudShape } from '../shapes/night';
 import { tofuShape } from '../shapes/tofu';
 import { buildShape } from './build';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
@@ -52,9 +52,9 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('con sombrero mide su ancla, sube los efectos y arranca el cuadro a cuadro', () => {
       const { callbacks } = stubFrames();
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       hatBind(ctx);
-      expect(ctx.svg.dataset['hat']).toBe('copa');
+      expect(ctx.svg.dataset['hat']).toBe('topHat');
       expect(ctx.hatEls?.anchor).toBeInstanceOf(SVGElement);
       expect(ctx.hatEls?.dyn.length).toBeGreaterThan(0);
       expect(ctx.hatEls?.ax).toBe(100 + (mochiShape.hatX ?? 0));
@@ -65,7 +65,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('un sombrero que se ajusta al cuerpo (audífonos) se ancla en el centro del cuerpo', () => {
       stubFrames();
-      const ctx = built({ hat: 'audifonos', shape: tofuShape });
+      const ctx = built({ hat: 'headphones', shape: tofuShape });
       hatBind(ctx);
       expect(ctx.hatEls?.ax).toBe(100);
       expect(ctx.hatEls?.ay).toBe(tofuShape.bodyFit?.y);
@@ -74,7 +74,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
     it('con movimiento reducido no hay cuadro a cuadro', () => {
       vi.stubGlobal('matchMedia', () => ({ matches: true }));
       const { callbacks } = stubFrames();
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       hatBind(ctx);
       expect(ctx.hatRaf).toBe(0);
       expect(callbacks.length).toBe(1); // solo la sombra
@@ -82,7 +82,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('al reanclar reinicia la física y cancela el cuadro pendiente', () => {
       const { cancelled } = stubFrames();
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       ctx.hatRaf = 77;
       Object.assign(ctx.hatPhys, { th: 9, vth: 2, oy: 1, voy: 1, px: 4, t: 5 });
       hatBind(ctx);
@@ -92,7 +92,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('una forma sin `hatAt` no lleva sombrero aunque se pida', () => {
       stubFrames();
-      const ctx = built({ hat: 'copa', shape: { ...mochiShape, hatAt: undefined } });
+      const ctx = built({ hat: 'topHat', shape: { ...mochiShape, hatAt: undefined } });
       hatBind(ctx);
       expect(ctx.hatEls).toBeNull();
       expect(ctx.svg.dataset['hat']).toBe('');
@@ -101,7 +101,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
   describe('hatKick / hatStep', () => {
     it('hatKick empuja el resorte hacia arriba y hacia un lado', () => {
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       hatKick(ctx, 3, 2);
       expect(ctx.hatPhys.voy).toBe(-3);
       expect(ctx.hatPhys.vth).toBe(2);
@@ -109,7 +109,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('sin CTM (jsdom no mide) el cuadro se re-agenda y no toca nada', () => {
       const { callbacks } = stubFrames();
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       hatBind(ctx);
       callbacks.length = 0;
       hatStep(ctx, 16);
@@ -119,7 +119,7 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
 
     it('en pausa o sin sombrero el cuadro no hace nada', () => {
       const { callbacks } = stubFrames();
-      const ctx = built({ hat: 'copa' });
+      const ctx = built({ hat: 'topHat' });
       hatBind(ctx);
       ctx.paused = true;
       expect(() => hatStep(ctx, 16)).not.toThrow();
@@ -133,17 +133,17 @@ describe('glyphflow/bots · física del sombrero y de la nube', () => {
   describe('cloudBind', () => {
     it('la nube arranca su cuadro a cuadro y las demás formas no', () => {
       const { callbacks } = stubFrames();
-      const nube = built({ shape: nNubeShape });
+      const nube = built({ shape: nCloudShape });
       cloudBind(nube);
       expect(callbacks.length).toBe(1);
       callbacks.length = 0;
-      cloudBind(built({ shape: fantasmaShape }));
+      cloudBind(built({ shape: ghostShape }));
       expect(callbacks.length).toBe(0);
     });
 
     it('limpia la inclinación anterior al reanclar', () => {
       stubFrames();
-      const ctx = built({ shape: nNubeShape });
+      const ctx = built({ shape: nCloudShape });
       ctx.el.breath.style.rotate = '5deg';
       ctx.el.breath.style.scale = '1.1 0.9';
       ctx.cloudPhys.px = 3;

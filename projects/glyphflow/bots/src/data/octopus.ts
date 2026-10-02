@@ -15,13 +15,13 @@ type PulpoLobe = 0 | 'U' | 'B';
  * curva en vez de girar rígido), B = lóbulo bajo (se aplasta), 0 = fijo.
  */
 type PulpoPt = readonly [number, number, PulpoLobe, number];
-type PulpoSeg = readonly [PulpoPt, PulpoPt, PulpoPt];
+type OctopusSeg = readonly [PulpoPt, PulpoPt, PulpoPt];
 
 /**
  * Pose del pulpo en grados: `aL`/`aR` doblan el lóbulo de flanco (L + = arriba, R − = arriba),
  * `kL`/`kR` aplastan los lóbulos bajos y `bL`/`bR` los enroscan (+ = punta arriba).
  */
-export interface GfPulpoStance {
+export interface GfOctopusStance {
   aL?: number;
   aR?: number;
   kL?: number;
@@ -31,7 +31,7 @@ export interface GfPulpoStance {
 }
 
 /** Colores de una piel del pulpo. `dark` y `glass` activan variantes de luz. */
-export interface GfPulpoPalette {
+export interface GfOctopusPalette {
   head: readonly [string, string, string];
   armL: string; armR: string; flowL: string; flowR: string; lobeL: string; lobeR: string;
   mid: string; suckL: string; suckR: string; crease: string; hi: number; rim: string;
@@ -40,13 +40,13 @@ export interface GfPulpoPalette {
 }
 // y entre ellos no hay ninguna línea de unión. En reposo todos los lóbulos son base; ninguno se levanta.
 // En un gesto, un lóbulo de flanco se dobla hacia arriba DENTRO de la misma silueta (se anima «d»): es una mano solo mientras dura.
-export const PULPO_VARS = { o1:'Clásico', o2:'Pastel', o3:'Luminoso', o4:'Nocturno', o5:'Cristalina', o6:'Arcoíris' } as const;
-export type GfPulpoVariant = keyof typeof PULPO_VARS;
-export const isPulpo = (v: string): v is GfPulpoVariant => /^o\d+$/.test(v);
+export const OCTOPUS_VARS = { o1:'Clásico', o2:'Pastel', o3:'Luminoso', o4:'Nocturno', o5:'Cristalina', o6:'Arcoíris' } as const;
+export type GfOctopusVariant = keyof typeof OCTOPUS_VARS;
+export const isOctopus = (v: string): v is GfOctopusVariant => /^o\d+$/.test(v);
 // mitad izquierda en las coordenadas del trazo (474×539); cada punto: [x, y, lóbulo, peso]
 // U = lóbulo de flanco (se dobla: el peso crece hacia la punta, así se curva en vez de girar rígido) · B = lóbulo bajo (se aplasta) · 0 = fijo
-export const PULPO_HALF: readonly PulpoSeg[] = /* @__PURE__ */ (() => {
-  const cx = 244, cy = 200, r = 147, a0 = -Math.PI / 2, a1 = -Math.PI - .6807, n = 2, segs: PulpoSeg[] = [];   // arco de la cabeza: de la coronilla al cusp del flanco
+export const OCTOPUS_HALF: readonly OctopusSeg[] = /* @__PURE__ */ (() => {
+  const cx = 244, cy = 200, r = 147, a0 = -Math.PI / 2, a1 = -Math.PI - .6807, n = 2, segs: OctopusSeg[] = [];   // arco de la cabeza: de la coronilla al cusp del flanco
   for (let i = 0; i < n; i++) { const p = a0 + (a1 - a0) * i / n, q = a0 + (a1 - a0) * (i + 1) / n, k = 4 / 3 * Math.tan((q - p) / 4);
     segs.push([[cx + r * (Math.cos(p) - k * Math.sin(p)), cy + r * (Math.sin(p) + k * Math.cos(p)), 0, 0],
       [cx + r * (Math.cos(q) + k * Math.sin(q)), cy + r * (Math.sin(q) - k * Math.cos(q)), 0, 0], [cx + r * Math.cos(q), cy + r * Math.sin(q), 0, 0]]); }
@@ -65,7 +65,7 @@ export const PULPO_HALF: readonly PulpoSeg[] = /* @__PURE__ */ (() => {
 // pivote del flanco: el cusp de arriba (así el lóbulo sube hacia afuera, no se dobla contra la cabeza)
 const PULPO_PIV = { U:[130, 296], B:[184, 412], B2:[196, 366] } as const;   // B2: raíz del lóbulo bajo (de ahí se enrosca)
 // st = { aL, aR: grados del lóbulo de flanco (L + = arriba, R − = arriba), kL, kR: aplaste de los lóbulos bajos, bL, bR: enrosque de los bajos (+ = punta arriba) }
-export function pulpoD(st: GfPulpoStance = {}): string {
+export function octopusD(st: GfOctopusStance = {}): string {
   const rd = (v: number) => Math.round(v * 100) / 100, T = (x: number, y: number) => `${rd(100 + (x - 244) * .4)} ${rd(38 + (y - 53) * .4)}`;
   const P = ([x, y, t, w]: PulpoPt, side: number): string => {   // side −1 = izquierda (tal cual), +1 = derecha (espejo)
     const m = side > 0, X = m ? 488 - x : x;
@@ -79,15 +79,15 @@ export function pulpoD(st: GfPulpoStance = {}): string {
     return T(X, y); };
   let d = `M${T(244, 53)}`;
   const pts: PulpoPt[] = [[244, 53, 0, 0]];
-  for (const sg of PULPO_HALF) { d += ` C${sg.map(q => P(q, -1)).join(' ')}`; pts.push(sg[2]); }
-  for (let i = PULPO_HALF.length - 1; i >= 0; i--) { const sg = PULPO_HALF[i]; d += ` C${[sg[1], sg[0], pts[i]].map(q => P(q, 1)).join(' ')}`; }
+  for (const sg of OCTOPUS_HALF) { d += ` C${sg.map(q => P(q, -1)).join(' ')}`; pts.push(sg[2]); }
+  for (let i = OCTOPUS_HALF.length - 1; i >= 0; i--) { const sg = OCTOPUS_HALF[i]; d += ` C${[sg[1], sg[0], pts[i]].map(q => P(q, 1)).join(' ')}`; }
   return d + ' Z';
 }
 // reposo: la onda que recorre los tentáculos (ph = 0…2π, un ciclo de O.dDur ms). Los gestos se SUMAN encima de esto.
-export const pulpoIdleSt = (ph: number): GfPulpoStance => ({ aL:9 * Math.sin(ph), bL:10 * Math.sin(ph - 1.2), bR:10 * Math.sin(ph - 2.4), aR:-9 * Math.sin(ph - 3.6),
+export const octopusIdleSt = (ph: number): GfOctopusStance => ({ aL:9 * Math.sin(ph), bL:10 * Math.sin(ph - 1.2), bR:10 * Math.sin(ph - 2.4), aR:-9 * Math.sin(ph - 3.6),
   kL:.03 * Math.sin(ph - .6), kR:.03 * Math.sin(ph - 1.8) });
-export const PULPO_D = /* @__PURE__ */ pulpoD();
-export const PULPO_PAL: Readonly<Record<GfPulpoVariant, GfPulpoPalette>> = {
+export const OCTOPUS_D = /* @__PURE__ */ octopusD();
+export const OCTOPUS_PAL: Readonly<Record<GfOctopusVariant, GfOctopusPalette>> = {
   o1:{ head:['#FFFFFF', '#F7F6FF', '#E8E2FF'], armL:'#F28CDA', armR:'#7CD2FF', flowL:'#FFC6EF', flowR:'#B6ECFF', lobeL:'#E7AEF1', lobeR:'#A9CCFF', mid:'#D8CCFF', suckL:'#FFE3F7', suckR:'#E3F8FF', crease:'#A99BEA', hi:.8, rim:'#FFFFFF', halo:['#C8B6FF', .3], shade:'#B5A6F0', eye:'#29266F' },
   o2:{ head:['#FFFFFF', '#FFF3FA', '#FBDDF0'], armL:'#FF8CC0', armR:'#FFA394', flowL:'#FFC8E3', flowR:'#FFD2C8', lobeL:'#F6A6DA', lobeR:'#E2AEF5', mid:'#F4CDEE', suckL:'#FFE6F2', suckR:'#FFEDE6', crease:'#E39AC9', hi:.75, rim:'#FFFFFF', halo:['#FFC6E6', .3], shade:'#E7A9D6', eye:'#3B1E5E' },
   o3:{ head:['#FFFFFF', '#F3FCFF', '#E0F3FF'], armL:'#FF9FE6', armR:'#6FE6F5', flowL:'#FFD0F4', flowR:'#A6F2FF', lobeL:'#C9D4FF', lobeR:'#84E8DC', mid:'#CDEBFF', suckL:'#FFE8FA', suckR:'#E0FFFC', crease:'#8FC9F0', hi:.9, rim:'#FFFFFF', halo:['#7FE3FF', .55], shade:'#9BCBF2', eye:'#16306E' },
@@ -96,8 +96,8 @@ export const PULPO_PAL: Readonly<Record<GfPulpoVariant, GfPulpoPalette>> = {
   o6:{ head:['#FFFFFF', '#F8F4FF', '#EAE2FF'], armL:'#FF86C6', armR:'#6FBBFF', flowL:'#FFD08A', flowR:'#8FF0C4', lobeL:'#FFC266', lobeR:'#7FE8B4', mid:'#C9A2FF', suckL:'#FFF0D6', suckR:'#E0FFF0', crease:'#A99BEA', hi:.8, rim:'#FFFFFF', halo:['#FFC8EE', .35], shade:'#B5A6F0', eye:'#241A6E' }
 };
 // color: rosa a la izquierda y cyan a la derecha que FLUYEN hacia el cuerpo; el centro queda perla/lavanda
-export function pulpoSkin(v: string, p: string): GfBotSkinLayers {
-  const P = PULPO_PAL[v as GfPulpoVariant] ?? PULPO_PAL.o1, cs = `#${p}-cs`, U = (a: string) => `<use href="${cs}" ${a}/>`;
+export function octopusSkin(v: string, p: string): GfBotSkinLayers {
+  const P = OCTOPUS_PAL[v as GfOctopusVariant] ?? OCTOPUS_PAL.o1, cs = `#${p}-cs`, U = (a: string) => `<use href="${cs}" ${a}/>`;
   const head = `<linearGradient id="${p}-pug" gradientUnits="userSpaceOnUse" x1="0" y1="38" x2="0" y2="184"><stop offset="0" stop-color="${P.head[0]}"/><stop offset=".55" stop-color="${P.head[1]}"/><stop offset="1" stop-color="${P.head[2]}"/></linearGradient>` +
     `<rect width="200" height="212" fill="url(#${p}-pug)"/>`;
   // el color sube desde los lóbulos de cada lado hacia el cuerpo (difuso, se mueve lento como el Mochi); arriba y al centro queda perla

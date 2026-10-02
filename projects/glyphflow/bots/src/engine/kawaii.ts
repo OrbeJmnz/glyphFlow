@@ -5,7 +5,7 @@ import { animatePose, setPose } from './pose-motion';
 import { later, play } from './timing';
 import { S, TAU, clamp01 } from './math';
 import { blink, eyeSeq } from './eyes';
-import { parm } from './pulpo-arms';
+import { parm } from './octopus-arms';
 import { baseRoll } from './base-pose';
 import { f2 } from '../data/color';
 import type { GfKawaiiExpression, GfKawaiiId } from '../data/kawaii';
@@ -20,7 +20,7 @@ import { type BotContext, type GfBotCue } from './context';
     if (!E || !L) return null;
     const sh = ctx.shape, fy = sh.faceY, dx = sh.eyeDx ?? 20, h = sh.eyeH ?? 16, w = h * .6, my = fy + (sh.mouthDy ?? 15) + 1.9, k = h / 16.5;
     const ink = getComputedStyle(ctx.q('.eyeball') || ctx.svg).fill || '#282653';
-    const fc = ctx.q('.fcheek'), cheek = ctx.svg.dataset['face'] === 'fant' && fc && getComputedStyle(fc).display !== 'none' ? getComputedStyle(fc).fill : ctx.svg.dataset['mvar'] === 'f8' ? '' : '#F5AED6';
+    const fc = ctx.q('.fcheek'), cheek = ctx.svg.dataset['face'] === 'ghost' && fc && getComputedStyle(fc).display !== 'none' ? getComputedStyle(fc).fill : ctx.svg.dataset['mvar'] === 'f8' ? '' : '#F5AED6';
     L.innerHTML = kEye(E.L, 100 - dx, fy, w, h, .5, -1, ink, ctx.id, cheek);
     R.innerHTML = kEye(E.R || E.L, 100 + dx, fy, w, h, .5, 1, ink, ctx.id, cheek);
     M.innerHTML = kMouth(E.M, 100, my, k, ink);
@@ -133,7 +133,7 @@ import { type BotContext, type GfBotCue } from './context';
   // cada cara de reposo a veces trae un detalle chiquito (para que se sienta vivo, sin volverse un show)
   export function kAccent(ctx: BotContext, key: string) {
     if (ctx.reduce || Math.random() > .45) return;
-    if (ctx.shape.id === 'pulpo' && ['happy', 'content', 'hopeful', 'wink'].includes(key)) return parm(ctx, 'R', [0, -36, -22, -38, -24, 0], 1300);   // el pulpo saluda
+    if (ctx.shape.id === 'octopus' && ['happy', 'content', 'hopeful', 'wink'].includes(key)) return parm(ctx, 'R', [0, -36, -22, -38, -24, 0], 1300);   // el pulpo saluda
     const tilt = (a: number, ms = 1400) => animatePose(ctx, u => ({ roll: baseRoll(ctx) + a * Math.sin(Math.PI * u) }), ms);
     ({ inLove: () => floaty(ctx, '♥', 2, '#FF6FAE', 11), kiss: () => floaty(ctx, '♥', 1, '#FF6FAE', 12), whistling: () => floaty(ctx, '♪', 2, getComputedStyle(ctx.q('.eyeball') || ctx.svg).fill, 12),
        happy: () => miniHop(ctx, 7), hopeful: () => miniHop(ctx, 9), playful: () => { miniHop(ctx, 6); tilt(-7, 900); }, tender: () => tilt(9), shy: () => tilt(-8),

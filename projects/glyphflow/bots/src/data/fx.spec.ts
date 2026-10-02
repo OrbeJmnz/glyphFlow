@@ -5,7 +5,7 @@ import { BOT_TOKENS, botTokens } from './tokens';
 describe('glyphflow/bots · efectos y accesorios', () => {
   it('declara los 4 efectos y los 4 accesorios extra', () => {
     expect(Object.keys(FX_VARS)).toEqual(['glow', 'pixel', 'glitch', 'bug']);
-    expect(Object.keys(ACCX)).toEqual(['halo', 'gafas', 'corazon', 'auriculares']);
+    expect(Object.keys(ACCX)).toEqual(['halo', 'glasses', 'heart', 'earphones']);
   });
 
   it('cada efecto vive en su capa y se enciende por clase, no por estilo en línea', () => {
@@ -29,11 +29,11 @@ describe('glyphflow/bots · efectos y accesorios', () => {
   it('los accesorios se colocan con las medidas que se les pasan', () => {
     const halo = accXMarkup('halo', sh, 'b1', m);
     expect(halo).toContain(`translate(${(100 - 104).toFixed(2)} ${(52 - 64).toFixed(2)})`);
-    expect(accXMarkup('auriculares', sh, 'b1', m)).toContain('url(#b1-nag)');
+    expect(accXMarkup('earphones', sh, 'b1', m)).toContain('url(#b1-nag)');
   });
 
   it('las gafas no se dibujan aquí (van en la cara) y un accesorio desconocido es vacío', () => {
-    expect(accXMarkup('gafas', sh, 'b1', m)).toBe('');
+    expect(accXMarkup('glasses', sh, 'b1', m)).toBe('');
     expect(accXMarkup('zz', sh, 'b1', m)).toBe('');
   });
 });

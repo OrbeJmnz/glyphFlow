@@ -1,5 +1,5 @@
 import { mochiShape } from '../shapes/mochi';
-import { cuboShape } from '../shapes/retired';
+import { cubeShape } from '../shapes/retired';
 import { robotShape } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { celebrate, cheer, curious, excited, hatPulse, happy, neutral, surprised, thinking, wave } from './emotions';
@@ -72,7 +72,7 @@ describe('glyphflow/bots · emociones', () => {
       vi.advanceTimersByTime(ms * 2);
     });
     it(`${nombre}: también corre en el robot (antena, ojos de anillo)`, () => {
-      const { ctx } = bot({ shape: robotShape(cuboShape) });
+      const { ctx } = bot({ shape: robotShape(cubeShape) });
       expect(() => fn(ctx)).not.toThrow();
       vi.advanceTimersByTime(ms * 2);
     });
@@ -107,7 +107,7 @@ describe('glyphflow/bots · emociones', () => {
     curious(ctx);
     expect(mouthOn(ctx)).toBe('o');
     expect(calls.filter((c) => ctx.fe.eyeList.includes(c.node as SVGElement)).map((c) => c.frames[1]['transform'])).toEqual(['scale(1.12,1.14)', 'scale(1,0.78)']);
-    const r = bot({ shape: robotShape(cuboShape) });
+    const r = bot({ shape: robotShape(cubeShape) });
     const llamadas = stubAnimations();
     curious(r.ctx);
     expect(llamadas.some((c) => c.node === r.ctx.fe.half[1])).toBe(true);
@@ -122,7 +122,7 @@ describe('glyphflow/bots · emociones', () => {
 
   it('surprised patea el sombrero y abre la boca en «o»', () => {
     const { ctx } = bot();
-    setHat(ctx, 'copa');
+    setHat(ctx, 'topHat');
     const antes = ctx.hatPhys.voy;
     surprised(ctx);
     expect(ctx.hatPhys.voy).toBeLessThan(antes);
@@ -131,7 +131,7 @@ describe('glyphflow/bots · emociones', () => {
 
   it('celebrate lanza diez chispas, brilla el sombrero y se pone radiante', () => {
     const { ctx } = bot();
-    setHat(ctx, 'copa');
+    setHat(ctx, 'topHat');
     celebrate(ctx);
     vi.advanceTimersByTime(260 + 9 * 20);
     expect(ctx.el.z.querySelectorAll('path').length).toBe(10);
@@ -143,7 +143,7 @@ describe('glyphflow/bots · emociones', () => {
     const calls = stubAnimations();
     hatPulse(ctx);
     expect(calls).toHaveLength(0);
-    setHat(ctx, 'copa');
+    setHat(ctx, 'topHat');
     calls.length = 0;
     hatPulse(ctx);
     expect(calls.every((c) => c.frames[0]['filter'] === 'brightness(1) saturate(1)')).toBe(true);

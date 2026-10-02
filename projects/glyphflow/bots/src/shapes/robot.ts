@@ -6,7 +6,7 @@ import type { GfBotShape } from '../data/shape';
  * Se parte de la forma base como OBJETO —no de su clave— para que quien use el robot solo cargue el
  * cuerpo que elija.
  */
-export function robotShape(base: GfBotShape, bodyKey = 'cubo'): GfBotShape {
+export function robotShape(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
   const top = base.top ?? base.cy;
   const sideW = base.sideW ?? 60;
   return {
@@ -16,7 +16,7 @@ export function robotShape(base: GfBotShape, bodyKey = 'cubo'): GfBotShape {
     hatK: 0.88,
     label: 'Robot',
     retired: false,
-    palette: 'acero',
+    palette: 'steel',
     skin: 'robot',
     body: bodyKey,
     tilt: -3,

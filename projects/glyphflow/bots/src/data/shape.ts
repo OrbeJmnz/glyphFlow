@@ -36,13 +36,13 @@ export type GfBotShapeFx = (id: string) => string;
 
 export interface GfBotShape {
   /**
-   * Nombre estable de la forma (`mochi`, `pulpo`, `nNube`…). Sale en `data-shape` y el CSS de las
-   * pieles se engancha a él; el motor también ramifica por él (`pulpo`, `nNube`). No se reutiliza.
+   * Nombre estable de la forma (`mochi`, `octopus`, `nCloud`…). Sale en `data-shape` y el CSS de las
+   * pieles se engancha a él; el motor también ramifica por él (`octopus`, `nCloud`). No se reutiliza.
    */
   id: string;
   label: string;
   /** Familia de pieles que le corresponden. */
-  family?: 'fant' | 'gato' | 'pulpo';
+  family?: 'ghost' | 'cat' | 'octopus';
   /** Clave de la paleta (`PALETTES`). */
   palette: string;
   /** Material del cuerpo; sin esto, plástico. Ninguna forma de serie lo fija. */

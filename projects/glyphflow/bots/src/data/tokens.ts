@@ -1,6 +1,6 @@
 import { hexMix } from './color';
-import { GATO_PAL, type GfGatoVariant } from './gato';
-import { PULPO_PAL, type GfPulpoVariant } from './pulpo';
+import { CAT_PAL, type GfCatVariant } from './cat';
+import { OCTOPUS_PAL, type GfOctopusVariant } from './octopus';
 
 /**
  * Paleta del bot (tokens `--bot-*`) para las pieles que NO están en el CSS: fantasma, noche y,
@@ -43,9 +43,9 @@ export const BOT_TOKENS: Readonly<Record<string, GfBotTokens>> = {
 export function botTokens(v: string): GfBotTokens | null {
   const T = BOT_TOKENS[v];
   if (T) return T;
-  const PP = PULPO_PAL[v as GfPulpoVariant];
+  const PP = OCTOPUS_PAL[v as GfOctopusVariant];
   if (PP) { const P = PP; return { base:P.head[1], primary:P.head[2], secondary:P.armR, tertiary:P.armL, highlight:P.dark ? '#5B4BC8' : '#FFFFFF', shadow:P.shade, edge:P.dark ? '#8C6CFF' : '#FFFFFF', glow:P.mid }; }
-  const P = GATO_PAL[v as GfGatoVariant]; if (!P) return null;
+  const P = CAT_PAL[v as GfCatVariant]; if (!P) return null;
   const dark = v === 'g11';
   return { base:P.mid, primary:P.top, secondary:P.bot, tertiary:P.inner, highlight: dark ? hexMix(P.top, '#FFFFFF', .25) : hexMix(P.top, '#FFFFFF', .6),
     shadow: hexMix(P.bot, '#2A1440', dark ? .3 : .22), edge: dark ? '#8C6CFF' : '#FFFFFF', glow: hexMix(P.top, '#FFFFFF', .3), stroke: v === 'g3' ? '#D85B3F' : 'none' };

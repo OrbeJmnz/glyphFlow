@@ -1,10 +1,10 @@
 import { FACES, isMochiNight } from '../data/faces';
 import { accXMarkup, fxBackMarkup, fxInMarkup, fxOutMarkup } from '../data/fx';
-import { nubeIn } from '../data/kawaii';
+import { cloudIn } from '../data/kawaii';
 import { mochiSkin, mochiTuft } from '../data/mochi';
-import { isFant } from '../data/fantasma';
-import { isGato } from '../data/gato';
-import { isPulpo } from '../data/pulpo';
+import { isGhost } from '../data/ghost';
+import { isCat } from '../data/cat';
+import { isOctopus } from '../data/octopus';
 import { botTokens, type GfBotTokens } from '../data/tokens';
 import type { BotContext, BotFaceElements } from './context';
 import { accMarkup, faceMarkup, faceOf, ownFace } from './face';
@@ -32,12 +32,12 @@ function skinFamily(ctx: BotContext): string {
   const v = ctx.mochiVar;
   return ctx.shape.skin !== 'mochi'
     ? ''
-    : isGato(v)
-      ? 'gato'
-      : isFant(v)
-        ? 'fant'
-        : isPulpo(v)
-          ? 'pulpo'
+    : isCat(v)
+      ? 'cat'
+      : isGhost(v)
+        ? 'ghost'
+        : isOctopus(v)
+          ? 'octopus'
           : isMochiNight(v)
             ? 'night'
             : 'light';
@@ -58,7 +58,7 @@ export function buildShape(ctx: BotContext): void {
 
   // «Neumórfico sin boca» usa los mismos ojos: toma el CSS de la cara neumórfica (o la propia si la forma ya tiene ojos así)
   const fk = faceOf(ctx, sh);
-  svg.dataset['face'] = fk === 'neunm' ? (FACES[ownFace(sh)].eye === 'nrect' ? ownFace(sh) : 'neu') : fk;
+  svg.dataset['face'] = fk === 'neuNoMouth' ? (FACES[ownFace(sh)].eye === 'nrect' ? ownFace(sh) : 'neu') : fk;
   ctx.shapeAnims.forEach((a) => a.cancel());
   ctx.shapeAnims = [];
   svg.dataset['skin'] = sh.skin || '';
@@ -68,7 +68,7 @@ export function buildShape(ctx: BotContext): void {
   el.fxIn.innerHTML = sh.fxIn ? sh.fxIn(p) : '';
   el.fxOut.innerHTML = sh.fxOut ? sh.fxOut(p) : '';
   el.fxBack.innerHTML = sh.fxBack ? sh.fxBack(p) : '';
-  if (sh.id === 'nNube') el.fxIn.innerHTML += nubeIn(p);
+  if (sh.id === 'nCloud') el.fxIn.innerHTML += cloudIn(p);
   el.fxIn.innerHTML += fxInMarkup(p, sh);
   el.fxOut.innerHTML +=
     fxOutMarkup(p, sh) +

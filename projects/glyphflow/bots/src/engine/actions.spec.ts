@@ -1,7 +1,7 @@
-import { fantasmaShape } from '../shapes/fantasma';
-import { gatoShape } from '../shapes/gato';
+import { ghostShape } from '../shapes/ghost';
+import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
-import { cuboShape } from '../shapes/retired';
+import { cubeShape } from '../shapes/retired';
 import { robotShape } from '../shapes/robot';
 import {
   antenna, antTip, antWiggle, breathe, cloudBubble, flushCheeks, gearPath, glow, headTop, holdEyes, isRobot,
@@ -96,14 +96,14 @@ describe('glyphflow/bots · vocabulario de acciones', () => {
     it('headTop: la coronilla de cada forma, y el robot la sube 26', () => {
       const medir = (shape: GfBotOptions['shape']) => headTop(bot({ shape }).ctx);
       expect(medir(mochiShape)).toBe(mochiShape.top);
-      expect(medir(fantasmaShape)).toBe(48);
-      expect(medir(gatoShape)).toBe(48);
-      expect(medir(robotShape(cuboShape))).toBe((cuboShape.top ?? 0) - 26);
+      expect(medir(ghostShape)).toBe(48);
+      expect(medir(catShape)).toBe(48);
+      expect(medir(robotShape(cubeShape))).toBe((cubeShape.top ?? 0) - 26);
     });
 
     it('isRobot solo es cierto con la piel del robot', () => {
       expect(isRobot(bot().ctx)).toBe(false);
-      expect(isRobot(bot({ shape: robotShape(cuboShape) }).ctx)).toBe(true);
+      expect(isRobot(bot({ shape: robotShape(cubeShape) }).ctx)).toBe(true);
     });
 
     it('popIn aparece con resorte desde el 40%', () => {
@@ -241,7 +241,7 @@ describe('glyphflow/bots · vocabulario de acciones', () => {
     });
 
     it('con el gato, cualquier emoción agita la cola', () => {
-      const { ctx } = bot({ shape: gatoShape });
+      const { ctx } = bot({ shape: catShape });
       const calls = stubAnimations();
       mood(ctx, '#f00', [{ opacity: 0 }, { opacity: 0.3 }], 800);
       expect(calls.some((c) => (c.node as Element).classList.contains('gtw') && c.options.composite === 'add')).toBe(true);
@@ -259,7 +259,7 @@ describe('glyphflow/bots · vocabulario de acciones', () => {
     });
 
     it('antenas y mejillas: antenna/antWiggle/antTip animan las del robot, flushCheeks las mejillas', () => {
-      const { ctx } = bot({ shape: robotShape(cuboShape) });
+      const { ctx } = bot({ shape: robotShape(cubeShape) });
       const calls = stubAnimations();
       antenna(ctx, [{ transform: 'rotate(0deg)' }, { transform: 'rotate(10deg)' }], 500);
       expect(calls.filter((c) => ctx.fe.ants.includes(c.node as SVGElement)).length).toBe(ctx.fe.ants.length);

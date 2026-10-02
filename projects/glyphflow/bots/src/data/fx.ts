@@ -5,7 +5,7 @@ import { f2 } from './color';
  *
  * - Efectos (`glow`, `pixel`, `glitch`, `bug`): capas SVG que se montan dentro, detrás y encima de
  *   la silueta. Se encienden por atributo (`data-fx`) desde el CSS.
- * - Accesorios extra (`halo`, `gafas`, `corazon`, `auriculares`): se acomodan midiendo la silueta
+ * - Accesorios extra (`halo`, `glasses`, `heart`, `earphones`): se acomodan midiendo la silueta
  *   de cada forma (dónde está la coronilla y qué tan ancha es a la altura de la cara).
  *
  * Todo es texto puro. La MEDICIÓN de la silueta necesita el DOM y vive aparte
@@ -61,8 +61,8 @@ export const fxOutMarkup = (p: string, sh: GfBotFxShape): string => `<g class="x
 
 // ---------- Accesorios extra (sección Sombreros, para TODAS las formas) ----------
 
-/** Accesorios extra. `gafas` no está aquí: va en la cara para que gire con ella. */
-export const ACCX = { halo:'Halo', gafas:'Gafas', corazon:'Corazón', auriculares:'Auriculares' } as const;
+/** Accesorios extra. `glasses` no está aquí: va en la cara para que gire con ella. */
+export const ACCX = { halo:'Halo', glasses:'Gafas', heart:'Corazón', earphones:'Auriculares' } as const;
 export type GfBotAccXId = keyof typeof ACCX;
 
 /** Marcado del accesorio `k` colocado según las medidas `m` de la silueta de `sh`. */
@@ -71,9 +71,9 @@ export function accXMarkup(k: string, sh: GfBotAccShape, p: string, m: GfSilMetr
   if (k === 'halo') return `<g class="xacc"><g transform="${at}"><g class="nhalo"><ellipse cx="104" cy="49" rx="25" ry="6.4" fill="none" stroke="#FFE07A" stroke-width="7" opacity=".45" filter="url(#${p}-mblur2)"/>
     <linearGradient id="${p}-nhg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F5B83C"/><stop offset=".5" stop-color="#FFE68A"/><stop offset="1" stop-color="#E9A62B"/></linearGradient>
     <ellipse cx="104" cy="49" rx="25" ry="6.4" fill="none" stroke="url(#${p}-nhg)" stroke-width="3.6"/><path d="M86 45.6 Q98 42.4 112 43" fill="none" stroke="#FFF8D6" stroke-width="1.3" stroke-linecap="round" opacity=".9"/></g></g></g>`;
-  if (k === 'corazon') return `<g class="xacc"><g transform="${at}"><g class="nhearts"><path class="nh1" d="M150 66 C138 57 142 47 150 53 C158 47 162 57 150 66 Z" fill="#FF7FB4"/>
+  if (k === 'heart') return `<g class="xacc"><g transform="${at}"><g class="nhearts"><path class="nh1" d="M150 66 C138 57 142 47 150 53 C158 47 162 57 150 66 Z" fill="#FF7FB4"/>
     <path class="nh2" d="M167 50 C160 45 162 39 167 42 C172 39 174 45 167 50 Z" fill="#FF9AC6"/><circle cx="146.5" cy="54.5" r="1.8" fill="#fff" opacity=".7"/></g></g></g>`;
-  if (k === 'auriculares') {
+  if (k === 'earphones') {
     const fy = sh.faceY, xl = m.l + 4, xr = m.r - 4, cy0 = fy - 2, ty = m.top - (fy - m.top) * .32;
     const cup = (x: number) => `<rect x="${f2(x - 11)}" y="${f2(cy0 - 17)}" width="22" height="34" rx="10" fill="url(#${p}-nag)"/><rect x="${f2(x - 7)}" y="${f2(cy0 - 13)}" width="7" height="18" rx="3.5" fill="#fff" opacity=".45"/>`;
     const band = `M${f2(xl)} ${f2(cy0 - 12)} C${f2(xl - 2)} ${f2(ty)} ${f2(xr + 2)} ${f2(ty)} ${f2(xr)} ${f2(cy0 - 12)}`;

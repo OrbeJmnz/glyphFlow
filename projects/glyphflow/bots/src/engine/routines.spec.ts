@@ -1,10 +1,10 @@
 import { ROUTINES } from '../data/routines';
-import { fantasmaShape } from '../shapes/fantasma';
-import { gatoShape } from '../shapes/gato';
+import { ghostShape } from '../shapes/ghost';
+import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
-import { nNubeShape } from '../shapes/night';
-import { pulpoShape } from '../shapes/pulpo';
-import { cuboShape } from '../shapes/retired';
+import { nCloudShape } from '../shapes/night';
+import { octopusShape } from '../shapes/octopus';
+import { cubeShape } from '../shapes/retired';
 import { robotShape } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { FIDGETS, RUN } from './routines';
@@ -32,7 +32,7 @@ function bot(opts: Partial<GfBotOptions> = {}): BotContext {
   return ctx;
 }
 
-const FORMAS = [mochiShape, fantasmaShape, gatoShape, pulpoShape, nNubeShape, robotShape(cuboShape)];
+const FORMAS = [mochiShape, ghostShape, catShape, octopusShape, nCloudShape, robotShape(cubeShape)];
 
 describe('glyphflow/bots · rutinas', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { ROUTINES } from '../data/routines';
 import { mochiShape } from '../shapes/mochi';
 import { robotShape } from '../shapes/robot';
-import { cuboShape } from '../shapes/retired';
+import { cubeShape } from '../shapes/retired';
 import { baseFor, baseRoll } from './base-pose';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { act, clearRoutine, installStateHooks, nextRoutine, setRoutine, setState } from './state';
@@ -51,7 +51,7 @@ describe('glyphflow/bots · estados y rutinas', () => {
 
   describe('pose base', () => {
     it('cada forma se inclina lo suyo (su `tilt`) salvo dormido, que se recuesta −5°', () => {
-      const ctx = bot({ shape: robotShape(cuboShape) });
+      const ctx = bot({ shape: robotShape(cubeShape) });
       expect(baseFor(ctx, 'idle').roll).toBe(-3);
       expect(baseFor(ctx, 'working').roll).toBe(-3);
       expect(baseFor(ctx, 'sleeping').roll).toBe(-5);

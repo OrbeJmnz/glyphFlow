@@ -1,8 +1,8 @@
 import { MOCHI_VARS } from './faces';
-import { fantSkin } from './fantasma';
-import { gatoSkin } from './gato';
+import { ghostSkin } from './ghost';
+import { catSkin } from './cat';
 import { mochiSkin, mochiTuft } from './mochi';
-import { pulpoSkin } from './pulpo';
+import { octopusSkin } from './octopus';
 
 describe('glyphflow/bots · piel Mochi', () => {
   const variantes = Object.keys(MOCHI_VARS);
@@ -21,9 +21,9 @@ describe('glyphflow/bots · piel Mochi', () => {
   });
 
   it('delega las pieles de las otras familias en su propia función', () => {
-    expect(mochiSkin('g4', 'b1')).toEqual(gatoSkin('g4', 'b1'));
-    expect(mochiSkin('f7', 'b1')).toEqual(fantSkin('f7', 'b1'));
-    expect(mochiSkin('o3', 'b1')).toEqual(pulpoSkin('o3', 'b1'));
+    expect(mochiSkin('g4', 'b1')).toEqual(catSkin('g4', 'b1'));
+    expect(mochiSkin('f7', 'b1')).toEqual(ghostSkin('f7', 'b1'));
+    expect(mochiSkin('o3', 'b1')).toEqual(octopusSkin('o3', 'b1'));
   });
 
   it('una piel desconocida cae en la neumórfica (la de partida)', () => {

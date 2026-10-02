@@ -26,7 +26,7 @@ export function setMaterial(ctx: BotContext, key: GfBotMaterialId | 'auto'): voi
 }
 
 export function applyMaterial(ctx: BotContext): void {
-  const k: GfBotMaterialId = ctx.materialKey === 'auto' ? (ctx.shape.material ?? 'plastico') : ctx.materialKey;
+  const k: GfBotMaterialId = ctx.materialKey === 'auto' ? (ctx.shape.material ?? 'plastic') : ctx.materialKey;
   const metal = MATERIALS[k];
   const p = ctx.id;
   ctx.svg.dataset['material'] = k;

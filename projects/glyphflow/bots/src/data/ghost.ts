@@ -4,11 +4,11 @@ import type { GfBotSkinLayers } from './skin';
  * El fantasma: silueta medida de «Silueta del Fantasma» (84 puntos en coordenadas del motor,
  * ancho 123.5, base en y=174) y 12 pieles (`f1`…`f12`) con los colores muestreados de cada tarjeta.
  */
-export const FANT_PTS: readonly (readonly [number, number])[] = [[98.5,60.1],[103.1,60.2],[107.8,60.8],[112.3,61.8],[116.7,63.3],[120.9,65.4],[124.9,67.9],[128.6,70.8],[131.9,74.1],[134.8,77.8],[137.4,81.7],[139.6,85.8],[141.4,90.2],[142.9,94.6],[144.2,99.1],[145.3,103.6],[146.2,108.2],[147.0,112.8],[147.8,117.4],[148.9,121.9],[150.3,126.4],[152.0,130.8],[154.0,135.1],[156.4,139.1],[158.8,143.1],[161.0,147.2],[161.9,151.6],[161.3,155.9],[158.8,159.5],[155.1,161.8],[150.6,162.6],[146.0,162.7],[141.3,162.6],[137.1,163.6],[133.4,166.0],[130.1,169.3],[126.4,172.0],[122.2,173.7],[117.7,173.7],[113.4,172.2],[109.5,169.8],[105.6,167.3],[101.4,165.7],[97.1,166.0],[93.0,167.8],[89.2,170.5],[85.2,172.7],[80.8,173.8],[76.4,173.3],[72.3,171.2],[68.8,168.3],[65.3,165.1],[61.5,163.1],[57.1,162.5],[52.4,162.7],[47.8,162.5],[43.5,161.2],[40.2,158.3],[38.4,154.4],[38.4,150.0],[39.9,145.7],[42.1,141.6],[44.7,137.7],[47.0,133.6],[48.9,129.3],[50.4,124.9],[51.6,120.4],[52.6,115.8],[53.5,111.2],[54.4,106.6],[55.4,102.1],[56.6,97.6],[57.9,93.1],[59.5,88.7],[61.4,84.4],[63.7,80.3],[66.4,76.5],[69.4,72.9],[72.7,69.6],[76.5,66.9],[80.6,64.5],[84.9,62.8],[89.4,61.4],[93.9,60.5]];
+export const GHOST_PTS: readonly (readonly [number, number])[] = [[98.5,60.1],[103.1,60.2],[107.8,60.8],[112.3,61.8],[116.7,63.3],[120.9,65.4],[124.9,67.9],[128.6,70.8],[131.9,74.1],[134.8,77.8],[137.4,81.7],[139.6,85.8],[141.4,90.2],[142.9,94.6],[144.2,99.1],[145.3,103.6],[146.2,108.2],[147.0,112.8],[147.8,117.4],[148.9,121.9],[150.3,126.4],[152.0,130.8],[154.0,135.1],[156.4,139.1],[158.8,143.1],[161.0,147.2],[161.9,151.6],[161.3,155.9],[158.8,159.5],[155.1,161.8],[150.6,162.6],[146.0,162.7],[141.3,162.6],[137.1,163.6],[133.4,166.0],[130.1,169.3],[126.4,172.0],[122.2,173.7],[117.7,173.7],[113.4,172.2],[109.5,169.8],[105.6,167.3],[101.4,165.7],[97.1,166.0],[93.0,167.8],[89.2,170.5],[85.2,172.7],[80.8,173.8],[76.4,173.3],[72.3,171.2],[68.8,168.3],[65.3,165.1],[61.5,163.1],[57.1,162.5],[52.4,162.7],[47.8,162.5],[43.5,161.2],[40.2,158.3],[38.4,154.4],[38.4,150.0],[39.9,145.7],[42.1,141.6],[44.7,137.7],[47.0,133.6],[48.9,129.3],[50.4,124.9],[51.6,120.4],[52.6,115.8],[53.5,111.2],[54.4,106.6],[55.4,102.1],[56.6,97.6],[57.9,93.1],[59.5,88.7],[61.4,84.4],[63.7,80.3],[66.4,76.5],[69.4,72.9],[72.7,69.6],[76.5,66.9],[80.6,64.5],[84.9,62.8],[89.4,61.4],[93.9,60.5]];
 // El borde de la sábana ondula: los puntos de abajo se mueven con una onda que viaja (u = 0…1 entre dos fases).
-export function fantPath(u = 0): string {
+export function ghostSheetPath(u = 0): string {
   const y0 = 131, y1 = 173.8, ph = u * Math.PI / 2;
-  const P = FANT_PTS.map(([x, y]) => { const w = Math.pow(Math.max(0, Math.min(1, (y - y0) / (y1 - y0))), 1.5);
+  const P = GHOST_PTS.map(([x, y]) => { const w = Math.pow(Math.max(0, Math.min(1, (y - y0) / (y1 - y0))), 1.5);
     return [x + 1.8 * w * (u * 2 - 1), y + 3.2 * w * Math.sin(x / 9.5 + ph)]; });
   const n = P.length, G = (k: number) => P[(k + n) % n], r = (v: number) => +v.toFixed(2);
   let d = `M${r(P[0][0])} ${r(P[0][1])}`;
@@ -17,10 +17,10 @@ export function fantPath(u = 0): string {
   return d + ' Z';
 }
 // Las 12 pieles del fantasma (nombres de la hoja). Colores muestreados de cada tarjeta.
-export const FANT_VARS = { f1:'Etérea', f2:'Plana', f3:'Línea', f4:'Pastel', f5:'Sólida', f6:'Neumórfica', f7:'Vibrante', f8:'Máscara', f9:'Translúcida', f10:'Adaptativa', f11:'Oscura', f12:'Sistema' } as const;
-export type GfFantVariant = keyof typeof FANT_VARS;
-export const isFant = (v: string): v is GfFantVariant => /^f\d+$/.test(v);
-export function fantSkin(v: string, p: string): GfBotSkinLayers {
+export const GHOST_VARS = { f1:'Etérea', f2:'Plana', f3:'Línea', f4:'Pastel', f5:'Sólida', f6:'Neumórfica', f7:'Vibrante', f8:'Máscara', f9:'Translúcida', f10:'Adaptativa', f11:'Oscura', f12:'Sistema' } as const;
+export type GfGhostVariant = keyof typeof GHOST_VARS;
+export const isGhost = (v: string): v is GfGhostVariant => /^f\d+$/.test(v);
+export function ghostSkin(v: string, p: string): GfBotSkinLayers {
   const cs = `#${p}-cs`, U = (a: string) => `<use href="${cs}" ${a}/>`;
   let nb = 0;
   const blob = (x: number, y: number, rx: number, ry: number, c: string, o: number, f = 'mblob') => `<g class="mb mb${++nb}"><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${c}" opacity="${o}" filter="url(#${p}-${f})"/></g>`;

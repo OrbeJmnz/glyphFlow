@@ -94,13 +94,13 @@ export function faceMarkup(ctx: BotContext, sh: GfBotShape): string {
     s += yaw(xl - 13, ch, `<ellipse class="cheek" cx="${xl - 13}" cy="${ch}" rx="${11 * cs}" ry="${7 * cs}" fill="url(#${p}-cheekG)"/>${wh(-1)}`);
     s += yaw(xr + 13, ch, `<ellipse class="cheek" cx="${xr + 13}" cy="${ch}" rx="${11 * cs}" ry="${7 * cs}" fill="url(#${p}-cheekG)"/>${wh(1)}`);
   }
-  if (sh.family === 'fant') {
+  if (sh.family === 'ghost') {
     // mejillas redondas afuera y abajo de cada ojo (medidas de la hoja)
     const cyk = fy + 11.9;
     s += yaw(xl - 10.3, cyk, `<circle class="fcheek" cx="${xl - 10.3}" cy="${cyk}" r="6.2"/>`);
     s += yaw(xr + 10.3, cyk, `<circle class="fcheek" cx="${xr + 10.3}" cy="${cyk}" r="6.2"/>`);
   }
-  if (sh.family === 'gato') {
+  if (sh.family === 'cat') {
     const cyk = fy + 13.5;
     const wy = fy + 12;
     s += yaw(xl - 9, cyk, `<ellipse class="gcheek" cx="${xl - 9}" cy="${cyk}" rx="5.8" ry="4.6"/><path class="gwhisk" d="M${xl - 17} ${wy - 1.5} L${xl - 30} ${wy - 4.5} M${xl - 17} ${wy + 3} L${xl - 30} ${wy + 4}"/>`);
@@ -110,7 +110,7 @@ export function faceMarkup(ctx: BotContext, sh: GfBotShape): string {
   if (sh.skin === 'mochi') s += yaw(xr + 7, fy + 11, `<ellipse class="mcheek2" cx="${xr + 7}" cy="${fy + 11}" rx="5.5" ry="3.6"/>`);
   if (sh.skin === 'mochi') s += yaw(xl - 7, fy + 11, `<ellipse class="mcheek" cx="${xl - 7}" cy="${fy + 11}" rx="8.5" ry="6.8"/>`);
   if (!robot) {
-    // gafas redondas (accesorio «Gafas»; se muestran con data-hat="gafas" y siguen el giro de la cabeza)
+    // gafas redondas (accesorio «Gafas»; se muestran con data-hat="glasses" y siguen el giro de la cabeza)
     const r = (sh.eyeH ?? 16) * .78;
     s += yaw(100, fy, `<g class="ngafas"><circle cx="${xl}" cy="${fy}" r="${f2(r)}" fill="#fff" fill-opacity=".22" stroke="#2A2690" stroke-width="2.8"/><circle cx="${xr}" cy="${fy}" r="${f2(r)}" fill="#fff" fill-opacity=".22" stroke="#2A2690" stroke-width="2.8"/>
         <path d="M${f2(xl + r)} ${fy - 1} Q100 ${fy - 4.5} ${f2(xr - r)} ${fy - 1}" fill="none" stroke="#2A2690" stroke-width="2.6" stroke-linecap="round"/>

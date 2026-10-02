@@ -34,8 +34,8 @@ export const FACES = {
   },
   nomouth: { label: 'Sin boca', eye: 'oval', cheeks: false, mouth: false },
   neu: { label: 'Neumórfico', eye: 'nrect', cheeks: false, mouth: true, mouthBase: 'pill' },
-  neunm: { label: 'Neumórfico sin boca', eye: 'nrect', cheeks: false, mouth: false },
-  globo: {
+  neuNoMouth: { label: 'Neumórfico sin boca', eye: 'nrect', cheeks: false, mouth: false },
+  tofu: {
     label: 'Tofu',
     eye: 'nrect',
     cheeks: false,
@@ -44,8 +44,8 @@ export const FACES = {
     hidden: true,
   },
   night: { label: 'Noche', eye: 'nrect', cheeks: false, mouth: true, hidden: true },
-  gato: { label: 'Gato', eye: 'nrect', cheeks: false, mouth: true, hidden: true },
-  fant: {
+  cat: { label: 'Gato', eye: 'nrect', cheeks: false, mouth: true, hidden: true },
+  ghost: {
     label: 'Fantasma',
     eye: 'nrect',
     cheeks: false,
