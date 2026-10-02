@@ -6,8 +6,8 @@ import { f2 } from './color';
  * la cabeza— y la cara base se esconde mientras duran. La tinta es el color de ojos de la piel
  * actual.
  *
- * Las claves son las del prototipo (en español). La API pública usará nombres en inglés; el mapa
- * vive en el motor, no aquí, para que esta tabla se pueda comparar tal cual con el original.
+ * Las claves están en inglés (el prototipo las traía en español: `picaro` → `cheeky`, `mareado` →
+ * `dizzy`…). Las pruebas de paridad contra el prototipo traducen con un mapa.
  */
 
 /** Forma del ojo. */
@@ -61,39 +61,39 @@ export interface GfKawaiiExpression {
 }
 
 export const KAWAII = {
-  picaro:     { L:{ t:'dot', brow:'raise' }, R:{ t:'dot' }, M:'smirk' },            // 01
-  travieso:   { L:{ t:'dot', brow:'in' }, M:'cup' },                                // 02
-  timido:     { L:{ t:'dot', lash:1 }, M:'wavy' },                                  // 03
-  satisfecho: { L:{ t:'dot', brow:'flat' }, M:'smile' },                            // 04
-  ilusionado: { L:{ t:'dot', brow:'up' }, M:'D' },                                  // 05
-  mareado:    { L:{ t:'swirl' }, M:'flat' },                                        // 06
-  presumido:  { L:{ t:'dot', brow:'flat' }, M:'omega' },                            // 07
-  enamorado:  { L:{ t:'heart' }, M:'smile' },                                       // 08
-  jugueton:   { L:{ t:'dot', brow:'in' }, M:'w' },                                  // 09
-  asombro:    { L:{ t:'dot' }, M:'tri' },                                           // 10
-  molesto:    { L:{ t:'dot', brow:'bar' }, M:'frown' },                             // 11
-  beso:       { L:{ t:'dot', lash:1 }, M:'three' },                                 // 12
-  conmovido:  { L:{ t:'dot', brow:'up', tears:'drops' }, M:'smile' },               // 13
-  incomodo:   { L:{ t:'dot' }, M:'awk' },                                           // 14
-  inquieto:   { L:{ t:'dot', brow:'up' }, M:'flat' },                               // 15
-  fastidio:   { L:{ t:'dot', lid:1, look:-1 }, M:'frown' },                         // 16
-  tierno:     { L:{ t:'dot', lash:1 }, M:'smile' },                                 // 17
-  enojado:    { L:{ t:'dot', brow:'in' }, M:'hump' },                               // 18
-  nervioso:   { L:{ t:'dot' }, M:'teeth' },                                         // 19
-  guino:      { L:{ t:'arcUp' }, R:{ t:'dot' }, M:'Dfill' },                        // 20
-  resignado:  { L:{ t:'arcDown' }, M:'hump' },                                      // 21
-  contento:   { L:{ t:'arcUp' }, M:'omega' },                                       // 22
-  lengua:     { L:{ t:'arcDown' }, M:'tongue' },                                    // 23
-  berrinche:  { L:{ t:'gt' }, R:{ t:'lt' }, M:'hump' },                             // 24
-  apenado:    { L:{ t:'dot', brow:'up' }, M:'wavy' },                               // 25
-  silbando:   { L:{ t:'dot' }, M:'three' },                                         // 26
-  feliz:      { L:{ t:'dot' }, M:'Dfill' },                                         // 27
-  serio:      { L:{ t:'dot' }, M:'flat' },                                          // 28
-  llorando:   { L:{ t:'arcDown', tears:'stream' }, M:'hump' },                      // 29
-  preocupado: { L:{ t:'dot', brow:'up' }, M:'hump' },                               // 30
+  cheeky:      { L:{ t:'dot', brow:'raise' }, R:{ t:'dot' }, M:'smirk' },            // 01
+  naughty:     { L:{ t:'dot', brow:'in' }, M:'cup' },                                // 02
+  shy:         { L:{ t:'dot', lash:1 }, M:'wavy' },                                  // 03
+  satisfied:   { L:{ t:'dot', brow:'flat' }, M:'smile' },                            // 04
+  hopeful:     { L:{ t:'dot', brow:'up' }, M:'D' },                                  // 05
+  dizzy:       { L:{ t:'swirl' }, M:'flat' },                                        // 06
+  smug:        { L:{ t:'dot', brow:'flat' }, M:'omega' },                            // 07
+  inLove:      { L:{ t:'heart' }, M:'smile' },                                       // 08
+  playful:     { L:{ t:'dot', brow:'in' }, M:'w' },                                  // 09
+  amazed:      { L:{ t:'dot' }, M:'tri' },                                           // 10
+  annoyed:     { L:{ t:'dot', brow:'bar' }, M:'frown' },                             // 11
+  kiss:        { L:{ t:'dot', lash:1 }, M:'three' },                                 // 12
+  touched:     { L:{ t:'dot', brow:'up', tears:'drops' }, M:'smile' },               // 13
+  awkward:     { L:{ t:'dot' }, M:'awk' },                                           // 14
+  uneasy:      { L:{ t:'dot', brow:'up' }, M:'flat' },                               // 15
+  bothered:    { L:{ t:'dot', lid:1, look:-1 }, M:'frown' },                         // 16
+  tender:      { L:{ t:'dot', lash:1 }, M:'smile' },                                 // 17
+  angry:       { L:{ t:'dot', brow:'in' }, M:'hump' },                               // 18
+  nervous:     { L:{ t:'dot' }, M:'teeth' },                                         // 19
+  wink:        { L:{ t:'arcUp' }, R:{ t:'dot' }, M:'Dfill' },                        // 20
+  resigned:    { L:{ t:'arcDown' }, M:'hump' },                                      // 21
+  content:     { L:{ t:'arcUp' }, M:'omega' },                                       // 22
+  tongue:      { L:{ t:'arcDown' }, M:'tongue' },                                    // 23
+  tantrum:     { L:{ t:'gt' }, R:{ t:'lt' }, M:'hump' },                             // 24
+  embarrassed: { L:{ t:'dot', brow:'up' }, M:'wavy' },                               // 25
+  whistling:   { L:{ t:'dot' }, M:'three' },                                         // 26
+  happy:       { L:{ t:'dot' }, M:'Dfill' },                                         // 27
+  serious:     { L:{ t:'dot' }, M:'flat' },                                          // 28
+  crying:      { L:{ t:'arcDown', tears:'stream' }, M:'hump' },                      // 29
+  worried:     { L:{ t:'dot', brow:'up' }, M:'hump' },                               // 30
   // para despertar
-  bostezo:     { L:{ t:'arcDown', tears:'drops' }, R:{ t:'arcDown' }, M:'yawn' },
-  somnoliento: { L:{ t:'dot', lid:2 }, M:'flat' },
+  yawn:        { L:{ t:'arcDown', tears:'drops' }, R:{ t:'arcDown' }, M:'yawn' },
+  drowsy:      { L:{ t:'dot', lid:2 }, M:'flat' },
   error:       { L:{ t:'x' }, M:'flat' }            // falló: ojos en X
 } as const satisfies Record<string, GfKawaiiExpression>;
 

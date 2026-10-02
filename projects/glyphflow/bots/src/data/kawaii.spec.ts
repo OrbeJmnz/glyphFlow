@@ -3,9 +3,9 @@ import { KAWAII, kEye, kMouth, nubeIn, type GfKawaiiMouth } from './kawaii';
 describe('glyphflow/bots · caras kawaii', () => {
   const entries = Object.entries(KAWAII);
 
-  it('trae las 30 expresiones de la hoja + bostezo, somnoliento y error', () => {
+  it('trae las 30 expresiones de la hoja + yawn, drowsy y error', () => {
     expect(entries.length).toBe(33);
-    for (const k of ['bostezo', 'somnoliento', 'error']) expect(k in KAWAII).toBe(true);
+    for (const k of ['yawn', 'drowsy', 'error']) expect(k in KAWAII).toBe(true);
   });
 
   it('toda expresión tiene ojo izquierdo y una boca que el dibujador conoce', () => {
