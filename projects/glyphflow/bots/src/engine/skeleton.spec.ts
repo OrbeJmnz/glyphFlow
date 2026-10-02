@@ -12,7 +12,7 @@ describe('glyphflow/bots · esqueleto SVG', () => {
   const svg = botSkeleton('b1');
 
   it('es un solo <svg> de 200×212 sin interpolaciones sin resolver', () => {
-    expect(svg.trim().startsWith('<svg class="bot" viewBox="0 0 200 212"')).toBe(true);
+    expect(svg.trim().startsWith('<svg class="gf-bot-svg" viewBox="0 0 200 212"')).toBe(true);
     expect(svg.trim().endsWith('</svg>')).toBe(true);
     expect(svg).not.toContain('${');
   });

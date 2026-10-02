@@ -1,5 +1,6 @@
 /**
- * El esqueleto SVG de un bot, portado TAL CUAL del prototipo (artifact v68): defs (degradados,
+ * El esqueleto SVG de un bot, portado del prototipo (artifact v68) con un solo cambio: la clase raíz
+ * `.bot` es `.gf-bot-svg` (una clase tan genérica chocaría con cualquier app): defs (degradados,
  * filtros, máscaras), capas de luz y los huecos donde el motor monta cara, accesorios y efectos.
  *
  * Es una plantilla de texto pura — sin DOM — así que se prerenderiza igual en servidor y navegador.
@@ -13,7 +14,7 @@
 export function botSkeleton(id: string): string {
   const p = id;
   return `
-<svg class="bot" viewBox="0 0 200 212" aria-hidden="true">
+<svg class="gf-bot-svg" viewBox="0 0 200 212" aria-hidden="true">
   <defs>
     <radialGradient id="${p}-body" gradientUnits="userSpaceOnUse" cx="80" cy="74" r="142">
       <stop offset="0" class="c1"/><stop offset=".42" class="c2"/><stop offset=".8" class="c2"/><stop offset="1" class="c3"/>

@@ -12,6 +12,8 @@
 export { GF_BOT_STATES, isGfBotState } from './bot-state';
 export type { GfBotState } from './bot-state';
 
+export { GfBotComponent } from './component/gf-bot.component';
+export type { GfBotRoutineEvent } from './component/gf-bot.component';
 export { createBot } from './engine/create-bot';
 export type { GfBotActionId, GfBotApi, GfBotControls } from './engine/create-bot';
 export type { GfBotAgentEvent } from './engine/agent';

@@ -1,0 +1,491 @@
+/*
+ * Estilos de <gf-bot>. Salen del prototipo «Glyph Bots» v68 (SOLO las reglas del bot: el layout del
+ * laboratorio se quedó fuera) con tres cambios, y desde aquí es CSS de la librería, no del prototipo:
+ *
+ *  1. La clase raíz `.bot` (genérica: chocaría con cualquier app) es `.gf-bot-svg`.
+ *  2. Los valores de `data-shape`/`data-face`/`data-hat`/`data-material`/`data-mfam` están en inglés,
+ *     igual que los ids del motor (`globo`→`tofu`, `gato`→`cat`, `fant`→`ghost`…). NO cambian los ids de
+ *     piel (`g1`, `f1`, `o1`, `n1`…) ni las clases internas (`.gcheek`, `.ngafas`…): son el contrato con
+ *     lo que pinta el motor.
+ *  3. Los colores de página que usaba (`--ink`, `--muted`…) pasan a tokens propios `--gf-bot-*`, con
+ *     su valor por defecto y su variante oscura en el bloque de `gf-bot` de abajo.
+ *
+ * Va con `ViewEncapsulation.None` a propósito: el SVG lo escribe el motor con `innerHTML`, así que
+ * Angular no le pone el atributo de encapsulación y las reglas encapsuladas no lo alcanzarían. El
+ * alcance lo da la clase `.gf-bot-svg`, no el componente.
+ */
+gf-bot {
+  /* Tokens que heredan las escenas de trabajo (hoja, lupa, notas, calendario…). Se sobrescriben desde fuera. */
+  --gf-bot-surface: #ffffff;
+  --gf-bot-ink: #191923;
+  --gf-bot-muted: #686879;
+  --gf-bot-line: #dadae5;
+  --gf-bot-accent: #5847d6;
+  --gf-bot-shadow: rgba(34, 24, 70, 0.3);
+  --gf-bot-font-display: system-ui, 'Segoe UI', sans-serif;
+  --gf-bot-font-body: system-ui, 'Segoe UI', sans-serif;
+
+  /* Los trazos que usan currentColor (y el texto de las escenas) toman la tinta del bot, no la de la página que lo aloja. */
+  color: var(--gf-bot-ink);
+  display: inline-block;
+  /* Por contención, como <gf-icon>: el ancho lo manda --gf-bot-size y el alto sale de la proporción del viewBox (200×212). */
+  width: var(--gf-bot-size, 96px);
+  aspect-ratio: 200 / 212;
+  line-height: 0;
+  /* Fuera del bot nada debe recortar sus efectos (vapor, sombrero, objetos): se dibujan dentro del viewBox, pero el SVG deja ver lo que se sale. */
+  contain: none;
+}
+@media (prefers-color-scheme: dark) {
+  gf-bot {
+    --gf-bot-surface: #1a1a23;
+    --gf-bot-ink: #ececf4;
+    --gf-bot-muted: #9c9cb0;
+    --gf-bot-line: #2b2b39;
+    --gf-bot-accent: #a195ff;
+    --gf-bot-shadow: rgba(0, 0, 0, 0.6);
+  }
+}
+/* Tocar y arrastrar (input `interactive`): sin esto el dedo desplaza la página en vez de agarrar al bot. */
+gf-bot[data-interactive] > .gf-bot-svg { touch-action: none; cursor: grab; }
+gf-bot[data-interactive] > .gf-bot-svg.grabbing { cursor: grabbing; }
+
+/* ===== Reglas del bot (del prototipo, ver arriba) ===== */
+.gf-bot-svg .puff{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .plan-card{ fill:var(--gf-bot-surface); stroke:var(--gf-bot-line); stroke-width:1.2 }
+.gf-bot-svg .plan-box{ fill:none; stroke:var(--gf-bot-muted); stroke-width:1.4 }
+.gf-bot-svg .plan-line{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .plan-mark{ fill:none; stroke:#2FBF71; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round }
+.gf-bot-svg .qmark{ fill:var(--gf-bot-ink); font-family:var(--gf-bot-font-display); font-weight:700 }
+.gf-bot-svg .lens-glass{ fill:#fff; fill-opacity:.28 }
+.gf-bot-svg .lens-ring{ fill:none; stroke:var(--gf-bot-ink); stroke-width:3 }
+.gf-bot-svg .lens-handle{ stroke:var(--gf-bot-ink); stroke-width:4.5; stroke-linecap:round }
+.gf-bot-svg .bar{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .bar-top{ fill:#2FBF71 }
+.gf-bot-svg .note{ filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.25)) }
+.gf-bot-svg .route-dot{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .flag-pole{ stroke:var(--gf-bot-ink); stroke-width:2; stroke-linecap:round }
+.gf-bot-svg .flag-cloth{ fill:#FF5FA8; transform-origin:inherit }
+.gf-bot-svg .bar-track{ fill:var(--gf-bot-line) }
+.gf-bot-svg .bar-fill{ fill:var(--gf-bot-accent) }
+.gf-bot-svg .bar-fill.bar-done{ fill:#2FBF71 }
+.gf-bot-svg .orbit-dot{ fill:var(--gf-bot-accent) }
+.gf-bot-svg .block{ filter:drop-shadow(0 2px 2px rgba(0,0,0,.2)) }
+.gf-bot-svg .plane path{ fill:var(--gf-bot-surface); stroke:var(--gf-bot-ink); stroke-width:1.4; stroke-linejoin:round }
+.gf-bot-svg .plane .plane-fold{ fill:none }
+.gf-bot-svg .bulb-glass{ fill:#FFE27A; filter:drop-shadow(0 0 4px #FFD24A) }
+.gf-bot-svg .bulb-base{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .cmp-t{ fill:var(--gf-bot-ink); font-family:var(--gf-bot-font-display); font-weight:700; font-size:15px }
+.gf-bot-svg .cmp-win{ stroke:#2FBF71; stroke-width:2.6 }
+.gf-bot-svg .note-t{ font-family:var(--gf-bot-font-body); font-weight:700 }
+.gf-bot-svg .cal-head{ fill:var(--gf-bot-accent) }
+.gf-bot-svg .cal-cell{ fill:var(--gf-bot-line) }
+.gf-bot-svg .cal-ring{ fill:none; stroke:#FF5FA8; stroke-width:2.2 }
+.gf-bot-svg .hg-frame{ fill:none; stroke:var(--gf-bot-ink); stroke-width:2; stroke-linejoin:round }
+.gf-bot-svg .hg-sand{ fill:#F5C451 }
+.gf-bot-svg .dream > circle, .gf-bot-svg .dream .cl > *{ fill:var(--gf-bot-surface); stroke:var(--gf-bot-line); stroke-width:1.2 }
+.gf-bot-svg .fence rect{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .count{ fill:var(--gf-bot-ink); font-family:var(--gf-bot-font-display); font-weight:700 }
+.gf-bot-svg .sheep circle{ fill:#fff; stroke:#C9C6D8; stroke-width:1 }
+.gf-bot-svg .sheep-head{ fill:#3A3350 }
+.gf-bot-svg .sheep-legs{ stroke:#3A3350; stroke-width:2; stroke-linecap:round }
+.gf-bot-svg .moon{ fill:#FFE9A8; filter:drop-shadow(0 0 6px #FFE9A8) }
+.gf-bot-svg .star{ fill:#FFE9A8 }
+.gf-bot-svg .shoot{ stroke:#FFE9A8; stroke-width:2.2; stroke-linecap:round }
+.gf-bot-svg .doc-title{ fill:var(--gf-bot-accent); opacity:.85 }
+.gf-bot-svg .doc-line{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .caret{ fill:var(--gf-bot-ink) }
+.gf-bot-svg .strike{ fill:var(--gf-bot-ink) }
+.gf-bot-svg .stamp circle, .gf-bot-svg .stamp path{ fill:none; stroke:#2FBF71; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round }
+.gf-bot-svg .gear{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .gear2{ fill:var(--gf-bot-accent) }
+.gf-bot-svg .rays path{ stroke:#FFD24A; stroke-width:2; stroke-linecap:round }
+.gf-bot-svg .bub-film{ fill-opacity:.28 }
+.gf-bot-svg .bub-rim{ fill:none; stroke-width:1.4 }
+.gf-bot-svg .bub-hi{ fill:#fff; opacity:.9 }
+.gf-bot-svg .drop{ fill:#BFEFFF }
+.gf-bot-svg .wisp{ fill:var(--gf-bot-muted); font-family:var(--gf-bot-font-body); font-weight:700 }
+.gf-bot-svg .air{ fill:none; stroke:var(--gf-bot-muted); stroke-width:1.6; stroke-linecap:round }
+.gf-bot-svg .grass{ fill:none; stroke:#6FBF73; stroke-width:1.4; stroke-linecap:round }
+.gf-bot-svg .dust{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .fence path{ fill:var(--gf-bot-muted) }
+.gf-bot-svg[data-lod="sm"] .fx, .gf-bot-svg[data-lod="sm"] .world, .gf-bot-svg[data-lod="sm"] .faceFx, .gf-bot-svg[data-lod="sm"] .brow, .gf-bot-svg[data-lod="sm"] .tear, .gf-bot-svg[data-lod="sm"] .sweat{ display:none }
+.gf-bot-svg[data-lod="sm"] .whisk, .gf-bot-svg[data-lod="sm"] .nose, .gf-bot-svg[data-lod="sm"] .eye-amb{ display:none }
+.gf-bot-svg[data-lod="sm"] .lid{ stroke-width:5 }
+.gf-bot-svg[data-lod="sm"] .mouth{ stroke-width:4 }
+.gf-bot-svg[data-lod="sm"] .eyeball{ rx:11px; ry:14px }
+/* en chico, ojos más grandes para que se lean */
+.gf-bot-svg[data-lod="sm"][data-skin="robot"] .eyeball{ rx:8px; ry:9px }
+.gf-bot-svg .qmark-err{ fill:#E5484D }
+.gf-bot-svg .poke-ring{ fill:none; stroke:#fff; stroke-width:2 }
+.gf-bot-svg .fx, .gf-bot-svg .world, .gf-bot-svg .toys, .gf-bot-svg .faceFx, .gf-bot-svg .shadow{ pointer-events:none }
+/* los efectos no roban el clic: se toca al bot, no a su vapor */
+.gf-bot-svg .cross{ }
+/* colores por estilo de cara */
+.gf-bot-svg .eyeball.tint{ fill:#7DF3FF }
+.gf-bot-svg[data-face="geo"] .eyes, .gf-bot-svg[data-face="screen"] .eyes, .gf-bot-svg[data-face="geo"] .mouths, .gf-bot-svg[data-face="screen"] .mouths{ filter:drop-shadow(0 0 2px rgba(94,231,255,.75)) }
+.gf-bot-svg[data-face="geo"] .lid, .gf-bot-svg[data-face="geo"] .mouth, .gf-bot-svg[data-face="screen"] .lid, .gf-bot-svg[data-face="screen"] .mouth, .gf-bot-svg[data-face="geo"] .ring-o, .gf-bot-svg[data-face="screen"] .ring-o{ stroke:#7DF3FF }
+.gf-bot-svg[data-face="geo"] .mfill, .gf-bot-svg[data-face="screen"] .mfill, .gf-bot-svg[data-face="geo"] .altfill, .gf-bot-svg[data-face="screen"] .altfill{ fill:#7DF3FF }
+.gf-bot-svg[data-face="geo"] .tongue, .gf-bot-svg[data-face="screen"] .tongue{ display:none }
+.gf-bot-svg .eyeball.stk{ fill:none; stroke:#1E1238; stroke-width:4.4; stroke-linecap:round }
+.gf-bot-svg[data-face="glyph"] .lid, .gf-bot-svg[data-face="glyph"] .mouth{ stroke-width:2.4 }
+.gf-bot-svg .iris{ fill:none; stroke:var(--c2); stroke-width:2.2; opacity:.6 }
+.gf-bot-svg .eyeball.mono{ fill:#15112B; stroke:var(--c1); stroke-width:1.8 }
+.gf-bot-svg .mono-dot{ fill:var(--c1) }
+.gf-bot-svg[data-skin="robot"] .eyeball.stk{ stroke:#8CF4FF; fill:none }
+.gf-bot-svg[data-skin="robot"] .cross{ stroke:#8CF4FF }
+/* Mochi (neumórfico): su piel reemplaza la luz genérica, sin brillo especular; la cara es índigo, gordita */
+.gf-bot-svg .skinBack, .gf-bot-svg .skinPaint{ display:none }
+.gf-bot-svg[data-skin="mochi"] .skinBack, .gf-bot-svg[data-skin="mochi"] .skinPaint{ display:inline }
+.gf-bot-svg[data-skin="mochi"] .rimDark, .gf-bot-svg[data-skin="mochi"] .fill-light, .gf-bot-svg[data-skin="mochi"] .rim-light, .gf-bot-svg[data-skin="mochi"] .light, .gf-bot-svg[data-skin="mochi"] .vig{ display:none }
+.gf-bot-svg[data-skin="mochi"] .shadow{ display:none }
+/* Mochi y Tofu: sin sombra en el piso, se ven flotando */
+.gf-bot-svg[data-skin="mochi"] .lite.dim{ fill:#A7ACE6 }
+/* sin velo al dormir: el cuerpo conserva su color real en todas las formas y pieles (lo dormido lo dicen los ojos, la respiración y las Z) */
+.gf-bot-svg .lite.dim{ display:none }
+/* las luces de color de las emociones (feliz, emocionado, celebrar…) se quedan; solo se apagan en los estados largos
+   (trabajando y dormido), donde sus bucles pintaban un velo encima del cuerpo */
+.gf-bot-svg[data-skin="mochi"][data-mstate="working"] .lite.rl, .gf-bot-svg[data-skin="mochi"][data-mstate="working"] .lite.rr, .gf-bot-svg[data-skin="mochi"][data-mstate="working"] .lite.rt, .gf-bot-svg[data-skin="mochi"][data-mstate="working"] .lite.rb, .gf-bot-svg[data-skin="mochi"][data-mstate="working"] .lite.sheen,
+.gf-bot-svg[data-skin="mochi"][data-mstate="sleeping"] .lite.rl, .gf-bot-svg[data-skin="mochi"][data-mstate="sleeping"] .lite.rr, .gf-bot-svg[data-skin="mochi"][data-mstate="sleeping"] .lite.rt, .gf-bot-svg[data-skin="mochi"][data-mstate="sleeping"] .lite.rb, .gf-bot-svg[data-skin="mochi"][data-mstate="sleeping"] .lite.sheen{ display:none }
+.gf-bot-svg[data-face="neu"] .eyeball.nrect, .gf-bot-svg[data-face="tofu"] .eyeball.nrect, .gf-bot-svg[data-face="night"] .eyeball.nrect, .gf-bot-svg[data-face="cat"] .eyeball.nrect{ fill:#433CBB }
+.gf-bot-svg[data-lod="sm"][data-face="neu"] .eyeball.nrect, .gf-bot-svg[data-lod="sm"][data-face="tofu"] .eyeball.nrect, .gf-bot-svg[data-lod="sm"][data-face="night"] .eyeball.nrect, .gf-bot-svg[data-lod="sm"][data-face="cat"] .eyeball.nrect{ rx:4px; ry:4px }
+.gf-bot-svg[data-face="neu"] .lid, .gf-bot-svg[data-face="neu"] .ring-o, .gf-bot-svg[data-face="tofu"] .lid, .gf-bot-svg[data-face="tofu"] .ring-o, .gf-bot-svg[data-face="night"] .lid, .gf-bot-svg[data-face="night"] .ring-o, .gf-bot-svg[data-face="cat"] .lid, .gf-bot-svg[data-face="cat"] .ring-o{ stroke:#433CBB; stroke-width:4 }
+.gf-bot-svg[data-face="neu"] .mouth, .gf-bot-svg[data-face="tofu"] .mouth, .gf-bot-svg[data-face="night"] .mouth, .gf-bot-svg[data-face="cat"] .mouth{ stroke:#433CBB; stroke-width:4.2 }
+.gf-bot-svg[data-face="neu"] .mouth.mfill, .gf-bot-svg[data-face="neu"] .mfill, .gf-bot-svg[data-face="neu"] .altfill, .gf-bot-svg[data-face="neu"] .altfill-in, .gf-bot-svg[data-face="tofu"] .mouth.mfill, .gf-bot-svg[data-face="tofu"] .mfill, .gf-bot-svg[data-face="tofu"] .altfill, .gf-bot-svg[data-face="tofu"] .altfill-in, .gf-bot-svg[data-face="night"] .mouth.mfill, .gf-bot-svg[data-face="night"] .mfill, .gf-bot-svg[data-face="night"] .altfill, .gf-bot-svg[data-face="night"] .altfill-in, .gf-bot-svg[data-face="cat"] .mouth.mfill, .gf-bot-svg[data-face="cat"] .mfill, .gf-bot-svg[data-face="cat"] .altfill, .gf-bot-svg[data-face="cat"] .altfill-in{ fill:#433CBB; stroke:none }
+.gf-bot-svg[data-face="neu"] .tongue, .gf-bot-svg[data-face="tofu"] .tongue, .gf-bot-svg[data-face="night"] .tongue, .gf-bot-svg[data-face="cat"] .tongue{ display:none }
+.gf-bot-svg .mcheek{ display:none }
+/* Mochi · Línea: blanco, contorno índigo grueso, cara chica de glifo */
+.gf-bot-svg[data-mvar="line"] .eyeball.nrect, .gf-bot-svg[data-mvar="line"] .mouth.mfill{ fill:#2E2896 }
+.gf-bot-svg[data-mvar="line"] .eyeball.nrect{ transform:scale(.78); transform-box:fill-box; transform-origin:center }
+.gf-bot-svg[data-mvar="line"] .mouth[data-m="pill"]{ transform:scale(.8); transform-box:fill-box; transform-origin:center }
+.gf-bot-svg[data-mvar="line"] .lid, .gf-bot-svg[data-mvar="line"] .mouth, .gf-bot-svg[data-mvar="line"] .ring-o{ stroke:#2E2896 }
+.gf-bot-svg[data-mvar="line"] .mfill, .gf-bot-svg[data-mvar="line"] .altfill, .gf-bot-svg[data-mvar="line"] .altfill-in{ fill:#2E2896 }
+/* Mochi · Gel: cuerpo oscuro con luz interna; ojos claros; mejilla magenta */
+.gf-bot-svg[data-mvar="gel"] .eyeball.nrect, .gf-bot-svg[data-mvar="gel"] .mouth.mfill, .gf-bot-svg[data-mvar="gel"] .mfill, .gf-bot-svg[data-mvar="gel"] .altfill, .gf-bot-svg[data-mvar="gel"] .altfill-in{ fill:#98AAF8 }
+.gf-bot-svg[data-mvar="gel"] .lid, .gf-bot-svg[data-mvar="gel"] .mouth, .gf-bot-svg[data-mvar="gel"] .ring-o{ stroke:#98AAF8 }
+.gf-bot-svg[data-mvar="gel"] .eyes, .gf-bot-svg[data-mvar="gel"] .mouths{ filter:drop-shadow(0 0 2px rgba(152,170,248,.6)) }
+.gf-bot-svg[data-mvar="gel"] .mcheek{ display:inline; fill:#C27BF0; opacity:.85; filter:blur(1.2px) }
+.gf-bot-svg[data-mvar="gel"] .shadow{ opacity:.15 }
+.gf-bot-svg[data-mvar="gel"] .lite.dim{ fill:#10143A }
+/* Mochi · App: blanco con un degradado iridiscente abajo; cara índigo */
+.gf-bot-svg[data-mvar="app"] .eyeball.nrect, .gf-bot-svg[data-mvar="app"] .mouth.mfill, .gf-bot-svg[data-mvar="app"] .mfill{ fill:#3B2FA8 }
+.gf-bot-svg[data-mvar="app"] .lid, .gf-bot-svg[data-mvar="app"] .mouth{ stroke:#3B2FA8 }
+.gf-bot-svg[data-mvar="app"] .lite.dim{ fill:#B9B3EE }
+.gf-bot-svg[data-mvar="line"] .shadow, .gf-bot-svg[data-mvar="app"] .shadow{ opacity:.18 }
+/* Gel/App: el color interno está vivo. Cada mancha fluye a su ritmo; el estado cambia la velocidad y la fuerza,
+   la emoción lo tiñe (mezcla "color") y los destellos lo encienden. */
+.gf-bot-svg .mflow{ transform-box:view-box; transform-origin:100px 112px; transition:translate .5s cubic-bezier(.3,1.3,.5,1), rotate .5s cubic-bezier(.3,1.3,.5,1), opacity .8s ease }
+.gf-bot-svg .mb{ transform-box:fill-box; transform-origin:center; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate }
+.gf-bot-svg[data-mvar="gel"], .gf-bot-svg[data-mvar="app"]{ --flow:1 }
+.gf-bot-svg[data-mstate="working"]{ --flow:.45 }
+.gf-bot-svg[data-mstate="sleeping"]{ --flow:2.4 }
+.gf-bot-svg .mb1{ animation-name:mf1; animation-duration:calc(6.2s * var(--flow,1)) }
+.gf-bot-svg .mb2{ animation-name:mf2; animation-duration:calc(5.1s * var(--flow,1)) }
+.gf-bot-svg .mb3{ animation-name:mf3; animation-duration:calc(7.4s * var(--flow,1)) }
+.gf-bot-svg .mb4{ animation-name:mf2; animation-duration:calc(6.8s * var(--flow,1)); animation-delay:-2s }
+.gf-bot-svg .mb5{ animation-name:mf1; animation-duration:calc(5.6s * var(--flow,1)); animation-delay:-3s }
+.gf-bot-svg .mb6{ animation-name:mf3; animation-duration:calc(8s * var(--flow,1)); animation-delay:-1s }
+@keyframes mf1{ 0%{ transform:translate(-6px,2px) scale(1) } 50%{ transform:translate(4px,-3px) scale(1.12,.94) } 100%{ transform:translate(7px,3px) scale(.95,1.08) } }
+@keyframes mf2{ 0%{ transform:translate(5px,-2px) scale(1.05) } 50%{ transform:translate(-4px,4px) scale(.92,1.1) } 100%{ transform:translate(-7px,-3px) scale(1.1,.95) } }
+@keyframes mf3{ 0%{ transform:translate(0,4px) scale(.94) } 50%{ transform:translate(6px,0) scale(1.1) } 100%{ transform:translate(-5px,-4px) scale(1) } }
+.gf-bot-svg[data-mstate="sleeping"] .mhalo{ opacity:.45 }
+.gf-bot-svg[data-mvar="gel"][data-mstate="working"] .mhalo{ animation:mhalo 1.3s ease-in-out infinite alternate }
+.gf-bot-svg[data-mvar="app"][data-mstate="working"] .mhalo{ animation:mhalo 1.6s ease-in-out infinite alternate }
+@keyframes mhalo{ from{ opacity:.7 } to{ opacity:1.35 } }
+.gf-bot-svg[data-mvar="gel"] .lite.mood{ mix-blend-mode:color }
+/* en el gel la emoción cambia el tono de toda la luz interna */
+.gf-bot-svg[data-mvar="app"] .lite.mood{ mix-blend-mode:multiply }
+/* en el app tiñe el blanco sin apagar el iridiscente */
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .mb, .gf-bot-svg .mhalo{ animation:none !important } }
+/* cola del gato: vaivén lento con la onda viajando hacia la punta + un coletazo de vez en cuando */
+.gf-bot-svg .gt{ --gt:3.4s; --gk:1; animation:gsway var(--gt) cubic-bezier(.42,0,.58,1) infinite; transform-box:view-box }
+.gf-bot-svg .gt1{ --ga:3; animation-delay:calc(var(--gt) * -.34) }
+.gf-bot-svg .gt2{ --ga:6; animation-delay:calc(var(--gt) * -.2) }
+.gf-bot-svg .gt3{ --ga:10; animation-delay:calc(var(--gt) * -.06) }
+@keyframes gsway{ 0%,100%{ rotate:calc(var(--ga) * var(--gk) * -1deg) } 50%{ rotate:calc(var(--ga) * var(--gk) * 1deg) } }
+.gf-bot-svg .gtw{ transform-box:view-box; animation:gflick 7.3s ease-in-out infinite; transition:rotate .9s ease }
+@keyframes gflick{ 0%,74%,100%{ rotate:0deg } 80%{ rotate:-8deg } 86%{ rotate:5deg } 92%{ rotate:-2deg } }
+.gf-bot-svg[data-mstate="working"] .gt{ --gt:1.7s; --gk:1.25 }
+.gf-bot-svg[data-mstate="sleeping"] .gt{ --gt:6.5s; --gk:.3 }
+.gf-bot-svg[data-mstate="sleeping"] .gtw{ animation:none; rotate:14deg }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .gt, .gf-bot-svg .gtw{ animation:none !important } }
+.gf-bot-svg .mcheek2{ display:none }
+.gf-bot-svg[data-mvar="ether"], .gf-bot-svg[data-mvar="pastel"]{ --flow:1 }
+.gf-bot-svg[data-mvar="ether"] .eyeball.nrect, .gf-bot-svg[data-mvar="pastel"] .eyeball.nrect, .gf-bot-svg[data-mvar="solid"] .eyeball.nrect,
+.gf-bot-svg[data-mvar="ether"] .mfill, .gf-bot-svg[data-mvar="pastel"] .mfill, .gf-bot-svg[data-mvar="solid"] .mfill{ fill:#3B2FA8 }
+.gf-bot-svg[data-mvar="ether"] .lid, .gf-bot-svg[data-mvar="pastel"] .lid, .gf-bot-svg[data-mvar="solid"] .lid,
+.gf-bot-svg[data-mvar="ether"] .mouth, .gf-bot-svg[data-mvar="pastel"] .mouth, .gf-bot-svg[data-mvar="solid"] .mouth{ stroke:#3B2FA8 }
+.gf-bot-svg[data-mvar="ether"] .lite.mood, .gf-bot-svg[data-mvar="pastel"] .lite.mood{ mix-blend-mode:multiply }
+.gf-bot-svg[data-mvar="ether"] .shadow, .gf-bot-svg[data-mvar="pastel"] .shadow, .gf-bot-svg[data-mvar="flat"] .shadow{ opacity:.16 }
+.gf-bot-svg[data-mvar="ether"][data-mstate="working"] .mhalo, .gf-bot-svg[data-mvar="pastel"][data-mstate="working"] .mhalo{ animation:mhalo 1.5s ease-in-out infinite alternate }
+.gf-bot-svg[data-mvar="flat"] .eyeball.nrect, .gf-bot-svg[data-mvar="flat"] .mouth.mfill, .gf-bot-svg[data-mvar="flat"] .mfill, .gf-bot-svg[data-mvar="flat"] .altfill, .gf-bot-svg[data-mvar="flat"] .altfill-in{ fill:#F2F2FF }
+.gf-bot-svg[data-mvar="flat"] .lid, .gf-bot-svg[data-mvar="flat"] .mouth, .gf-bot-svg[data-mvar="flat"] .ring-o{ stroke:#F2F2FF }
+.gf-bot-svg[data-mvar="flat"] .lite.dim{ fill:#23246E }
+.gf-bot-svg[data-mvar="solid"] .mcheek, .gf-bot-svg[data-mvar="solid"] .mcheek2{ display:inline; fill:#F7A7C8; opacity:.8 }
+.gf-bot-svg[data-mvar="solid"] .mcheek{ rx:5.5px; ry:3.6px }
+.gf-bot-svg[data-mvar="solid"] .shadow{ opacity:.1 }
+.gf-bot-svg[data-mvar="solid"] .lite.dim{ fill:#6B6FA8 }
+.gf-bot-svg[data-mvar="solid"] .maccent{ transform-box:fill-box; transform-origin:center; animation:maccent calc(4s * var(--flow,1)) ease-in-out infinite alternate }
+.gf-bot-svg[data-mvar="solid"]{ --flow:1 }
+@keyframes maccent{ from{ transform:translate(0,0) scale(1) } to{ transform:translate(-3px,-4px) scale(1.08) } }
+.gf-bot-svg[data-mvar="flat"] .side, .gf-bot-svg[data-mvar="line"] .side{ display:none }
+.gf-bot-svg .mvisor, .gf-bot-svg .mspec{ display:none }
+/* ---- Noche ---- */
+.gf-bot-svg[data-mfam="night"]{ --flow:1 }
+.gf-bot-svg[data-mvar="n1"] .eyeball.nrect, .gf-bot-svg[data-mvar="n1"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n1"] .mouth.mfill{ fill:#150E3A }
+.gf-bot-svg[data-mvar="n1"] .lid, .gf-bot-svg[data-mvar="n1"] .mouth{ stroke:#150E3A }
+.gf-bot-svg[data-mvar="n1"] .mspec{ display:inline; fill:#fff; opacity:.9 }
+.gf-bot-svg[data-mvar="n2"] .eyeball.nrect, .gf-bot-svg[data-mvar="n2"] .mfill, .gf-bot-svg[data-mvar="n6"] .eyeball.nrect, .gf-bot-svg[data-mvar="n6"] .mfill,
+.gf-bot-svg[data-mvar="n4"] .eyeball.nrect, .gf-bot-svg[data-mvar="n4"] .mfill, .gf-bot-svg[data-mvar="n10"] .eyeball.nrect, .gf-bot-svg[data-mvar="n10"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n4"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n10"] .mouth.mfill{ fill:#2A2690 }
+.gf-bot-svg[data-mvar="n2"] .lid, .gf-bot-svg[data-mvar="n2"] .mouth, .gf-bot-svg[data-mvar="n6"] .lid, .gf-bot-svg[data-mvar="n6"] .mouth,
+.gf-bot-svg[data-mvar="n4"] .lid, .gf-bot-svg[data-mvar="n4"] .mouth, .gf-bot-svg[data-mvar="n10"] .lid, .gf-bot-svg[data-mvar="n10"] .mouth{ stroke:#2A2690 }
+.gf-bot-svg[data-mvar="n3"] .eyeball.nrect, .gf-bot-svg[data-mvar="n3"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n3"] .mouth.mfill{ fill:#9CC0FF }
+.gf-bot-svg[data-mvar="n3"] .lid, .gf-bot-svg[data-mvar="n3"] .mouth, .gf-bot-svg[data-mvar="n3"] .ring-o{ stroke:#9CC0FF }
+.gf-bot-svg.gf-bot-svg[data-mvar="n3"] .mouth[data-m="o"]{ fill:none; stroke:#9CC0FF; stroke-width:2.6 }
+.gf-bot-svg[data-mvar="n3"] .eyes, .gf-bot-svg[data-mvar="n3"] .mouths{ filter:drop-shadow(0 0 2.5px rgba(124,168,255,.8)) }
+.gf-bot-svg[data-mvar="n5"] .eyeball.nrect, .gf-bot-svg[data-mvar="n5"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n5"] .mouth.mfill{ fill:#0F1D5C }
+.gf-bot-svg[data-mvar="n5"] .lid, .gf-bot-svg[data-mvar="n5"] .mouth{ stroke:#0F1D5C }
+.gf-bot-svg[data-mvar="n7"] .eyeball.nrect, .gf-bot-svg[data-mvar="n7"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n7"] .mouth.mfill{ fill:#1A1450 }
+.gf-bot-svg[data-mvar="n7"] .lid, .gf-bot-svg[data-mvar="n7"] .mouth{ stroke:#1A1450 }
+.gf-bot-svg[data-mvar="n8"] .mvisor{ display:inline; fill:#0E1230 }
+.gf-bot-svg[data-mvar="n8"] .eyeball.nrect, .gf-bot-svg[data-mvar="n8"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n8"] .mouth.mfill{ fill:#5CC8FF }
+.gf-bot-svg[data-mvar="n8"] .lid, .gf-bot-svg[data-mvar="n8"] .mouth{ stroke:#5CC8FF }
+.gf-bot-svg[data-mvar="n8"] .eyes, .gf-bot-svg[data-mvar="n8"] .mouths{ filter:drop-shadow(0 0 2px rgba(92,200,255,.7)) }
+.gf-bot-svg[data-mvar="n9"] .eyeball.nrect, .gf-bot-svg[data-mvar="n9"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="n9"] .mouth.mfill{ fill:#6FE7FF }
+.gf-bot-svg[data-mvar="n9"] .lid, .gf-bot-svg[data-mvar="n9"] .mouth{ stroke:#6FE7FF }
+.gf-bot-svg[data-mvar="n9"] .eyes, .gf-bot-svg[data-mvar="n9"] .mouths{ filter:drop-shadow(0 0 2.5px rgba(111,231,255,.75)) }
+.gf-bot-svg[data-mvar="n1"] .lite.mood, .gf-bot-svg[data-mvar="n3"] .lite.mood, .gf-bot-svg[data-mvar="n5"] .lite.mood, .gf-bot-svg[data-mvar="n7"] .lite.mood, .gf-bot-svg[data-mvar="n9"] .lite.mood{ mix-blend-mode:color }
+.gf-bot-svg[data-mvar="n2"] .lite.mood, .gf-bot-svg[data-mvar="n4"] .lite.mood, .gf-bot-svg[data-mvar="n6"] .lite.mood, .gf-bot-svg[data-mvar="n8"] .lite.mood, .gf-bot-svg[data-mvar="n10"] .lite.mood{ mix-blend-mode:multiply }
+.gf-bot-svg[data-mfam="night"] .lite.dim{ fill:#10143A }
+.gf-bot-svg[data-mvar="n3"] .side, .gf-bot-svg[data-mvar="n5"] .side{ display:none }
+.gf-bot-svg[data-mfam="night"][data-mstate="working"] .mhalo{ animation:mhalo 1.4s ease-in-out infinite alternate }
+.gf-bot-svg[data-skin="robot"][data-face="neu"] .mouth.mfill, .gf-bot-svg[data-skin="robot"][data-face="neu"] .mfill{ fill:#8CF4FF }
+/* en el visor del robot la boca va clara */
+.gf-bot-svg[data-skin="robot"][data-face="neu"] .mouth, .gf-bot-svg[data-skin="robot"][data-face="neu"] .lid{ stroke:#8CF4FF }
+/* ---- Paleta del bot (BotPalette): los accesorios la heredan. Canales independientes, uno por piel del Mochi ---- */
+.gf-bot-svg{ --bot-base:#E3E6FC; --bot-primary:#C8CEF9; --bot-secondary:#B4C6F7; --bot-tertiary:#DCCDF8; --bot-highlight:#FFFFFF; --bot-shadow:#A6AEEC; --bot-edge:#FFFFFF; --bot-glow:#EEF0FE; --bot-stroke:none }
+.gf-bot-svg[data-mvar="line"]{ --bot-base:#F5F6FE; --bot-primary:#EEF0FD; --bot-secondary:#E8EDFC; --bot-tertiary:#F2EEFD; --bot-highlight:#FFFFFF; --bot-shadow:#DADDF5; --bot-edge:#FFFFFF; --bot-glow:#F5F6FE; --bot-stroke:#2E2896 }
+.gf-bot-svg[data-mvar="gel"]{ --bot-base:#2E3688; --bot-primary:#3D5BD6; --bot-secondary:#45D6D0; --bot-tertiary:#9B5CF0; --bot-highlight:#8FA6FF; --bot-shadow:#1C2160; --bot-edge:#DDE3FF; --bot-glow:#5A6BFF }
+.gf-bot-svg[data-mvar="app"]{ --bot-base:#F4F4FD; --bot-primary:#D6D0FD; --bot-secondary:#B8E4FD; --bot-tertiary:#F77EFA; --bot-highlight:#FFFFFF; --bot-shadow:#C6C3F2; --bot-edge:#FFFFFF; --bot-glow:#FDE3F4 }
+.gf-bot-svg[data-mvar="ether"]{ --bot-base:#F4F6FE; --bot-primary:#D8CCFB; --bot-secondary:#8FD4F8; --bot-tertiary:#F6A6EE; --bot-highlight:#FFFFFF; --bot-shadow:#C4CBF3; --bot-edge:#FFFFFF; --bot-glow:#EAF5FF }
+.gf-bot-svg[data-mvar="pastel"]{ --bot-base:#ECE9FD; --bot-primary:#C9B7FC; --bot-secondary:#A5DDF8; --bot-tertiary:#FAA8F0; --bot-highlight:#FFFFFF; --bot-shadow:#BDB9F1; --bot-edge:#FFFFFF; --bot-glow:#F3EEFF }
+.gf-bot-svg[data-mvar="flat"]{ --bot-base:#5E61FC; --bot-primary:#5E61FC; --bot-secondary:#5E61FC; --bot-tertiary:#5E61FC; --bot-highlight:#5E61FC; --bot-shadow:#4C4FE6; --bot-edge:#5E61FC; --bot-glow:#7477FF }
+.gf-bot-svg[data-mvar="solid"]{ --bot-base:#F7F7FD; --bot-primary:#EFEFFA; --bot-secondary:#E4E6F7; --bot-tertiary:#E9E4F8; --bot-highlight:#FFFFFF; --bot-shadow:#D6D8EE; --bot-edge:#FFFFFF; --bot-glow:#F7F7FD }
+/* manchas internas del material: deriva casi imperceptible (10–20 s); trabajando, un poco más de saturación */
+.gf-bot-svg .hmb > g{ animation:hdrift 16s ease-in-out infinite alternate; transform-box:fill-box; transform-origin:center }
+.gf-bot-svg .hmb > g:nth-child(2){ animation-duration:13s; animation-delay:-5s }
+.gf-bot-svg .hmb > g:nth-child(3){ animation-duration:19s; animation-delay:-9s }
+.gf-bot-svg .hmb > g:nth-child(4){ animation-duration:11s; animation-delay:-3s }
+@keyframes hdrift{ 0%{ transform:translate(0,0) scale(1) } 50%{ transform:translate(9%,-7%) scale(1.05) } 100%{ transform:translate(-7%,6%) scale(.97) } }
+.gf-bot-svg .hmat{ transition:filter .8s ease }
+.gf-bot-svg[data-mstate="working"] .hmat{ filter:saturate(1.18) brightness(1.04) }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .hmb > g{ animation:none !important } }
+/* Jalea y Nube llevan los ojos de todos (neumórficos, sin el brillito de la cara de noche) */
+.gf-bot-svg[data-shape="nJelly"] .mspec, .gf-bot-svg[data-shape="nCloud"] .mspec{ display:none !important }
+.gf-bot-svg .jbubs circle{ fill:#fff; fill-opacity:.35; stroke:#fff; stroke-opacity:.75; stroke-width:1.2; animation:jbub 6s ease-in infinite; transform-box:view-box; opacity:0 }
+@keyframes jbub{ 0%{ transform:translate(0,0) scale(.6); opacity:0 } 12%{ opacity:.9 } 50%{ transform:translate(3px,-44px) scale(1) } 85%{ opacity:.7 } 100%{ transform:translate(-2px,-74px) scale(1.1); opacity:0 } }
+.gf-bot-svg[data-mstate="working"] .jbubs circle{ animation-duration:2.6s !important }
+.gf-bot-svg[data-mstate="sleeping"] .jbubs circle{ animation-duration:12s !important; }
+.gf-bot-svg .nlights{ animation:nlight 9s ease-in-out infinite alternate }
+@keyframes nlight{ from{ transform:translate(-6px,2px) } to{ transform:translate(8px,-3px) } }
+.gf-bot-svg .nwisp{ animation:nwisp 7s ease-in-out infinite alternate; opacity:.85 }
+.gf-bot-svg .nw2{ animation-duration:9s; animation-delay:-3s }
+@keyframes nwisp{ from{ transform:translate(-5px,2px) } to{ transform:translate(6px,-3px) } }
+.gf-bot-svg .nwisp{ filter:blur(.6px) }
+.gf-bot-svg[data-mvar="gel"] .nwisp, .gf-bot-svg[data-mfam="night"] .nwisp{ --nwisp:#F2F1FF; opacity:.32 }
+.gf-bot-svg .psweep{ animation:psweep 5.5s cubic-bezier(.45,0,.3,1) infinite }
+@keyframes psweep{ 0%{ transform:translateX(0) } 55%,100%{ transform:translateX(300px) } }
+.gf-bot-svg[data-mstate="working"] .psweep{ animation-duration:2.4s }
+.gf-bot-svg[data-mstate="sleeping"] .psweep{ animation-duration:12s; opacity:.5 }
+.gf-bot-svg .psparks path{ animation:pspark 3.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center; opacity:0 }
+@keyframes pspark{ 0%,60%,100%{ opacity:0; transform:scale(.3) rotate(0deg) } 75%{ opacity:1; transform:scale(1) rotate(40deg) } }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .jbubs circle, .gf-bot-svg .nlights, .gf-bot-svg .nwisp, .gf-bot-svg .psweep, .gf-bot-svg .psparks path{ animation:none !important } .gf-bot-svg .psparks path{ opacity:.8 } }
+/* ---- Pulpo ---- */
+.gf-bot-svg[data-mfam="octopus"] .mspec{ display:none !important }
+.gf-bot-svg.gf-bot-svg[data-mfam="octopus"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mfam="octopus"] .mfill, .gf-bot-svg.gf-bot-svg[data-mfam="octopus"] .mouth.mfill{ fill:#1F1A6E }
+.gf-bot-svg.gf-bot-svg[data-mfam="octopus"] .lid, .gf-bot-svg.gf-bot-svg[data-mfam="octopus"] .mouth{ stroke:#1F1A6E }
+.gf-bot-svg.gf-bot-svg[data-mvar="o2"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mvar="o2"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="o2"] .mouth.mfill{ fill:#3B1E5E }
+.gf-bot-svg.gf-bot-svg[data-mvar="o2"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="o2"] .mouth{ stroke:#3B1E5E }
+.gf-bot-svg.gf-bot-svg[data-mvar="o4"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mvar="o4"] .mfill, .gf-bot-svg.gf-bot-svg[data-mvar="o4"] .mouth.mfill{ fill:#DCE6FF }
+.gf-bot-svg.gf-bot-svg[data-mvar="o4"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="o4"] .mouth{ stroke:#DCE6FF }
+.gf-bot-svg[data-mvar="o4"] .eyes{ filter:drop-shadow(0 0 2.5px rgba(150,170,255,.85)) }
+.gf-bot-svg[data-mfam="octopus"] .lite.mood{ mix-blend-mode:multiply }
+.gf-bot-svg[data-mvar="o4"] .lite.mood{ mix-blend-mode:color }
+/* ---- Efectos para todas las formas (sección Colores) ---- */
+.gf-bot-svg .xfx{ display:none }
+.gf-bot-svg[data-fx="glow"] .xfx-glow, .gf-bot-svg[data-fx="glitch"] .xfx-glitch, .gf-bot-svg[data-fx="bug"] .xfx-bug{ display:inline }
+.gf-bot-svg[data-fx="glow"] .nvol, .gf-bot-svg[data-fx="glow"] .nlights{ display:none }
+.gf-bot-svg[data-fx="glow"] .accBack .acc:not(.hatAcc), .gf-bot-svg[data-fx="glow"] .accFront .acc:not(.hatAcc) { filter:brightness(.34) saturate(1.4) drop-shadow(0 0 3px rgba(155,123,255,.9)) }
+.gf-bot-svg.gf-bot-svg[data-fx="glow"] .eyeball, .gf-bot-svg.gf-bot-svg[data-fx="glow"] .mfill, .gf-bot-svg.gf-bot-svg[data-fx="glow"] .mouth.mfill{ fill:#E9E5FF }
+.gf-bot-svg.gf-bot-svg[data-fx="glow"] .lid, .gf-bot-svg.gf-bot-svg[data-fx="glow"] .mouth{ stroke:#E9E5FF }
+.gf-bot-svg[data-fx="glow"] .eyes{ filter:drop-shadow(0 0 2px rgba(190,170,255,.8)) }
+.gf-bot-svg[data-fx="pixel"] .skinBack > *{ display:none }
+/* el halo difuminado se vuelve ruido al pixelar */
+.gf-bot-svg .xbar{ opacity:0; animation:xbar 2.6s steps(1) infinite; mix-blend-mode:screen }
+@keyframes xbar{ 0%,30%{ opacity:0 } 31%{ opacity:.85; transform:translateX(-6px) } 33%{ opacity:0 } 62%{ opacity:.7; transform:translateX(5px) } 64%,100%{ opacity:0 } }
+.gf-bot-svg[data-fx="glitch"] .flip{ animation:xflip 2.6s steps(1) infinite }
+@keyframes xflip{ 0%,30%{ translate:0 0 } 31%{ translate:-3px 0 } 33%{ translate:2px 0 } 35%,100%{ translate:0 0 } }
+.gf-bot-svg .xchk{ opacity:0; animation:xchk 5.2s steps(1) infinite }
+@keyframes xchk{ 0%,70%{ opacity:0 } 71%{ opacity:.95 } 79%{ opacity:0 } 84%{ opacity:.9 } 86%,100%{ opacity:0 } }
+.gf-bot-svg[data-fx="bug"] .flip{ animation:xbugf 3.7s steps(1) infinite }
+@keyframes xbugf{ 0%,88%{ translate:0 0 } 89%{ translate:4px -1px } 91%{ translate:-3px 1px } 93%{ translate:2px 0 } 95%,100%{ translate:0 0 } }
+.gf-bot-svg[data-fx="bug"] .breath{ animation:xbugh 6.1s steps(1) infinite }
+@keyframes xbugh{ 0%,93%{ filter:none } 94%{ filter:invert(1) hue-rotate(180deg) } 95.5%{ filter:none } 97%{ filter:hue-rotate(120deg) saturate(2) } 98%,100%{ filter:none } }
+/* ---- Accesorios extra (sección Sombreros) ---- */
+.gf-bot-svg .ngafas{ display:none }
+.gf-bot-svg[data-hat="glasses"] .ngafas{ display:inline }
+.gf-bot-svg .nhalo{ animation:nhalo 2.6s ease-in-out infinite }
+@keyframes nhalo{ 50%{ transform:translateY(-3px) } }
+.gf-bot-svg .nh1{ animation:nheart 1.8s ease-in-out infinite; transform-box:fill-box; transform-origin:center }
+.gf-bot-svg .nh2{ animation:nheart 1.8s ease-in-out -.9s infinite; transform-box:fill-box; transform-origin:center }
+@keyframes nheart{ 0%,100%{ transform:translateY(0) scale(1) } 50%{ transform:translateY(-4px) scale(1.12) } }
+/* corazón: ojitos cerrados de gusto y sonrisa (la cara base; las kawaii se ponen encima igual) */
+.gf-bot-svg[data-hat="heart"] .eyes .eye{ opacity:0 !important }
+.gf-bot-svg[data-hat="heart"] .eyes .lid.closed{ opacity:1 !important }
+.gf-bot-svg[data-hat="heart"] .mouths .mouth, .gf-bot-svg[data-hat="heart"] .mouths .mouth-g{ opacity:0 !important }
+.gf-bot-svg[data-hat="heart"] .mouths [data-m="smile"]{ opacity:1 !important }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .nhalo, .gf-bot-svg .nh1, .gf-bot-svg .nh2, .gf-bot-svg .xbar, .gf-bot-svg .xchk, .gf-bot-svg .flip, .gf-bot-svg[data-fx="bug"] .breath{ animation:none !important } }
+/* cachetes solo en Fantasma, Jalea, Nube y Gato */
+.gf-bot-svg:not([data-shape="nJelly"]):not([data-shape="nCloud"]):not([data-shape="cat"]):not([data-shape="ghost"]) :is(.cheek, .mcheek, .mcheek2, .kcheek){ display:none !important }
+.gf-bot-svg .kyawn{ animation:kyawn 1.5s ease-in-out both; transform-box:view-box }
+@keyframes kyawn{ 0%{ transform:scale(.5,.3) } 45%,75%{ transform:scale(1.05,1.12) } 100%{ transform:scale(.8,.6) } }
+.gf-bot-svg .xk{ opacity:0; transform-box:fill-box; transform-origin:center }
+.gf-bot-svg .kswirl{ animation:kspin 1.1s linear infinite; transform-box:view-box }
+@keyframes kspin{ to{ transform:rotate(360deg) } }
+.gf-bot-svg .kheart{ animation:kbeat .55s ease-in-out infinite alternate; transform-box:view-box }
+@keyframes kbeat{ from{ transform:scale(.92) } to{ transform:scale(1.12) } }
+.gf-bot-svg .kstream{ animation:kstream 1.4s ease-in infinite; transform-box:view-box }
+@keyframes kstream{ 0%{ transform:scaleY(.2); opacity:.4 } 60%{ transform:scaleY(1); opacity:.95 } 100%{ transform:scaleY(1.05); opacity:.6 } }
+.gf-bot-svg .kdrop{ animation:kdrop 1.6s ease-in-out infinite; transform-box:fill-box; transform-origin:top }
+@keyframes kdrop{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(1.5px) } }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .kswirl, .gf-bot-svg .kheart, .gf-bot-svg .kstream, .gf-bot-svg .kdrop{ animation:none !important } }
+/* ---- Sombreros ---- */
+.gf-bot-svg .hatDyn, .gf-bot-svg .hatTip{ transform-box:view-box }
+.gf-bot-svg .accBack .hfront, .gf-bot-svg .accFront .hback{ display:none }
+/* HAT_BACK detrás del cuerpo, HAT_FRONT delante */
+.gf-bot-svg .hflame{ animation:hflame .45s ease-in-out infinite alternate; transform-box:view-box }
+@keyframes hflame{ from{ transform:scale(1,1) rotate(-3deg) } to{ transform:scale(.86,1.14) rotate(3deg) } }
+.gf-bot-svg[data-mstate="sleeping"] .hflame{ animation-duration:1.4s; opacity:.55 }
+.gf-bot-svg .hled{ animation:hled 2.4s ease-in-out infinite }
+@keyframes hled{ 0%,100%{ opacity:1 } 50%{ opacity:.4 } }
+.gf-bot-svg[data-mstate="working"] .hled{ animation-duration:.45s }
+.gf-bot-svg[data-mstate="sleeping"] .hled{ animation:none; opacity:.2 }
+.gf-bot-svg .hled2{ animation:hhue 4s linear infinite }
+@keyframes hhue{ to{ filter:hue-rotate(360deg) } }
+.gf-bot-svg[data-mstate="working"] .hled2{ animation-duration:1s }
+.gf-bot-svg[data-mstate="sleeping"] .hled2{ animation:none; opacity:.35 }
+.gf-bot-svg .hsparkle{ animation:hspark 2.8s ease-in-out infinite; transform-box:fill-box; transform-origin:center; opacity:0 }
+@keyframes hspark{ 0%,68%,100%{ opacity:0; transform:scale(.3) rotate(0deg) } 80%{ opacity:1; transform:scale(1) rotate(45deg) } }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .hflame, .gf-bot-svg .hled, .gf-bot-svg .hled2, .gf-bot-svg .hsparkle{ animation:none !important } }
+/* ---- Fantasma ---- */
+.gf-bot-svg .fcheek{ display:none }
+.gf-bot-svg[data-face="ghost"] .fcheek{ display:inline; fill:#F5AED6 }
+.gf-bot-svg.gf-bot-svg[data-face="ghost"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-face="ghost"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-face="ghost"] .mfill, .gf-bot-svg.gf-bot-svg[data-face="ghost"] .altfill, .gf-bot-svg.gf-bot-svg[data-face="ghost"] .altfill-in{ fill:#282653; stroke:none }
+.gf-bot-svg.gf-bot-svg[data-face="ghost"] .lid, .gf-bot-svg.gf-bot-svg[data-face="ghost"] .ring-o{ stroke:#282653; stroke-width:4 }
+.gf-bot-svg.gf-bot-svg[data-face="ghost"] .mouth{ stroke:#282653; stroke-width:4 }
+.gf-bot-svg[data-face="ghost"] .tongue{ display:none }
+.gf-bot-svg[data-mvar="f1"] .fcheek, .gf-bot-svg[data-mvar="f4"] .fcheek, .gf-bot-svg[data-mvar="f7"] .fcheek{ fill:#F79FDF }
+.gf-bot-svg[data-mvar="f2"] .fcheek{ fill:#FBBAE2 }
+.gf-bot-svg[data-mvar="f3"] .fcheek{ fill:#FDA6D9 }
+.gf-bot-svg[data-mvar="f6"] .fcheek{ fill:#F9CFE9 }
+.gf-bot-svg[data-mvar="f9"] .fcheek{ fill:#E9A8EE }
+.gf-bot-svg[data-mvar="f10"] .fcheek{ fill:#F699D3 }
+.gf-bot-svg[data-mvar="f5"] .fcheek{ fill:#F9B4EA }
+.gf-bot-svg.gf-bot-svg[data-mvar="f3"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mvar="f3"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="f3"] .mfill{ fill:#161A6E }
+.gf-bot-svg.gf-bot-svg[data-mvar="f3"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="f3"] .mouth{ stroke:#161A6E }
+.gf-bot-svg.gf-bot-svg[data-mvar="f8"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mvar="f8"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="f8"] .mfill{ fill:#5FE3F5 }
+.gf-bot-svg.gf-bot-svg[data-mvar="f8"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="f8"] .mouth{ stroke:#5FE3F5 }
+.gf-bot-svg[data-mvar="f8"] .mvisor{ display:inline; fill:#141A45 }
+.gf-bot-svg[data-mvar="f8"] .fcheek{ display:none }
+.gf-bot-svg[data-mvar="f8"] .eyes, .gf-bot-svg[data-mvar="f8"] .mouths{ filter:drop-shadow(0 0 2.5px rgba(95,227,245,.75)) }
+.gf-bot-svg.gf-bot-svg[data-mvar="f11"] .eyeball.nrect{ fill:#63E8F9 }
+.gf-bot-svg.gf-bot-svg[data-mvar="f11"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="f11"] .mfill{ fill:#F1E8FF }
+.gf-bot-svg.gf-bot-svg[data-mvar="f11"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="f11"] .mouth{ stroke:#63E8F9 }
+.gf-bot-svg[data-mvar="f11"] .fcheek{ fill:#7C5BD8; opacity:.9 }
+.gf-bot-svg[data-mvar="f11"] .eyes{ filter:drop-shadow(0 0 2.5px rgba(99,232,249,.7)) }
+.gf-bot-svg[data-mfam="ghost"] .lite.mood{ mix-blend-mode:multiply }
+.gf-bot-svg[data-mvar="f11"] .lite.mood, .gf-bot-svg[data-mvar="f7"] .lite.mood{ mix-blend-mode:color }
+/* la «w» de gatito: trazo más fino que las otras bocas para que se lean las dos curvas (en cualquier forma) */
+.gf-bot-svg.gf-bot-svg.gf-bot-svg .mouth[data-m="w"]{ stroke-width:3; stroke-linecap:round; stroke-linejoin:round; fill:none }
+.gf-bot-svg .gcheek, .gf-bot-svg .gwhisk{ display:none }
+.gf-bot-svg[data-face="cat"] .gcheek{ display:inline; fill:#F3A9D3; opacity:.75 }
+.gf-bot-svg[data-face="cat"] .gwhisk{ display:inline; fill:none; stroke:#FFD4A1; stroke-width:1.6; stroke-linecap:round }
+.gf-bot-svg.gf-bot-svg[data-face="cat"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-face="cat"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-face="cat"] .mfill{ fill:#202047 }
+.gf-bot-svg.gf-bot-svg[data-face="cat"] .lid, .gf-bot-svg.gf-bot-svg[data-face="cat"] .mouth{ stroke:#202047 }
+.gf-bot-svg[data-face="cat"] .mspec{ display:inline; fill:#fff; opacity:.95 }
+.gf-bot-svg[data-face="cat"] .gtongue{ fill:#FF8DB0 }
+.gf-bot-svg[data-mvar="g2"] .mspec, .gf-bot-svg[data-mvar="g3"] .mspec, .gf-bot-svg[data-mvar="g10"] .mspec{ display:none }
+.gf-bot-svg[data-mvar="g1"] .gcheek{ fill:#FF7185 }
+.gf-bot-svg[data-mvar="g4"] .gcheek{ fill:#FF8DC5 }
+.gf-bot-svg[data-mvar="g5"] .gcheek{ fill:#FF6375 }
+.gf-bot-svg[data-mvar="g2"] .gcheek, .gf-bot-svg[data-mvar="g6"] .gcheek, .gf-bot-svg[data-mvar="g10"] .gcheek{ fill:#FFB3AE; opacity:.55 }
+.gf-bot-svg[data-mvar="g3"] .gcheek{ fill:#F9B4A6; opacity:.6 }
+.gf-bot-svg[data-mvar="g3"] .gwhisk{ stroke:#D85B3F; stroke-width:2 }
+.gf-bot-svg[data-mvar="g2"] .gwhisk, .gf-bot-svg[data-mvar="g10"] .gwhisk{ stroke:#F4A15D }
+.gf-bot-svg[data-mvar="g6"] .gwhisk{ stroke:#E9C7B5 }
+.gf-bot-svg[data-mvar="g7"] .gcheek{ fill:#FF9ADF; opacity:.6 }
+.gf-bot-svg[data-mvar="g7"] .gwhisk, .gf-bot-svg[data-mvar="g4"] .gwhisk, .gf-bot-svg[data-mvar="g9"] .gwhisk{ stroke:#FFFFFF; opacity:.8 }
+.gf-bot-svg[data-mvar="g9"] .gcheek{ fill:#F5B7EE }
+.gf-bot-svg.gf-bot-svg[data-mvar="g8"] .eyeball.nrect, .gf-bot-svg.gf-bot-svg[data-mvar="g8"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="g8"] .mfill{ fill:#67E9F4 }
+.gf-bot-svg.gf-bot-svg[data-mvar="g8"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="g8"] .mouth{ stroke:#67E9F4 }
+.gf-bot-svg[data-mvar="g8"] .mvisor{ display:inline; fill:#17182F }
+.gf-bot-svg[data-mvar="g8"] .gcheek, .gf-bot-svg[data-mvar="g8"] .mspec, .gf-bot-svg[data-mvar="g8"] .gtongue{ display:none }
+.gf-bot-svg[data-mvar="g8"] .eyes, .gf-bot-svg[data-mvar="g8"] .mouths{ filter:drop-shadow(0 0 2px rgba(103,233,244,.7)) }
+.gf-bot-svg.gf-bot-svg[data-mvar="g11"] .eyeball.nrect{ fill:#6FE9FF }
+.gf-bot-svg.gf-bot-svg[data-mvar="g11"] .mouth.mfill, .gf-bot-svg.gf-bot-svg[data-mvar="g11"] .mfill{ fill:#D18BFF }
+.gf-bot-svg.gf-bot-svg[data-mvar="g11"] .lid, .gf-bot-svg.gf-bot-svg[data-mvar="g11"] .mouth{ stroke:#6FE9FF }
+.gf-bot-svg[data-mvar="g11"] .gcheek{ fill:#8A68D8; opacity:.8 }
+.gf-bot-svg[data-mvar="g11"] .gwhisk{ stroke:#B06BFF }
+.gf-bot-svg[data-mvar="g11"] .gtongue{ display:none }
+.gf-bot-svg[data-mvar="g11"] .eyes{ filter:drop-shadow(0 0 2px rgba(111,233,255,.6)) }
+.gf-bot-svg[data-mfam="cat"] .lite.mood{ mix-blend-mode:color }
+.gf-bot-svg[data-mvar="g11"] .lite.mood, .gf-bot-svg[data-mvar="g7"] .lite.mood{ mix-blend-mode:color }
+.gf-bot-svg[data-mvar="g11"] .lite.dim{ fill:#10143A }
+.gf-bot-svg[data-mfam="cat"] .lite.dim{ fill:#B98E7A }
+.gf-bot-svg[data-mvar="g2"] .side, .gf-bot-svg[data-mvar="g3"] .side{ display:none }
+.gf-bot-svg .m1{ stop-color:var(--m1) }
+.gf-bot-svg .m2{ stop-color:var(--m2) }
+.gf-bot-svg .m3{ stop-color:var(--m3) }
+.gf-bot-svg .m4{ stop-color:var(--m4) }
+.gf-bot-svg .m5{ stop-color:var(--m5) }
+.gf-bot-svg .m6{ stop-color:var(--m6) }
+/* Bot — cada grupo animado gira sobre coordenadas del viewBox, no del navegador */
+.gf-bot-svg{ display:block; width:100%; height:auto; overflow:visible }
+.gf-bot-svg g, .gf-bot-svg ellipse, .gf-bot-svg path, .gf-bot-svg text, .gf-bot-svg rect{ transform-box:view-box }
+.gf-bot-svg .lid{ fill:none; stroke:#1C1531; stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round }
+.gf-bot-svg .side{ transform-origin:0 0 }
+.gf-bot-svg .hop, .gf-bot-svg .breath{ transform-origin:100px 172px }
+.gf-bot-svg .flip, .gf-bot-svg .clipShape, .gf-bot-svg .light, .gf-bot-svg .face, .gf-bot-svg .gaze{ transform-origin:100px 110px }
+.gf-bot-svg .shadow{ fill:var(--gf-bot-shadow); transform-origin:100px 194px }
+.gf-bot-svg .c1{ stop-color:var(--c1) }
+.gf-bot-svg .c2{ stop-color:var(--c2) }
+.gf-bot-svg .c3{ stop-color:var(--c3) }
+.gf-bot-svg .dot{ fill:var(--gf-bot-ink) }
+.gf-bot-svg .zz{ fill:var(--gf-bot-muted); font-family:var(--gf-bot-font-display); font-weight:700 }
+.gf-bot-svg .thought circle{ fill:var(--gf-bot-muted) }
+.gf-bot-svg .spinner{ fill:none; stroke:var(--gf-bot-ink); stroke-width:3.4; stroke-linecap:round; stroke-dasharray:34 23; transform-origin:100px 22px }
+.gf-bot-svg .bubble{ fill:#fff; fill-opacity:.35; stroke:#fff; stroke-opacity:.8; stroke-width:1.4; transform-origin:124px 124px }
+.gf-bot-svg .thought circle, .gf-bot-svg .dot{ transform-origin:center; transform-box:fill-box }
+.gf-bot-svg[data-skin="robot"] .eyeball, .gf-bot-svg[data-skin="robot"] .altfill{ fill:#8CF4FF }
+.gf-bot-svg[data-skin="robot"] .eyes, .gf-bot-svg[data-skin="robot"] .mouths{ filter:drop-shadow(0 0 2px rgba(94,231,255,.7)) }
+/* brillo suave y controlado, sin halos */
+.gf-bot-svg[data-skin="robot"] .lid, .gf-bot-svg[data-skin="robot"] .mouth, .gf-bot-svg[data-skin="robot"] .ring-o{ stroke:#8CF4FF }
+.gf-bot-svg[data-skin="robot"] .mfill{ fill:#8CF4FF; stroke:none }
+.gf-bot-svg[data-skin="robot"] .tongue{ display:none }
+.gf-bot-svg .altfill, .gf-bot-svg .altfill-in{ fill:#1E1238 }
+.gf-bot-svg .ring-o{ fill:none; stroke:#1E1238; stroke-width:2.6 }
+.gf-bot-svg .eye-amb{ fill:var(--c1); opacity:.22 }
+.gf-bot-svg .cheek{ transform-box:fill-box; transform-origin:center }
+.gf-bot-svg .whisk{ fill:none; stroke:#1C1531; stroke-width:1.6; stroke-linecap:round; opacity:.5 }
+.gf-bot-svg .mouths [data-m]{ opacity:0; transition:opacity .12s ease }
+.gf-bot-svg .mouth{ fill:none; stroke:#1E1238; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round }
+.gf-bot-svg .mouth.mfill, .gf-bot-svg .mfill{ fill:#1E1238; stroke:none }
+.gf-bot-svg .tongue{ fill:#FF7FA6 }
+.gf-bot-svg .ant-stick{ fill:none; stroke:var(--c3); stroke-width:2.6; stroke-linecap:round }
+.gf-bot-svg .ant-base{ fill:var(--c3) }
+.gf-bot-svg .ant-tip{ fill:#8CF4FF; filter:drop-shadow(0 0 2.5px rgba(94,231,255,.8)); transform-box:view-box }
+.gf-bot-svg .ant{ transform-box:view-box }
+.gf-bot-svg .rled-base{ fill:var(--c3) }
+.gf-bot-svg .rled{ fill:#8CF4FF; filter:drop-shadow(0 0 2px rgba(94,231,255,.8)) }
+.gf-bot-svg .toy .tspin{ animation:tspin 2.4s ease-in-out infinite; transform-box:fill-box; transform-origin:center }
+@keyframes tspin{ 0%,100%{ transform:rotate(-10deg) scale(1) } 50%{ transform:rotate(10deg) scale(1.08) } }
+@media (prefers-reduced-motion: reduce){ .gf-bot-svg .toy .tspin{ animation:none } }

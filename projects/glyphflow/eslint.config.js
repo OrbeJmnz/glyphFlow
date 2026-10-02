@@ -18,7 +18,8 @@ module.exports = defineConfig([
         'error',
         {
           type: 'attribute',
-          prefix: 'max',
+          // `gf` desde la v2.0.0; `max` sigue por los alias deprecados de la v1 (salen en la v3)
+          prefix: ['gf', 'max'],
           style: 'camelCase',
         },
       ],
@@ -26,7 +27,7 @@ module.exports = defineConfig([
         'error',
         {
           type: 'element',
-          prefix: 'max',
+          prefix: ['gf', 'max'],
           style: 'kebab-case',
         },
       ],

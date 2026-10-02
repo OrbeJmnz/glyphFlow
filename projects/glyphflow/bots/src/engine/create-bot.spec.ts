@@ -191,6 +191,17 @@ describe('glyphflow/bots · createBot', () => {
     expect(add.mock.calls.length).toBe(n);
   });
 
+  it('enableTouch se puede apagar y volver a encender', () => {
+    const { api } = make();
+    const add = vi.spyOn(api.svg, 'addEventListener');
+    const off = api.enableTouch();
+    const n = add.mock.calls.length;
+    off();
+    const again = api.enableTouch();
+    expect(again).not.toBe(off);
+    expect(add.mock.calls.length).toBe(2 * n);
+  });
+
   it('gazeAt mira, salvo que lo estén arrastrando', () => {
     const { api, ctx } = make();
     api.gazeAt(1, 0);

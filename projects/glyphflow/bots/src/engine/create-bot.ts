@@ -111,7 +111,7 @@ export interface GfBotControls {
   /** Mira hacia (dx, dy) en -1…1, salvo que lo estén arrastrando. */
   gazeAt(dx: number, dy: number): void;
   pop(): void;
-  /** Activa tocar y arrastrar. Devuelve el que lo desactiva; llamarlo dos veces no duplica los listeners. */
+  /** Activa tocar y arrastrar. Devuelve el que lo desactiva; llamarlo dos veces no duplica los listeners, y tras desactivarlo se puede volver a activar. */
   enableTouch(): () => void;
   /** Para los `hoverOnly`: `true` descongela, `false` congela. */
   hover(on: boolean): void;
@@ -278,7 +278,17 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
     token: act['token'] as GfBotControls['token'],
     gazeAt: act['gazeAt'] as GfBotControls['gazeAt'],
     pop: act['pop'] as GfBotControls['pop'],
-    enableTouch: () => (touchOff ??= enableTouch(ctx)),
+    enableTouch: () => {
+      if (touchOff) return touchOff;
+      const stop = enableTouch(ctx);
+      // al apagarlo se olvida: así volver a llamar a `enableTouch()` lo vuelve a encender de verdad
+      const off = (): void => {
+        stop();
+        if (touchOff === off) touchOff = null;
+      };
+      touchOff = off;
+      return off;
+    },
     hover: (on) => {
       ctx.hoverHold = !on;
       updateRun();
