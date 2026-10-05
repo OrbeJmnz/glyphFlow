@@ -53,6 +53,14 @@ describe('glyphflow/bots · formas', () => {
     expect(robot.acc?.length).toBe(3); // antena + dos tornillos
   });
 
+  it('toda forma esférica irregular declara su profundidad, para que gire con volumen', () => {
+    for (const [k, sh] of Object.entries({ ...ACTIVAS, ...NOCHE })) {
+      if (sh.model !== 'sphere') continue;
+      expect(sh.depth, k).toBeGreaterThan(0.4);
+      expect(sh.depth, k).toBeLessThan(1);
+    }
+  });
+
   it('cada familia declara la suya y su cara', () => {
     expect(ghostShape.family).toBe('ghost');
     expect(catShape.family).toBe('cat');

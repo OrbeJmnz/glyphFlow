@@ -93,6 +93,8 @@ export interface GfBotShape {
   mochiDefault?: string;
 
   // Pose
+  /** Profundidad del cuerpo / su ancho (ver `GfBotPoseShape.depth`). Sin esto la forma gira como una esfera. */
+  depth?: number;
   tilt?: number;
   float?: boolean;
   floatAmp?: number;

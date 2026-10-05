@@ -16,7 +16,7 @@ function makeOctopus(): GfBotShape {
     label: 'Octopus',
     family: 'octopus',
     palette: 'mist',
-    model: 'sphere',
+    model: 'sphere', depth:0.76,
     R: 59,
     cy: 100,
     top: 38,

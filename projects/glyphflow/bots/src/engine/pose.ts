@@ -51,6 +51,15 @@ export interface GfBotPoseShape {
   model: GfBotModel;
   /** Radio (esfera y cilindro). */
   R?: number;
+  /**
+   * Profundidad del cuerpo en proporción a su ancho (solo esfera). Sin esto el cuerpo es una esfera
+   * perfecta y al girar su silueta no cambia: solo se mueve la cara sobre un cuerpo que no gira, que en
+   * una forma irregular (fantasma, gato, pulpo) se ve plano. Con `depth < 1` es un elipsoide aplanado
+   * —un fantasma delgado, un gato achatado—: al girar la silueta se estrecha hasta `depth` de su ancho
+   * a los 90° y los rasgos de la cara recorren menos camino, como en un cuerpo con volumen de verdad.
+   * Con `depth = 1` equivale a la esfera.
+   */
+  depth?: number;
   /** Semilado (caja). */
   half?: number;
   /** Radio de esquina (caja). */
@@ -113,6 +122,7 @@ export function projectPose(
   const R = sh.R ?? 0;
   const half = sh.half ?? 0;
   const round = sh.round ?? 0;
+  const k = sh.depth ?? 1;
 
   const out: GfBotLayerFrame[] = feats.map((f) => {
     const dx = f.x - 100;
@@ -120,10 +130,12 @@ export function projectPose(
     let p: [number, number, number];
     let n: [number, number, number];
     if (sh.model === 'sphere') {
-      const dz = Math.sqrt(Math.max(R * R - dx * dx - dy * dy, 1));
-      const L = Math.hypot(dx, dy, dz);
+      // Elipsoide de radio R en x/y y `k·R` en z (k = 1 es la esfera del prototipo, idéntica). La
+      // normal del elipsoide es (dx, dy, dz/k²): con k = 1 es la de la esfera.
+      const dz = k * Math.sqrt(Math.max(R * R - dx * dx - dy * dy, 1));
+      const L = Math.hypot(dx, dy, dz / (k * k));
       p = [dx, dy, dz];
-      n = [dx / L, dy / L, dz / L];
+      n = [dx / L, dy / L, dz / (k * k) / L];
     } else if (sh.model === 'cyl') {
       const dz = Math.sqrt(Math.max(R * R - dx * dx, 1));
       p = [dx, dy, dz];
@@ -156,7 +168,15 @@ export function projectPose(
     sy = k(aPc, aP);
   }
   if (sh.model === 'cyl') sy = aPc + aP * ((2 * R) / 130);
-  if (sh.model === 'sphere') sy = 1 - 0.05 * aP;
+  if (sh.model === 'sphere') {
+    if (sh.depth === undefined) sy = 1 - 0.05 * aP;
+    else {
+      // Silueta de un elipsoide de profundidad `k`: el semiancho proyectado al girar `ψ` es
+      // √(cos²ψ + k²·sin²ψ) del de frente. Para el cabeceo, igual con el semialto.
+      sx = Math.sqrt(aYc * aYc + k * k * aY * aY);
+      sy = Math.sqrt(aPc * aPc + k * k * aP * aP);
+    }
+  }
   out.push({ transform: `rotate(${f2(roll)}deg) scale(${f3(sx)},${f3(sy)})` });
 
   // Caras laterales (solo cajas). Cada cara es un degradado que se DESVANECE hacia la vecina: la

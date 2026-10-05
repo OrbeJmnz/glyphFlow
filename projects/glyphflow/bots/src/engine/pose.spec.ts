@@ -58,4 +58,39 @@ describe('glyphflow/bots · projectPose', () => {
     const front = out.slice(base + 2); // segunda mitad = copias de adelante
     expect(front[1].opacity).toBe(0);
   });
+
+  describe('profundidad del cuerpo (depth)', () => {
+    const anchoDeSilueta = (sh: GfBotPoseShape, yaw: number) => {
+      const body = projectPose(sh, { yaw }, feats)[feats.length].transform;
+      return Number(/scale\(([0-9.]+),/.exec(body)?.[1]);
+    };
+
+    it('sin depth la esfera no cambia de silueta al girar (como el prototipo)', () => {
+      expect(anchoDeSilueta(sphere, Math.PI / 2)).toBe(1);
+    });
+
+    it('con depth < 1 la silueta se estrecha hasta depth a los 90° y vuelve a 1 de frente', () => {
+      const delgado: GfBotPoseShape = { ...sphere, depth: 0.55 };
+      expect(anchoDeSilueta(delgado, 0)).toBe(1);
+      expect(anchoDeSilueta(delgado, Math.PI / 2)).toBeCloseTo(0.55, 2);
+      expect(anchoDeSilueta(delgado, Math.PI)).toBeCloseTo(1, 2);
+      const a45 = anchoDeSilueta(delgado, Math.PI / 4);
+      expect(a45).toBeGreaterThan(0.55);
+      expect(a45).toBeLessThan(1);
+    });
+
+    it('depth = 1 equivale a una esfera en la pose de los rasgos', () => {
+      const igual = projectPose({ ...sphere, depth: 1 }, { yaw: 0.7, pitch: 0.2 }, feats);
+      const base = projectPose(sphere, { yaw: 0.7, pitch: 0.2 }, feats);
+      for (let i = 0; i < feats.length; i++) expect(igual[i]).toEqual(base[i]);
+    });
+
+    it('un cuerpo más delgado recorre menos camino con los rasgos al girar', () => {
+      const x = (sh: GfBotPoseShape) => {
+        const m = /translate\((-?[0-9.]+)px/.exec(projectPose(sh, { yaw: 0.6 }, feats)[0].transform);
+        return Math.abs(Number(m?.[1]));
+      };
+      expect(x({ ...sphere, depth: 0.5 })).toBeLessThan(x(sphere));
+    });
+  });
 });
