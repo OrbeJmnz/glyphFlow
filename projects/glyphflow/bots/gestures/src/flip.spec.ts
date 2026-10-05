@@ -1,13 +1,13 @@
-import { ghostShape } from '../shapes/ghost';
-import { tofuShape } from '../shapes/tofu';
-import { mochiShape } from '../shapes/mochi';
-import { buildShape } from './build';
-import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import {
-  canFlexHem, flexHem, flipDuration, flipFrame, FLIP_FACE_K, frontFlip, idleDAt, pathExtent,
-} from './flip';
-import { projectPose } from './pose';
-import { track } from './track';
+import { ghostShape } from '../../src/shapes/ghost';
+import { tofuShape } from '../../src/shapes/tofu';
+import { mochiShape } from '../../src/shapes/mochi';
+import { buildShape } from '../../src/engine/build';
+import { createBotContext, type BotContext, type GfBotOptions } from '../../src/engine/context';
+import { gfBotKit } from 'glyphflow/bots';
+import { flipDuration, flipFrame, FLIP_FACE_K, frontFlip } from './flip';
+import { projectPose } from '../../src/engine/pose';
+import { track } from '../../src/engine/track';
+const { canFlexHem, flexHem, idleDAt, pathExtent } = gfBotKit.body;
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
@@ -356,5 +356,12 @@ describe('glyphflow/bots · front flip · el gesto', () => {
       expect(calls.some((c) => c.node === ctx.el.clip)).toBe(false); // ni giro ni falda
       expect(calls.some((c) => c.node === ctx.el.flip)).toBe(false);
     });
+  });
+});
+
+describe('contrato con el motor', () => {
+  it('la marca de los efectos del flip es la que retira el motor', async () => {
+    const { GESTURE_FX_MARK } = gfBotKit;
+    expect(GESTURE_FX_MARK).toBe('flipfx');
   });
 });

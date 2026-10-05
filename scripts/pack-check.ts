@@ -108,6 +108,8 @@ if (!isGfBotState('idle') || isGfBotState('dancing')) throw new Error('isGfBotSt
 // importar el motor en Node (sin window ni document) no debe tocar el DOM: solo createBot lo usa, y solo al llamarlo
 if (typeof createBot !== 'function') throw new Error('createBot no resolvió desde glyphflow/bots');
 if (typeof GfBotComponent !== 'function') throw new Error('GfBotComponent no resolvió desde glyphflow/bots');
+import { frontFlip as unGesto, physicalGestures } from 'glyphflow/bots/gestures';
+if (typeof unGesto !== 'function' || Object.keys(physicalGestures).length !== 1) throw new Error('glyphflow/bots/gestures no resolvió');
 if (catShape.id !== 'cat' || robotShape.id !== 'robot' || nightCloudShape.id !== 'nCloud') throw new Error('las formas no resolvieron desde glyphflow/bots');
 
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');

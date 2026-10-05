@@ -1,10 +1,12 @@
 import { f2, f3 } from '../data/color';
+import { shadowFor } from './actions';
 import { canFlexHem, flexHem, gelBody, idleDAt, pathExtent } from './body-fx';
 import type { BotContext } from './context';
 import { animateShape } from './outlines';
+import { S } from './math';
 import { animatePose } from './pose-motion';
 import { shapeD } from './shape-view';
-import { play } from './timing';
+import { later, play } from './timing';
 import { track, type GfTrackNode } from './track';
 
 /**
@@ -254,4 +256,68 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     anim.addEventListener?.('finish', () => (ctx.shapeAnims = ctx.shapeAnims.filter((a) => a !== anim)), { once: true });
   }
   return at;
+}
+
+// ── Lo que comparten los gestos alrededor de la partitura ─────────────────────────────────────
+
+/**
+ * Duración del gesto `id`. Se lee de la variable CSS `--gf-bot-<id>-duration` (o `--<id>-duration`) del
+ * bot o de cualquier ancestro: `1000ms`, `1.2s`. Sin variable, `def` ms. Siempre entre `min` y `max`.
+ */
+export function gestureDuration(ctx: BotContext, id: string, def: number, min = 300, max = 4000): number {
+  const cs = getComputedStyle(ctx.svg);
+  const raw = (cs.getPropertyValue(`--gf-bot-${id}-duration`) || cs.getPropertyValue(`--${id}-duration`)).trim();
+  const m = /^([\d.]+)\s*(ms|s)$/.exec(raw);
+  const ms = m ? parseFloat(m[1]) * (m[2] === 's' ? 1000 : 1) : def;
+  return Math.min(max, Math.max(min, ms));
+}
+
+/** Movimiento reducido: sin recorrido ni giro. Un saltito con squash, stretch y un rebote, en 300–450 ms. */
+export function reducedHop(ctx: BotContext, ms: number): void {
+  const d = Math.min(450, Math.max(300, ms * 0.4));
+  ctx.hooks.act(d);
+  play(ctx, ctx.el.hop, [
+    { easing: 'ease-out' },
+    { transform: `translateY(0px) ${S(1.07, 0.9)}`, offset: 0.2, easing: 'cubic-bezier(.2,.7,.3,1)' },
+    { transform: `translateY(-16px) ${S(0.96, 1.06)}`, offset: 0.5, easing: 'cubic-bezier(.6,0,.9,.5)' },
+    { transform: `translateY(0px) ${S(1.1, 0.88)}`, offset: 0.75, easing: 'ease-out' },
+    { transform: `translateY(-2px) ${S(0.98, 1.02)}`, offset: 0.88 },
+    { transform: S(1) },
+  ], { duration: d });
+  shadowFor(ctx, [
+    { transform: S(1) }, { transform: S(1.08), offset: 0.2 }, { transform: S(0.75), opacity: 0.6, offset: 0.5 },
+    { transform: S(1.12), offset: 0.75 }, { transform: S(1) },
+  ], d);
+}
+
+/**
+ * Enciende la sombra durante el gesto: las pieles Mochi la ocultan (flotan), así que se muestra con
+ * `data-flip` y se apaga cuando terminan sus animaciones (o, sin WAAPI, pasado el tiempo).
+ */
+export function shadowFlag(ctx: BotContext, ms: number): void {
+  ctx.svg.dataset['flip'] = '';
+  const apagar = () => delete ctx.svg.dataset['flip'];
+  // (jsdom no trae getAnimations: sin él la bandera se apaga sola al terminar el gesto, vía `later`)
+  const anims = typeof ctx.el.shadow.getAnimations === 'function' ? ctx.el.shadow.getAnimations() : [];
+  for (const a of anims) a.finished.then(apagar, apagar);
+  if (!anims.length) later(ctx, apagar, ms + 50);
+}
+
+/**
+ * Sombra que sigue al gesto: más chica y más tenue cuanto más alto (`y` hasta `alto` unidades), más
+ * ancha al aplastarse en el suelo. No rota: se calcula de la trayectoria, no del giro. La opacidad
+ * sale y entra con un fundido (en reposo estas formas no tienen sombra) y escala ×1.8 sobre `base`.
+ */
+export function shadowByHeight(ctx: BotContext, at: (t: number) => MotionFrame, ms: number, alto: number, base = 0.3): void {
+  const N = 40;
+  const kf = Array.from({ length: N + 1 }, (_, i) => {
+    const t = i / N;
+    const f = at(t);
+    const h = Math.max(0, Math.min(1, -f.y / alto));
+    const borde = Math.min(1, t / 0.06, (1 - t) / 0.06);
+    const ancho = (1.04 - 0.58 * h) * (1 + 0.7 * (f.hopX - 1));
+    return { offset: t, transform: S(+ancho.toFixed(3)), opacity: +(1.8 * base * (1 - 0.7 * h) * borde).toFixed(3) };
+  });
+  shadowFor(ctx, kf, ms);
+  shadowFlag(ctx, ms);
 }

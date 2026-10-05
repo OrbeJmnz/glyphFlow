@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { flipFrame } from './flip';
-import { smoothstep, track } from './track';
+import { smoothstep, track } from '../../src/engine/track';
 
 /**
  * El front flip se recompuso con las primitivas de `motion.ts`. Esto es la tabla ORIGINAL (la de antes

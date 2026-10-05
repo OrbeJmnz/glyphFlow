@@ -4,6 +4,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
+    "paths": {
+      "glyphflow": ["../../dist/glyphflow"],
+      "glyphflow/bots": ["./bots/src/public-api.ts"]
+    },
     "types": ["vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.spec.ts", "morph/**/*.spec.ts", "bots/**/*.spec.ts"]

@@ -15,9 +15,12 @@ export type { GfBotState } from './bot-state';
 export { GfBotComponent } from './component/gf-bot.component';
 export type { GfBotRoutineEvent } from './component/gf-bot.component';
 export { createBot } from './engine/create-bot';
-export type { GfBotActionId, GfBotApi, GfBotControls } from './engine/create-bot';
+export type { GfBotActionId, GfBotApi, GfBotControls, GfBotPackApi } from './engine/create-bot';
+// Para escribir gestos propios (y para `glyphflow/bots/gestures`): las primitivas de movimiento y la cara.
+export * as gfBotKit from './engine/toolkit';
+export type { GestureDef as GfBotGestureDef, MotionFrame as GfBotMotionFrame, Score as GfBotScore } from './engine/motion';
 export type { GfBotAgentEvent } from './engine/agent';
-export type { GfBotMaterialId, GfBotMouthKind, GfBotOptions } from './engine/context';
+export type { GfBotGesture, GfBotGestureContext, GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from './engine/context';
 export { GF_BOT_VIEWS, isGfBotView } from './data/views';
 export type { GfBotView } from './data/views';
 export type { GfBotShape } from './data/shape';

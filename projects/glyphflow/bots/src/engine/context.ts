@@ -33,6 +33,15 @@ export type GfBotMouthKind = 'pill' | 'w';
 /** Materiales del cuerpo; `auto` = el de la forma. */
 export type GfBotMaterialId = keyof typeof MATERIALS;
 
+/** El contexto interno del bot que recibe cada gesto. Es opaco: se pasa tal cual a las herramientas de `gfBotKit`. */
+export type GfBotGestureContext = BotContext;
+
+/** Un gesto extra: una función que recibe el contexto y arma su movimiento con `gfBotKit`. */
+export type GfBotGesture = (ctx: GfBotGestureContext) => void;
+
+/** `{ nombre: gesto }`. Se pasa en `createBot({ gestures })` o en el input `[gestures]` de `<gf-bot>`. */
+export type GfBotGesturePack = Readonly<Record<string, GfBotGesture>>;
+
 /** Opciones con las que se crea un bot. En el prototipo la forma era una clave; ahora es el OBJETO. */
 export interface GfBotOptions {
   /** La forma. Se pasa el objeto (`mochiShape`…) para que el bundler quite las que no se usan. */
@@ -52,6 +61,8 @@ export interface GfBotOptions {
   mouthk?: GfBotMouthKind | 'auto';
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. Por defecto, de frente. */
   view?: GfBotView | number;
+  /** Gestos extra: un objeto `{ nombre: gesto }` de `glyphflow/bots/gestures` (o los tuyos). Cada uno sale como `bot.nombre()` y como `bot.gesture('nombre')`. */
+  gestures?: GfBotGesturePack;
   /** En reposo hace cositas por su cuenta (fidgets, caras kawaii). */
   wander?: boolean;
   /** Solo anima mientras hay hover (mini-bots de galería). */

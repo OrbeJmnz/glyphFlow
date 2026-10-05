@@ -18,7 +18,7 @@ import type { GfBotFaceId } from '../data/faces';
 import type { GfBotAccXId, GfBotFxId } from '../data/fx';
 import type { GfBotHatId } from '../data/hats';
 import type { GfBotPaletteId } from '../data/palettes';
-import type { GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
+import type { GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
 import type { GfBotView } from '../data/views';
 import { createBot, type GfBotApi } from '../engine/create-bot';
 
@@ -100,6 +100,9 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   @Input() mouth: GfBotMouthKind | 'auto' = 'auto';
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. */
   @Input() view: GfBotView | number = 'front';
+
+  /** Gestos extra (`import { physicalGestures } from 'glyphflow/bots/gestures'`). Se leen al montar: no cambian después. */
+  @Input() gestures?: GfBotGesturePack;
 
   /** En reposo hace cositas por su cuenta (fidgets y caras kawaii). */
   @Input() wander = false;
@@ -198,6 +201,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
       hat: this.hat,
       mouthk: this.mouth,
       view: this.view,
+      gestures: this.gestures,
       wander: this.wander,
       hoverOnly: this.hoverOnly,
       onRoutine: (state, label) => this.inZone(() => this.routineChange.emit({ state, label })),

@@ -1,5 +1,6 @@
-import type { BotContext } from './context';
-import { later } from './timing';
+import { gfBotKit, type GfBotGestureContext as BotContext } from 'glyphflow/bots';
+
+const kit = gfBotKit;
 
 /**
  * Efectos de acompañamiento del front flip, los de la referencia: flechas de despegue (hacia
@@ -16,6 +17,7 @@ import { later } from './timing';
  */
 
 const NS = 'http://www.w3.org/2000/svg';
+/** = `GESTURE_FX_MARK` del motor (lo comprueba un spec): con esa marca `act()` retira los efectos al cortar el gesto. */
 const MARCA = 'flipfx';
 
 const CIAN = '#47E4FF';
@@ -24,9 +26,7 @@ const LAVANDA = '#B38CFF';
 const AMARILLO = '#FFD24A';
 
 /** Quita los efectos de un flip anterior (que sigan ahí no tiene sentido si empieza otro, o se corta). */
-export function clearFlipFx(ctx: BotContext): void {
-  ctx.svg.querySelectorAll(`.${MARCA}`).forEach((n) => n.remove());
-}
+export const clearFlipFx = (ctx: BotContext): void => kit.clearGestureFx(ctx);
 
 function el(tag: string, attrs: Record<string, string | number>, parent: Element): SVGElement {
   const n = parent.ownerDocument.createElementNS(NS, tag) as SVGElement;
@@ -140,5 +140,5 @@ export function flipEffects(ctx: BotContext, ms: number): void {
   });
 
   // Se retiran solos al terminar; si otro gesto o la pausa los corta, los recoge `clearFlipFx` (desde `act` y `clearRoutine`).
-  later(ctx, () => clearFlipFx(ctx), ms + 250);
+  kit.later(ctx, () => clearFlipFx(ctx), ms + 250);
 }

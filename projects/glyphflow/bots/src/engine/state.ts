@@ -12,7 +12,7 @@ import { miniHop } from './actions';
 import type { GfBotState } from '../bot-state';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import { type BotContext } from './context';
-import { clearFlipFx } from './flip-fx';
+import { clearGestureFx } from './gesture-fx';
 
 
 
@@ -38,7 +38,7 @@ import { clearFlipFx } from './flip-fx';
     ctx.subAnims.forEach(a => a.cancel()); ctx.subAnims = [];
     ctx.subTimers.forEach(clearTimeout); ctx.subTimers = [];
     clearInterval(ctx.zTimer ?? undefined); ctx.zTimer = null; ctx.el.z.replaceChildren(); ctx.el.world.replaceChildren();
-    clearFace(ctx); clearFlipFx(ctx);
+    clearFace(ctx); clearGestureFx(ctx);
     [ctx.el.dots, ctx.el.thought, ctx.el.spinner, ctx.fe.bubble].forEach(n => n.setAttribute('opacity', '0'));
     (['sheen', 'rl', 'rr', 'rt', 'rb'] as const).forEach(k => ctx.el.L[k].getAnimations().forEach(a => a.cancel()));
   }
@@ -108,7 +108,7 @@ import { clearFlipFx } from './flip-fx';
   export function act(ctx: BotContext, ms: number, keepKawaii = false) {
     // Un gesto nuevo parte de una cara limpia. En reposo no se llama a `clearRoutine` (hay rutinas que
     // dejar vivas), así que sin esto la cara del gesto anterior seguía corriendo debajo de la nueva.
-    wake(ctx); clearLook(ctx); clearFace(ctx); clearFlipFx(ctx);
+    wake(ctx); clearLook(ctx); clearFace(ctx); clearGestureFx(ctx);
     if (!keepKawaii) ctx.hooks.kawaiiRelease();
     if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300); }
     else { ctx.subTimers.forEach(clearTimeout); ctx.subTimers = []; if (ctx.opts.wander) later(ctx, () => fidget(ctx), ms + 4000); }

@@ -22,6 +22,11 @@ const FESM_BOTS = new URL(
   import.meta.url,
 ).pathname.replace(/^\/([A-Za-z]):/, '$1:');
 
+const FESM_GESTURES = new URL(
+  '../dist/glyphflow/fesm2022/glyphflow-bots-gestures.mjs',
+  import.meta.url,
+).pathname.replace(/^\/([A-Za-z]):/, '$1:');
+
 const CASES = [
   {
     name: 'core — solo el componente, sin ningún icono',
@@ -138,9 +143,12 @@ const CASES = [
     // 2026-10-05: +2.4KB gzip (67.8 → 70.2KB) por el gesto `frontFlip` (el flip, las pistas `track`, la falda y
     // la deformación de la pose). Es coreografía nueva, no un import colado: el caso de solo estados sigue en
     // 0.24KB. Techo 70 → 73.
+    //
+    // 2026-10-05 (tarde): el flip y los gestos físicos salieron a `glyphflow/bots/gestures` (opt-in) y el
+    // motor bajó a ~68.3KB. Techo 73 → 70: el aire que queda es para el kit de movimiento, no para gestos.
     filaReadme: null as string | null,
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
-    maxGzipBytes: 73 * 1024,
+    maxGzipBytes: 70 * 1024,
     optimizadorAngular: true,
   },
   {
@@ -150,6 +158,19 @@ const CASES = [
     // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
     filaReadme: null as string | null,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
+    maxGzipBytes: 78 * 1024,
+    optimizadorAngular: true,
+  },
+  {
+    name: 'bots + createBot + catShape + UN gesto de glyphflow/bots/gestures (frontFlip)',
+    // El entry `glyphflow/bots/gestures` existe para que los gestos físicos NO engorden el motor: quien no
+    // lo importa no paga nada, y quien lo importa paga solo los gestos que nombra (cada uno es un objeto
+    // suelto). Este caso mide el motor + la forma + `superBounce`; la diferencia con el caso de arriba es
+    // lo que cuesta UN gesto (con sus partituras, cara y sombra). Si crece de golpe, el entry dejó de
+    // sacudirse bien (una llamada a nivel de módulo sin `@__PURE__`).
+    filaReadme: null as string | null,
+    aliasBots: true,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { frontFlip } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, frontFlip);`,
     maxGzipBytes: 81 * 1024,
     optimizadorAngular: true,
   },
@@ -159,7 +180,7 @@ const CASES = [
     // componente a propósito: un solo import y funciona) más el motor y una forma. Medido el 2026-10-02.
     filaReadme: null as string | null,
     entry: `import { GfBotComponent, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GfBotComponent, catShape);`,
-    maxGzipBytes: 89 * 1024,
+    maxGzipBytes: 86 * 1024,
     optimizadorAngular: true,
   },
 ];
@@ -284,6 +305,14 @@ function purificarDeclaraciones(src: string): string {
   return out + src.slice(last);
 }
 
+/** Resuelve `glyphflow/bots` al FESM construido (lo necesita el FESM de gestos, que lo importa por nombre de paquete). */
+const aliasBots: Plugin = {
+  name: 'alias-glyphflow-bots',
+  setup(b) {
+    b.onResolve({ filter: /^glyphflow\/bots$/ }, () => ({ path: FESM_BOTS }));
+  },
+};
+
 /** Plugin de esbuild que aplica `purificarDeclaraciones` a los FESM de dist (ver `optimizadorAngular`). */
 const pureAngular: Plugin = {
   name: 'angular-pure',
@@ -324,6 +353,22 @@ function verificarIndependencia(): boolean {
     console.error(`  ✗ el primario importa de 'glyphflow/bots': quien solo quiere iconos cargaría bots.`);
     ok = false;
   }
+  // Los gestos solo dependen del motor (por nombre de paquete): nada de iconos, y el motor no los conoce.
+  const gestos = readFileSync(FESM_GESTURES, 'utf8');
+  for (const p of ['glyphflow', 'glyphflow/morph']) {
+    if (importa(gestos, p)) {
+      console.error(`  ✗ glyphflow/bots/gestures importa de '${p}': arrastraría iconos.`);
+      ok = false;
+    }
+  }
+  if (!importa(gestos, 'glyphflow/bots')) {
+    console.error(`  ✗ glyphflow/bots/gestures no importa el motor por nombre de paquete: lo habría duplicado.`);
+    ok = false;
+  }
+  if (importa(bots, 'glyphflow/bots/gestures') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/gestures')) {
+    console.error(`  ✗ el motor o el primario importan de 'glyphflow/bots/gestures': los gestos dejarían de ser opcionales.`);
+    ok = false;
+  }
   if (ok) console.log('independencia iconos ⇄ bots: el FESM de bots no importa del primario y viceversa.');
   return ok;
 }
@@ -348,7 +393,11 @@ async function main() {
       // (`ɵɵngDeclare*`) son puras, así que un componente que nadie usa se cae del bundle. Sin esto esbuild
       // las trata como efectos y el componente viaja pegado a cualquier import del entry point. La opción
       // `pure` de esbuild NO sirve aquí: solo marca identificadores globales, y `i0` es un import.
-      plugins: c.optimizadorAngular ? [pureAngular] : [],
+      plugins: [
+        ...(c.optimizadorAngular ? [pureAngular] : []),
+        // El FESM de gestos importa el motor por nombre de paquete (`glyphflow/bots`): se resuelve al FESM construido.
+        ...('aliasBots' in c && c.aliasBots ? [aliasBots] : []),
+      ],
       write: false,
     });
 

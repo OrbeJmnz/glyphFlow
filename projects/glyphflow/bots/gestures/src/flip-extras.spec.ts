@@ -1,15 +1,17 @@
-import { GF_BOT_VIEWS, isGfBotView, viewYaw } from '../data/views';
-import { ghostShape } from '../shapes/ghost';
-import { mochiShape } from '../shapes/mochi';
-import { baseFor } from './base-pose';
-import { buildShape } from './build';
-import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { frontFlip, gelBody, gelPhase, pathExtent } from './flip';
+import { GF_BOT_VIEWS, isGfBotView, viewYaw } from '../../src/data/views';
+import { ghostShape } from '../../src/shapes/ghost';
+import { mochiShape } from '../../src/shapes/mochi';
+import { baseFor } from '../../src/engine/base-pose';
+import { buildShape } from '../../src/engine/build';
+import { createBotContext, type BotContext, type GfBotOptions } from '../../src/engine/context';
+import { gfBotKit } from 'glyphflow/bots';
+import { frontFlip, gelPhase } from './flip';
 import { clearFlipFx, flipEffects } from './flip-fx';
-import { projectPose } from './pose';
-import { act, installStateHooks } from './state';
-import { setView } from './view';
-import { installKawaiiHooks } from './kawaii';
+import { projectPose } from '../../src/engine/pose';
+import { act, installStateHooks } from '../../src/engine/state';
+import { setView } from '../../src/engine/view';
+import { installKawaiiHooks } from '../../src/engine/kawaii';
+const { gelBody, pathExtent } = gfBotKit.body;
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');

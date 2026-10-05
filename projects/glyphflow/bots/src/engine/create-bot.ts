@@ -8,11 +8,10 @@ import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotToyId } from '../data/toys';
 import { agent, token, type GfBotAgentEvent } from './agent';
-import { createBotContext, type BotContext, type GfBotMaterialId, type GfBotMouthKind, type GfBotOptions } from './context';
+import { createBotContext, type BotContext, type GfBotGesturePack, type GfBotMaterialId, type GfBotMouthKind, type GfBotOptions } from './context';
 import { enableTouch, endDrag } from './drag';
 import { celebrate, cheer, curious, excited, happy, neutral, surprised, thinking, wave } from './emotions';
 import { clearLook, gazeAt, setOpen, startBlinkLoop } from './eyes';
-import { frontFlip } from './flip';
 import { angry, bored, cartwheel, dance, disgust, dizzy, doubleHop, fear, hop, lookAround, nodYes, pop, sad, shakeNo, sick, sideHop, somersault, surprise, turn, wink } from './gestures';
 import { K, expr, installKawaiiHooks } from './kawaii';
 import { S } from './math';
@@ -46,7 +45,7 @@ import { toy } from './toys';
  * para quien solo importa los estados).
  */
 const actionTable = () => ({
-  hop, doubleHop, somersault, frontFlip, cartwheel, sideHop, turn, lookAround, shakeNo, nodYes, wink, surprise, dance, dizzy,
+  hop, doubleHop, somersault, cartwheel, sideHop, turn, lookAround, shakeNo, nodYes, wink, surprise, dance, dizzy,
   cheer, angry, sad, sick, disgust, fear, bored,
   neutral, happy, excited, curious, thinking, surprised, celebrate, wave,
   ...K,
@@ -116,6 +115,8 @@ export interface GfBotControls {
   /** Mira hacia (dx, dy) en -1…1, salvo que lo estén arrastrando. */
   gazeAt(dx: number, dy: number): void;
   pop(): void;
+  /** Corre un gesto extra registrado con `gestures` por su nombre. `false` si no existe (o es un gesto del motor: esos se llaman directo). */
+  gesture(id: string): boolean;
   /** Activa tocar y arrastrar. Devuelve el que lo desactiva; llamarlo dos veces no duplica los listeners, y tras desactivarlo se puede volver a activar. */
   enableTouch(): () => void;
   /** Para los `hoverOnly`: `true` descongela, `false` congela. */
@@ -126,6 +127,9 @@ export interface GfBotControls {
 
 export type GfBotApi = Readonly<Record<GfBotActionId, Action>> & GfBotControls;
 
+/** Los gestos de un paquete (`gestures`), como métodos del bot: `bot.superBounce()`. */
+export type GfBotPackApi<P extends GfBotGesturePack> = { readonly [K in keyof P]: Action };
+
 type Loose = (...args: never[]) => unknown;
 
 /**
@@ -133,8 +137,12 @@ type Loose = (...args: never[]) => unknown;
  *
  * @param id Prefijo de ids del SVG; el componente lo fija para que servidor y cliente coincidan.
  */
-export function createBot(host: HTMLElement, opts: GfBotOptions, id?: string): GfBotApi {
-  return assembleBot(host, opts, id).api;
+export function createBot<P extends GfBotGesturePack = Record<never, never>>(
+  host: HTMLElement,
+  opts: GfBotOptions & { gestures?: P },
+  id?: string,
+): GfBotApi & GfBotPackApi<P> {
+  return assembleBot(host, opts, id).api as GfBotApi & GfBotPackApi<P>;
 }
 
 /**
@@ -261,6 +269,9 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
     }) as Loose;
   }
 
+  // Gestos extra (`opts.gestures`): salen como métodos del bot y por nombre. Se ignoran en pausa, como los del motor,
+  // y no pisan ni un gesto del motor ni un control.
+  const pack: Record<string, Action> = {};
   const controls: GfBotControls = {
     svg,
     get state() { return ctx.state; },
@@ -284,6 +295,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
     token: act['token'] as GfBotControls['token'],
     gazeAt: act['gazeAt'] as GfBotControls['gazeAt'],
     pop: act['pop'] as GfBotControls['pop'],
+    gesture: (name) => Object.hasOwn(pack, name) && (pack[name](), true),
     enableTouch: () => {
       if (touchOff) return touchOff;
       const stop = enableTouch(ctx);
@@ -330,6 +342,12 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
   document.addEventListener('visibilitychange', updateRun);
   updateRun();
 
-  const api = Object.assign(controls, Object.fromEntries(Object.keys(table).map((k) => [k, act[k]]))) as unknown as GfBotApi;
+  for (const [k, f] of Object.entries(opts.gestures ?? {})) {
+    if (k in table || k in controls) continue;
+    pack[k] = () => {
+      if (!ctx.paused) f(ctx);
+    };
+  }
+  const api = Object.assign(controls, Object.fromEntries(Object.keys(table).map((k) => [k, act[k]])), pack) as unknown as GfBotApi;
   return { api, ctx };
 }
