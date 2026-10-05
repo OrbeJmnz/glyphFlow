@@ -162,7 +162,7 @@ const CASES = [
     optimizadorAngular: true,
   },
   {
-    name: 'bots + createBot + catShape + UN gesto de glyphflow/bots/gestures (frontFlip)',
+    name: 'bots + createBot + catShape + UN gesto de glyphflow/bots/gestures',
     // El entry `glyphflow/bots/gestures` existe para que los gestos físicos NO engorden el motor: quien no
     // lo importa no paga nada, y quien lo importa paga solo los gestos que nombra (cada uno es un objeto
     // suelto). Este caso mide el motor + la forma + `superBounce`; la diferencia con el caso de arriba es
@@ -170,7 +170,7 @@ const CASES = [
     // sacudirse bien (una llamada a nivel de módulo sin `@__PURE__`).
     filaReadme: null as string | null,
     aliasBots: true,
-    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { frontFlip } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, frontFlip);`,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { superBounce } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, superBounce);`,
     maxGzipBytes: 81 * 1024,
     optimizadorAngular: true,
   },
