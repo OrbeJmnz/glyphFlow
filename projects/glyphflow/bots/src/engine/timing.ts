@@ -1,4 +1,5 @@
 import type { BotContext } from './context';
+import { twinAnimation } from './outlines';
 
 /**
  * Los tres primitivos de tiempo que todo gesto usa. Los tres dejan su rastro EN el contexto
@@ -31,7 +32,9 @@ export function loop(
   frames: Keyframe[],
   options: KeyframeAnimationOptions,
 ): Animation {
-  const anim = node.animate(frames, { iterations: Infinity, ...options });
+  const opts = { iterations: Infinity, ...options };
+  const anim = node.animate(frames, opts);
+  if (node === ctx.el.clip) twinAnimation(ctx, anim, frames, opts);
   ctx.subAnims.push(anim);
   return anim;
 }
@@ -55,6 +58,7 @@ export function play(
   // en un keyframe se ignora en silencio y el relevo arranca en un cuadro sin pose.
   frames[0] = { ...frames[0], transform: cur || 'none' };
   const anim = node.animate(frames, options);
+  if (node === ctx.el.clip) twinAnimation(ctx, anim, frames, options);
   ctx.running.set(node, anim);
   anim.onfinish = () => {
     if (ctx.running.get(node) === anim) ctx.running.delete(node);

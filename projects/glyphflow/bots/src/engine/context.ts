@@ -288,6 +288,8 @@ export interface BotContext {
   materialKey: GfBotMaterialId | 'auto';
   /** Elementos que giran con la pose (`.yaw`, silueta, caras laterales, luz, accesorios), en el orden de `POSE_SLOTS`. */
   poseEls: SVGElement[];
+  /** Los `<use>` de la silueta (trazos de las pieles): copias que hay que animar aparte; ver `outlines.ts`. */
+  outlines: SVGElement[];
   feats: GfBotFeature[];
   /** Animaciones propias de la forma (onda del fantasma, tentáculos del pulpo); se cancelan al cambiarla. */
   shapeAnims: Animation[];
@@ -443,6 +445,7 @@ export function createBotContext(
     paletteKey: opts.palette || 'auto',
     materialKey: opts.material || 'auto',
     poseEls: [],
+    outlines: [],
     feats: [],
     shapeAnims: [],
     shapeTimer: null,

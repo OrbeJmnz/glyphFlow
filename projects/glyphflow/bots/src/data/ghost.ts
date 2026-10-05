@@ -34,7 +34,7 @@ export function ghostSkin(v: string, p: string): GfBotSkinLayers {
   switch (v) {
     case 'f1': return { back: halo('#CDBDFF', .35), paint: grad('#F6F8FF', '#ECE6FF', '#E4DAFF') + flow(blob(64, 78, 30, 20, '#CDE4FF', .95) + blob(46, 126, 22, 28, '#FBD9F2', .9) + blob(102, 132, 34, 24, '#C7B9FB', .75) + blob(150, 140, 24, 24, '#C6D8FC', .9) + blob(104, 166, 48, 10, '#F4D8FF', .85)) + rim('#FFFFFF', 7, .85) + hi(.6), over:'' };
     case 'f2': return { back:'', paint: flat('#F1EEFD'), over:'' };
-    case 'f3': return { back:'', paint: flat('#FFFFFF'), over: U('fill="none" stroke="#2A22A6" stroke-width="4.4" stroke-linejoin="round"') };
+    case 'f3': return { back:'', paint: '', over: U('fill="none" stroke="#2A22A6" stroke-width="4.4" stroke-linejoin="round"') };
     case 'f4': return { back:'', paint: flat('#D9C8FC') + flow(blob(70, 76, 40, 24, '#FDD6F2', 1) + blob(48, 118, 26, 30, '#FDC8DA', 1) + blob(152, 112, 28, 34, '#9EE4FD', 1) + blob(104, 138, 34, 26, '#A8ADFC', .9) + blob(56, 160, 26, 14, '#FABCFC', 1) + blob(148, 160, 26, 14, '#ACE2FD', 1)) + rim('#FFFFFF', 5, .5) + hi(.35), over:'' };
     case 'f5': return { back:'', paint: grad('#EEEBFD', '#DCD7FC', '#C8C3FB') + shade('#B4AEF3', .4) + hi(.6), over:'' };
     case 'f6': return { back: U(`fill="#D3CEEC" opacity=".6" filter="url(#${p}-mblur2)" transform="translate(2 4)"`), paint: grad('#FCFAFE', '#F3F0FA', '#E6E2F5') + U(`fill="none" stroke="#FFFFFF" stroke-width="11" opacity=".9" filter="url(#${p}-mblur2)" mask="url(#${p}-mrm)"`) + shade('#D6D1EE', .6), over:'' };

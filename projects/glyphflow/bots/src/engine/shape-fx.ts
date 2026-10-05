@@ -1,5 +1,6 @@
 import { ghostWave } from '../data/geometry';
 import type { BotContext } from './context';
+import { animateShape, syncOutlineD } from './outlines';
 
 /**
  * Animación propia de la silueta: el fantasma ondula el borde de su sábana todo el tiempo, el pulpo
@@ -22,7 +23,8 @@ export function startShapeFx(ctx: BotContext): void {
   const { clip } = ctx.el;
   if (supportsAnimatedD()) {
     ctx.shapeAnims.push(
-      clip.animate(
+      animateShape(
+        ctx,
         keys.map((d) => ({ d: `path("${d}")` })),
         sh.dKeys
           ? { duration: dur, iterations: Infinity, easing: sh.dEase || 'ease-in-out' }
@@ -35,13 +37,13 @@ export function startShapeFx(ctx: BotContext): void {
   const t0 = performance.now();
   ctx.shapeTimer = setInterval(() => {
     const t = performance.now() - t0;
-    clip.setAttribute(
-      'd',
+    const d =
       sh.dKeys && sh.dAt
         ? sh.dAt((t % dur) / dur)
         : sh.dAt
           ? sh.dAt((1 - Math.cos((t / 900) * Math.PI)) / 2)
-          : ghostWave(9 * Math.cos((t / 900) * Math.PI)),
-    );
+          : ghostWave(9 * Math.cos((t / 900) * Math.PI));
+    clip.setAttribute('d', d);
+    syncOutlineD(ctx, d);
   }, 40);
 }

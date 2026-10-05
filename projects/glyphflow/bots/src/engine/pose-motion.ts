@@ -2,6 +2,7 @@ import { f2 } from '../data/color';
 import type { BotContext } from './context';
 import { hatShadowSync } from './hat-shadow';
 import { projectPose, type GfBotPose } from './pose';
+import { syncOutlineTransform } from './outlines';
 import { curSh } from './shape-view';
 import { loop, play } from './timing';
 
@@ -13,6 +14,8 @@ export function setPose(ctx: BotContext, next: GfBotPose): void {
     const node = ctx.poseEls[i];
     node.style.transform = st.transform;
     if (st.opacity !== undefined) node.style.opacity = String(st.opacity);
+    // el trazo de la piel es una copia de la silueta: hay que moverlo a mano (ver `outlines.ts`)
+    if (node === ctx.el.clip) syncOutlineTransform(ctx, st.transform);
   });
   // Gel/App/Etéreo/Pastel: el color está PINTADO en la figura: se va con ella al girar, saltar y ladearse
   if (ctx.hatEls) hatShadowSync(ctx);

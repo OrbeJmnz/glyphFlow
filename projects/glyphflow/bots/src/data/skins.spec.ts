@@ -43,6 +43,22 @@ describe('glyphflow/bots · pieles', () => {
     expect(octopusSkin('zz', 'b1')).toEqual(octopusSkin('o1', 'b1'));
   });
 
+  it('Línea (g3 y f3) es transparente: sin relleno, solo contorno encima', () => {
+    expect(catSkin('g3', 'b1').paint).toBe('');
+    expect(ghostSkin('f3', 'b1').paint).toBe('');
+    expect(catSkin('g3', 'b1').over).toContain('fill="none"');
+    expect(ghostSkin('f3', 'b1').over).toContain('fill="none"');
+  });
+
+  it('en Línea las orejas son solo trazo recortado fuera de la cabeza y la cola es una línea', () => {
+    const oreja = catPart('g3', 'b1', 'earL');
+    expect(oreja).toContain('fill="none"');
+    expect(oreja).toContain('clip-path="url(#b1-lec)"');
+    expect(oreja).toContain('clip-rule="evenodd"');
+    expect(catPart('g1', 'b1', 'earL')).not.toContain('clip-path');
+    expect(catPart('g3', 'b1', 'tail')).not.toContain('stroke-width="25.2"');
+  });
+
   it('el gato pinta orejas y cola; la cola es una cadena de 3 tramos', () => {
     expect(catPart('g1', 'b1', 'earL')).toContain('<path');
     expect(catPart('g1', 'b1', 'tail').match(/class="gt gt\d"/g)?.length).toBe(3);

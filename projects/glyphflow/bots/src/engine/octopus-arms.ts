@@ -4,6 +4,7 @@ import { octopusShape } from '../shapes/octopus';
 import { TAU } from './math';
 import { supportsAnimatedD } from './shape-fx';
 import { type BotContext } from './context';
+import { animateShape } from './outlines';
 
 
 
@@ -21,7 +22,7 @@ import { type BotContext } from './context';
     ctx.pAnim?.cancel();
     // la onda de reposo sigue corriendo debajo: el gesto arranca y termina justo donde va la onda, sin saltos
     const dd = octopusShape.dDur!, idle = ctx.shapeAnims.find(a => a !== ctx.pAnim && a.effect?.getTiming().duration === dd), t0 = idle ? Number(idle.currentTime) || 0 : 0;
-    ctx.pAnim = ctx.el.clip.animate(Array.from({ length:N + 1 }, (_, n) => { const st = octopusIdleSt(TAU * ((t0 + n / N * T) % dd) / dd);
+    ctx.pAnim = animateShape(ctx, Array.from({ length:N + 1 }, (_, n) => { const st = octopusIdleSt(TAU * ((t0 + n / N * T) % dd) / dd);
       st.aL = (st.aL ?? 0) + at(g.L, n / N); st.aR = (st.aR ?? 0) + at(g.R, n / N); return { d:`path("${octopusD(st)}")` }; }), { duration:T, easing:'linear' });
     ctx.shapeAnims.push(ctx.pAnim);
   }

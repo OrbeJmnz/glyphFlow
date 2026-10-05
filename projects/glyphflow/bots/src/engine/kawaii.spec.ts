@@ -9,6 +9,10 @@ import {
 import { setShape } from './setters';
 import { installStateHooks, setState } from './state';
 
+// Estos tests recorren las formas y los estados enteros en un solo caso: en una máquina cargada (o con
+// toda la suite en paralelo) rozan los 5 s de Vitest. No es lentitud del motor, es el volumen que cubren.
+vi.setConfig({ testTimeout: 30_000 });
+
 const proto = Element.prototype as unknown as Record<string, unknown>;
 const svgProto = SVGElement.prototype as unknown as Record<string, unknown>;
 function stubAnimations(): void {

@@ -171,6 +171,11 @@ gf-bot[data-interactive] > .gf-bot-svg.grabbing { cursor: grabbing; }
 .gf-bot-svg[data-mvar="app"] .lid, .gf-bot-svg[data-mvar="app"] .mouth{ stroke:#3B2FA8 }
 .gf-bot-svg[data-mvar="app"] .lite.dim{ fill:#B9B3EE }
 .gf-bot-svg[data-mvar="line"] .shadow, .gf-bot-svg[data-mvar="app"] .shadow{ opacity:.18 }
+/* Línea: cuerpo transparente. Fuera la luz base de la silueta y sus luces de color (las emociones
+   pintarían un relleno sólido donde solo debe haber contorno). */
+.gf-bot-svg[data-mvar="line"] .key, .gf-bot-svg[data-mvar="line"] .lite,
+.gf-bot-svg[data-mvar="g3"] .key, .gf-bot-svg[data-mvar="g3"] .lite,
+.gf-bot-svg[data-mvar="f3"] .key, .gf-bot-svg[data-mvar="f3"] .lite{ display:none }
 /* Gel/App: el color interno está vivo. Cada mancha fluye a su ritmo; el estado cambia la velocidad y la fuerza,
    la emoción lo tiñe (mezcla "color") y los destellos lo encienden. */
 .gf-bot-svg .mflow{ transform-box:view-box; transform-origin:100px 112px; transition:translate .5s cubic-bezier(.3,1.3,.5,1), rotate .5s cubic-bezier(.3,1.3,.5,1), opacity .8s ease }

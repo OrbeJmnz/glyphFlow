@@ -63,7 +63,7 @@ export function catSkin(v: string, p: string): GfBotSkinLayers {
   switch (v) {
     case 'g1': return { back:'', paint: base + `<ellipse cx="100" cy="112" rx="44" ry="34" fill="#FFC28A" opacity=".45" filter="url(#${p}-mblob)"/>` + shade('#E85A3E', .45) + rim('#FFD9B0', 7, .55) + hi(.5), over:'' };
     case 'g2': return { back:'', paint: `<rect width="200" height="212" fill="#FFF8F0"/><path d="M34 70 C52 52 92 54 98 76 C102 92 80 104 58 110 C44 114 34 104 33 92 Z" fill="#F4A15D"/>`, over:'' };
-    case 'g3': return { back:'', paint: `<rect width="200" height="212" fill="#FFFFFF"/>`, over: U('fill="none" stroke="#D85B3F" stroke-width="4.6" stroke-linejoin="round"') };
+    case 'g3': return { back:'', paint: '', over: U('fill="none" stroke="#D85B3F" stroke-width="4.6" stroke-linejoin="round"') };
     case 'g4': return { back:'', paint: base + flow(blob(70, 80, 36, 22, '#F7D6FF', .9) + blob(46, 128, 24, 30, '#FFB7D5', .95) + blob(150, 120, 22, 30, '#A8E7FF', .95) + blob(104, 164, 50, 14, '#80DFFF', .9)) + rim('#FFFFFF', 6, .5) + hi(.25), over:'' };
     case 'g5': return { back:'', paint: base + shade('#E85E3C', .35) + `<ellipse cx="68" cy="84" rx="9" ry="4" transform="rotate(-24 68 84)" fill="#fff" opacity=".55"/>`, over:'' };
     case 'g6': return { back:'', paint: base + U(`fill="none" stroke="#FFFFFF" stroke-width="11" opacity=".9" filter="url(#${p}-mblur2)" mask="url(#${p}-mrm)"`) + shade('#E7D5CA', .7), over:'' };
@@ -91,10 +91,20 @@ export function catPart(v: string, p: string, part: "earL" | "earR" | "tail"): s
       return `<g class="gtw" style="transform-origin:${seg[0].o[0]}px ${seg[0].o[1]}px" fill="none" stroke="${col}" stroke-linecap="round" stroke-linejoin="round">`
         + `<g ${o(1, seg[0].o)}>${pth(0)}<g ${o(2, seg[1].o)}>${pth(1)}<g ${o(3, seg[2].o)}>${pth(2)}</g></g></g></g>`;
     };
-    return grad + (line ? chain('#D85B3F', 9.2) : '') + chain(fill, 0);
+    // Línea: cuerpo transparente, así que la cola es UNA línea (un tubo con borde necesitaría un relleno
+    // que tape el interior). Anchos 5.6/4.6/3.6: el mismo grosor del contorno del cuerpo (4.6).
+    return grad + (line ? chain('#D85B3F', -10.4) : chain(fill, 0));
   }
   const [cx, cy] = part === 'earL' ? CAT.earLc : CAT.earRc;
   const outer = v === 'g2' ? (part === 'earL' ? '#F4A15D' : '#FFF8F0') : v === 'g10' ? (part === 'earL' ? '#F6A35F' : '#FFF4E8') : v === 'g7' ? (part === 'earL' ? '#FF4EC8' : '#7A5CFF') : P.top;
-  const inner = `<path d="${d}" fill="${P.inner}" transform="translate(${cx} ${cy + 4}) scale(.52) translate(${-cx} ${-cy})"${line ? ' opacity="0"' : ''}/>`;
+  if (line) {
+    // Línea: solo trazo, y recortado a lo que queda FUERA de la cabeza. Con el cuerpo transparente ya
+    // no hay nada que oculte la base de la oreja, que nace dentro de la silueta. El recorte es un
+    // rectángulo grande menos el cuerpo (evenodd), en las coordenadas de la oreja (= las del cuerpo en
+    // reposo).
+    return `<clipPath id="${p}-lec"><path clip-rule="evenodd" d="M-100 -100 H400 V400 H-100 Z ${CAT_BODY}"/></clipPath>` +
+      `<path d="${d}" fill="none"${stroke} clip-path="url(#${p}-lec)"/>`;
+  }
+  const inner = `<path d="${d}" fill="${P.inner}" transform="translate(${cx} ${cy + 4}) scale(.52) translate(${-cx} ${-cy})"/>`;
   return `<path d="${d}" fill="${outer}"${stroke}/>` + inner;
 }

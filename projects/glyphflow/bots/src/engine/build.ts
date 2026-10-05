@@ -11,6 +11,7 @@ import { accMarkup, faceMarkup, faceOf, ownFace } from './face';
 import { measureSilhouette } from './silhouette';
 import { shapeD, withHat } from './shape-view';
 import { startShapeFx } from './shape-fx';
+import { collectOutlines } from './outlines';
 
 /**
  * Construcción de la forma: lo que se rehace cada vez que cambia la forma, la piel, el estilo de
@@ -125,5 +126,8 @@ export function buildShape(ctx: BotContext): void {
   [el.clip, el.flip, el.light, el.accBack, el.accFront].forEach((n) => (n.style.transformOrigin = `100px ${sh.cy}px`));
   const transition = ctx.reduce ? '' : `transform ${ctx.spring.duration}ms ${ctx.spring.easing}, opacity 180ms ease`;
   ctx.poseEls.forEach((n) => (n.style.transition = transition));
+  // antes de `startShapeFx`: ya están todas las capas (pieles, fx, accesorios) y la transición de la
+  // silueta, y las animaciones de la forma necesitan los contornos para dárselas también a ellos
+  collectOutlines(ctx);
   startShapeFx(ctx);
 }

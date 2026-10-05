@@ -13,7 +13,9 @@ describe('glyphflow/bots · piel Mochi', () => {
     for (const v of variantes) {
       const s = mochiSkin(v, 'b8');
       expect(Object.keys(s).sort(), v).toEqual(['back', 'over', 'paint']);
-      expect(s.paint.length, v).toBeGreaterThan(0);
+      // "Línea" es la única sin relleno a propósito: cuerpo transparente, solo contorno encima.
+      if (v === 'line') expect(s.paint, v).toBe('');
+      else expect(s.paint.length, v).toBeGreaterThan(0);
       for (const [, pref] of `${s.back}${s.paint}${s.over}`.matchAll(/(?:url\(#|href="#)(b\d+)-/g)) {
         expect(pref, v).toBe('b8');
       }

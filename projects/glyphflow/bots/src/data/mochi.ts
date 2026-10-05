@@ -22,7 +22,9 @@ export function mochiSkin(v: string, p: string): GfBotSkinLayers {
   const flow = (inner: string) => `<g class="mflow">${inner}</g>`;
   if (v === 'line') return {
     back: '',
-    paint: `<rect x="0" y="0" width="200" height="212" fill="#F5F6FE"/>`,
+    // Sin relleno: el cuerpo es transparente y solo se ve el contorno y la cara (ver también el CSS
+    // de `data-mvar="line"`, que apaga la luz base y las luces de emoción de la silueta).
+    paint: '',
     over: U('fill="none" stroke="#2E2896" stroke-width="7" stroke-linejoin="round"') };
   if (v === 'gel') return {
     back: `<g class="mhalo">` + U(`fill="#5A6BFF" opacity=".55" filter="url(#${p}-mblob)"`) + `</g>` + U(`fill="none" stroke="#7AA2FF" stroke-width="4" opacity=".75" filter="url(#${p}-mblur2)"`),
@@ -115,12 +117,19 @@ export function mochiSkin(v: string, p: string): GfBotSkinLayers {
 // El copete en cada piel: mismo contorno, otro relleno.
 
 /**
- * El copete en cada piel: mismo contorno (`d`), otro relleno. \`foot\` es el pie del Mochi, que
+ * El copete en cada piel: mismo contorno (`d`), otro relleno. `foot` es el pie del Mochi, que
  * comparte contorno con el copete.
  */
 export function mochiTuft(v: string, p: string, d: string, foot?: boolean): string {
-  if (v === 'line' && foot) return `<path d="${d}" fill="#E7E8F8"/>`;   // el pie: el trazo ya lo pone el contorno del cuerpo
-  if (v === 'line') return `<path d="${d}" fill="#E7E8F8" stroke="#2E2896" stroke-width="7" stroke-linejoin="round"/>`;
+  // Línea: el cuerpo es transparente, así que ya no hay nada que oculte la parte del copete que
+  // queda DENTRO del cuerpo. Solo trazo (sin relleno) y cortado en el borde de abajo del contorno del
+  // cuerpo (y = 59.5 = cima 56 + medio trazo 3.5): queda como una orejita que nace del contorno.
+  // El pie va sin relleno; el arco que lo dibuja lo pone `buildShape`.
+  if (v === 'line' && foot) return '';
+  if (v === 'line') {
+    return `<clipPath id="${p}-ltc"><rect x="0" y="0" width="200" height="59.5"/></clipPath>` +
+      `<path d="${d}" fill="none" stroke="#2E2896" stroke-width="7" stroke-linejoin="round" clip-path="url(#${p}-ltc)"/>`;
+  }
   if (v === 'gel') return `<linearGradient id="${p}-mtg" gradientUnits="userSpaceOnUse" x1="0" y1="35" x2="0" y2="63"><stop offset="0" stop-color="#8ADCFF"/><stop offset="1" stop-color="#2F6FE6"/></linearGradient>` +
     `<path d="${d}" fill="#4FA1FB" opacity=".75" filter="url(#${p}-mblur2)"/><path d="${d}" fill="url(#${p}-mtg)"/>`;
   if (v === 'app') return `<linearGradient id="${p}-mta" gradientUnits="userSpaceOnUse" x1="78" y1="0" x2="124" y2="0"><stop offset="0" stop-color="#E3A6F4"/><stop offset=".55" stop-color="#8FB4F8"/><stop offset="1" stop-color="#5AAAF6"/></linearGradient>` +
