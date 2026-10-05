@@ -1,19 +1,31 @@
-import { morphPath, pathLerp } from '../data/morph';
-import { f2, f3 } from '../data/color';
 import { shadowFor } from './actions';
 import type { BotContext } from './context';
 import { eyeSeq } from './eyes';
 import { flipEffects } from './flip-fx';
 import { S } from './math';
+import {
+  anticipate,
+  frameAt,
+  impact,
+  key,
+  launch,
+  overshoot,
+  rotate,
+  runGesture,
+  score,
+  settle,
+  tracksOf,
+  type GestureDef,
+  type MotionFrame,
+} from './motion';
 import { setMouth } from './mouth';
-import { animateShape } from './outlines';
-import { animatePose } from './pose-motion';
-import { shapeD } from './shape-view';
-import { later, play } from './timing';
-import { smoothstep, track } from './track';
+import { play, later } from './timing';
+import { smoothstep } from './track';
+
+export { canFlexHem, flexHem, gelBody, idleDAt, pathExtent } from './body-fx';
 
 /**
- * FRONT FLIP — salto mortal frontal.
+ * FRONT FLIP — salto mortal frontal, compuesto con las primitivas de `motion.ts`.
  *
  * No es un `translateY` + `rotate(360deg)` (eso es un sprite girando). Participan a la vez, cada uno
  * con su propia curva:
@@ -21,16 +33,13 @@ import { smoothstep, track } from './track';
  *  - TRAYECTORIA (`.hop`): anticipación → despegue → parábola → caída → impacto → rebote.
  *  - GIRO: una vuelta completa en el plano, lento al principio, rápido en el centro, frenando al caer.
  *  - DEFORMACIÓN (squash y stretch): en el suelo se aplica en el contenedor `.hop`, anclado a la BASE;
- *    en el aire, en la pose y A LO LARGO DEL EJE DEL CUERPO (boca abajo sigue estirándose de la
- *    cabeza a la falda). Las dos partes se multiplican y dan exactamente la deformación pedida.
+ *    en el aire, en la pose y A LO LARGO DEL EJE DEL CUERPO. Las dos partes se multiplican.
  *  - CARA: se deforma menos que el cuerpo, para que los ojos no se vuelvan una mancha.
- *  - FALDA (movimiento secundario): la parte baja de la silueta reacciona a la velocidad y la
- *    aceleración, no al ángulo — se arrastra al subir, se recupera en el ápice, se estira al caer y
- *    se ensancha al impactar. Se anima el `d` de la silueta (y con él su contorno).
+ *  - FALDA + GEL (movimiento secundario): la parte baja reacciona a la velocidad y la aceleración, y
+ *    en el aire el contorno se vuelve una masa blanda con bultos.
  *  - SOMBRA: no rota; se queda en el suelo y comunica la altura con su tamaño y opacidad.
  *
- * Termina EXACTAMENTE donde empezó: todos los canales valen reposo en t = 0 y en t = 1, y la falda
- * arranca y acaba en la onda de reposo de ese instante.
+ * Termina EXACTAMENTE donde empezó: todos los canales valen reposo en t = 0 y en t = 1.
  */
 
 export const FLIP_DEFAULT_MS = 1000;
@@ -44,66 +53,51 @@ const SOMBRA_OP = 1.8;
 /** Cuánto de la deformación del cuerpo recibe la cara (cuerpo 0.84 → cara ~0.94). */
 export const FLIP_FACE_K = 0.4;
 
-// ── Pistas por canal. t = fracción del gesto (0 – 1). Las unidades de altura son las del viewBox. ──
-const TRACKS = {
-  /** Altura: negativo = arriba. Anticipa +7, despega a -34, cima -88, cae y rebota -3 antes de asentar. */
-  y: /* @__PURE__ */ track([[0, 0], [0.1, 7], [0.2, -34], [0.35, -72], [0.5, -88], [0.65, -72], [0.8, -10], [0.9, 4], [0.95, -3], [1, 0]]),
-  /** Deriva horizontal MUY pequeña (≈ 3–4 % del ancho): sube un poco hacia un lado y vuelve. */
-  x: /* @__PURE__ */ track([[0, 0], [0.1, -1.5], [0.2, 0], [0.5, 4], [0.8, 1.5], [0.9, 0], [1, 0]]),
-  /** Giro en grados. Casi nada hasta el despegue, rápido en el centro, frena antes de aterrizar. */
-  roll: /* @__PURE__ */ track([[0, 0], [0.1, 0], [0.15, 3], [0.2, 15], [0.35, 90], [0.5, 180], [0.65, 270], [0.8, 350], [0.9, 360], [1, 360]]),
-  /** Deformación del cuerpo (ancho y alto): acumula energía, estira al despegar, aplasta al impactar. */
-  sx: /* @__PURE__ */ track([[0, 1], [0.1, 1.08], [0.2, 0.9], [0.35, 0.95], [0.5, 1], [0.65, 0.96], [0.8, 0.92], [0.9, 1.13], [0.95, 0.97], [1, 1]]),
-  sy: /* @__PURE__ */ track([[0, 1], [0.1, 0.88], [0.2, 1.15], [0.35, 1.05], [0.5, 0.94], [0.65, 1.06], [0.8, 1.1], [0.9, 0.84], [0.95, 1.04], [1, 1]]),
-  /** Falda: cuánto se ensancha (fracción) y cuánto la arrastra la inercia (unidades, en el eje del cuerpo). */
-  spread: /* @__PURE__ */ track([[0, 0], [0.1, 0.14], [0.2, -0.05], [0.35, 0], [0.5, 0], [0.65, 0], [0.8, -0.04], [0.9, 0.28], [0.95, 0.06], [1, 0]]),
-  drag: /* @__PURE__ */ track([[0, 0], [0.1, -2], [0.2, 6], [0.35, 4.5], [0.5, 1], [0.65, -3], [0.8, -5.5], [0.9, -3], [0.95, 1.5], [1, 0]]),
-};
+/** Fase de los bultos de gel: viajan por el contorno mientras el cuerpo gira (≈ 1.75 vueltas en todo el gesto). */
+export const gelPhase = (t: number): number => 11 * t;
 
-export interface FlipFrame {
-  /** Trayectoria del contenedor `.hop` (unidades del viewBox). */
-  x: number;
-  y: number;
-  /** Giro en el plano (grados). */
-  roll: number;
-  /** Parte de la deformación que aplica el contenedor `.hop` (en el suelo, anclada a la base). */
-  hopX: number;
-  hopY: number;
-  /** Parte que aplica la pose, a lo largo del eje del cuerpo (en el aire). `hop · pose` = deformación total. */
-  poseX: number;
-  poseY: number;
-  /** Deformación de la cara, ya descontada la que le pone el contenedor `.hop`. */
-  faceX: number;
-  faceY: number;
-  /** Falda: ensanchamiento (fracción) y arrastre vertical (unidades). */
-  spread: number;
-  drag: number;
-  /** 1 = en el suelo (la deformación va en `.hop`), 0 = en el aire (va en la pose). */
-  grounded: number;
+export type FlipFrame = MotionFrame;
+
+/** La partitura del flip. Se arma al primer uso (sin llamadas a nivel de módulo: no pesa en el bundle). */
+function flipDef(): GestureDef {
+  return (flipDefCache ??= {
+    score: score(
+      settle(0),
+      // Anticipación: baja, se ensancha, la falda se rezaga.
+      anticipate(0.1, { y: 7, x: -1.5, roll: 0, sx: 1.08, sy: 0.88, spread: 0.14, drag: -2 }),
+      key(0.15, { roll: 3 }),
+      // Despegue: se estira, la falda se queda atrás y los bultos de gel empiezan a salir.
+      launch(0.2, { y: -34, x: 0, roll: 15, sx: 0.9, sy: 1.15, spread: -0.05, drag: 6 }),
+      key(0.3, { gel: 7 }),
+      key(0.35, { y: -72, roll: 90, sx: 0.95, sy: 1.05, spread: 0, drag: 4.5 }),
+      // Cima, boca abajo: ingravidez.
+      key(0.5, { y: -88, x: 4, roll: 180, sx: 1, sy: 0.94, spread: 0, drag: 1, gel: 11 }),
+      key(0.65, { y: -72, roll: 270, sx: 0.96, sy: 1.06, spread: 0, drag: -3 }),
+      key(0.7, { gel: 8 }),
+      // Caída: se estira antes del golpe.
+      key(0.8, { y: -10, x: 1.5, roll: 350, sx: 0.92, sy: 1.1, spread: -0.04, drag: -5.5 }),
+      key(0.84, { gel: 3 }),
+      // Impacto: squash fuerte, la falda se abre.
+      impact(0.9, { y: 4, x: 0, roll: 360, sx: 1.13, sy: 0.84, spread: 0.28, drag: -3 }),
+      overshoot(0.95, { y: -3, sx: 0.97, sy: 1.04, spread: 0.06, drag: 1.5 }),
+      key(0.18, { gel: 0 }),
+      key(0.92, { gel: 0 }),
+      settle(1),
+      rotate(1, 360),
+    ),
+    // «Estoy en el suelo»: 1 antes del despegue y tras el aterrizaje, 0 en el aire.
+    grounded: (t) => (t < 0.5 ? 1 - smoothstep(0.16, 0.3, t) : smoothstep(0.7, 0.84, t)),
+    faceK: FLIP_FACE_K,
+    gelPhase,
+  });
 }
+let flipDefCache: GestureDef | undefined;
+let flipTracks: ReturnType<typeof tracksOf> | undefined;
 
 /** Todos los canales del flip en el instante `t` (0 – 1). Pura: es lo que prueban los specs. */
 export function flipFrame(t: number, faceK: number = FLIP_FACE_K): FlipFrame {
-  const sx = TRACKS.sx(t);
-  const sy = TRACKS.sy(t);
-  // Peso de «estoy en el suelo»: 1 antes del despegue y tras el aterrizaje, 0 en el aire.
-  const grounded = t < 0.5 ? 1 - smoothstep(0.16, 0.3, t) : smoothstep(0.7, 0.84, t);
-  const hopX = Math.pow(sx, grounded);
-  const hopY = Math.pow(sy, grounded);
-  return {
-    x: TRACKS.x(t),
-    y: TRACKS.y(t),
-    roll: TRACKS.roll(t),
-    hopX,
-    hopY,
-    poseX: Math.pow(sx, 1 - grounded),
-    poseY: Math.pow(sy, 1 - grounded),
-    faceX: (1 + (sx - 1) * faceK) / hopX,
-    faceY: (1 + (sy - 1) * faceK) / hopY,
-    spread: TRACKS.spread(t),
-    drag: TRACKS.drag(t),
-    grounded,
-  };
+  const def = faceK === FLIP_FACE_K ? flipDef() : { ...flipDef(), faceK };
+  return frameAt(def, (flipTracks ??= tracksOf(flipDef().score)), t);
 }
 
 /**
@@ -118,107 +112,7 @@ export function flipDuration(ctx: BotContext): number {
   return Math.min(FLIP_MAX_MS, Math.max(FLIP_MIN_MS, ms));
 }
 
-// ── Falda ─────────────────────────────────────────────────────────────────────────────────────
-
-/** Easing de CSS por nombre → función. Solo los que usa la onda de reposo de las formas. */
-function easingFn(name: string): (x: number) => number {
-  const bez = (x1: number, y1: number, x2: number, y2: number) => (x: number) => {
-    if (x <= 0 || x >= 1) return x;
-    const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
-    const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
-    let t = x;
-    for (let i = 0; i < 8; i++) {
-      const e = ((ax * t + bx) * t + cx) * t - x;
-      const d = (3 * ax * t + 2 * bx) * t + cx;
-      if (Math.abs(e) < 1e-5 || Math.abs(d) < 1e-6) break;
-      t -= e / d;
-    }
-    t = Math.min(1, Math.max(0, t));
-    return ((ay * t + by) * t + cy) * t;
-  };
-  if (name === 'ease-in-out') return bez(0.42, 0, 0.58, 1);
-  if (name === 'ease') return bez(0.25, 0.1, 0.25, 1);
-  if (name === 'ease-in') return bez(0.42, 0, 1, 1);
-  if (name === 'ease-out') return bez(0, 0, 0.58, 1);
-  return (x) => x;
-}
-
-/**
- * La silueta de reposo `ms` milisegundos DESPUÉS de ahora. Si la forma tiene onda propia (la sábana
- * del fantasma, los tentáculos), se calcula en qué punto de su ciclo estará; si no, es su `d` fijo.
- * Es lo que permite que la falda del flip arranque y termine exactamente donde está la onda de
- * reposo, sin saltos ni parar la onda.
- */
-export function idleDAt(ctx: BotContext, ms: number): string {
-  const sh = ctx.shape;
-  const base = shapeD(sh);
-  const idle = ctx.shapeAnims.find((a) => a.effect?.getTiming().iterations === Infinity);
-  if (!idle || !idle.effect) return base;
-  const timing = idle.effect.getTiming();
-  const dur = Number(timing.duration) || 1;
-  const T = (Number(idle.currentTime) || 0) + ms;
-  const iter = Math.floor(T / dur);
-  const local = T / dur - iter;
-  const directed = timing.direction === 'alternate' && iter % 2 === 1 ? 1 - local : local;
-  const u = easingFn(String(timing.easing ?? 'linear'))(directed);
-  if (sh.dKeys) return pathLerp(sh.dKeys, u);
-  if (sh.d2) return pathLerp([base, sh.d2], u);
-  return base;
-}
-
-/** ¿La silueta se puede deformar con `morphPath`? Solo trazos absolutos de pares (sin H/V/A). */
-export const canFlexHem = (d: string | undefined): d is string => !!d && !/[HVAhvaslqtc]/.test(d);
-
-/**
- * Deforma la parte baja de una silueta: la ensancha (`spread`) y la arrastra en vertical (`drag`),
- * con un peso que crece hacia el borde de abajo (la cabeza casi no se mueve). `y0` es dónde empieza
- * la falda y `bottom` su punto más bajo.
- */
-export function flexHem(d: string, y0: number, bottom: number, spread: number, drag: number): string {
-  if (spread === 0 && drag === 0) return d;
-  return morphPath(d, (x, y) => {
-    const w = Math.pow(Math.max(0, Math.min(1, (y - y0) / (bottom - y0))), 1.5);
-    return [100 + (x - 100) * (1 + spread * w), y + drag * w];
-  });
-}
-
-/**
- * Cuánto «gel» tiene el cuerpo (unidades del viewBox): nada en el suelo, el máximo en el aire. Es lo que
- * hace que a 90° y 270° la silueta no sea un fantasma liso girando sino una masa blanda con bultos.
- */
-const GEL = /* @__PURE__ */ track([[0, 0], [0.18, 0], [0.3, 7], [0.5, 11], [0.7, 8], [0.84, 3], [0.92, 0], [1, 0]]);
-
-/** Fase de los bultos: viajan por el contorno mientras el cuerpo gira (≈ 1.75 vueltas en todo el gesto). */
-export const gelPhase = (t: number): number => 11 * t;
-
-/**
- * Bultos de gel: desplaza cada punto del contorno en radial desde el centro `(cx, cy)`, con tres y
- * cinco lóbulos que viajan en sentidos contrarios. Con `amp = 0` devuelve el trazo igual. Conserva la
- * estructura del `d` (se puede interpolar y animar) y, como los puntos de control se mueven junto
- * con los de ancla, la silueta sigue lisa: bultos suaves, no picos.
- */
-export function gelBody(d: string, cx: number, cy: number, amp: number, phase: number): string {
-  if (amp === 0) return d;
-  return morphPath(d, (x, y) => {
-    const dx = x - cx;
-    const dy = y - cy;
-    const r = Math.hypot(dx, dy) || 1;
-    const th = Math.atan2(dy, dx);
-    const k = amp * (0.62 * Math.sin(3 * th + phase) + 0.38 * Math.sin(5 * th - 1.3 * phase + 1));
-    return [x + (k * dx) / r, y + (k * dy) / r];
-  });
-}
-
-/** Límites verticales de un trazo, para saber dónde está la falda. */
-export function pathExtent(d: string): { top: number; bottom: number } {
-  const ys = [...d.matchAll(/(-?\d*\.?\d+)[ ,](-?\d*\.?\d+)/g)].map((m) => Number(m[2]));
-  return { top: Math.min(...ys), bottom: Math.max(...ys) };
-}
-
 // ── Gesto ─────────────────────────────────────────────────────────────────────────────────────
-
-/** Fotogramas muestreados de una pista de `frames`: uno cada ~18 ms, que es lo que usa `animatePose`. */
-const samples = (ms: number): number => Math.max(24, Math.round(ms / 18));
 
 /** Movimiento reducido: sin vuelta. Un saltito con squash, stretch y un rebote, en 300–450 ms. */
 function reducedFlip(ctx: BotContext, ms: number): void {
@@ -245,55 +139,12 @@ export function frontFlip(ctx: BotContext): void {
     return;
   }
   ctx.hooks.act(ms);
-  const N = samples(ms);
-  const frames = Array.from({ length: N + 1 }, (_, i) => flipFrame(i / N));
-
-  // 1) TRAYECTORIA + deformación en el suelo, en el contenedor `.hop` (anclado a la base).
-  play(
-    ctx,
-    ctx.el.hop,
-    frames.map((f, i) => ({
-      offset: i / N,
-      transform: `translate(${f2(f.x)}px,${f2(f.y)}px) scale(${f3(f.hopX)},${f3(f.hopY)})`,
-    })),
-    { duration: ms, easing: 'linear' },
-  );
-
-  // 2) GIRO + deformación en el aire + cara, en la pose (cada capa del cuerpo). El giro se SUMA a la
-  // inclinación de reposo de la forma (el robot descansa a -3°): así el último fotograma (una vuelta
-  // completa más tarde) coincide con el reposo y no hay un saltito al terminar.
-  const reposo = ctx.pose.roll;
-  animatePose(
-    ctx,
-    (u) => {
-      const f = flipFrame(u);
-      return { roll: reposo + f.roll, sx: f.poseX, sy: f.poseY, fx: f.faceX, fy: f.faceY };
-    },
-    ms,
-  );
-
-  // 3) FALDA: la parte baja de la silueta reacciona a la inercia (movimiento secundario).
-  const base = shapeD(ctx.shape);
-  if (canFlexHem(base)) {
-    const { top, bottom } = pathExtent(base);
-    const y0 = bottom - 0.38 * (bottom - top);
-    const M = 48;
-    const escala = (ctx.shape.R ?? 60) / 60; // los bultos crecen con el cuerpo
-    const hem = Array.from({ length: M + 1 }, (_, i) => {
-      const t = i / M;
-      const f = flipFrame(t);
-      const falda = flexHem(idleDAt(ctx, t * ms), y0, bottom, f.spread, f.drag);
-      return { offset: t, d: `path("${gelBody(falda, 100, ctx.shape.cy, GEL(t) * escala, gelPhase(t))}")` };
-    });
-    const anim = animateShape(ctx, hem, { duration: ms, easing: 'linear' });
-    ctx.shapeAnims.push(anim);
-    anim.addEventListener?.('finish', () => (ctx.shapeAnims = ctx.shapeAnims.filter((a) => a !== anim)), { once: true });
-  }
+  runGesture(ctx, flipDef(), ms);
 
   // Flechas, líneas de velocidad y rayos del impacto (ver flip-fx.ts).
   flipEffects(ctx, ms);
 
-  // 4) SOMBRA: se queda en el suelo; su tamaño y opacidad cuentan la altura. Las pieles Mochi la ocultan
+  // SOMBRA: se queda en el suelo; su tamaño y opacidad cuentan la altura. Las pieles Mochi la ocultan
   // (flotan), así que durante el flip se enciende con `data-flip` y se apaga cuando termina o se corta.
   ctx.svg.dataset['flip'] = '';
   // Opacidades = las de la referencia (idle .30, anticipación .35, despegue .20, ápice .10, impacto .40)
@@ -317,7 +168,7 @@ export function frontFlip(ctx: BotContext): void {
   for (const a of animSombra) a.finished.then(apagarSombra, apagarSombra);
   if (!animSombra.length) later(ctx, apagarSombra, ms + 50);
 
-  // 5) EXPRESIÓN: transiciones cortas cerca de los instantes clave.
+  // EXPRESIÓN: transiciones cortas cerca de los instantes clave.
   eyeSeq(ctx, [
     { transform: S(1, 1), offset: 0 },
     { transform: S(1.03, 1.08), offset: 0.2 },
