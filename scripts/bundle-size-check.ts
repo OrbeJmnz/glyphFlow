@@ -291,9 +291,42 @@ const pureAngular: Plugin = {
   },
 };
 
+/**
+ * Iconos y bots son INDEPENDIENTES en las dos direcciones: quien solo quiere iconos no carga nada
+ * de bots, y quien solo quiere bots no carga nada de iconos. Medirlo con un bundle no basta (un
+ * import suelto se cuela por una ruta que ningún caso ejercita), así que se prohíbe en la fuente:
+ *  - el FESM de bots no importa del primario (`glyphflow`) ni de morph;
+ *  - el FESM del primario no importa de bots.
+ * Un `import` del primario dentro de bots arrastraba el componente de iconos entero (+5.5 KB gzip).
+ */
+function verificarIndependencia(): boolean {
+  // Solo sentencias reales: anclado al inicio de línea, así un comentario que mencione
+  // `from 'glyphflow'` (el FESM conserva los JSDoc) no cuenta como import.
+  const importa = (src: string, paquete: string): boolean => {
+    const p = paquete.replace(/[/.]/g, '\\$&');
+    return new RegExp(
+      `(?:^|\\n)[ \\t]*(?:import|export)\\s[^;]*?from\\s*['"]${p}['"]|(?:^|\\n)[ \\t]*import\\s*['"]${p}['"]`,
+    ).test(src);
+  };
+  let ok = true;
+  const bots = readFileSync(FESM_BOTS, 'utf8');
+  for (const p of ['glyphflow', 'glyphflow/morph']) {
+    if (importa(bots, p)) {
+      console.error(`  ✗ glyphflow/bots importa de '${p}': quien solo quiere bots cargaría iconos.`);
+      ok = false;
+    }
+  }
+  if (importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots')) {
+    console.error(`  ✗ el primario importa de 'glyphflow/bots': quien solo quiere iconos cargaría bots.`);
+    ok = false;
+  }
+  if (ok) console.log('independencia iconos ⇄ bots: el FESM de bots no importa del primario y viceversa.');
+  return ok;
+}
+
 async function main() {
   const tmp = mkdtempSync(join(tmpdir(), 'glyphflow-bundle-check-'));
-  let failed = false;
+  let failed = !verificarIndependencia();
   const medidos = new Map<string, number>();
 
   for (const c of CASES) {

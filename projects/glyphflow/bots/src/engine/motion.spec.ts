@@ -46,7 +46,7 @@ describe('glyphflow/bots · movimiento de la cara', () => {
       expect(resolveSpring()).toEqual({ easing: SPRING_FALLBACK, duration: SPRING_DURATION_MS });
     });
 
-    it('con `linear()` usa el SPRING_BOUNCY del primario, no una copia', () => {
+    it('con `linear()` usa una copia IDÉNTICA al SPRING_BOUNCY del primario (si divergen, falla aquí)', () => {
       vi.stubGlobal('CSS', { supports: () => true });
       expect(resolveSpring().easing).toBe(SPRING_BOUNCY);
     });
