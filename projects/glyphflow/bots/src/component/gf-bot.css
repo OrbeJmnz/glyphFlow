@@ -138,6 +138,8 @@ gf-bot[data-interactive] > .gf-bot-svg.grabbing { cursor: grabbing; }
 .gf-bot-svg[data-skin="mochi"] .skinBack, .gf-bot-svg[data-skin="mochi"] .skinPaint{ display:inline }
 .gf-bot-svg[data-skin="mochi"] .rimDark, .gf-bot-svg[data-skin="mochi"] .fill-light, .gf-bot-svg[data-skin="mochi"] .rim-light, .gf-bot-svg[data-skin="mochi"] .light, .gf-bot-svg[data-skin="mochi"] .vig{ display:none }
 .gf-bot-svg[data-skin="mochi"] .shadow{ display:none }
+/* ...salvo durante el front flip: la sombra es lo que cuenta la altura del salto */
+.gf-bot-svg[data-skin="mochi"][data-flip] .shadow{ display:inline }
 /* Mochi y Tofu: sin sombra en el piso, se ven flotando */
 .gf-bot-svg[data-skin="mochi"] .lite.dim{ fill:#A7ACE6 }
 /* sin velo al dormir: el cuerpo conserva su color real en todas las formas y pieles (lo dormido lo dicen los ojos, la respiración y las Z) */

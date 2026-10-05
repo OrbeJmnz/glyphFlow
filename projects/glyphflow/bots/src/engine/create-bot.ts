@@ -12,6 +12,7 @@ import { createBotContext, type BotContext, type GfBotMaterialId, type GfBotMout
 import { enableTouch, endDrag } from './drag';
 import { celebrate, cheer, curious, excited, happy, neutral, surprised, thinking, wave } from './emotions';
 import { clearLook, gazeAt, setOpen, startBlinkLoop } from './eyes';
+import { frontFlip } from './flip';
 import { angry, bored, cartwheel, dance, disgust, dizzy, doubleHop, fear, hop, lookAround, nodYes, pop, sad, shakeNo, sick, sideHop, somersault, surprise, turn, wink } from './gestures';
 import { K, expr, installKawaiiHooks } from './kawaii';
 import { S } from './math';
@@ -43,7 +44,7 @@ import { toy } from './toys';
  * para quien solo importa los estados).
  */
 const actionTable = () => ({
-  hop, doubleHop, somersault, cartwheel, sideHop, turn, lookAround, shakeNo, nodYes, wink, surprise, dance, dizzy,
+  hop, doubleHop, somersault, frontFlip, cartwheel, sideHop, turn, lookAround, shakeNo, nodYes, wink, surprise, dance, dizzy,
   cheer, angry, sad, sick, disgust, fear, bored,
   neutral, happy, excited, curious, thinking, surprised, celebrate, wave,
   ...K,

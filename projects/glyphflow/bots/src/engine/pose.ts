@@ -15,10 +15,27 @@ export interface GfBotPose {
   pitch?: number;
   /** Inclinación en el plano (grados). */
   roll?: number;
+  /**
+   * Deformación del cuerpo (squash y stretch) A LO LARGO DE SU PROPIO EJE: se aplica antes del giro,
+   * así que con el cuerpo boca abajo sigue estirándose de la cabeza a la falda y no en vertical de
+   * pantalla. También la siguen los accesorios (un sombrero se sienta sobre una cabeza estirada).
+   * 1 = sin deformar.
+   */
+  sx?: number;
+  sy?: number;
+  /**
+   * Deformación de la CARA, aparte de la del cuerpo: ojos y boca se deforman menos para que no se
+   * vuelvan una mancha (cuerpo 0.84 → cara ~0.94). 1 = sin deformar.
+   */
+  fx?: number;
+  fy?: number;
 }
 
 /** Cómo se comporta el cuerpo en 3D: esfera, cilindro o caja redondeada. */
 export type GfBotModel = 'sphere' | 'cyl' | 'box';
+
+/** La pose de REPOSO de un bot: giro, cabeceo e inclinación. La deformación (`sx`…) solo existe mientras dura un gesto. */
+export type GfBotRestPose = Required<Pick<GfBotPose, "yaw" | "pitch" | "roll">>;
 
 /** Un accesorio fuera de la silueta (orejas, antena…): un punto 3D y hacia dónde apunta. */
 export interface GfBotAccessory {
@@ -108,7 +125,9 @@ export function projectPose(
   pose: GfBotPose,
   feats: readonly GfBotFeature[],
 ): GfBotLayerFrame[] {
-  const { yaw = 0, pitch = 0, roll = 0 } = pose;
+  const { yaw = 0, pitch = 0, roll = 0, sx: dx = 1, sy: dy = 1, fx = 1, fy = 1 } = pose;
+  // La deformación se escribe solo si existe: sin ella el texto del transform es el de siempre.
+  const squash = (a: number, b: number): string => (a === 1 && b === 1 ? '' : ` scale(${f3(a)},${f3(b)})`);
   const cy = sh.cy;
   const cY = Math.cos(yaw),
     sY = Math.sin(yaw),
@@ -177,7 +196,7 @@ export function projectPose(
       sy = Math.sqrt(aPc * aPc + k * k * aP * aP);
     }
   }
-  out.push({ transform: `rotate(${f2(roll)}deg) scale(${f3(sx)},${f3(sy)})` });
+  out.push({ transform: `rotate(${f2(roll)}deg) scale(${f3(sx * dx)},${f3(sy * dy)})` });
 
   // Caras laterales (solo cajas). Cada cara es un degradado que se DESVANECE hacia la vecina: la
   // esquina redondeada es una curva, no una arista, así que la luz cambia poco a poco.
@@ -221,9 +240,10 @@ export function projectPose(
     }
   }
   out.push(yw, yb, pw, pb);
-  out.push({ transform: `rotate(${f2(roll)}deg)` }); // cara (.flip)
+  out.push({ transform: `rotate(${f2(roll)}deg)${squash(fx, fy)}` }); // cara (.flip)
   out.push({ transform: `rotate(${f2(-roll)}deg)` }); // brillo: contra-rota para que la luz quede fija
-  out.push({ transform: `rotate(${f2(roll)}deg)` }, { transform: `rotate(${f2(roll)}deg)` }); // capas de accesorios
+  const accT = `rotate(${f2(roll)}deg)${squash(dx, dy)}`;
+  out.push({ transform: accT }, { transform: accT }); // capas de accesorios
 
   // Accesorios: la copia de atrás siempre es visible; la de adelante solo cuando queda frente al
   // cuerpo.

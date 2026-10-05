@@ -134,9 +134,13 @@ const CASES = [
     // Medido el 2026-10-02 (F2, con el optimizador de Angular aplicado): 232KB raw / 68.2KB gzip, repartido parejo (hats 25KB, rutinas 22KB,
     // variantes de trabajo 17KB, esqueleto 16KB, juguetes 14KB, gestos 13KB…): es coreografía, no un
     // import colado. Techo con ~3% de holgura. Con una forma y el componente ver los casos de abajo.
+    //
+    // 2026-10-05: +2.4KB gzip (67.8 → 70.2KB) por el gesto `frontFlip` (el flip, las pistas `track`, la falda y
+    // la deformación de la pose). Es coreografía nueva, no un import colado: el caso de solo estados sigue en
+    // 0.24KB. Techo 70 → 73.
     filaReadme: null as string | null,
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
-    maxGzipBytes: 70 * 1024,
+    maxGzipBytes: 73 * 1024,
     optimizadorAngular: true,
   },
   {
@@ -146,7 +150,7 @@ const CASES = [
     // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
     filaReadme: null as string | null,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
-    maxGzipBytes: 78 * 1024,
+    maxGzipBytes: 81 * 1024,
     optimizadorAngular: true,
   },
   {
@@ -155,7 +159,7 @@ const CASES = [
     // componente a propósito: un solo import y funciona) más el motor y una forma. Medido el 2026-10-02.
     filaReadme: null as string | null,
     entry: `import { GfBotComponent, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GfBotComponent, catShape);`,
-    maxGzipBytes: 86 * 1024,
+    maxGzipBytes: 89 * 1024,
     optimizadorAngular: true,
   },
 ];

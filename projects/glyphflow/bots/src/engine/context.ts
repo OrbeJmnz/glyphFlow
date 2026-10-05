@@ -8,7 +8,7 @@ import type { GfBotShape } from '../data/shape';
 import type { GfBotState } from '../bot-state';
 import { prefersReducedMotion } from './env';
 import { resolveSpring, type BotSpring } from './spring';
-import type { GfBotFeature, GfBotPose } from './pose';
+import type { GfBotFeature, GfBotRestPose } from './pose';
 import { botSkeleton } from './skeleton';
 
 /**
@@ -278,7 +278,7 @@ export interface BotContext {
   // ---- Forma, piel y color ----
   /** La forma actual (`shape.id` va a `data-shape`: el CSS de las pieles y los fx se engancha a él). */
   shape: GfBotShape;
-  pose: Required<GfBotPose>;
+  pose: GfBotRestPose;
   /** Estilo de cara elegido a mano; `null` = la propia de la forma (el que elija el usuario manda). */
   faceStyle: GfBotFaceId | null;
   mochiVar: string;
