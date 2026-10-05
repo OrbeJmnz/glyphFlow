@@ -19,6 +19,8 @@ import { S } from './math';
 import { setMouth } from './mouth';
 import { parm } from './octopus-arms';
 import { setMaterial, setPalette } from './paint';
+import { setView } from './view';
+import type { GfBotView } from '../data/views';
 import { setFace, setFx, setHat, setMochi, setMouthKind, setShape } from './setters';
 import { startShapeFx } from './shape-fx';
 import { clearRoutine, installStateHooks, setRoutine, setState } from './state';
@@ -95,6 +97,8 @@ export interface GfBotControls {
   setMaterial(key: GfBotMaterialId | 'auto'): void;
   setFace(style: GfBotFaceId | null): void;
   setMochi(skin: string): void;
+  /** Desde dónde se mira al bot: una vista con nombre o un giro en radianes. Es el reposo: lo que haga parte de ahí. */
+  setView(view: GfBotView | number | null): void;
   setMouthKind(kind: GfBotMouthKind | 'auto' | null): void;
   setHat(hat: GfBotHatId | GfBotAccXId | null): void;
   setFx(fx: GfBotFxId | null): void;
@@ -268,6 +272,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
     setMaterial: (key) => setMaterial(ctx, key),
     setFace: (style) => setFace(ctx, style),
     setMochi: (skin) => setMochi(ctx, skin),
+    setView: (view) => setView(ctx, view),
     setMouthKind: (kind) => setMouthKind(ctx, kind),
     setHat: (hat) => setHat(ctx, hat),
     setFx: (fx) => setFx(ctx, fx),

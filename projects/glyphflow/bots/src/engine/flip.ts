@@ -3,6 +3,7 @@ import { f2, f3 } from '../data/color';
 import { shadowFor } from './actions';
 import type { BotContext } from './context';
 import { eyeSeq } from './eyes';
+import { flipEffects } from './flip-fx';
 import { S } from './math';
 import { setMouth } from './mouth';
 import { animateShape } from './outlines';
@@ -181,6 +182,33 @@ export function flexHem(d: string, y0: number, bottom: number, spread: number, d
   });
 }
 
+/**
+ * Cuánto «gel» tiene el cuerpo (unidades del viewBox): nada en el suelo, el máximo en el aire. Es lo que
+ * hace que a 90° y 270° la silueta no sea un fantasma liso girando sino una masa blanda con bultos.
+ */
+const GEL = /* @__PURE__ */ track([[0, 0], [0.18, 0], [0.3, 7], [0.5, 11], [0.7, 8], [0.84, 3], [0.92, 0], [1, 0]]);
+
+/** Fase de los bultos: viajan por el contorno mientras el cuerpo gira (≈ 1.75 vueltas en todo el gesto). */
+export const gelPhase = (t: number): number => 11 * t;
+
+/**
+ * Bultos de gel: desplaza cada punto del contorno en radial desde el centro `(cx, cy)`, con tres y
+ * cinco lóbulos que viajan en sentidos contrarios. Con `amp = 0` devuelve el trazo igual. Conserva la
+ * estructura del `d` (se puede interpolar y animar) y, como los puntos de control se mueven junto
+ * con los de ancla, la silueta sigue lisa: bultos suaves, no picos.
+ */
+export function gelBody(d: string, cx: number, cy: number, amp: number, phase: number): string {
+  if (amp === 0) return d;
+  return morphPath(d, (x, y) => {
+    const dx = x - cx;
+    const dy = y - cy;
+    const r = Math.hypot(dx, dy) || 1;
+    const th = Math.atan2(dy, dx);
+    const k = amp * (0.62 * Math.sin(3 * th + phase) + 0.38 * Math.sin(5 * th - 1.3 * phase + 1));
+    return [x + (k * dx) / r, y + (k * dy) / r];
+  });
+}
+
 /** Límites verticales de un trazo, para saber dónde está la falda. */
 export function pathExtent(d: string): { top: number; bottom: number } {
   const ys = [...d.matchAll(/(-?\d*\.?\d+)[ ,](-?\d*\.?\d+)/g)].map((m) => Number(m[2]));
@@ -249,15 +277,21 @@ export function frontFlip(ctx: BotContext): void {
   if (canFlexHem(base)) {
     const { top, bottom } = pathExtent(base);
     const y0 = bottom - 0.38 * (bottom - top);
-    const M = 36;
+    const M = 48;
+    const escala = (ctx.shape.R ?? 60) / 60; // los bultos crecen con el cuerpo
     const hem = Array.from({ length: M + 1 }, (_, i) => {
-      const f = flipFrame(i / M);
-      return { offset: i / M, d: `path("${flexHem(idleDAt(ctx, (i / M) * ms), y0, bottom, f.spread, f.drag)}")` };
+      const t = i / M;
+      const f = flipFrame(t);
+      const falda = flexHem(idleDAt(ctx, t * ms), y0, bottom, f.spread, f.drag);
+      return { offset: t, d: `path("${gelBody(falda, 100, ctx.shape.cy, GEL(t) * escala, gelPhase(t))}")` };
     });
     const anim = animateShape(ctx, hem, { duration: ms, easing: 'linear' });
     ctx.shapeAnims.push(anim);
     anim.addEventListener?.('finish', () => (ctx.shapeAnims = ctx.shapeAnims.filter((a) => a !== anim)), { once: true });
   }
+
+  // Flechas, líneas de velocidad y rayos del impacto (ver flip-fx.ts).
+  flipEffects(ctx, ms);
 
   // 4) SOMBRA: se queda en el suelo; su tamaño y opacidad cuentan la altura. Las pieles Mochi la ocultan
   // (flotan), así que durante el flip se enciende con `data-flip` y se apaga cuando termina o se corta.

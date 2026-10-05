@@ -19,6 +19,7 @@ import type { GfBotAccXId, GfBotFxId } from '../data/fx';
 import type { GfBotHatId } from '../data/hats';
 import type { GfBotPaletteId } from '../data/palettes';
 import type { GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
+import type { GfBotView } from '../data/views';
 import { createBot, type GfBotApi } from '../engine/create-bot';
 
 /** Lo que el bot decide solo y avisa: la rutina que arrancó (`label`) o `null` cuando terminó. */
@@ -97,6 +98,8 @@ export class GfBotComponent implements OnChanges, OnDestroy {
 
   /** Boca de reposo elegida a mano; `auto` = la de la forma. */
   @Input() mouth: GfBotMouthKind | 'auto' = 'auto';
+  /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. */
+  @Input() view: GfBotView | number = 'front';
 
   /** En reposo hace cositas por su cuenta (fidgets y caras kawaii). */
   @Input() wander = false;
@@ -163,6 +166,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
     if (changes['fx'] && !changes['fx'].firstChange) bot.setFx(this.fx);
     if (changes['hat'] && !changes['hat'].firstChange) bot.setHat(this.hat);
     if (changes['mouth'] && !changes['mouth'].firstChange) bot.setMouthKind(this.mouth);
+    if (changes['view'] && !changes['view'].firstChange) bot.setView(this.view);
     // Un estado que el bot ya tiene (porque lo alcanzó solo y el dueño lo reflejó) no se reinicia.
     if (changes['state'] && this.state !== bot.state) bot.setState(this.state);
     if (changes['hoverOnly']) bot.hover(!this.hoverOnly);
@@ -193,6 +197,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
       fx: this.fx,
       hat: this.hat,
       mouthk: this.mouth,
+      view: this.view,
       wander: this.wander,
       hoverOnly: this.hoverOnly,
       onRoutine: (state, label) => this.inZone(() => this.routineChange.emit({ state, label })),

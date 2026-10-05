@@ -12,19 +12,35 @@ import { miniHop } from './actions';
 import type { GfBotState } from '../bot-state';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import { type BotContext } from './context';
+import { clearFlipFx } from './flip-fx';
 
 
+
+  /**
+   * Corta lo que un gesto, una emoción o una rutina dejó animando en la CARA: los ojos felices, los
+   * entrecerrados y los apretados, las cejas, las lágrimas, el sudor, los cachetes, los ojos ocultos por
+   * un cambio de forma y los vahos (`faceFx`). Cada pieza se muestra con una animación de `opacity`; si
+   * no se corta, la del gesto anterior sigue corriendo debajo del siguiente y las dos caras se
+   * MEZCLAN (cejas de enojo con ojos de felicidad, el sudor de un malestar en plena fiesta…).
+   */
+  export function clearFace(ctx: BotContext) {
+    // Sin Web Animations (jsdom, navegadores muy viejos) no hay animaciones que cortar: no es motivo para tronar.
+    const cortar = (n: Element | null | undefined, soloOpacity = false) => n?.getAnimations?.().forEach(a => {
+      if (!soloOpacity || (a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) a.cancel();
+    });
+    ctx.fe.faceFx?.replaceChildren();
+    [ctx.fe.eyes, ...(ctx.fe.cheeks || [])].forEach(n => cortar(n));
+    [...ctx.fe.happy, ...ctx.fe.closed, ...ctx.fe.squeeze, ...ctx.fe.browA, ...ctx.fe.browS, ...ctx.fe.tears, ctx.fe.sweat].forEach(n => cortar(n));
+    ctx.fe.eyeList.forEach(n => cortar(n, true));   // ojos ocultos por un cambio de forma (no los parpadeos: esos animan transform)
+  }
 
   export function clearRoutine(ctx: BotContext) {
     ctx.subAnims.forEach(a => a.cancel()); ctx.subAnims = [];
     ctx.subTimers.forEach(clearTimeout); ctx.subTimers = [];
-    clearInterval(ctx.zTimer ?? undefined); ctx.zTimer = null; ctx.el.z.replaceChildren(); ctx.el.world.replaceChildren(); ctx.fe.faceFx?.replaceChildren();
-    [ctx.fe.eyes, ...(ctx.fe.cheeks || [])].forEach(n => n?.getAnimations().forEach(a => a.cancel()));
+    clearInterval(ctx.zTimer ?? undefined); ctx.zTimer = null; ctx.el.z.replaceChildren(); ctx.el.world.replaceChildren();
+    clearFace(ctx); clearFlipFx(ctx);
     [ctx.el.dots, ctx.el.thought, ctx.el.spinner, ctx.fe.bubble].forEach(n => n.setAttribute('opacity', '0'));
     (['sheen', 'rl', 'rr', 'rt', 'rb'] as const).forEach(k => ctx.el.L[k].getAnimations().forEach(a => a.cancel()));
-    // piezas de la cara que una rutina dejó animando (ojos felices, cejas, lágrimas…): se cortan al cambiar
-    [...ctx.fe.happy, ...ctx.fe.closed, ...ctx.fe.squeeze, ...ctx.fe.browA, ...ctx.fe.browS, ...ctx.fe.tears, ctx.fe.sweat].forEach(n => n.getAnimations().forEach(a => a.cancel()));
-    ctx.fe.eyeList.forEach(n => n.getAnimations().forEach(a => { if ((a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) a.cancel(); }));   // ojos ocultos por un cambio de forma
   }
 
   export const ROUTINE_LABEL: Partial<Record<GfBotSleepRoutine, string>> = { counting:'counting sheep', sleepwalking:'sleepwalking', nearFall:'almost falling', night:'starry night' };
@@ -89,13 +105,16 @@ import { type BotContext } from './context';
   export function wake(ctx: BotContext) { if (ctx.state === 'sleeping') { setState(ctx, 'idle'); ctx.opts.onWake?.(); } }
 
   // Las acciones interrumpen la rutina en curso y la retoman al terminar.
-  export function act(ctx: BotContext, ms: number) {
-    wake(ctx); clearLook(ctx);
+  export function act(ctx: BotContext, ms: number, keepKawaii = false) {
+    // Un gesto nuevo parte de una cara limpia. En reposo no se llama a `clearRoutine` (hay rutinas que
+    // dejar vivas), así que sin esto la cara del gesto anterior seguía corriendo debajo de la nueva.
+    wake(ctx); clearLook(ctx); clearFace(ctx); clearFlipFx(ctx);
+    if (!keepKawaii) ctx.hooks.kawaiiRelease();
     if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300); }
     else { ctx.subTimers.forEach(clearTimeout); ctx.subTimers = []; if (ctx.opts.wander) later(ctx, () => fidget(ctx), ms + 4000); }
   }
 
   /** Conecta la máquina de estados a un bot: los gestos avisan con `ctx.hooks.act(ms)` y esto despierta al bot y pausa su rutina. */
   export function installStateHooks(ctx: BotContext): void {
-    ctx.hooks.act = (ms) => act(ctx, ms);
+    ctx.hooks.act = (ms, keepKawaii) => act(ctx, ms, keepKawaii);
   }

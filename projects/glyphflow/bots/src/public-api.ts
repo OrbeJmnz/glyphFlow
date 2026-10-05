@@ -18,6 +18,8 @@ export { createBot } from './engine/create-bot';
 export type { GfBotActionId, GfBotApi, GfBotControls } from './engine/create-bot';
 export type { GfBotAgentEvent } from './engine/agent';
 export type { GfBotMaterialId, GfBotMouthKind, GfBotOptions } from './engine/context';
+export { GF_BOT_VIEWS, isGfBotView } from './data/views';
+export type { GfBotView } from './data/views';
 export type { GfBotShape } from './data/shape';
 export type { GfBotAccXId, GfBotFxId } from './data/fx';
 export type { GfBotFaceId } from './data/faces';

@@ -10,6 +10,7 @@ import { prefersReducedMotion } from './env';
 import { resolveSpring, type BotSpring } from './spring';
 import type { GfBotFeature, GfBotRestPose } from './pose';
 import { botSkeleton } from './skeleton';
+import { viewYaw, type GfBotView } from '../data/views';
 
 /**
  * El CONTEXTO de un bot: todo lo que en el prototipo vivía como `let`/`var`/`const` dentro del
@@ -49,6 +50,8 @@ export interface GfBotOptions {
   hat?: GfBotHatId | GfBotAccXId | null;
   /** Boca de reposo elegida a mano; `auto` = la de la forma. */
   mouthk?: GfBotMouthKind | 'auto';
+  /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. Por defecto, de frente. */
+  view?: GfBotView | number;
   /** En reposo hace cositas por su cuenta (fidgets, caras kawaii). */
   wander?: boolean;
   /** Solo anima mientras hay hover (mini-bots de galería). */
@@ -84,8 +87,14 @@ export interface GfBotCue {
 
 export interface BotHooks {
   cue: (cue: GfBotCue) => void;
-  /** Un gesto avisa que va a durar `ms`: la máquina de estados despierta al bot y pausa la rutina. */
-  act: (ms: number) => void;
+  /**
+   * Un gesto avisa que va a durar `ms`: la máquina de estados despierta al bot, pausa la rutina y deja
+   * la cara limpia. `keepKawaii` es para los gestos que ponen su PROPIA cara kawaii justo después: así no
+   * se suelta (y no parpadea la cara base entre dos kawaii). Los demás sueltan la kawaii activa.
+   */
+  act: (ms: number, keepKawaii?: boolean) => void;
+  /** Quita la cara kawaii activa con un fundido corto. Lo instala el corte kawaii. */
+  kawaiiRelease: () => void;
   /** Las caras kawaii vuelven a decidir si toca una (al cambiar de estado). Lo instala el corte kawaii. */
   kawaiiIdleTick: () => void;
   /** Despertar con cara de recién despierto (bostezo, estirón…). Lo instala el corte kawaii. */
@@ -279,6 +288,8 @@ export interface BotContext {
   /** La forma actual (`shape.id` va a `data-shape`: el CSS de las pieles y los fx se engancha a él). */
   shape: GfBotShape;
   pose: GfBotRestPose;
+  /** Giro de REPOSO (radianes): la vista. `baseFor` lo incluye, así que lo que resetea la pose vuelve a él. */
+  view: number;
   /** Estilo de cara elegido a mano; `null` = la propia de la forma (el que elija el usuario manda). */
   faceStyle: GfBotFaceId | null;
   mochiVar: string;
@@ -434,10 +445,11 @@ export function createBotContext(
   };
 
   return {
-    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined, act: () => undefined, kawaiiIdleTick: () => undefined, kawaiiWake: () => undefined }, q, qa, el, fe: emptyFaceElements(),
+    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined, act: () => undefined, kawaiiRelease: () => undefined, kawaiiIdleTick: () => undefined, kawaiiWake: () => undefined }, q, qa, el, fe: emptyFaceElements(),
 
     shape: opts.shape,
-    pose: { yaw: 0, pitch: 0, roll: 0 },
+    view: viewYaw(opts.view),
+    pose: { yaw: viewYaw(opts.view), pitch: 0, roll: 0 },
     faceStyle: opts.face && Object.hasOwn(FACES, opts.face) ? opts.face : null,
     mochiVar: opts.mochi || 'neu',
     fxVar: opts.fx && Object.hasOwn(FX_VARS, opts.fx) ? opts.fx : null,
