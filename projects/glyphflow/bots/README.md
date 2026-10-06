@@ -19,7 +19,7 @@ import { physicalGestures } from 'glyphflow/bots/gestures';
 
 const bot = createBot(host, { shape: catShape, gestures: physicalGestures });
 bot.superBounce();        // los gestos del paquete salen como métodos, tipados
-bot.gesture('superBounce'); // o por nombre: devuelve lo que dura (ms), true, o false si no existe
+const g = bot.gesture('superBounce'); // o por nombre: devuelve un handle { ms, finished, cancel() }
 ```
 
 ```html
@@ -27,6 +27,28 @@ bot.gesture('superBounce'); // o por nombre: devuelve lo que dura (ms), true, o 
 ```
 
 Pasa solo los gestos que uses (`{ frontFlip, superBounce }`): `physicalGestures` los trae todos y paga todos.
+
+### Ciclo de vida de un gesto
+
+`bot.gesture(id)` y cada gesto como método (`bot.frontFlip()`) devuelven un handle:
+
+```ts
+const g = bot.gesture('frontFlip');
+g.ms;                 // lo que dura (0 si no corrió)
+await g.finished;     // 'done' | 'interrupted' | 'ignored' (nunca rechaza)
+g.cancel();           // lo corta si sigue vivo, o lo saca de la cola
+bot.gesture('stretchSnap', { policy: 'ignore' }); // qué hacer si ya hay uno corriendo
+```
+
+| `policy` | Si ya hay un gesto corriendo |
+| --- | --- |
+| `'replace'` (por defecto) | el nuevo lo corta y descarta la cola |
+| `'queue'` | espera a que termine solo (hasta 3 en espera; el resto se ignora). Si el actual se interrumpe, la cola se descarta |
+| `'ignore'` | el nuevo no corre |
+
+Cada gesto corre con su propia bolsa de timers: lo que programa con `kit.later` se apaga con `cancel()` o al ser
+interrumpido, y terminar solo no toca lo que dejó para después (el regreso a reposo, por ejemplo). Interrumpen un gesto
+cualquier acción del motor (`hop`, `wave`…), un cambio de estado, tocar o arrastrar al bot, y destruirlo.
 
 ## Los gestos (`glyphflow/bots/gestures`)
 

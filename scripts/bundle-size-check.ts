@@ -173,7 +173,9 @@ const CASES = [
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { superBounce } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, superBounce);`,
     // 2026-10-06: 81 -> 83. superBounce ahora trae los toques del flip (flechas, lineas de velocidad, rayos, gel): +1.3KB
     // que paga quien usa un gesto con efectos; los gestos sin ellos (jellyWobble…) siguen costando ~1.7KB.
-    maxGzipBytes: 83 * 1024,
+    // 2026-10-06: 83 -> 84. El ciclo de vida de los gestos (handle, politicas, cola, bolsa de timers propia) cuesta +0.55KB
+    // en el motor y se paga en todo caso que lo use; el techo del motor sigue en 70 (medido 69.6).
+    maxGzipBytes: 84 * 1024,
     optimizadorAngular: true,
   },
   {

@@ -3,7 +3,7 @@ import { agentReactions } from './agent';
 
 /** Un bot y un contexto de mentira: el manejador solo les pide `gesture`, `reduce`, `paused` y un sitio donde agendar timers. */
 function mundo(ms = 900) {
-  const gesture = vi.fn((id: string): number | boolean => (id === 'noExiste' ? false : ms));
+  const gesture = vi.fn((id: string) => ({ id, ms: id === 'noExiste' ? 0 : ms, finished: Promise.resolve('done'), cancel: () => undefined }));
   const ctx = { reduce: false, paused: false, subTimers: [] as ReturnType<typeof setTimeout>[], hooks: { act: vi.fn() } };
   return { bot: { gesture } as never, ctx: ctx as never, gesture, raw: ctx };
 }

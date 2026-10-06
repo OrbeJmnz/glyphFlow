@@ -8,7 +8,8 @@ import { twinAnimation } from './outlines';
  */
 
 /**
- * Programa `fn` y guarda el timer en `bag` (por defecto `ctx.subTimers`, el de la rutina en curso).
+ * Programa `fn` y guarda el timer en `bag`. Por defecto va a la bolsa del gesto en curso (`ctx.run`), que se apaga si lo
+ * cancelan; sin gesto corriendo, a `ctx.subTimers`, el de la rutina en curso.
  * Un bag propio sirve para lo que debe sobrevivir a un cambio de rutina (`lookTimers`, `toyTimers`).
  *
  * `bag` se lee al LLAMAR, no al crear el contexto: el prototipo reasigna `subTimers = []` al limpiar
@@ -18,7 +19,7 @@ export function later(
   ctx: BotContext,
   fn: () => void,
   ms: number,
-  bag: ReturnType<typeof setTimeout>[] = ctx.subTimers,
+  bag: ReturnType<typeof setTimeout>[] = ctx.run?.timers ?? ctx.subTimers,
 ): ReturnType<typeof setTimeout> {
   const timer = setTimeout(fn, ms);
   bag.push(timer);

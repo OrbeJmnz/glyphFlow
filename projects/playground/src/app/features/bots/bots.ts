@@ -24,6 +24,8 @@ import {
   type GfBotApi,
   type GfBotGestureContext,
   type GfBotShape,
+  type GfGestureHandle,
+  type GfGestureOptions,
   type GfKawaiiId,
 } from 'glyphflow/bots';
 import { agentReactions, physicalGestures } from 'glyphflow/bots/gestures';
@@ -183,9 +185,9 @@ export class Bots {
   protected readonly reacciones = (ev: GfBotAgentEvent, bot: GfBotApi, ctx: GfBotGestureContext): number => {
     const espia = {
       ...bot,
-      gesture: (id: string): number | boolean => {
+      gesture: (id: string, o?: GfGestureOptions): GfGestureHandle => {
         this.juega.update((m) => ({ ...m, [ev]: id }));
-        return bot.gesture(id);
+        return bot.gesture(id, o);
       },
     } as GfBotApi;
     const ms = this.agente(ev, espia, ctx);
@@ -253,12 +255,13 @@ export class Bots {
   /**
    * El avatar del chat no se queda parado entre mensajes: cada 6–11 s hace un gesto ligero, salvo que el agente esté
    * en plena corrida, la pestaña esté oculta o el movimiento esté apagado. Las caras kawaii y los pequeños gestos de
-   * reposo los pone el propio motor (`[wander]`); esto añade un gesto de verdad de vez en cuando.
+   * reposo los pone el propio motor (`[wander]`); esto añade un gesto de verdad de vez en cuando, con `policy: 'ignore'`:
+   * si justo hay uno corriendo (el del agente, o el de quien toca al bot) no lo pisa.
    */
   private vivir(): void {
     this.vida = setTimeout(() => {
       const api = this.chatBot()?.api;
-      if (api && !this.ejecutando() && this.movimiento() && !this.doc.hidden) api.gesture(gestoSuelto(Math.random()));
+      if (api && !this.ejecutando() && this.movimiento() && !this.doc.hidden) api.gesture(gestoSuelto(Math.random()), { policy: 'ignore' });
       this.vivir();
     }, esperaVida(Math.random()));
   }

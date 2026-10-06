@@ -8,6 +8,7 @@ import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotState } from '../bot-state';
+import type { GestureRun } from './lifecycle';
 import { prefersReducedMotion } from './env';
 import { resolveSpring, type BotSpring } from './spring';
 import type { GfBotFeature, GfBotRestPose } from './pose';
@@ -409,6 +410,14 @@ export interface BotContext {
   toyN: number;
   toyTimers: ReturnType<typeof setTimeout>[];
 
+  // ---- Ciclo de vida de los gestos (ver `lifecycle.ts`) ----
+  /** El gesto en curso, con su propia bolsa de timers. */
+  run: GestureRun | null;
+  /** Los gestos que esperan turno (`policy: 'queue'`). */
+  runQueue: (() => void)[];
+  /** El regreso a reposo al cerrar el agente. Tiene dueño propio: ni un gesto ni un juguete lo borran por accidente. */
+  closeT: ReturnType<typeof setTimeout> | null;
+
   // ---- Pausa ----
   paused: boolean;
   /** Lo que se pidió mientras estaba en pausa; se ejecuta al reanudar. */
@@ -545,6 +554,9 @@ export function createBotContext(
 
     toyN: 0,
     toyTimers: [],
+    run: null,
+    runQueue: [],
+    closeT: null,
 
     paused: false,
     pending: null,

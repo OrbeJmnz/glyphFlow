@@ -123,6 +123,19 @@ export function token(ctx: BotContext, text = ''): void {
   lit(ctx, 'rb', [{ opacity: 0.52 }, { opacity: 0.3 }], 150);
 }
 
+/**
+ * Vuelve a reposo cuando termina la escena de cierre. Su timer es `ctx.closeT`, uno solo y con dueño: ni un gesto
+ * (`act()` vacía `subTimers`) ni un juguete (`toyTimers`) lo borran por accidente; solo un cambio de estado o destruir.
+ */
+function cierraEn(ctx: BotContext, ms: number): void {
+  clearTimeout(ctx.closeT ?? undefined);
+  ctx.closeT = setTimeout(() => {
+    ctx.closeT = null;
+    setState(ctx, 'idle');
+    ctx.opts.onStateChange?.('idle');
+  }, ms);
+}
+
 /** Terminó: palomita en la hoja, destello verde, brinquito y a reposo. */
 function finish(ctx: BotContext): void {
   const s = ctx.stream;
@@ -154,16 +167,7 @@ function finish(ctx: BotContext): void {
       swapEyes(ctx, 'happy', 900);
     }
   }, 250);
-  // Va en `toyTimers` y no en los de la rutina: un gesto encadenado (`act()`) borra estos, y entonces nunca volvería a reposo.
-  later(
-    ctx,
-    () => {
-      setState(ctx, 'idle');
-      ctx.opts.onStateChange?.('idle');
-    },
-    Math.max(1500, g + 200),
-    ctx.toyTimers,
-  );
+  cierraEn(ctx, Math.max(1500, g + 200));
 }
 
 /** Falló: «!», ceño, ojos apretados, niega, se sacude y se pone rojo un instante. */
@@ -194,14 +198,5 @@ function oops(ctx: BotContext): void {
     animatePose(ctx, (u) => ({ yaw: 0.38 * Math.sin(TAU * 2 * u) * (1 - u) }), 1000);
     later(ctx, () => play(ctx, ctx.el.breath, [{}, { transform: S(1.04, 0.94), offset: 0.4 }, { transform: S(1) }], { duration: 700 }), 1100); // suspiro de frustración
   }
-  // Va en `toyTimers` y no en los de la rutina: un gesto encadenado (`act()`) borra estos, y entonces nunca volvería a reposo.
-  later(
-    ctx,
-    () => {
-      setState(ctx, 'idle');
-      ctx.opts.onStateChange?.('idle');
-    },
-    Math.max(1900, g + 200),
-    ctx.toyTimers,
-  );
+  cierraEn(ctx, Math.max(1900, g + 200));
 }

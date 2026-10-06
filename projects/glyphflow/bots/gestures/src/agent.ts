@@ -77,10 +77,10 @@ export function agentReactions(o: GfBotAgentReactionsOptions = {}): (ev: GfBotAg
     if (!id || ctx.reduce || ctx.paused) return 0;
     const t = now();
     if (t - (hizo.get(id) ?? -Infinity) < cooldown) return 0;
-    const r = bot.gesture(id);
-    if (!r) return 0;
+    const g = bot.gesture(id);
+    if (!g.ms) return 0;
     hizo.set(id, t);
-    return typeof r === 'number' ? r : 0;
+    return g.ms;
   };
 
   return (ev, bot, ctx) => {

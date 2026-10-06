@@ -4,6 +4,7 @@ import { createBotContext, type BotContext, type GfBotOptions } from './context'
 import { installKawaiiHooks } from './kawaii';
 import { setShape } from './setters';
 import { installStateHooks, setState } from './state';
+import { toyClear } from './toys';
 
 vi.setConfig({ testTimeout: 30_000 });
 const proto = Element.prototype as unknown as Record<string, unknown>;
@@ -123,5 +124,17 @@ describe('glyphflow/bots · el agente avisa a quien reacciona con gestos', () =>
     expect(ctx.state).toBe('idle');
     // ninguna rutina de trabajo nueva arrancó mientras se cerraba la escena
     expect(rutinas.mock.calls.slice(antes).filter((c) => c[0] === 'working' && c[1] !== 'done').length).toBe(0);
+  });
+
+  it('un juguete que se limpia durante el cierre no borra el regreso a reposo', () => {
+    const ctx = bot();
+    const cambios = vi.fn();
+    ctx.opts.onStateChange = cambios;
+    agent(ctx, 'thinking');
+    agent(ctx, 'done');
+    toyClear(ctx); // antes compartía bolsa de timers con el regreso a reposo y lo mataba
+    vi.advanceTimersByTime(5000);
+    expect(cambios).toHaveBeenCalledWith('idle');
+    expect(ctx.state).toBe('idle');
   });
 });

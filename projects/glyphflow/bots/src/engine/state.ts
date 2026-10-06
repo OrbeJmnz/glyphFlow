@@ -13,6 +13,7 @@ import type { GfBotState } from '../bot-state';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import { type BotContext } from './context';
 import { clearGestureFx } from './gesture-fx';
+import { interruptRun } from './lifecycle';
 
 
 
@@ -70,7 +71,7 @@ import { clearGestureFx } from './gesture-fx';
 
 
   export function setState(ctx: BotContext, s: GfBotState, quiet = false) {   // quiet: reanudar sin gestos de transición (al volver a verse en pantalla)
-    const prev = ctx.state; ctx.state = s; ctx.closing = false; ctx.routineIdx = 0; clearTimeout(ctx.sleepTimer ?? undefined);
+    const prev = ctx.state; ctx.state = s; ctx.closing = false; ctx.routineIdx = 0; clearTimeout(ctx.sleepTimer ?? undefined); clearTimeout(ctx.closeT ?? undefined); ctx.closeT = null; interruptRun(ctx);
     clearRoutine(ctx); clearLook(ctx);
     if (ctx.kIdleT) clearTimeout(ctx.kIdleT);
     ctx.kIdleT = setTimeout(() => ctx.hooks.kawaiiIdleTick(), 0);   // reposo → caras kawaii; otro estado → cara normal
@@ -110,10 +111,11 @@ import { clearGestureFx } from './gesture-fx';
   export function act(ctx: BotContext, ms: number, keepKawaii = false) {
     // Un gesto nuevo parte de una cara limpia. En reposo no se llama a `clearRoutine` (hay rutinas que
     // dejar vivas), así que sin esto la cara del gesto anterior seguía corriendo debajo de la nueva.
+    interruptRun(ctx); // lo que toma el cuerpo corta el gesto en curso; el gesto que se está armando no se corta a sí mismo
     wake(ctx); clearLook(ctx); clearFace(ctx); clearGestureFx(ctx);
     if (!keepKawaii) ctx.hooks.kawaiiRelease();
-    if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300); }
-    else { ctx.subTimers.forEach(clearTimeout); ctx.subTimers = []; if (ctx.opts.wander) later(ctx, () => fidget(ctx), ms + 4000); }
+    if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300, ctx.subTimers); }
+    else { ctx.subTimers.forEach(clearTimeout); ctx.subTimers = []; if (ctx.opts.wander) later(ctx, () => fidget(ctx), ms + 4000, ctx.subTimers); }
   }
 
   /** Conecta la máquina de estados a un bot: los gestos avisan con `ctx.hooks.act(ms)` y esto despierta al bot y pausa su rutina. */

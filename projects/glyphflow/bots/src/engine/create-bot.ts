@@ -23,6 +23,7 @@ import { setView } from './view';
 import type { GfBotView } from '../data/views';
 import { setFace, setFx, setHat, setMochi, setMouthKind, setShape } from './setters';
 import { startShapeFx } from './shape-fx';
+import { ignorado, interruptRun, playGesture, type GfGestureHandle, type GfGestureOptions } from './lifecycle';
 import { clearRoutine, installStateHooks, setRoutine, setState } from './state';
 import { play } from './timing';
 import { toy } from './toys';
@@ -122,10 +123,12 @@ export interface GfBotControls {
   followPointer(on: boolean): void;
   pop(): void;
   /**
-   * Corre un gesto extra registrado con `gestures` por su nombre. Devuelve lo que dura (ms) si el gesto lo informa, `true` si corrió sin
-   * informarlo, y `false` si no existe (o es un gesto del motor: esos se llaman directo).
+   * Corre un gesto extra registrado con `gestures` por su nombre y devuelve su {@link GfGestureHandle}: cuánto dura (`ms`),
+   * una promesa de fin (`finished`) y `cancel()`. Un nombre que no existe (o es un gesto del motor: esos se llaman directo),
+   * un bot en pausa o una política que lo descarta devuelven un handle que se resuelve ya como `'ignored'`.
+   * Con `policy` se decide qué pasa si ya hay un gesto corriendo (por defecto `'replace'`: el nuevo lo corta).
    */
-  gesture(id: string): number | boolean;
+  gesture(id: string, opts?: GfGestureOptions): GfGestureHandle;
   /** Activa tocar y arrastrar. Devuelve el que lo desactiva; llamarlo dos veces no duplica los listeners, y tras desactivarlo se puede volver a activar. */
   enableTouch(): () => void;
   /** Para los `hoverOnly`: `true` descongela, `false` congela. */
@@ -137,7 +140,7 @@ export interface GfBotControls {
 export type GfBotApi = Readonly<Record<GfBotActionId, Action>> & GfBotControls;
 
 /** Los gestos de un paquete (`gestures`), como métodos del bot: `bot.superBounce()`. */
-export type GfBotPackApi<P extends GfBotGesturePack> = { readonly [K in keyof P]: Action };
+export type GfBotPackApi<P extends GfBotGesturePack> = { readonly [K in keyof P]: (opts?: GfGestureOptions) => GfGestureHandle };
 
 type Loose = (...args: never[]) => unknown;
 
@@ -281,7 +284,9 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
 
   // Gestos extra (`opts.gestures`): salen como métodos del bot y por nombre. Se ignoran en pausa, como los del motor,
   // y no pisan ni un gesto del motor ni un control.
-  const pack: Record<string, () => number | void> = {};
+  const fns: Record<string, () => number | void> = {};
+  const runPack = (name: string, o?: GfGestureOptions): GfGestureHandle =>
+    ctx.paused ? ignorado(name) : playGesture(ctx, name, fns[name], o?.policy);
   let apiRef: GfBotApi | null = null;
   const controls: GfBotControls = {
     svg,
@@ -310,11 +315,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
       stopFollow = on ? followPointer(ctx) : null;
     },
     pop: act['pop'] as GfBotControls['pop'],
-    gesture: (name) => {
-      if (!Object.hasOwn(pack, name)) return false;
-      const ms = pack[name]();
-      return typeof ms === 'number' && ms > 0 ? ms : true;
-    },
+    gesture: (name, o) => (Object.hasOwn(fns, name) ? runPack(name, o) : ignorado(name)),
     enableTouch: () => {
       if (touchOff) return touchOff;
       const stop = enableTouch(ctx);
@@ -346,6 +347,8 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
       cancelAnimationFrame(ctx.cloudRaf);
       for (const t of [ctx.kIdleT, ctx.kTmpT, ctx.mouthT, ctx.pokeT]) if (t) clearTimeout(t);
       ctx.toyTimers.forEach(clearTimeout);
+      clearTimeout(ctx.closeT ?? undefined);
+      interruptRun(ctx);
       ctx.kSeqId++;
       ctx.pending = null;
     },
@@ -365,8 +368,9 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
 
   for (const [k, f] of Object.entries(opts.gestures ?? {})) {
     if (k in table || k in controls) continue;
-    pack[k] = () => (ctx.paused ? undefined : f(ctx));
+    fns[k] = () => f(ctx);
   }
+  const pack = Object.fromEntries(Object.keys(fns).map((k) => [k, (o?: GfGestureOptions) => runPack(k, o)]));
   const api = Object.assign(controls, Object.fromEntries(Object.keys(table).map((k) => [k, act[k]])), pack) as unknown as GfBotApi;
   apiRef = api;
   ctx.hooks.agentReact = (ev) => {
