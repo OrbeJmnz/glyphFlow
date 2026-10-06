@@ -82,11 +82,10 @@ export function flipFrame(t: number, faceK: number = FLIP_FACE_K): FlipFrame {
 /** Duración del flip: `--gf-bot-flip-duration` (o `--flip-duration`), 1000 ms por defecto (ver `gestureDuration`). */
 export const flipDuration = (ctx: BotContext): number => kit.motion.gestureDuration(ctx, 'flip', FLIP_DEFAULT_MS, FLIP_MIN_MS, FLIP_MAX_MS);
 
-export function frontFlip(ctx: BotContext): void {
+export function frontFlip(ctx: BotContext): number {
   const ms = flipDuration(ctx);
   if (ctx.reduce) {
-    kit.motion.reducedHop(ctx, ms);
-    return;
+    return kit.motion.reducedHop(ctx, ms);
   }
   ctx.hooks.act(ms);
   kit.motion.runGesture(ctx, flipDef(), ms);
@@ -133,4 +132,5 @@ export function frontFlip(ctx: BotContext): void {
   boca(0.65, 'flat', 0.15);
   boca(0.82, 'o', 0.08);
   boca(0.9, 'wide', 0.1);
+  return ms;
 }

@@ -345,7 +345,7 @@ export function gestureDuration(ctx: BotContext, id: string, def: number, min = 
 }
 
 /** Movimiento reducido: sin recorrido ni giro. Un saltito con squash, stretch y un rebote, en 300–450 ms. */
-export function reducedHop(ctx: BotContext, ms: number): void {
+export function reducedHop(ctx: BotContext, ms: number): number {
   const d = Math.min(450, Math.max(300, ms * 0.4));
   ctx.hooks.act(d);
   play(ctx, ctx.el.hop, [
@@ -360,6 +360,7 @@ export function reducedHop(ctx: BotContext, ms: number): void {
     { transform: S(1) }, { transform: S(1.08), offset: 0.2 }, { transform: S(0.75), opacity: 0.6, offset: 0.5 },
     { transform: S(1.12), offset: 0.75 }, { transform: S(1) },
   ], d);
+  return d;
 }
 
 /**
@@ -388,7 +389,7 @@ export function shadowByHeight(ctx: BotContext, at: (t: number) => MotionFrame, 
     const h = Math.max(0, Math.min(1, -f.y / alto));
     const borde = Math.min(1, t / 0.06, (1 - t) / 0.06);
     const ancho = (1.04 - 0.58 * h) * (1 + 0.7 * (f.hopX - 1));
-    return { offset: t, transform: S(+ancho.toFixed(3)), opacity: +(1.8 * base * (1 - 0.7 * h) * borde).toFixed(3) };
+    return { offset: t, transform: `translateX(${f.x.toFixed(1)}px) ${S(+ancho.toFixed(3))}`, opacity: +(1.8 * base * (1 - 0.7 * h) * borde).toFixed(3) };
   });
   shadowFor(ctx, kf, ms);
   shadowFlag(ctx, ms);

@@ -52,7 +52,7 @@ export function superBounceDef(): GestureDef {
   });
 }
 
-export function superBounce(ctx: BotContext): void {
+export function superBounce(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'super-bounce', BOUNCE_MS, 600, 4000);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -70,6 +70,7 @@ export function superBounce(ctx: BotContext): void {
   boca(ctx, ms, 0.12, 'smile', 0.12);
   boca(ctx, ms, 0.26, 'open', 0.4);
   boca(ctx, ms, 0.77, 'wide', 0.18);
+  return ms;
 }
 
 // ── 06 · STRETCH & SNAP ───────────────────────────────────────────────────────────────────────
@@ -97,7 +98,7 @@ export function stretchSnapDef(): GestureDef {
   });
 }
 
-export function stretchSnap(ctx: BotContext): void {
+export function stretchSnap(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'stretch-snap', STRETCH_MS, 300, 3000);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -114,6 +115,7 @@ export function stretchSnap(ctx: BotContext): void {
   ], ms);
   boca(ctx, ms, 0.3, 'o', 0.3);
   boca(ctx, ms, 0.62, 'wide', 0.14);
+  return ms;
 }
 
 // ── 17 · SCARED RECOIL ────────────────────────────────────────────────────────────────────────
@@ -145,7 +147,7 @@ export function scaredRecoilDef(): GestureDef {
   });
 }
 
-export function scaredRecoil(ctx: BotContext): void {
+export function scaredRecoil(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'scared-recoil', RECOIL_MS, 400, 3000);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -161,4 +163,5 @@ export function scaredRecoil(ctx: BotContext): void {
     { transform: kit.S(1, 1), offset: 1 },
   ], ms);
   boca(ctx, ms, 0.02, 'o', 0.7);
+  return ms;
 }

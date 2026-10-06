@@ -36,8 +36,11 @@ export type GfBotMaterialId = keyof typeof MATERIALS;
 /** El contexto interno del bot que recibe cada gesto. Es opaco: se pasa tal cual a las herramientas de `gfBotKit`. */
 export type GfBotGestureContext = BotContext;
 
-/** Un gesto extra: una función que recibe el contexto y arma su movimiento con `gfBotKit`. */
-export type GfBotGesture = (ctx: GfBotGestureContext) => void;
+/**
+ * Un gesto extra: una función que recibe el contexto y arma su movimiento con `gfBotKit`. Puede devolver
+ * cuánto dura (ms): así se le puede encadenar algo detrás (ver `withLanding` en `glyphflow/bots/gestures`).
+ */
+export type GfBotGesture = (ctx: GfBotGestureContext) => void | number;
 
 /** `{ nombre: gesto }`. Se pasa en `createBot({ gestures })` o en el input `[gestures]` de `<gf-bot>`. */
 export type GfBotGesturePack = Readonly<Record<string, GfBotGesture>>;

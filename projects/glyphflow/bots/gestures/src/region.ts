@@ -38,7 +38,7 @@ export function jellyWobbleDef(): GestureDef {
   });
 }
 
-export function jellyWobble(ctx: BotContext): void {
+export function jellyWobble(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'jelly-wobble', JELLY_MS, 400, 3000);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -52,6 +52,7 @@ export function jellyWobble(ctx: BotContext): void {
   ], ms);
   boca(ctx, ms, 0.06, 'o', 0.25);
   boca(ctx, ms, 0.4, 'smile', 0.2);
+  return ms;
 }
 
 // ── 10 · WAVE THROUGH BODY ────────────────────────────────────────────────────────────────────
@@ -79,7 +80,7 @@ export function waveThroughBodyDef(): GestureDef {
   });
 }
 
-export function waveThroughBody(ctx: BotContext): void {
+export function waveThroughBody(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'wave-through-body', WAVE_MS, 500, 3500);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -90,6 +91,7 @@ export function waveThroughBody(ctx: BotContext): void {
     { transform: kit.S(1, 1), offset: 0.62 },
   ], ms);
   boca(ctx, ms, 0.3, 'wavy', 0.35);
+  return ms;
 }
 
 // ── 15 · TORNADO SPIN ─────────────────────────────────────────────────────────────────────────
@@ -125,7 +127,7 @@ export function tornadoSpinDef(): GestureDef {
   });
 }
 
-export function tornadoSpin(ctx: BotContext): void {
+export function tornadoSpin(ctx: BotContext): number {
   const ms = kit.motion.gestureDuration(ctx, 'tornado-spin', TORNADO_MS, 600, 4000);
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
@@ -139,4 +141,5 @@ export function tornadoSpin(ctx: BotContext): void {
   ], ms);
   boca(ctx, ms, 0.1, 'o', 0.65);
   boca(ctx, ms, 0.84, 'wavy', 0.14);
+  return ms;
 }
