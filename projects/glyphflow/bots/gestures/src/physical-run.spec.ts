@@ -27,7 +27,7 @@ describe('gestos físicos en el motor', () => {
     host.remove();
   });
 
-  it.each(['frontFlip', 'superBounce', 'stretchSnap', 'scaredRecoil', 'jellyWobble', 'waveThroughBody', 'tornadoSpin', 'spinSquash', 'sideDodge', 'backflip', 'doubleFlip', 'sideCartwheel', 'ghostSwoop', 'inflateRelease', 'puddleMorph', 'jellyDrop', 'squishTeleport', 'ballMorph'] as const)('%s existe, anima y apaga la bandera de la sombra', (id) => {
+  it.each(['frontFlip', 'superBounce', 'stretchSnap', 'scaredRecoil', 'jellyWobble', 'waveThroughBody', 'tornadoSpin', 'spinSquash', 'sideDodge', 'backflip', 'doubleFlip', 'sideCartwheel', 'ghostSwoop', 'inflateRelease', 'puddleMorph', 'jellyDrop', 'squishTeleport', 'ballMorph', 'peekPop', 'diveEmerge'] as const)('%s existe, anima y apaga la bandera de la sombra', (id) => {
     const host = document.createElement('div');
     document.body.append(host);
     const bot = createBot(host, { shape: ghostShape, wander: false, gestures: physicalGestures });

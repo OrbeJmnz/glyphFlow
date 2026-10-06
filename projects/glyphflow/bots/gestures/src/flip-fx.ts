@@ -72,6 +72,8 @@ export interface GestureFxConfig {
   /** Líneas de velocidad horizontales, detrás del bot: `dir` = hacia dónde va (1 = derecha). */
   side?: readonly { at: readonly [number, number]; dir: 1 | -1 }[];
   /** Impactos contra el suelo: rayos radiales y destellos. `big` = los nueve rayos y cinco destellos; si no, un golpe chico. */
+  /** Ondas que se abren en el suelo (de donde se sumerge o emerge): elipses concéntricas que se agrandan y se apagan. */
+  ripples?: readonly { at: number; x?: number }[];
   impacts?: readonly { at: number; big?: boolean; /** Desplazamiento horizontal del golpe (si el bot cae lejos de donde empezó). */ x?: number }[];
 }
 
@@ -192,6 +194,17 @@ export function gestureEffects(ctx: BotContext, ms: number, cfg: GestureFxConfig
         pulso(s, ms, at + 0.005 + retraso, fin(at + 0.105), (u) => `scale(${(0.3 + 1.2 * u).toFixed(2)}) rotate(${(u * 40).toFixed(0)}deg)`);
       });
     }
+  }
+
+  // Ondas en el suelo: tres elipses que se abren una tras otra.
+  for (const { at, x: dx = 0 } of cfg.ripples ?? []) {
+    const agua = el('g', { class: MARCA, 'pointer-events': 'none' }, ctx.el.world);
+    [0, 1, 2].forEach((i) => {
+      const e = el('ellipse', { cx: 100 + dx, cy: 187, rx: 20, ry: 3.4, fill: 'none', stroke: i === 1 ? CIAN : LAVANDA, 'stroke-width': 2.4, opacity: 0 }, agua);
+      e.style.transformBox = 'fill-box';
+      e.style.transformOrigin = 'center';
+      pulso(e, ms, at + i * 0.03, fin(at + 0.16 + i * 0.03), (u) => `scale(${(0.35 + 2.1 * u).toFixed(2)})`, 0.9);
+    });
   }
 
   // Se retiran solos al terminar; si otro gesto o la pausa los corta, los recoge `clearFlipFx` (desde `act` y `clearRoutine`).

@@ -17,3 +17,4 @@ export { shadowFor } from './actions';
 export * as body from './body-fx';
 export { clearGestureFx, GESTURE_FX_MARK } from './gesture-fx';
 export { smoothstep, track } from './track';
+export { groundClip, GROUND_Y } from './ground';
