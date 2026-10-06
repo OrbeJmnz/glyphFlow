@@ -93,6 +93,11 @@ export interface GfBotShape {
   mochiDefault?: string;
 
   // Pose
+  /**
+   * Cuánto se deja deformar la SILUETA en los gestos (falda, gel, campo por región): 1 = todo lo que pide el gesto,
+   * menos = más rígida. Una caja con copete como el Tofu o un robot no se derriten como un fantasma.
+   */
+  flex?: number;
   /** Profundidad del cuerpo / su ancho (ver `GfBotPoseShape.depth`). Sin esto la forma gira como una esfera. */
   depth?: number;
   tilt?: number;

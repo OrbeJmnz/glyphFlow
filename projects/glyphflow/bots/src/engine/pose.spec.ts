@@ -94,3 +94,16 @@ describe('glyphflow/bots · projectPose', () => {
     });
   });
 });
+
+describe('desplazamiento de cara y accesorios', () => {
+  it('sin ox/oy/ax/ay el transform es el de siempre y con ellos se antepone un translate', () => {
+    const sh = { cy: 100, model: 'sphere' as const, R: 60 };
+    const base = projectPose(sh, { roll: 4 }, []);
+    const con = projectPose(sh, { roll: 4, ox: 5, oy: -2, ax: 7, ay: 1 }, []);
+    const cara = POSE_SLOTS.indexOf('face');
+    const acc = POSE_SLOTS.indexOf('accBackLayer');
+    expect(base[cara].transform).toBe('rotate(4.00deg)');
+    expect(con[cara].transform).toBe('translate(5.00px,-2.00px) rotate(4.00deg)');
+    expect(con[acc].transform).toBe('translate(7.00px,1.00px) rotate(4.00deg)');
+  });
+});

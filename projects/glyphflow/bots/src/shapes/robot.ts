@@ -13,6 +13,7 @@ export function makeRobot(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
   return {
     ...base,
     id: 'robot',
+    flex: 0.5,
     hatAt: top - base.cy + 1.5,
     hatK: 0.88,
     label: 'Robot',

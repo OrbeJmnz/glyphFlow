@@ -123,3 +123,25 @@ describe('tornadoSpin', () => {
     expect(t.amp(0.6)).toBeGreaterThan(0.4);
   });
 });
+
+describe('fieldOffset y flex', () => {
+  const { fieldOffset } = motion;
+  it('la cara y el copete van con la región del cuerpo donde viven', () => {
+    const f = [shear(() => 10, 0)];
+    const [copeteX] = fieldOffset(f, 0.5, 0, 60, 180);
+    const [caraX] = fieldOffset(f, 0.5, 0.5, 60, 180);
+    const [baseX] = fieldOffset(f, 0.5, 1, 60, 180);
+    expect(copeteX).toBeCloseTo(10, 6);
+    expect(caraX).toBeGreaterThan(baseX);
+    expect(caraX).toBeLessThan(copeteX);
+    expect(baseX).toBeCloseTo(1.5, 6);
+  });
+  it('flex escala la deformación: la mitad de rígida se mueve la mitad', () => {
+    const f = [shear(() => 10, 0), wave(() => 0.1, 0)];
+    const a = puntos(applyField(CAJA, f, 0.5, 60, 180, 1));
+    const b = puntos(applyField(CAJA, f, 0.5, 60, 180, 0.5));
+    expect(b[0][0] - 60).toBeCloseTo((a[0][0] - 60) / 2, 1);
+    expect(b[0][1] - 60).toBeCloseTo((a[0][1] - 60) / 2, 1);
+    expect(applyField(CAJA, f, 0.5, 60, 180, 0)).toBe(CAJA);
+  });
+});

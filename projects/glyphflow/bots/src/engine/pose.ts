@@ -29,6 +29,15 @@ export interface GfBotPose {
    */
   fx?: number;
   fy?: number;
+  /**
+   * Desplazamiento (unidades del viewBox) de la CARA y de los ACCESORIOS cuando el cuerpo se deforma por regiones:
+   * la cara está pintada en el cuerpo y el copete o las orejas están pegados a él, así que van con la parte del cuerpo
+   * donde viven en vez de quedarse clavados mientras la silueta se mueve.
+   */
+  ox?: number;
+  oy?: number;
+  ax?: number;
+  ay?: number;
 }
 
 /** Cómo se comporta el cuerpo en 3D: esfera, cilindro o caja redondeada. */
@@ -125,7 +134,8 @@ export function projectPose(
   pose: GfBotPose,
   feats: readonly GfBotFeature[],
 ): GfBotLayerFrame[] {
-  const { yaw = 0, pitch = 0, roll = 0, sx: dx = 1, sy: dy = 1, fx = 1, fy = 1 } = pose;
+  const { yaw = 0, pitch = 0, roll = 0, sx: dx = 1, sy: dy = 1, fx = 1, fy = 1, ox = 0, oy = 0, ax = 0, ay = 0 } = pose;
+  const move = (x: number, y: number): string => (x === 0 && y === 0 ? '' : `translate(${f2(x)}px,${f2(y)}px) `);
   // La deformación se escribe solo si existe: sin ella el texto del transform es el de siempre.
   const squash = (a: number, b: number): string => (a === 1 && b === 1 ? '' : ` scale(${f3(a)},${f3(b)})`);
   const cy = sh.cy;
@@ -240,9 +250,9 @@ export function projectPose(
     }
   }
   out.push(yw, yb, pw, pb);
-  out.push({ transform: `rotate(${f2(roll)}deg)${squash(fx, fy)}` }); // cara (.flip)
+  out.push({ transform: `${move(ox, oy)}rotate(${f2(roll)}deg)${squash(fx, fy)}` }); // cara (.flip)
   out.push({ transform: `rotate(${f2(-roll)}deg)` }); // brillo: contra-rota para que la luz quede fija
-  const accT = `rotate(${f2(roll)}deg)${squash(dx, dy)}`;
+  const accT = `${move(ax, ay)}rotate(${f2(roll)}deg)${squash(dx, dy)}`;
   out.push({ transform: accT }, { transform: accT }); // capas de accesorios
 
   // Accesorios: la copia de atrás siempre es visible; la de adelante solo cuando queda frente al

@@ -6,6 +6,7 @@ import type { BotContext } from './context';
 import { animateShape } from './outlines';
 import { S } from './math';
 import { animatePose } from './pose-motion';
+import type { GfBotPose } from './pose';
 import { shapeD } from './shape-view';
 import { later, play } from './timing';
 import { track, type GfTrackNode } from './track';
@@ -162,33 +163,55 @@ export const wave = (amp: (t: number) => number, lag = 0.5, dir: 1 | -1 = 1): Fi
  */
 export const taper = (amp: (t: number) => number, lag = 0.04): FieldTerm => ({ kind: 'taper', amp, lag });
 
-/** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales). */
-export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number): string {
+/** Dónde queda el punto `(x, y)` de la silueta con el campo aplicado en `t`. `k` escala la amplitud (ver `GfBotShape.flex`). */
+function fieldPoint(
+  field: readonly FieldTerm[],
+  t: number,
+  x: number,
+  y: number,
+  top: number,
+  alto: number,
+  k: number,
+): [number, number] {
+  const v = Math.min(1, Math.max(0, (y - top) / alto));
+  const u = Math.min(1, Math.max(-1, (x - 100) / 60));
+  let X = x;
+  let Y = y;
+  for (const f of field) {
+    if (f.kind === 'shear') {
+      // la base se queda: el peso crece hacia arriba, y la perturbación llega más tarde cuanto más abajo
+      X += f.amp(t - f.lag * v) * (1 - 0.85 * v) * k;
+    } else if (f.kind === 'wave') {
+      const llegada = f.dir === -1 ? (1 - u) / 2 : (u + 1) / 2;
+      const h = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9) * k;
+      Y += h * alto; // la parte de arriba baja donde pasa la onda
+      X += h * alto * 0.25 * u; // y abulta un poco hacia los lados
+    } else {
+      const a = f.amp(t - f.lag * v) * k;
+      X = 100 + (X - 100) * (1 + a * (0.5 - v));
+    }
+  }
+  return [X, Y];
+}
+
+/** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales; `k` escala la amplitud). */
+export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number, k = 1): string {
   const alto = bottom - top || 1;
   let suma = 0;
   for (const f of field) suma += Math.abs(f.amp(t)) + Math.abs(f.amp(t - f.lag * 0.5)) + Math.abs(f.amp(t - f.lag));
-  if (suma < 1e-4) return d;
-  return morphPath(d, (x, y) => {
-    const v = Math.min(1, Math.max(0, (y - top) / alto));
-    const u = Math.min(1, Math.max(-1, (x - 100) / 60));
-    let X = x;
-    let Y = y;
-    for (const f of field) {
-      if (f.kind === 'shear') {
-        // la base se queda: el peso crece hacia arriba, y la perturbación llega más tarde cuanto más abajo
-        X += f.amp(t - f.lag * v) * (1 - 0.85 * v);
-      } else if (f.kind === 'wave') {
-        const llegada = f.dir === -1 ? (1 - u) / 2 : (u + 1) / 2;
-        const k = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9);
-        Y += k * alto; // la parte de arriba baja donde pasa la onda
-        X += k * alto * 0.25 * u; // y abulta un poco hacia los lados
-      } else {
-        const a = f.amp(t - f.lag * v);
-        X = 100 + (X - 100) * (1 + a * (0.5 - v));
-      }
-    }
-    return [X, Y];
-  });
+  if (suma * k < 1e-4) return d;
+  return morphPath(d, (x, y) => fieldPoint(field, t, x, y, top, alto, k));
+}
+
+/**
+ * Cuánto se desplaza una parte del cuerpo que NO es parte del trazo (la cara, el copete) cuando el campo mueve la
+ * silueta: `v` = a qué altura vive (0 = arriba del todo, 1 = la base). Sirve para que viaje con ella.
+ */
+export function fieldOffset(field: readonly FieldTerm[], t: number, v: number, top: number, bottom: number, k = 1): [number, number] {
+  const alto = bottom - top || 1;
+  const y = top + v * alto;
+  const [X, Y] = fieldPoint(field, t, 100, y, top, alto, k);
+  return [X - 100, Y - y];
 }
 
 // ── Gesto ─────────────────────────────────────────────────────────────────────────────────────
@@ -295,11 +318,22 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   // la forma (el robot descansa a -3°): así el último fotograma coincide con el reposo, sin saltito.
   const reposo = ctx.pose.roll;
   const conGiro = !!def.score.yaw;
+  const flex = ctx.shape.flex ?? 1;
+  const base = flexD(shapeD(ctx.shape));
+  const ext = base ? pathExtent(base) : null;
+  const campo = def.field?.length && ext ? def.field : null;
   animatePose(
     ctx,
     (u) => {
       const f = at(u);
-      const pose = { roll: reposo + f.roll, sx: f.poseX, sy: f.poseY, fx: f.faceX, fy: f.faceY };
+      const pose: GfBotPose = { roll: reposo + f.roll, sx: f.poseX, sy: f.poseY, fx: f.faceX, fy: f.faceY };
+      if (campo && ext) {
+        // La cara y el copete viven en el cuerpo: van con la región donde están (cara a media altura, copete arriba).
+        const vc = Math.min(1, Math.max(0, (ctx.shape.cy - ext.top) / (ext.bottom - ext.top)));
+        const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flex);
+        const [ax, ay] = fieldOffset(campo, u, 0, ext.top, ext.bottom, flex);
+        Object.assign(pose, { ox, oy, ax, ay });
+      }
       return conGiro ? { ...pose, yaw: ctx.view + f.yaw } : pose;
     },
     ms,
@@ -308,7 +342,6 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   // 3) SILUETA: la falda reacciona a la inercia y el cuerpo se vuelve gel. Solo si el trazo se deja
   // deformar (absoluto, sin arcos); los demás se quedan con la deformación de cuerpo entero.
   const usaSilueta = !!(def.score.spread || def.score.drag || def.score.gel || def.field?.length);
-  const base = flexD(shapeD(ctx.shape));
   if (usaSilueta && base) {
     const { top, bottom } = pathExtent(base);
     const y0 = bottom - (def.hemFrom ?? 0.38) * (bottom - top);
@@ -318,9 +351,9 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     const hem = Array.from({ length: M + 1 }, (_, i) => {
       const t = i / M;
       const f = at(t);
-      const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread, f.drag);
-      const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala, fase(t));
-      const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom) : cuerpo;
+      const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread * flex, f.drag * flex);
+      const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala * flex, fase(t));
+      const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom, flex) : cuerpo;
       return { offset: t, d: `path("${d}")` };
     });
     const anim = animateShape(ctx, hem, { duration: ms, easing: 'linear' });
