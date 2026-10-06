@@ -145,3 +145,52 @@ export function tornadoSpin(ctx: BotContext): number {
   boca(ctx, ms, 0.84, 'wavy', 0.14);
   return ms;
 }
+
+// ── 12 · INFLATE & RELEASE ────────────────────────────────────────────────────────────────────
+
+export const INFLATE_MS = 1200;
+let inflateDef: GestureDef | undefined;
+
+/** Toma aire y se infla como un globito de gel (más arriba que abajo), aguanta un instante y lo suelta de golpe, sin explotar. */
+export function inflateReleaseDef(): GestureDef {
+  const m = kit.motion;
+  return (inflateDef ??= {
+    score: m.score(
+      m.settle(0),
+      m.anticipate(0.05, { sx: 1.015, sy: 0.97 }), // la toma de aire
+      // Al soltar sale una bocanada hacia arriba: se estira y se estrecha un instante.
+      m.launch(0.5, { sx: 0.955, sy: 1.055 }),
+      m.overshoot(0.6, { sx: 1.02, sy: 0.985 }),
+      m.key(0.74, { sx: 0.995, sy: 1.005 }),
+      m.wobble(0.52, 0.34, 'roll', [2, -1.5, 0.9, -0.4]),
+      m.settle(1),
+    ),
+    field: [
+      // Se llena (300–500 ms), aguanta, y se desinfla pasándose un poco por debajo.
+      m.bulge(kit.track([[0, 0], [0.06, 0], [0.2, 0.06], [0.38, 0.11], [0.46, 0.11], [0.52, -0.025], [0.6, 0.015], [0.7, -0.006], [0.82, 0.002], [1, 0]]), 0.02),
+      // El gel tiembla un poco después de soltarlo.
+      m.shear(kit.track([[0, 0], [0.52, 0], [0.58, 6], [0.66, -4], [0.76, 2], [0.88, -0.8], [1, 0]]), 0.05),
+    ],
+  });
+}
+
+export function inflateRelease(ctx: BotContext): number {
+  const ms = kit.motion.gestureDuration(ctx, 'inflate-release', INFLATE_MS, 600, 3500);
+  if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
+  ctx.hooks.act(ms);
+  kit.motion.runGesture(ctx, inflateReleaseDef(), ms);
+  gestureEffects(ctx, ms, { impacts: [{ at: 0.5 }] }); // la bocanada al soltar
+  kit.eyeSeq(ctx, [
+    { transform: kit.S(1, 1), offset: 0 },
+    { transform: kit.S(1.04, 0.8), offset: 0.06 }, // el esfuerzo de tomar aire
+    { transform: kit.S(1.08, 1.12), offset: 0.38 },
+    { transform: kit.S(1.08, 1.12), offset: 0.46 },
+    { transform: kit.S(1, 0.2), offset: 0.52 }, // suelta: los cierra
+    { transform: kit.S(1, 1.05), offset: 0.64 },
+    { transform: kit.S(1, 1), offset: 0.8 },
+  ], ms);
+  boca(ctx, ms, 0.04, 'o', 0.44); // los mofletes llenos
+  boca(ctx, ms, 0.5, 'open', 0.12);
+  boca(ctx, ms, 0.64, 'smile', 0.2);
+  return ms;
+}

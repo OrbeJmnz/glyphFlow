@@ -1,9 +1,9 @@
 import { gfBotKit, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
 import { describe, expect, it } from 'vitest';
-import { jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
+import { inflateReleaseDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
 
 const { motion, body } = gfBotKit;
-const { applyField, shear, wave, taper, frameAt, tracksOf } = motion;
+const { applyField, bulge, shear, wave, taper, frameAt, tracksOf } = motion;
 
 const CAJA = 'M60 60 L140 60 L140 180 L60 180 Z';
 const puntos = (d: string): number[][] => [...d.matchAll(/(-?\d*\.?\d+) (-?\d*\.?\d+)/g)].map((m) => [+m[1], +m[2]]);
@@ -143,5 +143,50 @@ describe('fieldOffset y flex', () => {
     expect(b[0][0] - 60).toBeCloseTo((a[0][0] - 60) / 2, 1);
     expect(b[0][1] - 60).toBeCloseTo((a[0][1] - 60) / 2, 1);
     expect(applyField(CAJA, f, 0.5, 60, 180, 0)).toBe(CAJA);
+  });
+});
+
+describe('bulge', () => {
+  it('crece con la base en el suelo: más ancho arriba que abajo y más alto', () => {
+    const [a, b, c, d] = puntos(applyField(CAJA, [bulge(() => 0.1, 0)], 0.5, 60, 180));
+    // esquinas: arriba-izq, arriba-der, abajo-der, abajo-izq
+    expect(a[0]).toBeLessThan(60); // se ensanchó arriba
+    expect(b[0]).toBeGreaterThan(140);
+    expect(60 - a[0]).toBeGreaterThan(d[0] < 60 ? 60 - d[0] : 0); // arriba más que abajo
+    expect(a[1]).toBeLessThan(60); // más alto
+    expect(c[1]).toBeCloseTo(180, 6); // la base no se mueve
+    expect(d[1]).toBeCloseTo(180, 6);
+  });
+  it('con amplitud negativa se desinfla', () => {
+    const [a] = puntos(applyField(CAJA, [bulge(() => -0.05, 0)], 0.5, 60, 180));
+    expect(a[0]).toBeGreaterThan(60);
+    expect(a[1]).toBeGreaterThan(60);
+  });
+});
+
+describe('inflateRelease', () => {
+  it('termina en reposo y el campo vale cero en los extremos', () => {
+    const d = inflateReleaseDef();
+    for (const t of [0, 1]) {
+      const f = frameAt(d, tracksOf(d.score), t);
+      expect(f.hopX * f.poseX).toBeCloseTo(1, 9);
+      expect(f.hopY * f.poseY).toBeCloseTo(1, 9);
+      expect(f.roll).toBeCloseTo(0, 9);
+    }
+    for (const f of d.field!) {
+      expect(f.amp(0)).toBeCloseTo(0, 9);
+      expect(f.amp(1)).toBeCloseTo(0, 9);
+    }
+  });
+  it('se infla 105–112 % en 300–500 ms, aguanta y suelta rápido pasándose por debajo', () => {
+    const f = inflateReleaseDef().field![0];
+    expect(f.amp(0.38)).toBeGreaterThan(0.1);
+    expect(f.amp(0.38)).toBeLessThan(0.12);
+    expect(f.amp(0.46)).toBeCloseTo(f.amp(0.38), 2); // hold
+    expect(f.amp(0.52)).toBeLessThan(0); // se pasa por debajo al soltar
+    // el llenado dura 0.06 → 0.38 de 1200 ms = 384 ms; soltar 0.46 → 0.52 = 72 ms
+    expect(0.38 * 1200 - 0.06 * 1200).toBeGreaterThanOrEqual(300);
+    expect(0.38 * 1200 - 0.06 * 1200).toBeLessThanOrEqual(500);
+    expect((0.52 - 0.46) * 1200).toBeLessThan(120);
   });
 });

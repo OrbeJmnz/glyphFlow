@@ -140,7 +140,7 @@ export function score(...parts: Score[]): Score {
  * cruzar el cuerpo (fracción del gesto): lo que viaja es la deformación, no el cuerpo entero.
  */
 export interface FieldTerm {
-  kind: 'shear' | 'wave' | 'taper';
+  kind: 'shear' | 'wave' | 'taper' | 'bulge';
   amp: (t: number) => number;
   lag: number;
   /** Solo `wave`: de qué lado entra (1 = izquierda → derecha, -1 = al revés). */
@@ -186,6 +186,11 @@ function fieldPoint(
       const h = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9) * k;
       Y += h * alto; // la parte de arriba baja donde pasa la onda
       X += h * alto * 0.25 * u; // y abulta un poco hacia los lados
+    } else if (f.kind === 'bulge') {
+      const a = f.amp(t - f.lag * v) * k;
+      X = 100 + (X - 100) * (1 + a * (1 - 0.45 * v)); // más ancho arriba que abajo
+      const bottom = top + alto;
+      Y = bottom - (bottom - Y) * (1 + a * 0.9); // y más alto, con la base en el suelo
     } else {
       const a = f.amp(t - f.lag * v) * k;
       X = 100 + (X - 100) * (1 + a * (0.5 - v));
@@ -193,6 +198,12 @@ function fieldPoint(
   }
   return [X, Y];
 }
+
+/**
+ * Hinchazón: el cuerpo crece (`amp` = fracción, 0.1 = +10 %) con la base anclada al suelo. La cabeza crece más que la
+ * base, como un globo que se llena desde arriba; con `amp` < 0 se desinfla. `lag` retrasa la base respecto a la cabeza.
+ */
+export const bulge = (amp: (t: number) => number, lag = 0.02): FieldTerm => ({ kind: 'bulge', amp, lag });
 
 /** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales; `k` escala la amplitud). */
 export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number, k = 1): string {
