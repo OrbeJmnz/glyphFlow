@@ -1,0 +1,483 @@
+:host {
+  display: block;
+}
+
+.bt-pagina {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.bt-cabecera {
+  display: grid;
+  gap: 0.75rem 2rem;
+  align-items: start;
+}
+
+.bt-cabecera h1 {
+  grid-column: 1 / -1;
+}
+
+.bt-intro-col {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+
+@media (min-width: 62rem) {
+  .bt-cabecera {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+
+  .bt-salto {
+    display: none;
+  }
+}
+
+.bt-cabecera h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.bt-intro {
+  margin: 0;
+  color: var(--gf-texto-medio);
+  line-height: 1.55;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ───────── La mesa: escenario y chat ───────── */
+
+.bt-mesa {
+  display: grid;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+@media (min-width: 62rem) {
+  .bt-mesa {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+}
+
+.bt-panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 1.25rem;
+  background: var(--gf-panel);
+}
+
+.bt-panel h2,
+.bt-codigo h2,
+.bt-peso h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.bt-gestos h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gf-texto-medio);
+}
+
+.bt-ayuda {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--gf-texto-tenue);
+  max-width: 62ch;
+}
+
+/* ───────── Escenario ───────── */
+
+/*
+ * El suelo: una línea y un resplandor suave. La línea no es adorno: está donde el motor recorta el cuerpo
+ * cuando se hunde bajo el suelo (`Peek` y `Dive`), así que ahí es donde el bot desaparece de verdad.
+ */
+.bt-suelo {
+  display: grid;
+  place-items: end center;
+  min-height: 17rem;
+  padding-top: 1rem;
+  border-radius: 1rem;
+  background:
+    radial-gradient(62% 58% at 50% 88%, var(--gf-velo-activo), transparent 72%),
+    linear-gradient(var(--gf-velo), var(--gf-velo)),
+    var(--gf-panel);
+  overflow: clip;
+  /* Fijo bajo la cabecera del sitio: quien cambia la forma, la piel o un gesto más abajo sigue viendo qué pasa con el bot. */
+  position: sticky;
+  top: 4.75rem;
+  z-index: 3;
+}
+
+.bt-suelo::after {
+  content: '';
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 1.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gf-texto-apagado) 16%, var(--gf-texto-apagado) 84%, transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* La sombra de contacto del escenario: la del bot (la de la librería) es sutil y los Mochi la esconden en reposo. */
+.bt-suelo::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 1.05rem;
+  width: 10rem;
+  height: 0.8rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--gf-sombra), transparent);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.bt-suelo gf-bot {
+  position: relative;
+  z-index: 1;
+  --gf-bot-size: 224px;
+}
+
+/*
+ * Vista de silueta: todo el bot en un solo color, sin cara, sin brillo y sin efectos. Se pinta con el color del
+ * texto del sitio (negro sobre claro, blanco sobre oscuro) para que el contraste lo ponga el tema, no un valor fijo.
+ * Los internos del bot los pinta la librería, de ahí el `::ng-deep` y solo aquí.
+ */
+.bt-escenario[data-vista='silueta'][data-tema='claro'] .bt-suelo gf-bot {
+  filter: brightness(0);
+}
+
+.bt-escenario[data-vista='silueta'][data-tema='oscuro'] .bt-suelo gf-bot {
+  filter: brightness(0) invert(1);
+}
+
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .shadow,
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .fx,
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .world {
+  display: none;
+}
+
+.bt-aviso-mov {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--gf-aviso-texto);
+}
+
+.bt-controles,
+.bt-gestos {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.bt-controles {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gf-borde);
+}
+
+.bt-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.bt-campo {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--gf-texto-tenue);
+}
+
+.bt-campo-ancho {
+  width: 100%;
+}
+
+.bt-campo select,
+.bt-campo input {
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--gf-texto);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gf-borde-vivo);
+  border-radius: 0.75rem;
+  background: var(--gf-panel-alto);
+}
+
+.bt-campo select:focus-visible,
+.bt-campo input:focus-visible,
+.bt-interruptor input:focus-visible {
+  outline: 2px solid var(--gf-foco);
+  outline-offset: 2px;
+}
+
+.bt-interruptor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--gf-texto-medio);
+  cursor: pointer;
+}
+
+.bt-interruptor input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--gf-marca-2);
+}
+
+/* ───────── Chat ───────── */
+
+/* Misma altura que el escenario: la caja del chat se lleva el sobrante y el riel queda abajo. */
+.bt-chat {
+  grid-template-rows: auto auto 1fr auto;
+}
+
+.bt-chat-caja {
+  grid-template-rows: auto 1fr auto;
+}
+
+.bt-chat-caja {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border: 1px solid var(--gf-borde);
+  border-radius: 1rem;
+  background: var(--gf-velo);
+}
+
+.bt-chat-cabeza {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bt-chat-cabeza gf-bot {
+  --gf-bot-size: 76px;
+  flex: none;
+}
+
+.bt-chat-nombre {
+  margin: 0;
+  font-weight: 600;
+}
+
+.bt-mensajes {
+  display: grid;
+  gap: 0.5rem;
+  min-height: 7.5rem;
+  align-content: start;
+}
+
+.bt-msg {
+  margin: 0;
+  max-width: 85%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.bt-msg[data-rol='usuario'] {
+  justify-self: end;
+  background: var(--gf-acento-fondo);
+  border-bottom-right-radius: 0.375rem;
+}
+
+.bt-msg[data-rol='asistente'] {
+  justify-self: start;
+  background: var(--gf-panel-alto);
+  border: 1px solid var(--gf-borde);
+  border-bottom-left-radius: 0.375rem;
+}
+
+.bt-simulada {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--gf-texto-apagado);
+}
+
+.bt-vacio {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--gf-texto-tenue);
+}
+
+.bt-enviar {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/*
+ * El riel: lo que el agente está haciendo, paso a paso, y qué gesto responde el bot. Una línea vertical une los puntos y se
+ * rellena hasta el paso en que va (`--bt-avance`); el paso activo se distingue por su punto relleno, la fila iluminada y el
+ * peso de la letra, no solo por color. El gesto va EN LA MISMA FILA, a la derecha: así ninguna fila cambia de alto mientras
+ * corre y nada de la página se mueve.
+ */
+.bt-riel {
+  --bt-avance: 0%;
+  position: relative;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bt-riel::before {
+  content: '';
+  position: absolute;
+  left: calc(0.5rem + 0.3125rem - 1px);
+  top: 1.1rem;
+  bottom: 1.1rem;
+  width: 2px;
+  background: linear-gradient(var(--gf-marca-1) var(--bt-avance), var(--gf-borde-vivo) var(--bt-avance));
+  transition: background 260ms ease;
+}
+
+.bt-paso {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) auto;
+  column-gap: 0.625rem;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.625rem;
+  color: var(--gf-texto-tenue);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.bt-paso::before {
+  content: '';
+  position: relative;
+  z-index: 1;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: var(--gf-panel);
+  box-sizing: border-box;
+}
+
+.bt-paso-nombre {
+  font-size: 0.9375rem;
+}
+
+.bt-paso-gesto {
+  font-size: 0.8125rem;
+  text-align: right;
+  color: var(--gf-marca-1-texto);
+}
+
+.bt-paso[data-estado='hecho'] {
+  color: var(--gf-texto-medio);
+}
+
+.bt-paso[data-estado='hecho']::before {
+  background: currentColor;
+}
+
+.bt-paso[data-estado='activo'] {
+  color: var(--gf-texto);
+  background: var(--gf-acento-fondo);
+}
+
+.bt-paso[data-estado='activo']::before {
+  background: var(--gf-marca-1);
+  border-color: var(--gf-marca-1);
+}
+
+.bt-paso[data-estado='activo'] .bt-paso-nombre {
+  font-weight: 650;
+}
+
+.bt-paso[data-estado='fin'] {
+  color: var(--gf-texto);
+  background: var(--gf-acento-fondo);
+}
+
+.bt-paso[data-estado='fin']::before {
+  background: var(--gf-verde);
+  border-color: var(--gf-verde);
+}
+
+.bt-paso[data-estado='fin'][data-paso='error']::before {
+  background: var(--gf-rojo);
+  border-color: var(--gf-rojo);
+}
+
+/* ───────── Debajo: código y costo ───────── */
+
+.bt-columna {
+  display: grid;
+  grid-template-rows: 1fr;
+  min-width: 0;
+}
+
+.bt-debajo {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 62rem) {
+  .bt-debajo {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  }
+}
+
+.bt-codigo,
+.bt-peso {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.bt-medidas {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--gf-borde);
+}
+
+.bt-medidas div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--gf-borde);
+}
+
+.bt-medidas dt {
+  color: var(--gf-texto-medio);
+}
+
+.bt-medidas dd {
+  margin: 0;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-paso,
+  .bt-riel::before {
+    transition: none;
+  }
+}

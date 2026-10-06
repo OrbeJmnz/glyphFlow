@@ -1,0 +1,144 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { correrGuion, guion, PALABRA_MS, type PasoAgente } from './agente-simulado';
+import { codigoBot, type ConfigBot } from './bots-codigo';
+import { esperaVida, FORMAS, GESTOS, GESTOS_SUELTOS, GRUPOS, gestoSuelto, PIELES } from './bots-datos';
+
+describe('datos de /bots', () => {
+  it('son 20 gestos, sin repetir, y cada uno cae en un grupo que existe', () => {
+    expect(GESTOS.length).toBe(20);
+    expect(new Set(GESTOS.map((g) => g.id)).size).toBe(20);
+    for (const g of GESTOS) expect(GRUPOS).toContain(g.grupo);
+    for (const grupo of GRUPOS) expect(GESTOS.some((g) => g.grupo === grupo)).toBe(true);
+  });
+
+  it('toda forma tiene su tabla de pieles (el robot no ofrece)', () => {
+    for (const f of FORMAS) expect(PIELES[f]).toBeDefined();
+    expect(PIELES.robot.length).toBe(0);
+    for (const f of FORMAS.filter((x) => x !== 'robot')) expect(PIELES[f].length).toBeGreaterThan(2);
+  });
+});
+
+describe('codigoBot (el snippet que reproduce lo que se ve)', () => {
+  const base: ConfigBot = { forma: 'cat', piel: 'g1', gesto: null, sigue: false, toca: false, agente: false };
+
+  it('sin nada elegido solo pide el componente y la forma', () => {
+    const { fragmento, completo } = codigoBot(base);
+    expect(fragmento).toContain('<gf-bot [shape]="shape" skin="g1" />');
+    expect(fragmento).not.toContain('gestures');
+    expect(completo).toContain(`import { GfBotComponent, catShape } from 'glyphflow/bots';`);
+    expect(completo).not.toContain('glyphflow/bots/gestures');
+  });
+
+  it('importa SOLO el gesto elegido, no el paquete entero (la promesa del entry opt-in)', () => {
+    const { completo, fragmento } = codigoBot({ ...base, gesto: 'superBounce' });
+    expect(completo).toContain(`import { superBounce } from 'glyphflow/bots/gestures';`);
+    expect(completo).not.toContain('physicalGestures');
+    expect(fragmento).toContain('[gestures]="gestures"');
+    expect(fragmento).toContain(`gesture('superBounce')`);
+  });
+
+  it('con el modo IA pide agentReactions y un gesto para el festejo', () => {
+    const { completo } = codigoBot({ ...base, agente: true });
+    expect(completo).toContain('agentReactions');
+    expect(completo).toContain('frontFlip');
+    expect(completo).toContain('[onAgentEvent]="reacciones"');
+    expect(completo).toContain('agentReactions()');
+  });
+
+  it('no repite un import y refleja el cursor y el tacto', () => {
+    const { completo, fragmento } = codigoBot({ ...base, gesto: 'frontFlip', agente: true, sigue: true, toca: true });
+    expect(completo.match(/frontFlip/g)?.length).toBeLessThan(5);
+    expect(completo.match(/import \{[^}]*frontFlip[^}]*\} from 'glyphflow\/bots\/gestures'/g)?.length).toBe(1);
+    expect(fragmento).toContain('[followPointer]="true"');
+    expect(fragmento).toContain('[interactive]="true"');
+  });
+
+  it('el robot no lleva piel; el mochi usa su propia forma', () => {
+    expect(codigoBot({ ...base, forma: 'robot', piel: '' }).fragmento).not.toContain('skin=');
+    expect(codigoBot({ ...base, forma: 'mochi', piel: 'neu' }).completo).toContain('mochiShape');
+  });
+
+  it('en la clase completa usa la señal viewChild, no `bot` a secas', () => {
+    const { completo } = codigoBot({ ...base, gesto: 'frontFlip' });
+    expect(completo).toContain('viewChild(GfBotComponent)');
+    expect(completo).toContain(`this.bot()?.api?.gesture('frontFlip')`);
+  });
+});
+
+describe('agente simulado', () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  const correr = (conError: boolean, palabras: string[] = ['uno', 'dos', 'tres']) => {
+    const eventos: PasoAgente[] = [];
+    const dichas: string[] = [];
+    const fin = vi.fn();
+    const cancelar = correrGuion(conError, palabras, { evento: (e) => eventos.push(e), palabra: (p) => dichas.push(p), fin });
+    return { eventos, dichas, fin, cancelar };
+  };
+
+  it('el guion normal recorre los pasos en orden y termina en done', () => {
+    const { eventos, dichas, fin } = correr(false);
+    vi.advanceTimersByTime(60_000);
+    expect(eventos).toEqual(['prompt', 'thinking', 'tool', 'loading', 'writing', 'done']);
+    expect(dichas).toEqual(['uno', 'dos', 'tres']);
+    expect(fin).toHaveBeenCalledWith('done');
+  });
+
+  it('con error falla al usar la herramienta: sin loading ni writing', () => {
+    const { eventos, dichas, fin } = correr(true);
+    vi.advanceTimersByTime(60_000);
+    expect(eventos).toEqual(['prompt', 'thinking', 'tool', 'error']);
+    expect(dichas).toEqual([]);
+    expect(fin).toHaveBeenCalledWith('error');
+  });
+
+  it('respeta el ritmo: cada paso dura lo que dice el guion y cada palabra, PALABRA_MS', () => {
+    const { eventos, dichas } = correr(false);
+    expect(eventos).toEqual(['prompt']);
+    vi.advanceTimersByTime(699);
+    expect(eventos).toEqual(['prompt']);
+    vi.advanceTimersByTime(2);
+    expect(eventos).toEqual(['prompt', 'thinking']);
+    const antesDeEscribir = guion(false).slice(0, 4).reduce((a, p) => a + p.ms, 0);
+    vi.advanceTimersByTime(antesDeEscribir - 701 + 1);
+    expect(eventos.at(-1)).toBe('writing');
+    expect(dichas).toEqual(['uno']);
+    vi.advanceTimersByTime(PALABRA_MS);
+    expect(dichas).toEqual(['uno', 'dos']);
+  });
+
+  it('cortarlo detiene todo: ni más pasos, ni más palabras, ni fin', () => {
+    const { eventos, dichas, fin, cancelar } = correr(false);
+    vi.advanceTimersByTime(1000);
+    cancelar();
+    const n = eventos.length;
+    vi.advanceTimersByTime(60_000);
+    expect(eventos.length).toBe(n);
+    expect(dichas).toEqual([]);
+    expect(fin).not.toHaveBeenCalled();
+  });
+});
+
+describe('vida del avatar del chat', () => {
+  it('espera entre 6 y 11 s entre un gesto suelto y el siguiente', () => {
+    expect(esperaVida(0)).toBe(6000);
+    expect(esperaVida(0.999)).toBeLessThanOrEqual(11000);
+    expect(esperaVida(0.5)).toBe(8500);
+  });
+
+  it('todo gesto suelto es uno de los 20 y es ligero (sin saltos ni giros grandes)', () => {
+    const ids = new Set(GESTOS.map((g) => g.id));
+    for (const g of GESTOS_SUELTOS) expect(ids.has(g)).toBe(true);
+    for (const pesado of ['frontFlip', 'backflip', 'doubleFlip', 'tornadoSpin', 'sideCartwheel', 'jellyDrop', 'diveEmerge', 'peekPop'])
+      expect(GESTOS_SUELTOS).not.toContain(pesado);
+  });
+
+  it('el azar recorre todos y nunca se sale de la lista', () => {
+    const vistos = new Set<string>();
+    for (let i = 0; i < 100; i++) vistos.add(gestoSuelto(i / 100));
+    expect(vistos.size).toBe(GESTOS_SUELTOS.length);
+    expect(GESTOS_SUELTOS).toContain(gestoSuelto(0.9999999));
+    expect(GESTOS_SUELTOS).toContain(gestoSuelto(0));
+  });
+});

@@ -1,0 +1,214 @@
+<div class="bt-pagina">
+  <header class="bt-cabecera">
+    <h1>{{ 'bots.titulo' | transloco }}</h1>
+    <div class="bt-intro-col">
+      <p class="bt-intro">{{ 'bots.intro' | transloco }}</p>
+      <button type="button" app-chip variante="contorno" class="bt-salto" (click)="irAlChat()">{{ 'bots.chat.ir' | transloco }}</button>
+    </div>
+    <app-recuadro class="bt-nota" tipo="nota" [texto]="'bots.aviso' | transloco" />
+  </header>
+
+  <div class="bt-mesa">
+    <!-- ───────── Escenario ───────── -->
+    <section class="bt-panel bt-escenario" [attr.data-vista]="vista()" [attr.data-tema]="tema()" aria-labelledby="bt-t-escenario">
+      <h2 id="bt-t-escenario">{{ 'bots.escenario.titulo' | transloco }}</h2>
+
+      <div class="bt-suelo">
+        <gf-bot
+          #escenario
+          [shape]="shape()"
+          [skin]="piel()"
+          [state]="estado()"
+          [gestures]="gestos"
+          [followPointer]="sigue()"
+          [interactive]="toca()"
+          [size]="224"
+          [label]="'bots.escenario.bot' | transloco: { forma: ('bots.formas.' + forma() | transloco) }"
+        />
+      </div>
+
+      @if (!movimiento()) {
+        <p class="bt-aviso-mov" role="status">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
+      }
+
+      <div class="bt-gestos">
+        <h3>{{ 'bots.escenario.gestos' | transloco }}</h3>
+        @for (g of porGrupo; track g.grupo) {
+          <app-grupo [titulo]="'bots.grupos.' + g.grupo | transloco">
+            @for (x of g.gestos; track x.id) {
+              <button
+                type="button"
+                app-chip
+                variante="contorno"
+                [activo]="jugando() === x.id"
+                [disabled]="!movimiento()"
+                (click)="jugar(x.id, x.ms)"
+              >
+                {{ 'bots.gestos.' + x.id | transloco }}
+              </button>
+            }
+          </app-grupo>
+        }
+      </div>
+      <div class="bt-controles">
+        <app-grupo [titulo]="'bots.escenario.forma' | transloco">
+          @for (f of formas; track f) {
+            <button type="button" app-chip variante="contorno" [activo]="forma() === f" [attr.aria-pressed]="forma() === f" (click)="elegirForma(f)">
+              {{ 'bots.formas.' + f | transloco }}
+            </button>
+          }
+        </app-grupo>
+
+        @if (pieles().length) {
+          <app-grupo [titulo]="'bots.escenario.piel' | transloco">
+            @for (p of pieles(); track p) {
+              <button type="button" app-chip variante="contorno" [activo]="piel() === p" [attr.aria-pressed]="piel() === p" (click)="piel.set(p)">
+                {{ 'bots.pieles.' + p | transloco }}
+              </button>
+            }
+          </app-grupo>
+        }
+
+        <app-grupo [titulo]="'bots.escenario.vista' | transloco">
+          <button type="button" app-chip variante="contorno" [activo]="vista() === 'color'" [attr.aria-pressed]="vista() === 'color'" (click)="vista.set('color')">
+            {{ 'bots.escenario.color' | transloco }}
+          </button>
+          <button
+            type="button"
+            app-chip
+            variante="contorno"
+            [activo]="vista() === 'silueta'"
+            [attr.aria-pressed]="vista() === 'silueta'"
+            aria-describedby="bt-ayuda-vista"
+            (click)="vista.set('silueta')"
+          >
+            {{ 'bots.escenario.silueta' | transloco }}
+          </button>
+        </app-grupo>
+        <p id="bt-ayuda-vista" class="bt-ayuda">{{ 'bots.escenario.vistaAyuda' | transloco }}</p>
+
+        <div class="bt-fila">
+          <label class="bt-campo">
+            <span>{{ 'bots.escenario.estado' | transloco }}</span>
+            <select [value]="estado()" (change)="estado.set($any(valor($event)))">
+              @for (e of estados; track e) {
+                <option [value]="e" [selected]="e === estado()">{{ 'bots.estados.' + e | transloco }}</option>
+              }
+            </select>
+          </label>
+          <label class="bt-interruptor">
+            <input type="checkbox" [checked]="sigue()" (change)="sigue.set($any($event.target).checked)" />
+            {{ 'bots.escenario.sigue' | transloco }}
+          </label>
+          <label class="bt-interruptor">
+            <input type="checkbox" [checked]="toca()" (change)="toca.set($any($event.target).checked)" />
+            {{ 'bots.escenario.toca' | transloco }}
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ───────── Chat con IA y lo que cuesta ───────── -->
+    <div class="bt-columna">
+    <section class="bt-panel bt-chat" aria-labelledby="bt-t-chat">
+      <h2 id="bt-t-chat" tabindex="-1">{{ 'bots.chat.titulo' | transloco }}</h2>
+      <p class="bt-ayuda">{{ 'bots.chat.intro' | transloco }}</p>
+
+      <div class="bt-chat-caja">
+        <div class="bt-chat-cabeza">
+          <gf-bot
+            #chatBot
+            [shape]="shape()"
+            [skin]="piel()"
+            [gestures]="gestos"
+            [onAgentEvent]="reacciones"
+            [wander]="true"
+            [followPointer]="true"
+            [size]="76"
+            [decorative]="true"
+          />
+          <p class="bt-chat-nombre">{{ 'bots.chat.asistente' | transloco }}</p>
+        </div>
+
+        <div class="bt-mensajes" role="log" aria-live="polite" [attr.aria-label]="'bots.chat.titulo' | transloco">
+          @for (m of mensajes(); track $index) {
+            <p class="bt-msg" [attr.data-rol]="m.rol">
+              {{ m.texto }}
+              @if (m.rol === 'asistente' && m.texto) {
+                <span class="bt-simulada">{{ 'bots.chat.respuestaSimulada' | transloco }}</span>
+              }
+            </p>
+          } @empty {
+            <p class="bt-vacio">{{ 'bots.chat.vacio' | transloco }}</p>
+          }
+        </div>
+
+        <form class="bt-enviar" (submit)="$event.preventDefault(); enviar()">
+          <label class="bt-campo bt-campo-ancho">
+            <span>{{ 'bots.chat.mensaje' | transloco }}</span>
+            <input type="text" [formControl]="mensaje" [placeholder]="'bots.chat.mensajePorDefecto' | transloco" autocomplete="off" />
+          </label>
+          <div class="bt-fila">
+            <label class="bt-interruptor">
+              <input type="checkbox" [checked]="conError()" (change)="conError.set($any($event.target).checked)" />
+              {{ 'bots.chat.fallar' | transloco }}
+            </label>
+            @if (ejecutando()) {
+              <button type="button" app-chip variante="contorno" (click)="detener()">{{ 'bots.chat.detener' | transloco }}</button>
+            } @else {
+              <button type="submit" app-chip variante="contorno" [activo]="true" [disabled]="!movimiento()">{{ 'bots.chat.enviar' | transloco }}</button>
+            }
+          </div>
+        </form>
+      </div>
+
+      <ol class="bt-riel" [style.--bt-avance]="avance()" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
+        @for (r of riel(); track r.paso) {
+          <li class="bt-paso" [attr.data-estado]="r.estado" [attr.data-paso]="r.paso" [attr.aria-current]="r.estado === 'activo' ? 'step' : null">
+            <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.paso | transloco }}</span>
+            @if (juega()[r.paso]; as gesto) {
+              <span class="bt-paso-gesto">{{ 'bots.chat.riel.juega' | transloco: { gesto: ('bots.gestos.' + gesto | transloco) } }}</span>
+            }
+          </li>
+        }
+      </ol>
+    </section>
+    </div>
+  </div>
+
+  <div class="bt-debajo">
+    <section class="bt-codigo" aria-labelledby="bt-t-codigo">
+      <h2 id="bt-t-codigo">{{ 'bots.codigo.titulo' | transloco }}</h2>
+      <p class="bt-ayuda">{{ 'bots.codigo.descripcion' | transloco }}</p>
+      <app-bloque-codigo [codigo]="codigo().fragmento" [completo]="codigo().completo" />
+      <label class="bt-interruptor">
+        <input type="checkbox" [checked]="conAgente()" (change)="conAgente.set($any($event.target).checked)" />
+        {{ 'bots.codigo.conAgente' | transloco }}
+      </label>
+    </section>
+    <section class="bt-peso" aria-labelledby="bt-t-peso">
+      <h2 id="bt-t-peso">{{ 'bots.peso.titulo' | transloco }}</h2>
+      <p class="bt-ayuda">{{ 'bots.peso.intro' | transloco }}</p>
+      <dl class="bt-medidas">
+        <div>
+          <dt>{{ 'bots.peso.motor' | transloco }}</dt>
+          <dd>{{ pesos.motor }} KB</dd>
+        </div>
+        <div>
+          <dt>{{ 'bots.peso.conForma' | transloco }}</dt>
+          <dd>{{ pesos.conForma }} KB</dd>
+        </div>
+        <div>
+          <dt>{{ 'bots.peso.conComponente' | transloco }}</dt>
+          <dd>{{ pesos.conComponente }} KB</dd>
+        </div>
+        <div>
+          <dt>{{ 'bots.peso.porGesto' | transloco }}</dt>
+          <dd>+{{ pesos.porGesto }} KB</dd>
+        </div>
+      </dl>
+      <p class="bt-ayuda">{{ 'bots.peso.nota' | transloco }}</p>
+    </section>
+  </div>
+</div>

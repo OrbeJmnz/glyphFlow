@@ -115,6 +115,9 @@
     "docsTemas": {
       "title": "Theming and color — glyphflow",
       "descripcion": "How glyphflow tokens interact with your app's light and dark themes."
+    },
+    "bots": {
+      "title": "Bots — glyphflow"
     }
   },
   "marca": {
