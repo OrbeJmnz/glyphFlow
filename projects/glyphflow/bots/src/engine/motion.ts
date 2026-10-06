@@ -140,9 +140,16 @@ export function score(...parts: Score[]): Score {
  * cruzar el cuerpo (fracción del gesto): lo que viaja es la deformación, no el cuerpo entero.
  */
 export interface FieldTerm {
-  kind: 'shear' | 'wave' | 'taper' | 'bulge';
+  kind: 'shear' | 'wave' | 'taper' | 'bulge' | 'melt';
   amp: (t: number) => number;
   lag: number;
+  /** Solo `melt`: retraso extra por distancia al centro (los bordes llegan después que el medio). */
+  lagX?: number;
+  /** Solo `melt`: proporción de alto y de ancho a la que llega con `amp` = 1 (0.55 = el 55 % del alto). */
+  h?: number;
+  w?: number;
+  /** Un gesto que cambia la silueta a propósito (un charco) no se modera con `GfBotShape.flex`. */
+  fixed?: boolean;
   /** Solo `wave`: de qué lado entra (1 = izquierda → derecha, -1 = al revés). */
   dir?: 1 | -1;
 }
@@ -171,13 +178,16 @@ function fieldPoint(
   y: number,
   top: number,
   alto: number,
-  k: number,
+  kBase: number,
 ): [number, number] {
+  let k = kBase;
   const v = Math.min(1, Math.max(0, (y - top) / alto));
   const u = Math.min(1, Math.max(-1, (x - 100) / 60));
   let X = x;
   let Y = y;
   for (const f of field) {
+    const k0 = k;
+    k = f.fixed ? 1 : k0;
     if (f.kind === 'shear') {
       // la base se queda: el peso crece hacia arriba, y la perturbación llega más tarde cuanto más abajo
       X += f.amp(t - f.lag * v) * (1 - 0.85 * v) * k;
@@ -186,6 +196,11 @@ function fieldPoint(
       const h = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9) * k;
       Y += h * alto; // la parte de arriba baja donde pasa la onda
       X += h * alto * 0.25 * u; // y abulta un poco hacia los lados
+    } else if (f.kind === 'melt') {
+      const p = f.amp(t - f.lag * v - (f.lagX ?? 0) * Math.abs(u)) * k;
+      const bottom = top + alto;
+      Y = bottom - (bottom - Y) * (1 - p * (1 - (f.h ?? 0.55)));
+      X = 100 + (X - 100) * (1 + p * ((f.w ?? 1.17) - 1) * (0.7 + 0.3 * v)); // el borde de abajo se abre más
     } else if (f.kind === 'bulge') {
       const a = f.amp(t - f.lag * v) * k;
       X = 100 + (X - 100) * (1 + a * (1 - 0.45 * v)); // más ancho arriba que abajo
@@ -195,6 +210,7 @@ function fieldPoint(
       const a = f.amp(t - f.lag * v) * k;
       X = 100 + (X - 100) * (1 + a * (0.5 - v));
     }
+    k = k0;
   }
   return [X, Y];
 }
@@ -205,12 +221,24 @@ function fieldPoint(
  */
 export const bulge = (amp: (t: number) => number, lag = 0.02): FieldTerm => ({ kind: 'bulge', amp, lag });
 
+/**
+ * Derretirse: el cuerpo se aplana (`h`) y se ensancha (`w`) hasta un charco cuando `amp` llega a 1, con la base en el
+ * suelo. La cabeza colapsa primero y la perturbación baja (`lag` por altura); al volver a subir el centro llega antes que
+ * los bordes (`lagX`). Con `amp` < 0 se pasa de alto (un estirón). No lo modera `flex`: es el punto del gesto.
+ */
+export const melt = (amp: (t: number) => number, o: { lag?: number; lagX?: number; h?: number; w?: number } = {}): FieldTerm => ({
+  kind: 'melt', amp, lag: o.lag ?? 0.06, lagX: o.lagX ?? 0.05, h: o.h ?? 0.55, w: o.w ?? 1.2, fixed: true,
+});
+
 /** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales; `k` escala la amplitud). */
 export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number, k = 1): string {
   const alto = bottom - top || 1;
   let suma = 0;
-  for (const f of field) suma += Math.abs(f.amp(t)) + Math.abs(f.amp(t - f.lag * 0.5)) + Math.abs(f.amp(t - f.lag));
-  if (suma * k < 1e-4) return d;
+  for (const f of field) {
+    suma += Math.abs(f.amp(t)) + Math.abs(f.amp(t - f.lag * 0.5)) + Math.abs(f.amp(t - f.lag));
+    if (f.lagX) suma += Math.abs(f.amp(t - f.lagX)) + Math.abs(f.amp(t - f.lagX - f.lag));
+  }
+  if (suma * (field.some((f) => f.fixed) ? 1 : k) < 1e-4) return d;
   return morphPath(d, (x, y) => fieldPoint(field, t, x, y, top, alto, k));
 }
 

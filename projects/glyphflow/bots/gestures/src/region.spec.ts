@@ -1,9 +1,9 @@
 import { gfBotKit, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
 import { describe, expect, it } from 'vitest';
-import { inflateReleaseDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
+import { inflateReleaseDef, puddleMorphDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
 
 const { motion, body } = gfBotKit;
-const { applyField, bulge, shear, wave, taper, frameAt, tracksOf } = motion;
+const { applyField, bulge, melt, shear, wave, taper, frameAt, tracksOf } = motion;
 
 const CAJA = 'M60 60 L140 60 L140 180 L60 180 Z';
 const puntos = (d: string): number[][] => [...d.matchAll(/(-?\d*\.?\d+) (-?\d*\.?\d+)/g)].map((m) => [+m[1], +m[2]]);
@@ -188,5 +188,69 @@ describe('inflateRelease', () => {
     expect(0.38 * 1200 - 0.06 * 1200).toBeGreaterThanOrEqual(300);
     expect(0.38 * 1200 - 0.06 * 1200).toBeLessThanOrEqual(500);
     expect((0.52 - 0.46) * 1200).toBeLessThan(120);
+  });
+});
+
+describe('melt y puddleMorph', () => {
+  const alto = (d: string) => {
+    const ys = puntos(d).map((p) => p[1]);
+    return Math.max(...ys) - Math.min(...ys);
+  };
+  const ancho = (d: string) => {
+    const xs = puntos(d).map((p) => p[0]);
+    return Math.max(...xs) - Math.min(...xs);
+  };
+
+  it('con amp = 1 queda un charco: ancho y bajo, con la base en el suelo', () => {
+    const d = applyField(CAJA, [melt(() => 1, { lag: 0, lagX: 0 })], 0.5, 60, 180);
+    expect(alto(d)).toBeCloseTo(120 * 0.55, 0);
+    expect(ancho(d)).toBeGreaterThan(80 * 1.1);
+    for (const p of puntos(d).slice(2)) expect(p[1]).toBeCloseTo(180, 6);
+  });
+
+  it('la cabeza colapsa antes que la base', () => {
+    const f = [melt((t) => (t < 0.2 ? 0 : 1), { lag: 0.3, lagX: 0 })];
+    const en = (t: number) => puntos(applyField(CAJA, f, t, 60, 180));
+    // t = 0.3: a la cabeza (v = 0, retraso 0) ya le pasó el colapso; a la base (v = 1, retraso 0.3) todavía no
+    expect(en(0.3)[0][1]).toBeGreaterThan(60 + 40);
+    expect(en(0.3)[3][0]).toBeCloseTo(60, 6);
+  });
+
+  it('al subir, el centro llega antes que los bordes', () => {
+    const f = [melt((t) => (t < 0.5 ? 1 : 0), { lag: 0, lagX: 0.3 })];
+    const forma = puntos(applyField('M100 60 L140 60 L140 180 L60 180 L60 60 Z', f, 0.6, 60, 180));
+    const centro = forma[0]; // x = 100 (u = 0)
+    const borde = forma[1]; // x = 140 (u ≈ 0.67)
+    expect(centro[1]).toBeLessThan(borde[1]); // el centro ya subió más
+  });
+
+  it('no lo modera flex: un Tofu rígido también se derrite', () => {
+    const a = applyField(CAJA, [melt(() => 1, { lag: 0, lagX: 0 })], 0.5, 60, 180, 1);
+    const b = applyField(CAJA, [melt(() => 1, { lag: 0, lagX: 0 })], 0.5, 60, 180, 0.45);
+    expect(b).toBe(a);
+  });
+
+  it('puddleMorph: charco 25–40 % del alto y 130–150 % del ancho, y se pasa de alto 1.06 al subir', () => {
+    const d = puddleMorphDef();
+    const f = frameAt(d, tracksOf(d.score), 0.5);
+    const hTotal = f.hopY * f.poseY * (1 - d.field![0].amp(0.5) * (1 - (d.field![0].h ?? 1)));
+    const wTotal = f.hopX * f.poseX * (1 + d.field![0].amp(0.5) * (((d.field![0].w ?? 1) - 1) * 0.85));
+    expect(hTotal).toBeGreaterThan(0.25);
+    expect(hTotal).toBeLessThan(0.4);
+    expect(wTotal).toBeGreaterThan(1.3);
+    expect(wTotal).toBeLessThan(1.5);
+    const o = frameAt(d, tracksOf(d.score), 0.88);
+    expect(o.hopY * o.poseY).toBeCloseTo(1.06, 2);
+  });
+
+  it('termina en reposo', () => {
+    const d = puddleMorphDef();
+    for (const t of [0, 1]) {
+      const f = frameAt(d, tracksOf(d.score), t);
+      expect(f.hopX * f.poseX).toBeCloseTo(1, 9);
+      expect(f.hopY * f.poseY).toBeCloseTo(1, 9);
+    }
+    expect(d.field![0].amp(0)).toBeCloseTo(0, 9);
+    expect(d.field![0].amp(1)).toBeCloseTo(0, 9);
   });
 });

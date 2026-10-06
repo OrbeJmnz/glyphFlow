@@ -194,3 +194,56 @@ export function inflateRelease(ctx: BotContext): number {
   boca(ctx, ms, 0.64, 'smile', 0.2);
   return ms;
 }
+
+// ── 05 · PUDDLE MORPH ─────────────────────────────────────────────────────────────────────────
+
+export const PUDDLE_MS = 1800;
+let puddleDef: GestureDef | undefined;
+
+/**
+ * Se derrite hasta un charco de gel (adorable, no grotesco) y se levanta. No es un `scaleY`: la cabeza colapsa
+ * primero y el colapso baja (arriba → medio → abajo); el charco queda muy ancho y muy bajo con bordes suaves, y al
+ * volver, el centro sube antes que los bordes (charco → montículo → blob → fantasma) y se pasa un poco de alto.
+ */
+export function puddleMorphDef(): GestureDef {
+  const m = kit.motion;
+  return (puddleDef ??= {
+    score: m.score(
+      m.settle(0),
+      m.anticipate(0.08, { sx: 1.01, sy: 0.975 }), // empieza a bajar
+      m.key(0.42, { sx: 1.15, sy: 0.6 }), // el charco: la cara baja con él
+      m.key(0.62, { sx: 1.15, sy: 0.6 }),
+      m.key(0.82, { sx: 1.02, sy: 0.97 }),
+      m.overshoot(0.88, { sx: 0.97, sy: 1.06 }), // demasiado alto un instante
+      m.key(0.94, { sx: 1.005, sy: 0.995 }),
+      m.settle(1),
+    ),
+    faceK: 0.55,
+    field: [
+      m.melt(kit.track([[0, 0], [0.1, 0], [0.24, 0.45], [0.42, 1], [0.62, 1], [0.74, 0.5], [0.86, -0.07], [0.93, 0.02], [1, 0]])),
+    ],
+  });
+}
+
+export function puddleMorph(ctx: BotContext): number {
+  const ms = kit.motion.gestureDuration(ctx, 'puddle-morph', PUDDLE_MS, 800, 5000);
+  if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
+  ctx.hooks.act(ms);
+  const at = kit.motion.runGesture(ctx, puddleMorphDef(), ms);
+  kit.motion.shadowByHeight(ctx, at, ms, 40, 0.3);
+  kit.eyeSeq(ctx, [
+    { transform: kit.S(1, 1), offset: 0 },
+    { transform: kit.S(1.04, 0.8), offset: 0.2 }, // los ojos bajan despacio, adormilados
+    { transform: kit.S(1.08, 0.9), offset: 0.42 },
+    { transform: kit.S(1.08, 0.9), offset: 0.48 },
+    { transform: kit.S(1.08, 0.06), offset: 0.52 }, // parpadeo en el charco
+    { transform: kit.S(1.08, 0.9), offset: 0.57 },
+    { transform: kit.S(1.04, 0.95), offset: 0.68 },
+    { transform: kit.S(1, 1.12), offset: 0.86 },
+    { transform: kit.S(1, 1), offset: 1 },
+  ], ms);
+  boca(ctx, ms, 0.1, 'flat', 0.5);
+  boca(ctx, ms, 0.7, 'o', 0.14);
+  boca(ctx, ms, 0.86, 'smile', 0.14);
+  return ms;
+}
