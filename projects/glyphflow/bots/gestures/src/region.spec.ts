@@ -1,6 +1,6 @@
 import { gfBotKit, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
 import { describe, expect, it } from 'vitest';
-import { inflateReleaseDef, puddleMorphDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
+import { inflateReleaseDef, jellyDropDef, puddleMorphDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
 
 const { motion, body } = gfBotKit;
 const { applyField, bulge, melt, shear, wave, taper, frameAt, tracksOf } = motion;
@@ -252,5 +252,55 @@ describe('melt y puddleMorph', () => {
     }
     expect(d.field![0].amp(0)).toBeCloseTo(0, 9);
     expect(d.field![0].amp(1)).toBeCloseTo(0, 9);
+  });
+});
+
+describe('jellyDrop', () => {
+  const d = jellyDropDef();
+  const f = (t: number) => frameAt(d, tracksOf(d.score), t);
+  const sx = (t: number) => f(t).hopX * f(t).poseX;
+  const sy = (t: number) => f(t).hopY * f(t).poseY;
+
+  it('empieza arriba y alargado, y termina exacto en reposo', () => {
+    expect(f(0).y).toBeLessThan(-100);
+    expect(sy(0)).toBeGreaterThan(1.1);
+    expect(sx(0)).toBeCloseTo(0.9, 2);
+    for (const t of [1]) {
+      expect(f(t).y).toBeCloseTo(0, 9);
+      expect(sx(t)).toBeCloseTo(1, 9);
+      expect(sy(t)).toBeCloseTo(1, 9);
+      expect(f(t).spread).toBeCloseTo(0, 9);
+      expect(f(t).gel).toBeCloseTo(0, 9);
+    }
+  });
+
+  it('cae acelerando y se estira más justo antes de tocar el suelo', () => {
+    const v = (a: number, b: number) => (f(b).y - f(a).y) / (b - a);
+    expect(v(0.3, 0.4)).toBeGreaterThan(v(0.05, 0.15) * 1.5);
+    expect(sy(0.4)).toBeGreaterThan(1.18);
+    expect(sy(0.4)).toBeLessThan(1.26);
+    expect(sx(0.4)).toBeGreaterThan(0.84);
+    expect(sx(0.4)).toBeLessThan(0.92);
+    expect(f(0.43).y).toBeCloseTo(0, 6);
+  });
+
+  it('al golpear es una masa de gel: 1.3–1.45 de ancho y 0.55–0.70 de alto, unos 60 ms', () => {
+    const fm = d.field![0];
+    const sxTot = sx(0.45) * (1 + fm.amp(0.45) * ((fm.w ?? 1) - 1) * 0.85);
+    const syTot = sy(0.45) * (1 - fm.amp(0.45) * (1 - (fm.h ?? 1)));
+    expect(sxTot).toBeGreaterThan(1.3);
+    expect(sxTot).toBeLessThan(1.45);
+    expect(syTot).toBeGreaterThan(0.55);
+    expect(syTot).toBeLessThan(0.7);
+    expect((0.5 - 0.43) * 1500).toBeGreaterThanOrEqual(40);
+    expect((0.5 - 0.43) * 1500).toBeLessThanOrEqual(110);
+  });
+
+  it('se reconstruye desde el centro y se pasa de alto antes de asentar', () => {
+    const fm = d.field![0];
+    expect(fm.lagX).toBeGreaterThan(0.05);
+    expect(fm.amp(0.62)).toBeLessThan(fm.amp(0.5));
+    expect(sy(0.86)).toBeCloseTo(1.05, 1);
+    expect(sx(0.86)).toBeCloseTo(0.97, 1);
   });
 });

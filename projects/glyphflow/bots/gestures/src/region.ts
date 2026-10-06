@@ -247,3 +247,75 @@ export function puddleMorph(ctx: BotContext): number {
   boca(ctx, ms, 0.86, 'smile', 0.14);
   return ms;
 }
+
+// ── 02 · JELLY DROP ───────────────────────────────────────────────────────────────────────────
+
+export const DROP_MS = 1500;
+export const DROP_FROM = -130;
+let dropDef: GestureDef | undefined;
+
+/**
+ * Aparece cayendo desde arriba: se estira cada vez más, golpea el suelo y por unos 60 ms es casi una masa horizontal
+ * de gel (no un líquido realista). Se reconstruye desde el centro (charco → domo → estirón → normal), se pasa un
+ * poco de alto (1.05 / 0.97) y asienta. Ideal para spawn, appear, drop o un error divertido.
+ */
+export function jellyDropDef(): GestureDef {
+  const m = kit.motion;
+  return (dropDef ??= {
+    score: m.score(
+      // Arranca arriba, ya alargado y estrecho.
+      m.key(0, { y: DROP_FROM, sx: 0.9, sy: 1.12 }),
+      m.key(0.12, { y: -118, sx: 0.89, sy: 1.14, drag: -2 }),
+      m.key(0.22, { y: -92, sx: 0.88, sy: 1.17, drag: -4 }), // la velocidad sube: la falda se queda atrás
+      m.key(0.32, { y: -52, sx: 0.87, sy: 1.2, drag: -6 }),
+      // Justo antes de tocar: lo más estirado.
+      m.key(0.4, { y: -8, sx: 0.86, sy: 1.22, drag: -7 }),
+      // El golpe: la base se abre y se mantiene unos 60 ms.
+      m.impact(0.43, { y: 0, sx: 1.15, sy: 0.85, spread: 0.32, drag: 0 }),
+      m.key(0.47, { sx: 1.16, sy: 0.84, spread: 0.34 }),
+      // Reconstruye: el centro sube primero, los lados llegan con retraso.
+      m.key(0.6, { sx: 1.07, sy: 0.93, spread: 0.12 }),
+      m.key(0.74, { sx: 0.99, sy: 1.04, spread: 0.02 }),
+      m.overshoot(0.86, { sx: 0.97, sy: 1.05, spread: 0 }),
+      m.key(0.94, { sx: 1.005, sy: 0.995 }),
+      // El gel tiembla un poco al aplastarse.
+      m.key(0.43, { gel: 0 }),
+      m.key(0.52, { gel: 5 }),
+      m.key(0.66, { gel: 3 }),
+      m.key(0.8, { gel: 0 }),
+      m.settle(1),
+    ),
+    grounded: (t) => kit.smoothstep(0.34, 0.43, t),
+    gelPhase: (t) => 14 * t,
+    field: [
+      m.melt(
+        kit.track([[0, 0], [0.38, 0], [0.43, 1], [0.5, 1], [0.62, 0.55], [0.74, 0.16], [0.84, -0.06], [0.92, 0.015], [1, 0]]),
+        { lag: 0.03, lagX: 0.08, h: 0.7, w: 1.2 },
+      ),
+    ],
+  });
+}
+
+export function jellyDrop(ctx: BotContext): number {
+  const ms = kit.motion.gestureDuration(ctx, 'jelly-drop', DROP_MS, 700, 4000);
+  if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
+  ctx.hooks.act(ms);
+  const at = kit.motion.runGesture(ctx, jellyDropDef(), ms);
+  kit.motion.shadowByHeight(ctx, at, ms, -DROP_FROM);
+  // Aparece: no estaba, y entra con un fundido corto mientras cae.
+  ctx.el.hop.animate?.([{ opacity: 0 }, { opacity: 1, offset: 0.07 }, { opacity: 1 }], { duration: ms, easing: 'linear' });
+  gestureEffects(ctx, ms, { speedDown: [0.12, 0.4], impacts: [{ at: 0.43, big: true }] });
+  kit.eyeSeq(ctx, [
+    { transform: kit.S(1, 1), offset: 0 },
+    { transform: kit.S(1.1, 1.25), offset: 0.06 }, // ojos de susto mientras cae
+    { transform: kit.S(1.12, 1.3), offset: 0.4 },
+    { transform: kit.S(1, 0.08), offset: 0.43 }, // el golpe: los cierra
+    { transform: kit.S(1, 0.08), offset: 0.5 },
+    { transform: kit.S(1, 1.12), offset: 0.62 },
+    { transform: kit.S(1, 1), offset: 0.8 },
+  ], ms);
+  boca(ctx, ms, 0.04, 'o', 0.38);
+  boca(ctx, ms, 0.45, 'wide', 0.12);
+  boca(ctx, ms, 0.62, 'smile', 0.2);
+  return ms;
+}
