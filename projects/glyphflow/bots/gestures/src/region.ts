@@ -27,12 +27,12 @@ export function jellyWobbleDef(): GestureDef {
       m.overshoot(0.18, { sx: 1.035, sy: 0.985 }),
       m.key(0.34, { sx: 0.99, sy: 1.005 }),
       // El cuerpo entero se inclina apenas, siguiendo a la cabeza.
-      m.wobble(0.06, 0.78, 'roll', [3.2, -2.5, 1.7, -0.9, 0.4]),
+      m.wobble(0.06, 0.78, 'roll', [5.5, -4.2, 2.8, -1.5, 0.7]),
       m.settle(1),
     ),
     field: [
       m.shear(
-        kit.track([[0, 0], [0.06, 0], [0.15, 22], [0.27, -16], [0.39, 10], [0.51, -6], [0.63, 3], [0.75, -1.2], [0.9, 0], [1, 0]]),
+        kit.track([[0, 0], [0.06, 0], [0.15, 36], [0.27, -26], [0.39, 16], [0.51, -9.5], [0.63, 4.8], [0.75, -1.9], [0.9, 0], [1, 0]]),
         0.05,
       ),
     ],
@@ -75,9 +75,9 @@ export function waveThroughBodyDef(): GestureDef {
       m.settle(1),
     ),
     field: [
-      m.wave(kit.track([[0, 0], [0.08, 0], [0.2, 0.13], [0.32, -0.04], [0.44, 0], [1, 0]]), 0.5, 1),
+      m.wave(kit.track([[0, 0], [0.08, 0], [0.2, 0.22], [0.32, -0.07], [0.44, 0], [1, 0]]), 0.5, 1),
       // El rebote: una onda más débil que vuelve por el otro lado.
-      m.wave(kit.track([[0, 0], [0.5, 0], [0.6, 0.05], [0.7, -0.02], [0.8, 0], [1, 0]]), 0.3, -1),
+      m.wave(kit.track([[0, 0], [0.5, 0], [0.6, 0.09], [0.7, -0.035], [0.8, 0], [1, 0]]), 0.3, -1),
     ],
   });
 }
