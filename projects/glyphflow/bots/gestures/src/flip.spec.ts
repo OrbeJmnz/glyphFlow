@@ -209,7 +209,7 @@ describe('glyphflow/bots · front flip · la pose lleva la deformación a lo lar
 describe('glyphflow/bots · front flip · la falda', () => {
   const sabana = ghostShape.d as string;
 
-  it('el fantasma y las formas de trazo absoluto se pueden deformar; el Tofu (H/V) no', () => {
+  it('el fantasma y las formas de trazo absoluto se pueden deformar; el Tofu (H/V) no sin pasar por flexD', () => {
     expect(canFlexHem(sabana)).toBe(true);
     expect(canFlexHem(tofuShape.d)).toBe(false);
     expect(canFlexHem(undefined)).toBe(false);
@@ -336,11 +336,11 @@ describe('glyphflow/bots · front flip · el gesto', () => {
     });
   });
 
-  it('el Tofu (con H/V) hace el flip igual, solo sin la falda', () => {
+  it('el Tofu (con H/V) también deforma la falda: flexD le pasa los H/V a L', () => {
     const ctx = built({ shape: tofuShape });
     conAnimate((calls) => {
       frontFlip(ctx);
-      expect(calls.some((c) => c.node === ctx.el.clip && 'd' in c.frames[0])).toBe(false);
+      expect(calls.some((c) => c.node === ctx.el.clip && 'd' in c.frames[0])).toBe(true);
       expect(calls.some((c) => c.node === ctx.el.hop)).toBe(true);
     });
   });

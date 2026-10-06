@@ -57,6 +57,42 @@ export function idleDAt(ctx: BotContext, ms: number): string {
 export const canFlexHem = (d: string | undefined): d is string => !!d && !/[HVAhvaslqtc]/.test(d);
 
 /**
+ * El trazo en una forma que `morphPath` sabe deformar: absoluto y de pares. Convierte `H`/`V` (Tofu) en
+ * `L` sin cambiar cómo se dibuja; con arcos o relativos devuelve `undefined` (esa silueta no se deforma).
+ */
+export function flexD(d: string | undefined): string | undefined {
+  if (!d) return undefined;
+  if (!/[HVAhvaslqtc]/.test(d)) return d;
+  if (/[^MLHVCZ\d\s.,-]/.test(d)) return undefined; // relativos, arcos, cuadráticas: fuera
+  const tok = d.match(/[MLHVCZ]|-?\d*\.?\d+/g) ?? [];
+  let out = '';
+  let cx = 0;
+  let cy = 0;
+  for (let i = 0; i < tok.length; ) {
+    const c = tok[i++];
+    if (c === 'Z') out += 'Z';
+    else if (c === 'H') {
+      cx = +tok[i++];
+      out += `L${cx} ${cy}`;
+    } else if (c === 'V') {
+      cy = +tok[i++];
+      out += `L${cx} ${cy}`;
+    } else if (c === 'M' || c === 'L') {
+      cx = +tok[i++];
+      cy = +tok[i++];
+      out += `${c}${cx} ${cy}`;
+    } else if (c === 'C') {
+      const n = [+tok[i], +tok[i + 1], +tok[i + 2], +tok[i + 3], +tok[i + 4], +tok[i + 5]];
+      i += 6;
+      cx = n[4];
+      cy = n[5];
+      out += `C${n.join(' ')}`;
+    }
+  }
+  return out;
+}
+
+/**
  * Deforma la parte baja de una silueta: la ensancha (`spread`) y la arrastra en vertical (`drag`),
  * con un peso que crece hacia el borde de abajo (la cabeza casi no se mueve). `y0` es dónde empieza
  * la falda y `bottom` su punto más bajo.

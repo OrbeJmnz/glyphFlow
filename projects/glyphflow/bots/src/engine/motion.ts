@@ -1,6 +1,7 @@
 import { f2, f3 } from '../data/color';
 import { shadowFor } from './actions';
-import { canFlexHem, flexHem, gelBody, idleDAt, pathExtent } from './body-fx';
+import { morphPath } from '../data/morph';
+import { flexD, flexHem, gelBody, idleDAt, pathExtent } from './body-fx';
 import type { BotContext } from './context';
 import { animateShape } from './outlines';
 import { S } from './math';
@@ -27,18 +28,18 @@ import { track, type GfTrackNode } from './track';
  */
 
 /** Canales de la partitura. `y` negativo = arriba; `roll` en grados; `sx`/`sy` multiplican; el resto, unidades del viewBox. */
-export type Channel = 'x' | 'y' | 'roll' | 'sx' | 'sy' | 'spread' | 'drag' | 'gel';
+export type Channel = 'x' | 'y' | 'roll' | 'yaw' | 'sx' | 'sy' | 'spread' | 'drag' | 'gel';
 export type Score = Partial<Record<Channel, GfTrackNode[]>>;
 export type Keys = Partial<Record<Channel, number>>;
 
-const REST: Record<Channel, number> = { x: 0, y: 0, roll: 0, sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 };
+const REST: Record<Channel, number> = { x: 0, y: 0, roll: 0, yaw: 0, sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 };
 const CHANNELS = Object.keys(REST) as Channel[];
 
 // ── Primitivas: cada una devuelve un trozo de partitura ───────────────────────────────────────
 
 /**
  * Un instante clave: fija los canales indicados en `t`. Las desviaciones del reposo se escalan con
- * `intensity` (el giro `roll` no: una vuelta es una vuelta). Las demás primitivas son este mismo gesto
+ * `intensity` (los giros `roll` y `yaw` no: una vuelta es una vuelta). Las demás primitivas son este mismo gesto
  * con nombre.
  */
 export function key(t: number, v: Keys, intensity = 1): Score {
@@ -46,7 +47,7 @@ export function key(t: number, v: Keys, intensity = 1): Score {
   for (const c of CHANNELS) {
     const val = v[c];
     if (val === undefined) continue;
-    out[c] = [[t, c === 'roll' ? val : REST[c] + (val - REST[c]) * intensity]];
+    out[c] = [[t, c === 'roll' || c === 'yaw' ? val : REST[c] + (val - REST[c]) * intensity]];
   }
   return out;
 }
@@ -68,8 +69,10 @@ export const impact = key;
 
 /** Altura (`h` > 0 hacia arriba) en `t`. */
 export const jump = (t: number, h: number, intensity = 1): Score => key(t, { y: -h }, intensity);
-/** Giro acumulado en grados en `t`. */
+/** Giro acumulado en grados en `t` (en el plano). */
 export const rotate = (t: number, deg: number): Score => key(t, { roll: deg });
+/** Giro sobre el eje vertical, en radianes, en `t`: da la sensación de girar el volumen y no la imagen. */
+export const spin = (t: number, rad: number): Score => key(t, { yaw: rad });
 /** Falda: ensanchamiento (fracción) y arrastre (unidades, en el eje del cuerpo). */
 export const drag = (t: number, spread: number, pull: number, intensity = 1): Score => key(t, { spread, drag: pull }, intensity);
 
@@ -128,6 +131,66 @@ export function score(...parts: Score[]): Score {
   return out;
 }
 
+// ── Campo de deformación por región ───────────────────────────────────────────────────────────
+
+/**
+ * Un término del campo: cuánto se desplaza cada región de la silueta, con su propio retraso. `amp(t)` es
+ * la historia de UN punto (una pista, con sus overshoots) y `lag` cuánto tarda la perturbación en
+ * cruzar el cuerpo (fracción del gesto): lo que viaja es la deformación, no el cuerpo entero.
+ */
+export interface FieldTerm {
+  kind: 'shear' | 'wave' | 'taper';
+  amp: (t: number) => number;
+  lag: number;
+  /** Solo `wave`: de qué lado entra (1 = izquierda → derecha, -1 = al revés). */
+  dir?: 1 | -1;
+}
+
+/**
+ * Cizalla que baja por el cuerpo: la cabeza se va hacia un lado (`amp` unidades) y la base responde
+ * `lag` después, anclada al suelo. Jelly wobble, golpe lateral, esquiva.
+ */
+export const shear = (amp: (t: number) => number, lag = 0.05): FieldTerm => ({ kind: 'shear', amp, lag });
+/**
+ * Onda que cruza el cuerpo de lado a lado: donde pasa, la parte de arriba baja `amp` (fracción de la
+ * altura) y vuelve. El centro del bot no se mueve, lo que cambia es la geometría.
+ */
+export const wave = (amp: (t: number) => number, lag = 0.5, dir: 1 | -1 = 1): FieldTerm => ({ kind: 'wave', amp, lag, dir });
+/**
+ * Estrechamiento por altura: `amp` > 0 ensancha la cabeza y estrecha la base (el giro del tornado);
+ * `amp` < 0 al revés. `lag` retrasa la base respecto a la cabeza.
+ */
+export const taper = (amp: (t: number) => number, lag = 0.04): FieldTerm => ({ kind: 'taper', amp, lag });
+
+/** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales). */
+export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number): string {
+  const alto = bottom - top || 1;
+  let suma = 0;
+  for (const f of field) suma += Math.abs(f.amp(t)) + Math.abs(f.amp(t - f.lag * 0.5)) + Math.abs(f.amp(t - f.lag));
+  if (suma < 1e-4) return d;
+  return morphPath(d, (x, y) => {
+    const v = Math.min(1, Math.max(0, (y - top) / alto));
+    const u = Math.min(1, Math.max(-1, (x - 100) / 60));
+    let X = x;
+    let Y = y;
+    for (const f of field) {
+      if (f.kind === 'shear') {
+        // la base se queda: el peso crece hacia arriba, y la perturbación llega más tarde cuanto más abajo
+        X += f.amp(t - f.lag * v) * (1 - 0.85 * v);
+      } else if (f.kind === 'wave') {
+        const llegada = f.dir === -1 ? (1 - u) / 2 : (u + 1) / 2;
+        const k = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9);
+        Y += k * alto; // la parte de arriba baja donde pasa la onda
+        X += k * alto * 0.25 * u; // y abulta un poco hacia los lados
+      } else {
+        const a = f.amp(t - f.lag * v);
+        X = 100 + (X - 100) * (1 + a * (0.5 - v));
+      }
+    }
+    return [X, Y];
+  });
+}
+
 // ── Gesto ─────────────────────────────────────────────────────────────────────────────────────
 
 export interface MotionFrame {
@@ -136,6 +199,8 @@ export interface MotionFrame {
   y: number;
   /** Giro en el plano (grados). */
   roll: number;
+  /** Giro sobre el eje vertical (radianes), sumado a la vista de reposo. */
+  yaw: number;
   /** Parte de la deformación que aplica el contenedor `.hop` (en el suelo, anclada a la base). */
   hopX: number;
   hopY: number;
@@ -162,6 +227,8 @@ export interface GestureDef {
   faceK?: number;
   /** Fase de los bultos de gel en `t` (por defecto, no viajan). */
   gelPhase?: (t: number) => number;
+  /** Campo de deformación por región (ver `shear`, `wave`, `taper`): la silueta se mueve distinto arriba que abajo, a izquierda que a derecha. */
+  field?: FieldTerm[];
   /** Dónde empieza la falda, como fracción de la altura de la silueta contada desde abajo (por defecto 0.38). */
   hemFrom?: number;
 }
@@ -185,6 +252,7 @@ export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => numb
     x: tr.x(t),
     y: tr.y(t),
     roll: tr.roll(t),
+    yaw: tr.yaw(t),
     hopX,
     hopY,
     poseX: Math.pow(sx, 1 - grounded),
@@ -226,20 +294,22 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   // 2) GIRO + deformación en el aire + cara, en la pose. El giro se SUMA a la inclinación de reposo de
   // la forma (el robot descansa a -3°): así el último fotograma coincide con el reposo, sin saltito.
   const reposo = ctx.pose.roll;
+  const conGiro = !!def.score.yaw;
   animatePose(
     ctx,
     (u) => {
       const f = at(u);
-      return { roll: reposo + f.roll, sx: f.poseX, sy: f.poseY, fx: f.faceX, fy: f.faceY };
+      const pose = { roll: reposo + f.roll, sx: f.poseX, sy: f.poseY, fx: f.faceX, fy: f.faceY };
+      return conGiro ? { ...pose, yaw: ctx.view + f.yaw } : pose;
     },
     ms,
   );
 
   // 3) SILUETA: la falda reacciona a la inercia y el cuerpo se vuelve gel. Solo si el trazo se deja
   // deformar (absoluto, sin arcos); los demás se quedan con la deformación de cuerpo entero.
-  const usaSilueta = !!(def.score.spread || def.score.drag || def.score.gel);
-  const base = shapeD(ctx.shape);
-  if (usaSilueta && canFlexHem(base)) {
+  const usaSilueta = !!(def.score.spread || def.score.drag || def.score.gel || def.field?.length);
+  const base = flexD(shapeD(ctx.shape));
+  if (usaSilueta && base) {
     const { top, bottom } = pathExtent(base);
     const y0 = bottom - (def.hemFrom ?? 0.38) * (bottom - top);
     const M = 48;
@@ -248,8 +318,10 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     const hem = Array.from({ length: M + 1 }, (_, i) => {
       const t = i / M;
       const f = at(t);
-      const falda = flexHem(idleDAt(ctx, t * ms), y0, bottom, f.spread, f.drag);
-      return { offset: t, d: `path("${gelBody(falda, 100, ctx.shape.cy, f.gel * escala, fase(t))}")` };
+      const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread, f.drag);
+      const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala, fase(t));
+      const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom) : cuerpo;
+      return { offset: t, d: `path("${d}")` };
     });
     const anim = animateShape(ctx, hem, { duration: ms, easing: 'linear' });
     ctx.shapeAnims.push(anim);

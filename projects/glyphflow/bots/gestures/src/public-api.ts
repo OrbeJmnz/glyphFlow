@@ -11,9 +11,11 @@
  */
 export { frontFlip } from './flip';
 export { superBounce, stretchSnap, scaredRecoil } from './physical';
+export { jellyWobble, waveThroughBody, tornadoSpin } from './region';
 
 import { frontFlip } from './flip';
 import { scaredRecoil, stretchSnap, superBounce } from './physical';
+import { jellyWobble, tornadoSpin, waveThroughBody } from './region';
 
 /** Todos los gestos físicos juntos: `[gestures]="physicalGestures"`. Pagas todos; si quieres pocos, pásalos sueltos. */
-export const physicalGestures = { frontFlip, superBounce, stretchSnap, scaredRecoil } as const;
+export const physicalGestures = { frontFlip, superBounce, stretchSnap, scaredRecoil, jellyWobble, waveThroughBody, tornadoSpin } as const;

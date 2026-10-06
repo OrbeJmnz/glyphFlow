@@ -27,7 +27,7 @@ describe('gestos físicos en el motor', () => {
     host.remove();
   });
 
-  it.each(['frontFlip', 'superBounce', 'stretchSnap', 'scaredRecoil'] as const)('%s existe, anima y apaga la bandera de la sombra', (id) => {
+  it.each(['frontFlip', 'superBounce', 'stretchSnap', 'scaredRecoil', 'jellyWobble', 'waveThroughBody', 'tornadoSpin'] as const)('%s existe, anima y apaga la bandera de la sombra', (id) => {
     const host = document.createElement('div');
     document.body.append(host);
     const bot = createBot(host, { shape: ghostShape, wander: false, gestures: physicalGestures });
@@ -35,7 +35,9 @@ describe('gestos físicos en el motor', () => {
     expect(bot.gesture(id)).toBe(true);
     expect((Element.prototype.animate as unknown as ReturnType<typeof vi.fn>).mock.calls.length).toBeGreaterThan(5);
     const svg = host.querySelector('svg')!;
-    expect('flip' in svg.dataset).toBe(true);
+    // los gestos que se despegan del suelo encienden la sombra; los de región no se mueven de sitio
+    const conSombra = !['jellyWobble', 'waveThroughBody', 'tornadoSpin'].includes(id);
+    expect('flip' in svg.dataset).toBe(conSombra);
     vi.advanceTimersByTime(5000);
     expect('flip' in svg.dataset).toBe(false);
     host.remove();
