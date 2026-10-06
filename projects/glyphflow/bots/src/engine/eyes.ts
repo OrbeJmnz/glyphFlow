@@ -109,5 +109,5 @@ export function clearLook(ctx: BotContext): void {
 
 /** Sigue un punto con la cabeza (el mouse); dormido no. */
 export function gazeAt(ctx: BotContext, dx: number, dy: number): void {
-  if (ctx.state !== 'sleeping') setPose(ctx, { yaw: dx * 0.5, pitch: dy * 0.35 });
+  if (ctx.state !== 'sleeping') setPose(ctx, { yaw: ctx.view + dx * 0.5, pitch: dy * 0.35 });
 }

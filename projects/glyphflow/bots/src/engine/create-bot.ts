@@ -10,6 +10,7 @@ import type { GfBotToyId } from '../data/toys';
 import { agent, token, type GfBotAgentEvent } from './agent';
 import { createBotContext, type BotContext, type GfBotGesturePack, type GfBotMaterialId, type GfBotMouthKind, type GfBotOptions } from './context';
 import { enableTouch, endDrag } from './drag';
+import { followPointer } from './follow';
 import { celebrate, cheer, curious, excited, happy, neutral, surprised, thinking, wave } from './emotions';
 import { clearLook, gazeAt, setOpen, startBlinkLoop } from './eyes';
 import { angry, bored, cartwheel, dance, disgust, dizzy, doubleHop, fear, hop, lookAround, nodYes, pop, sad, shakeNo, sick, sideHop, somersault, surprise, turn, wink } from './gestures';
@@ -114,6 +115,11 @@ export interface GfBotControls {
   token(text?: string): void;
   /** Mira hacia (dx, dy) en -1…1, salvo que lo estén arrastrando. */
   gazeAt(dx: number, dy: number): void;
+  /**
+   * La cabeza sigue al puntero (y vuelve a mirar al frente cuando sale de la ventana). Un solo listener para todos los
+   * bots; no sigue con movimiento reducido, en pausa, dormido, mientras lo arrastran ni con el dedo.
+   */
+  followPointer(on: boolean): void;
   pop(): void;
   /** Corre un gesto extra registrado con `gestures` por su nombre. `false` si no existe (o es un gesto del motor: esos se llaman directo). */
   gesture(id: string): boolean;
@@ -177,6 +183,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
   // se cancelan sus animaciones y temporizadores. Lo que se le pida mientras tanto se guarda y se
   // aplica al volver.
   let touchOff: (() => void) | null = null;
+  let stopFollow: (() => void) | null = null;
   let destroyed = false;
 
   const pause = (): void => {
@@ -294,6 +301,10 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
     agent: act['agent'] as GfBotControls['agent'],
     token: act['token'] as GfBotControls['token'],
     gazeAt: act['gazeAt'] as GfBotControls['gazeAt'],
+    followPointer: (on) => {
+      stopFollow?.();
+      stopFollow = on ? followPointer(ctx) : null;
+    },
     pop: act['pop'] as GfBotControls['pop'],
     gesture: (name) => Object.hasOwn(pack, name) && (pack[name](), true),
     enableTouch: () => {
@@ -321,6 +332,8 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
       document.removeEventListener('visibilitychange', updateRun);
       touchOff?.();
       touchOff = null;
+      stopFollow?.();
+      stopFollow = null;
       cancelAnimationFrame(ctx.hatRaf);
       cancelAnimationFrame(ctx.cloudRaf);
       for (const t of [ctx.kIdleT, ctx.kTmpT, ctx.mouthT, ctx.pokeT]) if (t) clearTimeout(t);

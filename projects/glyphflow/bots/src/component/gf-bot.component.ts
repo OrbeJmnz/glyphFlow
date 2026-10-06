@@ -104,6 +104,9 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   /** Gestos extra (`import { physicalGestures } from 'glyphflow/bots/gestures'`). Se leen al montar: no cambian después. */
   @Input() gestures?: GfBotGesturePack;
 
+  /** La cabeza sigue al puntero. Apagado por defecto (un listener y trabajo por cuadro que no todos quieren). No sigue con movimiento reducido ni con el dedo. */
+  @Input() followPointer = false;
+
   /** En reposo hace cositas por su cuenta (fidgets y caras kawaii). */
   @Input() wander = false;
 
@@ -174,6 +177,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
     if (changes['state'] && this.state !== bot.state) bot.setState(this.state);
     if (changes['hoverOnly']) bot.hover(!this.hoverOnly);
     if (changes['interactive']) this.syncTouch(bot);
+    if (changes['followPointer']) bot.followPointer(this.followPointer);
   }
 
   ngOnDestroy(): void {
@@ -215,6 +219,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
     this.bot = bot;
     if (this.state !== 'idle') bot.setState(this.state);
     this.syncTouch(bot);
+    if (this.followPointer) bot.followPointer(true);
   }
 
   private syncTouch(bot: GfBotApi): void {
