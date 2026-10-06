@@ -18,8 +18,11 @@ import { clearRoutine, nextRoutine, setState } from './state';
  * escribir abre una hoja donde cada token es un golpecito y el cursor avanza.
  */
 
-/** Los pasos que entiende `agent`. `idle` suelta al bot; `done` y `error` cierran con su escena. */
-export type GfBotAgentEvent = 'thinking' | 'tool' | 'loading' | 'writing' | 'done' | 'error' | 'idle';
+/**
+ * Los pasos que entiende `agent`. `prompt` es que el usuario acaba de mandar un mensaje (el motor no hace nada con él, pero
+ * avisa a `onAgentEvent`); `idle` suelta al bot; `done` y `error` cierran con su escena.
+ */
+export type GfBotAgentEvent = 'prompt' | 'thinking' | 'tool' | 'loading' | 'writing' | 'done' | 'error' | 'idle';
 
 /** Qué rutina de trabajo hace el bot mientras el agente está en cada paso que no es escribir. */
 const AGENT_ROUTINE: Partial<Record<GfBotAgentEvent, GfBotWorkRoutine>> = {
@@ -29,10 +32,15 @@ const AGENT_ROUTINE: Partial<Record<GfBotAgentEvent, GfBotWorkRoutine>> = {
 };
 
 export function agent(ctx: BotContext, ev: GfBotAgentEvent): void {
+  if (ev === 'prompt') {
+    ctx.hooks.agentReact(ev);
+    return;
+  }
   if (ev === 'idle') {
     ctx.stream = null;
     ctx.fixedRoutine.working = null;
     setState(ctx, 'idle');
+    ctx.hooks.agentReact(ev);
     return;
   }
   const routine = AGENT_ROUTINE[ev];
@@ -41,6 +49,7 @@ export function agent(ctx: BotContext, ev: GfBotAgentEvent): void {
     ctx.fixedRoutine.working = routine;
     if (ctx.state !== 'working') setState(ctx, 'working');
     else nextRoutine(ctx);
+    ctx.hooks.agentReact(ev);
     return;
   }
   if (ev === 'writing') {
@@ -52,6 +61,7 @@ export function agent(ctx: BotContext, ev: GfBotAgentEvent): void {
     squint(ctx, 0.8);
     openStream(ctx);
     ctx.opts.onRoutine?.('working', 'typing · live');
+    ctx.hooks.agentReact(ev);
     return;
   }
   if (ev === 'done') return finish(ctx);
@@ -133,16 +143,27 @@ function finish(ctx: BotContext): void {
   }
   ctx.opts.onRoutine?.(ctx.state, 'done');
   setPose(ctx, { yaw: 0, pitch: 0 });
-  nod(ctx, 0.18);
+  // Un gesto de `onAgentEvent` (un flip, por ejemplo) ya hace el festejo: sin su propio brinco ni cara feliz encima.
+  ctx.closing = true;
+  const g = ctx.hooks.agentReact('done');
+  if (!g) nod(ctx, 0.18);
   later(ctx, () => {
     flash(ctx, 0.28, 800, '#9CFFB8');
-    miniHop(ctx, 24);
-    swapEyes(ctx, 'happy', 900);
+    if (!g) {
+      miniHop(ctx, 24);
+      swapEyes(ctx, 'happy', 900);
+    }
   }, 250);
-  later(ctx, () => {
-    setState(ctx, 'idle');
-    ctx.opts.onStateChange?.('idle');
-  }, 1500);
+  // Va en `toyTimers` y no en los de la rutina: un gesto encadenado (`act()`) borra estos, y entonces nunca volvería a reposo.
+  later(
+    ctx,
+    () => {
+      setState(ctx, 'idle');
+      ctx.opts.onStateChange?.('idle');
+    },
+    Math.max(1500, g + 200),
+    ctx.toyTimers,
+  );
 }
 
 /** Falló: «!», ceño, ojos apretados, niega, se sacude y se pone rojo un instante. */
@@ -153,21 +174,34 @@ function oops(ctx: BotContext): void {
   clearRoutine(ctx);
   setPose(ctx, { yaw: 0, pitch: 0, roll: 0 });
   ctx.opts.onRoutine?.(ctx.state, 'error');
+  // Con un gesto de `onAgentEvent` (jellyDrop, scaredRecoil…) el cuerpo ya reacciona: se queda el «!» y el rojo, sin temblor ni ojos en X.
+  ctx.closing = true;
+  const g = ctx.hooks.agentReact('error');
   const top = headTop(ctx);
   const t = mk(ctx, 'text', { x: 100, y: top - 8, class: 'qmark qmark-err', 'text-anchor': 'middle', 'font-size': 28 });
   t.textContent = '!';
   t.style.transformOrigin = `100px ${top - 16}px`;
   t.animate([{ transform: S(0), opacity: 0 }, { transform: S(1.3), opacity: 1, offset: 0.2 }, { transform: S(1), opacity: 1, offset: 0.75 }, { transform: S(1), opacity: 0 }], { duration: 1300, fill: 'forwards' });
   showFor(ctx, ctx.fe.browA, 1500);
-  swapEyes(ctx, (FACES[faceOf(ctx, ctx.shape)] as GfBotFaceStyle).cross || isRobot(ctx) ? 'cross' : 'squeeze', 900);
-  expr(ctx, 'error', 1300); // ojos en X (las formas con cara de pantalla ya los hacen con su propio ojo)
-  later(ctx, () => holdEyes(ctx, S(1, 0.7), 800), 650);
-  tremble(ctx, 460, 2.4, 34);
+  if (!g) {
+    swapEyes(ctx, (FACES[faceOf(ctx, ctx.shape)] as GfBotFaceStyle).cross || isRobot(ctx) ? 'cross' : 'squeeze', 900);
+    expr(ctx, 'error', 1300); // ojos en X (las formas con cara de pantalla ya los hacen con su propio ojo)
+    later(ctx, () => holdEyes(ctx, S(1, 0.7), 800), 650);
+    tremble(ctx, 460, 2.4, 34);
+  }
   mood(ctx, '#FF3B3B', [{ opacity: 0 }, { opacity: 0.36, offset: 0.15 }, { opacity: 0.12, offset: 0.5 }, { opacity: 0 }], 1100);
-  animatePose(ctx, (u) => ({ yaw: 0.38 * Math.sin(TAU * 2 * u) * (1 - u) }), 1000);
-  later(ctx, () => play(ctx, ctx.el.breath, [{}, { transform: S(1.04, 0.94), offset: 0.4 }, { transform: S(1) }], { duration: 700 }), 1100); // suspiro de frustración
-  later(ctx, () => {
-    setState(ctx, 'idle');
-    ctx.opts.onStateChange?.('idle');
-  }, 1900);
+  if (!g) {
+    animatePose(ctx, (u) => ({ yaw: 0.38 * Math.sin(TAU * 2 * u) * (1 - u) }), 1000);
+    later(ctx, () => play(ctx, ctx.el.breath, [{}, { transform: S(1.04, 0.94), offset: 0.4 }, { transform: S(1) }], { duration: 700 }), 1100); // suspiro de frustración
+  }
+  // Va en `toyTimers` y no en los de la rutina: un gesto encadenado (`act()`) borra estos, y entonces nunca volvería a reposo.
+  later(
+    ctx,
+    () => {
+      setState(ctx, 'idle');
+      ctx.opts.onStateChange?.('idle');
+    },
+    Math.max(1900, g + 200),
+    ctx.toyTimers,
+  );
 }

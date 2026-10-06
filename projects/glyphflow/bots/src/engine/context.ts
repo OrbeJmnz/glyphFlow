@@ -1,3 +1,5 @@
+import type { GfBotAgentEvent } from './agent';
+import type { GfBotApi } from './create-bot';
 import { FACES, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import type { GfKawaiiId } from '../data/kawaii';
@@ -66,6 +68,12 @@ export interface GfBotOptions {
   view?: GfBotView | number;
   /** Gestos extra: un objeto `{ nombre: gesto }` de `glyphflow/bots/gestures` (o los tuyos). Cada uno sale como `bot.nombre()` y como `bot.gesture('nombre')`. */
   gestures?: GfBotGesturePack;
+  /**
+   * El agente cambió de paso. Se llama DESPUÉS de que el motor hizo lo suyo, con el bot y su contexto, para que se pueda reaccionar
+   * con un gesto (`bot.gesture('frontFlip')`): ver `agentReactions` en `glyphflow/bots/gestures`. Si devuelve la duración (ms) de un gesto
+   * que puso en marcha, `done` y `error` no añaden su propio brinco o temblor encima.
+   */
+  onAgentEvent?: (ev: GfBotAgentEvent, bot: GfBotApi, ctx: GfBotGestureContext) => number | void;
   /** En reposo hace cositas por su cuenta (fidgets, caras kawaii). */
   wander?: boolean;
   /** Solo anima mientras hay hover (mini-bots de galería). */
@@ -109,6 +117,12 @@ export interface BotHooks {
   act: (ms: number, keepKawaii?: boolean) => void;
   /** Quita la cara kawaii activa con un fundido corto. Lo instala el corte kawaii. */
   kawaiiRelease: () => void;
+  /**
+   * El agente cambió de paso (`thinking`, `done`…): avisa a `opts.onAgentEvent` y devuelve cuánto dura (ms) el gesto que
+   * ese manejador puso en marcha, o 0 si ninguno. Con un gesto en marcha, las escenas de `done` y `error` dejan de hacer su
+   * propio brinco o temblor para no pelearse con él.
+   */
+  agentReact: (ev: GfBotAgentEvent) => number;
   /** Las caras kawaii vuelven a decidir si toca una (al cambiar de estado). Lo instala el corte kawaii. */
   kawaiiIdleTick: () => void;
   /** Despertar con cara de recién despierto (bostezo, estirón…). Lo instala el corte kawaii. */
@@ -380,6 +394,8 @@ export interface BotContext {
   pokes: number;
   pokeT: ReturnType<typeof setTimeout> | null;
   dragging: boolean;
+  /** El agente está cerrando su escena (`done`/`error`): la rutina de trabajo no se reanuda aunque un gesto la haya pausado. */
+  closing: boolean;
   lastPokeV: string;
   lastPokeAt: number;
   lastDragEnd: number;
@@ -459,7 +475,7 @@ export function createBotContext(
   };
 
   return {
-    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined, act: () => undefined, kawaiiRelease: () => undefined, kawaiiIdleTick: () => undefined, kawaiiWake: () => undefined }, q, qa, el, fe: emptyFaceElements(),
+    id, host, svg, opts, reduce: prefersReducedMotion(), spring: resolveSpring(), hooks: { cue: () => undefined, act: () => undefined, kawaiiRelease: () => undefined, agentReact: () => 0, kawaiiIdleTick: () => undefined, kawaiiWake: () => undefined }, q, qa, el, fe: emptyFaceElements(),
 
     shape: opts.shape,
     view: viewYaw(opts.view),
@@ -519,6 +535,7 @@ export function createBotContext(
     pokes: 0,
     pokeT: null,
     dragging: false,
+    closing: false,
     lastPokeV: '',
     lastPokeAt: 0,
     lastDragEnd: 0,

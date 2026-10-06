@@ -121,8 +121,11 @@ export interface GfBotControls {
    */
   followPointer(on: boolean): void;
   pop(): void;
-  /** Corre un gesto extra registrado con `gestures` por su nombre. `false` si no existe (o es un gesto del motor: esos se llaman directo). */
-  gesture(id: string): boolean;
+  /**
+   * Corre un gesto extra registrado con `gestures` por su nombre. Devuelve lo que dura (ms) si el gesto lo informa, `true` si corrió sin
+   * informarlo, y `false` si no existe (o es un gesto del motor: esos se llaman directo).
+   */
+  gesture(id: string): number | boolean;
   /** Activa tocar y arrastrar. Devuelve el que lo desactiva; llamarlo dos veces no duplica los listeners, y tras desactivarlo se puede volver a activar. */
   enableTouch(): () => void;
   /** Para los `hoverOnly`: `true` descongela, `false` congela. */
@@ -278,7 +281,8 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
 
   // Gestos extra (`opts.gestures`): salen como métodos del bot y por nombre. Se ignoran en pausa, como los del motor,
   // y no pisan ni un gesto del motor ni un control.
-  const pack: Record<string, Action> = {};
+  const pack: Record<string, () => number | void> = {};
+  let apiRef: GfBotApi | null = null;
   const controls: GfBotControls = {
     svg,
     get state() { return ctx.state; },
@@ -306,7 +310,11 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
       stopFollow = on ? followPointer(ctx) : null;
     },
     pop: act['pop'] as GfBotControls['pop'],
-    gesture: (name) => Object.hasOwn(pack, name) && (pack[name](), true),
+    gesture: (name) => {
+      if (!Object.hasOwn(pack, name)) return false;
+      const ms = pack[name]();
+      return typeof ms === 'number' && ms > 0 ? ms : true;
+    },
     enableTouch: () => {
       if (touchOff) return touchOff;
       const stop = enableTouch(ctx);
@@ -357,10 +365,14 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
 
   for (const [k, f] of Object.entries(opts.gestures ?? {})) {
     if (k in table || k in controls) continue;
-    pack[k] = () => {
-      if (!ctx.paused) f(ctx);
-    };
+    pack[k] = () => (ctx.paused ? undefined : f(ctx));
   }
   const api = Object.assign(controls, Object.fromEntries(Object.keys(table).map((k) => [k, act[k]])), pack) as unknown as GfBotApi;
+  apiRef = api;
+  ctx.hooks.agentReact = (ev) => {
+    if (!apiRef || ctx.paused) return 0;
+    const ms = opts.onAgentEvent?.(ev, apiRef, ctx);
+    return typeof ms === 'number' && ms > 0 ? ms : 0;
+  };
   return { api, ctx };
 }

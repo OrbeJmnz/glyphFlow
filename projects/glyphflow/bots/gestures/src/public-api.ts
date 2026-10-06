@@ -17,6 +17,8 @@ export { squishTeleport } from './teleport';
 export { ballMorph } from './ball';
 export { peekPop, diveEmerge } from './ground';
 export { landingPose, withLanding } from './landing';
+export { agentReactions } from './agent';
+export type { GfBotAgentReactionMap, GfBotAgentReactionsOptions } from './agent';
 export type { GfBotLandingPose } from './landing';
 
 import { frontFlip } from './flip';

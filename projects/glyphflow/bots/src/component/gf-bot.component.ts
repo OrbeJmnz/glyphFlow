@@ -104,6 +104,9 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   /** Gestos extra (`import { physicalGestures } from 'glyphflow/bots/gestures'`). Se leen al montar: no cambian después. */
   @Input() gestures?: GfBotGesturePack;
 
+  /** Reacciones del bot a los pasos de un agente (`agentReactions()` de `glyphflow/bots/gestures`). Se lee al montar. */
+  @Input() onAgentEvent?: GfBotOptions['onAgentEvent'];
+
   /** La cabeza sigue al puntero. Apagado por defecto (un listener y trabajo por cuadro que no todos quieren). No sigue con movimiento reducido ni con el dedo. */
   @Input() followPointer = false;
 
@@ -206,6 +209,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
       mouthk: this.mouth,
       view: this.view,
       gestures: this.gestures,
+      onAgentEvent: this.onAgentEvent,
       wander: this.wander,
       hoverOnly: this.hoverOnly,
       onRoutine: (state, label) => this.inZone(() => this.routineChange.emit({ state, label })),

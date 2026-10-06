@@ -51,6 +51,8 @@ import { clearGestureFx } from './gesture-fx';
   }
 
   export function nextRoutine(ctx: BotContext) {
+    // un gesto pausó la rutina mientras el agente cierra su escena: ya no hay rutina a la que volver
+    if (ctx.closing) return;
     clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state));
     // nextRoutine solo corre trabajando o dormido: en reposo no hay rutina que turnar
     const st = ctx.state as 'working' | 'sleeping';
@@ -68,7 +70,7 @@ import { clearGestureFx } from './gesture-fx';
 
 
   export function setState(ctx: BotContext, s: GfBotState, quiet = false) {   // quiet: reanudar sin gestos de transición (al volver a verse en pantalla)
-    const prev = ctx.state; ctx.state = s; ctx.routineIdx = 0; clearTimeout(ctx.sleepTimer ?? undefined);
+    const prev = ctx.state; ctx.state = s; ctx.closing = false; ctx.routineIdx = 0; clearTimeout(ctx.sleepTimer ?? undefined);
     clearRoutine(ctx); clearLook(ctx);
     if (ctx.kIdleT) clearTimeout(ctx.kIdleT);
     ctx.kIdleT = setTimeout(() => ctx.hooks.kawaiiIdleTick(), 0);   // reposo → caras kawaii; otro estado → cara normal

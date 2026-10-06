@@ -13,7 +13,6 @@ export function landingPose(ctx: BotContext, ms: number, pose: GfBotLandingPose,
   const S = kit.S;
   const d = Math.min(300, Math.max(150, hold));
   kit.later(ctx, () => {
-    ctx.hooks.act(d);
     if (pose === 'happy') {
       kit.eyeSeq(ctx, [{ transform: S(1, 1), offset: 0 }, { transform: S(1.06, 0.4), offset: 0.2 }, { transform: S(1.06, 0.4), offset: 0.75 }, { transform: S(1, 1), offset: 1 }], d);
       kit.setMouth(ctx, 'wide', d);

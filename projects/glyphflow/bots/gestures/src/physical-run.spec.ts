@@ -32,7 +32,7 @@ describe('gestos físicos en el motor', () => {
     document.body.append(host);
     const bot = createBot(host, { shape: ghostShape, wander: false, gestures: physicalGestures });
     expect(typeof bot[id]).toBe('function');
-    expect(bot.gesture(id)).toBe(true);
+    expect(bot.gesture(id)).toBeTruthy();
     expect((Element.prototype.animate as unknown as ReturnType<typeof vi.fn>).mock.calls.length).toBeGreaterThan(5);
     const svg = host.querySelector('svg')!;
     // los gestos que se despegan del suelo encienden la sombra; los de región no se mueven de sitio
