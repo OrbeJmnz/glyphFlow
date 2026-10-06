@@ -1,5 +1,5 @@
 import { gfBotKit, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   backflipDef, doubleFlipDef, ghostSwoopDef, sideCartwheelDef, sideDodgeDef, spinSquashDef,
 } from './acrobatics';
@@ -124,6 +124,9 @@ describe('ghostSwoop', () => {
 });
 
 describe('landingPose', () => {
+  // `withLanding` agenda la cara de aterrizaje con un temporizador: con el reloj real dispararía DESPUÉS del test, contra un contexto de mentira
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
   const ctxFalso = () => ({ subTimers: [], hooks: { act: () => undefined } }) as never;
 
   it('withLanding devuelve la duración del gesto y no toca nada si el gesto no la devuelve', () => {
