@@ -1,3 +1,4 @@
+import { gestureEffects } from './flip-fx';
 import { gfBotKit, type GfBotGestureContext as BotContext, type GfBotGestureDef } from 'glyphflow/bots';
 
 const kit = gfBotKit;
@@ -46,9 +47,16 @@ export function superBounceDef(): GestureDef {
       // Rebotes: grande → pequeño → asienta.
       kit.motion.bounce(0.77, 0.98, 32, 2, 0.4),
       kit.motion.overshoot(0.9, { spread: 0.08 }),
+      // Cuerpo de gel en el aire: los bultos salen al despegar, el máximo está en la cima y se apagan al caer.
+      kit.motion.key(0.22, { gel: 0 }),
+      kit.motion.key(0.36, { gel: 6 }),
+      kit.motion.key(0.55, { gel: 9 }),
+      kit.motion.key(0.68, { gel: 5 }),
+      kit.motion.key(0.77, { gel: 0 }),
       kit.motion.settle(1),
     ),
     grounded: aire(0.18, 0.3, 0.7, 0.78),
+    gelPhase: (t) => 9 * t,
   });
 }
 
@@ -58,6 +66,10 @@ export function superBounce(ctx: BotContext): number {
   ctx.hooks.act(ms);
   const at = kit.motion.runGesture(ctx, superBounceDef(), ms);
   kit.motion.shadowByHeight(ctx, at, ms, BOUNCE_H);
+  gestureEffects(ctx, ms, {
+    up: [0.2, 0.38], down: [0.6, 0.76], speedUp: [0.24, 0.42], speedDown: [0.62, 0.78],
+    impacts: [{ at: 0.77, big: true }, { at: 0.9 }],
+  });
   kit.eyeSeq(ctx, [
     { transform: kit.S(1, 1), offset: 0 },
     { transform: kit.S(1.04, 0.5), offset: 0.15 }, // aprieta
@@ -104,6 +116,7 @@ export function stretchSnap(ctx: BotContext): number {
   ctx.hooks.act(ms);
   const at = kit.motion.runGesture(ctx, stretchSnapDef(), ms);
   kit.motion.shadowByHeight(ctx, at, ms, 40, 0.3);
+  gestureEffects(ctx, ms, { impacts: [{ at: 0.6 }] }); // el chasquido
   kit.eyeSeq(ctx, [
     { transform: kit.S(1, 1), offset: 0 },
     { transform: kit.S(1.02, 0.7), offset: 0.1 },
@@ -136,6 +149,9 @@ export function scaredRecoilDef(): GestureDef {
       // Cae.
       kit.motion.impact(0.38, { y: 0, sx: 1.1, sy: 0.9, spread: 0.14, drag: -2 }),
       kit.motion.overshoot(0.46, { sx: 0.98, sy: 1.03, spread: 0 }),
+      kit.motion.key(0.15, { gel: 4 }),
+      kit.motion.key(0.26, { gel: 4 }),
+      kit.motion.key(0.38, { gel: 0 }),
       // Tiembla: izquierda, derecha… con la falda un poco detrás.
       kit.motion.wobble(0.42, 0.46, 'roll', [5, -4.2, 3, -2.2, 1.2]),
       kit.motion.wobble(0.42, 0.46, 'x', [1.8, -1.5, 1.1, -0.7, 0.3]),
@@ -144,6 +160,7 @@ export function scaredRecoilDef(): GestureDef {
     ),
     grounded: aire(0.1, 0.2, 0.3, 0.38),
     faceK: 0.5,
+    gelPhase: (t) => 12 * t,
   });
 }
 
@@ -153,6 +170,7 @@ export function scaredRecoil(ctx: BotContext): number {
   ctx.hooks.act(ms);
   const at = kit.motion.runGesture(ctx, scaredRecoilDef(), ms);
   kit.motion.shadowByHeight(ctx, at, ms, 40);
+  gestureEffects(ctx, ms, { up: [0.1, 0.26], speedUp: [0.12, 0.3], impacts: [{ at: 0.38 }] });
   // Los ojos reaccionan primero: ya están abiertos de golpe cuando el cuerpo todavía no se mueve.
   kit.eyeSeq(ctx, [
     { transform: kit.S(1, 1), offset: 0 },

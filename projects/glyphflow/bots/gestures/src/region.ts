@@ -1,3 +1,4 @@
+import { gestureEffects } from './flip-fx';
 import { gfBotKit, type GfBotGestureContext as BotContext, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
 
 const kit = gfBotKit;
@@ -43,6 +44,7 @@ export function jellyWobble(ctx: BotContext): number {
   if (ctx.reduce) return kit.motion.reducedHop(ctx, ms);
   ctx.hooks.act(ms);
   kit.motion.runGesture(ctx, jellyWobbleDef(), ms);
+  gestureEffects(ctx, ms, { impacts: [{ at: 0.06 }] }); // el golpe
   kit.eyeSeq(ctx, [
     { transform: kit.S(1, 1), offset: 0 },
     { transform: kit.S(1.05, 0.35), offset: 0.08 }, // el golpe: los cierra

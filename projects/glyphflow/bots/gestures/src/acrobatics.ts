@@ -1,5 +1,5 @@
 import { gfBotKit, type GfBotGestureContext as BotContext, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
-import { flipEffects } from './flip-fx';
+import { flipEffects, gestureEffects } from './flip-fx';
 import { aire, boca, nodos, perform } from './shared';
 
 const kit = gfBotKit;
@@ -76,6 +76,7 @@ export function sideDodge(ctx: BotContext): number {
     min: 400,
     alto: 40,
     extras: (c, ms) => {
+      gestureEffects(c, ms, { side: [{ at: [0.24, 0.46], dir: 1 }, { at: [0.64, 0.86], dir: -1 }] });
       // La mirada se adelanta 2 px hacia donde va.
       eyes(c, ms, [[0, 1, 1], [0.04, 1, 1], [0.1, 1, 1], [0.35, 1.04, 0.85], [0.6, 1, 1], [1, 1, 1]]);
       boca(c, ms, 0.26, 'o', 0.3);
@@ -121,6 +122,7 @@ export function backflip(ctx: BotContext): number {
     min: 500,
     alto: 90,
     extras: (c, ms) => {
+      gestureEffects(c, ms, { up: [0.2, 0.38], down: [0.68, 0.84], speedUp: [0.24, 0.42], speedDown: [0.66, 0.82], impacts: [{ at: 0.88, big: true }] });
       eyes(c, ms, [[0, 1, 1], [0.12, 1.04, 0.7], [0.3, 1.1, 1.22], [0.66, 1.08, 1.2], [0.86, 1, 1], [0.9, 1, 0.1], [0.94, 1, 0.1], [0.97, 1, 1.05], [1, 1, 1]]);
       boca(c, ms, 0.1, 'smile', 0.12);
       boca(c, ms, 0.24, 'o', 0.5);
@@ -199,10 +201,16 @@ export function sideCartwheelDef(): GestureDef {
       m.key(0.9, { x: 0.5, y: 0, roll: 364 }),
       m.key(0.94, { roll: 357, sx: 1, sy: 1, spread: 0.03 }),
       m.key(0.97, { roll: 361.5 }),
+      m.key(0.24, { gel: 0 }),
+      m.key(0.4, { gel: 5 }),
+      m.key(0.52, { gel: 8 }),
+      m.key(0.7, { gel: 5 }),
+      m.key(0.84, { gel: 0 }),
       m.settle(1),
       m.rotate(1, 360),
     ),
     grounded: aire(0.16, 0.26, 0.78, 0.86),
+    gelPhase: (t) => 8 * t,
   });
 }
 
@@ -212,6 +220,7 @@ export function sideCartwheel(ctx: BotContext): number {
     min: 600,
     alto: 60,
     extras: (c, ms) => {
+      gestureEffects(c, ms, { side: [{ at: [0.24, 0.6], dir: 1 }], impacts: [{ at: 0.86 }] });
       eyes(c, ms, [[0, 1, 1], [0.12, 1.04, 0.75], [0.3, 1.1, 1.2], [0.7, 1.08, 1.15], [0.86, 1, 0.15], [0.9, 1, 0.15], [0.95, 1, 1.05], [1, 1, 1]]);
       boca(c, ms, 0.1, 'smile', 0.12);
       boca(c, ms, 0.24, 'open', 0.55);

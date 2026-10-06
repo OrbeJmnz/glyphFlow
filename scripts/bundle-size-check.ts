@@ -171,7 +171,9 @@ const CASES = [
     filaReadme: null as string | null,
     aliasBots: true,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { superBounce } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, superBounce);`,
-    maxGzipBytes: 81 * 1024,
+    // 2026-10-06: 81 -> 83. superBounce ahora trae los toques del flip (flechas, lineas de velocidad, rayos, gel): +1.3KB
+    // que paga quien usa un gesto con efectos; los gestos sin ellos (jellyWobble…) siguen costando ~1.7KB.
+    maxGzipBytes: 83 * 1024,
     optimizadorAngular: true,
   },
   {
