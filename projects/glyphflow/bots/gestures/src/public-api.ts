@@ -14,6 +14,7 @@ export { superBounce, stretchSnap, scaredRecoil } from './physical';
 export { jellyWobble, waveThroughBody, tornadoSpin, inflateRelease, puddleMorph, jellyDrop } from './region';
 export { spinSquash, sideDodge, backflip, doubleFlip, sideCartwheel, ghostSwoop } from './acrobatics';
 export { squishTeleport } from './teleport';
+export { ballMorph } from './ball';
 export { landingPose, withLanding } from './landing';
 export type { GfBotLandingPose } from './landing';
 
@@ -21,7 +22,8 @@ import { frontFlip } from './flip';
 import { scaredRecoil, stretchSnap, superBounce } from './physical';
 import { backflip, doubleFlip, ghostSwoop, sideCartwheel, sideDodge, spinSquash } from './acrobatics';
 import { squishTeleport } from './teleport';
+import { ballMorph } from './ball';
 import { inflateRelease, jellyDrop, jellyWobble, puddleMorph, tornadoSpin, waveThroughBody } from './region';
 
 /** Todos los gestos físicos juntos: `[gestures]="physicalGestures"`. Pagas todos; si quieres pocos, pásalos sueltos. */
-export const physicalGestures = { frontFlip, superBounce, stretchSnap, scaredRecoil, jellyWobble, waveThroughBody, tornadoSpin, spinSquash, sideDodge, backflip, doubleFlip, sideCartwheel, ghostSwoop, inflateRelease, puddleMorph, jellyDrop, squishTeleport } as const;
+export const physicalGestures = { frontFlip, superBounce, stretchSnap, scaredRecoil, jellyWobble, waveThroughBody, tornadoSpin, spinSquash, sideDodge, backflip, doubleFlip, sideCartwheel, ghostSwoop, inflateRelease, puddleMorph, jellyDrop, squishTeleport, ballMorph } as const;

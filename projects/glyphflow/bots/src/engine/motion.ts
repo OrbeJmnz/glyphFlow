@@ -140,7 +140,7 @@ export function score(...parts: Score[]): Score {
  * cruzar el cuerpo (fracción del gesto): lo que viaja es la deformación, no el cuerpo entero.
  */
 export interface FieldTerm {
-  kind: 'shear' | 'wave' | 'taper' | 'bulge' | 'melt';
+  kind: 'shear' | 'wave' | 'taper' | 'bulge' | 'melt' | 'ball';
   amp: (t: number) => number;
   lag: number;
   /** Solo `melt`: retraso extra por distancia al centro (los bordes llegan después que el medio). */
@@ -148,6 +148,8 @@ export interface FieldTerm {
   /** Solo `melt`: proporción de alto y de ancho a la que llega con `amp` = 1 (0.55 = el 55 % del alto). */
   h?: number;
   w?: number;
+  /** Solo `ball`: radio de la bola, como fracción del alto de la silueta (por defecto 0.4). */
+  r?: number;
   /** Un gesto que cambia la silueta a propósito (un charco) no se modera con `GfBotShape.flex`. */
   fixed?: boolean;
   /** Solo `wave`: de qué lado entra (1 = izquierda → derecha, -1 = al revés). */
@@ -179,6 +181,7 @@ function fieldPoint(
   top: number,
   alto: number,
   kBase: number,
+  interior = false,
 ): [number, number] {
   let k = kBase;
   const v = Math.min(1, Math.max(0, (y - top) / alto));
@@ -196,6 +199,22 @@ function fieldPoint(
       const h = f.amp(t - f.lag * llegada) * Math.pow(1 - v, 0.9) * k;
       Y += h * alto; // la parte de arriba baja donde pasa la onda
       X += h * alto * 0.25 * u; // y abulta un poco hacia los lados
+    } else if (f.kind === 'ball') {
+      // la falda (abajo) se recoge antes que la cabeza: el retraso crece hacia arriba
+      const p = f.amp(t - f.lag * (1 - v) - (f.lagX ?? 0) * Math.abs(u)) * k;
+      const bottom = top + alto;
+      const rb = (f.r ?? 0.4) * alto;
+      const cyb = bottom - rb;
+      const dx = X - 100;
+      const dy = Y - cyb;
+      const d = Math.hypot(dx, dy);
+      if (interior) {
+        // Un punto de DENTRO (la cara) no va al borde del círculo: se mueve con el centro del cuerpo, que baja a donde queda la bola.
+        Y += (cyb - (top + alto * 0.5)) * p;
+      } else if (d > 1e-3) {
+        X += (100 + (dx / d) * rb - X) * p;
+        Y += (cyb + (dy / d) * rb - Y) * p;
+      }
     } else if (f.kind === 'melt') {
       const p = f.amp(t - f.lag * v - (f.lagX ?? 0) * Math.abs(u)) * k;
       const bottom = top + alto;
@@ -230,6 +249,16 @@ export const melt = (amp: (t: number) => number, o: { lag?: number; lagX?: numbe
   kind: 'melt', amp, lag: o.lag ?? 0.06, lagX: o.lagX ?? 0.05, h: o.h ?? 0.55, w: o.w ?? 1.2, fixed: true,
 });
 
+/**
+ * Recogerse en una bola: cada punto del contorno se acerca a un círculo apoyado en el suelo (radio `r`, fracción del alto),
+ * con `amp` = 1 siendo una bola perfecta. Lo de abajo (la falda) se recoge primero y la cabeza después (`lag` por altura);
+ * al desplegarse, el centro vuelve antes que los lados (`lagX`). Es el mismo personaje que se pliega, no otra forma cargada.
+ * Sirve para cualquier silueta y no lo modera `flex`.
+ */
+export const ball = (amp: (t: number) => number, o: { lag?: number; lagX?: number; r?: number } = {}): FieldTerm => ({
+  kind: 'ball', amp, lag: o.lag ?? 0.05, lagX: o.lagX ?? 0.04, r: o.r ?? 0.4, fixed: true,
+});
+
 /** Aplica el campo en el instante `t` a una silueta (`top`/`bottom` = sus límites verticales; `k` escala la amplitud). */
 export function applyField(d: string, field: readonly FieldTerm[], t: number, top: number, bottom: number, k = 1): string {
   const alto = bottom - top || 1;
@@ -246,10 +275,18 @@ export function applyField(d: string, field: readonly FieldTerm[], t: number, to
  * Cuánto se desplaza una parte del cuerpo que NO es parte del trazo (la cara, el copete) cuando el campo mueve la
  * silueta: `v` = a qué altura vive (0 = arriba del todo, 1 = la base). Sirve para que viaje con ella.
  */
-export function fieldOffset(field: readonly FieldTerm[], t: number, v: number, top: number, bottom: number, k = 1): [number, number] {
+export function fieldOffset(
+  field: readonly FieldTerm[],
+  t: number,
+  v: number,
+  top: number,
+  bottom: number,
+  k = 1,
+  interior = false,
+): [number, number] {
   const alto = bottom - top || 1;
   const y = top + v * alto;
-  const [X, Y] = fieldPoint(field, t, 100, y, top, alto, k);
+  const [X, Y] = fieldPoint(field, t, 100, y, top, alto, k, interior);
   return [X - 100, Y - y];
 }
 
@@ -369,7 +406,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
       if (campo && ext) {
         // La cara y el copete viven en el cuerpo: van con la región donde están (cara a media altura, copete arriba).
         const vc = Math.min(1, Math.max(0, (ctx.shape.cy - ext.top) / (ext.bottom - ext.top)));
-        const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flex);
+        const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flex, true);
         const [ax, ay] = fieldOffset(campo, u, 0, ext.top, ext.bottom, flex);
         Object.assign(pose, { ox, oy, ax, ay });
       }
