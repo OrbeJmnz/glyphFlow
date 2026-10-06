@@ -107,3 +107,29 @@ describe('desplazamiento de cara y accesorios', () => {
     expect(con[acc].transform).toBe('translate(7.00px,1.00px) rotate(4.00deg)');
   });
 });
+
+describe('movimiento por accesorio (accMove)', () => {
+  const sh = {
+    cy: 100,
+    model: 'sphere' as const,
+    R: 60,
+    acc: [
+      { p: [0, -50, 0] as const, up: [0, -1, 0] as const, backOnly: true },
+      { p: [60, 40, 0] as const, up: [0, -1, 0] as const, backOnly: true },
+    ],
+  };
+  it('cada accesorio recibe su propio desplazamiento y su balanceo, por su posición en acc', () => {
+    const base = projectPose(sh, {}, []);
+    const mv = projectPose(sh, { accMove: [[2, 3, 0], [10, -4, 12]] }, []);
+    const i0 = POSE_SLOTS.length; // sin rasgos: los accesorios de atrás empiezan tras los slots
+    expect(mv[i0].transform).not.toBe(base[i0].transform);
+    expect(mv[i0].transform).toContain('translate(2.00px,3.00px)');
+    expect(mv[i0 + 1].transform).toContain('translate(10.00px,-4.00px)');
+    expect(mv[i0 + 1].transform).toContain('rotate(12.00deg)');
+  });
+  it('sin accMove el transform de los accesorios es el de siempre', () => {
+    const a = projectPose(sh, {}, []);
+    const b = projectPose(sh, { accMove: undefined }, []);
+    expect(b.map((f) => f.transform)).toEqual(a.map((f) => f.transform));
+  });
+});

@@ -14,6 +14,7 @@ export function makeRobot(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
     ...base,
     id: 'robot',
     flex: 0.5,
+    feel: { hem: 0.3, gel: 0.3, squash: 0.65 }, // casi no se deforma: más seco y mecánico
     hatAt: top - base.cy + 1.5,
     hatK: 0.88,
     label: 'Robot',
@@ -28,6 +29,8 @@ export function makeRobot(base: GfBotShape, bodyKey = 'cube'): GfBotShape {
       {
         p: [0, top - base.cy, 0],
         up: [0, -1, 0],
+        lag: 0.03,
+        swing: 1.6, // la antena es flexible
         draw: (x, y) =>
           `<rect class="ant-base" x="${x - 5}" y="${y - 3}" width="10" height="5" rx="2.5"/><g class="ant" style="transform-origin:${x}px ${y}px"><path class="ant-stick" d="M${x} ${y - 1} Q${x + 3.5} ${y - 8} ${x + 2.5} ${y - 15}"/><circle class="ant-tip" cx="${x + 2.5}" cy="${y - 18}" r="4.2" style="transform-origin:${x + 2.5}px ${y - 18}px"/></g>`,
       },

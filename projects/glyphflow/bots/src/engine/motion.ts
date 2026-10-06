@@ -7,7 +7,7 @@ import { animateShape } from './outlines';
 import { S } from './math';
 import { animatePose } from './pose-motion';
 import type { GfBotPose } from './pose';
-import { shapeD } from './shape-view';
+import { curSh, shapeD } from './shape-view';
 import { later, play } from './timing';
 import { track, type GfTrackNode } from './track';
 
@@ -340,9 +340,9 @@ export function tracksOf(s: Score): Record<Channel, (t: number) => number> {
 }
 
 /** Todos los canales del gesto en el instante `t`. Pura: es lo que prueban los specs. */
-export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => number>, t: number): MotionFrame {
-  const sx = tr.sx(t);
-  const sy = tr.sy(t);
+export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => number>, t: number, squashGain = 1): MotionFrame {
+  const sx = 1 + (tr.sx(t) - 1) * squashGain;
+  const sy = 1 + (tr.sy(t) - 1) * squashGain;
   const grounded = def.grounded ? def.grounded(t) : 1;
   const hopX = Math.pow(sx, grounded);
   const hopY = Math.pow(sy, grounded);
@@ -375,7 +375,8 @@ export const samples = (ms: number): number => Math.max(24, Math.round(ms / 18))
  */
 export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: number) => MotionFrame {
   const tr = tracksOf(def.score);
-  const at = (t: number) => frameAt(def, tr, t);
+  const feel = ctx.shape.feel;
+  const at = (t: number) => frameAt(def, tr, t, feel?.squash ?? 1);
   const N = samples(ms);
   const frames = Array.from({ length: N + 1 }, (_, i) => at(i / N));
 
@@ -398,6 +399,32 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   const base = flexD(shapeD(ctx.shape));
   const ext = base ? pathExtent(base) : null;
   const campo = def.field?.length && ext ? def.field : null;
+  const accs = curSh(ctx).acc ?? [];
+  // Cada accesorio va con la región del cuerpo donde está pegado (orejas arriba, cola abajo), con su retraso (se queda atrás
+  // cuando el cuerpo se mueve: la cola cuelga al saltar) y su balanceo (se inclina hacia donde se desplaza).
+  const conAcc = accs.some((a) => a.lag || a.swing);
+  const posDe = (a: (typeof accs)[number], u: number): [number, number] => {
+    const L = a.lag ?? 0;
+    let x = 0;
+    let y = 0;
+    if (campo && ext) {
+      const v = Math.min(1, Math.max(0, (ctx.shape.cy + a.p[1] - ext.top) / (ext.bottom - ext.top)));
+      [x, y] = fieldOffset(campo, Math.max(0, u - L), v, ext.top, ext.bottom, flex);
+    }
+    if (L) {
+      const f0 = at(Math.max(0, u));
+      const f1 = at(Math.max(0, u - L));
+      x += (f1.x - f0.x) * 0.6;
+      y += (f1.y - f0.y) * 0.6;
+    }
+    return [x, y];
+  };
+  const movimientoDe = (a: (typeof accs)[number], u: number): [number, number, number] => {
+    const [dx, dy] = posDe(a, u);
+    const [dx0] = posDe(a, u - 0.02);
+    const giro = a.swing ? Math.max(-35, Math.min(35, a.swing * (dx - dx0))) : 0;
+    return [dx, dy, giro];
+  };
   animatePose(
     ctx,
     (u) => {
@@ -407,9 +434,9 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
         // La cara y el copete viven en el cuerpo: van con la región donde están (cara a media altura, copete arriba).
         const vc = Math.min(1, Math.max(0, (ctx.shape.cy - ext.top) / (ext.bottom - ext.top)));
         const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flex, true);
-        const [ax, ay] = fieldOffset(campo, u, 0, ext.top, ext.bottom, flex);
-        Object.assign(pose, { ox, oy, ax, ay });
+        Object.assign(pose, { ox, oy });
       }
+      if (campo || conAcc) pose.accMove = accs.map((a) => movimientoDe(a, u));
       return conGiro ? { ...pose, yaw: ctx.view + f.yaw } : pose;
     },
     ms,
@@ -427,8 +454,8 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     const hem = Array.from({ length: M + 1 }, (_, i) => {
       const t = i / M;
       const f = at(t);
-      const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread * flex, f.drag * flex);
-      const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala * flex, fase(t));
+      const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread * flex * (feel?.hem ?? 1), f.drag * flex * (feel?.hem ?? 1));
+      const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala * flex * (feel?.gel ?? 1), fase(t));
       const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom, flex) : cuerpo;
       return { offset: t, d: `path("${d}")` };
     });

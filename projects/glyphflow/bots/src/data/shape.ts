@@ -98,6 +98,12 @@ export interface GfBotShape {
    * menos = más rígida. Una caja con copete como el Tofu o un robot no se derriten como un fantasma.
    */
   flex?: number;
+  /**
+   * Cómo RESPONDE esta forma a los gestos (la personalidad): `hem` = cuánto se arrastra y se abre la falda, `gel` = cuánto se
+   * vuelve gel, `squash` = cuánto se aplasta y se estira. 1 = lo que pide el gesto. El fantasma arrastra mucho la falda; el robot
+   * casi no se deforma y es más seco.
+   */
+  feel?: { hem?: number; gel?: number; squash?: number };
   /** Profundidad del cuerpo / su ancho (ver `GfBotPoseShape.depth`). Sin esto la forma gira como una esfera. */
   depth?: number;
   tilt?: number;

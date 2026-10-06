@@ -13,6 +13,7 @@ function makeOctopus(): GfBotShape {
   keys.push(keys[0]);
   return {
     id: 'octopus',
+    feel: { hem: 1.3, gel: 1.1 }, // los tentáculos se arrastran
     label: 'Octopus',
     family: 'octopus',
     palette: 'mist',

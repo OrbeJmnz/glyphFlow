@@ -304,3 +304,16 @@ describe('jellyDrop', () => {
     expect(sx(0.86)).toBeCloseTo(0.97, 1);
   });
 });
+
+describe('personalidad: squash por forma', () => {
+  it('con una ganancia menor el cuerpo se aplasta y se estira menos (el robot es más seco)', () => {
+    const d = jellyDropDef();
+    const tr = tracksOf(d.score);
+    const normal = frameAt(d, tr, 0.4);
+    const seco = frameAt(d, tr, 0.4, 0.5);
+    const n = normal.hopY * normal.poseY;
+    const s = seco.hopY * seco.poseY;
+    expect(n).toBeGreaterThan(1.18);
+    expect(s - 1).toBeCloseTo((n - 1) * 0.5, 2);
+  });
+});

@@ -38,6 +38,11 @@ export interface GfBotPose {
   oy?: number;
   ax?: number;
   ay?: number;
+  /**
+   * Movimiento de CADA accesorio, en el orden de `acc`: `[dx, dy, grados]`. Cada uno va con la región del cuerpo donde está
+   * pegado (la oreja con la cabeza, la cola con la base), con su propio retraso y su balanceo. Si está, manda sobre `ax`/`ay`.
+   */
+  accMove?: readonly (readonly [number, number, number])[];
 }
 
 /** Cómo se comporta el cuerpo en 3D: esfera, cilindro o caja redondeada. */
@@ -68,6 +73,10 @@ export interface GfBotAccessory {
   backOnly?: boolean;
   /** Entra por delante poco a poco: `[desde, ancho]` en profundidad. */
   fade?: readonly [number, number];
+  /** Retraso (fracción del gesto) con el que sigue al cuerpo: una cola va detrás de la cabeza. Por defecto, sin retraso. */
+  lag?: number;
+  /** Balanceo: grados por cada unidad que el accesorio se desplaza de lado en un instante (una cola, una antena). Por defecto, no se balancea. */
+  swing?: number;
 }
 
 /** Lo mínimo que `projectPose` necesita saber de una forma. */
@@ -134,7 +143,7 @@ export function projectPose(
   pose: GfBotPose,
   feats: readonly GfBotFeature[],
 ): GfBotLayerFrame[] {
-  const { yaw = 0, pitch = 0, roll = 0, sx: dx = 1, sy: dy = 1, fx = 1, fy = 1, ox = 0, oy = 0, ax = 0, ay = 0 } = pose;
+  const { yaw = 0, pitch = 0, roll = 0, sx: dx = 1, sy: dy = 1, fx = 1, fy = 1, ox = 0, oy = 0, ax = 0, ay = 0, accMove } = pose;
   const move = (x: number, y: number): string => (x === 0 && y === 0 ? '' : `translate(${f2(x)}px,${f2(y)}px) `);
   // La deformación se escribe solo si existe: sin ella el texto del transform es el de siempre.
   const squash = (a: number, b: number): string => (a === 1 && b === 1 ? '' : ` scale(${f3(a)},${f3(b)})`);
@@ -252,14 +261,15 @@ export function projectPose(
   out.push(yw, yb, pw, pb);
   out.push({ transform: `${move(ox, oy)}rotate(${f2(roll)}deg)${squash(fx, fy)}` }); // cara (.flip)
   out.push({ transform: `rotate(${f2(-roll)}deg)` }); // brillo: contra-rota para que la luz quede fija
-  const accT = `${move(ax, ay)}rotate(${f2(roll)}deg)${squash(dx, dy)}`;
+  const accT = `${accMove ? '' : move(ax, ay)}rotate(${f2(roll)}deg)${squash(dx, dy)}`;
   out.push({ transform: accT }, { transform: accT }); // capas de accesorios
 
   // Accesorios: la copia de atrás siempre es visible; la de adelante solo cuando queda frente al
   // cuerpo.
   const back: GfBotLayerFrame[] = [];
   const front: GfBotLayerFrame[] = [];
-  for (const a of sh.acc ?? []) {
+  for (const [i, a] of (sh.acc ?? []).entries()) {
+    const [mx, my, mr] = accMove?.[i] ?? [0, 0, 0];
     const [X, Y, Z] = rot(...a.p);
     const [ux, uy] = rot(...a.up);
     const x0 = 100 + a.p[0];
@@ -273,7 +283,7 @@ export function projectPose(
       const [nx] = rot(...a.n);
       sw = Math.max(Math.sqrt(Math.max(0, 1 - nx * nx)), a.minW ?? 0.25);
     }
-    const t = `translate(${f2(100 + X - x0)}px,${f2(cy + Y - y0)}px) rotate(${f2(deg)}deg) scale(${f3(sw)},${f3(len)})`;
+    const t = `translate(${f2(100 + X - x0 + mx)}px,${f2(cy + Y - y0 + my)}px) rotate(${f2(deg + mr)}deg) scale(${f3(sw)},${f3(len)})`;
     const face = a.faceOnly && a.n ? clamp01(rot(...a.n)[2] * 5) : 1;
     if (a.layered) {
       back.push({ transform: t, opacity: +f3(face) });
