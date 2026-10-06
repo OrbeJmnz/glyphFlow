@@ -72,7 +72,7 @@ export interface GestureFxConfig {
   /** Líneas de velocidad horizontales, detrás del bot: `dir` = hacia dónde va (1 = derecha). */
   side?: readonly { at: readonly [number, number]; dir: 1 | -1 }[];
   /** Impactos contra el suelo: rayos radiales y destellos. `big` = los nueve rayos y cinco destellos; si no, un golpe chico. */
-  impacts?: readonly { at: number; big?: boolean }[];
+  impacts?: readonly { at: number; big?: boolean; /** Desplazamiento horizontal del golpe (si el bot cae lejos de donde empezó). */ x?: number }[];
 }
 
 /** Los efectos del front flip, tal cual se aprobaron. */
@@ -159,14 +159,14 @@ export function gestureEffects(ctx: BotContext, ms: number, cfg: GestureFxConfig
   // ── Fuera de `.hop`: en el suelo, donde cae ──
   if (cfg.impacts?.length) {
     const suelo = el('g', { class: MARCA, 'pointer-events': 'none' }, ctx.el.world);
-    const cx = 100;
     const cs = 174;
     // Rayos radiales sobre el semicírculo de ARRIBA, alrededor de la cabeza aplastada: nacen fuera del
     // cuerpo y salen despedidos. Centro a media altura del cuerpo, elipse un poco más alta que ancha.
     const cyR = cs - 26;
     const rx = ancho + 12;
     const ry = Math.max(70, cs - top - 8);
-    for (const { at, big = false } of cfg.impacts) {
+    for (const { at, big = false, x: dx = 0 } of cfg.impacts) {
+      const cx = 100 + dx;
       const hasta = fin(at + (big ? 0.105 : 0.09));
       const paso = big ? 22 : 44; // un golpe chico lleva la mitad de rayos
       const largoK = big ? 1 : 0.7;

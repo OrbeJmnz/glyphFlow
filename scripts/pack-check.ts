@@ -109,7 +109,7 @@ if (!isGfBotState('idle') || isGfBotState('dancing')) throw new Error('isGfBotSt
 if (typeof createBot !== 'function') throw new Error('createBot no resolvió desde glyphflow/bots');
 if (typeof GfBotComponent !== 'function') throw new Error('GfBotComponent no resolvió desde glyphflow/bots');
 import { superBounce, physicalGestures } from 'glyphflow/bots/gestures';
-if (typeof superBounce !== 'function' || Object.keys(physicalGestures).length !== 16) throw new Error('glyphflow/bots/gestures no resolvió');
+if (typeof superBounce !== 'function' || Object.keys(physicalGestures).length !== 17) throw new Error('glyphflow/bots/gestures no resolvió');
 if (catShape.id !== 'cat' || robotShape.id !== 'robot' || nightCloudShape.id !== 'nCloud') throw new Error('las formas no resolvieron desde glyphflow/bots');
 
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');
