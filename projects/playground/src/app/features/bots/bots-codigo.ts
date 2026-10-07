@@ -49,7 +49,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
     ...(rutinas ? [`state="${c.estado}"`, `[extras]="extras"`] : []),
     ...(gestos.length ? [`[gestures]="gestures"`] : []),
     ...(c.agente ? [`[onAgentEvent]="reacciones"`] : []),
-    ...(c.sigue ? [`[followPointer]="true"`] : []),
+    ...(c.sigue ? [] : [`[followPointer]="false"`]), // encendido por defecto: solo se escribe para apagarlo
     ...(c.toca ? [`[interactive]="true"`] : []),
   ];
 

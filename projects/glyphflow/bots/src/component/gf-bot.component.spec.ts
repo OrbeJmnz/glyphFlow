@@ -96,6 +96,21 @@ describe('glyphflow/bots · <gf-bot>', () => {
     expect(bot.api).not.toBeNull();
   });
 
+  it('followPointer viene encendido: un movimiento del cursor gira la cabeza', async () => {
+    const raf = vi.spyOn(globalThis, 'requestAnimationFrame').mockImplementation((cb) => (cb(0), 1));
+    try {
+      const { bot, el } = await render();
+      expect(bot.followPointer).toBe(true);
+      el.querySelector('svg')!.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 }) as DOMRect;
+      const e = new Event('pointermove') as Event & { clientX: number; clientY: number; pointerType: string };
+      Object.assign(e, { clientX: 900, clientY: 50, pointerType: 'mouse' });
+      window.dispatchEvent(e);
+      expect(raf).toHaveBeenCalled();
+    } finally {
+      raf.mockRestore();
+    }
+  });
+
   it('el estado de entrada mueve al bot', async () => {
     const { fixture, bot } = await render();
     fixture.componentInstance.state.set('working');

@@ -19,7 +19,7 @@ describe('datos de /bots', () => {
 });
 
 describe('codigoBot (el snippet que reproduce lo que se ve)', () => {
-  const base: ConfigBot = { forma: 'cat', piel: 'g1', gesto: null, sigue: false, toca: false, agente: false };
+  const base: ConfigBot = { forma: 'cat', piel: 'g1', gesto: null, sigue: true, toca: false, agente: false };
 
   it('sin nada elegido solo pide el componente y la forma', () => {
     const { fragmento, completo } = codigoBot(base);
@@ -49,8 +49,9 @@ describe('codigoBot (el snippet que reproduce lo que se ve)', () => {
     const { completo, fragmento } = codigoBot({ ...base, gesto: 'frontFlip', agente: true, sigue: true, toca: true });
     expect(completo.match(/frontFlip/g)?.length).toBeLessThan(5);
     expect(completo.match(/import \{[^}]*frontFlip[^}]*\} from 'glyphflow\/bots\/gestures'/g)?.length).toBe(1);
-    expect(fragmento).toContain('[followPointer]="true"');
+    expect(fragmento).not.toContain('followPointer'); // viene encendido: no se escribe
     expect(fragmento).toContain('[interactive]="true"');
+    expect(codigoBot({ ...base, sigue: false }).fragmento).toContain('[followPointer]="false"');
   });
 
   it('el robot no lleva piel; el mochi usa su propia forma', () => {

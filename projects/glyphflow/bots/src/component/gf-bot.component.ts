@@ -113,8 +113,8 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   /** Reacciones del bot a los pasos de un agente (`agentReactions()` de `glyphflow/bots/gestures`). Se lee al montar. */
   @Input() onAgentEvent?: GfBotOptions['onAgentEvent'];
 
-  /** La cabeza sigue al puntero. Apagado por defecto (un listener y trabajo por cuadro que no todos quieren). No sigue con movimiento reducido ni con el dedo. */
-  @Input() followPointer = false;
+  /** La cabeza sigue al puntero (encendido por defecto; `false` lo apaga). Es un solo listener para todos los bots. No sigue con movimiento reducido ni con el dedo. */
+  @Input() followPointer = true;
 
   /** En reposo hace cositas por su cuenta (fidgets y caras kawaii). */
   @Input() wander = false;

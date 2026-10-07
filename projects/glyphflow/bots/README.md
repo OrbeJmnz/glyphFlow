@@ -25,7 +25,7 @@ const g = bot.gesture('superBounce'); // o por nombre: devuelve un handle { ms, 
 ```
 
 ```html
-<gf-bot [shape]="catShape" [gestures]="{ frontFlip, superBounce }" [followPointer]="true" />
+<gf-bot [shape]="catShape" [gestures]="{ frontFlip, superBounce }" />
 ```
 
 Pasa solo los gestos que uses (`{ frontFlip, superBounce }`): `physicalGestures` los trae todos y paga todos.
@@ -283,7 +283,7 @@ Enfriamiento por gesto; nada con movimiento reducido ni en pausa. `map`, `cooldo
 
 ## Seguir el puntero
 
-`bot.followPointer(true)` o `[followPointer]="true"`: la cabeza mira al cursor. Un solo listener para todos los bots, trabajo una vez por
+En `<gf-bot>` viene ENCENDIDO por defecto (`[followPointer]="false"` lo apaga): la cabeza mira al cursor. Con `createBot` sigue siendo explícito: `bot.followPointer(true)`. Un solo listener para todos los bots, trabajo una vez por
 cuadro. No sigue con movimiento reducido, en pausa, dormido, arrastrando ni con el dedo.
 
 ## Cómo se compone un gesto (`gfBotKit`)
