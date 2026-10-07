@@ -11,7 +11,7 @@ import { projectPose } from '../../src/engine/pose';
 import { act, installStateHooks } from '../../src/engine/state';
 import { setView } from '../../src/engine/view';
 import { installKawaiiHooks } from '../../src/engine/kawaii';
-const { gelBody, pathExtent } = gfBotKit.body;
+const { gelBody, pathExtent } = gfBotKit.internal.body;
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');

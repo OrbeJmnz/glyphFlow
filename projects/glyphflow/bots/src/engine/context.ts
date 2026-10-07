@@ -37,11 +37,38 @@ export type GfBotMouthKind = 'pill' | 'w';
 export type GfBotMaterialId = keyof typeof MATERIALS;
 
 /** El contexto interno del bot que recibe cada gesto. Es opaco: se pasa tal cual a las herramientas de `gfBotKit`. */
-export type GfBotGestureContext = BotContext;
+/**
+ * Lo que un gesto (o un manejador de `onAgentEvent`) puede tocar del bot: el contrato ESTABLE. Es lo que usan los 20 gestos del catálogo y nada
+ * más: si uno de ellos necesitara algo fuera de esta lista no compilaría. Cambiar la forma de estos miembros es un cambio mayor.
+ *
+ * - `el`: los nodos del bot donde se anima (`hop` es la trayectoria, `clip` el cuerpo, `world` lo que está en el mundo, `fx` los efectos, `shadow` la sombra
+ *   y `flip` la capa de efectos del flip).
+ * - `hooks.act(ms)`: avisa que el gesto toma el cuerpo durante `ms` (despierta al bot y pausa su rutina).
+ * - `reduce`: el usuario pidió menos movimiento; el gesto debe degradar a un saltito (`kit.motion.reducedHop`).
+ * - `paused`, `view`, `pose.yaw`, `shape.{cy, faceY, top, R, half}` (la geometría de la forma), `svg`, `fe.eyeList` y `shapeAnims`: lo mínimo para medir y para no dejar animaciones colgadas.
+ */
+export interface GfBotGestureContext {
+  readonly svg: SVGSVGElement;
+  readonly reduce: boolean;
+  readonly paused: boolean;
+  readonly view: number;
+  readonly pose: Readonly<Pick<GfBotRestPose, 'yaw'>>;
+  readonly shape: Readonly<Pick<GfBotShape, 'cy' | 'faceY' | 'top' | 'R' | 'half'>>;
+  readonly el: Readonly<Pick<BotElements, 'clip' | 'hop' | 'world' | 'fx' | 'shadow' | 'flip'>>;
+  readonly fe: Readonly<Pick<BotFaceElements, 'eyeList'>>;
+  readonly hooks: Readonly<Pick<BotHooks, 'act'>>;
+  shapeAnims: Animation[];
+}
+
+/**
+ * El contexto COMPLETO del motor, para los extras de primera mano (`glyphflow/bots/extras`). **No es estable**: cambia con el motor sin aviso. Se
+ * llega a él desde `gfBotKit.internal`; si estás escribiendo un gesto propio usa `GfBotGestureContext`.
+ */
+export type GfBotInternalContext = BotContext;
 
 /** Los juguetes (`toysExtra` de `glyphflow/bots/extras`): `play` pone el juguete `kind` en (x, y) y el bot juega con él. */
 export interface GfBotToysExtra {
-  play(ctx: GfBotGestureContext, kind: string, x: number, y: number): void;
+  play(ctx: GfBotInternalContext, kind: string, x: number, y: number): void;
 }
 
 /**
@@ -52,10 +79,10 @@ export interface GfBotToysExtra {
 export interface GfBotHatsExtra {
   has(key: string): boolean;
   accs(key: GfBotHatId, sh: GfBotShape): NonNullable<GfBotShape['acc']>;
-  bind(ctx: GfBotGestureContext): void;
-  kick(ctx: GfBotGestureContext, up?: number, side?: number): void;
-  pulse(ctx: GfBotGestureContext): void;
-  sync(ctx: GfBotGestureContext): void;
+  bind(ctx: GfBotInternalContext): void;
+  kick(ctx: GfBotInternalContext, up?: number, side?: number): void;
+  pulse(ctx: GfBotInternalContext): void;
+  sync(ctx: GfBotInternalContext): void;
 }
 
 /**
@@ -64,7 +91,7 @@ export interface GfBotHatsExtra {
  * Sin ellas el motor solo respira (y entrecierra los ojos trabajando): no hay rotación, ni `setRoutine()`, ni `onRoutine`.
  */
 export interface GfBotRoutinesExtra {
-  play(ctx: GfBotGestureContext, state: 'working' | 'sleeping', name: GfBotWorkRoutine | GfBotSleepRoutine): string;
+  play(ctx: GfBotInternalContext, state: 'working' | 'sleeping', name: GfBotWorkRoutine | GfBotSleepRoutine): string;
 }
 
 /** Lo que se le pasa a `createBot({ extras })` o a `<gf-bot [extras]>`. */

@@ -51,6 +51,53 @@ rotación de rutinas, ni `setRoutine()`, ni `onRoutine`. **El modo IA no lo nece
 Quien pide **todo** paga unos 6 KB más que antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto
 paga 20.6 KB menos.
 
+### Escribir un gesto propio
+
+Un gesto es una función `(ctx: GfBotGestureContext) => number`: arranca la animación y devuelve cuánto dura (ms). Se pasa en `gestures` y sale como
+`bot.cabeceo()` y por nombre (`bot.gesture('cabeceo')`), con handle, políticas e intensidad como los del catálogo. Este ejemplo se ejecuta como test
+(`gestures/src/autoria.spec.ts`): si deja de compilar, esta guía miente.
+
+```ts
+import { createBot, gfBotKit, type GfBotGestureContext, type GfBotGestureDef } from 'glyphflow/bots';
+import { perform } from 'glyphflow/bots/gestures';
+
+const kit = gfBotKit;
+
+const cabeceo = (ctx: GfBotGestureContext): number =>
+  perform(
+    ctx,
+    'cabeceo', // la duración se puede cambiar con `--gf-bot-cabeceo-duration`
+    (): GfBotGestureDef => ({
+      score: kit.motion.score(
+        kit.motion.settle(0),
+        kit.motion.anticipate(0.2, { y: 6, sx: 1.06, sy: 0.92 }),
+        kit.motion.launch(0.4, { y: -14, sx: 0.95, sy: 1.06 }),
+        kit.motion.impact(0.6, { y: 3, sx: 1.08, sy: 0.9 }),
+        kit.motion.settle(1),
+      ),
+    }),
+    { ms: 700, alto: 14 }, // 700 ms por defecto; `alto` = cuánto se despega, para que la sombra se encoja
+  );
+
+const bot = createBot(host, { shape: catShape, gestures: { cabeceo } });
+bot.cabeceo();
+```
+
+`perform` hace lo que hacen los 20 del catálogo: lee la duración, con movimiento reducido degrada a un saltito (300–450 ms), lanza la partitura y la
+sombra. La partitura son nodos por canal (`x`, `y`, `roll`, `yaw`, `sx`, `sy`, `spread`, `drag`, `gel`); `settle`, `anticipate`, `launch`, `impact`,
+`overshoot`, `bounce`, `wobble`… los arman con intención. Para animar partes propias usa `ctx.el.hop` y compañía con `kit.later` y `kit.eyeSeq`.
+
+**La superficie estable** es lo que usan los 20 gestos del catálogo y nada más, y el compilador lo hace cumplir (si uno necesitara algo fuera, no compilaría):
+
+| Qué | Miembros estables |
+| --- | --- |
+| `GfBotGestureContext` | `svg`, `reduce`, `paused`, `view`, `pose.yaw`, `shape.{cy, faceY, top, R, half}`, `el.{hop, clip, world, fx, shadow, flip}`, `fe.eyeList`, `hooks.act`, `shapeAnims` |
+| `gfBotKit` | `motion.*` (partitura, primitivas, campo por región, `runGesture`, `reducedHop`, `gestureDuration`, `shadowByHeight`…), `S`, `smoothstep`, `track`, `eyeSeq`, `setMouth`, `later`, `shadowFor`, `groundClip`, `clearGestureFx` |
+| `perform`, `aire`, `boca`, `nodos` (de `glyphflow/bots/gestures`) | el esqueleto de un gesto y tres ayudas de partitura |
+
+Cambiar la forma de cualquiera de esos miembros es un cambio **mayor**. `gfBotKit.internal` y `GfBotInternalContext` son las piezas del motor que usan los
+sombreros, juguetes y rutinas (`glyphflow/bots/extras`): **no son estables** y pueden cambiar en cualquier versión; si las usas, fija la versión exacta.
+
 ### Modo IA con un SDK (`glyphflow/bots/ai`)
 
 `bindAgent` conecta el stream de un SDK con el bot: traduce cada evento a un paso (`thinking`, `tool`, `writing`, `done`…) y se lo pasa a

@@ -2,7 +2,8 @@ import { gfBotKit } from 'glyphflow/bots';
 import { describe, expect, it } from 'vitest';
 import { ballMorphDef } from './ball';
 
-const { applyField, ball, frameAt, tracksOf } = gfBotKit.motion;
+const { ball, frameAt, tracksOf } = gfBotKit.motion;
+const { applyField } = gfBotKit.internal;
 
 const CAJA = 'M60 60 L140 60 L140 180 L60 180 Z';
 const puntos = (d: string): number[][] => [...d.matchAll(/(-?\d*\.?\d+) (-?\d*\.?\d+)/g)].map((m) => [+m[1], +m[2]]);
@@ -43,7 +44,7 @@ describe('ball (campo)', () => {
 });
 
 describe('la cara dentro de la bola', () => {
-  const { fieldOffset } = gfBotKit.motion;
+  const { fieldOffset } = gfBotKit.internal;
   it('un punto de dentro baja con el centro del cuerpo; uno del borde va al círculo', () => {
     const f = [ball(() => 1, { lag: 0, lagX: 0, r: 0.4 })];
     // centro original y = 120, centro de la bola y = 180 - 48 = 132: la cara baja 12

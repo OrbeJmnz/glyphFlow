@@ -1,4 +1,4 @@
-import { gfBotKit as kit, type GfBotGestureContext as BotContext } from 'glyphflow/bots';
+import { gfBotKit as kit, type GfBotInternalContext as BotContext } from 'glyphflow/bots';
 import { HATS, type GfBotHat } from './hats-data';
 import { hatShadowSync } from './hat-shadow';
 
@@ -10,7 +10,7 @@ import { hatShadowSync } from './hat-shadow';
     const key = ctx.hatKey && sk.hatAt !== undefined ? ctx.hatKey : null;   // sin `hatAt` la forma no lleva sombrero
     const H0: GfBotHat | null = key ? HATS[key] : null;
     ctx.svg.dataset['hat'] = key ?? (ctx.accX || '');
-    ctx.el.fx.style.translate = H0?.up ? `0px ${kit.f2(-H0.up * (sk.hatK ?? 1))}px` : '';
+    ctx.el.fx.style.translate = H0?.up ? `0px ${kit.internal.f2(-H0.up * (sk.hatK ?? 1))}px` : '';
     ctx.el.hatShadow.innerHTML = H0?.shadow ? H0.shadow(ctx.id, sk.head || { w:94, ry:9 }) : '';
     if (H0 && sk.hatAt !== undefined) {
       const fit = H0.bodyFit && sk.bodyFit;
@@ -49,10 +49,10 @@ import { hatShadowSync } from './hat-shadow';
     if (acy < -2.5) ctx.hatPhys.side = Math.random() < .5 ? -1 : 1;   // cada brinco elige de qué lado se ladea
     ctx.hatPhys.oy = ctx.hatPhys.oy + ctx.hatPhys.voy * dt; if (ctx.hatPhys.oy > 2.2) { ctx.hatPhys.oy = 2.2; ctx.hatPhys.voy *= -.3; } if (ctx.hatPhys.oy < -12) { ctx.hatPhys.oy = -12; ctx.hatPhys.voy = 0; }
     const sq = Math.max(0, Math.min(1, ctx.hatPhys.oy / 2.2)), st = Math.max(0, Math.min(1, -ctx.hatPhys.oy / 8));   // al apretarse contra la cabeza se aplasta; al levantarse se estira tantito
-    const tr = `translate(0px, ${kit.f2(ctx.hatPhys.oy)}px) rotate(${kit.f2(thD)}deg) scale(${kit.f3(1 + .02 * sq - .01 * st)}, ${kit.f3(1 - .03 * sq + .015 * st)})`;
+    const tr = `translate(0px, ${kit.internal.f2(ctx.hatPhys.oy)}px) rotate(${kit.internal.f2(thD)}deg) scale(${kit.internal.f3(1 + .02 * sq - .01 * st)}, ${kit.internal.f3(1 - .03 * sq + .015 * st)})`;
     ctx.hatEls.dyn.forEach(g => g.style.transform = tr);
     const mP = H.maxTip ?? 34, tv = mP * Math.tanh((thD * ((H.tip ?? 1) - 1) + ctx.hatPhys.vth * 2.2 * (H.tip ?? 1)) / mP);
-    const tip = H.tipMode === 'skew' ? `skewX(${kit.f2(-tv)}deg)` : `rotate(${kit.f2(tv)}deg)`;   // skew: la copa se dobla desde la banda, sin costuras
+    const tip = H.tipMode === 'skew' ? `skewX(${kit.internal.f2(-tv)}deg)` : `rotate(${kit.internal.f2(tv)}deg)`;   // skew: la copa se dobla desde la banda, sin costuras
     ctx.hatEls.tips.forEach(g => g.style.transform = tip);
     hatShadowSync(ctx);
   }

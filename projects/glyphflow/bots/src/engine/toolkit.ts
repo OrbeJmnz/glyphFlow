@@ -1,42 +1,14 @@
 /**
- * Las herramientas para ESCRIBIR gestos: lo que usa el propio motor (el front flip) y lo que usa el
- * entry point `glyphflow/bots/gestures`. Sale como `gfBotKit` en la API pública.
+ * Las herramientas para ESCRIBIR gestos. Sale como `gfBotKit` en la API pública y es la superficie ESTABLE: lo que usan los 20 gestos del catálogo.
  *
- *  - Primitivas de movimiento (`motion`): partitura por canales, `anticipate`, `launch`, `impact`,
- *    `bounce`, `wobble`, `secondaryMotion`… con `intensity`, y el ejecutor `runGesture`.
- *  - La cara: `eyeSeq` (los ojos), `setMouth` (la boca) y `later` (un temporizador que el bot corta si
- *    lo pausan o le piden otro gesto).
- *  - `S`: `scale(x, y)` para keyframes.
+ *  - `motion`: partitura por canales, `anticipate`, `launch`, `impact`, `bounce`, `wobble`, `secondaryMotion`… con `intensity`, y el ejecutor `runGesture`.
+ *  - La cara y el cuerpo: `eyeSeq` (los ojos), `setMouth` (la boca), `shadowFor`, `groundClip`, `clearGestureFx`.
+ *  - `later`: un temporizador que el bot corta si lo pausan, lo cancelan o le piden otro gesto.
+ *  - `S`: `scale(x, y)` para keyframes; `smoothstep` y `track`: curvas.
+ *
+ * Todo lo que pide el bot lo pide como `GfBotGestureContext`, el contrato estrecho. Lo demás vive en `gfBotKit.internal`, que NO es estable.
  */
-export * as motion from './motion';
-export { eyeSeq } from './eyes';
-export { setMouth } from './mouth';
-export { later } from './timing';
-export { S } from './math';
-export { shadowFor } from './actions';
-export * as body from './body-fx';
-export { clearGestureFx, GESTURE_FX_MARK } from './gesture-fx';
-export { smoothstep, track } from './track';
-export { groundClip, GROUND_Y } from './ground';
-
-/*
- * Lo que necesitan los extras de `glyphflow/bots/extras` (juguetes, sombreros): las mismas piezas que usa el motor,
- * expuestas con su nombre para que el entry las llame como `kit.mk(...)` sin duplicar el motor.
- */
-export { animatePose, setPose } from './pose-motion';
-export { wake } from './state';
-export { flushCheeks, headTop, miniHop, mk, mood, spark, tremble } from './actions';
-export { f2, f3 } from '../data/color';
-export { play } from './timing';
-export { TAU } from './math';
-export { parm } from './octopus-arms';
-export { kSeq, kStars } from './reactions';
-export { expr, floaty } from './kawaii';
-export { baseRoll } from './base-pose';
-export { swapEyes } from './eyes';
-export { flash, lit, sweep, tint } from './light';
-export { SPARK_COLORS, breathe, cloudBubble, gearPath, holdEyes, nod, pick, popIn, showFor, sleepyZ, spawnZ, squint, starPath, startle, stopLoops, typing } from './actions';
-export { blink, peek } from './eyes';
-export { loop } from './timing';
-export { clamp01, easeInOut } from './math';
-export { nodYes } from './gestures';
+export * as motion from './kit-motion';
+export { GESTURE_FX_MARK, GROUND_Y, S, clearGestureFx, eyeSeq, groundClip, later, setMouth, shadowFor, smoothstep, track } from './kit-core';
+/** Piezas internas para los extras de primera mano. Sin garantía de versión. */
+export * as internal from './kit-internal';

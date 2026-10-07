@@ -7,7 +7,7 @@ import { gfBotKit } from 'glyphflow/bots';
 import { flipDuration, flipFrame, FLIP_FACE_K, frontFlip } from './flip';
 import { projectPose } from '../../src/engine/pose';
 import { track } from '../../src/engine/track';
-const { canFlexHem, flexHem, idleDAt, pathExtent } = gfBotKit.body;
+const { canFlexHem, flexHem, idleDAt, pathExtent } = gfBotKit.internal.body;
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');

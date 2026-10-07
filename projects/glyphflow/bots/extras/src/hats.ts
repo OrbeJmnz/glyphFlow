@@ -1,4 +1,4 @@
-import type { GfBotGestureContext as BotContext, GfBotHatsExtra } from 'glyphflow/bots';
+import type { GfBotInternalContext as BotContext, GfBotHatsExtra } from 'glyphflow/bots';
 import { hatAccs } from './hat-accs';
 import { hatShadowSync } from './hat-shadow';
 import { hatBind, hatKick } from './hat-physics';

@@ -2,8 +2,10 @@ import { gfBotKit, type GfBotGestureDef as GestureDef } from 'glyphflow/bots';
 import { describe, expect, it } from 'vitest';
 import { inflateReleaseDef, jellyDropDef, puddleMorphDef, jellyWobbleDef, tornadoSpinDef, waveThroughBodyDef } from './region';
 
-const { motion, body } = gfBotKit;
-const { applyField, bulge, melt, shear, wave, taper, frameAt, tracksOf } = motion;
+const { motion } = gfBotKit;
+const { body } = gfBotKit.internal;
+const { applyField } = gfBotKit.internal;
+const { bulge, melt, shear, wave, taper, frameAt, tracksOf } = motion;
 
 const CAJA = 'M60 60 L140 60 L140 180 L60 180 Z';
 const puntos = (d: string): number[][] => [...d.matchAll(/(-?\d*\.?\d+) (-?\d*\.?\d+)/g)].map((m) => [+m[1], +m[2]]);
@@ -125,7 +127,7 @@ describe('tornadoSpin', () => {
 });
 
 describe('fieldOffset y flex', () => {
-  const { fieldOffset } = motion;
+  const { fieldOffset } = gfBotKit.internal;
   it('la cara y el copete van con la región del cuerpo donde viven', () => {
     const f = [shear(() => 10, 0)];
     const [copeteX] = fieldOffset(f, 0.5, 0, 60, 180);

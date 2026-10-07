@@ -17,6 +17,9 @@ export { squishTeleport } from './teleport';
 export { ballMorph } from './ball';
 export { peekPop, diveEmerge } from './ground';
 export { landingPose, withLanding } from './landing';
+/** Para escribir un gesto propio: el esqueleto que usan los 20 del catálogo (duración por CSS, movimiento reducido, partitura, sombra). Ver `bots/README.md`. */
+export { aire, boca, nodos, perform } from './shared';
+export type { PerformOpts } from './shared';
 export { agentReactions } from './agent';
 export type { GfBotAgentReactionMap, GfBotAgentReactionsOptions } from './agent';
 export type { GfBotLandingPose } from './landing';
