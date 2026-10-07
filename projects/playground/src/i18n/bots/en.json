@@ -102,6 +102,7 @@
     "nota": "Icons and bots are independent: installing one never loads the other."
   },
   "pieles": {
+    "x-sunset": "Custom · Sunset",
     "f1": "Ethereal",
     "f3": "Line",
     "f4": "Pastel",

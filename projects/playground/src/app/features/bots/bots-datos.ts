@@ -15,11 +15,11 @@ export const FORMAS: readonly FormaId[] = ['ghost', 'cat', 'octopus', 'tofu', 'm
  * no ofrece pieles: su cuerpo es de material, no de piel.
  */
 export const PIELES: Record<FormaId, readonly string[]> = {
-  ghost: ['f1', 'f3', 'f4', 'f7', 'f9'],
-  cat: ['g1', 'g2', 'g4', 'g7', 'g11'],
-  octopus: ['o1', 'o2', 'o3', 'o5', 'o6'],
-  tofu: ['neu', 'line', 'gel', 'pastel'],
-  mochi: ['neu', 'line', 'gel', 'pastel'],
+  ghost: ['f1', 'f3', 'f4', 'f7', 'f9', 'x-sunset'],
+  cat: ['g1', 'g2', 'g4', 'g7', 'g11', 'x-sunset'],
+  octopus: ['o1', 'o2', 'o3', 'o5', 'o6', 'x-sunset'],
+  tofu: ['neu', 'line', 'gel', 'pastel', 'x-sunset'],
+  mochi: ['neu', 'line', 'gel', 'pastel', 'x-sunset'],
   robot: [],
 };
 

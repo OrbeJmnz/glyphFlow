@@ -488,3 +488,14 @@
     transition: none;
   }
 }
+
+/* Piel propia de la demo (`skin="x-sunset"`): solo variables, el contrato público de las pieles propias. */
+:host {
+  --gf-skin-fill: #ff8a5c;
+  --gf-skin-gloss: #fff3d6;
+  --gf-skin-edge: #b63a1e;
+  --gf-skin-edge-width: 5;
+  --bot-base: #ff8a5c;
+  --bot-primary: #ffb48f;
+  --bot-shadow: #b63a1e;
+}

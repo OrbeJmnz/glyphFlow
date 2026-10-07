@@ -102,6 +102,7 @@
     "nota": "Iconos y bots son independientes: instalar uno nunca carga el otro."
   },
   "pieles": {
+    "x-sunset": "Propia · Atardecer",
     "f1": "Etéreo",
     "f3": "Línea",
     "f4": "Pastel",
