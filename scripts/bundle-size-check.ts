@@ -32,6 +32,11 @@ const FESM_EXTRAS = new URL(
   import.meta.url,
 ).pathname.replace(/^\/([A-Za-z]):/, '$1:');
 
+const FESM_AI = new URL(
+  '../dist/glyphflow/fesm2022/glyphflow-bots-ai.mjs',
+  import.meta.url,
+).pathname.replace(/^\/([A-Za-z]):/, '$1:');
+
 const CASES = [
   {
     name: 'core — solo el componente, sin ningún icono',
@@ -197,6 +202,15 @@ const CASES = [
     // Medido 82.0: quien pide TODO paga unos 5KB MÁS que antes de separar (77.2), porque el entry no comparte diccionario de
     // compresión con el motor y llama a sus piezas por `gfBotKit`. Es el precio de que el resto pague 13.7KB menos.
     maxGzipBytes: 84 * 1024,
+    optimizadorAngular: true,
+  },
+  {
+    name: 'glyphflow/bots/ai — bindAgent + los dos adaptadores (Vercel AI SDK y Anthropic)',
+    // Los adaptadores NO importan el motor (solo tipos) ni ningún SDK: son funciones puras sobre eventos. Deben pesar casi nada y,
+    // sobre todo, no arrastrar nada: quien los usa ya paga el motor aparte.
+    filaReadme: null as string | null,
+    entry: `import { bindAgent, vercelAi, anthropic } from '${FESM_AI.replace(/\\/g, '/')}'; console.log(bindAgent, vercelAi, anthropic);`,
+    maxGzipBytes: 1 * 1024, // medido 0.64
     optimizadorAngular: true,
   },
   {
@@ -404,6 +418,18 @@ function verificarIndependencia(): boolean {
   }
   if (importa(bots, 'glyphflow/bots/extras') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/extras')) {
     console.error(`  ✗ el motor o el primario importan de 'glyphflow/bots/extras': los extras dejarían de ser opcionales.`);
+    ok = false;
+  }
+  // Los adaptadores de IA: ni iconos, ni un SDK, ni el motor en runtime (solo tipos); y el motor no los conoce.
+  const ai = readFileSync(FESM_AI, 'utf8');
+  for (const p of ['glyphflow', 'glyphflow/morph', 'ai', '@anthropic-ai/sdk']) {
+    if (importa(ai, p)) {
+      console.error(`  ✗ glyphflow/bots/ai importa de '${p}': los adaptadores deben ser estructurales, sin dependencias.`);
+      ok = false;
+    }
+  }
+  if (importa(bots, 'glyphflow/bots/ai') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/ai')) {
+    console.error(`  ✗ el motor o el primario importan de 'glyphflow/bots/ai': los adaptadores dejarían de ser opcionales.`);
     ok = false;
   }
   if (importa(bots, 'glyphflow/bots/gestures') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/gestures')) {

@@ -36,7 +36,8 @@
       // compilado desde la fuente, cuenta contra ese tope; ya publicado llega con sus estilos embebidos y no se mide.
       "glyphflow/bots": ["../glyphflow/bots/src/public-api"],
       "glyphflow/bots/gestures": ["../glyphflow/bots/gestures/src/public-api"],
-      "glyphflow/bots/extras": ["../glyphflow/bots/extras/src/public-api"]
+      "glyphflow/bots/extras": ["../glyphflow/bots/extras/src/public-api"],
+      "glyphflow/bots/ai": ["../glyphflow/bots/ai/src/public-api"]
     }
   }
 }

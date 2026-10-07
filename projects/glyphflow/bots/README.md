@@ -3,13 +3,14 @@
 `<gf-bot>`: personajes animados con la Web Animations API nativa, sin dependencias de animación. Esta carpeta es
 documentación **de desarrollo** (no se publica con el paquete, que solo lleva el README de la raíz) hasta que los bots salgan.
 
-Cuatro entry points, cada uno paga solo lo que se importa:
+Cinco entry points, cada uno paga solo lo que se importa:
 
 | Entry | Qué trae | Peso (gzip, medido por `npm run bundle-check`) |
 | --- | --- | --- |
 | `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 49 KB · con una forma 56.7 KB · con `<gf-bot>` 64.9 KB |
 | `glyphflow/bots/extras` | los 16 sombreros con su física, los juguetes (`star`, `ball`, `cookie`) y las rutinas de `working`/`sleeping` | opt-in: con todo, motor y una forma suman ~83 KB |
 | `glyphflow/bots/gestures` | los 20 gestos físicos y el modo IA | +1.7 KB el primero que se use (cada gesto es un objeto suelto) |
+| `glyphflow/bots/ai` | `bindAgent` y los adaptadores del Vercel AI SDK y de Anthropic | 0.64 KB; sin dependencias (lee los eventos de forma estructural) |
 | `glyphflow` | los iconos | independiente: bots e iconos no se arrastran (lo vigila `bundle-check`) |
 
 ## Uso
@@ -49,6 +50,32 @@ rotación de rutinas, ni `setRoutine()`, ni `onRoutine`. **El modo IA no lo nece
 `loading`, con sus variantes) viven en el motor, así que `bot.agent()` se ve completo sin extras. Se leen al crear el bot: no cambian después.
 Quien pide **todo** paga unos 6 KB más que antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto
 paga 20.6 KB menos.
+
+### Modo IA con un SDK (`glyphflow/bots/ai`)
+
+`bindAgent` conecta el stream de un SDK con el bot: traduce cada evento a un paso (`thinking`, `tool`, `writing`, `done`…) y se lo pasa a
+`bot.agent(...)`. No depende de ningún SDK: lee los eventos de forma estructural, así que no añade nada a tu `package.json`.
+
+```ts
+import { bindAgent, vercelAi, anthropic } from 'glyphflow/bots/ai';
+
+// Vercel AI SDK 5+: `fullStream` de streamText, o los chunks de UI de useChat
+const run = bindAgent(bot.api, result.fullStream, vercelAi);
+// Anthropic: el stream de la API de Mensajes
+const run2 = bindAgent(bot.api, await client.messages.stream({ ... }), anthropic);
+
+await run.done;   // 'finished' | 'error' | 'stopped' (nunca rechaza)
+run.stop();       // corta el stream y suelta al bot
+```
+
+Colapsa los pasos repetidos (un `text-delta` por token se ve como un solo `writing`), avisa `prompt` al arrancar (`{ prompt: false }` lo
+omite), cierra con `done` si el stream se agota sin un final y marca `error` si el stream lanza. Un error de **herramienta** del Vercel AI SDK
+no cuenta como error del agente. En Anthropic, un `message_stop` con `stop_reason: 'tool_use'` no cierra el turno: si haces tú el bucle de
+herramientas, encadena los streams de cada petición en un solo `AsyncIterable` y pásalo a `bindAgent`.
+
+Las tablas de mapeo están en el JSDoc de cada adaptador. **Los streams de las pruebas están escritos a mano** siguiendo el orden que documenta
+cada SDK; no están grabados de la red ni comprobados contra los tipos reales (no se instalan los SDKs). Si uno cambia sus nombres, el adaptador
+simplemente deja de reaccionar a esos eventos: vuelve a grabar un stream y compara.
 
 ### Ciclo de vida de un gesto
 
