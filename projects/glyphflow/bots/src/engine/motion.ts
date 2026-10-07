@@ -339,17 +339,21 @@ export function tracksOf(s: Score): Record<Channel, (t: number) => number> {
   return out;
 }
 
-/** Todos los canales del gesto en el instante `t`. Pura: es lo que prueban los specs. */
-export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => number>, t: number, squashGain = 1): MotionFrame {
-  const sx = 1 + (tr.sx(t) - 1) * squashGain;
-  const sy = 1 + (tr.sy(t) - 1) * squashGain;
+/**
+ * Todos los canales del gesto en el instante `t`. Pura: es lo que prueban los specs.
+ * `intensity` (1 = como está escrito, 0 = reposo) escala lo que se SEPARA del reposo: recorrido, deformación, falda y gel. No escala los giros
+ * (`roll`, `yaw`): una vuelta es una vuelta, y con menos intensidad el salto es más bajo pero el mortal sigue completo.
+ */
+export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => number>, t: number, squashGain = 1, intensity = 1): MotionFrame {
+  const sx = 1 + (tr.sx(t) - 1) * squashGain * intensity;
+  const sy = 1 + (tr.sy(t) - 1) * squashGain * intensity;
   const grounded = def.grounded ? def.grounded(t) : 1;
   const hopX = Math.pow(sx, grounded);
   const hopY = Math.pow(sy, grounded);
   const k = def.faceK ?? 0.4;
   return {
-    x: tr.x(t),
-    y: tr.y(t),
+    x: tr.x(t) * intensity,
+    y: tr.y(t) * intensity,
     roll: tr.roll(t),
     yaw: tr.yaw(t),
     hopX,
@@ -358,9 +362,9 @@ export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => numb
     poseY: Math.pow(sy, 1 - grounded),
     faceX: (1 + (sx - 1) * k) / hopX,
     faceY: (1 + (sy - 1) * k) / hopY,
-    spread: tr.spread(t),
-    drag: tr.drag(t),
-    gel: tr.gel(t),
+    spread: tr.spread(t) * intensity,
+    drag: tr.drag(t) * intensity,
+    gel: tr.gel(t) * intensity,
     grounded,
   };
 }
@@ -376,7 +380,8 @@ export const samples = (ms: number): number => Math.max(24, Math.round(ms / 18))
 export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: number) => MotionFrame {
   const tr = tracksOf(def.score);
   const feel = ctx.shape.feel;
-  const at = (t: number) => frameAt(def, tr, t, feel?.squash ?? 1);
+  const I = intensityOf(ctx);
+  const at = (t: number) => frameAt(def, tr, t, feel?.squash ?? 1, I);
   const N = samples(ms);
   const frames = Array.from({ length: N + 1 }, (_, i) => at(i / N));
 
@@ -396,6 +401,8 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   const reposo = ctx.pose.roll;
   const conGiro = !!def.score.yaw;
   const flex = ctx.shape.flex ?? 1;
+  // el campo por región también se modera con la intensidad (falda y gel ya vienen escalados por `frameAt`; los términos `fixed` no: son el punto del gesto)
+  const flexC = flex * I;
   const base = flexD(shapeD(ctx.shape));
   const ext = base ? pathExtent(base) : null;
   const campo = def.field?.length && ext ? def.field : null;
@@ -409,7 +416,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     let y = 0;
     if (campo && ext) {
       const v = Math.min(1, Math.max(0, (ctx.shape.cy + a.p[1] - ext.top) / (ext.bottom - ext.top)));
-      [x, y] = fieldOffset(campo, Math.max(0, u - L), v, ext.top, ext.bottom, flex);
+      [x, y] = fieldOffset(campo, Math.max(0, u - L), v, ext.top, ext.bottom, flexC);
     }
     if (L) {
       const f0 = at(Math.max(0, u));
@@ -433,7 +440,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
       if (campo && ext) {
         // La cara y el copete viven en el cuerpo: van con la región donde están (cara a media altura, copete arriba).
         const vc = Math.min(1, Math.max(0, (ctx.shape.cy - ext.top) / (ext.bottom - ext.top)));
-        const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flex, true);
+        const [ox, oy] = fieldOffset(campo, u, vc, ext.top, ext.bottom, flexC, true);
         Object.assign(pose, { ox, oy });
       }
       if (campo || conAcc) pose.accMove = accs.map((a) => movimientoDe(a, u));
@@ -456,7 +463,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
       const f = at(t);
       const falda = flexHem(flexD(idleDAt(ctx, t * ms)) ?? base, y0, bottom, f.spread * flex * (feel?.hem ?? 1), f.drag * flex * (feel?.hem ?? 1));
       const cuerpo = gelBody(falda, 100, ctx.shape.cy, f.gel * escala * flex * (feel?.gel ?? 1), fase(t));
-      const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom, flex) : cuerpo;
+      const d = def.field?.length ? applyField(cuerpo, def.field, t, top, bottom, flexC) : cuerpo;
       return { offset: t, d: `path("${d}")` };
     });
     const anim = animateShape(ctx, hem, { duration: ms, easing: 'linear' });
@@ -472,6 +479,12 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
  * Duración del gesto `id`. Se lee de la variable CSS `--gf-bot-<id>-duration` (o `--<id>-duration`) del
  * bot o de cualquier ancestro: `1000ms`, `1.2s`. Sin variable, `def` ms. Siempre entre `min` y `max`.
  */
+/** La intensidad con que corre el gesto en curso: la de la llamada, si no la del bot (`intensity`), si no 1. */
+export const intensityOf = (ctx: BotContext): number => ctx.run?.intensity ?? clampIntensity(ctx.opts.intensity);
+
+/** Intensidad válida: entre 0 (reposo) y 2 (el doble de lo escrito). Lo que no es un número finito vale 1. */
+export const clampIntensity = (v: number | undefined | null): number => (typeof v === 'number' && Number.isFinite(v) ? Math.min(2, Math.max(0, v)) : 1);
+
 export function gestureDuration(ctx: BotContext, id: string, def: number, min = 300, max = 4000): number {
   const cs = getComputedStyle(ctx.svg);
   const raw = (cs.getPropertyValue(`--gf-bot-${id}-duration`) || cs.getPropertyValue(`--${id}-duration`)).trim();

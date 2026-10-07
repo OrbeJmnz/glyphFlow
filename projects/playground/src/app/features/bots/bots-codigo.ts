@@ -4,6 +4,8 @@ import type { EstadoBot, FormaId } from './bots-datos';
 export interface ConfigBot {
   forma: FormaId;
   piel: string;
+  /** Cuánto se mueven los gestos (1 = como están escritos). Solo se escribe en el código si es distinta de 1. */
+  intensidad?: number;
   /** Un gesto elegido (`frontFlip`…) o `null` si todavía no ha pulsado ninguno. */
   gesto: string | null;
   sigue: boolean;
@@ -69,7 +71,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
   const plantilla = `<gf-bot ${atributos.join(' ')} />`;
   // Cómo se llama al bot: en el fragmento es `bot` a secas; en la clase completa, la señal `viewChild`.
   const usar = (bot: string): string[] => [
-    ...(c.gesto ? [`${bot}.api?.gesture('${c.gesto}');`] : []),
+    ...(c.gesto ? [`${bot}.api?.gesture('${c.gesto}'${c.intensidad !== undefined && c.intensidad !== 1 ? `, { intensity: ${c.intensidad} }` : ''});`] : []),
     ...(c.agente ? [`${bot}.api?.agent('thinking'); // 'thinking' → 'tool' → 'writing' → 'done'`] : []),
   ];
 

@@ -161,3 +161,15 @@ describe('el código con rutinas', () => {
   });
 });
 
+describe('el código con intensidad', () => {
+  const base: ConfigBot = { forma: 'cat', piel: 'g1', gesto: 'frontFlip', sigue: false, toca: false, agente: false };
+  it('con intensidad 1 (o sin ella) el gesto se pide como siempre', () => {
+    expect(codigoBot({ ...base, intensidad: 1 }).fragmento).toContain(`gesture('frontFlip');`);
+    expect(codigoBot(base).fragmento).toContain(`gesture('frontFlip');`);
+  });
+  it('con otra intensidad la escribe en la llamada', () => {
+    expect(codigoBot({ ...base, intensidad: 0.5 }).fragmento).toContain(`gesture('frontFlip', { intensity: 0.5 });`);
+    expect(codigoBot({ ...base, intensidad: 2 }).completo).toContain(`{ intensity: 2 }`);
+  });
+});
+

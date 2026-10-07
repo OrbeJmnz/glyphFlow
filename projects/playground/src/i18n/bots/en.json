@@ -9,6 +9,7 @@
     "forma": "Shape",
     "piel": "Skin",
     "estado": "State",
+    "intensidad": "Intensity",
     "vista": "View",
     "color": "Color",
     "silueta": "Silhouette",

@@ -77,6 +77,19 @@ Las tablas de mapeo están en el JSDoc de cada adaptador. **Los streams de las p
 cada SDK; no están grabados de la red ni comprobados contra los tipos reales (no se instalan los SDKs). Si uno cambia sus nombres, el adaptador
 simplemente deja de reaccionar a esos eventos: vuelve a grabar un stream y compara.
 
+### Intensidad: cuánto se mueve un gesto
+
+```ts
+bot.gesture('frontFlip', { intensity: 0.5 });   // la mitad de recorrido y de deformación
+createBot(host, { shape, intensity: 0.7 });      // el valor por defecto de este bot (o `<gf-bot [intensity]="0.7">`)
+```
+
+`1` es el gesto tal como está escrito, `0` apenas se separa del reposo y `2` es el doble; se acota a 0–2 y lo que no es un número vale 1. La
+llamada pisa al bot, y un gesto en cola conserva la suya. Escala el recorrido, la deformación del cuerpo, la falda y el gel; **no escala los
+giros** (con menos intensidad el salto es más bajo, pero un mortal sigue siendo una vuelta completa) **ni** los términos de forma que son el
+punto del gesto (el charco y la bola). Los efectos de luz y las caras no se atenúan con ella. Útil para un bot discreto en una interfaz densa,
+o para exagerar una celebración.
+
 ### Ciclo de vida de un gesto
 
 `bot.gesture(id)` y cada gesto como método (`bot.frontFlip()`) devuelven un handle:

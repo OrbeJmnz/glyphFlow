@@ -123,6 +123,8 @@ export class Bots {
   protected readonly toca = signal(true);
   protected readonly jugando = signal<string | null>(null);
   protected readonly ultimoGesto = signal<string | null>(null);
+  /** Cuánto se mueven los gestos (0 = reposo, 1 = como están escritos, 2 = el doble). */
+  protected readonly intensidad = signal(1);
 
   protected readonly shape = computed(() => SHAPES[this.forma()]);
   protected readonly pieles = computed(() => PIELES[this.forma()]);
@@ -135,6 +137,7 @@ export class Bots {
       forma: this.forma(),
       piel: this.piel(),
       gesto: this.ultimoGesto(),
+      intensidad: this.intensidad(),
       sigue: this.sigue(),
       toca: this.toca(),
       agente: this.conAgente(),
@@ -238,7 +241,7 @@ export class Bots {
   protected jugar(id: string, ms: number): void {
     const api = this.escenario()?.api;
     if (!api || !this.movimiento()) return;
-    api.gesture(id);
+    api.gesture(id, { intensity: this.intensidad() });
     this.ultimoGesto.set(id);
     this.jugando.set(id);
     setTimeout(() => this.jugando() === id && this.jugando.set(null), ms);

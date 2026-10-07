@@ -285,7 +285,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
   // y no pisan ni un gesto del motor ni un control.
   const fns: Record<string, () => number | void> = {};
   const runPack = (name: string, o?: GfGestureOptions): GfGestureHandle =>
-    ctx.paused ? ignorado(name) : playGesture(ctx, name, fns[name], o?.policy);
+    ctx.paused ? ignorado(name) : playGesture(ctx, name, fns[name], o);
   let apiRef: GfBotApi | null = null;
   const controls: GfBotControls = {
     svg,

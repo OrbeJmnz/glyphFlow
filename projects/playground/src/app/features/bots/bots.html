@@ -97,6 +97,10 @@
               }
             </select>
           </label>
+ <label class="bt-campo">
+            <span>{{ 'bots.escenario.intensidad' | transloco }}: <output>{{ intensidad() }}</output></span>
+            <input type="range" min="0" max="2" step="0.1" [value]="intensidad()" (input)="intensidad.set(+valor($event))" />
+          </label>
           <label class="bt-interruptor">
             <input type="checkbox" [checked]="sigue()" (change)="sigue.set($any($event.target).checked)" />
             {{ 'bots.escenario.sigue' | transloco }}

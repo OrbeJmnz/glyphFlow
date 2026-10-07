@@ -101,6 +101,9 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. */
   @Input() view: GfBotView | number = 'front';
 
+  /** Cuánto se mueven los gestos por defecto (1 = como están escritos; se acota a 0–2). Cada llamada puede pisarlo. Se lee al montar. */
+  @Input() intensity?: number;
+
   /** Extras opt-in (`import { toysExtra } from 'glyphflow/bots/extras'`): `{ toys: toysExtra }`. Se leen al montar: no cambian después. */
   @Input() extras?: GfBotExtras;
 
@@ -213,6 +216,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
       view: this.view,
       gestures: this.gestures,
       extras: this.extras,
+      intensity: this.intensity,
       onAgentEvent: this.onAgentEvent,
       wander: this.wander,
       hoverOnly: this.hoverOnly,

@@ -107,6 +107,11 @@ export interface GfBotOptions {
    * los paga. Se leen al crear el bot: no cambian después.
    */
   extras?: GfBotExtras;
+  /**
+   * Cuánto se mueven los gestos de este bot por defecto: 1 = como están escritos, 0 = apenas se separan del reposo, 2 = el doble (se acota a 0–2).
+   * Cada llamada puede pisarlo: `bot.gesture('frontFlip', { intensity: 0.5 })`. Se lee al crear el bot.
+   */
+  intensity?: number;
   /** Gestos extra: un objeto `{ nombre: gesto }` de `glyphflow/bots/gestures` (o los tuyos). Cada uno sale como `bot.nombre()` y como `bot.gesture('nombre')`. */
   gestures?: GfBotGesturePack;
   /**

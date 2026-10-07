@@ -218,6 +218,13 @@
   background: var(--gf-panel-alto);
 }
 
+.bt-campo input[type='range'] {
+  padding: 0;
+  border: 0;
+  background: none;
+  accent-color: var(--gf-marca-2);
+}
+
 .bt-campo select:focus-visible,
 .bt-campo input:focus-visible,
 .bt-interruptor input:focus-visible {
