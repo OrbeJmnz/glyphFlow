@@ -105,6 +105,29 @@ bot.toy('dona', 120, 150);   // el nombre del objeto es el id; uno que no esté 
 El dibujo va centrado en (0,0) con radio ≈ `r`; con `treat` el bot lo va mordiendo y no tienes que dibujar la máscara de mordiscos (`defineToy` la arma). Usa
 `var(--bot-primary)`, `--bot-tertiary`, `--bot-shadow`… para que el juguete herede el color del bot. Un juguete mal definido falla al definirlo.
 
+### Pieles propias
+
+Un id con prefijo `x-` (`skin="x-sunset"`) es una piel propia. El prefijo es lo que la separa de un
+typo: `skin="sunset"` sigue cayendo a `neu`. El motor monta capas mínimas que leen variables CSS; tú
+las defines en el host, en un ancestro o con `[data-mvar="x-sunset"]`:
+
+```css
+gf-bot.sunset {
+  --gf-skin-fill: #ff8a5c;        /* relleno del cuerpo */
+  --gf-skin-gloss: #fff3d6;       /* brillo suave arriba (opcional) */
+  --gf-skin-edge: #b63a1e;        /* contorno (opcional) */
+  --gf-skin-edge-width: 5;
+  --bot-base: #ff8a5c;            /* sombreros y juguetes heredan --bot-* */
+  --bot-primary: #ffb48f;
+  --bot-shadow: #b63a1e;
+}
+```
+
+Ese es TODO el contrato: las `--gf-skin-*` y los `--bot-*`. La estructura interna del SVG y los
+`data-mvar` de las pieles de serie siguen siendo internos y pueden cambiar en un minor. Sin las
+variables el cuerpo sale en `#5E61FC` y sin contorno. Una piel propia solo cambia color: si necesitas
+geometría propia (trazo recortado como `line`), hoy no se puede.
+
 ### Escribir un gesto propio
 
 Un gesto es una función `(ctx: GfBotGestureContext) => number`: arranca la animación y devuelve cuánto dura (ms). Se pasa en `gestures` y sale como

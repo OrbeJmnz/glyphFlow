@@ -1,3 +1,4 @@
+import { customSkin, isCustomSkin } from './custom-skin';
 import { ghostSkin, isGhost } from './ghost';
 import { catSkin, isCat } from './cat';
 import { isOctopus, octopusSkin } from './octopus';
@@ -13,6 +14,7 @@ import type { GfBotSkinLayers } from './skin';
 
 /** Pinta la piel `v` de cualquier familia sobre el bot de prefijo `p`. */
 export function mochiSkin(v: string, p: string): GfBotSkinLayers {
+  if (isCustomSkin(v)) return customSkin(p);
   if (isCat(v)) return catSkin(v, p);
   if (isGhost(v)) return ghostSkin(v, p);
   if (isOctopus(v)) return octopusSkin(v, p);

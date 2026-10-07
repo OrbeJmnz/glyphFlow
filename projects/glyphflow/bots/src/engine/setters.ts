@@ -1,3 +1,4 @@
+import { isCustomSkin } from '../data/custom-skin';
 import { FACES, MOCHI_VARS, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import { GHOST_VARS } from '../data/ghost';
@@ -40,9 +41,10 @@ export function setFx(ctx: BotContext, v: string | null): void {
   applyFx(ctx);
 }
 
-/** Piel (`neu`, `gel`, `g1`, `f4`, `o2`, `n3`…); una desconocida vuelve a `neu`. */
+/** Piel (`neu`, `gel`, `g1`, `f4`, `o2`, `n3`…) o propia (`x-sunset`); una desconocida vuelve a `neu`. */
 export function setMochi(ctx: BotContext, v: string): void {
-  const known = [MOCHI_VARS, CAT_VARS, GHOST_VARS, OCTOPUS_VARS].some((t) => Object.hasOwn(t, v));
+  const known =
+    isCustomSkin(v) || [MOCHI_VARS, CAT_VARS, GHOST_VARS, OCTOPUS_VARS].some((t) => Object.hasOwn(t, v));
   ctx.mochiVar = known ? v : 'neu';
   setShape(ctx, ctx.shape);
 }

@@ -130,6 +130,20 @@ describe('glyphflow/bots · cambiar forma, piel, cara y sombrero', () => {
       expect(ctx.mochiVar).toBe('neu');
     });
 
+    it('setMochi acepta una piel propia con prefijo x- y la pinta con variables CSS', () => {
+      const ctx = bot();
+      setMochi(ctx, 'x-sunset');
+      expect(ctx.mochiVar).toBe('x-sunset');
+      expect(ctx.svg.dataset['mvar']).toBe('x-sunset');
+      expect(ctx.q('.skinPaint')!.innerHTML).toContain('var(--gf-skin-fill');
+      expect(ctx.q('.skinOver')!.innerHTML).toContain('var(--gf-skin-edge');
+      // sin prefijo, o con caracteres que no son de un id, sigue siendo un typo
+      for (const v of ['sunset', 'x-', 'x-a b', 'x-"><script>']) {
+        setMochi(ctx, v);
+        expect(ctx.mochiVar, v).toBe('neu');
+      }
+    });
+
     it('setHat separa sombrero de accesorio y se queda con uno solo', () => {
       const ctx = bot();
       setHat(ctx, 'topHat');
