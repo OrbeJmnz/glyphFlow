@@ -21,7 +21,7 @@ export * as gfBotKit from './engine/toolkit';
 export type { GestureDef as GfBotGestureDef, MotionFrame as GfBotMotionFrame, Score as GfBotScore } from './engine/motion';
 export type { GfBotAgentEvent } from './engine/agent';
 export type { GfGestureEnd, GfGestureHandle, GfGestureOptions, GfGesturePolicy } from './engine/lifecycle';
-export type { GfBotExtras, GfBotHatsExtra, GfBotToysExtra, GfBotGesture, GfBotGestureContext, GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from './engine/context';
+export type { GfBotExtras, GfBotHatsExtra, GfBotRoutinesExtra, GfBotToysExtra, GfBotGesture, GfBotGestureContext, GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from './engine/context';
 export { GF_BOT_VIEWS, isGfBotView } from './data/views';
 export type { GfBotView } from './data/views';
 export type { GfBotShape, GfBotHeadMetrics } from './data/shape';

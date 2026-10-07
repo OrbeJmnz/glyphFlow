@@ -58,10 +58,20 @@ export interface GfBotHatsExtra {
   sync(ctx: GfBotGestureContext): void;
 }
 
+/**
+ * Las rutinas de `working` y `sleeping` (`routinesExtra` de `glyphflow/bots/extras`): las seis de trabajo con sus variantes y las
+ * nueve de sueño. `play` corre la rutina `name` del estado `state` y devuelve su etiqueta legible (`typing · tapping`, `counting sheep`).
+ * Sin ellas el motor solo respira (y entrecierra los ojos trabajando): no hay rotación, ni `setRoutine()`, ni `onRoutine`.
+ */
+export interface GfBotRoutinesExtra {
+  play(ctx: GfBotGestureContext, state: 'working' | 'sleeping', name: GfBotWorkRoutine | GfBotSleepRoutine): string;
+}
+
 /** Lo que se le pasa a `createBot({ extras })` o a `<gf-bot [extras]>`. */
 export interface GfBotExtras {
   toys?: GfBotToysExtra;
   hats?: GfBotHatsExtra;
+  routines?: GfBotRoutinesExtra;
 }
 
 /**
@@ -93,7 +103,7 @@ export interface GfBotOptions {
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. Por defecto, de frente. */
   view?: GfBotView | number;
   /**
-   * Extras opt-in de `glyphflow/bots/extras`: `{ toys, hats }` (los juguetes de `bot.toy()` y los sombreros). Sin ellos el bot no los carga ni
+   * Extras opt-in de `glyphflow/bots/extras`: `{ toys, hats, routines }` (los juguetes de `bot.toy()`, los sombreros y las rutinas de `working` y `sleeping`). Sin ellos el bot no los carga ni
    * los paga. Se leen al crear el bot: no cambian después.
    */
   extras?: GfBotExtras;
@@ -369,6 +379,8 @@ export interface BotContext {
   hatKey: GfBotHatId | null;
   /** Los sombreros, si se pasó `extras.hats`. Sin ellos `hatKey` siempre es `null`. */
   hats: GfBotHatsExtra | null;
+  /** Las rutinas de trabajo y sueño, si se pasó `extras.routines`. */
+  routines: GfBotRoutinesExtra | null;
   hatEls: BotHatElements | null;
   hatRaf: number;
   hatCache: { sh: GfBotShape; key: string; out: GfBotShape } | null;
@@ -534,6 +546,7 @@ export function createBotContext(
     shapeTimer: null,
 
     hats: opts.extras?.hats ?? null,
+    routines: opts.extras?.routines ?? null,
     hatKey: hat && opts.extras?.hats?.has(hat) ? (hat as GfBotHatId) : null,
     hatEls: null,
     hatRaf: 0,

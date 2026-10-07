@@ -154,7 +154,9 @@ const CASES = [
     filaReadme: null as string | null,
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
     // 2026-10-07: 70 -> 58. Los sombreros y los juguetes salieron a `glyphflow/bots/extras` (opt-in): el motor bajó de 69.6 a 55.9KB.
-    maxGzipBytes: 58 * 1024,
+    // 2026-10-07 (2): 58 -> 50. Las rutinas de `working` y `sleeping` salieron a `routinesExtra` (el motor bajó de 55.9 a 45.6KB), salvo las 3
+    // que usan las escenas del modo IA (thinking, analyzing, loading, con sus variantes): +3.4KB, para que `bot.agent()` se vea bien sin extras.
+    maxGzipBytes: 50 * 1024,
     optimizadorAngular: true,
   },
   {
@@ -164,7 +166,7 @@ const CASES = [
     // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
     filaReadme: null as string | null,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
-    maxGzipBytes: 65.5 * 1024, // 2026-10-07: 78 -> 65.5 (medido 63.5), por lo mismo
+    maxGzipBytes: 58 * 1024, // 2026-10-07 (2): 65.5 -> 58 (medido 56.7), por lo mismo
     optimizadorAngular: true,
   },
   {
@@ -181,17 +183,17 @@ const CASES = [
     // que paga quien usa un gesto con efectos; los gestos sin ellos (jellyWobble…) siguen costando ~1.7KB.
     // 2026-10-06: 83 -> 84. El ciclo de vida de los gestos (handle, politicas, cola, bolsa de timers propia) cuesta +0.55KB
     // en el motor y se paga en todo caso que lo use; el techo del motor sigue en 70 (medido 69.6).
-    maxGzipBytes: 71.5 * 1024, // 2026-10-07: 84 -> 71.5 (medido 70.0), por lo mismo
+    maxGzipBytes: 65 * 1024, // 2026-10-07 (2): 71.5 -> 65 (medido 64.0), por lo mismo
     optimizadorAngular: true,
   },
   {
-    name: 'bots + createBot + catShape + TODOS los extras de glyphflow/bots/extras (sombreros y juguetes)',
+    name: 'bots + createBot + catShape + TODOS los extras de glyphflow/bots/extras (sombreros, juguetes y rutinas)',
     // Lo opcional (`extras`) vive fuera del motor: este caso mide lo que paga quien lo pide TODO. El motor sin extras
     // (caso de arriba) es lo que paga el resto. Si este número se acerca al del motor mas el de los extras por separado, bien;
     // si el motor vuelve a engordar con ellos, algo del primario volvió a importar de `extras`.
     filaReadme: null as string | null,
     aliasBots: true,
-    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { hatsExtra, toysExtra } from '${FESM_EXTRAS.replace(/\\/g, '/')}'; console.log(createBot, catShape, hatsExtra, toysExtra);`,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { hatsExtra, routinesExtra, toysExtra } from '${FESM_EXTRAS.replace(/\\/g, '/')}'; console.log(createBot, catShape, hatsExtra, routinesExtra, toysExtra);`,
     // Medido 82.0: quien pide TODO paga unos 5KB MÁS que antes de separar (77.2), porque el entry no comparte diccionario de
     // compresión con el motor y llama a sus piezas por `gfBotKit`. Es el precio de que el resto pague 13.7KB menos.
     maxGzipBytes: 84 * 1024,
@@ -203,7 +205,7 @@ const CASES = [
     // componente a propósito: un solo import y funciona) más el motor y una forma. Medido el 2026-10-02.
     filaReadme: null as string | null,
     entry: `import { GfBotComponent, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GfBotComponent, catShape);`,
-    maxGzipBytes: 73 * 1024, // 2026-10-07: 86 -> 73 (medido 71.6), por lo mismo
+    maxGzipBytes: 66 * 1024, // 2026-10-07 (2): 73 -> 66 (medido 64.9), por lo mismo
     optimizadorAngular: true,
   },
 ];

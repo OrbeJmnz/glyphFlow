@@ -7,8 +7,8 @@ Cuatro entry points, cada uno paga solo lo que se importa:
 
 | Entry | Qué trae | Peso (gzip, medido por `npm run bundle-check`) |
 | --- | --- | --- |
-| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 56 KB · con una forma 63.5 KB · con `<gf-bot>` 71.6 KB |
-| `glyphflow/bots/extras` | los 16 sombreros con su física y los juguetes (`star`, `ball`, `cookie`) | opt-in: con todo, motor y una forma suman ~82 KB |
+| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 49 KB · con una forma 56.7 KB · con `<gf-bot>` 64.9 KB |
+| `glyphflow/bots/extras` | los 16 sombreros con su física, los juguetes (`star`, `ball`, `cookie`) y las rutinas de `working`/`sleeping` | opt-in: con todo, motor y una forma suman ~83 KB |
 | `glyphflow/bots/gestures` | los 20 gestos físicos y el modo IA | +1.7 KB el primero que se use (cada gesto es un objeto suelto) |
 | `glyphflow` | los iconos | independiente: bots e iconos no se arrastran (lo vigila `bundle-check`) |
 
@@ -31,21 +31,24 @@ Pasa solo los gestos que uses (`{ frontFlip, superBounce }`): `physicalGestures`
 
 ### Extras: sombreros y juguetes (`glyphflow/bots/extras`)
 
-Los sombreros (con su física) y los juguetes no vienen en el motor: quien no los usa no los paga. Se piden con `extras`:
+Los sombreros (con su física), los juguetes y las rutinas de `working` y `sleeping` no vienen en el motor: quien no los usa no los paga. Se piden con `extras`:
 
 ```ts
-import { hatsExtra, toysExtra } from 'glyphflow/bots/extras';
+import { hatsExtra, toysExtra, routinesExtra } from 'glyphflow/bots/extras';
 
-const bot = createBot(host, { shape: catShape, hat: 'wizard', extras: { hats: hatsExtra, toys: toysExtra } });
+const bot = createBot(host, { shape: catShape, hat: 'wizard', extras: { hats: hatsExtra, toys: toysExtra, routines: routinesExtra } });
 bot.toy('ball', 120, 150);
 ```
 ```html
-<gf-bot [shape]="catShape" hat="wizard" [extras]="{ hats: hatsExtra, toys: toysExtra }" />
+<gf-bot [shape]="catShape" hat="wizard" [extras]="{ hats: hatsExtra, toys: toysExtra, routines: routinesExtra }" />
 ```
 
 Sin `extras.hats`, `hat` con un sombrero se ignora (los accesorios sueltos como `glasses` siguen funcionando: no son sombreros) y
-sin `extras.toys`, `bot.toy()` no hace nada. Se leen al crear el bot: no cambian después. Quien pide **todo** paga unos 5 KB más que
-antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto paga 13.7 KB menos.
+sin `extras.toys`, `bot.toy()` no hace nada. Sin `extras.routines`, `working` y `sleeping` solo respiran (y trabajando entrecierra los ojos): no hay
+rotación de rutinas, ni `setRoutine()`, ni `onRoutine`. **El modo IA no lo necesita**: las tres rutinas de sus escenas (`thinking`, `analyzing`,
+`loading`, con sus variantes) viven en el motor, así que `bot.agent()` se ve completo sin extras. Se leen al crear el bot: no cambian después.
+Quien pide **todo** paga unos 6 KB más que antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto
+paga 20.6 KB menos.
 
 ### Ciclo de vida de un gesto
 

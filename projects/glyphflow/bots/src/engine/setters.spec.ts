@@ -1,5 +1,6 @@
 import { ghostShape } from '../shapes/ghost';
 import { hatsExtra } from '../../extras/src/hats';
+import { routinesExtra } from '../../extras/src/routines';
 import { mochiShape } from '../shapes/mochi';
 import { octopusShape } from '../shapes/octopus';
 import { createBotContext, type BotContext } from './context';
@@ -12,7 +13,7 @@ const svgProto = SVGElement.prototype as unknown as Record<string, unknown>;
 function bot(ready = true): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra } });
+  const ctx = createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra, routines: routinesExtra } });
   installStateHooks(ctx);
   setShape(ctx, ctx.shape);
   if (ready) {

@@ -2,13 +2,13 @@
 import { setPose } from './pose-motion';
 import { baseFor } from './base-pose';
 import { ROUTINES } from '../data/routines';
-import { WORK } from './work-variants';
 import { RUN, fidget } from './routines';
+import { AGENT_WORK, type GfBotAgentRoutine } from './agent-routines';
 import { later, play } from './timing';
 import { clearLook, eyeSeq, setOpen, swapEyes } from './eyes';
 import { baseMouth, defaultMouth } from './mouth';
 import { S } from './math';
-import { miniHop } from './actions';
+import { breathe, miniHop, squint } from './actions';
 import type { GfBotState } from '../bot-state';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import { type BotContext } from './context';
@@ -44,11 +44,16 @@ import { interruptRun } from './lifecycle';
     (['sheen', 'rl', 'rr', 'rt', 'rb'] as const).forEach(k => ctx.el.L[k].getAnimations().forEach(a => a.cancel()));
   }
 
-  export const ROUTINE_LABEL: Partial<Record<GfBotSleepRoutine, string>> = { counting:'counting sheep', sleepwalking:'sleepwalking', nearFall:'almost falling', night:'starry night' };
 
   export function setRoutine(ctx: BotContext, name: 'auto' | GfBotWorkRoutine | GfBotSleepRoutine, forState: 'working' | 'sleeping' = 'working') {   // 'auto' = rotar; otro nombre = quedarse en esa rutina
     ctx.fixedRoutine[forState] = (name === 'auto' ? null : name) as never;
     if (ctx.state !== forState) { setState(ctx, forState); ctx.opts.onStateChange?.(forState); } else nextRoutine(ctx);
+  }
+
+  /** El respaldo del motor para `working` y `sleeping` cuando no se pidieron las rutinas: una respiración, según el estado. */
+  function sinRutinas(ctx: BotContext, st: 'working' | 'sleeping') {
+    if (st === 'working') { breathe(ctx, [{ transform:S(1) }, { transform:S(1.012,.988) }], 900); squint(ctx, .8); }
+    else breathe(ctx, [{ transform:S(1) }, { transform:S(1.03,.97) }], 2600);
   }
 
   export function nextRoutine(ctx: BotContext) {
@@ -59,12 +64,15 @@ import { interruptRun } from './lifecycle';
     const st = ctx.state as 'working' | 'sleeping';
     const list: readonly (GfBotWorkRoutine | GfBotSleepRoutine)[] = ROUTINES[st];
     const name = ctx.fixedRoutine[st] || list[ctx.routineIdx++ % list.length];
+    // Las tres de las escenas del modo IA van en el motor (con sus variantes); el resto, en `extras.routines`. Sin ellas no hay rutinas
+    // que turnar: solo respira (y trabajando, entrecierra los ojos), sin `onRoutine` ni rotación.
+    const vs = st === 'working' ? AGENT_WORK[name as GfBotAgentRoutine] : undefined;
     let label: string;
-    const vs = st === 'working' ? WORK[name as GfBotWorkRoutine] : undefined;
     if (vs) {   // la siguiente variación de esa rutina
       const i = ctx.variantIdx[name] = ((ctx.variantIdx[name] ?? -1) + 1) % vs.length;
       vs[i][1](ctx); label = `${name} · ${vs[i][0]}`;
-    } else { RUN[name](ctx); label = ROUTINE_LABEL[name as GfBotSleepRoutine] || name; }
+    } else if (ctx.routines) label = ctx.routines.play(ctx, st, name);
+    else { sinRutinas(ctx, st); return; }
     ctx.opts.onRoutine?.(ctx.state, label);
     later(ctx, () => nextRoutine(ctx), name === 'bubble' ? 4000 : 4700);
   }

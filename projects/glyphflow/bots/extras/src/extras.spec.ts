@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { GfBotHatId } from 'glyphflow/bots';
 import { assembleBot } from '../../src/engine/create-bot';
 import { mochiShape } from '../../src/shapes/mochi';
-import { hatsExtra, HATS, toysExtra } from './public-api';
+import { hatsExtra, HATS, routinesExtra, toysExtra } from './public-api';
 
 /** Los extras son opt-in: sin ellos el motor no sabe de sombreros ni de juguetes, y con ellos funcionan igual que antes. */
 describe('glyphflow/bots/extras', () => {
@@ -79,5 +79,38 @@ describe('glyphflow/bots/extras', () => {
     con.api.toy('ball', 120, 150);
     expect(con.ctx.el.toys.children.length).toBeGreaterThan(0);
     con.api.destroy();
+  });
+
+  it('sin extras.routines, working y sleeping solo respiran: sin rotación y sin onRoutine', () => {
+    const onRoutine = vi.fn();
+    const { ctx, api } = assembleBot(host, { shape: mochiShape, onRoutine });
+    api.setState('working');
+    vi.advanceTimersByTime(20000);
+    expect(onRoutine).not.toHaveBeenCalled();
+    expect(ctx.state).toBe('working');
+    api.setState('sleeping');
+    vi.advanceTimersByTime(20000);
+    expect(onRoutine).not.toHaveBeenCalled();
+    api.destroy();
+  });
+
+  it('con extras.routines, working rota y avisa con su etiqueta', () => {
+    const etiquetas: string[] = [];
+    const { api } = assembleBot(host, { shape: mochiShape, extras: { routines: routinesExtra }, onRoutine: (_s, l) => l && etiquetas.push(l) });
+    api.setState('working');
+    vi.advanceTimersByTime(4700 * 2);
+    expect(etiquetas[0]).toBe('typing · tapping');
+    expect(etiquetas.length).toBeGreaterThanOrEqual(2);
+    api.destroy();
+  });
+
+  it('el modo IA se ve sin extras: thinking, tool y loading corren sus escenas del motor (con variantes)', () => {
+    const etiquetas: string[] = [];
+    const { api } = assembleBot(host, { shape: mochiShape, onRoutine: (_s, l) => l && etiquetas.push(l) });
+    api.agent('thinking');
+    api.agent('tool');
+    api.agent('loading');
+    expect(etiquetas.map((l) => l.split(' · ')[0])).toEqual(['thinking', 'analyzing', 'loading']);
+    api.destroy();
   });
 });

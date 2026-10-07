@@ -142,3 +142,22 @@ describe('vida del avatar del chat', () => {
     expect(GESTOS_SUELTOS).toContain(gestoSuelto(0));
   });
 });
+
+describe('el código con rutinas', () => {
+  const base: ConfigBot = { forma: 'cat', piel: 'g1', gesto: null, sigue: false, toca: false, agente: false };
+  it('en reposo no pide nada de extras', () => {
+    const { completo } = codigoBot({ ...base, estado: 'idle' });
+    expect(completo).not.toContain('glyphflow/bots/extras');
+    expect(completo).not.toContain('state=');
+  });
+  it('trabajando o dormido pide las rutinas y fija el estado', () => {
+    for (const estado of ['working', 'sleeping'] as const) {
+      const { completo, fragmento } = codigoBot({ ...base, estado });
+      expect(completo).toContain(`import { routinesExtra } from 'glyphflow/bots/extras';`);
+      expect(fragmento).toContain(`state="${estado}"`);
+      expect(fragmento).toContain('[extras]="extras"');
+      expect(fragmento).toContain('routines: routinesExtra');
+    }
+  });
+});
+

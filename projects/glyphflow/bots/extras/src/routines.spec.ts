@@ -1,16 +1,23 @@
-import { ROUTINES } from '../data/routines';
-import { ghostShape } from '../shapes/ghost';
-import { catShape } from '../shapes/cat';
-import { mochiShape } from '../shapes/mochi';
-import { nCloudShape } from '../shapes/night';
-import { octopusShape } from '../shapes/octopus';
-import { cubeShape } from '../shapes/retired';
-import { makeRobot } from '../shapes/robot';
-import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { FIDGETS, RUN } from './routines';
-import { setShape } from './setters';
-import { clearRoutine, installStateHooks, setState } from './state';
-import { WORK } from './work-variants';
+import { ROUTINES } from '../../src/data/routines';
+import { ghostShape } from '../../src/shapes/ghost';
+import { catShape } from '../../src/shapes/cat';
+import { mochiShape } from '../../src/shapes/mochi';
+import { nCloudShape } from '../../src/shapes/night';
+import { octopusShape } from '../../src/shapes/octopus';
+import { cubeShape } from '../../src/shapes/retired';
+import { makeRobot } from '../../src/shapes/robot';
+import { createBotContext, type BotContext, type GfBotOptions } from '../../src/engine/context';
+import { FIDGETS, RUN as RUN_REPOSO } from '../../src/engine/routines';
+import { routinesExtra } from './routines';
+import { RUN as RUN_TRABAJO } from './routines-run';
+import { setShape } from '../../src/engine/setters';
+import { clearRoutine, installStateHooks, setState } from '../../src/engine/state';
+import { WORK as WORK_EXTRA } from './work-variants';
+import { AGENT_RUN, AGENT_WORK } from '../../src/engine/agent-routines';
+import type { GfBotWorkRoutine } from '../../src/data/routines';
+
+const RUN = { ...RUN_REPOSO, ...RUN_TRABAJO, ...AGENT_RUN };
+const WORK = { ...WORK_EXTRA, ...AGENT_WORK } as Record<GfBotWorkRoutine, [string, (ctx: BotContext) => void][]>;
 
 // Estos tests recorren las formas y los estados enteros en un solo caso: en una máquina cargada (o con
 // toda la suite en paralelo) rozan los 5 s de Vitest. No es lentitud del motor, es el volumen que cubren.
@@ -28,7 +35,7 @@ function stubAnimations(): void {
 function bot(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: mochiShape, ...opts });
+  const ctx = createBotContext(host, { shape: mochiShape, extras: { routines: routinesExtra }, ...opts });
   installStateHooks(ctx);
   setShape(ctx, ctx.shape);
   setState(ctx, 'idle');

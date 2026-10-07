@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { routinesExtra } from '../../extras/src/routines';
 import { TestBed, type ComponentFixture } from '@angular/core/testing';
 import type { GfBotState } from '../bot-state';
 import { catShape } from '../shapes/cat';
@@ -19,6 +20,7 @@ const svgProto = SVGElement.prototype as unknown as Record<string, unknown>;
     [interactive]="interactive()"
     [size]="size()"
     [label]="label()"
+    [extras]="extras"
     (routineChange)="routines.push($event)"
     (wake)="woke = woke + 1"
   />`,
@@ -31,6 +33,7 @@ class Host {
   interactive = signal(false);
   size = signal<number | null>(null);
   label = signal<string | undefined>(undefined);
+  extras = { routines: routinesExtra };
   routines: GfBotRoutineEvent[] = [];
   woke = 0;
 }

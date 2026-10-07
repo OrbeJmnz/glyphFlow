@@ -1,4 +1,4 @@
-import type { FormaId } from './bots-datos';
+import type { EstadoBot, FormaId } from './bots-datos';
 
 /** Lo que el visitante tiene puesto en el escenario: de aquí sale el código que lo reproduce. */
 export interface ConfigBot {
@@ -10,6 +10,8 @@ export interface ConfigBot {
   toca: boolean;
   /** Si pide el modo IA (`agentReactions`). */
   agente: boolean;
+  /** El estado elegido: `working` y `sleeping` traen sus rutinas de `glyphflow/bots/extras`; en reposo no hace falta nada. */
+  estado?: EstadoBot;
 }
 
 /** `ghost` → `ghostShape`: el nombre con que la librería exporta cada forma. */
@@ -37,10 +39,12 @@ const unicos = (xs: readonly string[]): string[] => xs.filter((x, i) => xs.index
 export function codigoBot(c: ConfigBot): { fragmento: string; completo: string } {
   const forma = nombreForma(c.forma);
   const gestos = unicos([...(c.gesto ? [c.gesto] : []), ...(c.agente ? ['frontFlip'] : [])]);
+  const rutinas = !!c.estado && c.estado !== 'idle';
 
   const atributos = [
     `[shape]="shape"`,
     ...(c.piel && c.forma !== 'robot' ? [`skin="${c.piel}"`] : []),
+    ...(rutinas ? [`state="${c.estado}"`, `[extras]="extras"`] : []),
     ...(gestos.length ? [`[gestures]="gestures"`] : []),
     ...(c.agente ? [`[onAgentEvent]="reacciones"`] : []),
     ...(c.sigue ? [`[followPointer]="true"`] : []),
@@ -49,6 +53,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
 
   const miembros = [
     `  protected readonly shape = ${forma};`,
+    ...(rutinas ? [`  protected readonly extras = { routines: routinesExtra };`] : []),
     ...(gestos.length ? [`  protected readonly gestures = { ${gestos.join(', ')} };`] : []),
     ...(c.agente ? [`  protected readonly reacciones = agentReactions();`] : []),
   ];
@@ -57,6 +62,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
   const importsGestos = [...gestos, ...(c.agente ? ['agentReactions'] : [])];
   const imports = [
     `import { ${importsBots.join(', ')} } from 'glyphflow/bots';`,
+    ...(rutinas ? [`import { routinesExtra } from 'glyphflow/bots/extras';`] : []),
     ...(importsGestos.length ? [`import { ${unicos(importsGestos).join(', ')} } from 'glyphflow/bots/gestures';`] : []),
   ];
 

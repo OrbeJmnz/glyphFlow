@@ -28,6 +28,7 @@ import {
   type GfGestureOptions,
   type GfKawaiiId,
 } from 'glyphflow/bots';
+import { routinesExtra } from 'glyphflow/bots/extras';
 import { agentReactions, physicalGestures } from 'glyphflow/bots/gestures';
 import botsEn from '../../../i18n/bots/en.json';
 import { hayMovimiento } from '../../core/movimiento';
@@ -105,6 +106,8 @@ export class Bots {
   protected readonly estados = ESTADOS;
   protected readonly pesos = PESOS;
   protected readonly gestos = physicalGestures;
+  /** Las rutinas de `working` y `sleeping` (el escenario las enseña con el selector de estado); el chat usa las escenas del modo IA, que van en el motor. */
+  protected readonly extras = { routines: routinesExtra };
   protected readonly movimiento = hayMovimiento;
   protected readonly tema = tema;
 
@@ -135,6 +138,7 @@ export class Bots {
       sigue: this.sigue(),
       toca: this.toca(),
       agente: this.conAgente(),
+      estado: this.estado(),
     }),
   );
 

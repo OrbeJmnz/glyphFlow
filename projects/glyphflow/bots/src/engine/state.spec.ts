@@ -1,4 +1,5 @@
 import { ROUTINES } from '../data/routines';
+import { routinesExtra } from '../../extras/src/routines';
 import { mochiShape } from '../shapes/mochi';
 import { makeRobot } from '../shapes/robot';
 import { cubeShape } from '../shapes/retired';
@@ -25,7 +26,7 @@ function stubAnimations(): { calls: Element[] } {
 function bot(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: mochiShape, ...opts });
+  const ctx = createBotContext(host, { shape: mochiShape, extras: { routines: routinesExtra }, ...opts });
   installStateHooks(ctx);
   setShape(ctx, ctx.shape);
   setState(ctx, 'idle');
