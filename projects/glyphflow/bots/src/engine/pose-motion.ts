@@ -1,6 +1,5 @@
 import { f2 } from '../data/color';
 import type { BotContext } from './context';
-import { hatShadowSync } from './hat-shadow';
 import { projectPose, type GfBotPose } from './pose';
 import { syncOutlineTransform } from './outlines';
 import { curSh } from './shape-view';
@@ -18,7 +17,7 @@ export function setPose(ctx: BotContext, next: GfBotPose): void {
     if (node === ctx.el.clip) syncOutlineTransform(ctx, st.transform);
   });
   // Gel/App/Etéreo/Pastel: el color está PINTADO en la figura: se va con ella al girar, saltar y ladearse
-  if (ctx.hatEls) hatShadowSync(ctx);
+  if (ctx.hatEls) ctx.hats?.sync(ctx);
   const { mflow } = ctx.fe;
   if (mflow) {
     mflow.style.translate = `${f2(ctx.pose.yaw * 30)}px ${f2(ctx.pose.pitch * 22)}px`;

@@ -1,4 +1,4 @@
-import { HATS, HAT_ACC, HAT_MAT, type GfBotHeadMetrics } from './hats';
+import { HATS, HAT_ACC, HAT_MAT, type GfBotHeadMetrics } from './hats-data';
 
 const HEAD: GfBotHeadMetrics = { w: 62, ry: 12 };
 

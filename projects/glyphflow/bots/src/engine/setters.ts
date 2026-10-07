@@ -2,13 +2,13 @@ import { FACES, MOCHI_VARS, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import { GHOST_VARS } from '../data/ghost';
 import { CAT_VARS } from '../data/cat';
-import { HATS, type GfBotHatId } from '../data/hats';
+import type { GfBotHatId } from '../data/hat-ids';
 import { OCTOPUS_VARS } from '../data/octopus';
 import type { GfBotShape } from '../data/shape';
 import { applyFx, buildShape } from './build';
 import type { BotContext, GfBotMouthKind } from './context';
 import { baseMouth, defaultMouth } from './mouth';
-import { cloudBind, hatBind } from './physics';
+import { cloudBind, hatUnbind } from './physics';
 import { setPalette } from './paint';
 import { setPose } from './pose-motion';
 import { setState } from './state';
@@ -27,7 +27,8 @@ export function setShape(ctx: BotContext, shape: GfBotShape): void {
   ctx.running.clear();
   buildShape(ctx);
   setPose(ctx, {});
-  hatBind(ctx);
+  if (ctx.hats) ctx.hats.bind(ctx);
+  else hatUnbind(ctx);
   cloudBind(ctx);
   if (ctx.ready) setPalette(ctx, ctx.paletteKey);
   if (ctx.ready && !ctx.paused) setState(ctx, ctx.state, true); // reinicia la rutina con los rasgos nuevos
@@ -49,7 +50,7 @@ export function setMochi(ctx: BotContext, v: string): void {
 
 /** Sombrero o accesorio extra (`halo`, `glasses`…); `null` o desconocido, ninguno. */
 export function setHat(ctx: BotContext, k: string | null): void {
-  ctx.hatKey = k && Object.hasOwn(HATS, k) ? (k as GfBotHatId) : null;
+  ctx.hatKey = k && ctx.hats?.has(k) ? (k as GfBotHatId) : null;
   ctx.accX = k && Object.hasOwn(ACCX, k) ? (k as GfBotAccXId) : null;
   setShape(ctx, ctx.shape);
 }

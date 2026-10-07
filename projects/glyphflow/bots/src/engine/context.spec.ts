@@ -1,4 +1,5 @@
 import { mochiShape } from '../shapes/mochi';
+import { hatsExtra } from '../../extras/src/hats';
 import { createBotContext, nextBotId, type BotContext, type GfBotOptions } from './context';
 import { flash, lit, sweep, tint } from './light';
 import { later, loop, play } from './timing';
@@ -20,7 +21,7 @@ function stubAnimate(node: Element) {
 function make(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  return createBotContext(host, { shape: mochiShape, ...opts });
+  return createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra }, ...opts });
 }
 
 describe('glyphflow/bots · contexto', () => {

@@ -18,3 +18,20 @@ export * as body from './body-fx';
 export { clearGestureFx, GESTURE_FX_MARK } from './gesture-fx';
 export { smoothstep, track } from './track';
 export { groundClip, GROUND_Y } from './ground';
+
+/*
+ * Lo que necesitan los extras de `glyphflow/bots/extras` (juguetes, sombreros): las mismas piezas que usa el motor,
+ * expuestas con su nombre para que el entry las llame como `kit.mk(...)` sin duplicar el motor.
+ */
+export { animatePose, setPose } from './pose-motion';
+export { wake } from './state';
+export { flushCheeks, headTop, miniHop, mk, mood, spark, tremble } from './actions';
+export { f2, f3 } from '../data/color';
+export { play } from './timing';
+export { TAU } from './math';
+export { parm } from './octopus-arms';
+export { kSeq, kStars } from './reactions';
+export { expr, floaty } from './kawaii';
+export { baseRoll } from './base-pose';
+export { swapEyes } from './eyes';
+export { flash } from './light';

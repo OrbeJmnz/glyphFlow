@@ -3,7 +3,7 @@ import type { GfBotApi } from './create-bot';
 import { FACES, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import type { GfKawaiiId } from '../data/kawaii';
-import { HATS, type GfBotHatId } from '../data/hats';
+import type { GfBotHatId } from '../data/hat-ids';
 import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
@@ -39,6 +39,31 @@ export type GfBotMaterialId = keyof typeof MATERIALS;
 /** El contexto interno del bot que recibe cada gesto. Es opaco: se pasa tal cual a las herramientas de `gfBotKit`. */
 export type GfBotGestureContext = BotContext;
 
+/** Los juguetes (`toysExtra` de `glyphflow/bots/extras`): `play` pone el juguete `kind` en (x, y) y el bot juega con él. */
+export interface GfBotToysExtra {
+  play(ctx: GfBotGestureContext, kind: string, x: number, y: number): void;
+}
+
+/**
+ * Los sombreros (`hatsExtra` de `glyphflow/bots/extras`). El motor no conoce su geometría ni su física: solo llama a estos
+ * ganchos. `has` dice si existe el sombrero; `accs` da los accesorios que se le pegan a la forma; `bind` lo arma sobre la forma actual
+ * y arranca su física; `kick` le da un empujón; `pulse` lo ilumina al celebrar; `sync` pega su sombra al cuerpo.
+ */
+export interface GfBotHatsExtra {
+  has(key: string): boolean;
+  accs(key: GfBotHatId, sh: GfBotShape): NonNullable<GfBotShape['acc']>;
+  bind(ctx: GfBotGestureContext): void;
+  kick(ctx: GfBotGestureContext, up?: number, side?: number): void;
+  pulse(ctx: GfBotGestureContext): void;
+  sync(ctx: GfBotGestureContext): void;
+}
+
+/** Lo que se le pasa a `createBot({ extras })` o a `<gf-bot [extras]>`. */
+export interface GfBotExtras {
+  toys?: GfBotToysExtra;
+  hats?: GfBotHatsExtra;
+}
+
 /**
  * Un gesto extra: una función que recibe el contexto y arma su movimiento con `gfBotKit`. Puede devolver
  * cuánto dura (ms): así se le puede encadenar algo detrás (ver `withLanding` en `glyphflow/bots/gestures`).
@@ -67,6 +92,11 @@ export interface GfBotOptions {
   mouthk?: GfBotMouthKind | 'auto';
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. Por defecto, de frente. */
   view?: GfBotView | number;
+  /**
+   * Extras opt-in de `glyphflow/bots/extras`: `{ toys, hats }` (los juguetes de `bot.toy()` y los sombreros). Sin ellos el bot no los carga ni
+   * los paga. Se leen al crear el bot: no cambian después.
+   */
+  extras?: GfBotExtras;
   /** Gestos extra: un objeto `{ nombre: gesto }` de `glyphflow/bots/gestures` (o los tuyos). Cada uno sale como `bot.nombre()` y como `bot.gesture('nombre')`. */
   gestures?: GfBotGesturePack;
   /**
@@ -337,6 +367,8 @@ export interface BotContext {
 
   // ---- Sombrero y física ----
   hatKey: GfBotHatId | null;
+  /** Los sombreros, si se pasó `extras.hats`. Sin ellos `hatKey` siempre es `null`. */
+  hats: GfBotHatsExtra | null;
   hatEls: BotHatElements | null;
   hatRaf: number;
   hatCache: { sh: GfBotShape; key: string; out: GfBotShape } | null;
@@ -501,7 +533,8 @@ export function createBotContext(
     shapeAnims: [],
     shapeTimer: null,
 
-    hatKey: hat && Object.hasOwn(HATS, hat) ? (hat as GfBotHatId) : null,
+    hats: opts.extras?.hats ?? null,
+    hatKey: hat && opts.extras?.hats?.has(hat) ? (hat as GfBotHatId) : null,
     hatEls: null,
     hatRaf: 0,
     hatCache: null,

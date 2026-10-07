@@ -16,9 +16,9 @@ import type { GfBotState } from '../bot-state';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotFaceId } from '../data/faces';
 import type { GfBotAccXId, GfBotFxId } from '../data/fx';
-import type { GfBotHatId } from '../data/hats';
+import type { GfBotHatId } from '../data/hat-ids';
 import type { GfBotPaletteId } from '../data/palettes';
-import type { GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
+import type { GfBotExtras, GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
 import type { GfBotView } from '../data/views';
 import { createBot, type GfBotApi } from '../engine/create-bot';
 
@@ -100,6 +100,9 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   @Input() mouth: GfBotMouthKind | 'auto' = 'auto';
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. */
   @Input() view: GfBotView | number = 'front';
+
+  /** Extras opt-in (`import { toysExtra } from 'glyphflow/bots/extras'`): `{ toys: toysExtra }`. Se leen al montar: no cambian después. */
+  @Input() extras?: GfBotExtras;
 
   /** Gestos extra (`import { physicalGestures } from 'glyphflow/bots/gestures'`). Se leen al montar: no cambian después. */
   @Input() gestures?: GfBotGesturePack;
@@ -209,6 +212,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
       mouthk: this.mouth,
       view: this.view,
       gestures: this.gestures,
+      extras: this.extras,
       onAgentEvent: this.onAgentEvent,
       wander: this.wander,
       hoverOnly: this.hoverOnly,

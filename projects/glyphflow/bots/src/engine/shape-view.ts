@@ -1,4 +1,3 @@
-import { hatAccs } from '../data/hat-accs';
 import type { GfBotShape } from '../data/shape';
 import type { BotContext } from './context';
 
@@ -9,10 +8,10 @@ import type { BotContext } from './context';
  */
 export function withHat(ctx: BotContext, sh: GfBotShape): GfBotShape {
   const key = ctx.hatKey;
-  if (!key || sh.hatAt === undefined) return sh;
+  if (!key || !ctx.hats || sh.hatAt === undefined) return sh;
   const cache = ctx.hatCache;
   if (cache?.sh === sh && cache.key === key) return cache.out;
-  const out: GfBotShape = { ...sh, acc: [...(sh.acc ?? []).filter((a) => !a.tuft), ...hatAccs(key, sh)] };
+  const out: GfBotShape = { ...sh, acc: [...(sh.acc ?? []).filter((a) => !a.tuft), ...ctx.hats.accs(key, sh)] };
   ctx.hatCache = { sh, key, out };
   return out;
 }

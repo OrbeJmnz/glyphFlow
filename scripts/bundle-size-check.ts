@@ -27,6 +27,11 @@ const FESM_GESTURES = new URL(
   import.meta.url,
 ).pathname.replace(/^\/([A-Za-z]):/, '$1:');
 
+const FESM_EXTRAS = new URL(
+  '../dist/glyphflow/fesm2022/glyphflow-bots-extras.mjs',
+  import.meta.url,
+).pathname.replace(/^\/([A-Za-z]):/, '$1:');
+
 const CASES = [
   {
     name: 'core — solo el componente, sin ningún icono',
@@ -148,7 +153,8 @@ const CASES = [
     // motor bajó a ~68.3KB. Techo 73 → 70: el aire que queda es para el kit de movimiento, no para gestos.
     filaReadme: null as string | null,
     entry: `import { createBot } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot);`,
-    maxGzipBytes: 70 * 1024,
+    // 2026-10-07: 70 -> 58. Los sombreros y los juguetes salieron a `glyphflow/bots/extras` (opt-in): el motor bajó de 69.6 a 55.9KB.
+    maxGzipBytes: 58 * 1024,
     optimizadorAngular: true,
   },
   {
@@ -158,7 +164,7 @@ const CASES = [
     // propiedad a nivel de módulo: `d: CAT.body` arrastraba la forma entera al caso de solo estados).
     filaReadme: null as string | null,
     entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(createBot, catShape);`,
-    maxGzipBytes: 78 * 1024,
+    maxGzipBytes: 65.5 * 1024, // 2026-10-07: 78 -> 65.5 (medido 63.5), por lo mismo
     optimizadorAngular: true,
   },
   {
@@ -175,6 +181,19 @@ const CASES = [
     // que paga quien usa un gesto con efectos; los gestos sin ellos (jellyWobble…) siguen costando ~1.7KB.
     // 2026-10-06: 83 -> 84. El ciclo de vida de los gestos (handle, politicas, cola, bolsa de timers propia) cuesta +0.55KB
     // en el motor y se paga en todo caso que lo use; el techo del motor sigue en 70 (medido 69.6).
+    maxGzipBytes: 71.5 * 1024, // 2026-10-07: 84 -> 71.5 (medido 70.0), por lo mismo
+    optimizadorAngular: true,
+  },
+  {
+    name: 'bots + createBot + catShape + TODOS los extras de glyphflow/bots/extras (sombreros y juguetes)',
+    // Lo opcional (`extras`) vive fuera del motor: este caso mide lo que paga quien lo pide TODO. El motor sin extras
+    // (caso de arriba) es lo que paga el resto. Si este número se acerca al del motor mas el de los extras por separado, bien;
+    // si el motor vuelve a engordar con ellos, algo del primario volvió a importar de `extras`.
+    filaReadme: null as string | null,
+    aliasBots: true,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { hatsExtra, toysExtra } from '${FESM_EXTRAS.replace(/\\/g, '/')}'; console.log(createBot, catShape, hatsExtra, toysExtra);`,
+    // Medido 82.0: quien pide TODO paga unos 5KB MÁS que antes de separar (77.2), porque el entry no comparte diccionario de
+    // compresión con el motor y llama a sus piezas por `gfBotKit`. Es el precio de que el resto pague 13.7KB menos.
     maxGzipBytes: 84 * 1024,
     optimizadorAngular: true,
   },
@@ -184,7 +203,7 @@ const CASES = [
     // componente a propósito: un solo import y funciona) más el motor y una forma. Medido el 2026-10-02.
     filaReadme: null as string | null,
     entry: `import { GfBotComponent, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; console.log(GfBotComponent, catShape);`,
-    maxGzipBytes: 86 * 1024,
+    maxGzipBytes: 73 * 1024, // 2026-10-07: 86 -> 73 (medido 71.6), por lo mismo
     optimizadorAngular: true,
   },
 ];
@@ -367,6 +386,22 @@ function verificarIndependencia(): boolean {
   }
   if (!importa(gestos, 'glyphflow/bots')) {
     console.error(`  ✗ glyphflow/bots/gestures no importa el motor por nombre de paquete: lo habría duplicado.`);
+    ok = false;
+  }
+  // Los extras, igual: dependen del motor por nombre de paquete, sin iconos, y el motor no los conoce.
+  const extras = readFileSync(FESM_EXTRAS, 'utf8');
+  for (const p of ['glyphflow', 'glyphflow/morph']) {
+    if (importa(extras, p)) {
+      console.error(`  ✗ glyphflow/bots/extras importa de '${p}': arrastraría iconos.`);
+      ok = false;
+    }
+  }
+  if (!importa(extras, 'glyphflow/bots')) {
+    console.error(`  ✗ glyphflow/bots/extras no importa el motor por nombre de paquete: lo habría duplicado.`);
+    ok = false;
+  }
+  if (importa(bots, 'glyphflow/bots/extras') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/extras')) {
+    console.error(`  ✗ el motor o el primario importan de 'glyphflow/bots/extras': los extras dejarían de ser opcionales.`);
     ok = false;
   }
   if (importa(bots, 'glyphflow/bots/gestures') || importa(readFileSync(FESM, 'utf8'), 'glyphflow/bots/gestures')) {

@@ -1,4 +1,6 @@
-import { f2 } from './color';
+import { gfBotKit as kit, type GfBotHatId, type GfBotHeadMetrics } from 'glyphflow/bots';
+
+export type { GfBotHatId, GfBotHeadMetrics };
 
 /**
  * Sombreros y accesorios de cabeza. Cada uno se dibuja en un marco local: (0,0) es la coronilla del
@@ -9,14 +11,6 @@ import { f2 } from './color';
  * El color sale 70–80 % de los tokens `--bot-*` del bot (cambian con cada piel) y 20–30 % son
  * acentos propios del sombrero (oro del mago, confeti de fiesta, blanco perla de Navidad).
  */
-
-/** Medidas de la cabeza donde se asienta el sombrero (unidades del viewBox). */
-export interface GfBotHeadMetrics {
-  /** Ancho de la cabeza a la altura de la coronilla. */
-  w: number;
-  /** Radio vertical de la elipse de la base. */
-  ry: number;
-}
 
 /** Un sombrero: sus tres capas y los parámetros del resorte con que se mueve. */
 export interface GfBotHat {
@@ -79,10 +73,10 @@ export const HAT_LG = (id: string, a: string, b: string, y1: number, y2: number)
 export const HAT_FUZZ = (cx: number, cy: number, r: number, c = '#F7F8FF', e = '#DCE2F6'): string => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}"/><circle cx="${cx}" cy="${cy}" r="${r - .8}" fill="none" stroke="${e}" stroke-width="2.4" stroke-dasharray="1.6 2.2"/><circle cx="${cx - r * .35}" cy="${cy - r * .38}" r="${r * .28}" fill="#fff" opacity=".9"/>`;
 // Material del bot para accesorios: base con los tokens --bot-* (ver CSS) orientada según la pieza + manchas internas
 // borrosas de su paleta (recortadas a la silueta, con deriva muy lenta) + brillo arriba-izquierda + borde de luz + sombra.
-export const HAT_BLOB = (p: string, [x, y, rx, ry, tok, o]: GfHatBlob): string => `<ellipse cx="${f2(x)}" cy="${f2(y)}" rx="${f2(rx)}" ry="${f2(ry)}" style="fill:var(--bot-${tok})" opacity="${o}" filter="url(#${p}-hblob)"/>`;
+export const HAT_BLOB = (p: string, [x, y, rx, ry, tok, o]: GfHatBlob): string => `<ellipse cx="${kit.f2(x)}" cy="${kit.f2(y)}" rx="${kit.f2(rx)}" ry="${kit.f2(ry)}" style="fill:var(--bot-${tok})" opacity="${o}" filter="url(#${p}-hblob)"/>`;
 export function HAT_MAT(p: string, id: string, d: string, o: GfHatMatOptions): string {
   const [x1, y1, x2, y2] = o.g;
-  return `<linearGradient id="${p}-${id}G" gradientUnits="userSpaceOnUse" x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}">` +
+  return `<linearGradient id="${p}-${id}G" gradientUnits="userSpaceOnUse" x1="${kit.f2(x1)}" y1="${kit.f2(y1)}" x2="${kit.f2(x2)}" y2="${kit.f2(y2)}">` +
       `<stop offset="0" style="stop-color:var(--bot-highlight)"/><stop offset=".32" style="stop-color:var(--bot-base)"/><stop offset=".7" style="stop-color:var(--bot-primary)"/><stop offset="1" style="stop-color:var(--bot-shadow)"/></linearGradient>` +
     `<clipPath id="${p}-${id}K"><path d="${d}"/></clipPath>` +
     `<g class="hmat"><path d="${d}" fill="url(#${p}-${id}G)"/><g clip-path="url(#${p}-${id}K)">` +
@@ -95,13 +89,13 @@ export function HAT_MAT(p: string, id: string, d: string, o: GfHatMatOptions): s
 // Perla (banda y pompón navideños): blanco que recibe reflejos del bot, no blanco plano
 export function HAT_PEARL(p: string, id: string, d: string, box: readonly [number, number, number, number], blobs: readonly GfHatBlob[]): string {
   const [x1, y1, x2, y2] = box;
-  return `<linearGradient id="${p}-${id}G" gradientUnits="userSpaceOnUse" x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8F7FE"/><stop offset="1" stop-color="#E6E4F6"/></linearGradient>` +
+  return `<linearGradient id="${p}-${id}G" gradientUnits="userSpaceOnUse" x1="${kit.f2(x1)}" y1="${kit.f2(y1)}" x2="${kit.f2(x2)}" y2="${kit.f2(y2)}"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F8F7FE"/><stop offset="1" stop-color="#E6E4F6"/></linearGradient>` +
     `<clipPath id="${p}-${id}K"><path d="${d}"/></clipPath><g class="hmat"><path d="${d}" fill="url(#${p}-${id}G)"/>` +
     `<g clip-path="url(#${p}-${id}K)"><g class="hmb">${blobs.map(b => `<g>${HAT_BLOB(p, b)}</g>`).join('')}</g></g>` +
     `<path d="${d}" fill="none" style="stroke:var(--bot-stroke)" stroke-width="3" stroke-linejoin="round"/></g>`;
 }
 // Sombra de contacto lavanda/marino (no negra), muy localizada: un halo suave + un núcleo más oscuro pegado al borde
-export const HAT_CONTACT = (p: string, cy: number, rx: number, ry: number): string => `<ellipse cy="${f2(cy)}" rx="${f2(rx)}" ry="${f2(ry)}" fill="rgb(55,48,120)" opacity=".15" filter="url(#${p}-hcs)"/><ellipse cy="${f2(cy + 1.4)}" rx="${f2(rx * .82)}" ry="3" fill="rgb(55,48,120)" opacity=".18" filter="url(#${p}-mblur)"/>`;
+export const HAT_CONTACT = (p: string, cy: number, rx: number, ry: number): string => `<ellipse cy="${kit.f2(cy)}" rx="${kit.f2(rx)}" ry="${kit.f2(ry)}" fill="rgb(55,48,120)" opacity=".15" filter="url(#${p}-hcs)"/><ellipse cy="${kit.f2(cy + 1.4)}" rx="${kit.f2(rx * .82)}" ry="3" fill="rgb(55,48,120)" opacity=".18" filter="url(#${p}-mblur)"/>`;
 // Acentos propios (constantes en todas las pieles)
 export const HAT_ACC = {
   gold: (p: string): string => `<linearGradient id="${p}-hgB" gradientUnits="userSpaceOnUse" x1="-30" y1="0" x2="30" y2="0"><stop offset="0" stop-color="#E3AE3C"/><stop offset=".45" stop-color="#FFD75A"/><stop offset=".6" stop-color="#FFE998"/><stop offset="1" stop-color="#DDA736"/></linearGradient>` +
@@ -198,7 +192,7 @@ export const HATS = {
   beanie: { label:'Beanie', layered:true, up:33, k:.1, sway:.9, lift:.9, tip:1.8, maxTh:12,
     back: () => `<path d="M-42 -8 Q0 -20 42 -8" style="stroke:var(--bot-shadow)" stroke-width="3" fill="none"/>`,
     front: p => {
-      let ribs = ''; for (let x = -36; x <= 36; x += 6) { const t = (x + 42) / 84, t2 = (x + 43) / 86; ribs += `M${x} ${f2(-8 - 16 * t * (1 - t) + .8)} L${x} ${f2(5 - 14 * t2 * (1 - t2) - .8)} `; }
+      let ribs = ''; for (let x = -36; x <= 36; x += 6) { const t = (x + 42) / 84, t2 = (x + 43) / 86; ribs += `M${x} ${kit.f2(-8 - 16 * t * (1 - t) + .8)} L${x} ${kit.f2(5 - 14 * t2 * (1 - t2) - .8)} `; }
       return HAT_MAT(p, 'lb', 'M-38 -4 C-40 -32 -20 -42 0 -42 C20 -42 40 -32 38 -4 Z', { g:[-38, -42, 38, -4],
           blobs:[[-16, -28, 14, 10, 'tertiary', .55], [18, -12, 16, 10, 'secondary', .6], [0, -36, 18, 5, 'highlight', .45]], hi:'M-26 -10 Q-26 -28 -12 -36', shade:'M30 -6 Q30 -26 16 -36' }) +
         `<path d="M-12 -8 Q-12 -30 -2 -40 M2 -8 Q4 -30 14 -38 M16 -8 Q20 -26 28 -30 M-26 -8 Q-24 -24 -18 -32" style="stroke:var(--bot-shadow)" stroke-width="1.3" fill="none" opacity=".6"/>` +
@@ -321,4 +315,4 @@ export const HATS = {
 // Cada una = ojo izquierdo + ojo derecho + boca (+ cachetes). Se dibujan en una capa aparte sobre la cara (siguen el giro
 // de la cabeza) y la cara base se esconde mientras duran. Tinta = el color de ojos de la piel actual.
 
-export type GfBotHatId = keyof typeof HATS;
+// `GfBotHatId` (el tipo) vive en el primario; el spec comprueba que HATS trae exactamente esos ids.

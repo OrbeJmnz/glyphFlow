@@ -4,7 +4,6 @@ import { createBotContext, type BotContext, type GfBotOptions } from './context'
 import { installKawaiiHooks } from './kawaii';
 import { setShape } from './setters';
 import { installStateHooks, setState } from './state';
-import { toyClear } from './toys';
 
 vi.setConfig({ testTimeout: 30_000 });
 const proto = Element.prototype as unknown as Record<string, unknown>;
@@ -132,7 +131,7 @@ describe('glyphflow/bots · el agente avisa a quien reacciona con gestos', () =>
     ctx.opts.onStateChange = cambios;
     agent(ctx, 'thinking');
     agent(ctx, 'done');
-    toyClear(ctx); // antes compartía bolsa de timers con el regreso a reposo y lo mataba
+    ctx.toyTimers.forEach(clearTimeout); // lo que hace `toyClear`; antes compartía bolsa de timers con el regreso a reposo y lo mataba
     vi.advanceTimersByTime(5000);
     expect(cambios).toHaveBeenCalledWith('idle');
     expect(ctx.state).toBe('idle');

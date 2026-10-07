@@ -1,4 +1,5 @@
 import { FACES } from '../data/faces';
+import { hatsExtra } from '../../extras/src/hats';
 import { ghostShape } from '../shapes/ghost';
 import { catShape } from '../shapes/cat';
 import { mochiShape } from '../shapes/mochi';
@@ -16,7 +17,7 @@ import { startShapeFx } from './shape-fx';
 function make(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  return createBotContext(host, { shape: mochiShape, ...opts });
+  return createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra }, ...opts });
 }
 const built = (opts: Partial<GfBotOptions> = {}): BotContext => {
   const ctx = make(opts);

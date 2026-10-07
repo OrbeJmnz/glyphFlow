@@ -110,6 +110,8 @@ if (typeof createBot !== 'function') throw new Error('createBot no resolvió des
 if (typeof GfBotComponent !== 'function') throw new Error('GfBotComponent no resolvió desde glyphflow/bots');
 import { superBounce, physicalGestures } from 'glyphflow/bots/gestures';
 if (typeof superBounce !== 'function' || Object.keys(physicalGestures).length !== 20) throw new Error('glyphflow/bots/gestures no resolvió');
+import { hatsExtra, toysExtra, HATS } from 'glyphflow/bots/extras';
+if (typeof toysExtra.play !== 'function' || typeof hatsExtra.has !== 'function' || Object.keys(HATS).length !== 16) throw new Error('glyphflow/bots/extras no resolvió');
 if (catShape.id !== 'cat' || robotShape.id !== 'robot' || nightCloudShape.id !== 'nCloud') throw new Error('las formas no resolvieron desde glyphflow/bots');
 
 console.log('Import real OK — exports/sideEffects/secondary-entry-points sin romperse.');

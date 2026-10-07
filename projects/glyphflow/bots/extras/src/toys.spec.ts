@@ -1,11 +1,11 @@
-import { TOYS } from '../data/toys';
-import { ghostShape } from '../shapes/ghost';
-import { mochiShape } from '../shapes/mochi';
-import { octopusShape } from '../shapes/octopus';
-import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { installKawaiiHooks } from './kawaii';
-import { setShape } from './setters';
-import { installStateHooks, setState } from './state';
+import { TOYS } from './toys-data';
+import { ghostShape } from '../../src/shapes/ghost';
+import { mochiShape } from '../../src/shapes/mochi';
+import { octopusShape } from '../../src/shapes/octopus';
+import { createBotContext, type BotContext, type GfBotOptions } from '../../src/engine/context';
+import { installKawaiiHooks } from '../../src/engine/kawaii';
+import { setShape } from '../../src/engine/setters';
+import { installStateHooks, setState } from '../../src/engine/state';
 import { lookAtPt, toy, toyAt, toyClear } from './toys';
 
 // Estos tests recorren las formas y los estados enteros en un solo caso: en una máquina cargada (o con

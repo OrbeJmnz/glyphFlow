@@ -1,8 +1,9 @@
 import { mochiShape } from '../shapes/mochi';
+import { hatsExtra } from '../../extras/src/hats';
 import { cubeShape } from '../shapes/retired';
 import { makeRobot } from '../shapes/robot';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { celebrate, cheer, curious, excited, hatPulse, happy, neutral, surprised, thinking, wave } from './emotions';
+import { celebrate, cheer, curious, excited, happy, neutral, surprised, thinking, wave } from './emotions';
 import { setHat, setShape } from './setters';
 import { installStateHooks, setState } from './state';
 
@@ -26,7 +27,7 @@ function stubAnimations(): Call[] {
 function bot(opts: Partial<GfBotOptions> = {}): { ctx: BotContext; acts: number[] } {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: mochiShape, ...opts });
+  const ctx = createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra }, ...opts });
   installStateHooks(ctx);
   const acts: number[] = [];
   const act = ctx.hooks.act;
@@ -136,17 +137,6 @@ describe('glyphflow/bots · emociones', () => {
     vi.advanceTimersByTime(260 + 9 * 20);
     expect(ctx.el.z.querySelectorAll('path').length).toBe(10);
     expect(mouthOn(ctx)).toBe('open');
-  });
-
-  it('hatPulse solo brilla con sombrero y sin movimiento reducido', () => {
-    const { ctx } = bot();
-    const calls = stubAnimations();
-    hatPulse(ctx);
-    expect(calls).toHaveLength(0);
-    setHat(ctx, 'topHat');
-    calls.length = 0;
-    hatPulse(ctx);
-    expect(calls.every((c) => c.frames[0]['filter'] === 'brightness(1) saturate(1)')).toBe(true);
   });
 
   it('cheer rebota dos veces', () => {

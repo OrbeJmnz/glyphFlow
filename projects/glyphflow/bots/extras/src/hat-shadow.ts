@@ -1,4 +1,4 @@
-import type { BotContext } from './context';
+import type { GfBotGestureContext as BotContext } from 'glyphflow/bots';
 
 /**
  * La sombra de contacto del sombrero vive DENTRO del cuerpo (recortada por su silueta) pero sigue

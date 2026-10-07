@@ -3,7 +3,7 @@ import { CAT_VARS } from './data/cat';
 import { FACES, MOCHI_VARS } from './data/faces';
 import { ACCX, FX_VARS } from './data/fx';
 import { GHOST_VARS } from './data/ghost';
-import { HATS } from './data/hats';
+import { HATS } from '../extras/src/hats-data';
 import { OCTOPUS_VARS } from './data/octopus';
 import { cubeShape, dropShape, eggShape, candyShape, pillShape } from './shapes/retired';
 import type { GfBotShape } from './data/shape';

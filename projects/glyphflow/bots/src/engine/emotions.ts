@@ -8,7 +8,6 @@ import { SPARK_COLORS, airArc, antTip, antWiggle, antenna, flushCheeks, glow, he
 import { S, TAU, clamp01 } from './math';
 import { later, play } from './timing';
 import { flash } from './light';
-import { hatKick } from './physics';
 import { type BotContext } from './context';
 
 
@@ -51,7 +50,7 @@ import { type BotContext } from './context';
   }
 
   export function surprised(ctx: BotContext) {
-    ctx.hooks.act(1300); hatKick(ctx, 3.4); glow(ctx, '#FFE38A', .22, 1100);
+    ctx.hooks.act(1300); ctx.hats?.kick(ctx, 3.4); glow(ctx, '#FFE38A', .22, 1100);
     if (isRobot(ctx)) swapEyes(ctx, 'ring', 1200); else holdEyes(ctx, S(1.28,1.34), 1200);
     setMouth(ctx, 'o', 1200);
     play(ctx, ctx.el.breath, [{}, { transform:S(.9,1.14), offset:.15 }, { transform:S(1.03,.97), offset:.4 }, { transform:S(1) }], { duration:900, easing:'ease-out' });
@@ -60,10 +59,9 @@ import { type BotContext } from './context';
     flash(ctx, .2, 500);
   }
 
-  export function hatPulse(ctx: BotContext) { if (!ctx.hatKey || ctx.reduce) return; ctx.qa('.hmat').forEach(n => n.animate([{ filter:'brightness(1) saturate(1)' }, { filter:'brightness(1.12) saturate(1.2)', offset:.3 }, { filter:'brightness(1) saturate(1)' }], { duration:900, easing:'ease-out' })); }
 
   export function celebrate(ctx: BotContext) {
-    hatPulse(ctx); glow(ctx, pick(['#FF8AD8', '#FFD35A', '#8CE8FF']), .26, 1800);
+    ctx.hats?.pulse(ctx); glow(ctx, pick(['#FF8AD8', '#FFD35A', '#8CE8FF']), .26, 1800);
     ctx.hooks.act(1900); swapEyes(ctx, 'happy', 1800); setMouth(ctx, 'open', 1800); flushCheeks(ctx, 1800);
     airArc(ctx, 42, 900); later(ctx, () => miniHop(ctx, 16), 950, ctx.lookTimers);
     const top = headTop(ctx); for (let i = 0; i < 10; i++) later(ctx, () => spark(ctx, top, true), 260 + i * 20, ctx.lookTimers);

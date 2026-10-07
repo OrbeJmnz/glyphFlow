@@ -1,4 +1,5 @@
 import { mochiShape } from '../shapes/mochi';
+import { hatsExtra } from '../../extras/src/hats';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { installKawaiiHooks } from './kawaii';
 import { kAt, kLaugh, kSeq, kStars, poke, pokeFx, pokePick, spinFx } from './reactions';
@@ -11,7 +12,7 @@ const svgProto = SVGElement.prototype as unknown as Record<string, unknown>;
 function bot(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
   document.body.appendChild(host);
-  const ctx = createBotContext(host, { shape: mochiShape, ...opts });
+  const ctx = createBotContext(host, { shape: mochiShape, extras: { hats: hatsExtra }, ...opts });
   installStateHooks(ctx);
   installKawaiiHooks(ctx);
   setShape(ctx, ctx.shape);

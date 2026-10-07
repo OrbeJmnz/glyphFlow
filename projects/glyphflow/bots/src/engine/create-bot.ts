@@ -1,12 +1,11 @@
 import type { GfBotState } from '../bot-state';
 import type { GfBotFaceId } from '../data/faces';
 import type { GfBotAccXId, GfBotFxId } from '../data/fx';
-import type { GfBotHatId } from '../data/hats';
+import type { GfBotHatId } from '../data/hat-ids';
 import type { GfKawaiiId } from '../data/kawaii';
 import type { GfBotPaletteId } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
-import type { GfBotToyId } from '../data/toys';
 import { agent, token, type GfBotAgentEvent } from './agent';
 import { createBotContext, type BotContext, type GfBotGesturePack, type GfBotMaterialId, type GfBotMouthKind, type GfBotOptions } from './context';
 import { enableTouch, endDrag } from './drag';
@@ -26,7 +25,6 @@ import { startShapeFx } from './shape-fx';
 import { ignorado, interruptRun, playGesture, type GfGestureHandle, type GfGestureOptions } from './lifecycle';
 import { clearRoutine, installStateHooks, setRoutine, setState } from './state';
 import { play } from './timing';
-import { toy } from './toys';
 
 /**
  * El bot ensamblado. `createBot` une el contexto con las funciones sueltas del motor y devuelve el
@@ -109,7 +107,8 @@ export interface GfBotControls {
   /** Una cara kawaii suelta durante `ms` (por defecto 1500). */
   expr(key: GfKawaiiId, ms?: number | null): void;
   /** Deja caer un juguete en (x, y) del viewBox; el bot va por él. */
-  toy(kind: GfBotToyId, x: number, y: number): void;
+  /** Pone un juguete (`star`, `ball`, `cookie`) en (x, y). Solo existe con `extras: { toys }` de `glyphflow/bots/extras`: sin eso no hace nada. */
+  toy(kind: string, x: number, y: number): void;
   /** Paso del agente (`thinking`, `tool`, `loading`, `writing`, `done`, `error`, `idle`). */
   agent(event: GfBotAgentEvent): void;
   /** Un token del agente mientras escribe. */
@@ -252,7 +251,7 @@ export function assembleBot(host: HTMLElement, opts: GfBotOptions, id?: string):
   };
   Object.keys(table).forEach(skipWhilePaused);
   act['expr'] = ((key: GfKawaiiId, ms?: number | null) => (ctx.paused ? undefined : expr(ctx, key, ms))) as Loose;
-  act['toy'] = ((kind: GfBotToyId, x: number, y: number) => (ctx.paused ? undefined : toy(ctx, kind, x, y))) as Loose;
+  act['toy'] = ((kind: string, x: number, y: number) => (ctx.paused ? undefined : ctx.opts.extras?.toys?.play(ctx, kind, x, y))) as Loose;
   act['token'] = ((text?: string) => (ctx.paused ? undefined : token(ctx, text))) as Loose;
   act['pop'] = (() => (ctx.paused ? undefined : pop(ctx))) as Loose;
   act['gazeAt'] = ((dx: number, dy: number) => {

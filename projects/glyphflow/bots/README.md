@@ -3,11 +3,12 @@
 `<gf-bot>`: personajes animados con la Web Animations API nativa, sin dependencias de animación. Esta carpeta es
 documentación **de desarrollo** (no se publica con el paquete, que solo lleva el README de la raíz) hasta que los bots salgan.
 
-Tres entry points, cada uno paga solo lo que se importa:
+Cuatro entry points, cada uno paga solo lo que se importa:
 
 | Entry | Qué trae | Peso (gzip, medido por `npm run bundle-check`) |
 | --- | --- | --- |
-| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 69 KB · con una forma 76 KB · con `<gf-bot>` 85 KB |
+| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 56 KB · con una forma 63.5 KB · con `<gf-bot>` 71.6 KB |
+| `glyphflow/bots/extras` | los 16 sombreros con su física y los juguetes (`star`, `ball`, `cookie`) | opt-in: con todo, motor y una forma suman ~82 KB |
 | `glyphflow/bots/gestures` | los 20 gestos físicos y el modo IA | +1.7 KB el primero que se use (cada gesto es un objeto suelto) |
 | `glyphflow` | los iconos | independiente: bots e iconos no se arrastran (lo vigila `bundle-check`) |
 
@@ -27,6 +28,24 @@ const g = bot.gesture('superBounce'); // o por nombre: devuelve un handle { ms, 
 ```
 
 Pasa solo los gestos que uses (`{ frontFlip, superBounce }`): `physicalGestures` los trae todos y paga todos.
+
+### Extras: sombreros y juguetes (`glyphflow/bots/extras`)
+
+Los sombreros (con su física) y los juguetes no vienen en el motor: quien no los usa no los paga. Se piden con `extras`:
+
+```ts
+import { hatsExtra, toysExtra } from 'glyphflow/bots/extras';
+
+const bot = createBot(host, { shape: catShape, hat: 'wizard', extras: { hats: hatsExtra, toys: toysExtra } });
+bot.toy('ball', 120, 150);
+```
+```html
+<gf-bot [shape]="catShape" hat="wizard" [extras]="{ hats: hatsExtra, toys: toysExtra }" />
+```
+
+Sin `extras.hats`, `hat` con un sombrero se ignora (los accesorios sueltos como `glasses` siguen funcionando: no son sombreros) y
+sin `extras.toys`, `bot.toy()` no hace nada. Se leen al crear el bot: no cambian después. Quien pide **todo** paga unos 5 KB más que
+antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto paga 13.7 KB menos.
 
 ### Ciclo de vida de un gesto
 

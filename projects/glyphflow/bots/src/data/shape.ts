@@ -1,6 +1,5 @@
 import type { GfBotAccessory, GfBotModel } from '../engine/pose';
 import type { GfBotFaceId } from './faces';
-import type { GfBotHeadMetrics } from './hats';
 import type { MATERIALS } from './palettes';
 
 /**
@@ -27,6 +26,14 @@ export interface GfBotBodyFit {
 }
 
 /** Cabeza donde se asienta el sombrero (extiende las medidas con la curvatura). */
+/** Medidas de la cabeza donde se asienta el sombrero (unidades del viewBox). */
+export interface GfBotHeadMetrics {
+  /** Ancho de la cabeza a la altura de la coronilla. */
+  w: number;
+  /** Radio vertical de la elipse de la base. */
+  ry: number;
+}
+
 export interface GfBotHead extends GfBotHeadMetrics {
   angle: number;
 }

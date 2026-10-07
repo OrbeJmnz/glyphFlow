@@ -81,8 +81,8 @@ export const ESTADOS: readonly EstadoBot[] = ['idle', 'working', 'sleeping'];
  * medir y actualizarlo aquí: el sitio no puede decir un número que el CI ya no respalda.
  */
 export const PESOS = {
-  motor: 69.6,
-  conForma: 77.2,
-  conComponente: 85.3,
+  motor: 55.9,
+  conForma: 63.5,
+  conComponente: 71.6,
   porGesto: 1.7,
 } as const;

@@ -7,7 +7,6 @@ import { play } from './timing';
 import { animatePose } from './pose-motion';
 import { baseRoll } from './base-pose';
 import { wake } from './state';
-import { hatKick } from './physics';
 import { angry } from './gestures';
 import { lit } from './light';
 import type { GfKawaiiId } from '../data/kawaii';
@@ -134,8 +133,8 @@ import { type BotContext } from './context';
   export function kLaugh(ctx: BotContext) { if (ctx.reduce) return; play(ctx, ctx.el.breath, [{}, { transform:S(1.04,.96), offset:.15 }, { transform:S(.99,1.02), offset:.3 }, { transform:S(1.04,.96), offset:.45 }, { transform:S(.99,1.02), offset:.6 }, { transform:S(1.02,.98), offset:.78 }, { transform:S(1) }], { duration:720 }); }
 
   export function poke(ctx: BotContext, vx: number, vy: number) {
-    if (ctx.state === 'sleeping') { ctx.kWakeForce = 'startled'; wake(ctx); hatKick(ctx, 1.6, 0); return; }   // lo despertaste: se sobresalta
-    wake(ctx); hatKick(ctx, 1.6, (vx < 100 ? 1 : -1) * 2);
+    if (ctx.state === 'sleeping') { ctx.kWakeForce = 'startled'; wake(ctx); ctx.hats?.kick(ctx, 1.6, 0); return; }   // lo despertaste: se sobresalta
+    wake(ctx); ctx.hats?.kick(ctx, 1.6, (vx < 100 ? 1 : -1) * 2);
     ctx.pokes++; clearTimeout(ctx.pokeT ?? undefined); ctx.pokeT = setTimeout(() => { ctx.pokes = 0; }, 1800);
     if (ctx.pokes >= 5) { ctx.pokes = 0; angry(ctx); expr(ctx, 'angry', 2700 * slow(ctx)); return; }   // la cara de enojo dura todo lo que dura el rojo
     const dx = Math.max(-1, Math.min(1, (vx - 100) / 60)), dy = (vy - ctx.shape.cy) / 60, lean = -dx * 12;
