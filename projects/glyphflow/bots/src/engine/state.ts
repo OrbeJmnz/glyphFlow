@@ -9,6 +9,7 @@ import { clearLook, eyeSeq, setOpen, swapEyes } from './eyes';
 import { baseMouth, defaultMouth } from './mouth';
 import { S } from './math';
 import { breathe, miniHop, squint } from './actions';
+import { alinearMirada } from './follow';
 import type { GfBotState } from '../bot-state';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import { type BotContext } from './context';
@@ -120,6 +121,7 @@ import { interruptRun } from './lifecycle';
     // Un gesto nuevo parte de una cara limpia. En reposo no se llama a `clearRoutine` (hay rutinas que
     // dejar vivas), así que sin esto la cara del gesto anterior seguía corriendo debajo de la nueva.
     interruptRun(ctx); // lo que toma el cuerpo corta el gesto en curso; el gesto que se está armando no se corta a sí mismo
+    alinearMirada(ctx, ms); // los gestos son de frente: se endereza la cabeza y luego vuelve a seguir el cursor
     wake(ctx); clearLook(ctx); clearFace(ctx); clearGestureFx(ctx);
     if (!keepKawaii) ctx.hooks.kawaiiRelease();
     if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300, ctx.subTimers); }

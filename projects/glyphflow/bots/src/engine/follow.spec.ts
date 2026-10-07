@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ghostShape } from '../shapes/ghost';
 import { buildShape } from './build';
 import { createBotContext, type BotContext } from './context';
-import { followPointer } from './follow';
+import { alinearMirada, followPointer } from './follow';
 
 function built(): BotContext {
   const host = document.createElement('div');
@@ -36,6 +36,57 @@ describe('glyphflow/bots · seguir el puntero', () => {
     raf = [];
     cbs.forEach((cb) => cb(0));
   };
+
+  it('un gesto endereza la cabeza, no la sigue mientras corre y al terminar vuelve a mirar el cursor', () => {
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    try {
+      const ctx = built();
+      const off = followPointer(ctx);
+      mover(900, 700);
+      cuadro();
+      expect(ctx.pose.yaw).toBeGreaterThan(0.3);
+
+      alinearMirada(ctx, 1000);
+      expect(ctx.pose.yaw).toBe(ctx.view);
+      expect(ctx.pose.pitch).toBe(0);
+
+      mover(100, 300); // el cursor se mueve en pleno gesto: la cabeza no lo atiende
+      cuadro();
+      expect(ctx.pose.yaw).toBe(ctx.view);
+
+      vi.advanceTimersByTime(1121);
+      cuadro();
+      expect(ctx.pose.yaw).toBeLessThan(-0.3); // volvió a mirar, y a donde está ahora el cursor
+      off();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('con el cursor quieto, al terminar el gesto vuelve a mirarlo igual', () => {
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    try {
+      const ctx = built();
+      const off = followPointer(ctx);
+      mover(900, 700);
+      cuadro();
+      const antes = ctx.pose.yaw;
+      alinearMirada(ctx, 500);
+      vi.advanceTimersByTime(621);
+      cuadro();
+      expect(ctx.pose.yaw).toBeCloseTo(antes, 5);
+      off();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('un bot que no sigue el puntero no se toca', () => {
+    const ctx = built();
+    ctx.pose = { yaw: 0.4, pitch: 0.1, roll: 0 };
+    alinearMirada(ctx, 500);
+    expect(ctx.pose.yaw).toBe(0.4);
+  });
 
   it('la cabeza mira hacia donde está el cursor (derecha → yaw +, abajo → pitch +)', () => {
     const ctx = built();

@@ -1,5 +1,6 @@
 import type { BotContext } from './context';
 import { gazeAt } from './eyes';
+import { setPose } from './pose-motion';
 
 /**
  * Seguir el puntero: la cabeza del bot mira hacia donde está el cursor (`gazeAt`).
@@ -11,18 +12,23 @@ import { gazeAt } from './eyes';
  * No sigue con movimiento reducido (es una animación continua), con el bot pausado (fuera de pantalla), dormido
  * (`gazeAt` ya lo ignora) ni mientras lo arrastran. El tacto tampoco: en un móvil no hay puntero que seguir y los
  * dedos tienen que seguir pudiendo desplazar la página. Al salir el cursor de la ventana, vuelve a mirar al frente.
+ *
+ * Los gestos están escritos para la vista de frente: cuando uno toma el cuerpo (`alinearMirada`), la cabeza se endereza,
+ * el gesto corre y, al terminar, vuelve a mirar el cursor.
  */
 
 const siguiendo = new Set<BotContext>();
 /** Lo último que miró cada bot, para no reescribir la pose por un movimiento imperceptible. */
 const ultimo = new WeakMap<BotContext, readonly [number, number]>();
+/** Los bots con un gesto en curso: mientras estén aquí NO se sigue el puntero. Guarda el timer que los suelta. */
+const alineados = new Map<BotContext, ReturnType<typeof setTimeout>>();
 let pos: { x: number; y: number } | null = null;
 let raf = 0;
 
 function cuadro(): void {
   raf = 0;
   for (const ctx of siguiendo) {
-    if (ctx.paused || ctx.reduce || ctx.dragging) continue;
+    if (ctx.paused || ctx.reduce || ctx.dragging || alineados.has(ctx)) continue;
     let dx = 0;
     let dy = 0;
     if (pos) {
@@ -57,6 +63,25 @@ function alSalir(e: MouseEvent): void {
   pide();
 }
 
+/**
+ * Un gesto toma el cuerpo durante `ms`: endereza la cabeza (con el resorte de la pose) y deja de seguir el puntero hasta
+ * poco después de que termine. Sin esto el gesto arrancaba desde la pose girada y se veía torcido. No hace nada si el bot
+ * no sigue el puntero. Va ANTES de que el gesto lea `ctx.pose`: `setPose` actualiza el valor al instante.
+ */
+export function alinearMirada(ctx: BotContext, ms: number): void {
+  if (!siguiendo.has(ctx)) return;
+  clearTimeout(alineados.get(ctx));
+  setPose(ctx, { yaw: ctx.view, pitch: 0 });
+  alineados.set(
+    ctx,
+    setTimeout(() => {
+      alineados.delete(ctx);
+      ultimo.delete(ctx); // mismo cursor que antes: sin esto la igualdad con la última mirada impediría volver a girar
+      pide();
+    }, ms + 120),
+  );
+}
+
 /** Empieza a seguir el puntero con `ctx`. Devuelve la función que lo deja de seguir (y vuelve a mirar al frente). */
 export function followPointer(ctx: BotContext): () => void {
   if (typeof window === 'undefined') return () => undefined;
@@ -71,6 +96,8 @@ export function followPointer(ctx: BotContext): () => void {
 
 function stopFollowing(ctx: BotContext): void {
   if (!siguiendo.delete(ctx)) return;
+  clearTimeout(alineados.get(ctx));
+  alineados.delete(ctx);
   ultimo.delete(ctx);
   if (!siguiendo.size) {
     window.removeEventListener('pointermove', alMover);
