@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { GfBotHatId } from 'glyphflow/bots';
 import { assembleBot } from '../../src/engine/create-bot';
 import { mochiShape } from '../../src/shapes/mochi';
-import { createHatsExtra, defineHat, hatsExtra, HATS, hatWizard, routinesExtra, toysExtra } from './public-api';
+import { createHatsExtra, createToysExtra, defineHat, defineToy, hatsExtra, HATS, hatWizard, routinesExtra, toyBall, toysExtra, type GfBotToyBehavior } from './public-api';
 
 /** Los extras son opt-in: sin ellos el motor no sabe de sombreros ni de juguetes, y con ellos funcionan igual que antes. */
 describe('glyphflow/bots/extras', () => {
@@ -166,5 +166,58 @@ describe('glyphflow/bots/extras', () => {
     expect(() => api.setPalette(['#111', '#222'] as never)).toThrow(/paleta propia/);
     expect(ctx.svg.style.getPropertyValue('--c2')).toBe('#222222'); // la mala no tocó nada
     api.destroy();
+  });
+
+  describe('juguetes propios', () => {
+    const redondo = (id: string) => `<circle r="9" fill="url(#${id}-g)"/><linearGradient id="${id}-g"><stop stop-color="#7AD"/></linearGradient>`;
+
+    it('defineToy valida y por defecto elige la coreografía ball', () => {
+      expect(defineToy({ label: 'Mi pelota', r: 9, draw: redondo })).toMatchObject({ label: 'Mi pelota', r: 9, behavior: 'ball' });
+      expect(() => defineToy({ label: '', r: 9, draw: redondo })).toThrow(/label/);
+      expect(() => defineToy({ label: 'X', r: 2, draw: redondo })).toThrow(/radio/);
+      expect(() => defineToy({ label: 'X', r: 99, draw: redondo })).toThrow(/radio/);
+      expect(() => defineToy({ label: 'X', r: Number.NaN, draw: redondo })).toThrow(/radio/);
+      expect(() => defineToy({ label: 'X', r: 9 } as never)).toThrow(/draw/);
+      expect(() => defineToy({ label: 'X', r: 9, draw: redondo, behavior: 'baila' as never })).toThrow(/coreografía/);
+    });
+
+    it('con treat el dibujo se envuelve solo en la máscara de mordiscos; con ball y star se deja tal cual', () => {
+      const treat = defineToy({ label: 'Pan', r: 10, draw: () => '<circle r="10"/>', behavior: 'treat' });
+      expect(treat.draw('t1')).toContain('<g class="bites"');
+      expect(treat.draw('t1')).toContain('mask="url(#t1-bm)"');
+      expect(defineToy({ label: 'B', r: 10, draw: () => '<circle r="10"/>' }).draw('t1')).toBe('<circle r="10"/>');
+    });
+
+    for (const behavior of ['ball', 'star', 'treat'] as GfBotToyBehavior[]) {
+      it(`un juguete propio con la coreografía ${behavior} corre sus cuatro variantes completas y se retira solo`, () => {
+        const mio = defineToy({ label: 'Mio', r: 10, draw: redondo, behavior });
+        const { ctx, api } = assembleBot(host, { shape: mochiShape, extras: { toys: createToysExtra({ mio }) } });
+        const vistas = new Set<string>();
+        for (let i = 0; i < 4; i++) {
+          api.toy('mio', i % 2 ? 40 : 160, 150);
+          vistas.add(String(ctx.svg.dataset['toy']));
+          expect(ctx.el.toys.querySelectorAll('.toy').length).toBe(1);
+          vi.advanceTimersByTime(20000);
+          expect(ctx.el.toys.querySelectorAll('.toy').length).toBe(0); // la coreografía terminó y quitó el objeto
+        }
+        expect(vistas.size).toBe(4); // rotó por sus cuatro variantes
+        expect([...vistas].every((v) => v.startsWith('mio·'))).toBe(true);
+        api.destroy();
+      });
+    }
+
+    it('solo existen los juguetes del catálogo que se pasó, y se pueden mezclar con los de serie', () => {
+      const mio = defineToy({ label: 'Mio', r: 10, draw: redondo });
+      const solo = assembleBot(host, { shape: mochiShape, extras: { toys: createToysExtra({ mio }) } });
+      solo.api.toy('ball', 120, 150);
+      expect(solo.ctx.el.toys.children.length).toBe(0);
+      solo.api.toy('mio', 120, 150);
+      expect(solo.ctx.el.toys.children.length).toBeGreaterThan(0);
+      solo.api.destroy();
+      const mezcla = assembleBot(host, { shape: mochiShape, extras: { toys: createToysExtra({ ball: toyBall, mio }) } });
+      mezcla.api.toy('ball', 120, 150);
+      expect(mezcla.ctx.el.toys.children.length).toBeGreaterThan(0);
+      mezcla.api.destroy();
+    });
   });
 });

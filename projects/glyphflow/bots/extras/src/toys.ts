@@ -1,5 +1,5 @@
 import { gfBotKit as kit, type GfBotInternalContext as BotContext } from 'glyphflow/bots';
-import { TMIX, TOYS, type GfBotToy, type GfBotToyId } from './toys-data';
+import { TMIX, type GfBotToy } from './toys-data';
 
 
 
@@ -13,8 +13,8 @@ import { TMIX, TOYS, type GfBotToy, type GfBotToyId } from './toys-data';
 
   export const lookAtPt = (ctx: BotContext, px: number, py: number) => kit.internal.setPose(ctx, { yaw: Math.max(-1, Math.min(1, (px - 100) / 70)) * .55, pitch: Math.max(-1, Math.min(1, (py - ctx.shape.cy) / 70)) * .3 });
 
-  export function toy(ctx: BotContext, kind: string, x: number, y: number) {
-    const TY: GfBotToy | undefined = Object.hasOwn(TOYS, kind) ? TOYS[kind as GfBotToyId] : undefined; if (!TY || ctx.paused || ctx.dragging) return;
+  export function toy(ctx: BotContext, kind: string, x: number, y: number, toys: Readonly<Record<string, GfBotToy>>) {
+    const TY: GfBotToy | undefined = Object.hasOwn(toys, kind) ? toys[kind] : undefined; if (!TY || ctx.paused || ctx.dragging) return;
     toyClear(ctx); kit.internal.wake(ctx);
     const sh = ctx.shape, r = TY.r, yF = 188 - r, top = kit.internal.headTop(ctx), cs = getComputedStyle(ctx.svg), tok = (k: string) => cs.getPropertyValue('--bot-' + k).trim() || '#FFFFFF';
     const COLS = ['tertiary', 'secondary', 'primary', 'highlight', 'glow'].map(tok);   // chispas y luces con los colores del bot
@@ -154,7 +154,7 @@ import { TMIX, TOYS, type GfBotToy, type GfBotToyId } from './toys-data';
             for (let i = 0; i < 6; i++) kit.internal.spark(ctx, top, true, COLS); kit.internal.setPose(ctx, { yaw:0, pitch:0 }); kit.internal.expr(ctx, 'happy', 1300); kit.internal.swapEyes(ctx, 'happy', 800); }, t + 300); t += 1500;
         }]
       ],
-      cookie: [
+      treat: [
         ['bites', () => {   // se la lleva a la boca y se la come en 3 mordidas
           toyAt(ctx, () => { kit.internal.expr(ctx, 'hopeful', 1000); reach([0, 26, 34, 30, 12, 0], 1300); }, t);
           toyAt(ctx, () => { go([{ transform:P(pos.x, pos.y) }, { transform:P(pos.x + (mx + sg * 10 - pos.x) * .5, my - 22, 'rotate(-8deg)'), offset:.55 }, { transform:P(mx + sg * 10, my, 'scale(.82)') }], 700); pos.x = mx + sg * 10; pos.y = my; kit.internal.setPose(ctx, { yaw: sg * .12, pitch:.06 }); }, t + 300);
@@ -203,7 +203,7 @@ import { TMIX, TOYS, type GfBotToy, type GfBotToyId } from './toys-data';
           toyAt(ctx, () => { kit.internal.setPose(ctx, { yaw:0, pitch:0 }); kit.internal.expr(ctx, 'satisfied', 1400); kit.internal.flash(ctx, .16, 700, tok('glow')); kit.internal.floaty(ctx, '♥', 2, tok('tertiary'), 11); }, t); t += 1400;
         }]
       ]
-    } as Record<string, [string, () => void][]>)[kind];
+    } as Record<string, [string, () => void][]>)[TY.behavior];
     const i = ctx.toyIdx[kind] = ((ctx.toyIdx[kind] ?? -1) + 1) % V.length, [vname, run] = V[i];
     run();
     ctx.hooks.act(t + 400);

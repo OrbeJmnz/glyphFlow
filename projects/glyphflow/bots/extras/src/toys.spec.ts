@@ -10,6 +10,8 @@ import { lookAtPt, toy, toyAt, toyClear } from './toys';
 
 // Estos tests recorren las formas y los estados enteros en un solo caso: en una máquina cargada (o con
 // toda la suite en paralelo) rozan los 5 s de Vitest. No es lentitud del motor, es el volumen que cubren.
+const jugar = (ctx: BotContext, kind: string, x: number, y: number): void => toy(ctx, kind, x, y, TOYS);
+
 vi.setConfig({ testTimeout: 30_000 });
 
 const proto = Element.prototype as unknown as Record<string, unknown>;
@@ -61,31 +63,31 @@ describe('glyphflow/bots · juguetes', () => {
 
   it('un juguete desconocido, en pausa o con el bot en arrastre, se ignora', () => {
     const ctx = bot();
-    toy(ctx, 'nada', 100, 100);
+    jugar(ctx, 'nada', 100, 100);
     expect(ctx.el.toys.childElementCount).toBe(0);
     ctx.paused = true;
-    toy(ctx, 'ball', 40, 150);
+    jugar(ctx, 'ball', 40, 150);
     expect(ctx.el.toys.childElementCount).toBe(0);
     ctx.paused = false;
     ctx.dragging = true;
-    toy(ctx, 'ball', 40, 150);
+    jugar(ctx, 'ball', 40, 150);
     expect(ctx.el.toys.childElementCount).toBe(0);
   });
 
   it('las claves heredadas de Object no son juguetes', () => {
     const ctx = bot();
-    toy(ctx, 'constructor', 40, 150);
-    toy(ctx, 'toString', 40, 150);
+    jugar(ctx, 'constructor', 40, 150);
+    jugar(ctx, 'toString', 40, 150);
     expect(ctx.el.toys.childElementCount).toBe(0);
   });
 
   for (const kind of KINDS) {
     it(`${kind}: cae junto o encima según dónde lo sueltes y lo anota`, () => {
       const junto = bot();
-      toy(junto, kind, 30, 150);
+      jugar(junto, kind, 30, 150);
       expect(junto.svg.dataset['toy']).toMatch(new RegExp(`^${kind}·.+·beside$`));
       const encima = bot();
-      toy(encima, kind, 100, 50);
+      jugar(encima, kind, 100, 50);
       expect(encima.svg.dataset['toy']).toMatch(new RegExp(`^${kind}·.+·onTop$`));
       expect(junto.el.toys.querySelector('.toy')).not.toBeNull();
     });
@@ -94,7 +96,7 @@ describe('glyphflow/bots · juguetes', () => {
       const labels: (string | null)[] = [];
       const ctx = bot({ onRoutine: (_s, l) => labels.push(l) });
       for (let i = 0; i < 5; i++) {
-        toy(ctx, kind, 30, 150);
+        jugar(ctx, kind, 30, 150);
         vi.advanceTimersByTime(12000);
       }
       const con = labels.filter((l): l is string => l !== null && l.startsWith(TOYS[kind as keyof typeof TOYS].label.toLowerCase()));
@@ -108,7 +110,7 @@ describe('glyphflow/bots · juguetes', () => {
       it(`${kind} en ${forma}: las cuatro variantes corren enteras sin tronar y limpian el escenario`, () => {
         const ctx = bot({ shape, wander: true });
         for (let i = 0; i < 4; i++) {
-          toy(ctx, kind, i % 2 ? 100 : 40, i % 2 ? 50 : 150);
+          jugar(ctx, kind, i % 2 ? 100 : 40, i % 2 ? 50 : 150);
           vi.advanceTimersByTime(12000);
         }
         expect(ctx.el.toys.querySelector('.toy')).toBeNull();
@@ -118,17 +120,17 @@ describe('glyphflow/bots · juguetes', () => {
 
   it('un juguete nuevo quita al anterior y cancela sus timers', () => {
     const ctx = bot();
-    toy(ctx, 'ball', 30, 150);
+    jugar(ctx, 'ball', 30, 150);
     const primero = ctx.el.toys.querySelector('.toy');
     expect(ctx.toyTimers.length).toBeGreaterThan(0);
-    toy(ctx, 'star', 30, 150);
+    jugar(ctx, 'star', 30, 150);
     vi.advanceTimersByTime(200);
     expect(ctx.el.toys.contains(primero)).toBe(false);
   });
 
   it('toyClear funde y retira los objetos y vacía los timers', () => {
     const ctx = bot();
-    toy(ctx, 'cookie', 30, 150);
+    jugar(ctx, 'cookie', 30, 150);
     toyClear(ctx);
     expect(ctx.toyTimers).toEqual([]);
   });
@@ -159,7 +161,7 @@ describe('glyphflow/bots · juguetes', () => {
 
   it('el objeto se limita al área visible', () => {
     const ctx = bot();
-    toy(ctx, 'ball', 9999, 9999);
+    jugar(ctx, 'ball', 9999, 9999);
     expect(ctx.el.toys.querySelector('.toy')).not.toBeNull();
   });
 });

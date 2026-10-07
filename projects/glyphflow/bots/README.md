@@ -83,6 +83,28 @@ Cada sombrero de serie se exporta suelto (`hatWizard`, `hatCrown`…), así que 
 entran. Lo que sí es costo fijo (~7.4 KB) es la maquinaria de sombreros (física, accesorios, sombra), uses uno propio o uno de serie. El nombre con que
 pasas cada sombrero es su id (`hat="miGorro"`); un nombre que no esté en el catálogo se ignora.
 
+**Juguete propio:** un dibujo que elige una de las tres coreografías del bot. Cada una trae cuatro variantes que va rotando: `ball` (la cabecea, la
+equilibra, se la devuelve, la caza), `star` (la rodea, pide un deseo, se la pone de corona, la atrapa) y `treat` (la muerde, se la traga, se le cae,
+la huele). La coreografía propia, cuadro a cuadro, todavía no se puede escribir: se elige una familia.
+
+```ts
+import { createToysExtra, defineToy, toyBall } from 'glyphflow/bots/extras';
+
+const dona = defineToy({
+  label: 'Dona',
+  r: 11,                 // radio aproximado (entre 4 y 40); el bot mide 200
+  behavior: 'treat',     // `ball` por defecto
+  draw: () => `<circle r="11" fill="#E8A860"/><circle r="8" fill="#F28CB8"/><circle r="3.4" fill="#fff"/>`,
+});
+
+createBot(host, { shape: catShape, extras: { toys: createToysExtra({ dona }) } });          // solo el tuyo
+createBot(host, { shape: catShape, extras: { toys: createToysExtra({ ball: toyBall, dona }) } }); // la pelota de serie + el tuyo
+bot.toy('dona', 120, 150);   // el nombre del objeto es el id; uno que no esté en el catálogo se ignora
+```
+
+El dibujo va centrado en (0,0) con radio ≈ `r`; con `treat` el bot lo va mordiendo y no tienes que dibujar la máscara de mordiscos (`defineToy` la arma). Usa
+`var(--bot-primary)`, `--bot-tertiary`, `--bot-shadow`… para que el juguete herede el color del bot. Un juguete mal definido falla al definirlo.
+
 ### Escribir un gesto propio
 
 Un gesto es una función `(ctx: GfBotGestureContext) => number`: arranca la animación y devuelve cuánto dura (ms). Se pasa en `gestures` y sale como

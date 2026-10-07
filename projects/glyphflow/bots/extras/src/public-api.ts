@@ -8,16 +8,12 @@
  * Se arman con las piezas del motor (`gfBotKit`), que se importan por NOMBRE DE PAQUETE (`from 'glyphflow/bots'`):
  * una ruta relativa duplicaría el motor aquí (regla 6 de CLAUDE.md).
  */
-import type { GfBotToysExtra } from 'glyphflow/bots';
 export { createHatsExtra, defineHat, hatsExtra } from './hats';
 export type { GfBotHatInput } from './hats';
 export { routinesExtra } from './routines';
 export { HATS, hatWizard, hatParty, hatSanta, hatCap, hatBeanie, hatTopHat, hatBeret, hatCrown, hatBirthday, hatChef, hatCowboy, hatPirate, hatHeadphones, hatVisor, hatAstronaut, hatAntenna } from './hats-data';
 export type { GfBotHat, GfBotHatId, GfBotHeadMetrics } from './hats-data';
-import { toy } from './toys';
-
-export type { GfBotToy, GfBotToyId } from './toys-data';
-export { TOYS } from './toys-data';
-
-/** Los juguetes: `star`, `ball`, `cookie`. */
-export const toysExtra: GfBotToysExtra = { play: toy };
+export { createToysExtra, defineToy, toysExtra } from './toys-api';
+export type { GfBotToyInput } from './toys-api';
+export { TOYS, toyBall, toyCookie, toyStar } from './toys-data';
+export type { GfBotToy, GfBotToyBehavior, GfBotToyId } from './toys-data';
