@@ -3,8 +3,8 @@ import type { GfBotApi } from './create-bot';
 import { FACES, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import type { GfKawaiiId } from '../data/kawaii';
-import type { GfBotHatId } from '../data/hat-ids';
-import type { MATERIALS, GfBotPaletteId } from '../data/palettes';
+import type { GfBotHatName } from '../data/hat-ids';
+import type { MATERIALS, GfBotPaletteInput } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotState } from '../bot-state';
@@ -78,7 +78,7 @@ export interface GfBotToysExtra {
  */
 export interface GfBotHatsExtra {
   has(key: string): boolean;
-  accs(key: GfBotHatId, sh: GfBotShape): NonNullable<GfBotShape['acc']>;
+  accs(key: string, sh: GfBotShape): NonNullable<GfBotShape['acc']>;
   bind(ctx: GfBotInternalContext): void;
   kick(ctx: GfBotInternalContext, up?: number, side?: number): void;
   pulse(ctx: GfBotInternalContext): void;
@@ -114,8 +114,8 @@ export type GfBotGesturePack = Readonly<Record<string, GfBotGesture>>;
 export interface GfBotOptions {
   /** La forma. Se pasa el objeto (`mochiShape`…) para que el bundler quite las que no se usan. */
   shape: GfBotShape;
-  /** Clave de `PALETTES`, o `auto` para la de la forma. */
-  palette?: GfBotPaletteId | 'auto';
+  /** Una paleta de serie, `auto` para la de la forma, o una propia (`['#luz', '#medio', '#sombra']`). */
+  palette?: GfBotPaletteInput;
   material?: GfBotMaterialId | 'auto';
   /** Piel (`neu`, `gel`, `g1`, `o2`…). Por defecto `neu`. */
   mochi?: string;
@@ -124,7 +124,7 @@ export interface GfBotOptions {
   /** Efecto de contorno (glow, pixel, glitch, bug). */
   fx?: GfBotFxId | null;
   /** Sombrero o accesorio extra (halo, gafas…). `null` = ninguno. */
-  hat?: GfBotHatId | GfBotAccXId | null;
+  hat?: GfBotHatName | GfBotAccXId | null;
   /** Boca de reposo elegida a mano; `auto` = la de la forma. */
   mouthk?: GfBotMouthKind | 'auto';
   /** Desde dónde se mira al bot (vista de reposo): una con nombre o un giro en radianes. Por defecto, de frente. */
@@ -396,7 +396,7 @@ export interface BotContext {
   mochiVar: string;
   fxVar: GfBotFxId | null;
   accX: GfBotAccXId | null;
-  paletteKey: GfBotPaletteId | 'auto';
+  paletteKey: GfBotPaletteInput;
   materialKey: GfBotMaterialId | 'auto';
   /** Elementos que giran con la pose (`.yaw`, silueta, caras laterales, luz, accesorios), en el orden de `POSE_SLOTS`. */
   poseEls: SVGElement[];
@@ -408,7 +408,7 @@ export interface BotContext {
   shapeTimer: ReturnType<typeof setInterval> | null;
 
   // ---- Sombrero y física ----
-  hatKey: GfBotHatId | null;
+  hatKey: string | null;
   /** Los sombreros, si se pasó `extras.hats`. Sin ellos `hatKey` siempre es `null`. */
   hats: GfBotHatsExtra | null;
   /** Las rutinas de trabajo y sueño, si se pasó `extras.routines`. */
@@ -579,7 +579,7 @@ export function createBotContext(
 
     hats: opts.extras?.hats ?? null,
     routines: opts.extras?.routines ?? null,
-    hatKey: hat && opts.extras?.hats?.has(hat) ? (hat as GfBotHatId) : null,
+    hatKey: hat && opts.extras?.hats?.has(hat) ? hat : null,
     hatEls: null,
     hatRaf: 0,
     hatCache: null,

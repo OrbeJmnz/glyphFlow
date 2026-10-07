@@ -102,14 +102,13 @@ export const HAT_ACC = {
     `<linearGradient id="${p}-hgS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE998"/><stop offset=".55" stop-color="#FFD75A"/><stop offset="1" stop-color="#FFC94D"/></linearGradient>`
 };
 export const tipG = (px: number, py: number, inner: string): string => `<g class="hatTip" style="transform-origin:${px}px ${py}px">${inner}</g>`;
-export const HATS = {
   // ── Los tres sombreros «puestos» y hechos de la MISMA materia que el Mochi ──
   //    Capas: HAT_BACK (detrás del cuerpo) · HAT_FRONT (delante) · contactShadow (sobre el cuerpo, recortada por su silueta).
   //    Color: 70–80 % viene del bot (tokens --bot-*, ver CSS: cambian con cada piel del Mochi) y 20–30 % son acentos
   //    propios del sombrero (oro del mago, confeti de fiesta, blanco perla de Navidad). La paleta se reparte distinto
   //    en cada pieza (manchas internas según su geometría), no es el mismo degradado pegado.
   //    Marco local: (0,0) = headAccessoryAnchor; hd = medidas de la cabeza. Luz arriba-izquierda.
-  wizard: { label:'Wizard', layered:true, oy:10, up:48, k:.12, sway:.6, lift:.6, tip:1.3, tipMode:'skew', maxTh:9, maxTip:1.8, sleep:5,
+export const hatWizard: GfBotHat = { label:'Wizard', layered:true, oy:10, up:48, k:.12, sway:.6, lift:.6, tip:1.3, tipMode:'skew', maxTh:9, maxTip:1.8, sleep:5,
     back: (p, hd) => { const rx = hd.w * .68, ry = hd.ry * 1.6;
       return `<g transform="rotate(5)"><path d="M${-rx + 1} 1 A${rx - 1} ${ry - 1} 0 0 1 ${rx - 1} 1" style="stroke:var(--bot-shadow)" stroke-width="3" fill="none"/></g>`; },
     front: (p, hd) => { const rx = hd.w * .68, ry = hd.ry * 1.6, th = 4.6;
@@ -134,8 +133,9 @@ export const HATS = {
           `<path d="M-21 -16.4 Q0 -10.2 21 -16.4" stroke="#FFF6C8" stroke-width="1.6" opacity=".85" fill="none" stroke-linecap="round"/>` +
           `<path d="M-27 -10.6 Q0 -2.4 27 -10.6" stroke="#E0AE3A" stroke-width="1.4" opacity=".7" fill="none"/>`) + `</g>`; },
     shadow: (p, hd) => { const rx = hd.w * .62, ry = hd.ry * 1.6;
-      return `<g transform="rotate(5)">` + HAT_CONTACT(p, ry + 2, rx, 8.4) + `<ellipse cy="${ry + 3}" rx="16" ry="3" fill="#FFD75A" opacity=".08" filter="url(#${p}-mblur)"/></g>`; } },
-  party: { label:'Party', layered:true, oy:10, up:44, k:.12, sway:.6, lift:.6, tip:1.6, maxTh:9, maxTip:9,
+      return `<g transform="rotate(5)">` + HAT_CONTACT(p, ry + 2, rx, 8.4) + `<ellipse cy="${ry + 3}" rx="16" ry="3" fill="#FFD75A" opacity=".08" filter="url(#${p}-mblur)"/></g>`; } };
+
+export const hatParty: GfBotHat = { label:'Party', layered:true, oy:10, up:44, k:.12, sway:.6, lift:.6, tip:1.6, maxTh:9, maxTip:9,
     back: () => `<g transform="translate(13 -10) rotate(15) scale(1.28)"><path d="M-23 1 A23 8.5 0 0 1 23 1 L19.5 1 A19.5 5.5 0 0 0 -19.5 1 Z" style="fill:var(--bot-shadow)"/></g>`,
     front: p => { const cone = 'M-18.5 -1 C-13 -16 -6 -34 -1.2 -46.6 Q0 -49.4 1.2 -46.6 C6 -34 13 -16 18.5 -1 Q0 5 -18.5 -1 Z';
       return `<g transform="translate(13 -10) rotate(15) scale(1.28)">` +
@@ -155,8 +155,9 @@ export const HATS = {
       tipG(0, -47, `<ellipse cy="-47.4" rx="3.4" ry="1.4" style="fill:var(--bot-shadow)" opacity=".6" filter="url(#${p}-mblur)"/>` +
         `<g fill="url(#${p}-ptT)"><circle cy="-50.6" r="4.2"/><circle cx="-4.4" cy="-55" r="3.1"/><circle cy="-58" r="3.4"/><circle cx="4.4" cy="-55" r="3"/></g>` +
         `<ellipse cx="-1.4" cy="-58.8" rx="1.4" ry="1" fill="#fff" opacity=".75"/>`) + `</g>`; },
-    shadow: p => `<g transform="translate(13 -10) rotate(15) scale(1.28)">` + HAT_CONTACT(p, 7, 22, 6.4) + `</g>` },
-  santa: { label:'Santa', layered:true, oy:10, up:16, k:.11, sway:.7, lift:.6, tip:1.8, maxTh:9, maxTip:10, sleep:8,
+    shadow: p => `<g transform="translate(13 -10) rotate(15) scale(1.28)">` + HAT_CONTACT(p, 7, 22, 6.4) + `</g>` };
+
+export const hatSanta: GfBotHat = { label:'Santa', layered:true, oy:10, up:16, k:.11, sway:.7, lift:.6, tip:1.8, maxTh:9, maxTip:10, sleep:8,
     back: (p, hd) => { const rx = hd.w * .51, ry = hd.ry * 1.1;
       return `<path d="M${-rx} -2 A${rx} ${ry} 0 0 1 ${rx} -2 L${rx - 4} -2 A${rx - 4} ${ry - 3} 0 0 0 ${-rx + 4} -2 Z" fill="#ECEAF8"/>`; },
     front: (p, hd) => { const rx = hd.w * .51, ry = hd.ry * 1.1;
@@ -175,10 +176,11 @@ export const HATS = {
         tipG(57, 12, `<ellipse cx="54.6" cy="11" rx="7" ry="4.2" style="fill:var(--bot-shadow)" opacity=".6" filter="url(#${p}-mblur)"/>` +
           HAT_PEARL(p, 'sp', pom, [49, 7, 72, 29], [[56, 13, 6, 5, 'highlight', .6], [65, 22, 7, 6, 'secondary', .3], [55, 24, 7, 5, 'primary', .3]]) +
           `<ellipse cx="56" cy="12.6" rx="3.4" ry="2.2" fill="#fff" opacity=".9" filter="url(#${p}-mblur)"/>`); },
-    shadow: (p, hd) => { const rx = hd.w * .49, ry = hd.ry * 1.1; return HAT_CONTACT(p, ry + 6, rx, ry * .7 + 3); } },
+    shadow: (p, hd) => { const rx = hd.w * .49, ry = hd.ry * 1.1; return HAT_CONTACT(p, ry + 6, rx, ry * .7 + 3); } };
+
   // ── El resto de sombreros con el MISMO sistema: material del bot + acentos propios + capas + sombra de contacto ──
   //    Marco local: (0,0) = la coronilla (100,58). Todo lo que no es acento usa los tokens --bot-*.
-  cap: { label:'Cap', layered:true, up:16, k:.12, sway:.8, lift:.8, tip:1, maxTh:12,
+export const hatCap: GfBotHat = { label:'Cap', layered:true, up:16, k:.12, sway:.8, lift:.8, tip:1, maxTh:12,
     back: () => `<path d="M-40 4 Q0 -8 40 4" style="stroke:var(--bot-shadow)" stroke-width="2.4" fill="none"/>`,
     front: p => HAT_MAT(p, 'gd', 'M-40 4 C-41 -24 -22 -37 0 -37 C22 -37 41 -24 40 4 Q0 -3 -40 4 Z', { g:[-40, -37, 40, 4],
         blobs:[[-18, -24, 16, 10, 'tertiary', .55], [20, -6, 18, 10, 'secondary', .6], [0, -31, 20, 6, 'highlight', .5]], hi:'M-30 -14 Q-27 -28 -12 -32', shade:'M33 -2 Q31 -18 18 -30' }) +
@@ -188,8 +190,9 @@ export const HATS = {
         blobs:[[-20, 8, 16, 5, 'secondary', .5], [18, 10, 16, 5, 'tertiary', .45]], shade:'M-30 13.4 Q0 18.4 30 13.4' }) +
       `<path d="M-37 2.6 Q0 -3.4 37 2.6" style="stroke:var(--bot-edge)" stroke-width="2" fill="none" opacity=".8" stroke-linecap="round"/>` +
       `<path d="M-9 -9 h18 v7 h-18 Z" transform="translate(0 -8)" fill="#FFC94D" opacity="0"/>`, frontZ:34,
-    shadow: p => HAT_CONTACT(p, 17.5, 34, 4.4) },
-  beanie: { label:'Beanie', layered:true, up:33, k:.1, sway:.9, lift:.9, tip:1.8, maxTh:12,
+    shadow: p => HAT_CONTACT(p, 17.5, 34, 4.4) };
+
+export const hatBeanie: GfBotHat = { label:'Beanie', layered:true, up:33, k:.1, sway:.9, lift:.9, tip:1.8, maxTh:12,
     back: () => `<path d="M-42 -8 Q0 -20 42 -8" style="stroke:var(--bot-shadow)" stroke-width="3" fill="none"/>`,
     front: p => {
       let ribs = ''; for (let x = -36; x <= 36; x += 6) { const t = (x + 42) / 84, t2 = (x + 43) / 86; ribs += `M${x} ${kit.internal.f2(-8 - 16 * t * (1 - t) + .8)} L${x} ${kit.internal.f2(5 - 14 * t2 * (1 - t2) - .8)} `; }
@@ -200,8 +203,9 @@ export const HATS = {
         `<path d="${ribs}" style="stroke:var(--bot-shadow)" stroke-width="1.7" stroke-linecap="round" opacity=".85"/>` +
         tipG(0, -40, HAT_PEARL(p, 'lp', 'M-10.5 -47 A10.5 10.5 0 1 0 10.5 -47 A10.5 10.5 0 1 0 -10.5 -47 Z', [-10, -57, 10, -37], [[3, -43, 7, 6, 'secondary', .3], [-4, -45, 7, 6, 'primary', .3]]) +
           `<circle cy="-47" r="9.7" fill="none" stroke="#E3E1F4" stroke-width="2.4" stroke-dasharray="1.6 2.2"/><circle cx="-3.6" cy="-51" r="2.8" fill="#fff" opacity=".9"/>`); },
-    shadow: p => HAT_CONTACT(p, 7.4, 38, 4.2) },
-  topHat: { label:'Top hat', layered:true, up:34, k:.14, sway:.8, lift:.9, tip:1, maxTh:10,
+    shadow: p => HAT_CONTACT(p, 7.4, 38, 4.2) };
+
+export const hatTopHat: GfBotHat = { label:'Top hat', layered:true, up:34, k:.14, sway:.8, lift:.9, tip:1, maxTh:10,
     back: () => `<g transform="rotate(-5)"><path d="M-41 1 A41 6 0 0 1 41 1" style="stroke:var(--bot-shadow)" stroke-width="2.4" fill="none"/></g>`,
     front: p => `<g transform="rotate(-5)">` +
       `<linearGradient id="${p}-cpE" gradientUnits="userSpaceOnUse" x1="0" y1="4" x2="0" y2="10"><stop offset="0" style="stop-color:var(--bot-shadow)"/><stop offset="1" style="stop-color:var(--bot-secondary)"/></linearGradient>` +
@@ -214,8 +218,9 @@ export const HATS = {
       // acento: el listón (rosa de glyphFlow)
       `<linearGradient id="${p}-cpR" gradientUnits="userSpaceOnUse" x1="-28" y1="0" x2="28" y2="0"><stop offset="0" stop-color="#E24C92"/><stop offset=".45" stop-color="#FF65AE"/><stop offset="1" stop-color="#D9458A"/></linearGradient>` +
       `<path d="M-27.3 -8 L-28 -19 Q0 -15 28 -19 L27.3 -8 Q0 -4 -27.3 -8 Z" fill="url(#${p}-cpR)"/><path d="M-22 -17 Q0 -13.4 22 -17" stroke="#FFC2DD" stroke-width="1.3" fill="none" opacity=".8"/></g>`,
-    shadow: p => `<g transform="rotate(-5)">` + HAT_CONTACT(p, 8.6, 36, 4) + `</g>` },
-  beret: { label:'Beret', layered:true, up:12, k:.11, sway:.8, lift:.8, tip:2, maxTh:12,
+    shadow: p => `<g transform="rotate(-5)">` + HAT_CONTACT(p, 8.6, 36, 4) + `</g>` };
+
+export const hatBeret: GfBotHat = { label:'Beret', layered:true, up:12, k:.11, sway:.8, lift:.8, tip:2, maxTh:12,
     back: () => `<g transform="rotate(-9)"><path d="M-45 0 C-40 10 44 6 46 -3" style="stroke:var(--bot-shadow)" stroke-width="2.4" fill="none"/></g>`,
     front: p => `<g transform="rotate(-9)">` +
       HAT_MAT(p, 'bb', 'M-45 0 C-50 -16 -28 -28 2 -28 C32 -28 50 -18 46 -3 C44 6 -40 10 -45 0 Z', { g:[-45, -28, 46, 8],
@@ -224,8 +229,9 @@ export const HATS = {
       tipG(4, -27, HAT_MAT(p, 'bs', 'M1.6 -27 L1.6 -32.5 Q4.1 -35.5 6.6 -32.5 L6.6 -27 Z', { g:[1.6, -35, 6.6, -27], blobs:[] })) +
       // acento: un pin dorado
       `<circle cx="-27" cy="-9" r="3.2" fill="url(#${p}-hgS)"/><circle cx="-28" cy="-10" r="1" fill="#fff" opacity=".8"/>` + HAT_ACC.gold(p) + `</g>`,
-    shadow: p => `<g transform="rotate(-9)">` + HAT_CONTACT(p, 7, 38, 4) + `</g>` },
-  crown: { label:'Crown', layered:true, up:10, k:.2, sway:.5, lift:1, tip:1, maxTh:8,
+    shadow: p => `<g transform="rotate(-9)">` + HAT_CONTACT(p, 7, 38, 4) + `</g>` };
+
+export const hatCrown: GfBotHat = { label:'Crown', layered:true, up:10, k:.2, sway:.5, lift:1, tip:1, maxTh:8,
     back: () => `<path d="M-32 -2 Q0 -10 32 -2 L32 -9 Q0 -17 -32 -9 Z" style="fill:var(--bot-shadow)"/>`,
     front: p => HAT_ACC.gold(p) +
       HAT_MAT(p, 'kb', 'M-32 3 L-35 -24 L-19 -9 L-8 -30 L0 -13 L8 -30 L19 -9 L35 -24 L32 3 Q0 8 -32 3 Z', { g:[-35, -30, 35, 6],
@@ -236,8 +242,9 @@ export const HATS = {
       [[-35, -25], [-8, -31], [8, -31], [35, -25]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.6" fill="#FFF8E6"/><circle cx="${x - .8}" cy="${y - .8}" r=".8" fill="#fff"/>`).join('') +
       `<g class="hsparkle">${HAT_STAR(24, -30, 5, '#FFFFFF')}</g>`,
     deco: () => `<circle cy="-.4" r="3.3" fill="#FF65AE"/><circle cx="-17" cy="-1.8" r="2.6" fill="#55DDF2"/><circle cx="17" cy="-1.8" r="2.6" fill="#9273EE"/><circle cx="-1" cy="-1.4" r="1" fill="#fff" opacity=".8"/>`, frontZ:30,
-    shadow: p => HAT_CONTACT(p, 7.2, 30, 3.6) },
-  birthday: { label:'Birthday', layered:true, up:32, k:.12, sway:.8, lift:1, tip:1.6, maxTh:10,
+    shadow: p => HAT_CONTACT(p, 7.2, 30, 3.6) };
+
+export const hatBirthday: GfBotHat = { label:'Birthday', layered:true, up:32, k:.12, sway:.8, lift:1, tip:1.6, maxTh:10,
     back: () => `<path d="M-30 1 A30 5 0 0 1 30 1" style="stroke:var(--bot-shadow)" stroke-width="2" fill="none"/>`,
     front: p => HAT_PEARL(p, 'up', 'M-30 1 A30 5 0 1 0 30 1 A30 5 0 1 0 -30 1 Z', [-30, -4, 30, 6], [[0, 3, 22, 3, 'primary', .3]]) +
       HAT_MAT(p, 'uc', 'M-18 -22 H18 Q24 -22 24 -16 V-6 Q24 0 18 0 H-18 Q-24 0 -24 -6 V-16 Q-24 -22 -18 -22 Z', { g:[-24, -22, 24, 0],
@@ -248,8 +255,9 @@ export const HATS = {
       ([[-15, -22, '#FFC94D', 20], [-6, -24, '#55DDF2', -30], [8, -22, '#9273EE', 40], [16, -24, '#FFFFFF', -10], [0, -21, '#FFFFFF', 60]] as [number, number, string, number][]).map(([x, y, c, r]) => `<rect x="${x - 2}" y="${y - .8}" width="4" height="1.6" rx=".8" fill="${c}" transform="rotate(${r} ${x} ${y})"/>`).join('') +
       tipG(0, -26, `<rect x="-2.6" y="-42" width="5.2" height="16" rx="2" fill="#8FD8FF"/><path d="M-2.6 -37 L2.6 -40 M-2.6 -31 L2.6 -34" stroke="#fff" stroke-width="1.6"/><path d="M0 -42 V-44.5" stroke="#4A4A5A" stroke-width="1.2"/>` +
         `<circle cx="0" cy="-49" r="7" fill="#FFD27A" opacity=".35" filter="url(#${p}-mblur2)"/><g class="hflame" style="transform-origin:0px -44px"><path d="M0 -55 C4.2 -50 4.2 -46 0 -44 C-4.2 -46 -4.2 -50 0 -55 Z" fill="#FFB23F"/><path d="M0 -51 C2 -48 2 -46.5 0 -45.5 C-2 -46.5 -2 -48 0 -51 Z" fill="#FFE68A"/></g>`),
-    shadow: p => HAT_CONTACT(p, 5.4, 27, 3.4) },
-  chef: { label:'Chef', layered:true, up:26, k:.11, sway:.8, lift:1, tip:1.2, maxTh:10,
+    shadow: p => HAT_CONTACT(p, 5.4, 27, 3.4) };
+
+export const hatChef: GfBotHat = { label:'Chef', layered:true, up:26, k:.11, sway:.8, lift:1, tip:1.2, maxTh:10,
     back: () => `<path d="M-25 2 Q0 -8 25 2" style="stroke:var(--bot-shadow)" stroke-width="2" fill="none"/>`,
     front: p => tipG(0, -16, HAT_MAT(p, 'hp', 'M-30 -25 A13 13 0 1 0 -4 -25 A13 13 0 1 0 -30 -25 Z M4 -25 A13 13 0 1 0 30 -25 A13 13 0 1 0 4 -25 Z M-16 -33 A16 16 0 1 0 16 -33 A16 16 0 1 0 -16 -33 Z', { g:[-30, -49, 30, -12],
         blobs:[[-17, -22, 12, 9, 'tertiary', .45], [17, -22, 12, 9, 'secondary', .5], [-5, -41, 10, 6, 'highlight', .7]], hi:'M-24 -30 Q-18 -38 -9 -40' }) +
@@ -257,8 +265,9 @@ export const HATS = {
       // acento: la banda plisada blanca perla
       HAT_PEARL(p, 'hb', 'M-25 2 L-25 -16 Q0 -12 25 -16 L25 2 Q0 6 -25 2 Z', [-25, -16, 25, 5], [[-12, -6, 10, 6, 'primary', .3], [12, -4, 10, 6, 'secondary', .25]]) +
       `<path d="M-15 -13.6 V3.4 M-5 -12.6 V4.4 M5 -12.6 V4.4 M15 -13.6 V3.4" stroke="#D9D8EE" stroke-width="1.4"/>`,
-    shadow: p => HAT_CONTACT(p, 5.4, 25, 3.4) },
-  cowboy: { label:'Cowboy', layered:true, up:18, k:.12, sway:.8, lift:.9, tip:1, maxTh:10,
+    shadow: p => HAT_CONTACT(p, 5.4, 25, 3.4) };
+
+export const hatCowboy: GfBotHat = { label:'Cowboy', layered:true, up:18, k:.12, sway:.8, lift:.9, tip:1, maxTh:10,
     back: () => `<path d="M-58 -2 Q0 -14 58 -2" style="stroke:var(--bot-shadow)" stroke-width="2.4" fill="none"/>`,
     front: p => HAT_MAT(p, 'vb', 'M-60 -4 C-62 -14 -50 -14 -40 -7 Q0 3 40 -7 C50 -14 62 -14 60 -4 C56 9 22 12 0 12 C-22 12 -56 9 -60 -4 Z', { g:[-60, -14, 60, 12],
         blobs:[[-38, -2, 16, 6, 'tertiary', .5], [36, 2, 18, 6, 'secondary', .55], [0, 4, 28, 4, 'highlight', .35]], shade:'M-54 3 C-40 10 40 10 54 3' }) +
@@ -267,8 +276,9 @@ export const HATS = {
       // acento: la banda de cuero
       `<path d="M-27 -9 Q0 -3 27 -9 L27.3 -3.5 Q0 2.5 -27.3 -3.5 Z" fill="#6E4636"/><path d="M-24 -7.4 Q0 -2 24 -7.4" stroke="#9A6A55" stroke-width="1" fill="none"/>` + HAT_ACC.gold(p),
     deco: p => `<rect x="-3.6" y="-7.4" width="7.2" height="5.6" rx="1.4" fill="url(#${p}-hgS)" stroke="#D7A233" stroke-width="1"/>` + HAT_ACC.gold(p), frontZ:30,
-    shadow: p => HAT_CONTACT(p, 12.4, 40, 4.4) },
-  pirate: { label:'Pirate', layered:true, up:20, k:.12, sway:.8, lift:.9, tip:1, maxTh:10,
+    shadow: p => HAT_CONTACT(p, 12.4, 40, 4.4) };
+
+export const hatPirate: GfBotHat = { label:'Pirate', layered:true, up:20, k:.12, sway:.8, lift:.9, tip:1, maxTh:10,
     back: () => `<path d="M-50 -8 Q0 -30 50 -8" style="stroke:var(--bot-shadow)" stroke-width="3" fill="none"/>`,
     front: p => HAT_ACC.gold(p) + HAT_MAT(p, 'rb', 'M-50 -8 Q-32 -6 -27 -30 Q0 -44 27 -30 Q32 -6 50 -8 Q30 9 0 11 Q-30 9 -50 -8 Z', { g:[-50, -40, 50, 10],
         blobs:[[-26, -16, 14, 8, 'tertiary', .5], [24, -10, 14, 8, 'secondary', .55], [0, -34, 18, 4, 'highlight', .45]], hi:'M-22 -30 Q-8 -38 6 -37', shade:'M40 -6 Q20 8 -10 8' }) +
@@ -276,23 +286,26 @@ export const HATS = {
       `<path d="M-50 -8 Q-30 9 0 11 Q30 9 50 -8" stroke="url(#${p}-hgB)" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,
     deco: () => `<path d="M-10 -8 L10 -24 M10 -8 L-10 -24" stroke="#F7F5FC" stroke-width="2.6" stroke-linecap="round"/><circle cy="-18" r="6.4" fill="#F7F5FC"/><rect x="-3.4" y="-14" width="6.8" height="4.2" rx="1.4" fill="#F7F5FC"/>` +
       `<circle cx="-2.4" cy="-18.6" r="1.6" fill="#2A2350"/><circle cx="2.4" cy="-18.6" r="1.6" fill="#2A2350"/>`, frontZ:32,
-    shadow: p => HAT_CONTACT(p, 10.6, 40, 4.4) },
-  headphones: { bodyFit:true, label:'Headphones', layered:true, up:0, k:.25, sway:.15, lift:.35, tip:1,
+    shadow: p => HAT_CONTACT(p, 10.6, 40, 4.4) };
+
+export const hatHeadphones: GfBotHat = { bodyFit:true, label:'Headphones', layered:true, up:0, k:.25, sway:.15, lift:.35, tip:1,
     back: () => '',
     front: p => HAT_MAT(p, 'ab', 'M-69.5 36 C-71.5 -1 -42 -11.5 0 -11.5 C42 -11.5 71.5 -1 69.5 36 L62.5 36 C64.5 3 38 -4.5 0 -4.5 C-38 -4.5 -64.5 3 -62.5 36 Z', { g:[-70, -12, 70, 36],
         blobs:[[-40, -6, 18, 5, 'tertiary', .5], [40, -6, 18, 5, 'secondary', .55], [0, -9, 24, 2.4, 'highlight', .6]] }) +
       [-1, 1].map(s => HAT_MAT(p, s < 0 ? 'al' : 'ar', s < 0 ? 'M-71 24 H-69 Q-61 24 -61 32 V50 Q-61 58 -69 58 H-71 Q-79 58 -79 50 V32 Q-79 24 -71 24 Z' : 'M69 24 H71 Q79 24 79 32 V50 Q79 58 71 58 H69 Q61 58 61 50 V32 Q61 24 69 24 Z',
           { g:[s * 61, 24, s * 79, 58], blobs:[[s * 70, 32, 6, 8, 'tertiary', .45], [s * 70, 50, 6, 8, 'secondary', .5]], hi:`M${s * 74} 29 V38` }) +
         `<rect x="${s < 0 ? -63.5 : 57.5}" y="28" width="6" height="26" rx="3" fill="#F2F0FB"/><circle class="hled" cx="${s * 70}" cy="46" r="2.4" fill="#55DDF2"/>`).join(''),
-    shadow: p => HAT_CONTACT(p, -1.6, 30, 2.6) + `<ellipse cx="-58" cy="42" rx="4" ry="12" fill="rgb(55,48,120)" opacity=".16" filter="url(#${p}-mblur2)"/><ellipse cx="58" cy="42" rx="4" ry="12" fill="rgb(55,48,120)" opacity=".16" filter="url(#${p}-mblur2)"/>` },
-  visor: { bodyFit:true, label:'Gamer visor', layered:true, up:0, k:.25, sway:.1, lift:.3, tip:1,
+    shadow: p => HAT_CONTACT(p, -1.6, 30, 2.6) + `<ellipse cx="-58" cy="42" rx="4" ry="12" fill="rgb(55,48,120)" opacity=".16" filter="url(#${p}-mblur2)"/><ellipse cx="58" cy="42" rx="4" ry="12" fill="rgb(55,48,120)" opacity=".16" filter="url(#${p}-mblur2)"/>` };
+
+export const hatVisor: GfBotHat = { bodyFit:true, label:'Gamer visor', layered:true, up:0, k:.25, sway:.1, lift:.3, tip:1,
     back: () => '', front: () => '',
     deco: p => `<g transform="translate(0 3)">` + HAT_MAT(p, 'vs', 'M-54 22 C-42 4 42 4 54 22 L52 33 C40 17 -40 17 -52 33 Z', { g:[-54, 6, 54, 33],
         blobs:[[-30, 18, 14, 4, 'tertiary', .5], [30, 18, 14, 4, 'secondary', .55], [0, 11, 22, 2.4, 'highlight', .5]] }) +
       `<linearGradient id="${p}-hvg" gradientUnits="userSpaceOnUse" x1="-50" y1="0" x2="50" y2="0"><stop offset="0" stop-color="#FF65AE"/><stop offset=".5" stop-color="#9273EE"/><stop offset="1" stop-color="#55DDF2"/></linearGradient>` +
       `<path class="hled2" d="M-49 26.5 C-37 11.5 37 11.5 49 26.5" stroke="url(#${p}-hvg)" stroke-width="3.2" fill="none" stroke-linecap="round"/></g>`, frontZ:40, minW:.5,
-    shadow: p => `<path d="M-52 38 C-40 22 40 22 52 38" stroke="rgb(55,48,120)" stroke-width="6" opacity=".14" fill="none" filter="url(#${p}-hcs)"/><path d="M-50 37.4 C-38 22.4 38 22.4 50 37.4" stroke="rgb(55,48,120)" stroke-width="2.4" opacity=".16" fill="none" filter="url(#${p}-mblur)"/>` },
-  astronaut: { bodyFit:true, label:'Astronaut', layered:true, up:10, k:.3, sway:0, lift:.2, tip:1,
+    shadow: p => `<path d="M-52 38 C-40 22 40 22 52 38" stroke="rgb(55,48,120)" stroke-width="6" opacity=".14" fill="none" filter="url(#${p}-hcs)"/><path d="M-50 37.4 C-38 22.4 38 22.4 50 37.4" stroke="rgb(55,48,120)" stroke-width="2.4" opacity=".16" fill="none" filter="url(#${p}-mblur)"/>` };
+
+export const hatAstronaut: GfBotHat = { bodyFit:true, label:'Astronaut', layered:true, up:10, k:.3, sway:0, lift:.2, tip:1,
     // HAT_BACK: la mitad de atrás del casco (el vidrio del fondo, teñido del color del bot)
     back: () => `<circle cy="52" r="80" style="fill:var(--bot-secondary)" opacity=".1"/><circle cy="52" r="78" fill="none" style="stroke:var(--bot-shadow)" stroke-width="2" opacity=".35"/>`,
     front: p => `<radialGradient id="${p}-hag" cx=".38" cy=".3" r=".75"><stop offset="0" style="stop-color:var(--bot-highlight)" stop-opacity=".24"/><stop offset=".7" style="stop-color:var(--bot-primary)" stop-opacity=".05"/><stop offset="1" style="stop-color:var(--bot-secondary)" stop-opacity=".22"/></radialGradient>` +
@@ -301,15 +314,35 @@ export const HATS = {
       `<path d="M60 84 A70 70 0 0 1 44 108" stroke="#fff" stroke-width="3" opacity=".35" fill="none" stroke-linecap="round"/>` +
       HAT_MAT(p, 'xc', 'M-60 102 Q0 118 60 102 L62 116 Q0 134 -62 116 Z', { g:[-62, 100, 62, 128], blobs:[[-30, 112, 18, 5, 'tertiary', .5], [30, 114, 18, 5, 'secondary', .55], [0, 108, 30, 3, 'highlight', .6]] }) +
       `<circle class="hled" cx="38" cy="113" r="3" fill="#55DDF2"/><circle class="hled" cx="-38" cy="113" r="3" fill="#FF65AE"/>`,
-    shadow: p => HAT_CONTACT(p, 99, 54, 4) },
-  antenna: { label:'Antenna', layered:true, up:11, k:.07, sway:1, lift:1.1, tip:2.4, maxTh:14,
+    shadow: p => HAT_CONTACT(p, 99, 54, 4) };
+
+export const hatAntenna: GfBotHat = { label:'Antenna', layered:true, up:11, k:.07, sway:1, lift:1.1, tip:2.4, maxTh:14,
     back: () => '',
     front: p => `<radialGradient id="${p}-han" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#E6FDFF"/><stop offset="1" stop-color="#4FD6F2"/></radialGradient>` +
       tipG(0, 1, `<path d="M0 0 Q-1.4 -12 0 -24" style="stroke:var(--bot-shadow)" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M-.6 -2 Q-1.8 -12 -.6 -22" style="stroke:var(--bot-highlight)" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".7"/>` +
         `<circle class="hled" cy="-29" r="6.2" fill="url(#${p}-han)" style="filter:drop-shadow(0 0 3px rgba(79,214,242,.8))"/><circle cx="-2" cy="-31" r="1.6" fill="#fff" opacity=".85"/>`) +
       HAT_MAT(p, 'nb', 'M-9 1.4 A9 3.6 0 1 0 9 1.4 A9 3.6 0 1 0 -9 1.4 Z', { g:[-9, -2, 9, 5], blobs:[[-3, 0, 5, 2, 'highlight', .6]] }),
-    shadow: p => HAT_CONTACT(p, 4, 10, 2.4) }
+    shadow: p => HAT_CONTACT(p, 4, 10, 2.4) };
 
+
+/** Los 16 sombreros del catálogo. Cada uno también se exporta suelto (`hatWizard`…): con `createHatsExtra({ hatWizard })` solo pagas el que usas. */
+export const HATS = {
+  wizard: hatWizard,
+  party: hatParty,
+  santa: hatSanta,
+  cap: hatCap,
+  beanie: hatBeanie,
+  topHat: hatTopHat,
+  beret: hatBeret,
+  crown: hatCrown,
+  birthday: hatBirthday,
+  chef: hatChef,
+  cowboy: hatCowboy,
+  pirate: hatPirate,
+  headphones: hatHeadphones,
+  visor: hatVisor,
+  astronaut: hatAstronaut,
+  antenna: hatAntenna,
 } as const satisfies Record<string, GfBotHat>;
 // ---------- Caras kawaii: 30 expresiones nuevas (hoja de referencia) ----------
 // Cada una = ojo izquierdo + ojo derecho + boca (+ cachetes). Se dibujan en una capa aparte sobre la cara (siguen el giro

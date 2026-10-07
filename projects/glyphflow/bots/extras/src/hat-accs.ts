@@ -1,5 +1,5 @@
 import { gfBotKit as kit, type GfBotShape } from 'glyphflow/bots';
-import { HATS, type GfBotHat, type GfBotHatId, type GfBotHeadMetrics } from './hats-data';
+import type { GfBotHat, GfBotHeadMetrics } from './hats-data';
 
 type GfBotShapeAccessory = NonNullable<GfBotShape['acc']>[number];
 
@@ -8,10 +8,10 @@ type GfBotShapeAccessory = NonNullable<GfBotShape['acc']>[number];
  * que el sombrero siga la pose (gire, se ladee, salte). Audífonos, visera y casco se ajustan al
  * CUERPO, no a la coronilla.
  */
-export function hatAccs(key: GfBotHatId, sh: GfBotShape): GfBotShapeAccessory[] {
+export function hatAccs(hats: Readonly<Record<string, GfBotHat>>, key: string, sh: GfBotShape): GfBotShapeAccessory[] {
   // Divergencia deliberada del prototipo: una forma sin `hatAt` ni `bodyFit` (el cubo retirado)
   // daba `NaN` en la posición del sombrero. Aquí cae a 0 en vez de propagar `NaN` al transform.
-  const H: GfBotHat = HATS[key], fit = H.bodyFit && sh.bodyFit;   // audífonos, visera y casco se ajustan al CUERPO, no a la coronilla
+  const H: GfBotHat = hats[key], fit = H.bodyFit && sh.bodyFit;   // audífonos, visera y casco se ajustan al CUERPO, no a la coronilla
   const at = (fit ? sh.bodyFit!.y - sh.cy : sh.hatAt) ?? 0, k = fit ? sh.bodyFit!.k : (sh.hatK ?? 1), hx = fit ? 0 : (sh.hatX ?? 0);   // hatK: tamaño según el ancho de la cabeza
   const wrap = (inner: string) => (x: number, y: number) => `<g transform="translate(${kit.internal.f2(x)} ${kit.internal.f2(y)})${k !== 1 ? ` scale(${k})` : ''}"><g class="hatDyn">${inner}</g></g>`;
   const hd: GfBotHeadMetrics = sh.head || { w:94, ry:9 };

@@ -1,14 +1,19 @@
 import { gfBotKit as kit, type GfBotInternalContext as BotContext } from 'glyphflow/bots';
-import { HATS, type GfBotHat } from './hats-data';
+import type { GfBotHat } from './hats-data';
 import { hatShadowSync } from './hat-shadow';
 
   export function hatKick(ctx: BotContext, up = 2.6, side = (Math.random() < .5 ? -1 : 1) * 2.4) { ctx.hatPhys.voy -= up; ctx.hatPhys.vth += side; }
 
-  export function hatBind(ctx: BotContext): void {
+/**
+ * La física y el montaje de los sombreros de un catálogo. Va en una fábrica porque el catálogo es un dato que pasa el usuario (`createHatsExtra`):
+ * `hatBind` y `hatStep` lo leen por clausura en vez de importar uno fijo.
+ */
+  export function createHatPhysics(hats: Readonly<Record<string, GfBotHat>>): { hatBind: (ctx: BotContext) => void; hatStep: (ctx: BotContext, now: number) => void } {
+  function hatBind(ctx: BotContext): void {
     cancelAnimationFrame(ctx.hatRaf); ctx.hatRaf = 0;
     const sk = ctx.shape;
     const key = ctx.hatKey && sk.hatAt !== undefined ? ctx.hatKey : null;   // sin `hatAt` la forma no lleva sombrero
-    const H0: GfBotHat | null = key ? HATS[key] : null;
+    const H0: GfBotHat | null = key ? hats[key] : null;
     ctx.svg.dataset['hat'] = key ?? (ctx.accX || '');
     ctx.el.fx.style.translate = H0?.up ? `0px ${kit.internal.f2(-H0.up * (sk.hatK ?? 1))}px` : '';
     ctx.el.hatShadow.innerHTML = H0?.shadow ? H0.shadow(ctx.id, sk.head || { w:94, ry:9 }) : '';
@@ -25,7 +30,7 @@ import { hatShadowSync } from './hat-shadow';
     if (ctx.hatEls?.anchor && !ctx.reduce) ctx.hatRaf = requestAnimationFrame((now) => hatStep(ctx, now));
   }
 
-  export function hatStep(ctx: BotContext, now: number): void {
+  function hatStep(ctx: BotContext, now: number): void {
     ctx.hatRaf = requestAnimationFrame((t) => hatStep(ctx, t));
     const anchor = ctx.hatEls?.anchor;
     const key = ctx.hatKey;
@@ -41,7 +46,7 @@ import { hatShadowSync } from './hat-shadow';
     const vx = (x - px) / dt, vy = (y - ctx.hatPhys.py) / dt, va = da / dt;
     const acx = Math.max(-6, Math.min(6, (vx - ctx.hatPhys.pvx) / dt)), acy = Math.max(-6, Math.min(6, (vy - ctx.hatPhys.pvy) / dt)), aca = Math.max(-40, Math.min(40, (va - ctx.hatPhys.pva) / dt));
     Object.assign(ctx.hatPhys, { px:x, py:y, pa:ang, pvx:vx, pvy:vy, pva:va });
-    const H: GfBotHat = HATS[key], k = H.k ?? .1, c = Math.pow(.8, dt), target = ctx.state === 'sleeping' ? (H.sleep ?? 7) : 0;
+    const H: GfBotHat = hats[key], k = H.k ?? .1, c = Math.pow(.8, dt), target = ctx.state === 'sleeping' ? (H.sleep ?? 7) : 0;
     ctx.hatPhys.vth = (ctx.hatPhys.vth + (-(ctx.hatPhys.th - target) * k - acx * 3.4 * (H.sway ?? 1) - aca * .3 * (H.sway ?? 1) + acy * .5 * (H.sway ?? 1) * ctx.hatPhys.side) * dt) * c;   // al caer se ladea hacia un lado
     ctx.hatPhys.th = Math.max(-60, Math.min(60, ctx.hatPhys.th + ctx.hatPhys.vth * dt));
     const mT = H.maxTh ?? 24, thD = mT * Math.tanh(ctx.hatPhys.th / mT);   // tope suave: se ladea mucho pero nunca «voltea» de golpe
@@ -55,4 +60,6 @@ import { hatShadowSync } from './hat-shadow';
     const tip = H.tipMode === 'skew' ? `skewX(${kit.internal.f2(-tv)}deg)` : `rotate(${kit.internal.f2(tv)}deg)`;   // skew: la copa se dobla desde la banda, sin costuras
     ctx.hatEls.tips.forEach(g => g.style.transform = tip);
     hatShadowSync(ctx);
+  }
+    return { hatBind, hatStep };
   }

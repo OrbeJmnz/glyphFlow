@@ -9,9 +9,10 @@
  * una ruta relativa duplicaría el motor aquí (regla 6 de CLAUDE.md).
  */
 import type { GfBotToysExtra } from 'glyphflow/bots';
-export { hatsExtra } from './hats';
+export { createHatsExtra, defineHat, hatsExtra } from './hats';
+export type { GfBotHatInput } from './hats';
 export { routinesExtra } from './routines';
-export { HATS } from './hats-data';
+export { HATS, hatWizard, hatParty, hatSanta, hatCap, hatBeanie, hatTopHat, hatBeret, hatCrown, hatBirthday, hatChef, hatCowboy, hatPirate, hatHeadphones, hatVisor, hatAstronaut, hatAntenna } from './hats-data';
 export type { GfBotHat, GfBotHatId, GfBotHeadMetrics } from './hats-data';
 import { toy } from './toys';
 

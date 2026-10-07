@@ -20,6 +20,15 @@ export const PALETTES = {
 
 export type GfBotPaletteId = keyof typeof PALETTES;
 
+/**
+ * Una paleta propia: `[luz, medio, sombra]` (colores CSS), o con el color del contorno (`rim`, por defecto la luz). Se pasa en `palette`:
+ * `palette: ['#FFD6E8', '#FF4F9A', '#7A1049']`.
+ */
+export type GfBotCustomPalette = readonly [string, string, string] | { readonly colors: readonly [string, string, string]; readonly rim?: string };
+
+/** Lo que acepta `palette`: una paleta de serie, `auto` (la de la forma) o una propia. */
+export type GfBotPaletteInput = GfBotPaletteId | 'auto' | GfBotCustomPalette;
+
 /** Luz de contorno (rim) de cada paleta: el color del bot, muy sutil, por detrás. */
 export const RIM: Readonly<Record<GfBotPaletteId, string>> = { lavender:'#B79CFF', caramel:'#FFB36B', steel:'#7FE9FF', coral:'#FFB199', sky:'#8CC4FF', mint:'#8CF2C8', aqua:'#8FF3FF', mist:'#E6E2FF', tangerine:'#FFC089', amber:'#FFD27A' };
 
@@ -33,3 +42,17 @@ export const MATERIALS: Readonly<Record<"plastic" | "metal" | "chrome" | "gold",
   chrome: () => ['#DDE3EC', '#FFFFFF', '#8E97A6', '#262A34', '#6E7684', '#C9D0DC'],
   gold:   () => ['#FFE59A', '#FFFBEA', '#D59A1A', '#5A3600', '#A66E14', '#FFD46A']
 };
+
+const esColor = (c: unknown): c is string => typeof c === 'string' && c.trim() !== '';
+
+/** Resuelve la paleta pedida a sus tres tonos y su contorno. Una propia mal formada es un error de quien la define (como una forma sin contorno). */
+export function resolvePalette(key: GfBotPaletteInput, deLaForma: GfBotPaletteId): { colors: readonly [string, string, string]; rim: string } {
+  if (key === 'auto') key = deLaForma;
+  if (typeof key === 'string') return { colors: PALETTES[key], rim: RIM[key] || PALETTES[key][0] };
+  const colors = Array.isArray(key) ? (key as readonly string[]) : (key as { colors: readonly string[] }).colors;
+  if (!Array.isArray(colors) || colors.length !== 3 || !colors.every(esColor)) {
+    throw new Error('glyphflow/bots: una paleta propia es [luz, medio, sombra], tres colores CSS no vacíos');
+  }
+  const rim = Array.isArray(key) ? undefined : (key as { rim?: string }).rim;
+  return { colors: colors as unknown as readonly [string, string, string], rim: esColor(rim) ? rim : colors[0] };
+}

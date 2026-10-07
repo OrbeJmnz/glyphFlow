@@ -27,9 +27,9 @@ export type { GfBotView } from './data/views';
 export type { GfBotShape, GfBotHeadMetrics } from './data/shape';
 export type { GfBotAccXId, GfBotFxId } from './data/fx';
 export type { GfBotFaceId } from './data/faces';
-export type { GfBotHatId } from './data/hat-ids';
+export type { GfBotHatId, GfBotHatName } from './data/hat-ids';
 export type { GfKawaiiId } from './data/kawaii';
-export type { GfBotPaletteId } from './data/palettes';
+export type { GfBotCustomPalette, GfBotPaletteId, GfBotPaletteInput } from './data/palettes';
 export type { GfBotSleepRoutine, GfBotWorkRoutine } from './data/routines';
 
 // Formas. Cada una es un objeto suelto (como los iconos del primario): quien usa `catShape` no carga

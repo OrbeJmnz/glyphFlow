@@ -2,7 +2,6 @@ import { FACES, MOCHI_VARS, type GfBotFaceId } from '../data/faces';
 import { ACCX, FX_VARS, type GfBotAccXId, type GfBotFxId } from '../data/fx';
 import { GHOST_VARS } from '../data/ghost';
 import { CAT_VARS } from '../data/cat';
-import type { GfBotHatId } from '../data/hat-ids';
 import { OCTOPUS_VARS } from '../data/octopus';
 import type { GfBotShape } from '../data/shape';
 import { applyFx, buildShape } from './build';
@@ -50,7 +49,7 @@ export function setMochi(ctx: BotContext, v: string): void {
 
 /** Sombrero o accesorio extra (`halo`, `glasses`…); `null` o desconocido, ninguno. */
 export function setHat(ctx: BotContext, k: string | null): void {
-  ctx.hatKey = k && ctx.hats?.has(k) ? (k as GfBotHatId) : null;
+  ctx.hatKey = k && ctx.hats?.has(k) ? k : null;
   ctx.accX = k && Object.hasOwn(ACCX, k) ? (k as GfBotAccXId) : null;
   setShape(ctx, ctx.shape);
 }

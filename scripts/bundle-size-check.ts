@@ -205,6 +205,18 @@ const CASES = [
     optimizadorAngular: true,
   },
   {
+    name: 'bots + createBot + catShape + UN sombrero suelto (createHatsExtra({ wizard: hatWizard }))',
+    // Cada sombrero del catálogo se exporta suelto (`hatWizard`…) para que quien usa uno, o los suyos propios, no pague los 16. Este caso fija esa promesa: si
+    // el catálogo vuelve a ser un solo objeto que se arrastra entero, esto se acerca al caso de «TODOS los extras» y falla.
+    filaReadme: null as string | null,
+    aliasBots: true,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { createHatsExtra, hatWizard } from '${FESM_EXTRAS.replace(/\\/g, '/')}'; console.log(createBot, catShape, createHatsExtra({ wizard: hatWizard }));`,
+    // Medido 2026-10-07: la maquinaria de sombreros (física, accesorios, sombra) cuesta ~7.4KB y es fija, sea un sombrero propio o de serie; cada sombrero
+    // suelto suma poco (el mago, ~1.4KB) y los otros 15 suman ~5.4KB que NO se pagan. Verificado también por contenido: con `hatWizard` solo entra «Wizard».
+    maxGzipBytes: 66.5 * 1024,
+    optimizadorAngular: true,
+  },
+  {
     name: 'glyphflow/bots/ai — bindAgent + los dos adaptadores (Vercel AI SDK y Anthropic)',
     // Los adaptadores NO importan el motor (solo tipos) ni ningún SDK: son funciones puras sobre eventos. Deben pesar casi nada y,
     // sobre todo, no arrastrar nada: quien los usa ya paga el motor aparte.

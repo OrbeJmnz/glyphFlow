@@ -16,8 +16,8 @@ import type { GfBotState } from '../bot-state';
 import type { GfBotShape } from '../data/shape';
 import type { GfBotFaceId } from '../data/faces';
 import type { GfBotAccXId, GfBotFxId } from '../data/fx';
-import type { GfBotHatId } from '../data/hat-ids';
-import type { GfBotPaletteId } from '../data/palettes';
+import type { GfBotHatName } from '../data/hat-ids';
+import type { GfBotPaletteInput } from '../data/palettes';
 import type { GfBotExtras, GfBotGesturePack, GfBotMaterialId, GfBotMouthKind, GfBotOptions } from '../engine/context';
 import type { GfBotView } from '../data/views';
 import { createBot, type GfBotApi } from '../engine/create-bot';
@@ -79,7 +79,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   @Input() state: GfBotState = 'idle';
 
   /** Paleta del cuerpo; `auto` = la de la forma. */
-  @Input() palette: GfBotPaletteId | 'auto' = 'auto';
+  @Input() palette: GfBotPaletteInput = 'auto';
 
   /** Material del cuerpo (`plastic`, `metal`, `chrome`, `gold`); `auto` = el de la forma. */
   @Input() material: GfBotMaterialId | 'auto' = 'auto';
@@ -94,7 +94,7 @@ export class GfBotComponent implements OnChanges, OnDestroy {
   @Input() fx: GfBotFxId | null = null;
 
   /** Sombrero o accesorio. */
-  @Input() hat: GfBotHatId | GfBotAccXId | null = null;
+  @Input() hat: GfBotHatName | GfBotAccXId | null = null;
 
   /** Boca de reposo elegida a mano; `auto` = la de la forma. */
   @Input() mouth: GfBotMouthKind | 'auto' = 'auto';

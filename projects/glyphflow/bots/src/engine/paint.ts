@@ -1,4 +1,4 @@
-import { MATERIALS, PALETTES, RIM, type GfBotPaletteId } from '../data/palettes';
+import { MATERIALS, resolvePalette, type GfBotPaletteId, type GfBotPaletteInput } from '../data/palettes';
 import type { BotContext, GfBotMaterialId } from './context';
 
 /**
@@ -6,17 +6,15 @@ import type { BotContext, GfBotMaterialId } from './context';
  * borde; el material (metal, cromo, oro) los reemplaza por seis paradas de un degradado metálico.
  */
 
-const paletteOf = (ctx: BotContext): readonly [string, string, string] =>
-  PALETTES[ctx.paletteKey === 'auto' ? (ctx.shape.palette as GfBotPaletteId) : ctx.paletteKey];
+const paletteOf = (ctx: BotContext): readonly [string, string, string] => resolvePalette(ctx.paletteKey, ctx.shape.palette as GfBotPaletteId).colors;
 
-export function setPalette(ctx: BotContext, key: GfBotPaletteId | 'auto'): void {
+export function setPalette(ctx: BotContext, key: GfBotPaletteInput): void {
+  const { colors: [a, b, c], rim } = resolvePalette(key, ctx.shape.palette as GfBotPaletteId);
   ctx.paletteKey = key;
-  const pk = key === 'auto' ? (ctx.shape.palette as GfBotPaletteId) : key;
-  const [a, b, c] = PALETTES[pk];
   ctx.svg.style.setProperty('--c1', a);
   ctx.svg.style.setProperty('--c2', b);
   ctx.svg.style.setProperty('--c3', c);
-  ctx.svg.style.setProperty('--rim', RIM[pk] || a);
+  ctx.svg.style.setProperty('--rim', rim);
   applyMaterial(ctx);
 }
 

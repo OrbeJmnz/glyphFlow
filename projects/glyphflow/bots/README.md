@@ -7,7 +7,7 @@ Cinco entry points, cada uno paga solo lo que se importa:
 
 | Entry | Qué trae | Peso (gzip, medido por `npm run bundle-check`) |
 | --- | --- | --- |
-| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 49 KB · con una forma 56.7 KB · con `<gf-bot>` 64.9 KB |
+| `glyphflow/bots` | el motor, el componente, las formas, `gfBotKit` | motor 49 KB · con una forma 57 KB · con `<gf-bot>` 65 KB |
 | `glyphflow/bots/extras` | los 16 sombreros con su física, los juguetes (`star`, `ball`, `cookie`) y las rutinas de `working`/`sleeping` | opt-in: con todo, motor y una forma suman ~83 KB |
 | `glyphflow/bots/gestures` | los 20 gestos físicos y el modo IA | +1.7 KB el primero que se use (cada gesto es un objeto suelto) |
 | `glyphflow/bots/ai` | `bindAgent` y los adaptadores del Vercel AI SDK y de Anthropic | 0.64 KB; sin dependencias (lee los eventos de forma estructural) |
@@ -50,6 +50,38 @@ rotación de rutinas, ni `setRoutine()`, ni `onRoutine`. **El modo IA no lo nece
 `loading`, con sus variantes) viven en el motor, así que `bot.agent()` se ve completo sin extras. Se leen al crear el bot: no cambian después.
 Quien pide **todo** paga unos 6 KB más que antes de separarlos, porque el entry no comparte diccionario de compresión con el motor; el resto
 paga 20.6 KB menos.
+
+### Sombreros y paletas propios
+
+**Paleta propia:** `palette` acepta, además de las de serie, tres colores CSS `[luz, medio, sombra]` (o `{ colors, rim }` para fijar el color del contorno;
+por defecto es la luz). Una mal formada falla al crear el bot con un mensaje claro.
+
+```ts
+createBot(host, { shape: catShape, palette: ['#FFD6E8', '#FF4F9A', '#7A1049'] });
+bot.setPalette({ colors: ['#111', '#222', '#333'], rim: '#0FF' });   // o <gf-bot [palette]="...">
+```
+
+**Sombrero propio:** se define en un marco local donde (0,0) es la coronilla y hacia arriba es `y` negativo, con `draw` (una capa) o con `back` y `front`
+(detrás y delante del cuerpo, `layered: true`). La física (rigidez, vaivén, tope de inclinación) tiene valores por defecto sensatos; un sombrero sin
+dibujo falla al definirlo.
+
+```ts
+import { createHatsExtra, defineHat, hatCrown, HATS } from 'glyphflow/bots/extras';
+
+const miGorro = defineHat({
+  label: 'Mi gorro',
+  draw: (p) => `<rect class="${p}-gorro" x="-12" y="-14" width="24" height="14" rx="4" fill="#E0457B"/>`,
+  // k, sway, lift, tip, maxTh… opcionales (física)
+});
+
+createBot(host, { shape: catShape, hat: 'miGorro', extras: { hats: createHatsExtra({ miGorro }) } });          // solo el tuyo
+createBot(host, { shape: catShape, hat: 'crown', extras: { hats: createHatsExtra({ crown: hatCrown, miGorro }) } });  // la corona de serie + el tuyo
+createBot(host, { shape: catShape, hat: 'miGorro', extras: { hats: createHatsExtra({ ...HATS, miGorro }) } });  // los 16 + el tuyo
+```
+
+Cada sombrero de serie se exporta suelto (`hatWizard`, `hatCrown`…), así que pagas solo los que pasas: el mago suma ~1.4 KB y los otros 15 no
+entran. Lo que sí es costo fijo (~7.4 KB) es la maquinaria de sombreros (física, accesorios, sombra), uses uno propio o uno de serie. El nombre con que
+pasas cada sombrero es su id (`hat="miGorro"`); un nombre que no esté en el catálogo se ignora.
 
 ### Escribir un gesto propio
 

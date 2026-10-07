@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { GfBotHatId } from 'glyphflow/bots';
 import { assembleBot } from '../../src/engine/create-bot';
 import { mochiShape } from '../../src/shapes/mochi';
-import { hatsExtra, HATS, routinesExtra, toysExtra } from './public-api';
+import { createHatsExtra, defineHat, hatsExtra, HATS, hatWizard, routinesExtra, toysExtra } from './public-api';
 
 /** Los extras son opt-in: sin ellos el motor no sabe de sombreros ni de juguetes, y con ellos funcionan igual que antes. */
 describe('glyphflow/bots/extras', () => {
@@ -111,6 +111,60 @@ describe('glyphflow/bots/extras', () => {
     api.agent('tool');
     api.agent('loading');
     expect(etiquetas.map((l) => l.split(' · ')[0])).toEqual(['thinking', 'analyzing', 'loading']);
+    api.destroy();
+  });
+
+  describe('sombreros propios', () => {
+    const miGorro = defineHat({ label: 'Mi gorro', draw: (p) => `<rect class="${p}-migorro" x="-12" y="-14" width="24" height="14" rx="4" fill="#E0457B"/>` });
+
+    it('defineHat rellena la física y exige un dibujo', () => {
+      expect(miGorro).toMatchObject({ label: 'Mi gorro', up: 0, k: 0.12, sway: 0.8, lift: 0.9, tip: 1 });
+      expect(defineHat({ label: 'X', draw: () => '', k: 0.3 }).k).toBe(0.3);
+      expect(() => defineHat({ label: 'Roto' } as never)).toThrow(/Roto.*draw/);
+    });
+
+    it('un catálogo propio pone su sombrero y deja las clases que el CSS y la física leen', () => {
+      const { ctx, api } = assembleBot(host, { shape: mochiShape, hat: 'miGorro', extras: { hats: createHatsExtra({ miGorro }) } });
+      expect(ctx.hatKey).toBe('miGorro');
+      expect(ctx.svg.dataset['hat']).toBe('miGorro');
+      expect(ctx.svg.querySelectorAll('.hatAcc').length).toBeGreaterThan(0);
+      expect(ctx.svg.innerHTML).toContain('migorro');
+      api.destroy();
+    });
+
+    it('solo existen los sombreros del catálogo que se pasó: los de serie no se cuelan', () => {
+      const { ctx, api } = assembleBot(host, { shape: mochiShape, extras: { hats: createHatsExtra({ miGorro }) } });
+      api.setHat('wizard');
+      expect(ctx.hatKey).toBeNull();
+      api.setHat('miGorro');
+      expect(ctx.hatKey).toBe('miGorro');
+      api.destroy();
+    });
+
+    it('se pueden mezclar los de serie con los propios, y uno de serie suelto funciona sin traer los demás', () => {
+      const mezcla = assembleBot(host, { shape: mochiShape, hat: 'crown', extras: { hats: createHatsExtra({ ...HATS, miGorro }) } });
+      expect(mezcla.ctx.hatKey).toBe('crown');
+      mezcla.api.setHat('miGorro');
+      expect(mezcla.ctx.hatKey).toBe('miGorro');
+      mezcla.api.destroy();
+      const suelto = assembleBot(host, { shape: mochiShape, hat: 'wizard', extras: { hats: createHatsExtra({ wizard: hatWizard }) } });
+      expect(suelto.ctx.hatKey).toBe('wizard');
+      expect(suelto.ctx.svg.querySelectorAll('.hatAcc').length).toBeGreaterThan(0);
+      suelto.api.destroy();
+    });
+  });
+
+  it('una paleta propia pinta los tres tonos y el contorno; una mala falla al crear el bot', () => {
+    const { ctx, api } = assembleBot(host, { shape: mochiShape, palette: { colors: ['#FFD6E8', '#FF4F9A', '#7A1049'], rim: '#00FFFF' } });
+    expect(ctx.svg.style.getPropertyValue('--c1')).toBe('#FFD6E8');
+    expect(ctx.svg.style.getPropertyValue('--c2')).toBe('#FF4F9A');
+    expect(ctx.svg.style.getPropertyValue('--c3')).toBe('#7A1049');
+    expect(ctx.svg.style.getPropertyValue('--rim')).toBe('#00FFFF');
+    api.setPalette(['#111111', '#222222', '#333333']);
+    expect(ctx.svg.style.getPropertyValue('--c2')).toBe('#222222');
+    expect(ctx.svg.style.getPropertyValue('--rim')).toBe('#111111');
+    expect(() => api.setPalette(['#111', '#222'] as never)).toThrow(/paleta propia/);
+    expect(ctx.svg.style.getPropertyValue('--c2')).toBe('#222222'); // la mala no tocó nada
     api.destroy();
   });
 });

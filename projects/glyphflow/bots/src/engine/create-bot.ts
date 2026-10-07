@@ -1,9 +1,9 @@
 import type { GfBotState } from '../bot-state';
 import type { GfBotFaceId } from '../data/faces';
 import type { GfBotAccXId, GfBotFxId } from '../data/fx';
-import type { GfBotHatId } from '../data/hat-ids';
+import type { GfBotHatName } from '../data/hat-ids';
 import type { GfKawaiiId } from '../data/kawaii';
-import type { GfBotPaletteId } from '../data/palettes';
+import type { GfBotPaletteInput } from '../data/palettes';
 import type { GfBotSleepRoutine, GfBotWorkRoutine } from '../data/routines';
 import type { GfBotShape } from '../data/shape';
 import { agent, token, type GfBotAgentEvent } from './agent';
@@ -92,14 +92,14 @@ export interface GfBotControls {
   /** Lo acaban de tocar (<1.5 s): para no rechazar un gesto por un toque sin querer. */
   readonly justTouched: boolean;
   setShape(shape: GfBotShape): void;
-  setPalette(key: GfBotPaletteId | 'auto'): void;
+  setPalette(key: GfBotPaletteInput): void;
   setMaterial(key: GfBotMaterialId | 'auto'): void;
   setFace(style: GfBotFaceId | null): void;
   setMochi(skin: string): void;
   /** Desde dónde se mira al bot: una vista con nombre o un giro en radianes. Es el reposo: lo que haga parte de ahí. */
   setView(view: GfBotView | number | null): void;
   setMouthKind(kind: GfBotMouthKind | 'auto' | null): void;
-  setHat(hat: GfBotHatId | GfBotAccXId | null): void;
+  setHat(hat: GfBotHatName | GfBotAccXId | null): void;
   setFx(fx: GfBotFxId | null): void;
   setState(state: GfBotState): void;
   /** Fija la rutina de un estado; `auto` = que el bot elija por turnos. */

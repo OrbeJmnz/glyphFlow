@@ -3,7 +3,10 @@ import { tofuShape } from '../../src/shapes/tofu';
 import { buildShape } from '../../src/engine/build';
 import { createBotContext, type BotContext, type GfBotOptions } from '../../src/engine/context';
 import { hatsExtra } from './hats';
-import { hatBind, hatKick, hatStep } from './hat-physics';
+import { createHatPhysics, hatKick } from './hat-physics';
+import { HATS } from './hats-data';
+
+const { hatBind, hatStep } = createHatPhysics(HATS);
 
 function built(opts: Partial<GfBotOptions> = {}): BotContext {
   const host = document.createElement('div');
