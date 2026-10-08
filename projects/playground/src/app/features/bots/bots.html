@@ -4,6 +4,7 @@
     <div class="bt-intro-col">
       <p class="bt-intro">{{ 'bots.intro' | transloco }}</p>
       <button type="button" app-chip variante="contorno" class="bt-salto" (click)="irAlChat()">{{ 'bots.chat.ir' | transloco }}</button>
+      <a app-chip variante="contorno" [routerLink]="rutas.a('docs', 'docsBots')">{{ 'bots.guia' | transloco }}</a>
     </div>
   </header>
 
@@ -259,8 +260,12 @@
           <dd>{{ pesos.conComponente }} KB</dd>
         </div>
         <div>
-          <dt>{{ 'bots.peso.porGesto' | transloco }}</dt>
-          <dd>+{{ pesos.porGesto }} KB</dd>
+          <dt>{{ 'bots.peso.primerGesto' | transloco }}</dt>
+          <dd>+{{ pesos.primerGesto }} KB</dd>
+        </div>
+        <div>
+          <dt>{{ 'bots.peso.gestoExtra' | transloco }}</dt>
+          <dd>+{{ pesos.gestoExtra }} KB</dd>
         </div>
       </dl>
       <p class="bt-ayuda">{{ 'bots.peso.nota' | transloco }}</p>

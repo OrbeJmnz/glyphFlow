@@ -76,13 +76,16 @@ export type EstadoBot = 'idle' | 'working' | 'sleeping';
 export const ESTADOS: readonly EstadoBot[] = ['idle', 'working', 'sleeping'];
 
 /**
- * Lo que pesa cada pieza, en KB gzip. MEDIDO por `npm run bundle-check` el 2026-10-06 (el caso de
- * cada fila está en `scripts/bundle-size-check.ts`), no estimado. Al publicar hay que volver a
- * medir y actualizarlo aquí: el sitio no puede decir un número que el CI ya no respalda.
+ * Lo que pesa cada pieza, en KB gzip. MEDIDO por `npm run bundle-check` (el caso de cada fila está en `scripts/bundle-size-check.ts`)
+ * y COMPARADO por él con estos números: si el motor cambia de peso y aquí no se actualiza, el CI falla. `primerGesto` y `todosExtras`
+ * son diferencias contra «motor y una forma»; `gestoExtra`, el costo de un segundo gesto sobre el primero.
  */
 export const PESOS = {
-  motor: 49.2,
-  conForma: 57.0,
-  conComponente: 65.1,
-  porGesto: 1.7,
+  motor: 49.5,
+  conForma: 57.2,
+  conComponente: 65.4,
+  primerGesto: 7.4,
+  gestoExtra: 0.3,
+  todosExtras: 26.7,
+  adaptadoresIa: 0.6,
 } as const;

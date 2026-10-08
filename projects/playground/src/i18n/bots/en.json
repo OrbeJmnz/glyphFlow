@@ -1,6 +1,7 @@
 {
   "titulo": "Bots",
   "intro": "Animated characters with real physical motion: squash, stretch, impact and secondary motion, on the native Web Animations API. Play with one, then watch it react to an AI agent.",
+  "guia": "Read the guide",
   "escenario": {
     "titulo": "Stage",
     "etiqueta": "Play with a bot",
@@ -143,7 +144,8 @@
     "motor": "Engine",
     "conForma": "Engine and one shape",
     "conComponente": "With the <gf-bot> component",
-    "porGesto": "Each gesture you add",
+    "primerGesto": "First gesture you add (shared machinery)",
+    "gestoExtra": "Each gesture after that",
     "nota": "Icons and bots are independent: installing one never loads the other."
   },
   "pieles": {

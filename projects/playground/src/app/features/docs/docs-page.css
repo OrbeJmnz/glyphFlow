@@ -380,3 +380,28 @@ tr.obsoleto code {
   font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
   font-size: 0.7rem;
 }
+
+/* La lista de los 20 gestos de /docs/bots: chips de código en una sola caja, no una columna de 20 renglones. */
+.bots-gestos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Las tablas de /docs/bots llevan identificadores largos (`content_block_start (tool_use)`, `glyphflow/bots/gestures`). En un móvil
+ * desbordaban y daban una región con scroll horizontal NO alcanzable con teclado (SC 2.1.1). Se parten en vez de desbordar: mejor
+ * que un `tabindex` por si acaso, que llena el orden de Tab de paradas que no llevan a nada.
+ */
+.tabla-bots th,
+.tabla-bots td,
+.tabla-bots code {
+  overflow-wrap: anywhere;
+}
+
+.tabla-bots code {
+  white-space: normal; /* el resto de las tablas lo traen en nowrap: aquí desbordaría */
+}

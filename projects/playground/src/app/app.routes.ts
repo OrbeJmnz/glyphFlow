@@ -148,6 +148,11 @@ function paginas(idioma: Idioma): Routes {
           title: 'routes.docsTemas.title',
           loadComponent: () => import('./features/docs/temas').then((m) => m.Temas),
         },
+        {
+          path: slug('docsBots', idioma),
+          title: 'routes.docsBots.title',
+          loadComponent: () => import('./features/docs/bots').then((m) => m.BotsDocs),
+        },
       ],
     },
     /*

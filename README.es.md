@@ -155,6 +155,25 @@ export class ToggleTema {
 }
 ```
 
+## Bots
+
+Personajes animados que reaccionan a un agente de IA. Viven en el mismo paquete (desde la `3.2.0`) detrás de cuatro entry points, así que solo pagas lo que importas:
+
+| Entry point | Qué te da |
+| --- | --- |
+| `glyphflow/bots` | El motor, `<gf-bot>` y las formas |
+| `glyphflow/bots/gestures` | 20 gestos, cada uno se importa por separado |
+| `glyphflow/bots/extras` | Sombreros, juguetes y rutinas de trabajo |
+| `glyphflow/bots/ai` | `bindAgent` y adaptadores para el Vercel AI SDK y Anthropic |
+
+```ts
+import { GfBotComponent, catShape } from 'glyphflow/bots';
+import { superBounce } from 'glyphflow/bots/gestures';
+// <gf-bot [shape]="shape" skin="g1" [gestures]="{ superBounce }" label="Cat" />
+```
+
+Tú pones el modelo y su stream: glyphflow no tiene una API de IA ni pide ninguna llave. Prueba cada tipo de salida en la [página de Bots](https://glyph-flow-zeta.vercel.app/es/bots) y lee la [guía](https://glyph-flow-zeta.vercel.app/es/docs/guia-de-bots).
+
 ## Velocidad
 
 Un solo multiplicador para todas las duraciones calculadas — coreografías y transiciones de morph

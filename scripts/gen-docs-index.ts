@@ -37,6 +37,7 @@ const PAGINAS = [
   { archivo: 'verificar.html', ruta: 'verificar' },
   { archivo: 'problemas.html', ruta: 'problemas' },
   { archivo: 'temas.html', ruta: 'temas' },
+  { archivo: 'bots.html', ruta: 'docsBots' },
 ] as const;
 
 const IDIOMAS = ['en', 'es'] as const;

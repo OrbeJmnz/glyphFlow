@@ -66,6 +66,10 @@
     "temas": {
       "titulo": "Theming and color",
       "nota": "inheritance, dark mode, stroke width"
+    },
+    "bots": {
+      "titulo": "Bots",
+      "nota": "characters that react to an AI agent"
     }
   },
   "empezando": {
@@ -441,6 +445,110 @@
       "titulo": "Stroke width at small sizes",
       "texto": "The default <code>strokeWidth</code> is 2, drawn in a 24-unit viewBox. Rendered at 24 px that is a clean 2 px line. Rendered at 16 px it is 1.33 px, and on a non-retina screen that lands between pixels and reads blurry.",
       "recomendacion": "Below 20 px, drop to <code>[strokeWidth]=\"1.5\"</code>. Above 32 px you can go the other way — 2 keeps looking thin as the icon grows. The value is an input precisely because the right answer depends on the size you render at, and only you know that."
+    }
+  },
+  "bots": {
+    "titulo": "Bots",
+    "bajada": "Animated characters that react to an AI agent. You bring the model and the stream; the bots are its face.",
+    "instalar": {
+      "titulo": "Install",
+      "texto": "Bots ship in the same package, from <code>3.2.0</code>: no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22)."
+    },
+    "entradas": {
+      "titulo": "Four entry points, pay for what you import",
+      "texto": "Each one is a separate import, so you only pay for the pieces you name. Weights are KB gzip, measured by the bundle check in CI on every push.",
+      "colEntrada": "Entry point",
+      "colTrae": "What it gives you",
+      "colPeso": "Weight",
+      "motor": {
+        "trae": "The engine, <code>&lt;gf-bot&gt;</code> and the shapes (<code>catShape</code>, <code>mochiShape</code>, <code>ghostShape</code>…)",
+        "peso": "{{motor}} KB engine · {{conForma}} KB with one shape · {{conComponente}} KB with the component"
+      },
+      "gestos": {
+        "trae": "20 gestures, each one importable on its own",
+        "peso": "+{{primerGesto}} KB the first, +{{gestoExtra}} KB each after that"
+      },
+      "extras": {
+        "trae": "Hats, toys and work routines, also one by one",
+        "peso": "+{{todosExtras}} KB if you take all of them"
+      },
+      "ia": {
+        "trae": "<code>bindAgent</code> and the Vercel AI SDK and Anthropic adapters"
+      },
+      "pie": "Icons and bots are independent in both directions: installing one never loads the other."
+    },
+    "empezar": {
+      "titulo": "Your first bot",
+      "texto": "A bot needs a <code>shape</code>. Each shape is a plain object you import, so the ones you do not use never reach your bundle. Pick a look with <code>skin</code> and name your gestures in <code>gestures</code>: a gesture you do not import is a gesture you do not pay for.",
+      "nota": "Give it a label when it carries meaning. Without one the bot is decorative and hidden from screen readers."
+    },
+    "gestos": {
+      "titulo": "Gestures",
+      "texto1": "There are 20, and each is an object you import from <code>glyphflow/bots/gestures</code>. Calling one returns a handle.",
+      "texto2": "<code>policy</code> decides what happens when one is already running: <code>replace</code> (the default) cuts it, <code>queue</code> waits its turn (up to three) and <code>ignore</code> drops the new one. <code>intensity</code> goes from 0 to 2, and 1 is the gesture as written."
+    },
+    "personalizar": {
+      "titulo": "Make it yours",
+      "intro": "Everything here is data you pass in. Nothing registers globally, so none of it costs anything until you use it.",
+      "paleta": {
+        "titulo": "Your own colors",
+        "texto": "<code>palette</code> takes three CSS colors, <code>[light, mid, shadow]</code>, or <code>{ colors, rim }</code> to also fix the outline color. A malformed one fails when the bot is created, with a clear message."
+      },
+      "sombreros": {
+        "titulo": "Your own hat or toy",
+        "texto": "<code>defineHat</code> takes a drawing in a local frame where (0, 0) is the crown of the head and up is negative <code>y</code>. Hats go in through <code>extras</code>. <code>defineToy</code> does the same for toys and lets you pick one of three choreographies: <code>ball</code>, <code>star</code> or <code>treat</code>."
+      },
+      "pieles": {
+        "titulo": "Your own skin",
+        "texto": "A skin is an id with the <code>x-</code> prefix (<code>skin=\"x-sunset\"</code>) painted with CSS variables: <code>--gf-skin-fill</code>, <code>--gf-skin-gloss</code>, <code>--gf-skin-edge</code> and <code>--gf-skin-edge-width</code>. It changes color only: a skin with its own geometry is not supported."
+      }
+    },
+    "ia": {
+      "titulo": "Use it with an AI",
+      "texto1": "glyphflow does not provide an AI API, a key or an endpoint. You bring your own model and its stream. The bots only need to know what the agent is doing, and that comes down to eight steps.",
+      "pasos": {
+        "titulo": "The eight steps",
+        "colPaso": "Step",
+        "colSignifica": "What it means",
+        "prompt": "The user just sent a message",
+        "thinking": "The model is reasoning",
+        "tool": "A tool is running",
+        "loading": "Waiting: for the model, or for a person to approve",
+        "writing": "The answer is streaming in",
+        "done": "Finished",
+        "error": "Something failed",
+        "idle": "Stopped: the bot goes back to rest"
+      },
+      "texto2": "<code>bindAgent</code> reads your SDK stream and turns every event into one of those steps. It does not depend on any SDK, so it adds nothing to your <code>package.json</code>. Repeated steps collapse: a <code>text-delta</code> per token looks like a single <code>writing</code>.",
+      "vercel": "Vercel AI SDK",
+      "anthropic": "Anthropic Messages API",
+      "sdk": {
+        "vercel": "Vercel AI SDK",
+        "anthropic": "Anthropic"
+      },
+      "traduccion": {
+        "titulo": "What the bot sees for each event",
+        "texto": "This table is computed by running the real adapters, not written by hand.",
+        "colSdk": "SDK",
+        "colEvento": "Event",
+        "colPaso": "Step the bot sees",
+        "nada": "no change",
+        "nota": "A tool that fails is not an agent error: the model receives the failure and carries on, so <code>tool-error</code> changes nothing. Asking a person to approve has no step of its own either: the bot just waits. In Anthropic, a message that ends with <code>stop_reason: tool_use</code> does not end the turn; if you run the tool loop yourself, chain the streams of each request into a single <code>AsyncIterable</code>."
+      },
+      "probar": {
+        "titulo": "Try every type of output",
+        "texto": "The chat on the Bots page simulates eight types of output: a plain answer, reasoning, one tool call, parallel tool calls, a tool that fails, waiting for a person to approve, an error mid-answer and a stop. Each runs with a stream shaped like the SDK you pick, through these same adapters.",
+        "enlace": "Open the Bots page",
+        "nota": "Those streams are written by hand following the order each SDK documents. They are not recorded from the network."
+      }
+    },
+    "puntero": {
+      "titulo": "Following the pointer",
+      "texto": "<code>&lt;gf-bot&gt;</code> follows the cursor by default; <code>[followPointer]=\"false\"</code> turns it off. It never follows with reduced motion, while paused or asleep, while dragged, or on touch screens. When a gesture runs the head straightens, and once it ends the bot looks at the cursor again. With <code>createBot</code> it stays explicit: <code>bot.followPointer(true)</code>."
+    },
+    "ssr": {
+      "titulo": "Server rendering and accessibility",
+      "texto": "On the server the host renders empty with its aspect ratio reserved, and the bot mounts after the first render, so there is no layout shift when it hydrates. With a <code>label</code> the bot is an image with a name; without one it is decorative. With <code>prefers-reduced-motion</code> the continuous motion (following the pointer, idle wandering) turns off and each gesture shrinks to a short hop."
     }
   }
 }

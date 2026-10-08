@@ -120,6 +120,10 @@
     "bots": {
       "title": "Bots — glyphflow",
       "descripcion": "Animated characters with real physical motion on the native Web Animations API. Play with one and watch it react to an AI agent."
+    },
+    "docsBots": {
+      "title": "Using bots — glyphflow",
+      "descripcion": "Install, shapes, gestures, customization and how to connect an AI agent to the glyphflow bots, with the Vercel AI SDK or Anthropic."
     }
   },
   "marca": {

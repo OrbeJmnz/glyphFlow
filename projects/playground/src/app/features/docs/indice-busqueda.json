@@ -477,6 +477,118 @@
   },
   {
     "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "install",
+    "titulo": "Install",
+    "texto": "Install Install Bots ship in the same package, from 3.2.0 : no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22)."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "install",
+    "titulo": "Instalar",
+    "texto": "Instalar Instalar Los bots vienen en el mismo paquete, desde la 3.2.0 : sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22)."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "entry-points",
+    "titulo": "Four entry points, pay for what you import",
+    "texto": "Four entry points, pay for what you import Four entry points, pay for what you import Each one is a separate import, so you only pay for the pieces you name. Weights are KB gzip, measured by the bundle check in CI on every push. Entry point What it gives you Weight The engine, <gf-bot> and the shapes ( catShape , mochiShape , ghostShape …) {{motor}} KB engine · {{conForma}} KB with one shape · {{conComponente}} KB with the component 20 gestures, each one importable on its own +{{primerGesto}} KB the first, +{{gestoExtra}} KB each after that Hats, toys and work routines, also one by one +{{todosExtras}} KB if you take all of them bindAgent and the Vercel AI SDK and Anthropic adapters Icons and bots are independent in both directions: installing one never loads the other."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "entry-points",
+    "titulo": "Cuatro entry points, pagas lo que importas",
+    "texto": "Cuatro entry points, pagas lo que importas Cuatro entry points, pagas lo que importas Cada uno es un import aparte, así que solo pagas las piezas que nombras. Los pesos son KB gzip, medidos por la verificación de bundle del CI en cada push. Entry point Qué te da Peso El motor, <gf-bot> y las formas ( catShape , mochiShape , ghostShape …) {{motor}} KB el motor · {{conForma}} KB con una forma · {{conComponente}} KB con el componente 20 gestos, cada uno se importa por separado +{{primerGesto}} KB el primero, +{{gestoExtra}} KB cada uno después Sombreros, juguetes y rutinas de trabajo, también uno por uno +{{todosExtras}} KB si te llevas todo bindAgent y los adaptadores de Vercel AI SDK y Anthropic Iconos y bots son independientes en los dos sentidos: instalar uno nunca carga el otro."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "first-bot",
+    "titulo": "Your first bot",
+    "texto": "Your first bot Your first bot A bot needs a shape . Each shape is a plain object you import, so the ones you do not use never reach your bundle. Pick a look with skin and name your gestures in gestures : a gesture you do not import is a gesture you do not pay for. Give it a label when it carries meaning. Without one the bot is decorative and hidden from screen readers."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "first-bot",
+    "titulo": "Tu primer bot",
+    "texto": "Tu primer bot Tu primer bot Un bot necesita una shape . Cada forma es un objeto que importas, así que las que no usas nunca llegan a tu bundle. Elige el aspecto con skin y nombra tus gestos en gestures : un gesto que no importas es un gesto que no pagas. Ponle una etiqueta cuando signifique algo. Sin ella el bot es decorativo y los lectores de pantalla lo ignoran."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "gestures",
+    "titulo": "Gestures",
+    "texto": "Gestures Gestures There are 20, and each is an object you import from glyphflow/bots/gestures . Calling one returns a handle. policy decides what happens when one is already running: replace (the default) cuts it, queue waits its turn (up to three) and ignore drops the new one. intensity goes from 0 to 2, and 1 is the gesture as written."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "gestures",
+    "titulo": "Gestos",
+    "texto": "Gestos Gestos Son 20, y cada uno es un objeto que importas de glyphflow/bots/gestures . Llamar a uno devuelve un handle. policy decide qué pasa si ya hay uno corriendo: replace (por defecto) lo corta, queue espera su turno (hasta tres) e ignore descarta el nuevo. intensity va de 0 a 2, y 1 es el gesto tal como está escrito."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "customize",
+    "titulo": "Make it yours",
+    "texto": "Make it yours Make it yours Everything here is data you pass in. Nothing registers globally, so none of it costs anything until you use it. Your own colors palette takes three CSS colors, [light, mid, shadow] , or { colors, rim } to also fix the outline color. A malformed one fails when the bot is created, with a clear message. Your own hat or toy defineHat takes a drawing in a local frame where (0, 0) is the crown of the head and up is negative y . Hats go in through extras . defineToy does the same for toys and lets you pick one of three choreographies: ball , star or treat . Your own skin A skin is an id with the x- prefix ( skin=\"x-sunset\" ) painted with CSS variables: --gf-skin-fill , --gf-skin-gloss , --gf-skin-edge and --gf-skin-edge-width . It changes color only: a skin with its own geometry is not supported."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "customize",
+    "titulo": "Hazlo tuyo",
+    "texto": "Hazlo tuyo Hazlo tuyo Todo esto son datos que pasas tú. Nada se registra de forma global, así que no cuesta nada hasta que lo usas. Tus propios colores palette acepta tres colores CSS, [luz, medio, sombra] , o { colors, rim } para fijar también el color del contorno. Una mal formada falla al crear el bot, con un mensaje claro. Tu propio sombrero o juguete defineHat recibe un dibujo en un marco local donde (0, 0) es la coronilla y hacia arriba es y negativo. Los sombreros entran por extras . defineToy hace lo mismo con los juguetes y te deja elegir una de tres coreografías: ball , star o treat . Tu propia piel Una piel es un id con el prefijo x- ( skin=\"x-sunset\" ) pintado con variables CSS: --gf-skin-fill , --gf-skin-gloss , --gf-skin-edge y --gf-skin-edge-width . Solo cambia el color: una piel con geometría propia no está soportada."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "ai",
+    "titulo": "Use it with an AI",
+    "texto": "Use it with an AI Use it with an AI glyphflow does not provide an AI API, a key or an endpoint. You bring your own model and its stream. The bots only need to know what the agent is doing, and that comes down to eight steps. The eight steps Step What it means bindAgent reads your SDK stream and turns every event into one of those steps. It does not depend on any SDK, so it adds nothing to your package.json . Repeated steps collapse: a text-delta per token looks like a single writing . Vercel AI SDK Anthropic Messages API What the bot sees for each event This table is computed by running the real adapters, not written by hand. SDK Event Step the bot sees no change A tool that fails is not an agent error: the model receives the failure and carries on, so tool-error changes nothing. Asking a person to approve has no step of its own either: the bot just waits. In Anthropic, a message that ends with stop_reason: tool_use does not end the turn; if you run the tool loop yourself, chain the streams of each request into a single AsyncIterable . Try every type of output The chat on the Bots page simulates eight types of output: a plain answer, reasoning, one tool call, parallel tool calls, a tool that fails, waiting for a person to approve, an error mid-answer and a stop. Each runs with a stream shaped like the SDK you pick, through these same adapters. Open the Bots page Those streams are written by hand following the order each SDK documents. They are not recorded from the network."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "ai",
+    "titulo": "Úsalo con una IA",
+    "texto": "Úsalo con una IA Úsalo con una IA glyphflow no ofrece una API de IA, ni una llave, ni un endpoint. Tú pones tu propio modelo y su stream. A los bots solo les hace falta saber qué está haciendo el agente, y eso se reduce a ocho pasos. Los ocho pasos Paso Qué significa bindAgent lee el stream de tu SDK y convierte cada evento en uno de esos pasos. No depende de ningún SDK, así que no añade nada a tu package.json . Los pasos repetidos se colapsan: un text-delta por token se ve como un solo writing . Vercel AI SDK API de Mensajes de Anthropic Qué ve el bot por cada evento Esta tabla se calcula corriendo los adaptadores de verdad, no está escrita a mano. SDK Evento Paso que ve el bot sin cambio Una herramienta que falla no es un error del agente: el modelo recibe el fallo y sigue, así que tool-error no cambia nada. Pedir la aprobación de una persona tampoco tiene un paso propio: el bot solo espera. En Anthropic, un mensaje que cierra con stop_reason: tool_use no termina el turno; si corres tú el bucle de herramientas, encadena los streams de cada petición en un solo AsyncIterable . Prueba cada tipo de salida El chat de la página de Bots simula ocho tipos de salida: una respuesta simple, razonamiento, una herramienta, herramientas en paralelo, una herramienta que falla, la espera de que una persona apruebe, un error a media respuesta y una interrupción. Cada uno corre con un stream con la forma del SDK que elijas, por estos mismos adaptadores. Abrir la página de Bots Esos streams están escritos a mano siguiendo el orden que documenta cada SDK. No están grabados de la red."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "pointer",
+    "titulo": "Following the pointer",
+    "texto": "Following the pointer Following the pointer <gf-bot> follows the cursor by default; [followPointer]=\"false\" turns it off. It never follows with reduced motion, while paused or asleep, while dragged, or on touch screens. When a gesture runs the head straightens, and once it ends the bot looks at the cursor again. With createBot it stays explicit: bot.followPointer(true) ."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "pointer",
+    "titulo": "Seguir el puntero",
+    "texto": "Seguir el puntero Seguir el puntero <gf-bot> sigue al cursor por defecto; [followPointer]=\"false\" lo apaga. Nunca sigue con movimiento reducido, en pausa, dormido, arrastrándolo ni en pantallas táctiles. Cuando corre un gesto la cabeza se endereza, y al terminar el bot vuelve a mirar el cursor. Con createBot sigue siendo explícito: bot.followPointer(true) ."
+  },
+  {
+    "idioma": "en",
+    "ruta": "docsBots",
+    "ancla": "ssr-a11y",
+    "titulo": "Server rendering and accessibility",
+    "texto": "Server rendering and accessibility Server rendering and accessibility On the server the host renders empty with its aspect ratio reserved, and the bot mounts after the first render, so there is no layout shift when it hydrates. With a label the bot is an image with a name; without one it is decorative. With prefers-reduced-motion the continuous motion (following the pointer, idle wandering) turns off and each gesture shrinks to a short hop."
+  },
+  {
+    "idioma": "es",
+    "ruta": "docsBots",
+    "ancla": "ssr-a11y",
+    "titulo": "Renderizado en servidor y accesibilidad",
+    "texto": "Renderizado en servidor y accesibilidad Renderizado en servidor y accesibilidad En el servidor el host se renderiza vacío con su proporción reservada, y el bot se monta después del primer render, así que no hay salto de layout al hidratar. Con label el bot es una imagen con nombre; sin ella es decorativo. Con prefers-reduced-motion el movimiento continuo (seguir el puntero, vagar en reposo) se apaga y cada gesto se reduce a un saltito."
+  },
+  {
+    "idioma": "en",
     "ruta": "api",
     "ancla": "exports-glyphflow",
     "titulo": "glyphflow",

@@ -32,6 +32,7 @@ const PAGINAS: RutaId[][] = [
   ['docs', 'verificar'],
   ['docs', 'problemas'],
   ['docs', 'temas'],
+  ['docs', 'docsBots'],
 ];
 
 /*

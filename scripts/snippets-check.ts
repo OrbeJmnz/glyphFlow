@@ -14,6 +14,7 @@
 import { transformSync } from 'esbuild';
 import { readFileSync } from 'node:fs';
 import * as patrones from '../projects/playground/src/app/features/patrones/snippets.ts';
+import * as docs from '../projects/playground/src/app/features/docs/snippets.ts';
 
 /**
  * Los símbolos que el paquete publicado exporta de verdad, leídos de sus tipos. Incluye los
@@ -143,11 +144,58 @@ for (const [nombre, codigo] of Object.entries(patrones)) {
   }
 }
 
+// --- 6. Los snippets de `/docs/bots` ---
+//
+// Los de iconos se comprueban arriba porque tienen versión `_COMPLETO`; los de la guía de bots no (algunos son CSS o una línea de
+// plantilla), así que se miran aparte: los de TypeScript parsean, cada símbolo que importan de `glyphflow/bots…` existe de verdad en
+// el paquete PUBLICADO (la clase de error que ya dejó al README enseñando `MaxIconComponent`), y ninguno lleva español.
+const API_BOTS: Record<string, Set<string>> = {
+  'glyphflow/bots': exportados('../node_modules/glyphflow-published/types/glyphflow-bots.d.ts'),
+  'glyphflow/bots/gestures': exportados('../node_modules/glyphflow-published/types/glyphflow-bots-gestures.d.ts'),
+  'glyphflow/bots/extras': exportados('../node_modules/glyphflow-published/types/glyphflow-bots-extras.d.ts'),
+  'glyphflow/bots/ai': exportados('../node_modules/glyphflow-published/types/glyphflow-bots-ai.d.ts'),
+};
+const BOTS_TS = ['SNIPPET_BOTS_INICIO', 'SNIPPET_BOTS_GESTOS', 'SNIPPET_BOTS_PERSONALIZAR', 'SNIPPET_BOTS_IA_VERCEL', 'SNIPPET_BOTS_IA_ANTHROPIC'];
+const snippetsBots = Object.entries(docs).filter(([k]) => k.startsWith('SNIPPET_BOTS_')) as [string, string][];
+
+for (const [nombre, codigo] of snippetsBots) {
+  if (BOTS_TS.includes(nombre)) {
+    try {
+      transformSync(codigo, { loader: 'ts', format: 'esm' });
+    } catch (e) {
+      console.error(`  ✗ ${nombre}: no parsea como TypeScript.\n    ${(e as Error).message}`);
+      fallos++;
+      continue;
+    }
+  }
+  for (const m of codigo.matchAll(/import \{([^}]*)\} from '(glyphflow\/bots[^']*)'/g)) {
+    const entrada = m[2];
+    const exportes = API_BOTS[entrada];
+    if (!exportes) {
+      console.error(`  ✗ ${nombre}: importa de '${entrada}', que no es un entry point del paquete.`);
+      fallos++;
+      continue;
+    }
+    for (const simbolo of m[1].split(',').map((x) => x.trim().replace(/^type\s+/, '')).filter(Boolean)) {
+      if (!exportes.has(simbolo)) {
+        console.error(`  ✗ ${nombre}: importa '${simbolo}' de '${entrada}', que NO lo exporta.`);
+        fallos++;
+      }
+    }
+  }
+  const acentos = codigo.match(/[áéíóúñÁÉÍÓÚÑ¿¡]/g);
+  if (acentos) {
+    console.error(`  ✗ ${nombre}: contiene español (${[...new Set(acentos)].join('')}). Los snippets se copian — van en inglés.`);
+    fallos++;
+  }
+}
+
 if (fallos > 0) {
   console.error(`\nsnippets-check FALLÓ — ${fallos} problema(s) en los snippets copiables.`);
   process.exit(1);
 }
 console.log(
   `snippets-check OK — ${completos.length} snippets completos parsean y solo importan símbolos que el ` +
-    `paquete publicado exporta.\n  (No es un type-check: comprueba sintaxis, imports y componentes declarados.)`,
+    `paquete publicado exporta.\n  (No es un type-check: comprueba sintaxis, imports y componentes declarados.)\n` +
+    `  Guía de bots: ${snippetsBots.length} snippets, sus imports existen en los 4 entry points del paquete publicado.`,
 );

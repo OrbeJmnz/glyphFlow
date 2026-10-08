@@ -1,0 +1,142 @@
+<h1>{{ 'docs.bots.titulo' | transloco }}</h1>
+<p class="bajada" [innerHTML]="'docs.bots.bajada' | transloco"></p>
+
+<h2 id="install">{{ 'docs.bots.instalar.titulo' | transloco }}</h2>
+<app-bloque-codigo [codigo]="SNIPPET_INSTALAR" />
+<p [innerHTML]="'docs.bots.instalar.texto' | transloco"></p>
+
+<h2 id="entry-points">{{ 'docs.bots.entradas.titulo' | transloco }}</h2>
+<p>{{ 'docs.bots.entradas.texto' | transloco }}</p>
+<div class="tabla-scroll tabla-bots">
+  <table>
+    <thead>
+      <tr>
+        <th>{{ 'docs.bots.entradas.colEntrada' | transloco }}</th>
+        <th>{{ 'docs.bots.entradas.colTrae' | transloco }}</th>
+        <th>{{ 'docs.bots.entradas.colPeso' | transloco }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>glyphflow/bots</code></td>
+        <td [innerHTML]="'docs.bots.entradas.motor.trae' | transloco"></td>
+        <td>{{ 'docs.bots.entradas.motor.peso' | transloco: { motor: pesos.motor, conForma: pesos.conForma, conComponente: pesos.conComponente } }}</td>
+      </tr>
+      <tr>
+        <td><code>glyphflow/bots/gestures</code></td>
+        <td>{{ 'docs.bots.entradas.gestos.trae' | transloco }}</td>
+        <td>{{ 'docs.bots.entradas.gestos.peso' | transloco: { primerGesto: pesos.primerGesto, gestoExtra: pesos.gestoExtra } }}</td>
+      </tr>
+      <tr>
+        <td><code>glyphflow/bots/extras</code></td>
+        <td>{{ 'docs.bots.entradas.extras.trae' | transloco }}</td>
+        <td>{{ 'docs.bots.entradas.extras.peso' | transloco: { todosExtras: pesos.todosExtras } }}</td>
+      </tr>
+      <tr>
+        <td><code>glyphflow/bots/ai</code></td>
+        <td [innerHTML]="'docs.bots.entradas.ia.trae' | transloco"></td>
+        <td>{{ pesos.adaptadoresIa }} KB</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p>{{ 'docs.bots.entradas.pie' | transloco }}</p>
+
+<h2 id="first-bot">{{ 'docs.bots.empezar.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.bots.empezar.texto' | transloco"></p>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_INICIO" />
+<app-recuadro tipo="nota" [texto]="'docs.bots.empezar.nota' | transloco" />
+
+<h2 id="gestures">{{ 'docs.bots.gestos.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.bots.gestos.texto1' | transloco"></p>
+<ul class="bots-gestos">
+  @for (g of gestos; track g) {
+    <li><code>{{ g }}</code></li>
+  }
+</ul>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_GESTOS" />
+<p [innerHTML]="'docs.bots.gestos.texto2' | transloco"></p>
+
+<h2 id="customize">{{ 'docs.bots.personalizar.titulo' | transloco }}</h2>
+<p>{{ 'docs.bots.personalizar.intro' | transloco }}</p>
+<h3>{{ 'docs.bots.personalizar.paleta.titulo' | transloco }}</h3>
+<p [innerHTML]="'docs.bots.personalizar.paleta.texto' | transloco"></p>
+<h3>{{ 'docs.bots.personalizar.sombreros.titulo' | transloco }}</h3>
+<p [innerHTML]="'docs.bots.personalizar.sombreros.texto' | transloco"></p>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_PERSONALIZAR" />
+<h3>{{ 'docs.bots.personalizar.pieles.titulo' | transloco }}</h3>
+<p [innerHTML]="'docs.bots.personalizar.pieles.texto' | transloco"></p>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_PIEL" />
+
+<h2 id="ai">{{ 'docs.bots.ia.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.bots.ia.texto1' | transloco"></p>
+
+<h3>{{ 'docs.bots.ia.pasos.titulo' | transloco }}</h3>
+<div class="tabla-scroll tabla-bots">
+  <table>
+    <thead>
+      <tr>
+        <th>{{ 'docs.bots.ia.pasos.colPaso' | transloco }}</th>
+        <th>{{ 'docs.bots.ia.pasos.colSignifica' | transloco }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of pasos; track p) {
+        <tr>
+          <td><code>{{ p }}</code></td>
+          <td>{{ 'docs.bots.ia.pasos.' + p | transloco }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<p [innerHTML]="'docs.bots.ia.texto2' | transloco"></p>
+<h3>{{ 'docs.bots.ia.vercel' | transloco }}</h3>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_IA_VERCEL" />
+<h3>{{ 'docs.bots.ia.anthropic' | transloco }}</h3>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_IA_ANTHROPIC" />
+
+<h3>{{ 'docs.bots.ia.traduccion.titulo' | transloco }}</h3>
+<p>{{ 'docs.bots.ia.traduccion.texto' | transloco }}</p>
+<div class="tabla-scroll tabla-bots">
+  <table>
+    <thead>
+      <tr>
+        <th>{{ 'docs.bots.ia.traduccion.colSdk' | transloco }}</th>
+        <th>{{ 'docs.bots.ia.traduccion.colEvento' | transloco }}</th>
+        <th>{{ 'docs.bots.ia.traduccion.colPaso' | transloco }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (f of filas; track f.sdk + f.crudo) {
+        <tr>
+          <td>{{ 'docs.bots.ia.sdk.' + f.sdk | transloco }}</td>
+          <td><code>{{ f.crudo }}</code></td>
+          <td>
+            @if (f.paso) {
+              <code>{{ f.paso }}</code>
+            } @else {
+              {{ 'docs.bots.ia.traduccion.nada' | transloco }}
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<app-recuadro tipo="caso" [texto]="'docs.bots.ia.traduccion.nota' | transloco" />
+
+<h3>{{ 'docs.bots.ia.probar.titulo' | transloco }}</h3>
+<p>{{ 'docs.bots.ia.probar.texto' | transloco }}</p>
+<p>
+  <a [routerLink]="rutas.a('bots')">{{ 'docs.bots.ia.probar.enlace' | transloco }}</a>
+</p>
+<app-recuadro tipo="nota" [texto]="'docs.bots.ia.probar.nota' | transloco" />
+
+<h2 id="pointer">{{ 'docs.bots.puntero.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.bots.puntero.texto' | transloco"></p>
+<app-bloque-codigo [codigo]="SNIPPET_BOTS_PUNTERO" />
+
+<h2 id="ssr-a11y">{{ 'docs.bots.ssr.titulo' | transloco }}</h2>
+<p [innerHTML]="'docs.bots.ssr.texto' | transloco"></p>

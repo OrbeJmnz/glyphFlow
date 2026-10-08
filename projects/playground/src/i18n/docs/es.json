@@ -66,6 +66,10 @@
     "temas": {
       "titulo": "Temas y color",
       "nota": "herencia, modo oscuro, grosor"
+    },
+    "bots": {
+      "titulo": "Bots",
+      "nota": "personajes que reaccionan a un agente de IA"
     }
   },
   "empezando": {
@@ -441,6 +445,110 @@
       "titulo": "Grosor del trazo en tamaños pequeños",
       "texto": "El <code>strokeWidth</code> por defecto es 2, dibujado en un viewBox de 24 unidades. Renderizado a 24 px eso es una línea limpia de 2 px. Renderizado a 16 px son 1.33 px, y en una pantalla sin retina eso cae entre píxeles y se ve borroso.",
       "recomendacion": "Por debajo de 20 px, baja a <code>[strokeWidth]=\"1.5\"</code>. Por encima de 32 px puedes ir al revés — el 2 se sigue viendo fino conforme el icono crece. El valor es un input justamente porque la respuesta correcta depende del tamaño al que rendericas, y eso solo lo sabes tú."
+    }
+  },
+  "bots": {
+    "titulo": "Bots",
+    "bajada": "Personajes animados que reaccionan a un agente de IA. Tú pones el modelo y el stream; los bots son su cara.",
+    "instalar": {
+      "titulo": "Instalar",
+      "texto": "Los bots vienen en el mismo paquete, desde la <code>3.2.0</code>: sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22)."
+    },
+    "entradas": {
+      "titulo": "Cuatro entry points, pagas lo que importas",
+      "texto": "Cada uno es un import aparte, así que solo pagas las piezas que nombras. Los pesos son KB gzip, medidos por la verificación de bundle del CI en cada push.",
+      "colEntrada": "Entry point",
+      "colTrae": "Qué te da",
+      "colPeso": "Peso",
+      "motor": {
+        "trae": "El motor, <code>&lt;gf-bot&gt;</code> y las formas (<code>catShape</code>, <code>mochiShape</code>, <code>ghostShape</code>…)",
+        "peso": "{{motor}} KB el motor · {{conForma}} KB con una forma · {{conComponente}} KB con el componente"
+      },
+      "gestos": {
+        "trae": "20 gestos, cada uno se importa por separado",
+        "peso": "+{{primerGesto}} KB el primero, +{{gestoExtra}} KB cada uno después"
+      },
+      "extras": {
+        "trae": "Sombreros, juguetes y rutinas de trabajo, también uno por uno",
+        "peso": "+{{todosExtras}} KB si te llevas todo"
+      },
+      "ia": {
+        "trae": "<code>bindAgent</code> y los adaptadores de Vercel AI SDK y Anthropic"
+      },
+      "pie": "Iconos y bots son independientes en los dos sentidos: instalar uno nunca carga el otro."
+    },
+    "empezar": {
+      "titulo": "Tu primer bot",
+      "texto": "Un bot necesita una <code>shape</code>. Cada forma es un objeto que importas, así que las que no usas nunca llegan a tu bundle. Elige el aspecto con <code>skin</code> y nombra tus gestos en <code>gestures</code>: un gesto que no importas es un gesto que no pagas.",
+      "nota": "Ponle una etiqueta cuando signifique algo. Sin ella el bot es decorativo y los lectores de pantalla lo ignoran."
+    },
+    "gestos": {
+      "titulo": "Gestos",
+      "texto1": "Son 20, y cada uno es un objeto que importas de <code>glyphflow/bots/gestures</code>. Llamar a uno devuelve un handle.",
+      "texto2": "<code>policy</code> decide qué pasa si ya hay uno corriendo: <code>replace</code> (por defecto) lo corta, <code>queue</code> espera su turno (hasta tres) e <code>ignore</code> descarta el nuevo. <code>intensity</code> va de 0 a 2, y 1 es el gesto tal como está escrito."
+    },
+    "personalizar": {
+      "titulo": "Hazlo tuyo",
+      "intro": "Todo esto son datos que pasas tú. Nada se registra de forma global, así que no cuesta nada hasta que lo usas.",
+      "paleta": {
+        "titulo": "Tus propios colores",
+        "texto": "<code>palette</code> acepta tres colores CSS, <code>[luz, medio, sombra]</code>, o <code>{ colors, rim }</code> para fijar también el color del contorno. Una mal formada falla al crear el bot, con un mensaje claro."
+      },
+      "sombreros": {
+        "titulo": "Tu propio sombrero o juguete",
+        "texto": "<code>defineHat</code> recibe un dibujo en un marco local donde (0, 0) es la coronilla y hacia arriba es <code>y</code> negativo. Los sombreros entran por <code>extras</code>. <code>defineToy</code> hace lo mismo con los juguetes y te deja elegir una de tres coreografías: <code>ball</code>, <code>star</code> o <code>treat</code>."
+      },
+      "pieles": {
+        "titulo": "Tu propia piel",
+        "texto": "Una piel es un id con el prefijo <code>x-</code> (<code>skin=\"x-sunset\"</code>) pintado con variables CSS: <code>--gf-skin-fill</code>, <code>--gf-skin-gloss</code>, <code>--gf-skin-edge</code> y <code>--gf-skin-edge-width</code>. Solo cambia el color: una piel con geometría propia no está soportada."
+      }
+    },
+    "ia": {
+      "titulo": "Úsalo con una IA",
+      "texto1": "glyphflow no ofrece una API de IA, ni una llave, ni un endpoint. Tú pones tu propio modelo y su stream. A los bots solo les hace falta saber qué está haciendo el agente, y eso se reduce a ocho pasos.",
+      "pasos": {
+        "titulo": "Los ocho pasos",
+        "colPaso": "Paso",
+        "colSignifica": "Qué significa",
+        "prompt": "El usuario acaba de mandar un mensaje",
+        "thinking": "El modelo está razonando",
+        "tool": "Una herramienta está corriendo",
+        "loading": "Esperando: al modelo, o a que una persona apruebe",
+        "writing": "La respuesta va llegando",
+        "done": "Terminó",
+        "error": "Algo falló",
+        "idle": "Detenido: el bot vuelve a reposo"
+      },
+      "texto2": "<code>bindAgent</code> lee el stream de tu SDK y convierte cada evento en uno de esos pasos. No depende de ningún SDK, así que no añade nada a tu <code>package.json</code>. Los pasos repetidos se colapsan: un <code>text-delta</code> por token se ve como un solo <code>writing</code>.",
+      "vercel": "Vercel AI SDK",
+      "anthropic": "API de Mensajes de Anthropic",
+      "sdk": {
+        "vercel": "Vercel AI SDK",
+        "anthropic": "Anthropic"
+      },
+      "traduccion": {
+        "titulo": "Qué ve el bot por cada evento",
+        "texto": "Esta tabla se calcula corriendo los adaptadores de verdad, no está escrita a mano.",
+        "colSdk": "SDK",
+        "colEvento": "Evento",
+        "colPaso": "Paso que ve el bot",
+        "nada": "sin cambio",
+        "nota": "Una herramienta que falla no es un error del agente: el modelo recibe el fallo y sigue, así que <code>tool-error</code> no cambia nada. Pedir la aprobación de una persona tampoco tiene un paso propio: el bot solo espera. En Anthropic, un mensaje que cierra con <code>stop_reason: tool_use</code> no termina el turno; si corres tú el bucle de herramientas, encadena los streams de cada petición en un solo <code>AsyncIterable</code>."
+      },
+      "probar": {
+        "titulo": "Prueba cada tipo de salida",
+        "texto": "El chat de la página de Bots simula ocho tipos de salida: una respuesta simple, razonamiento, una herramienta, herramientas en paralelo, una herramienta que falla, la espera de que una persona apruebe, un error a media respuesta y una interrupción. Cada uno corre con un stream con la forma del SDK que elijas, por estos mismos adaptadores.",
+        "enlace": "Abrir la página de Bots",
+        "nota": "Esos streams están escritos a mano siguiendo el orden que documenta cada SDK. No están grabados de la red."
+      }
+    },
+    "puntero": {
+      "titulo": "Seguir el puntero",
+      "texto": "<code>&lt;gf-bot&gt;</code> sigue al cursor por defecto; <code>[followPointer]=\"false\"</code> lo apaga. Nunca sigue con movimiento reducido, en pausa, dormido, arrastrándolo ni en pantallas táctiles. Cuando corre un gesto la cabeza se endereza, y al terminar el bot vuelve a mirar el cursor. Con <code>createBot</code> sigue siendo explícito: <code>bot.followPointer(true)</code>."
+    },
+    "ssr": {
+      "titulo": "Renderizado en servidor y accesibilidad",
+      "texto": "En el servidor el host se renderiza vacío con su proporción reservada, y el bot se monta después del primer render, así que no hay salto de layout al hidratar. Con <code>label</code> el bot es una imagen con nombre; sin ella es decorativo. Con <code>prefers-reduced-motion</code> el movimiento continuo (seguir el puntero, vagar en reposo) se apaga y cada gesto se reduce a un saltito."
     }
   }
 }

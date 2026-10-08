@@ -153,6 +153,11 @@ export class Docs {
           notaClave: 'docs.nav.verificar.nota',
         },
         {
+          id: 'docsBots',
+          tituloClave: 'docs.nav.bots.titulo',
+          notaClave: 'docs.nav.bots.nota',
+        },
+        {
           id: 'problemas',
           tituloClave: 'docs.nav.problemas.titulo',
           notaClave: 'docs.nav.problemas.nota',

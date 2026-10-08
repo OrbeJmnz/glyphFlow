@@ -192,6 +192,16 @@ const CASES = [
     optimizadorAngular: true,
   },
   {
+    name: 'bots + createBot + catShape + DOS gestos de glyphflow/bots/gestures',
+    // El primer gesto trae la maquinaria compartida (el kit de movimiento de los gestos); el segundo ya solo suma el suyo. La diferencia
+    // con el caso de UN gesto es lo que cuesta cada gesto extra, y es la cifra que publica la página de bots.
+    filaReadme: null as string | null,
+    aliasBots: true,
+    entry: `import { createBot, catShape } from '${FESM_BOTS.replace(/\\/g, '/')}'; import { superBounce, jellyWobble } from '${FESM_GESTURES.replace(/\\/g, '/')}'; console.log(createBot, catShape, superBounce, jellyWobble);`,
+    maxGzipBytes: 67 * 1024,
+    optimizadorAngular: true,
+  },
+  {
     name: 'bots + createBot + catShape + TODOS los extras de glyphflow/bots/extras (sombreros, juguetes y rutinas)',
     // Lo opcional (`extras`) vive fuera del motor: este caso mide lo que paga quien lo pide TODO. El motor sin extras
     // (caso de arriba) es lo que paga el resto. Si este número se acerca al del motor mas el de los extras por separado, bien;
@@ -452,10 +462,64 @@ function verificarIndependencia(): boolean {
   return ok;
 }
 
+/**
+ * Los pesos de los bots que publica el sitio (`PESOS` en `bots-datos.ts`, que leen `/bots` y `/docs/bots`). Antes eran números
+ * escritos a mano que nadie comparaba con nada: «motor 49.2» seguía en pie mientras el CI medía 49.5, y «+1.7 KB por gesto» describía
+ * el gesto marginal mientras el primero cuesta ~7. Mismo remedio que las cifras de iconos: quien mide es quien afirma.
+ *
+ * Totales con 2 % de tolerancia; las diferencias (un gesto, los extras) con 0.4 KB absolutos, porque un 2 % de 1.7 KB es ruido.
+ */
+const CASO_PESO = {
+  motor: 'bots + createBot — el motor completo, sin ninguna forma',
+  forma: 'bots + createBot + catShape — un bot con UNA forma',
+  componente: 'bots + <gf-bot> + catShape — lo que paga quien usa el componente con una forma',
+  unGesto: 'bots + createBot + catShape + UN gesto de glyphflow/bots/gestures',
+  dosGestos: 'bots + createBot + catShape + DOS gestos de glyphflow/bots/gestures',
+  extras: 'bots + createBot + catShape + TODOS los extras de glyphflow/bots/extras (sombreros, juguetes y rutinas)',
+  ai: 'glyphflow/bots/ai — bindAgent + los dos adaptadores (Vercel AI SDK y Anthropic)',
+} as const;
+
+function verificarPesosBots(m: Map<string, number>): boolean {
+  const kb = (k: keyof typeof CASO_PESO): number => {
+    const v = m.get(CASO_PESO[k]);
+    if (v === undefined) throw new Error(`bundle-check: no medí el caso «${CASO_PESO[k]}»`);
+    return v;
+  };
+  const esperado: { clave: string; kb: number; absoluto: boolean }[] = [
+    { clave: 'motor', kb: kb('motor'), absoluto: false },
+    { clave: 'conForma', kb: kb('forma'), absoluto: false },
+    { clave: 'conComponente', kb: kb('componente'), absoluto: false },
+    { clave: 'primerGesto', kb: kb('unGesto') - kb('forma'), absoluto: true },
+    { clave: 'gestoExtra', kb: kb('dosGestos') - kb('unGesto'), absoluto: true },
+    { clave: 'todosExtras', kb: kb('extras') - kb('forma'), absoluto: true },
+    { clave: 'adaptadoresIa', kb: kb('ai'), absoluto: true },
+  ];
+  const archivo = '../projects/playground/src/app/features/bots/bots-datos.ts';
+  const texto = readFileSync(new URL(archivo, import.meta.url), 'utf8');
+  let ok = true;
+  for (const e of esperado) {
+    const m2 = texto.match(new RegExp(`${e.clave}:\\s*([0-9.]+),`));
+    if (!m2) {
+      console.error(`  ✗ ${archivo}: no encuentro el peso «${e.clave}» en PESOS.`);
+      ok = false;
+      continue;
+    }
+    const publicado = Number(m2[1]);
+    const fuera = e.absoluto ? Math.abs(publicado - e.kb) > 0.4 : Math.abs(publicado - e.kb) / e.kb > TOLERANCIA;
+    if (fuera) {
+      console.error(`  ✗ ${archivo} miente en «${e.clave}»: publica ${publicado} KB, el CI mide ${e.kb.toFixed(2)} KB.`);
+      ok = false;
+    }
+  }
+  if (ok) console.log('Pesos de los bots: PESOS (bots-datos.ts) coincide con lo medido.');
+  return ok;
+}
+
 async function main() {
   const tmp = mkdtempSync(join(tmpdir(), 'glyphflow-bundle-check-'));
   let failed = !verificarIndependencia();
   const medidos = new Map<string, number>();
+  const medidosPorCaso = new Map<string, number>();
 
   for (const c of CASES) {
     const entryFile = join(tmp, 'entry.mjs');
@@ -495,9 +559,11 @@ async function main() {
     // `filaReadme: null` = presupuesto de CI sin fila publicada (ver el caso `morph` arriba) — no
     // entra a `verificarDocs`, que solo compara lo que el README/cifras.ts prometen de verdad.
     if (c.filaReadme) medidos.set(c.filaReadme, gzip / 1024);
+    medidosPorCaso.set(c.name, gzip / 1024);
   }
 
   if (!verificarDocs(medidos)) failed = true;
+  if (!verificarPesosBots(medidosPorCaso)) failed = true;
 
   rmSync(tmp, { recursive: true, force: true });
 

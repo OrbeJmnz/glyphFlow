@@ -25,7 +25,8 @@ export type RutaId =
   | 'comparativa'
   | 'verificar'
   | 'problemas'
-  | 'temas';
+  | 'temas'
+  | 'docsBots';
 
 /**
  * Solo se traduce el slug cuando en el otro idioma es OTRA palabra que alguien podría buscar.
@@ -54,6 +55,9 @@ export const SLUGS: Record<RutaId, Record<Idioma, string>> = {
   verificar: { en: 'verify-your-bundle', es: 'verifica-tu-bundle' },
   problemas: { en: 'troubleshooting', es: 'solucion-de-problemas' },
   temas: { en: 'theming', es: 'temas-y-color' },
+  // La guía de bots dentro de Docs. NO se llama `bots` aunque cuelgue de `/docs`: la tabla inversa de `traducirRuta` va de slug a id, y
+  // dos páginas con el mismo slug la vuelven ambigua (`rutas.spec` lo prohíbe).
+  docsBots: { en: 'bots-guide', es: 'guia-de-bots' },
 };
 
 /** Índice inverso: de cualquier slug, en cualquier idioma, al id que representa. */

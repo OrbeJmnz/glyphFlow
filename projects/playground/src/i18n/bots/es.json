@@ -1,6 +1,7 @@
 {
   "titulo": "Bots",
   "intro": "Personajes animados con movimiento físico de verdad: squash, estirón, impacto y movimiento secundario, sobre la Web Animations API nativa. Juega con uno y míralo reaccionar a un agente de IA.",
+  "guia": "Lee la guía",
   "escenario": {
     "titulo": "Escenario",
     "etiqueta": "Juega con un bot",
@@ -143,7 +144,8 @@
     "motor": "Motor",
     "conForma": "Motor y una forma",
     "conComponente": "Con el componente <gf-bot>",
-    "porGesto": "Cada gesto que añades",
+    "primerGesto": "Primer gesto que añades (la maquinaria compartida)",
+    "gestoExtra": "Cada gesto después de ese",
     "nota": "Iconos y bots son independientes: instalar uno nunca carga el otro."
   },
   "pieles": {

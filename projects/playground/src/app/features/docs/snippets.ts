@@ -51,3 +51,60 @@ export const SNIPPET_GUARDIA_WINDOW = `if (typeof window !== 'undefined') {
     'This smoke test must run without a global \`window\` — if it exists, it proves nothing.',
   );
 }`;
+
+// ── Bots (`/docs/bots`) ─────────────────────────────────────────────────────────────────────────────────────
+
+export const SNIPPET_BOTS_INICIO = `import { Component } from '@angular/core';
+import { GfBotComponent, catShape } from 'glyphflow/bots';
+import { superBounce } from 'glyphflow/bots/gestures';
+
+@Component({
+  selector: 'app-mascot',
+  imports: [GfBotComponent],
+  template: '<gf-bot [shape]="shape" skin="g1" [gestures]="gestures" label="Cat" />',
+})
+export class Mascot {
+  protected readonly shape = catShape;
+  protected readonly gestures = { superBounce };
+}`;
+
+export const SNIPPET_BOTS_GESTOS = `// bot = viewChild(GfBotComponent)
+const run = bot()?.api?.gesture('superBounce', { intensity: 0.7, policy: 'queue' });
+
+await run?.finished;   // 'done' | 'interrupted' | 'ignored' (never rejects)
+run?.cancel();         // cut it if it is still running`;
+
+export const SNIPPET_BOTS_PERSONALIZAR = `import { createHatsExtra, defineHat } from 'glyphflow/bots/extras';
+
+const partyCap = defineHat({
+  label: 'Party cap',
+  draw: (p) => \`<rect class="\${p}-cap" x="-12" y="-14" width="24" height="14" rx="4" fill="#E0457B"/>\`,
+});
+
+// <gf-bot [shape]="shape" [palette]="['#FFD6E8', '#FF4F9A', '#7A1049']" hat="partyCap" [extras]="extras" />
+const extras = { hats: createHatsExtra({ partyCap }) };   // expose it as a field of your component`;
+
+export const SNIPPET_BOTS_PIEL = `/* <gf-bot class="sunset" [shape]="shape" skin="x-sunset" /> */
+gf-bot.sunset {
+  --gf-skin-fill: #ff8a5c;   /* body fill */
+  --gf-skin-gloss: #fff3d6;  /* soft highlight on top (optional) */
+  --gf-skin-edge: #b63a1e;   /* outline (optional) */
+  --bot-base: #ff8a5c;       /* hats and toys inherit the --bot-* variables */
+  --bot-primary: #ffb48f;
+  --bot-shadow: #b63a1e;
+}`;
+
+export const SNIPPET_BOTS_IA_VERCEL = `import { bindAgent, vercelAi } from 'glyphflow/bots/ai';
+
+const result = streamText({ model, prompt });   // your code, your key
+const run = bindAgent(bot.api, result.fullStream, vercelAi);
+
+await run.done;   // 'finished' | 'error' | 'stopped' (never rejects)
+run.stop();       // cut the stream and release the bot`;
+
+export const SNIPPET_BOTS_IA_ANTHROPIC = `import { bindAgent, anthropic } from 'glyphflow/bots/ai';
+
+const stream = client.messages.stream({ model, max_tokens: 1024, messages });   // your code, your key
+const run = bindAgent(bot.api, stream, anthropic);`;
+
+export const SNIPPET_BOTS_PUNTERO = `<gf-bot [shape]="shape" [followPointer]="false" />`;
