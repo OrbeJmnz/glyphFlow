@@ -37,7 +37,7 @@
       "reanudar": "Turn animations back on"
     },
     "idioma": {
-      "cambiar": "Switch language"
+      "cambiar": "EN, switch language"
     },
     "velocidad": {
       "botonAria": "Animation speed: {{actual}}. Tap to switch to {{siguiente}}.",
@@ -125,9 +125,9 @@
   "marca": {
     "github": {
       "texto": "Star on GitHub",
-      "ariaSinConteo": "Star glyphflow on GitHub",
-      "ariaConUna": "Star glyphflow on GitHub, {{n}} star",
-      "ariaConVarias": "Star glyphflow on GitHub, {{n}} stars"
+      "ariaSinConteo": "Star on GitHub: glyphflow",
+      "ariaConUna": "Star on GitHub: glyphflow, {{n}} star",
+      "ariaConVarias": "Star on GitHub: glyphflow, {{n}} stars"
     },
     "donar": {
       "texto": "Donate",

@@ -35,7 +35,7 @@ describe('BotonGithub', () => {
     const { html, enlace } = montar();
     // Un `0` diría «este repo no le gusta a nadie»; no saberlo y decir 0 no es lo mismo.
     expect(html.querySelector('.conteo')).toBeNull();
-    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub');
+    expect(enlace.getAttribute('aria-label')).toBe('Star on GitHub: glyphflow');
   });
 
   it('a la vista abrevia, pero la etiqueta lleva el número entero', () => {
@@ -45,7 +45,7 @@ describe('BotonGithub', () => {
 
     // «1.2k estrellas» no es algo que un lector de pantalla pueda decir bien.
     expect(html.querySelector('.conteo')?.textContent?.trim()).toBe('1.2k');
-    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub, 1240 stars');
+    expect(enlace.getAttribute('aria-label')).toBe('Star on GitHub: glyphflow, 1240 stars');
   });
 
   it('calla el conteo por debajo del umbral, y lo calla TAMBIÉN para el lector de pantalla', () => {
@@ -57,7 +57,7 @@ describe('BotonGithub', () => {
     expect(html.querySelector('.conteo')).toBeNull();
     // Y la etiqueta va con el botón: ocultarlo a la vista y anunciarlo por audio sería esconder el
     // dato malo solo de quien puede verlo.
-    expect(enlace.getAttribute('aria-label')).toBe('Star glyphflow on GitHub');
+    expect(enlace.getAttribute('aria-label')).toBe('Star on GitHub: glyphflow');
   });
 
   it('el umbral es inclusivo: justo en el número, el conteo aparece', () => {

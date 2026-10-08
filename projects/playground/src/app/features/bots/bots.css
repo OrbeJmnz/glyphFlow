@@ -55,6 +55,8 @@
 
 .bt-mesa {
   display: grid;
+  /* `minmax(0, 1fr)`: la pista automática se estira al min-content del chat y a 320px se salía 8px (recortado por el clip de la raíz). */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
   align-items: stretch;
 }
@@ -67,6 +69,8 @@
 
 .bt-panel {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 1rem;
   padding: 1.25rem;
   border: 1px solid var(--gf-borde);
@@ -170,6 +174,11 @@
 .bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .fx,
 .bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .world {
   display: none;
+}
+
+/* La región de estado vive siempre en el DOM; vacía no debe sumar otro hueco de `gap` entre el bot y los gestos. */
+.bt-panel > [role='status']:empty {
+  margin-top: -1rem;
 }
 
 .bt-aviso-mov {
@@ -436,6 +445,7 @@
 .bt-columna {
   display: grid;
   grid-template-rows: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   min-width: 0;
 }
 

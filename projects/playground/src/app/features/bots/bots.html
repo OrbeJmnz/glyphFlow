@@ -27,9 +27,12 @@
         />
       </div>
 
-      @if (!movimiento()) {
-        <p class="bt-aviso-mov" role="status">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
-      }
+      <!-- La región de estado va SIEMPRE en el DOM y solo cambia su contenido: una región insertada ya con texto no se anuncia de forma fiable. -->
+      <div role="status">
+        @if (!movimiento()) {
+          <p class="bt-aviso-mov">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
+        }
+      </div>
 
       <div class="bt-gestos">
         <h3>{{ 'bots.escenario.gestos' | transloco }}</h3>
@@ -135,7 +138,7 @@
           <p class="bt-chat-nombre">{{ 'bots.chat.asistente' | transloco }}</p>
         </div>
 
-        <div class="bt-mensajes" role="log" aria-live="polite" [attr.aria-label]="'bots.chat.titulo' | transloco">
+        <div class="bt-mensajes" role="log" aria-live="polite" [attr.aria-busy]="ejecutando()" [attr.aria-label]="'bots.chat.titulo' | transloco">
           @for (m of mensajes(); track $index) {
             <p class="bt-msg" [attr.data-rol]="m.rol">
               {{ m.texto }}
@@ -158,11 +161,17 @@
               <input type="checkbox" [checked]="conError()" (change)="conError.set($any($event.target).checked)" />
               {{ 'bots.chat.fallar' | transloco }}
             </label>
-            @if (ejecutando()) {
-              <button type="button" app-chip variante="contorno" (click)="detener()">{{ 'bots.chat.detener' | transloco }}</button>
-            } @else {
-              <button type="submit" app-chip variante="contorno" [activo]="true" [disabled]="!movimiento()">{{ 'bots.chat.enviar' | transloco }}</button>
-            }
+            <!-- UN solo botón que cambia de acción: con @if/@else el «Enviar» se destruía y el foco caía al <body> (SC 2.4.3). El ternario no es un `&&`: un manejador que devuelve `false` hace preventDefault y cancelaría el submit. -->
+            <button
+              [type]="ejecutando() ? 'button' : 'submit'"
+              app-chip
+              variante="contorno"
+              [activo]="!ejecutando()"
+              [disabled]="!ejecutando() && !movimiento()"
+              (click)="ejecutando() ? detener() : undefined"
+            >
+              {{ (ejecutando() ? 'bots.chat.detener' : 'bots.chat.enviar') | transloco }}
+            </button>
           </div>
         </form>
       </div>

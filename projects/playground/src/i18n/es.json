@@ -37,7 +37,7 @@
       "reanudar": "Volver a animar"
     },
     "idioma": {
-      "cambiar": "Cambiar idioma"
+      "cambiar": "ES, cambiar idioma"
     },
     "velocidad": {
       "botonAria": "Velocidad de animación: {{actual}}. Toca para cambiar a {{siguiente}}.",
@@ -125,9 +125,9 @@
   "marca": {
     "github": {
       "texto": "Star on GitHub",
-      "ariaSinConteo": "Dar estrella a glyphflow en GitHub",
-      "ariaConUna": "Dar estrella a glyphflow en GitHub, {{n}} estrella",
-      "ariaConVarias": "Dar estrella a glyphflow en GitHub, {{n}} estrellas"
+      "ariaSinConteo": "Star on GitHub: dar estrella a glyphflow",
+      "ariaConUna": "Star on GitHub: dar estrella a glyphflow, {{n}} estrella",
+      "ariaConVarias": "Star on GitHub: dar estrella a glyphflow, {{n}} estrellas"
     },
     "donar": {
       "texto": "Donar",
