@@ -25,6 +25,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
   </url>
   <url>
+    <loc>https://glyph-flow-zeta.vercel.app/en/bots</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/bots"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/bots"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/bots"/>
+  </url>
+  <url>
     <loc>https://glyph-flow-zeta.vercel.app/en/docs/getting-started</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/docs/getting-started"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/docs/empezando"/>
@@ -101,6 +107,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/lab"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/lab"/>
+  </url>
+  <url>
+    <loc>https://glyph-flow-zeta.vercel.app/es/bots</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://glyph-flow-zeta.vercel.app/en/bots"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://glyph-flow-zeta.vercel.app/es/bots"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://glyph-flow-zeta.vercel.app/en/bots"/>
   </url>
   <url>
     <loc>https://glyph-flow-zeta.vercel.app/es/docs/empezando</loc>

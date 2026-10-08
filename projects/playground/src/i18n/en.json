@@ -17,6 +17,7 @@
     "editor": "Path editor",
     "lab": "Lab",
     "labBeta": "Beta",
+    "bots": "Bots",
     "docs": "Docs"
   },
   "shell": {
@@ -117,7 +118,8 @@
       "descripcion": "How glyphflow tokens interact with your app's light and dark themes."
     },
     "bots": {
-      "title": "Bots — glyphflow"
+      "title": "Bots — glyphflow",
+      "descripcion": "Animated characters with real physical motion on the native Web Animations API. Play with one and watch it react to an AI agent."
     }
   },
   "marca": {
@@ -142,6 +144,7 @@
     "patrones": "Real controls, with the code that makes them next to them.",
     "editor": "Edit an icon's outline point by point.",
     "lab": "Authoring benches — where the library's defaults get decided.",
+    "bots": "Animated characters that react to an AI agent — play with one.",
     "docs": "API reference, guides and migration."
   }
 }

@@ -80,7 +80,6 @@ function paginas(idioma: Idioma): Routes {
       loadComponent: () => import('./features/editor/editor').then((m) => m.Editor),
     },
     {
-      // Página oculta hasta publicar los bots: sin entrada en el nav, fuera del sitemap y con `noindex` (lo pone el propio componente).
       path: slug('bots', idioma),
       title: 'routes.bots.title',
       loadComponent: () => import('./features/bots/bots').then((m) => m.Bots),

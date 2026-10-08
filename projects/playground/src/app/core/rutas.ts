@@ -40,7 +40,6 @@ export const SLUGS: Record<RutaId, Record<Idioma, string>> = {
   patrones: { en: 'examples', es: 'ejemplos' },
   editor: { en: 'editor', es: 'editor' },
   lab: { en: 'lab', es: 'lab' },
-  // Existe pero NO se enlaza ni está en el sitemap hasta que `glyphflow/bots` se publique (ver `PAGINAS` en `scripts/gen-sitemap.ts`).
   bots: { en: 'bots', es: 'bots' },
   // Vive DENTRO del Lab (`/lab/face-lab`): es un banco más, no una sección del sitio. Fuera del
   // sitemap a propósito — ver `PAGINAS` en `scripts/gen-sitemap.ts`.

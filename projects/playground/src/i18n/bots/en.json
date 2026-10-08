@@ -1,7 +1,6 @@
 {
   "titulo": "Bots",
   "intro": "Animated characters with real physical motion: squash, stretch, impact and secondary motion, on the native Web Animations API. Play with one, then watch it react to an AI agent.",
-  "aviso": "Preview. glyphflow/bots is not published yet: this page runs the code from the repository, and the install line will appear with the release.",
   "escenario": {
     "titulo": "Stage",
     "etiqueta": "Play with a bot",

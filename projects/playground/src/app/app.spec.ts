@@ -63,7 +63,7 @@ describe('App (shell)', () => {
         .join('')
         .trim();
     const rutas = [...html.querySelectorAll('.nav a')].map(nombreAccesible);
-    expect(rutas).toEqual(['Icons', 'Examples', 'Path editor', 'Lab', 'Docs']);
+    expect(rutas).toEqual(['Icons', 'Examples', 'Path editor', 'Lab', 'Bots', 'Docs']);
     // El glifo junto al logotipo: el sitio animando su propio producto en el header.
     expect(html.querySelector('.marca gf-icon')).not.toBeNull();
     // El botón del repo está cableado (lo suyo se prueba en su propia spec).
@@ -77,7 +77,7 @@ describe('App (shell)', () => {
     // Escritos duros (`/patrones`) mandarían al visitante en español a la rama en inglés — y peor,
     // sin prefijo caería en el comodín, que lo devuelve a la portada.
     const hrefs = [...html.querySelectorAll('.nav a')].map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['/en', '/en/examples', '/en/editor', '/en/lab', '/en/docs']);
+    expect(hrefs).toEqual(['/en', '/en/examples', '/en/editor', '/en/lab', '/en/bots', '/en/docs']);
   });
 
   /*
@@ -95,12 +95,12 @@ describe('App (shell)', () => {
     //    enlaces, que fue lo que descuadró el indicador del activo, a cambio de una glosa que en
     //    una barra de cinco chips nadie pasa a leer.
     const descripciones = [...html.querySelectorAll('.menu-nav a small')];
-    expect(descripciones.length).toBe(5);
+    expect(descripciones.length).toBe(6);
     for (const d of descripciones) expect(d.textContent!.trim()).toBeTruthy();
 
     // Y el header se queda con sus enlaces DIRECTOS: el carril mide contra el contenedor, y aunque
     // ya aguanta envoltorios, no hay motivo para volver a meter uno.
-    expect(html.querySelectorAll('.nav > a').length).toBe(5);
+    expect(html.querySelectorAll('.nav > a').length).toBe(6);
 
     // 2. Y ningún par de nombres se confunde entre sí.
     const nombres = [...html.querySelectorAll('.nav a')].map((a) => a.textContent!.trim());

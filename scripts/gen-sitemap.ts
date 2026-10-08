@@ -22,6 +22,7 @@ const PAGINAS: RutaId[][] = [
   ['patrones'],
   ['editor'],
   ['lab'],
+  ['bots'],
   ['docs', 'empezando'],
   ['docs', 'accesibilidad'],
   ['docs', 'ssr'],

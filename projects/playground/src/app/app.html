@@ -63,6 +63,13 @@
       >
       <a
         app-chip
+        [routerLink]="rutas.a('bots')"
+        routerLinkActive="activo"
+        ariaCurrentWhenActive="page"
+        >{{ 'nav.bots' | transloco }}</a
+      >
+      <a
+        app-chip
         [routerLink]="rutas.a('docs')"
         routerLinkActive="activo"
         ariaCurrentWhenActive="page"
@@ -223,6 +230,15 @@
         }}<span class="beta-tag" aria-hidden="true">{{ 'nav.labBeta' | transloco }}</span></span
       >
       <small>{{ 'navDesc.lab' | transloco }}</small>
+    </a>
+    <a
+      [routerLink]="rutas.a('bots')"
+      routerLinkActive="activo"
+      ariaCurrentWhenActive="page"
+      (click)="cerrarMenu()"
+    >
+      {{ 'nav.bots' | transloco }}
+      <small>{{ 'navDesc.bots' | transloco }}</small>
     </a>
     <a
       [routerLink]="rutas.a('docs')"

@@ -17,6 +17,7 @@
     "editor": "Editor de trazos",
     "lab": "Lab",
     "labBeta": "Beta",
+    "bots": "Bots",
     "docs": "Docs"
   },
   "shell": {
@@ -117,7 +118,8 @@
       "descripcion": "Cómo interactúan los tokens de glyphflow con el tema claro y oscuro de tu app."
     },
     "bots": {
-      "title": "Bots — glyphflow"
+      "title": "Bots — glyphflow",
+      "descripcion": "Personajes animados con movimiento físico de verdad sobre la Web Animations API nativa. Juega con uno y míralo reaccionar a un agente de IA."
     }
   },
   "marca": {
@@ -142,6 +144,7 @@
     "patrones": "Controles de verdad, con el código que los hace al lado.",
     "editor": "Edita el contorno de un icono punto por punto.",
     "lab": "Bancos de autoría: aquí se deciden los valores por defecto.",
+    "bots": "Personajes animados que reaccionan a un agente de IA: juega con uno.",
     "docs": "Referencia de API, guías y migración."
   }
 }

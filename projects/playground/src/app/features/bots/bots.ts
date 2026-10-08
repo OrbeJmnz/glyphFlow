@@ -10,7 +10,6 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Meta } from '@angular/platform-browser';
 import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import {
   GfBotComponent,
@@ -36,7 +35,6 @@ import { tema } from '../../core/tema';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { Chip } from '../../shared/ui/chip';
 import { Grupo } from '../../shared/ui/grupo';
-import { Recuadro } from '../../shared/ui/recuadro';
 import { correrGuion, type PasoAgente } from './agente-simulado';
 import { codigoBot } from './bots-codigo';
 import { ESTADOS, FORMAS, GESTOS, GRUPOS, PESOS, PIELES, esperaVida, gestoSuelto, type EstadoBot, type FormaId } from './bots-datos';
@@ -76,14 +74,13 @@ interface Mensaje {
  * movimiento solo por su forma); a la derecha un chat con un agente SIMULADO cuyo riel de pasos se
  * ilumina cuando el bot reacciona. Debajo, el código que reproduce lo que se ve y lo que pesa.
  *
- * La página existe pero está OCULTA: sin entrada en el nav, fuera del sitemap y con `noindex`, hasta
- * que `glyphflow/bots` se publique. Mientras tanto el sitio lee los bots de la fuente local (ver
- * `tsconfig.paths.json`) y lo dice con un aviso, para que nadie crea que ya se puede instalar.
+ * Es una página pública: está en el nav y en el sitemap. El sitio compila los bots desde la fuente local y
+ * no desde npm (ver `tsconfig.paths.json`), pero es el mismo código que lleva la 3.2.0 publicada.
  */
 @Component({
   selector: 'app-bots',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [GfBotComponent, Chip, Grupo, Recuadro, BloqueCodigo, ReactiveFormsModule, TranslocoPipe],
+  imports: [GfBotComponent, Chip, Grupo, BloqueCodigo, ReactiveFormsModule, TranslocoPipe],
   // El scope va en el componente y no en la ruta, igual que el Lab: así el idioma por defecto viaja
   // DENTRO de este chunk. Ver `lab.ts`.
   providers: [
@@ -205,11 +202,7 @@ export class Bots {
   };
 
   constructor() {
-    // Hasta que se publiquen los bots esta página no se debe indexar (ni aunque alguien enlace la URL).
-    const meta = inject(Meta);
-    meta.updateTag({ name: 'robots', content: 'noindex' });
     inject(DestroyRef).onDestroy(() => {
-      meta.removeTag(`name='robots'`);
       this.detener();
       if (this.vida) clearTimeout(this.vida);
     });
