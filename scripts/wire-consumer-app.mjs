@@ -1,9 +1,14 @@
 // Usado por el job angular-compat de CI: recibe la ruta de una app Angular recién generada con
 // `ng new` (cualquier versión — 20/21/22 usan la misma convención de archivo raíz standalone) y
-// la reescribe para que use `<max-icon [iconDef]="bellIcon">`. Deliberadamente NO usa
+// la reescribe para que use `<max-icon [iconDef]="bellIcon">` y `<gf-bot>` (entry point `glyphflow/bots`). Deliberadamente NO usa
 // `provideIconCatalog`/`name=` aquí: eso ya está cubierto por los tests dentro del propio
 // workspace de glyphflow — esta prueba es sobre el consumidor real (instala el .tgz, importa,
 // compila, renderiza SSR), no sobre repetir la cobertura interna.
+//
+// `<gf-bot>` va aquí por una razón concreta: trae ~38 kB de CSS y el scaffold de `ng new` fija el
+// presupuesto `anyComponentStyle` en 4 kB (aviso) y 8 kB (error). Publicado, ese CSS llega embebido y
+// no se mide — medido a mano con la 3.2.0 en Angular 22 — pero nada lo vigilaba en CI: un cambio que
+// lo sacara del bundle rompería el build de cualquier app consumidora sin que lo supiéramos.
 import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -29,14 +34,16 @@ writeFileSync(
   join(appDir, 'src', 'app', found),
   `import { Component } from '@angular/core';
 import { MaxIconComponent, bellIcon } from 'glyphflow';
+import { GfBotComponent, catShape } from 'glyphflow/bots';
 
 @Component({
   selector: 'app-root',
-  imports: [MaxIconComponent],
+  imports: [MaxIconComponent, GfBotComponent],
   templateUrl: './${htmlFile}',
 })
 export class App {
   protected readonly bellIcon = bellIcon;
+  protected readonly catShape = catShape;
 }
 `,
   'utf8',
@@ -44,8 +51,8 @@ export class App {
 
 writeFileSync(
   join(appDir, 'src', 'app', htmlFile),
-  `<max-icon [iconDef]="bellIcon" trigger="auto" />\n`,
+  `<max-icon [iconDef]="bellIcon" trigger="auto" />\n<gf-bot [shape]="catShape" skin="g1" label="Cat" />\n`,
   'utf8',
 );
 
-console.log(`Wired: ${found} + ${htmlFile} en ${appDir} para consumir glyphflow.`);
+console.log(`Wired: ${found} + ${htmlFile} en ${appDir} para consumir glyphflow (max-icon + gf-bot).`);
