@@ -30,10 +30,13 @@
       // playground (projects/playground/package.json + install anidado), que es como se ve un
       // consumidor de a de veras. Eso toca CI y Vercel, así que es su propio slice.
       "glyphflow/morph": ["../glyphflow/morph/src/public-api"],
-      // Los bots TODAVÍA NO están publicados: el sitio los lee de la fuente local, igual que hizo morph antes de salir. El día que
-      // salgan en el paquete, estas dos líneas se borran y el sitio pasa a leerlos del registro (y `/bots` se abre).
-      // Y con ellas se REVIERTE el tope de `anyComponentStyle` de angular.json (14kB -> 40kB): el CSS de `<gf-bot>` pesa ~38kB y,
-      // compilado desde la fuente, cuenta contra ese tope; ya publicado llega con sus estilos embebidos y no se mide.
+      // Los bots YA están publicados (3.2.0) y aun así resuelven a la fuente local, por la misma razón que morph: sus chunks publicados
+      // importan `glyphflow` y `glyphflow/bots…` por NOMBRE DE PAQUETE, y aquí `node_modules/glyphflow` es un junction al código fuente. El
+      // builder aplica estos `paths` a todo, pero typecheck y el runner de tests no los aplican dentro de la dependencia (TS2307 / "Failed to
+      // resolve import"). Probado el 2026-10-08: quitarlos rompe `verify:clean` en el typecheck. Se van los dos juntos, bots y morph, el día que
+      // el playground tenga su propio node_modules (el slice de arriba).
+      // Mientras sigan, el tope de `anyComponentStyle` de angular.json se queda en 40kB: el CSS de `<gf-bot>` pesa ~38kB y, compilado desde
+      // la fuente, cuenta contra ese tope (publicado llega embebido y no se mide: comprobado con una app Angular 22 limpia).
       "glyphflow/bots": ["../glyphflow/bots/src/public-api"],
       "glyphflow/bots/gestures": ["../glyphflow/bots/gestures/src/public-api"],
       "glyphflow/bots/extras": ["../glyphflow/bots/extras/src/public-api"],
