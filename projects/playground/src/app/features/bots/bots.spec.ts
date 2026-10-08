@@ -1,5 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { correrGuion, guion, PALABRA_MS, type PasoAgente } from './agente-simulado';
+import { describe, expect, it } from 'vitest';
 import { codigoBot, type ConfigBot } from './bots-codigo';
 import { esperaVida, FORMAS, GESTOS, GESTOS_SUELTOS, GRUPOS, gestoSuelto, PIELES } from './bots-datos';
 
@@ -45,6 +44,16 @@ describe('codigoBot (el snippet que reproduce lo que se ve)', () => {
     expect(completo).toContain('agentReactions()');
   });
 
+  it('con el modo IA conecta un stream con bindAgent y el adaptador del SDK elegido', () => {
+    const vercel = codigoBot({ ...base, agente: true });
+    expect(vercel.completo).toContain(`import { bindAgent, vercelAi } from 'glyphflow/bots/ai';`);
+    expect(vercel.completo).toContain('bindAgent(api, stream, vercelAi)');
+    const anthropic = codigoBot({ ...base, agente: true, proveedor: 'anthropic' });
+    expect(anthropic.completo).toContain(`import { bindAgent, anthropic } from 'glyphflow/bots/ai';`);
+    expect(anthropic.completo).toContain('bindAgent(api, stream, anthropic)');
+    expect(codigoBot(base).completo).not.toContain('glyphflow/bots/ai');
+  });
+
   it('no repite un import y refleja el cursor y el tacto', () => {
     const { completo, fragmento } = codigoBot({ ...base, gesto: 'frontFlip', agente: true, sigue: true, toca: true });
     expect(completo.match(/frontFlip/g)?.length).toBeLessThan(5);
@@ -63,61 +72,6 @@ describe('codigoBot (el snippet que reproduce lo que se ve)', () => {
     const { completo } = codigoBot({ ...base, gesto: 'frontFlip' });
     expect(completo).toContain('viewChild(GfBotComponent)');
     expect(completo).toContain(`this.bot()?.api?.gesture('frontFlip')`);
-  });
-});
-
-describe('agente simulado', () => {
-  beforeEach(() => vi.useFakeTimers());
-  afterEach(() => vi.useRealTimers());
-
-  const correr = (conError: boolean, palabras: string[] = ['uno', 'dos', 'tres']) => {
-    const eventos: PasoAgente[] = [];
-    const dichas: string[] = [];
-    const fin = vi.fn();
-    const cancelar = correrGuion(conError, palabras, { evento: (e) => eventos.push(e), palabra: (p) => dichas.push(p), fin });
-    return { eventos, dichas, fin, cancelar };
-  };
-
-  it('el guion normal recorre los pasos en orden y termina en done', () => {
-    const { eventos, dichas, fin } = correr(false);
-    vi.advanceTimersByTime(60_000);
-    expect(eventos).toEqual(['prompt', 'thinking', 'tool', 'loading', 'writing', 'done']);
-    expect(dichas).toEqual(['uno', 'dos', 'tres']);
-    expect(fin).toHaveBeenCalledWith('done');
-  });
-
-  it('con error falla al usar la herramienta: sin loading ni writing', () => {
-    const { eventos, dichas, fin } = correr(true);
-    vi.advanceTimersByTime(60_000);
-    expect(eventos).toEqual(['prompt', 'thinking', 'tool', 'error']);
-    expect(dichas).toEqual([]);
-    expect(fin).toHaveBeenCalledWith('error');
-  });
-
-  it('respeta el ritmo: cada paso dura lo que dice el guion y cada palabra, PALABRA_MS', () => {
-    const { eventos, dichas } = correr(false);
-    expect(eventos).toEqual(['prompt']);
-    vi.advanceTimersByTime(699);
-    expect(eventos).toEqual(['prompt']);
-    vi.advanceTimersByTime(2);
-    expect(eventos).toEqual(['prompt', 'thinking']);
-    const antesDeEscribir = guion(false).slice(0, 4).reduce((a, p) => a + p.ms, 0);
-    vi.advanceTimersByTime(antesDeEscribir - 701 + 1);
-    expect(eventos.at(-1)).toBe('writing');
-    expect(dichas).toEqual(['uno']);
-    vi.advanceTimersByTime(PALABRA_MS);
-    expect(dichas).toEqual(['uno', 'dos']);
-  });
-
-  it('cortarlo detiene todo: ni más pasos, ni más palabras, ni fin', () => {
-    const { eventos, dichas, fin, cancelar } = correr(false);
-    vi.advanceTimersByTime(1000);
-    cancelar();
-    const n = eventos.length;
-    vi.advanceTimersByTime(60_000);
-    expect(eventos.length).toBe(n);
-    expect(dichas).toEqual([]);
-    expect(fin).not.toHaveBeenCalled();
   });
 });
 

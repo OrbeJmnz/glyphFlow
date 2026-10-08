@@ -1,3 +1,4 @@
+import type { Proveedor } from './escenarios-ia';
 import type { EstadoBot, FormaId } from './bots-datos';
 
 /** Lo que el visitante tiene puesto en el escenario: de aquí sale el código que lo reproduce. */
@@ -12,6 +13,8 @@ export interface ConfigBot {
   toca: boolean;
   /** Si pide el modo IA (`agentReactions`). */
   agente: boolean;
+  /** De qué SDK sale el stream que se le pasa a `bindAgent` (por defecto, el Vercel AI SDK). */
+  proveedor?: Proveedor;
   /** El estado elegido: `working` y `sleeping` traen sus rutinas de `glyphflow/bots/extras`; en reposo no hace falta nada. */
   estado?: EstadoBot;
 }
@@ -42,6 +45,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
   const forma = nombreForma(c.forma);
   const gestos = unicos([...(c.gesto ? [c.gesto] : []), ...(c.agente ? ['frontFlip'] : [])]);
   const rutinas = !!c.estado && c.estado !== 'idle';
+  const adaptador = c.proveedor === 'anthropic' ? 'anthropic' : 'vercelAi';
 
   const atributos = [
     `[shape]="shape"`,
@@ -64,6 +68,7 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
   const importsGestos = [...gestos, ...(c.agente ? ['agentReactions'] : [])];
   const imports = [
     `import { ${importsBots.join(', ')} } from 'glyphflow/bots';`,
+    ...(c.agente ? [`import { bindAgent, ${adaptador} } from 'glyphflow/bots/ai';`] : []),
     ...(rutinas ? [`import { routinesExtra } from 'glyphflow/bots/extras';`] : []),
     ...(importsGestos.length ? [`import { ${unicos(importsGestos).join(', ')} } from 'glyphflow/bots/gestures';`] : []),
   ];
@@ -72,7 +77,12 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
   // Cómo se llama al bot: en el fragmento es `bot` a secas; en la clase completa, la señal `viewChild`.
   const usar = (bot: string): string[] => [
     ...(c.gesto ? [`${bot}.api?.gesture('${c.gesto}'${c.intensidad !== undefined && c.intensidad !== 1 ? `, { intensity: ${c.intensidad} }` : ''});`] : []),
-    ...(c.agente ? [`${bot}.api?.agent('thinking'); // 'thinking' → 'tool' → 'writing' → 'done'`] : []),
+    ...(c.agente
+      ? [
+          `const api = ${bot.replace(/\?$/, '')}?.api;`,
+          `if (api) bindAgent(api, stream, ${adaptador}); // stream: lo que te devuelve tu SDK`,
+        ]
+      : []),
   ];
 
   const fragmento = [plantilla, ...(miembros.length ? ['', ...miembros] : []), ...(usar('bot').length ? ['', ...usar('bot')] : [])].join('\n');
@@ -90,7 +100,14 @@ export function codigoBot(c: ConfigBot): { fragmento: string; completo: string }
     'export class Mascota {',
     ...(hayUso ? [`  protected readonly bot = viewChild(GfBotComponent);`] : []),
     ...miembros,
-    ...(hayUso ? ['', '  jugar(): void {', ...usar('this.bot()?').map((l) => `    ${l}`), '  }'] : []),
+    ...(hayUso
+      ? [
+          '',
+          c.agente ? '  jugar(stream: AsyncIterable<{ type: string }>): void {' : '  jugar(): void {',
+          ...usar('this.bot()?').map((l) => `    ${l}`),
+          '  }',
+        ]
+      : []),
     '}',
   ].join('\n');
 

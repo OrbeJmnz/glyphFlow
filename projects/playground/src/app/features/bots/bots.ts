@@ -27,6 +27,7 @@ import {
   type GfGestureOptions,
   type GfKawaiiId,
 } from 'glyphflow/bots';
+import { anthropic, bindAgent, vercelAi, type GfAgentAdapter, type GfAgentRun } from 'glyphflow/bots/ai';
 import { routinesExtra } from 'glyphflow/bots/extras';
 import { agentReactions, physicalGestures } from 'glyphflow/bots/gestures';
 import botsEn from '../../../i18n/bots/en.json';
@@ -35,8 +36,20 @@ import { tema } from '../../core/tema';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { Chip } from '../../shared/ui/chip';
 import { Grupo } from '../../shared/ui/grupo';
-import { correrGuion, type PasoAgente } from './agente-simulado';
 import { codigoBot } from './bots-codigo';
+import {
+  ESCENARIOS,
+  PROVEEDORES,
+  corteDe,
+  crearReloj,
+  flujo,
+  partes,
+  type EscenarioId,
+  type EventoCrudo,
+  type Parte,
+  type Proveedor,
+  type Reloj,
+} from './escenarios-ia';
 import { ESTADOS, FORMAS, GESTOS, GRUPOS, PESOS, PIELES, esperaVida, gestoSuelto, type EstadoBot, type FormaId } from './bots-datos';
 
 type Vista = 'color' | 'silueta';
@@ -51,8 +64,15 @@ const CARAS: Partial<Record<GfBotAgentEvent, { id: GfKawaiiId; prob: number }>> 
   error: { id: 'worried', prob: 0.9 },
 };
 
-/** Los pasos que se pintan en el riel, en orden. El último es `done` o `error` según cómo termine la corrida. */
-const PASOS_RIEL: readonly PasoAgente[] = ['prompt', 'thinking', 'tool', 'loading', 'writing'];
+/** Los adaptadores de verdad: ambos leen solo `type` (y el bloque/delta en Anthropic), así que comparten la forma. */
+const ADAPTADORES: Record<Proveedor, GfAgentAdapter<EventoCrudo>> = { vercel: vercelAi, anthropic };
+
+/** Una línea de la traza: lo que mandó el SDK (repetido seguido = un renglón con ×n) y a qué paso lo tradujo el adaptador. */
+interface LineaTraza {
+  crudo: string;
+  paso: GfBotAgentEvent | null;
+  n: number;
+}
 
 const SHAPES: Record<FormaId, GfBotShape> = {
   ghost: ghostShape,
@@ -71,7 +91,7 @@ interface Mensaje {
 /**
  * `/bots`: dos vistas de lo mismo. A la izquierda un escenario donde se juega con un bot (forma, piel,
  * los 20 gestos, seguir el puntero, tocar y arrastrar, y un interruptor Color | Silueta para juzgar el
- * movimiento solo por su forma); a la derecha un chat con un agente SIMULADO cuyo riel de pasos se
+ * movimiento solo por su forma); a la derecha un chat alimentado con streams SIMULADOS de cada SDK, que pasan por los adaptadores reales, cuyo riel de pasos se
  * ilumina cuando el bot reacciona. Debajo, el código que reproduce lo que se ve y lo que pesa.
  *
  * Es una página pública: está en el nav y en el sitemap. El sitio compila los bots desde la fuente local y
@@ -138,48 +158,46 @@ export class Bots {
       sigue: this.sigue(),
       toca: this.toca(),
       agente: this.conAgente(),
+      proveedor: this.proveedor(),
       estado: this.estado(),
     }),
   );
 
   // ── El chat ──
   protected readonly mensaje = new FormControl('', { nonNullable: true });
-  protected readonly conError = signal(false);
+  protected readonly escenarios = ESCENARIOS;
+  protected readonly proveedores = PROVEEDORES;
+  /** Qué tipo de salida de IA simula el chat y con la forma de qué SDK. */
+  protected readonly salida = signal<EscenarioId>('herramienta');
+  protected readonly proveedor = signal<Proveedor>('vercel');
   protected readonly ejecutando = signal(false);
-  protected readonly paso = signal<PasoAgente | null>(null);
   protected readonly mensajes = signal<Mensaje[]>([]);
-  protected readonly resultado = signal<'done' | 'error' | null>(null);
-  /** Qué gesto hizo el bot en cada paso (lo anota el manejador de `onAgentEvent`). */
-  protected readonly juega = signal<Partial<Record<GfBotAgentEvent, string>>>({});
-  /** Si la corrida en curso (o la última) se pidió con error: cambia el último paso del riel. */
-  private readonly corridaConError = signal(false);
+  /** Los pasos que vio el bot, en orden (ya sin repeticiones seguidas: lo hace `bindAgent`). */
+  protected readonly pasos = signal<GfBotAgentEvent[]>([]);
+  /** Cómo terminó la última corrida: `done`, `error` o `idle` (la cortaron). */
+  protected readonly resultado = signal<'done' | 'error' | 'idle' | null>(null);
+  /** Lo que mandó el SDK y a qué paso lo tradujo el adaptador. */
+  protected readonly traza = signal<LineaTraza[]>([]);
+  /** Qué gesto hizo el bot en cada paso, por POSICIÓN en `pasos` (un mismo paso puede repetirse y mover distinto). */
+  protected readonly juega = signal<Record<number, string>>({});
 
   protected readonly riel = computed(() => {
-    const actual = this.paso();
+    const lista = this.pasos();
     const fin = this.resultado();
-    const ultimo: PasoAgente = this.corridaConError() ? 'error' : 'done';
-    const lista: readonly PasoAgente[] = this.corridaConError() ? ['prompt', 'thinking', 'tool', ultimo] : [...PASOS_RIEL, ultimo];
-    const i = actual ? lista.indexOf(actual) : -1;
-    return lista.map((p, k) => ({
-      paso: p,
-      estado: (fin && p === fin ? 'fin' : i < 0 ? 'pendiente' : k < i ? 'hecho' : k === i ? 'activo' : 'pendiente') as
-        | 'pendiente'
-        | 'activo'
-        | 'hecho'
-        | 'fin',
+    return lista.map((paso, i) => ({
+      paso,
+      estado: (i === lista.length - 1 ? (fin ? 'fin' : 'activo') : 'hecho') as 'activo' | 'hecho' | 'fin',
     }));
   });
 
-  /** Hasta dónde llega el relleno del riel: del primer punto (0 %) al paso en que va (100 % = el último). */
-  protected readonly avance = computed(() => {
-    const r = this.riel();
-    const i = r.findIndex((x) => x.estado === 'activo' || x.estado === 'fin');
-    return i < 0 ? '0%' : `${(i / Math.max(1, r.length - 1)) * 100}%`;
-  });
+  /** El relleno del riel llega siempre hasta el último paso: solo se pintan los que ya pasaron. */
+  protected readonly avance = computed(() => (this.pasos().length > 1 ? '100%' : '0%'));
 
   private readonly chatBot = viewChild<GfBotComponent>('chatBot');
   private readonly agente = agentReactions({ cooldownMs: 0, waitMs: 4000 });
-  private corte: (() => void) | null = null;
+  private run: GfAgentRun | null = null;
+  private reloj: Reloj | null = null;
+  private corteAuto: ReturnType<typeof setTimeout> | null = null;
   private vida: ReturnType<typeof setTimeout> | null = null;
 
   /**
@@ -190,7 +208,7 @@ export class Bots {
     const espia = {
       ...bot,
       gesture: (id: string, o?: GfGestureOptions): GfGestureHandle => {
-        this.juega.update((m) => ({ ...m, [ev]: id }));
+        this.juega.update((m) => ({ ...m, [this.pasos().length - 1]: id }));
         return bot.gesture(id, o);
       },
     } as GfBotApi;
@@ -273,38 +291,73 @@ export class Bots {
     if (!bot || !texto || this.ejecutando() || !this.movimiento()) return;
     this.detener();
     this.juega.set({});
+    this.pasos.set([]);
+    this.traza.set([]);
     this.resultado.set(null);
-    this.corridaConError.set(this.conError());
     this.ejecutando.set(true);
     this.mensajes.set([
       { rol: 'usuario', texto },
       { rol: 'asistente', texto: '' },
     ]);
+
+    const id = this.salida();
+    const prov = this.proveedor();
     const palabras = this.transloco.translate('bots.chat.respuesta').split(' ');
-    this.corte = correrGuion(this.conError(), palabras, {
-      evento: (e) => {
-        this.paso.set(e);
-        bot.agent(e);
+    const reloj = crearReloj();
+    // Otra instancia del mismo adaptador, solo para ANOTAR a qué paso traduce cada evento (el de `bindAgent` es el que mueve al bot).
+    const lectura = ADAPTADORES[prov]();
+    const alParte = (p: Parte): void => {
+      this.anotar(p.evento.type, lectura(p.evento) ?? null);
+      if (p.texto !== undefined) {
+        bot.token(p.texto.trim());
+        this.mensajes.update((m) => this.conTexto(m, (t) => t + (p.texto as string)));
+      }
+    };
+
+    // La tubería de verdad: stream del SDK → adaptador → bindAgent → bot. Lo único falso es de dónde sale el stream.
+    const run = bindAgent(
+      {
+        agent: (e) => {
+          this.pasos.update((l) => [...l, e]);
+          bot.agent(e);
+        },
       },
-      palabra: (p) => {
-        bot.token(p);
-        this.mensajes.update((m) => this.conTexto(m, (t) => (t ? `${t} ${p}` : p)));
-      },
-      fin: (r) => {
-        this.resultado.set(r);
-        this.ejecutando.set(false);
-        if (r === 'error') this.mensajes.update((m) => this.conTexto(m, () => this.transloco.translate('bots.chat.error')));
-      },
+      flujo(partes(id, prov, palabras), reloj, alParte),
+      ADAPTADORES[prov],
+    );
+    this.run = run;
+    this.reloj = reloj;
+    const corte = corteDe(id);
+    if (corte) this.corteAuto = setTimeout(() => this.detener(), corte);
+
+    void run.done.then((fin) => {
+      if (this.run !== run) return; // ya arrancó otra corrida encima
+      this.run = null;
+      this.reloj = null;
+      this.limpiarCorte();
+      this.ejecutando.set(false);
+      this.resultado.set(fin === 'error' ? 'error' : fin === 'stopped' ? 'idle' : 'done');
+      if (fin === 'error') this.mensajes.update((m) => this.conTexto(m, () => this.transloco.translate('bots.chat.error')));
     });
   }
 
+  /** Corta la corrida en curso: `bindAgent` suelta al bot (`idle`) y el reloj despierta al stream para que se acabe. */
   protected detener(): void {
-    this.corte?.();
-    this.corte = null;
-    if (this.ejecutando()) {
-      this.ejecutando.set(false);
-      this.chatBot()?.api?.agent('idle');
-    }
+    this.limpiarCorte();
+    this.run?.stop();
+    this.reloj?.cortar();
+  }
+
+  private limpiarCorte(): void {
+    if (this.corteAuto) clearTimeout(this.corteAuto);
+    this.corteAuto = null;
+  }
+
+  private anotar(crudo: string, paso: GfBotAgentEvent | null): void {
+    this.traza.update((l) => {
+      const ultima = l[l.length - 1];
+      return ultima && ultima.crudo === crudo ? [...l.slice(0, -1), { ...ultima, n: ultima.n + 1 }] : [...l, { crudo, paso, n: 1 }];
+    });
   }
 
   private conTexto(ms: Mensaje[], f: (t: string) => string): Mensaje[] {

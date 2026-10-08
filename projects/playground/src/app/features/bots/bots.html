@@ -122,6 +122,33 @@
       <h2 id="bt-t-chat" tabindex="-1">{{ 'bots.chat.titulo' | transloco }}</h2>
       <p class="bt-ayuda">{{ 'bots.chat.intro' | transloco }}</p>
 
+      <div class="bt-ia">
+        <app-grupo [titulo]="'bots.chat.proveedor.etiqueta' | transloco">
+          @for (p of proveedores; track p) {
+            <button
+              type="button"
+              app-chip
+              variante="contorno"
+              [activo]="proveedor() === p"
+              [attr.aria-pressed]="proveedor() === p"
+              [disabled]="ejecutando()"
+              (click)="proveedor.set(p)"
+            >
+              {{ 'bots.chat.proveedor.' + p | transloco }}
+            </button>
+          }
+        </app-grupo>
+        <label class="bt-campo">
+          <span>{{ 'bots.chat.escenarios.etiqueta' | transloco }}</span>
+          <select [value]="salida()" [disabled]="ejecutando()" (change)="salida.set($any(valor($event)))">
+            @for (e of escenarios; track e) {
+              <option [value]="e" [selected]="e === salida()">{{ 'bots.chat.escenarios.' + e + '.nombre' | transloco }}</option>
+            }
+          </select>
+        </label>
+        <p class="bt-ayuda">{{ 'bots.chat.escenarios.' + salida() + '.desc' | transloco }}</p>
+      </div>
+
       <div class="bt-chat-caja">
         <div class="bt-chat-cabeza">
           <gf-bot
@@ -157,10 +184,6 @@
             <input type="text" [formControl]="mensaje" [placeholder]="'bots.chat.mensajePorDefecto' | transloco" autocomplete="off" />
           </label>
           <div class="bt-fila">
-            <label class="bt-interruptor">
-              <input type="checkbox" [checked]="conError()" (change)="conError.set($any($event.target).checked)" />
-              {{ 'bots.chat.fallar' | transloco }}
-            </label>
             <!-- UN solo botón que cambia de acción: con @if/@else el «Enviar» se destruía y el foco caía al <body> (SC 2.4.3). El ternario no es un `&&`: un manejador que devuelve `false` hace preventDefault y cancelaría el submit. -->
             <button
               [type]="ejecutando() ? 'button' : 'submit'"
@@ -177,13 +200,32 @@
       </div>
 
       <ol class="bt-riel" [style.--bt-avance]="avance()" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
-        @for (r of riel(); track r.paso) {
+        @for (r of riel(); track $index) {
           <li class="bt-paso" [attr.data-estado]="r.estado" [attr.data-paso]="r.paso" [attr.aria-current]="r.estado === 'activo' ? 'step' : null">
             <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.paso | transloco }}</span>
-            @if (juega()[r.paso]; as gesto) {
+            @if (juega()[$index]; as gesto) {
               <span class="bt-paso-gesto">{{ 'bots.chat.riel.juega' | transloco: { gesto: ('bots.gestos.' + gesto | transloco) } }}</span>
             }
           </li>
+        }
+      </ol>
+
+      <h3 class="bt-traza-titulo">{{ 'bots.chat.traza.titulo' | transloco }}</h3>
+      <p class="bt-ayuda">{{ 'bots.chat.traza.ayuda' | transloco }}</p>
+      <ol class="bt-traza" [attr.aria-label]="'bots.chat.traza.titulo' | transloco">
+        @for (t of traza(); track $index) {
+          <li>
+            <code>{{ t.crudo }}</code>
+            @if (t.n > 1) {
+              <span class="bt-traza-n">×{{ t.n }}</span>
+            }
+            <span class="bt-traza-flecha" aria-hidden="true">→</span>
+            <span class="bt-traza-paso" [attr.data-nada]="t.paso ? null : ''">{{
+              t.paso ? ('bots.chat.riel.' + t.paso | transloco) : ('bots.chat.traza.nada' | transloco)
+            }}</span>
+          </li>
+        } @empty {
+          <li class="bt-traza-vacio">{{ 'bots.chat.traza.vacio' | transloco }}</li>
         }
       </ol>
     </section>

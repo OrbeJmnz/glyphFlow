@@ -62,17 +62,16 @@
   },
   "chat": {
     "titulo": "En un chat con IA",
-    "intro": "Un agente simulado (no se llama a ningún modelo) manda los mismos pasos que uno de verdad. El bot responde a cada uno con un gesto.",
+    "intro": "El bot se mueve con streams que tienen la forma de los SDK reales (no se llama a ningún modelo). Pasan por los mismos adaptadores y por bindAgent que usarías tú, así que el bot responde a cada paso con un gesto.",
     "asistente": "Asistente",
     "mensaje": "Tu mensaje",
     "mensajePorDefecto": "¿Cuánto pesa un icono?",
     "enviar": "Enviar",
     "detener": "Detener",
-    "fallar": "Que falle",
     "respuesta": "Un icono pesa unos 5.9 KB gzip. Los bots son un entry point aparte, así que solo los pagas si los importas.",
     "respuestaSimulada": "Respuesta simulada",
     "vacio": "Manda un mensaje y mira cómo reacciona el asistente.",
-    "error": "La herramienta falló. No se cambió nada.",
+    "error": "El stream falló mientras respondía. No se cambió nada.",
     "riel": {
       "etiqueta": "Qué está haciendo el agente",
       "prompt": "Mensaje recibido",
@@ -82,9 +81,56 @@
       "writing": "Escribiendo",
       "done": "Listo",
       "error": "Falló",
-      "juega": "hace {{gesto}}"
+      "juega": "hace {{gesto}}",
+      "idle": "Detenido"
     },
-    "ir": "Pruébalo en un chat"
+    "ir": "Pruébalo en un chat",
+    "proveedor": {
+      "etiqueta": "Stream con la forma de",
+      "vercel": "Vercel AI SDK",
+      "anthropic": "API de Mensajes de Anthropic"
+    },
+    "escenarios": {
+      "etiqueta": "Tipo de salida",
+      "simple": {
+        "nombre": "Respuesta simple",
+        "desc": "El modelo solo escribe. Sin razonamiento ni herramientas."
+      },
+      "razonamiento": {
+        "nombre": "Razona y luego responde",
+        "desc": "El modelo piensa en voz alta primero y después escribe."
+      },
+      "herramienta": {
+        "nombre": "Una herramienta",
+        "desc": "El modelo llama a una herramienta, espera el resultado y luego responde."
+      },
+      "paralelo": {
+        "nombre": "Herramientas en paralelo",
+        "desc": "Dos herramientas en el mismo turno. El bot ve un solo paso de herramienta, no dos."
+      },
+      "herramientaFalla": {
+        "nombre": "Una herramienta falla y el agente se recupera",
+        "desc": "La herramienta da error pero el agente sigue y responde igual. No es un error del stream."
+      },
+      "aprobacion": {
+        "nombre": "Espera la aprobación de una persona",
+        "desc": "Una herramienta necesita aprobación antes de correr, así que el bot espera más de lo normal."
+      },
+      "error": {
+        "nombre": "Error a media respuesta",
+        "desc": "El stream falla mientras el modelo escribe (límite de peticiones, saturación)."
+      },
+      "abortar": {
+        "nombre": "Lo cortas a la mitad",
+        "desc": "La respuesta se corta a propósito: el bot se suelta y vuelve a reposo."
+      }
+    },
+    "traza": {
+      "titulo": "Lo que mandó el SDK",
+      "ayuda": "Cada línea es un evento del stream y el paso al que lo tradujo el adaptador. «Sin cambio» significa que no mueve nada.",
+      "nada": "sin cambio",
+      "vacio": "Envía un mensaje para ver el stream."
+    }
   },
   "codigo": {
     "titulo": "El código detrás de lo que ves",

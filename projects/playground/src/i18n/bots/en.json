@@ -62,17 +62,16 @@
   },
   "chat": {
     "titulo": "In an AI chat",
-    "intro": "A simulated agent (no model is called) sends the same steps a real one would. The bot answers each one with a gesture.",
+    "intro": "The bot is driven by streams shaped like the real SDKs (no model is called). They go through the same adapters and bindAgent you would use, so the bot answers each step with a gesture.",
     "asistente": "Assistant",
     "mensaje": "Your message",
     "mensajePorDefecto": "How much does one icon weigh?",
     "enviar": "Send",
     "detener": "Stop",
-    "fallar": "Make it fail",
     "respuesta": "One icon is about 5.9 KB gzip. Bots are a separate entry point, so you only pay for them if you import them.",
     "respuestaSimulada": "Simulated reply",
     "vacio": "Send a message and watch the assistant react.",
-    "error": "The tool failed. Nothing was changed.",
+    "error": "The stream failed while it was answering. Nothing was changed.",
     "riel": {
       "etiqueta": "What the agent is doing",
       "prompt": "Message received",
@@ -82,9 +81,56 @@
       "writing": "Writing",
       "done": "Done",
       "error": "Failed",
-      "juega": "plays {{gesto}}"
+      "juega": "plays {{gesto}}",
+      "idle": "Stopped"
     },
-    "ir": "Try it in a chat"
+    "ir": "Try it in a chat",
+    "proveedor": {
+      "etiqueta": "Stream shaped like",
+      "vercel": "Vercel AI SDK",
+      "anthropic": "Anthropic Messages API"
+    },
+    "escenarios": {
+      "etiqueta": "Type of output",
+      "simple": {
+        "nombre": "Plain answer",
+        "desc": "The model just writes. No reasoning, no tools."
+      },
+      "razonamiento": {
+        "nombre": "Reasoning, then answer",
+        "desc": "The model thinks out loud first, then writes."
+      },
+      "herramienta": {
+        "nombre": "One tool call",
+        "desc": "The model calls a tool, waits for the result and then answers."
+      },
+      "paralelo": {
+        "nombre": "Parallel tool calls",
+        "desc": "Two tools in the same turn. The bot sees one tool step, not two."
+      },
+      "herramientaFalla": {
+        "nombre": "A tool fails, the agent recovers",
+        "desc": "The tool errors but the agent keeps going and answers anyway. It is not a stream error."
+      },
+      "aprobacion": {
+        "nombre": "Waits for a person to approve",
+        "desc": "A tool needs approval before it runs, so the bot waits longer than usual."
+      },
+      "error": {
+        "nombre": "Error mid-answer",
+        "desc": "The stream fails while the model is writing (rate limit, overload)."
+      },
+      "abortar": {
+        "nombre": "You stop it halfway",
+        "desc": "The answer is cut short on purpose: the bot is released to rest."
+      }
+    },
+    "traza": {
+      "titulo": "What the SDK sent",
+      "ayuda": "Each line is an event of the stream and the step the adapter turned it into. A dash means it changes nothing.",
+      "nada": "no change",
+      "vacio": "Send a message to see the stream."
+    }
   },
   "codigo": {
     "titulo": "The code behind what you see",

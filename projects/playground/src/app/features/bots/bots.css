@@ -509,3 +509,76 @@
   --bot-primary: #ffb48f;
   --bot-shadow: #b63a1e;
 }
+
+/* ───────── El tipo de salida y la traza del stream ───────── */
+
+/* Proveedor, tipo de salida y su explicación, juntos y encima del chat. */
+.bt-ia {
+  display: grid;
+  gap: 0.625rem;
+}
+
+/*
+ * El riel y la traza CRECEN con lo que el stream manda (antes el riel era una lista fija). Reservan el alto de un turno
+ * largo desde el principio: sin eso, cada paso nuevo empujaba hacia abajo el código y el peso de la página.
+ */
+.bt-riel {
+  min-height: 14.5rem;
+  align-content: start;
+}
+
+/* Sin pasos todavía no hay nada que unir: sin esto quedaba una línea suelta. */
+.bt-riel:empty::before {
+  display: none;
+}
+
+.bt-traza-titulo {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--gf-texto);
+}
+
+.bt-traza {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  min-height: 17rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.bt-traza li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.bt-traza code {
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+  color: var(--gf-texto);
+}
+
+.bt-traza-n,
+.bt-traza-flecha {
+  color: var(--gf-texto-tenue);
+}
+
+.bt-traza-paso {
+  color: var(--gf-texto-medio);
+}
+
+/* «Sin cambio»: el evento llegó pero no mueve al bot. Se dice con letra, no solo con un tono más apagado. */
+.bt-traza-paso[data-nada] {
+  font-style: italic;
+  color: var(--gf-texto-tenue);
+}
+
+.bt-traza-vacio {
+  color: var(--gf-texto-tenue);
+}
