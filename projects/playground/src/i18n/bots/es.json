@@ -63,7 +63,7 @@
   },
   "chat": {
     "titulo": "En un chat con IA",
-    "intro": "El bot se mueve con streams que tienen la forma de los SDK reales (no se llama a ningún modelo). Pasan por los mismos adaptadores y por bindAgent que usarías tú, así que el bot responde a cada paso con un gesto.",
+    "intro": "Sin modelo real: streams simulados con los adaptadores reales.",
     "asistente": "Asistente",
     "mensaje": "Tu mensaje",
     "mensajePorDefecto": "¿Cuánto pesa un icono?",
@@ -83,13 +83,17 @@
       "error": "Falló",
       "juega": "hace {{gesto}}",
       "idle": "Detenido",
-      "loadingTrasTool": "Esperando el resultado"
+      "loadingTrasTool": "Esperando el resultado",
+      "estado": {
+        "pendiente": "por venir",
+        "hecho": "completado"
+      }
     },
     "ir": "Pruébalo en un chat",
     "proveedor": {
-      "etiqueta": "Stream con la forma de",
+      "etiqueta": "SDK",
       "vercel": "Vercel AI SDK",
-      "anthropic": "API de Mensajes de Anthropic"
+      "anthropic": "Anthropic"
     },
     "escenarios": {
       "etiqueta": "Tipo de salida",
@@ -128,7 +132,7 @@
     },
     "traza": {
       "titulo": "Lo que mandó el SDK",
-      "ayuda": "Cada línea es un evento del stream y el paso al que lo tradujo el adaptador. «Sin cambio» significa que no mueve nada.",
+      "ayuda": "Cada línea es un evento del stream y el paso al que lo tradujo el adaptador. Las líneas apagadas todavía no han llegado.",
       "nada": "sin cambio",
       "vacio": "Envía un mensaje para ver el stream."
     },

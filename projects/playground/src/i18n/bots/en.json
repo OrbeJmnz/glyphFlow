@@ -63,7 +63,7 @@
   },
   "chat": {
     "titulo": "In an AI chat",
-    "intro": "The bot is driven by streams shaped like the real SDKs (no model is called). They go through the same adapters and bindAgent you would use, so the bot answers each step with a gesture.",
+    "intro": "No model is called: simulated streams through the real adapters.",
     "asistente": "Assistant",
     "mensaje": "Your message",
     "mensajePorDefecto": "How much does one icon weigh?",
@@ -83,13 +83,17 @@
       "error": "Failed",
       "juega": "plays {{gesto}}",
       "idle": "Stopped",
-      "loadingTrasTool": "Waiting for the result"
+      "loadingTrasTool": "Waiting for the result",
+      "estado": {
+        "pendiente": "upcoming",
+        "hecho": "completed"
+      }
     },
     "ir": "Try it in a chat",
     "proveedor": {
-      "etiqueta": "Stream shaped like",
+      "etiqueta": "SDK",
       "vercel": "Vercel AI SDK",
-      "anthropic": "Anthropic Messages API"
+      "anthropic": "Anthropic"
     },
     "escenarios": {
       "etiqueta": "Type of output",
@@ -128,7 +132,7 @@
     },
     "traza": {
       "titulo": "What the SDK sent",
-      "ayuda": "Each line is an event of the stream and the step the adapter turned it into. A dash means it changes nothing.",
+      "ayuda": "Each line is an event of the stream and the step the adapter turned it into. Dimmed lines have not arrived yet.",
       "nada": "no change",
       "vacio": "Send a message to see the stream."
     },

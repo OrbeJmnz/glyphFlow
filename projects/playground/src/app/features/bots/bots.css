@@ -295,7 +295,7 @@
 .bt-mensajes {
   display: grid;
   gap: 0.5rem;
-  min-height: 7.5rem;
+  min-height: 8.9rem; /* el alto de la pregunta y una respuesta de 3-4 líneas con su etiqueta: reservado para que el primer mensaje no empuje el resto */
   align-content: start;
 }
 
@@ -378,7 +378,17 @@
   top: 50%;
   height: 100%;
   width: 2px;
+  background: var(--gf-borde-vivo);
+}
+
+/* El tramo que SALE de un paso ya ocurrido (y por tanto llega a otro paso) va encendido. */
+.bt-paso[data-estado='hecho']::after {
   background: var(--gf-marca-1);
+}
+
+/* Lo que falta por pasar: punto hueco y letra apagada. */
+.bt-paso[data-estado='pendiente'] {
+  color: var(--gf-texto-tenue);
 }
 
 .bt-paso {
@@ -459,7 +469,6 @@
 .bt-paso[data-estado='fin'][data-paso='idle']::before {
   background: var(--gf-texto-tenue);
   border-color: var(--gf-texto-tenue);
-}
 }
 
 /* ───────── Debajo: código y costo ───────── */
@@ -545,8 +554,21 @@
   min-width: 0;
 }
 
-/* El texto de arriba del chat avisa del paso en curso a lectores de pantalla; a la vista no aporta (lo dice el riel). */
-.bt-anuncio {
+/* En la mesa de dos columnas el tipo de salida y el SDK comparten fila, y la explicación va debajo: así «Enviar» queda sobre el pliegue. */
+@media (min-width: 62rem) {
+  .bt-ia {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 0.75rem;
+  }
+
+  .bt-ia > .bt-ayuda {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Texto solo para lectores de pantalla: el estado de cada paso del riel, que a la vista se dice con el punto (hueco, relleno). */
+.bt-sr {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -567,8 +589,8 @@
  * El riel y la traza CRECEN con lo que el stream manda (antes el riel era una lista fija). Reservan el alto de un turno
  * largo desde el principio: sin eso, cada paso nuevo empujaba hacia abajo el código y el peso de la página.
  */
+/* El alto lo da el plan (la lista ya viene completa, apagada): no hace falta reservar nada, y por eso ya no hay un hueco vacío. */
 .bt-riel {
-  min-height: 14.5rem;
   align-content: start;
 }
 
@@ -583,7 +605,6 @@
   display: grid;
   gap: 0.25rem;
   align-content: start;
-  min-height: 17rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -621,4 +642,28 @@
 
 .bt-traza-vacio {
   color: var(--gf-texto-tenue);
+}
+
+/*
+ * Las líneas de la traza que todavía no han llegado: apagadas, con la misma forma que cuando lleguen. Se apagan con el color del texto
+ * tenue y NO con `opacity`: un 55 % de opacidad bajaba el contraste a 4.13:1 y el texto, aunque sea una vista previa, tiene que leerse.
+ */
+.bt-traza li[data-pendiente],
+.bt-traza li[data-pendiente] code,
+.bt-traza li[data-pendiente] .bt-traza-paso {
+  color: var(--gf-texto-tenue);
+}
+
+/* El avatar y, a su lado, el nombre y lo que está haciendo: así el visitante ve POR QUÉ se mueve sin bajar hasta el riel. */
+.bt-chat-quien {
+  display: grid;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.bt-chat-estado {
+  min-height: 1.25rem; /* reservado: sin esto la línea aparece y empuja el chat en cuanto el agente empieza */
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--gf-marca-1-texto);
 }

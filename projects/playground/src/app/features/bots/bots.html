@@ -124,6 +124,14 @@
       <p class="bt-ayuda">{{ 'bots.chat.intro' | transloco }}</p>
 
       <div class="bt-ia">
+        <label class="bt-campo">
+          <span>{{ 'bots.chat.escenarios.etiqueta' | transloco }}</span>
+          <select [value]="salida()" [disabled]="ejecutando()" (change)="elegirSalida($any(valor($event)))">
+            @for (e of escenarios; track e) {
+              <option [value]="e" [selected]="e === salida()">{{ 'bots.chat.escenarios.' + e + '.nombre' | transloco }}</option>
+            }
+          </select>
+        </label>
         <app-grupo [titulo]="'bots.chat.proveedor.etiqueta' | transloco">
           @for (p of proveedores; track p) {
             <button
@@ -133,20 +141,12 @@
               [activo]="proveedor() === p"
               [attr.aria-pressed]="proveedor() === p"
               [disabled]="ejecutando()"
-              (click)="proveedor.set(p)"
+              (click)="elegirProveedor(p)"
             >
               {{ 'bots.chat.proveedor.' + p | transloco }}
             </button>
           }
         </app-grupo>
-        <label class="bt-campo">
-          <span>{{ 'bots.chat.escenarios.etiqueta' | transloco }}</span>
-          <select [value]="salida()" [disabled]="ejecutando()" (change)="salida.set($any(valor($event)))">
-            @for (e of escenarios; track e) {
-              <option [value]="e" [selected]="e === salida()">{{ 'bots.chat.escenarios.' + e + '.nombre' | transloco }}</option>
-            }
-          </select>
-        </label>
         <p class="bt-ayuda">{{ 'bots.chat.escenarios.' + salida() + '.desc' | transloco }}</p>
       </div>
 
@@ -163,7 +163,15 @@
             [size]="76"
             [decorative]="true"
           />
-          <p class="bt-chat-nombre">{{ 'bots.chat.asistente' | transloco }}</p>
+          <div class="bt-chat-quien">
+            <p class="bt-chat-nombre">{{ 'bots.chat.asistente' | transloco }}</p>
+            <!-- Lo que hace el agente AHORA, junto al avatar: es lo que explica por qué se mueve. Persiste en el DOM (región viva) y solo cambia su texto. -->
+            <p class="bt-chat-estado" role="status">
+              @if (estadoVivo(); as k) {
+                {{ 'bots.chat.riel.' + k | transloco }}
+              }
+            </p>
+          </div>
         </div>
 
         <div class="bt-mensajes" role="log" aria-live="polite" [attr.aria-busy]="ejecutando()" [attr.aria-label]="'bots.chat.titulo' | transloco">
@@ -206,16 +214,15 @@
         </form>
       </div>
 
-      <!-- El riel cambia solo: sin esta región viva el cambio de paso no se anuncia. Persiste en el DOM y solo cambia su texto. -->
-      <p class="bt-anuncio" role="status">
-        @if (riel().length) {
-          {{ 'bots.chat.riel.' + riel()[riel().length - 1].clave | transloco }}
-        }
-      </p>
       <ol class="bt-riel" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
         @for (r of riel(); track $index) {
           <li class="bt-paso" [attr.data-estado]="r.estado" [attr.data-paso]="r.paso" [attr.aria-current]="r.estado === 'activo' ? 'step' : null">
             <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.clave | transloco }}</span>
+            @if (r.estado === 'pendiente') {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.pendiente' | transloco }}</span>
+            } @else if (r.estado === 'hecho') {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.hecho' | transloco }}</span>
+            }
             @if (juega()[$index]; as gesto) {
               <span class="bt-paso-gesto">{{ 'bots.chat.riel.juega' | transloco: { gesto: ('bots.gestos.' + gesto | transloco) } }}</span>
             }
@@ -226,8 +233,8 @@
       <h3 class="bt-traza-titulo">{{ 'bots.chat.traza.titulo' | transloco }}</h3>
       <p class="bt-ayuda">{{ 'bots.chat.traza.ayuda' | transloco }}</p>
       <ol class="bt-traza" [attr.aria-label]="'bots.chat.traza.titulo' | transloco">
-        @for (t of traza(); track $index) {
-          <li>
+        @for (t of trazaVista(); track $index) {
+          <li [attr.data-pendiente]="t.pendiente ? '' : null">
             <code>{{ t.crudo }}</code>
             @if (t.n > 1) {
               <span class="bt-traza-n">×{{ t.n }}</span>
@@ -236,9 +243,10 @@
             <span class="bt-traza-paso" [attr.data-nada]="t.paso ? null : ''">{{
               t.paso ? ('bots.chat.riel.' + t.paso | transloco) : ('bots.chat.traza.nada' | transloco)
             }}</span>
+            @if (t.pendiente) {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.pendiente' | transloco }}</span>
+            }
           </li>
-        } @empty {
-          <li class="bt-traza-vacio">{{ 'bots.chat.traza.vacio' | transloco }}</li>
         }
       </ol>
     </section>

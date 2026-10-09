@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { GfBotAgentEvent } from 'glyphflow/bots';
 import { anthropic, bindAgent, vercelAi, type GfAgentAdapter, type GfAgentEnd } from 'glyphflow/bots/ai';
 import { ESCENARIOS, PROVEEDORES, corteDe, crearReloj, flujo, partes, type EscenarioId, type EventoCrudo, type Proveedor } from './escenarios-ia';
+import { planDe } from './plan-ia';
 
 const PALABRAS = 'una respuesta de ocho palabras que se va soltando poco a poco'.split(' ');
 const ADAPTADORES: Record<Proveedor, GfAgentAdapter<EventoCrudo>> = { vercel: vercelAi, anthropic };
@@ -60,6 +61,20 @@ describe('escenarios de IA del chat', () => {
         const r = await correr(id, p);
         expect(r.pasos).toEqual(ESPERADO[p][id].pasos);
         expect(r.fin).toBe(ESPERADO[p][id].fin);
+      });
+    }
+  }
+
+  for (const p of PROVEEDORES) {
+    for (const id of ESCENARIOS) {
+      it(`${p} · ${id}: el plan calculado de antemano coincide con una corrida real`, async () => {
+        const real = await correr(id, p);
+        const plan = planDe(id, p, PALABRAS);
+        expect(plan.pasos).toEqual(real.pasos);
+        // Sin cortar, la traza del plan resume TODOS los eventos del stream; cortado, solo los que alcanzaron a salir.
+        const total = plan.traza.reduce((a, l) => a + l.n, 0);
+        if (corteDe(id)) expect(total).toBeLessThan(partes(id, p, PALABRAS).length);
+        else expect(total).toBe(partes(id, p, PALABRAS).length);
       });
     }
   }

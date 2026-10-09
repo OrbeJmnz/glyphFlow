@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { provideTranslocoScope, translateSignal, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import {
   GfBotComponent,
   catShape,
@@ -39,6 +39,7 @@ import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { Chip } from '../../shared/ui/chip';
 import { Grupo } from '../../shared/ui/grupo';
 import { codigoBot } from './bots-codigo';
+import { planDe, type LineaTraza } from './plan-ia';
 import {
   ESCENARIOS,
   PROVEEDORES,
@@ -69,12 +70,6 @@ const CARAS: Partial<Record<GfBotAgentEvent, { id: GfKawaiiId; prob: number }>> 
 /** Los adaptadores de verdad: ambos leen solo `type` (y el bloque/delta en Anthropic), así que comparten la forma. */
 const ADAPTADORES: Record<Proveedor, GfAgentAdapter<EventoCrudo>> = { vercel: vercelAi, anthropic };
 
-/** Una línea de la traza: lo que mandó el SDK (repetido seguido = un renglón con ×n) y a qué paso lo tradujo el adaptador. */
-interface LineaTraza {
-  crudo: string;
-  paso: GfBotAgentEvent | null;
-  n: number;
-}
 
 const SHAPES: Record<FormaId, GfBotShape> = {
   ghost: ghostShape,
@@ -186,16 +181,46 @@ export class Bots {
   /** Qué gesto hizo el bot en cada paso, por POSICIÓN en `pasos` (un mismo paso puede repetirse y mover distinto). */
   protected readonly juega = signal<Record<number, string>>({});
 
+  /** La respuesta del chat, ya partida: de su largo sale cuántos `text-delta` manda el stream. Reactiva al idioma. */
+  private readonly respuesta = translateSignal('bots.chat.respuesta');
+  private readonly palabras = computed(() => String(this.respuesta()).split(' '));
+
+  /** Lo que VA a pasar con el tipo de salida y el SDK elegidos: pasos y traza, calculados con los adaptadores de verdad (ver `plan-ia.ts`). */
+  private readonly plan = computed(() => planDe(this.salida(), this.proveedor(), this.palabras()));
+
+  /**
+   * El riel muestra el plan COMPLETO desde el principio: lo que ya ocurrió, encendido; lo que falta, apagado. Así en reposo enseña
+   * qué va a pasar (en vez de un hueco) y mientras corre no crece, que era lo que empujaba el código hacia abajo. Si lo real se
+   * desvía del plan, manda lo real y no se inventan pasos pendientes.
+   */
   protected readonly riel = computed(() => {
-    const lista = this.pasos();
+    const real = this.pasos();
+    const plan = this.plan().pasos;
     const fin = this.resultado();
+    const coincide = real.every((p, i) => plan[i] === p);
+    const pendientes = !fin && coincide ? plan.slice(real.length) : [];
+    const lista = [...real, ...pendientes];
     return lista.map((paso, i) => ({
       paso,
       // El «esperando» que viene DESPUÉS de una herramienta es otra espera (el resultado, o a una persona): se nombra distinto.
       clave: paso === 'loading' && lista.slice(0, i).includes('tool') ? 'loadingTrasTool' : paso,
-      estado: (i === lista.length - 1 ? (fin ? 'fin' : 'activo') : 'hecho') as 'activo' | 'hecho' | 'fin',
+      estado: (i >= real.length ? 'pendiente' : i === real.length - 1 ? (fin ? 'fin' : 'activo') : 'hecho') as
+        | 'pendiente'
+        | 'activo'
+        | 'hecho'
+        | 'fin',
     }));
   });
+
+  /** La traza, igual: lo que ya mandó el SDK y, apagado, lo que le falta por mandar. */
+  protected readonly trazaVista = computed(() => {
+    const real = this.traza();
+    const resto = this.resultado() ? [] : this.plan().traza.slice(real.length);
+    return [...real.map((l) => ({ ...l, pendiente: false })), ...resto.map((l) => ({ ...l, pendiente: true }))];
+  });
+
+  /** El paso en curso (o cómo terminó), para decirlo junto al avatar: es lo que le explica al visitante POR QUÉ se mueve el bot. */
+  protected readonly estadoVivo = computed(() => this.riel().filter((r) => r.estado !== 'pendiente').at(-1)?.clave ?? null);
 
   private readonly chatBot = viewChild<GfBotComponent>('chatBot');
   private readonly agente = agentReactions({ cooldownMs: 0, waitMs: 4000 });
@@ -247,6 +272,26 @@ export class Bots {
   protected elegirForma(f: FormaId): void {
     this.forma.set(f);
     this.piel.set(PIELES[f][0] ?? '');
+  }
+
+  /** Cambiar el tipo de salida o el SDK deja el chat como nuevo: lo que quedó de la corrida anterior ya no describe lo elegido. */
+  protected elegirSalida(id: EscenarioId): void {
+    this.salida.set(id);
+    this.reiniciarCorrida();
+  }
+
+  protected elegirProveedor(p: Proveedor): void {
+    this.proveedor.set(p);
+    this.reiniciarCorrida();
+  }
+
+  private reiniciarCorrida(): void {
+    if (this.ejecutando()) return;
+    this.pasos.set([]);
+    this.traza.set([]);
+    this.resultado.set(null);
+    this.juega.set({});
+    this.mensajes.set([]);
   }
 
   protected valor(e: Event): string {
@@ -306,7 +351,7 @@ export class Bots {
 
     const id = this.salida();
     const prov = this.proveedor();
-    const palabras = this.transloco.translate('bots.chat.respuesta').split(' ');
+    const palabras = this.palabras();
     const reloj = crearReloj();
     // Otra instancia del mismo adaptador, solo para ANOTAR a qué paso traduce cada evento (el de `bindAgent` es el que mueve al bot).
     const lectura = ADAPTADORES[prov]();
