@@ -88,6 +88,8 @@ const SHAPES: Record<FormaId, GfBotShape> = {
 interface Mensaje {
   rol: 'usuario' | 'asistente';
   texto: string;
+  /** Cómo terminó la corrida de este mensaje, si no fue bien: el texto que ya llegó se conserva y se marca. */
+  fin?: 'error' | 'cortado';
 }
 
 /**
@@ -189,12 +191,11 @@ export class Bots {
     const fin = this.resultado();
     return lista.map((paso, i) => ({
       paso,
+      // El «esperando» que viene DESPUÉS de una herramienta es otra espera (el resultado, o a una persona): se nombra distinto.
+      clave: paso === 'loading' && lista.slice(0, i).includes('tool') ? 'loadingTrasTool' : paso,
       estado: (i === lista.length - 1 ? (fin ? 'fin' : 'activo') : 'hecho') as 'activo' | 'hecho' | 'fin',
     }));
   });
-
-  /** El relleno del riel llega siempre hasta el último paso: solo se pintan los que ya pasaron. */
-  protected readonly avance = computed(() => (this.pasos().length > 1 ? '100%' : '0%'));
 
   private readonly chatBot = viewChild<GfBotComponent>('chatBot');
   private readonly agente = agentReactions({ cooldownMs: 0, waitMs: 4000 });
@@ -340,7 +341,7 @@ export class Bots {
       this.limpiarCorte();
       this.ejecutando.set(false);
       this.resultado.set(fin === 'error' ? 'error' : fin === 'stopped' ? 'idle' : 'done');
-      if (fin === 'error') this.mensajes.update((m) => this.conTexto(m, () => this.transloco.translate('bots.chat.error')));
+      this.marcarFin(fin === 'error' ? 'error' : fin === 'stopped' ? 'cortado' : null);
     });
   }
 
@@ -361,6 +362,12 @@ export class Bots {
       const ultima = l[l.length - 1];
       return ultima && ultima.crudo === crudo ? [...l.slice(0, -1), { ...ultima, n: ultima.n + 1 }] : [...l, { crudo, paso, n: 1 }];
     });
+  }
+
+  /** Marca el mensaje del asistente como terminado mal, SIN borrar lo que ya llegó: ver el error junto a la respuesta a medias es lo que enseña. */
+  private marcarFin(fin: 'error' | 'cortado' | null): void {
+    if (!fin) return;
+    this.mensajes.update((ms) => ms.map((m, i) => (i === ms.length - 1 && m.rol === 'asistente' ? { ...m, fin } : m)));
   }
 
   private conTexto(ms: Mensaje[], f: (t: string) => string): Mensaje[] {

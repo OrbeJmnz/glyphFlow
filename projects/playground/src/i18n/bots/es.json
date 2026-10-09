@@ -72,7 +72,6 @@
     "respuesta": "Un icono pesa unos 5.9 KB gzip. Los bots son un entry point aparte, así que solo los pagas si los importas.",
     "respuestaSimulada": "Respuesta simulada",
     "vacio": "Manda un mensaje y mira cómo reacciona el asistente.",
-    "error": "El stream falló mientras respondía. No se cambió nada.",
     "riel": {
       "etiqueta": "Qué está haciendo el agente",
       "prompt": "Mensaje recibido",
@@ -83,7 +82,8 @@
       "done": "Listo",
       "error": "Falló",
       "juega": "hace {{gesto}}",
-      "idle": "Detenido"
+      "idle": "Detenido",
+      "loadingTrasTool": "Esperando el resultado"
     },
     "ir": "Pruébalo en un chat",
     "proveedor": {
@@ -131,6 +131,10 @@
       "ayuda": "Cada línea es un evento del stream y el paso al que lo tradujo el adaptador. «Sin cambio» significa que no mueve nada.",
       "nada": "sin cambio",
       "vacio": "Envía un mensaje para ver el stream."
+    },
+    "fin": {
+      "error": "Error del stream: falló mientras respondía. No se cambió nada.",
+      "cortado": "Cortado: lo detuviste a la mitad."
     }
   },
   "codigo": {

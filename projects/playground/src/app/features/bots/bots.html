@@ -168,9 +168,11 @@
 
         <div class="bt-mensajes" role="log" aria-live="polite" [attr.aria-busy]="ejecutando()" [attr.aria-label]="'bots.chat.titulo' | transloco">
           @for (m of mensajes(); track $index) {
-            <p class="bt-msg" [attr.data-rol]="m.rol">
+            <p class="bt-msg" [attr.data-rol]="m.rol" [attr.data-fin]="m.fin ?? null">
               {{ m.texto }}
-              @if (m.rol === 'asistente' && m.texto) {
+              @if (m.rol === 'asistente' && m.fin) {
+                <span class="bt-fin" [attr.data-tipo]="m.fin">{{ 'bots.chat.fin.' + m.fin | transloco }}</span>
+              } @else if (m.rol === 'asistente' && m.texto) {
                 <span class="bt-simulada">{{ 'bots.chat.respuestaSimulada' | transloco }}</span>
               }
             </p>
@@ -179,6 +181,9 @@
           }
         </div>
 
+        @if (!movimiento()) {
+          <p id="bt-ayuda-envio" class="bt-ayuda">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
+        }
         <form class="bt-enviar" (submit)="$event.preventDefault(); enviar()">
           <label class="bt-campo bt-campo-ancho">
             <span>{{ 'bots.chat.mensaje' | transloco }}</span>
@@ -192,6 +197,7 @@
               variante="contorno"
               [activo]="!ejecutando()"
               [disabled]="!ejecutando() && !movimiento()"
+              [attr.aria-describedby]="movimiento() ? null : 'bt-ayuda-envio'"
               (click)="ejecutando() ? detener() : undefined"
             >
               {{ (ejecutando() ? 'bots.chat.detener' : 'bots.chat.enviar') | transloco }}
@@ -200,10 +206,16 @@
         </form>
       </div>
 
-      <ol class="bt-riel" [style.--bt-avance]="avance()" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
+      <!-- El riel cambia solo: sin esta región viva el cambio de paso no se anuncia. Persiste en el DOM y solo cambia su texto. -->
+      <p class="bt-anuncio" role="status">
+        @if (riel().length) {
+          {{ 'bots.chat.riel.' + riel()[riel().length - 1].clave | transloco }}
+        }
+      </p>
+      <ol class="bt-riel" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
         @for (r of riel(); track $index) {
           <li class="bt-paso" [attr.data-estado]="r.estado" [attr.data-paso]="r.paso" [attr.aria-current]="r.estado === 'activo' ? 'step' : null">
-            <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.paso | transloco }}</span>
+            <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.clave | transloco }}</span>
             @if (juega()[$index]; as gesto) {
               <span class="bt-paso-gesto">{{ 'bots.chat.riel.juega' | transloco: { gesto: ('bots.gestos.' + gesto | transloco) } }}</span>
             }

@@ -72,7 +72,6 @@
     "respuesta": "One icon is about 5.9 KB gzip. Bots are a separate entry point, so you only pay for them if you import them.",
     "respuestaSimulada": "Simulated reply",
     "vacio": "Send a message and watch the assistant react.",
-    "error": "The stream failed while it was answering. Nothing was changed.",
     "riel": {
       "etiqueta": "What the agent is doing",
       "prompt": "Message received",
@@ -83,7 +82,8 @@
       "done": "Done",
       "error": "Failed",
       "juega": "plays {{gesto}}",
-      "idle": "Stopped"
+      "idle": "Stopped",
+      "loadingTrasTool": "Waiting for the result"
     },
     "ir": "Try it in a chat",
     "proveedor": {
@@ -131,6 +131,10 @@
       "ayuda": "Each line is an event of the stream and the step the adapter turned it into. A dash means it changes nothing.",
       "nada": "no change",
       "vacio": "Send a message to see the stream."
+    },
+    "fin": {
+      "error": "Stream error: it failed while answering. Nothing was changed.",
+      "cortado": "Cut off: you stopped it halfway."
     }
   },
   "codigo": {
