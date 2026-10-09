@@ -1,0 +1,49 @@
+<section class="bt-agente" aria-labelledby="bt-t-agente">
+  <header>
+    <h2 id="bt-t-agente" tabindex="-1">{{ 'bots.agente.titulo' | transloco }}</h2>
+    <p>{{ 'bots.chat.escenarios.' + c.salida() + '.desc' | transloco }}</p>
+  </header>
+
+  <div class="bt-columnas">
+    <div class="bt-bloque">
+      <h3>{{ 'bots.chat.riel.etiqueta' | transloco }}</h3>
+      <ol class="bt-riel" [attr.aria-label]="'bots.chat.riel.etiqueta' | transloco">
+        @for (r of c.riel(); track $index) {
+          <li class="bt-paso" [attr.data-estado]="r.estado" [attr.data-paso]="r.paso" [attr.aria-current]="r.estado === 'activo' ? 'step' : null">
+            <span class="bt-paso-nombre">{{ 'bots.chat.riel.' + r.clave | transloco }}</span>
+            @if (r.estado === 'pendiente') {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.pendiente' | transloco }}</span>
+            } @else if (r.estado === 'hecho') {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.hecho' | transloco }}</span>
+            }
+            @if (c.juega()[$index]; as gesto) {
+              <span class="bt-paso-gesto">{{ 'bots.chat.riel.juega' | transloco: { gesto: ('bots.gestos.' + gesto | transloco) } }}</span>
+            }
+          </li>
+        }
+      </ol>
+    </div>
+
+    <div class="bt-bloque">
+      <h3>{{ 'bots.chat.traza.titulo' | transloco }}</h3>
+      <p class="bt-ayuda">{{ 'bots.chat.traza.ayuda' | transloco }}</p>
+      <ol class="bt-traza" [attr.aria-label]="'bots.chat.traza.titulo' | transloco">
+        @for (t of c.trazaVista(); track $index) {
+          <li [attr.data-pendiente]="t.pendiente ? '' : null">
+            <code>{{ t.crudo }}</code>
+            @if (t.n > 1) {
+              <span class="bt-traza-n">×{{ t.n }}</span>
+            }
+            <span class="bt-traza-flecha" aria-hidden="true">→</span>
+            <span class="bt-traza-paso" [attr.data-nada]="t.paso ? null : ''">{{
+              t.paso ? ('bots.chat.riel.' + t.paso | transloco) : ('bots.chat.traza.nada' | transloco)
+            }}</span>
+            @if (t.pendiente) {
+              <span class="bt-sr">{{ 'bots.chat.riel.estado.pendiente' | transloco }}</span>
+            }
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

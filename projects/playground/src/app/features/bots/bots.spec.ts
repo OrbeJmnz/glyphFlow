@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { codigoBot, type ConfigBot } from './bots-codigo';
-import { esperaVida, FORMAS, GESTOS, GESTOS_SUELTOS, GRUPOS, gestoSuelto, PIELES } from './bots-datos';
+import { cssDeGesto, duracionesA, esperaVida, EXPRESIONES, FORMAS, GESTOS, GESTOS_SUELTOS, GRUPOS, gestoSuelto, PIELES, VELOCIDADES } from './bots-datos';
 
 describe('datos de /bots', () => {
   it('son 20 gestos, sin repetir, y cada uno cae en un grupo que existe', () => {
@@ -128,3 +128,31 @@ describe('el código con intensidad', () => {
   });
 });
 
+
+describe('velocidad de los gestos', () => {
+  it('el nombre CSS de cada gesto es su id en kebab, salvo el mortal frontal (`flip`)', () => {
+    expect(cssDeGesto('frontFlip')).toBe('flip');
+    expect(cssDeGesto('superBounce')).toBe('super-bounce');
+    expect(cssDeGesto('waveThroughBody')).toBe('wave-through-body');
+    expect(cssDeGesto('backflip')).toBe('backflip');
+  });
+
+  it('a velocidad 1 los gestos duran lo escrito; a 2 la mitad; a 0.5 el doble', () => {
+    expect(duracionesA(1)['--gf-bot-flip-duration']).toBe('1000ms');
+    expect(duracionesA(2)['--gf-bot-flip-duration']).toBe('500ms');
+    expect(duracionesA(0.5)['--gf-bot-peek-pop-duration']).toBe('4800ms');
+    expect(Object.keys(duracionesA(1)).length).toBe(GESTOS.length);
+  });
+
+  it('ofrece 0.5x, 1x y 2x', () => {
+    expect(VELOCIDADES).toEqual([0.5, 1, 2]);
+  });
+});
+
+describe('estados de expresión', () => {
+  it('son nueve, sin repetir, y solo `normal` no lleva cara fija', () => {
+    expect(EXPRESIONES.length).toBe(9);
+    expect(new Set(EXPRESIONES.map((x) => x.id)).size).toBe(9);
+    expect(EXPRESIONES.filter((x) => !x.cara).map((x) => x.id)).toEqual(['normal']);
+  });
+});

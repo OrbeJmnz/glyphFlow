@@ -1,10 +1,8 @@
 {
   "titulo": "Bots",
-  "intro": "Animated characters with real physical motion: squash, stretch, impact and secondary motion, on the native Web Animations API. Play with one, then watch it react to an AI agent.",
   "guia": "Read the guide",
   "escenario": {
     "titulo": "Stage",
-    "etiqueta": "Play with a bot",
     "bot": "An animated {{forma}}",
     "forma": "Shape",
     "piel": "Skin",
@@ -16,8 +14,14 @@
     "vistaAyuda": "Silhouette hides the face, color and effects, so you judge the motion by its shape alone.",
     "sigue": "Follow the pointer",
     "toca": "Touch and drag",
-    "gestos": "Gestures",
-    "sinMovimiento": "Motion is off. Turn it on in the header to play the gestures."
+    "sinMovimiento": "Motion is off. Turn it on in the header to play the gestures.",
+    "ajustes": "Bot settings",
+    "pantalla": "Full screen",
+    "capturar": "Save an image of the bot",
+    "capturaFallo": "The browser could not save the image.",
+    "reproducir": "Play the gesture",
+    "progreso": "Gesture progress",
+    "velocidad": "Speed"
   },
   "formas": {
     "ghost": "Ghost",
@@ -63,7 +67,7 @@
   },
   "chat": {
     "titulo": "In an AI chat",
-    "intro": "No model is called: simulated streams through the real adapters.",
+    "intro": "The bot moves with streams shaped like the real SDKs. They go through the same adapters and the same bindAgent you would use. No model is called.",
     "asistente": "Assistant",
     "mensaje": "Your message",
     "mensajePorDefecto": "How much does one icon weigh?",
@@ -139,7 +143,13 @@
     "fin": {
       "error": "Stream error: it failed while answering. Nothing was changed.",
       "cortado": "Cut off: you stopped it halfway."
-    }
+    },
+    "escribiendo": "The assistant is writing",
+    "copiar": "Copy the reply",
+    "copiado": "Reply copied",
+    "repetir": "Run it again",
+    "verDentro": "See what happens inside",
+    "ejemplo": "Send this sample question"
   },
   "codigo": {
     "titulo": "The code behind what you see",
@@ -177,5 +187,46 @@
     "line": "Line",
     "gel": "Gel",
     "pastel": "Pastel"
+  },
+  "lista": {
+    "descripcion": "Explore animated characters ready to use or customize."
+  },
+  "formasDesc": {
+    "ghost": "Soft and versatile",
+    "octopus": "Expressive and playful",
+    "mochi": "Round and tender",
+    "tofu": "Calm and friendly",
+    "cat": "Curious and agile",
+    "robot": "Techy and likeable"
+  },
+  "galeria": {
+    "titulo": "Animations and gestures",
+    "descripcion": "Explore how the bot moves, reacts and expresses itself in different situations.",
+    "filtrar": "Filter animations",
+    "todos": "All",
+    "buscar": "Search animation...",
+    "buscarEtiqueta": "Search animations",
+    "limpiar": "Clear search",
+    "vacio": "No animation matches your search.",
+    "idle": {
+      "nombre": "Idle",
+      "sub": "Base animation"
+    }
+  },
+  "expresiones": {
+    "titulo": "Expression states",
+    "descripcion": "This is how the bot looks in different contexts.",
+    "normal": "Normal",
+    "happy": "Happy",
+    "surprised": "Surprised",
+    "thinking": "Thinking",
+    "wink": "Winking",
+    "sad": "Sad",
+    "success": "Success",
+    "error": "Error",
+    "sleeping": "Sleeping"
+  },
+  "agente": {
+    "titulo": "What happens inside"
   }
 }

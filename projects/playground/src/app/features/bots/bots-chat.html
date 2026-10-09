@@ -1,0 +1,105 @@
+<section class="bt-chat" aria-labelledby="bt-t-chat">
+  <header>
+    <h2 id="bt-t-chat" tabindex="-1">{{ 'bots.chat.titulo' | transloco }}</h2>
+    <p>{{ 'bots.chat.intro' | transloco }}</p>
+  </header>
+
+  <div class="bt-segmentado" role="group" [attr.aria-label]="'bots.chat.proveedor.etiqueta' | transloco">
+    @for (p of c.proveedores; track p) {
+      <button type="button" [attr.aria-pressed]="c.proveedor() === p" [disabled]="c.ejecutando()" (click)="c.elegirProveedor(p)">
+        {{ 'bots.chat.proveedor.' + p | transloco }}
+      </button>
+    }
+  </div>
+
+  <label class="bt-campo">
+    <span>{{ 'bots.chat.escenarios.etiqueta' | transloco }}</span>
+    <select [value]="c.salida()" [disabled]="c.ejecutando()" (change)="c.elegirSalida($any(valor($event)))">
+      @for (s of c.escenarios; track s) {
+        <option [value]="s" [selected]="s === c.salida()">{{ 'bots.chat.escenarios.' + s + '.nombre' | transloco }}</option>
+      }
+    </select>
+  </label>
+
+  <!-- En reposo, la pregunta de ejemplo ya está en la conversación y se manda con un clic: así el primer vistazo enseña el chat vivo y no un hueco. -->
+  <div class="bt-conversacion" role="log" aria-live="polite" [attr.aria-busy]="c.ejecutando()" [attr.aria-label]="'bots.chat.titulo' | transloco">
+    @if (c.mensajes()[0]; as u) {
+      <div class="bt-fila bt-fila-usuario">
+        <span class="bt-avatar-usuario" aria-hidden="true"><gf-icon [iconDef]="iconoUsuario" [size]="20" /></span>
+        <p class="bt-burbuja">{{ u.texto }}</p>
+      </div>
+    } @else {
+      <div class="bt-fila bt-fila-usuario">
+        <span class="bt-avatar-usuario" aria-hidden="true"><gf-icon [iconDef]="iconoUsuario" [size]="20" /></span>
+        <button type="button" class="bt-burbuja bt-ejemplo" [disabled]="!e.movimiento()" (click)="c.enviar('')">
+          {{ 'bots.chat.mensajePorDefecto' | transloco }}
+          <span class="bt-sr">{{ 'bots.chat.ejemplo' | transloco }}</span>
+        </button>
+      </div>
+    }
+
+    <div class="bt-fila bt-fila-asistente">
+      <gf-bot
+        #chatBot
+        class="bt-avatar-bot"
+        [shape]="e.shape()"
+        [skin]="e.piel()"
+        [gestures]="gestos"
+        [onAgentEvent]="c.reacciones"
+        [wander]="true"
+        [followPointer]="true"
+        [size]="84"
+        [decorative]="true"
+      />
+      <div class="bt-burbuja bt-burbuja-bot" [attr.data-fin]="c.mensajes()[1]?.fin ?? null">
+        @if (c.mensajes()[1]; as a) {
+          @if (a.texto) {
+            <p>{{ a.texto }}</p>
+            @if (a.fin) {
+              <span class="bt-fin" [attr.data-tipo]="a.fin">{{ 'bots.chat.fin.' + a.fin | transloco }}</span>
+            } @else if (!c.ejecutando()) {
+              <span class="bt-pie">
+                <span class="bt-simulada">{{ 'bots.chat.respuestaSimulada' | transloco }}</span>
+                <span class="bt-acciones-burbuja">
+                  <button type="button" [attr.aria-label]="(copiador.copiado() ? 'bots.chat.copiado' : 'bots.chat.copiar') | transloco" (click)="copiar(a.texto)">
+                    <gf-icon [iconDef]="copiador.copiado() ? iconoCopiado : iconoCopiar" [size]="16" />
+                  </button>
+                  <button type="button" [attr.aria-label]="'bots.chat.repetir' | transloco" (click)="c.repetir()">
+                    <gf-icon [iconDef]="iconoRepetir" [size]="16" />
+                  </button>
+                </span>
+              </span>
+            }
+          } @else if (c.ejecutando()) {
+            <span class="bt-puntos" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="bt-sr">{{ 'bots.chat.escribiendo' | transloco }}</span>
+          }
+        } @else {
+          <p class="bt-vacio">{{ 'bots.chat.vacio' | transloco }}</p>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (!e.movimiento()) {
+    <p id="bt-ayuda-envio" class="bt-aviso">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
+  }
+
+  <form class="bt-enviar" (submit)="$event.preventDefault(); enviar()">
+    <label class="bt-sr" for="bt-mensaje">{{ 'bots.chat.mensaje' | transloco }}</label>
+    <input id="bt-mensaje" type="text" [formControl]="mensaje" [placeholder]="'bots.chat.mensajePorDefecto' | transloco" autocomplete="off" />
+    <!-- UN solo botón que cambia de acción: con @if/@else el «Enviar» se destruía y el foco caía al <body> (SC 2.4.3). El ternario no es un `&&`: un manejador que devuelve `false` hace preventDefault y cancelaría el submit. -->
+    <button
+      [type]="c.ejecutando() ? 'button' : 'submit'"
+      class="bt-boton-enviar"
+      [disabled]="!c.ejecutando() && !e.movimiento()"
+      [attr.aria-describedby]="e.movimiento() ? null : 'bt-ayuda-envio'"
+      (click)="c.ejecutando() ? c.detener() : undefined"
+    >
+      <gf-icon [iconDef]="c.ejecutando() ? iconoParar : iconoEnviar" [size]="16" />
+      {{ (c.ejecutando() ? 'bots.chat.detener' : 'bots.chat.enviar') | transloco }}
+    </button>
+  </form>
+
+  <a class="bt-ver-dentro" href="#bt-t-agente" (click)="$event.preventDefault(); verDentro()">{{ 'bots.chat.verDentro' | transloco }}</a>
+</section>

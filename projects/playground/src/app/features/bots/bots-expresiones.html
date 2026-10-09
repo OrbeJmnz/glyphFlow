@@ -1,0 +1,23 @@
+<section class="bt-expresiones" aria-labelledby="bt-t-expresiones">
+  <header>
+    <h2 id="bt-t-expresiones">{{ 'bots.expresiones.titulo' | transloco }}</h2>
+    <p>{{ 'bots.expresiones.descripcion' | transloco }}</p>
+  </header>
+
+  <ul class="bt-lista-exp">
+    @for (x of expresiones; track x.id) {
+      <li>
+        <button type="button" class="bt-exp" [attr.aria-pressed]="activa() === x.id" (click)="e.expresar(x.id)">
+          <span class="bt-exp-vista">
+            @defer (on viewport) {
+              <app-bot-miniatura [forma]="e.forma()" [piel]="e.piel()" [tamano]="128" [soloHover]="false" [cara]="x.cara" [boca]="boca(x.boca)" />
+            } @placeholder {
+              <span class="bt-hueco"></span>
+            }
+          </span>
+          <span class="bt-exp-nombre">{{ 'bots.expresiones.' + x.id | transloco }}</span>
+        </button>
+      </li>
+    }
+  </ul>
+</section>

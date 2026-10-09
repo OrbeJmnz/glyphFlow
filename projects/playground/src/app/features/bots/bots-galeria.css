@@ -1,0 +1,233 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* El sitio no resetea `box-sizing`: sin esto el `height: 100%` de una tarjeta con relleno se pasa de su celda. */
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.bt-galeria {
+  display: grid;
+  gap: 0.875rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--bt-borde);
+  border-radius: var(--bt-radio-panel);
+  background: var(--bt-lienzo);
+  box-shadow: var(--bt-sombra);
+}
+
+.bt-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.bt-titulo {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--bt-texto);
+}
+
+.bt-titulo p {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--bt-texto-2);
+}
+
+/* ───────── Filtros y búsqueda ───────── */
+
+.bt-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bt-filtros button {
+  height: 2.375rem;
+  padding: 0 1rem;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: var(--bt-suave);
+  color: var(--bt-texto-2);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.bt-filtros button:hover:not([aria-pressed='true']) {
+  background: var(--bt-acento-fondo-suave);
+  color: var(--bt-texto);
+}
+
+.bt-filtros button[aria-pressed='true'] {
+  border-color: var(--bt-acento-borde);
+  background: var(--bt-acento-fondo);
+  color: var(--bt-acento-texto);
+}
+
+.bt-busqueda {
+  position: relative;
+  flex: 0 1 14.5rem;
+  min-width: 11rem;
+}
+
+.bt-lupa {
+  position: absolute;
+  top: 50%;
+  left: 0.875rem;
+  z-index: 1;
+  translate: 0 -50%;
+  color: var(--bt-texto-2);
+  pointer-events: none;
+}
+
+/* El campo de búsqueda es global (`.ui-campo`, 36px, sobre el fondo de la página): aquí va más alto y sobre el tono del panel. */
+.bt-busqueda ::ng-deep .ui-campo {
+  height: 2.375rem;
+  padding-left: 2.25rem;
+  border-color: var(--bt-borde);
+  background: var(--bt-suave);
+  color: var(--bt-texto);
+}
+
+.bt-filtros button:focus-visible,
+.bt-tarjeta:focus-visible,
+.bt-busqueda ::ng-deep .ui-campo:focus-visible {
+  outline: 2px solid var(--bt-foco);
+  outline-offset: 2px;
+}
+
+/* ───────── Las tarjetas ───────── */
+
+.bt-tarjetas {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0.25rem 0.25rem 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bt-borde-vivo) transparent;
+}
+
+.bt-tarjetas > li {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.bt-tarjeta {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  gap: 0.1875rem;
+  width: 9.25rem;
+  padding: 0.375rem 0.375rem 0.625rem;
+  border: 1.5px solid var(--bt-borde);
+  border-radius: var(--bt-radio-tarjeta);
+  background: var(--bt-lienzo);
+  color: var(--bt-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.bt-tarjeta:hover:not(:disabled) {
+  border-color: var(--bt-acento-borde);
+}
+
+.bt-tarjeta[aria-pressed='true'] {
+  border-color: var(--bt-acento-borde);
+  background: var(--bt-acento-fondo-suave);
+  box-shadow: 0 8px 22px -14px var(--bt-acento-borde);
+}
+
+.bt-tarjeta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.bt-vista {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 7.75rem;
+  border-radius: 0.75rem;
+  background: var(--bt-lienzo-mini);
+  overflow: hidden;
+}
+
+.bt-hueco {
+  width: 6.5rem;
+  height: 6.5rem;
+}
+
+/* El círculo de play: la pista de que pulsar la tarjeta la reproduce. El botón es la tarjeta entera. */
+.bt-play {
+  position: absolute;
+  right: 0.4375rem;
+  bottom: 0.4375rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--bt-play-fondo);
+  color: var(--bt-play-color);
+  box-shadow: 0 4px 12px -4px rgb(80 60 180 / 0.55);
+  pointer-events: none;
+}
+
+.bt-nombre {
+  margin-top: 0.3125rem;
+  padding: 0 0.3125rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.bt-sub {
+  overflow: hidden;
+  padding: 0 0.3125rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--bt-texto-2);
+}
+
+.bt-vacio {
+  padding: 2rem 1rem;
+  font-size: 0.875rem;
+  color: var(--bt-texto-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-tarjeta,
+  .bt-filtros button {
+    transition: none;
+  }
+}

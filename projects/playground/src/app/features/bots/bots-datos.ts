@@ -8,7 +8,8 @@
 
 export type FormaId = 'ghost' | 'cat' | 'octopus' | 'tofu' | 'mochi' | 'robot';
 
-export const FORMAS: readonly FormaId[] = ['ghost', 'cat', 'octopus', 'tofu', 'mochi', 'robot'];
+/** En el orden en que se ofrecen (lista lateral y selector del escenario). */
+export const FORMAS: readonly FormaId[] = ['ghost', 'octopus', 'mochi', 'tofu', 'cat', 'robot'];
 
 /**
  * Las pieles que se ofrecen por forma (la librería trae más: son un recorte, no el catálogo). El robot
@@ -72,8 +73,48 @@ export const esperaVida = (azar: number): number => 6000 + Math.round(azar * 500
 /** Elige uno de los gestos sueltos con un número al azar en [0, 1). */
 export const gestoSuelto = (azar: number): string => GESTOS_SUELTOS[Math.min(GESTOS_SUELTOS.length - 1, Math.floor(azar * GESTOS_SUELTOS.length))];
 
+/**
+ * El nombre CSS de la duración de un gesto: `--gf-bot-<id>-duration` (README de `glyphflow/bots`). Es el kebab del id, salvo el
+ * mortal frontal, que la librería llama `flip`.
+ */
+export const cssDeGesto = (id: string): string => (id === 'frontFlip' ? 'flip' : id.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`));
+
+/** Las velocidades que ofrece el reproductor del escenario (1 = como están escritos los gestos). */
+export const VELOCIDADES: readonly number[] = [0.5, 1, 2];
+
+/**
+ * Las variables CSS que hacen que cada gesto dure `ms / velocidad`. Es el mecanismo público de la librería (no hay un `speed`): puestas
+ * en un ancestro del bot, el motor las lee al arrancar el gesto. Sobre 4 s o bajo 300 ms el motor las acota, y por eso lo que se
+ * muestra como duración sale del handle del gesto (`handle.ms`), no de esta cuenta.
+ */
+export const duracionesA = (velocidad: number): Record<string, string> =>
+  Object.fromEntries(GESTOS.map((g) => [`--gf-bot-${cssDeGesto(g.id)}-duration`, `${Math.round(g.ms / velocidad)}ms`]));
+
 export type EstadoBot = 'idle' | 'working' | 'sleeping';
 export const ESTADOS: readonly EstadoBot[] = ['idle', 'working', 'sleeping'];
+
+export type ExpresionId = 'normal' | 'happy' | 'surprised' | 'thinking' | 'wink' | 'sad' | 'success' | 'error' | 'sleeping';
+
+export interface ExpresionInfo {
+  id: ExpresionId;
+  /** La cara kawaii fija con que se dibuja su miniatura (ids de `glyphflow/bots`; el robot no tiene cara kawaii). */
+  cara: string | null;
+  /** La boca que la acompaña en el robot, que no tiene cara kawaii (`GfBotMouthKind`). */
+  boca: string | null;
+}
+
+/** Los estados de expresión de la franja: lo que se ve en cada miniatura. Lo que hace el bot grande al pulsarlos lo decide `BotsEstado.expresar`. */
+export const EXPRESIONES: readonly ExpresionInfo[] = [
+  { id: 'normal', cara: null, boca: null },
+  { id: 'happy', cara: 'happy', boca: 'wide' },
+  { id: 'surprised', cara: 'amazed', boca: 'o' },
+  { id: 'thinking', cara: 'uneasy', boca: 'flat' },
+  { id: 'wink', cara: 'wink', boca: 'smile' },
+  { id: 'sad', cara: 'crying', boca: 'frown' },
+  { id: 'success', cara: 'content', boca: 'open' },
+  { id: 'error', cara: 'error', boca: 'wavy' },
+  { id: 'sleeping', cara: 'drowsy', boca: 'flat' },
+];
 
 /**
  * Lo que pesa cada pieza, en KB gzip. MEDIDO por `npm run bundle-check` (el caso de cada fila está en `scripts/bundle-size-check.ts`)

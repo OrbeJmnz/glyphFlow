@@ -1,0 +1,447 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* El sitio no resetea `box-sizing`: sin esto el `height: 100%` de una tarjeta con relleno se pasa de su celda. */
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.bt-escenario {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
+}
+
+.bt-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/*
+ * El escenario es lo único oscuro de la página, en los dos temas: es el punto de atención y el bot (perlado, de colores claros) se lee
+ * mejor sobre azul noche que sobre blanco. Cuatro capas de luz suave y un suelo; nada de negro puro.
+ */
+.bt-escena {
+  position: relative;
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 27rem;
+  height: 100%;
+  border-radius: var(--bt-radio-panel);
+  overflow: clip;
+  isolation: isolate;
+  color: #fff;
+  background:
+    radial-gradient(34% 62% at 50% -10%, rgb(160 140 255 / 0.34), transparent 72%),
+    radial-gradient(46% 44% at 50% 55%, rgb(104 84 206 / 0.5), transparent 74%),
+    radial-gradient(70% 20% at 50% 90%, rgb(98 78 196 / 0.4), transparent 76%),
+    linear-gradient(180deg, #11142d 0%, #1a1a41 46%, #211d4a 72%, #131639 100%);
+  box-shadow: var(--bt-sombra-escena);
+}
+
+/* Unos pocos destellos, fijos: no son decoración que se mueva, solo evitan que el fondo sea un degradado vacío. */
+.bt-escena::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1.5px 1.5px at 17% 24%, rgb(255 255 255 / 0.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 29% 61%, rgb(255 255 255 / 0.5), transparent 60%),
+    radial-gradient(1.8px 1.8px at 73% 18%, rgb(255 255 255 / 0.65), transparent 60%),
+    radial-gradient(1.2px 1.2px at 84% 47%, rgb(255 255 255 / 0.5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 66% 70%, rgb(255 255 255 / 0.55), transparent 60%),
+    radial-gradient(1.2px 1.2px at 12% 78%, rgb(255 255 255 / 0.4), transparent 60%),
+    radial-gradient(1.5px 1.5px at 90% 28%, rgb(255 255 255 / 0.45), transparent 60%);
+}
+
+/* ───────── Barra superior ───────── */
+
+.bt-barra {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1rem 0;
+}
+
+.bt-capsula {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(13.75rem, 100%);
+  height: 3.25rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.bt-capsula-mini {
+  position: absolute;
+  left: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.625rem;
+  background: rgb(255 255 255 / 0.08);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bt-capsula-sel {
+  width: 100%;
+  height: 100%;
+  padding: 0 2.5rem 0 3.5rem;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  appearance: none;
+  cursor: pointer;
+}
+
+.bt-capsula-sel option {
+  background: #fff;
+  color: #171b43;
+}
+
+.bt-capsula-flecha {
+  position: absolute;
+  right: 0.75rem;
+  color: rgb(255 255 255 / 0.8);
+  pointer-events: none;
+}
+
+.bt-capsula:has(.bt-capsula-sel:focus-visible),
+.bt-accion:focus-visible,
+.bt-play:focus-visible,
+.bt-velocidad button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.bt-acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bt-accion {
+  display: grid;
+  place-items: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(10px);
+  color: #ece8ff;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.bt-accion:hover,
+.bt-accion[aria-expanded='true'],
+.bt-accion[aria-pressed='true'] {
+  background: rgb(255 255 255 / 0.18);
+}
+
+/* ───────── El bot y su suelo ───────── */
+
+.bt-suelo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  padding-top: 0.5rem;
+}
+
+/* La sombra de contacto: una elipse violeta oscura bajo el bot. La del motor es sutil y los Mochi la esconden en reposo. */
+.bt-suelo::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  width: min(62%, 15rem);
+  height: 1.1rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(14 10 44 / 0.7), transparent);
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.bt-suelo gf-bot {
+  position: relative;
+  z-index: 1;
+  --gf-bot-size: min(19rem, 62cqw);
+}
+
+/*
+ * Vista de silueta: todo el bot en un solo color, sin cara, sin brillo y sin efectos. Como el escenario es siempre oscuro, la silueta
+ * es siempre blanca. Los internos del bot los pinta la librería, de ahí el `::ng-deep` y solo aquí.
+ */
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot {
+  filter: brightness(0) invert(1);
+}
+
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .shadow,
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .fx,
+.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .world {
+  display: none;
+}
+
+/* ───────── Reproductor ───────── */
+
+.bt-player {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.bt-play {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.875rem;
+  height: 2.875rem;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #3b2a9a;
+  box-shadow: 0 10px 22px -8px rgb(134 100 255 / 0.85);
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+.bt-play:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.bt-play:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bt-tiempo {
+  flex: none;
+  min-width: 4.75rem;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.bt-pista {
+  position: relative;
+  flex: 1;
+  min-width: 2rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.18);
+}
+
+.bt-relleno {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: #8e72ff;
+}
+
+.bt-pulgar {
+  position: absolute;
+  top: 50%;
+  width: 0.875rem;
+  height: 0.875rem;
+  translate: -50% -50%;
+  border: 2px solid #ebe6ff;
+  border-radius: 50%;
+  background: #8e72ff;
+  box-shadow: 0 2px 8px rgb(10 8 40 / 0.5);
+  pointer-events: none;
+}
+
+.bt-velocidad {
+  display: inline-flex;
+  flex: none;
+  padding: 0.25rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.bt-velocidad button {
+  min-width: 2.5rem;
+  padding: 0.4375rem 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #e7e3ff;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  cursor: pointer;
+}
+
+.bt-velocidad button[aria-pressed='true'] {
+  background: #dfe6ff;
+  color: #2a45c4;
+  box-shadow: 0 4px 12px -4px rgb(10 8 40 / 0.55);
+}
+
+/* ───────── Ajustes (un panel sobre el escenario, no un modal: nada se bloquea) ───────── */
+
+.bt-ajustes {
+  position: absolute;
+  top: 4.75rem;
+  right: 1rem;
+  z-index: 5;
+  display: grid;
+  gap: 0.75rem;
+  width: min(21rem, calc(100% - 2rem));
+  max-height: calc(100% - 9.5rem);
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid var(--bt-borde);
+  border-radius: 1rem;
+  background: var(--bt-lienzo);
+  color: var(--bt-texto);
+  box-shadow: 0 24px 48px -16px rgb(5 4 30 / 0.6);
+}
+
+.bt-ayuda {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--bt-texto-2);
+}
+
+.bt-campo {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--bt-texto-2);
+}
+
+.bt-campo select {
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--bt-texto);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--bt-borde-vivo);
+  border-radius: 0.75rem;
+  background: var(--bt-suave);
+}
+
+.bt-campo input[type='range'] {
+  accent-color: var(--bt-acento-borde);
+}
+
+.bt-campo select:focus-visible,
+.bt-interruptor input:focus-visible,
+.bt-campo input:focus-visible {
+  outline: 2px solid var(--bt-foco);
+  outline-offset: 2px;
+}
+
+.bt-interruptor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--bt-texto);
+  cursor: pointer;
+}
+
+.bt-interruptor input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--bt-acento-borde);
+}
+
+.bt-ajustes ::ng-deep .ui-grupo {
+  border-radius: 0.875rem;
+}
+
+.bt-ajustes ::ng-deep .grupo-tit {
+  font-size: 0.75rem;
+  color: var(--bt-texto-2);
+}
+
+/* ───────── Avisos ───────── */
+
+.bt-estado:empty {
+  display: none;
+}
+
+.bt-aviso {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--bt-aviso);
+}
+
+/* ───────── Pantalla completa ───────── */
+
+.bt-escena:fullscreen {
+  border-radius: 0;
+}
+
+.bt-escena:fullscreen .bt-suelo gf-bot {
+  --gf-bot-size: min(34rem, 54cqw, 58vh);
+}
+
+@media (max-width: 30rem) {
+  .bt-barra {
+    padding: 0.75rem 0.75rem 0;
+  }
+
+  .bt-accion {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .bt-capsula-sel {
+    padding-left: 3.25rem;
+    font-size: 0.875rem;
+  }
+
+  .bt-player {
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .bt-pista {
+    order: 5;
+    flex-basis: 100%;
+  }
+
+  .bt-tiempo {
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-accion,
+  .bt-play {
+    transition: none;
+  }
+
+  .bt-play:hover:not(:disabled) {
+    transform: none;
+  }
+}

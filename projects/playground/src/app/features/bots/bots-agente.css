@@ -1,0 +1,234 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* El sitio no resetea `box-sizing`: sin esto el `height: 100%` de una tarjeta con relleno se pasa de su celda. */
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.bt-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bt-agente {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--bt-borde);
+  border-radius: var(--bt-radio-panel);
+  background: var(--bt-lienzo);
+  box-shadow: var(--bt-sombra);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--bt-texto);
+}
+
+header p,
+.bt-ayuda {
+  margin: 0.25rem 0 0;
+  max-width: 62ch;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bt-texto-2);
+}
+
+h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--bt-texto);
+}
+
+.bt-columnas {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .bt-columnas {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+}
+
+.bt-bloque {
+  min-width: 0;
+}
+
+/*
+ * El riel: lo que el agente está haciendo, paso a paso, y qué gesto responde el bot. Una línea vertical une los puntos y se rellena
+ * hasta el paso en que va; el paso activo se distingue por su punto relleno, la fila iluminada y el peso de la letra, no solo por
+ * color. El gesto va EN LA MISMA FILA, a la derecha: así ninguna fila cambia de alto mientras corre y nada de la página se mueve.
+ */
+.bt-riel {
+  position: relative;
+  display: grid;
+  align-content: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Un tramo por paso, del punto de ese paso al del siguiente: solo existen entre pasos que YA ocurrieron, así que la línea nunca sobresale del último. */
+.bt-paso:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(0.5rem + 0.3125rem - 1px);
+  top: 50%;
+  height: 100%;
+  width: 2px;
+  background: var(--bt-borde-vivo);
+}
+
+.bt-paso[data-estado='hecho']::after {
+  background: var(--bt-acento-borde);
+}
+
+.bt-paso {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) auto;
+  column-gap: 0.625rem;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.625rem;
+  color: var(--bt-texto-2);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.bt-paso::before {
+  content: '';
+  position: relative;
+  z-index: 1;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: var(--bt-lienzo);
+  box-sizing: border-box;
+}
+
+.bt-paso-nombre {
+  font-size: 0.9375rem;
+}
+
+.bt-paso-gesto {
+  font-size: 0.8125rem;
+  text-align: right;
+  color: var(--bt-acento-texto);
+}
+
+.bt-paso[data-estado='hecho'] {
+  color: var(--bt-texto);
+}
+
+.bt-paso[data-estado='hecho']::before {
+  background: currentColor;
+}
+
+.bt-paso[data-estado='activo'],
+.bt-paso[data-estado='fin'] {
+  color: var(--bt-texto);
+  background: var(--bt-acento-fondo);
+}
+
+.bt-paso[data-estado='activo']::before {
+  background: var(--bt-acento-borde);
+  border-color: var(--bt-acento-borde);
+}
+
+.bt-paso[data-estado='activo'] .bt-paso-nombre {
+  font-weight: 650;
+}
+
+.bt-paso[data-estado='fin']::before {
+  background: var(--bt-verde);
+  border-color: var(--bt-verde);
+}
+
+.bt-paso[data-estado='fin'][data-paso='error']::before {
+  background: var(--bt-rojo);
+  border-color: var(--bt-rojo);
+}
+
+/* Cortado a mano: ni éxito (verde) ni fallo (rojo). */
+.bt-paso[data-estado='fin'][data-paso='idle']::before {
+  background: var(--bt-texto-2);
+  border-color: var(--bt-texto-2);
+}
+
+/* ───────── La traza del stream ───────── */
+
+.bt-traza {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.bt-traza li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.bt-traza code {
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+  color: var(--bt-texto);
+}
+
+.bt-traza-n,
+.bt-traza-flecha {
+  color: var(--bt-texto-2);
+}
+
+.bt-traza-paso {
+  color: var(--bt-texto);
+}
+
+/* «Sin cambio»: el evento llegó pero no mueve al bot. Se dice con letra, no solo con un tono más apagado. */
+.bt-traza-paso[data-nada] {
+  font-style: italic;
+  color: var(--bt-texto-2);
+}
+
+/*
+ * Las líneas que todavía no han llegado: apagadas, con la misma forma que cuando lleguen. Se apagan con el color del texto tenue y NO
+ * con `opacity`: un 55 % de opacidad bajaba el contraste a 4.13:1 y el texto, aunque sea una vista previa, tiene que leerse.
+ */
+.bt-traza li[data-pendiente],
+.bt-traza li[data-pendiente] code,
+.bt-traza li[data-pendiente] .bt-traza-paso {
+  color: var(--bt-texto-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-paso {
+    transition: none;
+  }
+}

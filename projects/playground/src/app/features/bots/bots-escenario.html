@@ -1,0 +1,149 @@
+<section class="bt-escenario" [attr.data-vista]="e.vista()" aria-labelledby="bt-t-escenario">
+  <h2 id="bt-t-escenario" class="bt-sr">{{ 'bots.escenario.titulo' | transloco }}</h2>
+
+  <div class="bt-escena" #escena>
+    <div class="bt-barra">
+      <div class="bt-capsula">
+        <span class="bt-capsula-mini"><app-bot-miniatura [forma]="e.forma()" [piel]="e.piel()" [tamano]="36" /></span>
+        <select class="bt-capsula-sel" [attr.aria-label]="'bots.escenario.forma' | transloco" [value]="e.forma()" (change)="e.elegirForma($any(valor($event)))">
+          @for (f of formas; track f) {
+            <option [value]="f" [selected]="f === e.forma()">{{ 'bots.formas.' + f | transloco }}</option>
+          }
+        </select>
+        <gf-icon class="bt-capsula-flecha" [iconDef]="iconoFlecha" [size]="16" />
+      </div>
+
+      <div class="bt-acciones">
+        <button
+          type="button"
+          class="bt-accion"
+          aria-controls="bt-ajustes"
+          [attr.aria-expanded]="ajustes()"
+          [attr.aria-label]="'bots.escenario.ajustes' | transloco"
+          (click)="ajustes.set(!ajustes())"
+        >
+          <gf-icon [iconDef]="iconoAjustes" [size]="18" />
+        </button>
+        <button
+          type="button"
+          class="bt-accion"
+          [attr.aria-pressed]="pantallaCompleta()"
+          [attr.aria-label]="'bots.escenario.pantalla' | transloco"
+          (click)="alternarPantalla()"
+        >
+          <gf-icon [iconDef]="iconoPantalla" [size]="18" />
+        </button>
+        <button type="button" class="bt-accion" [attr.aria-label]="'bots.escenario.capturar' | transloco" (click)="capturar()">
+          <gf-icon [iconDef]="iconoCaptura" [size]="18" />
+        </button>
+      </div>
+    </div>
+
+    @if (ajustes()) {
+      <div id="bt-ajustes" class="bt-ajustes" role="group" [attr.aria-label]="'bots.escenario.ajustes' | transloco">
+        @if (e.pieles().length) {
+          <app-grupo [titulo]="'bots.escenario.piel' | transloco">
+            @for (p of e.pieles(); track p) {
+              <button type="button" app-chip variante="contorno" [activo]="e.piel() === p" [attr.aria-pressed]="e.piel() === p" (click)="e.piel.set(p)">
+                {{ 'bots.pieles.' + p | transloco }}
+              </button>
+            }
+          </app-grupo>
+        }
+
+        <app-grupo [titulo]="'bots.escenario.vista' | transloco">
+          <button type="button" app-chip variante="contorno" [activo]="e.vista() === 'color'" [attr.aria-pressed]="e.vista() === 'color'" (click)="e.vista.set('color')">
+            {{ 'bots.escenario.color' | transloco }}
+          </button>
+          <button
+            type="button"
+            app-chip
+            variante="contorno"
+            [activo]="e.vista() === 'silueta'"
+            [attr.aria-pressed]="e.vista() === 'silueta'"
+            aria-describedby="bt-ayuda-vista"
+            (click)="e.vista.set('silueta')"
+          >
+            {{ 'bots.escenario.silueta' | transloco }}
+          </button>
+        </app-grupo>
+        <p id="bt-ayuda-vista" class="bt-ayuda">{{ 'bots.escenario.vistaAyuda' | transloco }}</p>
+
+        <label class="bt-campo">
+          <span>{{ 'bots.escenario.estado' | transloco }}</span>
+          <select [value]="e.estado()" (change)="e.estado.set($any(valor($event)))">
+            @for (s of estados; track s) {
+              <option [value]="s" [selected]="s === e.estado()">{{ 'bots.estados.' + s | transloco }}</option>
+            }
+          </select>
+        </label>
+        <label class="bt-campo">
+          <span>{{ 'bots.escenario.intensidad' | transloco }}: <output>{{ e.intensidad() }}</output></span>
+          <input type="range" min="0" max="2" step="0.1" [value]="e.intensidad()" (input)="e.intensidad.set(+valor($event))" />
+        </label>
+        <label class="bt-interruptor">
+          <input type="checkbox" [checked]="e.sigue()" (change)="e.sigue.set($any($event.target).checked)" />
+          {{ 'bots.escenario.sigue' | transloco }}
+        </label>
+        <label class="bt-interruptor">
+          <input type="checkbox" [checked]="e.toca()" (change)="e.toca.set($any($event.target).checked)" />
+          {{ 'bots.escenario.toca' | transloco }}
+        </label>
+      </div>
+    }
+
+    <div class="bt-suelo">
+      <gf-bot
+        #bot
+        [shape]="e.shape()"
+        [skin]="e.piel()"
+        [state]="e.estado()"
+        [extras]="extras"
+        [gestures]="gestos"
+        [followPointer]="e.sigue()"
+        [interactive]="e.toca()"
+        [label]="'bots.escenario.bot' | transloco: { forma: ('bots.formas.' + e.forma() | transloco) }"
+      />
+    </div>
+
+    <div class="bt-player">
+      <button
+        type="button"
+        class="bt-play"
+        [disabled]="!e.movimiento()"
+        [attr.aria-label]="'bots.escenario.reproducir' | transloco"
+        (click)="e.reproducir()"
+      >
+        <gf-icon [iconDef]="iconoPlay" [size]="20" />
+      </button>
+      <span class="bt-tiempo">{{ tiempo() }}</span>
+      <div
+        class="bt-pista"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-valuenow]="porcentaje()"
+        [attr.aria-valuetext]="tiempo()"
+        [attr.aria-label]="'bots.escenario.progreso' | transloco"
+      >
+        <span class="bt-relleno" [style.width.%]="porcentaje()"></span>
+        <span class="bt-pulgar" [style.left.%]="porcentaje()"></span>
+      </div>
+      <div class="bt-velocidad" role="group" [attr.aria-label]="'bots.escenario.velocidad' | transloco">
+        @for (v of velocidades; track v) {
+          <button type="button" [attr.aria-pressed]="e.velocidad() === v" (click)="e.elegirVelocidad(v)">{{ v }}x</button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- La región de estado va SIEMPRE en el DOM y solo cambia su contenido: una región insertada ya con texto no se anuncia de forma fiable. -->
+  <div role="status" class="bt-estado">
+    @if (!e.movimiento()) {
+      <p class="bt-aviso">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
+    }
+    @if (capturaFallo()) {
+      <p class="bt-aviso">{{ 'bots.escenario.capturaFallo' | transloco }}</p>
+    }
+  </div>
+</section>

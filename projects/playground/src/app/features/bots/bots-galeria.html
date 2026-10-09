@@ -1,0 +1,66 @@
+<section class="bt-galeria" aria-labelledby="bt-t-galeria">
+  <header class="bt-cabecera">
+    <div class="bt-titulo">
+      <h2 id="bt-t-galeria">{{ 'bots.galeria.titulo' | transloco }}</h2>
+      <p>{{ 'bots.galeria.descripcion' | transloco }}</p>
+    </div>
+
+    <div class="bt-filtros" role="group" [attr.aria-label]="'bots.galeria.filtrar' | transloco">
+      <button type="button" [attr.aria-pressed]="filtro() === 'todos'" (click)="filtro.set('todos')">{{ 'bots.galeria.todos' | transloco }}</button>
+      @for (g of grupos; track g) {
+        <button type="button" [attr.aria-pressed]="filtro() === g" (click)="filtro.set(g)">{{ 'bots.grupos.' + g | transloco }}</button>
+      }
+    </div>
+
+    <div class="bt-busqueda">
+      <gf-icon class="bt-lupa" [iconDef]="iconoLupa" [size]="16" />
+      <app-campo-busqueda
+        [(texto)]="texto"
+        [marcador]="'bots.galeria.buscar' | transloco"
+        [etiqueta]="'bots.galeria.buscarEtiqueta' | transloco"
+        [limpiarEtiqueta]="'bots.galeria.limpiar' | transloco"
+      />
+    </div>
+  </header>
+
+  <ul class="bt-tarjetas">
+    @if (mostrarIdle()) {
+      <li>
+        <button type="button" class="bt-tarjeta" [attr.aria-pressed]="e.gesto() === null" (click)="e.reposo()">
+          <span class="bt-vista">
+            <app-bot-miniatura [forma]="e.forma()" [piel]="e.piel()" [tamano]="136" />
+            <span class="bt-play" aria-hidden="true"><gf-icon [iconDef]="iconoPlay" [size]="14" /></span>
+          </span>
+          <span class="bt-nombre">{{ 'bots.galeria.idle.nombre' | transloco }}</span>
+          <span class="bt-sub">{{ 'bots.galeria.idle.sub' | transloco }}</span>
+        </button>
+      </li>
+    }
+    @for (g of visibles(); track g.id) {
+      <li>
+        <button
+          type="button"
+          class="bt-tarjeta"
+          [attr.aria-pressed]="e.gesto() === g.id"
+          [disabled]="!e.movimiento()"
+          (click)="elegir(g)"
+          (pointerenter)="vistaPrevia(g.id)"
+          (focus)="vistaPrevia(g.id)"
+        >
+          <span class="bt-vista">
+            @defer (on viewport) {
+              <app-bot-miniatura [clave]="g.id" [forma]="e.forma()" [piel]="e.piel()" [tamano]="136" />
+            } @placeholder {
+              <span class="bt-hueco"></span>
+            }
+            <span class="bt-play" aria-hidden="true"><gf-icon [iconDef]="iconoPlay" [size]="14" /></span>
+          </span>
+          <span class="bt-nombre">{{ 'bots.gestos.' + g.id | transloco }}</span>
+          <span class="bt-sub">{{ segundos(g) }} s · {{ 'bots.grupos.' + g.grupo | transloco }}</span>
+        </button>
+      </li>
+    } @empty {
+      <li class="bt-vacio">{{ 'bots.galeria.vacio' | transloco }}</li>
+    }
+  </ul>
+</section>

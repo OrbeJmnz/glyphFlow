@@ -1,10 +1,8 @@
 {
   "titulo": "Bots",
-  "intro": "Personajes animados con movimiento físico de verdad: squash, estirón, impacto y movimiento secundario, sobre la Web Animations API nativa. Juega con uno y míralo reaccionar a un agente de IA.",
   "guia": "Lee la guía",
   "escenario": {
     "titulo": "Escenario",
-    "etiqueta": "Juega con un bot",
     "bot": "Un {{forma}} animado",
     "forma": "Forma",
     "piel": "Piel",
@@ -16,8 +14,14 @@
     "vistaAyuda": "La silueta esconde la cara, el color y los efectos: así juzgas el movimiento solo por su forma.",
     "sigue": "Sigue el puntero",
     "toca": "Tocar y arrastrar",
-    "gestos": "Gestos",
-    "sinMovimiento": "El movimiento está apagado. Enciéndelo en la cabecera para jugar con los gestos."
+    "sinMovimiento": "El movimiento está apagado. Enciéndelo en la cabecera para jugar con los gestos.",
+    "ajustes": "Ajustes del bot",
+    "pantalla": "Pantalla completa",
+    "capturar": "Guardar una imagen del bot",
+    "capturaFallo": "El navegador no pudo guardar la imagen.",
+    "reproducir": "Reproducir el gesto",
+    "progreso": "Progreso del gesto",
+    "velocidad": "Velocidad"
   },
   "formas": {
     "ghost": "Fantasma",
@@ -63,7 +67,7 @@
   },
   "chat": {
     "titulo": "En un chat con IA",
-    "intro": "Sin modelo real: streams simulados con los adaptadores reales.",
+    "intro": "El bot se mueve con streams que tienen la forma de los SDK reales. Pasan por los mismos adaptadores y por el mismo bindAgent que usarías tú. No se llama a ningún modelo.",
     "asistente": "Asistente",
     "mensaje": "Tu mensaje",
     "mensajePorDefecto": "¿Cuánto pesa un icono?",
@@ -139,7 +143,13 @@
     "fin": {
       "error": "Error del stream: falló mientras respondía. No se cambió nada.",
       "cortado": "Cortado: lo detuviste a la mitad."
-    }
+    },
+    "escribiendo": "El asistente está escribiendo",
+    "copiar": "Copiar la respuesta",
+    "copiado": "Respuesta copiada",
+    "repetir": "Repetirlo",
+    "verDentro": "Ver qué pasa por dentro",
+    "ejemplo": "Enviar esta pregunta de ejemplo"
   },
   "codigo": {
     "titulo": "El código detrás de lo que ves",
@@ -177,5 +187,46 @@
     "line": "Línea",
     "gel": "Gel",
     "pastel": "Pastel"
+  },
+  "lista": {
+    "descripcion": "Explora personajes animados listos para usar o personalizar."
+  },
+  "formasDesc": {
+    "ghost": "Suave y versátil",
+    "octopus": "Expresivo y juguetón",
+    "mochi": "Redondo y tierno",
+    "tofu": "Tranquilo y amigable",
+    "cat": "Curioso y ágil",
+    "robot": "Tecnológico y simpático"
+  },
+  "galeria": {
+    "titulo": "Animaciones y gestos",
+    "descripcion": "Explora cómo se mueve, reacciona y expresa el bot en diferentes situaciones.",
+    "filtrar": "Filtrar animaciones",
+    "todos": "Todos",
+    "buscar": "Buscar animación...",
+    "buscarEtiqueta": "Buscar animaciones",
+    "limpiar": "Borrar la búsqueda",
+    "vacio": "Ninguna animación coincide con la búsqueda.",
+    "idle": {
+      "nombre": "Idle",
+      "sub": "Animación base"
+    }
+  },
+  "expresiones": {
+    "titulo": "Estados de expresión",
+    "descripcion": "Así se ve el bot en diferentes contextos.",
+    "normal": "Normal",
+    "happy": "Feliz",
+    "surprised": "Sorprendido",
+    "thinking": "Pensando",
+    "wink": "Guiñando",
+    "sad": "Triste",
+    "success": "Éxito",
+    "error": "Error",
+    "sleeping": "Dormido"
+  },
+  "agente": {
+    "titulo": "Qué pasa por dentro"
   }
 }

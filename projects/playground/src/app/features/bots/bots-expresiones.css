@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* El sitio no resetea `box-sizing`: sin esto el `height: 100%` de una tarjeta con relleno se pasa de su celda. */
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.bt-expresiones {
+  display: grid;
+  grid-template-columns: minmax(12rem, 17rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem 1.5rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--bt-borde);
+  border-radius: var(--bt-radio-panel);
+  background: var(--bt-lienzo);
+  box-shadow: var(--bt-sombra);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--bt-texto);
+}
+
+header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--bt-texto-2);
+}
+
+.bt-lista-exp {
+  display: flex;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bt-borde-vivo) transparent;
+}
+
+.bt-lista-exp > li {
+  flex: 1 0 5.75rem;
+  max-width: 7.5rem;
+  scroll-snap-align: start;
+}
+
+.bt-exp {
+  display: grid;
+  gap: 0.375rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bt-texto);
+  font: inherit;
+  cursor: pointer;
+}
+
+.bt-exp-vista {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 0.92;
+  border: 1.5px solid transparent;
+  border-radius: var(--bt-radio-tarjeta);
+  background: var(--bt-lienzo-mini);
+  overflow: hidden;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.bt-hueco {
+  width: 5rem;
+  height: 5rem;
+}
+
+.bt-exp:hover .bt-exp-vista {
+  border-color: var(--bt-acento-borde);
+}
+
+.bt-exp[aria-pressed='true'] .bt-exp-vista {
+  border-color: var(--bt-acento-borde);
+  box-shadow: 0 8px 22px -14px var(--bt-acento-borde);
+}
+
+.bt-exp[aria-pressed='true'] .bt-exp-nombre {
+  color: var(--bt-acento-texto);
+  font-weight: 650;
+}
+
+.bt-exp:focus-visible {
+  outline: 2px solid var(--bt-foco);
+  outline-offset: 3px;
+  border-radius: var(--bt-radio-tarjeta);
+}
+
+.bt-exp-nombre {
+  font-size: 0.75rem;
+  font-weight: 550;
+  text-align: center;
+}
+
+@media (max-width: 47.9375rem) {
+  .bt-expresiones {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-exp-vista {
+    transition: none;
+  }
+}

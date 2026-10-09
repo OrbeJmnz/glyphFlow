@@ -1,0 +1,393 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+/* El sitio no resetea `box-sizing`: sin esto el `height: 100%` de una tarjeta con relleno se pasa de su celda. */
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+.bt-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bt-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  height: 100%;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--bt-borde);
+  border-radius: var(--bt-radio-panel);
+  background: var(--bt-lienzo);
+  box-shadow: var(--bt-sombra);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--bt-texto);
+}
+
+header p {
+  margin: 0.375rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bt-texto-2);
+  text-wrap: pretty;
+}
+
+/* ───────── SDK: un solo control segmentado, no una fila de botones sueltos ───────── */
+
+.bt-segmentado {
+  display: flex;
+  gap: 0.1875rem;
+  padding: 0.1875rem;
+  border-radius: 0.875rem;
+  background: var(--bt-suave);
+}
+
+.bt-segmentado button {
+  flex: 1;
+  min-height: 2.125rem;
+  padding: 0.25rem 0.75rem;
+  border: 1.5px solid transparent;
+  border-radius: 0.6875rem;
+  background: transparent;
+  color: var(--bt-texto-2);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.bt-segmentado button:hover:not(:disabled):not([aria-pressed='true']) {
+  background: var(--bt-acento-fondo-suave);
+}
+
+.bt-segmentado button[aria-pressed='true'] {
+  border-color: var(--bt-acento-borde);
+  background: var(--bt-acento-fondo);
+  color: var(--bt-acento-texto);
+}
+
+.bt-segmentado button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bt-segmentado button:focus-visible,
+.bt-campo select:focus-visible,
+.bt-enviar input:focus-visible,
+.bt-boton-enviar:focus-visible,
+.bt-acciones-burbuja button:focus-visible,
+.bt-ver-dentro:focus-visible {
+  outline: 2px solid var(--bt-foco);
+  outline-offset: 2px;
+}
+
+/* ───────── Tipo de salida ───────── */
+
+.bt-campo {
+  display: grid;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--bt-texto);
+}
+
+.bt-campo select {
+  width: 100%;
+  min-width: 0;
+  height: 2.625rem;
+  padding: 0 2.25rem 0 0.875rem;
+  border: 1px solid var(--bt-borde-vivo);
+  border-radius: 0.75rem;
+  background: var(--bt-suave) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a90b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+  color: var(--bt-texto);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 450;
+  appearance: none;
+  cursor: pointer;
+}
+
+.bt-campo select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ───────── La conversación ───────── */
+
+.bt-conversacion {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  flex: 1 1 0;
+  min-height: 11rem;
+  padding: 0.75rem 0.25rem 0.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.bt-fila {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.bt-fila-asistente {
+  grid-template-columns: 3rem minmax(0, 1fr);
+}
+
+.bt-avatar-usuario {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #5f98ff, #4274f0);
+  color: #fff;
+}
+
+.bt-avatar-bot {
+  /* El bot (con su aire alrededor) es más grande que su carril: se centra y se sale por los dos lados sin empujar la burbuja. */
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+  z-index: 1;
+}
+
+.bt-burbuja {
+  min-width: 0;
+  margin: 0;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.875rem;
+  background: var(--bt-acento-fondo-suave);
+  color: var(--bt-texto);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.bt-ejemplo {
+  border: 1.5px dashed var(--bt-acento-borde);
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bt-ejemplo:hover:not(:disabled) {
+  background: var(--bt-acento-fondo-suave);
+}
+
+.bt-ejemplo:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bt-ejemplo:focus-visible {
+  outline: 2px solid var(--bt-foco);
+  outline-offset: 2px;
+}
+
+.bt-burbuja-bot {
+  border: 1px solid var(--bt-borde);
+  background: var(--bt-suave);
+}
+
+.bt-burbuja-bot:has(.bt-puntos) {
+  justify-self: start;
+}
+
+.bt-burbuja-bot p {
+  margin: 0;
+}
+
+.bt-burbuja-bot[data-fin='error'] {
+  border-color: var(--bt-rojo);
+}
+
+.bt-vacio {
+  color: var(--bt-texto-2);
+}
+
+.bt-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.375rem;
+}
+
+.bt-simulada {
+  font-size: 0.75rem;
+  color: var(--bt-texto-2);
+}
+
+.bt-acciones-burbuja {
+  display: inline-flex;
+  gap: 0.125rem;
+}
+
+.bt-acciones-burbuja button {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--bt-texto-2);
+  cursor: pointer;
+}
+
+.bt-acciones-burbuja button:hover {
+  background: var(--bt-acento-fondo);
+  color: var(--bt-texto);
+}
+
+/* Terminó mal: se conserva lo que llegó y se dice qué pasó, con un color que no sea el de una respuesta normal. */
+.bt-fin {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--bt-texto-2);
+}
+
+.bt-fin[data-tipo='error'] {
+  color: var(--bt-rojo-texto);
+}
+
+/* «Está escribiendo»: tres puntos que suben y bajan; con movimiento reducido quedan quietos. */
+.bt-puntos {
+  display: inline-flex;
+  gap: 0.3125rem;
+  padding: 0.25rem 0;
+}
+
+.bt-puntos i {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--bt-acento-borde);
+  animation: bt-punto 1.1s ease-in-out infinite;
+}
+
+.bt-puntos i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.bt-puntos i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes bt-punto {
+  0%,
+  60%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.bt-aviso {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--bt-aviso);
+}
+
+/* ───────── Escribir ───────── */
+
+.bt-enviar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bt-enviar input {
+  flex: 1;
+  min-width: 0;
+  height: 2.75rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--bt-borde-vivo);
+  border-radius: 0.75rem;
+  background: var(--bt-lienzo);
+  color: var(--bt-texto);
+  font: inherit;
+  font-size: 0.9375rem;
+}
+
+.bt-enviar input::placeholder {
+  color: var(--bt-texto-2);
+}
+
+.bt-boton-enviar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  flex: none;
+  height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #6c47ee;
+  color: #fff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.bt-boton-enviar:hover:not(:disabled) {
+  background: #5b38dc;
+}
+
+.bt-boton-enviar:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.bt-ver-dentro {
+  align-self: flex-start;
+  font-size: 0.8125rem;
+  color: var(--bt-acento-texto);
+  text-underline-offset: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-puntos i {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .bt-segmentado button,
+  .bt-boton-enviar {
+    transition: none;
+  }
+}

@@ -1,0 +1,27 @@
+<section class="bt-lista" aria-labelledby="bt-t-lista">
+  <header>
+    <div class="bt-titulo">
+      <h1 id="bt-t-lista">{{ 'bots.titulo' | transloco }}</h1>
+      <a app-chip variante="contorno" class="bt-guia" [routerLink]="rutas.a('docs', 'docsBots')">{{ 'bots.guia' | transloco }}</a>
+    </div>
+    <p>{{ 'bots.lista.descripcion' | transloco }}</p>
+  </header>
+
+  <ul class="bt-bots">
+    @for (f of formas; track f) {
+      <li>
+        <button type="button" class="bt-bot" [attr.aria-pressed]="e.forma() === f" (click)="e.elegirForma(f)">
+          <span class="bt-bot-mini"><app-bot-miniatura [forma]="f" [tamano]="64" /></span>
+          <span class="bt-bot-texto">
+            <strong>{{ 'bots.formas.' + f | transloco }}</strong>
+            <small>{{ 'bots.formasDesc.' + f | transloco }}</small>
+          </span>
+        </button>
+      </li>
+    }
+  </ul>
+
+  <footer>
+    <button type="button" app-chip variante="contorno" class="bt-salto" (click)="irAlChat()">{{ 'bots.chat.ir' | transloco }}</button>
+  </footer>
+</section>

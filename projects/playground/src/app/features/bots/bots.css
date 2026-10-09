@@ -1,244 +1,171 @@
 :host {
   display: block;
+
+  /*
+   * Las variables de la página. Los componentes hijos las heredan (por eso viven aquí y no en cada uno). En oscuro —la identidad del
+   * sitio— los paneles salen del panel del sitio con un matiz lavanda; en claro son blanco sobre un fondo casi blanco, con el mismo
+   * violeta como acento. El escenario es oscuro en los dos temas y no usa estas.
+   */
+  --bt-lienzo: var(--gf-panel);
+  --bt-lienzo-mini: color-mix(in oklab, var(--gf-panel) 80%, #8664ff 20%);
+  --bt-suave: color-mix(in oklab, var(--gf-panel) 90%, #8664ff 10%);
+  --bt-borde: var(--gf-borde);
+  --bt-borde-vivo: var(--gf-borde-vivo);
+  --bt-texto: var(--gf-texto);
+  --bt-texto-2: var(--gf-texto-tenue);
+  --bt-acento-borde: #9a82ff;
+  --bt-acento-texto: #bcaeff;
+  --bt-acento-fondo: rgb(134 100 255 / 0.2);
+  --bt-acento-fondo-suave: rgb(134 100 255 / 0.1);
+  --bt-acento-halo: rgb(134 100 255 / 0.1);
+  --bt-foco: var(--gf-foco);
+  --bt-rojo: var(--gf-rojo);
+  --bt-rojo-texto: var(--gf-rojo-texto, var(--gf-rojo));
+  --bt-verde: var(--gf-verde);
+  --bt-aviso: var(--gf-aviso-texto);
+  --bt-play-fondo: #fff;
+  --bt-play-color: #4b32b8;
+  --bt-radio-panel: 1.5rem;
+  --bt-radio-tarjeta: 1rem;
+  --bt-sombra: 0 14px 34px -22px rgb(0 0 0 / 0.7);
+  --bt-sombra-escena: 0 24px 54px -28px rgb(20 12 70 / 0.9);
+
+  /* Piel propia de la demo (`skin="x-sunset"`): solo variables, el contrato público de las pieles propias. */
+  --gf-skin-fill: #ff8a5c;
+  --gf-skin-gloss: #fff3d6;
+  --gf-skin-edge: #b63a1e;
+  --gf-skin-edge-width: 5;
+  --bot-base: #ff8a5c;
+  --bot-primary: #ffb48f;
+  --bot-shadow: #b63a1e;
 }
 
+:root[data-theme='light'] :host {
+  --bt-lienzo: #fff;
+  --bt-lienzo-mini: #f1efff;
+  --bt-suave: #f5f5ff;
+  --bt-borde: #e5e7f5;
+  --bt-borde-vivo: #cfd3ea;
+  --bt-texto: #171b43;
+  --bt-texto-2: #5d6590;
+  --bt-acento-borde: #8664ff;
+  --bt-acento-texto: #5a35d8;
+  --bt-acento-fondo: #eeeaff;
+  --bt-acento-fondo-suave: #f4f1ff;
+  --bt-acento-halo: rgb(134 100 255 / 0.1);
+  --bt-sombra: 0 16px 36px -26px rgb(70 60 140 / 0.45), 0 1px 2px rgb(70 60 140 / 0.06);
+  --bt-sombra-escena: 0 26px 56px -30px rgb(50 36 130 / 0.8);
+}
+
+/*
+ * Casi todo el ancho de la pantalla: es una herramienta, no un artículo. El cuerpo del sitio mide 1240; aquí la página se sale de él
+ * hacia los dos lados (el margen en % es del ancho del cuerpo) hasta 92rem, y nunca queda más angosta que el cuerpo.
+ */
 .bt-pagina {
-  max-width: 76rem;
-  margin: 0 auto;
+  --bt-ancho: max(100%, min(92rem, 100vw - 4rem));
   display: grid;
-  gap: 1.75rem;
+  gap: 1rem;
+  width: var(--bt-ancho);
+  margin-inline: calc((100% - var(--bt-ancho)) / 2);
 }
 
-.bt-cabecera {
-  display: grid;
-  gap: 0.75rem 2rem;
-  align-items: start;
-}
-
-.bt-cabecera h1 {
-  grid-column: 1 / -1;
-}
-
-.bt-intro-col {
-  display: grid;
-  gap: 0.75rem;
-  justify-items: start;
-}
-
-@media (min-width: 62rem) {
-  .bt-cabecera {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  }
-
-  .bt-salto {
-    display: none;
-  }
-}
-
-.bt-cabecera h1 {
-  margin: 0;
-  font-size: clamp(2rem, 5.5vw, 3rem);
-  font-weight: 700;
-  line-height: 1.05;
-  text-wrap: balance;
-}
-
-.bt-intro {
-  margin: 0;
-  color: var(--gf-texto-medio);
-  line-height: 1.55;
-  max-width: 62ch;
-  text-wrap: pretty;
-}
-
-/* ───────── La mesa: escenario y chat ───────── */
+/* ───────── La mesa: tres columnas en escritorio, dos en tableta, una en móvil ───────── */
 
 .bt-mesa {
   display: grid;
   /* `minmax(0, 1fr)`: la pista automática se estira al min-content del chat y a 320px se salía 8px (recortado por el clip de la raíz). */
   grid-template-columns: minmax(0, 1fr);
-  gap: 1.25rem;
-  align-items: stretch;
+  grid-template-areas:
+    'lista'
+    'escenario'
+    'galeria'
+    'expresiones'
+    'chat';
+  gap: 1rem;
 }
 
-@media (min-width: 62rem) {
+.bt-area-lista {
+  grid-area: lista;
+}
+
+.bt-area-escenario {
+  grid-area: escenario;
+}
+
+.bt-area-chat {
+  grid-area: chat;
+}
+
+.bt-area-galeria {
+  grid-area: galeria;
+}
+
+.bt-area-expresiones {
+  grid-area: expresiones;
+}
+
+@media (min-width: 48rem) {
   .bt-mesa {
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    grid-template-columns: minmax(14rem, 17fr) minmax(0, 45fr);
+    grid-template-rows: minmax(32.5rem, auto);
+    grid-template-areas:
+      'lista escenario'
+      'chat chat'
+      'galeria galeria'
+      'expresiones expresiones';
   }
 }
 
-.bt-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  min-width: 0;
-  gap: 1rem;
-  padding: 1.25rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 1.25rem;
-  background: var(--gf-panel);
+@media (min-width: 74rem) {
+  .bt-mesa {
+    grid-template-columns: minmax(14rem, 17fr) minmax(0, 45fr) minmax(22rem, 38fr);
+    grid-template-areas:
+      'lista escenario chat'
+      'galeria galeria galeria'
+      'expresiones expresiones expresiones';
+  }
+
+  /* En escritorio la fila de las tres columnas mide lo mismo que el escenario: el chat se desplaza por dentro y no la estira. */
+  .bt-area-chat {
+    min-height: 0;
+  }
 }
 
-.bt-panel h2,
+/* ───────── Debajo: código y costo ───────── */
+
+.bt-debajo {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1rem 0.5rem 0;
+}
+
+@media (min-width: 62rem) {
+  .bt-debajo {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  }
+}
+
+.bt-codigo,
+.bt-peso {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
 .bt-codigo h2,
 .bt-peso h2 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.125rem;
   font-weight: 650;
-}
-
-.bt-gestos h3 {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--gf-texto-medio);
 }
 
 .bt-ayuda {
   margin: 0;
+  max-width: 62ch;
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--gf-texto-tenue);
-  max-width: 62ch;
-}
-
-/* ───────── Escenario ───────── */
-
-/*
- * El suelo: una línea y un resplandor suave. La línea no es adorno: está donde el motor recorta el cuerpo
- * cuando se hunde bajo el suelo (`Peek` y `Dive`), así que ahí es donde el bot desaparece de verdad.
- */
-.bt-suelo {
-  display: grid;
-  place-items: end center;
-  min-height: 17rem;
-  padding-top: 1rem;
-  border-radius: 1rem;
-  background:
-    radial-gradient(62% 58% at 50% 88%, var(--gf-velo-activo), transparent 72%),
-    linear-gradient(var(--gf-velo), var(--gf-velo)),
-    var(--gf-panel);
-  overflow: clip;
-  /* Fijo bajo la cabecera del sitio: quien cambia la forma, la piel o un gesto más abajo sigue viendo qué pasa con el bot. */
-  position: sticky;
-  top: 4.75rem;
-  z-index: 3;
-}
-
-.bt-suelo::after {
-  content: '';
-  position: absolute;
-  left: 7%;
-  right: 7%;
-  bottom: 1.4rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gf-texto-apagado) 16%, var(--gf-texto-apagado) 84%, transparent);
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-/* La sombra de contacto del escenario: la del bot (la de la librería) es sutil y los Mochi la esconden en reposo. */
-.bt-suelo::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 1.05rem;
-  width: 10rem;
-  height: 0.8rem;
-  translate: -50% 0;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, var(--gf-sombra), transparent);
-  filter: blur(2px);
-  pointer-events: none;
-}
-
-.bt-suelo gf-bot {
-  position: relative;
-  z-index: 1;
-  --gf-bot-size: 224px;
-}
-
-/*
- * Vista de silueta: todo el bot en un solo color, sin cara, sin brillo y sin efectos. Se pinta con el color del
- * texto del sitio (negro sobre claro, blanco sobre oscuro) para que el contraste lo ponga el tema, no un valor fijo.
- * Los internos del bot los pinta la librería, de ahí el `::ng-deep` y solo aquí.
- */
-.bt-escenario[data-vista='silueta'][data-tema='claro'] .bt-suelo gf-bot {
-  filter: brightness(0);
-}
-
-.bt-escenario[data-vista='silueta'][data-tema='oscuro'] .bt-suelo gf-bot {
-  filter: brightness(0) invert(1);
-}
-
-.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .shadow,
-.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .fx,
-.bt-escenario[data-vista='silueta'] .bt-suelo gf-bot ::ng-deep .world {
-  display: none;
-}
-
-/* La región de estado vive siempre en el DOM; vacía no debe sumar otro hueco de `gap` entre el bot y los gestos. */
-.bt-panel > [role='status']:empty {
-  margin-top: -1rem;
-}
-
-.bt-aviso-mov {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--gf-aviso-texto);
-}
-
-.bt-controles,
-.bt-gestos {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.bt-controles {
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--gf-borde);
-}
-
-.bt-fila {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.25rem;
-}
-
-.bt-campo {
-  display: grid;
-  gap: 0.25rem;
-  font-size: 0.8125rem;
-  color: var(--gf-texto-tenue);
-}
-
-.bt-campo-ancho {
-  width: 100%;
-}
-
-.bt-campo select,
-.bt-campo input {
-  font: inherit;
-  font-size: 0.9375rem;
-  color: var(--gf-texto);
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--gf-borde-vivo);
-  border-radius: 0.75rem;
-  background: var(--gf-panel-alto);
-}
-
-.bt-campo input[type='range'] {
-  padding: 0;
-  border: 0;
-  background: none;
-  accent-color: var(--gf-marca-2);
-}
-
-.bt-campo select:focus-visible,
-.bt-campo input:focus-visible,
-.bt-interruptor input:focus-visible {
-  outline: 2px solid var(--gf-foco);
-  outline-offset: 2px;
 }
 
 .bt-interruptor {
@@ -256,247 +183,9 @@
   accent-color: var(--gf-marca-2);
 }
 
-/* ───────── Chat ───────── */
-
-/* Misma altura que el escenario: la caja del chat se lleva el sobrante y el riel queda abajo. */
-.bt-chat {
-  grid-template-rows: auto auto 1fr auto;
-}
-
-.bt-chat-caja {
-  grid-template-rows: auto 1fr auto;
-}
-
-.bt-chat-caja {
-  display: grid;
-  gap: 0.75rem;
-  padding: 0.875rem;
-  border: 1px solid var(--gf-borde);
-  border-radius: 1rem;
-  background: var(--gf-velo);
-}
-
-.bt-chat-cabeza {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.bt-chat-cabeza gf-bot {
-  --gf-bot-size: 76px;
-  flex: none;
-}
-
-.bt-chat-nombre {
-  margin: 0;
-  font-weight: 600;
-}
-
-.bt-mensajes {
-  display: grid;
-  gap: 0.5rem;
-  min-height: 8.9rem; /* el alto de la pregunta y una respuesta de 3-4 líneas con su etiqueta: reservado para que el primer mensaje no empuje el resto */
-  align-content: start;
-}
-
-.bt-msg {
-  margin: 0;
-  max-width: 85%;
-  padding: 0.625rem 0.875rem;
-  border-radius: 1rem;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.bt-msg[data-rol='usuario'] {
-  justify-self: end;
-  background: var(--gf-acento-fondo);
-  border-bottom-right-radius: 0.375rem;
-}
-
-.bt-msg[data-rol='asistente'] {
-  justify-self: start;
-  background: var(--gf-panel-alto);
-  border: 1px solid var(--gf-borde);
-  border-bottom-left-radius: 0.375rem;
-}
-
-.bt-simulada {
-  display: block;
-  margin-top: 0.375rem;
-  font-size: 0.75rem;
-  color: var(--gf-texto-apagado);
-}
-
-/* Terminó mal: se conserva lo que llegó y se dice qué pasó, con un color que no sea el de una respuesta normal. */
-.bt-fin {
-  display: block;
-  margin-top: 0.375rem;
-  font-size: 0.8125rem;
-  color: var(--gf-texto-medio);
-}
-
-.bt-fin[data-tipo='error'] {
-  color: var(--gf-rojo-texto, var(--gf-rojo));
-}
-
-.bt-msg[data-fin='error'] {
-  border-color: var(--gf-rojo);
-}
-
-.bt-vacio {
-  margin: 0;
-  font-size: 0.9375rem;
-  color: var(--gf-texto-tenue);
-}
-
-.bt-enviar {
-  display: grid;
-  gap: 0.75rem;
-}
-
-/*
- * El riel: lo que el agente está haciendo, paso a paso, y qué gesto responde el bot. Una línea vertical une los puntos y se
- * rellena hasta el paso en que va (`--bt-avance`); el paso activo se distingue por su punto relleno, la fila iluminada y el
- * peso de la letra, no solo por color. El gesto va EN LA MISMA FILA, a la derecha: así ninguna fila cambia de alto mientras
- * corre y nada de la página se mueve.
- */
-.bt-riel {
-  position: relative;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Un tramo por paso, del punto de ese paso al del siguiente: solo existen entre pasos que YA ocurrieron, así que la línea nunca sobresale del último. */
-.bt-paso:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: calc(0.5rem + 0.3125rem - 1px);
-  top: 50%;
-  height: 100%;
-  width: 2px;
-  background: var(--gf-borde-vivo);
-}
-
-/* El tramo que SALE de un paso ya ocurrido (y por tanto llega a otro paso) va encendido. */
-.bt-paso[data-estado='hecho']::after {
-  background: var(--gf-marca-1);
-}
-
-/* Lo que falta por pasar: punto hueco y letra apagada. */
-.bt-paso[data-estado='pendiente'] {
-  color: var(--gf-texto-tenue);
-}
-
-.bt-paso {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1rem minmax(0, 1fr) auto;
-  column-gap: 0.625rem;
-  align-items: center;
-  min-height: 2.25rem;
-  padding: 0.375rem 0.5rem;
-  border-radius: 0.625rem;
-  color: var(--gf-texto-tenue);
-  transition:
-    background-color 220ms ease,
-    color 220ms ease;
-}
-
-.bt-paso::before {
-  content: '';
-  position: relative;
-  z-index: 1;
-  width: 0.625rem;
-  height: 0.625rem;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  background: var(--gf-panel);
-  box-sizing: border-box;
-}
-
-.bt-paso-nombre {
-  font-size: 0.9375rem;
-}
-
-.bt-paso-gesto {
-  font-size: 0.8125rem;
-  text-align: right;
-  color: var(--gf-marca-1-texto);
-}
-
-.bt-paso[data-estado='hecho'] {
-  color: var(--gf-texto-medio);
-}
-
-.bt-paso[data-estado='hecho']::before {
-  background: currentColor;
-}
-
-.bt-paso[data-estado='activo'] {
-  color: var(--gf-texto);
-  background: var(--gf-acento-fondo);
-}
-
-.bt-paso[data-estado='activo']::before {
-  background: var(--gf-marca-1);
-  border-color: var(--gf-marca-1);
-}
-
-.bt-paso[data-estado='activo'] .bt-paso-nombre {
-  font-weight: 650;
-}
-
-.bt-paso[data-estado='fin'] {
-  color: var(--gf-texto);
-  background: var(--gf-acento-fondo);
-}
-
-.bt-paso[data-estado='fin']::before {
-  background: var(--gf-verde);
-  border-color: var(--gf-verde);
-}
-
-.bt-paso[data-estado='fin'][data-paso='error']::before {
-  background: var(--gf-rojo);
-  border-color: var(--gf-rojo);
-}
-
-/* Cortado a mano: ni éxito (verde) ni fallo (rojo). */
-.bt-paso[data-estado='fin'][data-paso='idle']::before {
-  background: var(--gf-texto-tenue);
-  border-color: var(--gf-texto-tenue);
-}
-
-/* ───────── Debajo: código y costo ───────── */
-
-.bt-columna {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: minmax(0, 1fr);
-  min-width: 0;
-}
-
-.bt-debajo {
-  display: grid;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-@media (min-width: 62rem) {
-  .bt-debajo {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-  }
-}
-
-.bt-codigo,
-.bt-peso {
-  display: grid;
-  gap: 0.75rem;
-  min-width: 0;
+.bt-interruptor input:focus-visible {
+  outline: 2px solid var(--gf-foco);
+  outline-offset: 2px;
 }
 
 .bt-medidas {
@@ -521,149 +210,4 @@
   margin: 0;
   font-weight: 650;
   font-variant-numeric: tabular-nums;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bt-paso {
-    transition: none;
-  }
-}
-
-/* Piel propia de la demo (`skin="x-sunset"`): solo variables, el contrato público de las pieles propias. */
-:host {
-  --gf-skin-fill: #ff8a5c;
-  --gf-skin-gloss: #fff3d6;
-  --gf-skin-edge: #b63a1e;
-  --gf-skin-edge-width: 5;
-  --bot-base: #ff8a5c;
-  --bot-primary: #ffb48f;
-  --bot-shadow: #b63a1e;
-}
-
-/* ───────── El tipo de salida y la traza del stream ───────── */
-
-/* Proveedor, tipo de salida y su explicación, juntos y encima del chat. */
-.bt-ia {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr); /* sin esto la pista se estira a lo que mide la opción más larga y a 375px el selector se salía 19px */
-  gap: 0.625rem;
-}
-
-.bt-ia select {
-  width: 100%;
-  min-width: 0;
-}
-
-/* En la mesa de dos columnas el tipo de salida y el SDK comparten fila, y la explicación va debajo: así «Enviar» queda sobre el pliegue. */
-@media (min-width: 62rem) {
-  .bt-ia {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
-    column-gap: 0.75rem;
-  }
-
-  .bt-ia > .bt-ayuda {
-    grid-column: 1 / -1;
-  }
-}
-
-/* Texto solo para lectores de pantalla: el estado de cada paso del riel, que a la vista se dice con el punto (hueco, relleno). */
-.bt-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* Los títulos de grupo vienen de estilos globales a 11px y con 4.54:1 en tema claro; aquí suben a 12px y a un tono con margen. */
-.bt-pagina ::ng-deep .grupo-tit {
-  font-size: 0.75rem;
-  color: var(--gf-texto-tenue);
-}
-
-/*
- * El riel y la traza CRECEN con lo que el stream manda (antes el riel era una lista fija). Reservan el alto de un turno
- * largo desde el principio: sin eso, cada paso nuevo empujaba hacia abajo el código y el peso de la página.
- */
-/* El alto lo da el plan (la lista ya viene completa, apagada): no hace falta reservar nada, y por eso ya no hay un hueco vacío. */
-.bt-riel {
-  align-content: start;
-}
-
-.bt-traza-titulo {
-  margin: 0.5rem 0 0;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--gf-texto);
-}
-
-.bt-traza {
-  display: grid;
-  gap: 0.25rem;
-  align-content: start;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.8125rem;
-}
-
-.bt-traza li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.375rem;
-  min-width: 0;
-}
-
-.bt-traza code {
-  font-size: 0.75rem;
-  overflow-wrap: anywhere;
-  color: var(--gf-texto);
-}
-
-.bt-traza-n,
-.bt-traza-flecha {
-  color: var(--gf-texto-tenue);
-}
-
-.bt-traza-paso {
-  color: var(--gf-texto-medio);
-}
-
-/* «Sin cambio»: el evento llegó pero no mueve al bot. Se dice con letra, no solo con un tono más apagado. */
-.bt-traza-paso[data-nada] {
-  font-style: italic;
-  color: var(--gf-texto-tenue);
-}
-
-.bt-traza-vacio {
-  color: var(--gf-texto-tenue);
-}
-
-/*
- * Las líneas de la traza que todavía no han llegado: apagadas, con la misma forma que cuando lleguen. Se apagan con el color del texto
- * tenue y NO con `opacity`: un 55 % de opacidad bajaba el contraste a 4.13:1 y el texto, aunque sea una vista previa, tiene que leerse.
- */
-.bt-traza li[data-pendiente],
-.bt-traza li[data-pendiente] code,
-.bt-traza li[data-pendiente] .bt-traza-paso {
-  color: var(--gf-texto-tenue);
-}
-
-/* El avatar y, a su lado, el nombre y lo que está haciendo: así el visitante ve POR QUÉ se mueve sin bajar hasta el riel. */
-.bt-chat-quien {
-  display: grid;
-  gap: 0.125rem;
-  min-width: 0;
-}
-
-.bt-chat-estado {
-  min-height: 1.25rem; /* reservado: sin esto la línea aparece y empuja el chat en cuanto el agente empieza */
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--gf-marca-1-texto);
 }
