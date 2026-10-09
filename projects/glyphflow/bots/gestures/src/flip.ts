@@ -10,7 +10,9 @@ const kit = gfBotKit;
  * con su propia curva:
  *
  *  - TRAYECTORIA (`.hop`): anticipación → despegue → parábola → caída → impacto → rebote.
- *  - GIRO: una vuelta completa en el plano, lento al principio, rápido en el centro, frenando al caer.
+ *  - GIRO: una vuelta completa EN 3D sobre el eje horizontal (`pitch`): la cabeza pasa hacia DELANTE, la cara se oculta al quedar de
+ *    espaldas y el cuerpo se ve boca abajo en la cima. Lento al principio, rápido en el centro, frenando al caer.
+ *  - PROFUNDIDAD (`z`): en el aire se acerca a quien mira (más grande) y vuelve a alejarse al caer.
  *  - DEFORMACIÓN (squash y stretch): en el suelo se aplica en el contenedor `.hop`, anclado a la BASE;
  *    en el aire, en la pose y A LO LARGO DEL EJE DEL CUERPO. Las dos partes se multiplican.
  *  - CARA: se deforma menos que el cuerpo, para que los ojos no se vuelvan una mancha.
@@ -42,27 +44,24 @@ function flipDef(): GestureDef {
   return (flipDefCache ??= {
     score: kit.motion.score(
       kit.motion.settle(0),
-      // Anticipación: baja, se ensancha, la falda se rezaga.
-      kit.motion.anticipate(0.1, { y: 7, x: -1.5, roll: 0, sx: 1.08, sy: 0.88, spread: 0.14, drag: -2 }),
-      kit.motion.key(0.15, { roll: 3 }),
-      // Despegue: se estira, la falda se queda atrás y los bultos de gel empiezan a salir.
-      kit.motion.launch(0.2, { y: -34, x: 0, roll: 15, sx: 0.9, sy: 1.15, spread: -0.05, drag: 6 }),
-      kit.motion.key(0.3, { gel: 7 }),
-      kit.motion.key(0.35, { y: -72, roll: 90, sx: 0.95, sy: 1.05, spread: 0, drag: 4.5 }),
-      // Cima, boca abajo: ingravidez.
-      kit.motion.key(0.5, { y: -88, x: 4, roll: 180, sx: 1, sy: 0.94, spread: 0, drag: 1, gel: 11 }),
-      kit.motion.key(0.65, { y: -72, roll: 270, sx: 0.96, sy: 1.06, spread: 0, drag: -3 }),
-      kit.motion.key(0.7, { gel: 8 }),
-      // Caída: se estira antes del golpe.
-      kit.motion.key(0.8, { y: -10, x: 1.5, roll: 350, sx: 0.92, sy: 1.1, spread: -0.04, drag: -5.5 }),
-      kit.motion.key(0.84, { gel: 3 }),
-      // Impacto: squash fuerte, la falda se abre.
-      kit.motion.impact(0.9, { y: 4, x: 0, roll: 360, sx: 1.13, sy: 0.84, spread: 0.28, drag: -3 }),
-      kit.motion.overshoot(0.95, { y: -3, sx: 0.97, sy: 1.04, spread: 0.06, drag: 1.5 }),
-      kit.motion.key(0.18, { gel: 0 }),
-      kit.motion.key(0.92, { gel: 0 }),
+      // Anticipación: baja, se ensancha un poco y se echa hacia atrás para tomar impulso.
+      kit.motion.anticipate(0.1, { y: 7, pitch: -0.2, sx: 1.06, sy: 0.9, spread: 0.1, drag: -1.5 }),
+      // Despegue: se estira apenas y la cabeza empieza a pasar hacia delante.
+      kit.motion.launch(0.2, { y: -34, pitch: 0.6, z: 0.04, sx: 0.95, sy: 1.08, spread: -0.03, drag: 3 }),
+      // En el aire el cuerpo es RÍGIDO: gira entero, sin gel ni aplastarse. Un mortal de verdad cambia de orientación, no de forma.
+      kit.motion.key(0.3, { sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 }),
+      kit.motion.key(0.35, { y: -72, pitch: Math.PI / 2, z: 0.12 }),
+      // Cima, boca abajo y de espaldas a quien mira: el punto más cercano a la cámara.
+      kit.motion.key(0.5, { y: -88, pitch: Math.PI, z: 0.2 }),
+      kit.motion.key(0.65, { y: -72, pitch: 1.5 * Math.PI, z: 0.14 }),
+      kit.motion.key(0.7, { sx: 1, sy: 1, spread: 0, drag: 0 }),
+      // Caída: se alarga un poco antes del golpe y se aleja de la cámara hacia el suelo.
+      kit.motion.key(0.8, { y: -10, pitch: 1.9 * Math.PI, z: 0.05, sx: 0.97, sy: 1.04, spread: -0.02, drag: -2 }),
+      // Impacto: squash, la falda se abre.
+      kit.motion.impact(0.9, { y: 4, pitch: 2 * Math.PI, z: 0, sx: 1.1, sy: 0.88, spread: 0.18, drag: -2 }),
+      kit.motion.overshoot(0.95, { y: -3, sx: 0.98, sy: 1.03, spread: 0.05, drag: 1 }),
       kit.motion.settle(1),
-      kit.motion.rotate(1, 360),
+      kit.motion.tumble(1, 2 * Math.PI),
     ),
     // «Estoy en el suelo»: 1 antes del despegue y tras el aterrizaje, 0 en el aire.
     grounded: (t) => (t < 0.5 ? 1 - kit.smoothstep(0.16, 0.3, t) : kit.smoothstep(0.7, 0.84, t)),

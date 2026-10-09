@@ -137,7 +137,7 @@ describe('glyphflow/bots · front flip · cuerpo de gel', () => {
     expect(gelBody(d, 100, 117, 8, gelPhase(0.4))).not.toBe(gelBody(d, 100, 117, 8, gelPhase(0.6)));
   });
 
-  it('el gel arranca y termina en cero: el primer y el último fotograma son la onda de reposo', () => {
+  it('el mortal no usa el gel (el cuerpo es rígido en el aire): el contorno arranca en la onda de reposo', () => {
     const ctx = built();
     conAnimate((calls) => {
       frontFlip(ctx);
@@ -145,9 +145,6 @@ describe('glyphflow/bots · front flip · cuerpo de gel', () => {
       const trazo = (f: Keyframe) => /path\("(.*)"\)/.exec(String(f['d']))?.[1] ?? '';
       // sin el gel sería la falda sola; aquí los extremos coinciden con el reposo
       expect(pathExtent(trazo(falda.frames[0])).bottom).toBeCloseTo(pathExtent(d).bottom, 1);
-      // y a mitad de vuelo el contorno SÍ está deformado
-      const medio = trazo(falda.frames[Math.floor(falda.frames.length / 2)]);
-      expect(medio).not.toBe(trazo(falda.frames[0]));
     });
   });
 });

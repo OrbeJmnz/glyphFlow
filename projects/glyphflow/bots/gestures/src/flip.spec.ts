@@ -72,32 +72,56 @@ describe('glyphflow/bots · front flip · los canales', () => {
       expect(f.spread).toBeCloseTo(0, 9);
       expect(f.drag).toBeCloseTo(0, 9);
     }
-    expect(flipFrame(0).roll).toBe(0);
+    expect(flipFrame(0).pitch).toBe(0);
+    expect(flipFrame(0).z).toBe(0);
+    expect(flipFrame(1).z).toBe(0);
     // 360° ≡ 0°: la vuelta cierra, y el estado de reposo del bot nunca guarda los 360
-    expect(flipFrame(1).roll % 360).toBe(0);
+    expect(flipFrame(1).pitch % (2 * Math.PI)).toBeCloseTo(0, 9);
+    // el mortal es 3D (sobre el eje horizontal): no hay giro en el plano ni se va hacia los lados
+    for (let i = 0; i <= 200; i++) {
+      expect(flipFrame(i / 200).roll).toBe(0);
+      expect(flipFrame(i / 200).x).toBeCloseTo(0, 9);
+    }
   });
 
-  it('da EXACTAMENTE una vuelta completa, siempre hacia el mismo lado', () => {
-    expect(flipFrame(1).roll - flipFrame(0).roll).toBe(360);
-    let prev = -1;
-    for (let i = 0; i <= 200; i++) {
-      const r = flipFrame(i / 200).roll;
-      expect(r).toBeGreaterThanOrEqual(prev - 1e-9);
-      prev = r;
+  it('da EXACTAMENTE una vuelta completa, siempre hacia delante (la cabeza pasa por delante)', () => {
+    expect(flipFrame(1).pitch - flipFrame(0).pitch).toBeCloseTo(2 * Math.PI, 9);
+    // tras la anticipación (que echa el cuerpo un poco hacia atrás) el cabeceo solo crece
+    let prev = -Infinity;
+    for (let i = 20; i <= 200; i++) {
+      const p = flipFrame(i / 200).pitch;
+      expect(p).toBeGreaterThanOrEqual(prev - 1e-9);
+      prev = p;
     }
   });
 
   it('pasa por 90°, 180° y 270° a los 35 %, 50 % y 65 %', () => {
-    expect(flipFrame(0.35).roll).toBeCloseTo(90, 5);
-    expect(flipFrame(0.5).roll).toBeCloseTo(180, 5);
-    expect(flipFrame(0.65).roll).toBeCloseTo(270, 5);
+    expect(flipFrame(0.35).pitch).toBeCloseTo(Math.PI / 2, 5);
+    expect(flipFrame(0.5).pitch).toBeCloseTo(Math.PI, 5);
+    expect(flipFrame(0.65).pitch).toBeCloseTo(1.5 * Math.PI, 5);
   });
 
   it('el giro es lento al principio, rápido en el centro y frena al caer', () => {
-    const v = (a: number, b: number) => (flipFrame(b).roll - flipFrame(a).roll) / (b - a);
-    expect(flipFrame(0.1).roll).toBeLessThan(2); // anticipación: sin girar todavía
-    expect(v(0.35, 0.65)).toBeGreaterThan(v(0, 0.15) * 20);
+    const v = (a: number, b: number) => (flipFrame(b).pitch - flipFrame(a).pitch) / (b - a);
+    expect(flipFrame(0.1).pitch).toBeLessThan(0); // anticipación: se echa hacia atrás, aún sin girar hacia delante
+    expect(v(0.35, 0.65)).toBeGreaterThan(Math.abs(v(0, 0.15)) * 3);
     expect(v(0.35, 0.65)).toBeGreaterThan(v(0.82, 0.92) * 3);
+  });
+
+  it('se acerca a quien mira en el aire y vuelve a su tamaño al caer', () => {
+    expect(flipFrame(0.5).z).toBeGreaterThan(0.15);
+    expect(flipFrame(0.9).z).toBeCloseTo(0, 9);
+  });
+
+  it('en el aire el cuerpo es rígido: gira entero, sin aplastarse ni deformarse', () => {
+    for (const t of [0.35, 0.4, 0.5, 0.6, 0.65]) {
+      const f = flipFrame(t);
+      expect(f.poseX).toBeCloseTo(1, 6);
+      expect(f.poseY).toBeCloseTo(1, 6);
+      expect(f.spread).toBeCloseTo(0, 6);
+      expect(f.drag).toBeCloseTo(0, 6);
+      expect(f.gel).toBeCloseTo(0, 6);
+    }
   });
 
   it('la trayectoria es una parábola: la cima está hacia el 50 % y la subida y la bajada se parecen', () => {
@@ -119,41 +143,41 @@ describe('glyphflow/bots · front flip · los canales', () => {
   it('anticipación: baja y se aplasta ANTES de girar', () => {
     const f = flipFrame(0.1);
     expect(f.y).toBeGreaterThan(5); // baja
-    expect(f.hopX * f.poseX).toBeCloseTo(1.08, 3);
-    expect(f.hopY * f.poseY).toBeCloseTo(0.88, 3);
-    expect(f.spread).toBeGreaterThan(0.1); // la falda se abre
+    expect(f.hopX * f.poseX).toBeCloseTo(1.06, 3);
+    expect(f.hopY * f.poseY).toBeCloseTo(0.9, 3);
+    expect(f.spread).toBeGreaterThan(0.08); // la falda se abre
   });
 
   it('despegue: se estira en vertical y la falda se arrastra hacia abajo', () => {
     const f = flipFrame(0.2);
-    expect(f.hopX * f.poseX).toBeCloseTo(0.9, 3);
-    expect(f.hopY * f.poseY).toBeCloseTo(1.15, 3);
-    expect(f.drag).toBeGreaterThan(4);
+    expect(f.hopX * f.poseX).toBeCloseTo(0.95, 3);
+    expect(f.hopY * f.poseY).toBeCloseTo(1.08, 3);
+    expect(f.drag).toBeGreaterThan(2);
   });
 
   it('antes de aterrizar se estira; al caer la falda se arrastra al revés que al subir', () => {
     const f = flipFrame(0.8);
-    expect(f.hopY * f.poseY).toBeCloseTo(1.1, 3);
-    expect(f.hopX * f.poseX).toBeCloseTo(0.92, 3);
+    expect(f.hopY * f.poseY).toBeCloseTo(1.04, 3);
+    expect(f.hopX * f.poseX).toBeCloseTo(0.97, 3);
     expect(f.drag).toBeLessThan(0); // subiendo era positivo
     expect(flipFrame(0.2).drag).toBeGreaterThan(0);
   });
 
   it('impacto: el mayor squash horizontal, y la falda se ensancha', () => {
     const f = flipFrame(0.9);
-    expect(f.hopX * f.poseX).toBeCloseTo(1.13, 3);
-    expect(f.hopY * f.poseY).toBeCloseTo(0.84, 3);
+    expect(f.hopX * f.poseX).toBeCloseTo(1.1, 3);
+    expect(f.hopY * f.poseY).toBeCloseTo(0.88, 3);
     expect(f.y).toBeGreaterThan(2);
     let maxX = 0;
     for (let i = 0; i <= 200; i++) maxX = Math.max(maxX, flipFrame(i / 200).hopX * flipFrame(i / 200).poseX);
-    expect(maxX).toBeCloseTo(1.13, 2);
-    expect(f.spread).toBeGreaterThan(0.2);
+    expect(maxX).toBeCloseTo(1.1, 2);
+    expect(f.spread).toBeGreaterThan(0.15);
   });
 
   it('overshoot: tras el impacto rebota un poco al otro lado y se asienta, sin otro salto', () => {
     const f = flipFrame(0.95);
-    expect(f.hopX * f.poseX).toBeCloseTo(0.97, 3);
-    expect(f.hopY * f.poseY).toBeCloseTo(1.04, 3);
+    expect(f.hopX * f.poseX).toBeCloseTo(0.98, 3);
+    expect(f.hopY * f.poseY).toBeCloseTo(1.03, 3);
     expect(f.y).toBeLessThan(0);
     expect(f.y).toBeGreaterThan(-6);
   });
@@ -170,12 +194,12 @@ describe('glyphflow/bots · front flip · los canales', () => {
     expect(flipFrame(0.5).grounded).toBe(0);
   });
 
-  it('la cara se deforma menos que el cuerpo (cuerpo 0.84 → cara ≈ 0.94)', () => {
+  it('la cara se deforma menos que el cuerpo (cuerpo 0.88 → cara ≈ 0.95)', () => {
     const f = flipFrame(0.9);
     const cuerpo = f.hopY * f.poseY;
     const cara = f.faceY * f.hopY;
-    expect(cuerpo).toBeCloseTo(0.84, 3);
-    expect(cara).toBeCloseTo(1 + (0.84 - 1) * FLIP_FACE_K, 6);
+    expect(cuerpo).toBeCloseTo(0.88, 3);
+    expect(cara).toBeCloseTo(1 + (0.88 - 1) * FLIP_FACE_K, 6);
     expect(cara).toBeGreaterThan(0.92);
     expect(cara).toBeLessThan(0.97);
   });
@@ -298,7 +322,7 @@ describe('glyphflow/bots · front flip · el gesto', () => {
     expect(ctx.svg.dataset['flip']).toBeDefined();
   });
 
-  it('la trayectoria arranca y termina en reposo y el giro hace una sola vuelta', () => {
+  it('la trayectoria arranca y termina en reposo y el mortal voltea el cuerpo (3D) sin girarlo en el plano', () => {
     const ctx = built();
     conAnimate((calls) => {
       frontFlip(ctx);
@@ -308,8 +332,11 @@ describe('glyphflow/bots · front flip · el gesto', () => {
       const giro = calls.find((c) => c.node === ctx.el.clip && 'transform' in c.frames[0])!;
       // el primer fotograma lo reemplaza `play` por la pose ACTUAL del nodo (relevo): no es de la curva
       const rolls = giro.frames.slice(1).map((f) => Number(/rotate\((-?[\d.]+)deg\)/.exec(String(f['transform']))?.[1]));
-      expect(Math.max(...rolls)).toBe(360);
-      expect(rolls[rolls.length - 1] % 360).toBe(0);
+      expect(Math.max(...rolls.map(Math.abs))).toBe(0);
+      // el alto del cuerpo se voltea (escala Y negativa) en la mitad de la vuelta y vuelve a ser positivo al caer
+      const sy = giro.frames.slice(1).map((f) => Number(/scale\((-?[\d.]+),(-?[\d.]+)\)/.exec(String(f['transform']))?.[2]));
+      expect(Math.min(...sy)).toBeLessThan(-0.5);
+      expect(sy[sy.length - 1]).toBeCloseTo(1, 3);
     });
   });
 
@@ -324,7 +351,7 @@ describe('glyphflow/bots · front flip · el gesto', () => {
     });
   });
 
-  it('el giro se suma a la inclinación de reposo: una forma que descansa torcida acaba torcida igual', () => {
+  it('la inclinación de reposo se conserva: una forma que descansa torcida acaba torcida igual', () => {
     const ctx = built();
     ctx.pose = { yaw: 0, pitch: 0, roll: -3 };
     conAnimate((calls) => {
@@ -332,7 +359,7 @@ describe('glyphflow/bots · front flip · el gesto', () => {
       const giro = calls.find((c) => c.node === ctx.el.clip && 'transform' in c.frames[0])!;
       const rolls = giro.frames.slice(1).map((f) => Number(/rotate\((-?[\d.]+)deg\)/.exec(String(f['transform']))?.[1]));
       expect(rolls[0]).toBeCloseTo(-3, 1);
-      expect(rolls[rolls.length - 1]).toBeCloseTo(357, 1); // -3° + una vuelta = -3° otra vez
+      expect(rolls[rolls.length - 1]).toBeCloseTo(-3, 1); // el mortal es sobre el eje horizontal: el roll no se toca
     });
   });
 

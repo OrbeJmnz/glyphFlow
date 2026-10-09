@@ -161,7 +161,7 @@ bot.cabeceo();
 ```
 
 `perform` hace lo que hacen los 20 del catálogo: lee la duración, con movimiento reducido degrada a un saltito (300–450 ms), lanza la partitura y la
-sombra. La partitura son nodos por canal (`x`, `y`, `roll`, `yaw`, `sx`, `sy`, `spread`, `drag`, `gel`); `settle`, `anticipate`, `launch`, `impact`,
+sombra. La partitura son nodos por canal (`x`, `y`, `z`, `roll`, `yaw`, `pitch`, `sx`, `sy`, `spread`, `drag`, `gel`; `pitch` es el giro 3D de un mortal y `z` la profundidad); `settle`, `anticipate`, `launch`, `impact`,
 `overshoot`, `bounce`, `wobble`… los arman con intención. Para animar partes propias usa `ctx.el.hop` y compañía con `kit.later` y `kit.eyeSeq`.
 
 **La superficie estable** es lo que usan los 20 gestos del catálogo y nada más, y el compilador lo hace cumplir (si uno necesitara algo fuera, no compilaría):
@@ -243,7 +243,7 @@ Cada uno se compone con las primitivas de movimiento; ninguno es `translate + ro
 
 | Gesto | `id` CSS | ms | Qué hace |
 | --- | --- | --- | --- |
-| `frontFlip` | `flip` | 1000 | salto mortal frontal con cuerpo de gel, falda, flechas, rayos |
+| `frontFlip` | `flip` | 1000 | mortal frontal EN 3D: la cabeza pasa hacia delante y el bot se acerca a quien mira; cuerpo rígido en el aire, con flechas y rayos |
 | `superBounce` | `super-bounce` | 1500 | se comprime, sale disparado, dos rebotes que pierden ~60 % |
 | `stretchSnap` | `stretch-snap` | 700 | se estira como chicle y chasquea |
 | `scaredRecoil` | `scared-recoil` | 900 | susto: los ojos reaccionan antes que el cuerpo |
@@ -255,7 +255,7 @@ Cada uno se compone con las primitivas de movimiento; ninguno es `translate + ro
 | `jellyDrop` | `jelly-drop` | 1500 | aparece cayendo y se aplasta como una masa de gel |
 | `spinSquash` | `spin-squash` | 1000 | giro sobre su eje con volumen |
 | `sideDodge` | `side-dodge` | 800 | esquiva lateral con la falda rezagada |
-| `backflip` | `backflip` | 1100 | carga hacia delante y gira -360° (no es el flip al revés) |
+| `backflip` | `backflip` | 1100 | mortal hacia ATRÁS en 3D: carga hacia delante, la cabeza se va hacia atrás y el bot se aleja; cuerpo rígido en el aire |
 | `doubleFlip` | `double-flip` | 1400 | 720°, el especial (úsalo poco) |
 | `sideCartwheel` | `side-cartwheel` | 1200 | rueda lateral, aterriza primero de un lado |
 | `ghostSwoop` | `ghost-swoop` | 1600 | recorre una S inclinándose hacia donde va |
@@ -288,7 +288,7 @@ cuadro. No sigue con movimiento reducido, en pausa, dormido, arrastrando ni con 
 
 ## Cómo se compone un gesto (`gfBotKit`)
 
-Un gesto es una **partitura**: nodos `[t, valor]` por canal (`x`, `y`, `roll`, `yaw`, `sx`, `sy`, `spread`, `drag`, `gel`), que el ejecutor
+Un gesto es una **partitura**: nodos `[t, valor]` por canal (`x`, `y`, `z`, `roll`, `yaw`, `pitch`, `sx`, `sy`, `spread`, `drag`, `gel`; `pitch` es el giro 3D de un mortal y `z` la profundidad), que el ejecutor
 reparte entre el contenedor `.hop` (trayectoria y squash en el suelo, anclado a la base), la pose (giro y squash en el aire) y la silueta.
 Más un **campo de deformación por región** (`shear`, `wave`, `taper`, `bulge`, `melt`, `ball`) donde cada parte del cuerpo tiene su propio retraso.
 

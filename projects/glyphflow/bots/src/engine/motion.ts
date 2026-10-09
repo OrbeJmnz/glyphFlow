@@ -28,19 +28,23 @@ import { track, type GfTrackNode } from './track';
  * para un bot grande o uno tímido, y la «personalidad» de cada forma es solo otra intensidad.
  */
 
-/** Canales de la partitura. `y` negativo = arriba; `roll` en grados; `sx`/`sy` multiplican; el resto, unidades del viewBox. */
-export type Channel = 'x' | 'y' | 'roll' | 'yaw' | 'sx' | 'sy' | 'spread' | 'drag' | 'gel';
+/**
+ * Canales de la partitura. `y` negativo = arriba; `roll` en grados; `yaw` y `pitch` en radianes (giro sobre el eje vertical y sobre el
+ * horizontal: el mortal 3D); `z` es la profundidad (+ = hacia quien mira, el bot se ve más grande); `sx`/`sy` multiplican; el resto,
+ * unidades del viewBox.
+ */
+export type Channel = 'x' | 'y' | 'z' | 'roll' | 'yaw' | 'pitch' | 'sx' | 'sy' | 'spread' | 'drag' | 'gel';
 export type Score = Partial<Record<Channel, GfTrackNode[]>>;
 export type Keys = Partial<Record<Channel, number>>;
 
-const REST: Record<Channel, number> = { x: 0, y: 0, roll: 0, yaw: 0, sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 };
+const REST: Record<Channel, number> = { x: 0, y: 0, z: 0, roll: 0, yaw: 0, pitch: 0, sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 };
 const CHANNELS = Object.keys(REST) as Channel[];
 
 // ── Primitivas: cada una devuelve un trozo de partitura ───────────────────────────────────────
 
 /**
  * Un instante clave: fija los canales indicados en `t`. Las desviaciones del reposo se escalan con
- * `intensity` (los giros `roll` y `yaw` no: una vuelta es una vuelta). Las demás primitivas son este mismo gesto
+ * `intensity` (los giros `roll`, `yaw` y `pitch` no: una vuelta es una vuelta). Las demás primitivas son este mismo gesto
  * con nombre.
  */
 export function key(t: number, v: Keys, intensity = 1): Score {
@@ -48,7 +52,7 @@ export function key(t: number, v: Keys, intensity = 1): Score {
   for (const c of CHANNELS) {
     const val = v[c];
     if (val === undefined) continue;
-    out[c] = [[t, c === 'roll' || c === 'yaw' ? val : REST[c] + (val - REST[c]) * intensity]];
+    out[c] = [[t, c === 'roll' || c === 'yaw' || c === 'pitch' ? val : REST[c] + (val - REST[c]) * intensity]];
   }
   return out;
 }
@@ -74,6 +78,13 @@ export const jump = (t: number, h: number, intensity = 1): Score => key(t, { y: 
 export const rotate = (t: number, deg: number): Score => key(t, { roll: deg });
 /** Giro sobre el eje vertical, en radianes, en `t`: da la sensación de girar el volumen y no la imagen. */
 export const spin = (t: number, rad: number): Score => key(t, { yaw: rad });
+/**
+ * Giro sobre el eje horizontal, en radianes, en `t`: un mortal de verdad. `+` = la cara baja y la cabeza pasa hacia DELANTE (frontal);
+ * `-` = la cara sube y la cabeza se va hacia ATRÁS. Es 3D: la cara se oculta al quedar de espaldas y el cuerpo se ve boca abajo.
+ */
+export const tumble = (t: number, rad: number): Score => key(t, { pitch: rad });
+/** Profundidad en `t`: `+` acerca el bot a quien mira (más grande), `-` lo aleja (más pequeño). */
+export const depth = (t: number, z: number, intensity = 1): Score => key(t, { z }, intensity);
 /** Falda: ensanchamiento (fracción) y arrastre (unidades, en el eje del cuerpo). */
 export const drag = (t: number, spread: number, pull: number, intensity = 1): Score => key(t, { spread, drag: pull }, intensity);
 
@@ -300,6 +311,10 @@ export interface MotionFrame {
   roll: number;
   /** Giro sobre el eje vertical (radianes), sumado a la vista de reposo. */
   yaw: number;
+  /** Giro sobre el eje horizontal (radianes), sumado al cabeceo de reposo: el mortal 3D. */
+  pitch: number;
+  /** Profundidad: fracción de tamaño que gana (+) o pierde (-) por acercarse o alejarse. */
+  z: number;
   /** Parte de la deformación que aplica el contenedor `.hop` (en el suelo, anclada a la base). */
   hopX: number;
   hopY: number;
@@ -356,6 +371,8 @@ export function frameAt(def: GestureDef, tr: Record<Channel, (t: number) => numb
     y: tr.y(t) * intensity,
     roll: tr.roll(t),
     yaw: tr.yaw(t),
+    pitch: tr.pitch(t),
+    z: tr.z(t) * intensity,
     hopX,
     hopY,
     poseX: Math.pow(sx, 1 - grounded),
@@ -391,7 +408,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
     ctx.el.hop,
     frames.map((f, i) => ({
       offset: i / N,
-      transform: `translate(${f2(f.x)}px,${f2(f.y)}px) scale(${f3(f.hopX)},${f3(f.hopY)})`,
+      transform: `translate(${f2(f.x)}px,${f2(f.y)}px) scale(${f3(f.hopX * (1 + f.z))},${f3(f.hopY * (1 + f.z))})`,
     })),
     { duration: ms, easing: 'linear' },
   );
@@ -400,6 +417,7 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
   // la forma (el robot descansa a -3°): así el último fotograma coincide con el reposo, sin saltito.
   const reposo = ctx.pose.roll;
   const conGiro = !!def.score.yaw;
+  const conPitch = !!def.score.pitch;
   const flex = ctx.shape.flex ?? 1;
   // el campo por región también se modera con la intensidad (falda y gel ya vienen escalados por `frameAt`; los términos `fixed` no: son el punto del gesto)
   const flexC = flex * I;
@@ -444,7 +462,9 @@ export function runGesture(ctx: BotContext, def: GestureDef, ms: number): (t: nu
         Object.assign(pose, { ox, oy });
       }
       if (campo || conAcc) pose.accMove = accs.map((a) => movimientoDe(a, u));
-      return conGiro ? { ...pose, yaw: ctx.view + f.yaw } : pose;
+      if (conGiro) pose.yaw = ctx.view + f.yaw;
+      if (conPitch) pose.pitch = ctx.pose.pitch + f.pitch;
+      return pose;
     },
     ms,
   );

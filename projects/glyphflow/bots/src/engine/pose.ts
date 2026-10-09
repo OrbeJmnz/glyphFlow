@@ -215,7 +215,11 @@ export function projectPose(
       sy = Math.sqrt(aPc * aPc + k * k * aP * aP);
     }
   }
-  out.push({ transform: `rotate(${f2(roll)}deg) scale(${f3(sx * dx)},${f3(sy * dy)})` });
+  // Con un mortal (cabeceo pasado de 90°) el cuerpo queda boca abajo: la silueta se voltea. El signo no salta de golpe: cruza el
+  // cero en una franja corta alrededor de los 90°, donde el cuerpo se ve de canto y casi plano. Con los cabeceos de la mirada (<~0.3 rad)
+  // vale 1 y nada cambia.
+  const volteo = Math.max(-1, Math.min(1, cP / 0.15));
+  out.push({ transform: `rotate(${f2(roll)}deg) scale(${f3(sx * dx)},${f3(sy * dy * volteo)})` });
 
   // Caras laterales (solo cajas). Cada cara es un degradado que se DESVANECE hacia la vecina: la
   // esquina redondeada es una curva, no una arista, así que la luz cambia poco a poco.

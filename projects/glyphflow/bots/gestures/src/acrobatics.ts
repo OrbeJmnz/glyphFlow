@@ -88,28 +88,27 @@ export function sideDodge(ctx: BotContext): number {
 
 let backDef: GestureDef | undefined;
 
-/** Otra acrobacia, no el flip al revés: se inclina hacia DELANTE para cargar, sale hacia atrás y gira -360°. */
+/** El mortal hacia ATRÁS, en 3D: se inclina hacia delante para cargar, sale hacia atrás (la cabeza se aleja de quien mira) y gira -360° sobre el eje horizontal. */
 export function backflipDef(): GestureDef {
   const m = kit.motion;
   return (backDef ??= {
     score: m.score(
       m.settle(0),
-      m.anticipate(0.12, { y: 6, roll: 7, sx: 1.1, sy: 0.88, spread: 0.12, drag: -2 }),
-      m.launch(0.24, { y: -40, x: -3, roll: -25, sx: 0.92, sy: 1.14, spread: -0.05, drag: 6 }),
-      m.key(0.4, { y: -78, x: -7, roll: -120, sx: 0.96, sy: 1.04, spread: 0, drag: 3 }),
-      m.key(0.52, { y: -88, x: -9, roll: -210, sx: 1, sy: 0.96, drag: 0.5 }),
-      m.key(0.66, { y: -60, x: -6, roll: -300, sx: 0.97, sy: 1.05, drag: -3 }),
-      m.key(0.78, { y: -10, x: -2, roll: -352, sx: 0.93, sy: 1.1, spread: -0.04, drag: -5.5 }),
-      m.impact(0.88, { y: 4, x: 0, roll: -360, sx: 1.12, sy: 0.85, spread: 0.26, drag: -3 }),
-      m.overshoot(0.94, { y: -2.5, sx: 0.97, sy: 1.04, spread: 0.05, drag: 1.2 }),
-      m.key(0.18, { gel: 0 }),
-      m.key(0.3, { gel: 6 }),
-      m.key(0.52, { gel: 9 }),
-      m.key(0.7, { gel: 6 }),
-      m.key(0.84, { gel: 2 }),
-      m.key(0.92, { gel: 0 }),
+      // Carga: se inclina hacia DELANTE (cara abajo) para tomar impulso.
+      m.anticipate(0.12, { y: 6, pitch: 0.22, sx: 1.06, sy: 0.9, spread: 0.08, drag: -1.5 }),
+      // Sale hacia ATRÁS: la cara sube, la cabeza se va lejos de quien mira y el bot se hace más pequeño.
+      m.launch(0.24, { y: -40, pitch: -0.6, z: -0.03, sx: 0.95, sy: 1.08, spread: -0.03, drag: 3 }),
+      // En el aire el cuerpo es RÍGIDO (ver el front flip): gira entero, sin gel ni aplastarse.
+      m.key(0.32, { sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 }),
+      m.key(0.4, { y: -78, pitch: -Math.PI / 2, z: -0.1 }),
+      m.key(0.52, { y: -88, pitch: -Math.PI, z: -0.18 }),
+      m.key(0.66, { y: -60, pitch: -1.5 * Math.PI, z: -0.12 }),
+      m.key(0.7, { sx: 1, sy: 1, spread: 0, drag: 0 }),
+      m.key(0.78, { y: -10, pitch: -1.92 * Math.PI, z: -0.04, sx: 0.97, sy: 1.04, spread: -0.02, drag: -2 }),
+      m.impact(0.88, { y: 4, pitch: -2 * Math.PI, z: 0, sx: 1.1, sy: 0.88, spread: 0.16, drag: -2 }),
+      m.overshoot(0.94, { y: -2.5, sx: 0.98, sy: 1.03, spread: 0.04, drag: 1 }),
       m.settle(1),
-      m.rotate(1, -360),
+      m.tumble(1, -2 * Math.PI),
     ),
     grounded: aire(0.16, 0.3, 0.7, 0.84),
     gelPhase: (t) => -9 * t,

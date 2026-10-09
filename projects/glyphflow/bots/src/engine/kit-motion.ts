@@ -9,8 +9,8 @@ import { gestureDuration as _gestureDuration, reducedHop as _reducedHop, runGest
 type Narrow<F> = F extends (ctx: BotContext, ...a: infer A) => infer R ? (ctx: GfBotGestureContext, ...a: A) => R : never;
 
 export {
-  anticipate, ball, bounce, bulge, drag, frameAt, impact, jump, key, launch, melt, overshoot, rotate, score, secondaryMotion, settle, shear, spin,
-  squash, stretch, taper, tracksOf, wave, wobble,
+  anticipate, ball, bounce, bulge, depth, drag, frameAt, impact, jump, key, launch, melt, overshoot, rotate, score, secondaryMotion, settle, shear, spin,
+  squash, stretch, taper, tracksOf, tumble, wave, wobble,
 } from './motion';
 export type { Channel, FieldTerm, GestureDef, Keys, MotionFrame, Score } from './motion';
 

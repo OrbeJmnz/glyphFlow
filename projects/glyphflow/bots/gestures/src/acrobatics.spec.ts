@@ -30,6 +30,8 @@ describe.each([
       expect(Math.sin((f.roll * Math.PI) / 180)).toBeCloseTo(0, 6);
       expect(Math.cos((f.roll * Math.PI) / 180)).toBeCloseTo(1, 6);
       expect(Math.sin(f.yaw)).toBeCloseTo(0, 6);
+      expect(Math.sin(f.pitch)).toBeCloseTo(0, 6);
+      expect(f.z).toBeCloseTo(0, 6);
       expect(f.hopX * f.poseX).toBeCloseTo(1, 6);
       expect(f.hopY * f.poseY).toBeCloseTo(1, 6);
       expect(f.spread).toBeCloseTo(0, 6);
@@ -68,13 +70,29 @@ describe('sideDodge', () => {
 });
 
 describe('backflip', () => {
-  it('carga hacia DELANTE (roll positivo) y gira -360°, no es el flip al revés', () => {
+  it('es el mortal hacia ATRÁS en 3D: carga hacia delante (cabeceo +), gira -360° sobre el eje horizontal y se aleja de quien mira', () => {
     const d = backflipDef();
-    expect(at(d, 0.12).roll).toBeGreaterThan(5);
-    const roll = frames(d).map((f) => f.roll);
-    expect(Math.min(...roll)).toBeCloseTo(-360, 0);
-    expect(at(d, 0.5).roll).toBeLessThan(-150);
-    expect(at(d, 0.24).x).toBeLessThan(0); // sale hacia atrás
+    expect(at(d, 0.12).pitch).toBeGreaterThan(0.1); // se inclina hacia delante para cargar
+    const pitch = frames(d).map((f) => f.pitch);
+    expect(Math.min(...pitch)).toBeCloseTo(-TAU, 0);
+    expect(at(d, 0.52).pitch).toBeCloseTo(-Math.PI, 3);
+    expect(at(d, 0.52).z).toBeLessThan(-0.1); // la cabeza se va hacia atrás: el bot se ve más pequeño
+  });
+  it('no gira en el plano ni se va hacia un lado (es lo contrario del front flip, no su espejo)', () => {
+    for (const f of frames(backflipDef())) {
+      expect(f.roll).toBe(0);
+      expect(f.x).toBeCloseTo(0, 9);
+    }
+  });
+  it('en el aire el cuerpo es rígido: gira entero, sin aplastarse ni deformarse', () => {
+    for (const t of [0.4, 0.5, 0.6]) {
+      const f = at(backflipDef(), t);
+      expect(f.poseX).toBeCloseTo(1, 6);
+      expect(f.poseY).toBeCloseTo(1, 6);
+      expect(f.spread).toBeCloseTo(0, 6);
+      expect(f.drag).toBeCloseTo(0, 6);
+      expect(f.gel).toBeCloseTo(0, 6);
+    }
   });
 });
 
