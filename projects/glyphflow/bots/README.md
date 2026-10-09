@@ -256,7 +256,7 @@ Cada uno se compone con las primitivas de movimiento; ninguno es `translate + ro
 | `spinSquash` | `spin-squash` | 1000 | giro sobre su eje con volumen |
 | `sideDodge` | `side-dodge` | 800 | esquiva lateral con la falda rezagada |
 | `backflip` | `backflip` | 1100 | mortal hacia ATRÁS en 3D: carga hacia delante, la cabeza se va hacia atrás y el bot se aleja; cuerpo rígido en el aire |
-| `doubleFlip` | `double-flip` | 1400 | 720°, el especial (úsalo poco) |
+| `doubleFlip` | `double-flip` | 1400 | doble mortal en 3D (720° de cabeceo), el especial (úsalo poco) |
 | `sideCartwheel` | `side-cartwheel` | 1200 | rueda lateral, aterriza primero de un lado |
 | `ghostSwoop` | `ghost-swoop` | 1600 | recorre una S inclinándose hacia donde va |
 | `squishTeleport` | `squish-teleport` | 2000 | se comprime a una línea y reaparece en otro sitio (ida y vuelta) |

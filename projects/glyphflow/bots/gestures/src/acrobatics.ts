@@ -134,33 +134,34 @@ export function backflip(ctx: BotContext): number {
 
 let doubleDef: GestureDef | undefined;
 
-/** Especial y raro: más anticipación, mucho más alto, 720° y un impacto mayor con rebote de alegría. */
+/**
+ * Especial y raro: más anticipación, mucho más alto, DOS mortales hacia delante en 3D (4π de cabeceo) y un impacto mayor con rebote de
+ * alegría. Como el front flip: el cuerpo es rígido en el aire y el bot se acerca a quien mira en la cima.
+ */
 export function doubleFlipDef(): GestureDef {
   const m = kit.motion;
+  const V = Math.PI / 180;
   return (doubleDef ??= {
     score: m.score(
       m.settle(0),
-      m.anticipate(0.14, { y: 9, roll: 8, sx: 1.14, sy: 0.82, spread: 0.16, drag: -3 }),
-      m.key(0.2, { y: 9, roll: 8, sx: 1.15, sy: 0.8, spread: 0.18 }), // aguanta la carga
-      m.launch(0.3, { y: -60, roll: 40, sx: 0.88, sy: 1.2, spread: -0.06, drag: 8 }),
-      m.key(0.45, { y: -120, roll: 230, sx: 0.95, sy: 1.04, spread: 0, drag: 4 }),
-      m.key(0.55, { y: -145, roll: 360, sx: 1, sy: 0.95, drag: 1 }),
-      m.key(0.68, { y: -110, roll: 520, sx: 0.96, sy: 1.05, drag: -3 }),
-      m.key(0.78, { y: -50, roll: 680, sx: 0.93, sy: 1.1, spread: -0.04, drag: -5 }),
-      m.key(0.84, { y: -8, roll: 715, sx: 0.9, sy: 1.14, drag: -6 }),
-      m.impact(0.89, { y: 5, roll: 720, sx: 1.16, sy: 0.8, spread: 0.3, drag: -3.5 }),
-      m.overshoot(0.93, { y: -4, sx: 0.96, sy: 1.05, spread: 0.05, drag: 1.5 }),
+      m.anticipate(0.14, { y: 9, pitch: -0.25, sx: 1.08, sy: 0.88, spread: 0.12, drag: -2 }),
+      m.key(0.2, { y: 9, pitch: -0.25, sx: 1.09, sy: 0.86, spread: 0.12 }), // aguanta la carga
+      m.launch(0.3, { y: -60, pitch: 40 * V, z: 0.05, sx: 0.93, sy: 1.1, spread: -0.03, drag: 4 }),
+      // En el aire el cuerpo es RÍGIDO (ver el front flip): gira entero, sin gel ni aplastarse.
+      m.key(0.36, { sx: 1, sy: 1, spread: 0, drag: 0, gel: 0 }),
+      m.key(0.45, { y: -120, pitch: 230 * V, z: 0.18 }),
+      m.key(0.55, { y: -145, pitch: 360 * V, z: 0.3 }),
+      m.key(0.68, { y: -110, pitch: 520 * V, z: 0.2 }),
+      m.key(0.74, { sx: 1, sy: 1, spread: 0, drag: 0 }),
+      m.key(0.78, { y: -50, pitch: 680 * V, z: 0.1, sx: 0.97, sy: 1.05, spread: -0.02, drag: -2 }),
+      m.key(0.84, { y: -8, pitch: 715 * V, z: 0.03, sx: 0.95, sy: 1.08, drag: -3 }),
+      m.impact(0.89, { y: 5, pitch: 720 * V, z: 0, sx: 1.12, sy: 0.84, spread: 0.2, drag: -2.5 }),
+      m.overshoot(0.93, { y: -4, sx: 0.97, sy: 1.04, spread: 0.04, drag: 1 }),
       m.key(0.96, { y: 1.5, sx: 1.02, sy: 0.98 }), // rebotito de alegría
-      m.key(0.2, { gel: 0 }),
-      m.key(0.34, { gel: 7 }),
-      m.key(0.55, { gel: 11 }),
-      m.key(0.78, { gel: 6 }),
-      m.key(0.9, { gel: 0 }),
       m.settle(1),
-      m.rotate(1, 720),
+      m.tumble(1, 720 * V),
     ),
     grounded: aire(0.2, 0.32, 0.8, 0.88),
-    gelPhase: (t) => 17 * t,
   });
 }
 

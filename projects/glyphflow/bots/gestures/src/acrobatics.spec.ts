@@ -97,16 +97,33 @@ describe('backflip', () => {
 });
 
 describe('doubleFlip', () => {
-  it('dos vueltas, mucho más alto y con más carga que el front flip', () => {
+  it('dos vueltas en 3D (4π de cabeceo), mucho más alto y con más carga que el front flip', () => {
     const d = doubleFlipDef();
     const f = frames(d);
-    expect(Math.max(...f.map((x) => x.roll))).toBeCloseTo(720, 0);
+    expect(Math.max(...f.map((x) => x.pitch))).toBeCloseTo(2 * TAU, 6);
     expect(Math.min(...f.map((x) => x.y))).toBeLessThan(-140);
     const c = at(d, 0.16);
-    expect(c.hopY * c.poseY).toBeLessThan(0.84);
+    expect(c.hopY * c.poseY).toBeLessThan(0.88);
     const i = at(d, 0.89);
-    expect(i.hopX * i.poseX).toBeGreaterThan(1.15);
-    expect(i.hopY * i.poseY).toBeLessThan(0.82);
+    expect(i.hopX * i.poseX).toBeGreaterThan(1.1);
+    expect(i.hopY * i.poseY).toBeLessThan(0.86);
+  });
+  it('no gira en el plano ni se va hacia un lado; se acerca a quien mira en la cima', () => {
+    const f = frames(doubleFlipDef());
+    for (const x of f) {
+      expect(x.roll).toBe(0);
+      expect(x.x).toBeCloseTo(0, 9);
+    }
+    expect(at(doubleFlipDef(), 0.55).z).toBeGreaterThan(0.25);
+  });
+  it('en el aire el cuerpo es rígido: gira entero, sin aplastarse ni deformarse', () => {
+    for (const t of [0.4, 0.5, 0.55, 0.6, 0.7]) {
+      const f = at(doubleFlipDef(), t);
+      expect(f.poseX).toBeCloseTo(1, 6);
+      expect(f.poseY).toBeCloseTo(1, 6);
+      expect(f.spread).toBeCloseTo(0, 6);
+      expect(f.gel).toBeCloseTo(0, 6);
+    }
   });
 });
 
