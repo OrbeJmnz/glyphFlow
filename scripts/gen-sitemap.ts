@@ -1,4 +1,4 @@
-// Escribe robots.txt y sitemap.xml en `projects/playground/public/`, desde la MISMA tabla de rutas
+// Escribe robots.txt, sitemap.xml y llms.txt en `projects/playground/public/`, desde la MISMA tabla de rutas
 // que usa el sitio. Escribirlos a mano significaba mantener una tercera lista que tiene que decir
 // lo mismo que `core/rutas.ts` y que `app.routes.ts` — y la que se olvide no truena, solo deja una
 // página fuera del índice o promete una URL que no existe.
@@ -11,6 +11,8 @@ import { dirname, join } from 'node:path';
 import { IDIOMAS } from '../projects/playground/src/app/core/idioma.ts';
 import { ORIGEN } from '../projects/playground/src/app/core/sitio.ts';
 import { ruta, type RutaId } from '../projects/playground/src/app/core/rutas.ts';
+import { CIFRAS } from '../projects/playground/src/app/core/cifras.ts';
+import { NPM_URL, REPO_URL, claveDeRuta, sinMarca } from '../projects/playground/src/app/core/datos-estructurados.ts';
 import { sinCr } from './sin-cr';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -76,9 +78,62 @@ Allow: /
 Sitemap: ${ORIGEN}/sitemap.xml
 `;
 
+/**
+ * `llms.txt`: el índice para los modelos de lenguaje (llmstxt.org) — qué es el proyecto y a dónde ir, en Markdown corto. Sale de las mismas tablas que el
+ * sitemap y de las descripciones que ya llevan las páginas (`routes.*.descripcion`), así que no es otra lista a mano ni otra redacción que se quede atrás.
+ * Sin cifras sueltas a propósito, salvo el rango de Angular, que viene de `CIFRAS` y hace fallar el `--check` si cambia.
+ */
+const i18n = Object.fromEntries(
+  IDIOMAS.map((idioma) => [
+    idioma,
+    JSON.parse(readFileSync(join(__dirname, '..', 'projects', 'playground', 'src', 'i18n', `${idioma}.json`), 'utf8')) as {
+      routes: Record<string, { title: string; descripcion: string }>;
+      nav: Record<string, string>;
+    },
+  ]),
+);
+
+function enlace(idioma: (typeof IDIOMAS)[number], pagina: RutaId[]): string {
+  const t = i18n[idioma];
+  const clave = pagina.length ? claveDeRuta(pagina[pagina.length - 1]) : 'iconos';
+  const ficha = clave ? t.routes[clave] : undefined;
+  const nombre = pagina.length ? sinMarca(ficha?.title ?? '') : t.nav['iconos'];
+  return `- [${nombre}](${ORIGEN}${ruta(idioma, ...pagina)}): ${ficha?.descripcion ?? ''}`;
+}
+
+const esDoc = (p: RutaId[]) => p[0] === 'docs';
+const llms = `# glyphflow
+
+> Lucide icons animated on the native Web Animations API, for Angular. Zero animation dependencies and real tree-shaking. MIT licensed.
+
+glyphflow animates Lucide icons for Angular (\`${CIFRAS.angularPeer}\`) with no animation library. The \`glyphflow/bots\` entry point adds animated characters (\`<gf-bot>\`) with physical motion and an AI mode: they react to the steps of an agent through adapters for the Vercel AI SDK and Anthropic. Install with \`npm i glyphflow\`. The docs are available in English and Spanish.
+
+## Product
+
+${PAGINAS.filter((p) => !esDoc(p))
+  .map((p) => enlace('en', p))
+  .join('\n')}
+
+## Docs
+
+${PAGINAS.filter(esDoc)
+  .map((p) => enlace('en', p))
+  .join('\n')}
+
+## Source
+
+- [GitHub](${REPO_URL}): source code, issues and releases.
+- [npm](${NPM_URL}): the published package.
+
+## Español
+
+${PAGINAS.map((p) => enlace('es', p)).join('\n')}
+`;
+
 const salidas: [string, string][] = [
   ['sitemap.xml', sitemap],
   ['robots.txt', robots],
+  ['llms.txt', llms],
 ];
 
 /**
@@ -100,15 +155,15 @@ if (process.argv.includes('--check')) {
   });
   if (desincronizados.length > 0) {
     console.error(
-      `gen:sitemap --check: ${desincronizados.map(([a]) => a).join(' y ')} ${desincronizados.length === 1 ? 'no refleja' : 'no reflejan'} las rutas actuales.
+      `gen:sitemap --check: ${desincronizados.map(([a]) => a).join(', ')} ${desincronizados.length === 1 ? 'no refleja' : 'no reflejan'} las rutas actuales.
 ` + '  Corre `npm run gen:sitemap` y commitea el resultado.',
     );
     process.exit(1);
   }
-  console.log('gen:sitemap --check: sitemap.xml y robots.txt en sync con las rutas.');
+  console.log('gen:sitemap --check: sitemap.xml, robots.txt y llms.txt en sync con las rutas.');
 } else {
   mkdirSync(PUBLIC, { recursive: true });
   for (const [archivo, contenido] of salidas)
     writeFileSync(join(PUBLIC, archivo), contenido, 'utf8');
-  console.log(`sitemap.xml: ${IDIOMAS.length * PAGINAS.length} URLs. robots.txt escrito.`);
+  console.log(`sitemap.xml: ${IDIOMAS.length * PAGINAS.length} URLs. robots.txt y llms.txt escritos.`);
 }

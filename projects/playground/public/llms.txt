@@ -1,0 +1,49 @@
+# glyphflow
+
+> Lucide icons animated on the native Web Animations API, for Angular. Zero animation dependencies and real tree-shaking. MIT licensed.
+
+glyphflow animates Lucide icons for Angular (`>=20.0.0 <23.0.0`) with no animation library. The `glyphflow/bots` entry point adds animated characters (`<gf-bot>`) with physical motion and an AI mode: they react to the steps of an agent through adapters for the Vercel AI SDK and Anthropic. Install with `npm i glyphflow`. The docs are available in English and Spanish.
+
+## Product
+
+- [Icons](https://glyph-flow-zeta.vercel.app/en): Browse the full catalog of animated Lucide icons for Angular. Hover to preview, click to copy the code.
+- [Examples](https://glyph-flow-zeta.vercel.app/en/examples): Real UI controls — menus, toggles, notifications — with the exact code that animates them, side by side.
+- [Path editor](https://glyph-flow-zeta.vercel.app/en/editor): Edit an icon's outline node by node, then hand the result straight to the choreography editor.
+- [Lab](https://glyph-flow-zeta.vercel.app/en/lab): Where default animation values get decided — durations, easings, and morph steps, tuned against real icons.
+- [Bots](https://glyph-flow-zeta.vercel.app/en/bots): Animated characters with real physical motion on the native Web Animations API. Play with one and watch it react to an AI agent.
+
+## Docs
+
+- [Getting started](https://glyph-flow-zeta.vercel.app/en/docs/getting-started): Install glyphflow and animate your first icon in a few lines, no animation library required.
+- [Accessibility](https://glyph-flow-zeta.vercel.app/en/docs/accessibility): How glyphflow handles decorative vs. semantic icons, reduced motion, and keyboard navigation.
+- [SSR](https://glyph-flow-zeta.vercel.app/en/docs/ssr): glyphflow renders on the server with zero access to window or document — verified, not assumed.
+- [API](https://glyph-flow-zeta.vercel.app/en/docs/api): Every input, output, and type glyphflow exports, with the guarantees that come with each one.
+- [Migration](https://glyph-flow-zeta.vercel.app/en/docs/migration): Upgrading between glyphflow major versions — what changed and how to update your code.
+- [Comparison](https://glyph-flow-zeta.vercel.app/en/docs/comparison): glyphflow against lucide-angular, ng-icons, and Lottie — bundle weight, tree-shaking, and SSR support.
+- [Verify your bundle](https://glyph-flow-zeta.vercel.app/en/docs/verify-your-bundle): Confirm your build only ships the icons you actually import, not the full catalog.
+- [Troubleshooting](https://glyph-flow-zeta.vercel.app/en/docs/troubleshooting): Common glyphflow issues and their fixes, from a blank icon to a broken build.
+- [Theming and color](https://glyph-flow-zeta.vercel.app/en/docs/theming): How glyphflow tokens interact with your app's light and dark themes.
+- [Using bots](https://glyph-flow-zeta.vercel.app/en/docs/bots-guide): Install, shapes, gestures, customization and how to connect an AI agent to the glyphflow bots, with the Vercel AI SDK or Anthropic.
+
+## Source
+
+- [GitHub](https://github.com/OrbeJmnz/glyphFlow): source code, issues and releases.
+- [npm](https://www.npmjs.com/package/glyphflow): the published package.
+
+## Español
+
+- [Iconos](https://glyph-flow-zeta.vercel.app/es): Explora el catálogo completo de iconos Lucide animados para Angular. Pasa el ratón para verlos moverse, copia el código.
+- [Ejemplos](https://glyph-flow-zeta.vercel.app/es/ejemplos): Controles de interfaz reales —menús, interruptores, notificaciones— con el código exacto que los anima, al lado.
+- [Editor de trazos](https://glyph-flow-zeta.vercel.app/es/editor): Edita el contorno de un icono punto por punto y pásalo directo al editor de coreografía.
+- [Lab](https://glyph-flow-zeta.vercel.app/es/lab): Donde se deciden los valores por defecto: duraciones, curvas y pasos de morph, ajustados contra iconos reales.
+- [Bots](https://glyph-flow-zeta.vercel.app/es/bots): Personajes animados con movimiento físico de verdad sobre la Web Animations API nativa. Juega con uno y míralo reaccionar a un agente de IA.
+- [Empezando](https://glyph-flow-zeta.vercel.app/es/docs/empezando): Instala glyphflow y anima tu primer icono en pocas líneas, sin librería de animación.
+- [Accesibilidad](https://glyph-flow-zeta.vercel.app/es/docs/accesibilidad): Cómo trata glyphflow los iconos decorativos vs. semánticos, el movimiento reducido y la navegación por teclado.
+- [SSR](https://glyph-flow-zeta.vercel.app/es/docs/ssr): glyphflow renderiza en el servidor sin acceso a window ni document — verificado, no supuesto.
+- [API](https://glyph-flow-zeta.vercel.app/es/docs/api): Cada input, output y tipo que exporta glyphflow, con las garantías que trae cada uno.
+- [Migración](https://glyph-flow-zeta.vercel.app/es/docs/migracion): Subir de versión mayor en glyphflow: qué cambió y cómo actualizar tu código.
+- [Comparativa](https://glyph-flow-zeta.vercel.app/es/docs/comparativa): glyphflow contra lucide-angular, ng-icons y Lottie: peso del bundle, tree-shaking y soporte SSR.
+- [Verifica tu bundle](https://glyph-flow-zeta.vercel.app/es/docs/verifica-tu-bundle): Confirma que tu build solo empaqueta los iconos que de verdad importas, no el catálogo completo.
+- [Solución de problemas](https://glyph-flow-zeta.vercel.app/es/docs/solucion-de-problemas): Problemas comunes de glyphflow y su arreglo, de un icono en blanco a un build roto.
+- [Temas y color](https://glyph-flow-zeta.vercel.app/es/docs/temas-y-color): Cómo interactúan los tokens de glyphflow con el tema claro y oscuro de tu app.
+- [Usar los bots](https://glyph-flow-zeta.vercel.app/es/docs/guia-de-bots): Instalación, formas, gestos, personalización y cómo conectar un agente de IA a los bots de glyphflow, con el Vercel AI SDK o Anthropic.
