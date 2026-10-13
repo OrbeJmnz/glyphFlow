@@ -86,6 +86,23 @@ export function idiomaDeLaRuta(camino: string): Idioma | null {
 }
 
 /**
+ * Los ids de cada segmento de una URL con prefijo de idioma: `/es/docs/empezando` → `['docs', 'empezando']`, `/en` → `[]` (la portada). `null` si no es una
+ * página del sitio: sin prefijo, con un segmento que no existe o con el slug del OTRO idioma (`/es/docs/getting-started`). Es lo que distingue una página
+ * real del comodín de «no encontrado», y con eso se decide si declarar datos estructurados.
+ */
+export function idsDeLaRuta(camino: string): RutaId[] | null {
+  const idioma = idiomaDeLaRuta(camino);
+  if (!idioma) return null;
+  const ids: RutaId[] = [];
+  for (const segmento of camino.split('/').filter(Boolean).slice(1)) {
+    const id = POR_SLUG.get(segmento);
+    if (!id || slug(id, idioma) !== segmento) return null;
+    ids.push(id);
+  }
+  return ids;
+}
+
+/**
  * La MISMA página en el otro idioma, conservando query y fragmento. Es lo que hace que el switcher
  * no mande a la portada: `/en/docs/getting-started#api-x` → `/es/docs/empezando#api-x`.
  *

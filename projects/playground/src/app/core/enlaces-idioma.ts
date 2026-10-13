@@ -1,10 +1,13 @@
 import { computed, DOCUMENT, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
-import { translateSignal } from '@jsverse/transloco';
+import { TranslocoService, translateSignal } from '@jsverse/transloco';
 import { filter, map } from 'rxjs';
-import { IDIOMAS } from './idioma';
-import { alternativas, idiomaDeLaRuta } from './rutas';
+import { CIFRAS } from './cifras';
+import { claveDeRuta, grafoDeLaPagina } from './datos-estructurados';
+import { IDIOMAS, type Idioma } from './idioma';
+import { fijarJsonLd } from './json-ld';
+import { alternativas, idiomaDeLaRuta, idsDeLaRuta } from './rutas';
 import { ORIGEN } from './sitio';
 import { TranslatedTitleStrategy } from './translated-title-strategy';
 
@@ -59,6 +62,7 @@ export function conectarEnlacesDeIdioma(): void {
     return clave ? clave.replace(/\.title$/, '.descripcion') : '';
   });
   const descripcion = translateSignal(claveDescripcion);
+  const transloco = inject(TranslocoService);
 
   effect(() => {
     // Sin query ni fragmento: `?q=…` es un filtro de la interfaz, no otra página, y anunciarlo
@@ -108,6 +112,30 @@ export function conectarEnlacesDeIdioma(): void {
       fijarMetaName(doc, 'description', desc);
       fijarMetaName(doc, 'twitter:title', doc.title);
       fijarMetaName(doc, 'twitter:description', desc);
+    }
+
+    // Datos estructurados de la página (ver `datos-estructurados.ts`). Los nombres salen de las mismas claves `routes.*.title` que el `<title>`, no
+    // del `doc.title`: ese se escribe por otro camino y a veces después de este efecto. Una clave sin traducción se omite en vez de publicarse cruda.
+    const ids = idsDeLaRuta(camino);
+    const idioma = idiomaDeLaRuta(camino);
+    if (ids && idioma && desc && desc !== claveDescripcion()) {
+      const nombrar = (clave: string): string | undefined => {
+        const texto = transloco.translate(clave);
+        return texto && texto !== clave ? texto : undefined;
+      };
+      const nombres: Record<string, string> = {};
+      for (const id of ids) {
+        const clave = claveDeRuta(id);
+        const nombre = clave ? nombrar(`routes.${clave}.title`) : undefined;
+        if (clave && nombre) nombres[clave] = nombre;
+      }
+      const docs = nombrar('shell.nav.docs');
+      if (docs) nombres['docs'] = docs;
+      const ultima = ids.length ? claveDeRuta(ids[ids.length - 1]) : 'iconos';
+      const titulo = (ultima && nombres[ultima]) ?? nombrar(`routes.${ultima}.title`) ?? doc.title;
+      fijarJsonLd(doc, 'sitio', grafoDeLaPagina({ idioma: idioma as Idioma, camino, titulo, descripcion: desc, version: CIFRAS.version, nombres }));
+    } else {
+      fijarJsonLd(doc, 'sitio', null);
     }
   });
 }
