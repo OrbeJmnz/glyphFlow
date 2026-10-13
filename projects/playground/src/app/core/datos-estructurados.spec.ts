@@ -74,6 +74,8 @@ describe('texto y bloques de respuesta', () => {
 
   it('sinMarca deja el nombre de la página sin el sufijo de la marca', () => {
     expect(sinMarca('Bots — glyphflow')).toBe('Bots');
+    // El formato largo de los títulos (`Nombre — frase | glyphflow`) no alarga el nombre de la miga ni el `headline`.
+    expect(sinMarca('Bots — animated characters for Angular | glyphflow')).toBe('Bots');
   });
 
   it('faqDe arma preguntas y respuestas con lo que ya dice la página, y es null si no hay nada', () => {

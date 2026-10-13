@@ -129,7 +129,7 @@ export function conectarEnlacesDeIdioma(): void {
         const nombre = clave ? nombrar(`routes.${clave}.title`) : undefined;
         if (clave && nombre) nombres[clave] = nombre;
       }
-      const docs = nombrar('shell.nav.docs');
+      const docs = nombrar('nav.docs');
       if (docs) nombres['docs'] = docs;
       const ultima = ids.length ? claveDeRuta(ids[ids.length - 1]) : 'iconos';
       const titulo = (ultima && nombres[ultima]) ?? nombrar(`routes.${ultima}.title`) ?? doc.title;
