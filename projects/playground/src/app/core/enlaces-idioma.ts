@@ -103,6 +103,9 @@ export function conectarEnlacesDeIdioma(): void {
     const desc = descripcion();
     if (desc && desc !== claveDescripcion()) {
       fijarMeta(doc, 'og:description', desc);
+      // El `<meta name="description">` es lo que lee el buscador para el extracto: se quedaba con el estático del `index.html` (el de la
+      // portada) en todas las páginas, y solo `og:description` cambiaba. Va por `name`, como `twitter:*`.
+      fijarMetaName(doc, 'description', desc);
       fijarMetaName(doc, 'twitter:title', doc.title);
       fijarMetaName(doc, 'twitter:description', desc);
     }
