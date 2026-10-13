@@ -60,70 +60,70 @@
     "iconos": {
       "title": "glyphflow — animated Lucide icons for Angular",
       "tituloConConteo": "glyphflow — {{n}} animated Lucide icons for Angular",
-      "descripcion": "Browse the full catalog of animated Lucide icons for Angular. Hover to preview, click to copy the code."
+      "descripcion": "Browse the full catalog of animated Lucide icons for Angular. Hover to preview, click to copy the code, and import only the icons you use: one costs under 6 KB."
     },
     "patrones": {
       "title": "Examples — animated icon controls with code | glyphflow",
-      "descripcion": "Real UI controls — menus, toggles, notifications — with the exact code that animates them, side by side."
+      "descripcion": "Real UI controls — menus, toggles, notifications — with the exact code that animates them, side by side. Copy a pattern and drop it into your Angular app."
     },
     "editor": {
       "title": "Path editor — edit icon outlines point by point | glyphflow",
-      "descripcion": "Edit an icon's outline node by node, then hand the result straight to the choreography editor."
+      "descripcion": "Edit an icon's outline node by node in the path editor, then hand the result straight to the choreography editor to animate it with glyphflow in Angular."
     },
     "lab": {
       "title": "Lab — authoring benches for animated icons | glyphflow",
-      "descripcion": "Where default animation values get decided — durations, easings, and morph steps, tuned against real icons."
+      "descripcion": "Where default animation values get decided — durations, easings, and morph steps, tuned against real icons. Try the benches glyphflow uses to set its defaults."
     },
     "faceLab": {
       "title": "Face Lab — compare face options for the bots | glyphflow",
-      "descripcion": "Twelve face hypotheses for the glyphflow bots, compared on the same shape, color and expression."
+      "descripcion": "Twelve face hypotheses for the glyphflow bots, compared on the same shape, color and expression, so you can pick the face that reads best before you use it."
     },
     "noEncontrado": {
       "title": "Page not found — glyphflow"
     },
     "docsEmpezando": {
       "title": "Getting started — install, paint your first icon | glyphflow",
-      "descripcion": "Install glyphflow and animate your first icon in a few lines, no animation library required."
+      "descripcion": "Install glyphflow with one command and animate your first icon in a few lines, no animation library required. Works with Angular 20, 21 and 22, MIT licensed."
     },
     "docsAccesibilidad": {
       "title": "Accessibility — one rule for animated icons | glyphflow",
-      "descripcion": "How glyphflow handles decorative vs. semantic icons, reduced motion, and keyboard navigation."
+      "descripcion": "How glyphflow handles decorative vs. semantic icons, reduced motion, and keyboard navigation: one rule, not a matrix, so you never combine flags by hand."
     },
     "docsSsr": {
       "title": "SSR — render animated icons without window | glyphflow",
-      "descripcion": "glyphflow renders on the server with zero access to window or document — verified, not assumed."
+      "descripcion": "glyphflow renders on the server with zero access to window or document — verified, not assumed. See what it does on the server and why there is no flicker."
     },
     "docsApi": {
       "title": "API — every input, output and type exported | glyphflow",
-      "descripcion": "Every input, output, and type glyphflow exports, with the guarantees that come with each one."
+      "descripcion": "Every input, output, and type glyphflow exports, with the guarantees that come with each one. The full public surface of the library, on a single page."
     },
     "docsMigracion": {
       "title": "Migration — what changed and what still works | glyphflow",
-      "descripcion": "Upgrading between glyphflow major versions — what changed and how to update your code."
+      "descripcion": "Upgrading between glyphflow major versions — what changed and how to update your code. The v1 names still work, and this page says until when they do."
     },
     "docsComparativa": {
       "title": "Comparison — measured against the alternatives | glyphflow",
-      "descripcion": "glyphflow against lucide-angular, ng-icons, and Lottie — bundle weight, tree-shaking, and SSR support."
+      "descripcion": "glyphflow against lucide-angular, ng-icons, and Lottie — bundle weight, tree-shaking, and SSR support, measured with the method and versions listed on the page."
     },
     "docsVerificar": {
       "title": "Verify your bundle — reproduce the numbers | glyphflow",
-      "descripcion": "Confirm your build only ships the icons you actually import, not the full catalog."
+      "descripcion": "Confirm your build only ships the icons you actually import, not the full catalog. Reproduce glyphflow's bundle numbers yourself with a few short commands."
     },
     "docsProblemas": {
       "title": "Troubleshooting — icons that do not animate | glyphflow",
-      "descripcion": "Common glyphflow issues and their fixes, from a blank icon to a broken build."
+      "descripcion": "Common glyphflow issues and their fixes, from a blank icon to a broken build: icons that never animate, morphs that look wrong, empty name= and SSR failures."
     },
     "docsTemas": {
       "title": "Theming and color — currentColor, dark mode | glyphflow",
-      "descripcion": "How glyphflow tokens interact with your app's light and dark themes."
+      "descripcion": "How glyphflow tokens interact with your app's light and dark themes: inherit currentColor, switch to dark mode and control the stroke width of every icon."
     },
     "bots": {
       "title": "Bots — animated characters for Angular | glyphflow",
-      "descripcion": "Animated characters with real physical motion on the native Web Animations API. Play with one and watch it react to an AI agent."
+      "descripcion": "Animated characters with real physical motion on the native Web Animations API. Play with one, try its 20 gestures and watch it react to an AI agent live."
     },
     "docsBots": {
       "title": "Using bots — shapes, gestures and AI agents | glyphflow",
-      "descripcion": "Install, shapes, gestures, customization and how to connect an AI agent to the glyphflow bots, with the Vercel AI SDK or Anthropic."
+      "descripcion": "Install, shapes, gestures, customization and how to connect an AI agent to the glyphflow bots, with the Vercel AI SDK or Anthropic. Each piece imports alone."
     }
   },
   "marca": {

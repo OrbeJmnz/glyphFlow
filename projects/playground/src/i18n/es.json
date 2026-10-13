@@ -60,70 +60,70 @@
     "iconos": {
       "title": "glyphflow — iconos de Lucide animados para Angular",
       "tituloConConteo": "glyphflow — {{n}} iconos de Lucide animados para Angular",
-      "descripcion": "Explora el catálogo completo de iconos Lucide animados para Angular. Pasa el ratón para verlos moverse, copia el código."
+      "descripcion": "Explora el catálogo de iconos Lucide animados para Angular. Pasa el ratón para verlos, copia el código e importa solo los que uses: cada uno pesa menos de 6 KB."
     },
     "patrones": {
       "title": "Ejemplos — iconos animados con el código al lado | glyphflow",
-      "descripcion": "Controles de interfaz reales —menús, interruptores, notificaciones— con el código exacto que los anima, al lado."
+      "descripcion": "Controles de interfaz reales —menús, interruptores, notificaciones— con el código exacto que los anima, al lado. Copia un patrón y llévalo a tu app Angular."
     },
     "editor": {
       "title": "Editor de trazos — edita iconos punto por punto | glyphflow",
-      "descripcion": "Edita el contorno de un icono punto por punto y pásalo directo al editor de coreografía."
+      "descripcion": "Edita el contorno de un icono punto por punto en el editor de trazos y pásalo directo al editor de coreografía para animarlo con glyphflow en tu app Angular."
     },
     "lab": {
       "title": "Lab — bancos de autoría de iconos animados | glyphflow",
-      "descripcion": "Donde se deciden los valores por defecto: duraciones, curvas y pasos de morph, ajustados contra iconos reales."
+      "descripcion": "Donde se deciden los valores por defecto: duraciones, curvas y pasos de morph, ajustados contra iconos reales. Prueba los bancos que fijan los de glyphflow."
     },
     "faceLab": {
       "title": "Face Lab — compara las caras para los bots | glyphflow",
-      "descripcion": "Doce hipótesis de cara para los bots de glyphflow, comparadas sobre la misma forma, color y expresión."
+      "descripcion": "Doce hipótesis de cara para los bots de glyphflow, comparadas sobre la misma forma, color y expresión, para que elijas la cara que mejor se lee antes de usarla."
     },
     "noEncontrado": {
       "title": "Página no encontrada — glyphflow"
     },
     "docsEmpezando": {
       "title": "Empezando — instala y pinta tu primer icono | glyphflow",
-      "descripcion": "Instala glyphflow y anima tu primer icono en pocas líneas, sin librería de animación."
+      "descripcion": "Instala glyphflow con un solo comando y anima tu primer icono en pocas líneas, sin librería de animación. Funciona con Angular 20, 21 y 22, con licencia MIT."
     },
     "docsAccesibilidad": {
       "title": "Accesibilidad — una regla para iconos animados | glyphflow",
-      "descripcion": "Cómo trata glyphflow los iconos decorativos vs. semánticos, el movimiento reducido y la navegación por teclado."
+      "descripcion": "Cómo trata glyphflow los iconos decorativos y semánticos, el movimiento reducido y el teclado: una regla, no una matriz, para no combinar banderas a mano."
     },
     "docsSsr": {
       "title": "SSR — renderiza iconos animados sin window | glyphflow",
-      "descripcion": "glyphflow renderiza en el servidor sin acceso a window ni document — verificado, no supuesto."
+      "descripcion": "glyphflow renderiza en el servidor sin acceso a window ni document — verificado, no supuesto. Mira qué hace en el servidor y por qué no hay parpadeo al cargar."
     },
     "docsApi": {
       "title": "API — cada input, output y tipo que exporta | glyphflow",
-      "descripcion": "Cada input, output y tipo que exporta glyphflow, con las garantías que trae cada uno."
+      "descripcion": "Cada input, output y tipo que exporta glyphflow, con las garantías que trae cada uno. La superficie pública completa de la librería, en una sola página."
     },
     "docsMigracion": {
       "title": "Migración — qué cambió y qué sigue funcionando | glyphflow",
-      "descripcion": "Subir de versión mayor en glyphflow: qué cambió y cómo actualizar tu código."
+      "descripcion": "Subir de versión mayor en glyphflow: qué cambió y cómo actualizar tu código. Los nombres de la v1 siguen funcionando, y esta página dice hasta cuándo."
     },
     "docsComparativa": {
       "title": "Comparativa — medida contra las alternativas | glyphflow",
-      "descripcion": "glyphflow contra lucide-angular, ng-icons y Lottie: peso del bundle, tree-shaking y soporte SSR."
+      "descripcion": "glyphflow contra lucide-angular, ng-icons y Lottie: peso del bundle, tree-shaking y soporte SSR, medidos con el método y las versiones que lista la página."
     },
     "docsVerificar": {
       "title": "Verifica tu bundle — reproduce los números | glyphflow",
-      "descripcion": "Confirma que tu build solo empaqueta los iconos que de verdad importas, no el catálogo completo."
+      "descripcion": "Confirma que tu build solo empaqueta los iconos que de verdad importas, no el catálogo completo. Reproduce tú mismo los números del bundle con pocos comandos."
     },
     "docsProblemas": {
       "title": "Solución de problemas — iconos que no animan | glyphflow",
-      "descripcion": "Problemas comunes de glyphflow y su arreglo, de un icono en blanco a un build roto."
+      "descripcion": "Problemas comunes de glyphflow y su arreglo, de un icono en blanco a un build roto: iconos que no animan, morphs raros, name= vacío y fallos de SSR al cargar."
     },
     "docsTemas": {
       "title": "Temas y color — currentColor, modo oscuro, trazo | glyphflow",
-      "descripcion": "Cómo interactúan los tokens de glyphflow con el tema claro y oscuro de tu app."
+      "descripcion": "Cómo interactúan los tokens de glyphflow con el tema claro y oscuro de tu app: hereda currentColor, pasa a modo oscuro y controla el grosor del trazo."
     },
     "bots": {
       "title": "Bots — personajes animados para Angular | glyphflow",
-      "descripcion": "Personajes animados con movimiento físico de verdad sobre la Web Animations API nativa. Juega con uno y míralo reaccionar a un agente de IA."
+      "descripcion": "Personajes animados con movimiento físico real sobre la Web Animations API nativa. Juega con uno, prueba sus 20 gestos y míralo reaccionar a un agente de IA."
     },
     "docsBots": {
       "title": "Usar los bots — formas, gestos y agentes de IA | glyphflow",
-      "descripcion": "Instalación, formas, gestos, personalización y cómo conectar un agente de IA a los bots de glyphflow, con el Vercel AI SDK o Anthropic."
+      "descripcion": "Instalación, formas, gestos, personalización y cómo conectar un agente de IA a los bots de glyphflow, con el Vercel AI SDK o Anthropic. Cada pieza va aparte."
     }
   },
   "marca": {
