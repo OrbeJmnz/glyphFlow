@@ -8,8 +8,9 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import faceLabEn from '../../../i18n/face-lab/en.json';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { Rutas } from '../../core/rutas.service';
 import { tema } from '../../core/tema';
 import { Chip } from '../../shared/ui/chip';
@@ -45,13 +46,7 @@ export type FaceLabMode = 'variants' | 'shapes' | 'sizes';
   // El scope va en el componente y no en la ruta, igual que el Lab: así el idioma por defecto
   // viaja DENTRO de este chunk. Ver `lab.ts`.
   providers: [
-    provideTranslocoScope({
-      scope: 'faceLab',
-      loader: {
-        en: () => Promise.resolve(faceLabEn),
-        es: () => import('../../../i18n/face-lab/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('faceLab', faceLabEn, () => import('../../../i18n/face-lab/es.json')),
   ],
   templateUrl: './face-lab.html',
   styleUrl: './face-lab.css',

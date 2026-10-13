@@ -16,7 +16,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import iconosEn from '../../../i18n/iconos/en.json';
 import {
   GfIconComponent,
@@ -49,6 +49,7 @@ import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
 import { Chip } from '../../shared/ui/chip';
 import { Contador } from '../../shared/ui/contador';
 import { Grupo } from '../../shared/ui/grupo';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { hayMovimiento } from '../../core/movimiento';
 import { NombreTransicion } from '../../shared/ui/nombre-transicion';
 import { RejillaTeclado } from '../../shared/ui/rejilla-teclado';
@@ -154,13 +155,7 @@ interface PuntoDeRegreso {
   // en fila. Medido en 3G lento, los textos del hero tardaban ~9.5s en aparecer y mientras tanto
   // se veían cajas vacías. Declarado aquí, el inglés viaja DENTRO de este chunk y llega con él.
   providers: [
-    provideTranslocoScope({
-      scope: 'iconos',
-      loader: {
-        en: () => Promise.resolve(iconosEn),
-        es: () => import('../../../i18n/iconos/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('iconos', iconosEn, () => import('../../../i18n/iconos/es.json')),
   ],
   templateUrl: './iconos.html',
   styleUrl: './iconos.css',

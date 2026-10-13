@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import botsEn from '../../../i18n/bots/en.json';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { BotsAgente } from './bots-agente';
@@ -12,6 +12,7 @@ import { BotsExpresiones } from './bots-expresiones';
 import { BotsGaleria } from './bots-galeria';
 import { BotsLista } from './bots-lista';
 import { ChatIa } from './chat-ia';
+import { provideScopeI18n } from '../../core/i18n-scope';
 
 /**
  * `/bots`: un playground de personajes. Tres columnas —los bots, el escenario donde se juega con uno, y un chat alimentado con
@@ -32,13 +33,7 @@ import { ChatIa } from './chat-ia';
   providers: [
     BotsEstado,
     ChatIa,
-    provideTranslocoScope({
-      scope: 'bots',
-      loader: {
-        en: () => Promise.resolve(botsEn),
-        es: () => import('../../../i18n/bots/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('bots', botsEn, () => import('../../../i18n/bots/es.json')),
   ],
   templateUrl: './bots.html',
   styleUrl: './bots.css',

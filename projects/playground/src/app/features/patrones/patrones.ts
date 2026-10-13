@@ -37,12 +37,13 @@ import {
   VOLUME_INTENT,
   type MorphIcon,
 } from 'glyphflow/morph';
-import { provideTranslocoScope, TranslocoPipe, translateSignal } from '@jsverse/transloco';
+import { TranslocoPipe, translateSignal } from '@jsverse/transloco';
 import patronesEn from '../../../i18n/patrones/en.json';
 import { Boton } from '../../shared/ui/boton';
 import { BloqueCodigo } from '../../shared/ui/bloque-codigo';
 import { Recuadro } from '../../shared/ui/recuadro';
 import { MotorBadge } from './motor-badge';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { huecoBajoHeader } from '../../core/header';
 import {
   SNIPPET_ACORDEON,
@@ -111,13 +112,7 @@ import { Copiador } from '../../shared/ui/copiar';
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
   // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
   providers: [
-    provideTranslocoScope({
-      scope: 'patrones',
-      loader: {
-        en: () => Promise.resolve(patronesEn),
-        es: () => import('../../../i18n/patrones/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('patrones', patronesEn, () => import('../../../i18n/patrones/es.json')),
   ],
   templateUrl: './patrones.html',
   styleUrl: './patrones.css',

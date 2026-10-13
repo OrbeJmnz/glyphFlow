@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { GfIconComponent, arrowLeftIcon, houseIcon, searchXIcon } from 'glyphflow';
 import noEncontradoEn from '../../../i18n/no-encontrado/en.json';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { Rutas } from '../../core/rutas.service';
 import { Boton } from '../../shared/ui/boton';
 import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
@@ -20,13 +21,7 @@ import { CampoBusqueda } from '../../shared/ui/campo-busqueda';
   templateUrl: './no-encontrado.html',
   styleUrl: './no-encontrado.css',
   providers: [
-    provideTranslocoScope({
-      scope: 'noEncontrado',
-      loader: {
-        en: () => Promise.resolve(noEncontradoEn),
-        es: () => import('../../../i18n/no-encontrado/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('noEncontrado', noEncontradoEn, () => import('../../../i18n/no-encontrado/es.json')),
   ],
 })
 export class NoEncontrado {

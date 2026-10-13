@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import editorEn from '../../../i18n/editor/en.json';
 import {
   GfIconComponent,
@@ -39,6 +39,7 @@ import { COPY_INTENT, GfIconMorphComponent } from 'glyphflow/morph';
 import { CarrilActivo } from '../../shared/ui/carril-activo';
 import { Paginador } from '../../shared/ui/paginador';
 import { CapasPanel } from './capas-panel';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { cargarAlias, cargarCurados } from '../../core/catalogo';
 import { TOPE_URL, aFragmento, deFragmento, type EstadoEditor } from '../../core/estado-url';
 import {
@@ -147,13 +148,7 @@ interface NodoVista extends Nodo {
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
   // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
   providers: [
-    provideTranslocoScope({
-      scope: 'editor',
-      loader: {
-        en: () => Promise.resolve(editorEn),
-        es: () => import('../../../i18n/editor/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('editor', editorEn, () => import('../../../i18n/editor/es.json')),
   ],
   templateUrl: './editor.html',
   styleUrl: './editor.css',

@@ -15,10 +15,11 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { GfIconComponent, menuIcon, searchIcon, xIcon } from 'glyphflow';
 import { filter, map } from 'rxjs';
 import docsEn from '../../../i18n/docs/en.json';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { type RutaId } from '../../core/rutas';
 import { Rutas } from '../../core/rutas.service';
 import { IndicePagina } from './indice-pagina';
@@ -42,13 +43,7 @@ import { CIFRAS } from '../../core/cifras';
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
   // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
   providers: [
-    provideTranslocoScope({
-      scope: 'docs',
-      loader: {
-        en: () => Promise.resolve(docsEn),
-        es: () => import('../../../i18n/docs/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('docs', docsEn, () => import('../../../i18n/docs/es.json')),
   ],
   templateUrl: './docs.html',
   styleUrl: './docs.css',

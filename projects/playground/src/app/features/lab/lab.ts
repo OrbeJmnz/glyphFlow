@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 import labEn from '../../../i18n/lab/en.json';
 import { IconImport } from './icon-import';
 import { MorphPicker } from './morph-picker';
 import { MorphBench } from './morph-bench';
+import { provideScopeI18n } from '../../core/i18n-scope';
 import { Rutas } from '../../core/rutas.service';
 
 /**
@@ -22,13 +23,7 @@ import { Rutas } from '../../core/rutas.service';
   // mientras tanto el texto se pinta vacío. Declarado aquí, el idioma por defecto viaja DENTRO de
   // este chunk y llega con él. El otro sigue diferido: solo lo baja quien usa el switcher.
   providers: [
-    provideTranslocoScope({
-      scope: 'lab',
-      loader: {
-        en: () => Promise.resolve(labEn),
-        es: () => import('../../../i18n/lab/es.json').then((m) => m.default),
-      },
-    }),
+    provideScopeI18n('lab', labEn, () => import('../../../i18n/lab/es.json')),
   ],
   templateUrl: './lab.html',
   styleUrl: './lab.css',
