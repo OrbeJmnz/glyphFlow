@@ -25,6 +25,7 @@ import { Rutas } from '../../core/rutas.service';
 import { IndicePagina } from './indice-pagina';
 import { BuscadorDocs } from './buscador-docs';
 import { CIFRAS } from '../../core/cifras';
+import { fechaDeDoc, fechaLegible } from '../../core/fechas-docs';
 
 /** Marco de las docs: índice lateral fijo + la página. */
 @Component({
@@ -190,6 +191,13 @@ export class Docs {
   private readonly indiceActual = computed(() => {
     const url = this.urlActual();
     return this.secciones.findIndex((s) => url.endsWith(`/${this.rutas.slug(s.id)}`));
+  });
+
+  /** La fecha de la página activa (AAAA-MM-DD), para el `datetime` del pie; `undefined` si la URL no es una página de la lista. */
+  protected readonly fechaIso = computed(() => fechaDeDoc(this.secciones[this.indiceActual()]?.id));
+  protected readonly fechaTexto = computed(() => {
+    const iso = this.fechaIso();
+    return iso ? fechaLegible(iso, this.rutas.idioma()) : '';
   });
 
   protected readonly anterior = computed(() => {

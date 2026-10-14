@@ -10,6 +10,7 @@
   },
   "pie": {
     "version": "These docs describe <strong>v{{v}}</strong>, the version published on npm.",
+    "actualizado": "Last updated",
     "editar": "Edit this page on GitHub"
   },
   "prevNext": {

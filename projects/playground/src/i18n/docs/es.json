@@ -10,6 +10,7 @@
   },
   "pie": {
     "version": "Esta documentación describe la <strong>v{{v}}</strong>, la versión publicada en npm.",
+    "actualizado": "Última actualización",
     "editar": "Editar esta página en GitHub"
   },
   "prevNext": {

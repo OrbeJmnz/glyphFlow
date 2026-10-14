@@ -96,6 +96,13 @@
     <footer class="docs-pie">
       <!-- `innerHTML`: el texto lleva un `<strong>` con el número, y la interpolación lo escaparía. -->
       <p [innerHTML]="'docs.pie.version' | transloco: { v: version }"></p>
+      <!-- La fecha sale de `core/fechas-docs.json` (hash del contenido de la página): el mismo dato que `dateModified` en su JSON-LD. -->
+      @if (fechaIso(); as iso) {
+        <p>
+          {{ 'docs.pie.actualizado' | transloco }}
+          <time [attr.datetime]="iso">{{ fechaTexto() }}</time>
+        </p>
+      }
       <a [href]="editarEnGitHub()" rel="noopener">{{ 'docs.pie.editar' | transloco }}</a>
     </footer>
   </article>
