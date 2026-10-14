@@ -1,0 +1,24 @@
+{
+  "name": "glyphflow-example-bot-mascot",
+  "private": true,
+  "description": "glyphflow — Bots: a cat mascot",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "glyphflow": "^3.3.0",
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.8.1",
+    "@angular/build": "^22.1.4",
+    "@angular/compiler-cli": "^22.1.0",
+    "typescript": "~6.0.2",
+    "vite": "^6.0.0"
+  }
+}

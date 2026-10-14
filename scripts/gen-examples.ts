@@ -12,6 +12,7 @@ import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import * as SNIPPETS from '../projects/playground/src/app/features/patrones/snippets.ts';
+import * as SNIPPETS_DOCS from '../projects/playground/src/app/features/docs/snippets.ts';
 import { sinCr } from './sin-cr';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,6 +20,10 @@ const leerJson = (p: string) => JSON.parse(readFileSync(join(RAIZ, p), 'utf8'));
 
 const VERSION: string = leerJson('projects/glyphflow/package.json').version;
 const ANGULAR: string = leerJson('package.json').dependencies['@angular/core'];
+// Del workspace y no fijo: `@angular/compiler-cli` declara el rango de TypeScript que acepta (Angular 22: `>=6.0 <6.1`), y con un `~5.9.0` escrito a
+// mano `npm install` truena con ERESOLVE. Así el ejemplo sube de versión junto con Angular y no se queda atrás en silencio.
+const TYPESCRIPT: string = leerJson('package.json').devDependencies['typescript'];
+const ANGULAR_BUILD: string = leerJson('package.json').devDependencies['@angular/build'];
 
 interface Ejemplo {
   dir: string;
@@ -142,6 +147,15 @@ export const EJEMPLOS: Ejemplo[] = [
     titulo: 'Icon swap',
     fuente: SNIPPETS.SNIPPET_RELEVO_COMPLETO,
   },
+  {
+    // El único de bots: sale del primer snippet de la guía (`/docs/bots`), que ya es un componente completo. Los demás de esa guía son
+    // fragmentos (un gesto, una piel…) que no arrancan solos.
+    dir: 'bot-mascot',
+    clase: 'Mascot',
+    selector: 'app-mascot',
+    titulo: 'Bots: a cat mascot',
+    fuente: SNIPPETS_DOCS.SNIPPET_BOTS_INICIO,
+  },
 ];
 
 function archivosDe(e: Ejemplo): Record<string, string> {
@@ -172,18 +186,28 @@ function archivosDe(e: Ejemplo): Record<string, string> {
             rxjs: '^7.8.0',
           },
           devDependencies: {
-            '@analogjs/vite-plugin-angular': '^1.10.0',
-            typescript: '~5.9.0',
+            // 2.x y no 1.x: la 1.x declara soporte hasta Angular 20 (`@angular/build ^18 || ^19 || ^20`) y estos ejemplos son Angular 22. Hasta ahora
+            // nadie los había compilado de verdad (`tsc` no corre Vite), y NINGUNO arrancaba: el botón «Abrir en StackBlitz» llevaba a un build roto.
+            '@analogjs/vite-plugin-angular': '^2.8.1',
+            // El plugin los importa pero no los trae: sin ellos `vite build` falla con «Cannot find package '@angular/compiler-cli'» y después con
+            // «Cannot find module '@angular/build/private'».
+            '@angular/build': ANGULAR_BUILD,
+            '@angular/compiler-cli': ANGULAR,
+            typescript: TYPESCRIPT,
             vite: '^6.0.0',
           },
         },
         null,
         2,
       ) + '\n',
+    // El plugin busca `tsconfig.app.json` por defecto y avisa «Unable to resolve tsconfig»; sin él no procesa los decoradores de Angular y el
+    // build revienta con «Unexpected token `readonly`». Se le da el `tsconfig.json` del proyecto, con ruta absoluta como pide su aviso.
     'vite.config.ts':
       `import angular from '@analogjs/vite-plugin-angular';\n` +
+      `import { fileURLToPath } from 'node:url';\n` +
       `import { defineConfig } from 'vite';\n\n` +
-      `export default defineConfig({ plugins: [angular()] });\n`,
+      `const tsconfig = fileURLToPath(new URL('./tsconfig.json', import.meta.url));\n\n` +
+      `export default defineConfig({ plugins: [angular({ tsconfig })] });\n`,
     'tsconfig.json':
       JSON.stringify(
         {

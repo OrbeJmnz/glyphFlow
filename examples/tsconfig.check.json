@@ -31,6 +31,10 @@
     "paths": {
       "glyphflow": ["../node_modules/glyphflow-published/types/glyphflow.d.ts"],
       "glyphflow/morph": ["../node_modules/glyphflow-published/types/glyphflow-morph.d.ts"],
+      "glyphflow/bots": ["../node_modules/glyphflow-published/types/glyphflow-bots.d.ts"],
+      "glyphflow/bots/gestures": ["../node_modules/glyphflow-published/types/glyphflow-bots-gestures.d.ts"],
+      "glyphflow/bots/extras": ["../node_modules/glyphflow-published/types/glyphflow-bots-extras.d.ts"],
+      "glyphflow/bots/ai": ["../node_modules/glyphflow-published/types/glyphflow-bots-ai.d.ts"],
       "@angular/*": ["../node_modules/@angular/*"]
     }
   },
