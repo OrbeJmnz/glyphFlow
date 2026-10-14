@@ -24,7 +24,8 @@ const AUTOR_URL = 'https://github.com/OrbeJmnz';
 export const AUTOR_NOMBRE = 'Orbelin Jiménez Vázquez';
 /**
  * Los alias van en `alternateName`: el usuario de GitHub, que es lo que une a la persona con el repo y el paquete, y el nombre SIN acentos, que es
- * como lo escribe `LICENSE` (público y dentro del paquete de npm). Así quien lea el copyright y quien lea el JSON-LD resuelven a la misma entidad.
+ * como firman los commits del historial público y como decía `LICENSE` hasta la 3.3.0. Así quien busque por cualquiera de las grafías, o por el
+ * usuario, resuelve a la misma entidad.
  */
 export const AUTOR_ALIAS = ['OrbeJmnz', 'Orbelin Jimenez Vazquez'] as const;
 
