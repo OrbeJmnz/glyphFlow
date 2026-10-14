@@ -31,7 +31,7 @@
     } @else {
       <div class="bt-fila bt-fila-usuario">
         <span class="bt-avatar-usuario" aria-hidden="true"><gf-icon [iconDef]="iconoUsuario" [size]="20" /></span>
-        <button type="button" class="bt-burbuja bt-ejemplo" [disabled]="!e.movimiento()" (click)="c.enviar('')">
+        <button type="button" class="bt-burbuja bt-ejemplo" [disabled]="!e.movimiento()" (click)="c.enviar()">
           {{ 'bots.chat.mensajePorDefecto' | transloco }}
           <span class="bt-sr">{{ 'bots.chat.ejemplo' | transloco }}</span>
         </button>
@@ -85,21 +85,18 @@
     <p id="bt-ayuda-envio" class="bt-aviso">{{ 'bots.escenario.sinMovimiento' | transloco }}</p>
   }
 
-  <form class="bt-enviar" (submit)="$event.preventDefault(); enviar()">
-    <label class="bt-sr" for="bt-mensaje">{{ 'bots.chat.mensaje' | transloco }}</label>
-    <input id="bt-mensaje" type="text" [formControl]="mensaje" [placeholder]="'bots.chat.mensajePorDefecto' | transloco" autocomplete="off" />
-    <!-- UN solo botón que cambia de acción: con @if/@else el «Enviar» se destruía y el foco caía al <body> (SC 2.4.3). El ternario no es un `&&`: un manejador que devuelve `false` hace preventDefault y cancelaría el submit. -->
-    <button
-      [type]="c.ejecutando() ? 'button' : 'submit'"
-      class="bt-boton-enviar"
-      [disabled]="!c.ejecutando() && !e.movimiento()"
-      [attr.aria-describedby]="e.movimiento() ? null : 'bt-ayuda-envio'"
-      (click)="c.ejecutando() ? c.detener() : undefined"
-    >
-      <gf-icon [iconDef]="c.ejecutando() ? iconoParar : iconoEnviar" [size]="16" />
-      {{ (c.ejecutando() ? 'bots.chat.detener' : 'bots.chat.enviar') | transloco }}
-    </button>
-  </form>
+  <!-- Sin campo de texto: la simulación no llama a ningún modelo y la respuesta es siempre el guion del escenario, así que escribir una pregunta propia prometía algo que no pasaba. -->
+  <!-- UN solo botón que cambia de acción: con @if/@else el «Enviar» se destruía y el foco caía al <body> (SC 2.4.3). -->
+  <button
+    type="button"
+    class="bt-boton-enviar"
+    [disabled]="!c.ejecutando() && !e.movimiento()"
+    [attr.aria-describedby]="e.movimiento() ? null : 'bt-ayuda-envio'"
+    (click)="c.ejecutando() ? c.detener() : c.enviar()"
+  >
+    <gf-icon [iconDef]="c.ejecutando() ? iconoParar : iconoEnviar" [size]="16" />
+    {{ (c.ejecutando() ? 'bots.chat.detener' : 'bots.chat.enviar') | transloco }}
+  </button>
 
   <a class="bt-ver-dentro" href="#bt-t-agente" (click)="$event.preventDefault(); verDentro()">{{ 'bots.chat.verDentro' | transloco }}</a>
 </section>

@@ -109,8 +109,6 @@ export class ChatIa implements OnDestroy {
   private run: GfAgentRun | null = null;
   private reloj: Reloj | null = null;
   private corteAuto: ReturnType<typeof setTimeout> | null = null;
-  /** El último texto que se mandó: «Repetir» vuelve a correr ese. */
-  private ultimoTexto = '';
 
   /** El componente del chat dice cómo alcanzar el bot de su avatar. */
   registrar(api: () => GfBotApi | null | undefined): void {
@@ -156,18 +154,17 @@ export class ChatIa implements OnDestroy {
     this.mensajes.set([]);
   }
 
-  /** Vuelve a correr el último mensaje con el tipo de salida y el SDK actuales. */
+  /** Vuelve a correr la pregunta de ejemplo con el tipo de salida y el SDK actuales. */
   repetir(): void {
-    this.enviar(this.ultimoTexto);
+    this.enviar();
   }
 
-  enviar(texto: string): void {
+  /** Manda la pregunta de ejemplo: no hay campo de texto, la respuesta es siempre el guion del escenario elegido y ningún modelo se llama. */
+  enviar(): void {
     const bot = this.api();
-    // Sin escribir nada se manda la pregunta de ejemplo: así basta con pulsar «Enviar».
-    texto = texto.trim() || this.transloco.translate('bots.chat.mensajePorDefecto');
+    const texto = this.transloco.translate('bots.chat.mensajePorDefecto');
     if (!bot || !texto || this.ejecutando() || !this.movimiento()) return;
     this.detener();
-    this.ultimoTexto = texto;
     this.juega.set({});
     this.pasos.set([]);
     this.traza.set([]);

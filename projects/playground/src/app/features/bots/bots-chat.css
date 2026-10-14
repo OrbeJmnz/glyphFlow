@@ -93,7 +93,6 @@ header p {
 
 .bt-segmentado button:focus-visible,
 .bt-campo select:focus-visible,
-.bt-enviar input:focus-visible,
 .bt-boton-enviar:focus-visible,
 .bt-acciones-burbuja button:focus-visible,
 .bt-ver-dentro:focus-visible {
@@ -322,35 +321,14 @@ header p {
   color: var(--bt-aviso);
 }
 
-/* ───────── Escribir ───────── */
-
-.bt-enviar {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.bt-enviar input {
-  flex: 1;
-  min-width: 0;
-  height: 2.75rem;
-  padding: 0 0.875rem;
-  border: 1px solid var(--bt-borde-vivo);
-  border-radius: 0.75rem;
-  background: var(--bt-lienzo);
-  color: var(--bt-texto);
-  font: inherit;
-  font-size: 0.9375rem;
-}
-
-.bt-enviar input::placeholder {
-  color: var(--bt-texto-2);
-}
+/* ───────── Enviar ───────── */
 
 .bt-boton-enviar {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4375rem;
-  flex: none;
+  width: 100%;
   height: 2.75rem;
   padding: 0 1rem;
   border: 0;

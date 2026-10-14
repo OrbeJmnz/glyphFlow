@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, DestroyRef, OnDestroy, afterNextRender, inject, viewChild } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { GfIconComponent, checkIcon, copyIcon, refreshCwIcon, sendIcon, squareIcon, userIcon } from 'glyphflow';
 import { GfBotComponent } from 'glyphflow/bots';
@@ -11,11 +10,11 @@ import { ChatIa } from './chat-ia';
 
 /**
  * La tarjeta del chat: qué SDK y qué tipo de salida se simula, la conversación (con el bot como avatar del asistente, que es el que
- * reacciona de verdad) y la caja para escribir. El riel y la traza del stream viven en `BotsAgente`, debajo, y leen el mismo `ChatIa`.
+ * reacciona de verdad) y el botón que la corre o la detiene (no hay campo de texto: no se llama a ningún modelo). El riel y la traza del stream viven en `BotsAgente`, debajo, y leen el mismo `ChatIa`.
  */
 @Component({
   selector: 'app-bots-chat',
-  imports: [GfBotComponent, GfIconComponent, ReactiveFormsModule, TranslocoPipe],
+  imports: [GfBotComponent, GfIconComponent, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './bots-chat.html',
   styleUrl: './bots-chat.css',
@@ -24,7 +23,6 @@ export class BotsChat implements OnDestroy {
   protected readonly c = inject(ChatIa);
   protected readonly e = inject(BotsEstado);
   private readonly doc = inject(DOCUMENT);
-  protected readonly mensaje = new FormControl('', { nonNullable: true });
   protected readonly gestos = physicalGestures;
   protected readonly copiador = new Copiador();
 
@@ -60,10 +58,6 @@ export class BotsChat implements OnDestroy {
 
   protected valor(ev: Event): string {
     return (ev.target as HTMLSelectElement).value;
-  }
-
-  protected enviar(): void {
-    this.c.enviar(this.mensaje.value);
   }
 
   protected copiar(texto: string): void {
