@@ -1,7 +1,7 @@
 # glyphflow/bots
 
 `<gf-bot>`: personajes animados con la Web Animations API nativa, sin dependencias de animación. Esta carpeta es
-documentación **de desarrollo** (no se publica con el paquete, que solo lleva el README de la raíz) hasta que los bots salgan.
+documentación **de desarrollo**: no se publica con el paquete (que solo lleva el README de la raíz). La guía pública, con ejemplo ejecutable, está en el sitio: [/docs/bots](https://glyph-flow-zeta.vercel.app/en/docs/bots-guide).
 
 Cinco entry points, cada uno paga solo lo que se importa:
 
