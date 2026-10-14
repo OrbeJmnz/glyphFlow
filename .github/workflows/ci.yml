@@ -170,6 +170,53 @@ jobs:
         working-directory: ${{ runner.temp }}/consumer-app
         run: npx ng build
 
+  # Los proyectos de `examples/` (los que abre el botón «Abrir en StackBlitz») se compilan de verdad: `npm install` + `vite build`.
+  #
+  # Existe porque los 17 llevaban tiempo sin arrancar y nada lo decía: el check de `verify:clean` solo corre `tsc` (`examples/tsconfig.check.json`),
+  # que no ejecuta Vite ni resuelve los peers del plugin. El fallo real estaba en el `package.json` (plugin de Vite 1.x sin soporte de Angular 22,
+  # TypeScript 5.9 contra un compiler-cli que pide 6.0, dos dependencias sin declarar), o sea, justo lo que `tsc` no mira.
+  #
+  # Se instala el .tgz de ESTE commit y no `glyphflow@^<versión>` del registro: tras el merge del PR «Version Packages» el ejemplo pide una
+  # versión que `release` todavía no publicó, y con el registro este job fallaría siempre en ese commit. Lo que se prueba aquí es el `package.json`
+  # y la `vite.config.ts` del ejemplo (lo que se rompió), no el publish. Eso lo cubre `angular-compat`.
+  #
+  # NO está en `needs` de `release` a propósito: es un chequeo de la documentación y depende de la red (`npm install` de Vite y el plugin). Un
+  # tropiezo del registro no debe detener un publish que ya pasó `ci` y `angular-compat`. Se mira como cualquier otro check rojo.
+  examples:
+    name: Ejemplo ${{ matrix.ejemplo }} (npm install + vite build)
+    needs: build-tarball
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Uno con bots (el único que usa `glyphflow/bots`) y uno de iconos: comparten el generador, pero no los mismos imports.
+        ejemplo: [bot-mascot, bell-button]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: glyphflow-tarball
+          path: ${{ runner.temp }}/tarball
+
+      # Fuera del repo, como lo abre StackBlitz: sin el `node_modules` ni los `paths` del workspace, que esconderían un import mal declarado.
+      - name: Copiar el ejemplo fuera del workspace
+        run: cp -r "examples/${{ matrix.ejemplo }}" "$RUNNER_TEMP/ejemplo"
+
+      - name: Instalar sin --legacy-peer-deps, que es lo que hace quien lo abre
+        working-directory: ${{ runner.temp }}/ejemplo
+        run: |
+          npm pkg set "dependencies.glyphflow=file:$(echo "$RUNNER_TEMP"/tarball/*.tgz)"
+          npm install
+
+      - name: Build con Vite
+        working-directory: ${{ runner.temp }}/ejemplo
+        run: npx vite build
+
   release:
     name: Release (changesets)
     needs: [ci, angular-compat]
