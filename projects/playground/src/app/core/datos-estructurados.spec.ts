@@ -54,6 +54,15 @@ describe('grafoDeLaPagina', () => {
     expect(migas[2]['item']).toBeUndefined();
   });
 
+  it('el autor es la persona con su nombre acentuado; el usuario de GitHub y la grafía de LICENSE van como alias; no lleva correo', () => {
+    const g = grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/bots', titulo: 'Bots — glyphflow', nombres: {} });
+    const autor = tipo(g, 'Person');
+    expect(autor['name']).toBe('Orbelin Jiménez Vázquez');
+    expect(autor['alternateName']).toEqual(['OrbeJmnz', 'Orbelin Jimenez Vazquez']);
+    expect(autor['sameAs']).toEqual(['https://github.com/OrbeJmnz']);
+    expect(autor).not.toHaveProperty('email');
+  });
+
   it('el paquete lleva la versión y sameAs de GitHub y npm; no inventa fechas', () => {
     const g = grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/bots', titulo: 'Bots — glyphflow', nombres: {} });
     const paquete = tipo(g, 'SoftwareSourceCode');

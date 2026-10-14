@@ -20,6 +20,13 @@ import { ORIGEN } from './sitio';
 export const REPO_URL = 'https://github.com/OrbeJmnz/glyphFlow';
 export const NPM_URL = 'https://www.npmjs.com/package/glyphflow';
 const AUTOR_URL = 'https://github.com/OrbeJmnz';
+/** El nombre con su ortografía correcta. El `name` de un `Person` es uno solo. */
+export const AUTOR_NOMBRE = 'Orbelin Jiménez Vázquez';
+/**
+ * Los alias van en `alternateName`: el usuario de GitHub, que es lo que une a la persona con el repo y el paquete, y el nombre SIN acentos, que es
+ * como lo escribe `LICENSE` (público y dentro del paquete de npm). Así quien lea el copyright y quien lea el JSON-LD resuelven a la misma entidad.
+ */
+export const AUTOR_ALIAS = ['OrbeJmnz', 'Orbelin Jimenez Vazquez'] as const;
 
 const ID = {
   sitio: `${ORIGEN}/#website`,
@@ -167,7 +174,8 @@ export function grafoDeLaPagina(e: EntradaGrafo): object | null {
       {
         '@type': 'Person',
         '@id': ID.autor,
-        name: 'OrbeJmnz',
+        name: AUTOR_NOMBRE,
+        alternateName: [...AUTOR_ALIAS],
         url: AUTOR_URL,
         sameAs: [AUTOR_URL],
       },
