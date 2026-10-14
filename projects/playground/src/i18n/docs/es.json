@@ -453,7 +453,8 @@
     "bajada": "Personajes animados que reaccionan a un agente de IA. Tú pones el modelo y el stream; los bots son su cara.",
     "instalar": {
       "titulo": "Instalar",
-      "texto": "Los bots vienen en el mismo paquete, desde la <code>3.2.0</code>: sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22)."
+      "texto": "Los bots vienen en el mismo paquete, desde la <code>3.2.0</code>: sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22).",
+      "presupuesto": "Una app nueva de Angular con un icono y un bot cae justo en el presupuesto por defecto de 500 kB del bundle inicial: medido con la <code>3.3.0</code>, unos 496 kB en Angular 22 y unos 526 kB en Angular 20. En Angular 20 el primer build puede imprimir <code>bundle initial exceeded maximum budget</code>. Es un aviso, no un error (el error está en 1 MB), y la instalación no tiene nada mal. Sube <code>budgets</code> en <code>angular.json</code> si quieres silenciarlo."
     },
     "entradas": {
       "titulo": "Cuatro entry points, pagas lo que importas",

@@ -453,7 +453,8 @@
     "bajada": "Animated characters that react to an AI agent. You bring the model and the stream; the bots are its face.",
     "instalar": {
       "titulo": "Install",
-      "texto": "Bots ship in the same package, from <code>3.2.0</code>: no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22)."
+      "texto": "Bots ship in the same package, from <code>3.2.0</code>: no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22).",
+      "presupuesto": "A new Angular app with one icon and one bot lands right at the CLI's default 500 kB budget for the initial bundle: measured with <code>3.3.0</code>, about 496 kB on Angular 22 and about 526 kB on Angular 20. On Angular 20 the first build can print <code>bundle initial exceeded maximum budget</code>. It is a warning, not an error (the error is at 1 MB), and nothing is wrong with the install. Raise <code>budgets</code> in <code>angular.json</code> if you want it quiet."
     },
     "entradas": {
       "titulo": "Four entry points, pay for what you import",

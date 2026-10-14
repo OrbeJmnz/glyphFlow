@@ -480,14 +480,14 @@
     "ruta": "docsBots",
     "ancla": "install",
     "titulo": "Install",
-    "texto": "Install Install Bots ship in the same package, from 3.2.0 : no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22)."
+    "texto": "Install Install Bots ship in the same package, from 3.2.0 : no second install, no extra dependency, and nothing loads until you import it. The peer dependencies are the same as the icons (Angular 20 to 22). A new Angular app with one icon and one bot lands right at the CLI's default 500 kB budget for the initial bundle: measured with 3.3.0 , about 496 kB on Angular 22 and about 526 kB on Angular 20. On Angular 20 the first build can print bundle initial exceeded maximum budget . It is a warning, not an error (the error is at 1 MB), and nothing is wrong with the install. Raise budgets in angular.json if you want it quiet."
   },
   {
     "idioma": "es",
     "ruta": "docsBots",
     "ancla": "install",
     "titulo": "Instalar",
-    "texto": "Instalar Instalar Los bots vienen en el mismo paquete, desde la 3.2.0 : sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22)."
+    "texto": "Instalar Instalar Los bots vienen en el mismo paquete, desde la 3.2.0 : sin segunda instalación, sin dependencias extra y sin cargar nada hasta que lo importas. Las peer dependencies son las mismas que las de los iconos (Angular 20 a 22). Una app nueva de Angular con un icono y un bot cae justo en el presupuesto por defecto de 500 kB del bundle inicial: medido con la 3.3.0 , unos 496 kB en Angular 22 y unos 526 kB en Angular 20. En Angular 20 el primer build puede imprimir bundle initial exceeded maximum budget . Es un aviso, no un error (el error está en 1 MB), y la instalación no tiene nada mal. Sube budgets en angular.json si quieres silenciarlo."
   },
   {
     "idioma": "en",
