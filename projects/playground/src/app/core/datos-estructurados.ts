@@ -12,7 +12,8 @@ import { ORIGEN } from './sitio';
  *  - `WebPage` o `TechArticle` (las docs) con su `url`, su idioma y su descripción reales.
  *  - `BreadcrumbList`: dónde está la página dentro del sitio.
  *
- * No se inventa nada que la página no diga: no hay `datePublished` ni `dateModified` porque el sitio no muestra fechas.
+ * No se inventa nada que la página no diga: `dateModified` solo sale en las docs, y solo si quien llama pasa la fecha real (`fechas-docs.ts`, que
+ * lleva el mismo dato que el pie visible de la página). `datePublished` no existe: ningún sitio guarda cuándo nació cada página.
  */
 
 /** Los perfiles públicos del proyecto: de aquí sale `sameAs`, que es lo que une el sitio con el paquete y el repo. */
@@ -47,7 +48,7 @@ const CLAVE_RUTA: Partial<Record<RutaId, string>> = {
 };
 
 /** Las páginas de la sección Docs (llevan `TechArticle` y cuelgan de «Docs» en las migas). */
-const ES_DOC: ReadonlySet<RutaId> = new Set<RutaId>([
+export const ES_DOC: ReadonlySet<RutaId> = new Set<RutaId>([
   'empezando',
   'accesibilidad',
   'ssr',
@@ -76,6 +77,8 @@ export interface EntradaGrafo {
   version: string;
   /** El nombre de cada página por clave de ruta (`docsApi` → «API») y el de la sección Docs (`docs`). */
   nombres: Readonly<Record<string, string>>;
+  /** AAAA-MM-DD de la última modificación del contenido. Solo se usa en las docs; sin él no se declara fecha. */
+  fechaModificacion?: string;
 }
 
 /**
@@ -115,6 +118,7 @@ export function grafoDeLaPagina(e: EntradaGrafo): object | null {
         description: e.descripcion,
         url,
         inLanguage: e.idioma,
+        ...(e.fechaModificacion ? { dateModified: e.fechaModificacion } : {}),
         about: { '@id': ID.paquete },
         author: { '@id': ID.autor },
         publisher: { '@id': ID.autor },

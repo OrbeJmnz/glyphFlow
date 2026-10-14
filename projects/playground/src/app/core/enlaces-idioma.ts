@@ -5,6 +5,7 @@ import { TranslocoService, translateSignal } from '@jsverse/transloco';
 import { filter, map } from 'rxjs';
 import { CIFRAS } from './cifras';
 import { claveDeRuta, grafoDeLaPagina } from './datos-estructurados';
+import { fechaDeDoc } from './fechas-docs';
 import { IDIOMAS, type Idioma } from './idioma';
 import { fijarJsonLd } from './json-ld';
 import { alternativas, idiomaDeLaRuta, idsDeLaRuta } from './rutas';
@@ -133,7 +134,12 @@ export function conectarEnlacesDeIdioma(): void {
       if (docs) nombres['docs'] = docs;
       const ultima = ids.length ? claveDeRuta(ids[ids.length - 1]) : 'iconos';
       const titulo = (ultima && nombres[ultima]) ?? nombrar(`routes.${ultima}.title`) ?? doc.title;
-      fijarJsonLd(doc, 'sitio', grafoDeLaPagina({ idioma: idioma as Idioma, camino, titulo, descripcion: desc, version: CIFRAS.version, nombres }));
+      const fechaModificacion = fechaDeDoc(ids[ids.length - 1]);
+      fijarJsonLd(
+        doc,
+        'sitio',
+        grafoDeLaPagina({ idioma: idioma as Idioma, camino, titulo, descripcion: desc, version: CIFRAS.version, nombres, fechaModificacion }),
+      );
     } else {
       fijarJsonLd(doc, 'sitio', null);
     }

@@ -12,6 +12,7 @@ import { IDIOMAS } from '../projects/playground/src/app/core/idioma.ts';
 import { ORIGEN } from '../projects/playground/src/app/core/sitio.ts';
 import { ruta, type RutaId } from '../projects/playground/src/app/core/rutas.ts';
 import { CIFRAS } from '../projects/playground/src/app/core/cifras.ts';
+import { fechaDeDoc } from '../projects/playground/src/app/core/fechas-docs.ts';
 import { NPM_URL, REPO_URL, claveDeRuta, sinMarca } from '../projects/playground/src/app/core/datos-estructurados.ts';
 import { sinCr } from './sin-cr';
 
@@ -56,9 +57,13 @@ const urls = IDIOMAS.flatMap((idioma) =>
       (otro) =>
         `    <xhtml:link rel="alternate" hreflang="${otro}" href="${ORIGEN}${ruta(otro, ...pagina)}"/>`,
     ).join('\n');
+    // `lastmod` solo en las docs, que son las que llevan una fecha real (`fechas-docs.json`). En el resto no se declara: un `lastmod` inventado,
+    // o el mismo para todas, hace que el buscador deje de creerle a los demás.
+    const modificada = fechaDeDoc(pagina[pagina.length - 1]);
     return [
       '  <url>',
       `    <loc>${ORIGEN}${ruta(idioma, ...pagina)}</loc>`,
+      ...(modificada ? [`    <lastmod>${modificada}</lastmod>`] : []),
       alternativas,
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGEN}${ruta('en', ...pagina)}"/>`,
       '  </url>',

@@ -17,6 +17,8 @@
     "gen:catalogo": "tsx scripts/gen-catalogo-json.ts",
     "gen:catalogo:check": "tsx scripts/gen-catalogo-json.ts --check",
     "gen:playground-tags": "tsx scripts/gen-playground-tags.ts",
+    "gen:fechas-docs": "tsx scripts/gen-fechas-docs.ts",
+    "gen:fechas-docs:check": "tsx scripts/gen-fechas-docs.ts --check",
     "gen:sitemap": "tsx scripts/gen-sitemap.ts",
     "gen:sitemap:check": "tsx scripts/gen-sitemap.ts --check",
     "gen:springs": "tsx scripts/gen-spring-easings.ts",

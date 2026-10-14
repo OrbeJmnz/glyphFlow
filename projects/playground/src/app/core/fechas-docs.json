@@ -1,0 +1,42 @@
+{
+  "empezando": {
+    "huella": "621225b028f4f27a",
+    "fecha": "2026-09-02"
+  },
+  "accesibilidad": {
+    "huella": "ee70cdf92b060fed",
+    "fecha": "2026-09-01"
+  },
+  "ssr": {
+    "huella": "64820665e013d346",
+    "fecha": "2026-10-08"
+  },
+  "api": {
+    "huella": "1e602be4731b6bf4",
+    "fecha": "2026-09-06"
+  },
+  "temas": {
+    "huella": "995a427d2a89c7ee",
+    "fecha": "2026-10-13"
+  },
+  "migracion": {
+    "huella": "e80b78c4c44b7f8e",
+    "fecha": "2026-10-13"
+  },
+  "verificar": {
+    "huella": "26c2961ebc330e3c",
+    "fecha": "2026-10-13"
+  },
+  "docsBots": {
+    "huella": "7e05317955a1bff4",
+    "fecha": "2026-10-08"
+  },
+  "problemas": {
+    "huella": "b411dcbf2d10d10f",
+    "fecha": "2026-10-13"
+  },
+  "comparativa": {
+    "huella": "e5f6358145429903",
+    "fecha": "2026-10-13"
+  }
+}

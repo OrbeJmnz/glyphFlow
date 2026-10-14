@@ -50,6 +50,7 @@ const steps = [
   // Tampoco estaba, y llevaba tiempo en falso rojo por el bug de CRLF que nadie veía
   // porque nadie lo corría.
   ['Drift de los resortes generados', 'npm', ['run', 'gen:springs:check']],
+  ['Fecha de cada doc al día con su contenido', 'npm', ['run', 'gen:fechas-docs:check']],
   ['Drift de sitemap.xml y robots.txt', 'npm', ['run', 'gen:sitemap:check']],
   ['README: paridad EN/ES y sin API de la v1', 'npm', ['run', 'docs:check']],
   ['Snippets copiables del sitio', 'npm', ['run', 'snippets:check']],

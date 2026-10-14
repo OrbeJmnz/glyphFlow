@@ -62,6 +62,15 @@ describe('grafoDeLaPagina', () => {
     expect(JSON.stringify(g)).not.toMatch(/datePublished|dateModified/);
   });
 
+  it('dateModified sale solo en las docs y solo si se pasa la fecha: una página que no es doc nunca lo lleva', () => {
+    const doc = grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/docs/ssr', titulo: 'SSR — x | glyphflow', nombres: {}, fechaModificacion: '2026-10-08' });
+    expect(tipo(doc, 'TechArticle')['dateModified']).toBe('2026-10-08');
+    const sinFecha = grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/docs/ssr', titulo: 'SSR — x | glyphflow', nombres: {} });
+    expect(tipo(sinFecha, 'TechArticle')['dateModified']).toBeUndefined();
+    const otra = grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/bots', titulo: 'Bots — x | glyphflow', nombres: {}, fechaModificacion: '2026-10-08' });
+    expect(JSON.stringify(otra)).not.toContain('dateModified');
+  });
+
   it('no declara nada en una URL que no es una página (el 404)', () => {
     expect(grafoDeLaPagina({ ...base, idioma: 'en', camino: '/en/no-existe', titulo: 'x', nombres: {} })).toBeNull();
   });
