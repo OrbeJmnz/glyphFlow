@@ -541,7 +541,7 @@
         "titulo": "Try every type of output",
         "texto": "The chat on the Bots page simulates eight types of output: a plain answer, reasoning, one tool call, parallel tool calls, a tool that fails, waiting for a person to approve, an error mid-answer and a stop. Each runs with a stream shaped like the SDK you pick, through these same adapters.",
         "enlace": "Open the Bots page",
-        "nota": "Those streams are written by hand following the order each SDK documents. They are not recorded from the network."
+        "nota": "Those streams are written by hand following the order each SDK documents. They are not recorded from the network. The adapters were checked against the real SDKs on 2026-10-15, with no model calls: a run with reasoning, one tool call and a text answer through the real pipeline of <code>ai@7.0.141</code> and the real parser of <code>@anthropic-ai/sdk@0.134.0</code> (on an example response written from its docs), plus the event names that <code>ai</code> 5, 6 and 7 declare. Not checked: a stream recorded from a real provider. The adapters read only the name of each event, so a renamed event is ignored without an error: if a new SDK version stops moving the bot, look there first."
       }
     },
     "puntero": {

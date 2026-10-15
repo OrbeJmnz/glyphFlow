@@ -541,7 +541,7 @@
         "titulo": "Prueba cada tipo de salida",
         "texto": "El chat de la página de Bots simula ocho tipos de salida: una respuesta simple, razonamiento, una herramienta, herramientas en paralelo, una herramienta que falla, la espera de que una persona apruebe, un error a media respuesta y una interrupción. Cada uno corre con un stream con la forma del SDK que elijas, por estos mismos adaptadores.",
         "enlace": "Abrir la página de Bots",
-        "nota": "Esos streams están escritos a mano siguiendo el orden que documenta cada SDK. No están grabados de la red."
+        "nota": "Esos streams están escritos a mano siguiendo el orden que documenta cada SDK. No están grabados de la red. Los adaptadores se comprobaron contra los SDK reales el 2026-10-15, sin llamar a ningún modelo: una corrida con razonamiento, una herramienta y una respuesta de texto por el pipeline real de <code>ai@7.0.141</code> y por el parser real de <code>@anthropic-ai/sdk@0.134.0</code> (sobre una respuesta de ejemplo escrita según su documentación), más los nombres de evento que declaran <code>ai</code> 5, 6 y 7. Sin comprobar: un stream grabado de un proveedor real. Los adaptadores leen solo el nombre de cada evento, así que un evento renombrado se ignora sin ningún error: si una versión nueva de un SDK deja de mover al bot, es lo primero que hay que mirar."
       }
     },
     "puntero": {
