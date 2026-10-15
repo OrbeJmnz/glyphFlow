@@ -155,11 +155,17 @@ jobs:
           name: glyphflow-tarball
           path: ${{ runner.temp }}/tarball
 
+      # `--skip-install` a propósito: el `npm install` que hace `ng new` por dentro NO es lo que este job prueba, y el 2026-10-15 reventó el
+      # job de Angular 21 con «Cannot read properties of null (reading 'edgesOut')», un bug de npm 10.9 (`@npmcli/arborist`, `#loadPeerSet`) con el
+      # árbol de peers del scaffold de Angular 21. Pasaba ayer y falla igual en local, antes de que glyphflow entre en juego; con
+      # `--legacy-peer-deps` el mismo árbol instala bien. Si el scaffold instalara solo, este job quedaría rojo por algo ajeno al paquete y
+      # `release` (que depende de él) se bloquearía.
       - name: Scaffold una app Angular ${{ matrix.angular-version }} limpia (su propio CLI, su propio TypeScript)
         working-directory: ${{ runner.temp }}
-        run: npx -p @angular/cli@${{ matrix.angular-version }} ng new consumer-app --minimal --ssr --skip-git --package-manager=npm --style=css
+        run: npx -p @angular/cli@${{ matrix.angular-version }} ng new consumer-app --minimal --ssr --skip-git --skip-install --package-manager=npm --style=css
 
-      - name: Instalar el .tgz real (mismo artefacto para las 3 versiones)
+      # Una sola pasada: `npm install <tgz>` instala las dependencias del scaffold y el .tgz juntos, con la misma bandera que este paso ya usaba.
+      - name: Instalar las dependencias del scaffold y el .tgz real (mismo artefacto para las 3 versiones)
         working-directory: ${{ runner.temp }}/consumer-app
         run: npm install "$RUNNER_TEMP"/tarball/*.tgz --legacy-peer-deps
 
