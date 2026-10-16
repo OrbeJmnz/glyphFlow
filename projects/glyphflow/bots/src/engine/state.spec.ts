@@ -5,7 +5,7 @@ import { makeRobot } from '../shapes/robot';
 import { cubeShape } from '../shapes/retired';
 import { baseFor, baseRoll } from './base-pose';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
-import { act, clearRoutine, installStateHooks, nextRoutine, setRoutine, setState } from './state';
+import { REANUDA_MS, act, clearFace, clearRoutine, installStateHooks, nextRoutine, setRoutine, setState } from './state';
 import { setShape } from './setters';
 import { hop } from './gestures';
 
@@ -210,6 +210,92 @@ describe('glyphflow/bots · estados y rutinas', () => {
       expect(ctx.el.spinner.getAttribute('opacity')).toBe('0');
     });
 
+    describe('salida suave (clearRoutine con `suave`)', () => {
+      const NS = 'http://www.w3.org/2000/svg';
+      const efecto = (ctx: BotContext): SVGElement => {
+        const g = document.createElementNS(NS, 'g');
+        ctx.el.z.appendChild(g);
+        return g;
+      };
+
+      it('lo que se veía SALE desvaneciéndose: sigue en el DOM un instante y luego se quita', () => {
+        const ctx = bot();
+        const { calls } = stubAnimations();
+        const fx = efecto(ctx);
+        clearRoutine(ctx, true);
+        expect(fx.isConnected).toBe(true);
+        expect(calls).toContain(fx);
+        vi.advanceTimersByTime(219);
+        expect(fx.isConnected).toBe(true);
+        vi.advanceTimersByTime(1);
+        expect(fx.isConnected).toBe(false);
+      });
+
+      it('sin `suave` sigue siendo instantáneo', () => {
+        const ctx = bot();
+        const fx = efecto(ctx);
+        clearRoutine(ctx);
+        expect(fx.isConnected).toBe(false);
+      });
+
+      it('con movimiento reducido no hay nada que desvanecer: se quita al instante', () => {
+        vi.stubGlobal('matchMedia', () => ({ matches: true }));
+        const ctx = bot();
+        const fx = efecto(ctx);
+        clearRoutine(ctx, true);
+        expect(fx.isConnected).toBe(false);
+      });
+
+      it('las animaciones de lo que sale siguen vivas mientras se desvanece (el engrane no se rebobina)', () => {
+        const ctx = bot();
+        const fx = efecto(ctx);
+        const giro = { cancel: vi.fn(), effect: { target: fx } };
+        ctx.subAnims.push(giro as unknown as Animation);
+        clearRoutine(ctx, true);
+        expect(giro.cancel).not.toHaveBeenCalled();
+      });
+
+      it('lo que animaba un nodo SE SUELTA fundiéndose a su estilo base; la silueta y la pose se cortan como siempre', () => {
+        const ctx = bot();
+        const { calls } = stubAnimations();
+        const suelta = { cancel: vi.fn(), effect: { target: ctx.el.dots } };
+        const cortada = { cancel: vi.fn(), effect: { target: ctx.el.breath } };
+        ctx.subAnims.push(suelta as unknown as Animation, cortada as unknown as Animation);
+        clearRoutine(ctx, true);
+        expect(suelta.cancel).toHaveBeenCalled();
+        expect(calls).toContain(ctx.el.dots);
+        expect(cortada.cancel).toHaveBeenCalled();
+        expect(calls).not.toContain(ctx.el.breath);
+      });
+
+      it('una capa apagada por atributo (la nube de puntos, el spinner) se ve apagarse y queda en 0 desde ya', () => {
+        const ctx = bot();
+        const { calls } = stubAnimations();
+        ctx.el.spinner.setAttribute('opacity', '1');
+        clearRoutine(ctx, true);
+        expect(ctx.el.spinner.getAttribute('opacity')).toBe('0');
+        expect(calls).toContain(ctx.el.spinner);
+      });
+
+      it('la cara de un gesto se corta DURA aunque la rutina salga suave (dos caras a la vez se mezclan)', () => {
+        const ctx = bot();
+        expect(ctx.fe.faceFx).toBeTruthy();
+        ctx.fe.faceFx?.appendChild(document.createElementNS(NS, 'g'));
+        clearRoutine(ctx, true, false);
+        expect(ctx.fe.faceFx?.childElementCount).toBe(0);
+      });
+
+      it('la cara de una rutina que cede a otra sale suave', () => {
+        const ctx = bot();
+        const g = document.createElementNS(NS, 'g');
+        ctx.fe.faceFx?.appendChild(g);
+        clearFace(ctx, true);
+        expect(g.isConnected).toBe(true);
+        vi.advanceTimersByTime(220);
+        expect(g.isConnected).toBe(false);
+      });
+    });
+
     it('nextRoutine arranca una rutina ya y deja la siguiente programada a los 4.7 s', () => {
       const onRoutine = vi.fn();
       const ctx = bot({ onRoutine });
@@ -234,17 +320,29 @@ describe('glyphflow/bots · estados y rutinas', () => {
       expect(onWake).toHaveBeenCalledTimes(1);
     });
 
-    it('trabajando pausa la rutina y la retoma 300 ms después de lo que dure el gesto', () => {
+    it('trabajando pausa la rutina y la retoma REANUDA_MS (150 ms) después de lo que dure el gesto', () => {
       const labels: string[] = [];
       const ctx = bot({ onRoutine: (_s, l) => l && labels.push(l) });
       setState(ctx, 'working');
       vi.advanceTimersByTime(1000);
       const n = labels.length;
       act(ctx, 1000);
-      vi.advanceTimersByTime(1299);
+      vi.advanceTimersByTime(1000 + REANUDA_MS - 1);
       expect(labels).toHaveLength(n);
       vi.advanceTimersByTime(1);
       expect(labels).toHaveLength(n + 1);
+    });
+
+    it('al reanudar repite la variante que estaba corriendo: el gesto la pausó, no la terminó', () => {
+      const labels: string[] = [];
+      const ctx = bot({ onRoutine: (_s, l) => l && labels.push(l) });
+      ctx.fixedRoutine.working = 'thinking';
+      setState(ctx, 'working');
+      act(ctx, 500);
+      vi.advanceTimersByTime(500 + REANUDA_MS);
+      expect(labels).toHaveLength(2);
+      expect(labels[0]).toMatch(/^thinking · /);
+      expect(labels[1]).toBe(labels[0]);
     });
 
     it('en reposo solo corta los timers sueltos del gesto anterior', () => {

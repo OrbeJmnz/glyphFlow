@@ -18,6 +18,43 @@ import { interruptRun } from './lifecycle';
 
 
 
+  /** Cuánto dura el desvanecimiento de lo que sale al cambiar de rutina. Corto: lo justo para que no parpadee, sin arrastrar la escena. */
+  const SALIDA_MS = 160;
+  /** Cuánto se espera tras un gesto antes de reanudar la rutina que pausó (la cola del gesto ya asentó la pose). */
+  export const REANUDA_MS = 150;
+
+  /** Un nodo que SALE (efecto de una rutina): se desvanece y se quita. Con respaldo por si la animación no llega a terminar (pestaña oculta, sin WAAPI). */
+  function disolver(n: Element) {
+    if (typeof n.animate !== 'function') { n.remove(); return; }
+    let hecho = false;
+    const quitar = () => { if (!hecho) { hecho = true; n.remove(); } };
+    const a = n.animate([{ opacity: getComputedStyle(n).opacity || '1' }, { opacity: 0 }], { duration: SALIDA_MS, easing: 'ease-out', fill: 'forwards' });
+    a.onfinish = quitar;
+    setTimeout(quitar, SALIDA_MS + 60);
+  }
+
+  /**
+   * Corta una animación SIN salto: el nodo vuelve a su estilo base fundiéndose desde donde estaba, en vez de tirarse de golpe (`cancel()`).
+   * La silueta y las capas de pose se cortan como siempre: se mueven con el resorte de `setPose` y la silueta tiene contornos gemelos
+   * (`outlines.ts`) que no se funden con ella.
+   */
+  function soltar(ctx: BotContext, a: Animation) {
+    const t = (a.effect as KeyframeEffect | null | undefined)?.target as (Element & ElementCSSInlineStyle) | null | undefined;
+    if (ctx.reduce || !t || typeof t.animate !== 'function' || t === ctx.el.breath || t === ctx.el.clip || (ctx.poseEls as unknown[]).includes(t)) { a.cancel(); return; }
+    const cs = getComputedStyle(t);
+    const desde = { opacity: cs.opacity, transform: cs.transform };
+    a.cancel();
+    t.animate([desde, {}], { duration: SALIDA_MS, easing: 'ease-out' });   // `{}`: el cuadro final es el estilo base de ahora
+  }
+
+  /** Apaga una capa de efectos que se controla con el atributo `opacity`: con `suave` se ve apagarse; el atributo queda en 0 desde ya. */
+  function apagar(n: SVGElement, suave: boolean) {
+    if (n.getAttribute('opacity') === '0') return;
+    const antes = suave && typeof n.animate === 'function' ? getComputedStyle(n).opacity || '1' : null;
+    n.setAttribute('opacity', '0');
+    if (antes !== null) n.animate([{ opacity: antes }, { opacity: 0 }], { duration: SALIDA_MS, easing: 'ease-out' });
+  }
+
   /**
    * Corta lo que un gesto, una emoción o una rutina dejó animando en la CARA: los ojos felices, los
    * entrecerrados y los apretados, las cejas, las lágrimas, el sudor, los cachetes, los ojos ocultos por
@@ -25,24 +62,38 @@ import { interruptRun } from './lifecycle';
    * no se corta, la del gesto anterior sigue corriendo debajo del siguiente y las dos caras se
    * MEZCLAN (cejas de enojo con ojos de felicidad, el sudor de un malestar en plena fiesta…).
    */
-  export function clearFace(ctx: BotContext) {
+  export function clearFace(ctx: BotContext, suave = false) {
     // Sin Web Animations (jsdom, navegadores muy viejos) no hay animaciones que cortar: no es motivo para tronar.
     const cortar = (n: Element | null | undefined, soloOpacity = false) => n?.getAnimations?.().forEach(a => {
-      if (!soloOpacity || (a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) a.cancel();
+      if (!soloOpacity || (a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) suave ? soltar(ctx, a) : a.cancel();
     });
-    ctx.fe.faceFx?.replaceChildren();
+    if (suave && ctx.fe.faceFx) [...ctx.fe.faceFx.children].forEach(disolver); else ctx.fe.faceFx?.replaceChildren();
     [ctx.fe.eyes, ...(ctx.fe.cheeks || [])].forEach(n => cortar(n));
     [...ctx.fe.happy, ...ctx.fe.closed, ...ctx.fe.squeeze, ...ctx.fe.browA, ...ctx.fe.browS, ...ctx.fe.tears, ctx.fe.sweat].forEach(n => cortar(n));
     ctx.fe.eyeList.forEach(n => cortar(n, true));   // ojos ocultos por un cambio de forma (no los parpadeos: esos animan transform)
   }
 
-  export function clearRoutine(ctx: BotContext) {
-    ctx.subAnims.forEach(a => a.cancel()); ctx.subAnims = [];
+  /**
+   * Corta la rutina en curso. Con `suave` lo que se veía SALE desvaneciéndose (la nube, la lupa, la barra de progreso, el «?», las luces) en
+   * vez de desaparecer de golpe: el cambio de paso de un agente deja de verse como un corte. `cara` decide lo mismo para las piezas de la
+   * cara; un gesto lo apaga (sigue siendo duro) porque dos caras a la vez se mezclan: ver `clearFace`.
+   */
+  export function clearRoutine(ctx: BotContext, suave = false, cara = suave) {
+    const suaveHoy = suave && !ctx.reduce;
+    // Lo que sale: sus animaciones (engranes que giran, la lupa que barre) siguen corriendo mientras se desvanece y se van con el nodo.
+    const salen = suaveHoy ? [...ctx.el.z.children, ...ctx.el.world.children] : [];
+    const sale = (t: unknown) => salen.some(n => n === t || n.contains(t as Node));
+    ctx.subAnims.forEach(a => {
+      if (sale((a.effect as KeyframeEffect | null | undefined)?.target)) return;
+      suaveHoy ? soltar(ctx, a) : a.cancel();
+    });
+    ctx.subAnims = [];
     ctx.subTimers.forEach(clearTimeout); ctx.subTimers = [];
-    clearInterval(ctx.zTimer ?? undefined); ctx.zTimer = null; ctx.el.z.replaceChildren(); ctx.el.world.replaceChildren();
-    clearFace(ctx); clearGestureFx(ctx);
-    [ctx.el.dots, ctx.el.thought, ctx.el.spinner, ctx.fe.bubble].forEach(n => n.setAttribute('opacity', '0'));
-    (['sheen', 'rl', 'rr', 'rt', 'rb'] as const).forEach(k => ctx.el.L[k].getAnimations().forEach(a => a.cancel()));
+    clearInterval(ctx.zTimer ?? undefined); ctx.zTimer = null;
+    if (suaveHoy) salen.forEach(disolver); else { ctx.el.z.replaceChildren(); ctx.el.world.replaceChildren(); }
+    clearFace(ctx, cara && suaveHoy); clearGestureFx(ctx);
+    [ctx.el.dots, ctx.el.thought, ctx.el.spinner, ctx.fe.bubble].forEach(n => apagar(n, suaveHoy));
+    (['sheen', 'rl', 'rr', 'rt', 'rb'] as const).forEach(k => ctx.el.L[k].getAnimations().forEach(a => suaveHoy ? soltar(ctx, a) : a.cancel()));
   }
 
 
@@ -57,10 +108,14 @@ import { interruptRun } from './lifecycle';
     else breathe(ctx, [{ transform:S(1) }, { transform:S(1.03,.97) }], 2600);
   }
 
-  export function nextRoutine(ctx: BotContext) {
+  /**
+   * Arranca la rutina que toca. `repetir`: vuelve a poner la variante que ya tocaba en vez de pasar a la siguiente; es lo que hace la reanudación
+   * tras un gesto (pausó la rutina, no la terminó) y la entrada de un paso del agente cuyo gesto llegó primero.
+   */
+  export function nextRoutine(ctx: BotContext, repetir = false) {
     // un gesto pausó la rutina mientras el agente cierra su escena: ya no hay rutina a la que volver
     if (ctx.closing) return;
-    clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state));
+    clearRoutine(ctx, true); setPose(ctx, baseFor(ctx, ctx.state));
     // nextRoutine solo corre trabajando o dormido: en reposo no hay rutina que turnar
     const st = ctx.state as 'working' | 'sleeping';
     const list: readonly (GfBotWorkRoutine | GfBotSleepRoutine)[] = ROUTINES[st];
@@ -70,7 +125,7 @@ import { interruptRun } from './lifecycle';
     const vs = st === 'working' ? AGENT_WORK[name as GfBotAgentRoutine] : undefined;
     let label: string;
     if (vs) {   // la siguiente variación de esa rutina
-      const i = ctx.variantIdx[name] = ((ctx.variantIdx[name] ?? -1) + 1) % vs.length;
+      const i = ctx.variantIdx[name] = repetir ? (ctx.variantIdx[name] ?? 0) % vs.length : ((ctx.variantIdx[name] ?? -1) + 1) % vs.length;
       vs[i][1](ctx); label = `${name} · ${vs[i][0]}`;
     } else if (ctx.routines) label = ctx.routines.play(ctx, st, name);
     else { sinRutinas(ctx, st); return; }
@@ -79,7 +134,7 @@ import { interruptRun } from './lifecycle';
   }
 
 
-  export function setState(ctx: BotContext, s: GfBotState, quiet = false) {   // quiet: reanudar sin gestos de transición (al volver a verse en pantalla)
+  export function setState(ctx: BotContext, s: GfBotState, quiet = false, sinRutina = false) {   // quiet: reanudar sin gestos de transición (al volver a verse en pantalla); sinRutina: no arrancar la rutina todavía (quien llama lo hará)
     const prev = ctx.state; ctx.state = s; ctx.closing = false; ctx.routineIdx = 0; clearTimeout(ctx.sleepTimer ?? undefined); clearTimeout(ctx.closeT ?? undefined); ctx.closeT = null; interruptRun(ctx);
     clearRoutine(ctx); clearLook(ctx);
     if (ctx.kIdleT) clearTimeout(ctx.kIdleT);
@@ -111,7 +166,7 @@ import { interruptRun } from './lifecycle';
       else if (prev === 'working' && s === 'idle') { play(ctx, ctx.el.breath, [{}, { transform:S(1.05,.94), offset:.4 }, { transform:S(1) }], { duration:700 }); swapEyes(ctx, 'happy', 600); }   // "terminé"
       else if (s === 'working') miniHop(ctx, 10);   // manos a la obra
     }
-    if (s === 'idle') RUN.idle(ctx); else nextRoutine(ctx);
+    if (s === 'idle') RUN.idle(ctx); else if (!sinRutina) nextRoutine(ctx);
   }
 
   export function wake(ctx: BotContext) { if (ctx.state === 'sleeping') { setState(ctx, 'idle'); ctx.opts.onWake?.(); } }
@@ -124,7 +179,7 @@ import { interruptRun } from './lifecycle';
     alinearMirada(ctx, ms); // los gestos son de frente: se endereza la cabeza y luego vuelve a seguir el cursor
     wake(ctx); clearLook(ctx); clearFace(ctx); clearGestureFx(ctx);
     if (!keepKawaii) ctx.hooks.kawaiiRelease();
-    if (ctx.state !== 'idle') { clearRoutine(ctx); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx), ms + 300, ctx.subTimers); }
+    if (ctx.state !== 'idle') { clearRoutine(ctx, true, false); setPose(ctx, baseFor(ctx, ctx.state)); later(ctx, () => nextRoutine(ctx, true), ms + REANUDA_MS, ctx.subTimers); }
     else { ctx.subTimers.forEach(clearTimeout); ctx.subTimers = []; if (ctx.opts.wander) later(ctx, () => fidget(ctx), ms + 4000, ctx.subTimers); }
   }
 

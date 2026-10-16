@@ -1,6 +1,5 @@
 import { FACES, type GfBotFaceStyle } from '../data/faces';
 import { f2 } from '../data/color';
-import type { GfBotWorkRoutine } from '../data/routines';
 import { S, TAU } from './math';
 import { breathe, headTop, holdEyes, isRobot, miniHop, mk, mood, nod, popIn, showFor, squint, tremble } from './actions';
 import { type BotContext } from './context';
@@ -11,6 +10,7 @@ import { animatePose, setPose } from './pose-motion';
 import { later, loop, play } from './timing';
 import { expr } from './kawaii';
 import { clearRoutine, nextRoutine, setState } from './state';
+import { AGENT_WORK, type GfBotAgentRoutine } from './agent-routines';
 
 /**
  * Conectado a un agente. El dueño avisa en qué paso va (`agent(ctx, 'thinking')`…) y manda cada
@@ -25,7 +25,7 @@ import { clearRoutine, nextRoutine, setState } from './state';
 export type GfBotAgentEvent = 'prompt' | 'thinking' | 'tool' | 'loading' | 'writing' | 'done' | 'error' | 'idle';
 
 /** Qué rutina de trabajo hace el bot mientras el agente está en cada paso que no es escribir. */
-const AGENT_ROUTINE: Partial<Record<GfBotAgentEvent, GfBotWorkRoutine>> = {
+const AGENT_ROUTINE: Partial<Record<GfBotAgentEvent, GfBotAgentRoutine>> = {
   thinking: 'thinking',
   tool: 'analyzing',
   loading: 'loading',
@@ -47,14 +47,19 @@ export function agent(ctx: BotContext, ev: GfBotAgentEvent): void {
   if (routine) {
     ctx.stream = null;
     ctx.fixedRoutine.working = routine;
-    if (ctx.state !== 'working') setState(ctx, 'working');
-    else nextRoutine(ctx);
-    ctx.hooks.agentReact(ev);
+    // Cada paso tiene SU variante: se avanza aquí, una sola vez, y la rutina la repite tal cual cuando entra. Antes la rutina arrancaba y el
+    // gesto de `onAgentEvent` la cancelaba en el mismo instante; al reanudarla pasaba a la variante siguiente y la primera no se veía nunca.
+    const variantes = AGENT_WORK[routine];
+    if (variantes) ctx.variantIdx[routine] = ((ctx.variantIdx[routine] ?? -1) + 1) % variantes.length;
+    if (ctx.state !== 'working') setState(ctx, 'working', false, true);
+    // El gesto (si lo hay) va primero: pausa la rutina y la reanuda solo, ya sin hueco largo. Sin gesto, la rutina entra YA.
+    const g = ctx.hooks.agentReact(ev);
+    if (!g && !ctx.run) nextRoutine(ctx, true);
     return;
   }
   if (ev === 'writing') {
     if (ctx.state !== 'working') setState(ctx, 'working');
-    clearRoutine(ctx);
+    clearRoutine(ctx, true);
     ctx.fixedRoutine.working = null;
     breathe(ctx, [{ transform: S(1) }, { transform: S(1.012, 0.988) }], 900);
     setPose(ctx, { yaw: 0.34, pitch: 0.06 });

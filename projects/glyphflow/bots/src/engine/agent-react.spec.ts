@@ -1,9 +1,10 @@
 import { mochiShape } from '../shapes/mochi';
+import { AGENT_WORK } from './agent-routines';
 import { agent } from './agent';
 import { createBotContext, type BotContext, type GfBotOptions } from './context';
 import { installKawaiiHooks } from './kawaii';
 import { setShape } from './setters';
-import { installStateHooks, setState } from './state';
+import { act, installStateHooks, setState } from './state';
 
 vi.setConfig({ testTimeout: 30_000 });
 const proto = Element.prototype as unknown as Record<string, unknown>;
@@ -46,6 +47,44 @@ describe('glyphflow/bots · el agente avisa a quien reacciona con gestos', () =>
     expect(ctx.state).toBe('idle');
     for (const ev of ['thinking', 'tool', 'loading', 'writing', 'idle'] as const) agent(ctx, ev);
     expect(visto).toEqual(['prompt', 'thinking', 'tool', 'loading', 'writing', 'idle']);
+  });
+
+  it('cada paso entra con SU variante: sin gesto la rutina arranca ya y cada paso nuevo avanza una', () => {
+    const labels: string[] = [];
+    const ctx = bot({ onRoutine: (_s, l) => l && labels.push(l) });
+    agent(ctx, 'thinking');
+    expect(labels).toEqual([`thinking · ${AGENT_WORK.thinking[0][0]}`]);
+    agent(ctx, 'tool');
+    agent(ctx, 'thinking');
+    expect(labels.at(-1)).toBe(`thinking · ${AGENT_WORK.thinking[1][0]}`);
+  });
+
+  it('con un gesto en el gancho el gesto va primero y la rutina entra al terminar, con la variante que tocaba (no la siguiente)', () => {
+    const labels: string[] = [];
+    const ctx = bot({ onRoutine: (_s, l) => l && labels.push(l) });
+    ctx.hooks.agentReact = (ev) => {
+      if (ev === 'prompt') return 0;
+      act(ctx, 700); // lo que hace un gesto de verdad: pausa la rutina y la reanuda solo
+      return 700;
+    };
+    agent(ctx, 'thinking');
+    expect(labels).toEqual([]);
+    vi.advanceTimersByTime(849);
+    expect(labels).toEqual([]);
+    vi.advanceTimersByTime(1);
+    expect(labels).toEqual([`thinking · ${AGENT_WORK.thinking[0][0]}`]);
+  });
+
+  it('un gesto en marcha que no devuelve su duración tampoco deja entrar la rutina encima', () => {
+    const labels: string[] = [];
+    const ctx = bot({ onRoutine: (_s, l) => l && labels.push(l) });
+    ctx.hooks.agentReact = () => {
+      ctx.run = { id: 'g', timers: [], intensity: 1, arming: false, over: false, settle: () => undefined };
+      return 0;
+    };
+    agent(ctx, 'tool');
+    expect(labels).toEqual([]);
+    ctx.run = null;
   });
 
   it('sin gancho (o sin gesto) todo es como siempre: done vuelve a reposo a los 1.5 s y error a los 1.9 s', () => {
