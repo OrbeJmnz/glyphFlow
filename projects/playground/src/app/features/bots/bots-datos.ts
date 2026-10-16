@@ -122,9 +122,9 @@ export const EXPRESIONES: readonly ExpresionInfo[] = [
  * son diferencias contra «motor y una forma»; `gestoExtra`, el costo de un segundo gesto sobre el primero.
  */
 export const PESOS = {
-  motor: 49.5,
-  conForma: 57.2,
-  conComponente: 65.4,
+  motor: 50.0,
+  conForma: 57.7,
+  conComponente: 65.8,
   primerGesto: 7.4,
   gestoExtra: 0.3,
   todosExtras: 26.7,
