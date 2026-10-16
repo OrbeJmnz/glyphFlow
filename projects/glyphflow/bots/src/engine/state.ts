@@ -65,7 +65,7 @@ import { interruptRun } from './lifecycle';
   export function clearFace(ctx: BotContext, suave = false) {
     // Sin Web Animations (jsdom, navegadores muy viejos) no hay animaciones que cortar: no es motivo para tronar.
     const cortar = (n: Element | null | undefined, soloOpacity = false) => n?.getAnimations?.().forEach(a => {
-      if (!soloOpacity || (a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) suave ? soltar(ctx, a) : a.cancel();
+      if (!soloOpacity || (a.effect as KeyframeEffect | null)?.getKeyframes().some(k => 'opacity' in k)) { if (suave) soltar(ctx, a); else a.cancel(); }
     });
     if (suave && ctx.fe.faceFx) [...ctx.fe.faceFx.children].forEach(disolver); else ctx.fe.faceFx?.replaceChildren();
     [ctx.fe.eyes, ...(ctx.fe.cheeks || [])].forEach(n => cortar(n));
@@ -85,7 +85,7 @@ import { interruptRun } from './lifecycle';
     const sale = (t: unknown) => salen.some(n => n === t || n.contains(t as Node));
     ctx.subAnims.forEach(a => {
       if (sale((a.effect as KeyframeEffect | null | undefined)?.target)) return;
-      suaveHoy ? soltar(ctx, a) : a.cancel();
+      if (suaveHoy) soltar(ctx, a); else a.cancel();
     });
     ctx.subAnims = [];
     ctx.subTimers.forEach(clearTimeout); ctx.subTimers = [];
